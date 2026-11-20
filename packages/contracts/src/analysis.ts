@@ -9,7 +9,13 @@ import {
   type MarketKey,
   type SeasonId,
 } from "./ids";
-import { GameDTOSchema, type GameDTO } from "./sports/index";
+import {
+  MatchLineupsProjectionSchema,
+  MatchPreGameContextSchema,
+  type MatchLineupsProjection,
+  type MatchPreGameContext,
+} from "./injuries-lineups";
+import { GameDTOSchema, LogoUrlSchema, type GameDTO } from "./sports/index";
 
 export interface MarketProbability {
   market: MarketKey;
@@ -128,6 +134,10 @@ export interface GameAnalysis {
   insights?: AnalysisInsights;
   /** Hora en que se calcularon los picks (si fue después de publicar el análisis). */
   picksAt?: string;
+  /** Alineaciones confirmadas o proyectadas (con nivel de confianza). */
+  lineups?: MatchLineupsProjection;
+  /** Contexto prepartido (árbitro, clima, campo, distancia de viaje, clásico, TV en MX). */
+  matchContext?: MatchPreGameContext;
 }
 
 export interface TeamSeasonRate {
@@ -135,6 +145,7 @@ export interface TeamSeasonRate {
   name: string;
   shortName: string;
   code: string;
+  logoUrl?: string;
   forPerGame: number;
   againstPerGame: number;
   gamesPlayed: number;
@@ -142,12 +153,15 @@ export interface TeamSeasonRate {
   adjustedAgainst: number;
 }
 
+export type StandingFormToken = "W" | "D" | "L";
+
 /** Fila de la tabla de posiciones calculada con los partidos ya jugados. */
 export interface StandingRow {
   teamId: string;
   name: string;
   shortName: string;
   code: string;
+  logoUrl?: string;
   played: number;
   won: number;
   drawn: number;
@@ -155,11 +169,27 @@ export interface StandingRow {
   goalsFor: number;
   goalsAgainst: number;
   points: number;
+  /** Conferencia (p. ej. AFC/NFC en NFL, Este/Oeste en NBA y NHL, Americana/Nacional en MLB). */
+  conference?: string;
+  /** División dentro de la conferencia. */
+  division?: string;
+  /** Derrotas en tiempo extra / penales (NHL, 1 pt en tabla). */
+  otLosses?: number;
+  /** Porcentaje de victorias (0..1; NFL, NBA, MLB). */
+  winPct?: number;
+  /** Juegos detrás del líder de conferencia o división (`"-"` para el líder). */
+  gamesBehind?: string;
+  /** Sembrado oficial o calculado dentro de su conferencia. */
+  seed?: number;
+  /** Últimos hasta 5 resultados en orden cronológico (más reciente al final). */
+  form?: StandingFormToken[];
 }
 
 export interface LeagueSnapshot {
   schemaVersion: 1;
   league: LeagueId;
+  /** URL externa del escudo de la competición (p. ej. Bzzoiro), si aplica. */
+  logoUrl?: string;
   season: SeasonId;
   seasonLabel: string;
   periodLabel: string;
@@ -170,7 +200,7 @@ export interface LeagueSnapshot {
   teamRates: Record<string, TeamSeasonRate>;
   games: GameDTO[];
   analyses: Record<string, GameAnalysis>;
-  /** Tabla de posiciones (solo fútbol; se omite si no hay partidos jugados). */
+  /** Tabla de posiciones (se omite si la competición no tiene clasificación vigente). */
   standings?: StandingRow[];
 }
 
@@ -346,6 +376,8 @@ export const GameAnalysisSchema = z.object({
     })
     .optional(),
   picksAt: z.string().min(10).optional(),
+  lineups: MatchLineupsProjectionSchema.optional(),
+  matchContext: MatchPreGameContextSchema.optional(),
 });
 
 export const TeamSeasonRateSchema = z.object({
@@ -353,6 +385,7 @@ export const TeamSeasonRateSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   code: z.string().min(2).max(5),
+  logoUrl: LogoUrlSchema.optional(),
   forPerGame: z.number().nonnegative(),
   againstPerGame: z.number().nonnegative(),
   gamesPlayed: z.number().int().nonnegative(),
@@ -365,6 +398,7 @@ export const StandingRowSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   code: z.string().min(2).max(5),
+  logoUrl: LogoUrlSchema.optional(),
   played: z.number().int().nonnegative(),
   won: z.number().int().nonnegative(),
   drawn: z.number().int().nonnegative(),
@@ -372,11 +406,19 @@ export const StandingRowSchema = z.object({
   goalsFor: z.number().int().nonnegative(),
   goalsAgainst: z.number().int().nonnegative(),
   points: z.number().int().nonnegative(),
+  conference: z.string().min(1).optional(),
+  division: z.string().min(1).optional(),
+  otLosses: z.number().int().nonnegative().optional(),
+  winPct: z.number().min(0).max(1).optional(),
+  gamesBehind: z.string().min(1).optional(),
+  seed: z.number().int().positive().optional(),
+  form: z.array(z.enum(["W", "D", "L"])).max(5).optional(),
 });
 
 export const LeagueSnapshotSchema = z.object({
   schemaVersion: z.literal(1),
   league: LeagueIdSchema,
+  logoUrl: LogoUrlSchema.optional(),
   season: SeasonIdSchema,
   seasonLabel: z.string().min(1),
   periodLabel: z.string().min(1),

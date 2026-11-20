@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { formatOddsCaptureEs } from "@pitchlab/contracts";
+import { formatOddsCaptureEs, type PlatformSport } from "@pitchlab/contracts";
 import { parseUserOdds } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { edgeAgainstBook } from "../OddsCompareView";
@@ -10,7 +10,7 @@ import type {
 } from "../../types";
 
 export interface MatchMarketsGridProps {
-  readonly sport: "football" | "american-football";
+  readonly sport: PlatformSport;
   readonly markets: readonly PlatformMarketRow[];
   readonly oddsFormat: OddsFormat;
   readonly watermark: string;
@@ -27,6 +27,7 @@ export interface MatchMarketsGridProps {
 const CATEGORY_ORDER: readonly MarketCardCategory[] = [
   "resultado",
   "goles",
+  "conteos",
   "handicap",
   "marcador",
   "primer_tiempo",
@@ -34,19 +35,21 @@ const CATEGORY_ORDER: readonly MarketCardCategory[] = [
 
 function categoryHeading(
   category: MarketCardCategory,
-  sport: "football" | "american-football",
+  sport: PlatformSport,
 ): string {
   switch (category) {
     case "resultado":
       return "Resultado";
     case "goles":
-      return sport === "american-football" ? "Totales" : "Goles";
+      return sport === "football" ? "Goles" : "Totales";
+    case "conteos":
+      return "Córners y conteos";
     case "handicap":
       return "Hándicap";
     case "marcador":
       return "Marcador";
     case "primer_tiempo":
-      return "1er tiempo";
+      return sport === "baseball" ? "Primeras 5 entradas" : "Mitades (1T y 2T)";
   }
 }
 
@@ -54,14 +57,45 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
   if (row.cardCategory) return row.cardCategory;
   const m = row.market.toLowerCase();
   const g = row.group.toLowerCase();
+  if (
+    m === "corners_total" ||
+    m === "fouls_total" ||
+    m === "yellow_total" ||
+    m === "shots_total" ||
+    m === "sot_total" ||
+    m === "red_cards" ||
+    m === "booking_points" ||
+    g.includes("esquina") ||
+    g.includes("córner") ||
+    g.includes("corner") ||
+    g.includes("faltas") ||
+    g.includes("amarillas") ||
+    g.includes("tarjeta") ||
+    g.includes("remates")
+  ) {
+    return "conteos";
+  }
   if (m === "correct_score" || g.includes("marcador")) return "marcador";
-  if (m.startsWith("ht_") || g.includes("1er tiempo")) return "primer_tiempo";
+  if (
+    m.startsWith("ht_") ||
+    m.startsWith("2h_") ||
+    m === "mlb_f5" ||
+    g.includes("1er tiempo") ||
+    g.includes("2do tiempo") ||
+    g.includes("5 entradas")
+  ) {
+    return "primer_tiempo";
+  }
   if (
     m === "handicap" ||
     m === "spread" ||
+    m === "spreads" ||
+    m === "nhl_puckline" ||
     m.startsWith("ah_") ||
     g.includes("hándicap") ||
-    g.includes("handicap")
+    g.includes("handicap") ||
+    g.includes("spread") ||
+    g.includes("puck line")
   ) {
     return "handicap";
   }
@@ -71,10 +105,12 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
     m === "double_chance" ||
     m === "dnb" ||
     m === "h2h" ||
+    m === "nfl_ot" ||
     g.includes("resultado") ||
     g.includes("ganador") ||
     g.includes("doble oportunidad") ||
-    g.includes("empate no acción")
+    g.includes("empate no acción") ||
+    g.includes("tiempo extra")
   ) {
     return "resultado";
   }
@@ -188,7 +224,7 @@ export function MatchMarketsGrid({
     return cardsByCategory;
   }, [markets]);
 
-  if (locked || markets.length === 0) {
+  if (locked) {
     return (
       <div
         className="glass-card glass-ring rounded-2xl p-5"
@@ -196,6 +232,20 @@ export function MatchMarketsGrid({
       >
         <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
           Los mercados de este partido están disponibles con Pase PitchLab Ultra.
+        </p>
+      </div>
+    );
+  }
+
+  if (markets.length === 0) {
+    return (
+      <div
+        className="glass-card glass-ring rounded-2xl p-5"
+        data-empty-markets=""
+        data-watermark={watermark}
+      >
+        <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+          Este partido aún no tiene mercados publicados en el corte vigente.
         </p>
       </div>
     );
@@ -270,7 +320,7 @@ export function MatchMarketsGrid({
                 </span>
               </header>
 
-              <div className="pl-mkt-grid">
+              <div className="pl-mkt-grid" data-card-count={cards.length}>
                 {cards.map((card) => (
                   <article
                     key={card.id}
@@ -285,7 +335,7 @@ export function MatchMarketsGrid({
                       ) : null}
                     </header>
 
-                    <div className="pl-mkt-rows">
+                    <div className="pl-mkt-rows" data-row-count={card.rows.length}>
                       {card.rows.map(({ row, key, isMostLikely }) => {
                         const pct = Math.round(row.p * 1000) / 10;
                         const fairText = formatOddsValue(
@@ -331,26 +381,52 @@ export function MatchMarketsGrid({
                                   Justo {fairText}
                                 </span>
                                 {!effectiveRaw && row.currentDecimal !== null ? (
-                                  <span
-                                    className="pl-mkt-row-fair num"
-                                    data-market-house-quote=""
-                                  >
-                                    Casa {formatOddsValue(row.currentDecimal, oddsFormat)}
-                                    {row.quoteCapturedAtUtc ? (
-                                      <>
-                                        {" · "}
-                                        <time
-                                          dateTime={row.quoteCapturedAtUtc}
-                                          data-quote-captured=""
-                                        >
-                                          {row.quoteBookLabel
-                                            ? `${row.quoteBookLabel} · `
-                                            : ""}
-                                          {formatOddsCaptureEs(row.quoteCapturedAtUtc)}
-                                        </time>
-                                      </>
+                                  <>
+                                    <span
+                                      className="pl-mkt-row-fair num"
+                                      data-market-house-quote=""
+                                    >
+                                      Casa {formatOddsValue(row.currentDecimal, oddsFormat)}
+                                      {row.openDecimal != null &&
+                                      Math.abs(row.openDecimal - row.currentDecimal) >= 0.01 ? (
+                                        <>
+                                          {" · Ap. "}
+                                          {formatOddsValue(row.openDecimal, oddsFormat)}{" "}
+                                          {row.movementDirection === "shortening"
+                                            ? "↓"
+                                            : row.movementDirection === "drifting"
+                                              ? "↑"
+                                              : "→"}
+                                        </>
+                                      ) : null}
+                                      {row.quoteCapturedAtUtc ? (
+                                        <>
+                                          {" · "}
+                                          <time
+                                            dateTime={row.quoteCapturedAtUtc}
+                                            data-quote-captured=""
+                                          >
+                                            {row.quoteBookLabel
+                                              ? `${row.quoteBookLabel} · `
+                                              : ""}
+                                            {formatOddsCaptureEs(row.quoteCapturedAtUtc)}
+                                          </time>
+                                        </>
+                                      ) : null}
+                                    </span>
+                                    {row.bookQuotes && row.bookQuotes.length > 1 ? (
+                                      <span className="inline-flex flex-wrap gap-1">
+                                        {row.bookQuotes.slice(0, 3).map((q) => (
+                                          <span
+                                            key={q.book}
+                                            className={`pl-pill text-[10px] num ${q.isBest ? "pl-pill--brand" : ""}`.trim()}
+                                          >
+                                            {q.bookLabel} {formatOddsValue(q.decimal, oddsFormat)}
+                                          </span>
+                                        ))}
+                                      </span>
                                     ) : null}
-                                  </span>
+                                  </>
                                 ) : null}
                               </div>
                             </div>

@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  fromServerComment,
   fromServerPost,
   mergeSocialPosts,
+  pickStatusFor,
   relativeTimeLabel,
+  type ServerSocialPick,
   type ServerSocialPost,
 } from "../src/platform/social-sync";
 import type { SocialPost } from "../src/platform/types";
@@ -17,7 +20,7 @@ function server(id: string, createdAt: string, extra: Partial<ServerSocialPost> 
     authorIsTipster: false,
     roleBadge: "Socio Pase PitchLab Ultra",
     record: "Sin picks liquidados",
-    clv: "CLV —",
+    clv: "Ventaja —",
     leagueLabel: "Comunidad",
     matchLabel: "",
     gameId: null,
@@ -113,5 +116,90 @@ describe("mezcla del feed compartido", () => {
     );
     expect(post.authorAvatarUrl).toBe("https://ejemplo.blob.vercel-storage.com/avatars/ana.webp");
     expect(post.comments[0]?.authorAvatarUrl).toBe("https://ejemplo.blob.vercel-storage.com/avatars/beto.webp");
+  });
+
+  it("mapea parentCommentId, replyToHandle y voto útil en fromServerComment", () => {
+    const comment = fromServerComment(
+      {
+        id: "c-2",
+        parentCommentId: "c-1",
+        replyToHandle: "ana_mx",
+        authorHandle: "beto_nfl",
+        authorName: "Beto",
+        record: "+3.0u",
+        body: "@ana_mx coincido con el over",
+        createdAt: "2026-11-12T10:15:00Z",
+        helpfulCount: 4,
+        helpfulByMe: true,
+      },
+      now,
+    );
+    expect(comment.parentCommentId).toBe("c-1");
+    expect(comment.replyToHandle).toBe("ana_mx");
+    expect(comment.helpfulCount).toBe(4);
+    expect(comment.helpfulByMe).toBe(true);
+  });
+
+  it("respeta authorIsTipster, commentsCount, copiesCount y pickStatus liquidado fuera de cartelera", () => {
+    const pick: ServerSocialPick = {
+      pickId: "pick-old-1",
+      gameId: "game-old-99",
+      label: "América -0.5",
+      units: 2,
+      userDecimal: 1.95,
+      fairDecimal: 1.84,
+      modelProbability: 0.54,
+    };
+    expect(pickStatusFor(pick, [], "won")).toBe("won");
+    expect(pickStatusFor(pick, [], "void")).toBe("void");
+    expect(pickStatusFor(pick, [], "open")).toBe("open");
+
+    const post = fromServerPost(
+      server("p-tip", "2026-11-12T08:00:00Z", {
+        authorIsTipster: true,
+        roleBadge: "Tipster Oficial",
+        commentsCount: 42,
+        copiesCount: 7,
+        pick,
+        pickStatus: "lost",
+      }),
+      [],
+      now,
+    );
+    expect(post.authorIsTipster).toBe(true);
+    expect(post.commentsCount).toBe(42);
+    expect(post.copiesCount).toBe(7);
+    expect(post.pick?.status).toBe("lost");
+  });
+
+  it("conserva los comentarios ya cargados (>30) cuando el feed refresca sin cambios en commentsCount", () => {
+    const loadedComments = Array.from({ length: 35 }, (_, idx) =>
+      fromServerComment(
+        {
+          id: `c-${idx + 1}`,
+          authorHandle: "beto_nfl",
+          authorName: "Beto",
+          record: "+1.0u",
+          body: `Comentario ${idx + 1}`,
+          createdAt: "2026-11-12T09:00:00Z",
+        },
+        now,
+      ),
+    );
+    const currentPost: SocialPost = {
+      ...fromServerPost(server("p-1", "2026-11-12T08:00:00Z", { commentsCount: 35 }), [], now),
+      comments: loadedComments,
+      commentsCount: 35,
+    };
+    const refreshedTruncated: SocialPost = {
+      ...fromServerPost(server("p-1", "2026-11-12T08:00:00Z", { commentsCount: 35 }), [], now),
+      comments: loadedComments.slice(0, 30),
+      commentsCount: 35,
+    };
+
+    const merged = mergeSocialPosts([currentPost], [refreshedTruncated], "feed");
+    expect(merged).toHaveLength(1);
+    expect(merged[0]?.comments).toHaveLength(35);
+    expect(merged[0]?.commentsCount).toBe(35);
   });
 });

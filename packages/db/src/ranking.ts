@@ -16,7 +16,7 @@ export interface RankingParticipant {
   avatarUrl: string | null;
   isTipster: boolean;
   picks: Array<{
-    status: "pending" | "won" | "lost";
+    status: "pending" | "won" | "lost" | "void";
     units: number;
     userDecimal: number;
     clvPct: number;
@@ -65,7 +65,7 @@ export async function loadRankingParticipants(db: Db, since?: Date): Promise<Ran
 
   const byUser = new Map<string, RankingParticipant["picks"]>();
   for (const r of rows) {
-    if (r.status !== "won" && r.status !== "lost" && r.status !== "pending") continue;
+    if (r.status !== "won" && r.status !== "lost" && r.status !== "pending" && r.status !== "void") continue;
     const list = byUser.get(r.userId) ?? [];
     list.push({
       status: r.status,

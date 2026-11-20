@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "league": "pro-league-belgica",
+  "observedAt": "2026-11-19T16:05:39.021Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "pro-league-belgica.beveren",
+      "player": "Christophe Janssens",
+      "position": "D",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.beveren",
+      "player": "Jearl Margaritha",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.royale-union-saint-gilloise",
+      "player": "Kevin Mac Allister",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.royale-union-saint-gilloise",
+      "player": "Mateo Biondic",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.rsc-anderlecht",
+      "player": "Giulian Biancone",
+      "position": "D",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.rsc-anderlecht",
+      "player": "Lucas Hey",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Broken Leg",
+      "injuryType": "Broken Leg",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.kvc-westerlo",
+      "player": "Dylan Ourega",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.kvc-westerlo",
+      "player": "Pape Diong",
+      "position": "M",
+      "status": "Baja",
+      "detail": "fa_charge_of_improper_conduct",
+      "injuryType": "fa_charge_of_improper_conduct",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.cercle-brugge",
+      "player": "Abdoulie Manneh",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "pro-league-belgica.cercle-brugge",
+      "player": "Yago Lincoln",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    }
+  ]
+}

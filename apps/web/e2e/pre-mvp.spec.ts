@@ -14,12 +14,16 @@ async function warmLazySectionsAndWaitImages(
   page: import("@playwright/test").Page,
 ): Promise<void> {
   await page.evaluate(async () => {
+    for (const img of Array.from(document.querySelectorAll("img"))) {
+      if (img.loading === "lazy") img.loading = "eager";
+    }
     const step = Math.max(400, window.innerHeight);
     for (let y = 0; y <= document.documentElement.scrollHeight; y += step) {
       window.scrollTo(0, y);
-      await new Promise((r) => setTimeout(r, 30));
+      await new Promise((r) => setTimeout(r, 25));
     }
     window.scrollTo(0, 0);
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => r(undefined))));
   });
   await page.evaluate(async () => {
     const imgs = Array.from(document.querySelectorAll("img")).filter((img) => {
@@ -27,15 +31,18 @@ async function warmLazySectionsAndWaitImages(
       return style.display !== "none" && style.visibility !== "hidden";
     });
     await Promise.all(
-      imgs.map((img) =>
-        img.complete
-          ? Promise.resolve()
-          : new Promise<void>((resolve) => {
-              img.addEventListener("load", () => resolve(), { once: true });
-              img.addEventListener("error", () => resolve(), { once: true });
-              setTimeout(resolve, 3000);
-            }),
-      ),
+      imgs.map(async (img) => {
+        if (!img.complete) {
+          await new Promise<void>((resolve) => {
+            img.addEventListener("load", () => resolve(), { once: true });
+            img.addEventListener("error", () => resolve(), { once: true });
+            setTimeout(resolve, 3000);
+          });
+        }
+        if (typeof img.decode === "function") {
+          await img.decode().catch(() => {});
+        }
+      }),
     );
   });
 }
@@ -66,11 +73,8 @@ const FORBIDDEN_PUBLIC_PATTERNS: ReadonlyArray<{ label: string; pattern: RegExp 
 ];
 
 const PUBLIC_MENU_ROUTES = [
-  "/como-funciona",
   "/motores",
   "/resultados",
-  "/parlays",
-  "/comunidad",
   "/precio",
 ] as const;
 
@@ -86,7 +90,13 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
   }, testInfo) => {
     test.setTimeout(90_000);
     const errors: string[] = [];
+    const bzzoiroRequests: string[] = [];
     page.on("pageerror", (err) => errors.push(err.message));
+    page.on("request", (req) => {
+      if (req.url().includes("sports.bzzoiro.com")) {
+        bzzoiroRequests.push(req.url());
+      }
+    });
 
     const start = Date.now();
     const homeRes = await page.goto("/");
@@ -97,6 +107,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator("h1")).toContainText(
       "Lo más probable de cada partido, con su momio justo.",
     );
+
+    const heroImage = page.locator('#top img[src="/landing/app-phones.webp"]');
+    await expect(heroImage).toHaveAttribute("fetchpriority", "high");
+    await expect(heroImage).toHaveAttribute("width", "913");
+    await expect(heroImage).toHaveAttribute("height", "1000");
+    await expect(page.locator("#main")).not.toContainText(/\bejemplo\b/i);
+    await expect(page.locator("#main > section")).toHaveCount(6);
+    await expect(page.locator("#faq details")).toHaveCount(5);
+    await expect(page.locator('img[src*="/mascot/"]')).toHaveCount(0);
 
     // Sección de motores: 5 motores propios nombrados + +100,000 partidos históricos + 16,126 de Singularity
     const motoresSection = page.locator("#motores");
@@ -171,6 +190,24 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await heroLeagueButtons.nth(0).click();
     await expect(heroLeagueButtons.nth(0)).toHaveAttribute("aria-pressed", "true");
 
+    // Cada selección editorial cambia la vista y expone su estado a tecnología de asistencia.
+    const features = page.getByRole("group", { name: "Herramientas incluidas" }).getByRole("button");
+    await expect(features).toHaveCount(4);
+    for (const [index, title] of [
+      [1, "Selecciones compatibles"],
+      [2, "Tu partido está por empezar"],
+      [3, "Pronóstico registrado antes del partido"],
+    ] as const) {
+      await features.nth(index).click();
+      await expect(features.nth(index)).toHaveAttribute("aria-pressed", "true");
+      await expect(page.getByRole("heading", { name: title })).toBeVisible();
+      await expect(page.locator("#que-obtienes")).not.toContainText(/\bejemplo\b/i);
+    }
+    await features.nth(0).click();
+    await expect(page.locator('#que-obtienes img[src="/landing/feature-odds.webp"]')).toBeVisible();
+    await expect(page.locator('#que-obtienes img[src="/landing/feature-expected-goals.webp"]')).toBeVisible();
+    await expect(page.locator('img[src="/landing/app-phones.webp"]')).toHaveCount(1);
+
     // Conmutador Mensual / Anual en Precio (aria-pressed="true" cambia y actualiza $299 <-> $2,390)
     const precioSection = page.locator("#precio");
     const billingButtons = precioSection.locator('[role="group"] button[aria-pressed]');
@@ -213,6 +250,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
 
     // Cambio a tema claro + persistencia tras recarga + WCAG AA
     await warmLazySectionsAndWaitImages(page);
+    expect(bzzoiroRequests).toEqual([]);
+    await expect(page.locator('img[src*="sports.bzzoiro.com"]')).toHaveCount(0);
     await page.locator("[data-theme-toggle]:visible").first().click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
     await page.waitForTimeout(200);
@@ -223,7 +262,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     });
 
     const lightA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();
     expect(lightA11y.violations).toEqual([]);
 
@@ -251,22 +290,24 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     expect(brokenImages).toEqual([]);
 
     const darkA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();
     expect(darkA11y.violations).toEqual([]);
     expect(errors).toEqual([]);
   });
 
-  test("2. 6 menu routes (200 + aria-current + Axe AA), 308 permanent redirects, Tipster route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
+  test("2. 3 public subpages (200 + aria-current + zero mascot + Axe AA), 308 permanent redirects, Tipster route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
     page,
     request,
   }, testInfo) => {
     test.setTimeout(120_000);
 
-    // Las 6 páginas públicas del menú abren en 200, marcan su enlace activo con aria-current="page" y pasan Axe AA
+    // Las 3 páginas públicas del menú abren en 200, marcan su enlace activo con aria-current="page", sin mascota ni atmósfera vieja y pasan Axe AA en oscuro y claro
     for (const route of PUBLIC_MENU_ROUTES) {
       const res = await page.goto(route);
       expect(res?.status(), `Expected 200 on ${route}`).toBe(200);
+      await expect(page.locator('img[src*="/mascot/"]')).toHaveCount(0);
+      await expect(page.locator(".pl-lp-atmo, .pl-lp-orb, .pl-lp-fieldgrid")).toHaveCount(0);
 
       const mobileMenuBtn = page.locator('header button[aria-label*="menú" i]:visible');
       if ((await mobileMenuBtn.count()) > 0) {
@@ -296,17 +337,82 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
         );
       }
 
+      const slug = route.replace(/\//g, "") || "home";
+      await warmLazySectionsAndWaitImages(page);
+      await page.screenshot({
+        path: path.join(SCREENSHOT_DIR, `${slug}-${testInfo.project.name}-dark.png`),
+        fullPage: true,
+      });
+
       const routeA11y = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa"])
         .analyze();
-      expect(routeA11y.violations, `Axe violations on ${route}`).toEqual([]);
+      expect(routeA11y.violations, `Axe dark violations on ${route}`).toEqual([]);
+
+      await page.locator("[data-theme-toggle]:visible").first().click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+      await page.waitForTimeout(150);
+      await page.screenshot({
+        path: path.join(SCREENSHOT_DIR, `${slug}-${testInfo.project.name}-light.png`),
+        fullPage: true,
+      });
+      const routeLightA11y = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa"])
+        .analyze();
+      expect(routeLightA11y.violations, `Axe light violations on ${route}`).toEqual([]);
+
+      await page.locator("[data-theme-toggle]:visible").first().click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     }
 
-    // Redirecciones permanentes 308 + navegación
+    // Blog y documentos legales también comparten el shell limpio sin mascota ni orbes viejos
+    for (const extraRoute of ["/blog", "/blog/que-es-el-momio-justo", "/legal/terminos"]) {
+      const res = await page.goto(extraRoute);
+      expect(res?.status(), `Expected 200 on ${extraRoute}`).toBe(200);
+      await expect(page.locator('img[src*="/mascot/"]')).toHaveCount(0);
+      await expect(page.locator(".pl-lp-atmo, .pl-lp-orb, .pl-lp-fieldgrid")).toHaveCount(0);
+      const slug = extraRoute.replace(/^\//, "").replace(/\//g, "-");
+      await page.screenshot({
+        path: path.join(SCREENSHOT_DIR, `${slug}-${testInfo.project.name}-dark.png`),
+        fullPage: false,
+      });
+      await page.locator("[data-theme-toggle]:visible").first().click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+      await page.waitForTimeout(120);
+      await page.screenshot({
+        path: path.join(SCREENSHOT_DIR, `${slug}-${testInfo.project.name}-light.png`),
+        fullPage: false,
+      });
+      const extraLightA11y = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa"])
+        .analyze();
+      expect(extraLightA11y.violations, `Axe light violations on ${extraRoute}`).toEqual([]);
+      await page.locator("[data-theme-toggle]:visible").first().click();
+      await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    }
+
+    // Ancla legal no queda oculta detrás del encabezado fijo
+    await page.goto("/legal/terminos#comunidad");
+    const anchorClearance = await page.evaluate(() => {
+      const header = document.querySelector(".pl-lp-header");
+      const target = document.getElementById("comunidad");
+      if (!header || !target) return null;
+      return target.getBoundingClientRect().top - header.getBoundingClientRect().bottom;
+    });
+    expect(anchorClearance).not.toBeNull();
+    expect(anchorClearance!).toBeGreaterThanOrEqual(0);
+
+    // Redirecciones permanentes 308 + navegación (incluyendo rutas podadas de marketing y preservación de query string antes de #fragment)
     const permanentRedirects: ReadonlyArray<[string, string]> = [
+      ["/como-funciona", "/#hoy"],
+      ["/como-funciona?ref=SOCIO1", "/?ref=SOCIO1#hoy"],
+      ["/parlays", "/#que-obtienes"],
+      ["/parlays?ref=SOCIO1", "/?ref=SOCIO1#que-obtienes"],
+      ["/comunidad", "/"],
       ["/metodologia", "/motores"],
       ["/tecnologia", "/motores"],
       ["/pricing", "/precio"],
+      ["/plans", "/precio"],
     ];
     for (const [fromPath, toPath] of permanentRedirects) {
       const redirectRes = await request.get(fromPath, { maxRedirects: 0 });
@@ -314,7 +420,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       expect(redirectRes.headers()["location"]).toContain(toPath);
 
       await page.goto(fromPath);
-      await expect(page).toHaveURL(new RegExp(`${toPath}$`));
+      const escapedTarget = toPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      await expect(page).toHaveURL(new RegExp(`${escapedTarget}$`));
     }
 
     // Boleto público de Tipster (/p/sofia-sem): libera 1 pick semanal y protege los demás del mismo partido
@@ -363,6 +470,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     // /signup: escudo anti-abuso $0 MXN (bloqueo de correo desechable + normalización Gmail)
     await page.goto("/signup?code=SOFIA5");
     await expect(page.getByTestId("invite-notice")).toContainText("te invitó");
+    // Esperar a que termine la animación de entrada (.pl-auth--intro, 440 ms + duración) antes de medir contraste Axe.
+    await expect
+      .poll(async () =>
+        page
+          .locator(".pl-auth-btn-primary")
+          .first()
+          .evaluate((el) => Number(getComputedStyle(el).opacity)),
+      )
+      .toBe(1);
     const signupStep1A11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
@@ -441,61 +557,123 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await toggleClubTheme(page);
     await page.waitForTimeout(200);
 
-    // Filtro por día
+    // Cambiar a la pestaña Partidos (cuando hay clasificación, el hub abre en Clasificaciones) y probar filtro por día
+    await page.locator("#pl-league-tab-partidos").click();
+    await expect(page.locator("#pl-league-tab-partidos")).toHaveAttribute("aria-selected", "true");
     const dayChips = page.locator("#day-chips .day-chip");
     expect(await dayChips.count()).toBeGreaterThanOrEqual(2);
     await dayChips.nth(1).click();
     await expect(dayChips.nth(1)).toHaveAttribute("aria-pressed", "true");
     await dayChips.first().click();
 
-    // Abrir la ficha del primer partido -> /app/premier-league/games/<gameId>
+    // Abrir la ficha del primer partido -> /app/premier-league/g/<slug> (ADR-042)
     const firstCard = page.locator("[data-game-card]").first();
     const gameId = await firstCard.getAttribute("data-game-card");
     expect(gameId).toBeTruthy();
 
     await firstCard.locator("a", { hasText: "Ver partido" }).click();
-    await page.waitForURL(`**/app/premier-league/games/${gameId}`);
+    await page.waitForURL(/\/app\/premier-league\/g\/[a-z0-9-]+-vs-[a-z0-9-]+-[a-z0-9]{6}/);
 
     await expect(page.locator("body")).toContainText("Cortex IA");
     await expect(page.locator("[data-picks]")).toBeVisible();
     // Socio con Pase PitchLab Ultra ve los 5 picks desbloqueados (cero candados)
     expect(await page.locator("[data-locked-pick]").count()).toBe(0);
+    await expect(page.locator("[data-summary-factors]")).toBeVisible();
 
-    await page.locator("[data-section-tab='mercados']").click();
+    // Pestañas accesibles (role=tablist, flechas + Enter, sincronizadas con ?tab=)
+    const resumenTab = page.locator("[data-section-tab='resumen']");
+    await expect(resumenTab).toHaveAttribute("aria-selected", "true");
+    await resumenTab.focus();
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("Enter");
+    await expect(page.locator("[data-section-tab='ia']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=ia$/);
+
+    await page.locator("[data-section-tab='numeros']").click();
+    await expect(page.locator("[data-section-tab='numeros']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=numeros$/);
+    await expect(page.locator("[data-numbers-expected]")).toBeVisible();
     await expect(page.locator("body")).toContainText("Mercados del partido");
 
-    await page.locator("[data-section-tab='contexto']").click();
-    await expect(page.locator("body")).toContainText("Contexto del partido");
-
     await page.locator("[data-section-tab='dinero']").click();
+    await expect(page.locator("[data-section-tab='dinero']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=dinero$/);
     await expect(page.locator("[data-market-pulse]")).toBeVisible();
     await expect(page.locator("[data-market-pulse]")).not.toContainText(/polymarket|kalshi/i);
+
+    await page.locator("[data-section-tab='contexto']").click();
+    await expect(page.locator("[data-section-tab='contexto']")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=contexto$/);
+    await expect(page.locator("body")).toContainText("Contexto del partido");
+    await expect(page.locator("[data-ctx-standings]")).toBeVisible();
 
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `studio-pl-${testInfo.project.name}-dark.png`),
     });
 
     // Cambiar a Bundesliga y verificar emblema + tabla de posiciones + cero desborde horizontal
-    // En escritorio, el grupo Ligas del sidebar empieza plegado: se abre antes de elegir.
+    // En escritorio se despliega el overlay de Ligas; en móvil se abre «Más» desde el dock inferior.
     const ligasToggle = page.locator('.rail-group-toggle[aria-expanded="false"]');
-    if (await ligasToggle.isVisible()) await ligasToggle.click();
-    await page.locator(".league-tab[data-league='bundesliga']:visible").first().click();
+    if (await ligasToggle.isVisible()) {
+      await ligasToggle.click();
+    } else {
+      const mobileMoreBtn = page.locator("[data-mobile-more-trigger]:visible");
+      if (await mobileMoreBtn.isVisible()) await mobileMoreBtn.click();
+    }
+    const bundesligaTab = page.locator(".league-tab[data-league='bundesliga']:visible").first();
+    if ((await bundesligaTab.count()) > 0) {
+      await bundesligaTab.click();
+    } else {
+      const exploreAllLeaguesBtn = page
+        .getByRole("button", { name: /Explorar todas las ligas por región|Ver todas/i })
+        .first();
+      await expect(exploreAllLeaguesBtn).toBeVisible();
+      await exploreAllLeaguesBtn.click();
+      await page.locator("[data-sheet-league='bundesliga']:visible").first().click();
+    }
     await page.waitForURL("**/app/bundesliga");
     await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
 
-    const badge = page.locator('img[src$="/bundesliga.svg"]:visible').first();
-    await expect(badge).toBeVisible();
-    await expect
-      .poll(() => badge.evaluate((image: HTMLImageElement) => image.naturalWidth))
-      .toBeGreaterThan(0);
+    const badgeImg = page.locator('.badge[data-emblem-league="bundesliga"] img:visible').first();
+    const badgeFallback = page
+      .locator('.badge-fallback[data-emblem-league="bundesliga"]:visible')
+      .first();
+    if (await badgeImg.count()) {
+      await expect(badgeImg).toBeVisible();
+      await expect(badgeImg).toHaveAttribute("referrerpolicy", "no-referrer");
+      await expect(badgeImg).toHaveAttribute("loading", "lazy");
+      await expect(badgeImg).toHaveAttribute("decoding", "async");
+      await expect(badgeImg).toHaveAttribute("src", /^https:\/\/sports\.bzzoiro\.com\/img\/league\//);
+      await expect
+        .poll(async () => {
+          const fallbackVisible = await badgeFallback.isVisible().catch(() => false);
+          if (fallbackVisible) return 2;
+          return badgeImg.evaluate((image: HTMLImageElement) => image.naturalWidth);
+        })
+        .toBeGreaterThan(1);
+    } else {
+      await expect(badgeFallback).toBeVisible();
+    }
 
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > window.innerWidth,
     );
     expect(overflow).toBe(false);
 
+    await page.locator("#pl-league-tab-tabla").click();
+    await expect(page.locator("#pl-league-tab-tabla")).toHaveAttribute("aria-selected", "true");
     await expect(page.locator(".standings-block")).toBeVisible();
-    await expect(page.locator(".standings")).toContainText("Pts");
+    await expect(page.locator(".standings")).toContainText(/pts/i);
+
+    // Respaldo automático si un escudo de Bzzoiro falla (404 -> iniciales, sin ícono roto)
+    await page.route("https://sports.bzzoiro.com/img/league/**", (route) =>
+      route.fulfill({ status: 404, body: "" }),
+    );
+    await page.goto("/app/premier-league");
+    await expect(
+      page.locator('.badge-fallback[data-emblem-league="premier-league"]:visible').first(),
+    ).toBeVisible();
+    await page.unroute("https://sports.bzzoiro.com/img/league/**");
 
     // PROFILE-2: perfil de tipster con récord calculado y pestañas por teclado
     await page.goto("/app/u/sofia_nfl");
@@ -534,14 +712,28 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     const socialA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
     expect(socialA11y.violations).toEqual([]);
 
-    // CUENTA-2: Mi cuenta (/app/account), copiar enlace corto, voltear tarjeta por teclado,
-    // pestañas con flechas, Axe AA en las 4 pestañas en oscuro y claro, y redirección /i/JAIR-2611
+    // CUENTA-2 / ADR-044: Mi cuenta (/app/account) abre en Mi plan primero, luego Invitar amigos y Preferencias
     await page.goto("/app/account");
+    await page.waitForLoadState("networkidle");
     await expect(page.getByRole("heading", { level: 1, name: "Mi cuenta" })).toBeVisible();
+    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
+    await page.waitForTimeout(400);
+    const accountPlanDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountPlanDarkA11y.violations).toEqual([]);
 
-    const copyBtn = page.locator("[data-copy-short-link]");
-    await copyBtn.click();
-    await expect(copyBtn).toHaveText("Copiado");
+    // Cambiar a Invitar amigos con ArrowRight y probar copiar + voltear tarjeta
+    await page.locator("#pl-acct-tab-plan").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator("#pl-acct-tab-referrals")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=referrals/);
+
+    const copyBtn = page.locator("[data-copy-short-link]:visible");
+    await expect(async () => {
+      await copyBtn.click();
+      await expect(copyBtn).toHaveText("Copiado", { timeout: 1_500 });
+    }).toPass({ timeout: 10_000 });
 
     const flipBackBtn = page.getByRole("button", { name: "Reverso" });
     await expect(flipBackBtn).toHaveAttribute("aria-pressed", "false");
@@ -556,18 +748,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       .analyze();
     expect(accountReferralsDarkA11y.violations).toEqual([]);
 
-    // Cambiar a Mi plan y a Preferencias con flechas
+    // Cambiar a Preferencias con ArrowRight
     await page.locator("#pl-acct-tab-referrals").focus();
-    await page.keyboard.press("ArrowRight");
-    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
-    await expect(page).toHaveURL(/\?tab=plan/);
-    await page.waitForTimeout(400);
-    const accountPlanDarkA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .analyze();
-    expect(accountPlanDarkA11y.violations).toEqual([]);
-
-    await page.locator("#pl-acct-tab-plan").focus();
     await page.keyboard.press("ArrowRight");
     await expect(page.locator("#pl-acct-tab-prefs")).toHaveAttribute("aria-selected", "true");
     await expect(page).toHaveURL(/\?tab=prefs/);
@@ -630,12 +812,21 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       }
     }
 
-    await page.goto("/legal/creditos");
+    const creditRes = await page.goto("/legal/creditos");
+    const cspHeader = creditRes?.headers()["content-security-policy"] ?? "";
+    expect(cspHeader).toContain("img-src 'self' data: blob: https://sports.bzzoiro.com");
+    expect(cspHeader).not.toMatch(/img-src [^;]*\bhttps:(?!\/\/)/);
     const creditHtml = await page.content();
     expect(creditHtml).toContain("nflverse");
     expect(creditHtml).toContain("CC-BY 4.0");
     expect(creditHtml).toContain("openfootball");
     expect(creditHtml).toContain("CC0");
+    expect(creditHtml).toContain("football-data.org");
+
+    await page.goto("/legal/privacidad");
+    const privHtml = await page.content();
+    expect(privHtml).toContain("sports.bzzoiro.com");
+    expect(privHtml).toContain("IP");
 
     const robotsRes = await page.request.get("/robots.txt");
     expect(robotsRes.ok()).toBe(true);

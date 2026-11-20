@@ -1,11 +1,16 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { LeagueBadge } from "../../sports";
+import React, { useCallback, useMemo, useState } from "react";
+import { canonicalGameHref } from "@pitchlab/contracts";
+import { LeagueBadge, TeamBadge } from "../../sports";
+import { CalibrationCurveChart } from "../components/CalibrationCurveChart";
+import { CalibrationHonestyLab } from "../components/CalibrationHonestyLab";
+import { DailyResultsCalendar } from "../components/DailyResultsCalendar";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { DailyParlaysResultsSection } from "./DailyParlaysResultsSection";
 import { usePlatform } from "../platform-provider";
+import { buildModelDailyCalendar } from "../record-stats";
 import type { PlatformGame } from "../types";
 
 type Outcome = "all" | "hit" | "miss";
@@ -73,9 +78,10 @@ const DAY_FMT = new Intl.DateTimeFormat("es-MX", { weekday: "long", day: "numeri
  * oficial. Acierto por liga y por tipo de pick, racha reciente y lista por día.
  */
 export function HistorialClubView(): React.JSX.Element {
-  const { dataset, navigateTo, oddsFormat } = usePlatform();
+  const { dataset, navigateTo, oddsFormat, userTimezone } = usePlatform();
   const [outcome, setOutcome] = useState<Outcome>("all");
   const [league, setLeague] = useState("all");
+  const [viewMode, setViewMode] = useState<"list" | "calendar">("list");
   const [shown, setShown] = useState(20);
 
   const graded = useMemo(
@@ -113,6 +119,26 @@ export function HistorialClubView(): React.JSX.Element {
     return Array.from(m.entries());
   }, [listed, shown]);
 
+  const buildModelCalendar = useCallback(
+    (ym: string) =>
+      buildModelDailyCalendar(
+        scoped.map((g) => {
+          const pk = g.picks[0]!;
+          return {
+            id: g.id,
+            kickoffUtc: g.kickoffUtc,
+            label: `${g.home.shortName} ${g.score!.home}–${g.score!.away} ${g.away.shortName}`,
+            subtitle: `${g.leagueLabel} · ${pk.label}`,
+            hit: pk.result === "hit",
+            href: canonicalGameHref(g.league, g),
+          };
+        }),
+        ym || undefined,
+        { timeZone: userTimezone || "America/Mexico_City" },
+      ),
+    [scoped, userTimezone],
+  );
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/historial">
@@ -141,10 +167,13 @@ export function HistorialClubView(): React.JSX.Element {
           <div className="pl-hist-kpi glass-card glass-ring">
             <span>Partidos calificados</span>
             <strong className="num">{scoped.length}</strong>
+            <small>{league === "all" ? `${byLeague.length} ligas` : byLeague.find((r) => r.key === league)?.label ?? ""}</small>
           </div>
           <div className="pl-hist-kpi glass-card glass-ring">
             <span>Pick principal cumplido</span>
-            <strong className="num">{pct(hits, scoped.length).toFixed(1)} %</strong>
+            <strong className="num" style={{ color: pct(hits, scoped.length) >= 55 ? "var(--pl-success)" : "var(--pl-text)" }}>
+              {pct(hits, scoped.length).toFixed(1)} %
+            </strong>
             <small className="num">
               {hits} de {scoped.length}
             </small>
@@ -153,7 +182,7 @@ export function HistorialClubView(): React.JSX.Element {
             <span>Últimos {recent.length}</span>
             <span className="pl-hist-streak" aria-label={`Últimos resultados: ${recent.map((g) => (g.picks[0]!.result === "hit" ? "cumplido" : "no cumplido")).join(", ")}`}>
               {recent.map((g) => (
-                <span key={g.id} className={g.picks[0]!.result === "hit" ? "is-hit" : "is-miss"} aria-hidden="true">
+                <span key={g.id} className={`pl-hist-sq ${g.picks[0]!.result === "hit" ? "is-hit" : "is-miss"}`} aria-hidden="true">
                   <MaestroIcon name={g.picks[0]!.result === "hit" ? "check" : "x"} size={11} />
                 </span>
               ))}
@@ -161,7 +190,55 @@ export function HistorialClubView(): React.JSX.Element {
           </div>
         </section>
 
+        {byLeague.length > 1 ? (
+          <div className="pl-hist-league-pills" role="group" aria-label="Filtrar resultados por liga">
+            <button
+              type="button"
+              className={`pl-hist-league-pill ${league === "all" ? "is-on" : ""}`.trim()}
+              aria-pressed={league === "all"}
+              onClick={() => {
+                setLeague("all");
+                setShown(20);
+              }}
+            >
+              Todas <span className="num">{graded.length}</span>
+            </button>
+            {byLeague.slice(0, 10).map((r) => (
+              <button
+                key={r.key}
+                type="button"
+                className={`pl-hist-league-pill ${league === r.key ? "is-on" : ""}`.trim()}
+                aria-pressed={league === r.key}
+                onClick={() => {
+                  setLeague(r.key);
+                  setShown(20);
+                }}
+              >
+                <LeagueBadge
+                  league={r.key as PlatformGame["league"]}
+                  label={r.label}
+                  logoUrl={dataset.leagues.find((l) => l.league === r.key)?.logoUrl}
+                  size={15}
+                />
+                <span>{r.label}</span>
+                <span className="num">{pct(r.hits, r.total).toFixed(0)}%</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
+
         <DailyParlaysResultsSection games={dataset.games} oddsFormat={oddsFormat} />
+
+        {scoped.length > 0 ? (
+          <CalibrationCurveChart
+            samples={scoped.map((g) => ({
+              p: g.picks[0]!.p,
+              hit: g.picks[0]!.result === "hit",
+            }))}
+          />
+        ) : null}
+
+        <CalibrationHonestyLab oddsFormat={oddsFormat} settledCount={scoped.length} />
 
         {scoped.length > 0 ? (
           <div className="pl-hist-grid">
@@ -169,7 +246,14 @@ export function HistorialClubView(): React.JSX.Element {
               <RateBars
                 title="Acierto por liga"
                 rates={byLeague}
-                renderIcon={(r) => <LeagueBadge league={r.key as PlatformGame["league"]} label={r.label} size={16} />}
+                renderIcon={(r) => (
+                  <LeagueBadge
+                    league={r.key as PlatformGame["league"]}
+                    label={r.label}
+                    logoUrl={dataset.leagues.find((l) => l.league === r.key)?.logoUrl}
+                    size={16}
+                  />
+                )}
               />
             ) : null}
             {byCategory.length > 0 ? <RateBars title="Acierto por tipo de pick" rates={byCategory} /> : null}
@@ -177,30 +261,68 @@ export function HistorialClubView(): React.JSX.Element {
         ) : null}
 
         <section className="space-y-3" aria-label="Partidos calificados">
-          <div className="seg-well" role="group" aria-label="Filtrar por resultado">
-            {(
-              [
-                ["all", "Todos"],
-                ["hit", "Cumplidos"],
-                ["miss", "No cumplidos"],
-              ] as const
-            ).map(([id, label]) => (
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            {viewMode === "list" ? (
+              <div className="seg-well" role="group" aria-label="Filtrar por resultado">
+                {(
+                  [
+                    ["all", "Todos"],
+                    ["hit", "Cumplidos"],
+                    ["miss", "No cumplidos"],
+                  ] as const
+                ).map(([id, label]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className="seg-btn text-xs min-h-10"
+                    aria-pressed={outcome === id}
+                    onClick={() => {
+                      setOutcome(id);
+                      setShown(20);
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <h2 className="m-0 text-base font-extrabold">Calendario mensual de resultados</h2>
+            )}
+
+            <div
+              className="seg-well"
+              role="group"
+              aria-label="Modo de vista de resultados"
+              data-historial-view-toggle=""
+            >
               <button
-                key={id}
                 type="button"
-                className="seg-btn text-xs"
-                aria-pressed={outcome === id}
-                onClick={() => {
-                  setOutcome(id);
-                  setShown(20);
-                }}
+                className="seg-btn text-xs min-h-10"
+                aria-pressed={viewMode === "list"}
+                onClick={() => setViewMode("list")}
               >
-                {label}
+                Lista
               </button>
-            ))}
+              <button
+                type="button"
+                className="seg-btn text-xs min-h-10"
+                aria-pressed={viewMode === "calendar"}
+                onClick={() => setViewMode("calendar")}
+              >
+                Calendario
+              </button>
+            </div>
           </div>
 
-          {days.length === 0 ? (
+          {viewMode === "calendar" ? (
+            <div className="glass-card glass-ring rounded-2xl p-4 sm:p-5">
+              <DailyResultsCalendar
+                buildMonth={buildModelCalendar}
+                mode="model"
+                onNavigateItem={navigateTo}
+              />
+            </div>
+          ) : days.length === 0 ? (
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-muted)" }}>
               Todavía no hay partidos calificados con ese filtro.
             </p>
@@ -215,7 +337,7 @@ export function HistorialClubView(): React.JSX.Element {
                   {games.map((g) => {
                     const pick = g.picks[0]!;
                     const hit = pick.result === "hit";
-                    const href = `/app/${g.league}/games/${g.id}`;
+                    const href = canonicalGameHref(g.league, g);
                     return (
                       <li key={g.id}>
                         <a
@@ -226,15 +348,21 @@ export function HistorialClubView(): React.JSX.Element {
                             navigateTo(href);
                           }}
                         >
-                          <LeagueBadge league={g.league} label={g.leagueLabel} size={18} />
-                          <span className="pl-hist-match">
-                            <strong className="truncate">
-                              {g.home.shortName} <span className="num">{g.score!.home}–{g.score!.away}</span> {g.away.shortName}
-                            </strong>
-                            <span className="truncate text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                              {pick.label} · <span className="num">{(pick.p * 100).toFixed(0)} %</span>
+                          <div className="pl-hist-row-left">
+                            <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={18} />
+                            <span className="pl-hist-match">
+                              <strong className="pl-hist-match-line">
+                                <TeamBadge league={g.league} slug={g.home.slug} name={g.home.name} logoUrl={g.home.logoUrl} size={18} />
+                                <span className="truncate">{g.home.shortName}</span>
+                                <span className="pl-hist-score-pill num">{g.score!.home}–{g.score!.away}</span>
+                                <span className="truncate">{g.away.shortName}</span>
+                                <TeamBadge league={g.league} slug={g.away.slug} name={g.away.name} logoUrl={g.away.logoUrl} size={18} />
+                              </strong>
+                              <span className="truncate text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                                {pick.label} · <span className="num">{(pick.p * 100).toFixed(0)} %</span>
+                              </span>
                             </span>
-                          </span>
+                          </div>
                           <span className={`pl-hist-chip ${hit ? "is-hit" : "is-miss"}`}>
                             <MaestroIcon name={hit ? "check" : "x"} size={12} />
                             <span>{hit ? "Cumplido" : "No cumplido"}</span>

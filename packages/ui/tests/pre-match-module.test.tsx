@@ -293,4 +293,56 @@ describe("PreMatchModule («Antes del partido»): estados de componente", () => 
     expect(html).not.toContain("2 lesionados · Querétaro");
     expect(html).toContain('data-lineup-slot="off"');
   });
+
+  it("muestra Once estimado cuando probableLineups viene poblado y detalla lesión + fecha de regreso", () => {
+    const starterSet = (prefix: string) =>
+      Array.from({ length: 11 }, (_, idx) => ({
+        name: `${prefix} Titular ${idx + 1}`,
+        number: idx + 1,
+        position: idx === 0 ? "GK" : "MF",
+      }));
+    const gameWithProbable: PlatformGame = {
+      ...BASE_GAME,
+      preGame: {
+        ...BASE_GAME.preGame,
+        absences: [
+          {
+            teamSide: "home",
+            player: "P. Barrera",
+            role: "EXT · Querétaro",
+            status: "Baja",
+            injuryType: "Lesión muscular",
+            returnDate: "2030-11-28",
+            impactNote: "Descartado para la jornada.",
+          },
+        ],
+        probableLineups: {
+          sourceLabel: "Fuente prepartido",
+          verifiedAtUtc: "2030-11-14T21:00:00Z",
+          confidence: 85,
+          homeFormation: "4-3-3",
+          awayFormation: "4-2-3-1",
+          homeStarters: starterSet("Local"),
+          awayStarters: starterSet("Visita"),
+        },
+      },
+    };
+
+    const html = renderToStaticMarkup(
+      <PlatformProvider dataset={{ ...DATASET, games: [gameWithProbable] }} initialRole="member">
+        <PreMatchModule
+          game={gameWithProbable}
+          now={new Date("2030-11-14T22:00:00Z")}
+          timeZone="America/Mexico_City"
+        />
+      </PlatformProvider>,
+    );
+
+    expect(html).toContain("Lesión muscular");
+    expect(html).toContain("Regreso est. 2030-11-28");
+    expect(html).toContain("Once estimado · Confianza 85 %");
+    expect(html).toContain('data-lineup-slot="estimated"');
+    expect(html).toContain("4-3-3");
+    expect(html).toContain("Local Titular 1");
+  });
 });

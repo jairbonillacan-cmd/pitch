@@ -98,7 +98,7 @@
   padding-block: 8px;
   border-radius: 14px;
   border: 1px solid var(--pl-border);
-  background: var(--pl-surface);
+  background: var(--pl-surface-elevated);
   color: var(--pl-text);
   font-size: 0.8125rem;
   font-weight: 700;
@@ -148,14 +148,7 @@
 .pl-prematch-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
-  min-inline-size: 0;
-}
-
-.pl-prematch-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   min-inline-size: 0;
 }
 
@@ -165,12 +158,17 @@
   min-inline-size: 0;
 }
 
+.pl-prematch-pick {
+  block-size: 100%;
+  justify-content: space-between;
+}
+
 .pl-prematch-card,
 .pl-poll.pl-poll--embedded {
   border-radius: 18px;
   padding: 16px;
   border: 1px solid var(--pl-border);
-  background: var(--pl-surface);
+  background: var(--pl-surface-elevated);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -184,11 +182,7 @@
 
 .pl-prematch-pick.is-frozen {
   border-color: color-mix(in oklab, var(--pl-brand) 42%, var(--pl-border));
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklab, var(--pl-brand) 8%, var(--pl-surface)) 0%,
-    var(--pl-surface) 100%
-  );
+  background: color-mix(in oklab, var(--pl-brand) 8%, var(--pl-surface-elevated));
 }
 
 .pl-prematch-card-head {
@@ -335,18 +329,28 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
+}
+
+.pl-prematch-absence-list.is-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 245px), 1fr));
+  max-block-size: 320px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  padding-inline-end: 4px;
 }
 
 .pl-prematch-absence-item {
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid var(--pl-border);
-  background: color-mix(in oklab, var(--pl-surface-hover) 45%, transparent);
+  background: var(--pl-surface-elevated);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 4px;
   min-inline-size: 0;
 }
@@ -385,7 +389,7 @@
 
 .pl-prematch-lineup.is-off {
   border-style: dashed;
-  background: color-mix(in oklab, var(--pl-surface) 75%, transparent);
+  background: var(--pl-surface-elevated);
 }
 
 .pl-prematch-slot-chip {
@@ -456,8 +460,26 @@
   }
 
   .pl-prematch-grid {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
     align-items: stretch;
+  }
+
+  .pl-prematch-absences.is-wide,
+  .pl-prematch-lineup.is-wide {
+    grid-column: 1 / -1;
+  }
+
+  .pl-prematch-absence-list.is-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pl-prematch-lineup.is-wide.is-off {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 18px;
+    padding-block: 12px;
   }
 }
 

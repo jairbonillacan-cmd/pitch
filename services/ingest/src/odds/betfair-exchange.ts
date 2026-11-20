@@ -296,6 +296,7 @@ export class BetfairExchangeAdapter implements OddsSourceAdapter {
 
 export function buildPermittedActiveOddsAdapters(
   env: Readonly<Record<string, string | undefined>> = process.env,
+  options: { theOddsApiBudgetPath?: string | null } = {},
 ): {
   adapters: OddsSourceAdapter[];
   skipped: Array<{ sourceId: string; status: LegalStatus; reason: string }>;
@@ -328,6 +329,7 @@ export function buildPermittedActiveOddsAdapters(
         new TheOddsApiAdapter({
           env,
           excludeLeagues: bzzoiroActive ? BZZOIRO_ODDS_LEAGUES : undefined,
+          budgetPath: options.theOddsApiBudgetPath,
         }),
       );
     } else if (meta.sourceId === "bzzoiro_odds") {

@@ -70,10 +70,19 @@ export function getEmblemPath(league: string, slug: string): string {
 
 export {
   BZZOIRO_IMAGE_BASE_URL,
+  BZZOIRO_LEAGUE_IDS,
   BZZOIRO_TEAM_IDS,
+  ESPN_IMAGE_BASE_URL,
+  buildBzzoiroTeamEmblemUrlById,
+  getBzzoiroLeagueEmblemUrl,
+  getBzzoiroLeagueId,
   getBzzoiroTeamEmblemUrl,
   getBzzoiroTeamId,
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
   getResolvedTeamEmblem,
+  isValidBzzoiroImageUrl,
+  resolvePersonPhotoUrl,
   type ResolvedTeamEmblem,
 } from "./bzzoiro";
 

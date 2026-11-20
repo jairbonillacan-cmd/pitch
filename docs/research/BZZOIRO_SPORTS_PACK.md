@@ -68,3 +68,17 @@ Las momios por casa y `/odds/best/` son del plan **Football Unlimited** según `
 6. **NBA** como próximo deporte (momios, box score, standings, predicciones). Hockey solo europeo y sin NHL; tenis y dardos son opciones de menor prioridad.
 
 Precios de referencia (`/pricing/`, USD/mes): Football Unlimited $5, Sports Pack $7 ($5 founder), WebSocket $7, Weight of Money $20.
+
+---
+
+## Estado de integración en PitchLab · Fase 1 (2026-11-18)
+
+Implementado en contratos (`@pitchlab/contracts`, `@pitchlab/spacetime`), ingesta (`@pitchlab/ingest`), servidor (`apps/web/src/server`) y UI (`@pitchlab/ui`) con soporte offline seguro cuando no hay `BZZOIRO_API_KEY`:
+
+- **Modo comercial sin topes artificiales + auditoría offline:** soporte de `BZZOIRO_UNLIMITED=1` en `services/ingest/src/providers/config.ts`, `http.ts`, `collect-cli.ts` y `apps/web/src/server/live.ts`; CLI/comparador offline contra `/api/v2/predictions/` (`services/ingest/src/providers/bzzoiro-enrichment.ts`, `bzzoiro-benchmark-cli.ts`, script `pnpm --filter @pitchlab/ingest benchmark:bzzoiro`) únicamente para calibración histórica.
+- **Prepartido enriquecido (bajas nominales, alineaciones estimadas/confirmadas y contexto):** `/teams/{id}/squad/` (`injuryType`, `returnDate`), `/events/{id}/lineups/` (`confirmed` vs `predicted` con `confidence` conservando «Apagado» si falta dato), `/events/{id}/` (`weather`, `pitchCondition`, `travelDistanceKm`, `isLocalDerby`, `referee`), `/events/{id}/broadcasts/?country_code=MX` y `/fixtures/changes/`, expuestos en `PreMatchModule.tsx` y `MatchContextPanel.tsx`.
+- **Momios ampliados y movimiento de línea:** incorporación de `betcris` y `betmgm`, aceptación de `corners_total` (`total_corners`), `double_chance`, `dnb`, `clean_sheet_*` y `win_to_nil_*`, apertura (`opening_price`), dirección (`shortening` / `drifting` / `stable`) y marcado de mejor cuota (`isBest`) en `bzzoiro-odds.ts`, `book-quotes.ts`, `MatchMarketsGrid.tsx` y `MatchMoneyPanel.tsx`.
+- **Match Center en vivo granular:** `goalsPrevented`, `touchesInBox`, `passAccuracyPct` en `LiveStatBars`, narración incremental `/events/{id}/commentary/?since=`, actuaciones individuales `/events/{id}/player-stats/` y canales `broadcastsMx` con pestañas WAI-ARIA y tabla responsiva `@container` en `LiveMatchCenter.tsx`.
+- **NBA enriquecido (`/basketball/api/v2/`):** `standings/?league=1`, `box-score/` + `team-stats/`, `events/{id}/odds/` y `players/{id}/games/` (`bzzoiro-nba-rich.ts`) con carga opcional en `team-profile.ts` (`data/snapshots/nba/player-props.json`).
+
+**Pendiente Fase 2 (requiere decisión de producto y clave activa):** nuevos deportes del pack (`/tennis/api/v2/`, PDC, FIP, CS2, carreras UK/IE) y ejecución de ingesta viva al configurar `BZZOIRO_API_KEY` + `BZZOIRO_UNLIMITED=1`.

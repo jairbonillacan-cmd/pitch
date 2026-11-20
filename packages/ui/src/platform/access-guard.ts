@@ -126,6 +126,7 @@ export function redactDatasetForVisitor(
       id: game.id,
       league: game.league,
       leagueLabel: game.leagueLabel,
+      ...(game.leagueLogoUrl ? { leagueLogoUrl: game.leagueLogoUrl } : {}),
       sport: game.sport,
       round: game.round,
       dayId: game.dayId,
@@ -133,16 +134,21 @@ export function redactDatasetForVisitor(
       kickoffUtc: game.kickoffUtc,
       kickoffLocal: game.kickoffLocal,
       venue: game.venue,
+      ...(game.referee ? { referee: game.referee } : {}),
       status: game.status,
       ...(game.score ? { score: game.score } : {}),
       home: game.home,
       away: game.away,
+      hasForecast: game.hasForecast,
       x12: game.x12,
-      projection: keepHeroProjection
-        ? game.projection
-        : { home: 0, away: 0, total: 0 },
-      confidenceScore: hasPromoOpenPick ? game.confidenceScore : 0,
-      confidenceLevel: hasPromoOpenPick ? game.confidenceLevel : "media",
+      projection: !game.projection
+        ? null
+        : keepHeroProjection
+          ? game.projection
+          : { home: 0, away: 0, total: 0 },
+      goalLine: hasPromoOpenPick ? (game.goalLine ?? null) : null,
+      confidenceScore: game.confidenceScore === null ? null : hasPromoOpenPick ? game.confidenceScore : 0,
+      confidenceLevel: game.confidenceLevel === null ? null : hasPromoOpenPick ? game.confidenceLevel : "media",
       picks: game.picks.map((pick) => {
         const extraSlug = extraTipsterSlugsByPickId?.get(pick.id);
         const open =
@@ -188,6 +194,7 @@ export function redactDatasetForVisitor(
           isRedacted: true,
         };
       }),
+      parlayCandidates: [],
       preGame: hasPromoOpenPick
         ? {
             cortexSynthesis: game.preGame.cortexSynthesis,
@@ -226,6 +233,7 @@ export function redactDatasetForVisitor(
     generatedAt: dataset.generatedAt,
     leagues: dataset.leagues,
     games,
+    playerProps: [],
     dailyPromoPickId: dataset.dailyPromoPickId,
     tipsterWeeklyPickId: dataset.tipsterWeeklyPickId,
     tipsterWeeklySlug: dataset.tipsterWeeklySlug,
@@ -330,7 +338,7 @@ export function formatEdgePts(edgePts: number | null): string {
 
 /** Récord real de la Bitácora: unidades netas y picks liquidados. */
 export function journalRecord(
-  journal: ReadonlyArray<{ status: "pending" | "won" | "lost"; units: number; userDecimal: number; clvPct: number }>,
+  journal: ReadonlyArray<{ status: "pending" | "won" | "lost" | "void"; units: number; userDecimal: number; clvPct: number }>,
 ): { settled: number; netUnits: number; avgClvPct: number | null; label: string } {
   const { settled, netUnits, avgClvPct } = profileRecord(journal);
   const units = `${netUnits >= 0 ? "+" : ""}${netUnits.toFixed(1)}u`;

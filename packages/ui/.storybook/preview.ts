@@ -1,7 +1,7 @@
 import "../../../apps/web/app/globals.css";
 
-/* Tema de PitchLab en la barra de Storybook: igual que en la app, cambia
-   data-theme en <html>, que leen los tokens, shadcn y HeroUI a la vez. */
+/* Tema de PitchLab en la barra de Storybook: cambia data-theme en <html>
+   sobre el modo sólido unificado, que leen los tokens, shadcn y HeroUI a la vez. */
 export const globalTypes = {
   theme: {
     description: "Tema de PitchLab",
@@ -23,8 +23,9 @@ export const decorators = [
   (Story: () => unknown, context: { globals: { theme?: string } }) => {
     const theme = context.globals.theme === "light" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.setAttribute("data-style", "solid");
     document.documentElement.style.colorScheme = theme;
-    document.body.style.background = "var(--background-primary)";
+    document.body.style.background = "var(--pl-stage-bg, var(--background-primary))";
     return Story();
   },
 ];

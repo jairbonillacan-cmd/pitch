@@ -150,22 +150,7 @@ function addDaysIso(baseIso: string, days: number): string {
 }
 
 function CheckIcon(): React.JSX.Element {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="pl-acct-plan-feat-icon"
-    >
-      <path d="m5 12 5 5 9-10" />
-    </svg>
-  );
+  return <MaestroIcon name="check" size={18} className="pl-acct-plan-feat-icon" />;
 }
 
 export function PlanTab({
@@ -1180,7 +1165,6 @@ export function PlanTab({
               flipped={flipped}
               onFlipChange={setFlipped}
               asDecorativeChild
-              themeOverride="dark"
             />
           </button>
 
@@ -1296,6 +1280,15 @@ export function PlanTab({
                 Cancelar renovación
               </button>
             ) : null}
+
+            <button
+              type="button"
+              className="pl-acct-btn pl-acct-btn--ghost"
+              onClick={scrollToTransfer}
+            >
+              <MaestroIcon name="ticket" size={14} />
+              <span>Canjear cupón</span>
+            </button>
           </div>
         </section>
       </div>
@@ -1432,7 +1425,7 @@ export function PlanTab({
             </h3>
             <p className="m-0 text-xs pt-1" style={{ color: "var(--pl-text-muted)" }}>
               {isTransferMode
-                ? "Paso 1: transfiere con tu referencia única SPEI. Paso 2: confirmamos tu pago y te enviamos un cupón desde noreply@pitchlab.mx para canjearlo aquí o en /canjear."
+                ? "Activa o renueva sin tarjeta con transferencia SPEI o canjea un cupón directo."
                 : "Si recibiste un código promocional o regalo, súmalo a tu acceso actual."}
             </p>
           </div>
@@ -1443,12 +1436,35 @@ export function PlanTab({
           ) : null}
         </div>
 
+        {isTransferMode ? (
+          <ol className="pl-acct-steps" aria-label="Cómo activar por SPEI">
+            <li>
+              <span className="pl-acct-step-num num">1</span>
+              <span>
+                <strong>Genera tu referencia</strong> y copia la CLABE.
+              </span>
+            </li>
+            <li>
+              <span className="pl-acct-step-num num">2</span>
+              <span>
+                <strong>Transfiere y reporta</strong> tu clave de rastreo.
+              </span>
+            </li>
+            <li>
+              <span className="pl-acct-step-num num">3</span>
+              <span>
+                <strong>Recibe tu cupón</strong> y actívalo en 1 toque.
+              </span>
+            </li>
+          </ol>
+        ) : null}
+
         {transferHistory.some((item) => item.awaitingCouponRedemption) ? (
           <div
             role="status"
             aria-live="polite"
             className="glass-ring rounded-xl p-3.5 text-xs space-y-1"
-            style={{ background: "var(--pl-surface)" }}
+            style={{ background: "var(--pl-surface-elevated)" }}
             data-plan-awaiting-redemption=""
           >
             <strong className="block text-sm font-extrabold" style={{ color: "var(--pl-success)" }}>
@@ -1471,7 +1487,7 @@ export function PlanTab({
             aria-live="polite"
             className="glass-ring rounded-xl p-3 text-xs font-semibold"
             style={{
-              background: "var(--pl-surface)",
+              background: "var(--pl-surface-elevated)",
               color:
                 transferFeedback.kind === "error" ? "var(--pl-danger)" : "var(--pl-success)",
             }}
@@ -1486,7 +1502,7 @@ export function PlanTab({
               {/* Paso 1: Datos bancarios y referencia */}
               <div
                 className="glass-ring rounded-2xl p-4 space-y-3"
-                style={{ background: "var(--pl-surface)" }}
+                style={{ background: "var(--pl-surface-elevated)" }}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="pl-pill pl-pill--brand">Paso 1 · Haz tu transferencia SPEI</span>
@@ -1585,7 +1601,7 @@ export function PlanTab({
                 onSubmit={handleSubmitReceipt}
                 noValidate
                 className="glass-ring rounded-2xl p-4 space-y-3"
-                style={{ background: "var(--pl-surface)" }}
+                style={{ background: "var(--pl-surface-elevated)" }}
                 data-transfer-receipt-form=""
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1710,7 +1726,7 @@ export function PlanTab({
           ) : (
             <div
               className="glass-ring rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-              style={{ background: "var(--pl-surface)" }}
+              style={{ background: "var(--pl-surface-elevated)" }}
             >
               <div className="space-y-1 text-xs">
                 <strong className="block text-sm font-extrabold" style={{ color: "var(--pl-text)" }}>

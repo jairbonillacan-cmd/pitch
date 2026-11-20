@@ -29,7 +29,7 @@ function parseFixture() {
 }
 
 describe("Momios de fútbol desde Bzzoiro", () => {
-  it("convierte 1X2, totales, ambos anotan y hándicap asiático al contrato canónico", () => {
+  it("convierte 1X2, doble oportunidad, DNB, totales, ambos anotan y hándicap asiático al contrato canónico", () => {
     const rows = parseFixture();
     expect(new Set(rows.map((r) => r.event_id))).toEqual(new Set([EVENT_ID]));
     expect(rows.every((r) => r.book === "bet365" && r.league === "MEX")).toBe(true);
@@ -41,6 +41,8 @@ describe("Momios de fútbol desde Bzzoiro", () => {
     expect(pick("1x2", "home", null)).toBe(3.2);
     expect(pick("1x2", "draw", null)).toBe(3.6);
     expect(pick("1x2", "away", null)).toBe(2.01);
+    expect(pick("double_chance", "1X", null)).toBeGreaterThan(1);
+    expect(pick("dnb", "home", null)).toBeGreaterThan(1);
     expect(pick("totals", "over", 2.5)).toBe(1.667);
     expect(pick("totals", "under", 3.5)).toBe(1.444);
     expect(pick("btts", "yes", null)).toBe(1.571);
@@ -52,14 +54,37 @@ describe("Momios de fútbol desde Bzzoiro", () => {
       acc[r.market] = (acc[r.market] ?? 0) + 1;
       return acc;
     }, {});
-    expect(markets).toEqual({ "1x2": 3, totals: 8, btts: 2, ah: 4 });
+    expect(markets).toEqual({
+      "1x2": 3,
+      double_chance: 3,
+      dnb: 2,
+      totals: 8,
+      btts: 2,
+      ah: 4,
+    });
   });
 
-  it("descarta momios en vivo, casas no autorizadas y mercados que no usamos", () => {
+  it("descarta momios en vivo, casas no autorizadas y mercados no soportados", () => {
     const rows = parseFixture();
     expect(rows.some((r) => r.book === "pinnacle")).toBe(false); // copias marcadas is_live
     expect(rows.some((r) => r.book === "1xbet")).toBe(false);
-    expect(rows.some((r) => ["double_chance", "dnb", "total_corners"].includes(r.market))).toBe(false);
+    expect(rows.some((r) => r.market === "corners_total")).toBe(false); // total_corners venía solo en 1xbet
+    const withUnknown = parseBzzoiroOdds({
+      events: FIXTURE.events,
+      oddsByEvent: new Map([
+        [
+          211644,
+          [
+            ...FIXTURE.odds,
+            { market: "total_cards_unsupported", outcome: "over", line: 4.5, bookmaker_slug: "bet365", decimal_odds: 1.9, is_live: false },
+          ],
+        ],
+      ]),
+      appLeague: "liga-mx",
+      capturedAtIso: CAPTURED,
+      nowMs: Date.parse(CAPTURED),
+    });
+    expect(withUnknown).toHaveLength(22);
   });
 
   it("omite el partido cuando un equipo no está en el mapeo", () => {
@@ -97,7 +122,7 @@ describe("Momios de fútbol desde Bzzoiro", () => {
     });
     const rows = await adapter.fetchSnapshots({ activeLeagues: ["liga-mx", "nfl"], capturedAtIso: CAPTURED });
 
-    expect(rows).toHaveLength(17);
+    expect(rows).toHaveLength(22);
     expect(calls.every((c) => c.auth === "Token clave_de_prueba")).toBe(true);
     // Liga MX tiene dos ids (Apertura y Clausura); la NFL no se pide a Bzzoiro.
     expect(calls.filter((c) => c.url.includes("/events/")).map((c) => new URL(c.url).searchParams.get("league_id")))

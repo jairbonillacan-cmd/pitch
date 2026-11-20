@@ -9,16 +9,29 @@
  * - Rechaza respuestas con números no respaldados o términos internos/proveedores/competidores (FD-16).
  */
 import { createHash } from "node:crypto";
-import { createDb, FLAG_AI_ENABLED, getBoolFlag, type Db } from "@pitchlab/db";
+import {
+  createDb,
+  FLAG_AI_ENABLED,
+  getBoolFlag,
+  getCachedCortexSummary,
+  setCachedCortexSummary,
+  type Db,
+} from "@pitchlab/db";
 import type { PlatformGame } from "@pitchlab/ui";
 import { checkEndpointRateLimit } from "./request-security";
+import { auditCortexNarrativeV5 } from "./spacetime-v5";
+
+export { deterministicVerifiedSummaryV5 } from "./spacetime-v5";
 
 export const DEFAULT_CORTEX_MODEL = "deepseek/deepseek-v4.1-flash-1017";
 const TIMEOUT_MS = 6000;
 const AI_FLAG_TTL_MS = 30_000;
+const PERSISTENT_CACHE_TTL_MS = 24 * 60 * 60_000;
 
 import {
   sanitizeCortexField,
+  sportHasDraw,
+  sportScoringUnit,
   validateCortexText,
   type CortexFacts,
 } from "@pitchlab/contracts";
@@ -35,17 +48,21 @@ export {
 const pct = (p: number) => `${Math.round(p * 100)} %`;
 
 export function cortexFactsFor(game: PlatformGame): CortexFacts {
-  const isNfl = game.sport === "american-football";
-  const [ph, pd, pa] = game.x12;
+  const hasDraw = sportHasDraw(game.sport);
+  const digits = sportScoringUnit(game.sport).decimals;
   const homeShort = sanitizeCortexField(game.home.shortName, 32) || "Local";
   const awayShort = sanitizeCortexField(game.away.shortName, 32) || "Visita";
   const homeName = sanitizeCortexField(game.home.name, 60) || homeShort;
   const awayName = sanitizeCortexField(game.away.name, 60) || awayShort;
 
-  const probabilidades: Record<string, string> = { [homeShort]: pct(ph), [awayShort]: pct(pa) };
-  if (!isNfl) probabilidades.Empate = pct(pd);
+  const probabilidades: Record<string, string> = {};
+  if (game.x12) {
+    const [ph, pd, pa] = game.x12;
+    probabilidades[homeShort] = pct(ph);
+    if (hasDraw) probabilidades.Empate = pct(pd);
+    probabilidades[awayShort] = pct(pa);
+  }
   const s = game.spacetime;
-  const digits = isNfl ? 1 : 2;
   const rawEstadio = s?.stadium.name ? sanitizeCortexField(s.stadium.name, 80) : "";
 
   return {
@@ -63,7 +80,7 @@ export function cortexFactsFor(game: PlatformGame): CortexFacts {
           probabilidades: Object.fromEntries(
             [
               [homeShort, pct(s.market.noVig.home)],
-              ...(isNfl ? [] : [["Empate", pct(s.market.noVig.draw)]]),
+              ...(hasDraw ? [["Empate", pct(s.market.noVig.draw)]] : []),
               [awayShort, pct(s.market.noVig.away)],
             ] as Array<[string, string]>,
           ),
@@ -105,6 +122,14 @@ export function resetCortexCacheForTests(): void {
   aiFlagDb = null;
 }
 
+function resolveCortexDb(dbOverride?: Db): Db | null {
+  if (dbOverride) return dbOverride;
+  const url = process.env.DATABASE_URL;
+  if (!url) return null;
+  aiFlagDb ??= createDb(url) as unknown as Db;
+  return aiFlagDb;
+}
+
 async function isAiRuntimeEnabled(dbOverride?: Db): Promise<boolean> {
   if (dbOverride) {
     return getBoolFlag(dbOverride, FLAG_AI_ENABLED, true);
@@ -112,15 +137,14 @@ async function isAiRuntimeEnabled(dbOverride?: Db): Promise<boolean> {
   if (process.env.PITCHLAB_AI_ENABLED === "0" || process.env.PITCHLAB_AI_ENABLED === "false") {
     return false;
   }
-  const url = process.env.DATABASE_URL;
-  if (!url) return true;
+  const db = resolveCortexDb();
+  if (!db) return true;
   const now = Date.now();
   if (aiFlagMemo && now - aiFlagMemo.at < AI_FLAG_TTL_MS) {
     return aiFlagMemo.value;
   }
   try {
-    aiFlagDb ??= createDb(url) as unknown as Db;
-    const value = await getBoolFlag(aiFlagDb, FLAG_AI_ENABLED, true);
+    const value = await getBoolFlag(db, FLAG_AI_ENABLED, true);
     aiFlagMemo = { value, at: now };
     return value;
   } catch (err) {
@@ -139,17 +163,40 @@ export interface CortexOptions {
   enabled?: boolean;
 }
 
+function setL1Cache(key: string, value: string | null): void {
+  cache.set(key, value);
+  if (cache.size > 500) cache.delete(cache.keys().next().value!);
+}
+
 /** Resumen de Cortex IA o null (apagado por bandera, cuota agotada, sin clave, error o texto rechazado). */
 export async function cortexSummary(game: PlatformGame, options: CortexOptions = {}): Promise<string | null> {
   const apiKey = options.apiKey ?? process.env.OPENROUTER_API_KEY;
   if (!apiKey) return null;
 
-  const enabled = options.enabled ?? (await isAiRuntimeEnabled(options.db));
+  const db = resolveCortexDb(options.db);
+  const enabled = options.enabled ?? (await isAiRuntimeEnabled(db ?? undefined));
   if (!enabled) return null;
 
+  const model = options.model ?? process.env.OPENROUTER_MODEL ?? DEFAULT_CORTEX_MODEL;
   const facts = cortexFactsFor(game);
-  const key = `${game.id}:${createHash("sha256").update(JSON.stringify(facts)).digest("hex").slice(0, 16)}`;
+  const factsHash = createHash("sha256").update(JSON.stringify(facts)).digest("hex").slice(0, 16);
+  const key = `${game.id}:${factsHash}:${model}`;
   if (cache.has(key)) return cache.get(key) ?? null;
+
+  if (db) {
+    try {
+      const persisted = await getCachedCortexSummary<{ text?: unknown }>(db, key);
+      if (persisted && typeof persisted.text === "string" && persisted.text.length > 0) {
+        setL1Cache(key, persisted.text);
+        return persisted.text;
+      }
+    } catch (err) {
+      console.warn(
+        `[cortex] ${game.id}: no se pudo leer caché Neon:`,
+        err instanceof Error ? err.message : err,
+      );
+    }
+  }
 
   if (options.viewerKey) {
     const quota = await checkEndpointRateLimit({
@@ -175,7 +222,7 @@ export async function cortexSummary(game: PlatformGame, options: CortexOptions =
         "x-title": "PitchLab",
       },
       body: JSON.stringify({
-        model: options.model ?? process.env.OPENROUTER_MODEL ?? DEFAULT_CORTEX_MODEL,
+        model,
         temperature: 0.3,
         max_tokens: 220,
         messages: [
@@ -193,8 +240,18 @@ export async function cortexSummary(game: PlatformGame, options: CortexOptions =
       const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
       const content = json.choices?.[0]?.message?.content ?? "";
       const checked = validateCortexText(content, facts);
-      if (checked.ok) result = checked.text;
-      else console.warn(`[cortex] ${game.id}: texto rechazado (${checked.reason})`);
+      if (checked.ok) {
+        const v5Audit = auditCortexNarrativeV5(game, checked.text);
+        if (v5Audit.passed) {
+          result = checked.text;
+        } else {
+          console.warn(
+            `[cortex] ${game.id}: texto rechazado por guardrail v5.1 (${v5Audit.reasons.join("; ")})`,
+          );
+        }
+      } else {
+        console.warn(`[cortex] ${game.id}: texto rechazado (${checked.reason})`);
+      }
     } else {
       console.warn(`[cortex] ${game.id}: OpenRouter respondió ${res.status}`);
     }
@@ -203,7 +260,23 @@ export async function cortexSummary(game: PlatformGame, options: CortexOptions =
   } finally {
     clearTimeout(timer);
   }
-  cache.set(key, result);
-  if (cache.size > 500) cache.delete(cache.keys().next().value!);
+  setL1Cache(key, result);
+  if (result && db) {
+    try {
+      await setCachedCortexSummary(db, {
+        cacheKey: key,
+        gameId: game.id,
+        factsHash,
+        model,
+        summary: { text: result },
+        expiresAt: new Date(Date.now() + PERSISTENT_CACHE_TTL_MS),
+      });
+    } catch (err) {
+      console.warn(
+        `[cortex] ${game.id}: no se pudo guardar caché Neon:`,
+        err instanceof Error ? err.message : err,
+      );
+    }
+  }
   return result;
 }

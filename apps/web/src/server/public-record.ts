@@ -44,7 +44,7 @@ export async function loadPublicRecord(
     .where(eq(sealedPicks.userId, user.id))
     .orderBy(sealedPicks.sealedAt);
   const entries: RecordEntry[] = rows
-    .filter((r) => r.status === "won" || r.status === "lost" || r.status === "pending")
+    .filter((r) => r.status === "won" || r.status === "lost" || r.status === "pending" || r.status === "void")
     .map((r) => ({
       status: r.status as RecordEntry["status"],
       units: Number(r.units),

@@ -1,10 +1,15 @@
 import type { MarketPulseView } from "./market-pulse";
-import type { TeamInjuryEntry } from "./injuries-lineups";
+import type {
+  MatchLineupsProjection,
+  MatchPreGameContext,
+  TeamInjuryEntry,
+} from "./injuries-lineups";
 import { asMarketKey, type LeagueId } from "./ids";
 import type {
   AnalysisConfidence,
   AnalysisMarketGroup,
   AnalysisPick,
+  CountProjection,
   LeagueSnapshot,
   MostLikelyScore,
 } from "./analysis";
@@ -44,17 +49,55 @@ export interface CalcStep {
   value: string;
 }
 
+export type PlatformSport =
+  | "football"
+  | "american-football"
+  | "basketball"
+  | "ice-hockey"
+  | "baseball";
+
+export function sportForLeague(league: string): PlatformSport {
+  if (league === "nfl") return "american-football";
+  if (league === "nba") return "basketball";
+  if (league === "nhl") return "ice-hockey";
+  if (league === "mlb") return "baseball";
+  return "football";
+}
+
+export function sportHasDraw(sport: PlatformSport): boolean {
+  return sport === "football";
+}
+
+export function sportScoringUnit(sport: PlatformSport): {
+  singular: string;
+  plural: string;
+  short: string;
+  decimals: number;
+} {
+  if (sport === "basketball" || sport === "american-football") {
+    return { singular: "punto", plural: "puntos", short: "pts", decimals: 1 };
+  }
+  if (sport === "baseball") {
+    return { singular: "carrera", plural: "carreras", short: "car", decimals: 1 };
+  }
+  return { singular: "gol", plural: "goles", short: "goles", decimals: 2 };
+}
+
 export interface MatchAnalysis {
   id: string;
   league: LeagueId;
   leagueLabel: string;
-  sport: "football" | "american-football";
+  leagueLogoUrl?: string;
+  sport: PlatformSport;
+  /** `true` cuando el snapshot incluye análisis/pronóstico real para el partido. */
+  hasForecast?: boolean;
   round: string;
   day: string;
   dayLabel: string;
   kickoffUtc: string;
   kickoffLocal: string;
   venue: string;
+  referee?: string;
   /** Sede neutral: ningún equipo juega en casa. */
   neutralSite?: boolean;
   status: "NS" | "FT" | "LIVE";
@@ -68,6 +111,7 @@ export interface MatchAnalysis {
     name: string;
     shortName: string;
     code?: string;
+    logoUrl?: string;
     record: string;
   };
   away: {
@@ -75,6 +119,7 @@ export interface MatchAnalysis {
     name: string;
     shortName: string;
     code?: string;
+    logoUrl?: string;
     record: string;
   };
   projection?: {
@@ -105,6 +150,16 @@ export interface MatchAnalysis {
     home: TeamInjuryEntry[];
     away: TeamInjuryEntry[];
   };
+  /** Proyecciones de conteos (córners, faltas, tarjetas amarillas) cuando hay historial suficiente. */
+  counts?: {
+    corners?: CountProjection;
+    fouls?: CountProjection;
+    yellow?: CountProjection;
+  };
+  /** Alineaciones confirmadas o proyectadas de fuentes verificadas. */
+  lineups?: MatchLineupsProjection;
+  /** Contexto del encuentro (clima, estado del campo, clásico, viaje, canales TV MX). */
+  matchContext?: MatchPreGameContext;
 }
 
 export function probabilityToFairOdds(p: number): FairOdds {
@@ -353,6 +408,18 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
     "serie-a": "Serie A",
     "ligue-1": "Ligue 1",
     nfl: "NFL",
+    nba: "NBA",
+    nhl: "NHL",
+    "concacaf-nations": "Concacaf Nations League",
+    "uefa-nations": "UEFA Nations League",
+    amistosos: "Amistosos FIFA",
+    "copa-del-mundo": "Copa del Mundo FIFA",
+    eliminatorias: "Eliminatorias Mundialistas",
+    "copa-america": "Copa América",
+    eurocopa: "Eurocopa UEFA",
+    "copa-oro": "Copa Oro Concacaf",
+    "copa-africana": "Copa Africana de Naciones",
+    "copa-asiatica": "Copa Asiática AFC",
   };
   const leagueLabel = LEAGUE_NAMES[snapshot.league] ?? snapshot.league;
 
@@ -397,48 +464,48 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       dayMap.set(dayId, dayChipLabel);
     }
 
-    const x12: [number, number, number] = analysis?.x12 ?? [
-      0.45,
-      isNfl ? 0 : 0.25,
-      isNfl ? 0.55 : 0.3,
-    ];
-    const outcomes: OutcomeMarket[] = isNfl
-      ? [
-          {
-            key: "home",
-            label: `${g.home.shortName} gana`,
-            probability: x12[0],
-            fairOdds: probabilityToFairOdds(x12[0]),
-          },
-          {
-            key: "away",
-            label: `${g.away.shortName} gana`,
-            probability: x12[2],
-            fairOdds: probabilityToFairOdds(x12[2]),
-          },
-        ]
-      : [
-          {
-            key: "home",
-            label: `${g.home.shortName} gana`,
-            probability: x12[0],
-            fairOdds: probabilityToFairOdds(x12[0]),
-          },
-          {
-            key: "draw",
-            label: "Empate",
-            probability: x12[1],
-            fairOdds: probabilityToFairOdds(x12[1]),
-          },
-          {
-            key: "away",
-            label: `${g.away.shortName} gana`,
-            probability: x12[2],
-            fairOdds: probabilityToFairOdds(x12[2]),
-          },
-        ];
+    const sport = sportForLeague(g.league);
+    const hasDraw = sportHasDraw(sport);
+    const x12: [number, number, number] | undefined = analysis?.x12;
+    const outcomes: OutcomeMarket[] = !x12
+      ? []
+      : !hasDraw
+        ? [
+            {
+              key: "home",
+              label: `${g.home.shortName} gana`,
+              probability: x12[0],
+              fairOdds: probabilityToFairOdds(x12[0]),
+            },
+            {
+              key: "away",
+              label: `${g.away.shortName} gana`,
+              probability: x12[2],
+              fairOdds: probabilityToFairOdds(x12[2]),
+            },
+          ]
+        : [
+            {
+              key: "home",
+              label: `${g.home.shortName} gana`,
+              probability: x12[0],
+              fairOdds: probabilityToFairOdds(x12[0]),
+            },
+            {
+              key: "draw",
+              label: "Empate",
+              probability: x12[1],
+              fairOdds: probabilityToFairOdds(x12[1]),
+            },
+            {
+              key: "away",
+              label: `${g.away.shortName} gana`,
+              probability: x12[2],
+              fairOdds: probabilityToFairOdds(x12[2]),
+            },
+          ];
 
-    const unit = isNfl ? "pts" : "goles";
+    const unit = sportScoringUnit(sport).short;
     const homeRec = homeRate
       ? `${homeRate.gamesPlayed} PJ · ${homeRate.forPerGame.toFixed(1)} ${unit}/p`
       : g.home.code;
@@ -460,32 +527,30 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       value: stepText,
     }));
 
-    const defaultMarketGroups: AnalysisMarketGroup[] = [
-      {
-        group: isNfl ? "Ganador" : "Resultado",
-        rows: outcomes.map((o) => ({
-          market: asMarketKey("h2h"),
-          selection: o.key,
-          label: o.label,
-          p: o.probability,
-          fairOdds: o.fairOdds?.decimal ?? probabilityToFairOdds(o.probability).decimal,
-        })),
-      },
-    ];
-
     const publishedAt = Date.parse(analysis?.publishedAt ?? "");
 
     return {
       id: g.id,
       league: snapshot.league,
       leagueLabel,
-      sport: isNfl ? "american-football" : "football",
+      leagueLogoUrl: snapshot.logoUrl,
+      sport,
+      hasForecast: Boolean(analysis && (analysis.x12 || analysis.projection)),
       round: g.round ?? snapshot.periodLabel,
       day: dayId,
       dayLabel: dayFullLabel,
       kickoffUtc: normalizedUtc,
       kickoffLocal,
-      venue: g.venue ?? (isNfl ? "Estadio NFL" : "Estadio"),
+      venue:
+        g.venue ??
+        (sport === "american-football"
+          ? "Estadio NFL"
+          : sport === "baseball"
+            ? "Estadio MLB"
+            : sport === "basketball" || sport === "ice-hockey"
+              ? "Arena"
+              : "Estadio"),
+      ...(g.referee ? { referee: g.referee } : {}),
       neutralSite: g.neutralSite,
       status: g.status === "final" ? "FT" : g.status === "in_progress" ? "LIVE" : "NS",
       scheduleStatus: g.status,
@@ -495,6 +560,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         name: g.home.name,
         shortName: g.home.shortName,
         code: g.home.code,
+        logoUrl: g.home.logoUrl,
         record: homeRec,
       },
       away: {
@@ -502,15 +568,12 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         name: g.away.name,
         shortName: g.away.shortName,
         code: g.away.code,
+        logoUrl: g.away.logoUrl,
         record: awayRec,
       },
-      projection: analysis?.projection ?? {
-        home: isNfl ? 24 : 1.5,
-        away: isNfl ? 21 : 1.2,
-        total: isNfl ? 45 : 2.7,
-      },
+      projection: analysis?.projection,
       x12,
-      marketGroups: analysis?.marketGroups ?? defaultMarketGroups,
+      marketGroups: analysis?.marketGroups ?? [],
       mostLikelyScore: analysis?.mostLikelyScore,
       steps,
       updatedAt: updatedCut,
@@ -532,6 +595,9 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         awayGoals: h.awayGoals,
       })),
       restDays: analysis?.insights?.restDays,
+      ...(analysis?.counts ? { counts: analysis.counts } : {}),
+      ...(analysis?.lineups ? { lineups: analysis.lineups } : {}),
+      ...(analysis?.matchContext ? { matchContext: analysis.matchContext } : {}),
     };
   });
 

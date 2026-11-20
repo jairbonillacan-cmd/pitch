@@ -613,15 +613,15 @@ export function PlansAndReferralsSection({
           </div>
 
           <a
-            href="/comunidad#tipsters"
+            href="/signup"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/comunidad#tipsters");
+              navigateTo("/signup");
             }}
             className="pl-btn-glass glass-ring w-full !min-h-[40px] !text-xs"
           >
             <MaestroIcon name="trophy" size={14} />
-            <span>Ver Portal de Tipsters Oficiales</span>
+            <span>Solicitar perfil Tipster Oficial</span>
           </a>
         </div>
       </div>

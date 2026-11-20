@@ -73,6 +73,7 @@ function outlooksByLeague(): Map<string, MatchOutlook[]> {
 
 /** Panorama del partido, emparejado por liga y nombres de equipo; `null` si no está. */
 export function findOutlook(game: TeamNames): MatchOutlook | null {
+  if (game.league === "nba" || game.league === "nhl" || game.league === "mlb") return null;
   const league = LEAGUE_TO_V3[game.league] ?? game.league;
   let top: MatchOutlook | null = null;
   let topScore = 0;
@@ -230,6 +231,13 @@ function sel(o: MatchOutlook, key: string, selection: string) {
   return o.marketsByKey[key as keyof MatchOutlook["marketsByKey"]]?.selections.find(
     (s) => s.selection === selection,
   );
+}
+
+const COUNT_MARKETS = new Set(["corners_total", "fouls_total", "yellow_total"]);
+
+function preserveCountGroups(groups: readonly AnalysisMarketGroup[] | undefined): AnalysisMarketGroup[] {
+  if (!groups || groups.length === 0) return [];
+  return groups.filter((group) => group.rows.some((r) => COUNT_MARKETS.has(r.market)));
 }
 
 /**
@@ -438,6 +446,38 @@ export function applyOutlookWithMatchOutlook(
   const market = freshSignalMarket(o, isNfl, nowMs);
 
   if (isNfl) {
+    const hasSharpMarket = Boolean(
+      o.marketsByKey.moneyline?.selections.some((s) => s.dataQuality?.sharpMarketAvailable),
+    );
+    const isFallbackLowCoverage =
+      o.dataQuality.flag === "low_coverage" || o.dataQuality.flag === "fallback_base_rate";
+    const snapshotHasSignal = Boolean(
+      match.x12 &&
+        Number.isFinite(match.x12[0]) &&
+        Number.isFinite(match.x12[2]) &&
+        match.x12[0] > 0 &&
+        match.x12[2] > 0,
+    );
+    if (isFallbackLowCoverage && !market && !hasSharpMarket && snapshotHasSignal && match.x12) {
+      return {
+        match,
+        signal: signal
+          ? {
+              ...signal,
+              outlookDriven: true,
+              probs: { home: match.x12[0], draw: 0, away: match.x12[2] },
+              value: signal.market ? signal.value : [],
+              expectedTotal: match.projection?.total ?? signal.expectedTotal,
+              expectedMargin:
+                match.projection?.margin ??
+                (match.projection
+                  ? match.projection.home - match.projection.away
+                  : signal.expectedMargin),
+            }
+          : null,
+      };
+    }
+
     const home = sel(o, "moneyline", "home");
     const away = sel(o, "moneyline", "away");
     if (!home || !away) return { match, signal };
@@ -495,7 +535,7 @@ export function applyOutlookWithMatchOutlook(
     match: {
       ...match,
       x12: [round4(home.p), round4(draw.p), round4(away.p)],
-      marketGroups: footballGroups(o, match),
+      marketGroups: [...footballGroups(o, match), ...preserveCountGroups(match.marketGroups)],
       mostLikelyScore: top ? { home: top.homeGoals, away: top.awayGoals, p: top.p } : match.mostLikelyScore,
       projection,
       picks: [],

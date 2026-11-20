@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { canonicalGameHref, canonicalTeamHref, isNationalCompetition } from "@pitchlab/contracts";
 import { getLogoPath } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import {
@@ -11,8 +12,11 @@ import {
   pickReferenceDecimal,
 } from "../access-guard";
 import { usePlatform } from "../platform-provider";
+import { shortDateLabel } from "../club/home/home-model";
+import { assessParlayRisk } from "../parlay-engine";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
+import { PersonAvatar } from "../club/team/PersonAvatar";
 import type { MatchPick, PlatformGame, ViewerRole } from "../types";
 import {
   ExampleBadge,
@@ -21,6 +25,33 @@ import {
   type MaestroIconName,
 } from "./MaestroPrimitives";
 
+let cachedDisplayTransitionSupport: boolean | undefined;
+
+function canTransitionDialogDisplay(): boolean {
+  if (cachedDisplayTransitionSupport !== undefined) return cachedDisplayTransitionSupport;
+  if (
+    typeof window === "undefined" ||
+    typeof document === "undefined" ||
+    !window.CSS?.supports?.("transition-behavior", "allow-discrete") ||
+    !document.body
+  ) {
+    return false;
+  }
+  const probe = document.createElement("div");
+  probe.style.cssText = "transition: display 1s allow-discrete !important; display: block;";
+  document.body.appendChild(probe);
+  window.getComputedStyle(probe).display;
+  probe.style.display = "none";
+  cachedDisplayTransitionSupport = window.getComputedStyle(probe).display === "block";
+  probe.remove();
+  return cachedDisplayTransitionSupport;
+}
+
+function supportsTopLayerExit(): boolean {
+  if (typeof window === "undefined") return false;
+  return Boolean(window.CSS?.supports?.("overlay", "auto")) && canTransitionDialogDisplay();
+}
+
 export function TopLayerModalDialog({
   open,
   onClose,
@@ -28,6 +59,8 @@ export function TopLayerModalDialog({
   ariaLabelledBy,
   variant = "modal",
   maxWidth = "32rem",
+  dialogClassName,
+  keepMounted = false,
   children,
 }: {
   open: boolean;
@@ -36,6 +69,8 @@ export function TopLayerModalDialog({
   ariaLabelledBy?: string;
   variant?: "modal" | "drawer";
   maxWidth?: string;
+  dialogClassName?: string;
+  keepMounted?: boolean;
   children: React.ReactNode;
 }): React.JSX.Element | null {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -43,21 +78,59 @@ export function TopLayerModalDialog({
   onCloseRef.current = onClose;
 
   useEffect(() => {
-    if (!open) return;
     const dialog = dialogRef.current;
     if (!dialog) return;
 
+    let cancelled = false;
+
+    const closeWithExitFallback = async () => {
+      if (!dialog.open) return;
+      if (supportsTopLayerExit() || typeof dialog.getAnimations !== "function") {
+        dialog.close();
+        return;
+      }
+      dialog.setAttribute("data-closing", "");
+      const animations = dialog.getAnimations({ subtree: true });
+      if (animations.length > 0) {
+        await Promise.race([
+          Promise.allSettled(animations.map((a) => a.finished)),
+          new Promise<void>((resolve) => setTimeout(resolve, 400)),
+        ]);
+      }
+      if (cancelled || !dialog.hasAttribute("data-closing")) return;
+      dialog.removeAttribute("data-closing");
+      if (dialog.open) dialog.close();
+    };
+
+    if (!open) {
+      if (dialog.open) {
+        void closeWithExitFallback();
+      }
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    dialog.removeAttribute("data-closing");
     if (!dialog.open) {
       dialog.showModal();
     }
+
+    const handleCancel = (event: Event) => {
+      if (!keepMounted || supportsTopLayerExit()) return;
+      event.preventDefault();
+      onCloseRef.current();
+    };
 
     const handleClose = () => {
       // En desarrollo (StrictMode) el efecto se monta dos veces: el «close» del
       // primer desmontaje llega cuando el diálogo ya se volvió a abrir.
       if (dialog.open) return;
+      dialog.removeAttribute("data-closing");
       dialog.returnValue = "";
       onCloseRef.current();
     };
+    dialog.addEventListener("cancel", handleCancel);
     dialog.addEventListener("close", handleClose);
 
     let cleanupLightDismiss: (() => void) | undefined;
@@ -81,7 +154,11 @@ export function TopLayerModalDialog({
       };
       const onPointerUp = (e: PointerEvent) => {
         if (pressedOutside && isOutside(e)) {
-          dialog.close();
+          if (!keepMounted || supportsTopLayerExit()) {
+            dialog.close();
+          } else {
+            onCloseRef.current();
+          }
         }
       };
       dialog.addEventListener("pointerdown", onPointerDown);
@@ -93,23 +170,26 @@ export function TopLayerModalDialog({
     }
 
     return () => {
+      cancelled = true;
+      dialog.removeEventListener("cancel", handleCancel);
       dialog.removeEventListener("close", handleClose);
       cleanupLightDismiss?.();
-      if (dialog.open) {
+      if (!keepMounted && dialog.open) {
         dialog.close();
       }
     };
-  }, [open]);
+  }, [open, keepMounted]);
 
-  if (!open) return null;
+  if (!keepMounted && !open) return null;
 
+  const baseClass = variant === "drawer" ? "pl-native-drawer" : "pl-native-dialog";
   return (
     <dialog
       ref={dialogRef}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       {...({ closedby: "any" } as React.DialogHTMLAttributes<HTMLDialogElement>)}
-      className={variant === "drawer" ? "pl-native-drawer" : "pl-native-dialog"}
+      className={dialogClassName ? `${baseClass} ${dialogClassName}` : baseClass}
       style={
         variant === "modal"
           ? ({ "--pl-dialog-max-w": maxWidth } as React.CSSProperties)
@@ -135,6 +215,16 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
     return null;
   }
 
+  const dockRisk = assessParlayRisk(parlaySummary);
+  const dockRiskColor =
+    dockRisk.tone === "success"
+      ? "var(--pl-success)"
+      : dockRisk.tone === "warning"
+        ? "var(--pl-warning)"
+        : dockRisk.tone === "danger"
+          ? "var(--pl-danger)"
+          : "var(--pl-brand)";
+
   return (
     <aside
       className="parlay-dock glass-pill-bar glass-ring"
@@ -147,6 +237,13 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
             <MaestroIcon name="layers" size={13} />
             {parlaySummary.legs.length}{" "}
             {parlaySummary.legs.length === 1 ? "pick" : "picks"}
+          </span>
+          <span
+            className="pl-pill num text-xs font-extrabold"
+            data-dock-risk={dockRisk.level}
+            style={{ color: dockRiskColor }}
+          >
+            {dockRisk.shortLabel}
           </span>
           {parlaySummary.hasSgpCorrelation ? (
             <span className="pl-pill pl-pill--info">Mismo partido</span>
@@ -604,6 +701,21 @@ export function ShareTicketModal(): React.JSX.Element | null {
     viewerRole,
     isTipsterPromo,
   );
+  const showExpandedLegs = Boolean(
+    shareTicket.legs &&
+      shareTicket.legs.length > 0 &&
+      (revealSelection || shareTicket.revealLegs),
+  );
+  const topLegIndices = (() => {
+    if (!showExpandedLegs || !shareTicket.legs || shareTicket.legs.length < 3) {
+      return new Set<number>();
+    }
+    const highlightCount = shareTicket.legs.length >= 4 ? 2 : 1;
+    const ranked = shareTicket.legs
+      .map((leg, idx) => ({ idx, p: leg.p }))
+      .sort((a, b) => b.p - a.p || a.idx - b.idx);
+    return new Set(ranked.slice(0, highlightCount).map((r) => r.idx));
+  })();
   const watermark = getSessionWatermark(viewerRole, viewerIdentity);
   const slug = shareTicket.pickSlug || (isTipsterPromo ? "sofia-sem" : "");
   const codeParam =
@@ -647,7 +759,9 @@ export function ShareTicketModal(): React.JSX.Element | null {
     const units = `${shareTicket.units.toFixed(1)}u`;
     const footerLine = shareTicket.promoCode
       ? `Código ${shareTicket.promoCode} · 5 días gratis`
-      : "Prueba PitchLab 7 días gratis";
+      : codeParam
+        ? `Prueba PitchLab 7 días gratis · /i/${codeParam}`
+        : "Prueba PitchLab 7 días gratis";
     const base = {
       aspect,
       leagueLabel: shareTicket.leagueLabel,
@@ -658,7 +772,30 @@ export function ShareTicketModal(): React.JSX.Element | null {
       footerSub: "pitchlab.mx · Solo +18 · Unidades simuladas",
       watermark,
     };
-    const content: TicketRasterContent = revealSelection
+    const content: TicketRasterContent = showExpandedLegs && shareTicket.legs
+      ? {
+          ...base,
+          badge: "Parlay verificado PitchLab",
+          badgeTone: "success",
+          mainLine: `${formatOddsValue(shareTicket.fairDecimal, oddsFormat)}`,
+          detailLine: `Probabilidad ${(shareTicket.probability * 100).toFixed(1)} %`,
+          summaryLeftLabel: "MOMIO JUSTO COMBINADO",
+          summaryLeftValue:
+            oddsFormat === "american"
+              ? `${formatOddsValue(shareTicket.fairDecimal, "american")} (${shareTicket.fairDecimal.toFixed(2)})`
+              : `${shareTicket.fairDecimal.toFixed(2)} (${formatOddsValue(shareTicket.fairDecimal, "american")})`,
+          summaryRightLabel: "PROBABILIDAD",
+          summaryRightValue: `${(shareTicket.probability * 100).toFixed(1)} %`,
+          legs: shareTicket.legs.map((leg, idx) => ({
+            rank: idx + 1,
+            label: leg.label,
+            subLabel: leg.matchLabel,
+            probLabel: `${(leg.p * 100).toFixed(1)} %`,
+            oddsLabel: `Justo ${formatOddsValue(leg.fairDecimal, oddsFormat)}`,
+            highlight: topLegIndices.has(idx),
+          })),
+        }
+      : revealSelection
       ? {
           ...base,
           badge: isTipsterPromo
@@ -801,7 +938,101 @@ export function ShareTicketModal(): React.JSX.Element | null {
 
               <div className="ticket-perf" />
 
-              {revealSelection ? (
+              {showExpandedLegs && shareTicket.legs ? (
+                <div className="space-y-2.5" data-share-multi-legs="">
+                  <ol className="pl-share-legs" role="list" aria-label="Selecciones del boleto">
+                    {shareTicket.legs.map((leg, idx) => {
+                      const isTop = topLegIndices.has(idx);
+                      return (
+                        <li
+                          key={`${idx}-${leg.label}`}
+                          className={isTop ? "pl-share-leg is-most-likely" : "pl-share-leg"}
+                        >
+                          <span
+                            className={isTop ? "pl-share-leg-rank is-top num" : "pl-share-leg-rank num"}
+                            aria-hidden="true"
+                          >
+                            {idx + 1}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <strong className="text-xs font-extrabold truncate">{leg.label}</strong>
+                              {isTop ? (
+                                <span
+                                  className="inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-extrabold"
+                                  style={{
+                                    background: "color-mix(in oklab, var(--share-card-success) 18%, transparent)",
+                                    color: "var(--share-card-success)",
+                                  }}
+                                >
+                                  <MaestroIcon name="check" size={10} />
+                                  <span>Más probable</span>
+                                </span>
+                              ) : null}
+                            </div>
+                            <span
+                              className="block text-[11px] truncate"
+                              style={{ color: "var(--share-card-muted)" }}
+                            >
+                              {leg.matchLabel}
+                            </span>
+                          </div>
+                          <div className="text-right shrink-0 num">
+                            <span
+                              className="block text-xs font-extrabold"
+                              style={{ color: isTop ? "var(--share-card-success)" : "var(--share-card-accent)" }}
+                            >
+                              {(leg.p * 100).toFixed(1)} %
+                            </span>
+                            <span
+                              className="block text-[10px]"
+                              style={{ color: "var(--share-card-muted)" }}
+                            >
+                              Justo {formatOddsValue(leg.fairDecimal, oddsFormat)}
+                            </span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+
+                  <div
+                    className="rounded-xl p-3 flex items-center justify-between gap-2 num"
+                    style={{
+                      background: "var(--share-card-surface)",
+                      border: "1px solid var(--share-card-accent)",
+                    }}
+                  >
+                    <div>
+                      <span
+                        className="block text-[10px] font-bold uppercase tracking-wide"
+                        style={{ color: "var(--share-card-muted)" }}
+                      >
+                        Momio justo
+                      </span>
+                      <strong className="text-base font-extrabold">
+                        {oddsFormat === "american"
+                          ? `${formatOddsValue(shareTicket.fairDecimal, "american")} (${shareTicket.fairDecimal.toFixed(2)})`
+                          : `${shareTicket.fairDecimal.toFixed(2)} (${formatOddsValue(shareTicket.fairDecimal, "american")})`}
+                      </strong>
+                    </div>
+                    <div className="text-right">
+                      <span
+                        className="block text-[10px] font-bold uppercase tracking-wide"
+                        style={{ color: "var(--share-card-muted)" }}
+                      >
+                        Probabilidad
+                      </span>
+                      <strong
+                        className="text-base font-extrabold"
+                        style={{ color: "var(--share-card-success)" }}
+                      >
+                        {(shareTicket.probability * 100).toFixed(1)} %
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+              ) : revealSelection ? (
                 <div
                   className="rounded-xl p-3.5 space-y-1.5"
                   style={{ background: "var(--share-card-surface)" }}
@@ -897,9 +1128,11 @@ export function ShareTicketModal(): React.JSX.Element | null {
             >
               {copyState === "error"
                 ? `No se pudo acceder al portapapeles. Enlace: pitchlab.mx${sharePath}`
-                : revealSelection
-                  ? "Selección visible: el partido ya terminó o es el pick abierto de la semana."
-                  : "La selección queda oculta porque el partido aún no empieza."}
+                : showExpandedLegs
+                  ? "Tarjeta lista para compartir con probabilidades claras y enlace de socio."
+                  : revealSelection
+                    ? "Selección visible: el partido ya terminó o es el pick abierto de la semana."
+                    : "La selección queda oculta porque el partido aún no empieza."}
             </span>
             <div className="flex items-center gap-2">
               <button
@@ -956,16 +1189,16 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "layers",
   },
   {
+    label: "Comparar H2H",
+    subtitle: "Equipos cara a cara y jugadores lado a lado",
+    href: "/app/comparar",
+    icon: "sliders",
+  },
+  {
     label: "Compara tu momio",
     subtitle: "Comparativa de probabilidad estimada vs momio justo",
     href: "/app/momios",
     icon: "sliders",
-  },
-  {
-    label: "Props de jugadores (próximamente)",
-    subtitle: "Simulador interactivo de líneas individuales",
-    href: "/app/props",
-    icon: "activity",
   },
   {
     label: "Comunidad",
@@ -1011,12 +1244,88 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
   },
 ];
 
-export function CommandPaletteModal(): React.JSX.Element | null {
+interface CommandPlayerHit {
+  id: string;
+  slug: string;
+  name: string;
+  shortName: string;
+  jersey: string | null;
+  positionLabel: string;
+  teamSlug: string;
+  teamName: string;
+  league: string;
+  leagueLabel: string;
+  photoKey: string | null;
+  fallbackPhotoKey: string | null;
+  href: string;
+}
+
+export function CommandPaletteModal({
+  initialQuery = "",
+}: {
+  initialQuery?: string;
+} = {}): React.JSX.Element | null {
   const { cmdkOpen, setCmdkOpen, dataset, navigateTo, viewerRole, allowRoleSimulation } =
     usePlatform();
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>(initialQuery);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [rendered, setRendered] = useState<boolean>(cmdkOpen);
+  const [matchingPlayers, setMatchingPlayers] = useState<CommandPlayerHit[]>([]);
+  const [playersLoading, setPlayersLoading] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const resultsRef = useRef<HTMLDivElement | null>(null);
 
-  if (!cmdkOpen) return null;
+  useEffect(() => {
+    if (!cmdkOpen) return;
+    setRendered(true);
+    setQuery(initialQuery);
+    setActiveIndex(0);
+    const frame =
+      typeof window !== "undefined"
+        ? window.requestAnimationFrame(() => inputRef.current?.focus())
+        : null;
+    return () => {
+      if (frame !== null && typeof window !== "undefined") {
+        window.cancelAnimationFrame(frame);
+      }
+    };
+  }, [cmdkOpen, initialQuery]);
+
+  useEffect(() => {
+    const trimmed = query.trim();
+    if (!cmdkOpen || trimmed.length < 2 || typeof fetch !== "function") {
+      setMatchingPlayers([]);
+      setPlayersLoading(false);
+      return;
+    }
+    const controller = new AbortController();
+    setPlayersLoading(true);
+    const timer = window.setTimeout(() => {
+      fetch(`/api/search/players?q=${encodeURIComponent(trimmed)}&limit=6`, {
+        signal: controller.signal,
+        headers: { accept: "application/json" },
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((payload: { items?: CommandPlayerHit[] } | null) => {
+          if (controller.signal.aborted) return;
+          setMatchingPlayers(Array.isArray(payload?.items) ? payload.items : []);
+          setPlayersLoading(false);
+        })
+        .catch((err) => {
+          void err;
+          if (!controller.signal.aborted) {
+            setMatchingPlayers([]);
+            setPlayersLoading(false);
+          }
+        });
+    }, 150);
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [cmdkOpen, query]);
+
+  if (!rendered && !cmdkOpen) return null;
 
   const q = query.trim().toLowerCase();
 
@@ -1062,162 +1371,458 @@ export function CommandPaletteModal(): React.JSX.Element | null {
         r.subtitle.toLowerCase().includes(q)),
   );
 
-  const hasResults =
-    matchingGames.length > 0 ||
-    matchingLeagues.length > 0 ||
-    matchingTipsters.length > 0 ||
-    quickRoutes.length > 0;
+  const indexedTeams = (() => {
+    const rawList = (() => {
+      if (dataset.teams && dataset.teams.length > 0) return dataset.teams;
+      const seen = new Map<
+        string,
+        {
+          id: string;
+          league: typeof dataset.leagues[number]["league"];
+          leagueLabel: string;
+          slug: string;
+          name: string;
+          shortName: string;
+          code: string;
+          rank: number | null;
+          href: string;
+        }
+      >();
+      const leagueLabelMap = new Map(dataset.leagues.map((l) => [l.league, l.label]));
+      for (const lg of dataset.leagues) {
+        lg.standings.forEach((row, idx) => {
+          const slug = row.teamId.includes(".") ? row.teamId.split(".")[1]! : row.teamId;
+          const key = `${lg.league}:${slug}`;
+          if (!seen.has(key)) {
+            seen.set(key, {
+              id: row.teamId,
+              league: lg.league,
+              leagueLabel: lg.label,
+              slug,
+              name: row.name,
+              shortName: row.shortName,
+              code: row.code,
+              rank: idx + 1,
+              href: canonicalTeamHref(lg.league, slug),
+            });
+          }
+        });
+      }
+      for (const g of dataset.games) {
+        for (const side of [g.home, g.away]) {
+          const key = `${g.league}:${side.slug}`;
+          if (!seen.has(key)) {
+            seen.set(key, {
+              id: key,
+              league: g.league,
+              leagueLabel: leagueLabelMap.get(g.league) ?? g.leagueLabel,
+              slug: side.slug,
+              name: side.name,
+              shortName: side.shortName,
+              code: side.code,
+              rank: null,
+              href: canonicalTeamHref(g.league, side.slug),
+            });
+          }
+        }
+      }
+      return [...seen.values()];
+    })();
+
+    const upcomingKeys = new Set<string>();
+    for (const g of dataset.games) {
+      if (g.status !== "FT") {
+        upcomingKeys.add(`${g.league}:${g.home.slug}`);
+        upcomingKeys.add(`${g.league}:${g.away.slug}`);
+      }
+    }
+    const deduped = new Map<string, (typeof rawList)[number]>();
+    for (const item of rawList) {
+      const dedupeKey = isNationalCompetition(item.league)
+        ? `national:${item.slug}`
+        : `club:${item.league}:${item.slug}`;
+      const current = deduped.get(dedupeKey);
+      if (!current) {
+        deduped.set(dedupeKey, item);
+        continue;
+      }
+      const nextUpcoming = upcomingKeys.has(`${item.league}:${item.slug}`);
+      const curUpcoming = upcomingKeys.has(`${current.league}:${current.slug}`);
+      if (nextUpcoming && !curUpcoming) {
+        deduped.set(dedupeKey, item);
+      }
+    }
+    return [...deduped.values()];
+  })();
+
+  const normSearch = (s: string) =>
+    s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const nq = normSearch(q);
+
+  const matchingTeams = indexedTeams
+    .filter((t) => {
+      if (!nq) return false;
+      return (
+        normSearch(t.name).includes(nq) ||
+        normSearch(t.shortName).includes(nq) ||
+        normSearch(t.code).includes(nq) ||
+        normSearch(t.leagueLabel).includes(nq)
+      );
+    })
+    .slice(0, 8);
+
+  const orderedTargets: string[] = [
+    ...matchingTeams.map((t) => t.href),
+    ...matchingPlayers.map((p) => p.href),
+    ...matchingGames.map((g) => canonicalGameHref(g.league, g)),
+    ...matchingLeagues.map((lg) => `/app/${lg.league}`),
+    ...matchingTipsters.map((c) => `/app/u/${c.handle}`),
+    ...quickRoutes.map((r) => r.href),
+  ];
+
+  const hasResults = orderedTargets.length > 0;
+  const clampedActive =
+    orderedTargets.length > 0
+      ? Math.min(Math.max(activeIndex, 0), orderedTargets.length - 1)
+      : -1;
+
+  const teamsOffset = 0;
+  const playersOffset = teamsOffset + matchingTeams.length;
+  const gamesOffset = playersOffset + matchingPlayers.length;
+  const leaguesOffset = gamesOffset + matchingGames.length;
+  const tipstersOffset = leaguesOffset + matchingLeagues.length;
+  const routesOffset = tipstersOffset + matchingTipsters.length;
+
+  const selectHref = (href: string) => {
+    setCmdkOpen(false);
+    navigateTo(href);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (orderedTargets.length === 0) return;
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      const next = (clampedActive + 1) % orderedTargets.length;
+      setActiveIndex(next);
+      resultsRef.current
+        ?.querySelector<HTMLElement>(`[data-cmd-idx="${next}"]`)
+        ?.scrollIntoView({ block: "nearest" });
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      const next = (clampedActive - 1 + orderedTargets.length) % orderedTargets.length;
+      setActiveIndex(next);
+      resultsRef.current
+        ?.querySelector<HTMLElement>(`[data-cmd-idx="${next}"]`)
+        ?.scrollIntoView({ block: "nearest" });
+    } else if (event.key === "Enter" && clampedActive >= 0) {
+      // IME-safe enter-to-submit: bloquear navegación mientras el usuario confirma caracteres IME
+      if (event.nativeEvent.isComposing || event.keyCode === 229) {
+        return;
+      }
+      const target = orderedTargets[clampedActive];
+      if (target) {
+        event.preventDefault();
+        selectHref(target);
+      }
+    }
+  };
 
   return (
     <TopLayerModalDialog
       open={cmdkOpen}
       onClose={() => setCmdkOpen(false)}
       ariaLabel="Buscar en PitchLab"
-      maxWidth="38rem"
+      maxWidth="40rem"
+      dialogClassName="pl-cmd-dialog"
+      keepMounted
     >
-      <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-4">
-        <LensGlowOrbs subtle />
-        <div className="relative z-10 space-y-3">
-          <div className="flex items-center gap-2">
-            <MaestroIcon
-              name="search"
-              size={18}
-              style={{ color: "var(--pl-brand)" }}
-            />
+      <div className="pl-cmd-shell" onKeyDown={handleKeyDown}>
+        <div className="pl-cmd-head">
+          <div className="pl-cmd-searchbox">
+            <MaestroIcon name="search" size={16} className="pl-cmd-search-icon shrink-0" />
             <input
+              ref={inputRef}
               type="search"
               autoFocus
-              aria-label="Buscar equipo, liga, partido o módulo"
+              aria-label="Buscar partido, equipo, jugador, liga o @socio"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar partido, liga, @tipster o módulo (⌘K)..."
-              className="glass-input w-full px-3 py-2.5 text-sm"
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setActiveIndex(0);
+              }}
+              placeholder="Buscar partido, equipo, jugador, liga o @socio..."
+              className="pl-cmd-input"
             />
-            <button
-              type="button"
-              className="pl-btn-glass px-3 text-xs shrink-0"
-              onClick={() => setCmdkOpen(false)}
-            >
-              Cerrar
-            </button>
-          </div>
-
-          <div className="max-h-96 overflow-y-auto space-y-4 pr-1">
-            {!hasResults ? (
-              <div
-                className="rounded-xl p-6 text-center text-sm"
-                style={{ color: "var(--pl-text-muted)" }}
+            {query.length > 0 ? (
+              <button
+                type="button"
+                className="pl-cmd-clear"
+                aria-label="Limpiar búsqueda"
+                onClick={() => {
+                  setQuery("");
+                  setActiveIndex(0);
+                  inputRef.current?.focus();
+                }}
               >
-                Sin coincidencias para «{query}». Prueba con NFL, Liga MX,
-                @sofia_nfl o Parlays.
-              </div>
+                <MaestroIcon name="x" size={13} />
+              </button>
             ) : null}
+          </div>
+          <button
+            type="button"
+            className="pl-cmd-close"
+            aria-label="Cerrar buscador"
+            onClick={() => setCmdkOpen(false)}
+          >
+            <MaestroIcon name="x" size={14} className="sm:hidden" />
+            <span className="hidden sm:inline">Esc</span>
+          </button>
+        </div>
 
-            {matchingGames.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Partidos y Match Studio
-                </p>
-                <div className="space-y-1">
-                  {matchingGames.map((g) => (
+        <p className="sr-only" aria-live="polite">
+          {q.length >= 2 && !playersLoading
+            ? `${orderedTargets.length} resultados para ${query}`
+            : ""}
+        </p>
+
+        <div ref={resultsRef} className="pl-cmd-results">
+          {!hasResults && !playersLoading ? (
+            <div className="pl-cmd-empty">
+              <p className="m-0 text-sm font-semibold" style={{ color: "var(--pl-text)" }}>
+                Sin coincidencias para «{query}»
+              </p>
+              <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Prueba con MLB, Liga MX, un equipo, un jugador o un @socio del club.
+              </p>
+            </div>
+          ) : null}
+
+          {matchingTeams.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Equipos y selecciones">
+              <div className="pl-cmd-group-head">
+                <span>Equipos y selecciones</span>
+                <span className="pl-cmd-group-count num">{matchingTeams.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {matchingTeams.map((teamItem, i) => {
+                  const idx = teamsOffset + i;
+                  const active = idx === clampedActive;
+                  return (
                     <a
-                      key={g.id}
-                      href={`/app/${g.league}/games/${g.id}`}
+                      key={teamItem.id}
+                      href={teamItem.href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(`/app/${g.league}/games/${g.id}`);
+                        selectHref(teamItem.href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
                     >
-                      <span className="flex items-center gap-2 font-semibold min-w-0">
-                        <LeagueBadge
-                          league={g.league}
-                          label={g.leagueLabel}
-                          size={18}
+                      <span className="flex items-center gap-2.5 min-w-0">
+                        <TeamBadge
+                          league={teamItem.league}
+                          slug={teamItem.slug}
+                          name={teamItem.name}
+                          size={22}
                         />
-                        <span className="truncate">
+                        <span className="truncate font-semibold">{teamItem.name}</span>
+                      </span>
+                      <span className="pl-cmd-row-meta num">
+                        <span>
+                          {teamItem.leagueLabel}
+                          {teamItem.rank !== null ? ` · #${teamItem.rank}` : ""}
+                        </span>
+                        <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
+
+          {matchingPlayers.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Jugadores" data-cmd-players-group="">
+              <div className="pl-cmd-group-head">
+                <span>Jugadores</span>
+                <span className="pl-cmd-group-count num">{matchingPlayers.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {matchingPlayers.map((playerItem, i) => {
+                  const idx = playersOffset + i;
+                  const active = idx === clampedActive;
+                  return (
+                    <a
+                      key={playerItem.id}
+                      href={playerItem.href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        selectHref(playerItem.href);
+                      }}
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
+                    >
+                      <span className="flex items-center gap-2.5 min-w-0">
+                        <PersonAvatar
+                          photoKey={playerItem.photoKey}
+                          fallbackPhotoKey={playerItem.fallbackPhotoKey}
+                          role="player"
+                          size={26}
+                        />
+                        <span className="min-w-0">
+                          <span className="block truncate font-semibold">{playerItem.name}</span>
+                          <span
+                            className="block truncate text-[11px]"
+                            style={{ color: "var(--pl-text-muted)" }}
+                          >
+                            {playerItem.teamName} · {playerItem.leagueLabel}
+                          </span>
+                        </span>
+                      </span>
+                      <span className="pl-cmd-row-meta num">
+                        <span className="pl-pill text-[10px] px-1.5 py-0">
+                          {playerItem.positionLabel}
+                          {playerItem.jersey ? ` #${playerItem.jersey}` : ""}
+                        </span>
+                        <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
+
+          {matchingGames.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Partidos y Match Studio">
+              <div className="pl-cmd-group-head">
+                <span>Partidos y Match Studio</span>
+                <span className="pl-cmd-group-count num">{matchingGames.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {matchingGames.map((g, i) => {
+                  const idx = gamesOffset + i;
+                  const active = idx === clampedActive;
+                  const href = canonicalGameHref(g.league, g);
+                  return (
+                    <a
+                      key={g.id}
+                      href={href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        selectHref(href);
+                      }}
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
+                    >
+                      <span className="flex items-center gap-2 min-w-0">
+                        <span className="inline-flex items-center gap-1 shrink-0">
+                          <TeamBadge
+                            league={g.league}
+                            slug={g.home.slug}
+                            name={g.home.name}
+                            size={18}
+                          />
+                          <TeamBadge
+                            league={g.league}
+                            slug={g.away.slug}
+                            name={g.away.name}
+                            size={18}
+                          />
+                        </span>
+                        <span className="truncate font-semibold">
                           {g.home.shortName} vs {g.away.shortName}
                         </span>
                       </span>
-                      <span
-                        className="text-xs num shrink-0 inline-flex items-center gap-1.5"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
-                        <span>
-                          {g.leagueLabel} ·{" "}
-                          {g.status === "FT" ? "Final" : g.kickoffLocal}
+                      <span className="pl-cmd-row-meta num">
+                        <span className="inline-flex items-center gap-1.5">
+                          <LeagueBadge league={g.league} label={g.leagueLabel} size={14} />
+                          <span>
+                            {g.leagueLabel} · {shortDateLabel(g.dayId)} ·{" "}
+                            {g.status === "FT" ? "Final" : g.kickoffLocal}
+                          </span>
                         </span>
-                        <MaestroIcon name="chevronRight" size={14} />
+                        <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
 
-            {matchingLeagues.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  7 Ligas Oficiales
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                  {matchingLeagues.map((lg) => (
+          {matchingLeagues.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Ligas oficiales">
+              <div className="pl-cmd-group-head">
+                <span>Ligas oficiales</span>
+                <span className="pl-cmd-group-count num">{matchingLeagues.length}</span>
+              </div>
+              <div className="pl-cmd-league-grid">
+                {matchingLeagues.map((lg, i) => {
+                  const idx = leaguesOffset + i;
+                  const active = idx === clampedActive;
+                  const href = `/app/${lg.league}`;
+                  return (
                     <a
                       key={lg.league}
-                      href={`/app/${lg.league}`}
+                      href={href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(`/app/${lg.league}`);
+                        selectHref(href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold no-underline row-hover"
+                      className={
+                        active ? "pl-cmd-league-tile is-active" : "pl-cmd-league-tile"
+                      }
                     >
                       <span className="flex items-center gap-2 min-w-0">
-                        <LeagueBadge
-                          league={lg.league}
-                          label={lg.label}
-                          size={18}
-                        />
-                        <span className="truncate">{lg.label}</span>
+                        <LeagueBadge league={lg.league} label={lg.label} size={18} />
+                        <span className="truncate font-semibold">{lg.label}</span>
                       </span>
                       <span
-                        className="num shrink-0"
+                        className="text-[11px] font-medium num shrink-0"
                         style={{ color: "var(--pl-text-muted)" }}
                       >
-                        {lg.totalGames} juegos
+                        {lg.totalGames} {lg.totalGames === 1 ? "juego" : "juegos"}
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
 
-            {matchingTipsters.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Tipsters verificados
-                </p>
-                <div className="space-y-1">
-                  {matchingTipsters.map((creator) => (
+          {matchingTipsters.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Tipsters verificados">
+              <div className="pl-cmd-group-head">
+                <span>Tipsters verificados</span>
+                <span className="pl-cmd-group-count num">{matchingTipsters.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {matchingTipsters.map((creator, i) => {
+                  const idx = tipstersOffset + i;
+                  const active = idx === clampedActive;
+                  const href = `/app/u/${creator.handle}`;
+                  return (
                     <a
                       key={creator.handle}
-                      href={`/app/u/${creator.handle}`}
+                      href={href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(`/app/u/${creator.handle}`);
+                        selectHref(href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
                     >
                       <span className="flex items-center gap-2.5 min-w-0">
                         <span
@@ -1230,9 +1835,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                           {creator.avatarInitials}
                         </span>
                         <span className="min-w-0 truncate">
-                          <strong className="font-semibold">
-                            {creator.name}
-                          </strong>{" "}
+                          <strong className="font-semibold">{creator.name}</strong>{" "}
                           {creator.isExample ? <ExampleBadge /> : null}{" "}
                           <span
                             className="text-xs"
@@ -1246,37 +1849,43 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                         {creator.verifiedUnits} · Ventaja {creator.clvAvg}
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
 
-            {quickRoutes.length > 0 ? (
-              <div>
-                <p
-                  className="m-0 mb-1.5 text-[11px] font-bold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Vistas y Herramientas del Club
-                </p>
-                <div className="space-y-1">
-                  {quickRoutes.map((item) => (
+          {quickRoutes.length > 0 ? (
+            <section className="pl-cmd-group" aria-label="Vistas y herramientas del club">
+              <div className="pl-cmd-group-head">
+                <span>Vistas y Herramientas del Club</span>
+                <span className="pl-cmd-group-count num">{quickRoutes.length}</span>
+              </div>
+              <div className="pl-cmd-list">
+                {quickRoutes.map((item, i) => {
+                  const idx = routesOffset + i;
+                  const active = idx === clampedActive;
+                  return (
                     <a
                       key={item.href}
                       href={item.href}
+                      data-cmd-idx={idx}
+                      data-active={active ? "true" : undefined}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       onClick={(e) => {
                         e.preventDefault();
-                        setCmdkOpen(false);
-                        navigateTo(item.href);
+                        selectHref(item.href);
                       }}
-                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                      className={active ? "pl-cmd-row is-active" : "pl-cmd-row"}
                     >
                       <span className="flex items-center gap-2.5 min-w-0">
-                        <MaestroIcon
-                          name={item.icon}
-                          size={15}
-                          style={{ color: "var(--pl-brand)" }}
-                        />
+                        <span className="pl-cmd-icon-well" aria-hidden="true">
+                          <MaestroIcon
+                            name={item.icon}
+                            size={14}
+                            style={{ color: "var(--pl-brand)" }}
+                          />
+                        </span>
                         <span className="min-w-0">
                           <span className="block font-semibold truncate">
                             {item.label}
@@ -1289,19 +1898,33 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                           </span>
                         </span>
                       </span>
-                      <span
-                        className="text-xs font-semibold shrink-0 inline-flex items-center gap-1"
-                        style={{ color: "var(--pl-brand)" }}
-                      >
+                      <span className="pl-cmd-row-go">
                         <span>Ir</span>
-                        <MaestroIcon name="chevronRight" size={13} />
+                        <MaestroIcon name="chevronRight" size={13} className="pl-cmd-row-arrow" />
                       </span>
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null}
+            </section>
+          ) : null}
+        </div>
+
+        <div className="pl-cmd-foot">
+          <div className="hidden sm:flex items-center gap-3 text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+            <span className="inline-flex items-center gap-1.5">
+              <kbd className="pl-header-kbd">↑</kbd>
+              <kbd className="pl-header-kbd">↓</kbd>
+              <span>Navegar</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <kbd className="pl-header-kbd">↵</kbd>
+              <span>Abrir</span>
+            </span>
           </div>
+          <span className="text-[11px] font-medium num" style={{ color: "var(--pl-text-muted)" }}>
+            {orderedTargets.length} resultados
+          </span>
         </div>
       </div>
     </TopLayerModalDialog>
@@ -1546,17 +2169,58 @@ export function RoleSimulatorBar({
 
 export function ToastViewport(): React.JSX.Element | null {
   const { toasts } = usePlatform();
-  if (toasts.length === 0) return null;
+  const [rendered, setRendered] = useState<Array<{ id: string; tone: string; text: string; closing?: boolean }>>(
+    () => toasts.map((t) => ({ ...t })),
+  );
+
+  useEffect(() => {
+    const activeIds = new Set(toasts.map((t) => t.id));
+    let hasNewlyClosing = false;
+
+    setRendered((prev) => {
+      const prevMap = new Map(prev.map((item) => [item.id, item]));
+      const next: Array<{ id: string; tone: string; text: string; closing?: boolean }> = [];
+
+      for (const item of prev) {
+        if (activeIds.has(item.id)) {
+          const fresh = toasts.find((t) => t.id === item.id)!;
+          next.push({ ...fresh, closing: false });
+        } else if (!item.closing) {
+          hasNewlyClosing = true;
+          next.push({ ...item, closing: true });
+        } else {
+          next.push(item);
+        }
+      }
+
+      for (const t of toasts) {
+        if (!prevMap.has(t.id)) {
+          next.push({ ...t, closing: false });
+        }
+      }
+
+      return next;
+    });
+
+    if (!hasNewlyClosing) return;
+    const timer = window.setTimeout(() => {
+      setRendered((prev) => prev.filter((item) => !item.closing));
+    }, 260);
+    return () => window.clearTimeout(timer);
+  }, [toasts]);
+
+  if (rendered.length === 0) return null;
 
   return (
     <div
       className="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none max-w-sm"
       aria-live="polite"
     >
-      {toasts.map((t) => (
+      {rendered.map((t) => (
         <div
           key={t.id}
-          className="glass-pill-bar glass-ring rounded-xl px-4 py-2.5 text-xs font-semibold shadow-lg flex items-center gap-2.5"
+          data-closing={t.closing ? "" : undefined}
+          className="pl-toast-item glass-pill-bar glass-ring rounded-xl px-4 py-2.5 text-xs font-semibold shadow-lg flex items-center gap-2.5"
         >
           <span
             className="dot"

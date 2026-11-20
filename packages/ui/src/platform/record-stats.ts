@@ -7,7 +7,7 @@
  */
 
 export interface RecordEntry {
-  status: "pending" | "won" | "lost";
+  status: "pending" | "won" | "lost" | "void";
   units: number;
   userDecimal: number;
   fairDecimal: number;
@@ -122,7 +122,7 @@ const round2 = (v: number) => Math.round(v * 100) / 100;
  */
 export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, startingUnits: number | null = null): RecordStats {
   const settledEntries = entries
-    .filter((e) => e.status !== "pending")
+    .filter((e) => e.status === "won" || e.status === "lost")
     .map((e, i) => ({ e, i, day: dayOf(e) }))
     .sort((a, b) => (a.day ?? "").localeCompare(b.day ?? "") || a.i - b.i);
 
@@ -165,6 +165,7 @@ export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, starting
   }
 
   const settled = settledEntries.length;
+  const open = entries.filter((e) => e.status === "pending").length;
   const clvAll = entries.length > 0 ? entries.reduce((s, e) => s + e.clvPct, 0) / entries.length : null;
   const monthRows: MonthResult[] = Array.from(months.entries()).map(([key, value]) => ({
     key,
@@ -177,7 +178,7 @@ export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, starting
     settled,
     won,
     lost: settled - won,
-    open: entries.length - settled,
+    open,
     hitRatePct: settled > 0 ? (won / settled) * 100 : null,
     netUnits: round2(net),
     stakedUnits: round2(staked),
@@ -330,4 +331,323 @@ export function publicRecordView(
           }))
       : null,
   };
+}
+
+// ── Calendario mensual de resultados diarios (Mi récord y Resultados del motor) ──────────
+
+export interface DailyCalendarEntryItem {
+  readonly id: string;
+  readonly label: string;
+  readonly subtitle: string;
+  readonly status: "won" | "lost" | "pending" | "void";
+  readonly netUnits: number | null;
+  readonly href?: string;
+}
+
+export interface DailyCalendarCell {
+  readonly dateIso: string;
+  readonly dayNumber: number;
+  readonly inMonth: boolean;
+  readonly isToday: boolean;
+  readonly settledCount: number;
+  readonly wonCount: number;
+  readonly lostCount: number;
+  readonly openCount: number;
+  readonly netUnits: number;
+  readonly items: readonly DailyCalendarEntryItem[];
+}
+
+export interface MonthlyCalendarGrid {
+  readonly yearMonth: string;
+  readonly monthLabel: string;
+  readonly weeks: ReadonlyArray<ReadonlyArray<DailyCalendarCell>>;
+  readonly summary: {
+    readonly settledCount: number;
+    readonly wonCount: number;
+    readonly lostCount: number;
+    readonly openCount: number;
+    readonly netUnits: number;
+    readonly activeDays: number;
+  };
+}
+
+const FULL_MONTHS_ES = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+] as const;
+
+export function formatCalendarDayIso(
+  iso: string | null | undefined,
+  timeZone: string = "America/Mexico_City",
+): string | null {
+  if (!iso) return null;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(iso.trim())) return iso.trim();
+  const ms = Date.parse(iso);
+  if (!Number.isFinite(ms)) return null;
+  const d = new Date(ms);
+  try {
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(d);
+    const y = parts.find((p) => p.type === "year")?.value;
+    const m = parts.find((p) => p.type === "month")?.value;
+    const day = parts.find((p) => p.type === "day")?.value;
+    if (y && m && day) return `${y}-${m}-${day}`;
+  } catch (err) {
+    void err;
+  }
+  return d.toISOString().slice(0, 10);
+}
+
+function addUtcDays(dateIso: string, deltaDays: number): string {
+  const [y, m, d] = dateIso.split("-").map(Number);
+  const dt = new Date(Date.UTC(y!, (m ?? 1) - 1, (d ?? 1) + deltaDays));
+  return dt.toISOString().slice(0, 10);
+}
+
+export function shiftYearMonth(yearMonth: string, deltaMonths: number): string {
+  const [rawY, rawM] = yearMonth.split("-").map(Number);
+  const baseY = Number.isFinite(rawY) ? rawY! : 2026;
+  const baseM = Number.isFinite(rawM) ? rawM! : 1;
+  const dt = new Date(Date.UTC(baseY, baseM - 1 + deltaMonths, 1));
+  const y = dt.getUTCFullYear();
+  const m = String(dt.getUTCMonth() + 1).padStart(2, "0");
+  return `${y}-${m}`;
+}
+
+function buildEmptyGridShell(
+  yearMonth: string,
+  todayIso: string,
+  bucketMap: ReadonlyMap<
+    string,
+    {
+      settledCount: number;
+      wonCount: number;
+      lostCount: number;
+      openCount: number;
+      netUnits: number;
+      items: DailyCalendarEntryItem[];
+    }
+  >,
+): MonthlyCalendarGrid {
+  const [rawY, rawM] = yearMonth.split("-").map(Number);
+  const year = Number.isFinite(rawY) ? rawY! : Number(todayIso.slice(0, 4));
+  const month = Number.isFinite(rawM) && rawM! >= 1 && rawM! <= 12 ? rawM! : Number(todayIso.slice(5, 7));
+  const ym = `${year}-${String(month).padStart(2, "0")}`;
+  const firstIso = `${ym}-01`;
+  const firstUtc = new Date(Date.UTC(year, month - 1, 1));
+  // Lunes = 0 ... Domingo = 6
+  const mondayOffset = (firstUtc.getUTCDay() + 6) % 7;
+  const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
+  const totalCells = Math.ceil((mondayOffset + daysInMonth) / 7) * 7;
+  const startIso = addUtcDays(firstIso, -mondayOffset);
+
+  const weeks: DailyCalendarCell[][] = [];
+  let settledCount = 0;
+  let wonCount = 0;
+  let lostCount = 0;
+  let openCount = 0;
+  let netUnits = 0;
+  let activeDays = 0;
+
+  for (let i = 0; i < totalCells; i += 1) {
+    const cellIso = addUtcDays(startIso, i);
+    const inMonth = cellIso.slice(0, 7) === ym;
+    const dayNumber = Number(cellIso.slice(8, 10));
+    const bucket = bucketMap.get(cellIso);
+    const cell: DailyCalendarCell = {
+      dateIso: cellIso,
+      dayNumber,
+      inMonth,
+      isToday: cellIso === todayIso,
+      settledCount: bucket?.settledCount ?? 0,
+      wonCount: bucket?.wonCount ?? 0,
+      lostCount: bucket?.lostCount ?? 0,
+      openCount: bucket?.openCount ?? 0,
+      netUnits: round2(bucket?.netUnits ?? 0),
+      items: bucket?.items ?? [],
+    };
+    if (inMonth && bucket) {
+      settledCount += cell.settledCount;
+      wonCount += cell.wonCount;
+      lostCount += cell.lostCount;
+      openCount += cell.openCount;
+      netUnits += bucket.netUnits;
+      if (cell.settledCount > 0 || cell.openCount > 0) activeDays += 1;
+    }
+    const weekIdx = Math.floor(i / 7);
+    if (!weeks[weekIdx]) weeks[weekIdx] = [];
+    weeks[weekIdx]!.push(cell);
+  }
+
+  return {
+    yearMonth: ym,
+    monthLabel: `${FULL_MONTHS_ES[month - 1]} ${year}`,
+    weeks,
+    summary: {
+      settledCount,
+      wonCount,
+      lostCount,
+      openCount,
+      netUnits: round2(netUnits),
+      activeDays,
+    },
+  };
+}
+
+export interface CalendarRecordInputEntry extends RecordEntry {
+  readonly id?: string;
+  readonly matchLabel?: string;
+  readonly day?: string | null;
+}
+
+export function buildMonthlyRecordCalendar(
+  entries: ReadonlyArray<CalendarRecordInputEntry>,
+  yearMonth?: string,
+  options: {
+    readonly timeZone?: string;
+    readonly nowIso?: string;
+    readonly includeNetUnits?: boolean;
+  } = {},
+): MonthlyCalendarGrid {
+  const timeZone = options.timeZone ?? "America/Mexico_City";
+  const includeNetUnits = options.includeNetUnits ?? true;
+  const todayIso =
+    formatCalendarDayIso(options.nowIso ?? new Date().toISOString(), timeZone) ??
+    new Date().toISOString().slice(0, 10);
+
+  const buckets = new Map<
+    string,
+    {
+      settledCount: number;
+      wonCount: number;
+      lostCount: number;
+      openCount: number;
+      netUnits: number;
+      items: DailyCalendarEntryItem[];
+    }
+  >();
+
+  let latestMonth: string | null = null;
+
+  entries.forEach((e, idx) => {
+    const dateIso =
+      e.day && /^\d{4}-\d{2}-\d{2}$/.test(e.day)
+        ? e.day
+        : formatCalendarDayIso(e.settledAtIso ?? e.sealedAtIso ?? null, timeZone);
+    if (!dateIso) return;
+    const ym = dateIso.slice(0, 7);
+    if (!latestMonth || ym > latestMonth) latestMonth = ym;
+
+    const b = buckets.get(dateIso) ?? {
+      settledCount: 0,
+      wonCount: 0,
+      lostCount: 0,
+      openCount: 0,
+      netUnits: 0,
+      items: [],
+    };
+    const delta = settlementUnits(e);
+    if (e.status === "won") {
+      b.settledCount += 1;
+      b.wonCount += 1;
+      if (includeNetUnits && delta !== null) b.netUnits += delta;
+    } else if (e.status === "lost") {
+      b.settledCount += 1;
+      b.lostCount += 1;
+      if (includeNetUnits && delta !== null) b.netUnits += delta;
+    } else if (e.status === "pending") {
+      b.openCount += 1;
+    }
+    b.items.push({
+      id: e.id ?? `rec-${idx}`,
+      label: e.pickLabel,
+      subtitle: e.matchLabel ? `${e.leagueLabel} · ${e.matchLabel}` : e.leagueLabel,
+      status: e.status,
+      netUnits: includeNetUnits && delta !== null ? round2(delta) : null,
+    });
+    buckets.set(dateIso, b);
+  });
+
+  const targetYm = yearMonth ?? latestMonth ?? todayIso.slice(0, 7);
+  return buildEmptyGridShell(targetYm, todayIso, buckets);
+}
+
+export interface ModelDailyResultInput {
+  readonly id: string;
+  readonly kickoffUtc: string;
+  readonly label: string;
+  readonly subtitle: string;
+  readonly hit: boolean;
+  readonly href?: string;
+}
+
+export function buildModelDailyCalendar(
+  items: ReadonlyArray<ModelDailyResultInput>,
+  yearMonth?: string,
+  options: {
+    readonly timeZone?: string;
+    readonly nowIso?: string;
+  } = {},
+): MonthlyCalendarGrid {
+  const timeZone = options.timeZone ?? "America/Mexico_City";
+  const todayIso =
+    formatCalendarDayIso(options.nowIso ?? new Date().toISOString(), timeZone) ??
+    new Date().toISOString().slice(0, 10);
+
+  const buckets = new Map<
+    string,
+    {
+      settledCount: number;
+      wonCount: number;
+      lostCount: number;
+      openCount: number;
+      netUnits: number;
+      items: DailyCalendarEntryItem[];
+    }
+  >();
+
+  let latestMonth: string | null = null;
+  for (const item of items) {
+    const dateIso = formatCalendarDayIso(item.kickoffUtc, timeZone);
+    if (!dateIso) continue;
+    const ym = dateIso.slice(0, 7);
+    if (!latestMonth || ym > latestMonth) latestMonth = ym;
+    const b = buckets.get(dateIso) ?? {
+      settledCount: 0,
+      wonCount: 0,
+      lostCount: 0,
+      openCount: 0,
+      netUnits: 0,
+      items: [],
+    };
+    b.settledCount += 1;
+    if (item.hit) b.wonCount += 1;
+    else b.lostCount += 1;
+    b.items.push({
+      id: item.id,
+      label: item.label,
+      subtitle: item.subtitle,
+      status: item.hit ? "won" : "lost",
+      netUnits: null,
+      ...(item.href ? { href: item.href } : {}),
+    });
+    buckets.set(dateIso, b);
+  }
+
+  const targetYm = yearMonth ?? latestMonth ?? todayIso.slice(0, 7);
+  return buildEmptyGridShell(targetYm, todayIso, buckets);
 }

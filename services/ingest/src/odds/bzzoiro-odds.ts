@@ -6,7 +6,7 @@
  * (`1x2`, `totals`, `btts`, `ah` con línea canónica del local) para que la validación de
  * Parte 3 y el snapshot no cambien. La NFL no existe en Bzzoiro: sigue con The Odds API.
  */
-import { normalizeLine, type OddsSnapshotRow } from "@pitchlab/spacetime";
+import { normalizeLine, type OddsLineMovement, type OddsSnapshotRow } from "@pitchlab/spacetime";
 import type { CanonicalLeague } from "../mappings.js";
 import { BZZOIRO_LEAGUES } from "../providers/bzzoiro.js";
 import { validateOddsTickBatch } from "../validation/snapshot-validator.js";
@@ -35,13 +35,17 @@ export const BZZOIRO_ODDS_LEAGUES: readonly CanonicalLeague[] = [
 const BZZOIRO_BOOK_MAP: Readonly<Record<string, string>> = {
   pinnacle: "pinnacle",
   bet365: "bet365",
+  codere: "codere",
+  betcris: "betcris",
   bwin: "bwin",
   "william-hill": "william_hill",
+  williamhill: "william_hill",
   unibet: "unibet",
-  codere: "codere",
   betonline: "betonline",
+  betonlineag: "betonline",
   draftkings: "draftkings",
   fanduel: "fanduel",
+  betmgm: "betmgm",
 };
 
 /** Días hacia adelante que se consultan; más allá casi no hay casas con precio. */
@@ -64,6 +68,11 @@ export interface BzOddsRow {
   line?: unknown;
   bookmaker_slug?: unknown;
   decimal_odds?: unknown;
+  opening_odds?: unknown;
+  opening_decimal_odds?: unknown;
+  opening_price?: unknown;
+  movement?: unknown;
+  movement_direction?: unknown;
   is_live?: unknown;
 }
 
@@ -77,6 +86,27 @@ function teamName(raw: unknown): string {
 
 type MappedQuote = { market: string; line: number | null; selection: string };
 
+function mapYesNoMarket(baseMarket: string, outcome: string): MappedQuote | null {
+  if (outcome === "yes" || outcome === "no") {
+    return { market: baseMarket, line: null, selection: outcome };
+  }
+  if (outcome === "home_yes" || outcome === "home_no") {
+    return {
+      market: `${baseMarket}_home`,
+      line: null,
+      selection: outcome.endsWith("yes") ? "yes" : "no",
+    };
+  }
+  if (outcome === "away_yes" || outcome === "away_no") {
+    return {
+      market: `${baseMarket}_away`,
+      line: null,
+      selection: outcome.endsWith("yes") ? "yes" : "no",
+    };
+  }
+  return null;
+}
+
 function mapQuote(row: BzOddsRow): MappedQuote | null {
   const market = String(row.market ?? "").trim().toLowerCase();
   const outcome = String(row.outcome ?? "").trim().toLowerCase();
@@ -87,7 +117,22 @@ function mapQuote(row: BzOddsRow): MappedQuote | null {
     }
     return null;
   }
-  if (/^over_under_\d+$/.test(market)) {
+  if (market === "double_chance") {
+    if (outcome === "1x" || outcome === "home_or_draw") return { market: "double_chance", line: null, selection: "1X" };
+    if (outcome === "12" || outcome === "home_or_away") return { market: "double_chance", line: null, selection: "12" };
+    if (outcome === "x2" || outcome === "away_or_draw") return { market: "double_chance", line: null, selection: "X2" };
+    return null;
+  }
+  if (market === "draw_no_bet" || market === "dnb") {
+    if (outcome === "home" || outcome === "away") return { market: "dnb", line: null, selection: outcome };
+    return null;
+  }
+  if (market === "total_corners" || market === "corners_over_under" || /^total_corners_\d+$/.test(market)) {
+    const line = normalizeLine(Number(row.line));
+    if (line === null || (outcome !== "over" && outcome !== "under")) return null;
+    return { market: "corners_total", line, selection: outcome };
+  }
+  if (/^over_under_\d+$/.test(market) || market === "over_under") {
     const line = normalizeLine(Number(row.line));
     if (line === null || (outcome !== "over" && outcome !== "under")) return null;
     return { market: "totals", line, selection: outcome };
@@ -97,6 +142,20 @@ function mapQuote(row: BzOddsRow): MappedQuote | null {
       ? { market: "btts", line: null, selection: outcome }
       : null;
   }
+  if (market === "clean_sheet" || market === "clean_sheet_home" || market === "clean_sheet_away") {
+    return market === "clean_sheet"
+      ? mapYesNoMarket("clean_sheet", outcome)
+      : outcome === "yes" || outcome === "no"
+        ? { market, line: null, selection: outcome }
+        : null;
+  }
+  if (market === "win_to_nil" || market === "win_to_nil_home" || market === "win_to_nil_away") {
+    return market === "win_to_nil"
+      ? mapYesNoMarket("win_to_nil", outcome)
+      : outcome === "yes" || outcome === "no"
+        ? { market, line: null, selection: outcome }
+        : null;
+  }
   if (market === "asian_handicap") {
     // Bzzoiro ya publica la línea del local para ambos lados («Home -1.25» / «Away +1.25»).
     const line = normalizeLine(Number(row.line));
@@ -104,6 +163,56 @@ function mapQuote(row: BzOddsRow): MappedQuote | null {
     return { market: "ah", line, selection: outcome };
   }
   return null;
+}
+
+function resolveOpeningAndMovement(
+  row: BzOddsRow,
+  currentDecimal: number,
+): { openingPrice?: number; movementDirection?: OddsLineMovement } {
+  const rawOpen = row.opening_odds ?? row.opening_decimal_odds ?? row.opening_price;
+  const openNum = Number(rawOpen);
+  const openingPrice =
+    Number.isFinite(openNum) && openNum >= 1.01 && openNum <= 1000
+      ? Math.round(openNum * 1000) / 1000
+      : undefined;
+
+  const rawDir = String(row.movement ?? row.movement_direction ?? "")
+    .trim()
+    .toUpperCase();
+  let movementDirection: OddsLineMovement | undefined;
+  if (rawDir === "SHORTENING" || rawDir === "DOWN") movementDirection = "shortening";
+  else if (rawDir === "DRIFTING" || rawDir === "UP") movementDirection = "drifting";
+  else if (rawDir === "STABLE" || rawDir === "FLAT") movementDirection = "stable";
+  else if (openingPrice !== undefined && Number.isFinite(currentDecimal)) {
+    const delta = currentDecimal - openingPrice;
+    if (delta <= -0.02) movementDirection = "shortening";
+    else if (delta >= 0.02) movementDirection = "drifting";
+    else movementDirection = "stable";
+  }
+
+  return {
+    ...(openingPrice !== undefined ? { openingPrice } : {}),
+    ...(movementDirection !== undefined ? { movementDirection } : {}),
+  };
+}
+
+/** Marca `is_best_odds: true` en la mejor cuota disponible por evento, mercado, línea y selección. */
+export function annotateBestOddsBySelection(rows: readonly OddsSnapshotRow[]): OddsSnapshotRow[] {
+  const bestByKey = new Map<string, number>();
+  for (const r of rows) {
+    const k = `${r.event_id}\u001f${r.market}\u001f${r.line ?? "null"}\u001f${r.selection}`;
+    const prev = bestByKey.get(k);
+    if (prev === undefined || r.price_decimal > prev) {
+      bestByKey.set(k, r.price_decimal);
+    }
+  }
+  return rows.map((r) => {
+    const k = `${r.event_id}\u001f${r.market}\u001f${r.line ?? "null"}\u001f${r.selection}`;
+    const best = bestByKey.get(k);
+    return best !== undefined && Math.abs(r.price_decimal - best) < 1e-6
+      ? { ...r, is_best_odds: true }
+      : r;
+  });
 }
 
 /**
@@ -149,6 +258,8 @@ export function parseBzzoiroOdds(params: {
       if (!book) continue;
       const quote = mapQuote(row);
       if (!quote) continue;
+      const currentDecimal = Number(row.decimal_odds);
+      const { openingPrice, movementDirection } = resolveOpeningAndMovement(row, currentDecimal);
       candidates.push({
         event_id: resolved.eventId,
         sport: resolved.sport,
@@ -157,7 +268,9 @@ export function parseBzzoiroOdds(params: {
         line: quote.line,
         selection: quote.selection,
         book,
-        price_decimal: Number(row.decimal_odds),
+        price_decimal: currentDecimal,
+        ...(openingPrice !== undefined ? { opening_price: openingPrice } : {}),
+        ...(movementDirection !== undefined ? { movement_direction: movementDirection } : {}),
         ts_captured: capturedIso,
         ts_event_start: resolved.tsEventStart,
         source: "scraped_ws",
@@ -165,7 +278,8 @@ export function parseBzzoiroOdds(params: {
     }
   }
 
-  return validateOddsTickBatch(candidates, { nowMs: params.nowMs }).acceptedRows;
+  const accepted = validateOddsTickBatch(candidates, { nowMs: params.nowMs }).acceptedRows;
+  return annotateBestOddsBySelection(accepted);
 }
 
 interface BzPageBody<T> {
@@ -214,6 +328,18 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     return out;
   }
 
+  /** Consulta `/odds/best/?market=` para conocer el mejor precio vigente sin exponer un feed crudo. */
+  async fetchBestOddsByMarket(market: string = "1x2"): Promise<BzOddsRow[]> {
+    assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
+    return this.getAll<BzOddsRow>("/odds/best/", { market });
+  }
+
+  /** Consulta `/events/{id}/odds/comparison/` para comparar casas en un partido concreto. */
+  async fetchEventOddsComparison(providerEventId: number): Promise<BzOddsRow[]> {
+    assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
+    return this.getAll<BzOddsRow>(`/events/${providerEventId}/odds/comparison/`, {});
+  }
+
   async fetchSnapshots(
     params: { activeLeagues?: readonly CanonicalLeague[]; capturedAtIso?: string } = {},
   ): Promise<OddsSnapshotRow[]> {
@@ -246,7 +372,8 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
         for (const ev of events) {
           const id = Number(ev.id);
           if (!Number.isFinite(id)) continue;
-          oddsByEvent.set(id, await this.getAll<BzOddsRow>("/odds/", { event_id: String(id) }));
+          const evOdds = await this.getAll<BzOddsRow>("/odds/", { event_id: String(id) });
+          oddsByEvent.set(id, evOdds);
         }
 
         allRows.push(

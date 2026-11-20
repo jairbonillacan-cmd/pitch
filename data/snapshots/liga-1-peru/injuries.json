@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "league": "liga-1-peru",
+  "observedAt": "2026-11-19T16:05:39.021Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "liga-1-peru.universitario-deportes",
+      "player": "Adrián Quiroz",
+      "position": "M",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-1-peru.universitario-deportes",
+      "player": "Gianluca Lapadula",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-1-peru.universitario-deportes",
+      "player": "Horacio Calcaterra",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-1-peru.universitario-deportes",
+      "player": "Jordan Guivin",
+      "position": "M",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-1-peru.universitario-deportes",
+      "player": "Jorge Murrugarra",
+      "position": "M",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-1-peru.universitario-deportes",
+      "player": "Lisandro Alzugaray",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-1-peru.universitario-deportes",
+      "player": "Matías Di Benedetto",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-1-peru.sport-boys",
+      "player": "Carlos Zambrano",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "liga-1-peru.sporting-cristal",
+      "player": "Miguel Araujo",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    }
+  ]
+}

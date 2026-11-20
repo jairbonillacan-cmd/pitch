@@ -20,10 +20,16 @@ import {
   asSeasonId,
   type GameAnalysis,
   type GameDTO,
+  type LeagueId,
   type StandingRow,
   type LeagueSnapshot,
+  type Team,
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
+import {
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
+} from "@pitchlab/sports-assets";
 import {
   analyzeFootballGame,
   analyzeNflGame,
@@ -47,6 +53,8 @@ import {
 } from "@pitchlab/models";
 import type { XgLookup } from "./xg-feed.js";
 import { withCountProjections, type CountFeed } from "./counts-feed.js";
+import { mapBzzoiroLeagueLogoUrl, mapBzzoiroTeamLogoUrl } from "./providers/bzzoiro.js";
+import { computeNflStandings } from "./us-divisions.js";
 import {
   addMatchContext,
   enrichPreservedAnalysis,
@@ -245,9 +253,19 @@ export function buildNflSnapshot(params: {
     );
   }
 
+  const nflStandings = seasonGames
+    ? computeNflStandings(
+        seasonGames,
+        teamRateInputs,
+        (teamId) => getOfficialEspnTeamLogoUrl("nfl", teamId) ?? undefined,
+      )
+    : [];
+
+  const leagueLogoUrl = getOfficialEspnLeagueLogoUrl("nfl") ?? undefined;
   const snapshot: LeagueSnapshot = {
     schemaVersion: 1,
     league: asLeagueId("nfl"),
+    ...(leagueLogoUrl ? { logoUrl: leagueLogoUrl } : {}),
     season: asSeasonId(seasonId),
     seasonLabel,
     periodLabel,
@@ -258,13 +276,14 @@ export function buildNflSnapshot(params: {
     teamRates: rates,
     games,
     analyses,
+    ...(nflStandings.length > 0 ? { standings: nflStandings } : {}),
   };
 
   return LeagueSnapshotSchema.parse(snapshot);
 }
 
 export function buildFootballSnapshot(params: {
-  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
+  league: LeagueId | string;
   leagueName: string;
   seasonId: string;
   seasonLabel: string;
@@ -336,17 +355,47 @@ export function buildFootballSnapshot(params: {
     ? footballTeamRatesFromModel(teamRateInputs, footballModel)
     : computeFootballTeamRates(league, teamRateInputs).rates;
 
+  const resolveLogo = (teamId: string): string | null =>
+    mapBzzoiroTeamLogoUrl(league, teamId) ?? getOfficialEspnTeamLogoUrl(league, teamId);
+
+  for (const rate of Object.values(rates)) {
+    const logoUrl = rate.logoUrl ?? resolveLogo(rate.teamId);
+    if (logoUrl) rate.logoUrl = logoUrl;
+  }
+
+  const withTeamLogo = (team: Team): Team => {
+    if (team.logoUrl) return team;
+    const logoUrl = resolveLogo(team.id);
+    return logoUrl ? { ...team, logoUrl } : team;
+  };
+  const resolvedGames: GameDTO[] = games.map((g) => ({
+    ...g,
+    home: withTeamLogo(g.home),
+    away: withTeamLogo(g.away),
+  }));
+
   const standings = seasonGames
-    ? computeStandings(toFootballMatchRows(seasonGames), teamRateInputs)
+    ? computeStandings(toFootballMatchRows(seasonGames), teamRateInputs).map((row) => {
+        const logoUrl = row.logoUrl ?? resolveLogo(row.teamId);
+        return logoUrl ? { ...row, logoUrl } : row;
+      })
     : [];
 
   const analyses: Record<string, GameAnalysis> = {};
-  const contextRows: ContextRow[] = [
+  const contextSeen = new Set<string>();
+  const contextRows: ContextRow[] = [];
+  for (const row of [
     ...(history ?? [])
       .filter((m) => m.date < seasonStart)
       .map((m) => ({ date: m.date, home: m.home, away: m.away, homeGoals: m.homeGoals, awayGoals: m.awayGoals })),
     ...seasonRows,
-  ];
+  ]) {
+    const k = `${row.date}|${row.home}|${row.away}`;
+    if (!contextSeen.has(k)) {
+      contextSeen.add(k);
+      contextRows.push(row);
+    }
+  }
 
   const analyze = (game: GameDTO, publishedAt: string): GameAnalysis =>
     footballModel
@@ -362,7 +411,12 @@ export function buildFootballSnapshot(params: {
           recentResults: seasonRows,
           standings,
           outcomeBlend: ratings
-            ? { ...ratings.predict(game.home.id, game.away.id), weight: historyBlendWeight }
+            ? {
+                ...ratings.predict(game.home.id, game.away.id, {
+                  neutralSite: game.neutralSite,
+                }),
+                weight: historyBlendWeight,
+              }
             : undefined,
         })
       : analyzeFootballGame({
@@ -375,7 +429,7 @@ export function buildFootballSnapshot(params: {
           source,
         });
 
-  for (const game of games) {
+  for (const game of resolvedGames) {
     const prev = previousSnapshot?.analyses[game.id];
     if (shouldPreservePublishedAnalysis(prev, game)) {
       let kept = keepVerifiedPicks(GameAnalysisSchema.parse(prev), game);
@@ -391,6 +445,11 @@ export function buildFootballSnapshot(params: {
         });
         if (kept.picksAt) kept = addMatchContext(kept, game, contextRows, seasonRows);
       }
+      const preKickoff =
+        game.status === "scheduled" && Date.parse(game.startTime) > Date.parse(updatedAt);
+      if (!kept.counts && countFeed && preKickoff) {
+        kept = withCountProjections(kept, game, countFeed);
+      }
       analyses[game.id] = GameAnalysisSchema.parse(kept);
       continue;
     }
@@ -403,9 +462,13 @@ export function buildFootballSnapshot(params: {
     );
   }
 
+  const leagueLogoUrl =
+    mapBzzoiroLeagueLogoUrl(league) ?? getOfficialEspnLeagueLogoUrl(league);
+
   const snapshot: LeagueSnapshot = {
     schemaVersion: 1,
-    league: asLeagueId(league),
+    league: asLeagueId(league as LeagueId),
+    ...(leagueLogoUrl ? { logoUrl: leagueLogoUrl } : {}),
     season: asSeasonId(seasonId),
     seasonLabel,
     periodLabel,
@@ -414,7 +477,7 @@ export function buildFootballSnapshot(params: {
     provenance: "derived",
     isDemo: false,
     teamRates: rates,
-    games,
+    games: resolvedGames,
     analyses,
     standings: standings.length > 0 ? standings : undefined,
   };
@@ -471,6 +534,7 @@ export function computeStandings(
   teamInputs: readonly FootballTeamRateInput[],
 ): StandingRow[] {
   const table = new Map<string, StandingRow>();
+  const formByTeam = new Map<string, Array<"W" | "D" | "L">>();
   for (const team of teamInputs) {
     table.set(team.teamId, {
       teamId: team.teamId,
@@ -485,9 +549,12 @@ export function computeStandings(
       goalsAgainst: 0,
       points: 0,
     });
+    formByTeam.set(team.teamId, []);
   }
 
-  for (const match of matches) {
+  const chronological = [...matches].sort((a, b) => a.date.localeCompare(b.date));
+
+  for (const match of chronological) {
     const home = table.get(match.home);
     const away = table.get(match.away);
     if (!home || !away) continue;
@@ -501,20 +568,30 @@ export function computeStandings(
       home.won += 1;
       home.points += 3;
       away.lost += 1;
+      formByTeam.get(match.home)?.push("W");
+      formByTeam.get(match.away)?.push("L");
     } else if (match.homeGoals < match.awayGoals) {
       away.won += 1;
       away.points += 3;
       home.lost += 1;
+      formByTeam.get(match.home)?.push("L");
+      formByTeam.get(match.away)?.push("W");
     } else {
       home.drawn += 1;
       away.drawn += 1;
       home.points += 1;
       away.points += 1;
+      formByTeam.get(match.home)?.push("D");
+      formByTeam.get(match.away)?.push("D");
     }
   }
 
   return [...table.values()]
     .filter((row) => row.played > 0)
+    .map((row) => {
+      const form = (formByTeam.get(row.teamId) ?? []).slice(-5);
+      return form.length > 0 ? { ...row, form } : row;
+    })
     .sort(
       (a, b) =>
         b.points - a.points ||
@@ -551,6 +628,67 @@ function writeFileAtomic(path: string, contents: string): void {
   // Último recurso: escritura directa (deja constancia del error si también falla).
   writeFileSync(path, contents, "utf8");
   void lastError;
+}
+
+export interface SeasonResultEntry {
+  id: string;
+  date: string;
+  startTime: string;
+  round: string | null;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  neutralSite: boolean;
+}
+
+export interface SeasonResultsFile {
+  schemaVersion: 1;
+  league: string;
+  season: string;
+  updatedAt: string;
+  matches: SeasonResultEntry[];
+}
+
+export function writeSeasonResultsFile(
+  snapshotsRoot: string,
+  params: {
+    league: string;
+    season: string;
+    updatedAt: string;
+    games: readonly GameDTO[];
+  },
+): string {
+  const dir = join(snapshotsRoot, params.league);
+  mkdirSync(dir, { recursive: true });
+  const deduped = new Map<string, SeasonResultEntry>();
+  for (const g of params.games) {
+    if (g.status !== "final" || !g.result) continue;
+    const date = g.startTime.slice(0, 10);
+    const key = `${date}|${g.home.id}|${g.away.id}`;
+    deduped.set(key, {
+      id: String(g.id),
+      date,
+      startTime: g.startTime,
+      round: g.round ?? (g.week ? `Jornada ${g.week}` : null),
+      homeTeam: String(g.home.id),
+      awayTeam: String(g.away.id),
+      homeScore: g.result.home,
+      awayScore: g.result.away,
+      neutralSite: Boolean(g.neutralSite),
+    });
+  }
+  const matches = [...deduped.values()].sort((a, b) => a.startTime.localeCompare(b.startTime));
+  const payload: SeasonResultsFile = {
+    schemaVersion: 1,
+    league: params.league,
+    season: params.season,
+    updatedAt: params.updatedAt,
+    matches,
+  };
+  const outPath = join(dir, "season-results.json");
+  writeFileAtomic(outPath, JSON.stringify(payload, null, 2) + "\n");
+  return outPath;
 }
 
 export function writeSnapshotFiles(

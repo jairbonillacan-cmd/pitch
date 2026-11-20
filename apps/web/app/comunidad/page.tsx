@@ -1,18 +1,11 @@
-import React from "react";
-import type { Metadata } from "next";
-import { hasPublicSessionCookie } from "../../src/server/public-session";
-import { ComunidadPageSurface } from "@pitchlab/ui/public-sections";
-import { loadComunidadViewProps } from "../../src/server/public-site-data";
+import { permanentRedirect } from "next/navigation";
+import { toQueryString } from "../../src/server/query-string";
 
-export const dynamic = "force-dynamic";
-
-export const metadata: Metadata = {
-  title: "Comunidad · PitchLab",
-  description:
-    "Comunidad de socios con récord verificado por PitchLab, tipsters oficiales y cómo aplicar.",
-};
-
-export default async function ComunidadPage(): Promise<React.JSX.Element> {
-  const [props, hasSession] = await Promise.all([loadComunidadViewProps(), hasPublicSessionCookie()]);
-  return <ComunidadPageSurface {...props} hasSession={hasSession} />;
+export default async function ComunidadRedirectPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<never> {
+  const qs = toQueryString(searchParams ? await searchParams : undefined);
+  permanentRedirect(`/${qs}`);
 }

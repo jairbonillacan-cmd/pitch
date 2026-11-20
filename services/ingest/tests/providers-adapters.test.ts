@@ -2,7 +2,12 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { toMatchRow as bzRow, type BzEvent } from "../src/providers/bzzoiro.js";
+import {
+  mapBzzoiroLeagueLogoUrl,
+  mapBzzoiroTeamLogoUrl,
+  toMatchRow as bzRow,
+  type BzEvent,
+} from "../src/providers/bzzoiro.js";
 import { readProviderConfigs } from "../src/providers/config.js";
 import {
   collectLeague,
@@ -132,6 +137,36 @@ describe("Bzzoiro", () => {
     const row = bzRow("liga-mx", BZ_EVENT, null, null);
     expect(row.stats).toBeNull();
     expect(row.lineups).toBeNull();
+    expect(row.home.logoUrl).toBe("https://sports.bzzoiro.com/img/team/318/?bg=transparent");
+    expect(row.away.logoUrl).toBe("https://sports.bzzoiro.com/img/team/320/?bg=transparent");
+  });
+
+  it("mapea logoUrl para equipos y ligas de Bzzoiro, rechaza hosts ajenos y omite ligas sin cobertura", () => {
+    expect(mapBzzoiroTeamLogoUrl("liga-mx", "queretaro")).toBe(
+      "https://sports.bzzoiro.com/img/team/309/?bg=transparent",
+    );
+    expect(
+      mapBzzoiroTeamLogoUrl("premier-league", "arsenal", {
+        providerTeamId: 100,
+        raw: { logo_url: "https://sports.bzzoiro.com/img/team/999/?bg=transparent" },
+      }),
+    ).toBe("https://sports.bzzoiro.com/img/team/999/?bg=transparent");
+    expect(
+      mapBzzoiroTeamLogoUrl("premier-league", "arsenal", {
+        providerTeamId: 100,
+        raw: { logo_url: "https://cdn.otro-host.example/team/999.png" },
+      }),
+    ).toBe("https://sports.bzzoiro.com/img/team/100/?bg=transparent");
+
+    expect(mapBzzoiroLeagueLogoUrl("liga-mx")).toBe(
+      "https://sports.bzzoiro.com/img/league/19/?bg=transparent",
+    );
+    expect(mapBzzoiroLeagueLogoUrl("nba")).toBe(
+      "https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent",
+    );
+    expect(mapBzzoiroTeamLogoUrl("nfl", "kansas-city-chiefs", { providerTeamId: 55 })).toBeUndefined();
+    expect(mapBzzoiroLeagueLogoUrl("nfl")).toBeUndefined();
+    expect(mapBzzoiroLeagueLogoUrl("nhl")).toBeUndefined();
   });
 });
 

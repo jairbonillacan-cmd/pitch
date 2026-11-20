@@ -10,6 +10,9 @@ import {
 } from "@pitchlab/contracts";
 import {
   AccountReferralsClubView,
+  resolveAccountTab,
+} from "../src/platform/club/AccountReferralsClubView";
+import {
   annualSavingsMxn,
   buildInviteShareMessage,
   buildPlatformDataset,
@@ -115,7 +118,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
         accountsEnabled={false}
         allowRoleSimulation={false}
       >
-        <AccountReferralsClubView />
+        <AccountReferralsClubView initialTab="referrals" />
       </PlatformProvider>,
     );
 
@@ -144,7 +147,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
         accountsEnabled={false}
         allowRoleSimulation={true}
       >
-        <AccountReferralsClubView />
+        <AccountReferralsClubView initialTab="referrals" />
       </PlatformProvider>,
     );
 
@@ -156,6 +159,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     const generatingHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
         <AccountReferralsClubView
+          initialTab="referrals"
           storyOverride={{
             accountsEnabled: true,
             invite: {
@@ -175,6 +179,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     const emptyRealHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
         <AccountReferralsClubView
+          initialTab="referrals"
           storyOverride={{
             accountsEnabled: true,
             profile: { handle: "carlos_mx", displayName: "Carlos M." },
@@ -326,6 +331,15 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(
       formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/Hermosillo"),
     ).toBe("18:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/New_York"),
+    ).toBe("20:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/Argentina/Buenos_Aires"),
+    ).toBe("22:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "Europe/Madrid"),
+    ).toBe("02:00");
 
     expect(formatUnitsAsMxn(6.4, 250)).toBe("+$1,600 MXN");
     expect(formatUnitsAsMxn(-2, 250)).toBe("−$500 MXN");
@@ -357,12 +371,19 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(prefsNoAccountsHtml).toContain("Juego responsable");
     expect(prefsNoAccountsHtml).toContain("PitchLab no sugiere cuánto apostar");
     expect(prefsNoAccountsHtml).toContain('data-example-badge=""');
-    expect(prefsNoAccountsHtml).toContain("Disponible cuando se activen las cuentas con correo.");
+    expect(prefsNoAccountsHtml).toContain("Disponible al iniciar sesión con correo");
+    expect(prefsNoAccountsHtml).toContain("Feedback e ideas");
+    expect(prefsNoAccountsHtml).toContain("Contactar con soporte");
+    expect(prefsNoAccountsHtml).toContain("Zona de peligro");
 
     expect(prefsNoAccountsHtml).not.toContain("Simulador de stake");
     expect(prefsNoAccountsHtml).not.toContain("Autoexclusión");
     expect(prefsNoAccountsHtml).not.toContain("Modo Pausa Social");
     expect(prefsNoAccountsHtml.toLowerCase()).not.toContain("sobrepaga");
+
+    expect(resolveAccountTab("prefs")).toBe("prefs");
+    expect(resolveAccountTab("preferencias")).toBe("prefs");
+    expect(resolveAccountTab("cfdi")).toBe("plan");
 
     const prefsWithAccountsPausedHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>

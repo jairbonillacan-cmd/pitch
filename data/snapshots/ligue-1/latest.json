@@ -4,7 +4,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-19T23:45:34.084Z",
+  "updatedAt": "2026-11-15T17:34:02.833Z",
   "source": "openfootball+espn",
   "provenance": "derived",
   "isDemo": false,
@@ -14,22 +14,22 @@
       "name": "Angers SCO",
       "shortName": "Angers",
       "code": "SCO",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 0.9449472793553674,
-      "adjustedAgainst": 1.4086910646556134
+      "forPerGame": 0.8571428571428571,
+      "againstPerGame": 1.2857142857142858,
+      "gamesPlayed": 7,
+      "adjustedFor": 0.8905223564682362,
+      "adjustedAgainst": 1.3383782480395414
     },
     "ligue-1.aj-auxerre": {
       "teamId": "ligue-1.aj-auxerre",
       "name": "AJ Auxerre",
       "shortName": "Auxerre",
       "code": "AJA",
-      "forPerGame": 1.1428571428571428,
-      "againstPerGame": 2.5714285714285716,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.2341409087785509,
-      "adjustedAgainst": 1.698065213004508
+      "forPerGame": 1.125,
+      "againstPerGame": 2.375,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.1959942331454694,
+      "adjustedAgainst": 1.6551797245007933
     },
     "ligue-1.stade-brestois": {
       "teamId": "ligue-1.stade-brestois",
@@ -39,30 +39,30 @@
       "forPerGame": 1.5714285714285714,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 1.4094196463804045,
-      "adjustedAgainst": 1.3972516700729063
+      "adjustedFor": 1.4020907062965497,
+      "adjustedAgainst": 1.3862838353134725
     },
     "ligue-1.le-havre": {
       "teamId": "ligue-1.le-havre",
       "name": "Le Havre AC",
       "shortName": "Le Havre",
       "code": "HAC",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.127579596374136,
-      "adjustedAgainst": 1.6476246259997525
+      "forPerGame": 1.1428571428571428,
+      "againstPerGame": 2.5714285714285716,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.2269210746174701,
+      "adjustedAgainst": 1.7315458134770805
     },
     "ligue-1.le-mans": {
       "teamId": "ligue-1.le-mans",
       "name": "Le Mans FC",
       "shortName": "Le Mans",
       "code": "LMFC",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 1.7142857142857142,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.3405150386965305,
-      "adjustedAgainst": 1.4889955113204227
+      "forPerGame": 1.375,
+      "againstPerGame": 1.625,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.3038461223138724,
+      "adjustedAgainst": 1.4542680087742506
     },
     "ligue-1.racing-lens": {
       "teamId": "ligue-1.racing-lens",
@@ -72,63 +72,63 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 7,
-      "adjustedFor": 1.624042917123139,
-      "adjustedAgainst": 1.26482956228128
+      "adjustedFor": 1.6060979367839332,
+      "adjustedAgainst": 1.2450792088092455
     },
     "ligue-1.lorient": {
       "teamId": "ligue-1.lorient",
       "name": "FC Lorient",
       "shortName": "Lorient",
       "code": "FCL",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.2963853113515094,
-      "adjustedAgainst": 1.368622869185437
+      "forPerGame": 1,
+      "againstPerGame": 1.1428571428571428,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.2292070099882932,
+      "adjustedAgainst": 1.3090012573310212
     },
     "ligue-1.lille-osc": {
       "teamId": "ligue-1.lille-osc",
       "name": "Lille OSC",
       "shortName": "Lille",
       "code": "LOSC",
-      "forPerGame": 1.5714285714285714,
-      "againstPerGame": 0.7142857142857143,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.482276210293506,
-      "adjustedAgainst": 0.9711433141320539
+      "forPerGame": 1.5,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.4725211087933774,
+      "adjustedAgainst": 0.9530522688129405
     },
     "ligue-1.olympique-lyonnais": {
       "teamId": "ligue-1.olympique-lyonnais",
       "name": "Olympique Lyonnais",
       "shortName": "Lyon",
       "code": "OL",
-      "forPerGame": 2,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.6433463251853864,
-      "adjustedAgainst": 1.1438221347367215
+      "forPerGame": 1.7142857142857142,
+      "againstPerGame": 0.8571428571428571,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.5861344260660628,
+      "adjustedAgainst": 1.1476420461836179
     },
     "ligue-1.olympique-marseille": {
       "teamId": "ligue-1.olympique-marseille",
       "name": "Olympique de Marseille",
       "shortName": "Marseille",
       "code": "OM",
-      "forPerGame": 1.5714285714285714,
-      "againstPerGame": 1.2857142857142858,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.6529825292189408,
-      "adjustedAgainst": 1.236615012181324
+      "forPerGame": 1.875,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.7094841886321375,
+      "adjustedAgainst": 1.3038305588056398
     },
     "ligue-1.monaco": {
       "teamId": "ligue-1.monaco",
       "name": "AS Monaco FC",
       "shortName": "Monaco",
       "code": "ASM",
-      "forPerGame": 1.4285714285714286,
+      "forPerGame": 1.375,
       "againstPerGame": 1,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.6170212849749872,
-      "adjustedAgainst": 1.252822345975324
+      "gamesPlayed": 8,
+      "adjustedFor": 1.5780974368737508,
+      "adjustedAgainst": 1.2190957162259466
     },
     "ligue-1.ogc-nice": {
       "teamId": "ligue-1.ogc-nice",
@@ -138,8 +138,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.395337722872498,
-      "adjustedAgainst": 1.5142598186170535
+      "adjustedFor": 1.3926430543574138,
+      "adjustedAgainst": 1.5014551342627733
     },
     "ligue-1.paris": {
       "teamId": "ligue-1.paris",
@@ -149,8 +149,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 0.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.698873775989154,
-      "adjustedAgainst": 1.2149011212800382
+      "adjustedFor": 1.678351278595899,
+      "adjustedAgainst": 1.2001984497937068
     },
     "ligue-1.paris-saint-germain": {
       "teamId": "ligue-1.paris-saint-germain",
@@ -158,54 +158,54 @@
       "shortName": "Paris SG",
       "code": "PSG",
       "forPerGame": 2,
-      "againstPerGame": 1.1428571428571428,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.9416521387278611,
-      "adjustedAgainst": 1.0203060602850542
+      "againstPerGame": 1,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.947415975074859,
+      "adjustedAgainst": 0.9510658683710991
     },
     "ligue-1.stade-rennais": {
       "teamId": "ligue-1.stade-rennais",
       "name": "Stade Rennais FC 1901",
       "shortName": "Rennes",
       "code": "SRFC",
-      "forPerGame": 1.5714285714285714,
-      "againstPerGame": 2.2857142857142856,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.7063803437662546,
-      "adjustedAgainst": 1.6844171068168916
+      "forPerGame": 1.75,
+      "againstPerGame": 2,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.7214613867992656,
+      "adjustedAgainst": 1.5816199251780767
     },
     "ligue-1.strasbourg-alsace": {
       "teamId": "ligue-1.strasbourg-alsace",
       "name": "RC Strasbourg Alsace",
       "shortName": "Strasbourg",
       "code": "RCSA",
-      "forPerGame": 2.2857142857142856,
-      "againstPerGame": 2,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.8954114933280104,
-      "adjustedAgainst": 1.5580459106153808
+      "forPerGame": 2,
+      "againstPerGame": 2.125,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.7995137528651322,
+      "adjustedAgainst": 1.5948881913190804
     },
     "ligue-1.toulouse": {
       "teamId": "ligue-1.toulouse",
       "name": "Toulouse FC",
       "shortName": "Toulouse",
       "code": "TFC",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 1.7142857142857142,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.443305888364868,
-      "adjustedAgainst": 1.4469524123690098
+      "forPerGame": 1.25,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.332857804583061,
+      "adjustedAgainst": 1.373576492481822
     },
     "ligue-1.es-troyes": {
       "teamId": "ligue-1.es-troyes",
       "name": "ES Troyes AC",
       "shortName": "Troyes",
       "code": "ESTAC",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.1986927500966358,
-      "adjustedAgainst": 1.5979330624031431
+      "forPerGame": 0.8571428571428571,
+      "againstPerGame": 1.7142857142857142,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.0813437860509347,
+      "adjustedAgainst": 1.4524925285025274
     }
   },
   "games": [
@@ -232,11 +232,12 @@
         "code": "STR"
       },
       "venue": "Francia",
+      "referee": "Mathieu Vernice",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -263,11 +264,12 @@
         "code": "PAR"
       },
       "venue": "Francia",
+      "referee": "Marc Bollengier",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -294,11 +296,12 @@
         "code": "EST"
       },
       "venue": "Francia",
+      "referee": "Ruddy Buquet",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -325,11 +328,12 @@
         "code": "LIL"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -356,11 +360,12 @@
         "code": "MON"
       },
       "venue": "Francia",
+      "referee": "Bastien Dechepy",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -387,11 +392,12 @@
         "code": "OLY"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -418,11 +424,12 @@
         "code": "LOR"
       },
       "venue": "Francia",
+      "referee": "Aurelien Petit",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -449,11 +456,12 @@
         "code": "OGC"
       },
       "venue": "Francia",
+      "referee": "Geoffrey Kubler",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -480,11 +488,12 @@
         "code": "OLY"
       },
       "venue": "Francia",
+      "referee": "Willy Delajod",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:38.290Z",
+        "observedAt": "2026-11-15T17:34:10.146Z",
         "source": "football-data"
       }
     },
@@ -511,6 +520,7 @@
         "code": "LEH"
       },
       "venue": "Francia",
+      "referee": "Jeremie Pignard",
       "neutralSite": false
     },
     {
@@ -536,6 +546,7 @@
         "code": "PAR"
       },
       "venue": "Francia",
+      "referee": "Jérôme Brisard",
       "neutralSite": false
     },
     {
@@ -561,6 +572,7 @@
         "code": "AJA"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false
     },
     {
@@ -586,6 +598,7 @@
         "code": "TOU"
       },
       "venue": "Francia",
+      "referee": "Bastien Dechepy",
       "neutralSite": false
     },
     {
@@ -611,6 +624,7 @@
         "code": "OLY"
       },
       "venue": "Francia",
+      "referee": "François Letexier",
       "neutralSite": false
     },
     {
@@ -636,6 +650,7 @@
         "code": "STA"
       },
       "venue": "Francia",
+      "referee": "Azzedine Souifi",
       "neutralSite": false
     },
     {
@@ -661,6 +676,7 @@
         "code": "ANG"
       },
       "venue": "Francia",
+      "referee": "Aurelien Petit",
       "neutralSite": false
     },
     {
@@ -686,6 +702,7 @@
         "code": "STA"
       },
       "venue": "Francia",
+      "referee": "Marc Bollengier",
       "neutralSite": false
     },
     {
@@ -711,6 +728,7 @@
         "code": "LEM"
       },
       "venue": "Francia",
+      "referee": "Eric Wattellier",
       "neutralSite": false
     }
   ],
@@ -1182,6 +1200,17 @@
           "home": 5,
           "away": 5
         }
+      },
+      "matchContext": {
+        "referee": "Mathieu Vernice",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 4.73,
+          "avgRed": 0.23,
+          "avgFouls": 27.3,
+          "avgGoals": 2.45
+        }
       }
     },
     "ligue-1-2026-27-md10-aj-auxerre-paris": {
@@ -1622,6 +1651,17 @@
         "restDays": {
           "home": 6,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Marc Bollengier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 41,
+          "avgYellow": 3.98,
+          "avgRed": 0.24,
+          "avgFouls": 28,
+          "avgGoals": 2.76
         }
       }
     },
@@ -2092,6 +2132,17 @@
           "home": 8,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Ruddy Buquet",
+        "refereeStats": {
+          "country": "France",
+          "matches": 36,
+          "avgYellow": 3.5,
+          "avgRed": 0.17,
+          "avgFouls": 23.2,
+          "avgGoals": 2.64
+        }
       }
     },
     "ligue-1-2026-27-md10-stade-rennais-lille-osc": {
@@ -2561,6 +2612,17 @@
           "home": 9,
           "away": 9
         }
+      },
+      "matchContext": {
+        "referee": "Jeremy Stinat",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 3.75,
+          "avgRed": 0.27,
+          "avgFouls": 23.3,
+          "avgGoals": 3.16
+        }
       }
     },
     "ligue-1-2026-27-md10-le-mans-monaco": {
@@ -2992,6 +3054,17 @@
         "restDays": {
           "home": 8,
           "away": 7
+        }
+      },
+      "matchContext": {
+        "referee": "Bastien Dechepy",
+        "refereeStats": {
+          "country": "France",
+          "matches": 43,
+          "avgYellow": 4.42,
+          "avgRed": 0.28,
+          "avgFouls": 25,
+          "avgGoals": 3.02
         }
       }
     },
@@ -3462,6 +3535,17 @@
           "home": 6,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Jeremy Stinat",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 3.75,
+          "avgRed": 0.27,
+          "avgFouls": 23.3,
+          "avgGoals": 3.16
+        }
       }
     },
     "ligue-1-2026-27-md10-le-havre-lorient": {
@@ -3923,6 +4007,17 @@
         "restDays": {
           "home": 9,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Aurelien Petit",
+        "refereeStats": {
+          "country": "France",
+          "matches": 40,
+          "avgYellow": 3.95,
+          "avgRed": 0.23,
+          "avgFouls": 27.2,
+          "avgGoals": 2.48
         }
       }
     },
@@ -4393,6 +4488,17 @@
           "home": 7,
           "away": 9
         }
+      },
+      "matchContext": {
+        "referee": "Geoffrey Kubler",
+        "refereeStats": {
+          "country": "French Guiana",
+          "matches": 39,
+          "avgYellow": 4.08,
+          "avgRed": 0.18,
+          "avgFouls": 26.7,
+          "avgGoals": 2.38
+        }
       }
     },
     "ligue-1-2026-27-md10-racing-lens-olympique-marseille": {
@@ -4862,10 +4968,56 @@
           "home": 9,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Willy Delajod",
+        "refereeStats": {
+          "country": "France",
+          "matches": 60,
+          "avgYellow": 3.28,
+          "avgRed": 0.17,
+          "avgFouls": 22.8,
+          "avgGoals": 2.8
+        }
       }
     },
     "ligue-1-2026-27-md11-es-troyes-le-havre": {
       "game": "ligue-1-2026-27-md11-es-troyes-le-havre",
+      "counts": {
+        "corners": {
+          "home": 4.88,
+          "away": 4.3,
+          "total": 9.19,
+          "line": 8.5,
+          "pOver": 0.5458,
+          "sample": {
+            "home": 200,
+            "away": 112
+          }
+        },
+        "fouls": {
+          "home": 13.93,
+          "away": 13.94,
+          "total": 27.86,
+          "line": 27.5,
+          "pOver": 0.512,
+          "sample": {
+            "home": 200,
+            "away": 112
+          }
+        },
+        "yellow": {
+          "home": 1.61,
+          "away": 1.78,
+          "total": 3.39,
+          "line": 3.5,
+          "pOver": 0.4397,
+          "sample": {
+            "home": 200,
+            "away": 112
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -5012,6 +5164,48 @@
           "selection": "2–2",
           "p": 0.07923921987938498,
           "fairOdds": 12.620013189455463
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5458,
+          "fairOdds": 1.832172957127153
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.45420000000000005,
+          "fairOdds": 2.2016732716864813
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 27.5",
+          "line": 27.5,
+          "p": 0.512,
+          "fairOdds": 1.953125
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 27.5",
+          "line": 27.5,
+          "p": 0.488,
+          "fairOdds": 2.0491803278688523
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4397,
+          "fairOdds": 2.274277916761428
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5603,
+          "fairOdds": 1.784758165268606
         }
       ],
       "marketGroups": [
@@ -5193,6 +5387,69 @@
               "fairOdds": 12.620013189455463
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5458,
+              "fairOdds": 1.832172957127153
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.45420000000000005,
+              "fairOdds": 2.2016732716864813
+            }
+          ]
+        },
+        {
+          "group": "Faltas 27.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 27.5",
+              "line": 27.5,
+              "p": 0.512,
+              "fairOdds": 1.953125
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 27.5",
+              "line": 27.5,
+              "p": 0.488,
+              "fairOdds": 2.0491803278688523
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4397,
+              "fairOdds": 2.274277916761428
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5603,
+              "fairOdds": 1.784758165268606
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5266,6 +5523,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 38% / 29% / 33% · temporada 37% / 22% / 41%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.2 tiros de esquina esperados",
+          "detail": "ES Troyes AC 4.9 · Le Havre AC 4.3"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "27.9 faltas esperados",
+          "detail": "ES Troyes AC 13.9 · Le Havre AC 13.9"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.4 amarillas esperados",
+          "detail": "ES Troyes AC 1.6 · Le Havre AC 1.8"
         }
       ],
       "steps": [
@@ -5328,10 +5603,56 @@
           "Le Havre AC anota 15 % menos que la media."
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Jeremie Pignard",
+        "refereeStats": {
+          "country": "France",
+          "matches": 52,
+          "avgYellow": 4.1,
+          "avgRed": 0.23,
+          "avgFouls": 21.9,
+          "avgGoals": 2.98
+        }
+      }
     },
     "ligue-1-2026-27-md11-ogc-nice-paris-saint-germain": {
       "game": "ligue-1-2026-27-md11-ogc-nice-paris-saint-germain",
+      "counts": {
+        "corners": {
+          "home": 4.34,
+          "away": 4.94,
+          "total": 9.27,
+          "line": 8.5,
+          "pOver": 0.5556,
+          "sample": {
+            "home": 596,
+            "away": 595
+          }
+        },
+        "fouls": {
+          "home": 9.86,
+          "away": 7.65,
+          "total": 17.51,
+          "line": 17.5,
+          "pOver": 0.484,
+          "sample": {
+            "home": 596,
+            "away": 595
+          }
+        },
+        "yellow": {
+          "home": 1.64,
+          "away": 1.5,
+          "total": 3.14,
+          "line": 2.5,
+          "pOver": 0.6064,
+          "sample": {
+            "home": 596,
+            "away": 595
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -5478,6 +5799,48 @@
           "selection": "0–1",
           "p": 0.09289730094696849,
           "fairOdds": 10.764575394616273
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5556,
+          "fairOdds": 1.7998560115190785
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.4444,
+          "fairOdds": 2.25022502250225
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 17.5",
+          "line": 17.5,
+          "p": 0.484,
+          "fairOdds": 2.066115702479339
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 17.5",
+          "line": 17.5,
+          "p": 0.516,
+          "fairOdds": 1.937984496124031
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6064,
+          "fairOdds": 1.6490765171503956
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.39359999999999995,
+          "fairOdds": 2.5406504065040654
         }
       ],
       "marketGroups": [
@@ -5659,6 +6022,69 @@
               "fairOdds": 10.764575394616273
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5556,
+              "fairOdds": 1.7998560115190785
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.4444,
+              "fairOdds": 2.25022502250225
+            }
+          ]
+        },
+        {
+          "group": "Faltas 17.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 17.5",
+              "line": 17.5,
+              "p": 0.484,
+              "fairOdds": 2.066115702479339
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 17.5",
+              "line": 17.5,
+              "p": 0.516,
+              "fairOdds": 1.937984496124031
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 2.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6064,
+              "fairOdds": 1.6490765171503956
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.39359999999999995,
+              "fairOdds": 2.5406504065040654
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5732,6 +6158,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 16% / 21% / 63% · temporada 20% / 20% / 61%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.3 tiros de esquina esperados",
+          "detail": "OGC Nice 4.3 · Paris Saint-Germain FC 4.9"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "17.5 faltas esperados",
+          "detail": "OGC Nice 9.9 · Paris Saint-Germain FC 7.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.1 amarillas esperados",
+          "detail": "OGC Nice 1.6 · Paris Saint-Germain FC 1.5"
         }
       ],
       "steps": [
@@ -5831,10 +6275,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Jérôme Brisard",
+        "refereeStats": {
+          "country": "France",
+          "matches": 58,
+          "avgYellow": 4.24,
+          "avgRed": 0.34,
+          "avgFouls": 23.4,
+          "avgGoals": 2.95
+        }
+      }
     },
     "ligue-1-2026-27-md11-monaco-aj-auxerre": {
       "game": "ligue-1-2026-27-md11-monaco-aj-auxerre",
+      "counts": {
+        "corners": {
+          "home": 5.76,
+          "away": 3.92,
+          "total": 9.68,
+          "line": 9.5,
+          "pOver": 0.4869,
+          "sample": {
+            "home": 520,
+            "away": 192
+          }
+        },
+        "fouls": {
+          "home": 12.22,
+          "away": 14.27,
+          "total": 26.48,
+          "line": 26.5,
+          "pOver": 0.484,
+          "sample": {
+            "home": 520,
+            "away": 192
+          }
+        },
+        "yellow": {
+          "home": 1.81,
+          "away": 1.86,
+          "total": 3.67,
+          "line": 3.5,
+          "pOver": 0.5,
+          "sample": {
+            "home": 520,
+            "away": 192
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -5981,6 +6471,48 @@
           "selection": "1–1",
           "p": 0.08105179241866509,
           "fairOdds": 12.337790074210798
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4869,
+          "fairOdds": 2.0538098172109263
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5131,
+          "fairOdds": 1.9489378288832586
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 26.5",
+          "line": 26.5,
+          "p": 0.484,
+          "fairOdds": 2.066115702479339
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 26.5",
+          "line": 26.5,
+          "p": 0.516,
+          "fairOdds": 1.937984496124031
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5,
+          "fairOdds": 2
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5,
+          "fairOdds": 2
         }
       ],
       "marketGroups": [
@@ -6162,6 +6694,69 @@
               "fairOdds": 12.337790074210798
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4869,
+              "fairOdds": 2.0538098172109263
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5131,
+              "fairOdds": 1.9489378288832586
+            }
+          ]
+        },
+        {
+          "group": "Faltas 26.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 26.5",
+              "line": 26.5,
+              "p": 0.484,
+              "fairOdds": 2.066115702479339
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 26.5",
+              "line": 26.5,
+              "p": 0.516,
+              "fairOdds": 1.937984496124031
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5,
+              "fairOdds": 2
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5,
+              "fairOdds": 2
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6235,6 +6830,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 68% / 19% / 13% · temporada 65% / 18% / 17%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.7 tiros de esquina esperados",
+          "detail": "AS Monaco FC 5.8 · AJ Auxerre 3.9"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "26.5 faltas esperados",
+          "detail": "AS Monaco FC 12.2 · AJ Auxerre 14.3"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.7 amarillas esperados",
+          "detail": "AS Monaco FC 1.8 · AJ Auxerre 1.9"
         }
       ],
       "steps": [
@@ -6335,10 +6948,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Jeremy Stinat",
+        "refereeStats": {
+          "country": "France",
+          "matches": 44,
+          "avgYellow": 3.75,
+          "avgRed": 0.27,
+          "avgFouls": 23.3,
+          "avgGoals": 3.16
+        }
+      }
     },
     "ligue-1-2026-27-md11-racing-lens-toulouse": {
       "game": "ligue-1-2026-27-md11-racing-lens-toulouse",
+      "counts": {
+        "corners": {
+          "home": 5.62,
+          "away": 3.7,
+          "total": 9.32,
+          "line": 9.5,
+          "pOver": 0.4474,
+          "sample": {
+            "home": 302,
+            "away": 520
+          }
+        },
+        "fouls": {
+          "home": 12.53,
+          "away": 14.2,
+          "total": 26.73,
+          "line": 26.5,
+          "pOver": 0.5023,
+          "sample": {
+            "home": 302,
+            "away": 520
+          }
+        },
+        "yellow": {
+          "home": 1.77,
+          "away": 1.96,
+          "total": 3.73,
+          "line": 3.5,
+          "pOver": 0.5121,
+          "sample": {
+            "home": 302,
+            "away": 520
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -6485,6 +7144,48 @@
           "selection": "2–0",
           "p": 0.07480945668433629,
           "fairOdds": 13.367293980219234
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4474,
+          "fairOdds": 2.235136343316942
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5526,
+          "fairOdds": 1.8096272167933407
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 26.5",
+          "line": 26.5,
+          "p": 0.5023,
+          "fairOdds": 1.990842126219391
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 26.5",
+          "line": 26.5,
+          "p": 0.49770000000000003,
+          "fairOdds": 2.0092425155716294
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5121,
+          "fairOdds": 1.9527436047646944
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4879,
+          "fairOdds": 2.0496003279360524
         }
       ],
       "marketGroups": [
@@ -6666,6 +7367,69 @@
               "fairOdds": 13.367293980219234
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4474,
+              "fairOdds": 2.235136343316942
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5526,
+              "fairOdds": 1.8096272167933407
+            }
+          ]
+        },
+        {
+          "group": "Faltas 26.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 26.5",
+              "line": 26.5,
+              "p": 0.5023,
+              "fairOdds": 1.990842126219391
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 26.5",
+              "line": 26.5,
+              "p": 0.49770000000000003,
+              "fairOdds": 2.0092425155716294
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5121,
+              "fairOdds": 1.9527436047646944
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4879,
+              "fairOdds": 2.0496003279360524
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6739,6 +7503,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 60% / 22% / 18% · temporada 59% / 19% / 22%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.3 tiros de esquina esperados",
+          "detail": "Racing Club de Lens 5.6 · Toulouse FC 3.7"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "26.7 faltas esperados",
+          "detail": "Racing Club de Lens 12.5 · Toulouse FC 14.2"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.7 amarillas esperados",
+          "detail": "Racing Club de Lens 1.8 · Toulouse FC 2.0"
         }
       ],
       "steps": [
@@ -6839,10 +7621,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Bastien Dechepy",
+        "refereeStats": {
+          "country": "France",
+          "matches": 43,
+          "avgYellow": 4.42,
+          "avgRed": 0.28,
+          "avgFouls": 25,
+          "avgGoals": 3.02
+        }
+      }
     },
     "ligue-1-2026-27-md11-lille-osc-olympique-lyonnais": {
       "game": "ligue-1-2026-27-md11-lille-osc-olympique-lyonnais",
+      "counts": {
+        "corners": {
+          "home": 5.42,
+          "away": 4.21,
+          "total": 9.64,
+          "line": 9.5,
+          "pOver": 0.4826,
+          "sample": {
+            "home": 596,
+            "away": 595
+          }
+        },
+        "fouls": {
+          "home": 12.05,
+          "away": 13.54,
+          "total": 25.59,
+          "line": 25.5,
+          "pOver": 0.4922,
+          "sample": {
+            "home": 596,
+            "away": 594
+          }
+        },
+        "yellow": {
+          "home": 1.93,
+          "away": 1.71,
+          "total": 3.64,
+          "line": 3.5,
+          "pOver": 0.493,
+          "sample": {
+            "home": 596,
+            "away": 595
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -6989,6 +7817,48 @@
           "selection": "2–1",
           "p": 0.09236614232630833,
           "fairOdds": 10.82647791511342
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4826,
+          "fairOdds": 2.0721094073767095
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5174000000000001,
+          "fairOdds": 1.9327406262079625
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4922,
+          "fairOdds": 2.031694433157253
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5078,
+          "fairOdds": 1.9692792437967703
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.493,
+          "fairOdds": 2.028397565922921
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.507,
+          "fairOdds": 1.9723865877712032
         }
       ],
       "marketGroups": [
@@ -7170,6 +8040,69 @@
               "fairOdds": 10.82647791511342
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4826,
+              "fairOdds": 2.0721094073767095
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5174000000000001,
+              "fairOdds": 1.9327406262079625
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4922,
+              "fairOdds": 2.031694433157253
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5078,
+              "fairOdds": 1.9692792437967703
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.493,
+              "fairOdds": 2.028397565922921
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.507,
+              "fairOdds": 1.9723865877712032
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7243,6 +8176,24 @@
           "label": "Memoria larga",
           "value": "+2 pts al local",
           "detail": "historia 46% / 27% / 27% · temporada 41% / 24% / 35%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.6 tiros de esquina esperados",
+          "detail": "Lille OSC 5.4 · Olympique Lyonnais 4.2"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.6 faltas esperados",
+          "detail": "Lille OSC 12.1 · Olympique Lyonnais 13.5"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.6 amarillas esperados",
+          "detail": "Lille OSC 1.9 · Olympique Lyonnais 1.7"
         }
       ],
       "steps": [
@@ -7341,10 +8292,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "François Letexier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 76,
+          "avgYellow": 4.08,
+          "avgRed": 0.3,
+          "avgFouls": 21.8,
+          "avgGoals": 3.05
+        }
+      }
     },
     "ligue-1-2026-27-md11-strasbourg-alsace-stade-brestois": {
       "game": "ligue-1-2026-27-md11-strasbourg-alsace-stade-brestois",
+      "counts": {
+        "corners": {
+          "home": 4.9,
+          "away": 3.83,
+          "total": 8.73,
+          "line": 8.5,
+          "pOver": 0.4941,
+          "sample": {
+            "home": 329,
+            "away": 368
+          }
+        },
+        "fouls": {
+          "home": 12.45,
+          "away": 12.71,
+          "total": 25.16,
+          "line": 24.5,
+          "pOver": 0.536,
+          "sample": {
+            "home": 329,
+            "away": 368
+          }
+        },
+        "yellow": {
+          "home": 1.64,
+          "away": 1.78,
+          "total": 3.41,
+          "line": 3.5,
+          "pOver": 0.4441,
+          "sample": {
+            "home": 329,
+            "away": 368
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -7491,6 +8488,48 @@
           "selection": "2–2",
           "p": 0.07203853490765116,
           "fairOdds": 13.881459433925698
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.4941,
+          "fairOdds": 2.0238818053025702
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.5059,
+          "fairOdds": 1.9766752322593397
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.536,
+          "fairOdds": 1.8656716417910446
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.46399999999999997,
+          "fairOdds": 2.1551724137931036
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4441,
+          "fairOdds": 2.2517451024544024
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5559000000000001,
+          "fairOdds": 1.7988846914912753
         }
       ],
       "marketGroups": [
@@ -7672,6 +8711,69 @@
               "fairOdds": 13.881459433925698
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.4941,
+              "fairOdds": 2.0238818053025702
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.5059,
+              "fairOdds": 1.9766752322593397
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.536,
+              "fairOdds": 1.8656716417910446
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.46399999999999997,
+              "fairOdds": 2.1551724137931036
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4441,
+              "fairOdds": 2.2517451024544024
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5559000000000001,
+              "fairOdds": 1.7988846914912753
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7745,6 +8847,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 59% / 23% / 19% · temporada 59% / 18% / 23%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "8.7 tiros de esquina esperados",
+          "detail": "RC Strasbourg Alsace 4.9 · Stade Brestois 29 3.8"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.2 faltas esperados",
+          "detail": "RC Strasbourg Alsace 12.4 · Stade Brestois 29 12.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.4 amarillas esperados",
+          "detail": "RC Strasbourg Alsace 1.6 · Stade Brestois 29 1.8"
         }
       ],
       "steps": [
@@ -7844,10 +8964,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Azzedine Souifi",
+        "refereeStats": {
+          "country": "France",
+          "matches": 25,
+          "avgYellow": 3.88,
+          "avgRed": 0.16,
+          "avgFouls": 30.7,
+          "avgGoals": 2.48
+        }
+      }
     },
     "ligue-1-2026-27-md11-paris-angers-sco": {
       "game": "ligue-1-2026-27-md11-paris-angers-sco",
+      "counts": {
+        "corners": {
+          "home": 5.09,
+          "away": 4.02,
+          "total": 9.11,
+          "line": 8.5,
+          "pOver": 0.5375,
+          "sample": {
+            "home": 44,
+            "away": 372
+          }
+        },
+        "fouls": {
+          "home": 12.08,
+          "away": 11.18,
+          "total": 23.26,
+          "line": 23.5,
+          "pOver": 0.4657,
+          "sample": {
+            "home": 44,
+            "away": 372
+          }
+        },
+        "yellow": {
+          "home": 1.62,
+          "away": 1.71,
+          "total": 3.33,
+          "line": 3.5,
+          "pOver": 0.4254,
+          "sample": {
+            "home": 44,
+            "away": 372
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -7994,6 +9160,48 @@
           "selection": "2–0",
           "p": 0.1004290951567056,
           "fairOdds": 9.957273820297189
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5375,
+          "fairOdds": 1.8604651162790697
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.4625,
+          "fairOdds": 2.162162162162162
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.4657,
+          "fairOdds": 2.1473051320592655
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.5343,
+          "fairOdds": 1.8716077110237694
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4254,
+          "fairOdds": 2.3507287259050305
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5746,
+          "fairOdds": 1.7403411068569439
         }
       ],
       "marketGroups": [
@@ -8175,6 +9383,69 @@
               "fairOdds": 9.957273820297189
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5375,
+              "fairOdds": 1.8604651162790697
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.4625,
+              "fairOdds": 2.162162162162162
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.4657,
+              "fairOdds": 2.1473051320592655
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.5343,
+              "fairOdds": 1.8716077110237694
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4254,
+              "fairOdds": 2.3507287259050305
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5746,
+              "fairOdds": 1.7403411068569439
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8248,6 +9519,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 63% / 21% / 16% · temporada 61% / 20% / 19%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.1 tiros de esquina esperados",
+          "detail": "Paris FC 5.1 · Angers SCO 4.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "23.3 faltas esperados",
+          "detail": "Paris FC 12.1 · Angers SCO 11.2"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.3 amarillas esperados",
+          "detail": "Paris FC 1.6 · Angers SCO 1.7"
         }
       ],
       "steps": [
@@ -8318,10 +9607,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Aurelien Petit",
+        "refereeStats": {
+          "country": "France",
+          "matches": 40,
+          "avgYellow": 3.95,
+          "avgRed": 0.23,
+          "avgFouls": 27.2,
+          "avgGoals": 2.48
+        }
+      }
     },
     "ligue-1-2026-27-md11-lorient-stade-rennais": {
       "game": "ligue-1-2026-27-md11-lorient-stade-rennais",
+      "counts": {
+        "corners": {
+          "home": 4.39,
+          "away": 5.12,
+          "total": 9.51,
+          "line": 9.5,
+          "pOver": 0.4691,
+          "sample": {
+            "home": 458,
+            "away": 596
+          }
+        },
+        "fouls": {
+          "home": 10.63,
+          "away": 13.8,
+          "total": 24.42,
+          "line": 24.5,
+          "pOver": 0.4789,
+          "sample": {
+            "home": 458,
+            "away": 596
+          }
+        },
+        "yellow": {
+          "home": 1.74,
+          "away": 2.03,
+          "total": 3.77,
+          "line": 3.5,
+          "pOver": 0.5194,
+          "sample": {
+            "home": 458,
+            "away": 596
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -8468,6 +9803,48 @@
           "selection": "2–2",
           "p": 0.08088989635787336,
           "fairOdds": 12.362483388231784
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4691,
+          "fairOdds": 2.131741632914091
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5308999999999999,
+          "fairOdds": 1.8835938971557735
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4789,
+          "fairOdds": 2.088118605136772
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5211,
+          "fairOdds": 1.9190174630589139
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5194,
+          "fairOdds": 1.9252984212552946
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4806,
+          "fairOdds": 2.0807324178110695
         }
       ],
       "marketGroups": [
@@ -8649,6 +10026,69 @@
               "fairOdds": 12.362483388231784
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4691,
+              "fairOdds": 2.131741632914091
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5308999999999999,
+              "fairOdds": 1.8835938971557735
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4789,
+              "fairOdds": 2.088118605136772
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5211,
+              "fairOdds": 1.9190174630589139
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5194,
+              "fairOdds": 1.9252984212552946
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4806,
+              "fairOdds": 2.0807324178110695
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8722,6 +10162,24 @@
           "label": "Memoria larga",
           "value": "−5 pts al local",
           "detail": "historia 31% / 28% / 41% · temporada 41% / 22% / 38%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.5 tiros de esquina esperados",
+          "detail": "FC Lorient 4.4 · Stade Rennais FC 1901 5.1"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.4 faltas esperados",
+          "detail": "FC Lorient 10.6 · Stade Rennais FC 1901 13.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.8 amarillas esperados",
+          "detail": "FC Lorient 1.7 · Stade Rennais FC 1901 2.0"
         }
       ],
       "steps": [
@@ -8821,10 +10279,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Marc Bollengier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 41,
+          "avgYellow": 3.98,
+          "avgRed": 0.24,
+          "avgFouls": 28,
+          "avgGoals": 2.76
+        }
+      }
     },
     "ligue-1-2026-27-md11-olympique-marseille-le-mans": {
       "game": "ligue-1-2026-27-md11-olympique-marseille-le-mans",
+      "counts": {
+        "corners": {
+          "home": 5.59,
+          "away": 3.5,
+          "total": 9.09,
+          "line": 8.5,
+          "pOver": 0.5339,
+          "sample": {
+            "home": 596,
+            "away": 10
+          }
+        },
+        "fouls": {
+          "home": 11.63,
+          "away": 12.97,
+          "total": 24.59,
+          "line": 24.5,
+          "pOver": 0.4921,
+          "sample": {
+            "home": 595,
+            "away": 10
+          }
+        },
+        "yellow": {
+          "home": 1.75,
+          "away": 1.98,
+          "total": 3.74,
+          "line": 3.5,
+          "pOver": 0.5132,
+          "sample": {
+            "home": 596,
+            "away": 10
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-ligue-1",
         "version": "2.0.0",
@@ -8971,6 +10475,48 @@
           "selection": "2–2",
           "p": 0.07199539621404756,
           "fairOdds": 13.889777021671318
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5339,
+          "fairOdds": 1.8730099269526128
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.46609999999999996,
+          "fairOdds": 2.145462347135808
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4921,
+          "fairOdds": 2.03210729526519
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5079,
+          "fairOdds": 1.9688915140775742
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5132,
+          "fairOdds": 1.9485580670303975
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4868,
+          "fairOdds": 2.0542317173377156
         }
       ],
       "marketGroups": [
@@ -9152,6 +10698,69 @@
               "fairOdds": 13.889777021671318
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5339,
+              "fairOdds": 1.8730099269526128
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.46609999999999996,
+              "fairOdds": 2.145462347135808
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4921,
+              "fairOdds": 2.03210729526519
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5079,
+              "fairOdds": 1.9688915140775742
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5132,
+              "fairOdds": 1.9485580670303975
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4868,
+              "fairOdds": 2.0542317173377156
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -9225,6 +10834,24 @@
           "label": "Memoria larga",
           "value": "+2 pts al local",
           "detail": "historia 58% / 23% / 19% · temporada 54% / 20% / 27%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.1 tiros de esquina esperados",
+          "detail": "Olympique de Marseille 5.6 · Le Mans FC 3.5"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.6 faltas esperados",
+          "detail": "Olympique de Marseille 11.6 · Le Mans FC 13.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.7 amarillas esperados",
+          "detail": "Olympique de Marseille 1.8 · Le Mans FC 2.0"
         }
       ],
       "steps": [
@@ -9285,22 +10912,60 @@
           "Le Mans FC anota 10 % más que la media."
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Eric Wattellier",
+        "refereeStats": {
+          "country": "France",
+          "matches": 47,
+          "avgYellow": 3.21,
+          "avgRed": 0.23,
+          "avgFouls": 20.3,
+          "avgGoals": 3.38
+        }
+      }
     }
   },
   "standings": [
+    {
+      "teamId": "ligue-1.paris-saint-germain",
+      "name": "Paris Saint-Germain FC",
+      "shortName": "Paris SG",
+      "code": "PSG",
+      "played": 8,
+      "won": 5,
+      "drawn": 2,
+      "lost": 1,
+      "goalsFor": 16,
+      "goalsAgainst": 8,
+      "points": 17,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ]
+    },
     {
       "teamId": "ligue-1.lille-osc",
       "name": "Lille OSC",
       "shortName": "Lille",
       "code": "LOSC",
-      "played": 7,
+      "played": 8,
       "won": 5,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 1,
-      "goalsFor": 11,
-      "goalsAgainst": 5,
-      "points": 16
+      "goalsFor": 12,
+      "goalsAgainst": 6,
+      "points": 17,
+      "form": [
+        "W",
+        "D",
+        "D",
+        "W",
+        "W"
+      ]
     },
     {
       "teamId": "ligue-1.paris",
@@ -9313,46 +10978,94 @@
       "lost": 0,
       "goalsFor": 12,
       "goalsAgainst": 4,
-      "points": 15
-    },
-    {
-      "teamId": "ligue-1.paris-saint-germain",
-      "name": "Paris Saint-Germain FC",
-      "shortName": "Paris SG",
-      "code": "PSG",
-      "played": 7,
-      "won": 4,
-      "drawn": 2,
-      "lost": 1,
-      "goalsFor": 14,
-      "goalsAgainst": 8,
-      "points": 14
+      "points": 15,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "W",
+        "W"
+      ]
     },
     {
       "teamId": "ligue-1.monaco",
       "name": "AS Monaco FC",
       "shortName": "Monaco",
       "code": "ASM",
-      "played": 7,
+      "played": 8,
       "won": 4,
-      "drawn": 2,
+      "drawn": 3,
       "lost": 1,
-      "goalsFor": 10,
-      "goalsAgainst": 7,
-      "points": 14
+      "goalsFor": 11,
+      "goalsAgainst": 8,
+      "points": 15,
+      "form": [
+        "D",
+        "L",
+        "D",
+        "L",
+        "D"
+      ]
     },
     {
       "teamId": "ligue-1.olympique-lyonnais",
       "name": "Olympique Lyonnais",
       "shortName": "Lyon",
       "code": "OL",
-      "played": 6,
+      "played": 7,
       "won": 4,
       "drawn": 1,
-      "lost": 1,
+      "lost": 2,
       "goalsFor": 12,
-      "goalsAgainst": 4,
-      "points": 13
+      "goalsAgainst": 6,
+      "points": 13,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "ligue-1.stade-rennais",
+      "name": "Stade Rennais FC 1901",
+      "shortName": "Rennes",
+      "code": "SRFC",
+      "played": 8,
+      "won": 4,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 14,
+      "goalsAgainst": 16,
+      "points": 13,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "teamId": "ligue-1.olympique-marseille",
+      "name": "Olympique de Marseille",
+      "shortName": "Marseille",
+      "code": "OM",
+      "played": 8,
+      "won": 4,
+      "drawn": 0,
+      "lost": 4,
+      "goalsFor": 15,
+      "goalsAgainst": 12,
+      "points": 12,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ]
     },
     {
       "teamId": "ligue-1.stade-brestois",
@@ -9365,20 +11078,14 @@
       "lost": 2,
       "goalsFor": 11,
       "goalsAgainst": 8,
-      "points": 11
-    },
-    {
-      "teamId": "ligue-1.strasbourg-alsace",
-      "name": "RC Strasbourg Alsace",
-      "shortName": "Strasbourg",
-      "code": "RCSA",
-      "played": 7,
-      "won": 3,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 16,
-      "goalsAgainst": 14,
-      "points": 10
+      "points": 11,
+      "form": [
+        "W",
+        "D",
+        "L",
+        "W",
+        "W"
+      ]
     },
     {
       "teamId": "ligue-1.ogc-nice",
@@ -9391,111 +11098,154 @@
       "lost": 2,
       "goalsFor": 10,
       "goalsAgainst": 8,
-      "points": 10
+      "points": 10,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "W",
+        "W"
+      ]
     },
     {
-      "teamId": "ligue-1.stade-rennais",
-      "name": "Stade Rennais FC 1901",
-      "shortName": "Rennes",
-      "code": "SRFC",
-      "played": 7,
+      "teamId": "ligue-1.strasbourg-alsace",
+      "name": "RC Strasbourg Alsace",
+      "shortName": "Strasbourg",
+      "code": "RCSA",
+      "played": 8,
       "won": 3,
       "drawn": 1,
-      "lost": 3,
-      "goalsFor": 11,
-      "goalsAgainst": 16,
-      "points": 10
-    },
-    {
-      "teamId": "ligue-1.olympique-marseille",
-      "name": "Olympique de Marseille",
-      "shortName": "Marseille",
-      "code": "OM",
-      "played": 7,
-      "won": 3,
-      "drawn": 0,
       "lost": 4,
-      "goalsFor": 11,
-      "goalsAgainst": 9,
-      "points": 9
+      "goalsFor": 16,
+      "goalsAgainst": 17,
+      "points": 10,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "L"
+      ]
     },
     {
       "teamId": "ligue-1.toulouse",
       "name": "Toulouse FC",
       "shortName": "Toulouse",
       "code": "TFC",
-      "played": 7,
+      "played": 8,
       "won": 2,
-      "drawn": 2,
+      "drawn": 3,
       "lost": 3,
       "goalsFor": 10,
       "goalsAgainst": 12,
-      "points": 8
+      "points": 9,
+      "form": [
+        "D",
+        "W",
+        "D",
+        "L",
+        "W"
+      ]
     },
     {
       "teamId": "ligue-1.lorient",
       "name": "FC Lorient",
       "shortName": "Lorient",
       "code": "FCL",
-      "played": 6,
+      "played": 7,
       "won": 2,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 3,
       "goalsFor": 7,
       "goalsAgainst": 8,
-      "points": 7
+      "points": 8,
+      "form": [
+        "W",
+        "W",
+        "D",
+        "L",
+        "W"
+      ]
     },
     {
       "teamId": "ligue-1.le-mans",
       "name": "Le Mans FC",
       "shortName": "Le Mans",
       "code": "LMFC",
-      "played": 7,
+      "played": 8,
       "won": 1,
-      "drawn": 4,
+      "drawn": 5,
       "lost": 2,
-      "goalsFor": 10,
-      "goalsAgainst": 12,
-      "points": 7
+      "goalsFor": 11,
+      "goalsAgainst": 13,
+      "points": 8,
+      "form": [
+        "L",
+        "L",
+        "D",
+        "L",
+        "D"
+      ]
     },
     {
       "teamId": "ligue-1.angers-sco",
       "name": "Angers SCO",
       "shortName": "Angers",
       "code": "SCO",
-      "played": 6,
+      "played": 7,
       "won": 2,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 4,
       "goalsFor": 6,
       "goalsAgainst": 9,
-      "points": 6
+      "points": 7,
+      "form": [
+        "L",
+        "L",
+        "D",
+        "L",
+        "L"
+      ]
     },
     {
       "teamId": "ligue-1.es-troyes",
       "name": "ES Troyes AC",
       "shortName": "Troyes",
       "code": "ESTAC",
-      "played": 6,
+      "played": 7,
       "won": 2,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 4,
       "goalsFor": 6,
       "goalsAgainst": 12,
-      "points": 6
+      "points": 7,
+      "form": [
+        "L",
+        "L",
+        "D",
+        "W",
+        "L"
+      ]
     },
     {
       "teamId": "ligue-1.aj-auxerre",
       "name": "AJ Auxerre",
       "shortName": "Auxerre",
       "code": "AJA",
-      "played": 7,
+      "played": 8,
       "won": 2,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 5,
-      "goalsFor": 8,
-      "goalsAgainst": 18,
-      "points": 6
+      "goalsFor": 9,
+      "goalsAgainst": 19,
+      "points": 7,
+      "form": [
+        "L",
+        "W",
+        "D",
+        "L",
+        "L"
+      ]
     },
     {
       "teamId": "ligue-1.racing-lens",
@@ -9508,20 +11258,34 @@
       "lost": 5,
       "goalsFor": 10,
       "goalsAgainst": 12,
-      "points": 4
+      "points": 4,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "L",
+        "L"
+      ]
     },
     {
       "teamId": "ligue-1.le-havre",
       "name": "Le Havre AC",
       "shortName": "Le Havre",
       "code": "HAC",
-      "played": 6,
+      "played": 7,
       "won": 0,
       "drawn": 1,
-      "lost": 5,
-      "goalsFor": 5,
-      "goalsAgainst": 14,
-      "points": 1
+      "lost": 6,
+      "goalsFor": 8,
+      "goalsAgainst": 18,
+      "points": 1,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "L",
+        "L"
+      ]
     }
   ]
 }

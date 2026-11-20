@@ -1,6 +1,9 @@
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import type { LiveScoreboardEntry } from "@pitchlab/contracts";
+import type { LiveMatchDetail, LiveScoreboardEntry } from "@pitchlab/contracts";
 import { createPollingStore } from "../src/platform/live/live-store";
+import { LiveMatchPanelView } from "../src/platform/live/LiveMatchCenter";
 import { buildLiveNotifications, type LiveAlertRow, type PlatformGame } from "../src/index";
 
 /** Reloj y temporizadores falsos: permiten ver cuántas lecturas agenda el navegador. */
@@ -157,7 +160,8 @@ describe("avisos de «Siguiendo» en la campana", () => {
       now: NOW,
     });
     expect(items.map((n) => n.title)).toEqual(["Gol de Monterrey · Querétaro 0–1 Monterrey", "Empezó Querétaro vs Monterrey"]);
-    expect(items[0]).toMatchObject({ priority: "urgent", href: "/app/liga-mx/games/mx-qro-mty" });
+    expect(items[0]).toMatchObject({ priority: "urgent" });
+    expect(items[0]!.href).toMatch(/^\/app\/liga-mx\/g\/[a-z0-9-]+-vs-[a-z0-9-]+-[a-z0-9]{6}$/);
     expect(items[0]!.context.text).toContain("Minuto 34");
   });
 
@@ -197,5 +201,118 @@ describe("avisos de «Siguiendo» en la campana", () => {
       now: NOW,
     });
     expect(local.map((n) => n.id).sort()).toEqual(server.map((n) => n.id).sort());
+  });
+});
+
+describe("LiveMatchPanelView enriquecido (Bzzoiro Fase 1)", () => {
+  it("renderiza pestañas WAI-ARIA (Minuto a minuto, Narración, Jugadores), stats extendidas y TV México", () => {
+    const richDetail: LiveMatchDetail = {
+      gameId: GAME.id,
+      generatedAt: "2026-11-14T23:40:00Z",
+      sourceFetchedAt: "2026-11-14T23:39:40Z",
+      entry,
+      incidents: [
+        {
+          order: 3400,
+          kind: "goal",
+          side: "away",
+          minute: 34,
+          addedTime: null,
+          player: "Sergio Canales",
+          secondary: null,
+          score: { home: 0, away: 1 },
+          note: null,
+        },
+      ],
+      stats: {
+        home: {
+          xg: 0.92,
+          shots: 9,
+          shotsOnTarget: 3,
+          corners: 4,
+          possessionPct: 54,
+          fouls: 6,
+          yellowCards: 1,
+          redCards: 0,
+          offsides: 1,
+          bigChances: 1,
+          goalsPrevented: 0.35,
+          touchesInBox: 18,
+          passAccuracyPct: 81,
+        },
+        away: {
+          xg: 1.24,
+          shots: 11,
+          shotsOnTarget: 5,
+          corners: 3,
+          possessionPct: 46,
+          fouls: 5,
+          yellowCards: 2,
+          redCards: 0,
+          offsides: 0,
+          bigChances: 2,
+          goalsPrevented: -0.1,
+          touchesInBox: 21,
+          passAccuracyPct: 85,
+        },
+      },
+      xgEstimated: false,
+      momentum: [{ minute: 34, value: -35 }],
+      xgTimeline: [{ minute: 34, home: 0.92, away: 1.24 }],
+      shots: [],
+      commentary: [
+        {
+          id: "c1",
+          order: 3400,
+          minute: 34,
+          addedTime: null,
+          text: "¡Gol de Sergio Canales desde el borde del área!",
+          isImportant: true,
+          side: "away",
+        },
+      ],
+      playerStats: [
+        {
+          player: "Sergio Canales",
+          side: "away",
+          position: "AM",
+          minutes: 34,
+          rating: 8.2,
+          goals: 1,
+          assists: 0,
+          shots: 3,
+          shotsOnTarget: 2,
+          keyPasses: 2,
+          xg: 0.52,
+          xa: 0.14,
+          tackles: 1,
+          saves: 0,
+        },
+      ],
+      broadcastsMx: ["Caliente TV", "TUDN"],
+      nextPollSeconds: 20,
+      notice: null,
+      attribution: "Datos en vivo: Bzzoiro Sports Data",
+    };
+
+    const html = renderToStaticMarkup(
+      React.createElement(LiveMatchPanelView, {
+        game: GAME,
+        detail: richDetail,
+        showFollow: false,
+      }),
+    );
+
+    expect(html).toContain("Goles evitados");
+    expect(html).toContain("Toques en área");
+    expect(html).toContain("Pases precisos");
+    expect(html).toContain('role="tablist"');
+    expect(html).toContain('aria-selected="true"');
+    expect(html).toContain("Narración");
+    expect(html).toContain("Jugadores");
+    expect(html).toContain('role="region"');
+    expect(html).toContain('tabindex="0"');
+    expect(html).toContain("Sergio Canales");
+    expect(html).toContain("TV México: Caliente TV · TUDN");
   });
 });

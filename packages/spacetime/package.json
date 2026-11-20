@@ -1,10 +1,11 @@
 {
   "name": "@pitchlab/spacetime",
-  "version": "3.2.0",
+  "version": "0.0.1-alpha",
   "private": true,
   "type": "module",
   "exports": {
     ".": "./index.ts",
+    "./v5": "./src/v5_index.ts",
     "./data/*": "./data/*"
   },
   "scripts": {

@@ -110,8 +110,10 @@ export function createProviderClient(cfg: ProviderConfig, options: ProviderClien
       throw new Error(`${cfg.displayName} está apagado: falta ${cfg.keyEnvVar ?? "configuración"}.`);
     }
 
+    const unlimited = cfg.unlimitedQuota === true || !Number.isFinite(options.maxRequests) || options.maxRequests <= 0;
+
     for (let attempt = 0; attempt <= retries; attempt++) {
-      if (stats.requests >= options.maxRequests) {
+      if (!unlimited && stats.requests >= options.maxRequests) {
         throw new ProviderBudgetExhaustedError(cfg.displayName, stats.requests);
       }
       await throttle();

@@ -57,6 +57,8 @@ export const ResearchGameSchema = z.object({
   stage: z.string().min(2).nullable().optional(),
   period: z.number().int().min(1).nullable().optional(),
   phase: z.enum(["regular", "postseason"]).optional(),
+  /** Nombre del árbitro cuando el CSV lo publica (`Referee`: Premier desde 2000-01; Bundesliga 2000-02 y Serie A 2005-07). */
+  referee: z.string().min(1).optional(),
   odds: ResearchOddsSchema.nullable(),
   stats: ResearchMatchStatsSchema.optional(),
   source: z.enum(["football-data.co.uk", "api-football"]),

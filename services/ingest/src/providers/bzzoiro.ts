@@ -12,6 +12,12 @@
  * resultados derivados; no se permite redistribuir el dato crudo. Por eso el JSONL vive en
  * `data/history/research/` (ignorado por Git).
  */
+import {
+  buildBzzoiroTeamEmblemUrlById,
+  getBzzoiroLeagueEmblemUrl,
+  getBzzoiroTeamEmblemUrl,
+  isValidBzzoiroImageUrl,
+} from "@pitchlab/sports-assets";
 import { slugifyTeamName } from "../team-slug.js";
 import type { ProviderClient } from "./http.js";
 
@@ -23,15 +29,58 @@ export const BZZOIRO_LEAGUES = {
   bundesliga: [5],
   "serie-a": [4],
   "ligue-1": [6],
+  // Expansión clubes fútbol (ADR-043)
   mls: [18],
   "champions-league": [7],
+  "europa-league": [8],
+  "conference-league": [83],
+  "uefa-super-cup": [90],
+  libertadores: [32],
+  sudamericana: [33],
+  "caf-champions": [29],
+  "liga-argentina": [85],
+  brasileirao: [9],
+  "brasileirao-b": [34],
+  "copa-do-brasil": [35],
+  "primera-a-colombia": [80],
+  "copa-colombia": [81],
+  "primera-chile": [111],
+  "ligapro-ecuador": [112],
+  "liga-1-peru": [113],
+  championship: [12],
+  "fa-cup": [39],
+  "carabao-cup": [40],
+  "segunda-espana": [38],
+  "copa-del-rey": [41],
+  "liga-f": [36],
+  "bundesliga-2": [94],
+  "dfb-pokal": [43],
+  "serie-b": [100],
+  "coppa-italia": [42],
+  "ligue-2": [89],
+  "coupe-de-france": [44],
+  eredivisie: [10],
+  "liga-portugal": [2],
+  "pro-league-belgica": [14],
+  "super-lig": [11],
+  "saudi-pro-league": [17],
+  "j1-league": [49],
 } as const satisfies Record<string, readonly number[]>;
 
 export type BzzoiroLeagueKey = keyof typeof BZZOIRO_LEAGUES;
 
 // ---------- Formas de la API (solo los campos que usamos) ----------
 
-export interface BzEvent {
+export interface BzImageFields {
+  logo?: string | null;
+  logo_url?: string | null;
+  image?: string | null;
+  image_url?: string | null;
+  crest?: string | null;
+  badge?: string | null;
+}
+
+export interface BzEvent extends BzImageFields {
   id: number;
   league_id: number;
   season_id: number;
@@ -39,6 +88,9 @@ export interface BzEvent {
   home_team: string;
   away_team_id: number;
   away_team: string;
+  home_team_logo?: string | null;
+  away_team_logo?: string | null;
+  league_logo?: string | null;
   home_coach_id?: number | null;
   away_coach_id?: number | null;
   referee_id?: number | null;
@@ -135,8 +187,8 @@ export interface BzzoiroMatchRow {
   status: string;
   stage: string | null;
   round: number | null;
-  home: { providerTeamId: number; name: string; slug: string; coachId: number | null };
-  away: { providerTeamId: number; name: string; slug: string; coachId: number | null };
+  home: { providerTeamId: number; name: string; slug: string; coachId: number | null; logoUrl?: string };
+  away: { providerTeamId: number; name: string; slug: string; coachId: number | null; logoUrl?: string };
   score: { home: number | null; away: number | null; htHome: number | null; htAway: number | null };
   wentBeyond90: boolean;
   context: {
@@ -155,6 +207,66 @@ export interface BzzoiroMatchRow {
 
 function num(value: unknown): number | null {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+const UNCOVERED_BZZOIRO_LEAGUES = new Set(["nfl", "mlb", "nhl"]);
+const EXPLICIT_IMAGE_KEYS = ["logoUrl", "logo_url", "logo", "image_url", "image", "crest", "badge"] as const;
+
+/** Extrae una URL explícita si algún payload de Bzzoiro incluye campo de imagen válido. */
+export function pickExplicitBzzoiroImageUrl(raw: unknown): string | undefined {
+  if (typeof raw === "string") {
+    return isValidBzzoiroImageUrl(raw) ? raw : undefined;
+  }
+  if (!raw || typeof raw !== "object") return undefined;
+  const record = raw as Record<string, unknown>;
+  for (const key of EXPLICIT_IMAGE_KEYS) {
+    const candidate = record[key];
+    if (isValidBzzoiroImageUrl(candidate)) return candidate;
+  }
+  return undefined;
+}
+
+/**
+ * Resuelve la URL de escudo de un club desde el campo explícito de Bzzoiro (si existe),
+ * su `providerTeamId`, o el catálogo canónico en `@pitchlab/sports-assets`.
+ * Devuelve `undefined` para ligas sin cobertura (NFL, MLB, NHL).
+ */
+export function mapBzzoiroTeamLogoUrl(
+  league: string,
+  teamSlugOrId: string,
+  options?: { providerTeamId?: number | null; raw?: unknown },
+): string | undefined {
+  if (UNCOVERED_BZZOIRO_LEAGUES.has(league)) return undefined;
+  const explicit = pickExplicitBzzoiroImageUrl(options?.raw);
+  if (explicit) return explicit;
+  if (typeof options?.providerTeamId === "number" && Number.isInteger(options.providerTeamId) && options.providerTeamId > 0) {
+    return buildBzzoiroTeamEmblemUrlById(league, options.providerTeamId) ?? undefined;
+  }
+  if (!teamSlugOrId) return undefined;
+  const cleanSlug = teamSlugOrId.includes(".") ? teamSlugOrId.split(".")[1]! : teamSlugOrId;
+  return getBzzoiroTeamEmblemUrl(league, cleanSlug) ?? undefined;
+}
+
+/**
+ * Resuelve la URL de emblema de una competición desde Bzzoiro o su id canónico.
+ * Devuelve `undefined` para ligas sin cobertura (NFL, MLB, NHL).
+ */
+export function mapBzzoiroLeagueLogoUrl(
+  league: string,
+  options?: { providerLeagueId?: number | null; raw?: unknown },
+): string | undefined {
+  if (UNCOVERED_BZZOIRO_LEAGUES.has(league)) return undefined;
+  const explicit = pickExplicitBzzoiroImageUrl(options?.raw);
+  if (explicit) return explicit;
+  if (
+    typeof options?.providerLeagueId === "number" &&
+    Number.isInteger(options.providerLeagueId) &&
+    options.providerLeagueId > 0
+  ) {
+    const segment = league === "nba" ? "basketball/league" : "league";
+    return `https://sports.bzzoiro.com/img/${segment}/${options.providerLeagueId}/?bg=transparent`;
+  }
+  return getBzzoiroLeagueEmblemUrl(league) ?? undefined;
 }
 
 function plain(raw: BzTeamStatsRaw | undefined, key: string): number | null {
@@ -234,12 +346,20 @@ export function toMatchRow(
       name: event.home_team,
       slug: slugifyTeamName(event.home_team),
       coachId: num(event.home_coach_id),
+      logoUrl: mapBzzoiroTeamLogoUrl(league, slugifyTeamName(event.home_team), {
+        providerTeamId: event.home_team_id,
+        raw: event.home_team_logo,
+      }),
     },
     away: {
       providerTeamId: event.away_team_id,
       name: event.away_team,
       slug: slugifyTeamName(event.away_team),
       coachId: num(event.away_coach_id),
+      logoUrl: mapBzzoiroTeamLogoUrl(league, slugifyTeamName(event.away_team), {
+        providerTeamId: event.away_team_id,
+        raw: event.away_team_logo,
+      }),
     },
     score: {
       home: num(event.home_score),

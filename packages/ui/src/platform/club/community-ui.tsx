@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import { LEAGUE_CATALOG, type LeagueId } from "@pitchlab/contracts";
 import {
   exampleLeaderboardRows,
   getExampleAnalystSpec,
@@ -10,7 +10,7 @@ import {
 } from "../community-examples";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
-import { usePlatform, type ViewerIdentity } from "../platform-provider";
+import { useOptionalPlatformCore, usePlatform, type ViewerIdentity } from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
 import type { JournalEntry, PlatformDataset, SocialPost, SocialReportReason, ViewerRole } from "../types";
 
@@ -282,7 +282,7 @@ export function Avatar({
   );
 }
 
-export type PickOutcome = "open" | "won" | "lost";
+export type PickOutcome = "open" | "won" | "lost" | "void";
 
 export function outcomeOf(status: JournalEntry["status"] | PickOutcome): PickOutcome {
   if (status === "pending" || status === "open") return "open";
@@ -299,7 +299,14 @@ export function PickStatus({
   detail?: string;
   className?: string;
 }): React.JSX.Element {
-  const label = status === "won" ? "Cumplido" : status === "lost" ? "No se cumplió" : "Abierto";
+  const label =
+    status === "won"
+      ? "Cumplido"
+      : status === "lost"
+        ? "No se cumplió"
+        : status === "void"
+          ? "Nulo"
+          : "Abierto";
   return (
     <span className={["pl-pick-status", `pl-pick-status--${status}`, className].filter(Boolean).join(" ")}>
       {label}
@@ -309,44 +316,23 @@ export function PickStatus({
 }
 
 export function HeartIcon({ filled = false, size = 16 }: { filled?: boolean; size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z" />
-    </svg>
-  );
+  return <MaestroIcon name="heart" size={size} className={filled ? "pl-heart-filled" : undefined} />;
 }
 
 export function CommentIcon({ size = 16 }: { size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />
-    </svg>
-  );
+  return <MaestroIcon name="message" size={size} />;
 }
 
 export function ShareIcon({ size = 18 }: { size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13" />
-    </svg>
-  );
+  return <MaestroIcon name="share" size={size} />;
 }
 
 export function ChevronRightIcon({ size = 18 }: { size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M9 18l6-6-6-6" />
-    </svg>
-  );
+  return <MaestroIcon name="chevronRight" size={size} />;
 }
 
 export function GiftIcon({ size = 20 }: { size?: number }): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <rect x="3" y="8" width="18" height="13" rx="2" />
-      <path d="M12 8v13M3 12h18M12 8c-2-3-6-3-6 0 0 1.5 2 2 6 0zM12 8c2-3 6-3 6 0 0 1.5-2 2-6 0z" />
-    </svg>
-  );
+  return <MaestroIcon name="gift" size={size} />;
 }
 
 /** Comparte una URL con la hoja nativa o la copia al portapapeles. */
@@ -890,30 +876,46 @@ const TOPICS_KEY = "pl-follow-topics-v1";
 const TOPICS_EVENT = "pl:follow-topics";
 const TOPICS_MAX = 40;
 
+function sanitizeTopicList(v: unknown): string[] {
+  return Array.isArray(v)
+    ? Array.from(new Set(v.filter((x): x is string => typeof x === "string" && x.trim().length > 0 && x.length <= 80))).slice(0, TOPICS_MAX)
+    : [];
+}
+
 function readTopics(): FollowedTopics {
   try {
     const raw = JSON.parse(window.localStorage.getItem(TOPICS_KEY) ?? "null") as Partial<FollowedTopics> | null;
-    const clean = (v: unknown) =>
-      Array.isArray(v) ? v.filter((x): x is string => typeof x === "string" && x.length <= 80).slice(0, TOPICS_MAX) : [];
-    return { leagues: clean(raw?.leagues), teams: clean(raw?.teams) };
+    return { leagues: sanitizeTopicList(raw?.leagues), teams: sanitizeTopicList(raw?.teams) };
   } catch (err) {
     void err;
     return { leagues: [], teams: [] };
   }
 }
 
+function cacheTopicsLocally(next: FollowedTopics): void {
+  try {
+    window.localStorage.setItem(TOPICS_KEY, JSON.stringify(next));
+  } catch (err) {
+    void err;
+  }
+  window.dispatchEvent(new Event(TOPICS_EVENT));
+}
+
 export const teamTopicKey = (league: string, slug: string): string => `${league}:${slug}`;
 
 /**
- * Ligas y equipos que sigues en Comunidad. Viven en este navegador (no son tus ligas
- * favoritas del Inicio): si se borran los datos del sitio, se pierden sin afectar nada más.
+ * Ligas y equipos que sigues en Comunidad. Se guardan en tu cuenta cuando hay sesión
+ * activa y en caché local para respuesta instantánea entre dispositivos.
  */
 export function useFollowedTopics(): {
   topics: FollowedTopics;
   toggleLeague: (league: string) => void;
   toggleTeam: (key: string) => void;
 } {
+  const core = useOptionalPlatformCore();
+  const hasAccountSessionAuth = Boolean(core?.hasAccountSessionAuth);
   const [topics, setTopics] = useState<FollowedTopics>({ leagues: [], teams: [] });
+
   useEffect(() => {
     const sync = (): void => setTopics(readTopics());
     sync();
@@ -924,17 +926,62 @@ export function useFollowedTopics(): {
       window.removeEventListener("storage", sync);
     };
   }, []);
-  const write = useCallback((next: FollowedTopics) => {
-    setTopics(next);
-    try {
-      window.localStorage.setItem(TOPICS_KEY, JSON.stringify(next));
-    } catch (err) {
-      void err;
-    }
-    window.dispatchEvent(new Event(TOPICS_EVENT));
-  }, []);
+
+  useEffect(() => {
+    if (!hasAccountSessionAuth) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/me/preferences", { credentials: "same-origin" });
+        if (!res.ok) return;
+        const json = (await res.json().catch(() => null)) as {
+          preferences?: { followedTopics?: Partial<FollowedTopics> | null };
+        } | null;
+        const remoteRaw = json?.preferences?.followedTopics;
+        if (!remoteRaw || cancelled) return;
+        const remote: FollowedTopics = {
+          leagues: sanitizeTopicList(remoteRaw.leagues),
+          teams: sanitizeTopicList(remoteRaw.teams),
+        };
+        setTopics(remote);
+        cacheTopicsLocally(remote);
+      } catch (err) {
+        void err;
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [hasAccountSessionAuth]);
+
+  const write = useCallback(
+    (next: FollowedTopics) => {
+      const prev = readTopics();
+      setTopics(next);
+      cacheTopicsLocally(next);
+      if (!hasAccountSessionAuth) return;
+      void (async () => {
+        try {
+          const res = await fetch("/api/me/preferences", {
+            method: "PUT",
+            credentials: "same-origin",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ followedTopics: next }),
+          });
+          if (!res.ok) throw new Error(String(res.status));
+        } catch (err) {
+          void err;
+          setTopics(prev);
+          cacheTopicsLocally(prev);
+        }
+      })();
+    },
+    [hasAccountSessionAuth],
+  );
+
   const toggle = (list: string[], value: string): string[] =>
     list.includes(value) ? list.filter((v) => v !== value) : [...list, value].slice(0, TOPICS_MAX);
+
   return {
     topics,
     toggleLeague: (league) => {
@@ -948,20 +995,55 @@ export function useFollowedTopics(): {
   };
 }
 
+function normalizeTopicText(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function leagueLabelsFor(id: string): string[] {
+  const entry = LEAGUE_CATALOG.find((c) => c.id === id);
+  if (!entry) return [id.toLowerCase()];
+  return [entry.name.toLowerCase(), entry.shortName.toLowerCase()];
+}
+
 /** ¿La publicación habla de una liga o un equipo que sigues? */
 export function postMatchesTopics(
-  post: Pick<SocialPost, "gameId" | "pick">,
+  post: Pick<SocialPost, "gameId" | "pick"> & Partial<Pick<SocialPost, "leagueLabel" | "matchLabel">>,
   topics: FollowedTopics,
   dataset: PlatformDataset,
 ): boolean {
   if (topics.leagues.length === 0 && topics.teams.length === 0) return false;
   const gameId = post.pick?.gameId ?? post.gameId;
-  if (!gameId) return false;
-  const meta = resolveEntryGame(gameId, dataset);
-  if (!meta) return false;
-  return (
-    topics.leagues.includes(meta.league) ||
-    topics.teams.includes(teamTopicKey(meta.league, meta.home.slug)) ||
-    topics.teams.includes(teamTopicKey(meta.league, meta.away.slug))
-  );
+  if (gameId) {
+    const meta = resolveEntryGame(gameId, dataset);
+    if (meta) {
+      return (
+        topics.leagues.includes(meta.league) ||
+        topics.teams.includes(teamTopicKey(meta.league, meta.home.slug)) ||
+        topics.teams.includes(teamTopicKey(meta.league, meta.away.slug))
+      );
+    }
+  }
+  const postLeagueLower = post.leagueLabel?.trim().toLowerCase() ?? "";
+  if (
+    postLeagueLower &&
+    topics.leagues.some((l) => leagueLabelsFor(l).includes(postLeagueLower))
+  ) {
+    return true;
+  }
+  const matchNorm = normalizeTopicText(post.matchLabel ?? "");
+  const gameNorm = (gameId ?? "").toLowerCase();
+  for (const key of topics.teams) {
+    const sep = key.indexOf(":");
+    if (sep <= 0) continue;
+    const leagueId = key.slice(0, sep) as LeagueId;
+    const slug = key.slice(sep + 1).toLowerCase();
+    if (postLeagueLower && !leagueLabelsFor(leagueId).includes(postLeagueLower)) continue;
+    if (gameNorm && gameNorm.includes(slug)) return true;
+    const token = slug.replace(/[^a-z0-9]+/g, " ").trim();
+    if (token.length >= 2 && matchNorm.includes(token)) return true;
+  }
+  return false;
 }

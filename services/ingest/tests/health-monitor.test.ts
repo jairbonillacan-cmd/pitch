@@ -79,13 +79,22 @@ describe("Parte 2 y Parte 4 · Bajas grabadas, alineaciones apagadas, frescura y
     cpSync(resolve(REPO_ROOT, "data/snapshots/nfl"), join(tmp, "nfl"), { recursive: true });
     rmSync(join(tmp, "nfl", "injuries.json"), { force: true });
 
+    const nflSnap = JSON.parse(readFileSync(join(tmp, "nfl", "latest.json"), "utf8")) as {
+      games?: Array<{ status?: string; week?: number }>;
+    };
+    const activeWeek =
+      nflSnap.games?.find((g) => g.status !== "final" && typeof g.week === "number")?.week ??
+      nflSnap.games?.[0]?.week ??
+      10;
+    const csvForActiveWeek = csvSample.replaceAll("2026,10,", `2026,${activeWeek},`);
+
     const firstWrite = await collectAndWriteLeagueInjuries({
       snapshotsRoot: tmp,
       league: "nfl",
       observedAtIso: observedAt,
       fetcher: {
         async fetchText() {
-          return { status: 200, body: csvSample };
+          return { status: 200, body: csvForActiveWeek };
         },
       },
     });

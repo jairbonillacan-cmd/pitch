@@ -12,7 +12,9 @@ import {
   topDrivers,
   winnerSegments,
 } from "../src/platform/club/match/sport-outlook/sport-outlook-logic";
+import { platformGameToSportOutlook } from "../src/platform/club/match/sport-outlook/sport-outlook-mapper";
 import type { SportOutlookInput } from "../src/platform/club/match/sport-outlook/sport-outlook-types";
+import type { PlatformGame } from "../src/platform/types";
 
 const NHL: SportOutlookInput = {
   sport: "nhl",
@@ -163,5 +165,130 @@ describe("SportOutlookCard", () => {
     expect(html).not.toContain("Antes del partido");
     expect(html).not.toContain("Qué inclina el partido");
     expect(html).toContain("Ejemplo");
+  });
+});
+
+const SAMPLE_NBA_GAME = {
+  id: "nba-den-bos",
+  league: "nba",
+  leagueLabel: "NBA",
+  sport: "basketball",
+  hasForecast: true,
+  status: "NS",
+  home: { slug: "den", name: "Denver Nuggets", shortName: "Nuggets", code: "DEN", record: "" },
+  away: { slug: "bos", name: "Boston Celtics", shortName: "Celtics", code: "BOS", record: "" },
+  x12: [0.54, 0, 0.46],
+  projection: { home: 114.2, away: 111.8, total: 226.0 },
+  restDays: { home: 3, away: 0 },
+  preGame: {
+    cortexSynthesis: "",
+    tacticalKeys: [],
+    lineupStatusLabel: "",
+    lineupsConfirmed60m: false,
+    absences: [],
+    moneyFlow: null,
+  },
+  markets: [
+    {
+      group: "Total 225.5",
+      market: "totals",
+      selection: "over",
+      label: "Más de 225.5 puntos",
+      line: 225.5,
+      p: 0.53,
+      fairDecimal: 1.89,
+      fairAmerican: -112,
+      openDecimal: null,
+      currentDecimal: null,
+      edgePts: null,
+    },
+    {
+      group: "Spread DEN -2.5",
+      market: "spreads",
+      selection: "home",
+      label: "Nuggets -2.5",
+      line: -2.5,
+      p: 0.49,
+      fairDecimal: 2.04,
+      fairAmerican: 104,
+      openDecimal: null,
+      currentDecimal: null,
+      edgePts: null,
+    },
+  ],
+  picks: [],
+  factors: [],
+  headToHead: [],
+  updatedAtLabel: "Hoy",
+  spacetime: null,
+  round: "",
+  dayId: "2030-11-15",
+  dayLabel: "Hoy",
+  kickoffUtc: "2030-11-15T23:00:00Z",
+  kickoffLocal: "18:00",
+  venue: "Ball Arena",
+} as unknown as PlatformGame;
+
+describe("platformGameToSportOutlook", () => {
+  it("mapea partidos NBA reales con líneas, descanso y Cero-Fuga", () => {
+    const mapped = platformGameToSportOutlook(SAMPLE_NBA_GAME);
+    expect(mapped).not.toBeNull();
+    expect(mapped?.sport).toBe("nba");
+    expect(mapped?.lines).toEqual([
+      { kind: "total", line: 225.5, p: 0.53 },
+      { kind: "spread", line: -2.5, p: 0.49 },
+    ]);
+    expect(mapped?.rest).toEqual({
+      home: { restDays: 3 },
+      away: { restDays: 0, backToBack: true },
+    });
+    const html = renderToStaticMarkup(
+      <SportOutlookCard outlook={mapped!} oddsFormat="decimal" />,
+    );
+    expect(html).toContain("Gana Denver Nuggets");
+    expect(html).toContain("Más de 225.5 puntos");
+    expect(html).toContain("Boston Celtics juega su segundo partido en dos noches");
+  });
+
+  it("mapea partidos NHL sin líneas y reparte tiempo extra solo cuando existe", () => {
+    const nhl = {
+      ...SAMPLE_NBA_GAME,
+      id: "nhl-edm-van",
+      league: "nhl",
+      sport: "ice-hockey",
+      x12: [0.47, 0.21, 0.32],
+      projection: { home: 3.4, away: 2.9, total: 6.3 },
+      markets: [],
+      restDays: undefined,
+    } as unknown as PlatformGame;
+    const mapped = platformGameToSportOutlook(nhl);
+    expect(mapped?.sport).toBe("nhl");
+    expect(mapped?.pHomeReg).toBe(0.47);
+    expect(mapped?.pOtReg).toBe(0.21);
+    expect(mapped?.pAwayReg).toBe(0.32);
+    expect(mapped?.lines).toBeUndefined();
+    expect(mapped?.rest).toBeUndefined();
+  });
+
+  it("devuelve null en fútbol o sin pronóstico", () => {
+    expect(
+      platformGameToSportOutlook({
+        ...SAMPLE_NBA_GAME,
+        league: "liga-mx",
+        sport: "football",
+      } as unknown as PlatformGame),
+    ).toBeNull();
+    expect(
+      platformGameToSportOutlook({
+        ...SAMPLE_NBA_GAME,
+        hasForecast: false,
+      } as unknown as PlatformGame),
+    ).toBeNull();
+    expect(
+      platformGameToSportOutlook({
+        ...SAMPLE_NBA_GAME,
+        projection: null,
+      } as unknown as PlatformGame),
+    ).toBeNull();
   });
 });

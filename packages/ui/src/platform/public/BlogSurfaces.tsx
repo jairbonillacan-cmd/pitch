@@ -1,5 +1,4 @@
 import React from "react";
-import { getMascotPath } from "@pitchlab/sports-assets";
 import { ClosingCtaSection, PublicSiteShell } from "./PublicSiteSections";
 
 /**
@@ -129,10 +128,6 @@ export function BlogIndexSurface({
   return (
     <PublicSiteShell hasSession={hasSession}>
       <section className="pl-lp-section pl-lp-section--top pl-blog-hero">
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--2" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
         <div className="pl-lp-wrap pl-blog-hero-inner">
           {activeCategory ? (
             <Breadcrumbs items={[{ label: "Blog", href: "/blog" }, { label: activeCategory.label }]} />
@@ -156,7 +151,6 @@ export function BlogIndexSurface({
         <div className="pl-lp-wrap">
           {posts.length === 0 ? (
             <div className="pl-blog-empty">
-              <img src={getMascotPath("radar")} alt="" width={140} height={140} />
               <p className="pl-lp-h3">Todavía no hay artículos en esta sección.</p>
               <p className="pl-lp-fine">Estamos escribiendo los primeros. Mientras, revisa los demás temas.</p>
               <a className="pl-lp-btn pl-lp-btn-ghost pl-lp-btn--compact" href="/blog">
@@ -197,9 +191,6 @@ export function BlogPostSurface({
     <PublicSiteShell hasSession={hasSession}>
       <article className="pl-blog-article" aria-labelledby="pl-blog-title">
         <header className="pl-lp-section pl-lp-section--top pl-blog-hero">
-          <div className="pl-lp-atmo" aria-hidden="true">
-            <div className="pl-lp-orb pl-lp-orb--2" />
-          </div>
           <div className="pl-lp-wrap pl-blog-hero-inner pl-blog-hero-inner--post">
             <Breadcrumbs
               items={[

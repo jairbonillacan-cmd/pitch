@@ -38,7 +38,7 @@
 
 @keyframes pl-precio-reveal {
   from {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(20px);
   }
 }
@@ -216,26 +216,6 @@ html[data-theme="light"] .pl-lp-ultra-word {
   }
 }
 
-/* ---------- Preguntas frecuentes: estado base de acordeón ---------- */
-
-.pl-lp--precio details.pl-lp-faq::details-content {
-  interpolate-size: allow-keywords;
-  overflow: clip;
-  contain: layout;
-}
-
-.pl-lp--precio details.pl-lp-faq:not([open])::details-content {
-  block-size: 0;
-}
-
-.pl-lp--precio details.pl-lp-faq > summary {
-  transition: color 180ms ease;
-}
-
-.pl-lp--precio details.pl-lp-faq > summary:hover {
-  color: var(--pl-brand);
-}
-
 /* ---------- Animaciones activas solo cuando el usuario acepta movimiento ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -301,24 +281,11 @@ html[data-theme="light"] .pl-lp-ultra-word {
     transition-duration: 75ms;
   }
 
-  .pl-lp--precio details.pl-lp-faq .pl-lp-chev {
-    transition: transform 240ms var(--pl-precio-ease), color 180ms ease;
-  }
-
-  .pl-lp--precio details.pl-lp-faq::details-content {
-    transition: block-size, content-visibility, display;
-    transition-duration: 280ms;
-    transition-timing-function: var(--pl-precio-ease);
-    transition-behavior: allow-discrete;
-  }
-
   @supports ((animation-timeline: view()) and (animation-range: entry)) {
     .pl-lp--precio #referidos .pl-lp-section-head,
     .pl-lp--precio #referidos .pl-lp-steps > li,
-    .pl-lp--precio details.pl-lp-faq,
-    .pl-lp--precio .pl-lp-h2--faq,
-    .pl-lp--precio .pl-lp-closing-card {
-      animation: pl-precio-reveal auto var(--pl-precio-ease) backwards;
+    .pl-lp--precio .pl-lp-h2--faq {
+      animation: pl-precio-reveal linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 85%;
     }

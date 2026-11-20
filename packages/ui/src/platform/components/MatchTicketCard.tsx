@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { formatOddsCaptureEs } from "@pitchlab/contracts";
+import { canonicalGameHref, canonicalTeamHref, formatOddsCaptureEs, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
@@ -10,6 +10,7 @@ import {
   isPickUnlocked,
   pickReferenceDecimal,
 } from "../access-guard";
+import { shortDateLabel } from "../club/home/home-model";
 import {
   useIsPickInParlay,
   useJournalEntries,
@@ -37,7 +38,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
   userDecimalOverride?: number | null;
 }): React.JSX.Element {
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
-  const { addPickToParlay, openComposer, openShareTicket, navigateTo } = usePlatformActions();
+  const { addPickToParlay, removePickFromParlay, openComposer, openShareTicket, navigateTo } = usePlatformActions();
   const journal = useJournalEntries();
   const inParlay = useIsPickInParlay(pick.id);
 
@@ -209,15 +210,18 @@ export const MultiPickRow = React.memo(function MultiPickRow({
         // v3.2: el modelo no sugiere monto (sin stake ni Kelly); la decisión y el monto son del socio.
         <div className="flex flex-wrap items-center justify-end gap-2 pt-1.5 hairline-t">
           <div className="flex flex-wrap items-center gap-1.5">
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
-              onClick={() => addPickToParlay(pick)}
-              data-add-parlay={pick.id}
-            >
-              <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
-              <span>{inParlay ? "En Parlay" : "Parlay"}</span>
-            </button>
+            {gameStatus !== "LIVE" ? (
+              <button
+                type="button"
+                className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+                aria-pressed={inParlay}
+                onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
+                data-add-parlay={pick.id}
+              >
+                <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
+                <span>{inParlay ? "En Parlay" : "Parlay"}</span>
+              </button>
+            ) : null}
             <button
               type="button"
               className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
@@ -269,32 +273,38 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
   const { setAuraFromGame, addPickToParlay, openComposer, navigateTo } = usePlatformActions();
 
-  const isNfl = game.sport === "american-football" || game.league === "nfl";
+  const hasDraw = sportHasDraw(game.sport);
+  const unit = sportScoringUnit(game.sport);
+  const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
   const isFinished = game.status === "FT" && game.score !== undefined;
   const mainPick = game.picks[0];
   const unlockedMain = mainPick
     ? isPickUnlocked(mainPick, game.status, viewerRole)
     : false;
-  const studioHref = `/app/${game.league}/games/${game.id}`;
+  const studioHref = canonicalGameHref(game.league, game);
 
   const homeColors = getTeamColors(game.league, game.home.slug);
   const awayColors = getTeamColors(game.league, game.away.slug);
   const homePrimary = homeColors?.[0] ?? "var(--pl-aura-default-home)";
   const awayPrimary = awayColors?.[0] ?? "var(--pl-aura-default-away)";
 
-  const [ph, pd, pa] = game.x12;
-  const splitProbs = isNfl ? [ph, pa] : [ph, pd, pa];
-  const splitLabels = isNfl
-    ? [game.home.shortName, game.away.shortName]
-    : [game.home.shortName, "Empate", game.away.shortName];
+  const [ph, pd, pa] = game.x12 ?? [0, 0, 0];
+  const splitProbs = hasDraw ? [ph, pd, pa] : [ph, pa];
+  const splitLabels = hasDraw
+    ? [game.home.shortName, "Empate", game.away.shortName]
+    : [game.home.shortName, game.away.shortName];
 
   const inParlay = useIsPickInParlay(mainPick?.id);
 
   const shortEngineLabel = mainPick
     ? mainPick.engineName.replace("PitchLab ", "")
-    : isNfl
+    : game.sport === "american-football"
       ? "Minkowski v3.0"
-      : "Tachyon v3.0";
+      : game.sport === "basketball"
+        ? "Motor NBA"
+        : game.sport === "ice-hockey"
+          ? "Motor NHL"
+          : "Tachyon v3.0";
 
   const handleOpenStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -329,9 +339,14 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
             className="inline-flex items-center gap-1.5 font-bold min-w-0 truncate"
             style={{ color: "var(--pl-text-secondary)" }}
           >
-            <LeagueBadge league={game.league} label={game.leagueLabel} size={15} />
+            <LeagueBadge
+              league={game.league}
+              label={game.leagueLabel}
+              logoUrl={game.leagueLogoUrl}
+              size={15}
+            />
             <span className="truncate">
-              {game.leagueLabel} · {isFinished ? "Finalizado FT" : game.kickoffLocal}
+              {game.leagueLabel} · {shortDateLabel(game.dayId)} · {isFinished ? "Finalizado FT" : game.kickoffLocal}
             </span>
           </span>
 
@@ -366,18 +381,31 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                   league={game.league}
                   slug={game.home.slug}
                   name={game.home.name}
+                  logoUrl={game.home.logoUrl}
                   size={24}
                 />
               </CrestPedestal>
               <div className="min-w-0">
-                <p className="m-0 text-sm font-bold truncate">{game.home.name}</p>
+                <p className="m-0 text-sm font-bold truncate">
+                  <a
+                    href={canonicalTeamHref(game.league, game.home.slug)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(canonicalTeamHref(game.league, game.home.slug));
+                    }}
+                    className="pl-team-link"
+                    title={`Ver perfil de ${game.home.name}`}
+                  >
+                    {game.home.name}
+                  </a>
+                </p>
                 <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
                   {game.home.record}
                 </span>
               </div>
             </div>
             <strong className="num text-base font-extrabold shrink-0">
-              {isFinished ? game.score?.home : `${(ph * 100).toFixed(1)} %`}
+              {isFinished ? game.score?.home : hasForecast ? `${(ph * 100).toFixed(1)} %` : "—"}
             </strong>
           </div>
 
@@ -388,48 +416,71 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                   league={game.league}
                   slug={game.away.slug}
                   name={game.away.name}
+                  logoUrl={game.away.logoUrl}
                   size={24}
                 />
               </CrestPedestal>
               <div className="min-w-0">
-                <p className="m-0 text-sm font-bold truncate">{game.away.name}</p>
+                <p className="m-0 text-sm font-bold truncate">
+                  <a
+                    href={canonicalTeamHref(game.league, game.away.slug)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(canonicalTeamHref(game.league, game.away.slug));
+                    }}
+                    className="pl-team-link"
+                    title={`Ver perfil de ${game.away.name}`}
+                  >
+                    {game.away.name}
+                  </a>
+                </p>
                 <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
                   {game.away.record}
                 </span>
               </div>
             </div>
             <strong className="num text-base font-extrabold shrink-0">
-              {isFinished ? game.score?.away : `${(pa * 100).toFixed(1)} %`}
+              {isFinished ? game.score?.away : hasForecast ? `${(pa * 100).toFixed(1)} %` : "—"}
             </strong>
           </div>
         </div>
 
         {/* Pill de marcador proyectado + barra de probabilidad */}
-        <div className="space-y-2">
-          {!isFinished ? (
-            <div className="flex items-center justify-between gap-2 text-xs num">
-              {unlockedMain ? (
-                <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
-                  <MaestroIcon name="sparkles" size={11} />
-                  <span>
-                    Proy. {game.projection.home.toFixed(isNfl ? 1 : 2)} –{" "}
-                    {game.projection.away.toFixed(isNfl ? 1 : 2)}
+        {hasForecast && game.projection ? (
+          <div className="space-y-2">
+            {!isFinished ? (
+              <div className="flex items-center justify-between gap-2 text-xs num">
+                {unlockedMain ? (
+                  <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
+                    <MaestroIcon name="sparkles" size={11} />
+                    <span>
+                      Proy. {game.projection.home.toFixed(unit.decimals)} –{" "}
+                      {game.projection.away.toFixed(unit.decimals)}
+                    </span>
                   </span>
+                ) : (
+                  <span className="pl-pill inline-flex items-center gap-1">
+                    <MaestroIcon name="lock" size={11} />
+                    <span>Solo socios</span>
+                  </span>
+                )}
+                <span style={{ color: "var(--pl-text-muted)" }}>
+                  {game.picks.length} picks
                 </span>
-              ) : (
-                <span className="pl-pill inline-flex items-center gap-1">
-                  <MaestroIcon name="lock" size={11} />
-                  <span>Solo socios</span>
-                </span>
-              )}
-              <span style={{ color: "var(--pl-text-muted)" }}>
-                {game.picks.length} picks
-              </span>
-            </div>
-          ) : null}
+              </div>
+            ) : null}
 
-          <ProbSplit probabilities={splitProbs} labels={splitLabels} showLabels />
-        </div>
+            <ProbSplit probabilities={splitProbs} labels={splitLabels} showLabels />
+          </div>
+        ) : !isFinished ? (
+          <div
+            className="rounded-xl px-3 py-2 text-xs"
+            style={{ background: "var(--pl-surface-elevated)", color: "var(--pl-text-muted)" }}
+            data-empty-forecast=""
+          >
+            Sin pronóstico ni confianza publicados en este snapshot.
+          </div>
+        ) : null}
 
         <div className="ticket-perf" />
 
@@ -478,7 +529,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               ) : null}
             </div>
           </div>
-        ) : (
+        ) : mainPick ? (
           <div className="flex items-center justify-between gap-2 text-xs" data-card-locked="">
             <div className="min-w-0">
               <span
@@ -493,6 +544,10 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               </span>
             </div>
             <span className="pl-pill shrink-0">Pase PitchLab Ultra</span>
+          </div>
+        ) : (
+          <div className="text-xs" style={{ color: "var(--pl-text-muted)" }} data-empty-picks="">
+            Sin picks publicados en este snapshot.
           </div>
         )}
       </div>
@@ -526,7 +581,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               <span>Sellar</span>
             </button>
           </div>
-        ) : !isFinished && !unlockedMain ? (
+        ) : !isFinished && mainPick && !unlockedMain ? (
           <a
             href={upgradeHref}
             onClick={(e) => {

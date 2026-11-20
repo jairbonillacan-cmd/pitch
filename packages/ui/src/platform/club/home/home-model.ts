@@ -2,10 +2,17 @@
  * Lógica pura del Inicio del Club: días, deportes, ligas, agrupación y picks destacados.
  * Sin React ni estado, para probarla aparte de la vista.
  */
-import type { LeagueId } from "@pitchlab/contracts";
-import type { MatchPick, PlatformGame } from "../../types";
+import {
+  COMPETITION_BY_ID,
+  COMPETITION_CATALOG,
+  competitionPrestigeScore,
+  isLeagueActiveInWindow,
+  isNationalCompetition,
+  type LeagueId,
+} from "@pitchlab/contracts";
+import type { MatchPick, PlatformGame, PlatformLeagueSummary } from "../../types";
 
-export type SportId = "futbol" | "nfl";
+export type SportId = "futbol" | "selecciones" | "nfl" | "nba" | "nhl" | "mlb";
 export const ALL = "all" as const;
 export type SportFilter = SportId | typeof ALL;
 export type LeagueFilter = LeagueId | typeof ALL;
@@ -18,22 +25,31 @@ export const UPCOMING_WINDOW_DAYS = 7;
 
 export const SPORTS: ReadonlyArray<{ id: SportId; label: string; shortLabel: string }> = [
   { id: "futbol", label: "Fútbol", shortLabel: "Fútbol" },
+  { id: "selecciones", label: "Selecciones", shortLabel: "Selecciones" },
   { id: "nfl", label: "Fútbol americano", shortLabel: "NFL" },
+  { id: "nba", label: "Basquetbol", shortLabel: "NBA" },
+  { id: "nhl", label: "Hockey", shortLabel: "NHL" },
+  { id: "mlb", label: "Béisbol", shortLabel: "MLB" },
 ];
 
-/** Orden fijo de ligas: México primero, luego Europa y al final la NFL. */
-const LEAGUE_ORDER: readonly string[] = [
-  "liga-mx",
-  "premier-league",
-  "laliga",
-  "bundesliga",
-  "serie-a",
-  "ligue-1",
-  "nfl",
-];
+/** Orden fijo de ligas y competencias derivado del catálogo maestro (ADR-043). */
+const LEAGUE_ORDER: readonly string[] = COMPETITION_CATALOG.map((c) => c.id);
 
 export function sportOf(game: Pick<PlatformGame, "sport">): SportId {
-  return game.sport === "american-football" ? "nfl" : "futbol";
+  if (game.sport === "american-football") return "nfl";
+  if (game.sport === "basketball") return "nba";
+  if (game.sport === "ice-hockey") return "nhl";
+  if (game.sport === "baseball") return "mlb";
+  return "futbol";
+}
+
+export function matchesSportFilter(
+  game: Pick<PlatformGame, "sport" | "league">,
+  sport: SportFilter,
+): boolean {
+  if (sport === ALL) return true;
+  if (sport === "selecciones") return isNationalCompetition(game.league);
+  return sportOf(game) === sport;
 }
 
 export function leagueRank(league: string): number {
@@ -83,12 +99,37 @@ const MONTHS = [
   "diciembre",
 ];
 
+const SHORT_MONTHS_ES = [
+  "ene",
+  "feb",
+  "mar",
+  "abr",
+  "may",
+  "jun",
+  "jul",
+  "ago",
+  "sep",
+  "oct",
+  "nov",
+  "dic",
+] as const;
+
 export function shortWeekday(dayId: string): string {
   return WEEKDAY_SHORT[dateOf(dayId).getUTCDay()] ?? "";
 }
 
 export function dayNumber(dayId: string): number {
   return dateOf(dayId).getUTCDate();
+}
+
+/** «lun 16 nov» o «sáb 21 nov». */
+export function shortDateLabel(dayId: string): string {
+  if (!dayId || dayId.length < 10) return dayId;
+  const d = dateOf(dayId);
+  if (Number.isNaN(d.getTime())) return dayId;
+  const wd = (WEEKDAY_SHORT[d.getUTCDay()] ?? "").toLowerCase();
+  const mon = SHORT_MONTHS_ES[d.getUTCMonth()] ?? "";
+  return `${wd} ${d.getUTCDate()} ${mon}`.trim();
 }
 
 /** «Sábado 21 de noviembre». */
@@ -101,6 +142,52 @@ export function isInUpcomingWindow(dayId: string, today: string, windowDays = UP
   return dayId >= today && dayId <= addDays(today, windowDays - 1);
 }
 
+/** Ligas disponibles para un deporte dado con conteo de partidos en el día seleccionado. */
+export interface HomeSportLeagueItem {
+  league: LeagueId;
+  label: string;
+  logoUrl?: string;
+  dayCount: number;
+  totalCount: number;
+}
+
+export function buildHomeSportLeagues(
+  leagues: readonly PlatformLeagueSummary[],
+  games: readonly PlatformGame[],
+  dayGames: readonly PlatformGame[],
+  sport: SportFilter,
+  today?: string,
+): HomeSportLeagueItem[] {
+  if (sport === ALL) return [];
+  const refToday = today || todayId("America/Mexico_City");
+  const dayCountByLeague = new Map<LeagueId, number>();
+  for (const g of dayGames) {
+    dayCountByLeague.set(g.league, (dayCountByLeague.get(g.league) ?? 0) + 1);
+  }
+  const totalCountByLeague = new Map<LeagueId, number>();
+  for (const g of games) {
+    totalCountByLeague.set(g.league, (totalCountByLeague.get(g.league) ?? 0) + 1);
+  }
+  return leagues
+    .filter((lg) => matchesSportFilter({ sport: lg.sport, league: lg.league }, sport))
+    .map((lg) => ({
+      league: lg.league,
+      label: lg.label,
+      logoUrl: lg.logoUrl,
+      dayCount: dayCountByLeague.get(lg.league) ?? 0,
+      totalCount: totalCountByLeague.get(lg.league) ?? lg.totalGames,
+    }))
+    .filter(
+      (lg) =>
+        lg.dayCount > 0 ||
+        isLeagueActiveInWindow(games, lg.league, refToday, 30),
+    )
+    .sort((a, b) => {
+      if ((b.dayCount > 0) !== (a.dayCount > 0)) return b.dayCount > 0 ? 1 : -1;
+      return leagueRank(a.league) - leagueRank(b.league);
+    });
+}
+
 export function gamesForSelection(
   games: readonly PlatformGame[],
   selection: DaySelection,
@@ -111,6 +198,18 @@ export function gamesForSelection(
     return games.filter((g) => isInUpcomingWindow(g.dayId, today, windowDays));
   }
   return games.filter((g) => g.dayId === selection);
+}
+
+/** Resuelve el día activo en /app a partir de una selección explícita o del calendario disponible. */
+export function resolveHomeDay(
+  games: readonly PlatformGame[],
+  chosenDay: DaySelection | null,
+  today: string,
+): string {
+  if (chosenDay && chosenDay !== UPCOMING) return chosenDay;
+  if (games.some((g) => g.dayId >= today)) return today;
+  const last = games.reduce<string>((acc, g) => (g.dayId > acc ? g.dayId : acc), "");
+  return last || today;
 }
 
 export function leaguesIn(games: readonly PlatformGame[]): LeagueId[] {
@@ -163,7 +262,7 @@ export function filterGames(
   league: LeagueFilter,
 ): PlatformGame[] {
   return games.filter(
-    (g) => (sport === ALL || sportOf(g) === sport) && (league === ALL || g.league === league),
+    (g) => matchesSportFilter(g, sport) && (league === ALL || g.league === league),
   );
 }
 
@@ -200,6 +299,58 @@ export interface HomeSportSection {
   leagues: HomeLeagueGroup[];
 }
 
+export interface DayLeagueMatchGroup {
+  league: LeagueId;
+  label: string;
+  /** Escudo de la liga (Bzzoiro) cuando el snapshot lo trae. */
+  logoUrl?: string;
+  sport: SportId;
+  round: string;
+  count: number;
+  games: PlatformGame[];
+}
+
+export interface DayMatchGroup {
+  dayId: string;
+  count: number;
+  leagues: DayLeagueMatchGroup[];
+}
+
+/**
+ * Agrupa los partidos primero por día (orden cronológico) y luego por liga (`LEAGUE_ORDER`),
+ * ordenando los encuentros por hora de inicio dentro de cada liga.
+ */
+export function groupMatchesByDayAndLeague(
+  games: readonly PlatformGame[],
+): DayMatchGroup[] {
+  const days = Array.from(new Set(games.map((g) => g.dayId))).sort();
+  return days
+    .map((dayId) => {
+      const dayGames = games.filter((g) => g.dayId === dayId);
+      const leagues = leaguesIn(dayGames).map((league) => {
+        const leagueGames = dayGames
+          .filter((g) => g.league === league)
+          .sort(byKickoff);
+        const first = leagueGames[0]!;
+        return {
+          league,
+          label: COMPETITION_BY_ID[league]?.label ?? first.leagueLabel,
+          logoUrl: leagueGames.find((g) => g.leagueLogoUrl)?.leagueLogoUrl,
+          sport: sportOf(first),
+          round: mostCommon(leagueGames.map((g) => g.round)),
+          count: leagueGames.length,
+          games: leagueGames,
+        };
+      });
+      return {
+        dayId,
+        count: dayGames.length,
+        leagues,
+      };
+    })
+    .filter((d) => d.count > 0);
+}
+
 /** Deporte → liga → día, cada nivel en orden fijo y los partidos por hora de inicio. */
 export function buildSections(games: readonly PlatformGame[]): HomeSportSection[] {
   return SPORTS.map((sport) => {
@@ -225,8 +376,11 @@ export interface MostLikelyOutcome {
   p: number;
 }
 
-/** Resultado del 1·X·2 con más probabilidad. En la NFL no hay empate. */
-export function mostLikelyOutcome(game: Pick<PlatformGame, "x12" | "sport" | "home" | "away">): MostLikelyOutcome {
+/** Resultado ganador más probable. Solo el fútbol contempla empate en el partido. */
+export function mostLikelyOutcome(
+  game: Pick<PlatformGame, "x12" | "sport" | "home" | "away">,
+): MostLikelyOutcome | null {
+  if (!game.x12) return null;
   const [ph, pd, pa] = game.x12;
   const options: MostLikelyOutcome[] = [
     { side: "home", label: `${game.home.shortName} gana`, p: ph },
@@ -279,4 +433,96 @@ export function alternativePick(game: Pick<PlatformGame, "picks">): MatchPick | 
   const [main, ...rest] = game.picks;
   if (!main) return null;
   return rest.reduce<MatchPick | null>((best, p) => (best === null || p.p > best.p ? p : best), null);
+}
+
+/**
+ * Motor de relevancia para la barra de «Tendencias» (Imagen 1 · ADR-043).
+ *
+ * - En `Todos` muestra los próximos partidos más relevantes de TODOS los deportes
+ *   (asegurando variedad multideporte cuando hay acción en varios deportes).
+ * - En `Fútbol` + `Todas las ligas` muestra los próximos más relevantes de todas las ligas de fútbol.
+ * - En cualquier deporte o liga específica aplica la misma lógica de proximidad + prestigio + derbi + señal.
+ */
+export function getTrendingMatches(params: {
+  games: readonly PlatformGame[];
+  sport: SportFilter;
+  league: LeagueFilter;
+  today: string;
+  liveIds?: ReadonlySet<string>;
+  maxItems?: number;
+}): PlatformGame[] {
+  const { games, sport, league, today, liveIds, maxItems = 12 } = params;
+  const scoped = games.filter((g) => {
+    if (!matchesSportFilter(g, sport)) return false;
+    if (league !== ALL && g.league !== league) return false;
+    return true;
+  });
+  if (scoped.length === 0) return [];
+
+  const horizon30 = addDays(today, 30);
+  const upcomingOrLive = scoped.filter((g) => {
+    const isLive = Boolean(liveIds?.has(g.id)) || String(g.status) === "LIVE";
+    if (isLive) return true;
+    if (g.status === "FT") return false;
+    return g.dayId >= today && g.dayId <= horizon30;
+  });
+  const pool = upcomingOrLive.length > 0 ? upcomingOrLive : scoped.filter((g) => g.status !== "FT");
+  const effectivePool = pool.length > 0 ? pool : scoped;
+
+  const todayMs = Date.parse(`${today}T12:00:00Z`);
+  const scoreOf = (g: PlatformGame): number => {
+    const isLive = Boolean(liveIds?.has(g.id)) || String(g.status) === "LIVE";
+    let score = 0;
+    if (isLive) score += 1000;
+    const dayMs = Date.parse(`${g.dayId}T12:00:00Z`);
+    const deltaDays = Number.isFinite(dayMs) && Number.isFinite(todayMs)
+      ? Math.round((dayMs - todayMs) / 86_400_000)
+      : 7;
+    if (deltaDays <= 0) score += 420;
+    else if (deltaDays === 1) score += 340;
+    else if (deltaDays <= 3) score += 260;
+    else if (deltaDays <= 7) score += 180;
+    else if (deltaDays <= 14) score += 100;
+    else score += 40;
+
+    score += competitionPrestigeScore(g.league);
+    if (g.preGame?.matchContext?.isLocalDerby) score += 75;
+    if (typeof g.confidenceScore === "number") score += Math.round(g.confidenceScore * 0.5);
+    const mainPick = g.picks[0];
+    if (mainPick && mainPick.marketDecimal && mainPick.marketDecimal > mainPick.fairDecimal) {
+      score += 35;
+    }
+    return score;
+  };
+
+  const ranked = [...effectivePool].sort((a, b) => {
+    const diff = scoreOf(b) - scoreOf(a);
+    if (diff !== 0) return diff;
+    return a.kickoffUtc.localeCompare(b.kickoffUtc) || a.id.localeCompare(b.id);
+  });
+
+  // En vista amplia (Todos los deportes o Todas las ligas de fútbol), balanceamos para no repetir una sola liga 10 veces
+  if (league === ALL && ranked.length > maxItems) {
+    const picked: PlatformGame[] = [];
+    const seenIds = new Set<string>();
+    const perBucketCap = sport === ALL ? 3 : 2;
+    const bucketCounts = new Map<string, number>();
+
+    for (const g of ranked) {
+      if (picked.length >= maxItems) break;
+      const bucket = sport === ALL ? sportOf(g) : g.league;
+      const count = bucketCounts.get(bucket) ?? 0;
+      if (count >= perBucketCap) continue;
+      picked.push(g);
+      seenIds.add(g.id);
+      bucketCounts.set(bucket, count + 1);
+    }
+    for (const g of ranked) {
+      if (picked.length >= maxItems) break;
+      if (!seenIds.has(g.id)) picked.push(g);
+    }
+    return picked;
+  }
+
+  return ranked.slice(0, maxItems);
 }

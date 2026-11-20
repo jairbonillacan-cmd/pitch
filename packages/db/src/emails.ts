@@ -2,9 +2,9 @@
  * Registro de correos transaccionales (Resend) y preferencia de avisos de la bitácora.
  * El envío en sí vive en `apps/web/src/server/mailer.ts`; aquí solo se guarda qué se mandó.
  */
-import { and, asc, eq, inArray, lte } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, isNotNull, lt, lte } from "drizzle-orm";
 import type { Db } from "./billing";
-import { scheduledEmails, userPreferences, users } from "./schema";
+import { scheduledEmails, sealedPicks, userPreferences, users, watchlist } from "./schema";
 
 export type ScheduledEmailKind =
   | "welcome"
@@ -13,7 +13,12 @@ export type ScheduledEmailKind =
   | "payment_receipt"
   | "renewal_reminder"
   | "access_expired"
-  | "transfer_rejected";
+  | "transfer_rejected"
+  | "referral_signed_up"
+  | "tipster_activated"
+  | "content_removed"
+  | "weekly_digest"
+  | "monthly_record";
 
 export type ScheduledEmailStatus = "pending" | "scheduled" | "sent" | "canceled" | "failed";
 
@@ -145,22 +150,174 @@ export async function listDuePendingEmails(
 
 export interface EmailPreferences {
   pickResults: boolean;
+  weeklyDigest?: boolean;
+  monthlyRecord?: boolean;
 }
 
 export async function getEmailPreferences(db: Db, userId: string): Promise<EmailPreferences> {
   const [row] = await db
-    .select({ pickResults: userPreferences.emailPickResults })
+    .select({
+      pickResults: userPreferences.emailPickResults,
+      weeklyDigest: userPreferences.emailWeeklyDigest,
+      monthlyRecord: userPreferences.emailMonthlyRecord,
+    })
     .from(userPreferences)
     .where(eq(userPreferences.userId, userId));
-  return { pickResults: row?.pickResults ?? false };
+  return {
+    pickResults: row?.pickResults ?? false,
+    weeklyDigest: row?.weeklyDigest ?? false,
+    monthlyRecord: row?.monthlyRecord ?? false,
+  };
 }
 
-export async function setEmailPreferences(db: Db, userId: string, prefs: EmailPreferences): Promise<void> {
+export async function setEmailPreferences(
+  db: Db,
+  userId: string,
+  prefs: Partial<EmailPreferences>,
+): Promise<void> {
   await db
     .insert(userPreferences)
-    .values({ userId, emailPickResults: prefs.pickResults })
+    .values({
+      userId,
+      emailPickResults: prefs.pickResults ?? false,
+      emailWeeklyDigest: prefs.weeklyDigest ?? false,
+      emailMonthlyRecord: prefs.monthlyRecord ?? false,
+    })
     .onConflictDoUpdate({
       target: userPreferences.userId,
-      set: { emailPickResults: prefs.pickResults, updatedAt: new Date() },
+      set: {
+        ...(prefs.pickResults !== undefined ? { emailPickResults: prefs.pickResults } : {}),
+        ...(prefs.weeklyDigest !== undefined ? { emailWeeklyDigest: prefs.weeklyDigest } : {}),
+        ...(prefs.monthlyRecord !== undefined ? { emailMonthlyRecord: prefs.monthlyRecord } : {}),
+        updatedAt: new Date(),
+      },
+    });
+}
+
+export interface EmailSubscriber {
+  userId: string;
+  email: string;
+  displayName: string | null;
+  handle: string | null;
+  oddsFormat: "american" | "decimal";
+  favoriteLeagues: string[];
+  showInRanking: boolean;
+}
+
+/** Suscriptores activos que aceptaron recibir el resumen semanal o mensual. */
+export async function listEmailSubscribers(
+  db: Db,
+  kind: "weekly_digest" | "monthly_record",
+): Promise<EmailSubscriber[]> {
+  const flagCol =
+    kind === "weekly_digest" ? userPreferences.emailWeeklyDigest : userPreferences.emailMonthlyRecord;
+  const rows = await db
+    .select({
+      userId: users.id,
+      email: users.email,
+      displayName: users.displayName,
+      handle: users.handle,
+      oddsFormat: userPreferences.oddsFormat,
+      favoriteLeagues: userPreferences.favoriteLeagues,
+      showInRanking: userPreferences.showInRanking,
+    })
+    .from(userPreferences)
+    .innerJoin(users, eq(users.id, userPreferences.userId))
+    .where(
+      and(
+        eq(flagCol, true),
+        isNotNull(users.authUserId),
+        isNotNull(users.termsAcceptedAt),
+        eq(users.isAdult, true),
+      ),
+    );
+  return rows.map((r) => ({
+    userId: r.userId,
+    email: r.email,
+    displayName: r.displayName,
+    handle: r.handle,
+    oddsFormat: r.oddsFormat === "decimal" ? "decimal" : "american",
+    favoriteLeagues: Array.isArray(r.favoriteLeagues) ? r.favoriteLeagues : [],
+    showInRanking: r.showInRanking,
+  }));
+}
+
+export async function listWatchedGameIds(db: Db, userId: string): Promise<string[]> {
+  const rows = await db.select({ gameId: watchlist.gameId }).from(watchlist).where(eq(watchlist.userId, userId));
+  return rows.map((r) => r.gameId);
+}
+
+export interface SettledMonthPickRow {
+  id: string;
+  leagueLabel: string;
+  status: "won" | "lost" | "void";
+  units: number;
+  userDecimal: number;
+  clvPct: number | null;
+  settledAt: Date | null;
+}
+
+export async function listSettledPicksBetween(
+  db: Db,
+  userId: string,
+  startInclusive: Date,
+  endExclusive: Date,
+): Promise<SettledMonthPickRow[]> {
+  const rows = await db
+    .select({
+      id: sealedPicks.id,
+      leagueLabel: sealedPicks.leagueLabel,
+      status: sealedPicks.status,
+      units: sealedPicks.units,
+      userDecimal: sealedPicks.userDecimal,
+      clvPct: sealedPicks.clvPct,
+      settledAt: sealedPicks.settledAt,
+    })
+    .from(sealedPicks)
+    .where(
+      and(
+        eq(sealedPicks.userId, userId),
+        inArray(sealedPicks.status, ["won", "lost", "void"]),
+        isNotNull(sealedPicks.settledAt),
+        gte(sealedPicks.settledAt, startInclusive),
+        lt(sealedPicks.settledAt, endExclusive),
+      ),
+    )
+    .orderBy(desc(sealedPicks.settledAt));
+
+  return rows.map((r) => ({
+    id: r.id,
+    leagueLabel: r.leagueLabel,
+    status: (r.status === "won" || r.status === "lost" ? r.status : "void") as "won" | "lost" | "void",
+    units: Number(r.units),
+    userDecimal: Number(r.userDecimal),
+    clvPct: r.clvPct == null ? null : Number(r.clvPct),
+    settledAt: r.settledAt,
+  }));
+}
+
+export async function applyEmailUnsubscribe(
+  db: Db,
+  userId: string,
+  kind: "weekly_digest" | "monthly_record" | "all",
+): Promise<void> {
+  const update =
+    kind === "weekly_digest"
+      ? { emailWeeklyDigest: false }
+      : kind === "monthly_record"
+        ? { emailMonthlyRecord: false }
+        : {
+            emailWeeklyDigest: false,
+            emailMonthlyRecord: false,
+            emailPickResults: false,
+            emailValueAlerts: false,
+            emailBeforeMatch: false,
+          };
+  await db
+    .insert(userPreferences)
+    .values({ userId, ...update, updatedAt: new Date() })
+    .onConflictDoUpdate({
+      target: userPreferences.userId,
+      set: { ...update, updatedAt: new Date() },
     });
 }

@@ -159,6 +159,86 @@ describe("ficha en vivo", () => {
     expect(p.calls.length).toBe(firstCalls); // todo sale de la caché
   });
 
+  it("en modo ilimitado (`BZZOIRO_UNLIMITED`) omite topes de cuota y carga narración incremental, player-stats y TV MX", async () => {
+    const commentaryCalls: string[] = [];
+    let pollCycle = 0;
+    const baseCommentary = [
+      { id: 10, minute: 12, text: "Disparo cruzado de Canales.", is_home: false, is_important: false },
+    ];
+    const extraCommentary = [
+      { id: 10, minute: 12, text: "Disparo cruzado de Canales.", is_home: false, is_important: false },
+      { id: 11, minute: 38, text: "¡Gol de Monterrey tras tiro de esquina!", is_home: false, is_important: true },
+    ];
+    const p = fakeProvider({
+      "/events/602407/stats/": {
+        ...(fixture("stats.json") as Record<string, unknown>),
+        stats: {
+          ...((fixture("stats.json") as { stats?: Record<string, Record<string, unknown>> }).stats ?? {}),
+          home: {
+            ...((fixture("stats.json") as { stats?: { home?: Record<string, unknown> } }).stats?.home ?? {}),
+            goals_prevented: 0.42,
+            touches_in_penalty_area: 19,
+            accurate_passes_pct: 80,
+          },
+          away: {
+            ...((fixture("stats.json") as { stats?: { away?: Record<string, unknown> } }).stats?.away ?? {}),
+            goals_prevented: -0.15,
+            touches_in_penalty_area: 14,
+            accurate_passes_pct: 84,
+          },
+        },
+      },
+      "/events/602407/player-stats/": [
+        {
+          player: { name: "Sergio Canales" },
+          team: "away",
+          position: "AM",
+          minutes_played: 38,
+          rating: 8.1,
+          goals: 1,
+          assists: 0,
+          total_shots: 3,
+          shots_on_target: 2,
+          xg: 0.48,
+        },
+      ],
+      "/events/602407/broadcasts/": {
+        results: [{ channel: "Caliente TV" }, { channel: "TUDN" }],
+      },
+    });
+    const richFetch: LiveFetch = async (path) => {
+      if (path.startsWith("/events/602407/commentary/")) {
+        commentaryCalls.push(path);
+        pollCycle += 1;
+        return {
+          status: 200,
+          body: { results: pollCycle === 1 ? baseCommentary : extraCommentary },
+          remaining: 10, // bajo respecto a reserva, pero modo ilimitado lo permite
+        };
+      }
+      const res = await p.fetch(path);
+      return { ...res, remaining: 10 };
+    };
+    const d = deps("2026-11-14T23:34:00Z", richFetch, {
+      budget: { dailyMax: 0, reserve: 0, unlimited: true },
+      includeRich: true,
+    }) as LiveDeps & { advance: (ms: number) => void };
+
+    const first = await getLiveMatchDetail(QRO_MTY, d);
+    expect(first?.stats?.home.goalsPrevented).toBeCloseTo(0.42);
+    expect(first?.stats?.home.touchesInBox).toBe(19);
+    expect(first?.stats?.home.passAccuracyPct).toBe(80);
+    expect(first?.commentary?.map((c) => c.id)).toEqual(["10"]);
+    expect(first?.playerStats?.[0]).toMatchObject({ player: "Sergio Canales", side: "away", goals: 1 });
+    expect(first?.broadcastsMx).toEqual(["Caliente TV", "TUDN"]);
+
+    d.advance(31_000);
+    const second = await getLiveMatchDetail(QRO_MTY, d);
+    expect(commentaryCalls).toHaveLength(2);
+    expect(commentaryCalls[1]).toContain("?since=");
+    expect(second?.commentary?.map((c) => c.id)).toEqual(["10", "11"]);
+  });
+
   it("partido desconocido: 404", async () => {
     const res = await gameGET(new Request("http://localhost/api/live/games/no-existe"), {
       params: Promise.resolve({ gameId: "no-existe" }),

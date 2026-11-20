@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "league": "saudi-pro-league",
+  "observedAt": "2026-11-19T16:05:39.021Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "saudi-pro-league.al-ittihad",
+      "player": "Hamed Al-Ghamdi",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "saudi-pro-league.al-hilal",
+      "player": "Gabriel Martinelli",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    }
+  ]
+}

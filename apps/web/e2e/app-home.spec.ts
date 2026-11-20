@@ -31,34 +31,117 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await page.goto("/app");
   await expect(page).toHaveURL(/\/app$/);
   await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
-  await expect(page.getByRole("navigation", { name: "Elegir día" })).toBeVisible();
+  await expect(page.getByRole("group", { name: "Elegir día" })).toBeVisible();
   const sportGroup = page.getByRole("group", { name: "Elegir deporte" });
-  await expect(page.getByRole("group", { name: "Elegir deporte" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Tu parlay" })).toBeVisible();
+  await expect(sportGroup).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Tu boleto de parlay" })).toBeVisible();
+  const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
+  await expect(dailyParlayTab).toBeVisible();
+  await dailyParlayTab.click();
   await expect(page.locator("[data-daily-parlay-card]")).toBeVisible();
   await page.locator('[data-daily-risk="conservador"]').click();
   await page.locator('[data-daily-risk="arriesgado"]').click();
   await page.locator('[data-daily-risk="medio"]').click();
+  await page.getByRole("tab", { name: /Tu parlay/i }).click();
 
-  const firstMatchHref = await page
-    .locator('a[href^="/app/"][href*="/games/"]')
-    .first()
-    .getAttribute("href");
+  // Encabezado del Inicio: elegir NBA (deporte de liga única, ADR-048 §1) suprime la franja redundante
+  // de ligas y deja solo sus chips.
+  const nbaBtn = sportGroup.getByRole("button", { name: /NBA/i });
+  await nbaBtn.click();
+  await expect(nbaBtn).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator('.pl-header-leagueband[data-open="true"]')).toHaveCount(0);
+  const nbaDayJump = page.locator("[data-day-empty] [data-day-jump]");
+  if ((await nbaDayJump.count()) > 0) {
+    await nbaDayJump.click();
+  }
+  const nbaChips = page.locator("[data-match-chip]");
+  const nbaChipCount = await nbaChips.count();
+  expect(nbaChipCount).toBeGreaterThan(0);
+  const chipLeagues = await nbaChips.evaluateAll((els) =>
+    els.map((el) => el.getAttribute("data-chip-league")),
+  );
+  expect(new Set(chipLeagues)).toEqual(new Set(["nba"]));
+
+  // Desplazar tira de chips de partidos con las flechas laterales cuando hay desborde horizontal.
+  await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
+  const chipsNext = page.locator("[data-chips-next]");
+  if ((await chipsNext.count()) > 0 && (await chipsNext.isEnabled())) {
+    await chipsNext.click();
+    await expect(async () => {
+      const sl = await page.locator("[data-day-chips]").evaluate((el) => el.scrollLeft);
+      expect(sl).toBeGreaterThan(0);
+    }).toPass({ timeout: 3_000 });
+    const chipsPrev = page.locator("[data-chips-prev]");
+    await expect(chipsPrev).toBeEnabled();
+    await chipsPrev.click();
+  }
+
+  // Volver a Todos los deportes, avanzar al siguiente día con › y regresar con Hoy.
+  await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
+  const dayCenter = page.locator("[data-day-center]");
+  const nextBtn = page.locator("[data-day-next]");
+  const initialDayLabel = (await dayCenter.innerText()).trim();
+  if (!(await nextBtn.isDisabled())) {
+    await nextBtn.click();
+  }
+  await expect(dayCenter).not.toHaveText(initialDayLabel);
+  await dayCenter.click();
+  const calPopover = page.locator("[data-home-calendar-popover]");
+  await expect(calPopover).toBeVisible();
+  const calBox = await calPopover.boundingBox();
+  expect(calBox).not.toBeNull();
+  expect(calBox!.x).toBeGreaterThanOrEqual(0);
+  expect(Math.round(calBox!.x + calBox!.width)).toBeLessThanOrEqual(width + 1);
+  await calPopover.locator(".pl-home-cal-today-btn").click();
+  await expect(calPopover).toHaveCount(0);
+  await expect(dayCenter).toContainText("Hoy");
+
+  let firstMatchHref: string | null = null;
   if (width <= 640) {
     await page.setViewportSize({ width: 375, height: 844 });
     const overflow375 = await page.evaluate(
       () => document.documentElement.scrollWidth > window.innerWidth,
     );
     expect(overflow375).toBe(false);
+    const touchHeights = await page
+      .locator("[data-home-filterbar] button:not(:disabled)")
+      .evaluateAll((els) => els.map((el) => Math.round(el.getBoundingClientRect().height)));
+    for (const h of touchHeights) {
+      expect(h).toBeGreaterThanOrEqual(44);
+    }
     await page.setViewportSize({ width, height: 900 });
   }
 
-  // Deporte → liga: elegir un deporte deja solo sus ligas y marca el botón
+  // Deporte → liga: Fútbol (múltiples ligas) despliega «Ligas del deporte»; si hoy no tiene partidos, muestra «Ir al …».
   const soccerTile = sportGroup.getByRole("button", { name: /^Fútbol\b/ }).first();
   if ((await soccerTile.count()) > 0) {
     await soccerTile.click();
     await expect(soccerTile).toHaveAttribute("aria-pressed", "true");
+    await expect(page.getByRole("group", { name: "Ligas del deporte" })).toBeVisible();
+    const dayEmpty = page.locator("[data-day-empty]");
+    if ((await dayEmpty.count()) > 0) {
+      await expect(dayEmpty).toContainText("Sin partidos este día");
+      const jumpBtn = page.locator("[data-day-jump]");
+      await expect(jumpBtn).toContainText(/^Ir al /);
+      await jumpBtn.click();
+    }
+    const scheduledFootballLink = page
+      .locator('[data-game-card]:has(button[aria-label^="Agregar al parlay"]) a[href^="/app/"][href*="/g/"]')
+      .first();
+    if ((await scheduledFootballLink.count()) > 0) {
+      firstMatchHref = await scheduledFootballLink.getAttribute("href");
+    }
+    if (!(await dayCenter.innerText()).includes("Hoy")) {
+      await dayCenter.click();
+      await page.locator("[data-home-calendar-popover] .pl-home-cal-today-btn").click();
+    }
     await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
+  }
+  if (!firstMatchHref) {
+    firstMatchHref = await page
+      .locator('a[href^="/app/"][href*="/g/"]')
+      .first()
+      .getAttribute("href");
   }
 
   // Agregar el pick principal de una tarjeta al parlay
@@ -101,12 +184,12 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   // Buscador global (⌘K / botón Buscar)
   await page.getByRole("button", { name: "Buscar" }).click();
   const searchInput = page.getByRole("searchbox", {
-    name: /Buscar equipo, liga, partido o módulo/i,
+    name: /Buscar partido,.*liga/i,
   });
   await expect(searchInput).toBeVisible();
   await searchInput.fill("NFL");
   await expect(
-    page.getByRole("dialog", { name: "Buscar en PitchLab" }).locator('a[href^="/app/nfl/games/"]').first(),
+    page.getByRole("dialog", { name: "Buscar en PitchLab" }).locator('a[href^="/app/nfl/g/"]').first(),
   ).toBeVisible();
   await page
     .getByRole("dialog", { name: "Buscar en PitchLab" })
@@ -186,8 +269,8 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(shareDialog).toContainText("SOFIA5");
   await page.getByRole("button", { name: "Cerrar vista de boleto" }).click();
 
-  // 5) Cuenta & Referidos (CUENTA-2): enlace corto, muestra marcada «Ejemplo» sin cuentas y cero simulador en producción
-  await page.goto("/app/account");
+  // 5) Cuenta & Referidos (CUENTA-2 / ADR-044): Mi plan abre primero; ?tab=referrals abre Invitar amigos
+  await page.goto("/app/account?tab=referrals");
   await page.waitForLoadState("networkidle");
   await expect(page.locator("[data-referral-days]:visible")).toContainText("+14 días");
   await expect(page.locator("[data-example-badge]:visible").first()).toBeVisible();
@@ -200,9 +283,12 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   }).toPass({ timeout: 10_000 });
   await expect(page.locator("[data-simulate-referral]")).toHaveCount(0);
 
-  // 6) Resultados: Parlays oficiales del día calificados
+  // 6) Resultados: Parlays oficiales del día calificados + Calendario mensual de resultados diarios
   await page.goto("/app/historial");
   await expect(page.locator("[data-hist-daily-parlays]")).toBeVisible();
+  const histCalBtn = page.locator("[data-historial-view-toggle] button", { hasText: "Calendario" });
+  await histCalBtn.click();
+  await expect(page.locator("[data-daily-results-calendar]")).toBeVisible();
   if (width <= 640) {
     await page.setViewportSize({ width: 375, height: 844 });
     const overflowHist375 = await page.evaluate(
@@ -212,12 +298,20 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await page.setViewportSize({ width, height: 900 });
   }
 
-  // 7) Ficha de partido: Mercados agrupados y derivados del motor v3.2
+  // 6b) Explorar picks: chips de 1 toque y comparador manual
+  await page.goto("/app/picks");
+  await expect(page.locator('[data-finder-chip="probables"]')).toBeVisible();
+  await page.locator('[data-finder-chip="probables"]').click();
+
+  // 7) Ficha de partido: pestañas accesibles, números esperados y mercados derivados v3.2
   if (firstMatchHref) {
     await page.goto(firstMatchHref);
-    const marketsTab = page.getByRole("tab", { name: /^Mercados/i });
-    await expect(marketsTab).toBeVisible();
-    await marketsTab.click();
+    const numbersTab = page.getByRole("tab", { name: /^Números/i });
+    await expect(numbersTab).toBeVisible();
+    await numbersTab.click();
+    await expect(numbersTab).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=numeros$/);
+    await expect(page.locator("[data-numbers-expected]")).toBeVisible();
     await expect(page.locator(".pl-mkt-wrap")).toBeVisible();
     await expect(page.getByText(/Derivado del motor/i).first()).toBeVisible();
     const bodyText = await page.locator("body").innerText();
@@ -233,4 +327,67 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   }
 
   expect(errors).toEqual([]);
+});
+
+test("Modo Sólido unificado en /app: sin opción Cristal, diferenciación real fondo/tarjetas y Axe AA en oscuro y claro", async ({ page }, testInfo) => {
+  test.setTimeout(60_000);
+  const width = testInfo.project.name === "mobile" ? 390 : 1440;
+  await page.setViewportSize({ width, height: 900 });
+
+  const uniqueIp = `198.51.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
+  const unlock = await page.request.post("/api/beta/unlock", {
+    headers: { "x-forwarded-for": uniqueIp, origin: "http://127.0.0.1:3100" },
+    data: { code: "2026", next: "/app" },
+  });
+  expect(unlock.ok()).toBe(true);
+
+  await page.addInitScript(() => {
+    window.localStorage.setItem("pl-style", "glass");
+  });
+
+  await page.goto("/app");
+  const html = page.locator("html");
+  await expect(html).toHaveAttribute("data-style", "solid");
+  await expect(page.locator(".pl-atmo")).toBeHidden();
+
+  const surfaceCheck = await page.evaluate(() => {
+    const stage = document.querySelector(".pl-stage");
+    const card = document.querySelector(".pl-home-card, .pl-astro-league-block, .glass-card");
+    const header = document.querySelector(".panel-header");
+    return {
+      stageBg: stage ? getComputedStyle(stage).backgroundColor : null,
+      cardBg: card ? getComputedStyle(card).backgroundColor : null,
+      headerBg: header ? getComputedStyle(header).backgroundColor : null,
+    };
+  });
+  expect(surfaceCheck.stageBg).not.toBe("rgb(0, 0, 0)");
+  expect(surfaceCheck.cardBg).not.toBeNull();
+  expect(surfaceCheck.cardBg).not.toBe(surfaceCheck.stageBg);
+  expect(surfaceCheck.headerBg).not.toBe(surfaceCheck.stageBg);
+
+  await page.screenshot({
+    path: `../../test-results/screenshots/app-home-${testInfo.project.name}-dark.png`,
+    fullPage: false,
+  });
+
+  const darkAxe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+  expect(darkAxe.violations.map((v) => v.id)).toEqual([]);
+
+  await page.locator("[data-profile-menu-trigger]:visible").first().click();
+  const menu = page.locator(".pl-profile-menu:popover-open");
+  await expect(menu.getByRole("group", { name: "Estilo" })).toHaveCount(0);
+  await expect(menu.getByText("Cristal")).toHaveCount(0);
+  await menu.locator('[data-theme-option="light"]').click();
+  await expect(html).toHaveAttribute("data-theme", "light");
+  await expect(html).toHaveAttribute("data-style", "solid");
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(200);
+
+  await page.screenshot({
+    path: `../../test-results/screenshots/app-home-${testInfo.project.name}-light.png`,
+    fullPage: false,
+  });
+
+  const lightAxe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+  expect(lightAxe.violations.map((v) => v.id)).toEqual([]);
 });

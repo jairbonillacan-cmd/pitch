@@ -1,20 +1,14 @@
 import React from "react";
 import type { PlatformDataset } from "../types";
-import { HeroMatchDemoIsland } from "./LandingClientIslands";
+import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE } from "../spacetime-catalog";
+import { FeatureShowcaseIsland, HeroMatchDemoIsland, PricingCardIsland } from "./LandingClientIslands";
 import {
-  buildFeaturedCommunityPick,
   buildFinishedResultItems,
   buildHeroLeagueCards,
   buildParlayDemoData,
   ClosingCtaSection,
-  EnginesSection,
   FaqSection,
-  HowItWorksSection,
-  IntegrityHistorySection,
-  ParlaysAndCommunitySection,
-  PricingSection,
   PublicSiteShell,
-  type LandingFeaturedCommunityPick,
   type LandingFinishedResultItem,
   type LandingHeroLeagueCard,
   type LandingParlayDemoData,
@@ -25,8 +19,15 @@ export interface LandingSurfaceProps {
   heroCards?: readonly LandingHeroLeagueCard[];
   recentResults?: readonly LandingFinishedResultItem[];
   parlayDemo?: LandingParlayDemoData;
-  featuredPick?: LandingFeaturedCommunityPick;
   dataset?: PlatformDataset;
+}
+
+function CalloutArrow({ reverse = false }: { reverse?: boolean }): React.JSX.Element {
+  return (
+    <svg viewBox="0 0 76 33" width="76" height="33" fill="none" aria-hidden="true" className={reverse ? "pl-clean-arrow pl-clean-arrow--reverse" : "pl-clean-arrow"}>
+      <path d="M2 4c23-8 42 2 64 20m-13 0 14 1-3-12" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
 }
 
 export function LandingSurface({
@@ -34,77 +35,83 @@ export function LandingSurface({
   heroCards,
   recentResults,
   parlayDemo,
-  featuredPick,
   dataset,
 }: LandingSurfaceProps = {}): React.JSX.Element {
-  const resolvedHeroCards =
-    heroCards ??
-    (dataset ? buildHeroLeagueCards(dataset.games, dataset.leagues) : []);
-  const resolvedResults =
-    recentResults ??
-    (dataset ? buildFinishedResultItems(dataset.games, 4) : []);
-  const resolvedParlayDemo =
-    parlayDemo ?? buildParlayDemoData(dataset ? dataset.games : []);
-  const resolvedFeaturedPick =
-    featuredPick ??
-    (dataset
-      ? buildFeaturedCommunityPick(dataset.games, dataset.tipsterWeeklyPickId)
-      : undefined);
+  const cards = heroCards ?? (dataset ? buildHeroLeagueCards(dataset.games, dataset.leagues) : []);
+  const results = recentResults ?? (dataset ? buildFinishedResultItems(dataset.games, 4) : []);
+  const parlay = parlayDemo ?? buildParlayDemoData(dataset?.games ?? []);
 
   return (
-    <PublicSiteShell activePath="/" hasSession={hasSession}>
-      <section id="top" className="pl-lp-hero">
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-          <div className="pl-lp-orb pl-lp-orb--2" />
-          <div className="pl-lp-orb pl-lp-orb--3" />
+    <PublicSiteShell activePath="/" hasSession={hasSession} className="pl-lp--clean">
+      <section id="top" className="pl-clean-hero" aria-labelledby="pl-clean-title">
+        <div className="pl-clean-hero-light" aria-hidden="true">
+          <img src="/landing/hero-light.webp" width={1536} height={1024} alt="" />
         </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
-
-        <div className="pl-lp-wrap pl-lp-hero-grid">
-          <div className="pl-lp-hero-copy">
-            <p className="pl-lp-eyebrow">Liga MX · NFL · Premier · LaLiga</p>
-            <h1 className="pl-lp-h1">
-              Lo más probable de cada partido, con su momio justo.
-            </h1>
-            <p className="pl-lp-lede">
-              Ves qué resultado es más probable según los datos, cuánto debería pagar y si el momio de tu casa paga más o menos que eso. Tú decides.
-            </p>
-            <div className="pl-lp-hero-ctas">
+        <div className="pl-lp-wrap pl-clean-hero-grid">
+          <div className="pl-clean-hero-copy">
+            <p className="pl-clean-proof">{SPACETIME_METRICS_HEADLINE.historicalMatches} partidos analizados con datos reales</p>
+            <h1 id="pl-clean-title">Lo más probable de cada partido, con su momio justo.</h1>
+            <p className="pl-clean-lede">Consulta la probabilidad de cada resultado y compara lo que debería pagar con el momio que te ofrece tu casa.</p>
+            <div className="pl-clean-hero-actions">
               <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
-                Probar 7 días gratis{" "}
-                <span className="pl-lp-arr" aria-hidden="true">
-                  →
-                </span>
+                Probar 7 días gratis <span aria-hidden="true">→</span>
               </a>
-              <a className="pl-lp-btn pl-lp-btn-ghost" href="#hoy">
-                Ver partidos de hoy
-              </a>
+              <a className="pl-lp-btn pl-clean-secondary" href="#hoy">Comparar momio</a>
             </div>
-            <p className="pl-lp-fine">
-              Sin tarjeta · cancela cuando quieras · solo mayores de 18
-            </p>
+            <p className="pl-lp-fine">Empieza gratis sin tarjeta · solo mayores de 18.</p>
           </div>
-
-          <HeroMatchDemoIsland
-            cards={resolvedHeroCards}
-            inputId="tu-momio"
-            containerId="hoy"
-            maxLeagues={4}
-          />
+          <figure className="pl-clean-hero-device">
+            <img
+              src="/landing/app-phones.webp"
+              width={913}
+              height={1000}
+              fetchPriority="high"
+              decoding="async"
+              alt="Inicio de PitchLab y ficha del partido Pumas UNAM contra Rayados de Monterrey"
+            />
+          </figure>
         </div>
       </section>
 
-      <HowItWorksSection variant="teaser" />
-      <EnginesSection variant="teaser" />
-      <IntegrityHistorySection results={resolvedResults} variant="teaser" />
-      <ParlaysAndCommunitySection
-        parlayDemo={resolvedParlayDemo}
-        featuredPick={resolvedFeaturedPick}
-      />
-      <PricingSection variant="teaser" hasSession={hasSession} />
-      <FaqSection />
-      <ClosingCtaSection hasSession={hasSession} />
+      <section id="motores" className="pl-clean-section" aria-labelledby="pl-clean-method">
+        <div className="pl-lp-wrap">
+          <header className="pl-clean-heading">
+            <p className="pl-clean-proof">Partidos históricos en los motores</p>
+            <h2 id="pl-clean-method">Cada partido, probado desde cinco ángulos.</h2>
+            <p>Aprendemos de {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos históricos y medimos el desempeño en {SPACETIME_METRICS_HEADLINE.holdoutTestMatches} encuentros evaluados fuera de muestra.</p>
+          </header>
+          <div className="pl-clean-analysis">
+            <div className="pl-clean-callouts pl-clean-callouts--left">
+              <p><strong>El consenso de los motores</strong>Contrasta el partido desde cinco perspectivas.<CalloutArrow /></p>
+              <p><strong>La probabilidad del modelo</strong>Ve el resultado más probable y cómo se reparte el resto.<CalloutArrow /></p>
+            </div>
+            <div className="pl-clean-analysis-stage">
+              <aside className="pl-clean-engine-sheet" aria-label="Motores de PitchLab">
+                <ul>{SPACETIME_ENGINES.map((engine) => <li key={engine.key}>{engine.shortName}</li>)}</ul>
+              </aside>
+              <HeroMatchDemoIsland cards={cards} variant="clean" />
+            </div>
+            <div className="pl-clean-callouts pl-clean-callouts--right">
+              <p><strong>El precio que te ofrecen</strong>Escribe tu momio y compáralo con el justo.<CalloutArrow reverse /></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <FeatureShowcaseIsland parlayDemo={parlay} results={results} heroCard={cards[0]} />
+
+      <section id="precio" className="pl-clean-section" aria-labelledby="pl-clean-pricing">
+        <div className="pl-lp-wrap pl-clean-pricing">
+          <header className="pl-clean-heading">
+            <h2 id="pl-clean-pricing">Elige tu plan.</h2>
+            <p>Explora el comparador gratis o abre el análisis completo con el Pase PitchLab Ultra.</p>
+          </header>
+          <PricingCardIsland layout="compare" hasSession={hasSession} />
+        </div>
+      </section>
+
+      <FaqSection variant="landing" />
+      <ClosingCtaSection variant="banner" hasSession={hasSession} />
     </PublicSiteShell>
   );
 }

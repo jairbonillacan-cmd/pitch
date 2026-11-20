@@ -149,7 +149,7 @@
   gap: 12px;
   padding: 14px 16px;
   border-radius: 16px;
-  background: var(--pl-surface);
+  background: var(--pl-surface-elevated);
   border: 1px solid var(--pl-border);
 }
 
@@ -206,7 +206,7 @@
   gap: 8px;
   padding: 12px 14px;
   border-radius: 16px;
-  background: var(--pl-surface);
+  background: var(--pl-surface-elevated);
   border: 1px solid var(--pl-border);
   min-inline-size: 0;
 }
@@ -346,6 +346,27 @@
 }
 
 /* --- Factores ----------------------------------------------------------- */
+
+.pl-so-bottom-grid,
+.pl-so-bottom-single {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  min-inline-size: 0;
+}
+
+@container sport-outlook (min-width: 720px) {
+  .pl-so-bottom-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .pl-so-bottom-single .pl-so-drivers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+}
 
 .pl-so-drivers {
   margin: 0;

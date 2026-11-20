@@ -424,3 +424,108 @@ export async function redeemAccessCoupon(
     } as const;
   });
 }
+
+export type CreateCouponBatchResult =
+  | { ok: true; coupons: AccessCouponRow[] }
+  | { ok: false; reason: "cantidad_invalida" | "dias_invalidos" | "prefijo_invalido" };
+
+/**
+ * Genera un lote de `count` (1–50) cupones únicos de un solo uso (`maxRedemptions = 1`)
+ * con duración configurable en días (1–365) dentro de una misma transacción auditada.
+ */
+export async function createAccessCouponBatch(
+  db: Db,
+  input: {
+    adminUserId: string | null;
+    adminEmail: string;
+    count: number;
+    days: number;
+    prefix?: string | null;
+    expiresAt?: Date | null;
+    note?: string | null;
+    now?: Date;
+    ipSubnetHash?: string | null;
+  },
+): Promise<CreateCouponBatchResult> {
+  const batchCount = Math.trunc(input.count);
+  if (!Number.isFinite(batchCount) || batchCount < 1 || batchCount > 50) {
+    return { ok: false, reason: "cantidad_invalida" };
+  }
+  const days = Math.trunc(input.days);
+  if (!Number.isFinite(days) || days < 1 || days > 365) {
+    return { ok: false, reason: "dias_invalidos" };
+  }
+
+  let cleanPrefix = "PL";
+  if (input.prefix?.trim()) {
+    cleanPrefix = normalizeCouponCode(input.prefix);
+    if (!/^[A-Z0-9]{2,10}$/.test(cleanPrefix)) {
+      return { ok: false, reason: "prefijo_invalido" };
+    }
+  }
+
+  const cleanNote = input.note?.trim().slice(0, 280) || null;
+  const now = input.now ?? new Date();
+
+  const makeCode = () => {
+    const part = (len: number) => {
+      let s = "";
+      for (let i = 0; i < len; i += 1) s += COUPON_ALPHABET[randomInt(COUPON_ALPHABET.length)];
+      return s;
+    };
+    return `${cleanPrefix}-${part(4)}-${part(4)}`;
+  };
+
+  return db.transaction(async (tx) => {
+    const t = tx as unknown as Db;
+    const generated = new Set<string>();
+    const createdRows: AccessCouponRow[] = [];
+
+    for (let guard = 0; createdRows.length < batchCount && guard < batchCount * 6; guard += 1) {
+      const candidate = makeCode();
+      if (generated.has(candidate)) continue;
+      generated.add(candidate);
+
+      const [existing] = await t
+        .select({ id: accessCoupons.id })
+        .from(accessCoupons)
+        .where(eq(accessCoupons.code, candidate))
+        .limit(1);
+      if (existing) continue;
+
+      const [row] = await t
+        .insert(accessCoupons)
+        .values({
+          code: candidate,
+          days,
+          maxRedemptions: 1,
+          expiresAt: input.expiresAt ?? null,
+          active: true,
+          note: cleanNote,
+          createdBy: input.adminUserId,
+          createdAt: now,
+          updatedAt: now,
+        })
+        .returning();
+      if (row) createdRows.push(row);
+    }
+
+    await recordAdminAudit(t, {
+      actorUserId: input.adminUserId,
+      actorEmail: input.adminEmail,
+      action: "coupon_batch_create",
+      targetKey: `${cleanPrefix}:${createdRows.length}`,
+      payloadJson: {
+        count: createdRows.length,
+        days,
+        prefix: cleanPrefix,
+        expiresAt: input.expiresAt?.toISOString() ?? null,
+        note: cleanNote,
+        codesSample: createdRows.slice(0, 5).map((r) => r.code),
+      },
+      ipSubnetHash: input.ipSubnetHash ?? null,
+    });
+
+    return { ok: true, coupons: createdRows } as const;
+  });
+}

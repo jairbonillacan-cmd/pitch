@@ -15,27 +15,30 @@ import {
   type LeagueDataHealthRow,
   type LeagueDataTypeCell,
 } from "@pitchlab/contracts";
-import { PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
+import {
+  LEAGUE_LABELS,
+  PRODUCT_LEAGUES,
+  resolveSnapshotsRoot,
+  type ProductLeague,
+} from "./snapshots";
 
-const LEAGUE_LABELS: Record<ProductLeague, string> = {
-  "liga-mx": "Liga MX",
-  "premier-league": "Premier League",
-  laliga: "LaLiga",
-  bundesliga: "Bundesliga",
-  "serie-a": "Serie A",
-  "ligue-1": "Ligue 1",
-  nfl: "NFL",
-};
+const V3_MODEL_LEAGUES = new Set<ProductLeague>([
+  "liga-mx",
+  "premier-league",
+  "laliga",
+  "bundesliga",
+  "serie-a",
+  "ligue-1",
+  "nfl",
+]);
 
-const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = {
-  nfl: "nfl",
-  "premier-league": "epl",
-  laliga: "laliga",
-  bundesliga: "bundesliga",
-  "serie-a": "serie-a",
-  "ligue-1": "ligue-1",
-  "liga-mx": "liga-mx",
-};
+const SNAPSHOT_ONLY_LEAGUES = new Set<ProductLeague>(
+  PRODUCT_LEAGUES.filter((lg) => !V3_MODEL_LEAGUES.has(lg)),
+);
+
+const APP_LEAGUE_TO_V3: Record<ProductLeague, string> = Object.fromEntries(
+  PRODUCT_LEAGUES.map((lg) => [lg, lg === "premier-league" ? "epl" : lg]),
+) as Record<ProductLeague, string>;
 
 function resolveRepoRoot(): string {
   const snapshotsRoot = resolveSnapshotsRoot();
@@ -269,6 +272,18 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
           : {}),
         lastError: prevErr,
       };
+    } else if (SNAPSHOT_ONLY_LEAGUES.has(leagueKey)) {
+      bajasCell = {
+        dataType: "bajas",
+        status: prevRow?.cells.bajas.lastError ? "error" : "pending_source",
+        updatedAtUtc: null,
+        ageHours: null,
+        maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.bajas.staleHours,
+        sourceLabel: "solo snapshot (latest.json)",
+        recordsCount: 0,
+        note: "Liga cubierta por snapshot (latest.json); sin pipeline separado de bajas todavía.",
+        lastError: prevRow?.cells.bajas.lastError ?? null,
+      };
     } else {
       bajasCell = {
         dataType: "bajas",
@@ -303,6 +318,18 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
         sourceLabel: oddsEntry.sourceLabel,
         recordsCount: oddsEntry.count,
+        lastError: prevOddsErr,
+      };
+    } else if (SNAPSHOT_ONLY_LEAGUES.has(leagueKey)) {
+      momiosCell = {
+        dataType: "momios",
+        status: prevOddsErr ? "error" : "pending_source",
+        updatedAtUtc: null,
+        ageHours: null,
+        maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
+        sourceLabel: "solo snapshot (latest.json)",
+        recordsCount: 0,
+        note: "Liga cubierta por snapshot (latest.json); aún sin captura de momios en LIVE_LEAGUES.",
         lastError: prevOddsErr,
       };
     } else {

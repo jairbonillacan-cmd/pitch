@@ -6,7 +6,7 @@
  * contenido se recalcule. Funciones puras: `now` entra como argumento.
  */
 import { formatOddsValue } from "./access-guard";
-import type { LeagueId, LiveScoreboardEntry } from "@pitchlab/contracts";
+import { canonicalGameHref, type LeagueId, type LiveScoreboardEntry } from "@pitchlab/contracts";
 import type { JournalEntry, OddsFormat, PlatformGame } from "./types";
 
 export type NotificationKind = "partidos" | "cuotas" | "picks" | "comunidad" | "resumen";
@@ -37,10 +37,11 @@ export interface PlatformNotification {
 
 export interface ServerSocialNotification {
   id: string;
-  kind: "comment" | "follow" | "like";
+  kind: "comment" | "comment_reply" | "mention" | "follow" | "like";
   actorHandle: string;
   actorName: string;
   postId: string | null;
+  commentId?: string | null;
   postExcerpt: string | null;
   likeCount: number;
   createdAt: string;
@@ -76,11 +77,16 @@ function matchTitle(g: PlatformGame): string {
 }
 
 function gameDurationMs(g: PlatformGame): number {
-  return g.sport === "american-football" ? 3.5 * HOUR : 2 * HOUR;
+  if (g.sport === "american-football") return 3.5 * HOUR;
+  if (g.sport === "basketball" || g.sport === "ice-hockey") return 2.5 * HOUR;
+  return 2 * HOUR;
 }
 
-/** Lo más probable del 1X2: etiqueta y probabilidad. */
-export function mostLikelyOutcome(g: PlatformGame): { side: 0 | 1 | 2; label: string; p: number } {
+/** Lo más probable del 1X2: etiqueta y probabilidad. Null si el partido no tiene x12. */
+export function mostLikelyOutcome(
+  g: PlatformGame,
+): { side: 0 | 1 | 2; label: string; p: number } | null {
+  if (!g.x12) return null;
   const [h, d, a] = g.x12;
   if (h >= a && h >= d) return { side: 0, label: g.home.shortName, p: h };
   if (a >= d) return { side: 2, label: g.away.shortName, p: a };
@@ -102,7 +108,7 @@ function clampToNow(ms: number, now: number): string {
 }
 
 function gameHref(g: PlatformGame): string {
-  return `/app/${g.league}/games/${g.id}`;
+  return canonicalGameHref(g.league, g);
 }
 
 export function buildNotifications(input: BuildNotificationsInput): PlatformNotification[] {
@@ -117,7 +123,9 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
     const kickoff = Date.parse(g.kickoffUtc);
     if (Number.isNaN(kickoff)) continue;
     const fav = mostLikelyOutcome(g);
-    const favLine = { lead: `${fav.label} ${formatPctEs(fav.p)}`, text: ` · cuota justa ${fairOdds(fav.p, fmt)}` };
+    const favLine = fav
+      ? { lead: `${fav.label} ${formatPctEs(fav.p)}`, text: ` · cuota justa ${fairOdds(fav.p, fmt)}` }
+      : null;
 
     // Partidos: aviso previo e inicio.
     if (g.status !== "FT" && now >= kickoff - KICKOFF_NOTICE_MS) {
@@ -128,7 +136,9 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
         kind: "partidos",
         priority: "urgent",
         title: started ? `${matchTitle(g)} ya empezó` : `${matchTitle(g)} empieza en ${mins} min`,
-        context: { lead: `Lo más probable: ${favLine.lead}`, text: favLine.text },
+        context: favLine
+          ? { lead: `Lo más probable: ${favLine.lead}`, text: favLine.text }
+          : { lead: "Seguimiento activo", text: " · sin pronóstico publicado aún." },
         atIso: clampToNow(kickoff - KICKOFF_NOTICE_MS, now),
         actionLabel: "Abrir partido",
         href: gameHref(g),
@@ -137,31 +147,37 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
 
     // Partidos: resultado final.
     if (g.status === "FT" && g.score) {
-      const happened = outcomeFromScore(g.score) === fav.side;
+      const happened = fav !== null && outcomeFromScore(g.score) === fav.side;
       out.push({
         id: `final:${g.id}`,
         kind: "partidos",
         priority: "normal",
         title: `Final: ${g.home.shortName} ${g.score.home}–${g.score.away} ${g.away.shortName}`,
-        context: {
-          lead: `Lo más probable era ${fav.label} (${formatPctEs(fav.p)})`,
-          text: happened ? " y ocurrió." : " y no ocurrió.",
-        },
+        context: fav
+          ? {
+              lead: `Lo más probable era ${fav.label} (${formatPctEs(fav.p)})`,
+              text: happened ? " y ocurrió." : " y no ocurrió.",
+            }
+          : {
+              lead: "Resultado registrado",
+              text: " · sin pronóstico previo publicado.",
+            },
         atIso: clampToNow(kickoff + gameDurationMs(g), now),
         actionLabel: "Ver resumen",
         href: gameHref(g),
       });
     }
 
-    // Cuotas: la casa paga más que la cuota justa (Geodesic contra momio vigente).
+    // Cuotas: la casa paga más que la cuota justa (Geodesic contra momio vigente) y movimientos de línea.
     if (g.status === "NS") {
+      const market = g.spacetime?.market ?? null;
+      const asOf = market?.asOfUtc ?? input.generatedAtIso ?? g.kickoffUtc;
+      const asOfMs = Date.parse(asOf);
+
       const pick = g.picks.find(
         (p) => p.category === "valor" && p.marketDecimal !== null && (p.edgePts ?? 0) > 0,
       );
       if (pick && pick.marketDecimal !== null) {
-        const market = g.spacetime?.market ?? null;
-        const asOf = market?.asOfUtc ?? input.generatedAtIso ?? g.kickoffUtc;
-        const asOfMs = Date.parse(asOf);
         const label = pick.isRedacted ? `Selección para socios en ${matchTitle(g)}` : pick.label;
         out.push({
           id: `value:${pick.id}`,
@@ -177,6 +193,43 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
           actionLabel: "Ver cuotas",
           href: gameHref(g),
         });
+      }
+
+      // Alerta de movimiento de línea significativo (apertura -> cuota actual) en partidos vigilados.
+      for (const pk of g.picks) {
+        const quote = pk.bookQuotes?.find(
+          (q) =>
+            q.openingDecimal != null &&
+            q.openingDecimal > 1.01 &&
+            Math.abs(q.decimal - q.openingDecimal) >= 0.08,
+        );
+        if (!quote || quote.openingDecimal == null) continue;
+        const delta = quote.decimal - quote.openingDecimal;
+        const drifting = delta > 0;
+        const label = pk.isRedacted ? `Línea seguida en ${matchTitle(g)}` : pk.label;
+        const beatsFair = !pk.isRedacted && quote.decimal > pk.fairDecimal;
+        out.push({
+          id: `line-move:${pk.id}`,
+          kind: "cuotas",
+          priority: drifting && beatsFair ? "urgent" : "normal",
+          title: drifting
+            ? `Línea al alza en ${label}: ${formatOddsValue(quote.openingDecimal, fmt)} → ${formatOddsValue(quote.decimal, fmt)}`
+            : `Línea a la baja en ${label}: ${formatOddsValue(quote.openingDecimal, fmt)} → ${formatOddsValue(quote.decimal, fmt)}`,
+          context: beatsFair
+            ? {
+                lead: `${quote.bookLabel} superó la cuota justa`,
+                text: ` (${formatOddsValue(pk.fairDecimal, fmt)}).`,
+              }
+            : {
+                lead: drifting ? "Mejoró el pago en casas" : "Dinero concentrado en esta selección",
+                text: ` · corte ${quote.bookLabel}.`,
+              },
+          atIso: clampToNow(Number.isNaN(asOfMs) ? now : asOfMs, now),
+          source: quote.bookLabel,
+          actionLabel: "Ver movimiento",
+          href: `${gameHref(g)}?tab=dinero`,
+        });
+        break;
       }
     }
   }
@@ -245,7 +298,10 @@ export function buildNotifications(input: BuildNotificationsInput): PlatformNoti
       if (!best || endMs > best.endMs) best = { round, games, endMs };
     }
     if (!best || now - best.endMs > DIGEST_MAX_AGE_MS || best.endMs > now) continue;
-    const hits = best.games.filter((g) => outcomeFromScore(g.score!) === mostLikelyOutcome(g).side).length;
+    const hits = best.games.filter((g) => {
+      const fav = mostLikelyOutcome(g);
+      return fav !== null && outcomeFromScore(g.score!) === fav.side;
+    }).length;
     const first = best.games[0]!;
     out.push({
       id: `digest:${league}:${best.round}`,
@@ -342,17 +398,30 @@ export function fromServerSocialNotification(
     };
   }
 
+  const title =
+    row.kind === "comment_reply"
+      ? `@${row.actorHandle} respondió tu comentario`
+      : row.kind === "mention"
+        ? `@${row.actorHandle} te mencionó en un comentario`
+        : `@${row.actorHandle} comentó tu publicación`;
+  const contextText =
+    row.postExcerpt
+      ? `«${row.postExcerpt}»`
+      : row.kind === "mention"
+        ? `${row.actorName} te mencionó en un hilo.`
+        : `${row.actorName} dejó un comentario.`;
+
   return {
     id: `social:${row.id}`,
     serverId: row.id,
     kind: "comunidad",
     icon: "message",
     priority: "normal",
-    title: `@${row.actorHandle} comentó tu publicación`,
-    context: { text: row.postExcerpt ? `«${row.postExcerpt}»` : `${row.actorName} dejó un comentario.` },
+    title,
+    context: { text: contextText },
     source,
     atIso,
-    actionLabel: "Ver publicación",
+    actionLabel: row.kind === "comment_reply" || row.kind === "mention" ? "Ver hilo" : "Ver publicación",
     href: postHref,
   };
 }
@@ -476,7 +545,7 @@ export function buildLiveNotifications(input: BuildLiveNotificationsInput): Plat
       },
       atIso: clampToNow(Number.isNaN(atMs) ? now : atMs, now),
       actionLabel: "Ver en vivo",
-      href: `/app/${g.league}/games/${g.id}`,
+      href: gameHref(g),
     });
   }
   return out.sort((a, b) => Date.parse(b.atIso) - Date.parse(a.atIso));

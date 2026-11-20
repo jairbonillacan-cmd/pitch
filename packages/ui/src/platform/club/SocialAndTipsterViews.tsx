@@ -18,6 +18,7 @@ import {
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
+import { shortDateLabel } from "./home/home-model";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 
 export { SocialVipClubView } from "./CommunityClubView";
@@ -690,9 +691,9 @@ export function TipsterPortalClubView({
                         .map((g) => ({
                           value: g.id,
                           label: `${g.home.shortName} vs ${g.away.shortName}`,
-                          description: `${g.leagueLabel} · ${g.kickoffLocal}`,
-                          triggerLabel: `${g.leagueLabel} · ${g.home.shortName} vs ${g.away.shortName} (${g.kickoffLocal})`,
-                          textValue: `${g.leagueLabel} · ${g.home.shortName} vs ${g.away.shortName} (${g.kickoffLocal})`,
+                          description: `${g.leagueLabel} · ${shortDateLabel(g.dayId)} · ${g.kickoffLocal}`,
+                          triggerLabel: `${g.leagueLabel} · ${g.home.shortName} vs ${g.away.shortName} (${shortDateLabel(g.dayId)} · ${g.kickoffLocal})`,
+                          textValue: `${g.leagueLabel} · ${g.home.shortName} vs ${g.away.shortName} (${shortDateLabel(g.dayId)} · ${g.kickoffLocal})`,
                           icon: <LeagueBadge league={g.league} label={g.leagueLabel} size={18} />,
                         }))}
                     />

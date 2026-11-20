@@ -98,11 +98,16 @@ const BOOK_LABELS: Record<string, string> = {
   smarkets: "Smarkets",
   matchbook: "Matchbook",
   bet365: "Bet365",
+  bwin: "Bwin",
   draftkings: "DraftKings",
   fanduel: "FanDuel",
   betmgm: "BetMGM",
+  betonline: "BetOnline",
+  betonlineag: "BetOnline",
+  betcris: "Betcris",
   codere: "Codere",
   williamhill: "William Hill",
+  william_hill: "William Hill",
   unibet: "Unibet",
 };
 
@@ -346,6 +351,9 @@ function toSignal(
 
 /** Señal de Spacetime v3.0 para un partido, o `null` si v3.0 no cubre a ambos equipos. */
 export function spacetimeSignalFor(game: MatchAnalysis): SpacetimeSignal | null {
+  if (game.sport !== "football" && game.sport !== "american-football") {
+    return null;
+  }
   const { teamIndex, byLeague, signals } = getCache();
   const key = `${game.league}:${game.id}`;
   if (signals.has(key)) return signals.get(key) ?? null;
@@ -383,3 +391,21 @@ export function buildSpacetimeSignals(
 }
 
 export const SPACETIME_SNAPSHOT_GENERATED_AT = snapshot.generated_at;
+
+/** Busca la ficha maestra v3.0 de un equipo reutilizando los alias oficiales de Spacetime. */
+export function findSpacetimeTeamRecord(
+  league: string,
+  teamName: string,
+  teamSlug?: string,
+): TeamMasterFeatureRecord | null {
+  const v3League = LEAGUE_TO_V3[league] ?? league;
+  const index = getCache().byLeague.get(v3League);
+  if (!index) return null;
+  const byName = findTeam(index, teamName);
+  if (byName) return byName;
+  if (teamSlug) {
+    const cleanedSlug = teamSlug.replace(/^[a-z0-9-]+\./, "").replace(/-/g, " ");
+    return findTeam(index, cleanedSlug) ?? null;
+  }
+  return null;
+}

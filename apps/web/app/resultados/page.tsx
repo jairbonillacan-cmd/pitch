@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { hasPublicSessionCookie } from "../../src/server/public-session";
-import { ResultadosPageSurface } from "@pitchlab/ui";
+import { ResultadosPageSurface } from "@pitchlab/ui/public-sections";
 import { loadResultadosViewProps } from "../../src/server/public-site-data";
 
 export const dynamic = "force-dynamic";

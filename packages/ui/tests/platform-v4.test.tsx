@@ -9,6 +9,7 @@ import {
 } from "@pitchlab/contracts";
 import {
   AccountReferralsClubView,
+  assessParlayRisk,
   buildFinishedResultItems,
   buildHeroLeagueCards,
   buildParlayDemoData,
@@ -255,7 +256,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(summary.sgpPairsCount).toBe(1);
     expect(summary.combinedProbability).toBeGreaterThan(0);
 
-    // Auto-armador genera el número pedido de selecciones sin contradicciones
+    // Auto-armador genera el número pedido de selecciones sin contradicciones (incluso > 6 selecciones)
     const autoNoSgp = buildSmartAutoParlay(dataset.games, {
       leagues: dataset.leagues.map((l) => l.league),
       risk: "medio",
@@ -266,6 +267,56 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(autoNoSgp).toHaveLength(3);
     const uniqueGameIds = new Set(autoNoSgp.map((l) => l.pick.gameId));
     expect(uniqueGameIds.size).toBe(3);
+
+    const autoEight = buildSmartAutoParlay(dataset.games, {
+      leagues: dataset.leagues.map((l) => l.league),
+      risk: "arriesgado",
+      legCount: 8,
+      allowSgp: false,
+      viewerRole: "member",
+    });
+    expect(autoEight.length).toBeGreaterThanOrEqual(7);
+    const eightRisk = assessParlayRisk(computeParlaySummary(autoEight, 1));
+    expect(["muy_alto", "extremo"]).toContain(eightRisk.level);
+    expect(eightRisk.weakestLeg).not.toBeNull();
+    expect(eightRisk.warnings.length).toBeGreaterThan(0);
+
+    // Bloquea partidos en vivo, marcador exacto en SGP, mismo eje redundante y contradicciones lógicas (BTTS Sí + Under 1.5)
+    const livePick = { ...pickA, id: "live-pick-test", gameId: "other-live-game", gameStatus: "LIVE" as const };
+    expect(checkParlayCompatibility([], livePick, false).allowed).toBe(false);
+    expect(checkParlayCompatibility([], livePick, false).code).toBe("live");
+
+    const exactScorePick = {
+      ...pickA,
+      id: "exact-score-pick",
+      market: "correct_score",
+      selectionKey: "2-1",
+      conflictGroup: "independent" as const,
+      label: "Marcador exacto 2-1",
+    };
+    expect(checkParlayCompatibility([{ pick: pickA }], exactScorePick, true).allowed).toBe(false);
+    expect(checkParlayCompatibility([{ pick: pickA }], exactScorePick, true).code).toBe("exact_score_sgp");
+
+    const bttsYesPick = {
+      ...pickA,
+      id: "btts-yes-test",
+      market: "btts",
+      selectionKey: "yes",
+      conflictGroup: "btts_yes" as const,
+      label: "Ambos anotan: Sí",
+    };
+    const under15Pick = {
+      ...pickA,
+      id: "under-15-test",
+      market: "totals",
+      selectionKey: "under_1.5",
+      line: 1.5,
+      conflictGroup: "under_total" as const,
+      label: "Menos de 1.5 goles",
+    };
+    const crossCheck = checkParlayCompatibility([{ pick: bttsYesPick }], under15Pick, true);
+    expect(crossCheck.allowed).toBe(false);
+    expect(crossCheck.code).toBe("logical_contradiction");
   });
 
   it("validates $0 MXN anti-abuse email normalization, disposable domain blocking, external link blocking, and props probability", () => {
@@ -392,6 +443,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
         <ParlayBuilderClubView />
         <SocialVipClubView />
         <AccountReferralsClubView />
+        <AccountReferralsClubView initialTab="referrals" />
       </PlatformProvider>,
     );
 

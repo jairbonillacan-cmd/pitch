@@ -1,7 +1,14 @@
 import React from "react";
-import { asLeagueId, type LeagueId } from "@pitchlab/contracts";
-import { BrandLogo, Mascot } from "../../primitives";
+import {
+  asLeagueId,
+  sportHasDraw,
+  sportScoringUnit,
+  type LeagueId,
+} from "@pitchlab/contracts";
+import { BrandLogo } from "../../primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
+import { CalibrationCurveChart } from "../components/CalibrationCurveChart";
+import { CalibrationHonestyLab } from "../components/CalibrationHonestyLab";
 import { checkParlayCompatibility, computeParlaySummary } from "../parlay-engine";
 import {
   CORTEX_SAMPLE_QUOTE,
@@ -37,11 +44,8 @@ import {
 export { MEMBERSHIP_SPEC };
 export type PublicNavPath =
   | "/"
-  | "/como-funciona"
   | "/motores"
   | "/resultados"
-  | "/parlays"
-  | "/comunidad"
   | "/precio";
 
 export interface LandingHeroLeagueCard {
@@ -79,6 +83,7 @@ export interface LandingFinishedResultItem {
   p: number;
   fairAmerican: string;
   hit: boolean;
+  kickoffUtc?: string;
 }
 
 export interface LandingParlayDemoData {
@@ -118,8 +123,9 @@ const LEAGUE_PRIORITY_ORDER: readonly LeagueId[] = [
   asLeagueId("bundesliga"),
   asLeagueId("serie-a"),
   asLeagueId("ligue-1"),
-  asLeagueId("ncaaf"),
+  asLeagueId("nba"),
   asLeagueId("nhl"),
+  asLeagueId("ncaaf"),
   asLeagueId("mlb"),
 ];
 
@@ -131,8 +137,9 @@ const LEAGUE_SHORT_NAMES: Readonly<Record<string, string>> = {
   bundesliga: "Bundesliga",
   "serie-a": "Serie A",
   "ligue-1": "Ligue 1",
-  ncaaf: "NCAAF",
+  nba: "NBA",
   nhl: "NHL",
+  ncaaf: "NCAAF",
   mlb: "MLB",
 };
 
@@ -202,11 +209,12 @@ function buildTeamNote(
   if (team.record && team.record.trim().length > 0) {
     return team.record.trim();
   }
-  const projVal = side === "home" ? game.projection.home : game.projection.away;
-  if (game.sport === "american-football") {
-    return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} pts`;
+  if (!game.projection) {
+    return side === "home" ? "Local" : "Visitante";
   }
-  return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} goles`;
+  const unit = sportScoringUnit(game.sport);
+  const projVal = side === "home" ? game.projection.home : game.projection.away;
+  return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} ${unit.short}`;
 }
 
 /** Etiqueta que se entiende sin la tabla: «Ambos anotan: Sí», «Más de 2.5 goles». */
@@ -253,12 +261,20 @@ function deriveOtherMarketsForGame(
     if (chosen.length >= 3) return chosen;
   }
 
+  if (!game.x12 || !game.projection) {
+    return [];
+  }
+
   const [pHome, pDraw, pAway] = game.x12;
   const fallbackRows: Array<{ label: string; p: number }> = [];
+  const hasDraw = sportHasDraw(game.sport);
 
-  if (game.sport === "american-football" || game.league === "nfl") {
+  if (!hasDraw) {
+    const isPointsSport = sportScoringUnit(game.sport).short === "pts";
     const margin = game.projection.home - game.projection.away;
-    const pointsModel = buildPointsModel(game.projection.total, margin, pHome);
+    const pointsModel = isPointsSport
+      ? buildPointsModel(game.projection.total, margin, pHome)
+      : buildGoalModel(game.projection.total, margin);
     if (pointsModel) {
       const spreadHalf = Math.round(Math.abs(margin)) + 0.5;
       const favIsHome = pHome >= pAway;
@@ -279,7 +295,7 @@ function deriveOtherMarketsForGame(
       if (overP !== null) {
         const useOver = overP >= 0.5;
         fallbackRows.push({
-          label: `${useOver ? "Más" : "Menos"} de ${totalHalf} puntos`,
+          label: `${useOver ? "Más" : "Menos"} de ${totalHalf} ${isPointsSport ? "puntos" : "goles"}`,
           p: useOver ? overP : 1 - overP,
         });
       }
@@ -293,7 +309,7 @@ function deriveOtherMarketsForGame(
       );
       if (teamOverP !== null) {
         fallbackRows.push({
-          label: `${favIsHome ? homeName : awayName} más de ${favTeamHalf} pts`,
+          label: `${favIsHome ? homeName : awayName} más de ${favTeamHalf} ${isPointsSport ? "pts" : "goles"}`,
           p: teamOverP,
         });
       }
@@ -353,9 +369,12 @@ function pickPreferredHeroGame(
   league: LeagueId,
   leagueGames: readonly PlatformGame[],
 ): PlatformGame | undefined {
-  if (leagueGames.length === 0) return undefined;
-  const upcoming = leagueGames.filter((game) => game.status !== "FT");
-  const pool = upcoming.length > 0 ? upcoming : leagueGames;
+  const withForecast = leagueGames.filter(
+    (game) => game.hasForecast !== false && game.x12 !== null && game.projection !== null,
+  );
+  if (withForecast.length === 0) return undefined;
+  const upcoming = withForecast.filter((game) => game.status !== "FT");
+  const pool = upcoming.length > 0 ? upcoming : withForecast;
 
   if (league === "liga-mx") {
     const qroMty = pool.find(
@@ -381,7 +400,7 @@ function pickPreferredHeroGame(
 }
 
 /**
- * Construye las tarjetas interactivas del Hero y de `/como-funciona`.
+ * Construye las tarjetas interactivas del comparador por liga de la portada (`/#hoy`).
  * Regla del fundador: «Lo más probable» es el resultado con mayor `p` del grupo `h2h`,
  * y su momio justo es `1 / p` en americano (con signo `−` tipográfico o `+`) y decimal.
  */
@@ -405,22 +424,22 @@ export function buildHeroLeagueCards(
   for (const league of orderedLeagues) {
     const leagueGames = games.filter((g) => g.league === league);
     const chosen = pickPreferredHeroGame(league, leagueGames);
-    if (!chosen) continue;
+    if (!chosen || !chosen.x12) continue;
 
     const summary = summaryByLeague.get(league);
     const homeName = teamDisplayName(chosen.home);
     const awayName = teamDisplayName(chosen.away);
-    const isNfl = chosen.sport === "american-football" || chosen.league === "nfl";
+    const hasDraw = sportHasDraw(chosen.sport);
 
     const [rawHome, rawDraw, rawAway] = chosen.x12;
-    const splitProbabilities = isNfl
+    const splitProbabilities = !hasDraw
       ? [rawHome, rawAway]
       : [rawHome, rawDraw, rawAway];
-    const splitLabels = isNfl
+    const splitLabels = !hasDraw
       ? [homeName, awayName]
       : [homeName, "Empate", awayName];
 
-    const h2hCandidates = isNfl
+    const h2hCandidates = !hasDraw
       ? [
           { label: `${homeName} gana`, p: rawHome },
           { label: `${awayName} gana`, p: rawAway },
@@ -510,6 +529,7 @@ export function buildFinishedResultItems(
       p: fpk.p,
       fairAmerican: formatFairAmericanFromProb(fpk.p),
       hit: fpk.result === "hit",
+      kickoffUtc: game.kickoffUtc,
     };
   });
 
@@ -522,26 +542,28 @@ function buildOpposingSyntheticPick(
 ): MatchPick {
   const homeName = teamDisplayName(game.home);
   const awayName = teamDisplayName(game.away);
+  const pHome = game.x12?.[0] ?? 0.5;
+  const pAway = game.x12?.[2] ?? 0.5;
   let conflictGroup: PickConflictGroup = "home_side";
   let label = `${homeName} gana`;
-  let p = game.x12[0];
+  let p = pHome;
 
   switch (referenceLeg.conflictGroup) {
     case "away_side":
       conflictGroup = "home_side";
       label = `${homeName} gana`;
-      p = game.x12[0];
+      p = pHome;
       break;
     case "home_side":
       conflictGroup = "away_side";
       label = `${awayName} gana`;
-      p = game.x12[2];
+      p = pAway;
       break;
     case "draw_side":
-      conflictGroup = game.x12[0] >= game.x12[2] ? "home_side" : "away_side";
+      conflictGroup = pHome >= pAway ? "home_side" : "away_side";
       label =
         conflictGroup === "home_side" ? `${homeName} gana` : `${awayName} gana`;
-      p = conflictGroup === "home_side" ? game.x12[0] : game.x12[2];
+      p = conflictGroup === "home_side" ? pHome : pAway;
       break;
     case "over_total":
       conflictGroup = "under_total";
@@ -566,7 +588,7 @@ function buildOpposingSyntheticPick(
     case "independent":
       conflictGroup = "away_side";
       label = `${awayName} gana`;
-      p = game.x12[2];
+      p = pAway;
       break;
   }
 
@@ -738,7 +760,9 @@ export function buildParlayDemoData(
       const homeName = teamDisplayName(game.home);
       const awayName = teamDisplayName(game.away);
       const matchLabel = `${homeName} vs ${awayName}`;
-      const favTeam = game.x12[2] > game.x12[0] ? game.away : game.home;
+      const pHome = game.x12?.[0] ?? 0.5;
+      const pAway = game.x12?.[2] ?? 0.5;
+      const favTeam = pAway > pHome ? game.away : game.home;
 
       return {
         isExample: false,
@@ -811,9 +835,9 @@ export function buildFeaturedCommunityPick(
   }
 
   const nflGame =
-    games.find((g) => g.league === "nfl" && g.status !== "FT") ??
-    games.find((g) => g.league === "nfl") ??
-    games.find((g) => g.status !== "FT");
+    games.find((g) => g.league === "nfl" && g.status !== "FT" && g.x12 !== null) ??
+    games.find((g) => g.league === "nfl" && g.x12 !== null) ??
+    games.find((g) => g.status !== "FT" && g.x12 !== null);
 
   if (nflGame) {
     const openPick = nflGame.picks.find((pk) => !pk.isRedacted);
@@ -831,21 +855,54 @@ export function buildFeaturedCommunityPick(
       };
     }
 
-    const favHome = nflGame.x12[0] >= nflGame.x12[2];
-    const team = favHome ? nflGame.home : nflGame.away;
-    const p = favHome ? nflGame.x12[0] : nflGame.x12[2];
-    return {
-      league: nflGame.league,
-      teamSlug: team.slug,
-      teamName: teamDisplayName(team),
-      pickLabel: `${teamDisplayName(team)} gana`,
-      matchLabel: `${teamDisplayName(nflGame.home)} vs ${teamDisplayName(nflGame.away)} · ${nflGame.leagueLabel}`,
-      p,
-      fairAmerican: formatFairAmericanFromProb(p),
-    };
+    if (nflGame.x12) {
+      const favHome = nflGame.x12[0] >= nflGame.x12[2];
+      const team = favHome ? nflGame.home : nflGame.away;
+      const p = favHome ? nflGame.x12[0] : nflGame.x12[2];
+      return {
+        league: nflGame.league,
+        teamSlug: team.slug,
+        teamName: teamDisplayName(team),
+        pickLabel: `${teamDisplayName(team)} gana`,
+        matchLabel: `${teamDisplayName(nflGame.home)} vs ${teamDisplayName(nflGame.away)} · ${nflGame.leagueLabel}`,
+        p,
+        fairAmerican: formatFairAmericanFromProb(p),
+      };
+    }
   }
 
   return DEFAULT_FEATURED_COMMUNITY_PICK;
+}
+
+function buildFooterLinks(activePath?: PublicNavPath) {
+  const isHome = activePath === "/";
+  return [
+    {
+      title: "Producto",
+      links: [
+        { href: isHome ? "#que-obtienes" : "/#que-obtienes", label: "Funciones" },
+        { href: isHome ? "#hoy" : "/#hoy", label: "Comparador" },
+        { href: "/precio", label: "Precio" },
+        { href: "/blog", label: "Blog" },
+      ],
+    },
+    {
+      title: "Transparencia",
+      links: [
+        { href: "/motores", label: "Motores" },
+        { href: "/resultados", label: "Resultados" },
+        { href: "/legal/creditos", label: "Créditos" },
+      ],
+    },
+    {
+      title: "Legal",
+      links: [
+        { href: "/legal/terminos", label: "Términos" },
+        { href: "/legal/privacidad", label: "Aviso de privacidad" },
+        { href: "/legal/juego-responsable", label: "Juego responsable" },
+      ],
+    },
+  ] as const;
 }
 
 export function PublicSiteShell({
@@ -860,32 +917,245 @@ export function PublicSiteShell({
   className?: string;
   children: React.ReactNode;
 }): React.JSX.Element {
+  const extraClass = className && className !== "pl-lp--clean" ? ` ${className}` : "";
+  const footerColumns = buildFooterLinks(activePath);
+
   return (
-    <div className={className ? `pl-stage pl-lp ${className}` : "pl-stage pl-lp"}>
+    <div className={`pl-stage pl-lp pl-lp--clean${extraClass}`}>
       <a className="skip-link" href="#main">
         Saltar al contenido principal
       </a>
       <PublicNavBarClient activePath={activePath} hasSession={hasSession} />
       <main id="main">{children}</main>
-      <footer className="pl-lp-footer">
-        <div className="pl-lp-wrap pl-lp-footer-inner">
-          <div className="pl-lp-footer-brand">
-            <BrandLogo variant="horizontal" width={113} height={22} alt="PitchLab" />
-            <p className="pl-lp-footer-legal">
-              Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de 18.
-            </p>
-          </div>
-          <nav aria-label="Pie" className="pl-lp-footer-nav">
-            <a href="/blog">Blog</a>
-            <a href="/legal/terminos">Términos</a>
-            <a href="/legal/privacidad">Aviso de privacidad</a>
-            <a href="/legal/juego-responsable">Juego responsable</a>
-            <a href="/comunidad#tipsters">¿Eres tipster?</a>
-            <a href="/legal/creditos">Créditos</a>
+      <footer className="pl-clean-footer">
+        <div className="pl-lp-wrap">
+          <nav aria-label="Pie" className="pl-clean-footer-links">
+            {footerColumns.map(({ title, links }) => (
+              <div key={title}>
+                <h2>{title}</h2>
+                <ul>
+                  {links.map(({ href, label }) => (
+                    <li key={href}>
+                      <a href={href}>{label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </nav>
+          <div className="pl-clean-footer-note">
+            <BrandLogo variant="horizontal" width={113} height={22} alt="PitchLab" />
+            <p>Información para decidir · No somos casa de apuestas · +18</p>
+          </div>
         </div>
       </footer>
     </div>
+  );
+}
+
+export function MultiAngleValidationSection({
+  heroCards = [],
+}: {
+  heroCards?: readonly LandingHeroLeagueCard[];
+} = {}): React.JSX.Element {
+  const soccerCard =
+    heroCards.find((card) => card.league === "liga-mx") ??
+    heroCards.find((card) => card.league !== "nfl") ??
+    heroCards[0];
+  const secondaryCard =
+    heroCards.find((card) => card.league === "nfl") ?? heroCards[1];
+
+  const primaryMatchTitle = soccerCard
+    ? `${soccerCard.home.name} vs ${soccerCard.away.name}`
+    : "Querétaro vs Monterrey";
+  const primaryPickLabel = soccerCard?.mostProbable.label ?? "Monterrey gana";
+  const primaryProb = soccerCard ? formatPctEs(soccerCard.mostProbable.p) : "47.0 %";
+  const primaryFair = soccerCard?.mostProbable.fairAmerican ?? "+113";
+  const primaryLeague = soccerCard?.leagueShort ?? "Liga MX";
+
+  const secondaryMatchTitle = secondaryCard
+    ? `${secondaryCard.home.name} vs ${secondaryCard.away.name}`
+    : "Chiefs vs Bills";
+  const secondaryPickLabel = secondaryCard?.mostProbable.label ?? "Kansas City gana";
+  const secondaryProb = secondaryCard ? formatPctEs(secondaryCard.mostProbable.p) : "58.2 %";
+  const secondaryFair = secondaryCard?.mostProbable.fairAmerican ?? "−139";
+  const secondaryLeague = secondaryCard?.leagueShort ?? "NFL";
+
+  const angleMetrics = [
+    { label: "Fuerza ofensiva y localía (Tachyon)", pct: 78, tone: "ok" as const },
+    { label: "Forma reciente ajustada por rival (Singularity)", pct: 71, tone: "ok" as const },
+    { label: "Descanso, altitud y calendario (Minkowski)", pct: 83, tone: "ok" as const },
+    { label: "Cruce contra cierre del mercado (Geodesic)", pct: 64, tone: "brand" as const },
+    { label: "Consenso final sin comisión (Cortex IA)", pct: 74, tone: "ok" as const },
+  ];
+
+  return (
+    <section id="cinco-angulos" className="pl-lp-section pl-lp-angles-section">
+      <div className="pl-lp-wrap pl-lp-stack">
+        <div className="pl-lp-section-head pl-lp-section-head--center">
+          <p className="pl-lp-eyebrow">Nosotros procesamos los datos por ti</p>
+          <h2 className="pl-lp-h2">
+            Cada partido, puesto a prueba desde cinco ángulos.
+          </h2>
+          <p className="pl-lp-lede">
+            Antes de publicar una probabilidad, nuestros modelos cruzan fuerza estructural, forma reciente,
+            descanso, movimiento del mercado y contexto en vivo.
+          </p>
+        </div>
+
+        <div className="pl-lp-angles-stage">
+          <div className="pl-lp-angles-glow" aria-hidden="true" />
+
+          <div className="pl-lp-angle-callout pl-lp-angle-callout--tl">
+            <span>5 motores probados fuera de muestra</span>
+            <svg
+              className="pl-lp-angle-arrow"
+              width="52"
+              height="36"
+              viewBox="0 0 52 36"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 6C22 6 38 14 46 31"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M40 28L46.5 32L49 24.5"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div className="pl-lp-angle-callout pl-lp-angle-callout--tr">
+            <span>Momio justo sin margen de la casa</span>
+            <svg
+              className="pl-lp-angle-arrow pl-lp-angle-arrow--flip"
+              width="52"
+              height="36"
+              viewBox="0 0 52 36"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 6C22 6 38 14 46 31"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M40 28L46.5 32L49 24.5"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div className="pl-lp-angle-callout pl-lp-angle-callout--bl">
+            <span>Compara por localía, forma y calendario</span>
+            <svg
+              className="pl-lp-angle-arrow"
+              width="48"
+              height="28"
+              viewBox="0 0 48 28"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 22C20 22 34 16 44 5"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M36.5 5.5L44.5 4.5L43.5 12.5"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div className="pl-lp-angles-cards">
+            <article className="pl-lp-card pl-lp-angle-card pl-lp-angle-card--primary glass-lens glass-ring glass-ring--featured">
+              <div className="pl-lp-angle-card-head">
+                <div>
+                  <p className="pl-lp-most-kicker">{primaryLeague} · Desglose multi-ángulo</p>
+                  <h3 className="pl-lp-h3">{primaryMatchTitle}</h3>
+                </div>
+                <span className="pl-lp-pill pl-lp-pill--brand num">Ejemplo</span>
+              </div>
+
+              <div className="pl-lp-angle-summary num">
+                <div>
+                  <span className="pl-lp-fine">Escenario principal</span>
+                  <strong className="pl-lp-angle-pick">{primaryPickLabel}</strong>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <strong className="pl-lp-angle-prob">{primaryProb}</strong>
+                  <span className="pl-lp-fine" style={{ display: "block" }}>
+                    Justo {primaryFair}
+                  </span>
+                </div>
+              </div>
+
+              <div className="pl-lp-angle-bars">
+                {angleMetrics.map((metric) => (
+                  <div key={metric.label} className="pl-lp-angle-bar-row">
+                    <div className="pl-lp-angle-bar-top">
+                      <span>{metric.label}</span>
+                      <span className="num">{metric.pct} %</span>
+                    </div>
+                    <div className="pl-lp-angle-track" aria-hidden="true">
+                      <span
+                        className={`pl-lp-angle-fill pl-lp-angle-fill--${metric.tone}`}
+                        style={{ width: `${metric.pct}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article className="pl-lp-card pl-lp-angle-card pl-lp-angle-card--secondary glass-card glass-ring">
+              <div className="pl-lp-angle-card-head">
+                <div>
+                  <p className="pl-lp-most-kicker">{secondaryLeague} · Validación cruzada</p>
+                  <p style={{ margin: "2px 0 0", fontWeight: 700, fontSize: 16 }}>
+                    {secondaryMatchTitle}
+                  </p>
+                </div>
+                <span className="pl-lp-status pl-lp-status--hit num">5 / 5 motores</span>
+              </div>
+
+              <div className="pl-lp-angle-summary pl-lp-angle-summary--compact num">
+                <span>{secondaryPickLabel}</span>
+                <strong>
+                  {secondaryProb} · justo {secondaryFair}
+                </strong>
+              </div>
+
+              <div className="pl-lp-angle-mini-chips num">
+                <span className="pl-lp-pill">Eficiencia por jugada: +6.4 %</span>
+                <span className="pl-lp-pill">Línea sin margen evaluada</span>
+                <span className="pl-lp-pill">Cero datos posteriores</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -969,10 +1239,10 @@ export function HowItWorksSection({
         {variant === "teaser" ? (
           <a
             className="pl-lp-more"
-            href="/como-funciona"
+            href="/#hoy"
             style={{ alignSelf: "center" }}
           >
-            Ver cómo funciona, paso a paso{" "}
+            Ir al comparador{" "}
             <span className="pl-lp-arr" aria-hidden="true">
               →
             </span>
@@ -989,11 +1259,7 @@ export function EnginesSection({
   variant?: "teaser" | "page";
 }): React.JSX.Element {
   return (
-    <section id="motores" className="pl-lp-section" style={{ overflow: "hidden" }}>
-      <div className="pl-lp-atmo" aria-hidden="true">
-        <div className="pl-lp-orb pl-lp-orb--engines" />
-      </div>
-
+    <section id="motores" className="pl-lp-section">
       <div className="pl-lp-wrap pl-lp-stack">
         <div className="pl-lp-engines-head">
           <div className="pl-lp-section-head" style={{ maxWidth: 640 }}>
@@ -1563,7 +1829,7 @@ function ParlayDemoCard({
       </p>
 
       {showLink ? (
-        <a className="pl-lp-more" href="/parlays">
+        <a className="pl-lp-more" href="/#que-obtienes">
           Así funciona el armador{" "}
           <span className="pl-lp-arr" aria-hidden="true">
             →
@@ -1735,8 +2001,8 @@ function CommunitySampleCard({
           <span>Sin spam: solo escriben socios con su pase activo.</span>
         </p>
         {showLink ? (
-          <a className="pl-lp-more" href="/comunidad">
-            Entrar a la comunidad{" "}
+          <a className="pl-lp-more" href="/signup">
+            Crear cuenta y entrar al club{" "}
             <span className="pl-lp-arr" aria-hidden="true">
               →
             </span>
@@ -1790,130 +2056,112 @@ export function PricingSection({
     <section
       id="precio"
       className={isPage ? "pl-lp-section pl-lp-section--top" : "pl-lp-section"}
-      style={isPage ? { position: "relative", overflow: "hidden" } : undefined}
     >
       {isPage ? (
-        <>
-          <div className="pl-lp-atmo" aria-hidden="true">
-            <div className="pl-lp-orb pl-lp-orb--1" />
-            <div className="pl-lp-orb pl-lp-orb--2" />
-            <div className="pl-lp-orb pl-lp-orb--3" />
-          </div>
-          <div className="pl-lp-fieldgrid" aria-hidden="true" />
-        </>
-      ) : null}
-      <div
-        className="pl-lp-wrap pl-lp-pricing-grid"
-        style={isPage ? { position: "relative", zIndex: 1 } : undefined}
-      >
-        <div className="pl-lp-pricing-copy">
-          <p className="pl-lp-eyebrow">Precio</p>
-          {variant === "page" ? (
+        <div
+          className="pl-lp-wrap pl-lp-pricing-grid"
+          style={{ position: "relative", zIndex: 1 }}
+        >
+          <div className="pl-lp-pricing-copy">
+            <p className="pl-lp-eyebrow">Precio</p>
             <h1 className="pl-lp-h1 pl-lp-h1--page">
               Un solo pase. Todo incluido.
             </h1>
-          ) : (
-            <h2 className="pl-lp-h2">Un solo pase. Todo incluido.</h2>
-          )}
-          <p className="pl-lp-lede">
-            Pase PitchLab Ultra: todos los partidos, todos los mercados, parlays y comunidad. IVA incluido y factura CFDI.
-          </p>
-          {isPage ? (
-            <UltraPassCardStageIsland />
-          ) : (
-            <>
-              <p
-                style={{
-                  margin: "8px 0 0",
-                  fontSize: 14,
-                  color: "var(--pl-text-secondary)",
-                }}
-              >
-                Invita a un amigo: cuando paga su primer mes, los dos suman{" "}
-                {MEMBERSHIP_SPEC.referralBothRewardDays} días.
-              </p>
-              <a
-                className="pl-lp-more"
-                href="/precio"
-                style={{ alignSelf: "flex-start" }}
-              >
-                Ver todo lo que incluye{" "}
-                <span className="pl-lp-arr" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            </>
-          )}
-        </div>
-
-        <PricingCardIsland hasSession={hasSession} animated={isPage} />
-      </div>
-    </section>
-  );
-}
-
-export function FaqSection(): React.JSX.Element {
-  return (
-    <section className="pl-lp-section" aria-labelledby="pl-lp-faq-heading">
-      <div className="pl-lp-wrap pl-lp-wrap--narrow">
-        <h2
-          id="pl-lp-faq-heading"
-          className="pl-lp-h2 pl-lp-h2--faq"
-          style={{ marginBottom: 24 }}
-        >
-          Preguntas frecuentes
-        </h2>
-        {LANDING_FAQS.map((item) => (
-          <details
-            key={item.question}
-            className="pl-lp-faq"
-            open={item.defaultOpen || undefined}
-          >
-            <summary>
-              <span>{item.question}</span>
-              <span className="pl-lp-chev" aria-hidden="true">
-                +
-              </span>
-            </summary>
-            <p className="pl-lp-faq-body">{item.answer}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function ClosingCtaSection({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
-  return (
-    <section className="pl-lp-closing">
-      <div className="pl-lp-wrap">
-        <div className="pl-lp-card pl-lp-closing-card glass-card glass-ring">
-          <div className="pl-lp-closing-copy">
-            <h2 className="pl-lp-h2">Lee el juego con datos.</h2>
             <p className="pl-lp-lede">
-              Abre la jornada, mira lo más probable y compáralo con tu momio.
+              Pase PitchLab Ultra: todos los partidos, todos los mercados, parlays y comunidad. IVA incluido y factura CFDI.
             </p>
-            <a
-              className="pl-lp-btn pl-lp-btn-primary"
-              href={hasSession ? "/app" : "/signup"}
-              style={{ alignSelf: "flex-start" }}
-            >
-              Probar 7 días gratis{" "}
+            <UltraPassCardStageIsland />
+          </div>
+
+          <PricingCardIsland hasSession={hasSession} animated layout="single" />
+        </div>
+      ) : (
+        <div className="pl-lp-wrap pl-lp-stack">
+          <div className="pl-lp-section-head pl-lp-section-head--center">
+            <p className="pl-lp-eyebrow">Precio</p>
+            <h2 className="pl-lp-h2">Elige tu plan.</h2>
+            <p className="pl-lp-lede">
+              Un solo pase desbloquea las 7 ligas, los 5 motores y el armador de parlays. IVA incluido y factura CFDI.
+            </p>
+          </div>
+
+          <PricingCardIsland hasSession={hasSession} layout="compare" />
+
+          <div className="pl-lp-pricing-subfoot">
+            <a className="pl-lp-more" href="/precio">
+              Ver detalles completos del pase y pago SPEI{" "}
               <span className="pl-lp-arr" aria-hidden="true">
                 →
               </span>
             </a>
           </div>
+        </div>
+      )}
+    </section>
+  );
+}
 
-          <div className="pl-lp-radar-wrap" aria-hidden="true">
-            <div className="pl-lp-radar-halo" />
-            <Mascot
-              edition="soccer"
-              size={240}
-              className="pl-lp-radar-float"
-              lazy
-            />
+export function FaqSection({ variant }: { variant?: "landing" } = {}): React.JSX.Element {
+  const landing = variant === "landing";
+  const items = landing ? [
+    ...LANDING_FAQS,
+    {
+      question: "¿Qué es el momio justo?",
+      answer: "Es la cuota que corresponde a la probabilidad estimada por el modelo. Te sirve como referencia para comparar el momio de tu casa.",
+      defaultOpen: false,
+    },
+  ] : LANDING_FAQS;
+  return (
+    <section id="faq" className="pl-clean-section pl-clean-faq" aria-labelledby="pl-lp-faq-heading">
+      <div className="pl-lp-wrap pl-lp-wrap--narrow pl-lp-stack" style={{ gap: 28 }}>
+        <div className="pl-lp-section-head pl-lp-section-head--center">
+          <h2 id="pl-lp-faq-heading" className="pl-lp-h2 pl-lp-h2--faq">
+            Preguntas frecuentes
+          </h2>
+        </div>
+
+        <div className="pl-lp-faq-list">
+          {items.map((item) => (
+            <details
+              key={item.question}
+              name="pl-lp-faq"
+              className="pl-lp-faq pl-lp-faq--card"
+              open={item.defaultOpen || undefined}
+            >
+              <summary>
+                <span>{item.question}</span>
+                <svg className="pl-clean-chevron" viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true">
+                  <path d="m5 8 5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </summary>
+              <p className="pl-lp-faq-body">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function ClosingCtaSection({
+  hasSession = false,
+  variant,
+}: { hasSession?: boolean; variant?: "banner" } = {}): React.JSX.Element {
+  void variant;
+  return (
+    <section className="pl-clean-section pl-clean-closing" aria-labelledby="pl-clean-cta-title">
+      <div className="pl-lp-wrap">
+        <div className="pl-clean-banner">
+          <div className="pl-clean-banner-copy">
+            <h2 id="pl-clean-cta-title">Lee el juego con datos.</h2>
+            <p>Abre la jornada y compara el momio justo antes de decidir.</p>
+            <a className="pl-lp-btn" href={hasSession ? "/app" : "/signup"}>
+              Probar 7 días gratis <span aria-hidden="true">→</span>
+            </a>
           </div>
+          <figure className="pl-clean-banner-render">
+            <img src="/landing/cta-ball-cards.webp" width={1480} height={1010} loading="lazy" decoding="async" alt="" />
+          </figure>
         </div>
       </div>
     </section>
@@ -1932,16 +2180,8 @@ export function ComoFuncionaPageSurface({
   hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/como-funciona" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-          <div className="pl-lp-orb pl-lp-orb--3" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+    <PublicSiteShell hasSession={hasSession}>
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
             <p className="pl-lp-eyebrow">Cómo funciona</p>
@@ -2072,15 +2312,7 @@ export function ComoFuncionaPageSurface({
 export function MotoresPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
     <PublicSiteShell activePath="/motores" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-          <div className="pl-lp-orb pl-lp-orb--2" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 740 }}>
             <p className="pl-lp-eyebrow">{SPACETIME_METRICS_HEADLINE.suiteName}</p>
@@ -2138,14 +2370,7 @@ export function ResultadosPageSurface({
 }): React.JSX.Element {
   return (
     <PublicSiteShell activePath="/resultados" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--2" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
             <p className="pl-lp-eyebrow">Historial íntegro</p>
@@ -2155,21 +2380,17 @@ export function ResultadosPageSurface({
             <p className="pl-lp-lede">
               Cada pick queda registrado antes del inicio del partido y se califica con el marcador oficial al terminar. Nada se borra ni se edita después.
             </p>
-            <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
-                Probar 7 días gratis{" "}
-                <span className="pl-lp-arr" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            </div>
           </div>
-        </div>
-      </section>
 
-      <section className="pl-lp-section">
-        <div className="pl-lp-wrap pl-lp-stack">
           <ResultsFilterListIsland results={results} />
+          {results.length > 0 ? (
+            <CalibrationCurveChart
+              samples={results.map((r) => ({ p: r.p, hit: r.hit }))}
+              title="Curva de calibración observada"
+              subtitle="Comparación directa entre la probabilidad publicada antes del partido y el porcentaje real cumplido."
+            />
+          ) : null}
+          <CalibrationHonestyLab settledCount={results.length} />
           <CalibrationCard />
         </div>
       </section>
@@ -2214,16 +2435,8 @@ export function ParlaysPageSurface({
   hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/parlays" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-          <div className="pl-lp-orb pl-lp-orb--2" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+    <PublicSiteShell hasSession={hasSession}>
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
             <p className="pl-lp-eyebrow">Armador de parlays</p>
@@ -2314,15 +2527,8 @@ export function ComunidadPageSurface({
   const promoFreeDays = TIPSTER_CREATORS[0]?.freeDays ?? 5;
 
   return (
-    <PublicSiteShell activePath="/comunidad" hasSession={hasSession}>
-      <section
-        className="pl-lp-section pl-lp-section--top"
-        style={{ overflow: "hidden" }}
-      >
-        <div className="pl-lp-atmo" aria-hidden="true">
-          <div className="pl-lp-orb pl-lp-orb--1" />
-        </div>
-        <div className="pl-lp-fieldgrid" aria-hidden="true" />
+    <PublicSiteShell hasSession={hasSession}>
+      <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 740 }}>
             <p className="pl-lp-eyebrow">Comunidad de socios</p>
@@ -2481,7 +2687,7 @@ export function ComunidadPageSurface({
                     color: "var(--pl-text-muted)",
                   }}
                 >
-                  Unidades verificadas: <strong>{creator.verifiedUnits}</strong> · CLV{" "}
+                  Unidades verificadas: <strong>{creator.verifiedUnits}</strong> · Ventaja{" "}
                   {creator.clvAvg} · {creator.settledCount} picks calificados
                 </p>
               </article>

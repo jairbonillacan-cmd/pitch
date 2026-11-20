@@ -11,6 +11,7 @@ import {
   type AnalysisMarketGroup,
   type GameAnalysis,
   type GameDTO,
+  type LeagueId,
   type MarketProbability,
   type StandingRow,
   type TeamSeasonRate,
@@ -34,7 +35,7 @@ function vsAverage(index: number, more: string, less: string): string {
 }
 
 export interface FootballAnalysisInput {
-  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
+  league: LeagueId | string;
   leagueName: string;
   game: GameDTO;
   model: DixonColesModel;

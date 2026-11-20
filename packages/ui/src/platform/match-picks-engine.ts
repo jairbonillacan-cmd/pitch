@@ -1,9 +1,12 @@
 import {
   asMarketKey,
   selectionHolds,
+  sportHasDraw,
+  sportScoringUnit,
   type AnalysisMarketRow,
   type LeagueId,
   type MatchAnalysis,
+  type PlatformSport,
   type StandingRow,
 } from "@pitchlab/contracts";
 import { decimalToAmericanInt } from "./access-guard";
@@ -25,7 +28,8 @@ import { buildGoalModel, buildPointsModel, derivedMarketProbability } from "./sp
 export interface RawLeagueInput {
   league: LeagueId;
   leagueLabel: string;
-  sport: "football" | "american-football";
+  leagueLogoUrl?: string;
+  sport: PlatformSport;
   season: string;
   roundLabel: string;
   generatedAt: string;
@@ -193,10 +197,10 @@ function rowsWithSpacetime(
   if (!signal || signal.outlookDriven) return rows;
   const { home, draw, away } = signal.probs;
   const doubleChance: Record<string, number> = { "1x": home + draw, x2: draw + away, "12": home + away };
-  const isNfl = match.sport === "american-football" || match.league === "nfl";
+  const pointsBased = match.sport === "american-football" || match.sport === "basketball";
   const model =
     signal.expectedTotal !== null && signal.expectedMargin !== null
-      ? isNfl
+      ? pointsBased
         ? buildPointsModel(signal.expectedTotal, signal.expectedMargin, home)
         : buildGoalModel(signal.expectedTotal, signal.expectedMargin)
       : null;
@@ -232,14 +236,100 @@ function pickLabelOf(group: string, row: AnalysisMarketRow): string {
   return row.label;
 }
 
-function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | null): MatchPick[] {
-  const isNfl = match.sport === "american-football" || match.league === "nfl";
+function assembleMatchPick(input: {
+  id: string;
+  match: MatchAnalysis;
+  matchLabel: string;
+  signal: SpacetimeSignal | null;
+  confScore: number | null;
+  confidenceOrder: number;
+  slotIndex: number;
+  category: MatchPick["category"];
+  categoryLabel: string;
+  risk: MatchPick["risk"];
+  engineKey: EngineKey;
+  engineName: string;
+  marketGroup: string;
+  row: AnalysisMarketRow;
+  rationale: string;
+  units: number;
+  explicitMarketDecimal?: number | null;
+}): MatchPick {
+  const { match, signal, row, slotIndex, confidenceOrder, confScore } = input;
+  const p = row.p;
+  const fairDecimal = Math.max(1.01, Math.round((row.fairOdds ?? 1 / p) * 100) / 100);
+  const marketDecimal =
+    input.explicitMarketDecimal !== undefined
+      ? input.explicitMarketDecimal
+      : realOdds(signal, moneylineSide(row.market, row.selection));
+  const conflictGroup = classifyConflictGroup(row.market, row.selection, row.label);
+  const result =
+    match.status === "FT"
+      ? gradePick(row.market, row.selection, row.line, conflictGroup, match.score)
+      : null;
+
+  return {
+    id: input.id,
+    gameId: match.id,
+    league: match.league,
+    leagueLabel: match.leagueLabel,
+    matchLabel: input.matchLabel,
+    kickoffLocal: match.kickoffLocal,
+    gameStatus: match.status,
+    slotIndex,
+    category: input.category,
+    categoryLabel: input.categoryLabel,
+    risk: input.risk,
+    engineKey: input.engineKey,
+    engineName: input.engineName,
+    marketGroup: input.marketGroup,
+    selectionKey: row.selection,
+    market: asMarketKey(row.market),
+    ...(row.line !== undefined ? { line: row.line } : {}),
+    conflictGroup,
+    label: pickLabelOf(input.marketGroup, row),
+    rationale: input.rationale,
+    p,
+    fairDecimal,
+    fairAmerican: decimalToAmericanInt(fairDecimal),
+    marketDecimal,
+    marketAmerican: marketDecimal === null ? null : decimalToAmericanInt(marketDecimal),
+    marketBookLabel:
+      marketDecimal === null
+        ? null
+        : (signal?.market?.bookLabel.split(" · ")[0]?.trim() ?? null),
+    marketCapturedAtUtc: marketDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
+    edgePts: edgeAgainst(p, marketDecimal),
+    confidenceScore:
+      confScore !== null ? Math.min(96, Math.max(48, Math.round(confScore - confidenceOrder * 3))) : null,
+    suggestedUnits: input.units,
+    result,
+  };
+}
+
+function buildMatchPicksAndParlayCandidates(
+  match: MatchAnalysis,
+  signal: SpacetimeSignal | null,
+): { picks: MatchPick[]; parlayCandidates: MatchPick[] } {
+  const hasForecast =
+    match.hasForecast !== false &&
+    Boolean(signal || match.x12 || match.projection || match.outcomes.length > 0);
+  if (!hasForecast) return { picks: [], parlayCandidates: [] };
+
+  const pointsBased = match.sport === "american-football" || match.sport === "basketball";
+  const unit = sportScoringUnit(match.sport);
   const allRows = rowsWithSpacetime(match, signal);
   const matchLabel = `${match.home.shortName} vs ${match.away.shortName}`;
-  const confScore = match.confidence?.score ?? 60;
+  const confScore = match.confidence?.score ?? null;
   const proj = projectionFor(match, signal);
-  const primaryEngine: EngineKey = isNfl ? "minkowski" : "tachyon";
-  const primaryEngineName = signal?.sportsEngineName ?? ENGINE_NAMES[primaryEngine];
+  const primaryEngine: EngineKey = pointsBased ? "minkowski" : "tachyon";
+  const snapshotEngineName =
+    match.sport === "basketball"
+      ? "Motor NBA"
+      : match.sport === "ice-hockey"
+        ? "Motor NHL"
+        : ENGINE_NAMES[primaryEngine];
+  const primaryEngineName = signal?.sportsEngineName ?? snapshotEngineName;
   const finalEngineName = signal?.engineName ?? primaryEngineName;
 
   const usedLabels = new Set<string>();
@@ -286,7 +376,7 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       marketGroup: main.group,
       row: main.row,
       rationale: proj
-        ? `El modelo proyecta ${proj.home.toFixed(isNfl ? 1 : 2)}–${proj.away.toFixed(isNfl ? 1 : 2)} y ${Math.round(main.row.p * 100)} % para esta selección.`
+        ? `El modelo proyecta ${proj.home.toFixed(unit.decimals)}–${proj.away.toFixed(unit.decimals)} y ${Math.round(main.row.p * 100)} % para esta selección.`
         : `El modelo da ${Math.round(main.row.p * 100)} % a esta selección.`,
       units: 1.5,
     });
@@ -300,7 +390,7 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       category: "conservador",
       categoryLabel: "Muy probable",
       risk: "conservador",
-      engineKey: isNfl ? "minkowski" : "singularity",
+      engineKey: pointsBased ? "minkowski" : "singularity",
       engineName: finalEngineName,
       marketGroup: shield.group,
       row: shield.row,
@@ -320,25 +410,25 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
   if (totals) {
     pickRows.push({
       category: "totales",
-      categoryLabel: isNfl ? "Puntos totales" : "Goles totales",
+      categoryLabel: unit.plural === "puntos" ? "Puntos totales" : "Goles totales",
       risk: "medio",
       engineKey: primaryEngine,
       engineName: primaryEngineName,
       marketGroup: totals.group,
       row: totals.row,
       rationale: proj
-        ? `Total proyectado de ${proj.total.toFixed(isNfl ? 1 : 2)} ${isNfl ? "puntos" : "goles"}.`
+        ? `Total proyectado de ${proj.total.toFixed(unit.decimals)} ${unit.plural}.`
         : `Probabilidad calibrada de ${Math.round(totals.row.p * 100)} %.`,
       units: 1.25,
     });
   }
 
-  // 4) Lectura Táctica: ambos anotan, totales por equipo o hándicap.
+  // 4) Lectura Táctica: ambos anotan, totales por equipo, hándicap, spread o puck line.
   const tactical =
     fromSnapshotPick("arriesgada") ??
     take(
       ({ group, row }) =>
-        (groupHas(group, "ambos", "equipo", "hándicap", "spread") ||
+        (groupHas(group, "ambos", "equipo", "hándicap", "spread", "puck line") ||
           row.market === "btts" ||
           row.market === "team_totals") &&
         row.p >= 0.5 &&
@@ -383,28 +473,14 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
     }
   }
 
-  return pickRows.map((item, idx) => {
-    const { row } = item;
-    const p = row.p;
-    const fairDecimal = Math.max(1.01, Math.round((row.fairOdds ?? 1 / p) * 100) / 100);
-    const marketDecimal =
-      item.marketDecimal !== undefined
-        ? item.marketDecimal
-        : realOdds(signal, moneylineSide(row.market, row.selection));
-    const conflictGroup = classifyConflictGroup(row.market, row.selection, row.label);
-    const result =
-      match.status === "FT"
-        ? gradePick(row.market, row.selection, row.line, conflictGroup, match.score)
-        : null;
-
-    return {
+  const picks = pickRows.map((item, idx) =>
+    assembleMatchPick({
       id: `${match.id}__p${idx + 1}`,
-      gameId: match.id,
-      league: match.league,
-      leagueLabel: match.leagueLabel,
+      match,
       matchLabel,
-      kickoffLocal: match.kickoffLocal,
-      gameStatus: match.status,
+      signal,
+      confScore,
+      confidenceOrder: idx,
       slotIndex: idx + 1,
       category: item.category,
       categoryLabel: item.categoryLabel,
@@ -412,30 +488,69 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       engineKey: item.engineKey,
       engineName: item.engineName,
       marketGroup: item.marketGroup,
-      selectionKey: row.selection,
-      conflictGroup,
-      label: pickLabelOf(item.marketGroup, row),
+      row: item.row,
       rationale: item.rationale,
-      p,
-      fairDecimal,
-      fairAmerican: decimalToAmericanInt(fairDecimal),
-      marketDecimal,
-      marketAmerican: marketDecimal === null ? null : decimalToAmericanInt(marketDecimal),
-      marketBookLabel:
-        marketDecimal === null
-          ? null
-          : (signal?.market?.bookLabel.split(" · ")[0]?.trim() ?? null),
-      marketCapturedAtUtc: marketDecimal === null ? null : (signal?.market?.asOfUtc ?? null),
-      edgePts: edgeAgainst(p, marketDecimal),
-      confidenceScore: Math.min(96, Math.max(48, Math.round(confScore - idx * 3))),
-      suggestedUnits: item.units,
-      result,
-    };
-  });
+      units: item.units,
+      explicitMarketDecimal: item.marketDecimal,
+    }),
+  );
+
+  // Líneas adicionales del partido (`>= 52 %`) para optimizar parlays por cuota objetivo sin tocar las 5 cartas principales.
+  const existingKeys = new Set(
+    picks.map((pk) => `${pk.market ?? ""}:${pk.selectionKey}:${pk.line ?? ""}`),
+  );
+  const parlayCandidates: MatchPick[] = [];
+  let altIdx = 0;
+  for (const { group, row } of allRows) {
+    if (COUNT_MARKET_KEYS.has(row.market) || row.market === "correct_score") continue;
+    if (!Number.isFinite(row.p) || row.p < 0.52 || row.p >= 0.99) continue;
+    const dedupKey = `${asMarketKey(row.market)}:${row.selection}:${row.line ?? ""}`;
+    if (existingKeys.has(dedupKey) || usedLabels.has(row.label)) continue;
+    existingKeys.add(dedupKey);
+    parlayCandidates.push(
+      assembleMatchPick({
+        id: `${match.id}__mkt__${encodeURIComponent(group)}__${encodeURIComponent(row.selection)}`,
+        match,
+        matchLabel,
+        signal,
+        confScore,
+        confidenceOrder: 1,
+        slotIndex: 20 + altIdx,
+        category: "tactico",
+        categoryLabel: group,
+        risk: "medio",
+        engineKey: primaryEngine,
+        engineName: primaryEngineName,
+        marketGroup: group,
+        row,
+        rationale: `Línea del partido (${group}): ${Math.round(row.p * 100)} % de probabilidad.`,
+        units: 1.0,
+      }),
+    );
+    altIdx += 1;
+  }
+
+  return { picks, parlayCandidates };
 }
 
 function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null): PreGameIntel {
-  const isNfl = match.sport === "american-football" || match.league === "nfl";
+  const hasForecast =
+    match.hasForecast !== false &&
+    Boolean(signal || match.x12 || match.projection || match.outcomes.length > 0);
+  if (!hasForecast) {
+    return {
+      cortexSynthesis: "",
+      tacticalKeys: [],
+      lineupStatusLabel:
+        match.status === "FT" ? "Partido finalizado" : "Sin pronóstico publicado todavía",
+      lineupsConfirmed60m: false,
+      confirmedLineups: null,
+      absences: [],
+      moneyFlow: null,
+    };
+  }
+  const hasDraw = sportHasDraw(match.sport);
+  const digits = sportScoringUnit(match.sport).decimals;
   const [ph, pd, pa] = signal
     ? [signal.probs.home, signal.probs.draw, signal.probs.away]
     : (match.x12 ?? [0, 0, 0]);
@@ -449,7 +564,7 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
     .slice(0, 3);
 
   const synthesisParts = [
-    `El modelo da ${favP} % a ${favName}${!isNfl && pd > 0 ? ` y ${Math.round(pd * 100)} % al empate` : ""}.`,
+    `El modelo da ${favP} % a ${favName}${hasDraw && pd > 0 ? ` y ${Math.round(pd * 100)} % al empate` : ""}.`,
   ];
   if (topDrivers.length > 0) {
     synthesisParts.push(`Factores con más peso: ${topDrivers.map((d) => d.label.toLowerCase()).join(", ")}.`);
@@ -471,7 +586,6 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
     );
   }
   if (proj) {
-    const digits = isNfl ? 1 : 2;
     tacticalKeys.push(
       `Proyección: ${proj.home.toFixed(digits)} – ${proj.away.toFixed(digits)} (total ${proj.total.toFixed(digits)})`,
     );
@@ -491,6 +605,8 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
         role: item.position ? `${item.position} · ${match.home.shortName}` : match.home.shortName,
         status: item.status,
         impactNote: item.detail,
+        ...(item.injuryType ? { injuryType: item.injuryType } : {}),
+        ...(item.returnDate ? { returnDate: item.returnDate } : {}),
       });
     }
     for (const item of realAwayInjuries) {
@@ -500,6 +616,8 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
         role: item.position ? `${item.position} · ${match.away.shortName}` : match.away.shortName,
         status: item.status,
         impactNote: item.detail,
+        ...(item.injuryType ? { injuryType: item.injuryType } : {}),
+        ...(item.returnDate ? { returnDate: item.returnDate } : {}),
       });
     }
   } else {
@@ -534,7 +652,7 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
       const sDraw = share("draw");
       moneyFlow = {
         homeShare: Math.round(sHome * 100),
-        drawShare: isNfl || sDraw === undefined ? undefined : Math.round(sDraw * 100),
+        drawShare: !hasDraw || sDraw === undefined ? undefined : Math.round(sDraw * 100),
         awayShare: Math.round(sAway * 100),
         sharpNote: "Reparto del dinero según el último corte de mercado.",
       };
@@ -542,34 +660,122 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
   } else if (signal?.market) {
     moneyFlow = {
       homeShare: Math.round(signal.market.noVig.home * 100),
-      drawShare: isNfl ? undefined : Math.round(signal.market.noVig.draw * 100),
+      drawShare: !hasDraw ? undefined : Math.round(signal.market.noVig.draw * 100),
       awayShare: Math.round(signal.market.noVig.away * 100),
       sharpNote: `Probabilidad implícita del mercado (${signal.market.bookLabel}) sin margen de la casa.`,
     };
   }
 
+  const rawLineups = match.lineups;
+  const hasFullLineup =
+    Boolean(rawLineups) &&
+    rawLineups!.home.starters.length >= 11 &&
+    rawLineups!.away.starters.length >= 11;
+  const confirmedLineups =
+    hasFullLineup && rawLineups!.status === "confirmed"
+      ? {
+          sourceLabel: rawLineups!.sourceLabel,
+          verifiedAtUtc: rawLineups!.updatedAtUtc,
+          homeFormation: rawLineups!.home.formation,
+          awayFormation: rawLineups!.away.formation,
+          homeStarters: rawLineups!.home.starters.map((p) => ({
+            name: p.name,
+            number: p.number,
+            position: p.position,
+          })),
+          awayStarters: rawLineups!.away.starters.map((p) => ({
+            name: p.name,
+            number: p.number,
+            position: p.position,
+          })),
+        }
+      : null;
+  const probableLineups =
+    !confirmedLineups && hasFullLineup && rawLineups!.status === "predicted"
+      ? {
+          sourceLabel: rawLineups!.sourceLabel,
+          verifiedAtUtc: rawLineups!.updatedAtUtc,
+          confidence: rawLineups!.confidence,
+          homeFormation: rawLineups!.home.formation,
+          awayFormation: rawLineups!.away.formation,
+          homeStarters: rawLineups!.home.starters.map((p) => ({
+            name: p.name,
+            number: p.number,
+            position: p.position,
+          })),
+          awayStarters: rawLineups!.away.starters.map((p) => ({
+            name: p.name,
+            number: p.number,
+            position: p.position,
+          })),
+        }
+      : null;
+
   return {
     cortexSynthesis: synthesisParts.join(" "),
     tacticalKeys,
-    lineupStatusLabel:
-      match.status === "FT" ? "Partido finalizado" : "Alineaciones oficiales pendientes",
-    lineupsConfirmed60m: false,
-    confirmedLineups: null,
+    lineupStatusLabel: confirmedLineups
+      ? `Verificada · ${confirmedLineups.sourceLabel}`
+      : probableLineups
+        ? "Once estimado"
+        : match.status === "FT"
+          ? "Partido finalizado"
+          : "Alineaciones oficiales pendientes",
+    lineupsConfirmed60m: Boolean(confirmedLineups),
+    confirmedLineups,
+    probableLineups,
+    matchContext: match.matchContext ?? null,
     absences,
     moneyFlow,
   };
+}
+
+const COUNT_MARKET_KEYS = new Set(["corners_total", "fouls_total", "yellow_total"]);
+
+function parseGoalLineFromRow(row: Pick<PlatformMarketRow, "selection" | "label">): number | null {
+  const fromSelection = /over_(\d+(?:\.\d+)?)/i.exec(row.selection)?.[1];
+  if (fromSelection) return Number(fromSelection);
+  const fromLabel = /más\s+de\s+(\d+(?:\.\d+)?)/i.exec(row.label)?.[1];
+  if (fromLabel) return Number(fromLabel);
+  return null;
+}
+
+function extractGoalLine(
+  markets: readonly PlatformMarketRow[],
+): PlatformGame["goalLine"] {
+  let best: { line: number; pOver: number; dist: number } | null = null;
+  for (const row of markets) {
+    if (row.market !== "totals") continue;
+    const line = parseGoalLineFromRow(row);
+    if (line === null || !Number.isFinite(line)) continue;
+    const dist = Math.abs(row.p - 0.5);
+    if (
+      !best ||
+      dist < best.dist - 0.001 ||
+      (Math.abs(dist - best.dist) <= 0.001 && Math.abs(line - 2.5) < Math.abs(best.line - 2.5))
+    ) {
+      best = { line, pOver: row.p, dist };
+    }
+  }
+  return best ? { line: best.line, pOver: best.pOver } : null;
 }
 
 function buildPlatformMarkets(
   match: MatchAnalysis,
   signal: SpacetimeSignal | null,
 ): PlatformMarketRow[] {
+  const hasForecast =
+    match.hasForecast !== false &&
+    Boolean(signal || match.x12 || match.projection || match.outcomes.length > 0);
+  if (!hasForecast) return [];
   const rows = rowsWithSpacetime(match, signal);
+  const coreRows = rows.filter((entry) => !COUNT_MARKET_KEYS.has(entry.row.market));
+  const countRows = rows.filter((entry) => COUNT_MARKET_KEYS.has(entry.row.market));
   const source =
     rows.length > 0
-      ? rows.slice(0, 22)
+      ? [...coreRows.slice(0, 22), ...countRows]
       : match.outcomes.map((o) => ({
-          group: match.sport === "american-football" ? "Ganador" : "Resultado 1X2",
+          group: sportHasDraw(match.sport) ? "Resultado 1X2" : "Ganador",
           row: {
             market: "h2h",
             selection: o.key,
@@ -587,6 +793,7 @@ function buildPlatformMarkets(
       market: row.market,
       selection: row.selection,
       label: row.label,
+      ...(row.line !== undefined ? { line: row.line } : {}),
       p: row.p,
       fairDecimal,
       fairAmerican: decimalToAmericanInt(fairDecimal),
@@ -615,34 +822,56 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
       else upcomingCount += 1;
 
       const signal = leagueInput.spacetime?.[m.id] ?? null;
-      const isNfl = m.sport === "american-football" || m.league === "nfl";
-      const x12: [number, number, number] = signal
-        ? [signal.probs.home, signal.probs.draw, signal.probs.away]
-        : m.x12 ?? [
-        m.outcomes[0]?.probability ?? 0.48,
-        isNfl ? 0 : (m.outcomes[1]?.probability ?? 0.25),
-        m.outcomes[isNfl ? 1 : 2]?.probability ?? 0.27,
-      ];
-      const proj = projectionFor(m, signal) ?? {
-        home: isNfl ? 24 : 1.55,
-        away: isNfl ? 21 : 1.18,
-        total: isNfl ? 45 : 2.73,
-      };
-      const confScore = m.confidence?.score ?? 60;
+      const hasForecast =
+        m.hasForecast !== false &&
+        Boolean(signal || m.x12 || m.projection || m.outcomes.length > 0);
+      const hasDraw = sportHasDraw(m.sport);
+      const x12: [number, number, number] | null = !hasForecast
+        ? null
+        : signal
+          ? [signal.probs.home, signal.probs.draw, signal.probs.away]
+          : (m.x12 ?? [
+              m.outcomes[0]?.probability ?? 0.48,
+              hasDraw ? (m.outcomes[1]?.probability ?? 0.25) : 0,
+              m.outcomes[hasDraw ? 2 : 1]?.probability ?? 0.27,
+            ]);
+      const rawProj = hasForecast ? projectionFor(m, signal) : undefined;
+      const projection = rawProj
+        ? {
+            home: rawProj.home,
+            away: rawProj.away,
+            total: rawProj.total,
+          }
+        : null;
+      const confScore = m.confidence?.score ?? null;
       const confLevel =
-        m.confidence?.level ?? (confScore >= 72 ? "alta" : confScore >= 58 ? "media" : "baja");
+        m.confidence?.level ??
+        (confScore !== null
+          ? confScore >= 72
+            ? "alta"
+            : confScore >= 58
+              ? "media"
+              : "baja"
+          : null);
+      const markets = buildPlatformMarkets(m, signal);
+      const goalLine = extractGoalLine(markets);
 
+      const resolvedLeagueLogo = m.leagueLogoUrl ?? leagueInput.leagueLogoUrl;
+      const { picks, parlayCandidates } = buildMatchPicksAndParlayCandidates(m, signal);
       games.push({
         id: m.id,
         league: m.league,
         leagueLabel: m.leagueLabel,
+        ...(resolvedLeagueLogo ? { leagueLogoUrl: resolvedLeagueLogo } : {}),
         sport: m.sport,
+        hasForecast,
         round: m.round,
         dayId: m.day,
         dayLabel: m.dayLabel,
         kickoffUtc: m.kickoffUtc,
         kickoffLocal: m.kickoffLocal,
         venue: m.venue,
+        ...(m.referee ? { referee: m.referee } : {}),
         neutralSite: m.neutralSite,
         status: m.status,
         score: m.score,
@@ -651,6 +880,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
           name: m.home.name,
           shortName: m.home.shortName || m.home.name,
           code: m.home.code ?? m.home.shortName.slice(0, 3).toUpperCase(),
+          ...(m.home.logoUrl ? { logoUrl: m.home.logoUrl } : {}),
           record: m.home.record,
         },
         away: {
@@ -658,23 +888,26 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
           name: m.away.name,
           shortName: m.away.shortName || m.away.name,
           code: m.away.code ?? m.away.shortName.slice(0, 3).toUpperCase(),
+          ...(m.away.logoUrl ? { logoUrl: m.away.logoUrl } : {}),
           record: m.away.record,
         },
         x12,
-        projection: {
-          home: proj.home,
-          away: proj.away,
-          total: proj.total,
-        },
+        projection,
+        goalLine,
         confidenceScore: confScore,
         confidenceLevel: confLevel,
-        confidenceDetail: {
-          reasons: m.confidence?.reasons ?? [],
-          factors: m.confidence?.factors ?? [],
-        },
-        picks: buildFiveMatchPicks(m, signal),
+        ...(m.confidence
+          ? {
+              confidenceDetail: {
+                reasons: m.confidence.reasons ?? [],
+                factors: m.confidence.factors ?? [],
+              },
+            }
+          : {}),
+        picks,
+        ...(parlayCandidates.length > 0 ? { parlayCandidates } : {}),
         preGame: buildPreGameIntel(m, signal),
-        markets: buildPlatformMarkets(m, signal),
+        markets,
         factors:
           m.factors.length > 0
             ? m.factors.map((f) => ({
@@ -682,20 +915,23 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
                 value: f.value ?? f.impact,
                 sub: f.sub || f.detail,
               }))
-            : [
-                {
-                  label: "Forma local",
-                  value: m.home.record,
-                  sub: "Rendimiento reciente verificado",
-                },
-                {
-                  label: "Forma visitante",
-                  value: m.away.record,
-                  sub: "Rendimiento reciente verificado",
-                },
-              ],
+            : hasForecast
+              ? [
+                  {
+                    label: "Forma local",
+                    value: m.home.record,
+                    sub: "Rendimiento reciente verificado",
+                  },
+                  {
+                    label: "Forma visitante",
+                    value: m.away.record,
+                    sub: "Rendimiento reciente verificado",
+                  },
+                ]
+              : [],
         headToHead: m.headToHead ?? [],
         restDays: m.restDays,
+        ...(m.counts ? { counts: m.counts } : {}),
         updatedAtLabel: m.updatedAt ?? "Corte reciente Spacetime Suite",
         spacetime: signal,
       });
@@ -704,6 +940,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
     leagues.push({
       league: leagueInput.league,
       label: leagueInput.leagueLabel,
+      ...(leagueInput.leagueLogoUrl ? { logoUrl: leagueInput.leagueLogoUrl } : {}),
       sport: leagueInput.sport,
       season: leagueInput.season,
       roundLabel: leagueInput.roundLabel,
@@ -764,8 +1001,11 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
  * Catálogo de Player Props Lab. Spacetime v3.0 todavía no proyecta estadísticas por jugador,
  * así que no hay props: la vista muestra un estado "próximamente" en lugar de líneas inventadas.
  */
-export function buildPlayerPropsCatalog(_games: readonly PlatformGame[]): PlayerPropItem[] {
-  return [];
+export function buildPlayerPropsCatalog(
+  _games: readonly PlatformGame[],
+  playerProps?: readonly PlayerPropItem[],
+): PlayerPropItem[] {
+  return playerProps ? [...playerProps] : [];
 }
 
 export function evaluatePropLineProbability(

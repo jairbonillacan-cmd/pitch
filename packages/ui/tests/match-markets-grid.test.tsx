@@ -154,6 +154,60 @@ describe("MatchMarketsGrid (Punto 5)", () => {
     expect(decimalHtml).toContain("Justo 1.23");
   });
 
+  it("agrupa corners_total, fouls_total y yellow_total en «Córners y conteos»", () => {
+    const withCounts: readonly PlatformMarketRow[] = [
+      ...FOOTBALL_MARKETS,
+      {
+        group: "Tiros de esquina 9.5",
+        market: "corners_total",
+        selection: "over",
+        label: "Más de 9.5",
+        p: 0.53,
+        fairDecimal: 1.89,
+        fairAmerican: -112,
+        openDecimal: null,
+        currentDecimal: null,
+        edgePts: null,
+      },
+      {
+        group: "Faltas 22.5",
+        market: "fouls_total",
+        selection: "over",
+        label: "Más de 22.5",
+        p: 0.56,
+        fairDecimal: 1.79,
+        fairAmerican: -127,
+        openDecimal: null,
+        currentDecimal: null,
+        edgePts: null,
+      },
+      {
+        group: "Tarjetas amarillas 4.5",
+        market: "yellow_total",
+        selection: "under",
+        label: "Menos de 4.5",
+        p: 0.58,
+        fairDecimal: 1.72,
+        fairAmerican: -139,
+        openDecimal: null,
+        currentDecimal: null,
+        edgePts: null,
+      },
+    ];
+    const html = renderToStaticMarkup(
+      <MatchMarketsGrid
+        sport="football"
+        markets={withCounts}
+        oddsFormat="decimal"
+        watermark="@socio"
+      />,
+    );
+    expect(html).toContain("Córners y conteos");
+    expect(html).toContain("Tiros de esquina 9.5");
+    expect(html).toContain("Faltas 22.5");
+    expect(html).toContain("Tarjetas amarillas 4.5");
+  });
+
   it("cuando está bloqueado oculta las filas y conserva la marca de agua", () => {
     const lockedHtml = renderToStaticMarkup(
       <MatchMarketsGrid
@@ -168,5 +222,55 @@ describe("MatchMarketsGrid (Punto 5)", () => {
     expect(lockedHtml).toContain('data-watermark="@visitante"');
     expect(lockedHtml).not.toContain("América · Más de 0.5 goles");
     expect(lockedHtml).not.toContain("Justo");
+
+    const emptyUnlockedHtml = renderToStaticMarkup(
+      <MatchMarketsGrid
+        sport="football"
+        markets={[]}
+        oddsFormat="american"
+        watermark="@socio"
+        locked={false}
+      />,
+    );
+    expect(emptyUnlockedHtml).toContain("data-empty-markets");
+    expect(emptyUnlockedHtml).not.toContain("Pase PitchLab Ultra");
+  });
+
+  it("muestra apertura, dirección de movimiento, comparador de casas y mercados clean_sheet/win_to_nil", () => {
+    const richMarkets: readonly PlatformMarketRow[] = [
+      {
+        group: "Portería a cero",
+        market: "clean_sheet_home",
+        selection: "yes",
+        label: "América mantiene portería a cero",
+        p: 0.44,
+        fairDecimal: 2.27,
+        fairAmerican: 127,
+        openDecimal: 2.1,
+        currentDecimal: 1.9,
+        movementDirection: "shortening",
+        quoteBookLabel: "Betcris",
+        quoteCapturedAtUtc: "2030-11-14T22:00:00Z",
+        bookQuotes: [
+          { book: "betcris", bookLabel: "Betcris", decimal: 1.9, capturedAtUtc: "2030-11-14T22:00:00Z", openingDecimal: 2.1, movementDirection: "shortening", isBest: true },
+          { book: "codere", bookLabel: "Codere", decimal: 1.85, capturedAtUtc: "2030-11-14T22:00:00Z" },
+        ],
+        edgePts: -8.6,
+      },
+    ];
+    const html = renderToStaticMarkup(
+      <MatchMarketsGrid
+        sport="football"
+        markets={richMarkets}
+        oddsFormat="decimal"
+        watermark="@socio"
+      />,
+    );
+    expect(html).toContain("Casa 1.90");
+    expect(html).toContain("Ap. 2.10");
+    expect(html).toContain("↓");
+    expect(html).toContain("Betcris 1.90");
+    expect(html).toContain("Codere 1.85");
+    expect(html).toContain("pl-pill--brand");
   });
 });

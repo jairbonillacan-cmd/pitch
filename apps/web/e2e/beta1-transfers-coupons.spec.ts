@@ -28,7 +28,7 @@ async function assertNoHorizontalOverflow(page: Page, contextLabel: string): Pro
 }
 
 async function assertNoForbiddenCopy(page: Page, contextLabel: string): Promise<void> {
-  const text = (await page.locator("body").textContent()) ?? "";
+  const text = (await page.locator("body").innerText()) ?? "";
   for (const rule of FORBIDDEN_BETA1_COPY) {
     expect(text, `Copy prohibido (${rule.label}) en ${contextLabel}`).not.toMatch(rule.pattern);
   }

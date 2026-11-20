@@ -4,7 +4,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 13",
-  "updatedAt": "2026-11-19T23:45:34.084Z",
+  "updatedAt": "2026-11-15T17:34:02.833Z",
   "source": "openfootball+espn",
   "provenance": "derived",
   "isDemo": false,
@@ -14,11 +14,11 @@
       "name": "Athletic Club",
       "shortName": "Athletic Club",
       "code": "ATH",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 1.1428571428571428,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.222424075954766,
-      "adjustedAgainst": 1.1672474706262268
+      "forPerGame": 1.75,
+      "againstPerGame": 1,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.339765978049767,
+      "adjustedAgainst": 1.139471745078221
     },
     "laliga.atletico-madrid": {
       "teamId": "laliga.atletico-madrid",
@@ -28,30 +28,30 @@
       "forPerGame": 2.111111111111111,
       "againstPerGame": 1,
       "gamesPlayed": 9,
-      "adjustedFor": 1.7363190848434251,
-      "adjustedAgainst": 1.0444375962152224
+      "adjustedFor": 1.7387755475055748,
+      "adjustedAgainst": 1.0409840104384016
     },
     "laliga.osasuna": {
       "teamId": "laliga.osasuna",
       "name": "CA Osasuna",
       "shortName": "CA Osasuna",
       "code": "OSA",
-      "forPerGame": 1,
+      "forPerGame": 0.875,
       "againstPerGame": 2,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.1998792863677792,
-      "adjustedAgainst": 1.4662406968831185
+      "gamesPlayed": 8,
+      "adjustedFor": 1.1496318047541507,
+      "adjustedAgainst": 1.4863436652285031
     },
     "laliga.celta-vigo": {
       "teamId": "laliga.celta-vigo",
       "name": "Celta de Vigo",
       "shortName": "Celta de Vigo",
       "code": "CELV",
-      "forPerGame": 1.1428571428571428,
-      "againstPerGame": 1.2857142857142858,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.258130944046124,
-      "adjustedAgainst": 1.2681514548932509
+      "forPerGame": 1,
+      "againstPerGame": 1.125,
+      "gamesPlayed": 8,
+      "adjustedFor": 1.2041785657317787,
+      "adjustedAgainst": 1.2006679171909598
     },
     "laliga.alaves": {
       "teamId": "laliga.alaves",
@@ -61,8 +61,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 8,
-      "adjustedFor": 1.2528548881338335,
-      "adjustedAgainst": 1.3168166174196854
+      "adjustedFor": 1.244877768763629,
+      "adjustedAgainst": 1.3066981308582521
     },
     "laliga.elche": {
       "teamId": "laliga.elche",
@@ -72,41 +72,41 @@
       "forPerGame": 1.2222222222222223,
       "againstPerGame": 2.2222222222222223,
       "gamesPlayed": 9,
-      "adjustedFor": 1.2804761454847362,
-      "adjustedAgainst": 1.5726330444543741
+      "adjustedFor": 1.2844968685167906,
+      "adjustedAgainst": 1.5679266150226858
     },
     "laliga.barcelona": {
       "teamId": "laliga.barcelona",
       "name": "FC Barcelona",
       "shortName": "FC Barcelona",
       "code": "BAR",
-      "forPerGame": 4.333333333333333,
-      "againstPerGame": 1,
-      "gamesPlayed": 9,
-      "adjustedFor": 2.804097212436915,
-      "adjustedAgainst": 1.005495820039544
+      "forPerGame": 4,
+      "againstPerGame": 1.1,
+      "gamesPlayed": 10,
+      "adjustedFor": 2.760778463155525,
+      "adjustedAgainst": 1.0134475145555462
     },
     "laliga.getafe": {
       "teamId": "laliga.getafe",
       "name": "Getafe CF",
       "shortName": "Getafe CF",
       "code": "GET",
-      "forPerGame": 0.7777777777777778,
-      "againstPerGame": 1.1111111111111112,
-      "gamesPlayed": 9,
-      "adjustedFor": 0.8917209846887082,
-      "adjustedAgainst": 1.0636439804680962
+      "forPerGame": 0.7,
+      "againstPerGame": 1.4,
+      "gamesPlayed": 10,
+      "adjustedFor": 0.8662056757292365,
+      "adjustedAgainst": 1.176441396010997
     },
     "laliga.levante": {
       "teamId": "laliga.levante",
       "name": "Levante UD",
       "shortName": "Levante UD",
       "code": "LEV",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.3429154505905991,
-      "adjustedAgainst": 1.556231107671664
+      "forPerGame": 1.2857142857142858,
+      "againstPerGame": 2.2857142857142856,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.3284619258856556,
+      "adjustedAgainst": 1.5722609282229474
     },
     "laliga.malaga": {
       "teamId": "laliga.malaga",
@@ -116,8 +116,8 @@
       "forPerGame": 0.625,
       "againstPerGame": 2,
       "gamesPlayed": 8,
-      "adjustedFor": 0.8753386846389117,
-      "adjustedAgainst": 1.5595739715445234
+      "adjustedFor": 0.8712216489070462,
+      "adjustedAgainst": 1.5648585416125989
     },
     "laliga.racing-santander": {
       "teamId": "laliga.racing-santander",
@@ -127,8 +127,8 @@
       "forPerGame": 1.4444444444444444,
       "againstPerGame": 2.7777777777777777,
       "gamesPlayed": 9,
-      "adjustedFor": 1.4141236552107026,
-      "adjustedAgainst": 2.039460299728682
+      "adjustedFor": 1.4116228708027312,
+      "adjustedAgainst": 2.0449264358486343
     },
     "laliga.rayo-vallecano": {
       "teamId": "laliga.rayo-vallecano",
@@ -138,8 +138,8 @@
       "forPerGame": 1.5555555555555556,
       "againstPerGame": 1.8888888888888888,
       "gamesPlayed": 9,
-      "adjustedFor": 1.3073342818326448,
-      "adjustedAgainst": 1.3448070873804754
+      "adjustedFor": 1.3111474384903525,
+      "adjustedAgainst": 1.3456432501281383
     },
     "laliga.deportivo-la-coruna": {
       "teamId": "laliga.deportivo-la-coruna",
@@ -149,8 +149,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 1.329168496307782,
-      "adjustedAgainst": 1.2000031432021516
+      "adjustedFor": 1.3241209744225353,
+      "adjustedAgainst": 1.1991390915103728
     },
     "laliga.espanyol": {
       "teamId": "laliga.espanyol",
@@ -160,52 +160,52 @@
       "forPerGame": 1.375,
       "againstPerGame": 1.25,
       "gamesPlayed": 8,
-      "adjustedFor": 1.2407506485589541,
-      "adjustedAgainst": 1.2767079021822811
+      "adjustedFor": 1.2418779572679508,
+      "adjustedAgainst": 1.2750112937021172
     },
     "laliga.real-betis": {
       "teamId": "laliga.real-betis",
       "name": "Real Betis",
       "shortName": "Real Betis",
       "code": "BET",
-      "forPerGame": 1.4444444444444444,
-      "againstPerGame": 0.8888888888888888,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.515129055278577,
-      "adjustedAgainst": 1.109392545861496
+      "forPerGame": 1.3,
+      "againstPerGame": 0.8,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.4594979132902826,
+      "adjustedAgainst": 1.0664105143133695
     },
     "laliga.real-madrid": {
       "teamId": "laliga.real-madrid",
       "name": "Real Madrid",
       "shortName": "Real Madrid",
       "code": "RMA",
-      "forPerGame": 2.6666666666666665,
-      "againstPerGame": 0.8888888888888888,
-      "gamesPlayed": 9,
-      "adjustedFor": 2.06002545727526,
-      "adjustedAgainst": 0.9508849373708634
+      "forPerGame": 2.6,
+      "againstPerGame": 0.9,
+      "gamesPlayed": 10,
+      "adjustedFor": 2.086579442597623,
+      "adjustedAgainst": 0.9106625500135545
     },
     "laliga.real-sociedad": {
       "teamId": "laliga.real-sociedad",
       "name": "Real Sociedad",
       "shortName": "Real Sociedad",
       "code": "RSO",
-      "forPerGame": 1.375,
-      "againstPerGame": 1.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.456786918188951,
-      "adjustedAgainst": 1.5268474530162912
+      "forPerGame": 1.4444444444444444,
+      "againstPerGame": 1.7777777777777777,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.4573267838247126,
+      "adjustedAgainst": 1.4962766175314224
     },
     "laliga.sevilla": {
       "teamId": "laliga.sevilla",
       "name": "Sevilla FC",
       "shortName": "Sevilla FC",
       "code": "SEV",
-      "forPerGame": 1.2222222222222223,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.1891191351545083,
-      "adjustedAgainst": 1.310588198434133
+      "forPerGame": 1.3,
+      "againstPerGame": 1.2,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.200654231295537,
+      "adjustedAgainst": 1.2632193330608534
     },
     "laliga.valencia": {
       "teamId": "laliga.valencia",
@@ -215,8 +215,8 @@
       "forPerGame": 0.625,
       "againstPerGame": 2,
       "gamesPlayed": 8,
-      "adjustedFor": 1.0739397266150712,
-      "adjustedAgainst": 1.3749568178835614
+      "adjustedFor": 1.081626787755625,
+      "adjustedAgainst": 1.3716815356264394
     },
     "laliga.villarreal": {
       "teamId": "laliga.villarreal",
@@ -226,8 +226,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.4444444444444444,
       "gamesPlayed": 9,
-      "adjustedFor": 1.6590535259837096,
-      "adjustedAgainst": 1.2493323437941695
+      "adjustedFor": 1.6433708302864636,
+      "adjustedAgainst": 1.2488545644708684
     }
   },
   "games": [
@@ -254,11 +254,12 @@
         "code": "ALA"
       },
       "venue": "Ramón Sánchez-Pizjuán",
+      "referee": "Luis Bestard Servera",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -285,11 +286,12 @@
         "code": "RAC"
       },
       "venue": "La Rosaleda",
+      "referee": "Isidro Diaz de Mera Escuderos",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -316,11 +318,12 @@
         "code": "ATH"
       },
       "venue": "El Sadar",
+      "referee": "Miguel Sesma Espinosa",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -347,11 +350,12 @@
         "code": "RMA"
       },
       "venue": "Mestalla",
+      "referee": "Francisco Hernandez Maeso",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -378,11 +382,12 @@
         "code": "BET"
       },
       "venue": "Martínez Valero",
+      "referee": "César Soto Grado",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -409,11 +414,12 @@
         "code": "RAY"
       },
       "venue": "Reale Arena",
+      "referee": "Juan Martinez Munuera",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -440,11 +446,12 @@
         "code": "LEV"
       },
       "venue": "Balaídos",
+      "referee": "Miguel Angel Ortiz Arias",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -471,11 +478,12 @@
         "code": "GET"
       },
       "venue": "Estadio de la Cerámica",
+      "referee": "Carlos Muniz Munoz",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -502,11 +510,12 @@
         "code": "BAR"
       },
       "venue": "Riyadh Air Metropolitano",
+      "referee": "Javier Alberola Rojas",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:36.199Z",
+        "observedAt": "2026-11-15T17:34:06.126Z",
         "source": "football-data"
       }
     },
@@ -1228,6 +1237,17 @@
           "home": 5,
           "away": 6
         }
+      },
+      "matchContext": {
+        "referee": "Luis Bestard Servera",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 32,
+          "avgYellow": 5.03,
+          "avgRed": 0.22,
+          "avgFouls": 27.5,
+          "avgGoals": 3.09
+        }
       }
     },
     "laliga-2026-27-md12-malaga-racing-santander": {
@@ -1659,6 +1679,17 @@
         "restDays": {
           "home": 7,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Isidro Diaz de Mera Escuderos",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 45,
+          "avgYellow": 4.98,
+          "avgRed": 0.44,
+          "avgFouls": 23.6,
+          "avgGoals": 2.8
         }
       }
     },
@@ -2129,6 +2160,17 @@
           "home": 5,
           "away": 6
         }
+      },
+      "matchContext": {
+        "referee": "Miguel Sesma Espinosa",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 52,
+          "avgYellow": 4.27,
+          "avgRed": 0.23,
+          "avgFouls": 27.3,
+          "avgGoals": 2.96
+        }
       }
     },
     "laliga-2026-27-md12-valencia-real-madrid": {
@@ -2597,6 +2639,17 @@
         "restDays": {
           "home": 6,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Francisco Hernandez Maeso",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 44,
+          "avgYellow": 4,
+          "avgRed": 0.18,
+          "avgFouls": 24.7,
+          "avgGoals": 2.93
         }
       }
     },
@@ -3068,6 +3121,17 @@
           "home": 7,
           "away": 8
         }
+      },
+      "matchContext": {
+        "referee": "César Soto Grado",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 46,
+          "avgYellow": 4.65,
+          "avgRed": 0.35,
+          "avgFouls": 23,
+          "avgGoals": 2.76
+        }
       }
     },
     "laliga-2026-27-md12-real-sociedad-rayo-vallecano": {
@@ -3537,6 +3601,17 @@
           "home": 7,
           "away": 8
         }
+      },
+      "matchContext": {
+        "referee": "Juan Martinez Munuera",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 59,
+          "avgYellow": 4.63,
+          "avgRed": 0.2,
+          "avgFouls": 26.7,
+          "avgGoals": 2.56
+        }
       }
     },
     "laliga-2026-27-md12-celta-vigo-levante": {
@@ -4004,6 +4079,17 @@
         "restDays": {
           "home": 8,
           "away": 8
+        }
+      },
+      "matchContext": {
+        "referee": "Miguel Angel Ortiz Arias",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 47,
+          "avgYellow": 3.66,
+          "avgRed": 0.26,
+          "avgFouls": 22.1,
+          "avgGoals": 2.79
         }
       }
     },
@@ -4474,6 +4560,17 @@
           "home": 9,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Carlos Muniz Munoz",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 53,
+          "avgYellow": 3.55,
+          "avgRed": 0.26,
+          "avgFouls": 25.1,
+          "avgGoals": 2.74
+        }
       }
     },
     "laliga-2026-27-md12-atletico-madrid-barcelona": {
@@ -4943,10 +5040,56 @@
           "home": 8,
           "away": 8
         }
+      },
+      "matchContext": {
+        "referee": "Javier Alberola Rojas",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 65,
+          "avgYellow": 3.89,
+          "avgRed": 0.28,
+          "avgFouls": 26.5,
+          "avgGoals": 3.18
+        }
       }
     },
     "laliga-2026-27-md13-athletic-club-espanyol": {
       "game": "laliga-2026-27-md13-athletic-club-espanyol",
+      "counts": {
+        "corners": {
+          "home": 6.46,
+          "away": 3.57,
+          "total": 10.03,
+          "line": 9.5,
+          "pOver": 0.524,
+          "sample": {
+            "home": 619,
+            "away": 544
+          }
+        },
+        "fouls": {
+          "home": 11.7,
+          "away": 13.62,
+          "total": 25.32,
+          "line": 25.5,
+          "pOver": 0.4714,
+          "sample": {
+            "home": 619,
+            "away": 544
+          }
+        },
+        "yellow": {
+          "home": 2.25,
+          "away": 2.49,
+          "total": 4.74,
+          "line": 4.5,
+          "pOver": 0.5126,
+          "sample": {
+            "home": 619,
+            "away": 544
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -5093,6 +5236,48 @@
           "selection": "2–1",
           "p": 0.10179453645876498,
           "fairOdds": 9.823709943461267
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.524,
+          "fairOdds": 1.9083969465648853
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.476,
+          "fairOdds": 2.100840336134454
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4714,
+          "fairOdds": 2.1213406873143827
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5286,
+          "fairOdds": 1.8917896329928114
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.5126,
+          "fairOdds": 1.9508388607101055
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.48740000000000006,
+          "fairOdds": 2.051702913418137
         }
       ],
       "marketGroups": [
@@ -5274,6 +5459,69 @@
               "fairOdds": 9.823709943461267
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.524,
+              "fairOdds": 1.9083969465648853
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.476,
+              "fairOdds": 2.100840336134454
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4714,
+              "fairOdds": 2.1213406873143827
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5286,
+              "fairOdds": 1.8917896329928114
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.5126,
+              "fairOdds": 1.9508388607101055
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.48740000000000006,
+              "fairOdds": 2.051702913418137
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5347,6 +5595,24 @@
           "label": "Memoria larga",
           "value": "+2 pts al local",
           "detail": "historia 59% / 23% / 19% · temporada 54% / 22% / 23%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.0 tiros de esquina esperados",
+          "detail": "Athletic Club 6.5 · RCD Espanyol 3.6"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.3 faltas esperados",
+          "detail": "Athletic Club 11.7 · RCD Espanyol 13.6"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.7 amarillas esperados",
+          "detail": "Athletic Club 2.3 · RCD Espanyol 2.5"
         }
       ],
       "steps": [
@@ -5450,6 +5716,41 @@
     },
     "laliga-2026-27-md13-rayo-vallecano-valencia": {
       "game": "laliga-2026-27-md13-rayo-vallecano-valencia",
+      "counts": {
+        "corners": {
+          "home": 5.88,
+          "away": 4.4,
+          "total": 10.28,
+          "line": 9.5,
+          "pOver": 0.5513,
+          "sample": {
+            "home": 429,
+            "away": 620
+          }
+        },
+        "fouls": {
+          "home": 11.47,
+          "away": 12.3,
+          "total": 23.76,
+          "line": 23.5,
+          "pOver": 0.5056,
+          "sample": {
+            "home": 429,
+            "away": 620
+          }
+        },
+        "yellow": {
+          "home": 2.4,
+          "away": 2.31,
+          "total": 4.71,
+          "line": 4.5,
+          "pOver": 0.5077,
+          "sample": {
+            "home": 429,
+            "away": 620
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -5596,6 +5897,48 @@
           "selection": "2–1",
           "p": 0.09404941181749217,
           "fairOdds": 10.63270870784979
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5513,
+          "fairOdds": 1.8138944313440957
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.4487,
+          "fairOdds": 2.2286605749944286
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.5056,
+          "fairOdds": 1.9778481012658227
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.49439999999999995,
+          "fairOdds": 2.022653721682848
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.5077,
+          "fairOdds": 1.9696671262556626
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.49229999999999996,
+          "fairOdds": 2.0312817387771687
         }
       ],
       "marketGroups": [
@@ -5777,6 +6120,69 @@
               "fairOdds": 10.63270870784979
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5513,
+              "fairOdds": 1.8138944313440957
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.4487,
+              "fairOdds": 2.2286605749944286
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.5056,
+              "fairOdds": 1.9778481012658227
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.49439999999999995,
+              "fairOdds": 2.022653721682848
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.5077,
+              "fairOdds": 1.9696671262556626
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.49229999999999996,
+              "fairOdds": 2.0312817387771687
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5850,6 +6256,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 49% / 26% / 25% · temporada 51% / 23% / 26%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.3 tiros de esquina esperados",
+          "detail": "Rayo Vallecano 5.9 · Valencia CF 4.4"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "23.8 faltas esperados",
+          "detail": "Rayo Vallecano 11.5 · Valencia CF 12.3"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.7 amarillas esperados",
+          "detail": "Rayo Vallecano 2.4 · Valencia CF 2.3"
         }
       ],
       "steps": [
@@ -5955,6 +6379,41 @@
     },
     "laliga-2026-27-md13-sevilla-real-betis": {
       "game": "laliga-2026-27-md13-sevilla-real-betis",
+      "counts": {
+        "corners": {
+          "home": 5.38,
+          "away": 4.04,
+          "total": 9.41,
+          "line": 9.5,
+          "pOver": 0.4578,
+          "sample": {
+            "home": 620,
+            "away": 544
+          }
+        },
+        "fouls": {
+          "home": 13.72,
+          "away": 11.01,
+          "total": 24.73,
+          "line": 24.5,
+          "pOver": 0.5025,
+          "sample": {
+            "home": 620,
+            "away": 544
+          }
+        },
+        "yellow": {
+          "home": 2.55,
+          "away": 1.99,
+          "total": 4.54,
+          "line": 4.5,
+          "pOver": 0.4759,
+          "sample": {
+            "home": 620,
+            "away": 544
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -6101,6 +6560,48 @@
           "selection": "1–2",
           "p": 0.09167117826825003,
           "fairOdds": 10.908554017640967
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4578,
+          "fairOdds": 2.18435998252512
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5422,
+          "fairOdds": 1.8443378827001107
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.5025,
+          "fairOdds": 1.9900497512437814
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.49750000000000005,
+          "fairOdds": 2.0100502512562812
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4759,
+          "fairOdds": 2.101281781886951
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5241,
+          "fairOdds": 1.9080328181644723
         }
       ],
       "marketGroups": [
@@ -6282,6 +6783,69 @@
               "fairOdds": 10.908554017640967
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4578,
+              "fairOdds": 2.18435998252512
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5422,
+              "fairOdds": 1.8443378827001107
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.5025,
+              "fairOdds": 1.9900497512437814
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.49750000000000005,
+              "fairOdds": 2.0100502512562812
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4759,
+              "fairOdds": 2.101281781886951
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5241,
+              "fairOdds": 1.9080328181644723
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6355,6 +6919,24 @@
           "label": "Memoria larga",
           "value": "−3 pts al local",
           "detail": "historia 28% / 27% / 46% · temporada 35% / 24% / 41%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.4 tiros de esquina esperados",
+          "detail": "Sevilla FC 5.4 · Real Betis 4.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.7 faltas esperados",
+          "detail": "Sevilla FC 13.7 · Real Betis 11.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.5 amarillas esperados",
+          "detail": "Sevilla FC 2.5 · Real Betis 2.0"
         }
       ],
       "steps": [
@@ -6460,6 +7042,41 @@
     },
     "laliga-2026-27-md13-real-madrid-celta-vigo": {
       "game": "laliga-2026-27-md13-real-madrid-celta-vigo",
+      "counts": {
+        "corners": {
+          "home": 6.02,
+          "away": 3.11,
+          "total": 9.13,
+          "line": 8.5,
+          "pOver": 0.5383,
+          "sample": {
+            "home": 620,
+            "away": 544
+          }
+        },
+        "fouls": {
+          "home": 9.88,
+          "away": 13.96,
+          "total": 23.84,
+          "line": 23.5,
+          "pOver": 0.5112,
+          "sample": {
+            "home": 620,
+            "away": 544
+          }
+        },
+        "yellow": {
+          "home": 2.02,
+          "away": 2.21,
+          "total": 4.24,
+          "line": 4.5,
+          "pOver": 0.4173,
+          "sample": {
+            "home": 620,
+            "away": 544
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -6606,6 +7223,48 @@
           "selection": "3–0",
           "p": 0.09502623245212481,
           "fairOdds": 10.52340994897183
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5383,
+          "fairOdds": 1.8577001671930151
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.4617,
+          "fairOdds": 2.1659085986571367
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.5112,
+          "fairOdds": 1.9561815336463224
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.4888,
+          "fairOdds": 2.0458265139116203
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4173,
+          "fairOdds": 2.3963575365444525
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5827,
+          "fairOdds": 1.7161489617298782
         }
       ],
       "marketGroups": [
@@ -6787,6 +7446,69 @@
               "fairOdds": 10.52340994897183
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5383,
+              "fairOdds": 1.8577001671930151
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.4617,
+              "fairOdds": 2.1659085986571367
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.5112,
+              "fairOdds": 1.9561815336463224
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.4888,
+              "fairOdds": 2.0458265139116203
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4173,
+              "fairOdds": 2.3963575365444525
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5827,
+              "fairOdds": 1.7161489617298782
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6860,6 +7582,24 @@
           "label": "Memoria larga",
           "value": "+2 pts al local",
           "detail": "historia 79% / 14% / 7% · temporada 74% / 15% / 11%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.1 tiros de esquina esperados",
+          "detail": "Real Madrid 6.0 · Celta de Vigo 3.1"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "23.8 faltas esperados",
+          "detail": "Real Madrid 9.9 · Celta de Vigo 14.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.2 amarillas esperados",
+          "detail": "Real Madrid 2.0 · Celta de Vigo 2.2"
         }
       ],
       "steps": [
@@ -6965,6 +7705,41 @@
     },
     "laliga-2026-27-md13-barcelona-villarreal": {
       "game": "laliga-2026-27-md13-barcelona-villarreal",
+      "counts": {
+        "corners": {
+          "home": 6.54,
+          "away": 4.01,
+          "total": 10.55,
+          "line": 10.5,
+          "pOver": 0.4732,
+          "sample": {
+            "home": 620,
+            "away": 582
+          }
+        },
+        "fouls": {
+          "home": 10.66,
+          "away": 10.46,
+          "total": 21.12,
+          "line": 20.5,
+          "pOver": 0.5363,
+          "sample": {
+            "home": 620,
+            "away": 582
+          }
+        },
+        "yellow": {
+          "home": 1.94,
+          "away": 2.21,
+          "total": 4.15,
+          "line": 3.5,
+          "pOver": 0.5952,
+          "sample": {
+            "home": 620,
+            "away": 582
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -7111,6 +7886,48 @@
           "selection": "2–1",
           "p": 0.06371961648766444,
           "fairOdds": 15.69375421764491
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4732,
+          "fairOdds": 2.113271344040575
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5267999999999999,
+          "fairOdds": 1.898253606681853
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 20.5",
+          "line": 20.5,
+          "p": 0.5363,
+          "fairOdds": 1.8646280067126608
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 20.5",
+          "line": 20.5,
+          "p": 0.4637,
+          "fairOdds": 2.156566745740781
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5952,
+          "fairOdds": 1.6801075268817205
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.40480000000000005,
+          "fairOdds": 2.470355731225296
         }
       ],
       "marketGroups": [
@@ -7292,6 +8109,69 @@
               "fairOdds": 15.69375421764491
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4732,
+              "fairOdds": 2.113271344040575
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5267999999999999,
+              "fairOdds": 1.898253606681853
+            }
+          ]
+        },
+        {
+          "group": "Faltas 20.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 20.5",
+              "line": 20.5,
+              "p": 0.5363,
+              "fairOdds": 1.8646280067126608
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 20.5",
+              "line": 20.5,
+              "p": 0.4637,
+              "fairOdds": 2.156566745740781
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5952,
+              "fairOdds": 1.6801075268817205
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.40480000000000005,
+              "fairOdds": 2.470355731225296
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7365,6 +8245,24 @@
           "label": "Memoria larga",
           "value": "−3 pts al local",
           "detail": "historia 72% / 17% / 10% · temporada 78% / 11% / 10%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.6 tiros de esquina esperados",
+          "detail": "FC Barcelona 6.5 · Villarreal CF 4.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "21.1 faltas esperados",
+          "detail": "FC Barcelona 10.7 · Villarreal CF 10.5"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.2 amarillas esperados",
+          "detail": "FC Barcelona 1.9 · Villarreal CF 2.2"
         }
       ],
       "steps": [
@@ -7472,6 +8370,41 @@
     },
     "laliga-2026-27-md13-alaves-deportivo-la-coruna": {
       "game": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
+      "counts": {
+        "corners": {
+          "home": 5.76,
+          "away": 4.63,
+          "total": 10.4,
+          "line": 10.5,
+          "pOver": 0.4575,
+          "sample": {
+            "home": 354,
+            "away": 240
+          }
+        },
+        "fouls": {
+          "home": 12.91,
+          "away": 12.14,
+          "total": 25.04,
+          "line": 24.5,
+          "pOver": 0.5265,
+          "sample": {
+            "home": 354,
+            "away": 240
+          }
+        },
+        "yellow": {
+          "home": 2.13,
+          "away": 2.19,
+          "total": 4.32,
+          "line": 4.5,
+          "pOver": 0.4334,
+          "sample": {
+            "home": 354,
+            "away": 240
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -7618,6 +8551,48 @@
           "selection": "2–1",
           "p": 0.09493192914973689,
           "fairOdds": 10.533863674282781
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4575,
+          "fairOdds": 2.1857923497267757
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5425,
+          "fairOdds": 1.8433179723502304
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.5265,
+          "fairOdds": 1.8993352326685662
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.47350000000000003,
+          "fairOdds": 2.1119324181626187
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4334,
+          "fairOdds": 2.3073373327180433
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5666,
+          "fairOdds": 1.7649135192375573
         }
       ],
       "marketGroups": [
@@ -7799,6 +8774,69 @@
               "fairOdds": 10.533863674282781
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4575,
+              "fairOdds": 2.1857923497267757
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5425,
+              "fairOdds": 1.8433179723502304
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.5265,
+              "fairOdds": 1.8993352326685662
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.47350000000000003,
+              "fairOdds": 2.1119324181626187
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4334,
+              "fairOdds": 2.3073373327180433
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5666,
+              "fairOdds": 1.7649135192375573
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7872,6 +8910,24 @@
           "label": "Memoria larga",
           "value": "+3 pts al local",
           "detail": "historia 48% / 26% / 26% · temporada 42% / 24% / 35%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.4 tiros de esquina esperados",
+          "detail": "Deportivo Alavés 5.8 · Deportivo de La Coruña 4.6"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.0 faltas esperados",
+          "detail": "Deportivo Alavés 12.9 · Deportivo de La Coruña 12.1"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.3 amarillas esperados",
+          "detail": "Deportivo Alavés 2.1 · Deportivo de La Coruña 2.2"
         }
       ],
       "steps": [
@@ -7968,6 +9024,41 @@
     },
     "laliga-2026-27-md13-racing-santander-real-sociedad": {
       "game": "laliga-2026-27-md13-racing-santander-real-sociedad",
+      "counts": {
+        "corners": {
+          "home": 4.93,
+          "away": 5.83,
+          "total": 10.76,
+          "line": 10.5,
+          "pOver": 0.4953,
+          "sample": {
+            "home": 88,
+            "away": 620
+          }
+        },
+        "fouls": {
+          "home": 11.3,
+          "away": 13.66,
+          "total": 24.96,
+          "line": 24.5,
+          "pOver": 0.5204,
+          "sample": {
+            "home": 88,
+            "away": 620
+          }
+        },
+        "yellow": {
+          "home": 2.43,
+          "away": 2.33,
+          "total": 4.76,
+          "line": 4.5,
+          "pOver": 0.516,
+          "sample": {
+            "home": 88,
+            "away": 620
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -8114,6 +9205,48 @@
           "selection": "2–1",
           "p": 0.06579876024712815,
           "fairOdds": 15.197854735319972
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4953,
+          "fairOdds": 2.0189783969311526
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5046999999999999,
+          "fairOdds": 1.9813750743015657
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.5204,
+          "fairOdds": 1.9215987701767872
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.4796,
+          "fairOdds": 2.085070892410342
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.516,
+          "fairOdds": 1.937984496124031
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.484,
+          "fairOdds": 2.066115702479339
         }
       ],
       "marketGroups": [
@@ -8295,6 +9428,69 @@
               "fairOdds": 15.197854735319972
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4953,
+              "fairOdds": 2.0189783969311526
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5046999999999999,
+              "fairOdds": 1.9813750743015657
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.5204,
+              "fairOdds": 1.9215987701767872
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.4796,
+              "fairOdds": 2.085070892410342
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.516,
+              "fairOdds": 1.937984496124031
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.484,
+              "fairOdds": 2.066115702479339
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8368,6 +9564,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 41% / 28% / 31% · temporada 40% / 19% / 41%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.8 tiros de esquina esperados",
+          "detail": "Racing de Santander 4.9 · Real Sociedad 5.8"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.0 faltas esperados",
+          "detail": "Racing de Santander 11.3 · Real Sociedad 13.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.8 amarillas esperados",
+          "detail": "Racing de Santander 2.4 · Real Sociedad 2.3"
         }
       ],
       "steps": [
@@ -8437,6 +9651,41 @@
     },
     "laliga-2026-27-md13-osasuna-malaga": {
       "game": "laliga-2026-27-md13-osasuna-malaga",
+      "counts": {
+        "corners": {
+          "home": 4.88,
+          "away": 4.16,
+          "total": 9.03,
+          "line": 8.5,
+          "pOver": 0.5288,
+          "sample": {
+            "home": 468,
+            "away": 316
+          }
+        },
+        "fouls": {
+          "home": 12.53,
+          "away": 11.68,
+          "total": 24.21,
+          "line": 24.5,
+          "pOver": 0.4627,
+          "sample": {
+            "home": 468,
+            "away": 316
+          }
+        },
+        "yellow": {
+          "home": 2.25,
+          "away": 2.21,
+          "total": 4.46,
+          "line": 4.5,
+          "pOver": 0.4597,
+          "sample": {
+            "home": 468,
+            "away": 316
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -8583,6 +9832,48 @@
           "selection": "2–1",
           "p": 0.09546646462966522,
           "fairOdds": 10.47488250328755
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5288,
+          "fairOdds": 1.8910741301059
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.47119999999999995,
+          "fairOdds": 2.1222410865874366
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4627,
+          "fairOdds": 2.161227577263886
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5373,
+          "fairOdds": 1.8611576400521124
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4597,
+          "fairOdds": 2.1753317380900588
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5403,
+          "fairOdds": 1.8508236165093466
         }
       ],
       "marketGroups": [
@@ -8764,6 +10055,69 @@
               "fairOdds": 10.47488250328755
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5288,
+              "fairOdds": 1.8910741301059
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.47119999999999995,
+              "fairOdds": 2.1222410865874366
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4627,
+              "fairOdds": 2.161227577263886
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5373,
+              "fairOdds": 1.8611576400521124
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4597,
+              "fairOdds": 2.1753317380900588
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5403,
+              "fairOdds": 1.8508236165093466
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8837,6 +10191,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 53% / 25% / 22% · temporada 57% / 22% / 21%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.0 tiros de esquina esperados",
+          "detail": "CA Osasuna 4.9 · Málaga CF 4.2"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.2 faltas esperados",
+          "detail": "CA Osasuna 12.5 · Málaga CF 11.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.5 amarillas esperados",
+          "detail": "CA Osasuna 2.3 · Málaga CF 2.2"
         }
       ],
       "steps": [
@@ -8943,6 +10315,41 @@
     },
     "laliga-2026-27-md13-getafe-atletico-madrid": {
       "game": "laliga-2026-27-md13-getafe-atletico-madrid",
+      "counts": {
+        "corners": {
+          "home": 4.24,
+          "away": 4.88,
+          "total": 9.13,
+          "line": 8.5,
+          "pOver": 0.5394,
+          "sample": {
+            "home": 582,
+            "away": 620
+          }
+        },
+        "fouls": {
+          "home": 12.4,
+          "away": 12.06,
+          "total": 24.46,
+          "line": 24.5,
+          "pOver": 0.4816,
+          "sample": {
+            "home": 582,
+            "away": 620
+          }
+        },
+        "yellow": {
+          "home": 2.32,
+          "away": 2.39,
+          "total": 4.72,
+          "line": 4.5,
+          "pOver": 0.5086,
+          "sample": {
+            "home": 582,
+            "away": 620
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -9089,6 +10496,48 @@
           "selection": "0–2",
           "p": 0.1017631618988084,
           "fairOdds": 9.826738687565383
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5394,
+          "fairOdds": 1.8539117538005192
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.4606,
+          "fairOdds": 2.1710811984368217
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4816,
+          "fairOdds": 2.0764119601328903
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5184,
+          "fairOdds": 1.9290123456790125
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.5086,
+          "fairOdds": 1.966181675186787
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.49139999999999995,
+          "fairOdds": 2.035002035002035
         }
       ],
       "marketGroups": [
@@ -9270,6 +10719,69 @@
               "fairOdds": 9.826738687565383
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5394,
+              "fairOdds": 1.8539117538005192
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.4606,
+              "fairOdds": 2.1710811984368217
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4816,
+              "fairOdds": 2.0764119601328903
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5184,
+              "fairOdds": 1.9290123456790125
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.5086,
+              "fairOdds": 1.966181675186787
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.49139999999999995,
+              "fairOdds": 2.035002035002035
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -9343,6 +10855,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 23% / 25% / 52% · temporada 22% / 24% / 53%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.1 tiros de esquina esperados",
+          "detail": "Getafe CF 4.2 · Atlético de Madrid 4.9"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.5 faltas esperados",
+          "detail": "Getafe CF 12.4 · Atlético de Madrid 12.1"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.7 amarillas esperados",
+          "detail": "Getafe CF 2.3 · Atlético de Madrid 2.4"
         }
       ],
       "steps": [
@@ -9447,6 +10977,41 @@
     },
     "laliga-2026-27-md13-levante-elche": {
       "game": "laliga-2026-27-md13-levante-elche",
+      "counts": {
+        "corners": {
+          "home": 4.84,
+          "away": 4.25,
+          "total": 9.09,
+          "line": 8.5,
+          "pOver": 0.5355,
+          "sample": {
+            "home": 468,
+            "away": 240
+          }
+        },
+        "fouls": {
+          "home": 12.5,
+          "away": 12.77,
+          "total": 25.27,
+          "line": 25.5,
+          "pOver": 0.4676,
+          "sample": {
+            "home": 468,
+            "away": 240
+          }
+        },
+        "yellow": {
+          "home": 1.99,
+          "away": 2.32,
+          "total": 4.31,
+          "line": 4.5,
+          "pOver": 0.4321,
+          "sample": {
+            "home": 468,
+            "away": 240
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-laliga",
         "version": "2.0.0",
@@ -9593,6 +11158,48 @@
           "selection": "2–2",
           "p": 0.08086155617227574,
           "fairOdds": 12.366816165020342
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 8.5",
+          "line": 8.5,
+          "p": 0.5355,
+          "fairOdds": 1.8674136321195145
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 8.5",
+          "line": 8.5,
+          "p": 0.4645,
+          "fairOdds": 2.1528525296017222
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4676,
+          "fairOdds": 2.13857998289136
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5324,
+          "fairOdds": 1.8782870022539444
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4321,
+          "fairOdds": 2.3142791020597087
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5679000000000001,
+          "fairOdds": 1.7608733932030285
         }
       ],
       "marketGroups": [
@@ -9774,6 +11381,69 @@
               "fairOdds": 12.366816165020342
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 8.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 8.5",
+              "line": 8.5,
+              "p": 0.5355,
+              "fairOdds": 1.8674136321195145
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 8.5",
+              "line": 8.5,
+              "p": 0.4645,
+              "fairOdds": 2.1528525296017222
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4676,
+              "fairOdds": 2.13857998289136
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5324,
+              "fairOdds": 1.8782870022539444
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4321,
+              "fairOdds": 2.3142791020597087
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5679000000000001,
+              "fairOdds": 1.7608733932030285
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -9847,6 +11517,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 47% / 26% / 27% · temporada 47% / 21% / 32%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.1 tiros de esquina esperados",
+          "detail": "Levante UD 4.8 · Elche CF 4.3"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.3 faltas esperados",
+          "detail": "Levante UD 12.5 · Elche CF 12.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.3 amarillas esperados",
+          "detail": "Levante UD 2.0 · Elche CF 2.3"
         }
       ],
       "steps": [
@@ -9956,39 +11644,60 @@
       "name": "FC Barcelona",
       "shortName": "FC Barcelona",
       "code": "BAR",
-      "played": 9,
+      "played": 10,
       "won": 9,
       "drawn": 0,
-      "lost": 0,
-      "goalsFor": 39,
-      "goalsAgainst": 9,
-      "points": 27
-    },
-    {
-      "teamId": "laliga.real-betis",
-      "name": "Real Betis",
-      "shortName": "Real Betis",
-      "code": "BET",
-      "played": 9,
-      "won": 7,
-      "drawn": 1,
       "lost": 1,
-      "goalsFor": 13,
-      "goalsAgainst": 8,
-      "points": 22
+      "goalsFor": 40,
+      "goalsAgainst": 11,
+      "points": 27,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "W",
+        "W"
+      ]
     },
     {
       "teamId": "laliga.real-madrid",
       "name": "Real Madrid",
       "shortName": "Real Madrid",
       "code": "RMA",
-      "played": 9,
-      "won": 7,
+      "played": 10,
+      "won": 8,
       "drawn": 0,
       "lost": 2,
-      "goalsFor": 24,
+      "goalsFor": 26,
+      "goalsAgainst": 9,
+      "points": 24,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "laliga.real-betis",
+      "name": "Real Betis",
+      "shortName": "Real Betis",
+      "code": "BET",
+      "played": 10,
+      "won": 7,
+      "drawn": 2,
+      "lost": 1,
+      "goalsFor": 13,
       "goalsAgainst": 8,
-      "points": 21
+      "points": 23,
+      "form": [
+        "W",
+        "L",
+        "D",
+        "W",
+        "W"
+      ]
     },
     {
       "teamId": "laliga.atletico-madrid",
@@ -10001,33 +11710,74 @@
       "lost": 2,
       "goalsFor": 19,
       "goalsAgainst": 9,
-      "points": 19
+      "points": 19,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "L"
+      ]
     },
     {
       "teamId": "laliga.sevilla",
       "name": "Sevilla FC",
       "shortName": "Sevilla FC",
       "code": "SEV",
-      "played": 9,
-      "won": 4,
+      "played": 10,
+      "won": 5,
       "drawn": 2,
       "lost": 3,
-      "goalsFor": 11,
+      "goalsFor": 13,
       "goalsAgainst": 12,
-      "points": 14
+      "points": 17,
+      "form": [
+        "D",
+        "L",
+        "W",
+        "L",
+        "D"
+      ]
     },
     {
       "teamId": "laliga.real-sociedad",
       "name": "Real Sociedad",
       "shortName": "Real Sociedad",
       "code": "RSO",
-      "played": 8,
-      "won": 4,
+      "played": 9,
+      "won": 5,
       "drawn": 0,
       "lost": 4,
-      "goalsFor": 11,
-      "goalsAgainst": 15,
-      "points": 12
+      "goalsFor": 13,
+      "goalsAgainst": 16,
+      "points": 15,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "laliga.athletic-club",
+      "name": "Athletic Club",
+      "shortName": "Athletic Club",
+      "code": "ATH",
+      "played": 8,
+      "won": 4,
+      "drawn": 2,
+      "lost": 2,
+      "goalsFor": 14,
+      "goalsAgainst": 8,
+      "points": 14,
+      "form": [
+        "D",
+        "L",
+        "W",
+        "W",
+        "D"
+      ]
     },
     {
       "teamId": "laliga.villarreal",
@@ -10040,20 +11790,14 @@
       "lost": 4,
       "goalsFor": 15,
       "goalsAgainst": 13,
-      "points": 11
-    },
-    {
-      "teamId": "laliga.athletic-club",
-      "name": "Athletic Club",
-      "shortName": "Athletic Club",
-      "code": "ATH",
-      "played": 7,
-      "won": 3,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 10,
-      "goalsAgainst": 8,
-      "points": 11
+      "points": 11,
+      "form": [
+        "L",
+        "D",
+        "W",
+        "L",
+        "W"
+      ]
     },
     {
       "teamId": "laliga.alaves",
@@ -10066,7 +11810,14 @@
       "lost": 3,
       "goalsFor": 12,
       "goalsAgainst": 12,
-      "points": 11
+      "points": 11,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "D",
+        "D"
+      ]
     },
     {
       "teamId": "laliga.rayo-vallecano",
@@ -10079,20 +11830,34 @@
       "lost": 4,
       "goalsFor": 14,
       "goalsAgainst": 17,
-      "points": 11
+      "points": 11,
+      "form": [
+        "D",
+        "D",
+        "L",
+        "W",
+        "L"
+      ]
     },
     {
       "teamId": "laliga.getafe",
       "name": "Getafe CF",
       "shortName": "Getafe CF",
       "code": "GET",
-      "played": 9,
+      "played": 10,
       "won": 3,
       "drawn": 2,
-      "lost": 4,
+      "lost": 5,
       "goalsFor": 7,
-      "goalsAgainst": 10,
-      "points": 11
+      "goalsAgainst": 14,
+      "points": 11,
+      "form": [
+        "L",
+        "D",
+        "L",
+        "W",
+        "L"
+      ]
     },
     {
       "teamId": "laliga.deportivo-la-coruna",
@@ -10105,7 +11870,14 @@
       "lost": 1,
       "goalsFor": 10,
       "goalsAgainst": 8,
-      "points": 10
+      "points": 10,
+      "form": [
+        "W",
+        "W",
+        "D",
+        "L",
+        "D"
+      ]
     },
     {
       "teamId": "laliga.espanyol",
@@ -10118,7 +11890,14 @@
       "lost": 4,
       "goalsFor": 11,
       "goalsAgainst": 10,
-      "points": 10
+      "points": 10,
+      "form": [
+        "D",
+        "L",
+        "L",
+        "W",
+        "D"
+      ]
     },
     {
       "teamId": "laliga.racing-santander",
@@ -10131,33 +11910,54 @@
       "lost": 5,
       "goalsFor": 13,
       "goalsAgainst": 25,
-      "points": 10
+      "points": 10,
+      "form": [
+        "D",
+        "L",
+        "W",
+        "L",
+        "W"
+      ]
     },
     {
       "teamId": "laliga.osasuna",
       "name": "CA Osasuna",
       "shortName": "CA Osasuna",
       "code": "OSA",
-      "played": 7,
+      "played": 8,
       "won": 2,
       "drawn": 2,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 7,
-      "goalsAgainst": 14,
-      "points": 8
+      "goalsAgainst": 16,
+      "points": 8,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "L",
+        "D"
+      ]
     },
     {
       "teamId": "laliga.celta-vigo",
       "name": "Celta de Vigo",
       "shortName": "Celta de Vigo",
       "code": "CELV",
-      "played": 7,
+      "played": 8,
       "won": 1,
-      "drawn": 3,
+      "drawn": 4,
       "lost": 3,
       "goalsFor": 8,
       "goalsAgainst": 9,
-      "points": 6
+      "points": 7,
+      "form": [
+        "D",
+        "W",
+        "D",
+        "L",
+        "D"
+      ]
     },
     {
       "teamId": "laliga.valencia",
@@ -10170,7 +11970,14 @@
       "lost": 6,
       "goalsFor": 5,
       "goalsAgainst": 16,
-      "points": 6
+      "points": 6,
+      "form": [
+        "D",
+        "D",
+        "L",
+        "W",
+        "L"
+      ]
     },
     {
       "teamId": "laliga.elche",
@@ -10183,20 +11990,34 @@
       "lost": 6,
       "goalsFor": 11,
       "goalsAgainst": 20,
-      "points": 5
+      "points": 5,
+      "form": [
+        "D",
+        "D",
+        "W",
+        "L",
+        "L"
+      ]
     },
     {
       "teamId": "laliga.levante",
       "name": "Levante UD",
       "shortName": "Levante UD",
       "code": "LEV",
-      "played": 6,
+      "played": 7,
       "won": 1,
       "drawn": 1,
-      "lost": 4,
-      "goalsFor": 8,
-      "goalsAgainst": 14,
-      "points": 4
+      "lost": 5,
+      "goalsFor": 9,
+      "goalsAgainst": 16,
+      "points": 4,
+      "form": [
+        "D",
+        "W",
+        "L",
+        "L",
+        "D"
+      ]
     },
     {
       "teamId": "laliga.malaga",
@@ -10209,7 +12030,14 @@
       "lost": 6,
       "goalsFor": 5,
       "goalsAgainst": 16,
-      "points": 2
+      "points": 2,
+      "form": [
+        "D",
+        "L",
+        "D",
+        "L",
+        "L"
+      ]
     }
   ]
 }

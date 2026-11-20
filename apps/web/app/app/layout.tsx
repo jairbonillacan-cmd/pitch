@@ -1,17 +1,22 @@
 import React from "react";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect, redirect } from "next/navigation";
 import {
   CLUB_PROFILE_HANDLE_HEADER,
   CLUB_REQUEST_PATH_HEADER,
 } from "../../src/profile-path";
+import { canonicalGameHref, resolveGameBySlugOrId } from "@pitchlab/contracts";
 import { ExpiredPassGate } from "@pitchlab/ui/expired-pass";
 import { ClubShellBridge } from "../../src/client/club-shell-bridge";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { sanitizeNextPath } from "../../src/server/beta-auth";
 import { resolveClubRoute } from "../../src/server/club-route-guard";
 import { loadClubPlatformState } from "../../src/server/platform-data";
+import {
+  playerExistsInSnapshots,
+  teamExistsInSnapshots,
+} from "../../src/server/team-profile";
 import {
   loadLeagueSnapshotEnvelope,
   PRODUCT_LEAGUES,
@@ -65,12 +70,23 @@ export default async function ClubAppLayout({
   // Resolver alias y rutas inexistentes antes de que `loading.tsx` confirme un HTTP 200.
   const routeCheck = resolveClubRoute(rawClubPath, {
     isLeague: isProductLeague,
-    gameExists: (league, gameId) => {
+    gameExists: (league, gameSlugOrId) => {
       if (!isProductLeague(league)) return false;
       const env = loadLeagueSnapshotEnvelope(league);
-      return env.data?.games.some((g) => g.id === gameId) ?? false;
+      return env.data ? resolveGameBySlugOrId(env.data.games, gameSlugOrId) !== null : false;
     },
+    canonicalGameHrefFor: (league, gameSlugOrId) => {
+      if (!isProductLeague(league)) return null;
+      const env = loadLeagueSnapshotEnvelope(league);
+      const found = env.data ? resolveGameBySlugOrId(env.data.games, gameSlugOrId) : null;
+      return found ? canonicalGameHref(league, found) : null;
+    },
+    teamExists: teamExistsInSnapshots,
+    playerExists: playerExistsInSnapshots,
   });
+  if (routeCheck.kind === "permanent_redirect") {
+    permanentRedirect(routeCheck.to);
+  }
   if (routeCheck.kind === "redirect") {
     redirect(routeCheck.to);
   }

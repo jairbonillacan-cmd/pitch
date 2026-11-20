@@ -19,6 +19,11 @@ import {
   redactDatasetForVisitor,
 } from "./access-guard";
 import { sanitizeCsvCell } from "./club/account/account-helpers";
+import type {
+  DaySelection,
+  LeagueFilter,
+  SportFilter,
+} from "./club/home/home-model";
 
 /** Claves de almacenamiento local (versión en el nombre para poder migrar). */
 const STORAGE_KEYS = {
@@ -56,7 +61,7 @@ function isJournalEntry(v: unknown): v is JournalEntry {
     typeof e.pickId === "string" &&
     typeof e.units === "number" &&
     typeof e.userDecimal === "number" &&
-    (e.status === "pending" || e.status === "won" || e.status === "lost")
+    (e.status === "pending" || e.status === "won" || e.status === "lost" || e.status === "void")
   );
 }
 
@@ -77,7 +82,11 @@ interface ServerJournalRow {
   userDecimal: string;
   fairDecimal: string;
   clvPct: string | null;
+  closingDecimal?: string | null;
   status: string;
+  pickKind?: string | null;
+  parlayLegs?: JournalEntry["parlayLegs"] | null;
+  parlayLegResults?: JournalEntry["parlayLegResults"] | null;
   note: string | null;
   sealedAt: string;
   settledAt?: string | null;
@@ -88,10 +97,13 @@ const SEAL_ERRORS: Record<string, string> = {
   unidades_invalidas: "Las unidades deben estar entre 0.25u y 5u.",
   momio_invalido: "Momio inválido.",
   ya_sellado: "Ese pick ya estaba sellado en Mi récord.",
+  parlay_invalido: "Las selecciones de este parlay ya no son compatibles o faltan en cartelera.",
 };
 
 function fromServerRow(row: ServerJournalRow): JournalEntry {
   const origins: JournalEntry["origin"][] = ["Spacetime Suite", "Parlay Combinado", "Player Prop", "Propio"];
+  const status: JournalEntry["status"] =
+    row.status === "won" || row.status === "lost" || row.status === "void" ? row.status : "pending";
   return {
     id: row.id,
     pickId: row.pickId,
@@ -104,7 +116,11 @@ function fromServerRow(row: ServerJournalRow): JournalEntry {
     userDecimal: Number(row.userDecimal),
     fairDecimal: Number(row.fairDecimal),
     clvPct: row.clvPct === null ? 0 : Number(row.clvPct),
-    status: row.status === "won" || row.status === "lost" ? row.status : "pending",
+    closingDecimal: row.closingDecimal ? Number(row.closingDecimal) : null,
+    status,
+    pickKind: row.pickKind === "parlay" ? "parlay" : "single",
+    ...(Array.isArray(row.parlayLegs) ? { parlayLegs: row.parlayLegs } : {}),
+    ...(Array.isArray(row.parlayLegResults) ? { parlayLegResults: row.parlayLegResults } : {}),
     sealedAt: new Date(row.sealedAt).toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
     sealedAtIso: new Date(row.sealedAt).toISOString(),
     settledAtIso: row.settledAt ? new Date(row.settledAt).toISOString() : null,
@@ -169,6 +185,10 @@ async function sealOnServer(entry: JournalEntry): Promise<{ ok: boolean; id?: st
     units: entry.units,
     userDecimal: entry.userDecimal,
     fairDecimal: entry.fairDecimal,
+    pickKind: entry.pickKind ?? "single",
+    ...(entry.pickKind === "parlay" && entry.parlayLegs
+      ? { parlayLegs: entry.parlayLegs.map((l) => ({ gameId: l.gameId, pickId: l.pickId })) }
+      : {}),
     note: entry.note,
   });
   if (!res) return { ok: false };
@@ -178,8 +198,8 @@ async function sealOnServer(entry: JournalEntry): Promise<{ ok: boolean; id?: st
 }
 
 function formatClvBadge(avgClvPct: number | null): string {
-  if (avgClvPct === null) return "CLV —";
-  return `CLV ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
+  if (avgClvPct === null) return "Ventaja —";
+  return `Ventaja ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
 }
 import {
   fromServerComment,
@@ -194,6 +214,7 @@ import {
   checkParlayCompatibility,
   computeParlaySummary,
 } from "./parlay-engine";
+import { reparentDeletedComment } from "./club/comment-tree";
 import { INITIAL_SOCIAL_POSTS } from "./spacetime-catalog";
 import { attachExamplePostPicks } from "./community-examples";
 import {
@@ -203,6 +224,16 @@ import {
   writeStoredPrefs,
   type ServerProfileSummary,
 } from "./club/account/account-helpers";
+import {
+  DEFAULT_PREFERRED_BOOKS,
+  sanitizePreferredBooks,
+} from "./bookmakers";
+import {
+  readSavedScreenerViews,
+  sanitizeSavedScreenerViews,
+  writeSavedScreenerViews,
+  type SavedScreenerView,
+} from "./screener-views";
 import type {
   JournalEntry,
   MatchPick,
@@ -219,6 +250,15 @@ import type {
   ViewerVia,
 } from "./types";
 
+export interface ShareTicketLegItem {
+  label: string;
+  matchLabel: string;
+  p: number;
+  fairDecimal: number;
+  marketDecimal?: number | null;
+  kickoffLocal?: string;
+}
+
 export interface ShareTicketPayload {
   kind: "pick" | "parlay" | "tipster";
   title: string;
@@ -230,6 +270,9 @@ export interface ShareTicketPayload {
   marketDecimal: number;
   units: number;
   gameStatus: "NS" | "FT" | "LIVE";
+  legs?: ShareTicketLegItem[];
+  /** Solo para tarjetas editoriales oficiales (Parlay del día), nunca para picks individuales privados pre-kickoff. */
+  revealLegs?: boolean;
   promoCode?: string;
   tipsterHandle?: string;
   originBadge?: string;
@@ -266,6 +309,10 @@ export function ownHandleFor(identity: ViewerIdentity | null, role: ViewerRole):
 export interface SocialFeedScope {
   following?: boolean;
   author?: string;
+  gameId?: string;
+  leagueLabel?: string;
+  openPickOnly?: boolean;
+  sort?: "recent" | "most_commented";
 }
 
 export interface SocialFeedPageState {
@@ -276,7 +323,11 @@ export interface SocialFeedPageState {
 
 export function socialScopeKey(scope?: SocialFeedScope): string {
   if (scope?.author) return `author:${scope.author.trim().toLowerCase()}`;
+  if (scope?.gameId) return `game:${scope.gameId.trim()}`;
   if (scope?.following) return "following";
+  if (scope?.leagueLabel || scope?.openPickOnly || scope?.sort === "most_commented") {
+    return `feed:${scope.leagueLabel ?? "all"}:${scope.openPickOnly ? "open" : "all"}:${scope.sort ?? "recent"}`;
+  }
   return "feed";
 }
 
@@ -344,24 +395,35 @@ export interface PlatformContextValue {
   socialPosts: SocialPost[];
   publishSocialPost: (payload: {
     leagueLabel: string;
+    gameId?: string;
     matchLabel: string;
     pickBadge: string;
     originType: "Spacetime Suite" | "Bitácora Propia";
     body: string;
-    /** Pick adjunto: se publica con la publicación y se registra en la bitácora. */
-    pick?: { matchPick: MatchPick; units: number; userDecimal: number };
+    /** Pick adjunto: se publica con la publicación y se registra en la bitácora si es nuevo. */
+    pick?: { matchPick: MatchPick; units: number; userDecimal: number; sealedEntryId?: string };
   }) => { ok: boolean; error?: string };
-  addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
+  addSocialComment: (
+    postId: string,
+    body: string,
+    parentCommentId?: string | null,
+  ) => { ok: boolean; error?: string; pending?: boolean };
+  deleteSocialComment: (postId: string, commentId: string) => void;
+  toggleSocialCommentHelpful: (postId: string, commentId: string) => void;
+  loadAllPostComments: (postId: string) => Promise<void>;
+  recordSocialPostCopy: (postId: string) => void;
   toggleSocialLike: (postId: string) => void;
   /** Borra una publicación propia (solo las guardadas en el servidor). */
   deleteSocialPost: (postId: string) => void;
-  /** Vuelve a pedir el feed compartido (al abrir Comunidad o volver a la pestaña). */
-  refreshSocialFeed: () => void;
+  /** Vuelve a pedir el feed compartido (con filtros/orden opcionales). */
+  refreshSocialFeed: (scope?: SocialFeedScope) => void;
   /** Trae las publicaciones recientes de quienes sigue el socio. */
   loadFollowingSocialPosts: () => void;
   /** Trae las publicaciones de un socio para su perfil. */
   loadSocialPostsByAuthor: (handle: string) => void;
-  /** Pide publicaciones más viejas al servidor (`?before=…&limit=30`) para el feed, siguiendo o perfil. */
+  /** Trae las publicaciones ligadas a un partido por su `gameId`. */
+  loadMatchSocialPosts: (gameId: string) => Promise<void>;
+  /** Pide publicaciones más viejas al servidor (`?before=…&limit=30`) para el feed, siguiendo, partido o perfil. */
   loadOlderSocialPosts: (scope?: SocialFeedScope) => Promise<boolean>;
   /** Estado de paginación por ámbito (`feed`, `following`, `author:<handle>`). */
   socialFeedPages: Readonly<Record<string, SocialFeedPageState>>;
@@ -392,6 +454,10 @@ export interface PlatformContextValue {
   setShowMxnBalance: (show: boolean) => void;
   unitMxn: number;
   setUnitMxn: (unit: number) => void;
+  preferredBooks: string[];
+  setPreferredBooks: (books: string[]) => void;
+  savedScreenerViews: SavedScreenerView[];
+  setSavedScreenerViews: (views: SavedScreenerView[]) => void;
 
   referralPaidFriends: number;
   memberReferralsSnapshot: (ServerProfileSummary & {
@@ -459,6 +525,8 @@ export interface PlatformCoreValue {
   userTimezone: string;
   showMxnBalance: boolean;
   unitMxn: number;
+  preferredBooks: string[];
+  savedScreenerViews: SavedScreenerView[];
   month1NoCardMode: boolean;
 }
 
@@ -485,11 +553,16 @@ const ACTION_KEYS = [
   "exportJournalCsv",
   "publishSocialPost",
   "addSocialComment",
+  "deleteSocialComment",
+  "toggleSocialCommentHelpful",
+  "loadAllPostComments",
+  "recordSocialPostCopy",
   "toggleSocialLike",
   "deleteSocialPost",
   "refreshSocialFeed",
   "loadFollowingSocialPosts",
   "loadSocialPostsByAuthor",
+  "loadMatchSocialPosts",
   "loadOlderSocialPosts",
   "ensureSocialPostLoaded",
   "reportSocialContent",
@@ -500,6 +573,8 @@ const ACTION_KEYS = [
   "setUserTimezone",
   "setShowMxnBalance",
   "setUnitMxn",
+  "setPreferredBooks",
+  "setSavedScreenerViews",
   "simulateFriendFirstPayment",
   "setMonth1NoCardMode",
   "setTipsterWeeklyPickOrigin",
@@ -529,6 +604,20 @@ const AuraContext = createContext<readonly [string, string]>([
 ]);
 const JournalContext = createContext<JournalEntry[]>([]);
 
+export interface HomeNavFilterValue {
+  sport: SportFilter;
+  hasExplicitSport: boolean;
+  league: LeagueFilter;
+  chosenDay: DaySelection | null;
+  todayOverride: string | null;
+  pickSport: (next: SportFilter) => void;
+  setLeague: (next: LeagueFilter) => void;
+  setChosenDay: (next: DaySelection | null) => void;
+  setTodayOverride: (next: string | null) => void;
+  resetFilters: (targetDay?: string) => void;
+}
+const HomeNavFilterContext = createContext<HomeNavFilterValue | null>(null);
+
 /** Almacén externo con los ids de los picks del parlay. */
 function createParlayIdStore() {
   let ids = new Set<string>();
@@ -556,14 +645,26 @@ function required<T>(value: T | null, hook: string): T {
 export function usePlatformCore(): PlatformCoreValue {
   return required(useContext(PlatformCoreContext), "usePlatformCore");
 }
+export function useOptionalPlatformCore(): PlatformCoreValue | null {
+  return useContext(PlatformCoreContext);
+}
 export function usePlatformActions(): PlatformActions {
   return required(useContext(PlatformActionsContext), "usePlatformActions");
+}
+export function useOptionalPlatformActions(): PlatformActions | null {
+  return useContext(PlatformActionsContext);
 }
 export function useAuraColors(): readonly [string, string] {
   return useContext(AuraContext);
 }
 export function useJournalEntries(): JournalEntry[] {
   return useContext(JournalContext);
+}
+export function useHomeNavFilter(): HomeNavFilterValue {
+  return required(useContext(HomeNavFilterContext), "useHomeNavFilter");
+}
+export function useOptionalHomeNavFilter(): HomeNavFilterValue | null {
+  return useContext(HomeNavFilterContext);
 }
 /** true si el pick está en el parlay. Solo redibuja este componente cuando eso cambia. */
 export function useIsPickInParlay(pickId: string | undefined): boolean {
@@ -585,6 +686,8 @@ export function PlatformProvider({
   viewerIdentity: initialViewerIdentity = null,
   serverMonth1NoCardMode,
   initialWatchlistGameIds,
+  initialShareTicket = null,
+  initialCmdkOpen = false,
   onNavigate,
   onSubmitPinOverride,
   onLogoutOverride,
@@ -601,6 +704,10 @@ export function PlatformProvider({
   serverMonth1NoCardMode?: boolean;
   /** Partidos pre-cargados en vigilancia (pruebas y Storybook). */
   initialWatchlistGameIds?: readonly string[];
+  /** Boleto inicial abierto en ShareTicketModal (pruebas y Storybook). */
+  initialShareTicket?: ShareTicketPayload | null;
+  /** Estado inicial de CommandPaletteModal (pruebas y Storybook). */
+  initialCmdkOpen?: boolean;
   onNavigate?: (href: string) => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
@@ -688,6 +795,10 @@ export function PlatformProvider({
   const [unitMxn, setUnitMxnState] = useState<number>(
     DEFAULT_STORED_PREFS_V1.unitMxn,
   );
+  const [preferredBooks, setPreferredBooksState] = useState<string[]>(() => [
+    ...DEFAULT_PREFERRED_BOOKS,
+  ]);
+  const [savedScreenerViews, setSavedScreenerViewsState] = useState<SavedScreenerView[]>([]);
   const [referralPaidFriends, setReferralPaidFriends] = useState<number>(0);
   const [memberReferralsSnapshot, setMemberReferralsSnapshot] = useState<
     | (ServerProfileSummary & {
@@ -709,11 +820,16 @@ export function PlatformProvider({
   );
 
   const [composerPick, setComposerPick] = useState<MatchPick | null>(null);
-  const [shareTicket, setShareTicket] = useState<ShareTicketPayload | null>(null);
-  const [cmdkOpen, setCmdkOpen] = useState<boolean>(false);
+  const [shareTicket, setShareTicket] = useState<ShareTicketPayload | null>(initialShareTicket);
+  const [cmdkOpen, setCmdkOpen] = useState<boolean>(initialCmdkOpen);
   const [betaPinOpen, setBetaPinOpen] = useState<boolean>(false);
   const [betaPinNextPath, setBetaPinNextPath] = useState<string>("/app");
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [homeSport, setHomeSportState] = useState<SportFilter>("all");
+  const [hasExplicitHomeSport, setHasExplicitHomeSport] = useState<boolean>(false);
+  const [homeLeague, setHomeLeagueState] = useState<LeagueFilter>("all");
+  const [homeChosenDay, setHomeChosenDayState] = useState<DaySelection | null>(null);
+  const [homeTodayOverride, setHomeTodayOverride] = useState<string | null>(null);
 
   const defaultGame = useMemo(
     () => rawDataset.games.find((g) => g.status !== "FT") ?? rawDataset.games[0],
@@ -766,6 +882,8 @@ export function PlatformProvider({
         const knownLeagueIds = new Set<string>([
           "liga-mx",
           "nfl",
+          "nba",
+          "nhl",
           "premier-league",
           "laliga",
           "bundesliga",
@@ -787,6 +905,8 @@ export function PlatformProvider({
       setUserTimezoneState(storedPrefs.timezone);
       setShowMxnBalanceState(storedPrefs.showMxnBalance);
       setUnitMxnState(storedPrefs.unitMxn);
+      setPreferredBooksState(sanitizePreferredBooks(storedPrefs.preferredBooks));
+      setSavedScreenerViewsState(readSavedScreenerViews());
       const savedNoCard = window.localStorage.getItem("pl-month1-nocard");
       if (serverMonth1NoCardMode === undefined && savedNoCard === "0") {
         setMonth1NoCardMode(false);
@@ -852,6 +972,19 @@ export function PlatformProvider({
       }
       const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
       if (active && journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
+      const prefsRes = await getJson<{
+        preferences?: { preferredBooks?: string[]; savedViews?: unknown };
+      }>("/api/me/preferences");
+      if (active && Array.isArray(prefsRes?.preferences?.preferredBooks)) {
+        const syncedBooks = sanitizePreferredBooks(prefsRes.preferences.preferredBooks);
+        setPreferredBooksState(syncedBooks);
+        writeStoredPrefs({ ...readStoredPrefs(), preferredBooks: syncedBooks });
+      }
+      if (active && Array.isArray(prefsRes?.preferences?.savedViews)) {
+        const syncedViews = sanitizeSavedScreenerViews(prefsRes.preferences.savedViews);
+        setSavedScreenerViewsState(syncedViews);
+        writeSavedScreenerViews(syncedViews);
+      }
       const refs = await getJson<
         ServerProfileSummary & {
           referralCode?: string | null;
@@ -919,9 +1052,24 @@ export function PlatformProvider({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  const lastToastRef = useRef<{ text: string; tone: string; at: number }>({
+    text: "",
+    tone: "",
+    at: 0,
+  });
+
   const pushToast = useCallback(
     (text: string, tone: ToastMessage["tone"] = "default") => {
-      const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      const now = Date.now();
+      if (
+        lastToastRef.current.text === text &&
+        lastToastRef.current.tone === tone &&
+        now - lastToastRef.current.at < 200
+      ) {
+        return;
+      }
+      lastToastRef.current = { text, tone, at: now };
+      const id = `${now}-${Math.random().toString(36).slice(2, 7)}`;
       setToasts((prev) => [...prev.slice(-3), { id, tone, text }]);
       window.setTimeout(() => {
         setToasts((prev) => prev.filter((item) => item.id !== id));
@@ -988,6 +1136,31 @@ export function PlatformProvider({
     writeStoredPrefs({ ...readStoredPrefs(), unitMxn: clamped });
   }, []);
 
+  const setPreferredBooks = useCallback((books: string[]) => {
+    const clean = sanitizePreferredBooks(books);
+    setPreferredBooksState(clean);
+    writeStoredPrefs({ ...readStoredPrefs(), preferredBooks: clean });
+  }, []);
+
+  const setSavedScreenerViews = useCallback(
+    (views: SavedScreenerView[]) => {
+      const clean = sanitizeSavedScreenerViews(views);
+      setSavedScreenerViewsState(clean);
+      writeSavedScreenerViews(clean);
+      if (hasAccountSessionAuth) {
+        void fetch("/api/me/preferences", {
+          method: "PUT",
+          credentials: "same-origin",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ savedViews: clean }),
+        }).catch((err) => {
+          void err;
+        });
+      }
+    },
+    [hasAccountSessionAuth],
+  );
+
   const handleSetMonth1NoCard = useCallback(
     (v: boolean) => {
       setMonth1NoCardMode(v);
@@ -1035,6 +1208,9 @@ export function PlatformProvider({
           ...g,
           kickoffLocal: ko,
           picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
+          ...(g.parlayCandidates
+            ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
+            : {}),
         };
       }),
     };
@@ -1194,19 +1370,34 @@ export function PlatformProvider({
           earliestGameId = leg.pick.gameId;
         }
       }
+      const rawPickIds = parlaySummary.legs.map((l) => l.pick.id).sort();
+      const canonicalPickId = `parlay:${rawPickIds.join("+")}`;
       const entry: JournalEntry = {
         id: `j-parlay-${Date.now()}`,
-        pickId: parlaySummary.legs.map((l) => l.pick.id).join("+"),
+        pickId: canonicalPickId,
         gameId: earliestGameId,
         leagueLabel: "Combinada Multi-Liga",
         matchLabel: `${parlaySummary.legs.length} selecciones${parlaySummary.hasSgpCorrelation ? " · SGP" : ""}`,
         pickLabel: parlaySummary.legs.map((l) => l.pick.label).join(" + "),
         origin: "Parlay Combinado",
-        units: parlaySummary.stakeUnits,
+        units: Math.max(0.25, Math.min(5, parlaySummary.stakeUnits)),
         userDecimal: parlaySummary.bookDecimal,
         fairDecimal: parlaySummary.fairDecimal,
         clvPct: parlaySummary.edgePts,
         status: "pending",
+        pickKind: "parlay",
+        parlayLegs: parlaySummary.legs.map((l) => ({
+          pickId: l.pick.id,
+          gameId: l.pick.gameId,
+          leagueLabel: l.pick.leagueLabel,
+          matchLabel: l.pick.matchLabel,
+          pickLabel: l.pick.label,
+          market: l.pick.market,
+          selection: l.pick.selectionKey,
+          line: l.pick.line ?? null,
+          p: l.pick.p,
+          fairDecimal: l.pick.fairDecimal,
+        })),
         sealedAt: "Sellado ahora",
         sealedAtIso: new Date().toISOString(),
         note: note ?? "Armador Inteligente Geodesic v2.0",
@@ -1232,7 +1423,7 @@ export function PlatformProvider({
 
   const exportJournalCsv = useCallback((): string => {
     const header =
-      "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,CLV_Pts,Estado";
+      "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,Ventaja_Pts,Estado";
     const lines = journal.map((j) =>
       [
         `"${sanitizeCsvCell(j.sealedAt)}"`,
@@ -1266,11 +1457,12 @@ export function PlatformProvider({
   const publishSocialPost = useCallback(
     (payload: {
       leagueLabel: string;
+      gameId?: string;
       matchLabel: string;
       pickBadge: string;
       originType: "Spacetime Suite" | "Bitácora Propia";
       body: string;
-      pick?: { matchPick: MatchPick; units: number; userDecimal: number };
+      pick?: { matchPick: MatchPick; units: number; userDecimal: number; sealedEntryId?: string };
     }): { ok: boolean; error?: string } => {
       if (viewerRole === "visitor") {
         return {
@@ -1302,12 +1494,22 @@ export function PlatformProvider({
           error: "Enlaces externos (Telegram, WhatsApp, URLs) bloqueados automáticamente.",
         };
       }
+      const resolvedGameId = payload.pick?.matchPick.gameId ?? payload.gameId;
+      const existingSealed = payload.pick
+        ? journal.find(
+            (j) =>
+              (payload.pick?.sealedEntryId ? j.id === payload.pick.sealedEntryId : j.pickId === payload.pick?.matchPick.id),
+          )
+        : undefined;
+      const existingUuid = existingSealed && /^[0-9a-f-]{36}$/i.test(existingSealed.id) ? existingSealed.id : undefined;
+
       const newPost: SocialPost = {
         id: `sp-${Date.now()}`,
-        authorHandle: ownHandleFor(viewerIdentity, viewerRole),
+        authorHandle: myHandle,
         authorName:
           viewerIdentity?.displayName ?? (viewerRole === "tipster" ? "Sofía Méndez" : "Socio PitchLab"),
         authorAvatarUrl: viewerRole === "tipster" ? null : (viewerIdentity?.avatarUrl ?? null),
+        authorIsTipster: viewerRole === "tipster",
         roleBadge:
           viewerRole === "tipster" ? "Tipster Oficial" : "Socio Pase PitchLab Ultra",
         avatarGradVar:
@@ -1316,11 +1518,12 @@ export function PlatformProvider({
           viewerRole === "tipster" ? "+18.4u · 142 picks" : journalRecord(journal).label,
         clvBadge:
           viewerRole === "tipster"
-            ? "CLV +4.2 %"
+            ? "Ventaja +4.2 %"
             : formatClvBadge(journalRecord(journal).avgClvPct),
         // Publicar como tipster usa el perfil de ejemplo @sofia_nfl.
         isExample: viewerRole === "tipster",
         leagueLabel: payload.leagueLabel,
+        gameId: resolvedGameId,
         matchLabel: payload.matchLabel,
         pickBadge: payload.pickBadge,
         originType: payload.originType,
@@ -1329,6 +1532,8 @@ export function PlatformProvider({
         likes: 0,
         likedByMe: false,
         comments: [],
+        commentsCount: 0,
+        copiesCount: 0,
         pick: payload.pick
           ? {
               pickId: payload.pick.matchPick.id,
@@ -1339,26 +1544,72 @@ export function PlatformProvider({
               fairDecimal: payload.pick.matchPick.fairDecimal,
               modelProbability: payload.pick.matchPick.p,
               status:
-                payload.pick.matchPick.gameStatus === "FT"
-                  ? payload.pick.matchPick.result === "miss"
+                existingSealed?.status === "won"
+                  ? "won"
+                  : existingSealed?.status === "lost"
                     ? "lost"
-                    : "won"
-                  : "open",
+                    : payload.pick.matchPick.gameStatus === "FT"
+                      ? payload.pick.matchPick.result === "miss"
+                        ? "lost"
+                        : "won"
+                      : "open",
             }
           : undefined,
       };
+
+      // Preparamos el registro en bitácora si aún no existe para ligar su UUID en la publicación.
+      let sealedEntryToSync: JournalEntry | null = null;
+      if (payload.pick && !payload.pick.sealedEntryId && !existingSealed) {
+        const mp = payload.pick.matchPick;
+        const pFair = 1 / Math.max(1.04, mp.fairDecimal);
+        const pUser = 1 / Math.max(1.04, payload.pick.userDecimal);
+        const clvPct = Math.round((pFair - pUser) * 1000) / 10;
+        sealedEntryToSync = {
+          id: `j-${Date.now()}`,
+          pickId: mp.id,
+          gameId: mp.gameId,
+          leagueLabel: mp.leagueLabel,
+          matchLabel: mp.matchLabel,
+          pickLabel: mp.label,
+          origin: payload.originType === "Spacetime Suite" ? "Spacetime Suite" : "Propio",
+          units: Math.max(0.25, Math.min(5, payload.pick.units)),
+          userDecimal: payload.pick.userDecimal,
+          fairDecimal: mp.fairDecimal,
+          clvPct,
+          status:
+            mp.gameStatus === "FT" ? (mp.result === "miss" ? "lost" : "won") : "pending",
+          sealedAt: "Sellado ahora",
+          sealedAtIso: new Date().toISOString(),
+        };
+        setJournal((prev) => [sealedEntryToSync!, ...prev]);
+        setComposerPick(null);
+      }
+
       if (socialOnServer && !newPost.isExample) {
         // Se ve al instante; el servidor la confirma (o la quita con su motivo).
         const tempId = `tmp-${Date.now()}`;
         setSocialPosts((prev) => [{ ...newPost, id: tempId, isMine: true }, ...prev]);
         void (async () => {
+          let resolvedSealedId = payload.pick?.sealedEntryId ?? existingUuid;
+          if (!resolvedSealedId && sealedEntryToSync && hasAccountSessionAuth && sealedEntryToSync.status === "pending") {
+            const sealRes = await sealOnServer(sealedEntryToSync);
+            if (sealRes.ok && sealRes.id) {
+              resolvedSealedId = sealRes.id;
+              setJournal((prev) =>
+                prev.map((j) => (j.id === sealedEntryToSync!.id ? { ...j, id: sealRes.id! } : j)),
+              );
+            } else if (sealRes.reason && sealRes.reason !== "sin_sesion") {
+              setJournal((prev) => prev.filter((j) => j.id !== sealedEntryToSync!.id));
+            }
+          }
           const res = await postJson("/api/social/posts", {
             body: trimmed,
             leagueLabel: payload.leagueLabel,
+            gameId: resolvedGameId,
             matchLabel: payload.matchLabel,
             pickBadge: payload.pickBadge,
             originType: payload.originType,
-            gameId: payload.pick?.matchPick.gameId,
+            sealedJournalEntryId: resolvedSealedId,
             pick: newPost.pick
               ? {
                   pickId: newPost.pick.pickId,
@@ -1377,31 +1628,37 @@ export function PlatformProvider({
           if (res?.ok && data?.post?.authorHandle) {
             const saved = fromServerPost(data.post, rawDataset.games, new Date());
             setSocialPosts((prev) => prev.map((p) => (p.id === tempId ? saved : p)));
+            pushToast("Publicado en Comunidad.", "success");
           } else {
             setSocialPosts((prev) => prev.filter((p) => p.id !== tempId));
             pushToast(data?.error ?? "No pudimos publicar. Revisa tu conexión.", "danger");
           }
         })();
-      } else {
-        setSocialPosts((prev) => [newPost, ...prev]);
+        return { ok: true };
       }
-      if (payload.pick) {
-        sealPickToJournal(payload.pick.matchPick, payload.pick.units, payload.pick.userDecimal);
-      }
+
+      setSocialPosts((prev) => [newPost, ...prev]);
       pushToast("Publicado en Comunidad.", "success");
       return { ok: true };
     },
-    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, sealPickToJournal, socialOnServer, rawDataset.games],
+    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, socialOnServer, hasAccountSessionAuth, rawDataset.games],
   );
 
   const addSocialComment = useCallback(
-    (postId: string, body: string): { ok: boolean; error?: string } => {
+    (
+      postId: string,
+      body: string,
+      parentCommentId?: string | null,
+    ): { ok: boolean; error?: string; pending?: boolean } => {
       if (viewerRole === "visitor") {
         return { ok: false, error: "Activa Pase PitchLab Ultra para comentar." };
       }
       const trimmed = body.trim();
       if (!trimmed) {
         return { ok: false, error: "Escribe un comentario." };
+      }
+      if (trimmed.length > 400) {
+        return { ok: false, error: "Máximo 400 caracteres." };
       }
       if (containsExternalLink(trimmed)) {
         setBlockedSpamAttempts((n) => n + 1);
@@ -1412,37 +1669,28 @@ export function PlatformProvider({
       if (target && isPendingPost(target)) {
         return { ok: false, error: "Espera a que termine de publicarse." };
       }
-      const tempId = `sc-${Date.now()}`;
-      if (socialOnServer && target?.fromServer) {
-        void (async () => {
-          const res = await postJson(`/api/social/posts/${postId}/comments`, { body: trimmed });
-          const data = res
-            ? ((await res.json().catch(() => null)) as { comment?: ServerSocialComment; error?: string } | null)
-            : null;
-          if (res?.ok && data?.comment) {
-            const saved = fromServerComment(data.comment, new Date());
-            setSocialPosts((prev) =>
-              prev.map((p) =>
-                p.id === postId ? { ...p, comments: p.comments.map((c) => (c.id === tempId ? saved : c)) } : p,
-              ),
-            );
-          } else {
-            setSocialPosts((prev) =>
-              prev.map((p) => (p.id === postId ? { ...p, comments: p.comments.filter((c) => c.id !== tempId) } : p)),
-            );
-            pushToast(data?.error ?? "No pudimos guardar tu comentario.", "danger");
-          }
-        })();
+      const cleanParentArg = typeof parentCommentId === "string" && parentCommentId.trim() ? parentCommentId.trim() : null;
+      const clickedParent = cleanParentArg ? target?.comments.find((c) => c.id === cleanParentArg) : undefined;
+      if (clickedParent?.pending) {
+        return { ok: false, error: "Espera a que se guarde ese comentario antes de responderle." };
       }
+      const resolvedParentId = clickedParent ? clickedParent.id : null;
+      const replyToHandle = clickedParent ? clickedParent.authorHandle : null;
+      const needsServerSync = Boolean(socialOnServer && target?.fromServer);
+      const tempId = `${needsServerSync ? "pending" : "local"}-sc-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+
       setSocialPosts((prev) =>
         prev.map((post) =>
           post.id === postId
             ? {
                 ...post,
+                commentsCount: (post.commentsCount ?? post.comments.length) + 1,
                 comments: [
                   ...post.comments,
                   {
                     id: tempId,
+                    parentCommentId: resolvedParentId,
+                    replyToHandle,
                     authorHandle: ownHandleFor(viewerIdentity, viewerRole),
                     authorName:
                       viewerIdentity?.displayName ??
@@ -1454,16 +1702,217 @@ export function PlatformProvider({
                         : journalRecord(journal).label,
                     createdAt: "Ahora",
                     body: trimmed,
+                    fromServer: needsServerSync,
+                    pending: needsServerSync,
+                    isMine: true,
+                    helpfulCount: 0,
+                    helpfulByMe: false,
                   },
                 ],
               }
             : post,
         ),
       );
+
+      if (needsServerSync) {
+        void (async () => {
+          const res = await postJson(`/api/social/posts/${postId}/comments`, {
+            body: trimmed,
+            ...(resolvedParentId ? { parentCommentId: resolvedParentId } : {}),
+          });
+          const data = res
+            ? ((await res.json().catch(() => null)) as { comment?: ServerSocialComment; error?: string } | null)
+            : null;
+          if (res?.ok && data?.comment) {
+            const saved = fromServerComment(data.comment, new Date());
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId ? { ...p, comments: p.comments.map((c) => (c.id === tempId ? saved : c)) } : p,
+              ),
+            );
+            pushToast("Respuesta agregada al hilo.", "success");
+          } else {
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId
+                  ? {
+                      ...p,
+                      commentsCount: Math.max(0, (p.commentsCount ?? p.comments.length) - 1),
+                      comments: p.comments.filter((c) => c.id !== tempId),
+                    }
+                  : p,
+              ),
+            );
+            pushToast(data?.error ?? "No pudimos guardar tu comentario.", "danger");
+          }
+        })();
+        return { ok: true, pending: true };
+      }
+
       pushToast("Respuesta agregada al hilo.", "success");
       return { ok: true };
     },
     [viewerRole, viewerIdentity, pushToast, journal, socialPosts, socialOnServer],
+  );
+
+  const deleteSocialComment = useCallback(
+    (postId: string, commentId: string) => {
+      const targetPost = socialPosts.find((p) => p.id === postId);
+      const targetComment = targetPost?.comments.find((c) => c.id === commentId);
+      if (!targetPost || !targetComment || !targetComment.isMine || targetComment.pending) return;
+
+      const snapshotComments = targetPost.comments;
+      const snapshotCount = targetPost.commentsCount ?? targetPost.comments.length;
+
+      setSocialPosts((prev) =>
+        prev.map((p) =>
+          p.id === postId
+            ? {
+                ...p,
+                commentsCount: Math.max(0, (p.commentsCount ?? p.comments.length) - 1),
+                comments: reparentDeletedComment(p.comments, commentId),
+              }
+            : p,
+        ),
+      );
+
+      if (!socialOnServer || !targetComment.fromServer) {
+        pushToast("Comentario borrado.", "default");
+        return;
+      }
+
+      void (async () => {
+        try {
+          const res = await fetch(`/api/social/posts/${encodeURIComponent(postId)}/comments/${encodeURIComponent(commentId)}`, {
+            method: "DELETE",
+            credentials: "same-origin",
+          });
+          if (!res.ok) throw new Error(String(res.status));
+          pushToast("Comentario borrado.", "default");
+        } catch (err) {
+          void err;
+          setSocialPosts((prev) =>
+            prev.map((p) => (p.id === postId ? { ...p, comments: snapshotComments, commentsCount: snapshotCount } : p)),
+          );
+          pushToast("No pudimos borrar tu comentario.", "danger");
+        }
+      })();
+    },
+    [socialPosts, socialOnServer, pushToast],
+  );
+
+  const toggleSocialCommentHelpful = useCallback(
+    (postId: string, commentId: string) => {
+      if (viewerRole === "visitor") return;
+      const targetPost = socialPosts.find((p) => p.id === postId);
+      const targetComment = targetPost?.comments.find((c) => c.id === commentId);
+      if (!targetPost || !targetComment || targetComment.pending) return;
+
+      const nextHelpful = !targetComment.helpfulByMe;
+      const prevCount = targetComment.helpfulCount ?? 0;
+      const nextCount = nextHelpful ? prevCount + 1 : Math.max(0, prevCount - 1);
+
+      setSocialPosts((prev) =>
+        prev.map((p) =>
+          p.id === postId
+            ? {
+                ...p,
+                comments: p.comments.map((c) =>
+                  c.id === commentId ? { ...c, helpfulByMe: nextHelpful, helpfulCount: nextCount } : c,
+                ),
+              }
+            : p,
+        ),
+      );
+
+      if (!socialOnServer || !targetComment.fromServer) return;
+      void (async () => {
+        try {
+          const res = await fetch(
+            `/api/social/posts/${encodeURIComponent(postId)}/comments/${encodeURIComponent(commentId)}/like`,
+            {
+              method: "PUT",
+              credentials: "same-origin",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ helpful: nextHelpful }),
+            },
+          );
+          const data = (await res.json().catch(() => null)) as { helpfulCount?: number; helpfulByMe?: boolean } | null;
+          if (!res.ok || typeof data?.helpfulCount !== "number") throw new Error(String(res.status));
+          setSocialPosts((prev) =>
+            prev.map((p) =>
+              p.id === postId
+                ? {
+                    ...p,
+                    comments: p.comments.map((c) =>
+                      c.id === commentId
+                        ? { ...c, helpfulCount: data.helpfulCount, helpfulByMe: Boolean(data.helpfulByMe) }
+                        : c,
+                    ),
+                  }
+                : p,
+            ),
+          );
+        } catch (err) {
+          void err;
+          setSocialPosts((prev) =>
+            prev.map((p) =>
+              p.id === postId
+                ? {
+                    ...p,
+                    comments: p.comments.map((c) =>
+                      c.id === commentId
+                        ? { ...c, helpfulCount: prevCount, helpfulByMe: Boolean(targetComment.helpfulByMe) }
+                        : c,
+                    ),
+                  }
+                : p,
+            ),
+          );
+        }
+      })();
+    },
+    [viewerRole, socialPosts, socialOnServer],
+  );
+
+  const loadAllPostComments = useCallback(
+    async (postId: string): Promise<void> => {
+      if (!hasAccountSessionAuth || !postId) return;
+      const data = await getJson<{ comments?: ServerSocialComment[]; commentsCount?: number }>(
+        `/api/social/posts/${encodeURIComponent(postId)}/comments?limit=200`,
+      );
+      if (!data?.comments) return;
+      const now = new Date();
+      const mapped = data.comments.map((c) => fromServerComment(c, now));
+      const total = typeof data.commentsCount === "number" ? Math.max(data.commentsCount, mapped.length) : mapped.length;
+      setSocialPosts((prev) =>
+        prev.map((p) => (p.id === postId ? { ...p, comments: mapped, commentsCount: total } : p)),
+      );
+    },
+    [hasAccountSessionAuth],
+  );
+
+  const recordSocialPostCopy = useCallback(
+    (postId: string) => {
+      const target = socialPosts.find((p) => p.id === postId);
+      if (!target || target.isMine || isPendingPost(target)) return;
+      setSocialPosts((prev) =>
+        prev.map((p) => (p.id === postId ? { ...p, copiesCount: (p.copiesCount ?? 0) + 1 } : p)),
+      );
+      if (!socialOnServer || !target.fromServer) return;
+      void (async () => {
+        const res = await postJson(`/api/social/posts/${encodeURIComponent(postId)}/copy`, {});
+        const data = res
+          ? ((await res.json().catch(() => null)) as { copiesCount?: number } | null)
+          : null;
+        if (res?.ok && typeof data?.copiesCount === "number") {
+          setSocialPosts((prev) =>
+            prev.map((p) => (p.id === postId ? { ...p, copiesCount: data.copiesCount } : p)),
+          );
+        }
+      })();
+    },
+    [socialPosts, socialOnServer],
   );
 
   const toggleSocialLike = useCallback(
@@ -1520,26 +1969,44 @@ export function PlatformProvider({
     [socialPosts, pushToast],
   );
 
-  const refreshSocialFeed = useCallback(() => {
-    if (!hasAccountSessionAuth) return;
-    void (async () => {
-      const data = await getJson<{ posts?: ServerSocialPost[] }>("/api/social/posts?limit=50");
-      if (!data?.posts) return;
-      const now = new Date();
-      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
-      const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
-      const prevPage = socialFeedPagesRef.current.feed;
-      const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
-      updateFeedPage(
-        "feed",
-        keepOlderCursor
-          ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
-          : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
-      );
-      setSocialOnServer(true);
-      setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "feed"));
-    })();
-  }, [hasAccountSessionAuth, rawDataset.games, updateFeedPage]);
+  const buildFeedParams = useCallback((limit: number, scope?: SocialFeedScope, before?: string | null) => {
+    const params = new URLSearchParams({ limit: String(limit) });
+    if (before) params.set("before", before);
+    if (scope?.following) params.set("following", "1");
+    if (scope?.author) params.set("author", scope.author.trim().toLowerCase());
+    if (scope?.gameId) params.set("gameId", scope.gameId.trim());
+    if (scope?.leagueLabel && scope.leagueLabel !== "all") params.set("league", scope.leagueLabel);
+    if (scope?.openPickOnly) params.set("openPick", "1");
+    if (scope?.sort === "most_commented") params.set("sort", "most_commented");
+    return params;
+  }, []);
+
+  const refreshSocialFeed = useCallback(
+    (scope?: SocialFeedScope) => {
+      if (!hasAccountSessionAuth) return;
+      void (async () => {
+        const params = buildFeedParams(50, scope);
+        const data = await getJson<{ posts?: ServerSocialPost[] }>(`/api/social/posts?${params.toString()}`);
+        if (!data?.posts) return;
+        const now = new Date();
+        const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+        const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+        const key = socialScopeKey(scope);
+        const prevPage = socialFeedPagesRef.current[key];
+        const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+        updateFeedPage(
+          key,
+          keepOlderCursor
+            ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+            : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
+        );
+        setSocialOnServer(true);
+        const mergeMode = key === "feed" ? "feed" : "extra";
+        setSocialPosts((prev) => mergeSocialPosts(prev, incoming, mergeMode));
+      })();
+    },
+    [buildFeedParams, hasAccountSessionAuth, rawDataset.games, updateFeedPage],
+  );
 
   const loadFollowingSocialPosts = useCallback(() => {
     if (!hasAccountSessionAuth) return;
@@ -1590,6 +2057,32 @@ export function PlatformProvider({
     [hasAccountSessionAuth, rawDataset.games, updateFeedPage],
   );
 
+  const loadMatchSocialPosts = useCallback(
+    async (gameId: string): Promise<void> => {
+      const clean = gameId.trim();
+      if (!hasAccountSessionAuth || !clean) return;
+      const data = await getJson<{ posts?: ServerSocialPost[] }>(
+        `/api/social/posts?limit=30&gameId=${encodeURIComponent(clean)}`,
+      );
+      if (!data?.posts) return;
+      const now = new Date();
+      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+      const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+      const key = `game:${clean}`;
+      const prevPage = socialFeedPagesRef.current[key];
+      const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+      updateFeedPage(
+        key,
+        keepOlderCursor
+          ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+          : { cursor: incomingOldest, hasMore: data.posts.length >= 30, loading: false },
+      );
+      setSocialOnServer(true);
+      setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
+    },
+    [hasAccountSessionAuth, rawDataset.games, updateFeedPage],
+  );
+
   const loadOlderSocialPosts = useCallback(
     async (scope?: SocialFeedScope): Promise<boolean> => {
       if (!hasAccountSessionAuth) return false;
@@ -1600,9 +2093,12 @@ export function PlatformProvider({
       let cursor = current?.cursor ?? null;
       if (!cursor) {
         const cleanAuthor = scope?.author?.trim().toLowerCase() ?? null;
+        const cleanGame = scope?.gameId?.trim() ?? null;
         cursor = socialPosts.reduce<string | null>((oldest, p) => {
           if (!p.fromServer || p.isExample || !p.createdAtIso) return oldest;
           if (cleanAuthor && p.authorHandle.toLowerCase() !== cleanAuthor) return oldest;
+          if (cleanGame && (p.pick?.gameId ?? p.gameId) !== cleanGame) return oldest;
+          if (scope?.leagueLabel && scope.leagueLabel !== "all" && p.leagueLabel !== scope.leagueLabel) return oldest;
           return !oldest || p.createdAtIso < oldest ? p.createdAtIso : oldest;
         }, null);
       }
@@ -1612,9 +2108,7 @@ export function PlatformProvider({
       }
 
       updateFeedPage(key, { cursor, hasMore: current?.hasMore ?? true, loading: true });
-      const params = new URLSearchParams({ before: cursor, limit: "30" });
-      if (scope?.following) params.set("following", "1");
-      if (scope?.author) params.set("author", scope.author.trim().toLowerCase());
+      const params = buildFeedParams(30, scope, cursor);
 
       const data = await getJson<{ posts?: ServerSocialPost[] }>(`/api/social/posts?${params.toString()}`);
       if (!data?.posts) {
@@ -1632,7 +2126,7 @@ export function PlatformProvider({
       updateFeedPage(key, { cursor: nextCursor, hasMore: nextHasMore, loading: false });
       return incoming.length > 0;
     },
-    [hasAccountSessionAuth, rawDataset.games, socialPosts, updateFeedPage],
+    [buildFeedParams, hasAccountSessionAuth, rawDataset.games, socialPosts, updateFeedPage],
   );
 
   const ensureSocialPostLoaded = useCallback(
@@ -1708,19 +2202,19 @@ export function PlatformProvider({
 
   const toggleWatchlistGame = useCallback(
     (gameId: string) => {
-      setWatchlistGameIds((prev) => {
-        const exists = prev.includes(gameId);
-        pushToast(
-          exists
-            ? "Dejaste de seguir este partido."
-            : "Siguiendo: te avisamos del inicio, los goles y el final.",
-          "default",
-        );
-        if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
-        return exists ? prev.filter((id) => id !== gameId) : [...prev, gameId];
-      });
+      const exists = watchlistGameIds.includes(gameId);
+      setWatchlistGameIds((prev) =>
+        prev.includes(gameId) ? prev.filter((id) => id !== gameId) : [...prev, gameId],
+      );
+      pushToast(
+        exists
+          ? "Dejaste de seguir este partido."
+          : "Siguiendo: te avisamos del inicio, los goles y el final.",
+        "default",
+      );
+      if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
     },
-    [pushToast, hasAccountSessionAuth],
+    [watchlistGameIds, pushToast, hasAccountSessionAuth],
   );
 
   const setFollowAlerts = useCallback(
@@ -1867,11 +2361,16 @@ export function PlatformProvider({
       socialPosts,
       publishSocialPost,
       addSocialComment,
+      deleteSocialComment,
+      toggleSocialCommentHelpful,
+      loadAllPostComments,
+      recordSocialPostCopy,
       toggleSocialLike,
       deleteSocialPost,
       refreshSocialFeed,
       loadFollowingSocialPosts,
       loadSocialPostsByAuthor,
+      loadMatchSocialPosts,
       loadOlderSocialPosts,
       socialFeedPages,
       ensureSocialPostLoaded,
@@ -1892,6 +2391,10 @@ export function PlatformProvider({
       setShowMxnBalance,
       unitMxn,
       setUnitMxn,
+      preferredBooks,
+      setPreferredBooks,
+      savedScreenerViews,
+      setSavedScreenerViews,
       referralPaidFriends,
       memberReferralsSnapshot,
       memberReferralsLoaded,
@@ -1954,11 +2457,16 @@ export function PlatformProvider({
       socialPosts,
       publishSocialPost,
       addSocialComment,
+      deleteSocialComment,
+      toggleSocialCommentHelpful,
+      loadAllPostComments,
+      recordSocialPostCopy,
       toggleSocialLike,
       deleteSocialPost,
       refreshSocialFeed,
       loadFollowingSocialPosts,
       loadSocialPostsByAuthor,
+      loadMatchSocialPosts,
       loadOlderSocialPosts,
       socialFeedPages,
       ensureSocialPostLoaded,
@@ -1979,6 +2487,10 @@ export function PlatformProvider({
       setShowMxnBalance,
       unitMxn,
       setUnitMxn,
+      preferredBooks,
+      setPreferredBooks,
+      savedScreenerViews,
+      setSavedScreenerViews,
       referralPaidFriends,
       memberReferralsSnapshot,
       memberReferralsLoaded,
@@ -2033,6 +2545,8 @@ export function PlatformProvider({
       userTimezone,
       showMxnBalance,
       unitMxn,
+      preferredBooks,
+      savedScreenerViews,
       month1NoCardMode,
     }),
     [
@@ -2053,7 +2567,44 @@ export function PlatformProvider({
       userTimezone,
       showMxnBalance,
       unitMxn,
+      preferredBooks,
+      savedScreenerViews,
       month1NoCardMode,
+    ],
+  );
+
+  const pickHomeSport = useCallback((next: SportFilter) => {
+    setHasExplicitHomeSport(true);
+    setHomeSportState(next);
+    setHomeLeagueState("all");
+  }, []);
+  const resetHomeFilters = useCallback((targetDay?: string) => {
+    if (targetDay !== undefined) setHomeChosenDayState(targetDay);
+    setHasExplicitHomeSport(true);
+    setHomeSportState("all");
+    setHomeLeagueState("all");
+  }, []);
+  const homeNavFilter = useMemo<HomeNavFilterValue>(
+    () => ({
+      sport: homeSport,
+      hasExplicitSport: hasExplicitHomeSport,
+      league: homeLeague,
+      chosenDay: homeChosenDay,
+      todayOverride: homeTodayOverride,
+      pickSport: pickHomeSport,
+      setLeague: setHomeLeagueState,
+      setChosenDay: setHomeChosenDayState,
+      setTodayOverride: setHomeTodayOverride,
+      resetFilters: resetHomeFilters,
+    }),
+    [
+      homeSport,
+      hasExplicitHomeSport,
+      homeLeague,
+      homeChosenDay,
+      homeTodayOverride,
+      pickHomeSport,
+      resetHomeFilters,
     ],
   );
 
@@ -2068,7 +2619,9 @@ export function PlatformProvider({
         <ParlayIdStoreContext.Provider value={parlayIdStore}>
           <JournalContext.Provider value={journal}>
             <AuraContext.Provider value={auraColors}>
-              <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+              <HomeNavFilterContext.Provider value={homeNavFilter}>
+                <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+              </HomeNavFilterContext.Provider>
             </AuraContext.Provider>
           </JournalContext.Provider>
         </ParlayIdStoreContext.Provider>
@@ -2111,7 +2664,14 @@ export function PlatformGamesSupplement({
               const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
               return ko === g.kickoffLocal
                 ? g
-                : { ...g, kickoffLocal: ko, picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })) };
+                : {
+                    ...g,
+                    kickoffLocal: ko,
+                    picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
+                    ...(g.parlayCandidates
+                      ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
+                      : {}),
+                  };
             })
           : extraRaw;
       return { ...base, games: [...base.games, ...extra] };

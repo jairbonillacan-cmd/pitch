@@ -11,7 +11,10 @@ export function confidenceTone(score: number): string {
   return "var(--pl-warning)";
 }
 
-const LEVEL_COPY: Record<PlatformGame["confidenceLevel"], { word: string; meaning: string }> = {
+const LEVEL_COPY: Record<
+  NonNullable<PlatformGame["confidenceLevel"]>,
+  { word: string; meaning: string }
+> = {
   alta: {
     word: "alta",
     meaning: "El modelo tiene buenos datos y el partido tiene un favorito claro. Sus porcentajes suelen ser estables.",
@@ -41,6 +44,17 @@ export function ConfidenceChip({
   const [open, setOpen] = useState(false);
   const titleId = `pl-conf-title${useId().replace(/:/g, "")}`;
   const score = game.confidenceScore;
+  if (score === null || game.confidenceLevel === null) {
+    return (
+      <span
+        className="pl-pill text-[11px]"
+        style={{ color: "var(--pl-text-muted)" }}
+        data-confidence-empty=""
+      >
+        Sin confianza
+      </span>
+    );
+  }
   const tone = confidenceTone(score);
   const copy = LEVEL_COPY[game.confidenceLevel];
   const factors = game.confidenceDetail?.factors ?? [];

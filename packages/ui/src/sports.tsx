@@ -20,9 +20,15 @@ import {
   formatPercent,
   probabilityToFairOdds,
   selectionHolds,
+  sportHasDraw,
+  sportScoringUnit,
 } from "@pitchlab/contracts";
 import {
+  getBzzoiroLeagueEmblemUrl,
+  getBzzoiroTeamEmblemUrl,
   getLeagueEmblemPath,
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
   getResolvedTeamEmblem,
   hasLeagueAsset,
 } from "@pitchlab/sports-assets";
@@ -44,10 +50,56 @@ function initialsFromName(name: string | undefined, fallback: string): string {
 }
 
 const GENERIC_LEAGUE_CODES: Record<string, string> = {
+  "liga-mx": "LMX",
+  "premier-league": "PL",
+  laliga: "LL",
+  "la-liga": "LL",
+  "champions-league": "UCL",
   bundesliga: "BL",
   "serie-a": "SA",
   "ligue-1": "L1",
+  nfl: "NFL",
+  nba: "NBA",
+  nhl: "NHL",
+  mlb: "MLB",
+  "concacaf-nations": "CNL",
+  "uefa-nations": "UNL",
+  amistosos: "INT",
+  "copa-del-mundo": "WC",
+  eliminatorias: "WCQ",
+  "copa-america": "CA",
+  eurocopa: "EUR",
+  "copa-oro": "GC",
+  "copa-africana": "CAN",
+  "copa-asiatica": "AFC",
 };
+
+export type EmblemSurface = "public" | "app";
+
+const EmblemSurfaceContext = React.createContext<EmblemSurface>("public");
+
+/**
+ * Superficie de renderizado para escudos (`TeamBadge` y `LeagueBadge`):
+ * `"app"` habilita URLs externas de Bzzoiro con respaldo automático a iniciales;
+ * `"public"` (landing, auth, marketing) usa únicamente SVGs e iniciales locales.
+ */
+export function EmblemSurfaceProvider({
+  surface,
+  children,
+}: {
+  surface: EmblemSurface;
+  children: React.ReactNode;
+}): React.JSX.Element {
+  return (
+    <EmblemSurfaceContext.Provider value={surface}>
+      {children}
+    </EmblemSurfaceContext.Provider>
+  );
+}
+
+export function useEmblemSurface(): EmblemSurface {
+  return React.useContext(EmblemSurfaceContext);
+}
 
 export function leadIndex(ps: readonly number[]): number {
   return ps.reduce((bi, p, i) => (p > (ps[bi] ?? -1) ? i : bi), 0);
@@ -64,23 +116,102 @@ export function parseUserOdds(raw: string): number | null {
   return v > 1 ? v : null;
 }
 
-export function TeamBadge({
+interface EmblemSourceResolution {
+  src: string | null;
+  fallbackSrc: string | null;
+  isExternal: boolean;
+}
+
+function resolveBadgeEmblem(params: {
+  kind: "team" | "league";
+  league: string;
+  slug?: string;
+  logoUrl?: string | null;
+  editorialOnly: boolean;
+  surface: EmblemSurface;
+}): EmblemSourceResolution {
+  const { kind, league, slug = "", logoUrl, editorialOnly, surface } = params;
+  const localSvg =
+    kind === "team"
+      ? getResolvedTeamEmblem(league, slug, { editorialOnly: true }).src
+      : hasLeagueAsset(league)
+        ? getLeagueEmblemPath(league)
+        : null;
+
+  // Fuera de `/app` o con `editorialOnly`: cero llamadas a Bzzoiro (solo SVG o iniciales locales).
+  if (editorialOnly || surface !== "app") {
+    return {
+      src: localSvg,
+      fallbackSrc: null,
+      isExternal: false,
+    };
+  }
+
+  const hasLocalSvgFallback =
+    league === "nfl" ||
+    league === "nhl" ||
+    league === "mlb";
+  const localNationalFallback =
+    kind === "team"
+      ? getOfficialEspnTeamLogoUrl(league, slug)
+      : getOfficialEspnLeagueLogoUrl(league);
+  const resolvedFallback = hasLocalSvgFallback ? localSvg : localNationalFallback;
+
+  // Dentro de `/app`, `logoUrl={null}` o vacío fuerza iniciales (salvo ligas/selecciones locales sin Bzzoiro).
+  if (logoUrl !== undefined) {
+    const cleanUrl = typeof logoUrl === "string" ? logoUrl.trim() : "";
+    if (cleanUrl) {
+      return {
+        src: cleanUrl,
+        fallbackSrc: resolvedFallback && resolvedFallback !== cleanUrl ? resolvedFallback : null,
+        isExternal: !cleanUrl.startsWith("/"),
+      };
+    }
+    return {
+      src: hasLocalSvgFallback ? localSvg : logoUrl === "" ? localNationalFallback : null,
+      fallbackSrc: null,
+      isExternal: false,
+    };
+  }
+
+  const externalUrl =
+    kind === "team"
+      ? (getBzzoiroTeamEmblemUrl(league, slug) ?? getOfficialEspnTeamLogoUrl(league, slug))
+      : (getBzzoiroLeagueEmblemUrl(league) ?? getOfficialEspnLeagueLogoUrl(league));
+  if (externalUrl) {
+    return {
+      src: externalUrl,
+      fallbackSrc: hasLocalSvgFallback ? localSvg : null,
+      isExternal: !externalUrl.startsWith("/"),
+    };
+  }
+
+  return {
+    src: hasLocalSvgFallback ? localSvg : null,
+    fallbackSrc: null,
+    isExternal: false,
+  };
+}
+
+function EmblemGraphic({
+  resolved,
+  kind,
   league,
-  slug,
-  name,
-  size = 24,
-  decorative = true,
-  editorialOnly = false,
+  initials,
+  title,
+  alt,
+  size,
+  decorative,
 }: {
-  league: LeagueId | string;
-  slug: string;
-  name?: string;
-  size?: number;
-  decorative?: boolean;
-  /** Limita la insignia a los SVG editoriales locales (p. ej. piezas de marketing). */
-  editorialOnly?: boolean;
+  resolved: EmblemSourceResolution;
+  kind: "team" | "league";
+  league: string;
+  initials: string;
+  title?: string;
+  alt: string;
+  size: number;
+  decorative: boolean;
 }): React.JSX.Element {
-  const resolved = getResolvedTeamEmblem(league, slug, { editorialOnly });
   const resolutionKey = `${resolved.src ?? ""}|${resolved.fallbackSrc ?? ""}`;
   const [failure, setFailure] = useState<{
     key: string;
@@ -135,37 +266,53 @@ export function TeamBadge({
   ]);
 
   if (!currentSrc) {
+    const fallbackFontSize =
+      initials.length >= 3
+        ? Math.max(7, Math.round(size * 0.31))
+        : Math.max(8, Math.round(size * 0.38));
     return (
       <span
         className="badge badge-fallback"
-        style={{ width: size, height: size, fontSize: Math.max(8, size * 0.36), fontWeight: 700 }}
-        aria-hidden={decorative ? "true" : undefined}
-        title={name}
+        data-emblem-kind={kind}
+        data-emblem-league={league}
+        style={{ width: size, height: size, fontSize: fallbackFontSize, fontWeight: 700 }}
+        aria-hidden="true"
+        title={title}
       >
-        {initialsFromName(name, slug)}
+        {initials}
       </span>
     );
   }
+
   return (
     <span
       className="badge"
-      data-emblem-source={isCurrentExternal ? "bzzoiro" : "editorial"}
+      data-emblem-kind={kind}
+      data-emblem-source={
+        currentSrc.startsWith("/brand/official/")
+          ? "official"
+          : isCurrentExternal
+            ? "external"
+            : "editorial"
+      }
+      data-emblem-league={league}
       style={{ width: size, height: size }}
       aria-hidden={decorative ? "true" : undefined}
-      title={name}
+      title={title}
     >
       <img
         key={currentSrc}
         ref={imgRef}
         src={currentSrc}
-        alt={decorative ? "" : (name ?? "")}
+        alt={decorative ? "" : alt}
         width={size}
         height={size}
+        loading="lazy"
         decoding="async"
         referrerPolicy={isCurrentExternal ? "no-referrer" : undefined}
         onError={advanceFallback}
         onLoad={(event) => {
-          // Bzzoiro responde 200 con PNG 1x1 (~70 B) cuando el equipo no tiene escudo.
+          // Bzzoiro responde 200 con PNG 1x1 (~70 B) cuando el recurso no tiene escudo.
           if (
             isCurrentExternal &&
             (event.currentTarget.naturalWidth <= 1 ||
@@ -179,37 +326,82 @@ export function TeamBadge({
   );
 }
 
+export function TeamBadge({
+  league,
+  slug,
+  name,
+  logoUrl,
+  size = 24,
+  decorative = true,
+  editorialOnly = false,
+}: {
+  league: LeagueId | string;
+  slug: string;
+  name?: string;
+  /** URL externa del escudo (p. ej. Bzzoiro); `null` fuerza respaldo de iniciales. */
+  logoUrl?: string | null;
+  size?: number;
+  decorative?: boolean;
+  /** Limita la insignia a los SVG editoriales locales (p. ej. landing y marketing). */
+  editorialOnly?: boolean;
+}): React.JSX.Element {
+  const surface = useEmblemSurface();
+  const resolved = resolveBadgeEmblem({
+    kind: "team",
+    league,
+    slug,
+    logoUrl,
+    editorialOnly,
+    surface,
+  });
+  return (
+    <EmblemGraphic
+      resolved={resolved}
+      kind="team"
+      league={league}
+      initials={initialsFromName(name, slug)}
+      title={name}
+      alt={name ?? ""}
+      size={size}
+      decorative={decorative}
+    />
+  );
+}
+
 export function LeagueBadge({
   league,
   label,
+  logoUrl,
   size = 24,
+  editorialOnly = false,
 }: {
   league: LeagueId | string;
   label?: string;
+  /** URL externa del escudo de liga (p. ej. Bzzoiro); `null` fuerza iniciales. */
+  logoUrl?: string | null;
   size?: number;
+  /** Limita la insignia a los SVG editoriales locales (p. ej. landing y marketing). */
+  editorialOnly?: boolean;
 }): React.JSX.Element {
-  if (!hasLeagueAsset(league)) {
-    return (
-      <span
-        className="badge badge-fallback"
-        style={{ width: size, height: size, fontSize: Math.max(8, size * 0.36), fontWeight: 700 }}
-        aria-hidden="true"
-        title={label}
-      >
-        {GENERIC_LEAGUE_CODES[league] ?? initialsFromName(label, league)}
-      </span>
-    );
-  }
+  const surface = useEmblemSurface();
+  const resolved = resolveBadgeEmblem({
+    kind: "league",
+    league,
+    logoUrl,
+    editorialOnly,
+    surface,
+  });
   return (
-    <span className="badge" style={{ width: size, height: size }}>
-      <img
-        src={getLeagueEmblemPath(league)}
-        alt={label ?? ""}
-        width={size}
-        height={size}
-        decoding="async"
-      />
-    </span>
+    <EmblemGraphic
+      resolved={resolved}
+      kind="league"
+      league={league}
+      initials={GENERIC_LEAGUE_CODES[league] ?? initialsFromName(label, league)}
+      title={label}
+      alt={label ?? ""}
+      size={size}
+      decorative={false}
+    />
   );
 }
 
@@ -352,12 +544,14 @@ export function featuredPickOf(
 export function effectiveFeaturedPick(match: MatchAnalysis): AnalysisPick | undefined {
   const explicit = featuredPickOf(match.picks) ?? match.picks?.[0];
   if (explicit) return explicit;
-  const nf = match.league === "nfl";
-  const draw = !nf;
+  if (match.hasForecast === false || (!match.x12 && match.outcomes.length === 0)) {
+    return undefined;
+  }
+  const draw = sportHasDraw(match.sport);
   const x12 = match.x12 ?? [
-    match.outcomes[0]?.probability ?? 0.45,
-    draw ? (match.outcomes[1]?.probability ?? 0.25) : 0,
-    match.outcomes[draw ? 2 : 1]?.probability ?? 0.3,
+    match.outcomes[0]?.probability ?? 0.5,
+    draw ? (match.outcomes[1]?.probability ?? 0) : 0,
+    match.outcomes[draw ? 2 : 1]?.probability ?? 0.5,
   ];
   const [ph, pd, pa] = x12;
   const ps = draw ? [ph, pd, pa] : [ph, pa];
@@ -732,20 +926,17 @@ export function MatchCard({
   showLeague?: boolean;
 }): React.JSX.Element {
   const isFinished = match.status === "FT" && match.score !== undefined;
-  const nf = match.league === "nfl";
-  const draw = !nf;
-  const x12 = match.x12 ?? [
-    match.outcomes[0]?.probability ?? 0.45,
-    draw ? (match.outcomes[1]?.probability ?? 0.25) : 0,
-    match.outcomes[draw ? 2 : 1]?.probability ?? 0.3,
-  ];
+  const draw = sportHasDraw(match.sport);
+  const unit = sportScoringUnit(match.sport);
+  const hasForecast = match.hasForecast !== false && Boolean(match.x12 && match.projection);
+  const x12 = match.x12 ?? [0, 0, 0];
   const [ph, pd, pa] = x12;
   const ps = draw ? [ph, pd, pa] : [ph, pa];
-  const li = leadIndex(ps);
+  const li = hasForecast ? leadIndex(ps) : -1;
   const hL = li === 0;
   const aL = li === ps.length - 1;
   const dL = draw && li === 1;
-  const proj = match.projection ?? { home: nf ? 24 : 1.5, away: nf ? 21 : 1.2, total: nf ? 45 : 2.7 };
+  const proj = match.projection ?? null;
   const featured = isFinished ? effectiveFeaturedPick(match) : featuredPickOf(match.picks);
   const featuredResult = isFinished && featured ? pickResult(featured, match.score) : null;
   const finalStateClass =
@@ -800,7 +991,7 @@ export function MatchCard({
             .replace(/\s+/g, " ")
             .trim()}
         >
-          {isFinished ? match.score?.home : formatPercent(ph, 1)}
+          {isFinished ? match.score?.home : hasForecast ? formatPercent(ph, 1) : "—"}
         </span>
       </span>
 
@@ -815,14 +1006,16 @@ export function MatchCard({
             .replace(/\s+/g, " ")
             .trim()}
         >
-          {isFinished ? match.score?.away : formatPercent(pa, 1)}
+          {isFinished ? match.score?.away : hasForecast ? formatPercent(pa, 1) : "—"}
         </span>
       </span>
 
-      <ProbSplit
-        probabilities={ps}
-        labels={draw ? [match.home.name, "Empate", match.away.name] : [match.home.name, match.away.name]}
-      />
+      {hasForecast ? (
+        <ProbSplit
+          probabilities={ps}
+          labels={draw ? [match.home.name, "Empate", match.away.name] : [match.home.name, match.away.name]}
+        />
+      ) : null}
 
       {featured ? (
         <span className="pickline" data-card-pick="">
@@ -841,15 +1034,17 @@ export function MatchCard({
 
       <span className="foot">
         <span>
-          {draw ? (
+          {hasForecast && draw ? (
             <>
               <span className={dL && !isFinished ? "lead-txt" : ""}>Empate {formatPercent(pd, 1)}</span>
               {" · "}
             </>
           ) : null}
-          {projected && !nf
-            ? "Proyectado " + projected.home + "–" + projected.away
-            : "Proy. " + proj.home.toFixed(nf ? 0 : 1) + "–" + proj.away.toFixed(nf ? 0 : 1)}
+          {!proj
+            ? "Sin pronóstico publicado"
+            : projected && unit.short !== "pts"
+              ? "Proyectado " + projected.home + "–" + projected.away
+              : "Proy. " + proj.home.toFixed(unit.decimals) + "–" + proj.away.toFixed(unit.decimals)}
         </span>
         <span className="open">
           Analizar <Icon name="arrow" />

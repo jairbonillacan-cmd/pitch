@@ -108,6 +108,17 @@ const privacidadSections: LegalSection[] = [
       </p>
     ),
   },
+  {
+    id: "escudos-externos",
+    title: "5. Escudos deportivos externos en /app",
+    body: (
+      <p>
+        Dentro de <code>/app</code>, los escudos de ligas y clubes se cargan desde el servidor
+        externo de Bzzoiro (<code>sports.bzzoiro.com</code>), por lo que ese servidor puede ver la
+        dirección IP del visitante al descargar la imagen.
+      </p>
+    ),
+  },
 ];
 
 function Privacidad() {

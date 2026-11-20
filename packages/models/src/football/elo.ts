@@ -35,6 +35,7 @@ export interface EloMatch {
   away: string;
   homeGoals: number;
   awayGoals: number;
+  neutralSite?: boolean;
 }
 
 export interface EloPrediction {
@@ -49,7 +50,7 @@ export interface EloPrediction {
 
 export interface EloTracker {
   rating(team: string): number;
-  predict(home: string, away: string): EloPrediction;
+  predict(home: string, away: string, options?: { neutralSite?: boolean }): EloPrediction;
   /** Aplica la regresión de temporada a todos los equipos (idempotente por temporada). */
   beginSeason(season: string): void;
   update(match: EloMatch): void;
@@ -98,10 +99,11 @@ export function createEloTracker(options: EloOptions = {}): EloTracker {
       return ratingOf(team);
     },
 
-    predict(home: string, away: string): EloPrediction {
+    predict(home: string, away: string, options: { neutralSite?: boolean } = {}): EloPrediction {
       const ratingHome = ratingOf(home);
       const ratingAway = ratingOf(away);
-      const diff = ratingHome + config.homeAdvantage - ratingAway;
+      const homeAdv = options.neutralSite ? 0 : config.homeAdvantage;
+      const diff = ratingHome + homeAdv - ratingAway;
       const expectedHome = eloExpectedScore(diff);
       const draw = clamp(
         config.drawBase - config.drawSlope * Math.abs(diff),
@@ -131,8 +133,9 @@ export function createEloTracker(options: EloOptions = {}): EloTracker {
 
       const ratingHome = ratingOf(home);
       const ratingAway = ratingOf(away);
+      const homeAdv = match.neutralSite ? 0 : config.homeAdvantage;
       const expectedHome = eloExpectedScore(
-        ratingHome + config.homeAdvantage - ratingAway,
+        ratingHome + homeAdv - ratingAway,
       );
       const actualHome =
         match.homeGoals > match.awayGoals ? 1 : match.homeGoals === match.awayGoals ? 0.5 : 0;

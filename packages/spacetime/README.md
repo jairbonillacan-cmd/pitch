@@ -1,8 +1,8 @@
 # @pitchlab/spacetime
 
-Motores de **PitchLab Spacetime Suite v3.2** (Tachyon, Singularity, Minkowski, Geodesic, multideporte y el panorama público por mercado `MatchOutlook`) que usa la app.
+Motores de **PitchLab Spacetime Suite v5.1** (superficie congelada de producción `v3.0/v3.1/v3.2` + suite candidata `v5.1`: Tachyon v5.1, Meridian v2/v3/v5, Horizon-Goals 3/4-Param, Micro-Mercados fútbol, Props jerárquicos, Minkowski NFL v5, Multideporte v4, SGP Cópula Student-t, Early Payout / In-Play, Bandas Epistémicas Conformales Venn-Abers y Guardrail Anti-Alucinación).
 
-> **v3.2 (2026-11-13, `prediction-lab` `2960d77`):** el sync reescribe las rutas de investigación (`../../data/prediction/` → `../data/`, raíz del repo → raíz del paquete) y omite con `it.skip` las pruebas que solo se pueden verificar en `prediction-lab` (Python en `research/.venv`, artefactos de `services/models`, `data/ledger` y el SHA de la copia CRLF). Cada omisión queda con su motivo en `SOURCE.json → patches`. La ficha del partido lee `outlooks` del snapshot con `apps/web/src/server/outlook.ts`.
+> **v5.1 (2026-11-19, `prediction-lab` `d6dfed5`):** 35 módulos TypeScript, 94 artefactos JSON (incl. `candidate_registry_v5_1.json` y `live_matchday_v5_candidate_snapshot.json`) y 26 suites Vitest (incl. axiomas Red-Team `v5_1_remediation.test.ts`), preservando con `0` bytes modificados los 11 artefactos congelados `v3.0/v3.1/v3.2`. La suite v5.1 está expuesta tanto en el namespace `spacetimeV5` de `@pitchlab/spacetime` como por subruta `@pitchlab/spacetime/v5`. El sync reescribe rutas de investigación y omite con `it.skip` únicamente las pruebas que invocan Python local, artefactos en `research/prediction-lab` o SHA CRLF de Windows (motivos registrados en `SOURCE.json → patches`).
 
 ## De dónde salen
 
@@ -27,9 +27,15 @@ pnpm typecheck
 
 El script admite otra referencia: `node packages/spacetime/scripts/sync-from-prediction-lab.mjs <rama-o-commit>`.
 
-### Parches
+### Parches y resguardo de snapshot vivo
 
-`scripts/sync-from-prediction-lab.mjs` puede aplicar correcciones mínimas (lista `PATCHES`) mientras no estén en `prediction-lab`. Hoy no hay ninguna: el error de tipos de `service.ts` se corrigió allá (`263857a`). Si un parche deja de aplicar, el sync falla a propósito: significa que ya se corrigió allá y hay que borrarlo de la lista `PATCHES`.
+`scripts/sync-from-prediction-lab.mjs` aplica los parches documentados en `PATCHES` (registrados en `SOURCE.json`):
+
+- Extensiones retrocompatibles consumidas por `@pitchlab/web` y `@pitchlab/ingest` (`OddsLineMovement` y campos opcionales de movimiento/mejor cuota en `src/odds.ts`; `oddsBySelection` en `MarketQuoteContext` dentro de `src/outlook.ts`) sin alterar ningún cálculo congelado `v3.0/v3.1/v3.2`.
+- Omisiones (`it.skip`) de pruebas que dependen de Python local, artefactos de `research/` o hashes CRLF de Windows en `prediction-lab`.
+- Resguardo de frescura en `data/live_matchday_v3_snapshot.json`: si el corte local/CI (`regenerate-live-snapshot.ts`) tiene un `generated_at` más reciente que el de `prediction-lab`, el sync lo conserva para no degradar cuotas reales ni `oddsBySelection`.
+
+Si un parche deja de aplicar, el sync falla a propósito: significa que ya se integró en `prediction-lab` y hay que retirarlo de `PATCHES`.
 
 ## Cómo lo usa la app
 

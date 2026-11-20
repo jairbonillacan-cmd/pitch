@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GET } from "../app/api/admin/data-health/route";
 import { loadServerDataHealthReport } from "../src/server/data-health";
-import { loadLeagueSnapshotEnvelope } from "../src/server/snapshots";
+import { PRODUCT_LEAGUES, loadLeagueSnapshotEnvelope } from "../src/server/snapshots";
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -15,12 +15,24 @@ describe("Salud de datos en servidor y bajas nominales en snapshots", () => {
       "odds-refresh",
       "pre-mvp-snapshot",
     ]);
-    expect(report.leagues).toHaveLength(7);
+    expect(report.leagues).toHaveLength(PRODUCT_LEAGUES.length);
 
     const nfl = report.leagues.find((l) => l.league === "nfl");
     expect(nfl).toBeDefined();
     expect(nfl?.cells.bajas.sourceLabel).toContain("nflverse");
     expect(nfl?.cells.bajas.recordsCount).toBeGreaterThan(0);
+
+    const nba = report.leagues.find((l) => l.league === "nba");
+    const nhl = report.leagues.find((l) => l.league === "nhl");
+    const mlb = report.leagues.find((l) => l.league === "mlb");
+    expect(nba?.cells.calendario.recordsCount).toBeGreaterThan(0);
+    expect(nhl?.cells.calendario.recordsCount).toBeGreaterThan(0);
+    expect(mlb?.cells.calendario.recordsCount).toBeGreaterThan(0);
+    expect(nba?.cells.bajas.recordsCount).toBeGreaterThan(0);
+    expect(nhl?.cells.bajas.recordsCount).toBeGreaterThan(0);
+    expect(mlb?.cells.bajas.recordsCount).toBeGreaterThan(0);
+    expect(nba?.cells.momios.status).toBe("pending_source");
+    expect(nhl?.cells.momios.status).toBe("pending_source");
 
     for (const lg of report.leagues) {
       expect(lg.cells.alineaciones.status).toBe("disabled");
@@ -42,7 +54,7 @@ describe("Salud de datos en servidor y bajas nominales en snapshots", () => {
     expect(allowed.status).toBe(200);
     const body = (await allowed.json()) as { leagues: unknown[]; workflows: unknown[] };
     expect(body.workflows).toHaveLength(2);
-    expect(body.leagues).toHaveLength(7);
+    expect(body.leagues).toHaveLength(PRODUCT_LEAGUES.length);
   });
 
   it("adjunta bajas nominales de data/snapshots/nfl/injuries.json a los partidos de NFL", () => {

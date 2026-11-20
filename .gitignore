@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .next/
+.next-*/
 .next-prod/
 .next-9990/
 .next-9990-dev/
@@ -62,3 +63,5 @@ packages/engines-reference/evidence/
 # Vista previa de correos
 packages/emails/.preview/
 .neon
+# Libro de presupuesto de The Odds API: estado operativo efímero, no se versiona.
+data/odds_timeseries/the_odds_api_budget.json

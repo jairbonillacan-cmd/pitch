@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { hasPublicSessionCookie } from "../../src/server/public-session";
-import { MotoresPageSurface } from "@pitchlab/ui";
+import { MotoresPageSurface } from "@pitchlab/ui/public-sections";
 
 export const metadata: Metadata = {
   title: "Motores · PitchLab",

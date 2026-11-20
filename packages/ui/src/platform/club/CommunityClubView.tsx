@@ -16,7 +16,6 @@ import {
   type WinnerVoteTally,
 } from "../community-stats";
 import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
-import { BadgeChip } from "./badges/ProfileBadges";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { PlSelect } from "../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
@@ -34,17 +33,22 @@ import {
   type LeaderboardWindow,
   type RankedAnalyst,
 } from "../profile-stats";
-import type { MatchPick, PlatformGame, SocialPost } from "../types";
+import type { JournalEntry, MatchPick, PlatformGame, SocialPost } from "../types";
+import {
+  SOCIAL_POST_MAX_CHARS,
+  SocialPostCard,
+  copyPostPickToJournal,
+  copyPostPickToParlay,
+  isPlainClick,
+  resolvePostAuthor,
+  shareSocialPost,
+  type SocialPostAuthor,
+} from "./SocialPostCard";
 import {
   Avatar,
   ChevronRightIcon,
-  CommentIcon,
   GiftIcon,
-  HeartIcon,
-  PickStatus,
-  ShareIcon,
   SocialReportDialog,
-  SocialReportMenu,
   TabPanel,
   UnderlineTabs,
   postMatchesTopics,
@@ -52,7 +56,6 @@ import {
   teamTopicKey,
   useFollowedTopics,
   type FollowedTopics,
-  shareUrl,
   useFollowing,
   useLeaderboardRows,
   useUrlTab,
@@ -103,20 +106,6 @@ function kickoffLabel(iso?: string, timeZone?: string): string {
 
 function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-function isPlainClick(e: React.MouseEvent<HTMLAnchorElement>): boolean {
-  return e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
-}
-
-interface AuthorInfo {
-  handle: string;
-  name: string;
-  initials: string;
-  gradVar: string;
-  avatarUrl: string | null;
-  isTipster: boolean;
-  saldo: string | null;
 }
 
 /* ===========================================================================
@@ -173,6 +162,10 @@ function CommunityContent(): React.JSX.Element {
     oddsFormat,
     publishSocialPost,
     addSocialComment,
+    deleteSocialComment,
+    toggleSocialCommentHelpful,
+    loadAllPostComments,
+    recordSocialPostCopy,
     toggleSocialLike,
     deleteSocialPost,
     refreshSocialFeed,
@@ -243,32 +236,10 @@ function CommunityContent(): React.JSX.Element {
     [dataset.games, socialPosts, voteTallies],
   );
 
-  const authorOf = useMemo(() => {
-    const cache = new Map<string, AuthorInfo>();
-    return (post: SocialPost): AuthorInfo => {
-      const spec = getExampleAnalystSpec(post.authorHandle);
-      const isOwnPost = own?.handle === post.authorHandle;
-      const nextAvatarUrl = spec
-        ? null
-        : ((isOwnPost ? (own?.avatarUrl ?? post.authorAvatarUrl) : post.authorAvatarUrl) ?? null);
-      const hit = cache.get(post.authorHandle);
-      if (hit && hit.avatarUrl === nextAvatarUrl) return hit;
-      const ranked = seasonRanked.find((r) => r.handle === post.authorHandle);
-      const info: AuthorInfo = {
-        handle: post.authorHandle,
-        name: isOwnPost && !spec ? own!.name : post.authorName,
-        initials:
-          spec?.avatarInitials ??
-          (isOwnPost ? own!.avatarInitials : post.authorName.split(" ").map((w) => w[0]).join("").slice(0, 2)),
-        gradVar: spec?.avatarGradVar ?? post.avatarGradVar,
-        avatarUrl: nextAvatarUrl,
-        isTipster: spec?.isTipster ?? false,
-        saldo: ranked && ranked.record.settled > 0 ? formatUnits(ranked.record.netUnits) : null,
-      };
-      cache.set(post.authorHandle, info);
-      return info;
-    };
-  }, [own, seasonRanked]);
+  const authorOf = useMemo(
+    () => (post: SocialPost): SocialPostAuthor => resolvePostAuthor(post, own, seasonRanked),
+    [own, seasonRanked],
+  );
 
   const goProfile = (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!isPlainClick(e)) return;
@@ -281,42 +252,102 @@ function CommunityContent(): React.JSX.Element {
     pushToast(now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`, "default");
   };
 
-  const onCopy = (post: SocialPost): void => {
-    if (!post.pick) return;
-    const game = dataset.games.find((g) => g.id === post.pick!.gameId);
-    const pick = game?.picks.find((p) => p.id === post.pick!.pickId);
-    if (!pick) {
-      pushToast("Ese partido ya no está disponible para registrar.", "warning");
-      return;
+  const onCopy = (post: SocialPost): void =>
+    copyPostPickToJournal(post, {
+      dataset,
+      sealPickToJournal,
+      recordSocialPostCopy,
+      pushToast,
+    });
+
+  const onCopyToParlay = (post: SocialPost): void =>
+    copyPostPickToParlay(post, {
+      dataset,
+      addPickToParlay,
+      pushToast,
+    });
+
+  const onShare = (post: SocialPost): void => shareSocialPost(post, pushToast);
+
+  const [forYouLeague, setForYouLeague] = useState<string>("all");
+  const [forYouOpenOnly, setForYouOpenOnly] = useState(false);
+  const [forYouSort, setForYouSort] = useState<"recent" | "most_commented">("recent");
+
+  const forYouScope = useMemo<SocialFeedScope | undefined>(() => {
+    if (forYouLeague === "all" && !forYouOpenOnly && forYouSort === "recent") return undefined;
+    return {
+      ...(forYouLeague !== "all" ? { leagueLabel: forYouLeague } : {}),
+      ...(forYouOpenOnly ? { openPickOnly: true } : {}),
+      ...(forYouSort === "most_commented" ? { sort: "most_commented" as const } : {}),
+    };
+  }, [forYouLeague, forYouOpenOnly, forYouSort]);
+
+  useEffect(() => {
+    if (!forYouScope) return;
+    refreshSocialFeed(forYouScope);
+  }, [forYouScope, refreshSocialFeed]);
+
+  const postCountByLeague = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const p of socialPosts) {
+      if (p.leagueLabel && p.leagueLabel !== "Comunidad") {
+        counts.set(p.leagueLabel, (counts.get(p.leagueLabel) ?? 0) + 1);
+      }
     }
-    sealPickToJournal(pick, post.pick.units, post.pick.userDecimal);
-  };
+    return counts;
+  }, [socialPosts]);
 
-  const onCopyToParlay = (post: SocialPost): void => {
-    if (!post.pick) return;
-    const game = dataset.games.find((g) => g.id === post.pick!.gameId);
-    const pick = game?.picks.find((p) => p.id === post.pick!.pickId);
-    if (!pick || game?.status !== "NS") {
-      pushToast("Ese partido ya no está disponible para tu parlay.", "warning");
-      return;
-    }
-    // `addPickToParlay` ya avisa si el pick choca con otro del mismo partido.
-    if (addPickToParlay(pick)) pushToast(`Agregamos «${pick.label}» a tu parlay.`, "success");
-  };
+  const openPostsCount = useMemo(
+    () => socialPosts.filter((p) => p.pick?.status === "open").length,
+    [socialPosts],
+  );
 
-  const onShare = (post: SocialPost): void => {
-    void shareUrl(
-      `/app/u/${post.authorHandle}`,
-      `${post.authorName} en PitchLab`,
-      () => pushToast("Copiamos el enlace.", "success"),
-      () => pushToast("No pudimos compartir.", "warning"),
-    );
-  };
+  const forYouLeagueOptions = useMemo(() => {
+    const ordered = [...dataset.leagues].sort((a, b) => {
+      const ca = postCountByLeague.get(a.label) ?? 0;
+      const cb = postCountByLeague.get(b.label) ?? 0;
+      if (cb !== ca) return cb - ca;
+      return 0;
+    });
+    return [
+      {
+        value: "all",
+        label: "Todas las ligas",
+        triggerLabel: "Todas las ligas",
+        icon: <MaestroIcon name="layers" size={14} />,
+      },
+      ...ordered.map((l) => {
+        const count = postCountByLeague.get(l.label) ?? 0;
+        return {
+          value: l.label,
+          label: count > 0 ? `${l.label} (${count})` : l.label,
+          triggerLabel: l.label,
+          icon: <LeagueBadge league={l.league} label={l.label} logoUrl={l.logoUrl} size={16} />,
+        };
+      }),
+    ];
+  }, [dataset.leagues, postCountByLeague]);
 
-  const feedProps = {
+  const filteredForYouPosts = useMemo(() => {
+    const filtered = socialPosts.filter((p) => {
+      if (forYouLeague !== "all" && p.leagueLabel !== forYouLeague) return false;
+      if (forYouOpenOnly && p.pick?.status !== "open") return false;
+      return true;
+    });
+    if (forYouSort !== "most_commented") return filtered;
+    return [...filtered].sort((a, b) => {
+      const ca = Math.max(a.commentsCount ?? 0, a.comments.length);
+      const cb = Math.max(b.commentsCount ?? 0, b.comments.length);
+      if (cb !== ca) return cb - ca;
+      return (b.createdAtIso ?? "").localeCompare(a.createdAtIso ?? "");
+    });
+  }, [forYouLeague, forYouOpenOnly, forYouSort, socialPosts]);
+
+  const feedProps: FeedSharedProps = {
     authorOf,
     own,
     dataset,
+    journal: ownJournal,
     oddsFormat,
     follows,
     onToggleFollow,
@@ -325,15 +356,24 @@ function CommunityContent(): React.JSX.Element {
     onShare,
     toggleSocialLike,
     addSocialComment,
+    deleteSocialComment,
+    toggleSocialCommentHelpful,
+    loadAllPostComments,
     onDelete: deleteSocialPost,
     onOpenReport: setReportTarget,
+    navigateTo,
     goProfile,
     highlightedPostId,
   };
 
   return (
     <div className="pl-com">
-      <h1 className="pl-com-title">Comunidad</h1>
+      <header className="pl-com-header">
+        <h1 className="pl-com-title">Comunidad</h1>
+        <p className="pl-com-subtitle">
+          Lecturas de socios, picks sellados antes del partido y consenso frente al modelo.
+        </p>
+      </header>
       <UnderlineTabs
         tabs={TABS}
         active={tab}
@@ -346,9 +386,87 @@ function CommunityContent(): React.JSX.Element {
         {tab === "para-ti" ? (
           <div className="pl-com-cols">
             <div className="pl-com-main">
-              <Composer own={own} games={dataset.games} oddsFormat={oddsFormat} publish={publishSocialPost} />
+              <Composer
+                own={own}
+                games={dataset.games}
+                journal={ownJournal}
+                oddsFormat={oddsFormat}
+                publish={publishSocialPost}
+              />
               <MobileTop ranked={monthRanked} monthName={monthName} goProfile={goProfile} />
-              <Feed posts={socialPosts} {...feedProps} />
+              <div className="pl-com-filter-bar" role="region" aria-label="Filtros de Para ti">
+                <div className="pl-com-filter-controls">
+                  <div className="pl-com-seg pl-com-seg--compact" role="group" aria-label="Tipo de publicaciones">
+                    <button
+                      type="button"
+                      aria-pressed={!forYouOpenOnly}
+                      onClick={() => setForYouOpenOnly(false)}
+                    >
+                      Todo
+                    </button>
+                    <button
+                      type="button"
+                      aria-pressed={forYouOpenOnly}
+                      onClick={() => setForYouOpenOnly(true)}
+                    >
+                      <span>Con pick abierto</span>
+                      {openPostsCount > 0 ? (
+                        <span className="pl-com-inline-count num">{openPostsCount}</span>
+                      ) : null}
+                    </button>
+                  </div>
+
+                  <PlSelect
+                    variant="glass"
+                    size="sm"
+                    ariaLabel="Filtrar publicaciones por liga"
+                    value={forYouLeague}
+                    onChange={(next) => setForYouLeague(next)}
+                    options={forYouLeagueOptions}
+                    className="pl-com-league-select"
+                  />
+
+                  {forYouLeague !== "all" || forYouOpenOnly ? (
+                    <button
+                      type="button"
+                      className="pl-com-reset-btn"
+                      onClick={() => {
+                        setForYouLeague("all");
+                        setForYouOpenOnly(false);
+                      }}
+                    >
+                      Limpiar
+                    </button>
+                  ) : null}
+                </div>
+
+                <div className="pl-com-seg pl-com-seg--compact" role="group" aria-label="Ordenar publicaciones">
+                  <button
+                    type="button"
+                    aria-pressed={forYouSort === "recent"}
+                    onClick={() => setForYouSort("recent")}
+                  >
+                    Recientes
+                  </button>
+                  <button
+                    type="button"
+                    aria-pressed={forYouSort === "most_commented"}
+                    onClick={() => setForYouSort("most_commented")}
+                  >
+                    Más comentados
+                  </button>
+                </div>
+              </div>
+              <Feed
+                posts={filteredForYouPosts}
+                scope={forYouScope}
+                emptyText={
+                  forYouLeague !== "all" || forYouOpenOnly
+                    ? "No hay publicaciones con esos filtros."
+                    : "Todavía no hay publicaciones."
+                }
+                {...feedProps}
+              />
             </div>
             <aside className="pl-com-aside" aria-label="Resumen de Comunidad">
               <YourMonthCard own={own} ranked={monthRanked} monthName={monthName} goProfile={goProfile} />
@@ -413,16 +531,56 @@ interface AttachedPick {
   matchPick: MatchPick;
   units: number;
   userDecimal: number;
+  sealedEntryId?: string;
+}
+
+const STAKE_OPTIONS = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+
+function entryToMatchPick(entry: JournalEntry, games: readonly PlatformGame[]): MatchPick {
+  const game = games.find((g) => g.id === entry.gameId);
+  const exact = game?.picks.find((p) => p.id === entry.pickId);
+  if (exact) return exact;
+  return {
+    id: entry.pickId,
+    gameId: entry.gameId,
+    league: game?.league ?? ("liga-mx" as MatchPick["league"]),
+    leagueLabel: entry.leagueLabel,
+    matchLabel: entry.matchLabel,
+    kickoffLocal: game?.kickoffLocal ?? "",
+    gameStatus: entry.status === "pending" ? "NS" : "FT",
+    slotIndex: 99,
+    category: "valor",
+    categoryLabel: entry.origin,
+    risk: "medio",
+    engineKey: game?.picks[0]?.engineKey ?? "tachyon",
+    engineName: entry.origin,
+    marketGroup: "journal",
+    selectionKey: entry.pickId,
+    conflictGroup: "independent",
+    label: entry.pickLabel,
+    rationale: "",
+    p: Math.min(0.95, Math.max(0.05, 1 / Math.max(1.04, entry.fairDecimal))),
+    fairDecimal: entry.fairDecimal,
+    fairAmerican: 0,
+    marketDecimal: entry.userDecimal,
+    marketAmerican: 0,
+    edgePts: 0,
+    confidenceScore: null,
+    suggestedUnits: entry.units,
+    result: entry.status === "won" ? "hit" : entry.status === "lost" ? "miss" : null,
+  };
 }
 
 function Composer({
   own,
   games,
+  journal,
   oddsFormat,
   publish,
 }: {
   own: OwnIdentity | null;
   games: readonly PlatformGame[];
+  journal: readonly JournalEntry[];
   oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
   publish: ReturnType<typeof usePlatform>["publishSocialPost"];
 }): React.JSX.Element {
@@ -433,6 +591,7 @@ function Composer({
   const [error, setError] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [oddsDraft, setOddsDraft] = useState("");
 
   const submit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -443,6 +602,7 @@ function Composer({
     }
     const res = publish({
       leagueLabel: attached?.matchPick.leagueLabel ?? "Comunidad",
+      gameId: attached?.matchPick.gameId,
       matchLabel: attached?.matchPick.matchLabel ?? "",
       pickBadge: attached ? `${attached.matchPick.label} · ${attached.units.toFixed(1)}u` : "",
       originType: origin,
@@ -455,10 +615,12 @@ function Composer({
     }
     setBody("");
     setAttached(null);
+    setOddsDraft("");
     setSheetOpen(false);
   };
 
   const meta = attached ? resolveGameMeta(attached.matchPick.gameId, games) : null;
+  const nearLimit = body.length >= Math.round(SOCIAL_POST_MAX_CHARS * 0.7);
 
   const form = (inSheet: boolean): React.JSX.Element => (
     <form className={`pl-com-composer ${inSheet ? "" : "glass-lens glass-ring"}`} aria-label="Publicar" onSubmit={submit} noValidate>
@@ -471,6 +633,7 @@ function Composer({
           <textarea
             id={`${uid}-${inSheet ? "s" : "d"}-body`}
             rows={2}
+            maxLength={SOCIAL_POST_MAX_CHARS}
             placeholder="¿Qué pick tienes y por qué?"
             value={body}
             aria-invalid={error ? true : undefined}
@@ -483,17 +646,68 @@ function Composer({
           {attached ? (
             <div className="pl-com-attached glass-card glass-ring">
               {meta ? <LeagueBadge league={meta.league} size={18} /> : null}
-              <span className="pl-com-attached-copy">
-                <strong>{attached.matchPick.label}</strong>{" "}
-                <span>
-                  · {attached.matchPick.matchLabel} · <span className="num">{attached.units.toFixed(1)}u</span>
+              <div className="pl-com-attached-main">
+                <span className="pl-com-attached-copy">
+                  <strong>{attached.matchPick.label}</strong>{" "}
+                  <span>
+                    · {attached.matchPick.matchLabel} · <span className="num">{attached.units.toFixed(1)}u</span>{" "}
+                    · <span className="num">{formatOddsValue(attached.userDecimal, oddsFormat)}</span>
+                  </span>
                 </span>
-              </span>
+                {attached.sealedEntryId ? (
+                  <span className="pl-com-attached-sealed">Sellado en tu bitácora</span>
+                ) : (
+                  <div className="pl-com-attached-controls">
+                    <label className="pl-com-attached-field">
+                      <span>Unidades</span>
+                      <select
+                        aria-label="Unidades del pick"
+                        value={String(attached.units)}
+                        onChange={(e) => {
+                          const val = Number(e.target.value);
+                          if (Number.isFinite(val)) {
+                            setAttached((prev) => (prev ? { ...prev, units: val } : null));
+                          }
+                        }}
+                      >
+                        {STAKE_OPTIONS.map((u) => (
+                          <option key={u} value={String(u)}>
+                            {u.toFixed(1)}u
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label className="pl-com-attached-field">
+                      <span>Momio</span>
+                      <input
+                        type="number"
+                        step="0.01"
+                        min="1.05"
+                        max="100"
+                        inputMode="decimal"
+                        aria-label="Momio decimal del pick"
+                        value={oddsDraft}
+                        onChange={(e) => {
+                          const raw = e.target.value;
+                          setOddsDraft(raw);
+                          const parsed = Number(raw);
+                          if (Number.isFinite(parsed) && parsed >= 1.05 && parsed <= 100) {
+                            setAttached((prev) => (prev ? { ...prev, userDecimal: parsed } : null));
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                )}
+              </div>
               <button
                 type="button"
                 className="pl-com-icon-btn"
                 aria-label="Quitar pick adjunto"
-                onClick={() => setAttached(null)}
+                onClick={() => {
+                  setAttached(null);
+                  setOddsDraft("");
+                }}
               >
                 <MaestroIcon name="x" size={14} />
               </button>
@@ -507,21 +721,30 @@ function Composer({
       <div className="pl-com-composer-bar">
         <div className="pl-com-composer-tools">
           <button type="button" className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm" onClick={() => setPickerOpen(true)}>
-            <MaestroIcon name="layers" size={14} />
+            <MaestroIcon name="plus" size={14} />
             {attached ? "Cambiar pick" : "Adjuntar pick"}
           </button>
-          <div className="pl-com-seg" role="group" aria-label="Origen del pick">
-            <button type="button" aria-pressed={origin === "Spacetime Suite"} onClick={() => setOrigin("Spacetime Suite")}>
-              Del modelo
-            </button>
-            <button type="button" aria-pressed={origin === "Bitácora Propia"} onClick={() => setOrigin("Bitácora Propia")}>
-              Propio
-            </button>
-          </div>
+          {attached ? (
+            <div className="pl-com-seg" role="group" aria-label="Origen del pick">
+              <button type="button" aria-pressed={origin === "Spacetime Suite"} onClick={() => setOrigin("Spacetime Suite")}>
+                Del modelo
+              </button>
+              <button type="button" aria-pressed={origin === "Bitácora Propia"} onClick={() => setOrigin("Bitácora Propia")}>
+                Propio
+              </button>
+            </div>
+          ) : null}
         </div>
-        <button type="submit" className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm">
-          Publicar
-        </button>
+        <div className="pl-com-composer-submit">
+          {nearLimit ? (
+            <span className="pl-com-char-count num">
+              {body.length}/{SOCIAL_POST_MAX_CHARS}
+            </span>
+          ) : null}
+          <button type="submit" className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm">
+            Publicar
+          </button>
+        </div>
       </div>
     </form>
   );
@@ -556,14 +779,14 @@ function Composer({
       {pickerOpen ? (
         <PickPicker
           games={games}
+          journal={journal}
+          origin={origin}
+          onOriginChange={setOrigin}
           oddsFormat={oddsFormat}
           onClose={() => setPickerOpen(false)}
-          onPick={(pick) => {
-            setAttached({
-              matchPick: pick,
-              units: Math.max(0.5, Math.min(3, Math.round((pick.suggestedUnits || 1) * 2) / 2)),
-              userDecimal: pick.marketDecimal ?? pick.fairDecimal,
-            });
+          onPick={(picked) => {
+            setAttached(picked);
+            setOddsDraft(picked.userDecimal.toFixed(2));
             setPickerOpen(false);
           }}
         />
@@ -579,20 +802,42 @@ function resolveGameMeta(gameId: string, games: readonly PlatformGame[]) {
 
 function PickPicker({
   games,
+  journal,
+  origin,
+  onOriginChange,
   oddsFormat,
   onClose,
   onPick,
 }: {
   games: readonly PlatformGame[];
+  journal: readonly JournalEntry[];
+  origin: "Spacetime Suite" | "Bitácora Propia";
+  onOriginChange: (origin: "Spacetime Suite" | "Bitácora Propia") => void;
   oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
   onClose: () => void;
-  onPick: (pick: MatchPick) => void;
+  onPick: (picked: AttachedPick) => void;
 }): React.JSX.Element {
   const uid = useId();
   const { userTimezone } = usePlatform();
   const [query, setQuery] = useState("");
+  const q = query.trim().toLowerCase();
+
+  const journalMatches = useMemo(() => {
+    const sorted = [...journal].sort((a, b) => {
+      if (a.status === "pending" && b.status !== "pending") return -1;
+      if (b.status === "pending" && a.status !== "pending") return 1;
+      return (b.sealedAtIso ?? "").localeCompare(a.sealedAtIso ?? "");
+    });
+    return sorted
+      .filter(
+        (e) =>
+          !q ||
+          `${e.pickLabel} ${e.matchLabel} ${e.leagueLabel}`.toLowerCase().includes(q),
+      )
+      .slice(0, 12);
+  }, [journal, q]);
+
   const upcoming = useMemo(() => {
-    const q = query.trim().toLowerCase();
     return games
       .filter((g) => g.status === "NS" && g.picks.length > 0)
       .filter(
@@ -604,7 +849,7 @@ function PickPicker({
       )
       .sort((a, b) => a.kickoffUtc.localeCompare(b.kickoffUtc))
       .slice(0, 12);
-  }, [games, query]);
+  }, [games, q]);
 
   return (
     <TopLayerModalDialog open onClose={onClose} ariaLabelledBy={`${uid}-title`} maxWidth="34rem">
@@ -617,6 +862,22 @@ function PickPicker({
             <MaestroIcon name="x" size={16} />
           </button>
         </div>
+        <div className="pl-com-seg pl-com-picker-mode" role="group" aria-label="Fuente del pick">
+          <button
+            type="button"
+            aria-pressed={origin === "Spacetime Suite"}
+            onClick={() => onOriginChange("Spacetime Suite")}
+          >
+            Del modelo
+          </button>
+          <button
+            type="button"
+            aria-pressed={origin === "Bitácora Propia"}
+            onClick={() => onOriginChange("Bitácora Propia")}
+          >
+            Mi bitácora / Propio
+          </button>
+        </div>
         <label className="sr-only" htmlFor={`${uid}-q`}>
           Buscar partido
         </label>
@@ -624,39 +885,100 @@ function PickPicker({
           id={`${uid}-q`}
           className="pl-com-search"
           type="search"
-          placeholder="Buscar equipo o liga"
+          placeholder={origin === "Bitácora Propia" ? "Buscar en tu bitácora o partido" : "Buscar equipo o liga"}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
         <div className="pl-com-picker-list">
-          {upcoming.length === 0 ? <p className="pl-prof-empty-line">No hay partidos próximos con ese nombre.</p> : null}
-          {upcoming.map((game) => (
-            <section key={game.id} className="pl-com-picker-game" aria-label={`${game.home.name} vs ${game.away.name}`}>
-              <p className="pl-com-picker-match">
-                <LeagueBadge league={game.league} size={16} />
-                <span>
-                  {game.home.shortName || game.home.name} vs {game.away.shortName || game.away.name}
-                </span>
-                <span className="pl-prof-muted num">· {kickoffLabel(game.kickoffUtc, userTimezone)}</span>
-              </p>
-              <ul>
-                {[...game.picks]
-                  .sort((a, b) => b.p - a.p)
-                  .slice(0, 4)
-                  .map((pick) => (
-                    <li key={pick.id}>
-                      <button type="button" className="pl-com-picker-pick" onClick={() => onPick(pick)}>
-                        <span>{pick.label}</span>
-                        <span className="num pl-prof-muted">
-                          {formatOddsValue(pick.marketDecimal ?? pick.fairDecimal, oddsFormat)} · modelo{" "}
-                          {(pick.p * 100).toFixed(1)} %
-                        </span>
-                      </button>
-                    </li>
-                  ))}
-              </ul>
-            </section>
-          ))}
+          {origin === "Bitácora Propia" ? (
+            <>
+              <div className="pl-com-picker-section">
+                <p className="pl-com-picker-heading">Ya sellados en tu bitácora</p>
+                {journalMatches.length === 0 ? (
+                  <p className="pl-prof-empty-line">
+                    No tienes picks sellados con esa búsqueda. Puedes elegir uno de la cartelera abajo y fijar tus
+                    unidades y momio.
+                  </p>
+                ) : (
+                  <ul className="pl-com-picker-journal">
+                    {journalMatches.map((entry) => {
+                      const mp = entryToMatchPick(entry, games);
+                      const isUuid = /^[0-9a-f-]{36}$/i.test(entry.id);
+                      return (
+                        <li key={entry.id}>
+                          <button
+                            type="button"
+                            className="pl-com-picker-pick"
+                            onClick={() =>
+                              onPick({
+                                matchPick: mp,
+                                units: entry.units,
+                                userDecimal: entry.userDecimal,
+                                ...(isUuid ? { sealedEntryId: entry.id } : {}),
+                              })
+                            }
+                          >
+                            <span>
+                              {entry.pickLabel} · <small className="pl-prof-muted">{entry.matchLabel}</small>
+                            </span>
+                            <span className="num pl-prof-muted">
+                              {entry.units.toFixed(1)}u @ {formatOddsValue(entry.userDecimal, oddsFormat)}
+                            </span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+              {upcoming.length > 0 ? (
+                <p className="pl-com-picker-heading">Cartelera próxima (ajusta unidades y momio al adjuntar)</p>
+              ) : null}
+            </>
+          ) : null}
+          {upcoming.length === 0 ? (
+            origin === "Spacetime Suite" ? (
+              <p className="pl-prof-empty-line">No hay partidos próximos con ese nombre.</p>
+            ) : null
+          ) : (
+            upcoming.map((game) => (
+              <section key={game.id} className="pl-com-picker-game" aria-label={`${game.home.name} vs ${game.away.name}`}>
+                <p className="pl-com-picker-match">
+                  <LeagueBadge league={game.league} size={16} />
+                  <span>
+                    {game.home.shortName || game.home.name} vs {game.away.shortName || game.away.name}
+                  </span>
+                  <span className="pl-prof-muted num">· {kickoffLabel(game.kickoffUtc, userTimezone)}</span>
+                </p>
+                <ul>
+                  {[...game.picks]
+                    .sort((a, b) => b.p - a.p)
+                    .slice(0, 4)
+                    .map((pick) => (
+                      <li key={pick.id}>
+                        <button
+                          type="button"
+                          className="pl-com-picker-pick"
+                          onClick={() =>
+                            onPick({
+                              matchPick: pick,
+                              units: Math.max(0.5, Math.min(5, Math.round((pick.suggestedUnits || 1) * 2) / 2)),
+                              userDecimal: pick.marketDecimal ?? pick.fairDecimal,
+                            })
+                          }
+                        >
+                          <span>{pick.label}</span>
+                          <span className="num pl-prof-muted">
+                            {formatOddsValue(pick.marketDecimal ?? pick.fairDecimal, oddsFormat)} · modelo{" "}
+                            {(pick.p * 100).toFixed(1)} %
+                          </span>
+                        </button>
+                      </li>
+                    ))}
+                </ul>
+              </section>
+            ))
+          )}
         </div>
       </div>
     </TopLayerModalDialog>
@@ -668,9 +990,10 @@ function PickPicker({
    ========================================================================= */
 
 interface FeedSharedProps {
-  authorOf: (post: SocialPost) => AuthorInfo;
+  authorOf: (post: SocialPost) => SocialPostAuthor;
   own: OwnIdentity | null;
   dataset: ReturnType<typeof usePlatform>["dataset"];
+  journal: readonly JournalEntry[];
   oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
   follows: ReturnType<typeof useFollowing>;
   onToggleFollow: (handle: string) => void;
@@ -678,9 +1001,13 @@ interface FeedSharedProps {
   onCopyToParlay: (post: SocialPost) => void;
   onShare: (post: SocialPost) => void;
   toggleSocialLike: (postId: string) => void;
-  addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
+  addSocialComment: ReturnType<typeof usePlatform>["addSocialComment"];
+  deleteSocialComment: ReturnType<typeof usePlatform>["deleteSocialComment"];
+  toggleSocialCommentHelpful: ReturnType<typeof usePlatform>["toggleSocialCommentHelpful"];
+  loadAllPostComments: ReturnType<typeof usePlatform>["loadAllPostComments"];
   onDelete: (postId: string) => void;
   onOpenReport: (target: SocialReportTarget) => void;
+  navigateTo: (href: string) => void;
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
   highlightedPostId?: string | null;
 }
@@ -735,7 +1062,30 @@ function Feed({
   return (
     <div className="pl-com-feed">
       {displayPool.slice(0, limit).map((post) => (
-        <PostCard key={post.id} post={post} {...shared} />
+        <SocialPostCard
+          key={post.id}
+          post={post}
+          author={shared.authorOf(post)}
+          own={shared.own}
+          dataset={shared.dataset}
+          journal={shared.journal}
+          oddsFormat={shared.oddsFormat}
+          following={shared.follows.isFollowing(post.authorHandle)}
+          onToggleFollow={shared.onToggleFollow}
+          onCopy={shared.onCopy}
+          onCopyToParlay={shared.onCopyToParlay}
+          onShare={shared.onShare}
+          toggleSocialLike={shared.toggleSocialLike}
+          addSocialComment={shared.addSocialComment}
+          onDeleteComment={shared.deleteSocialComment}
+          onToggleCommentHelpful={shared.toggleSocialCommentHelpful}
+          onLoadAllComments={shared.loadAllPostComments}
+          onDeletePost={shared.onDelete}
+          onOpenReport={shared.onOpenReport}
+          onNavigate={shared.navigateTo}
+          goProfile={shared.goProfile}
+          highlighted={shared.highlightedPostId === post.id}
+        />
       ))}
       {canShowMore ? (
         <div className="pl-prof-more">
@@ -750,328 +1100,6 @@ function Feed({
         </div>
       ) : null}
     </div>
-  );
-}
-
-function PostCard({
-  post,
-  authorOf,
-  own,
-  dataset,
-  oddsFormat,
-  follows,
-  onToggleFollow,
-  onCopy,
-  onCopyToParlay,
-  onShare,
-  toggleSocialLike,
-  addSocialComment,
-  onDelete,
-  onOpenReport,
-  goProfile,
-  highlightedPostId,
-}: FeedSharedProps & { post: SocialPost }): React.JSX.Element {
-  const uid = useId();
-  const cardRef = useRef<HTMLElement>(null);
-  const isHighlighted = Boolean(highlightedPostId && highlightedPostId === post.id);
-  const author = authorOf(post);
-  const [threadOpen, setThreadOpen] = useState(isHighlighted);
-  const [confirmDelete, setConfirmDelete] = useState(false);
-
-  useEffect(() => {
-    if (!isHighlighted) return;
-    setThreadOpen(true);
-    cardRef.current?.scrollIntoView?.({ behavior: "smooth", block: "center" });
-  }, [isHighlighted]);
-  const canDelete = Boolean(post.fromServer && post.isMine);
-  const [reply, setReply] = useState("");
-  const [replyError, setReplyError] = useState("");
-  const isMine = Boolean(post.isMine || own?.handle === post.authorHandle);
-  const canReportPost = !isMine && !post.isExample;
-  const following = follows.isFollowing(post.authorHandle);
-  const pick = post.pick;
-  const meta = pick ? resolveEntryGame(pick.gameId, dataset) : null;
-  const units = pick ? (pick.status === "won" ? pick.units * (pick.userDecimal - 1) : pick.status === "lost" ? -pick.units : null) : null;
-  const firstComment = post.comments[0];
-  const isFirstCommentMine = firstComment ? Boolean(firstComment.isMine || own?.handle === firstComment.authorHandle) : true;
-
-  const pickMeta = pick
-    ? pick.status === "open"
-      ? [
-          meta?.leagueLabel ?? post.leagueLabel,
-          kickoffLabel(meta?.kickoffIso),
-          formatOddsValue(pick.userDecimal, oddsFormat),
-          `justo ${formatOddsValue(pick.fairDecimal, oddsFormat)}`,
-          `modelo ${(pick.modelProbability * 100).toFixed(1)} %`,
-        ]
-      : [
-          meta?.leagueLabel ?? post.leagueLabel,
-          meta?.score ? `${meta.home.name} ${meta.score.home}–${meta.score.away} ${meta.away.name}` : post.matchLabel,
-          formatOddsValue(pick.userDecimal, oddsFormat),
-        ]
-    : [];
-
-  return (
-    <article
-      ref={cardRef}
-      id={`post-${post.id}`}
-      data-highlighted={isHighlighted ? "true" : undefined}
-      className="pl-com-post glass-lens glass-ring"
-      aria-labelledby={`${uid}-author`}
-    >
-      <header className="pl-com-post-head">
-        <a href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)} className="pl-com-post-avatar" tabIndex={-1} aria-hidden="true">
-          <Avatar initials={author.initials} avatarUrl={author.avatarUrl} gradVar={author.gradVar} size={42} loading="lazy" />
-        </a>
-        <div className="pl-com-post-who">
-          <p className="pl-com-post-name">
-            <a id={`${uid}-author`} href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)}>
-              {author.name}
-            </a>
-            {author.isTipster ? <VerifiedSeal size={16} /> : null}
-            {post.authorBadge ? <BadgeChip badge={post.authorBadge} size="sm" className="pl-com-post-badge" /> : null}
-            {post.isExample ? <ExampleBadge className="pl-com-example" /> : null}
-          </p>
-          <p className="pl-com-post-sub num">
-            @{post.authorHandle}
-            {author.saldo ? ` · ${author.saldo}` : ""} · {post.createdAt.toLowerCase()}
-          </p>
-        </div>
-        {!isMine ? (
-          <button
-            type="button"
-            className={`pl-prof-btn pl-prof-btn--sm ${following ? "pl-prof-btn--ghost" : "pl-prof-btn--primary"} pl-com-follow`}
-            aria-pressed={following}
-            aria-label={`${following ? "Siguiendo" : "Seguir"} a ${author.name}`}
-            onClick={() => onToggleFollow(post.authorHandle)}
-          >
-            {following ? "Siguiendo" : "Seguir"}
-          </button>
-        ) : null}
-        {canReportPost ? (
-          <SocialReportMenu
-            triggerLabel={`Más opciones de la publicación de ${author.name}`}
-            onReport={() =>
-              onOpenReport({
-                kind: "post",
-                postId: post.id,
-                authorHandle: post.authorHandle,
-              })
-            }
-          />
-        ) : null}
-      </header>
-
-      <p className="pl-com-post-body">{post.body}</p>
-
-      {pick ? (
-        <div className="pl-com-pick glass-card glass-ring">
-          {meta ? (
-            <span className="pl-prof-teams" aria-hidden="true">
-              <TeamBadge league={meta.league} slug={meta.home.slug} name={meta.home.name} size={28} decorative />
-              <span className="pl-prof-teams-away">
-                <TeamBadge league={meta.league} slug={meta.away.slug} name={meta.away.name} size={28} decorative />
-              </span>
-            </span>
-          ) : null}
-          <div className="pl-com-pick-copy">
-            <p className="pl-prof-row-title">
-              {pick.label} · <span className="num">{pick.units.toFixed(1)}u</span>
-            </p>
-            <p className="pl-prof-row-sub num">{pickMeta.filter(Boolean).join(" · ")}</p>
-          </div>
-          <PickStatus status={pick.status} detail={units === null ? undefined : formatUnits(units)} />
-        </div>
-      ) : null}
-
-      <div className="pl-com-actions num">
-        <button
-          type="button"
-          className={`pl-com-act ${post.likedByMe ? "is-on" : ""}`}
-          aria-pressed={Boolean(post.likedByMe)}
-          aria-label={`Me gusta, ${post.likes}`}
-          onClick={() => toggleSocialLike(post.id)}
-        >
-          <HeartIcon filled={Boolean(post.likedByMe)} />
-          <span>{post.likes}</span>
-        </button>
-        <button
-          type="button"
-          className="pl-com-act"
-          aria-expanded={threadOpen}
-          aria-controls={`${uid}-thread`}
-          aria-label={`Comentarios, ${post.comments.length}`}
-          onClick={() => setThreadOpen((v) => !v)}
-        >
-          <CommentIcon />
-          <span>{post.comments.length}</span>
-        </button>
-        {pick && !isMine ? (
-          <button type="button" className="pl-com-act" aria-label="Copiar a mi récord" onClick={() => onCopy(post)}>
-            <MaestroIcon name="copy" size={15} />
-            A mi récord
-          </button>
-        ) : null}
-        {pick && pick.status === "open" ? (
-          <button type="button" className="pl-com-act" aria-label="Copiar a mi parlay" onClick={() => onCopyToParlay(post)}>
-            <MaestroIcon name="layers" size={15} />
-            A mi parlay
-          </button>
-        ) : null}
-        {canDelete ? (
-          confirmDelete ? (
-            <span className="pl-com-delete-confirm" role="group" aria-label="Confirmar borrado">
-              <button type="button" className="pl-com-act pl-com-act--danger" onClick={() => onDelete(post.id)}>
-                Borrar
-              </button>
-              <button type="button" className="pl-com-act" onClick={() => setConfirmDelete(false)}>
-                Cancelar
-              </button>
-            </span>
-          ) : (
-            <button
-              type="button"
-              className="pl-com-act pl-com-act--end"
-              aria-label="Borrar publicación"
-              onClick={() => setConfirmDelete(true)}
-            >
-              <MaestroIcon name="trash" size={15} />
-            </button>
-          )
-        ) : null}
-        <button
-          type="button"
-          className={`pl-com-act ${canDelete ? "" : "pl-com-act--end"}`}
-          aria-label="Compartir"
-          onClick={() => onShare(post)}
-        >
-          <ShareIcon size={16} />
-        </button>
-      </div>
-
-      <div id={`${uid}-thread`}>
-        {!threadOpen && firstComment ? (
-          <div className="pl-com-comment-preview">
-            <Avatar
-              initials={firstComment.authorName.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-              avatarUrl={
-                own?.handle === firstComment.authorHandle
-                  ? (own.avatarUrl ?? firstComment.authorAvatarUrl)
-                  : firstComment.authorAvatarUrl
-              }
-              gradVar={getExampleAnalystSpec(firstComment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
-              size={28}
-              loading="lazy"
-            />
-            <div className="pl-com-comment-preview-body">
-              <div className="pl-com-comment-head">
-                <p>
-                  <strong>{firstComment.authorName}</strong> {firstComment.body}
-                </p>
-                {!isFirstCommentMine && !post.isExample ? (
-                  <SocialReportMenu
-                    compact
-                    triggerLabel={`Más opciones del comentario de ${firstComment.authorName}`}
-                    onReport={() =>
-                      onOpenReport({
-                        kind: "comment",
-                        commentId: firstComment.id,
-                        authorHandle: firstComment.authorHandle,
-                      })
-                    }
-                  />
-                ) : null}
-              </div>
-              {post.comments.length > 1 ? (
-                <button type="button" className="pl-com-more-comments" onClick={() => setThreadOpen(true)}>
-                  Ver los {post.comments.length} comentarios
-                </button>
-              ) : null}
-            </div>
-          </div>
-        ) : null}
-        {threadOpen ? (
-          <div className="pl-com-thread">
-            {post.comments.length > 0 ? (
-              <ul>
-                {post.comments.map((c) => {
-                  const isCommentMine = Boolean(c.isMine || own?.handle === c.authorHandle);
-                  const commentAvatarUrl =
-                    own?.handle === c.authorHandle ? (own.avatarUrl ?? c.authorAvatarUrl) : c.authorAvatarUrl;
-                  return (
-                    <li key={c.id} className="pl-com-comment-row">
-                      <Avatar
-                        initials={c.authorName.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
-                        avatarUrl={commentAvatarUrl}
-                        gradVar={getExampleAnalystSpec(c.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
-                        size={26}
-                        loading="lazy"
-                      />
-                      <div className="pl-com-comment-body">
-                        <div className="pl-com-comment-head">
-                          <p>
-                            <strong>{c.authorName}</strong>{" "}
-                            <span className="pl-prof-muted">· {c.createdAt.toLowerCase()}</span>
-                          </p>
-                          {!isCommentMine && !post.isExample ? (
-                            <SocialReportMenu
-                              compact
-                              triggerLabel={`Más opciones del comentario de ${c.authorName}`}
-                              onReport={() =>
-                                onOpenReport({
-                                  kind: "comment",
-                                  commentId: c.id,
-                                  authorHandle: c.authorHandle,
-                                })
-                              }
-                            />
-                          ) : null}
-                        </div>
-                        <p>{c.body}</p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : null}
-            <form
-              className="pl-com-reply"
-              noValidate
-              onSubmit={(e) => {
-                e.preventDefault();
-                const res = addSocialComment(post.id, reply);
-                if (!res.ok) {
-                  setReplyError(res.error ?? "No pudimos comentar.");
-                  return;
-                }
-                setReply("");
-                setReplyError("");
-              }}
-            >
-              <label className="sr-only" htmlFor={`${uid}-reply`}>
-                Responder
-              </label>
-              <input
-                id={`${uid}-reply`}
-                value={reply}
-                placeholder="Responde…"
-                aria-describedby={replyError ? `${uid}-reply-err` : undefined}
-                onChange={(e) => {
-                  setReply(e.target.value);
-                  if (replyError) setReplyError("");
-                }}
-              />
-              <button type="submit" className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm">
-                Responder
-              </button>
-            </form>
-            <div id={`${uid}-reply-err`} aria-live="polite">
-              {replyError ? <p className="pl-com-error">{replyError}</p> : null}
-            </div>
-          </div>
-        ) : null}
-      </div>
-    </article>
   );
 }
 
@@ -1261,23 +1289,26 @@ function FollowingTab({
   );
 
   useEffect(() => {
-    if (followed.length > 0) {
+    if (followed.length > 0 || topicCount > 0) {
       loadFollowingSocialPosts();
     }
-  }, [followed.length, loadFollowingSocialPosts]);
+  }, [followed.length, topicCount, loadFollowingSocialPosts]);
 
   const followedInfo = useMemo(
     () =>
       followed.map((handle) => {
         const spec = getExampleAnalystSpec(handle);
-        const matchingPost = spec ? undefined : posts.find((p) => p.authorHandle === handle && p.authorAvatarUrl);
+        const matchingPost = posts.find((p) => p.authorHandle === handle);
+        const postTipster = posts.some(
+          (p) => p.authorHandle === handle && (p.authorIsTipster || p.roleBadge === "Tipster Oficial"),
+        );
         return {
           handle,
           initials: spec?.avatarInitials ?? handle.slice(0, 2).toUpperCase(),
           gradVar: spec?.avatarGradVar ?? "var(--avatar-grad-4)",
-          avatarUrl: matchingPost?.authorAvatarUrl ?? null,
-          isTipster: spec?.isTipster ?? false,
-          name: spec?.name ?? `@${handle}`,
+          avatarUrl: spec ? null : (matchingPost?.authorAvatarUrl ?? null),
+          isTipster: spec?.isTipster ?? postTipster,
+          name: spec?.name ?? matchingPost?.authorName ?? `@${handle}`,
         };
       }),
     [followed, posts],
@@ -1287,7 +1318,9 @@ function FollowingTab({
   const followedPosts = useMemo(() => {
     const base = posts.filter(isFollowedPost);
     return base.filter((p) => {
-      const tip = getExampleAnalystSpec(p.authorHandle)?.isTipster ?? false;
+      const tip =
+        (getExampleAnalystSpec(p.authorHandle)?.isTipster ?? false) ||
+        Boolean(p.authorIsTipster || p.roleBadge === "Tipster Oficial");
       if (filter === "tipsters") return tip;
       if (filter === "socios") return !tip;
       if (filter === "open") return p.pick?.status === "open";
@@ -1488,6 +1521,7 @@ function TopicsPicker({
   defaultOpen: boolean;
 }): React.JSX.Element | null {
   const uid = useId();
+  const [query, setQuery] = useState("");
   const leagues = useMemo(() => {
     const map = new Map<
       string,
@@ -1504,41 +1538,151 @@ function TopicsPicker({
       teams: [...l.teams.values()].sort((a, b) => a.name.localeCompare(b.name, "es")),
     }));
   }, [games]);
+
+  const [selectedLeagueKey, setSelectedLeagueKey] = useState<string>("");
+  const activeLeagueKey =
+    selectedLeagueKey && leagues.some((l) => l.league === selectedLeagueKey)
+      ? selectedLeagueKey
+      : (leagues[0]?.league ?? "");
+  const activeLeague = leagues.find((l) => l.league === activeLeagueKey) ?? leagues[0];
+
+  const normalizedQuery = query
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+
+  const matchingTeams = useMemo(() => {
+    if (!normalizedQuery) {
+      return activeLeague
+        ? activeLeague.teams.map((t) => ({ ...t, league: activeLeague.league, leagueLabel: activeLeague.label }))
+        : [];
+    }
+    const hits: Array<{ slug: string; name: string; league: PlatformGame["league"]; leagueLabel: string }> = [];
+    for (const l of leagues) {
+      for (const t of l.teams) {
+        const hay = `${t.name} ${l.label}`
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        if (hay.includes(normalizedQuery)) {
+          hits.push({ ...t, league: l.league, leagueLabel: l.label });
+        }
+      }
+    }
+    return hits.slice(0, 24);
+  }, [activeLeague, leagues, normalizedQuery]);
+
   const count = topics.leagues.length + topics.teams.length;
   if (leagues.length === 0) return null;
+
+  const isFollowingActiveLeague = activeLeague ? topics.leagues.includes(activeLeague.league) : false;
+
   return (
     <details className="pl-com-topics glass-lens glass-ring" open={defaultOpen}>
       <summary className="pl-com-topics-summary">
         <span>Ligas y equipos que sigues</span>
-        <span className="pl-prof-muted num">{count === 0 ? "Ninguno" : count}</span>
+        <span className="pl-prof-muted num">{count === 0 ? "Elegir" : `${count} activos`}</span>
       </summary>
       <div className="pl-com-topics-body">
         <p className="pl-com-card-note">
-          Lo que se publique sobre sus partidos aparece en «Siguiendo», aunque no sigas a quien lo escribe. Se
-          guarda en este navegador.
+          Sigue una liga o tus equipos favoritos para ver sus publicaciones en «Siguiendo».
         </p>
-        <div className="pl-com-filters" role="group" aria-label="Ligas que sigues">
-          {leagues.map((l) => (
+
+        {count > 0 ? (
+          <div className="pl-com-filters" role="group" aria-label="Temas seguidos actualmente">
+            {topics.leagues.map((lgId) => {
+              const lgObj = leagues.find((item) => item.league === lgId);
+              return (
+                <button
+                  key={`followed-lg-${lgId}`}
+                  type="button"
+                  className="pl-prof-chip"
+                  aria-pressed={true}
+                  onClick={() => onToggleLeague(lgId)}
+                >
+                  <LeagueBadge league={lgId} size={15} />
+                  <span>{lgObj?.label ?? lgId}</span>
+                  <MaestroIcon name="x" size={12} />
+                </button>
+              );
+            })}
+            {topics.teams.map((key) => {
+              const [lgId, slug] = key.split(":");
+              const lgObj = leagues.find((item) => item.league === lgId);
+              const teamObj = lgObj?.teams.find((t) => t.slug === slug);
+              if (!lgId || !slug) return null;
+              return (
+                <button
+                  key={`followed-tm-${key}`}
+                  type="button"
+                  className="pl-prof-chip"
+                  aria-pressed={true}
+                  onClick={() => onToggleTeam(key)}
+                >
+                  <TeamBadge league={lgId} slug={slug} name={teamObj?.name ?? slug} size={15} decorative />
+                  <span>{teamObj?.name ?? slug}</span>
+                  <MaestroIcon name="x" size={12} />
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+
+        <div className="pl-com-topics-toolbar">
+          <PlSelect
+            variant="glass"
+            size="sm"
+            ariaLabel="Elegir liga para explorar equipos"
+            value={activeLeagueKey}
+            onChange={(next) => {
+              setSelectedLeagueKey(next);
+              setQuery("");
+            }}
+            options={leagues.map((l) => ({
+              value: l.league,
+              label: l.label,
+              icon: <LeagueBadge league={l.league} size={16} />,
+            }))}
+            className="pl-com-league-select"
+          />
+
+          {activeLeague && !normalizedQuery ? (
             <button
-              key={l.league}
               type="button"
               className="pl-prof-chip"
-              aria-pressed={topics.leagues.includes(l.league)}
-              onClick={() => onToggleLeague(l.league)}
+              aria-pressed={isFollowingActiveLeague}
+              onClick={() => onToggleLeague(activeLeague.league)}
             >
-              <LeagueBadge league={l.league} size={16} />
-              {l.label}
+              <LeagueBadge league={activeLeague.league} size={15} />
+              <span>{isFollowingActiveLeague ? `Siguiendo ${activeLeague.label}` : `Seguir toda ${activeLeague.label}`}</span>
             </button>
-          ))}
+          ) : null}
+
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar equipo..."
+            aria-label="Buscar equipo para seguir"
+            className="glass-input text-base sm:text-xs px-3 min-h-11 sm:min-h-9 rounded-xl flex-1 min-w-[160px]"
+          />
         </div>
-        {leagues.map((l) => (
-          <div key={l.league} className="pl-com-topics-league">
-            <p className="pl-com-topics-label" id={`${uid}-${l.league}`}>
-              Equipos de {l.label}
-            </p>
-            <div className="pl-com-filters" role="group" aria-labelledby={`${uid}-${l.league}`}>
-              {l.teams.map((t) => {
-                const key = teamTopicKey(l.league, t.slug);
+
+        <div className="pl-com-topics-league">
+          <p className="pl-com-topics-label" id={`${uid}-teams`}>
+            {normalizedQuery
+              ? `Resultados para «${query.trim()}»`
+              : activeLeague
+                ? `Equipos de ${activeLeague.label}`
+                : "Equipos"}
+          </p>
+          {matchingTeams.length === 0 ? (
+            <p className="pl-com-card-note">Sin equipos que coincidan con esa búsqueda.</p>
+          ) : (
+            <div className="pl-com-filters" role="group" aria-labelledby={`${uid}-teams`}>
+              {matchingTeams.map((t) => {
+                const key = teamTopicKey(t.league, t.slug);
                 return (
                   <button
                     key={key}
@@ -1547,14 +1691,14 @@ function TopicsPicker({
                     aria-pressed={topics.teams.includes(key)}
                     onClick={() => onToggleTeam(key)}
                   >
-                    <TeamBadge league={l.league} slug={t.slug} name={t.name} size={16} decorative />
-                    {t.name}
+                    <TeamBadge league={t.league} slug={t.slug} name={t.name} size={16} decorative />
+                    <span>{t.name}</span>
                   </button>
                 );
               })}
             </div>
-          </div>
-        ))}
+          )}
+        </div>
       </div>
     </details>
   );

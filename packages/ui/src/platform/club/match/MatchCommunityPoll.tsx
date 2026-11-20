@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useId, useState } from "react";
+import { sportHasDraw } from "@pitchlab/contracts";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { usePlatformCore } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
@@ -47,7 +48,7 @@ export function MatchCommunityPoll({
   const [tally, setTally] = useState<Tally>(EMPTY);
   const [error, setError] = useState<string>("");
   const [busy, setBusy] = useState(false);
-  const isNfl = game.sport === "american-football";
+  const hasDraw = sportHasDraw(game.sport);
   const rawMainPick = game.picks[0] && !game.picks[0].isRedacted ? game.picks[0] : null;
   const activeMainPick =
     mainPickOverride !== undefined
@@ -55,14 +56,21 @@ export function MatchCommunityPoll({
       : rawMainPick
         ? { label: rawMainPick.label, p: rawMainPick.p }
         : null;
-  const nowMs =
-    nowOverride === undefined
-      ? Date.now()
-      : typeof nowOverride === "number"
-        ? nowOverride
-        : nowOverride.getTime();
+  const [clientNowMs, setClientNowMs] = useState<number | null>(null);
+  useEffect(() => {
+    if (nowOverride !== undefined) return;
+    setClientNowMs(Date.now());
+  }, [nowOverride]);
   const kickoffMs = parseKickoffUtcMs(game.kickoffUtc);
-  const closed = game.status !== "NS" || (Number.isFinite(kickoffMs) && kickoffMs <= nowMs);
+  const nowMs =
+    nowOverride !== undefined
+      ? typeof nowOverride === "number"
+        ? nowOverride
+        : nowOverride.getTime()
+      : clientNowMs;
+  const closed =
+    game.status !== "NS" ||
+    (nowMs !== null && Number.isFinite(kickoffMs) && kickoffMs <= nowMs);
   const HeadingTag = headingLevel === 3 ? "h3" : "h2";
 
   useEffect(() => {
@@ -115,9 +123,9 @@ export function MatchCommunityPoll({
   );
 
   const winnerOptions = [
-    { key: "home", label: game.home.shortName, model: game.x12[0] },
-    ...(isNfl ? [] : [{ key: "draw", label: "Empate", model: game.x12[1] }]),
-    { key: "away", label: game.away.shortName, model: game.x12[2] },
+    { key: "home", label: game.home.shortName, model: game.x12 ? game.x12[0] : null },
+    ...(hasDraw ? [{ key: "draw", label: "Empate", model: game.x12 ? game.x12[1] : null }] : []),
+    { key: "away", label: game.away.shortName, model: game.x12 ? game.x12[2] : null },
   ];
   const winnerTotal = tally.ganador.home + tally.ganador.draw + tally.ganador.away;
   const pickTotal = tally.pick.si + tally.pick.no;
@@ -191,7 +199,7 @@ function PollQuestion({
   onVote,
 }: {
   title: string;
-  options: Array<{ key: string; label: string; votes: number; modelP: number }>;
+  options: Array<{ key: string; label: string; votes: number; modelP: number | null }>;
   total: number;
   mine: string | null;
   disabled: boolean;
@@ -225,8 +233,10 @@ function PollQuestion({
       </div>
       {reveal ? (
         <p className="m-0 text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
-          {total} {total === 1 ? "voto" : "votos"} · Modelo:{" "}
-          {options.map((o) => `${o.label} ${Math.round(o.modelP * 100)} %`).join(" · ")}
+          {total} {total === 1 ? "voto" : "votos"}
+          {options.every((o) => o.modelP !== null)
+            ? ` · Modelo: ${options.map((o) => `${o.label} ${Math.round((o.modelP ?? 0) * 100)} %`).join(" · ")}`
+            : null}
         </p>
       ) : null}
     </fieldset>

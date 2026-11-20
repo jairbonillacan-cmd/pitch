@@ -118,17 +118,17 @@
 
 .pl-acct-card {
   border-radius: 20px;
-  padding: 22px 24px;
+  padding: 20px 22px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 15px;
   min-width: 0;
 }
 
 .pl-acct-h2 {
   margin: 0;
-  font-size: 24px;
-  line-height: 1.18;
+  font-size: 21px;
+  line-height: 1.22;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--pl-text);
@@ -261,42 +261,128 @@
 
 .pl-acct-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: 18px;
   align-items: stretch;
 }
 
 .pl-acct-bottom-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: 20px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: 18px;
+  align-items: stretch;
 }
 
 .pl-acct-card-stage {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  padding: 20px 20px 18px;
+  padding: 16px 18px 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 14px;
+  gap: 10px;
   background:
     radial-gradient(
       60% 50% at 25% 20%,
-      color-mix(in srgb, var(--pl-orb-violet) 28%, transparent),
+      color-mix(in srgb, var(--pl-orb-violet) 24%, transparent),
       transparent 70%
     ),
     radial-gradient(
       50% 45% at 90% 35%,
-      color-mix(in srgb, var(--pl-orb-rose) 20%, transparent),
+      color-mix(in srgb, var(--pl-orb-rose) 16%, transparent),
       transparent 70%
     ),
     var(--share-card-bg);
   border: 1px solid var(--share-card-border);
   color: var(--share-card-fg);
   min-width: 0;
+}
+
+.pl-acct-card-stage .pl-referral-card-canvas {
+  max-width: 452px;
+  aspect-ratio: 1.66 / 1;
+  margin: 0 auto;
+}
+
+html[data-theme="light"] .pl-acct-card-stage {
+  background: linear-gradient(
+    180deg,
+    var(--pl-surface) 0%,
+    var(--pl-surface-elevated) 100%
+  );
+  border-color: var(--pl-border);
+  color: var(--pl-text);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--pl-text) 5%, transparent);
+}
+
+html[data-theme="light"] .pl-acct-card-stage-title {
+  color: var(--pl-text-secondary);
+}
+
+html[data-theme="light"] .pl-acct-card-stage-hint {
+  color: var(--pl-text-muted);
+}
+
+html[data-theme="light"] .pl-acct-flip-seg {
+  background: var(--pl-surface-elevated);
+  border-color: var(--pl-border);
+}
+
+html[data-theme="light"] .pl-acct-flip-seg button {
+  color: var(--pl-text-muted);
+}
+
+html[data-theme="light"] .pl-acct-flip-seg button[aria-pressed="true"] {
+  background: var(--pl-on-solid);
+  color: var(--pl-text);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--pl-text) 14%, transparent);
+}
+
+html[data-theme="light"] .pl-acct-card-placeholder {
+  background: linear-gradient(
+    150deg,
+    var(--pl-on-solid) 0%,
+    var(--pl-surface-elevated) 100%
+  );
+  border-color: var(--pl-border-strong);
+  color: var(--pl-text);
+  box-shadow: 0 14px 28px -18px color-mix(in srgb, var(--pl-text) 18%, transparent);
+}
+
+html[data-theme="light"] .pl-acct-card-placeholder-tier {
+  background: var(--pl-surface-elevated);
+  border-color: var(--pl-border);
+  color: var(--pl-brand);
+}
+
+html[data-theme="light"] .pl-acct-card-placeholder-row--bottom {
+  color: var(--pl-text-secondary);
+}
+
+html[data-theme="light"] .pl-acct-card-stage .pl-referral-card-fallback {
+  background: var(--pl-border-strong);
+  box-shadow: 0 16px 32px -18px color-mix(in srgb, var(--pl-text) 20%, transparent);
+}
+
+html[data-theme="light"] .pl-acct-card-stage .pl-referral-card-fallback-inner {
+  background: linear-gradient(
+    150deg,
+    var(--pl-on-solid) 0%,
+    var(--pl-surface-elevated) 100%
+  );
+  color: var(--pl-text);
+  box-shadow: inset 0 1px 0 var(--pl-on-solid);
+}
+
+html[data-theme="light"] .pl-acct-stage-dl {
+  border-color: var(--pl-border);
+  background: var(--pl-surface-hover);
+  color: var(--pl-text);
+}
+
+html[data-theme="light"] .pl-acct-stage-dl:hover:not(:disabled) {
+  background: var(--pl-surface-active);
 }
 
 .pl-acct-card-stage-top {
@@ -445,7 +531,7 @@
 .pl-acct-offer-head {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .pl-acct-offer-lines {
@@ -454,9 +540,9 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 14px;
-  line-height: 1.5;
+  gap: 6px;
+  font-size: 13.5px;
+  line-height: 1.45;
   color: var(--pl-text-secondary);
 }
 
@@ -552,19 +638,61 @@
 
 /* Avance hacia embajador */
 
-.pl-acct-slots {
+.pl-acct-ambassador-card {
+  justify-content: space-between;
+}
+
+.pl-acct-ambassador-track {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pl-acct-slots {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.pl-acct-milestone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 4px;
+  border-radius: 12px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+}
+
+.pl-acct-milestone.is-filled {
+  background: color-mix(in srgb, var(--pl-brand) 9%, var(--pl-surface-elevated));
+  border-color: color-mix(in srgb, var(--pl-brand) 36%, var(--pl-border));
+}
+
+.pl-acct-milestone.is-goal:not(.is-filled) {
+  border-style: dashed;
+  border-color: var(--pl-border-strong);
+}
+
+.pl-acct-milestone-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+
+.pl-acct-milestone.is-filled .pl-acct-milestone-label,
+.pl-acct-milestone.is-goal .pl-acct-milestone-label {
+  color: var(--pl-brand);
 }
 
 .pl-acct-slot {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 800;
   flex-shrink: 0;
 }
@@ -576,23 +704,42 @@
 }
 
 .pl-acct-slot--empty {
-  background: transparent;
+  background: var(--pl-surface);
   color: var(--pl-text-muted);
   border: 1.5px dashed var(--pl-border-strong);
 }
 
+.pl-acct-progress-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--pl-surface-hover);
+  overflow: hidden;
+}
+
+.pl-acct-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--pl-brand);
+  transition: width 240ms ease;
+}
+
 .pl-acct-progress-copy {
   margin: 0;
-  font-size: 13.5px;
+  font-size: 13px;
   line-height: 1.45;
   font-weight: 600;
   color: var(--pl-text-secondary);
 }
 
 .pl-acct-earned-row {
-  margin: 0;
+  margin: auto 0 0;
   padding-top: 14px;
   border-top: 1px solid var(--pl-border);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .pl-acct-earned-row dt {
@@ -603,10 +750,14 @@
 
 .pl-acct-earned-row dd {
   margin: 4px 0 0;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1.15;
   font-weight: 800;
   color: var(--pl-success);
+}
+
+.pl-acct-earned-row dd.pl-acct-earned-bonus {
+  color: var(--pl-brand);
 }
 
 /* Tus invitaciones */
@@ -787,16 +938,16 @@
 
 .pl-acct-plan-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: 18px;
   align-items: stretch;
 }
 
 .pl-acct-plan-bottom {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  align-items: start;
+  gap: 18px;
+  align-items: stretch;
 }
 
 .pl-acct-status-pill {
@@ -805,7 +956,7 @@
   gap: 6px;
   min-height: 26px;
   padding: 0 10px;
-  border-radius: 999px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
 }
@@ -832,6 +983,24 @@
 .pl-acct-status-pill--warn {
   background: color-mix(in srgb, var(--share-card-warning) 16%, transparent);
   color: var(--share-card-warning);
+}
+
+html[data-theme="light"] .pl-acct-status-pill--ok {
+  background: var(--pl-pill-success-bg);
+  color: var(--pl-pill-success-fg);
+  border: 1px solid var(--pl-pill-success-border);
+}
+
+html[data-theme="light"] .pl-acct-status-pill--brand {
+  background: var(--pl-pill-brand-bg);
+  color: var(--pl-pill-brand-fg);
+  border: 1px solid var(--pl-pill-brand-border);
+}
+
+html[data-theme="light"] .pl-acct-status-pill--warn {
+  background: var(--pl-pill-warning-bg);
+  color: var(--pl-pill-warning-fg);
+  border: 1px solid var(--pl-pill-warning-border);
 }
 
 .pl-acct-cardbtn--muted {
@@ -1348,6 +1517,7 @@
 .pl-acct-league-grid {
   display: flex;
   flex-wrap: wrap;
+  flex-wrap: balance;
   gap: 8px;
 }
 

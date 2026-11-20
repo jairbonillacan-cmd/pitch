@@ -1,0 +1,1489 @@
+{
+  "schemaVersion": 1,
+  "league": "mlb",
+  "observedAt": "2026-11-19T14:16:45.965Z",
+  "source": "espn-public-mlb",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "mlb.arizona-diamondbacks",
+      "player": "Jordan Lawlar",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-03-01",
+      "reportedAt": "2026-11-16T16:36:00.000Z"
+    },
+    {
+      "teamId": "mlb.arizona-diamondbacks",
+      "player": "Corbin Carroll",
+      "position": "RF",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-03-01",
+      "reportedAt": "2026-11-06T22:51:00.000Z"
+    },
+    {
+      "teamId": "mlb.arizona-diamondbacks",
+      "player": "Cristian Mena",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T03:20:00.000Z"
+    },
+    {
+      "teamId": "mlb.arizona-diamondbacks",
+      "player": "Andrew Saalfrank",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-30T15:37:00.000Z"
+    },
+    {
+      "teamId": "mlb.athletics",
+      "player": "Gunnar Hoglund",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:16:00.000Z"
+    },
+    {
+      "teamId": "mlb.athletics",
+      "player": "Justin Sterner",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:11:00.000Z"
+    },
+    {
+      "teamId": "mlb.athletics",
+      "player": "Jacob Wilson",
+      "position": "SS",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-03-01",
+      "reportedAt": "2026-11-03T05:09:00.000Z"
+    },
+    {
+      "teamId": "mlb.athletics",
+      "player": "Tyler Soderstrom",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:50:00.000Z"
+    },
+    {
+      "teamId": "mlb.athletics",
+      "player": "Brent Rooker",
+      "position": "DH",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:49:00.000Z"
+    },
+    {
+      "teamId": "mlb.athletics",
+      "player": "Max Muncy",
+      "position": "3B",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-26T19:18:00.000Z"
+    },
+    {
+      "teamId": "mlb.athletics",
+      "player": "Seth Johnson",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-05T17:53:00.000Z"
+    },
+    {
+      "teamId": "mlb.atlanta-braves",
+      "player": "Cameron Foster",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-17T20:09:00.000Z"
+    },
+    {
+      "teamId": "mlb.atlanta-braves",
+      "player": "Spencer Schwellenbach",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-11-17T18:57:00.000Z"
+    },
+    {
+      "teamId": "mlb.atlanta-braves",
+      "player": "Jurickson Profar",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Suspensión",
+      "injuryType": "Suspension",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-12T16:42:00.000Z"
+    },
+    {
+      "teamId": "mlb.atlanta-braves",
+      "player": "Spencer Strider",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-10T22:02:00.000Z"
+    },
+    {
+      "teamId": "mlb.atlanta-braves",
+      "player": "Mitchell Parker",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-09-01",
+      "reportedAt": "2026-11-02T20:46:00.000Z"
+    },
+    {
+      "teamId": "mlb.atlanta-braves",
+      "player": "Joey Wentz",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-29T22:22:00.000Z"
+    },
+    {
+      "teamId": "mlb.atlanta-braves",
+      "player": "Hurston Waldrep",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-10-29T22:21:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
+      "player": "Jordan Westburg",
+      "position": "3B",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-18T21:05:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
+      "player": "Levi Wells",
+      "position": "P",
+      "status": "Baja",
+      "detail": "Abdomen",
+      "injuryType": "Abdomen",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-18T16:56:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
+      "player": "Braxton Bragg",
+      "position": "P",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-18T00:11:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
+      "player": "Ryan Helsley",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:05:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
+      "player": "Kyle Bradish",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Abdomen",
+      "injuryType": "Abdomen",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:05:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
+      "player": "Jackson Holliday",
+      "position": "2B",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-23T20:11:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
+      "player": "Cade Povich",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-15T16:00:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
+      "player": "Reed Trimble",
+      "position": "LF",
+      "status": "Duda",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-08-17T16:48:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Roman Anthony",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Hand",
+      "injuryType": "Hand",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-10T17:11:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Triston Casas",
+      "position": "1B",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-10T00:31:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Romy Gonzalez",
+      "position": "DH",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T21:44:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Eli White",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:41:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Justin Slaten",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:41:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Kutter Crawford",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Forearm",
+      "injuryType": "Forearm",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:40:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Garrett Whitlock",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Leg",
+      "injuryType": "Leg",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-01T20:02:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Caleb Durbin",
+      "position": "3B",
+      "status": "Baja",
+      "detail": "Finger",
+      "injuryType": "Finger",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-29T22:08:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
+      "player": "Mickey Gasper",
+      "position": "DH",
+      "status": "Baja",
+      "detail": "Biceps",
+      "injuryType": "Biceps",
+      "returnDate": "2027-03-01",
+      "reportedAt": "2026-10-02T21:42:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-cubs",
+      "player": "Ben Brown",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Cuello",
+      "injuryType": "Neck",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-10T19:08:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-cubs",
+      "player": "Riley Martin",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:11:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-cubs",
+      "player": "Cade Horton",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-08-01",
+      "reportedAt": "2026-11-03T05:07:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-cubs",
+      "player": "Justin Steele",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:00:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-cubs",
+      "player": "Porter Hodge",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-05-01",
+      "reportedAt": "2026-11-03T04:51:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-cubs",
+      "player": "Phil Maton",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:50:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-cubs",
+      "player": "Shelby Miller",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:29:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-cubs",
+      "player": "Tyler Austin",
+      "position": "1B",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T03:25:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-white-sox",
+      "player": "Mike Vasil",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-07-01",
+      "reportedAt": "2026-10-29T20:16:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-white-sox",
+      "player": "Tanner Murray",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-29T20:14:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-white-sox",
+      "player": "Prelander Berroa",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-29T20:14:00.000Z"
+    },
+    {
+      "teamId": "mlb.chicago-white-sox",
+      "player": "Brooks Baldwin",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-29T20:13:00.000Z"
+    },
+    {
+      "teamId": "mlb.cincinnati-reds",
+      "player": "Blake Dunn",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-29T19:38:00.000Z"
+    },
+    {
+      "teamId": "mlb.cincinnati-reds",
+      "player": "Spencer Steer",
+      "position": "1B",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-29T19:37:00.000Z"
+    },
+    {
+      "teamId": "mlb.cincinnati-reds",
+      "player": "Hunter Greene",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-10-29T19:37:00.000Z"
+    },
+    {
+      "teamId": "mlb.cincinnati-reds",
+      "player": "Tony Santillan",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-23T20:49:00.000Z"
+    },
+    {
+      "teamId": "mlb.cincinnati-reds",
+      "player": "Julian Garcia",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-23T20:49:00.000Z"
+    },
+    {
+      "teamId": "mlb.cincinnati-reds",
+      "player": "Dane Myers",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-02T13:20:00.000Z"
+    },
+    {
+      "teamId": "mlb.cleveland-guardians",
+      "player": "Colin Holderman",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T14:33:00.000Z"
+    },
+    {
+      "teamId": "mlb.cleveland-guardians",
+      "player": "Kahlil Watson",
+      "position": "RF",
+      "status": "Baja",
+      "detail": "Abdomen",
+      "injuryType": "Abdomen",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-22T17:30:00.000Z"
+    },
+    {
+      "teamId": "mlb.cleveland-guardians",
+      "player": "Andrew Walters",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-09-10T17:03:00.000Z"
+    },
+    {
+      "teamId": "mlb.colorado-rockies",
+      "player": "Kris Bryant",
+      "position": "DH",
+      "status": "Baja",
+      "detail": "Espalda",
+      "injuryType": "Back",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:14:00.000Z"
+    },
+    {
+      "teamId": "mlb.colorado-rockies",
+      "player": "Welinton Herrera",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-07-01",
+      "reportedAt": "2026-11-03T01:14:00.000Z"
+    },
+    {
+      "teamId": "mlb.colorado-rockies",
+      "player": "McCade Brown",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:14:00.000Z"
+    },
+    {
+      "teamId": "mlb.colorado-rockies",
+      "player": "Chase Dollander",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-11-03T01:14:00.000Z"
+    },
+    {
+      "teamId": "mlb.detroit-tigers",
+      "player": "Will Vest",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T00:34:00.000Z"
+    },
+    {
+      "teamId": "mlb.detroit-tigers",
+      "player": "Wenceel Perez",
+      "position": "RF",
+      "status": "Baja",
+      "detail": "Orbital",
+      "injuryType": "Orbital",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T00:33:00.000Z"
+    },
+    {
+      "teamId": "mlb.detroit-tigers",
+      "player": "Reese Olson",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T00:13:00.000Z"
+    },
+    {
+      "teamId": "mlb.detroit-tigers",
+      "player": "Kerry Carpenter",
+      "position": "RF",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T00:07:00.000Z"
+    },
+    {
+      "teamId": "mlb.houston-astros",
+      "player": "Carlos Correa",
+      "position": "SS",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "injuryType": "Ankle",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T14:56:00.000Z"
+    },
+    {
+      "teamId": "mlb.houston-astros",
+      "player": "Brandon Walter",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:55:00.000Z"
+    },
+    {
+      "teamId": "mlb.kansas-city-royals",
+      "player": "Logan Evans",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-11-18T16:37:00.000Z"
+    },
+    {
+      "teamId": "mlb.kansas-city-royals",
+      "player": "Nick Mears",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-11-17T21:20:00.000Z"
+    },
+    {
+      "teamId": "mlb.kansas-city-royals",
+      "player": "Ryan Bergert",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-05-01",
+      "reportedAt": "2026-11-03T19:03:00.000Z"
+    },
+    {
+      "teamId": "mlb.kansas-city-royals",
+      "player": "Mitch Spence",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Parte médico reservado",
+      "injuryType": "Undisclosed",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T19:01:00.000Z"
+    },
+    {
+      "teamId": "mlb.kansas-city-royals",
+      "player": "Luinder Avila",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-11-03T14:58:00.000Z"
+    },
+    {
+      "teamId": "mlb.kansas-city-royals",
+      "player": "Stephen Kolek",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-11-03T14:57:00.000Z"
+    },
+    {
+      "teamId": "mlb.kansas-city-royals",
+      "player": "Cole Ragans",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-08-01",
+      "reportedAt": "2026-11-03T14:57:00.000Z"
+    },
+    {
+      "teamId": "mlb.los-angeles-angels",
+      "player": "Jack Kochanowicz",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-09-01",
+      "reportedAt": "2026-10-30T21:57:00.000Z"
+    },
+    {
+      "teamId": "mlb.los-angeles-dodgers",
+      "player": "Seth Halvorsen",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-11-18T22:08:00.000Z"
+    },
+    {
+      "teamId": "mlb.los-angeles-dodgers",
+      "player": "Gavin Stone",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:09:00.000Z"
+    },
+    {
+      "teamId": "mlb.los-angeles-dodgers",
+      "player": "Ben Casparius",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:07:00.000Z"
+    },
+    {
+      "teamId": "mlb.los-angeles-dodgers",
+      "player": "Will Klein",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:29:00.000Z"
+    },
+    {
+      "teamId": "mlb.los-angeles-dodgers",
+      "player": "Dalton Rushing",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-10-21T21:12:00.000Z"
+    },
+    {
+      "teamId": "mlb.miami-marlins",
+      "player": "Andrew Nardi",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-11-03T00:30:00.000Z"
+    },
+    {
+      "teamId": "mlb.miami-marlins",
+      "player": "Adam Mazur",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-05-01",
+      "reportedAt": "2026-11-03T00:30:00.000Z"
+    },
+    {
+      "teamId": "mlb.miami-marlins",
+      "player": "Robby Snelling",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-06-01",
+      "reportedAt": "2026-11-03T00:30:00.000Z"
+    },
+    {
+      "teamId": "mlb.miami-marlins",
+      "player": "Ronny Henriquez",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T00:29:00.000Z"
+    },
+    {
+      "teamId": "mlb.miami-marlins",
+      "player": "William Kempner",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-09-01",
+      "reportedAt": "2026-11-03T00:29:00.000Z"
+    },
+    {
+      "teamId": "mlb.miami-marlins",
+      "player": "Anthony Bender",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Lower Leg",
+      "injuryType": "Lower Leg",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-23T20:54:00.000Z"
+    },
+    {
+      "teamId": "mlb.miami-marlins",
+      "player": "Jakob Marsee",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-10-12T19:26:00.000Z"
+    },
+    {
+      "teamId": "mlb.milwaukee-brewers",
+      "player": "Brian Fitzpatrick",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-08-01",
+      "reportedAt": "2026-11-03T15:01:00.000Z"
+    },
+    {
+      "teamId": "mlb.milwaukee-brewers",
+      "player": "Quinn Priester",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T15:01:00.000Z"
+    },
+    {
+      "teamId": "mlb.milwaukee-brewers",
+      "player": "Angel Zerpa",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-07-01",
+      "reportedAt": "2026-11-03T15:01:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "Pablo Lopez",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-03-01",
+      "reportedAt": "2026-11-18T03:43:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "Trevor Larnach",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-14T23:09:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "Cole Sands",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T20:26:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "David Festa",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:12:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "Mick Abel",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:11:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "Anthony Banda",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Lat",
+      "injuryType": "Lat",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-29T19:01:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "Jeff Hoffman",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-27T16:36:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "Byron Buxton",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-23T20:55:00.000Z"
+    },
+    {
+      "teamId": "mlb.minnesota-twins",
+      "player": "Walker Jenkins",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-01T18:28:00.000Z"
+    },
+    {
+      "teamId": "mlb.new-york-mets",
+      "player": "Jorge Polanco",
+      "position": "DH",
+      "status": "Baja",
+      "detail": "Tobillo",
+      "injuryType": "Ankle",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-02T22:45:00.000Z"
+    },
+    {
+      "teamId": "mlb.new-york-mets",
+      "player": "Tylor Megill",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-02T22:44:00.000Z"
+    },
+    {
+      "teamId": "mlb.new-york-mets",
+      "player": "Reed Garrett",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-02T22:44:00.000Z"
+    },
+    {
+      "teamId": "mlb.new-york-mets",
+      "player": "Pierson Ohl",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-11-02T22:43:00.000Z"
+    },
+    {
+      "teamId": "mlb.new-york-mets",
+      "player": "Jared Young",
+      "position": "1B",
+      "status": "Baja",
+      "detail": "Protocolo de conmoción",
+      "injuryType": "Concussion",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-23T20:56:00.000Z"
+    },
+    {
+      "teamId": "mlb.new-york-yankees",
+      "player": "Max Fried",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-10T21:43:00.000Z"
+    },
+    {
+      "teamId": "mlb.new-york-yankees",
+      "player": "Kervin Castro",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:16:00.000Z"
+    },
+    {
+      "teamId": "mlb.new-york-yankees",
+      "player": "Fernando Cruz",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:50:00.000Z"
+    },
+    {
+      "teamId": "mlb.philadelphia-phillies",
+      "player": "Brandon Marsh",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Hand",
+      "injuryType": "Hand",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-12T17:49:00.000Z"
+    },
+    {
+      "teamId": "mlb.philadelphia-phillies",
+      "player": "Johan Rojas",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:17:00.000Z"
+    },
+    {
+      "teamId": "mlb.philadelphia-phillies",
+      "player": "Felix Reyes",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:13:00.000Z"
+    },
+    {
+      "teamId": "mlb.philadelphia-phillies",
+      "player": "Brad Keller",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-09-01",
+      "reportedAt": "2026-11-03T05:13:00.000Z"
+    },
+    {
+      "teamId": "mlb.pittsburgh-pirates",
+      "player": "Endy Rodriguez",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2027-05-01",
+      "reportedAt": "2026-11-03T05:18:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-diego-padres",
+      "player": "Luis Gutierrez",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Parte médico reservado",
+      "injuryType": "Undisclosed",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T21:20:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-diego-padres",
+      "player": "Bryan Hoeing",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:08:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Harrison Bader",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-11T20:43:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Randy Rodriguez",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-10T18:29:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Matt Chapman",
+      "position": "3B",
+      "status": "Baja",
+      "detail": "Abdomen",
+      "injuryType": "Abdomen",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:38:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Rafael Devers",
+      "position": "1B",
+      "status": "Baja",
+      "detail": "Abdomen",
+      "injuryType": "Abdomen",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:38:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Hayden Birdsong",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-06-01",
+      "reportedAt": "2026-11-03T04:38:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Casey Schmitt",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:37:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Trevor McDonald",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-09-01",
+      "reportedAt": "2026-11-03T04:36:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Daniel Susac",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T04:36:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Carson Whisenhunt",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-11-03T04:30:00.000Z"
+    },
+    {
+      "teamId": "mlb.san-francisco-giants",
+      "player": "Blade Tidwell",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2028-02-01",
+      "reportedAt": "2026-11-03T04:30:00.000Z"
+    },
+    {
+      "teamId": "mlb.seattle-mariners",
+      "player": "Nick Davila",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:26:00.000Z"
+    },
+    {
+      "teamId": "mlb.seattle-mariners",
+      "player": "Matt Brash",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Lat",
+      "injuryType": "Lat",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:26:00.000Z"
+    },
+    {
+      "teamId": "mlb.seattle-mariners",
+      "player": "Colt Emerson",
+      "position": "SS",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T01:26:00.000Z"
+    },
+    {
+      "teamId": "mlb.seattle-mariners",
+      "player": "Michael Arroyo",
+      "position": "SS",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-10-30T19:09:00.000Z"
+    },
+    {
+      "teamId": "mlb.seattle-mariners",
+      "player": "Josh Naylor",
+      "position": "1B",
+      "status": "Baja",
+      "detail": "Muñeca",
+      "injuryType": "Wrist",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-05T18:37:00.000Z"
+    },
+    {
+      "teamId": "mlb.seattle-mariners",
+      "player": "Cal Raleigh",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-05T18:27:00.000Z"
+    },
+    {
+      "teamId": "mlb.seattle-mariners",
+      "player": "Michael Toglia",
+      "position": "1B",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-02T18:55:00.000Z"
+    },
+    {
+      "teamId": "mlb.st-louis-cardinals",
+      "player": "Richard Fitts",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Lat",
+      "injuryType": "Lat",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T21:55:00.000Z"
+    },
+    {
+      "teamId": "mlb.st-louis-cardinals",
+      "player": "Hunter Dobbins",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-09-01",
+      "reportedAt": "2026-09-29T16:13:00.000Z"
+    },
+    {
+      "teamId": "mlb.tampa-bay-rays",
+      "player": "Edwin Uceta",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-06-01",
+      "reportedAt": "2026-11-03T17:34:00.000Z"
+    },
+    {
+      "teamId": "mlb.tampa-bay-rays",
+      "player": "Ryan Pepiot",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:17:00.000Z"
+    },
+    {
+      "teamId": "mlb.tampa-bay-rays",
+      "player": "Shane McClanahan",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Forearm",
+      "injuryType": "Forearm",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-11T17:45:00.000Z"
+    },
+    {
+      "teamId": "mlb.texas-rangers",
+      "player": "Cole Winn",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:08:00.000Z"
+    },
+    {
+      "teamId": "mlb.texas-rangers",
+      "player": "Jose Corniell",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T05:08:00.000Z"
+    },
+    {
+      "teamId": "mlb.texas-rangers",
+      "player": "Jose Butto",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Arm",
+      "injuryType": "Arm",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-02T21:57:00.000Z"
+    },
+    {
+      "teamId": "mlb.texas-rangers",
+      "player": "Evan Carter",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2027-05-01",
+      "reportedAt": "2026-11-02T20:28:00.000Z"
+    },
+    {
+      "teamId": "mlb.texas-rangers",
+      "player": "Corey Seager",
+      "position": "SS",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-10-09T19:21:00.000Z"
+    },
+    {
+      "teamId": "mlb.toronto-blue-jays",
+      "player": "Anthony Santander",
+      "position": "RF",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T00:36:00.000Z"
+    },
+    {
+      "teamId": "mlb.toronto-blue-jays",
+      "player": "Cody Ponce",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T00:35:00.000Z"
+    },
+    {
+      "teamId": "mlb.toronto-blue-jays",
+      "player": "Bowden Francis",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-04-01",
+      "reportedAt": "2026-11-03T00:35:00.000Z"
+    },
+    {
+      "teamId": "mlb.toronto-blue-jays",
+      "player": "Addison Barger",
+      "position": "RF",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-03T00:35:00.000Z"
+    },
+    {
+      "teamId": "mlb.toronto-blue-jays",
+      "player": "Jose Berrios",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-08-01",
+      "reportedAt": "2026-11-03T00:34:00.000Z"
+    },
+    {
+      "teamId": "mlb.washington-nationals",
+      "player": "Alejandro Rosario",
+      "position": "P",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-03-01",
+      "reportedAt": "2026-11-17T19:39:00.000Z"
+    },
+    {
+      "teamId": "mlb.washington-nationals",
+      "player": "Travis Sykora",
+      "position": "SP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-17T19:30:00.000Z"
+    },
+    {
+      "teamId": "mlb.washington-nationals",
+      "player": "Drew Millas",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Finger",
+      "injuryType": "Finger",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-02T21:09:00.000Z"
+    }
+  ]
+}

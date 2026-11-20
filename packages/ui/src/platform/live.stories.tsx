@@ -2,7 +2,13 @@ import React from "react";
 import type { LiveMatchDetail, LiveScoreboard, LiveScoreboardEntry } from "@pitchlab/contracts";
 import { asLeagueId } from "@pitchlab/contracts";
 import { FollowControl, LiveMatchPanelView, LiveScoreboardView } from "./live/LiveMatchCenter";
-import { STORY_INCIDENTS, STORY_STATS } from "./live/live-story-data";
+import {
+  STORY_BROADCASTS_MX,
+  STORY_COMMENTARY,
+  STORY_INCIDENTS,
+  STORY_PLAYER_STATS,
+  STORY_STATS,
+} from "./live/live-story-data";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 import type { PlatformGame } from "./types";
@@ -64,9 +70,12 @@ const LIVE_DETAIL: LiveMatchDetail = {
         away: { ...STORY_STATS.stats.away, xg: 0.35 },
       }
     : STORY_STATS.stats,
+  commentary: STORY_COMMENTARY,
+  playerStats: STORY_PLAYER_STATS,
+  broadcastsMx: STORY_BROADCASTS_MX,
   nextPollSeconds: 20,
   notice: null,
-  attribution: "Datos en vivo: Bzzoiro Sports Data",
+  attribution: "Datos en vivo PitchLab",
 };
 
 const FINAL_DETAIL: LiveMatchDetail = {
@@ -85,6 +94,9 @@ const EARLY_DETAIL: LiveMatchDetail = {
   momentum: [],
   xgTimeline: [],
   stats: null,
+  commentary: [],
+  playerStats: [],
+  broadcastsMx: [],
   notice: "Marcador en pausa para cuidar la cuota de datos; vuelve en unos minutos.",
 };
 
@@ -156,6 +168,7 @@ export const FichaCargando = {
     </Stage>
   ),
 };
+export const FichaCargandoClaro = { ...FichaCargando, ...light };
 
 export const MarcadorDelDia = {
   render: () => (

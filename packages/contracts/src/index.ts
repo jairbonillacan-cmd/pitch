@@ -1,6 +1,7 @@
 export * from "./ids";
 export * from "./data-state";
 export * from "./sports/index";
+export * from "./sports/national-teams";
 export * from "./odds";
 export * from "./analysis";
 export * from "./market-pulse";
@@ -16,3 +17,6 @@ export * from "./injuries-lineups";
 export * from "./data-health";
 export * from "./live";
 export * from "./cortex";
+export * from "./squads";
+export * from "./urls";
+export * from "./competitions";

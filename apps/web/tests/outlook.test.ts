@@ -79,6 +79,22 @@ describe("panorama v3.2 en la ficha del partido", () => {
     expect(detail!.markets.some((r) => r.cardCategory === "goles" && r.isDerived)).toBe(true);
     expect(detail!.outlook.scorelines).toEqual([]);
   });
+
+  it("deriva goles por equipo y 1er tiempo para partidos de selecciones fuera del outlook v3.2", async () => {
+    const { buildDerivedFootballFallbackRows } = await import("../src/server/outlook-derived-rows");
+    const rows = buildDerivedFootballFallbackRows(
+      {
+        home: { name: "México" },
+        away: { name: "Canadá" },
+        projection: { home: 1.55, away: 1.15, total: 2.7 },
+      },
+      false,
+    );
+    expect(rows.some((r) => r.market === "team_goals_home" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "team_goals_away" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "ht_1x2" && r.isDerived)).toBe(true);
+    expect(rows.some((r) => r.market === "ht_totals" && r.isDerived)).toBe(true);
+  });
 });
 
 describe("dataset del Club sobre el panorama v3.2", () => {
@@ -93,9 +109,10 @@ describe("dataset del Club sobre el panorama v3.2", () => {
       const o = find(g)!;
       const x = o.marketsByKey["1x2"]!.selections;
       const p = (s: string) => x.find((v) => v.selection === s)!.p;
-      expect(g.x12[0]).toBeCloseTo(p("home"), 3);
-      expect(g.x12[1]).toBeCloseTo(p("draw"), 3);
-      expect(g.x12[2]).toBeCloseTo(p("away"), 3);
+      expect(g.x12).not.toBeNull();
+      expect(g.x12![0]).toBeCloseTo(p("home"), 3);
+      expect(g.x12![1]).toBeCloseTo(p("draw"), 3);
+      expect(g.x12![2]).toBeCloseTo(p("away"), 3);
       expect(g.spacetime?.outlookDriven ?? true).toBe(true);
       if (!o.marketsByKey["1x2"]?.market) {
         expect(g.spacetime?.market ?? null).toBeNull();
@@ -109,17 +126,73 @@ describe("dataset del Club sobre el panorama v3.2", () => {
     }
   }, 120_000);
 
-  it("NFL: el ganador viene de v3.2 y el resto de mercados sigue del snapshot", async () => {
+  it("NFL: conserva el modelo v2 del snapshot cuando v3.2 tiene low_coverage sin mercado sharp y aplica v3.2 cuando hay mercado o cobertura ok", async () => {
     const { buildServerRawPlatformDataset } = await import("../src/server/platform-data");
     const { findOutlook: find } = await import("../src/server/outlook");
-    const nfl = buildServerRawPlatformDataset().games.filter((g) => g.league === "nfl" && g.status !== "FT" && find(g));
-    expect(nfl.length).toBeGreaterThan(0);
-    for (const g of nfl) {
-      const ml = find(g)!.marketsByKey.moneyline!.selections;
+    const { loadLeagueSnapshotEnvelope } = await import("../src/server/snapshots");
+    const snapGames = loadLeagueSnapshotEnvelope("nfl").data?.games ?? [];
+    const nflDataset = buildServerRawPlatformDataset().games.filter((g) => g.league === "nfl" && g.status !== "FT");
+    expect(nflDataset.length).toBeGreaterThan(0);
+
+    const nflWithOutlook = nflDataset.filter((g) => Boolean(find(g)));
+    for (const g of nflWithOutlook) {
+      const o = find(g)!;
+      const snap = snapGames.find((s) => s.id === g.id);
+      const ml = o.marketsByKey.moneyline!.selections;
       const home = ml.find((s) => s.selection === "home")!.p;
       const away = ml.find((s) => s.selection === "away")!.p;
-      expect(g.x12[0]).toBeCloseTo(home / (home + away), 3);
-      expect(g.x12[1]).toBe(0);
+      expect(g.x12).not.toBeNull();
+      expect(g.x12![1]).toBe(0);
+
+      const hasSharp = ml.some((s) => s.dataQuality?.sharpMarketAvailable);
+      if (o.dataQuality.flag === "ok" || hasSharp) {
+        expect(g.x12![0]).toBeCloseTo(home / (home + away), 3);
+      } else if (snap?.x12) {
+        expect(g.x12![0]).toBeCloseTo(snap.x12[0], 3);
+        expect(g.x12![2]).toBeCloseTo(snap.x12[2], 3);
+      }
+    }
+
+    // Verificación determinista independiente de la rotación semanal entre snapshots v2 y v3.2.
+    const nflSample = snapGames.find((g) => g.status !== "FT" && g.x12 && g.x12[0] > 0 && g.x12[2] > 0);
+    const baseOutlook = find({
+      league: "nfl",
+      home: { name: "Buffalo Bills" },
+      away: { name: "Minnesota Vikings" },
+    });
+    expect(nflSample).toBeDefined();
+    expect(baseOutlook?.marketsByKey.moneyline).toBeDefined();
+
+    if (nflSample && baseOutlook?.marketsByKey.moneyline) {
+      const lowCovOutlook = {
+        ...baseOutlook,
+        dataQuality: { ...baseOutlook.dataQuality, flag: "low_coverage" as const },
+        marketsByKey: {
+          ...baseOutlook.marketsByKey,
+          moneyline: {
+            ...baseOutlook.marketsByKey.moneyline,
+            market: null,
+            selections: baseOutlook.marketsByKey.moneyline.selections.map((s) => ({
+              ...s,
+              dataQuality: { ...(s.dataQuality ?? baseOutlook.dataQuality), sharpMarketAvailable: false },
+            })),
+          },
+        },
+      };
+      const preserved = applyOutlookWithMatchOutlook(nflSample, null, lowCovOutlook, Date.parse("2030-01-01T00:00:00Z"));
+      expect(preserved.match.x12![0]).toBeCloseTo(nflSample.x12![0], 3);
+      expect(preserved.match.x12![2]).toBeCloseTo(nflSample.x12![2], 3);
+
+      const okOutlook = {
+        ...lowCovOutlook,
+        dataQuality: { ...baseOutlook.dataQuality, flag: "ok" as const, coverageRatio: 0.9 },
+      };
+      const overridden = applyOutlookWithMatchOutlook(nflSample, null, okOutlook, Date.parse("2030-01-01T00:00:00Z"));
+      const oml = okOutlook.marketsByKey.moneyline.selections;
+      const oh = oml.find((s) => s.selection === "home")!.p;
+      const oa = oml.find((s) => s.selection === "away")!.p;
+      expect(overridden.match.x12![0]).toBeCloseTo(oh / (oh + oa), 3);
+      expect(overridden.match.x12![2]).toBeCloseTo(oa / (oh + oa), 3);
     }
   }, 120_000);
 });
@@ -239,5 +312,59 @@ describe("vigencia < 72 h y hora de captura en panorama v3.2", () => {
       );
       expect(appliedExpired.signal?.market).toBeNull();
     }
+  });
+
+  it("conserva los mercados de conteos (corners_total, fouls_total, yellow_total) al aplicar panorama v3.2", () => {
+    const detailOutlook = outlookDetailFor(unionLeipzig);
+    expect(detailOutlook).not.toBeNull();
+    const o = findOutlook(unionLeipzig)!;
+    const matchWithCounts = {
+      id: "bl-test-counts",
+      league: "bundesliga" as never,
+      leagueLabel: "Bundesliga",
+      sport: "football" as const,
+      round: "Jornada 11",
+      day: "2030-11-14",
+      dayLabel: "sábado",
+      kickoffUtc: "2030-11-14T14:30:00Z",
+      kickoffLocal: "08:30",
+      venue: "Alte Försterei",
+      status: "NS" as const,
+      home: { slug: "union-berlin", name: "1. FC Union Berlin", shortName: "Union Berlin", code: "FCU", record: "10 PJ" },
+      away: { slug: "rb-leipzig", name: "RB Leipzig", shortName: "Leipzig", code: "RBL", record: "10 PJ" },
+      x12: [0.3, 0.25, 0.45] as [number, number, number],
+      outcomes: [
+        { key: "home", label: "Union Berlin gana", probability: 0.3 },
+        { key: "draw", label: "Empate", probability: 0.25 },
+        { key: "away", label: "Leipzig gana", probability: 0.45 },
+      ],
+      marketGroups: [
+        {
+          group: "Tiros de esquina 9.5",
+          rows: [{ market: "corners_total" as never, selection: "over", label: "Más de 9.5", line: 9.5, p: 0.54, fairOdds: 1.85 }],
+        },
+        {
+          group: "Faltas 22.5",
+          rows: [{ market: "fouls_total" as never, selection: "under", label: "Menos de 22.5", line: 22.5, p: 0.55, fairOdds: 1.82 }],
+        },
+        {
+          group: "Tarjetas amarillas 4.5",
+          rows: [{ market: "yellow_total" as never, selection: "over", label: "Más de 4.5", line: 4.5, p: 0.52, fairOdds: 1.92 }],
+        },
+      ],
+      counts: {
+        corners: { home: 4.9, away: 4.8, total: 9.7, line: 9.5, pOver: 0.54, sample: { home: 10, away: 10 } },
+        fouls: { home: 11.2, away: 10.9, total: 22.1, line: 22.5, pOver: 0.45, sample: { home: 10, away: 10 } },
+        yellow: { home: 2.3, away: 2.3, total: 4.6, line: 4.5, pOver: 0.52, sample: { home: 10, away: 10 } },
+      },
+      factors: [],
+      trace: [],
+    };
+    const enriched = applyOutlookWithMatchOutlook(matchWithCounts, null, o);
+    const markets = (enriched.match.marketGroups ?? []).flatMap((g) => g.rows.map((r) => r.market));
+    expect(markets).toContain("corners_total");
+    expect(markets).toContain("fouls_total");
+    expect(markets).toContain("yellow_total");
+    expect(enriched.match.counts?.corners?.total).toBeCloseTo(9.7, 2);
   });
 });

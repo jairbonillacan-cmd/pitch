@@ -355,6 +355,43 @@ export function resolveConfirmedLineupSlotState(
   };
 }
 
+export interface ProbableLineupSlotResolution {
+  readonly available: boolean;
+  readonly statusBadge: string;
+  readonly helperText: string;
+  readonly lineups: VerifiedMatchLineups | null;
+}
+
+/**
+ * Once estimado cuando aún falta la confirmación oficial 60 min antes.
+ * Se oculta automáticamente en cuanto entra la alineación oficial o si el acceso está bloqueado.
+ */
+export function resolveProbableLineupSlotState(
+  preGame: PreGameIntel,
+  intelUnlocked: boolean,
+): ProbableLineupSlotResolution | null {
+  const confirmed = resolveConfirmedLineupSlotState(preGame, intelUnlocked);
+  if (confirmed.enabled) return null;
+  const probable = preGame.probableLineups ?? null;
+  const hasProbable =
+    intelUnlocked &&
+    !preGame.isRedacted &&
+    probable !== null &&
+    Boolean(probable.sourceLabel.trim()) &&
+    probable.homeStarters.length >= 11 &&
+    probable.awayStarters.length >= 11;
+
+  if (!hasProbable || !probable) return null;
+  const confText =
+    probable.confidence != null ? ` · Confianza ${Math.round(probable.confidence)} %` : "";
+  return {
+    available: true,
+    statusBadge: `Once estimado${confText}`,
+    helperText: `${probable.sourceLabel.trim()} · Sujeto a confirmación oficial 60 min antes.`,
+    lineups: probable,
+  };
+}
+
 /** Lee un pick congelado guardado localmente en el navegador para este partido (respaldo cliente). */
 export function readClientFrozenPick(gameId: string): FrozenMainPickSnapshot | null {
   try {
@@ -397,4 +434,59 @@ export function saveClientFrozenPick(snapshot: FrozenMainPickSnapshot): FrozenMa
     void err;
   }
   return snapshot;
+}
+
+const INJURY_ES_MAP: Readonly<Record<string, string>> = {
+  "hip injury": "Lesión de cadera",
+  "cruciate ligament injury": "Lesión de ligamento cruzado",
+  "cruciate ligament tear": "Rotura de ligamento cruzado",
+  "acl injury": "Lesión de ligamento cruzado (LCA)",
+  "hamstring injury": "Lesión de isquiotibiales",
+  "knee injury": "Lesión de rodilla",
+  "sprained knee": "Esguince de rodilla",
+  "sprained ankle": "Esguince de tobillo",
+  "ankle injury": "Lesión de tobillo",
+  "muscle injury": "Lesión muscular",
+  "muscular problems": "Molestias musculares",
+  "thigh injury": "Lesión de muslo",
+  "calf injury": "Lesión de gemelo",
+  "groin injury": "Lesión inguinal",
+  "adductor problems": "Molestias en aductor",
+  "back injury": "Lesión de espalda",
+  "shoulder injury": "Lesión de hombro",
+  "foot injury": "Lesión de pie",
+  "achilles tendon injury": "Lesión del tendón de Aquiles",
+  "meniscus injury": "Lesión de menisco",
+  "broken leg": "Fractura de pierna",
+  "broken foot": "Fractura de pie",
+  "broken toe": "Fractura en dedo del pie",
+  "broken nose": "Fractura nasal",
+  "concussion": "Conmoción cerebral",
+  "illness": "Enfermedad",
+  "unknown injury": "Lesión no especificada",
+  "knock": "Golpe / contusión",
+  "suspended": "Suspendido",
+  "red card suspension": "Suspensión por roja",
+  "yellow card suspension": "Acumulación de amarillas",
+  "inactive": "Inactivo",
+  "doubtful": "En duda",
+  "questionable": "En duda",
+  "out": "Baja confirmada",
+};
+
+/** Traduce descripciones médicas frecuentes en inglés a español limpio para la UI. */
+export function localizeInjuryLabelEs(raw: string | null | undefined): string {
+  if (!raw) return "";
+  const trimmed = raw.trim();
+  if (!trimmed) return "";
+  const exact = INJURY_ES_MAP[trimmed.toLowerCase()];
+  if (exact) return exact;
+  return trimmed
+    .replace(/\bSprained\s+Knee\b/gi, "Esguince de rodilla")
+    .replace(/\bSprained\s+Ankle\b/gi, "Esguince de tobillo")
+    .replace(/\bKnee\s+Injury\b/gi, "Lesión de rodilla")
+    .replace(/\bAnkle\s+Injury\b/gi, "Lesión de tobillo")
+    .replace(/\bInjury\b/gi, "lesión")
+    .replace(/\bSuspended\b/gi, "Suspendido")
+    .replace(/\bIllness\b/gi, "Enfermedad");
 }

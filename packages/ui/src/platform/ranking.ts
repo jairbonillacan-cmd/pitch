@@ -20,7 +20,7 @@ export { LEADERBOARD_MIN_SETTLED, LEADERBOARD_MIN_SETTLED_WEEK };
 
 /** Lo mínimo de un pick sellado para el ranking (sin datos del partido). */
 export interface RankingPick {
-  status: "pending" | "won" | "lost";
+  status: "pending" | "won" | "lost" | "void";
   units: number;
   userDecimal: number;
   clvPct: number;

@@ -22,6 +22,8 @@ const FAVORITE_GROUPS: ReadonlyArray<{ sport: string; leagues: ReadonlyArray<{ i
     ],
   },
   { sport: "Fútbol americano", leagues: [{ id: "nfl" as LeagueId, label: "NFL" }] },
+  { sport: "Basquetbol", leagues: [{ id: "nba" as LeagueId, label: "NBA" }] },
+  { sport: "Hockey", leagues: [{ id: "nhl" as LeagueId, label: "NHL" }] },
 ];
 
 interface ProfilePrivacy {

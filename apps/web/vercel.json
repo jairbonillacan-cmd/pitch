@@ -4,6 +4,22 @@
     {
       "path": "/api/cron/tipster-payouts",
       "schedule": "0 15 * * *"
+    },
+    {
+      "path": "/api/cron/settle-picks",
+      "schedule": "0 */4 * * *"
+    },
+    {
+      "path": "/api/cron/push-alerts",
+      "schedule": "*/30 * * * *"
+    },
+    {
+      "path": "/api/cron/weekly-digest",
+      "schedule": "0 14 * * 1"
+    },
+    {
+      "path": "/api/cron/monthly-record",
+      "schedule": "0 15 1 * *"
     }
   ]
 }

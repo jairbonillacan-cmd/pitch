@@ -6,6 +6,8 @@ import { BrandLogo, ThemeToggle } from "../../primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   MEMBERSHIP_SPEC,
+  PRECISION_BUCKETS,
+  SPACETIME_METRICS_HEADLINE,
   ULTRA_LANDING_FEATURES,
 } from "../spacetime-catalog";
 import { LensGlowOrbs } from "../components/MaestroPrimitives";
@@ -17,9 +19,12 @@ import {
 } from "../preview-spei-store";
 import { CountUpNumber } from "./CountUpNumber";
 import { ReferralCard3D } from "./ReferralCard3D";
+import { DailyResultsCalendar } from "../components/DailyResultsCalendar";
+import { buildModelDailyCalendar } from "../record-stats";
 import type {
   LandingFinishedResultItem,
   LandingHeroLeagueCard,
+  LandingParlayDemoData,
   PrecioTransferContext,
   PrecioTransferRequestSummary,
   PublicNavPath,
@@ -29,13 +34,17 @@ export const PUBLIC_NAV_ITEMS: ReadonlyArray<{
   href: Exclude<PublicNavPath, "/">;
   label: string;
 }> = [
-  { href: "/como-funciona", label: "Cómo funciona" },
   { href: "/motores", label: "Motores" },
   { href: "/resultados", label: "Resultados" },
-  { href: "/parlays", label: "Parlays" },
-  { href: "/comunidad", label: "Comunidad" },
   { href: "/precio", label: "Precio" },
 ];
+
+const LANDING_NAV_ITEMS = [
+  { href: "#que-obtienes", label: "Funciones" },
+  { href: "#motores", label: "Motores" },
+  { href: "#precio", label: "Precio" },
+  { href: "#faq", label: "Preguntas" },
+] as const;
 
 export interface OddsComparisonResult {
   kind: "empty" | "invalid" | "valid";
@@ -157,12 +166,25 @@ export function PublicNavBarClient({
   hasSession?: boolean;
 }): React.JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const landing = activePath === "/";
+  const navItems = landing ? LANDING_NAV_ITEMS : PUBLIC_NAV_ITEMS;
   const menuBtnRef = useRef<HTMLButtonElement | null>(null);
+  const scrollMarker = useRef<HTMLSpanElement | null>(null);
   const drawerId = useId();
 
   useEffect(() => {
     setMenuOpen(false);
   }, [activePath]);
+
+  useEffect(() => {
+    if (!scrollMarker.current || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry) setScrolled(!entry.isIntersecting);
+    });
+    observer.observe(scrollMarker.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -186,11 +208,13 @@ export function PublicNavBarClient({
   }, [menuOpen]);
 
   return (
-    <header className="pl-lp-header">
+    <>
+    <span ref={scrollMarker} className="pl-clean-scroll-marker" aria-hidden="true" />
+    <header className="pl-lp-header" data-scrolled={scrolled}>
       <div className="pl-lp-wrap">
         <nav
           aria-label="Principal"
-          className="pl-lp-bar glass-pill-bar glass-ring"
+          className="pl-lp-bar"
         >
           <a
             href="/"
@@ -201,7 +225,7 @@ export function PublicNavBarClient({
           </a>
 
           <div className="pl-lp-nav">
-            {PUBLIC_NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <a
                 key={item.href}
                 className="pl-lp-navlink"
@@ -271,7 +295,7 @@ export function PublicNavBarClient({
             role="region"
             aria-label="Menú principal móvil"
           >
-            {PUBLIC_NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <a
                 key={item.href}
                 className="pl-lp-navlink"
@@ -296,6 +320,7 @@ export function PublicNavBarClient({
         ) : null}
       </div>
     </header>
+    </>
   );
 }
 
@@ -327,6 +352,7 @@ export interface HeroMatchDemoIslandProps {
   inputId?: string;
   containerId?: string;
   maxLeagues?: number;
+  variant?: "clean";
 }
 
 export function HeroMatchDemoIsland({
@@ -334,6 +360,7 @@ export function HeroMatchDemoIsland({
   inputId = "tu-momio",
   containerId = "hoy",
   maxLeagues = 4,
+  variant,
 }: HeroMatchDemoIslandProps): React.JSX.Element {
   const visibleCards = cards.length > 0 ? cards.slice(0, maxLeagues) : [FALLBACK_DEMO_CARD];
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -362,143 +389,420 @@ export function HeroMatchDemoIsland({
         ? "pl-lp-odds-res--neg"
         : "";
 
-  return (
-    <div
-      id={containerId}
-      className="pl-lp-card pl-lp-demo-card glass-lens glass-ring glass-ring--featured"
-    >
-      {visibleCards.length > 1 ? (
-        <div role="group" aria-label="Elegir liga" className="pl-lp-league-tabs">
-          {visibleCards.map((card, index) => (
-            <button
-              key={card.league}
-              type="button"
-              className="pl-lp-tab"
-              aria-pressed={index === safeIndex}
-              onClick={() => setSelectedIndex(index)}
-            >
-              <LeagueBadge league={card.league} size={18} />
-              <span>{card.leagueShort}</span>
-            </button>
-          ))}
+  if (variant === "clean") {
+    if (cards.length === 0) {
+      return (
+        <div id={containerId} className="pl-clean-comparator">
+          <p>No hay partidos publicados para comparar en este momento.</p>
         </div>
-      ) : null}
+      );
+    }
 
-      <div className="pl-lp-match-meta">
-        <span>{active.roundLabel}</span>
-        <span className="num">{active.whenLabel}</span>
-      </div>
-
-      <div className="pl-lp-teams">
-        <div className="pl-lp-team">
-          <TeamBadge
-            league={active.league}
-            slug={active.home.slug}
-            name={active.home.name}
-            size={teamBadgeSize}
-            decorative
-          />
-          <div style={{ minWidth: 0 }}>
-            <p className="pl-lp-team-name">{active.home.name}</p>
-            <p className="pl-lp-team-note num">{active.home.note}</p>
+    return (
+      <div id={containerId} className="pl-clean-comparator">
+        {visibleCards.length > 1 ? (
+          <div role="group" aria-label="Elegir liga" className="pl-clean-leagues">
+            {visibleCards.map((card, index) => (
+              <button
+                key={card.league}
+                type="button"
+                aria-pressed={index === safeIndex}
+                onClick={() => setSelectedIndex(index)}
+              >
+                {card.leagueShort}
+              </button>
+            ))}
+          </div>
+        ) : null}
+        <div className="pl-clean-match" key={`${active.league}-match`}>
+          <p className="pl-clean-match-meta">{active.roundLabel} · {active.whenLabel}</p>
+          <div className="pl-clean-teams">
+            {[active.home, active.away].map((team) => (
+              <div key={team.slug}>
+                <TeamBadge league={active.league} slug={team.slug} name={team.name} size={36} decorative />
+                <strong>{team.name}</strong>
+              </div>
+            ))}
           </div>
         </div>
-        <span className="pl-lp-vs">vs</span>
-        <div className="pl-lp-team pl-lp-team--away">
-          <div style={{ minWidth: 0 }}>
-            <p className="pl-lp-team-name">{active.away.name}</p>
-            <p className="pl-lp-team-note num">{active.away.note}</p>
+        <div className="pl-clean-prediction" key={`${active.league}-prediction`}>
+          <div>
+            <p>Lo más probable</p>
+            <strong>{active.mostProbable.label}</strong>
           </div>
-          <TeamBadge
-            league={active.league}
-            slug={active.away.slug}
-            name={active.away.name}
-            size={teamBadgeSize}
-            decorative
-          />
+          <div className="pl-clean-stat num">
+            <strong>{formatPctOneDecimal(active.mostProbable.p)}</strong>
+            <p>Justo {active.mostProbable.fairAmerican}</p>
+          </div>
         </div>
-      </div>
-
-      <div className="pl-lp-most-box">
-        <div style={{ minWidth: 0 }}>
-          <p className="pl-lp-most-kicker">Lo más probable</p>
-          <p className="pl-lp-most-label">{active.mostProbable.label}</p>
-          <p className="pl-lp-most-sub num">
-            Momio justo{" "}
-            <strong style={{ color: "var(--pl-text)" }}>
-              {active.mostProbable.fairAmerican}
-            </strong>{" "}
-            · decimal {active.mostProbable.fairDecimal}
+        <div className="pl-clean-split" key={`${active.league}-split`}>
+          <ProbSplit probabilities={active.splitProbabilities} labels={active.splitLabels} showLabels />
+        </div>
+        <div className="pl-clean-odds">
+          <div>
+            <label htmlFor={inputId}>Tu momio</label>
+            <input
+              id={inputId}
+              className="num"
+              type="text"
+              inputMode="text"
+              value={oddsInput}
+              onChange={(event) => setOddsInput(event.target.value)}
+              placeholder="−200"
+              aria-describedby={resultId}
+            />
+          </div>
+          <p id={resultId} className="num" data-tone={comparison.tone} style={{ color: comparison.colorVar }} aria-live="polite">
+            {comparison.text}
           </p>
         </div>
-        <p className="pl-lp-most-prob num">
-          {formatPctOneDecimal(active.mostProbable.p)}
-        </p>
       </div>
+    );
+  }
 
-      <div>
-        <ProbSplit
-          probabilities={active.splitProbabilities}
-          labels={active.splitLabels}
-          showLabels
-        />
-      </div>
-
-      {active.otherMarkets.length > 0 ? (
-        <div className="pl-lp-markets">
-          <p className="pl-lp-markets-title">Otros mercados de este partido</p>
-          {active.otherMarkets.map((row) => (
-            <div key={row.label} className="pl-lp-market-row">
-              <span style={{ fontWeight: 600, minWidth: 0 }}>{row.label}</span>
-              <span className="pl-lp-market-bar" aria-hidden="true">
-                <span
-                  className="pl-lp-market-fill"
-                  style={{
-                    width: `${Math.min(100, Math.max(4, Math.round(row.p * 100)))}%`,
-                  }}
-                />
-              </span>
-              <span className="num" style={{ textAlign: "right", fontWeight: 700 }}>
-                {formatPctOneDecimal(row.p)}
-              </span>
-              <span
-                className="num"
-                style={{ textAlign: "right", color: "var(--pl-text-muted)" }}
-              >
-                {row.fairAmerican}
-              </span>
-            </div>
-          ))}
+  return (
+    <div id={containerId} className="pl-lp-hero-device-stage">
+      <div className="pl-lp-hero-floating-summary glass-card glass-ring">
+        <div className="pl-lp-hero-floating-head">
+          <span className="pl-lp-live-dot" aria-hidden="true" />
+          <span className="pl-lp-hero-floating-title">
+            Pulso auditado · 5 motores
+          </span>
+          <span className="pl-lp-hero-floating-badge num">Ejemplo</span>
         </div>
-      ) : null}
+        <div className="pl-lp-hero-floating-metrics num">
+          <div>
+            <span className="pl-lp-hero-floating-val pl-lp-hero-floating-val--ok">
+              +12.05 u
+            </span>
+            <span className="pl-lp-hero-floating-sub">Saldo acumulado</span>
+          </div>
+          <div>
+            <span className="pl-lp-hero-floating-val">61.9 %</span>
+            <span className="pl-lp-hero-floating-sub">Aciertos publicados</span>
+          </div>
+        </div>
+        <div className="pl-lp-hero-floating-chips num" aria-hidden="true">
+          <span className="pl-lp-mini-chip pl-lp-mini-chip--hit">✓ +1.50 u</span>
+          <span className="pl-lp-mini-chip pl-lp-mini-chip--hit">✓ +0.91 u</span>
+          <span className="pl-lp-mini-chip pl-lp-mini-chip--miss">✕ −1.00 u</span>
+        </div>
+      </div>
 
-      <div className="pl-lp-odds-box">
-        <label htmlFor={inputId} className="pl-lp-odds-label">
-          Tu momio para{" "}
-          <strong style={{ color: "var(--pl-text)" }}>
-            {active.mostProbable.label}
-          </strong>
-        </label>
-        <input
-          id={inputId}
-          className="pl-lp-odds-input num"
-          type="text"
-          inputMode="decimal"
-          value={oddsInput}
-          onChange={(event) => setOddsInput(event.target.value)}
-          placeholder="−200"
-          aria-describedby={resultId}
-        />
-        <p
-          id={resultId}
-          className={`pl-lp-odds-res ${resModifier} num`.trim()}
-          style={{ color: comparison.colorVar }}
-          aria-live="polite"
-        >
-          {comparison.text}
+      <div className="pl-lp-card pl-lp-demo-card glass-lens glass-ring glass-ring--featured">
+        {visibleCards.length > 1 ? (
+          <div role="group" aria-label="Elegir liga" className="pl-lp-league-tabs">
+            {visibleCards.map((card, index) => (
+              <button
+                key={card.league}
+                type="button"
+                className="pl-lp-tab"
+                aria-pressed={index === safeIndex}
+                onClick={() => setSelectedIndex(index)}
+              >
+                <LeagueBadge league={card.league} size={18} />
+                <span>{card.leagueShort}</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
+
+        <div className="pl-lp-match-meta">
+          <span>{active.roundLabel}</span>
+          <span className="num">{active.whenLabel}</span>
+        </div>
+
+        <div className="pl-lp-teams">
+          <div className="pl-lp-team">
+            <TeamBadge
+              league={active.league}
+              slug={active.home.slug}
+              name={active.home.name}
+              size={teamBadgeSize}
+              decorative
+            />
+            <div style={{ minWidth: 0 }}>
+              <p className="pl-lp-team-name">{active.home.name}</p>
+              <p className="pl-lp-team-note num">{active.home.note}</p>
+            </div>
+          </div>
+          <span className="pl-lp-vs">vs</span>
+          <div className="pl-lp-team pl-lp-team--away">
+            <div style={{ minWidth: 0 }}>
+              <p className="pl-lp-team-name">{active.away.name}</p>
+              <p className="pl-lp-team-note num">{active.away.note}</p>
+            </div>
+            <TeamBadge
+              league={active.league}
+              slug={active.away.slug}
+              name={active.away.name}
+              size={teamBadgeSize}
+              decorative
+            />
+          </div>
+        </div>
+
+        <div className="pl-lp-most-box">
+          <div style={{ minWidth: 0 }}>
+            <p className="pl-lp-most-kicker">Lo más probable</p>
+            <p className="pl-lp-most-label">{active.mostProbable.label}</p>
+            <p className="pl-lp-most-sub num">
+              Momio justo{" "}
+              <strong style={{ color: "var(--pl-text)" }}>
+                {active.mostProbable.fairAmerican}
+              </strong>{" "}
+              · decimal {active.mostProbable.fairDecimal}
+            </p>
+          </div>
+          <p className="pl-lp-most-prob num">
+            {formatPctOneDecimal(active.mostProbable.p)}
+          </p>
+        </div>
+
+        <div>
+          <ProbSplit
+            probabilities={active.splitProbabilities}
+            labels={active.splitLabels}
+            showLabels
+          />
+        </div>
+
+        {active.otherMarkets.length > 0 ? (
+          <div className="pl-lp-markets">
+            <p className="pl-lp-markets-title">Otros mercados de este partido</p>
+            {active.otherMarkets.map((row) => (
+              <div key={row.label} className="pl-lp-market-row">
+                <span style={{ fontWeight: 600, minWidth: 0 }}>{row.label}</span>
+                <span className="pl-lp-market-bar" aria-hidden="true">
+                  <span
+                    className="pl-lp-market-fill"
+                    style={{
+                      width: `${Math.min(100, Math.max(4, Math.round(row.p * 100)))}%`,
+                    }}
+                  />
+                </span>
+                <span className="num" style={{ textAlign: "right", fontWeight: 700 }}>
+                  {formatPctOneDecimal(row.p)}
+                </span>
+                <span
+                  className="num"
+                  style={{ textAlign: "right", color: "var(--pl-text-muted)" }}
+                >
+                  {row.fairAmerican}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        <div className="pl-lp-odds-box">
+          <label htmlFor={inputId} className="pl-lp-odds-label">
+            Tu momio para{" "}
+            <strong style={{ color: "var(--pl-text)" }}>
+              {active.mostProbable.label}
+            </strong>
+          </label>
+          <input
+            id={inputId}
+            className="pl-lp-odds-input num"
+            type="text"
+            inputMode="decimal"
+            value={oddsInput}
+            onChange={(event) => setOddsInput(event.target.value)}
+            placeholder="−200"
+            aria-describedby={resultId}
+          />
+          <p
+            id={resultId}
+            className={`pl-lp-odds-res ${resModifier} num`.trim()}
+            style={{ color: comparison.colorVar }}
+            aria-live="polite"
+          >
+            {comparison.text}
+          </p>
+        </div>
+
+        <p className="pl-lp-demo-engines-foot">
+          Consenso activo: Tachyon · Singularity · Minkowski · Geodesic · Cortex IA
         </p>
       </div>
     </div>
+  );
+}
+
+interface ShowcasePillar {
+  id: string;
+  title: string;
+  description: string;
+  icon: "target" | "layers" | "bolt" | "shield";
+}
+
+const SHOWCASE_PILLARS: readonly ShowcasePillar[] = [
+  {
+    id: "momio-justo",
+    title: "Probabilidad y momio justo",
+    description:
+      "Compara el precio de tu casa con la probabilidad del modelo.",
+    icon: "target",
+  },
+  {
+    id: "parlays-sin-choques",
+    title: "Parlays sin contradicciones",
+    description:
+      "Combina de 2 a 6 selecciones y descubre cuáles son compatibles.",
+    icon: "layers",
+  },
+  {
+    id: "match-center-vivo",
+    title: "Avisos de tus partidos",
+    description:
+      "Vigila un partido y recibe un aviso antes del inicio.",
+    icon: "bolt",
+  },
+  {
+    id: "historial-integro",
+    title: "Bitácora verificable",
+    description:
+      "Revisa qué se pronosticó antes del partido y cómo se calificó.",
+    icon: "shield",
+  },
+];
+
+function ShowcasePillarIcon({ icon }: { icon: ShowcasePillar["icon"] }): React.JSX.Element {
+  switch (icon) {
+    case "target":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="5" />
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+        </svg>
+      );
+    case "layers":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 3l8 4.5-8 4.5-8-4.5L12 3z" />
+          <path d="M4 12l8 4.5 8-4.5" />
+          <path d="M4 16.5L12 21l8-4.5" />
+        </svg>
+      );
+    case "bolt":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
+        </svg>
+      );
+    case "shield":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 3l7 3v5c0 4.5-3 8.2-7 9.5-4-1.3-7-5-7-9.5V6l7-3z" />
+          <path d="M9 12l2 2 4-4" />
+        </svg>
+      );
+  }
+}
+
+export function FeatureShowcaseIsland({
+  parlayDemo,
+  results = [],
+  heroCard,
+}: {
+  parlayDemo: LandingParlayDemoData;
+  results?: readonly LandingFinishedResultItem[];
+  heroCard?: LandingHeroLeagueCard;
+}): React.JSX.Element {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const stageId = useId();
+  const result = results[0];
+
+  return (
+    <section id="que-obtienes" className="pl-clean-section" aria-labelledby="pl-clean-features">
+      <div className="pl-lp-wrap">
+        <header className="pl-clean-heading">
+          <h2 id="pl-clean-features">¿Qué obtienes?</h2>
+          <p>Investiga un partido, compara el momio y sigue tus decisiones en una sola app.</p>
+        </header>
+        <div className="pl-clean-showcase">
+          <div className="pl-clean-showcase-stage" id={stageId}>
+            {activeIndex === 0 ? (
+              <figure className="pl-clean-market-captures">
+                <img
+                  src="/landing/feature-odds.webp"
+                  width={816}
+                  height={491}
+                  alt="Comparador de PitchLab con un momio ingresado para Tigres vs. América"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  className="pl-clean-market-goals"
+                  src="/landing/feature-expected-goals.webp"
+                  width={502}
+                  height={586}
+                  alt="Goles esperados y probabilidades de Tigres vs. América"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            ) : null}
+            {activeIndex === 1 ? (
+              <div className="pl-clean-preview">
+                <p className="pl-clean-proof">Armador de parlay</p>
+                <h3>Selecciones compatibles</h3>
+                <ul>
+                  {parlayDemo.legs.map((leg) => (
+                    <li key={leg.label}><strong>{leg.label}</strong><span>{leg.matchLabel}</span></li>
+                  ))}
+                  <li>
+                    <strong className="pl-clean-warning">{parlayDemo.blockedLeg.label} · Bloqueada</strong>
+                    <span>Contradice «{parlayDemo.blockedLeg.conflictWithLabel}».</span>
+                  </li>
+                </ul>
+              </div>
+            ) : null}
+            {activeIndex === 2 ? (
+              <div className="pl-clean-preview">
+                <p className="pl-clean-proof">Avisos</p>
+                <h3>Tu partido está por empezar</h3>
+                <ul>
+                  {heroCard ? (
+                    <li><strong>{heroCard.home.name} vs {heroCard.away.name}</strong><span>{heroCard.leagueShort} · {heroCard.whenLabel}</span></li>
+                  ) : null}
+                  <li><strong>Partido vigilado</strong><span>Aviso 60 minutos antes del inicio.</span></li>
+                </ul>
+              </div>
+            ) : null}
+            {activeIndex === 3 ? (
+              <div className="pl-clean-preview">
+                <p className="pl-clean-proof">Bitácora</p>
+                <h3>Pronóstico registrado antes del partido</h3>
+                {result ? (
+                  <ul>
+                    <li><strong>{result.pickLabel}</strong><span>{result.metaLabel}</span></li>
+                    <li><strong>Resultado registrado</strong><span>{result.scoreLabel}</span></li>
+                    <li><strong>Calificación</strong><span>{result.hit ? "Se cumplió" : "No se cumplió"}</span></li>
+                  </ul>
+                ) : <p>Aún no hay resultados publicados para mostrar.</p>}
+              </div>
+            ) : null}
+          </div>
+          <div className="pl-clean-showcase-controls" role="group" aria-label="Herramientas incluidas">
+            {SHOWCASE_PILLARS.map((pillar, index) => (
+              <button
+                key={pillar.id}
+                type="button"
+                aria-pressed={index === activeIndex}
+                aria-controls={stageId}
+                onClick={() => setActiveIndex(index)}
+              >
+                <ShowcasePillarIcon icon={pillar.icon} />
+                <span><strong>{pillar.title}</strong><span>{pillar.description}</span></span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -536,10 +840,13 @@ export function UltraPassCardStageIsland(): React.JSX.Element {
 export function PricingCardIsland({
   hasSession = false,
   animated = false,
+  layout = "single",
 }: {
   hasSession?: boolean;
   /** En `/precio`: conteo rodante del precio, color de marca y «Ultra» con espectro animado. */
   animated?: boolean;
+  /** En `/`: comparativa lado a lado estilo ScoutPicks; en `/precio`: tarjeta individual junto al 3D. */
+  layout?: "single" | "compare";
 } = {}): React.JSX.Element {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const selectBilling = (next: "monthly" | "annual") => {
@@ -564,6 +871,160 @@ export function PricingCardIsland({
     ) : (
       MEMBERSHIP_SPEC.name
     );
+
+  if (layout === "compare") {
+    return (
+      <div className="pl-lp-pricing-compare-wrap">
+        <div className="pl-lp-billing-center">
+          <div
+            role="group"
+            aria-label="Periodo de pago"
+            className="pl-lp-billing-toggle pl-lp-billing-toggle--centered"
+          >
+            <button
+              type="button"
+              className="pl-lp-tab"
+              aria-pressed={!isAnnual}
+              onClick={() => selectBilling("monthly")}
+            >
+              Mensual
+            </button>
+            <button
+              type="button"
+              className="pl-lp-tab"
+              aria-pressed={isAnnual}
+              onClick={() => selectBilling("annual")}
+            >
+              Anual (Ahorras {MEMBERSHIP_SPEC.annualSavingsPct} %)
+            </button>
+          </div>
+        </div>
+
+        <div className="pl-lp-pricing-compare-grid">
+          <article className="pl-lp-card pl-lp-pricing-card pl-lp-pricing-card--free glass-card glass-ring">
+            <div className="pl-lp-pricing-plan-head">
+              <h3 className="pl-lp-plan-name">Gratis</h3>
+            </div>
+
+            <div>
+              <p className="pl-lp-price-figure num">
+                <span className="pl-lp-price-currency">$</span>
+                <span className="pl-lp-price-amount">0</span>
+              </p>
+              <p className="pl-lp-price-note">
+                Sin registro · para probar el estándar antes de entrar al club
+              </p>
+            </div>
+
+            <ul className="pl-lp-features">
+              {[
+                "Partido destacado por liga",
+                "Probabilidades del modelo",
+                "Comparador de momio justo",
+                "Metodología de los cinco motores",
+                "Muestra del historial público",
+              ].map((item) => (
+                <li key={item} className="pl-lp-row" style={{ alignItems: "flex-start" }}>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    style={{ flex: "none", color: "var(--pl-text-muted)", marginTop: 2 }}
+                  >
+                    <path d="M5 12l5 5 9-10" pathLength={1} />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a className="pl-lp-btn pl-lp-btn--full pl-lp-btn-ghost" href="#hoy">
+              Explorar comparador gratis
+            </a>
+            <p className="pl-lp-pricing-foot">
+              Acceso libre a la vista previa pública.
+            </p>
+          </article>
+
+          <article className="pl-lp-card pl-lp-pricing-card pl-lp-pricing-card--featured glass-lens glass-ring glass-ring--featured">
+            <div className="pl-lp-pricing-plan-head">
+              <h3 className="pl-lp-plan-name">{planTitle}</h3>
+              <span className="pl-lp-pill pl-lp-pill--brand">7 días gratis</span>
+            </div>
+
+            <div>
+              <p className="pl-lp-price-figure num">
+                <span className="pl-lp-price-currency">$</span>
+                <span className="pl-lp-price-amount" key={billing}>{amountLabel}</span>
+              </p>
+              <p className="pl-lp-price-note num">{noteLabel}</p>
+            </div>
+
+            <ul className="pl-lp-features">
+              {ULTRA_LANDING_FEATURES.map((feature) => (
+                <li key={feature} className="pl-lp-row" style={{ alignItems: "flex-start" }}>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    style={{ flex: "none", color: "var(--pl-success)", marginTop: 2 }}
+                  >
+                    <path d="M5 12l5 5 9-10" pathLength={1} />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+              <li className="pl-lp-row" style={{ alignItems: "flex-start" }}>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  style={{ flex: "none", color: "var(--pl-brand)", marginTop: 2 }}
+                >
+                  <path d="M5 12l5 5 9-10" pathLength={1} />
+                </svg>
+                <span>
+                  Programa de referidos: cuando un amigo activa su pase, los dos suman{" "}
+                  {MEMBERSHIP_SPEC.referralBothRewardDays} días sin costo.
+                </span>
+              </li>
+            </ul>
+
+            <a
+              className="pl-lp-btn pl-lp-btn--full pl-lp-btn-primary"
+              href={hasSession ? "/app/account?tab=plan" : "/signup"}
+            >
+              {hasSession ? "Administrar o activar plan" : "Empezar 7 días gratis"}{" "}
+              <span className="pl-lp-arr" aria-hidden="true">
+                →
+              </span>
+            </a>
+            <p className="pl-lp-pricing-foot">
+              Sin tarjeta para la prueba · al terminar no se cobra nada si no eliges pagar
+            </p>
+          </article>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pl-lp-card pl-lp-pricing-card glass-lens glass-ring glass-ring--featured">
@@ -669,12 +1130,21 @@ export function PricingCardIsland({
   );
 }
 
+const RESULTS_PAGE_SIZE = 20;
+
 export function ResultsFilterListIsland({
   results,
 }: {
   results: readonly LandingFinishedResultItem[];
 }): React.JSX.Element {
   const [selectedLeague, setSelectedLeague] = useState<string>("all");
+  const [visibleCount, setVisibleCount] = useState<number>(RESULTS_PAGE_SIZE);
+  const [viewMode, setViewMode] = useState<"list" | "calendar">("list");
+
+  const selectLeague = (league: string): void => {
+    setSelectedLeague(league);
+    setVisibleCount(RESULTS_PAGE_SIZE);
+  };
 
   const leagues = React.useMemo(() => {
     const map = new Map<
@@ -695,46 +1165,99 @@ export function ResultsFilterListIsland({
       : results.filter((item) => item.league === selectedLeague);
 
   const hitsCount = filtered.filter((item) => item.hit).length;
+  const visibleItems = filtered.slice(0, visibleCount);
+  const remainingCount = Math.max(0, filtered.length - visibleItems.length);
+  const hasCalendarDates = filtered.some((item) => Boolean(item.kickoffUtc));
+
+  const buildPublicCalendar = React.useCallback(
+    (ym: string) =>
+      buildModelDailyCalendar(
+        filtered
+          .filter((item) => Boolean(item.kickoffUtc))
+          .map((item) => ({
+            id: item.id,
+            kickoffUtc: item.kickoffUtc!,
+            label: item.scoreLabel,
+            subtitle: `${item.leagueLabel} · ${item.pickLabel}`,
+            hit: item.hit,
+          })),
+        ym || undefined,
+      ),
+    [filtered],
+  );
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20, minWidth: 0 }}>
-      {leagues.length > 0 ? (
-        <div
-          role="group"
-          aria-label="Filtrar resultados por liga"
-          className="pl-lp-league-tabs"
-        >
-          <button
-            type="button"
-            className="pl-lp-tab"
-            aria-pressed={selectedLeague === "all"}
-            onClick={() => setSelectedLeague("all")}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        {leagues.length > 0 ? (
+          <div
+            role="group"
+            aria-label="Filtrar resultados por liga"
+            className="pl-lp-league-tabs"
           >
-            Todas ({results.length})
-          </button>
-          {leagues.map((lg) => (
             <button
-              key={lg.league}
               type="button"
               className="pl-lp-tab"
-              aria-pressed={selectedLeague === lg.league}
-              onClick={() => setSelectedLeague(lg.league)}
+              aria-pressed={selectedLeague === "all"}
+              onClick={() => selectLeague("all")}
             >
-              <LeagueBadge league={lg.league} size={18} />
-              <span>{lg.label}</span>
+              Todas ({results.length})
             </button>
-          ))}
-        </div>
-      ) : null}
+            {leagues.map((lg) => (
+              <button
+                key={lg.league}
+                type="button"
+                className="pl-lp-tab"
+                aria-pressed={selectedLeague === lg.league}
+                onClick={() => selectLeague(lg.league)}
+              >
+                <LeagueBadge league={lg.league} size={18} />
+                <span>{lg.label}</span>
+              </button>
+            ))}
+          </div>
+        ) : <span />}
 
-      <div className="pl-lp-card pl-lp-results-card glass-card glass-ring">
+        {hasCalendarDates ? (
+          <div
+            className="seg-well"
+            role="group"
+            aria-label="Modo de vista de resultados"
+            data-public-results-view-toggle=""
+          >
+            <button
+              type="button"
+              className="seg-btn text-xs min-h-10"
+              aria-pressed={viewMode === "list"}
+              onClick={() => setViewMode("list")}
+            >
+              Lista
+            </button>
+            <button
+              type="button"
+              className="seg-btn text-xs min-h-10"
+              aria-pressed={viewMode === "calendar"}
+              onClick={() => setViewMode("calendar")}
+            >
+              Calendario
+            </button>
+          </div>
+        ) : null}
+      </div>
+
+      {viewMode === "calendar" && hasCalendarDates ? (
+        <div className="pl-lp-card glass-card glass-ring p-5">
+          <DailyResultsCalendar buildMonth={buildPublicCalendar} mode="model" />
+        </div>
+      ) : (
+        <div className="pl-lp-card pl-lp-results-card glass-card glass-ring">
         {filtered.length === 0 ? (
           <p className="pl-lp-fine" style={{ padding: "20px 0" }}>
             Aún no hay partidos finalizados para mostrar en esta liga.
           </p>
         ) : (
           <>
-            {filtered.map((item) => (
+            {visibleItems.map((item) => (
               <div key={item.id} className="pl-lp-result-row">
                 <div style={{ minWidth: 0 }}>
                   <p
@@ -818,20 +1341,40 @@ export function ResultsFilterListIsland({
                 </span>
               </div>
             ))}
-            <p
-              className="num"
+            <div
               style={{
-                margin: 0,
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 12,
                 padding: "16px 0",
-                fontSize: 13,
-                color: "var(--pl-text-muted)",
               }}
             >
-              Historial publicado antes del partido · {hitsCount} de {filtered.length} cumplidos
-            </p>
+              <p
+                className="num"
+                style={{
+                  margin: 0,
+                  fontSize: 13,
+                  color: "var(--pl-text-muted)",
+                }}
+              >
+                Mostrando {visibleItems.length} de {filtered.length} · Historial publicado antes del partido · {hitsCount} de {filtered.length} cumplidos
+              </p>
+              {remainingCount > 0 ? (
+                <button
+                  type="button"
+                  className="pl-lp-btn pl-lp-btn-ghost pl-lp-btn--compact num"
+                  onClick={() => setVisibleCount((prev) => prev + RESULTS_PAGE_SIZE)}
+                >
+                  Mostrar más partidos ({remainingCount} restantes)
+                </button>
+              ) : null}
+            </div>
           </>
         )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

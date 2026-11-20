@@ -248,4 +248,52 @@ describe("contador y tiempos", () => {
     expect(merged.serverReadIds.has("social:n-follow")).toBe(true);
     expect(unreadCount(merged.items, merged.serverReadIds)).toBe(2); // n-like + kickoff:g1
   });
+
+  it("mapea respuestas a comentarios y menciones hacia el hilo", () => {
+    const reply = fromServerSocialNotification(
+      {
+        id: "n-reply",
+        kind: "comment_reply",
+        actorHandle: "beto_nfl",
+        actorName: "Beto Ruiz",
+        postId: "post-123",
+        commentId: "c-2",
+        postExcerpt: "Buen punto sobre el ritmo",
+        likeCount: 0,
+        createdAt: "2026-11-14T19:26:00Z",
+        readAt: null,
+      },
+      NOW,
+    );
+    expect(reply).toMatchObject({
+      id: "social:n-reply",
+      kind: "comunidad",
+      title: "@beto_nfl respondió tu comentario",
+      href: "/app/social?post=post-123",
+      actionLabel: "Ver hilo",
+    });
+
+    const mention = fromServerSocialNotification(
+      {
+        id: "n-mention",
+        kind: "mention",
+        actorHandle: "carla_nba",
+        actorName: "Carla Díaz",
+        postId: "post-123",
+        commentId: "c-3",
+        postExcerpt: "@ana_mx mira este split",
+        likeCount: 0,
+        createdAt: "2026-11-14T19:27:00Z",
+        readAt: null,
+      },
+      NOW,
+    );
+    expect(mention).toMatchObject({
+      id: "social:n-mention",
+      kind: "comunidad",
+      title: "@carla_nba te mencionó en un comentario",
+      href: "/app/social?post=post-123",
+      actionLabel: "Ver hilo",
+    });
+  });
 });

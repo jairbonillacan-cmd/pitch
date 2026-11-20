@@ -1,6 +1,9 @@
 import type {
+  CountProjection,
   HeadToHeadView,
   LeagueId,
+  MatchPreGameContext,
+  PlatformSport,
   StandingRow,
 } from "@pitchlab/contracts";
 
@@ -77,6 +80,16 @@ export type PickConflictGroup =
   | "btts_no"
   | "independent";
 
+export interface BookQuoteItem {
+  book: string;
+  bookLabel: string;
+  decimal: number;
+  capturedAtUtc: string;
+  openingDecimal?: number | null;
+  movementDirection?: "shortening" | "drifting" | "stable" | null;
+  isBest?: boolean;
+}
+
 export interface MatchPick {
   id: string;
   gameId: string;
@@ -93,21 +106,25 @@ export interface MatchPick {
   engineName: string;
   marketGroup: string;
   selectionKey: string;
+  market?: string;
+  line?: number | null;
   conflictGroup: PickConflictGroup;
   label: string;
   rationale: string;
   p: number;
   fairDecimal: number;
   fairAmerican: number;
-  /** Momio real de casa (Spacetime v3.0). `null` cuando no hay mercado verificado. */
+  /** Momio real de casa (Spacetime v3.0 / cuotas vigentes). `null` cuando no hay mercado verificado. */
   marketDecimal: number | null;
   marketAmerican: number | null;
   /** Casa y sello UTC de captura del momio real (`null` cuando no hay cuota verificada). */
   marketBookLabel?: string | null;
   marketCapturedAtUtc?: string | null;
+  /** Cuotas vigentes por casa autorizada (< 72 h, informativas sin afiliados). */
+  bookQuotes?: readonly BookQuoteItem[];
   /** Ventaja en puntos de probabilidad frente al momio real. `null` sin mercado. */
   edgePts: number | null;
-  confidenceScore: number;
+  confidenceScore: number | null;
   suggestedUnits: number;
   result?: "hit" | "miss" | null;
   isDailyOpenPromo?: boolean;
@@ -122,6 +139,8 @@ export interface LineupAbsenceItem {
   role: string;
   status: "Confirmado XI" | "Baja" | "Duda";
   impactNote: string;
+  injuryType?: string;
+  returnDate?: string;
 }
 
 export interface ConfirmedLineupPlayer {
@@ -135,6 +154,8 @@ export interface VerifiedMatchLineups {
   sourceLabel: string;
   /** Momento ISO UTC de verificación de la alineación oficial. */
   verifiedAtUtc: string;
+  /** Porcentaje de confianza cuando es alineación probable/proyectada (0-100). */
+  confidence?: number;
   homeFormation?: string;
   awayFormation?: string;
   homeStarters: ConfirmedLineupPlayer[];
@@ -162,6 +183,10 @@ export interface PreGameIntel {
   lineupsConfirmed60m: boolean;
   /** Alineación oficial verificada; `null` o ausente mientras no exista fuente real activa. */
   confirmedLineups?: VerifiedMatchLineups | null;
+  /** XI probable estimada cuando aún no sale el once oficial 60 min antes. */
+  probableLineups?: VerifiedMatchLineups | null;
+  /** Metadatos reales prepartido (clima, campo, árbitro, viaje, TV MX). */
+  matchContext?: MatchPreGameContext | null;
   /** Solo bajas reportadas por fuentes reales; vacío si no hay reporte. */
   absences: LineupAbsenceItem[];
   /** Reparto real del mercado; `null` si no hay datos de mercado. */
@@ -177,25 +202,33 @@ export interface PreGameIntel {
 export type MarketCardCategory =
   | "resultado"
   | "goles"
+  | "conteos"
   | "handicap"
   | "marcador"
   | "primer_tiempo";
+
+export type MatchTabKey = "resumen" | "ia" | "numeros" | "dinero" | "contexto";
 
 export interface PlatformMarketRow {
   group: string;
   market: string;
   selection: string;
   label: string;
+  line?: number | null;
   p: number;
   fairDecimal: number;
   fairAmerican: number;
-  /** Momio de apertura: hoy no hay histórico de líneas, siempre `null`. */
+  /** Momio de apertura: historial prepartido cuando la fuente lo reporta, si no `null`. */
   openDecimal: number | null;
   /** Momio real de casa; `null` sin mercado verificado. */
   currentDecimal: number | null;
+  /** Dirección de movimiento respecto a la apertura (`shortening` bajando, `drifting` subiendo). */
+  movementDirection?: "shortening" | "drifting" | "stable" | null;
   /** Nombre visible de la casa y momento UTC de captura del momio vigente (`< 72 h`). */
   quoteBookLabel?: string | null;
   quoteCapturedAtUtc?: string | null;
+  /** Cuotas vigentes por casa autorizada (< 72 h, informativas sin afiliados). */
+  bookQuotes?: readonly BookQuoteItem[];
   edgePts: number | null;
   /** `true` cuando la línea se deriva localmente con el motor v3.2. */
   isDerived?: boolean;
@@ -254,13 +287,15 @@ export interface PlatformGame {
   id: string;
   league: LeagueId;
   leagueLabel: string;
-  sport: "football" | "american-football";
+  leagueLogoUrl?: string;
+  sport: PlatformSport;
   round: string;
   dayId: string;
   dayLabel: string;
   kickoffUtc: string;
   kickoffLocal: string;
   venue: string;
+  referee?: string;
   neutralSite?: boolean;
   status: "NS" | "FT" | "LIVE";
   score?: { home: number; away: number };
@@ -269,6 +304,7 @@ export interface PlatformGame {
     name: string;
     shortName: string;
     code: string;
+    logoUrl?: string;
     record: string;
   };
   away: {
@@ -276,29 +312,136 @@ export interface PlatformGame {
     name: string;
     shortName: string;
     code: string;
+    logoUrl?: string;
     record: string;
   };
-  x12: [number, number, number];
+  /** `false` cuando el snapshot no trae análisis/pronóstico para este partido. */
+  hasForecast?: boolean;
+  x12: [number, number, number] | null;
   projection: {
     home: number;
     away: number;
     total: number;
-  };
-  confidenceScore: number;
-  confidenceLevel: "alta" | "media" | "baja";
+  } | null;
+  /** Línea principal de goles/puntos (la más cercana al 50 %) y probabilidad de Más. */
+  goalLine?: {
+    line: number;
+    pOver: number;
+  } | null;
+  confidenceScore: number | null;
+  confidenceLevel: "alta" | "media" | "baja" | null;
   /** Por qué la confianza es la que es: frases cortas y el desglose por factor. */
   confidenceDetail?: {
     reasons: string[];
     factors: Array<{ key: string; label: string; value: number; weight: number; detail: string }>;
   };
   picks: MatchPick[];
+  /** Líneas elegibles adicionales (`>= 52 %`) de mercados calculados (spreads alternativos, totales, doble oportunidad) para el optimizador por cuota objetivo. */
+  parlayCandidates?: MatchPick[];
   preGame: PreGameIntel;
   markets: PlatformMarketRow[];
   factors: Array<{ label: string; value: string; sub?: string }>;
   headToHead: HeadToHeadView[];
   restDays?: { home?: number; away?: number };
+  counts?: {
+    corners?: CountProjection;
+    fouls?: CountProjection;
+    yellow?: CountProjection;
+  };
   updatedAtLabel: string;
   spacetime: SpacetimeSignal | null;
+}
+
+/** Banda de confianza calibrada al 90 % para una probabilidad del partido (sin stake ni EV). */
+export interface EpistemicBandView {
+  readonly pPoint: number;
+  readonly pLower90: number;
+  readonly pUpper90: number;
+  readonly halfWidth90: number;
+  readonly conservativeFairDecimal: number;
+  readonly grade: "high" | "moderate" | "elevated";
+}
+
+/** Ventaja matemática exacta de Pago Anticipado (+2 goles, +17 NFL, +20 NBA, +5 MLB). */
+export interface EarlyPayoutSummaryView {
+  readonly triggerLabel: string;
+  readonly homeWinProb: number;
+  readonly awayWinProb: number;
+  readonly homeLiftPts: number;
+  readonly awayLiftPts: number;
+  readonly fairHomeDecimal: number;
+  readonly fairAwayDecimal: number;
+  readonly bothTriggerProb?: number;
+  readonly validatedOos: boolean;
+}
+
+/** Proyecciones causales de micro-mercados y rigor arbitral histórico para la ficha del partido. */
+export interface MicroCountsV5View {
+  readonly corners?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly yellowCards?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly fouls?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly shots?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly shotsOnTarget?: { readonly home: number; readonly away: number; readonly total: number };
+  readonly redCardMatchProb?: number;
+  readonly bookingPointsMean?: number;
+  readonly refereeProfile?: {
+    readonly name: string;
+    readonly games: number;
+    readonly cardsMultiplier: number;
+    readonly foulsMultiplier: number;
+    readonly redsMultiplier: number;
+  } | null;
+}
+
+/** Enriquecimiento aditivo de Spacetime Suite v5.1 para la ficha del partido (Cero-Fuga / FD-16). */
+export interface MatchIntelligenceV5View {
+  readonly epistemic: {
+    readonly home: EpistemicBandView;
+    readonly draw?: EpistemicBandView | null;
+    readonly away: EpistemicBandView;
+  };
+  readonly earlyPayout?: EarlyPayoutSummaryView | null;
+  readonly microCounts?: MicroCountsV5View | null;
+  readonly nflSpecials?: {
+    readonly expectedMargin: number;
+    readonly pExactPlus3: number;
+    readonly pExactMinus3: number;
+    readonly pOvertime: number;
+    readonly fairOvertimeDecimal: number;
+  } | null;
+  readonly multisportSpecials?: {
+    readonly sport: "mlb" | "nhl" | "nba";
+    readonly highlights: ReadonlyArray<{
+      readonly label: string;
+      readonly value: string;
+      readonly sub?: string;
+    }>;
+  } | null;
+  /** Síntesis determinista verificada en español (respaldo inmediato sin LLM, 0 alucinaciones). */
+  readonly verifiedSummaryEs: string;
+  readonly guardrailPassed: boolean;
+}
+
+/** Auditoría de correlación y margen oculto SGP calculada con Cópula Student-t. */
+export interface SgpCopulaAuditView {
+  readonly sport: "soccer" | "nfl";
+  readonly nLegs: number;
+  readonly independentProbability: number;
+  readonly jointProbability: number;
+  readonly correlationMultiplier: number;
+  readonly correlationDirection:
+    | "positively_correlated"
+    | "negatively_correlated"
+    | "near_independent";
+  readonly fairCombinedDecimal: number;
+  readonly fairCombinedAmerican: number;
+  readonly bookQuoteAudit?: {
+    readonly offeredDecimal: number;
+    readonly impliedBookProbability: number;
+    readonly fairCombinedDecimal: number;
+    readonly effectiveHoldPct: number;
+    readonly taxFlag: "fair_or_low_vig" | "standard_sgp_vig" | "severe_sgp_tax";
+  } | null;
 }
 
 /**
@@ -306,8 +449,10 @@ export interface PlatformGame {
  * ficha del partido: el layout manda los partidos sin él y la ficha lo pide para su partido.
  */
 export type PlatformGameDetail = Pick<PlatformGame, "markets" | "headToHead" | "factors"> & {
-  /** Panorama por mercado del motor v3.2; `null` si el partido no está en el snapshot. */
+  /** Panorama por mercado del motor v3.2 (o v5.1 en ligas de expansión); `null` si no aplica. */
   outlook?: MatchOutlookSummary | null;
+  /** Enriquecimiento aditivo de Spacetime Suite v5.1 (bandas 90 %, pago anticipado, micro-mercados). */
+  v5?: MatchIntelligenceV5View | null;
   /** Pick principal congelado 60 min antes del inicio (persistido en servidor si ya cruzó el umbral). */
   frozenMainPick?: FrozenMainPickSnapshot | null;
 };
@@ -340,7 +485,8 @@ export interface MatchOutlookSummary {
 export interface PlatformLeagueSummary {
   league: LeagueId;
   label: string;
-  sport: "football" | "american-football";
+  logoUrl?: string;
+  sport: PlatformSport;
   season: string;
   roundLabel: string;
   generatedAt: string;
@@ -385,6 +531,8 @@ export type SocialReportReason = "spam_enlaces" | "ofensivo" | "apuesta_riesgosa
 
 export interface SocialComment {
   id: string;
+  parentCommentId?: string | null;
+  replyToHandle?: string | null;
   authorHandle: string;
   authorName: string;
   authorAvatarUrl?: string | null;
@@ -393,8 +541,13 @@ export interface SocialComment {
   body: string;
   /** Guardado en el servidor (permite reportarlo si es ajeno). */
   fromServer?: boolean;
+  /** En camino al servidor (optimista sin UUID definitivo todavía). */
+  pending?: boolean;
   /** Lo escribió quien está viendo. */
   isMine?: boolean;
+  /** Conteo de votos «Útil» y si quien mira lo marcó. */
+  helpfulCount?: number;
+  helpfulByMe?: boolean;
 }
 
 /** Pick adjunto a una publicación: el mismo que se registra en la bitácora. */
@@ -407,7 +560,7 @@ export interface SocialPostPick {
   fairDecimal: number;
   /** Probabilidad del modelo, 0–1. */
   modelProbability: number;
-  status: "open" | "won" | "lost";
+  status: "open" | "won" | "lost" | "void";
 }
 
 export interface SocialPost {
@@ -415,6 +568,8 @@ export interface SocialPost {
   authorHandle: string;
   authorName: string;
   authorAvatarUrl?: string | null;
+  /** Tipster oficial real confirmado por el servidor. */
+  authorIsTipster?: boolean;
   roleBadge: "Tipster Oficial" | "Analista Verificado" | "Socio Pase PitchLab Ultra";
   avatarGradVar: string;
   verifiedRecord: string;
@@ -429,6 +584,10 @@ export interface SocialPost {
   likes: number;
   likedByMe?: boolean;
   comments: SocialComment[];
+  /** Total de comentarios visibles (puede ser mayor que `comments.length` en el feed). */
+  commentsCount?: number;
+  /** Socios que siguieron este pick en su bitácora. */
+  copiesCount?: number;
   /** Publicación de demostración: la UI la marca como «Ejemplo». */
   isExample?: boolean;
   /** Pick adjunto, si la publicación trae uno. */
@@ -468,6 +627,31 @@ export interface PlayerPropItem {
   contextNote: string;
 }
 
+export interface JournalParlayLeg {
+  pickId: string;
+  gameId: string;
+  leagueLabel?: string;
+  matchLabel?: string;
+  pickLabel?: string;
+  market?: string;
+  selection?: string;
+  line?: number | null;
+  p?: number;
+  fairDecimal?: number;
+  kickoffAt?: string;
+}
+
+export interface JournalParlayLegResult {
+  pickId: string;
+  gameId: string;
+  status: "won" | "lost" | "void";
+  homeScore: number;
+  awayScore: number;
+  closingDecimal?: number | null;
+  clvPct?: number | null;
+  settledAt: string;
+}
+
 export interface JournalEntry {
   id: string;
   pickId: string;
@@ -480,7 +664,11 @@ export interface JournalEntry {
   userDecimal: number;
   fairDecimal: number;
   clvPct: number;
-  status: "pending" | "won" | "lost";
+  closingDecimal?: number | null;
+  status: "pending" | "won" | "lost" | "void";
+  pickKind?: "single" | "parlay";
+  parlayLegs?: JournalParlayLeg[];
+  parlayLegResults?: JournalParlayLegResult[];
   sealedAt: string;
   /** Fecha ISO del registro; permite ventanas reales (30 días, por mes). */
   sealedAtIso?: string;
@@ -497,6 +685,8 @@ export interface ParlaySummary {
   legs: ParlayLeg[];
   hasSgpCorrelation: boolean;
   sgpPairsCount: number;
+  sgpCorrelationDirection?: SgpCopulaAuditView["correlationDirection"];
+  sgpCorrelationMultiplier?: number;
   combinedProbability: number;
   fairDecimal: number;
   fairAmerican: number;
@@ -508,10 +698,68 @@ export interface ParlaySummary {
   projectedProfitUnits: number;
 }
 
+export interface TeamLeagueDirectoryItem {
+  id: string;
+  league: LeagueId;
+  leagueLabel: string;
+  slug: string;
+  name: string;
+  shortName: string;
+  code: string;
+  rank: number | null;
+  href: string;
+}
+
+export type LeagueNewsCategory =
+  | "lesiones"
+  | "mercado"
+  | "analisis"
+  | "resultados"
+  | "jornada";
+
+export interface LeagueNewsArticleSummary {
+  id: string;
+  title: string;
+  lead: string;
+  paragraphs: string[];
+  keyPoints: string[];
+  publishedAtLabel: string;
+  byline?: string;
+  categoryLabel: string;
+}
+
+export interface LeagueNewsItem {
+  id: string;
+  category: LeagueNewsCategory;
+  categoryLabel: string;
+  title: string;
+  summary: string;
+  publishedAtLabel: string;
+  badge?: string;
+  meta?: string;
+  team?: {
+    slug: string;
+    name: string;
+    logoUrl?: string;
+  };
+  href?: string;
+  ctaLabel?: string;
+  /** Ruta del servidor para ampliar el resumen editorial dentro de la app (sin salir de PitchLab). */
+  summaryHref?: string;
+  readMoreLabel?: string;
+  summaryHighlights?: string[];
+  /** Resumen pre-cargado opcional (útil en stories o señales locales sin llamada extra). */
+  preloadedSummary?: LeagueNewsArticleSummary;
+}
+
 export interface PlatformDataset {
   generatedAt: string;
   leagues: PlatformLeagueSummary[];
   games: PlatformGame[];
+  /** Directorio ligero de todos los equipos/franquicias activas (búsqueda y navegación). */
+  teams?: TeamLeagueDirectoryItem[];
+  /** Props individuales de jugadores calculados con la muestra de temporada. */
+  playerProps?: PlayerPropItem[];
   dailyPromoPickId: string;
   tipsterWeeklyPickId: string;
   tipsterWeeklySlug: string;

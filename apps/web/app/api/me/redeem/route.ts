@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { redeemAccessCoupon } from "@pitchlab/db";
+import { recordMemberFunnelIfConsented } from "../../../../src/server/funnel";
 import { getMailer } from "../../../../src/server/mailer";
 import {
   checkEndpointRateLimit,
@@ -63,6 +64,15 @@ export async function POST(request: Request): Promise<NextResponse> {
       now,
     });
   }
+
+  await recordMemberFunnelIfConsented(
+    member.db,
+    member.userId,
+    "coupon_redeemed",
+    "/app/canjear",
+    { grantId: res.grantId, transferActivated: Boolean(res.transferActivated) },
+    now,
+  );
 
   return NextResponse.json(
     {

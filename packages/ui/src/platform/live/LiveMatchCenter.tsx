@@ -9,6 +9,7 @@
  */
 import React from "react";
 import {
+  canonicalGameHref,
   LIVE_PHASE_LABEL_ES,
   isLivePhaseActive,
   type LiveIncident,
@@ -18,9 +19,10 @@ import {
 } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { MaestroIcon } from "../components/MaestroPrimitives";
-import { DEFAULT_FOLLOW_ALERTS, usePlatform, type FollowAlerts } from "../platform-provider";
+import { DEFAULT_FOLLOW_ALERTS, useOptionalPlatformCore, usePlatform, type FollowAlerts } from "../platform-provider";
 import type { PlatformGame } from "../types";
 import { LiveStatBars, MomentumChart, XgRaceChart } from "./live-charts";
+import { LiveWinProbBar } from "./LiveWinProbBar";
 import { useLiveMatch, useLiveScoreboard } from "./live-store";
 
 // ---------- Piezas ----------
@@ -145,39 +147,76 @@ export function LiveTimeline({
 export function FollowControl({ gameId, compact = false }: { gameId: string; compact?: boolean }): React.JSX.Element {
   const { watchlistGameIds, toggleWatchlistGame, followAlerts, setFollowAlerts } = usePlatform();
   const following = watchlistGameIds.includes(gameId);
+  const [closingAlerts, setClosingAlerts] = React.useState(false);
+  const [pulseSeq, setPulseSeq] = React.useState(0);
+  const prevFollowingRef = React.useRef(following);
+
+  React.useEffect(() => {
+    if (prevFollowingRef.current && !following && !compact) {
+      setClosingAlerts(true);
+      const t = window.setTimeout(() => setClosingAlerts(false), 230);
+      prevFollowingRef.current = following;
+      return () => window.clearTimeout(t);
+    }
+    if (following) {
+      setClosingAlerts(false);
+    }
+    prevFollowingRef.current = following;
+    return undefined;
+  }, [following, compact]);
+
   const alerts = followAlerts[gameId] ?? DEFAULT_FOLLOW_ALERTS;
   const toggleAlert = (key: keyof FollowAlerts) => setFollowAlerts(gameId, { ...alerts, [key]: !alerts[key] });
+  const showAlerts = !compact && (following || closingAlerts);
+
   return (
     <div className="pl-live-follow">
       <button
         type="button"
-        className={`pl-live-follow-btn${following ? " is-on" : ""}`}
+        className={`pl-live-follow-btn${following ? " is-on" : ""}${pulseSeq > 0 ? " is-pulsing" : ""}`}
+        data-pulse-seq={pulseSeq > 0 ? pulseSeq : undefined}
         aria-pressed={following}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          setPulseSeq((n) => n + 1);
           toggleWatchlistGame(gameId);
         }}
+        onAnimationEnd={() => setPulseSeq(0)}
       >
-        <MaestroIcon name={following ? "check" : "bell"} size={14} />
+        <span key={following ? "on" : "off"} className="pl-live-follow-ico">
+          <MaestroIcon name={following ? "check" : "bell"} size={14} />
+        </span>
         <span className={compact ? "sr-only" : undefined}>{following ? "Siguiendo" : "Seguir"}</span>
       </button>
-      {following && !compact ? (
-        <fieldset className="pl-live-alerts">
-          <legend className="sr-only">Avisos de este partido</legend>
-          {(
-            [
-              ["kickoff", "Inicio"],
-              ["goals", "Goles"],
-              ["final", "Final"],
-            ] as const
-          ).map(([key, label]) => (
-            <label key={key} className="pl-live-chip">
-              <input type="checkbox" checked={alerts[key]} onChange={() => toggleAlert(key)} />
-              <span>{label}</span>
-            </label>
-          ))}
-        </fieldset>
+      {showAlerts ? (
+        <div
+          className="pl-live-alerts-shell"
+          data-closing={!following && closingAlerts ? "" : undefined}
+          aria-hidden={!following || undefined}
+        >
+          <div className="pl-live-alerts-inner">
+            <fieldset className="pl-live-alerts">
+              <legend className="sr-only">Avisos de este partido</legend>
+              {(
+                [
+                  ["kickoff", "Inicio"],
+                  ["goals", "Goles"],
+                  ["final", "Final"],
+                ] as const
+              ).map(([key, label], idx) => (
+                <label
+                  key={key}
+                  className="pl-live-chip"
+                  style={{ "--chip-idx": idx } as React.CSSProperties}
+                >
+                  <input type="checkbox" checked={alerts[key]} onChange={() => toggleAlert(key)} />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </fieldset>
+          </div>
+        </div>
       ) : null}
     </div>
   );
@@ -192,9 +231,195 @@ export interface LiveMatchPanelViewProps {
   error?: boolean;
   /** Oculta el control «Siguiendo» (Storybook sin proveedor). */
   showFollow?: boolean;
+  /** Oculta la gráfica de momentum cuando ya vive en la columna lateral de la ficha. */
+  hideMomentum?: boolean;
+  /** Oculta el marcador duplicado cuando el hero principal ya lo muestra arriba. */
+  hideScoreboard?: boolean;
+  /** Oculta la línea de tiempo duplicada cuando ya vive por tiempos en el riel lateral. */
+  hideTimeline?: boolean;
 }
 
-export function LiveMatchPanelView({ game, detail, loading, error, showFollow = true }: LiveMatchPanelViewProps): React.JSX.Element | null {
+type LiveRightTabKey = "timeline" | "commentary" | "players";
+
+function LiveDetailRightColumn({
+  detail,
+  home,
+  away,
+}: {
+  detail: LiveMatchDetail;
+  home: string;
+  away: string;
+}): React.JSX.Element {
+  const commentary = detail.commentary ?? [];
+  const players = detail.playerStats ?? [];
+  const hasCommentary = commentary.length > 0;
+  const hasPlayers = players.length > 0;
+  const uid = React.useId().replace(/:/g, "");
+
+  const tabs: Array<{ key: LiveRightTabKey; label: string }> = [
+    { key: "timeline", label: "Minuto a minuto" },
+    ...(hasCommentary ? [{ key: "commentary" as const, label: "Narración" }] : []),
+    ...(hasPlayers ? [{ key: "players" as const, label: "Jugadores" }] : []),
+  ];
+  const [activeTab, setActiveTab] = React.useState<LiveRightTabKey>("timeline");
+  const currentTab: LiveRightTabKey = tabs.some((t) => t.key === activeTab) ? activeTab : "timeline";
+
+  if (!hasCommentary && !hasPlayers) {
+    return (
+      <div className="pl-live-col">
+        <h3 className="pl-live-subtitle">Minuto a minuto</h3>
+        <LiveTimeline incidents={detail.incidents} homeLabel={home} awayLabel={away} />
+      </div>
+    );
+  }
+
+  const handleTabKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const idx = tabs.findIndex((t) => t.key === currentTab);
+    if (idx < 0) return;
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      setActiveTab(tabs[(idx + 1) % tabs.length]!.key);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      setActiveTab(tabs[(idx - 1 + tabs.length) % tabs.length]!.key);
+    }
+  };
+
+  return (
+    <div className="pl-live-col">
+      <div
+        role="tablist"
+        aria-label="Detalle del partido en vivo"
+        className="pl-live-tabs"
+        onKeyDown={handleTabKeyDown}
+      >
+        {tabs.map((t) => {
+          const selected = currentTab === t.key;
+          return (
+            <button
+              key={t.key}
+              type="button"
+              role="tab"
+              id={`${uid}-tab-${t.key}`}
+              aria-selected={selected}
+              aria-controls={`${uid}-panel-${t.key}`}
+              tabIndex={selected ? 0 : -1}
+              className="pl-live-tab"
+              onClick={() => setActiveTab(t.key)}
+            >
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div
+        role="tabpanel"
+        id={`${uid}-panel-timeline`}
+        aria-labelledby={`${uid}-tab-timeline`}
+        hidden={currentTab !== "timeline"}
+        className="pl-live-tabpanel"
+      >
+        <LiveTimeline incidents={detail.incidents} homeLabel={home} awayLabel={away} />
+      </div>
+
+      {hasCommentary ? (
+        <div
+          role="tabpanel"
+          id={`${uid}-panel-commentary`}
+          aria-labelledby={`${uid}-tab-commentary`}
+          hidden={currentTab !== "commentary"}
+          className="pl-live-tabpanel"
+        >
+          <ol className="pl-live-commentary">
+            {[...commentary].reverse().map((item) => (
+              <li key={item.id} className={item.isImportant ? "is-important" : undefined}>
+                <span className="pl-live-event-min num">
+                  {item.minute != null
+                    ? `${item.minute}${item.addedTime ? `+${item.addedTime}` : ""}'`
+                    : "·"}
+                </span>
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : null}
+
+      {hasPlayers ? (
+        <div
+          role="tabpanel"
+          id={`${uid}-panel-players`}
+          aria-labelledby={`${uid}-tab-players`}
+          hidden={currentTab !== "players"}
+          className="pl-live-tabpanel"
+        >
+          <div
+            className="pl-live-players-region"
+            role="region"
+            tabIndex={0}
+            aria-label="Actuaciones individuales del partido"
+          >
+            <table className="pl-live-players-table">
+              <thead>
+                <tr>
+                  <th scope="col">Jugador</th>
+                  <th scope="col" className="num">Nota</th>
+                  <th scope="col" className="num">Min</th>
+                  <th scope="col" className="num">G / A</th>
+                  <th scope="col" className="num">Tiros</th>
+                  <th scope="col" className="num">xG</th>
+                </tr>
+              </thead>
+              <tbody>
+                {players.slice(0, 18).map((p, idx) => (
+                  <tr key={`${p.side}-${p.player}-${idx}`}>
+                    <td>
+                      <strong>{p.player}</strong>{" "}
+                      <small style={{ color: "var(--pl-text-muted)" }}>
+                        {p.side === "home" ? home : away}
+                        {p.position ? ` · ${p.position}` : ""}
+                      </small>
+                    </td>
+                    <td className="num" data-label="Nota">
+                      {p.rating != null ? p.rating.toFixed(1) : "—"}
+                    </td>
+                    <td className="num" data-label="Min">
+                      {p.minutes != null ? `${Math.round(p.minutes)}'` : "—"}
+                    </td>
+                    <td className="num" data-label="G / A">
+                      {p.goals ?? 0} / {p.assists ?? 0}
+                    </td>
+                    <td className="num" data-label="Tiros">
+                      {p.shots ?? 0}
+                      {p.shotsOnTarget ? ` (${p.shotsOnTarget})` : ""}
+                    </td>
+                    <td className="num" data-label="xG">
+                      {p.xg != null ? p.xg.toFixed(2) : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export function LiveMatchPanelView({
+  game,
+  detail,
+  loading,
+  error,
+  showFollow = true,
+  hideMomentum = false,
+  hideScoreboard = false,
+  hideTimeline = false,
+}: LiveMatchPanelViewProps): React.JSX.Element | null {
+  const platformCore = useOptionalPlatformCore();
+  const oddsFormat = platformCore?.oddsFormat ?? "american";
   const home = game.home.shortName;
   const away = game.away.shortName;
   if (!detail) {
@@ -220,27 +445,50 @@ export function LiveMatchPanelView({ game, detail, loading, error, showFollow = 
         {showFollow && !(entry.phase === "final") ? <FollowControl gameId={game.id} /> : null}
       </header>
 
-      <div className="pl-live-score" aria-live={live ? "polite" : "off"} aria-atomic="true">
-        <span className="pl-live-score-team">
-          <TeamBadge league={game.league} slug={game.home.slug} name={game.home.name} size={28} />
-          <span>{home}</span>
-        </span>
-        <strong className="pl-live-score-value num">
-          {entry.score ? `${entry.score.home} – ${entry.score.away}` : "–"}
-          <span className="sr-only">
-            {entry.score ? `${home} ${entry.score.home}, ${away} ${entry.score.away}` : ""}
+      {hideScoreboard ? null : (
+        <div className="pl-live-score" aria-live={live ? "polite" : "off"} aria-atomic="true">
+          <span className="pl-live-score-team">
+            <TeamBadge
+              league={game.league}
+              slug={game.home.slug}
+              name={game.home.name}
+              logoUrl={game.home.logoUrl}
+              size={28}
+            />
+            <span>{home}</span>
           </span>
-        </strong>
-        <span className="pl-live-score-team pl-live-score-team--away">
-          <span>{away}</span>
-          <TeamBadge league={game.league} slug={game.away.slug} name={game.away.name} size={28} />
-        </span>
-        {entry.htScore && entry.phase !== "live" ? (
-          <span className="pl-live-ht num">
-            Medio tiempo {entry.htScore.home}–{entry.htScore.away}
+          <strong className="pl-live-score-value num">
+            {entry.score ? `${entry.score.home} – ${entry.score.away}` : "–"}
+            <span className="sr-only">
+              {entry.score ? `${home} ${entry.score.home}, ${away} ${entry.score.away}` : ""}
+            </span>
+          </strong>
+          <span className="pl-live-score-team pl-live-score-team--away">
+            <span>{away}</span>
+            <TeamBadge
+              league={game.league}
+              slug={game.away.slug}
+              name={game.away.name}
+              logoUrl={game.away.logoUrl}
+              size={28}
+            />
           </span>
-        ) : null}
-      </div>
+          {entry.htScore && entry.phase !== "live" ? (
+            <span className="pl-live-ht num">
+              Medio tiempo {entry.htScore.home}–{entry.htScore.away}
+            </span>
+          ) : null}
+        </div>
+      )}
+
+      {live && detail.inPlayWinProb ? (
+        <LiveWinProbBar
+          homeLabel={home}
+          awayLabel={away}
+          inPlay={detail.inPlayWinProb}
+          oddsFormat={oddsFormat}
+        />
+      ) : null}
 
       {detail.notice || error ? (
         <p className="pl-live-notice" role="status">
@@ -248,17 +496,24 @@ export function LiveMatchPanelView({ game, detail, loading, error, showFollow = 
         </p>
       ) : null}
 
-      <div className="pl-live-grid-layout">
+      <div className={`pl-live-grid-layout${hideTimeline ? " pl-live-grid-layout--single" : ""}`}>
         <div className="pl-live-col">
-          <MomentumChart momentum={detail.momentum} goals={goals} homeLabel={home} awayLabel={away} />
+          {hideMomentum ? null : (
+            <MomentumChart momentum={detail.momentum} goals={goals} homeLabel={home} awayLabel={away} />
+          )}
           <XgRaceChart points={detail.xgTimeline} homeLabel={home} awayLabel={away} estimated={detail.xgEstimated} />
           {detail.stats ? <LiveStatBars stats={detail.stats} homeLabel={home} awayLabel={away} /> : null}
         </div>
-        <div className="pl-live-col">
-          <h3 className="pl-live-subtitle">Minuto a minuto</h3>
-          <LiveTimeline incidents={detail.incidents} homeLabel={home} awayLabel={away} />
-        </div>
+        {hideTimeline ? null : (
+          <LiveDetailRightColumn detail={detail} home={home} away={away} />
+        )}
       </div>
+
+      {detail.broadcastsMx && detail.broadcastsMx.length > 0 ? (
+        <div className="pl-live-broadcasts" aria-label="Canales de televisión en México">
+          <span className="pl-pill">TV México: {detail.broadcastsMx.join(" · ")}</span>
+        </div>
+      ) : null}
 
       <footer className="pl-live-foot">
         <span>{detail.attribution}</span>
@@ -274,12 +529,30 @@ export function LiveMatchPanelView({ game, detail, loading, error, showFollow = 
 }
 
 /** Contenedor de la ficha: se conecta al sondeo solo cerca del inicio, en juego o ya jugado. */
-export function LiveMatchPanel({ game }: { game: PlatformGame }): React.JSX.Element | null {
+export function LiveMatchPanel({
+  game,
+  hideMomentum = false,
+  hideScoreboard = false,
+}: {
+  game: PlatformGame;
+  hideMomentum?: boolean;
+  hideScoreboard?: boolean;
+}): React.JSX.Element | null {
   const supported = game.sport !== "american-football" && game.league !== "nfl";
   const snap = useLiveMatch(game.id, supported);
   if (!supported) return null;
   // En la ficha, «Siguiendo» ya está en la barra superior: aquí no se repite.
-  return <LiveMatchPanelView game={game} detail={snap.data} loading={snap.loading} error={snap.error} showFollow={false} />;
+  return (
+    <LiveMatchPanelView
+      game={game}
+      detail={snap.data}
+      loading={snap.loading}
+      error={snap.error}
+      showFollow={false}
+      hideMomentum={hideMomentum}
+      hideScoreboard={hideScoreboard}
+    />
+  );
 }
 
 // ---------- Marcador del día ----------
@@ -321,7 +594,7 @@ export function LiveScoreboardView({ board, games, onOpen, showFollow = true }: 
           <li key={g.id} className={`pl-live-row${isLivePhaseActive(e.phase) ? " is-live" : ""}`}>
             <a
               className="pl-live-row-link"
-              href={`/app/${g.league}/games/${g.id}`}
+              href={canonicalGameHref(g.league, g)}
               onClick={(ev) => {
                 if (!onOpen || ev.metaKey || ev.ctrlKey) return;
                 ev.preventDefault();
@@ -336,7 +609,7 @@ export function LiveScoreboardView({ board, games, onOpen, showFollow = true }: 
                   const lead = goals !== undefined && other !== undefined && goals > other;
                   return (
                     <span key={side} className={`pl-live-row-line${lead ? " is-lead" : ""}`}>
-                      <TeamBadge league={g.league} slug={t.slug} name={t.name} size={20} />
+                      <TeamBadge league={g.league} slug={t.slug} name={t.name} logoUrl={t.logoUrl} size={20} />
                       <span className="pl-live-row-name">{t.shortName}</span>
                       <span className="pl-live-row-goals num">{goals ?? ""}</span>
                     </span>
@@ -345,7 +618,7 @@ export function LiveScoreboardView({ board, games, onOpen, showFollow = true }: 
               </span>
               <span className="pl-live-row-meta">
                 <LivePhaseBadge entry={e} kickoffLocal={g.kickoffLocal} short />
-                <LeagueBadge league={g.league} size={14} />
+                <LeagueBadge league={g.league} logoUrl={g.leagueLogoUrl} size={14} />
               </span>
             </a>
             {showFollow && e.phase !== "final" ? <FollowControl gameId={g.id} compact /> : null}
@@ -363,7 +636,7 @@ export function LiveScoreboardStrip(): React.JSX.Element | null {
     <LiveScoreboardView
       board={snap.data}
       games={dataset.games}
-      onOpen={(g) => navigateTo(`/app/${g.league}/games/${g.id}`)}
+      onOpen={(g) => navigateTo(canonicalGameHref(g.league, g))}
     />
   );
 }

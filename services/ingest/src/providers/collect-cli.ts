@@ -164,7 +164,7 @@ async function runBzzoiro(flags: Flags): Promise<void> {
   const client = createProviderClient(cfg, {
     cacheDir: RAW_DIR,
     minIntervalMs: 250,
-    maxRequests: flags.maxRequests ?? 3_000,
+    maxRequests: flags.maxRequests ?? (cfg.unlimitedQuota ? 0 : 3_000),
     offline: flags.offline,
     log: (m) => console.log(`[bzzoiro] ${m}`),
   });

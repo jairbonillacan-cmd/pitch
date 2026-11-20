@@ -9,15 +9,36 @@ import React, {
   useRef,
   useState,
 } from "react";
+import {
+  canonicalGameHref,
+  competitionPrestigeScore,
+  isLeagueActiveInWindow,
+  isNationalCompetition,
+  type LeagueId,
+} from "@pitchlab/contracts";
 import { BrandLogo, ThemeToggle } from "../../primitives";
-import { LeagueBadge } from "../../sports";
+import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
 import { formatUnits, profileRecord } from "../profile-stats";
-import { ownHandleFor, useAuraColors, usePlatform } from "../platform-provider";
+import { ownHandleFor, useAuraColors, useOptionalHomeNavFilter, usePlatform } from "../platform-provider";
+import {
+  ALL,
+  buildHomeSportLeagues,
+  gamesForSelection,
+  leagueRank,
+  matchesSportFilter,
+  resolveHomeDay,
+  todayId,
+  type DaySelection,
+  type LeagueFilter,
+  type SportFilter,
+} from "../club/home/home-model";
+import { HomeLeagueStrip, HomeSportStrip } from "../club/home/HomeSportStrip";
+import { LeagueCategorySheet } from "./LeagueCategorySheet";
+import { MobileParlaySheet } from "./MobileParlaySheet";
 import type { OddsFormat } from "../types";
 import {
   MaestroIcon,
-  RoleSwitcherPill,
   UltraTag,
   VerifiedBadge,
   type MaestroIconName,
@@ -34,71 +55,7 @@ import {
 } from "./PlatformOverlays";
 import { NotificationBell } from "./NotificationInbox";
 
-const RAIL_STORAGE_KEY = "pl-rail-collapsed";
-/** Sobrevive al cambio de página (cada vista monta su propio shell) sin parpadeo. */
-let railCollapsedMemory: boolean | null = null;
-
-const LEAGUES_STORAGE_KEY = "pl-rail-leagues-open";
-let leaguesOpenMemory: boolean | null = null;
-
-/** Lista de ligas desplegable; empieza plegada para que el resto del riel respire. */
-function usePersistentLeaguesOpen(): [boolean, () => void] {
-  const [open, setOpen] = useState<boolean>(leaguesOpenMemory ?? false);
-
-  useEffect(() => {
-    if (leaguesOpenMemory !== null) return;
-    try {
-      leaguesOpenMemory = window.localStorage.getItem(LEAGUES_STORAGE_KEY) === "1";
-      setOpen(leaguesOpenMemory);
-    } catch (err) {
-      void err;
-    }
-  }, []);
-
-  const toggle = () => {
-    setOpen((prev) => {
-      const next = !prev;
-      leaguesOpenMemory = next;
-      try {
-        window.localStorage.setItem(LEAGUES_STORAGE_KEY, next ? "1" : "0");
-      } catch (err) {
-        void err;
-      }
-      return next;
-    });
-  };
-
-  return [open, toggle];
-}
-
-function usePersistentRailCollapsed(): [boolean, () => void] {
-  const [collapsed, setCollapsed] = useState<boolean>(railCollapsedMemory ?? false);
-
-  useEffect(() => {
-    if (railCollapsedMemory !== null) return;
-    try {
-      railCollapsedMemory = window.localStorage.getItem(RAIL_STORAGE_KEY) === "1";
-      setCollapsed(railCollapsedMemory);
-    } catch (err) {
-      void err;
-    }
-  }, []);
-
-  const toggle = () => {
-    setCollapsed((prev) => {
-      const next = !prev;
-      railCollapsedMemory = next;
-      try {
-        window.localStorage.setItem(RAIL_STORAGE_KEY, next ? "1" : "0");
-      } catch (err) {
-        void err;
-      }
-      return next;
-    });
-  };
-
-  return [collapsed, toggle];
-}
+/** Opciones de formato de momios disponibles en el menú y en móvil. */
 
 const ODDS_FORMAT_OPTIONS: ReadonlyArray<{ value: OddsFormat; label: string }> = [
   { value: "american", label: "Momio" },
@@ -177,7 +134,26 @@ function applyTheme(next: "dark" | "light"): void {
   }
 }
 
-/** Control segmentado del menú de cuenta (Momio y Tema). ←/→ mueven la selección. */
+export type VisualStyle = "solid" | "glass";
+
+/** Estilo visual del documento (`html[data-style]`): siempre sólido. */
+export function useDocumentStyle(): VisualStyle {
+  return "solid";
+}
+
+/** Mantiene el documento en modo sólido. */
+export function applyVisualStyle(_next?: VisualStyle): void {
+  void _next;
+  if (typeof document === "undefined") return;
+  document.documentElement.dataset.style = "solid";
+  try {
+    window.localStorage.setItem("pl-style", "solid");
+  } catch (err) {
+    void err;
+  }
+}
+
+/** Control segmentado del menú de cuenta (Estilo, Momio y Tema). ←/→ mueven la selección. */
 function MenuSegment({
   labelledBy,
   value,
@@ -253,7 +229,7 @@ function FloatingQuickJumpBar({
     const firstUpcoming =
       rawDataset.games.find((g) => g.status !== "FT") ?? rawDataset.games[0];
     return firstUpcoming
-      ? `/app/${firstUpcoming.league}/games/${firstUpcoming.id}`
+      ? canonicalGameHref(firstUpcoming.league, firstUpcoming)
       : "/app";
   }, [rawDataset.games]);
 
@@ -265,11 +241,10 @@ function FloatingQuickJumpBar({
       { id: "picks", label: "4. Buscar picks", href: "/app/picks" },
       { id: "studio", label: "5. Estudio de Partido", href: firstStudioHref },
       { id: "parlays", label: "6. Parlays", href: "/app/parlays" },
-      { id: "props", label: "7. Props", href: "/app/props" },
-      { id: "social", label: "8. Comunidad VIP", href: "/app/social" },
-      { id: "tipster", label: "9. Portal Tipster", href: "/app/tipster" },
-      { id: "referrals", label: "10. Referidos", href: "/app/account" },
-      { id: "admin", label: "11. Admin", href: "/app/admin" },
+      { id: "social", label: "7. Comunidad VIP", href: "/app/social" },
+      { id: "tipster", label: "8. Portal Tipster", href: "/app/tipster" },
+      { id: "referrals", label: "9. Referidos", href: "/app/account" },
+      { id: "admin", label: "10. Admin", href: "/app/admin" },
     ],
     [firstStudioHref],
   );
@@ -286,7 +261,7 @@ function FloatingQuickJumpBar({
   const isItemActive = (href: string, id: string) => {
     if (!clientPath) return false;
     if (id === "studio") {
-      return clientPath.includes("/games/");
+      return clientPath.includes("/g/") || clientPath.includes("/games/");
     }
     return clientPath === href;
   };
@@ -298,7 +273,7 @@ function FloatingQuickJumpBar({
     <aside
       aria-label="Salto rápido de 11 vistas PitchLab"
       data-quick-jump-bar=""
-      className="pl-quick-jump-bar glass-ring lg:max-w-[calc(100vw-16rem)]"
+      className="pl-quick-jump-bar glass-ring hidden md:inline-flex lg:max-w-[calc(100vw-16rem)]"
     >
       {collapsed ? (
         <button
@@ -373,10 +348,16 @@ export function AtmosphereStage(props: {
   );
 }
 
-export function ClubWorkspaceShell(props: {
+export interface ClubWorkspaceShellProps {
   activePath: string;
   children: React.ReactNode;
-}): React.JSX.Element {
+  initialHomeDay?: DaySelection;
+  initialHomeToday?: string;
+  initialHomeSport?: SportFilter;
+  initialHomeLeague?: LeagueFilter;
+}
+
+export function ClubWorkspaceShell(props: ClubWorkspaceShellProps): React.JSX.Element {
   if (useContext(ShellMountedContext)) return <>{props.children}</>;
   return (
     <ShellMountedContext.Provider value>
@@ -425,42 +406,44 @@ function AtmosphereStageImpl({
   const inClubApp = isClubAppRoute(activePath ?? clientPath);
 
   return (
-    <div
-      className="pl-stage"
-      style={
-        {
-          "--home-color": auraColors[0],
-          "--away-color": auraColors[1],
-        } as React.CSSProperties
-      }
-    >
-      <a className="skip-link" href="#main">
-        Saltar al contenido principal
-      </a>
+    <EmblemSurfaceProvider surface={inClubApp ? "app" : "public"}>
+      <div
+        className="pl-stage"
+        style={
+          {
+            "--home-color": auraColors[0],
+            "--away-color": auraColors[1],
+          } as React.CSSProperties
+        }
+      >
+        <a className="skip-link" href="#main">
+          Saltar al contenido principal
+        </a>
 
-      <div className="pl-atmo" aria-hidden="true">
-        <div className="pl-atmo-canvas">
-          <div className="pl-aura pl-aura--home" />
-          <div className="pl-aura pl-aura--away" />
+        <div className="pl-atmo" aria-hidden="true">
+          <div className="pl-atmo-canvas">
+            <div className="pl-aura pl-aura--home" />
+            <div className="pl-aura pl-aura--away" />
+          </div>
+          <div className="pl-atmo-scrim" />
         </div>
-        <div className="pl-atmo-scrim" />
+
+        <div className="relative z-10 pb-20 lg:pb-4">{children}</div>
+
+        {inClubApp ? (
+          <>
+            <FloatingQuickJumpBar activePath={activePath} />
+            {activePath !== "/app/parlays" ? <ParlayFloatingDock /> : null}
+            <PickComposerModal />
+            <ShareTicketModal />
+            <CommandPaletteModal />
+            <RoleSimulatorBar activePath={activePath} />
+          </>
+        ) : null}
+        <BetaPinModal />
+        <ToastViewport />
       </div>
-
-      <div className="relative z-10 pb-20 lg:pb-4">{children}</div>
-
-      {inClubApp ? (
-        <>
-          <FloatingQuickJumpBar activePath={activePath} />
-          <ParlayFloatingDock />
-          <PickComposerModal />
-          <ShareTicketModal />
-          <CommandPaletteModal />
-          <RoleSimulatorBar activePath={activePath} />
-        </>
-      ) : null}
-      <BetaPinModal />
-      <ToastViewport />
-    </div>
+    </EmblemSurfaceProvider>
   );
 }
 
@@ -472,11 +455,8 @@ export function PublicHeaderV4({
   const { navigateTo, viewerRole } = usePlatform();
 
   const navItems = [
-    { href: "/como-funciona", label: "Cómo funciona" },
     { href: "/motores", label: "Motores" },
     { href: "/resultados", label: "Resultados" },
-    { href: "/parlays", label: "Parlays" },
-    { href: "/comunidad", label: "Comunidad" },
     { href: "/precio", label: "Precio" },
   ];
 
@@ -606,16 +586,6 @@ export function PublicFooterV4(): React.JSX.Element {
 
         <nav aria-label="Pie" className="flex flex-wrap items-center gap-4 text-xs font-semibold">
           <a
-            href="/como-funciona"
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo("/como-funciona");
-            }}
-            className="no-underline hover:underline"
-          >
-            Cómo funciona
-          </a>
-          <a
             href="/motores"
             onClick={(e) => {
               e.preventDefault();
@@ -624,6 +594,16 @@ export function PublicFooterV4(): React.JSX.Element {
             className="no-underline hover:underline"
           >
             Motores
+          </a>
+          <a
+            href="/resultados"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo("/resultados");
+            }}
+            className="no-underline hover:underline"
+          >
+            Resultados
           </a>
           <a
             href="/precio"
@@ -643,16 +623,6 @@ export function PublicFooterV4(): React.JSX.Element {
           </a>
           <a href="/legal/juego-responsable" className="no-underline hover:underline">
             Juego responsable
-          </a>
-          <a
-            href="/comunidad#tipsters"
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo("/comunidad#tipsters");
-            }}
-            className="no-underline hover:underline"
-          >
-            ¿Eres tipster?
           </a>
           <a href="/legal/creditos" className="no-underline hover:underline">
             Créditos de datos
@@ -694,8 +664,8 @@ interface ProfileMenuGroup {
 }
 
 const CLUB_FOOTER_LINKS = [
-  { href: "/como-funciona", label: "Cómo funciona" },
   { href: "/motores", label: "Motores" },
+  { href: "/resultados", label: "Resultados" },
   { href: "/precio", label: "Precio" },
   { href: "/legal/terminos", label: "Términos" },
   { href: "/legal/privacidad", label: "Privacidad" },
@@ -735,7 +705,7 @@ function ClubFooter(): React.JSX.Element {
  *    lectura y no se quita recortando una esquina de la captura.
  * 2. Al copiar texto, se agrega la atribución y una huella invisible con el mismo código.
  */
-function ClubWatermarkLayer({ label, handle }: { label: string; handle: string | null }): React.JSX.Element {
+function ClubWatermarkLayer({ label, handle }: { label: string; handle: string | null }): null {
   useEffect(() => {
     const onCopy = (e: ClipboardEvent) => {
       const selection = window.getSelection()?.toString() ?? "";
@@ -751,32 +721,17 @@ function ClubWatermarkLayer({ label, handle }: { label: string; handle: string |
     return () => document.removeEventListener("copy", onCopy);
   }, [label, handle]);
 
-  const tile = useMemo(() => {
-    const safe = label.replace(/[<&>"']/g, "");
-    const svg =
-      `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200">` +
-      `<text x="0" y="110" transform="rotate(-22 180 100)" font-family="Inter, system-ui, sans-serif" ` +
-      `font-size="13" font-weight="700" letter-spacing="1" fill="black">${safe}</text></svg>`;
-    return `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
-  }, [label]);
-
-  return (
-    <div
-      className="pl-club-watermark"
-      aria-hidden="true"
-      data-watermark={label}
-      style={{ "--pl-wm-tile": tile } as React.CSSProperties}
-    />
-  );
+  return null;
 }
 
 function ClubWorkspaceShellImpl({
   activePath,
   children,
-}: {
-  activePath: string;
-  children: React.ReactNode;
-}): React.JSX.Element {
+  initialHomeDay,
+  initialHomeToday,
+  initialHomeSport = ALL,
+  initialHomeLeague = ALL,
+}: ClubWorkspaceShellProps): React.JSX.Element {
   const {
     dataset,
     viewerRole,
@@ -787,15 +742,115 @@ function ClubWorkspaceShellImpl({
     navigateTo,
     oddsFormat,
     setOddsFormat,
+    favoriteLeagues,
     viewerIdentity,
     hasAccountSession,
     upgradeHref,
+    userTimezone,
   } = usePlatform();
+  const homeNav = useOptionalHomeNavFilter();
+  const normalizedPath = (activePath.split(/[?#]/, 1)[0] ?? "/").replace(/\/+$/, "") || "/";
+  const isHomeRoute = normalizedPath === "/app";
+  const homeToday = homeNav?.todayOverride ?? initialHomeToday ?? todayId(userTimezone || "America/Mexico_City");
+  const homeChosenDay = homeNav?.chosenDay ?? initialHomeDay ?? null;
+  const homeActiveDay = isHomeRoute
+    ? resolveHomeDay(dataset.games, homeChosenDay, homeToday)
+    : "";
+  const homeSport: SportFilter = homeNav?.hasExplicitSport ? homeNav.sport : initialHomeSport;
+  const homeLeague: LeagueFilter =
+    homeNav && (homeNav.hasExplicitSport || homeNav.league !== ALL)
+      ? homeNav.league
+      : initialHomeLeague;
+  const homeDayGames = useMemo(
+    () => (isHomeRoute ? gamesForSelection(dataset.games, homeActiveDay, homeToday) : []),
+    [isHomeRoute, dataset.games, homeActiveDay, homeToday],
+  );
+  const homeSportGames = useMemo(
+    () =>
+      homeSport === ALL
+        ? homeDayGames
+        : homeDayGames.filter((g) => matchesSportFilter(g, homeSport)),
+    [homeDayGames, homeSport],
+  );
+  const homeSportLeagues = useMemo(
+    () =>
+      isHomeRoute
+        ? buildHomeSportLeagues(dataset.leagues, dataset.games, homeDayGames, homeSport, homeToday)
+        : [],
+    [isHomeRoute, dataset.leagues, dataset.games, homeDayGames, homeSport, homeToday],
+  );
+  const hasLeaguesOpen = Boolean(
+    isHomeRoute && homeNav && homeSport !== ALL && homeSportLeagues.length > 1,
+  );
+  const activeLeagueSnapshot = useMemo(
+    () =>
+      hasLeaguesOpen
+        ? {
+            sport: homeSport,
+            leagues: homeSportLeagues,
+            count: homeSportGames.length,
+            league: homeLeague,
+          }
+        : null,
+    [hasLeaguesOpen, homeSport, homeSportLeagues, homeSportGames.length, homeLeague],
+  );
+  // Retiene la última instantánea durante la retracción para no desmontar ligas en el primer cuadro.
+  const [lastLeaguesSnapshot, setLastLeaguesSnapshot] = useState(activeLeagueSnapshot);
+
+  useEffect(() => {
+    if (activeLeagueSnapshot) {
+      setLastLeaguesSnapshot(activeLeagueSnapshot);
+      return;
+    }
+    const id = window.setTimeout(() => setLastLeaguesSnapshot(null), 300);
+    return () => window.clearTimeout(id);
+  }, [activeLeagueSnapshot]);
+
+  const displayedLeagues = activeLeagueSnapshot ?? lastLeaguesSnapshot;
   // Con cuenta, el usuario real; con el PIN de la beta, el de ejemplo según el rol.
   const ownHandle = ownHandleFor(viewerIdentity, viewerRole);
 
-  const [collapsed, toggleCollapsed] = usePersistentRailCollapsed();
-  const [leaguesOpen, toggleLeagues] = usePersistentLeaguesOpen();
+  const navContainerRef = useRef<HTMLElement>(null);
+  const navToggleRef = useRef<HTMLButtonElement>(null);
+  const headerNavPanelId = `pl-header-nav-panel${useId().replace(/:/g, "")}`;
+  const [navExpanded, setNavExpanded] = useState<boolean>(false);
+
+  const closeHeaderNav = () => setNavExpanded(false);
+
+  useEffect(() => {
+    setNavExpanded(false);
+  }, [activePath]);
+
+  useEffect(() => {
+    if (!navExpanded) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      const focusInside = Boolean(
+        navContainerRef.current && navContainerRef.current.contains(document.activeElement),
+      );
+      closeHeaderNav();
+      if (focusInside) navToggleRef.current?.focus();
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      if (!navContainerRef.current?.contains(e.target as Node)) {
+        closeHeaderNav();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [navExpanded]);
+
+  const handleNavTriggerClick = () => setNavExpanded((prev) => !prev);
+  const [isApplePlatform, setIsApplePlatform] = useState(false);
+  useEffect(() => {
+    const plat = typeof navigator !== "undefined" ? `${navigator.platform} ${navigator.userAgent}` : "";
+    setIsApplePlatform(/Mac|iPhone|iPad|iPod/i.test(plat));
+  }, []);
+
   const profileTriggerRef = useRef<HTMLButtonElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
   // id único por instancia: durante la carga conviven dos encabezados.
@@ -816,7 +871,7 @@ function ClubWorkspaceShellImpl({
           label: "Ayuda",
           items: [
             { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
-            { href: "/legal/juego-responsable", label: "Juego responsable", icon: "shield" },
+            { href: "/legal/juego-responsable", label: "Juego responsable", icon: "responsible-play" },
           ],
         },
       ] satisfies ProfileMenuGroup[];
@@ -855,9 +910,7 @@ function ClubWorkspaceShellImpl({
         label: "Tu cuenta",
         items: [
           { href: "/app/account?tab=plan", label: "Mi plan Ultra", icon: "crown", accountTab: "plan" },
-          { href: "/app/account?tab=referrals", label: "Invitar amigos", icon: "gift", accountTab: "referrals" },
           { href: "/app/account?tab=prefs", label: "Preferencias", icon: "sliders", accountTab: "prefs" },
-          { href: "/app/account?tab=cfdi", label: "Facturación", icon: "receipt", accountTab: "cfdi" },
         ],
       },
     ];
@@ -910,6 +963,7 @@ function ClubWorkspaceShellImpl({
     }
   };
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
+  const [leagueHubSheetOpen, setLeagueHubSheetOpen] = useState<boolean>(false);
 
   // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
   // El portal de tipsters y la consola solo aparecen para quien los usa.
@@ -917,8 +971,9 @@ function ClubWorkspaceShellImpl({
     // Cuenta, «Cómo calculamos», Portal tipster y Consola viven en el menú del perfil.
     const explore: RailNavItem[] = [
       { href: "/app/picks", label: "Buscar picks", icon: "search" },
+      { href: "/app/props", label: "Tendencias de jugadores", icon: "users" },
       { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
-      { href: "/app/props", label: "Props de jugadores", icon: "sliders" },
+      { href: "/app/comparar", label: "Comparar H2H", icon: "layers" },
       { href: "/app/historial", label: "Resultados", icon: "shield" },
     ];
     return [
@@ -946,6 +1001,71 @@ function ClubWorkspaceShellImpl({
   const profileGrad =
     viewerRole === "tipster" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
 
+  const todayGamesByLeague = useMemo(() => {
+    const refDay = homeActiveDay || homeToday;
+    const map = new Map<LeagueId, number>();
+    for (const g of dataset.games) {
+      if (g.dayId === refDay) {
+        map.set(g.league, (map.get(g.league) ?? 0) + 1);
+      }
+    }
+    return map;
+  }, [dataset.games, homeActiveDay, homeToday]);
+
+  const activeDatasetLeagues = useMemo(() => {
+    const inWindow = dataset.leagues.filter(
+      (lg) =>
+        isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30) ||
+        activePath === `/app/${lg.league}` ||
+        activePath.startsWith(`/app/${lg.league}/`),
+    );
+    const list =
+      inWindow.length > 0
+        ? inWindow
+        : dataset.leagues.filter((lg) => lg.upcomingCount > 0 || lg.totalGames > 0).slice(0, 12);
+    return [...list].sort((a, b) => {
+      const aToday = todayGamesByLeague.get(a.league) ?? 0;
+      const bToday = todayGamesByLeague.get(b.league) ?? 0;
+      if ((aToday > 0) !== (bToday > 0)) return bToday > 0 ? 1 : -1;
+      if (aToday !== bToday) return bToday - aToday;
+      const aUp = a.upcomingCount > 0 ? 1 : 0;
+      const bUp = b.upcomingCount > 0 ? 1 : 0;
+      if (aUp !== bUp) return bUp - aUp;
+      const aFav = favoriteLeagues.includes(a.league) ? 1 : 0;
+      const bFav = favoriteLeagues.includes(b.league) ? 1 : 0;
+      if (aFav !== bFav) return bFav - aFav;
+      const prestigeDiff = competitionPrestigeScore(b.league) - competitionPrestigeScore(a.league);
+      if (prestigeDiff !== 0) return prestigeDiff;
+      const rankDiff = leagueRank(a.league) - leagueRank(b.league);
+      if (rankDiff !== 0) return rankDiff;
+      return b.upcomingCount - a.upcomingCount;
+    });
+  }, [activePath, dataset.leagues, dataset.games, favoriteLeagues, homeToday, todayGamesByLeague]);
+  const clubLeagues = useMemo(
+    () => activeDatasetLeagues.filter((lg) => !isNationalCompetition(lg.league)),
+    [activeDatasetLeagues],
+  );
+  const nationalLeagues = useMemo(
+    () => activeDatasetLeagues.filter((lg) => isNationalCompetition(lg.league)),
+    [activeDatasetLeagues],
+  );
+  const activeLeaguePage = useMemo(
+    () =>
+      dataset.leagues.some((lg) => {
+        const href = `/app/${lg.league}`;
+        return activePath === href || activePath.startsWith(`${href}/`);
+      }),
+    [activePath, dataset.leagues],
+  );
+
+  const navExploreHints: Record<string, string> = {
+    "/app/picks": "Filtros por cuota, deporte y probabilidad",
+    "/app/props": "Rachas U5/U10/U20 contra línea deslizable",
+    "/app/momios": "Calcula tu ventaja real frente a tu casa",
+    "/app/comparar": "Cara a cara entre clubes y jugadores",
+    "/app/historial": "Balance verificado, calibración y marcadores finales",
+  };
+
   return (
     <>
       {viewerRole === "visitor" ? null : (
@@ -954,53 +1074,336 @@ function ClubWorkspaceShellImpl({
           handle={viewerIdentity ? `@${viewerIdentity.handle}` : null}
         />
       )}
-      <header className="panel-header sticky top-0 z-30 glass-nav-surface">
-        <div className="max-w-[1440px] lg:max-w-none mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2.5">
-          {/* Izquierda: Logo a / + Buscador inline + Selector de Rol */}
-          <div className="flex items-center gap-3 min-w-0">
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                navigateTo("/");
-              }}
-              className="inline-flex items-center gap-2 no-underline shrink-0"
-              aria-label="PitchLab Inicio"
-            >
-              <BrandLogo variant="horizontal" width={120} height={24} alt="" />
-            </a>
+      <header className="panel-header sticky top-0 z-40 glass-nav-surface">
+        <div className="pl-header-top">
+        <div className="pl-header-grid max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7 h-14 sm:h-16">
+          <div className="pl-header-bar flex items-center justify-between gap-3 h-full min-w-0">
+            {/* Izquierda: Logo a / + Barra de navegación (hover/clic expande sobre contenido) + Buscador + Rol */}
+            <div className="pl-header-left flex items-center gap-3 min-w-0 flex-1 h-full">
+              <a
+                href="/app"
+                onClick={(e) => {
+                  e.preventDefault();
+                  closeHeaderNav();
+                  homeNav?.resetFilters();
+                  navigateTo("/app");
+                }}
+                className="pl-header-logo inline-flex items-center gap-2 no-underline shrink-0"
+                aria-label="PitchLab Inicio"
+              >
+                <BrandLogo variant="horizontal" width={120} height={24} alt="" />
+              </a>
 
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center justify-between gap-3 md:min-w-[230px] lg:min-w-[265px]"
-              aria-label="Buscar"
-              onClick={() => setCmdkOpen(true)}
-            >
-              <span className="inline-flex items-center gap-2 truncate" style={{ color: "var(--pl-text-secondary)" }}>
-                <MaestroIcon name="search" size={14} />
-                <span className="hidden sm:inline truncate">
-                  Buscar partido, liga o @socio...
-                </span>
-              </span>
-              <kbd
-                className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-bold num shrink-0"
-                style={{
-                  background: "var(--pl-surface-elevated)",
-                  border: "1px solid var(--pl-border)",
-                  color: "var(--pl-text-muted)",
+              <nav
+                ref={navContainerRef}
+                aria-label="Menú del Club PitchLab"
+                data-expanded={navExpanded ? "true" : "false"}
+                className="hidden lg:flex h-full items-center pl-header-nav shrink-0"
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                    closeHeaderNav();
+                  }
                 }}
               >
-                ⌘K
-              </kbd>
-            </button>
+                <div className="pl-header-nav-bar">
+                  {railGroups[0]!.items.map((item) => {
+                    const active = activePath === item.href;
+                    return (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        aria-current={active ? "page" : undefined}
+                        aria-label={item.label}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          closeHeaderNav();
+                          navigateTo(item.href);
+                        }}
+                        className="pl-header-nav-icon"
+                      >
+                        <span className="pl-header-nav-glyph">
+                          <MaestroIcon name={item.icon} size={16} />
+                          {item.badge ? (
+                            <span
+                              className={`pl-header-nav-badge num ${item.badgeBrand ? "pl-header-nav-badge--brand" : ""}`}
+                              aria-hidden="true"
+                            >
+                              {item.badge}
+                            </span>
+                          ) : null}
+                        </span>
+                        <span className="pl-header-nav-label-wrap" aria-hidden="true">
+                          <span className="pl-header-nav-label">{item.label}</span>
+                        </span>
+                      </a>
+                    );
+                  })}
 
-            <div className="hidden xl:block shrink-0">
-              <RoleSwitcherPill compact />
+                  <span className="pl-header-nav-sep" aria-hidden="true" />
+
+                  <button
+                    type="button"
+                    aria-label="Ligas y selecciones"
+                    data-active={activeLeaguePage ? "true" : undefined}
+                    className="pl-header-nav-icon pl-header-nav-ligas"
+                    onClick={handleNavTriggerClick}
+                  >
+                    <span className="pl-header-nav-glyph">
+                      <MaestroIcon name="trophy" size={16} />
+                    </span>
+                    <span className="pl-header-nav-label-wrap" aria-hidden="true">
+                      <span className="pl-header-nav-label">Ligas</span>
+                    </span>
+                  </button>
+
+                  <span className="pl-header-nav-sep" aria-hidden="true" />
+
+                  {railGroups[1]!.items.map((item) => {
+                    const active = activePath === item.href;
+                    return (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        aria-current={active ? "page" : undefined}
+                        aria-label={item.label}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          closeHeaderNav();
+                          navigateTo(item.href);
+                        }}
+                        className="pl-header-nav-icon"
+                      >
+                        <span className="pl-header-nav-glyph">
+                          <MaestroIcon name={item.icon} size={16} />
+                        </span>
+                        <span className="pl-header-nav-label-wrap" aria-hidden="true">
+                          <span className="pl-header-nav-label">{item.label}</span>
+                        </span>
+                      </a>
+                    );
+                  })}
+
+                  <span className="pl-header-nav-sep" aria-hidden="true" />
+
+                  <button
+                    ref={navToggleRef}
+                    type="button"
+                    className="pl-header-nav-toggle rail-group-toggle"
+                    aria-expanded={navExpanded}
+                    aria-controls={headerNavPanelId}
+                    aria-label={navExpanded ? "Cerrar menú expandido" : "Expandir menú del Club"}
+                    title={navExpanded ? "Cerrar menú" : "Expandir menú"}
+                    onClick={handleNavTriggerClick}
+                  >
+                    <MaestroIcon name="chevronDown" size={14} className="pl-header-nav-chevron" />
+                  </button>
+                </div>
+
+                <div
+                  id={headerNavPanelId}
+                  aria-hidden={!navExpanded || undefined}
+                  inert={!navExpanded ? true : undefined}
+                  data-open={navExpanded ? "true" : "false"}
+                  className="pl-header-nav-overlay"
+                >
+                  <div className="pl-header-nav-overlay-inner">
+                    {/* Columna 1: Club */}
+                    <section aria-labelledby="pl-nav-col-club" className="pl-header-overlay-col">
+                      <div className="pl-header-overlay-head">
+                        <h2 id="pl-nav-col-club" className="pl-header-overlay-title">
+                          Club
+                        </h2>
+                      </div>
+                      <div className="space-y-1">
+                        {railGroups[0]!.items.map((item) => {
+                          const active = activePath === item.href;
+                          return (
+                            <a
+                              key={item.href}
+                              href={item.href}
+                              aria-current={active ? "page" : undefined}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                closeHeaderNav();
+                                navigateTo(item.href);
+                              }}
+                              className="pl-header-overlay-link"
+                            >
+                              <span className="flex items-center gap-2.5 min-w-0">
+                                <MaestroIcon name={item.icon} size={15} className="pl-header-overlay-icon shrink-0" />
+                                <span className="truncate">{item.label}</span>
+                              </span>
+                              {item.badge ? (
+                                <span
+                                  className={`pl-pill num text-[11px] shrink-0 ${item.badgeBrand ? "pl-pill--brand" : ""}`}
+                                >
+                                  {item.badge}
+                                </span>
+                              ) : null}
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </section>
+
+                    {/* Columna 2: Ligas y Selecciones */}
+                    <section aria-labelledby="pl-nav-col-leagues" className="pl-header-overlay-col">
+                      <div className="pl-header-overlay-head">
+                        <h2 id="pl-nav-col-leagues" className="pl-header-overlay-title">
+                          Ligas activas
+                        </h2>
+                        <span className="pl-pill num text-[11px]">{activeDatasetLeagues.length}</span>
+                      </div>
+                      <div className="pl-header-overlay-leagues">
+                        {clubLeagues.slice(0, 12).map((lg) => {
+                          const href = `/app/${lg.league}`;
+                          const active = activePath === href || activePath.startsWith(`${href}/`);
+                          return (
+                            <a
+                              key={lg.league}
+                              href={href}
+                              data-league={lg.league}
+                              data-active={active ? "true" : undefined}
+                              aria-current={active ? "page" : undefined}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                closeHeaderNav();
+                                navigateTo(href);
+                              }}
+                              className="league-tab pl-header-overlay-link"
+                            >
+                              <span className="flex items-center gap-2 min-w-0 flex-1">
+                                <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+                                <span className="truncate">{lg.label}</span>
+                              </span>
+                              <span className="pl-header-overlay-count num">
+                                {lg.upcomingCount || lg.totalGames}
+                              </span>
+                            </a>
+                          );
+                        })}
+                      </div>
+                      {clubLeagues.length > 12 ? (
+                        <button
+                          type="button"
+                          className="pl-btn-glass text-xs min-h-9 px-3 mt-2 w-full justify-center"
+                          onClick={() => {
+                            closeHeaderNav();
+                            setLeagueHubSheetOpen(true);
+                          }}
+                        >
+                          Explorar todas las ligas por región ({activeDatasetLeagues.length})
+                        </button>
+                      ) : null}
+
+                      {nationalLeagues.length > 0 ? (
+                        <div className="pt-2.5 mt-2.5 border-t" style={{ borderColor: "var(--pl-row-rule)" }}>
+                          <span className="pl-header-overlay-subheading">Selecciones</span>
+                          <div className="pl-header-overlay-leagues mt-1.5">
+                            {nationalLeagues.map((lg) => {
+                              const href = `/app/${lg.league}`;
+                              const active = activePath === href || activePath.startsWith(`${href}/`);
+                              return (
+                                <a
+                                  key={lg.league}
+                                  href={href}
+                                  data-league={lg.league}
+                                  data-active={active ? "true" : undefined}
+                                  aria-current={active ? "page" : undefined}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    closeHeaderNav();
+                                    navigateTo(href);
+                                  }}
+                                  className="league-tab pl-header-overlay-link"
+                                >
+                                  <span className="flex items-center gap-2 min-w-0 flex-1">
+                                    <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={18} />
+                                    <span className="truncate">{lg.label}</span>
+                                  </span>
+                                  <span className="pl-header-overlay-count num">
+                                    {lg.upcomingCount || lg.totalGames}
+                                  </span>
+                                </a>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ) : null}
+                    </section>
+
+                    {/* Columna 3: Explorar + Acción cerrar */}
+                    <section aria-labelledby="pl-nav-col-explore" className="pl-header-overlay-col">
+                      <div className="pl-header-overlay-head">
+                        <h2 id="pl-nav-col-explore" className="pl-header-overlay-title">
+                          Explorar
+                        </h2>
+                        <button
+                          type="button"
+                          onClick={closeHeaderNav}
+                          className="pl-header-overlay-close"
+                          aria-label="Cerrar barra de navegación"
+                        >
+                          <MaestroIcon name="x" size={13} />
+                          <span>Esc</span>
+                        </button>
+                      </div>
+                      <div className="space-y-1.5">
+                        {railGroups[1]!.items.map((item) => {
+                          const active = activePath === item.href;
+                          const hint = navExploreHints[item.href];
+                          return (
+                            <a
+                              key={item.href}
+                              href={item.href}
+                              aria-current={active ? "page" : undefined}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                closeHeaderNav();
+                                navigateTo(item.href);
+                              }}
+                              className="pl-header-overlay-link pl-header-overlay-link--explore"
+                            >
+                              <MaestroIcon name={item.icon} size={15} className="pl-header-overlay-icon shrink-0 mt-0.5" />
+                              <span className="min-w-0 flex-1">
+                                <span className="block truncate leading-snug">{item.label}</span>
+                                {hint ? (
+                                  <span className="pl-header-overlay-hint block truncate">{hint}</span>
+                                ) : null}
+                              </span>
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </nav>
+
+              <button
+                type="button"
+                className="pl-btn-glass pl-header-search text-[13px] min-h-10 px-2.5 sm:px-3.5 inline-flex items-center justify-between gap-2 sm:gap-3 shrink-0"
+                aria-label="Buscar"
+                onClick={() => setCmdkOpen(true)}
+              >
+                <span className="inline-flex items-center gap-1.5 sm:gap-2.5 min-w-0" style={{ color: "var(--pl-text-secondary)" }}>
+                  <MaestroIcon name="search" size={16} className="shrink-0" />
+                  <span className="hidden sm:inline truncate">
+                    Buscar partido, liga o @socio
+                  </span>
+                  <span className="sm:hidden font-semibold whitespace-nowrap">Buscar</span>
+                </span>
+                <span className="hidden md:inline-flex items-center pl-header-kbd-group shrink-0" aria-hidden="true">
+                  <kbd className="pl-header-kbd">
+                    {isApplePlatform ? <MaestroIcon name="command" size={11} /> : "Ctrl"}
+                  </kbd>
+                  <kbd className="pl-header-kbd pl-header-kbd--key">K</kbd>
+                </span>
+              </button>
             </div>
-          </div>
 
-          {/* Derecha: Campana (2), Momio/Decimal, Tema, Chip Perfil @jair/@sofia_nfl, Salir */}
-          <div className="flex items-center gap-2 shrink-0">
+            {/* Derecha: Campana + Chip de perfil */}
+            <div className="flex items-center gap-2 shrink-0">
             <NotificationBell />
 
             {/* Chip de perfil: abre el menú de la cuenta (popover en escritorio, hoja en móvil). */}
@@ -1247,235 +1650,63 @@ function ClubWorkspaceShellImpl({
                     <MaestroIcon name="logout" size={17} />
                     <span>Salir</span>
                   </button>
-                  <span className="pl-profile-menu-version">Beta</span>
+                  <span className="pl-profile-menu-version num">v0.0.1-alpha</span>
+                </div>
+              ) : (
+                <div className="pl-profile-menu-group pl-profile-menu-foot pl-profile-menu-foot--visitor">
+                  <span className="pl-profile-menu-version num">v0.0.1-alpha</span>
+                </div>
+              )}
+            </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        {/* Tiras integradas en la base del header: deportes y sus ligas, visibles únicamente en /app */}
+        {isHomeRoute && homeNav ? (
+          <div className="pl-header-sportband">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7">
+              <HomeSportStrip
+                dayGames={homeDayGames}
+                sport={homeSport}
+                onSelectSport={homeNav.pickSport}
+                variant="header"
+                scrollToTopOnSelect
+              />
+            </div>
+          </div>
+        ) : null}
+
+        {homeNav ? (
+          <div
+            className="pl-header-leagueband"
+            data-open={hasLeaguesOpen ? "true" : "false"}
+            aria-hidden={!hasLeaguesOpen || undefined}
+            inert={!hasLeaguesOpen ? true : undefined}
+          >
+            <div className="pl-header-leagueband-inner">
+              {displayedLeagues ? (
+                <div
+                  key={displayedLeagues.sport}
+                  className="pl-header-leagueband-content max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7"
+                >
+                  <HomeLeagueStrip
+                    leagues={displayedLeagues.leagues}
+                    sportDayGamesCount={displayedLeagues.count}
+                    league={displayedLeagues.league}
+                    onSelectLeague={homeNav.setLeague}
+                    favoriteLeagues={favoriteLeagues}
+                  />
                 </div>
               ) : null}
             </div>
           </div>
-        </div>
-
-        {/* Tira móvil/tablet de ligas rápidas */}
-        <nav
-          aria-label="Ligas rápidas móvil"
-          className="lg:hidden flex items-center gap-1 px-4 pb-2.5 overflow-x-auto"
-        >
-          {dataset.leagues.map((lg) => {
-            const href = `/app/${lg.league}`;
-            const isCurrent = activePath === href || activePath.startsWith(`${href}/`);
-            return (
-              <a
-                key={lg.league}
-                href={href}
-                data-league={lg.league}
-                aria-current={isCurrent ? "page" : undefined}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo(href);
-                }}
-                className="league-tab seg-btn text-xs shrink-0"
-                data-active={isCurrent ? "true" : undefined}
-              >
-                <LeagueBadge league={lg.league} label={lg.label} size={15} />
-                <span>{lg.label}</span>
-              </a>
-            );
-          })}
-        </nav>
+        ) : null}
       </header>
 
-      <div className="app-frame" data-collapsed={collapsed ? "true" : "false"}>
-        <aside className="app-rail glass-ring" aria-label="Menú del Club PitchLab">
-          <div className="rail-top">
-            <span
-              className="rail-hide-collapsed text-xs font-semibold"
-              style={{ color: "var(--pl-text-muted)" }}
-            >
-              Club
-            </span>
-            <button
-              type="button"
-              className="rail-toggle"
-              aria-label={collapsed ? "Expandir barra lateral" : "Plegar barra lateral"}
-              aria-expanded={!collapsed}
-              onClick={toggleCollapsed}
-            >
-              <MaestroIcon name="chevronRight" size={14} />
-            </button>
-          </div>
-
-          {/* Solo esta capa se desplaza si no cabe; el marco y su borde quedan fijos. */}
-          <div className="rail-scroll">
-          {[railGroups[0]!].map((group) => (
-            <div key={group.title} className="space-y-1">
-              <nav aria-label={group.title} className="space-y-0.5">
-                {group.items.map((item) => {
-                  const active = activePath === item.href;
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      title={collapsed ? item.label : undefined}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigateTo(item.href);
-                      }}
-                      className="rail-item justify-between"
-                    >
-                      <span className="flex items-center gap-2.5 min-w-0">
-                        <MaestroIcon
-                          name={item.icon}
-                          size={15}
-                          style={{
-                            color: active ? "var(--pl-brand)" : "var(--pl-text-secondary)",
-                          }}
-                        />
-                        <span className="rail-hide-collapsed truncate">{item.label}</span>
-                      </span>
-
-                      {!collapsed && item.liveDot ? (
-                        <span
-                          className="size-2 rounded-full shrink-0"
-                          style={{ background: "var(--pl-success)" }}
-                          aria-label="Actividad en vivo"
-                        />
-                      ) : null}
-
-                      {!collapsed && item.badge ? (
-                        <span
-                          className={`pl-pill num text-[11px] ${item.badgeBrand ? "pl-pill--brand" : ""}`}
-                        >
-                          {item.badge}
-                        </span>
-                      ) : null}
-                    </a>
-                  );
-                })}
-              </nav>
-            </div>
-          ))}
-
-          <div className="ticket-perf my-1.5" />
-
-          <div className="space-y-0.5">
-            <button
-              type="button"
-              className="rail-item rail-group-toggle justify-between"
-              aria-expanded={leaguesOpen}
-              aria-controls="rail-leagues"
-              title={collapsed ? "Ligas" : undefined}
-              onClick={toggleLeagues}
-            >
-              <span className="flex items-center gap-2.5 min-w-0">
-                <MaestroIcon name="trophy" size={15} style={{ color: "var(--pl-text-secondary)" }} />
-                <span className="rail-hide-collapsed truncate">Ligas</span>
-              </span>
-              <MaestroIcon name="chevronRight" size={13} className="rail-hide-collapsed rail-group-chevron" />
-            </button>
-            <div
-              id="rail-leagues"
-              className="rail-collapsible"
-              data-open={leaguesOpen ? "true" : "false"}
-              inert={!leaguesOpen}
-            >
-            <nav aria-label="Ligas" className="rail-collapsible-inner space-y-0.5">
-              {dataset.leagues.map((lg) => {
-                const href = `/app/${lg.league}`;
-                const active = activePath === href || activePath.startsWith(`${href}/`);
-                return (
-                  <a
-                    key={lg.league}
-                    href={href}
-                    data-league={lg.league}
-                    aria-current={active ? "page" : undefined}
-                    title={collapsed ? lg.label : undefined}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateTo(href);
-                    }}
-                    className="league-tab rail-item justify-between"
-                  >
-                    <span className="flex items-center gap-2 min-w-0">
-                      <LeagueBadge league={lg.league} label={lg.label} size={18} />
-                      <span className="rail-hide-collapsed truncate">{lg.label}</span>
-                    </span>
-                    <span
-                      className="rail-hide-collapsed text-xs num font-semibold"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      {lg.upcomingCount || lg.totalGames}
-                    </span>
-                  </a>
-                );
-              })}
-            </nav>
-            </div>
-          </div>
-          <div className="ticket-perf my-1.5" />
-
-          {[railGroups[1]!].map((group) => (
-            <div key={group.title} className="space-y-1">
-              <span
-                className="rail-hide-collapsed rail-heading"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                {group.title}
-              </span>
-              <nav aria-label={group.title} className="space-y-0.5">
-                {group.items.map((item) => {
-                  const active = activePath === item.href;
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      title={collapsed ? item.label : undefined}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigateTo(item.href);
-                      }}
-                      className="rail-item justify-between"
-                    >
-                      <span className="flex items-center gap-2.5 min-w-0">
-                        <MaestroIcon
-                          name={item.icon}
-                          size={15}
-                          style={{
-                            color: active ? "var(--pl-brand)" : "var(--pl-text-secondary)",
-                          }}
-                        />
-                        <span className="rail-hide-collapsed truncate">{item.label}</span>
-                      </span>
-
-                      {!collapsed && item.liveDot ? (
-                        <span
-                          className="size-2 rounded-full shrink-0"
-                          style={{ background: "var(--pl-success)" }}
-                          aria-label="Actividad en vivo"
-                        />
-                      ) : null}
-
-                      {!collapsed && item.badge ? (
-                        <span
-                          className={`pl-pill num text-[11px] ${item.badgeBrand ? "pl-pill--brand" : ""}`}
-                        >
-                          {item.badge}
-                        </span>
-                      ) : null}
-                    </a>
-                  );
-                })}
-              </nav>
-            </div>
-          ))}
-
-          </div>
-        </aside>
-
+      <div className="app-frame">
         <main id="main" className="min-w-0 space-y-6">
-          <div className="xl:hidden flex flex-wrap items-center justify-between gap-2">
-            <RoleSwitcherPill compact />
-          </div>
           <div key={activePath} className="pl-page-enter space-y-6">
             {children}
           </div>
@@ -1517,6 +1748,7 @@ function ClubWorkspaceShellImpl({
         })}
         <button
           type="button"
+          data-mobile-more-trigger=""
           aria-expanded={mobileMoreOpen}
           onClick={() => setMobileMoreOpen(true)}
           className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1"
@@ -1540,7 +1772,7 @@ function ClubWorkspaceShellImpl({
             <button
               type="button"
               autoFocus
-              className="pl-btn-glass px-2.5 min-h-8 inline-flex items-center justify-center"
+              className="pl-btn-glass px-2.5 min-h-11 min-w-11 inline-flex items-center justify-center"
               aria-label="Cerrar menú móvil"
               onClick={() => setMobileMoreOpen(false)}
             >
@@ -1553,12 +1785,13 @@ function ClubWorkspaceShellImpl({
               <a
                 key={m.href}
                 href={m.href}
+                aria-current={activePath === m.href ? "page" : undefined}
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileMoreOpen(false);
                   navigateTo(m.href);
                 }}
-                className="pl-btn-glass text-xs justify-start gap-2"
+                className="pl-btn-glass min-h-11 text-xs justify-start gap-2"
               >
                 <MaestroIcon name={m.icon} size={14} />
                 <span className="truncate">{m.label}</span>
@@ -1568,23 +1801,78 @@ function ClubWorkspaceShellImpl({
 
           <div className="ticket-perf" />
 
-          <div className="grid grid-cols-2 gap-2">
-            {dataset.leagues.map((lg) => (
-              <a
-                key={lg.league}
-                href={`/app/${lg.league}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMoreOpen(false);
-                  navigateTo(`/app/${lg.league}`);
-                }}
-                className="pl-btn-glass text-xs justify-start gap-2"
-              >
-                <LeagueBadge league={lg.league} label={lg.label} size={16} />
-                <span className="truncate">{lg.label}</span>
-              </a>
-            ))}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <span className="pl-header-overlay-subheading block">Ligas activas</span>
+              {clubLeagues.length > 10 ? (
+                <button
+                  type="button"
+                  className="text-xs font-semibold"
+                  style={{ color: "var(--pl-brand)" }}
+                  onClick={() => {
+                    setMobileMoreOpen(false);
+                    setLeagueHubSheetOpen(true);
+                  }}
+                >
+                  Ver todas ({activeDatasetLeagues.length})
+                </button>
+              ) : null}
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {clubLeagues.slice(0, 10).map((lg) => {
+                const href = `/app/${lg.league}`;
+                const active = activePath === href || activePath.startsWith(`${href}/`);
+                return (
+                  <a
+                    key={lg.league}
+                    href={href}
+                    data-league={lg.league}
+                    data-active={active ? "true" : undefined}
+                    aria-current={active ? "page" : undefined}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMobileMoreOpen(false);
+                      navigateTo(href);
+                    }}
+                    className="league-tab pl-btn-glass min-h-11 text-xs justify-start gap-2"
+                  >
+                    <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
+                    <span className="truncate">{lg.label}</span>
+                  </a>
+                );
+              })}
+            </div>
           </div>
+
+          {nationalLeagues.length > 0 ? (
+            <div className="space-y-2 pt-1">
+              <span className="pl-header-overlay-subheading block">Selecciones</span>
+              <div className="grid grid-cols-2 gap-2">
+                {nationalLeagues.map((lg) => {
+                  const href = `/app/${lg.league}`;
+                  const active = activePath === href || activePath.startsWith(`${href}/`);
+                  return (
+                    <a
+                      key={lg.league}
+                      href={href}
+                      data-league={lg.league}
+                      data-active={active ? "true" : undefined}
+                      aria-current={active ? "page" : undefined}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMobileMoreOpen(false);
+                        navigateTo(href);
+                      }}
+                      className="league-tab pl-btn-glass min-h-11 text-xs justify-start gap-2"
+                    >
+                      <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={16} />
+                      <span className="truncate">{lg.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
 
           <div className="pt-2 flex items-center justify-between text-xs">
             <a href="/legal/juego-responsable" className="underline">
@@ -1594,6 +1882,28 @@ function ClubWorkspaceShellImpl({
           </div>
         </div>
       </TopLayerModalDialog>
+
+      <LeagueCategorySheet
+        open={leagueHubSheetOpen}
+        onClose={() => setLeagueHubSheetOpen(false)}
+        title="Todas las competiciones"
+        selectedLeague="all"
+        includeAllOption={false}
+        allowShowInactive
+        onSelect={(next) => {
+          if (next !== "all") navigateTo(`/app/${next}`);
+        }}
+        leagues={dataset.leagues.map((lg) => ({
+          league: lg.league,
+          label: lg.label,
+          logoUrl: lg.logoUrl,
+          activeCount: lg.upcomingCount || lg.totalGames,
+          dayCount: todayGamesByLeague.get(lg.league) ?? 0,
+          isFavorite: favoriteLeagues.includes(lg.league),
+          isActive: isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30),
+        }))}
+      />
+      {activePath !== "/app/parlays" ? <MobileParlaySheet /> : null}
     </>
   );
 }

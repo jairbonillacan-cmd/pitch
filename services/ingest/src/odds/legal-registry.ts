@@ -243,15 +243,16 @@ export interface HttpResponseSnapshot {
 }
 
 export function detectAntiBotChallenge(resp: HttpResponseSnapshot): string | null {
+  const safeUrl = resp.url.split("?")[0] ?? resp.url;
   const cfMitigated = (resp.headers["cf-mitigated"] ?? "").trim().toLowerCase();
   if (cfMitigated === "challenge") {
-    return `Cabecera CF-Mitigated=challenge en ${resp.url} (HTTP ${resp.status})`;
+    return `Cabecera CF-Mitigated=challenge en ${safeUrl} (HTTP ${resp.status})`;
   }
   if (resp.status === 403 || resp.status === 503) {
     const snippet = resp.bodyText.slice(0, 4096).toLowerCase();
     for (const marker of ANTIBOT_MARKERS) {
       if (snippet.includes(marker)) {
-        return `Reto anti-bot detectado (${marker}) en ${resp.url} (HTTP ${resp.status})`;
+        return `Reto anti-bot detectado (${marker}) en ${safeUrl} (HTTP ${resp.status})`;
       }
     }
   }

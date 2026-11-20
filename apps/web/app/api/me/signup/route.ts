@@ -6,12 +6,14 @@ import {
   eq,
   FLAG_MONTH1_NO_CARD,
   getBoolFlag,
+  recordFunnelEvent,
   signupCompleted,
   users,
 } from "@pitchlab/db";
 import { isDisposableEmailDomain, normalizeTrialEmail } from "@pitchlab/contracts";
 import { startAccountEmails } from "../../../../src/server/account-emails";
 import { getAuth } from "../../../../src/server/auth";
+import { sendReferralSignedUpEmail } from "../../../../src/server/lifecycle-emails";
 import { getMailer } from "../../../../src/server/mailer";
 import {
   checkEndpointRateLimit,
@@ -151,14 +153,40 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: result.reason }, { status });
   }
 
-  after(() =>
-    startAccountEmails(db, getMailer(), {
+  const postSignupNow = new Date();
+  if (body.analyticsConsent) {
+    await recordFunnelEvent(db, {
+      eventName: "signup_step2",
+      sessionKey: userId,
+      userId,
+      sourcePath: "/app/cuenta",
+      meta: { trialGranted: result.trial === "concedida" },
+      now: postSignupNow,
+    }).catch((error) => console.error("[embudo] signup_step2:", error));
+  }
+
+  const runPostSignupEmails = async (): Promise<void> => {
+    const mailer = getMailer();
+    await startAccountEmails(db, mailer, {
       userId,
       email: profile.email,
       displayName: body.displayName,
       trialGranted: result.trial === "concedida",
-      now: new Date(),
-    }).catch((error) => console.error("[correo] registro:", error)),
-  );
+      now: postSignupNow,
+    }).catch((error) => console.error("[correo] registro:", error));
+
+    await sendReferralSignedUpEmail(db, mailer, {
+      referredUserId: userId,
+      friendName: body.displayName,
+      status: result.trial === "concedida" ? "trial" : "signed_up",
+      now: postSignupNow,
+    }).catch((error) => console.error("[correo] referido:", error));
+  };
+
+  try {
+    after(runPostSignupEmails);
+  } catch {
+    await runPostSignupEmails();
+  }
   return NextResponse.json(result);
 }

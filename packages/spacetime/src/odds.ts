@@ -63,7 +63,9 @@ const HISTORICAL_CLOSE_MAX_DELTA_MS = 3_600_000;
 export type OddsSource = "scraped_ws" | "historical_fd";
 export type SnapshotStage = "open" | "intraday" | "close";
 
-/** Esquema exacto de una fila en `odds_snapshots.parquet` (+ `snapshot_stage` auxiliar opcional). */
+export type OddsLineMovement = "shortening" | "drifting" | "stable";
+
+/** Esquema exacto de una fila en `odds_snapshots.parquet` (+ auxiliares opcionales de apertura/movimiento). */
 export interface OddsSnapshotRow {
   readonly event_id: string;
   readonly sport: string;
@@ -73,6 +75,9 @@ export interface OddsSnapshotRow {
   readonly selection: string;
   readonly book: string;
   readonly price_decimal: number;
+  readonly opening_price?: number | null;
+  readonly movement_direction?: OddsLineMovement | null;
+  readonly is_best_odds?: boolean;
   readonly ts_captured: string;
   readonly ts_event_start: string;
   readonly source: OddsSource;

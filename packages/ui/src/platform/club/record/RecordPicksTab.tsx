@@ -1,14 +1,19 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
+import { DailyResultsCalendar } from "../../components/DailyResultsCalendar";
+import { LivePicksTrackerStrip } from "../../components/LivePicksTrackerStrip";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { MatchTicketCard } from "../../components/MatchTicketCard";
-import type { ShareTicketPayload } from "../../platform-provider";
+import { shortDateLabel } from "../home/home-model";
+import { useOptionalPlatformCore, type ShareTicketPayload } from "../../platform-provider";
+import { buildMonthlyRecordCalendar } from "../../record-stats";
 import type { JournalEntry, OddsFormat, PlatformGame } from "../../types";
 
 type PickFilter = "all" | "open" | "closed";
+type RecordViewMode = "list" | "calendar";
 
 const ORIGIN_SHORT_LABEL: Record<string, string> = {
   "Spacetime Suite": "Modelo",
@@ -37,6 +42,19 @@ export function RecordPicksTab({
   onOpenShareTicket: (payload: ShareTicketPayload) => void;
 }): React.JSX.Element {
   const [filter, setFilter] = useState<PickFilter>("all");
+  const [viewMode, setViewMode] = useState<RecordViewMode>("list");
+  const optCore = useOptionalPlatformCore();
+  const userTz = optCore?.userTimezone ?? "America/Mexico_City";
+  const allGames = optCore?.dataset.games ?? watchedGames;
+
+  const buildCalendarMonth = useCallback(
+    (ym: string) =>
+      buildMonthlyRecordCalendar(journal, ym || undefined, {
+        timeZone: userTz,
+        includeNetUnits: true,
+      }),
+    [journal, userTz],
+  );
 
   const openCount = useMemo(
     () => journal.filter((item) => item.status === "pending").length,
@@ -52,6 +70,8 @@ export function RecordPicksTab({
 
   return (
     <div className="pl-rec-stack">
+      <LivePicksTrackerStrip journal={journal} games={allGames} />
+
       <section className="pl-rec-card glass-card glass-ring" aria-labelledby="pl-rec-picks-heading">
         <div className="pl-rec-card-head">
           <div>
@@ -63,28 +83,58 @@ export function RecordPicksTab({
             </p>
           </div>
 
-          <div className="pl-rec-filter-row num" role="group" aria-label="Filtrar picks por estado">
-            {(
-              [
-                ["all", `Todos · ${journal.length}`],
-                ["open", `Abiertos · ${openCount}`],
-                ["closed", `Cerrados · ${closedCount}`],
-              ] as const
-            ).map(([key, label]) => (
+          <div className="flex flex-wrap items-center gap-2">
+            <div
+              className="seg-well"
+              role="group"
+              aria-label="Modo de vista de picks"
+              data-record-view-toggle=""
+            >
               <button
-                key={key}
                 type="button"
-                className="pl-rec-chip"
-                aria-pressed={filter === key}
-                onClick={() => setFilter(key)}
+                className="seg-btn text-xs min-h-10"
+                aria-pressed={viewMode === "list"}
+                onClick={() => setViewMode("list")}
               >
-                {label}
+                Lista
               </button>
-            ))}
+              <button
+                type="button"
+                className="seg-btn text-xs min-h-10"
+                aria-pressed={viewMode === "calendar"}
+                onClick={() => setViewMode("calendar")}
+              >
+                Calendario
+              </button>
+            </div>
+
+            {viewMode === "list" ? (
+              <div className="pl-rec-filter-row num" role="group" aria-label="Filtrar picks por estado">
+                {(
+                  [
+                    ["all", `Todos · ${journal.length}`],
+                    ["open", `Abiertos · ${openCount}`],
+                    ["closed", `Cerrados · ${closedCount}`],
+                  ] as const
+                ).map(([key, label]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    className="pl-rec-chip"
+                    aria-pressed={filter === key}
+                    onClick={() => setFilter(key)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
 
-        {filtered.length === 0 ? (
+        {viewMode === "calendar" ? (
+          <DailyResultsCalendar buildMonth={buildCalendarMonth} mode="units" />
+        ) : filtered.length === 0 ? (
           <div className="py-6 text-center space-y-3">
             <p className="pl-rec-hint">
               {journal.length === 0
@@ -292,13 +342,14 @@ export function RecordPicksTab({
                 <div
                   key={g.id}
                   className="glass-ring rounded-xl p-3 flex items-center justify-between gap-2"
-                  style={{ background: "var(--pl-surface)" }}
+                  style={{ background: "var(--pl-surface-elevated)" }}
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <TeamBadge
                       league={g.league}
                       slug={g.home.slug}
                       name={g.home.name}
+                      logoUrl={g.home.logoUrl}
                       size={20}
                     />
                     <div className="min-w-0">
@@ -309,7 +360,7 @@ export function RecordPicksTab({
                         className="block text-xs num truncate"
                         style={{ color: "var(--pl-text-muted)" }}
                       >
-                        {g.leagueLabel} · {g.kickoffLocal}
+                        {g.leagueLabel} · {shortDateLabel(g.dayId)} · {g.kickoffLocal}
                       </span>
                     </div>
                   </div>

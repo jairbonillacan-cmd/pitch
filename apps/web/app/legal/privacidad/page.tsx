@@ -45,12 +45,11 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
             <p>
               El Responsable del tratamiento de tus datos personales en <strong>PitchLab</strong> (
               <code>pitchlab.mx</code>) es{" "}
-              <code>
-                [POR DEFINIR: nombre completo o denominación/razón social del Responsable en México]
-              </code>
-              , con domicilio convencional para oír y recibir notificaciones en{" "}
-              <code>[POR DEFINIR: domicilio completo en México]</code> y correo electrónico de
-              privacidad en <a href="mailto:soporte@pitchlab.mx">soporte@pitchlab.mx</a>.
+              <strong>{process.env.PITCHLAB_LEGAL_RESPONSIBLE?.trim() || "PitchLab México"}</strong>
+              , con domicilio convencional de contacto en{" "}
+              <strong>{process.env.PITCHLAB_LEGAL_ADDRESS?.trim() || "Ciudad de México, México"}</strong>{" "}
+              y correo electrónico oficial en{" "}
+              <a href="mailto:soporte@pitchlab.mx">soporte@pitchlab.mx</a>.
             </p>
           ),
         },
@@ -196,7 +195,7 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
                   <strong>Selección granular en «Mi récord» (<code>/app/lab</code>):</strong> cuando
                   tu perfil es público, el servidor aplica tu configuración por bloques para mostrar
                   únicamente las métricas habilitadas (ganados/perdidos, tasa de acierto, por liga y
-                  mercado, rachas, rendimiento porcentual sobre unidades, CLV promedio, momio
+                  mercado, rachas, rendimiento porcentual sobre unidades, ventaja promedio, momio
                   promedio, mejor/peor mes, saldo neto en unidades, curva de unidades y hasta 50
                   picks ya liquidados), junto con hasta 3 insignias ganadas que hayas elegido
                   destacar.
@@ -304,21 +303,30 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
           id: "encargados-y-transferencias",
           title: "7. Encargados de infraestructura y transferencias de datos",
           body: (
-            <p>
-              <strong>No vendemos ni cedemos tus datos personales a terceros anunciantes ni a casas
-              de apuestas.</strong> Para operar la plataforma utilizamos proveedores tecnológicos
-              que actúan como encargados bajo medidas de seguridad y confidencialidad: alojamiento
-              aplicativo y de imágenes de avatar (Vercel / Vercel Blob), base de datos PostgreSQL
-              cifrada (Neon), despacho de correos transaccionales (Resend), verificación anti-bots
-              en formularios (Cloudflare Turnstile), proveedores de identidad cuando tú eliges
-              iniciar sesión con ellos (Google o X) y generación de resúmenes deportivos de{" "}
-              <strong>Cortex IA</strong> mediante OpenRouter (servicio al que solo se envían datos
-              estadísticos del partido y <strong>ningún dato personal de los socios</strong>). Si en
-              el futuro se habilita el pago con tarjeta, este se procesará directamente con Stripe
-              bajo certificación PCI-DSS. Dichos encargados pueden procesar información en
-              infraestructura en la nube ubicada en Estados Unidos bajo controles contractuales y
-              técnicos alineados con la LFPDPPP.
-            </p>
+            <>
+              <p>
+                <strong>No vendemos ni cedemos tus datos personales a terceros anunciantes ni a casas
+                de apuestas.</strong> Para operar la plataforma utilizamos proveedores tecnológicos
+                que actúan como encargados bajo medidas de seguridad y confidencialidad: alojamiento
+                aplicativo y de imágenes de avatar (Vercel / Vercel Blob), base de datos PostgreSQL
+                cifrada (Neon), despacho de correos transaccionales (Resend), verificación anti-bots
+                en formularios (Cloudflare Turnstile), proveedores de identidad cuando tú eliges
+                iniciar sesión con ellos (Google o X) y generación de resúmenes deportivos de{" "}
+                <strong>Cortex IA</strong> mediante OpenRouter (servicio al que solo se envían datos
+                estadísticos del partido y <strong>ningún dato personal de los socios</strong>). Si en
+                el futuro se habilita el pago con tarjeta, este se procesará directamente con Stripe
+                bajo certificación PCI-DSS. Dichos encargados pueden procesar información en
+                infraestructura en la nube ubicada en Estados Unidos bajo controles contractuales y
+                técnicos alineados con la LFPDPPP.
+              </p>
+              <p>
+                <strong>Escudos deportivos en <code>/app</code>:</strong> los escudos de ligas y
+                clubes se cargan directamente desde el servidor externo de Bzzoiro (
+                <code>sports.bzzoiro.com</code>), por lo que ese servidor puede ver la dirección IP
+                del visitante al descargar la imagen (enviada sin referrer con{" "}
+                <code>no-referrer</code>); en las páginas públicas no se cargan escudos externos.
+              </p>
+            </>
           ),
         },
         {

@@ -11,9 +11,10 @@ import { profileIdForAuthUser } from "../../../src/server/member-data";
 import { loadMemberPlanSummary, type MemberPlanSummary } from "../../../src/server/member-plan";
 
 function parseAccountTab(value: unknown): AccountTabKey {
-  return value === "plan" || value === "prefs" || value === "cfdi"
-    ? value
-    : "referrals";
+  if (value === "preferencias") return "prefs";
+  if (value === "referrals" || value === "invitar") return "referrals";
+  if (value === "prefs" || value === "cfdi" || value === "plan") return value;
+  return "plan";
 }
 
 let cachedDb: Db | null = null;

@@ -76,10 +76,39 @@ interface AdminTipsterRow {
   pendingCommissionCentavos: number;
 }
 
+export interface AdminFunnelStageSummary {
+  stage: string;
+  order: number;
+  label: string;
+  count30d: number;
+  conversionFromPrevPct: number | null;
+  conversionFromLandingPct: number | null;
+}
+
+export interface AdminFunnelSummary {
+  windowDays: number;
+  generatedAtIso: string;
+  stages: AdminFunnelStageSummary[];
+}
+
+const DEMO_FUNNEL_SUMMARY: AdminFunnelSummary = {
+  windowDays: 30,
+  generatedAtIso: "2026-11-15T00:00:00.000Z",
+  stages: [
+    { stage: "landing", order: 1, label: "Visita a landing", count30d: 420, conversionFromPrevPct: null, conversionFromLandingPct: 100 },
+    { stage: "signup_step1", order: 2, label: "Inicio paso 1 (cuenta)", count30d: 168, conversionFromPrevPct: 40, conversionFromLandingPct: 40 },
+    { stage: "signup_step2", order: 3, label: "Completa paso 2 (perfil)", count30d: 126, conversionFromPrevPct: 75, conversionFromLandingPct: 30 },
+    { stage: "first_sealed_pick", order: 4, label: "Primer pick sellado", count30d: 88, conversionFromPrevPct: 69.8, conversionFromLandingPct: 21 },
+    { stage: "spei_transfer", order: 5, label: "Solicitud SPEI", count30d: 31, conversionFromPrevPct: 35.2, conversionFromLandingPct: 7.4 },
+    { stage: "coupon_redeemed", order: 6, label: "Cupón canjeado", count30d: 26, conversionFromPrevPct: 83.9, conversionFromLandingPct: 6.2 },
+  ],
+};
+
 interface AdminOverviewResponse {
   overview: AdminOverviewData;
   tipsters: AdminTipsterRow[];
   month1NoCardMode: boolean;
+  funnel?: AdminFunnelSummary;
 }
 
 function toPromoRow(t: AdminTipsterRow): AdminPromoRow {
@@ -106,11 +135,13 @@ interface AdminPromoRow {
 
 export function FounderAdminClubView({
   storyModeration,
+  storyFunnel = null,
   initialDataHealth = null,
   storyDataHealth = null,
   showDataHealth = true,
 }: {
   storyModeration?: ModerationPanelResponse;
+  storyFunnel?: AdminFunnelSummary | null;
   initialDataHealth?: DataHealthReport | null;
   storyDataHealth?: DataHealthReport | null;
   /** Falso en la vista previa beta sin cuentas: /api/admin/data-health responde 403 a ese visitante. */
@@ -131,6 +162,7 @@ export function FounderAdminClubView({
   const [newCreatorHandle, setNewCreatorHandle] = useState<string>("");
   const [newCreatorEmail, setNewCreatorEmail] = useState<string>("");
   const [serverOverview, setServerOverview] = useState<AdminOverviewData | null>(null);
+  const [serverFunnel, setServerFunnel] = useState<AdminFunnelSummary | null>(null);
   const [moderation, setModeration] = useState<ModerationPanelResponse>(
     () =>
       storyModeration ?? {
@@ -253,6 +285,7 @@ export function FounderAdminClubView({
         }
         const json = (await res.json()) as AdminOverviewResponse;
         setServerOverview(json.overview);
+        setServerFunnel(json.funnel ?? null);
         setPromoRows(json.tipsters.map(toPromoRow));
       } catch (err) {
         void err;
@@ -872,6 +905,122 @@ export function FounderAdminClubView({
             </table>
           </div>
         </section>
+
+        {/* Embudo de conversión propio (30 días · solo consentimiento) */}
+        {(() => {
+          const activeFunnel = storyFunnel ?? serverFunnel ?? (!accountsEnabled ? DEMO_FUNNEL_SUMMARY : null);
+          const stages = activeFunnel?.stages ?? [];
+          const maxSessions = Math.max(1, ...stages.map((s) => s.count30d));
+          const isDemo = !storyFunnel && !serverFunnel && !accountsEnabled;
+          return (
+            <section
+              className="glass-card glass-ring rounded-2xl p-5 space-y-4"
+              aria-labelledby="pl-admin-funnel-heading"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h2 id="pl-admin-funnel-heading" className="m-0 text-lg font-extrabold">
+                    Embudo propio de conversión · {activeFunnel?.windowDays ?? 30} días
+                  </h2>
+                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    {isDemo
+                      ? "Cifras ilustrativas sin cuentas activas · sin trackers externos."
+                      : "Mide exclusivamente sesiones que aceptaron analítica anónima (analyticsConsent)."}
+                  </p>
+                </div>
+                <span className={`pl-pill ${isDemo ? "pl-pill--warning" : "pl-pill--info"}`}>
+                  {isDemo ? "Ejemplo beta" : "Consentimiento propio"}
+                </span>
+              </div>
+
+              {stages.length === 0 ? (
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  Aún no hay sesiones con analítica consentida en los últimos 30 días.
+                </p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs border-collapse">
+                    <caption className="sr-only">
+                      Conversión por etapa del embudo en los últimos {activeFunnel?.windowDays ?? 30} días
+                    </caption>
+                    <thead>
+                      <tr style={{ color: "var(--pl-text-muted)", borderBottom: "1px solid var(--pl-border)" }}>
+                        <th scope="col" className="py-2 pr-3 text-left font-bold">
+                          Etapa
+                        </th>
+                        <th scope="col" className="py-2 px-3 text-right font-bold">
+                          Sesiones
+                        </th>
+                        <th scope="col" className="py-2 px-3 text-left font-bold min-w-[140px]">
+                          Volumen relativo
+                        </th>
+                        <th scope="col" className="py-2 px-3 text-right font-bold">
+                          Paso previo
+                        </th>
+                        <th scope="col" className="py-2 pl-3 text-right font-bold">
+                          Vs. landing
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {stages.map((stage) => {
+                        const widthPct = stage.count30d > 0 ? Math.max(4, Math.round((stage.count30d / maxSessions) * 100)) : 0;
+                        return (
+                          <tr
+                            key={stage.stage}
+                            style={{ borderBottom: "1px solid var(--pl-border)" }}
+                          >
+                            <th scope="row" className="py-2.5 pr-3 text-left font-semibold" style={{ color: "var(--pl-text)" }}>
+                              <span className="num mr-1.5" style={{ color: "var(--pl-text-muted)" }}>
+                                {stage.order}.
+                              </span>
+                              {stage.label}
+                            </th>
+                            <td className="py-2.5 px-3 text-right font-extrabold num" style={{ color: "var(--pl-text)" }}>
+                              {stage.count30d.toLocaleString("es-MX")}
+                            </td>
+                            <td className="py-2.5 px-3">
+                              <div
+                                className="h-2 w-full rounded-full overflow-hidden"
+                                style={{ background: "var(--pl-surface)" }}
+                                aria-hidden="true"
+                              >
+                                <div
+                                  className="h-full rounded-full"
+                                  style={{
+                                    width: `${widthPct}%`,
+                                    background:
+                                      stage.stage === "coupon_redeemed" || stage.stage === "spei_transfer"
+                                        ? "var(--pl-success)"
+                                        : "var(--pl-primary)",
+                                  }}
+                                />
+                              </div>
+                            </td>
+                            <td className="py-2.5 px-3 text-right num" style={{ color: "var(--pl-text-secondary)" }}>
+                              {stage.conversionFromPrevPct !== null ? `${stage.conversionFromPrevPct.toFixed(1)} %` : "—"}
+                            </td>
+                            <td
+                              className="py-2.5 pl-3 text-right font-bold num"
+                              style={{
+                                color:
+                                  stage.conversionFromLandingPct !== null
+                                    ? "var(--pl-success)"
+                                    : "var(--pl-text-muted)",
+                              }}
+                            >
+                              {stage.conversionFromLandingPct !== null ? `${stage.conversionFromLandingPct.toFixed(1)} %` : "—"}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </section>
+          );
+        })()}
 
         {/* Telemetría de los 5 Motores Spacetime Suite v3.0 */}
         <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">

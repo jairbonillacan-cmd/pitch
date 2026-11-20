@@ -1,7 +1,10 @@
+import { canonicalPlayerHref, canonicalTeamHref } from "@pitchlab/contracts";
+
 const STATIC_CLUB_SEGMENTS = new Set([
   "account",
   "admin",
   "canjear",
+  "comparar",
   "historial",
   "lab",
   "momios",
@@ -32,12 +35,24 @@ const CLUB_ALIASES: Record<string, AliasTarget> = {
   "/app/epl": { pathname: "/app/premier-league" },
   "/app/la-liga": { pathname: "/app/laliga" },
   "/app/tipstar": { pathname: "/app/tipster" },
+  "/app/h2h": { pathname: "/app/comparar" },
+  "/app/compare": { pathname: "/app/comparar" },
 };
 
 export type ClubRouteResolution =
   | { kind: "ok"; pathname: string }
   | { kind: "redirect"; to: string }
+  | { kind: "permanent_redirect"; to: string }
   | { kind: "not_found"; pathname: string };
+
+function safeDecodeSegment(raw: string): string | null {
+  try {
+    return decodeURIComponent(raw);
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
 
 /**
  * Resuelve alias legados dentro de `/app/*` y detecta rutas inexistentes antes de que
@@ -48,6 +63,9 @@ export function resolveClubRoute(
   options: {
     isLeague: (segment: string) => boolean;
     gameExists: (league: string, gameId: string) => boolean;
+    canonicalGameHrefFor?: (league: string, gameId: string) => string | null;
+    teamExists?: (league: string, teamId: string) => boolean;
+    playerExists?: (league: string, teamId: string, playerSlug: string) => boolean;
   },
 ): ClubRouteResolution {
   if (!rawPath || typeof rawPath !== "string") {
@@ -109,16 +127,59 @@ export function resolveClubRoute(
     return { kind: "ok", pathname };
   }
 
-  if (segments.length === 3 && segments[1] === "games") {
+  if (
+    segments.length === 3 &&
+    (segments[1] === "games" || segments[1] === "g" || segments[1] === "teams" || segments[1] === "t")
+  ) {
     const league = segments[0]!;
-    let gameId = segments[2]!;
-    try {
-      gameId = decodeURIComponent(gameId);
-    } catch (err) {
-      void err;
+    const entityId = safeDecodeSegment(segments[2]!);
+    if (!entityId) {
       return { kind: "not_found", pathname };
     }
-    if (options.isLeague(league) && options.gameExists(league, gameId)) {
+    const isGameRoute = segments[1] === "games" || segments[1] === "g";
+    const exists = isGameRoute
+      ? options.gameExists(league, entityId)
+      : (options.teamExists?.(league, entityId) ?? false);
+    if (options.isLeague(league) && exists) {
+      const qs = parsed.search;
+      if (segments[1] === "teams") {
+        return {
+          kind: "permanent_redirect",
+          to: `${canonicalTeamHref(league, entityId)}${qs}`,
+        };
+      }
+      if (segments[1] === "games" && options.canonicalGameHrefFor) {
+        const target = options.canonicalGameHrefFor(league, entityId);
+        if (target) {
+          return { kind: "permanent_redirect", to: `${target}${qs}` };
+        }
+      }
+      return { kind: "ok", pathname };
+    }
+    return { kind: "not_found", pathname };
+  }
+
+  if (
+    segments.length === 5 &&
+    ((segments[1] === "teams" && segments[3] === "players") ||
+      (segments[1] === "t" && segments[3] === "p"))
+  ) {
+    const league = segments[0]!;
+    const teamId = safeDecodeSegment(segments[2]!);
+    const playerSlug = safeDecodeSegment(segments[4]!);
+    if (!teamId || !playerSlug) {
+      return { kind: "not_found", pathname };
+    }
+    const exists = options.playerExists
+      ? options.playerExists(league, teamId, playerSlug)
+      : (options.teamExists?.(league, teamId) ?? false);
+    if (options.isLeague(league) && exists) {
+      if (segments[1] === "teams") {
+        return {
+          kind: "permanent_redirect",
+          to: `${canonicalPlayerHref(league, teamId, playerSlug)}${parsed.search}`,
+        };
+      }
       return { kind: "ok", pathname };
     }
     return { kind: "not_found", pathname };

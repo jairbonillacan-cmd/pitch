@@ -37,21 +37,19 @@ export const EMAIL_WIRING = {
   },
 
   "pick-graded": {
-    state: "blocked",
-    trigger: "Cuando un pick de la bitácora pasa de `pending` a `won`, `lost` o `void`.",
-    needs:
-      "Un calificador que decida el resultado con el marcador final (hoy nada cambia el estado de los picks) y el interruptor «Avisarme cuando se califique un pick» en Mi cuenta. El envío, la preferencia y `settleAndNotify` ya están hechos.",
+    state: "live",
+    trigger:
+      "Al liquidar un pick simple o parlay en `/api/cron/settle-picks` (`settleAndNotify`) cuando el socio activó avisos de resultados.",
   },
   "monthly-record": {
-    state: "blocked",
-    trigger: "Tarea programada el día 1 de cada mes.",
-    needs:
-      "Calcular el récord y el puesto en el servidor (hoy `profile-stats.ts` corre en el navegador), la tarea mensual y el interruptor de recibirlo.",
+    state: "live",
+    trigger:
+      "Tarea programada el día 1 de cada mes (`/api/cron/monthly-record`) para suscriptores opt-in, con baja en un clic.",
   },
   "weekly-digest": {
-    state: "blocked",
-    trigger: "Tarea programada cada semana.",
-    needs: "El motor de picks corriendo en el servidor por persona, la tarea semanal y el interruptor de recibirlo.",
+    state: "live",
+    trigger:
+      "Tarea programada semanal (`/api/cron/weekly-digest`) con partidos próximos vigilados/favoritos para suscriptores opt-in y baja en un clic.",
   },
   "security-notice": {
     state: "blocked",
@@ -60,8 +58,8 @@ export const EMAIL_WIRING = {
   },
 
   "referral-signed-up": {
-    state: "ready",
-    trigger: "Al registrar el referido (`attributeReferral` en `packages/db/src/signup.ts`).",
+    state: "live",
+    trigger: "Al completar el registro con código de amigo en `POST /api/me/signup`.",
   },
   "referral-rewarded": {
     state: "live",
@@ -116,8 +114,8 @@ export const EMAIL_WIRING = {
   },
 
   "tipster-activated": {
-    state: "ready",
-    trigger: "Al crear el perfil Tipster (`/api/admin/tipsters`).",
+    state: "live",
+    trigger: "Al crear el perfil Tipster Oficial en `POST /api/admin/tipsters`.",
   },
   "tipster-new-subscriber": {
     state: "live",
@@ -128,9 +126,8 @@ export const EMAIL_WIRING = {
     trigger: "Al registrar el pago manual de comisión en `/app/admin` o al liquidar por Connect (`/api/cron/tipster-payouts`).",
   },
   "content-removed": {
-    state: "blocked",
-    trigger: "Cuando un moderador retira una publicación.",
-    needs: "La acción de moderar (hoy solo existe la tabla `social_moderation_logs`, sin pantalla ni API) y las publicaciones en el servidor.",
+    state: "live",
+    trigger: "Cuando moderación oculta una publicación o comentario en `POST /api/admin/moderation`.",
   },
   "data-health-alert": {
     state: "live",

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "league": "bundesliga-2",
+  "observedAt": "2026-11-19T16:05:39.021Z",
+  "source": "pitchlab-availability",
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "bundesliga-2.wolfsburg",
+      "player": "Aster Vranckx",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "bundesliga-2.wolfsburg",
+      "player": "Cleiton",
+      "position": "D",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "bundesliga-2.wolfsburg",
+      "player": "Rogério",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Carlo Sickinger",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Calf Injury",
+      "injuryType": "Calf Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Fabian Nürnberger",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Luca Marseiler",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "bundesliga-2.magdeburg",
+      "player": "Lubambo Musonda",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Achilles Tendon Injury",
+      "injuryType": "Achilles Tendon Injury",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    },
+    {
+      "teamId": "bundesliga-2.magdeburg",
+      "player": "Moritz Kwarteng",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-19T16:05:39.021Z"
+    }
+  ]
+}

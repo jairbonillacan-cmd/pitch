@@ -110,48 +110,90 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 176px), 1fr));
   gap: 10px;
 }
 
 .pl-badge-tile {
-  border-radius: 18px;
-  border: 1px solid var(--pl-border);
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid var(--pl-card-border);
   background: var(--pl-surface);
-  padding: 14px;
+  padding: 12px 13px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 10px;
   min-width: 0;
-  transition: border-color 150ms ease, background-color 150ms ease;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 170ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pl-badge-tile:hover,
+.pl-badge-tile[data-tip-open="true"] {
+  border-color: var(--pl-border-strong);
+  transform: translateY(-1.5px);
+  z-index: 20;
+}
+
+.pl-badge-tile:has(.pl-badge-tile-trigger:focus-visible) {
+  z-index: 20;
 }
 
 .pl-badge-tile[data-featured="true"] {
   border-color: color-mix(in srgb, var(--pl-brand) 48%, var(--pl-border));
-  background: color-mix(in srgb, var(--pl-brand) 8%, var(--pl-surface));
+  background: color-mix(in srgb, var(--pl-brand) 7%, var(--pl-surface));
 }
 
-.pl-badge-tile-body {
+.pl-badge-tile-trigger {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  width: 100%;
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+  gap: 11px;
   min-width: 0;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.pl-badge-tile-trigger:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 4px;
 }
 
 .pl-badge-tile-icon {
   flex: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 13px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--pl-brand) 12%, transparent);
+  background: color-mix(in srgb, var(--pl-brand) 10%, transparent);
   color: var(--pl-brand);
+  transition: transform 170ms cubic-bezier(0.22, 1, 0.36, 1), background-color 160ms ease;
+}
+
+.pl-badge-tile:hover .pl-badge-tile-icon {
+  transform: scale(1.04);
 }
 
 .pl-badge-tile--locked .pl-badge-tile-icon {
-  background: color-mix(in srgb, var(--pl-text) 6%, transparent);
+  background: color-mix(in srgb, var(--pl-text) 5%, transparent);
   color: var(--pl-text-muted);
+  opacity: 0.82;
+}
+
+.pl-badge-tile--locked:hover .pl-badge-tile-icon {
+  opacity: 1;
 }
 
 .pl-badge-tile-copy {
@@ -162,9 +204,12 @@
 }
 
 .pl-badge-tile-label {
-  font-size: 14px;
-  font-weight: 650;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.2;
   color: var(--pl-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pl-badge-tile-family {
@@ -173,11 +218,86 @@
   color: var(--pl-text-muted);
 }
 
-.pl-badge-tile-criterion {
-  margin-top: 4px;
-  font-size: 12.5px;
+/* Tooltip flotante al pasar el cursor, enfocar o tocar (WCAG 1.4.13: hoverable + Escape) */
+.pl-badge-tooltip {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-end: calc(100% + 8px);
+  translate: -50% 4px;
+  inline-size: max-content;
+  max-inline-size: min(244px, calc(100vw - 32px));
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border-strong);
+  background: var(--pl-glass-menu);
+  box-shadow: 0 16px 36px -10px rgb(0 0 0 / 0.28);
+  color: var(--pl-text);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 35;
+  transition:
+    opacity 150ms ease,
+    translate 170ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 150ms;
+}
+
+/* Puente invisible para permitir mover el puntero sobre el tooltip sin cerrarlo */
+.pl-badge-tooltip::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  block-size: 10px;
+}
+
+.pl-badge-tooltip::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: calc(100% - 5px);
+  inline-size: 9px;
+  block-size: 9px;
+  translate: -50% 0;
+  rotate: 45deg;
+  background: var(--pl-glass-menu);
+  border-inline-end: 1px solid var(--pl-border-strong);
+  border-block-end: 1px solid var(--pl-border-strong);
+}
+
+.pl-badge-tile:not([data-dismissed="true"]):is(
+  :hover,
+  :has(.pl-badge-tile-trigger:focus-visible),
+  [data-tip-open="true"]
+) .pl-badge-tooltip {
+  opacity: 1;
+  visibility: visible;
+  translate: -50% 0;
+  pointer-events: auto;
+}
+
+.pl-badge-tooltip-title {
+  font-size: 12px;
+  font-weight: 750;
+  color: var(--pl-text);
+}
+
+.pl-badge-tooltip-desc {
+  font-size: 11.5px;
   line-height: 1.4;
   color: var(--pl-text-secondary);
+}
+
+.pl-badge-tooltip-meta {
+  margin-top: 2px;
+  padding-top: 4px;
+  border-top: 1px solid var(--pl-row-rule);
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--pl-brand);
 }
 
 .pl-badge-tile-foot {
@@ -242,8 +362,9 @@ a.pl-badge-state--private:focus-visible {
 .pl-badge-progress {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 650;
   color: var(--pl-text-muted);
 }
 
@@ -251,7 +372,7 @@ a.pl-badge-state--private:focus-visible {
   appearance: none;
   flex: 1;
   min-width: 0;
-  height: 6px;
+  height: 4px;
   border: 0;
   border-radius: 999px;
   overflow: hidden;
@@ -291,11 +412,33 @@ a.pl-badge-state--private:focus-visible {
     padding: 16px;
     border-radius: 20px;
   }
+
+  .pl-badge-tooltip {
+    inset-inline: 0;
+    translate: 0 4px;
+    inline-size: auto;
+    max-inline-size: none;
+  }
+
+  .pl-badge-tile:not([data-dismissed="true"]):is(
+    :hover,
+    :has(.pl-badge-tile-trigger:focus-visible),
+    [data-tip-open="true"]
+  ) .pl-badge-tooltip {
+    translate: 0 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pl-badge-tile,
+  .pl-badge-tile-icon,
+  .pl-badge-tooltip,
   .pl-badge-feature {
     transition: none;
+  }
+
+  .pl-badge-tile:hover,
+  .pl-badge-tile[data-tip-open="true"] {
+    transform: none;
   }
 }

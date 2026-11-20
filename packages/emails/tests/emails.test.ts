@@ -65,18 +65,24 @@ describe("correos de PitchLab", () => {
     const live = ids.filter((id) => EMAIL_WIRING[id].state === "live");
     expect(live.sort()).toEqual([
       "access-expired",
+      "content-removed",
       "data-health-alert",
       "magic-link",
+      "monthly-record",
       "payment-receipt",
+      "pick-graded",
       "referral-ambassador",
       "referral-rewarded",
+      "referral-signed-up",
       "renewal-reminder",
+      "tipster-activated",
       "tipster-new-subscriber",
       "tipster-payout",
       "transfer-coupon",
       "transfer-rejected",
       "trial-ended",
       "trial-ending",
+      "weekly-digest",
       "welcome",
     ]);
   });

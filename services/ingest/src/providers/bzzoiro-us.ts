@@ -8,6 +8,7 @@
  *
  * Ojo: el filtro de liga es `league`, no `league_id` (con `league_id` mezcla ligas).
  */
+import { mapBzzoiroTeamLogoUrl, type BzImageFields } from "./bzzoiro.js";
 import type { ProviderClient } from "./http.js";
 
 export type UsSport = "nba" | "nhl";
@@ -17,7 +18,7 @@ export const BZZOIRO_US = {
   nhl: { path: "/hockey/api/v2/matches/", league: 65 },
 } as const;
 
-interface BzUsTeam {
+interface BzUsTeam extends BzImageFields {
   id: number;
   name: string;
   short_name?: string | null;
@@ -51,8 +52,8 @@ export interface UsGameRow {
   providerMatchId: number;
   kickoffUtc: string;
   status: string;
-  home: { providerTeamId: number; name: string; shortName: string | null };
-  away: { providerTeamId: number; name: string; shortName: string | null };
+  home: { providerTeamId: number; name: string; shortName: string | null; logoUrl?: string };
+  away: { providerTeamId: number; name: string; shortName: string | null; logoUrl?: string };
   homeScore: number | null;
   awayScore: number | null;
   /** NHL: el partido se definió en tiempo extra o en penales. */
@@ -84,8 +85,18 @@ export function toUsGameRow(sport: UsSport, e: BzUsEvent): UsGameRow {
     providerMatchId: e.id,
     kickoffUtc,
     status: e.status,
-    home: { providerTeamId: e.home_team.id, name: e.home_team.name, shortName: e.home_team.short_name ?? null },
-    away: { providerTeamId: e.away_team.id, name: e.away_team.name, shortName: e.away_team.short_name ?? null },
+    home: {
+      providerTeamId: e.home_team.id,
+      name: e.home_team.name,
+      shortName: e.home_team.short_name ?? null,
+      logoUrl: mapBzzoiroTeamLogoUrl(sport, "", { providerTeamId: e.home_team.id, raw: e.home_team }),
+    },
+    away: {
+      providerTeamId: e.away_team.id,
+      name: e.away_team.name,
+      shortName: e.away_team.short_name ?? null,
+      logoUrl: mapBzzoiroTeamLogoUrl(sport, "", { providerTeamId: e.away_team.id, raw: e.away_team }),
+    },
     homeScore: num(e.home_score),
     awayScore: num(e.away_score),
     overtime: e.is_overtime === true,

@@ -254,9 +254,12 @@ type StatKey = keyof LiveTeamStats;
 const STAT_ROWS: { key: StatKey; label: string; digits?: number; pct?: boolean }[] = [
   { key: "possessionPct", label: "Posesión", pct: true },
   { key: "xg", label: "xG", digits: 2 },
+  { key: "goalsPrevented", label: "Goles evitados", digits: 2 },
   { key: "shots", label: "Tiros" },
   { key: "shotsOnTarget", label: "A puerta" },
+  { key: "touchesInBox", label: "Toques en área" },
   { key: "bigChances", label: "Ocasiones claras" },
+  { key: "passAccuracyPct", label: "Pases precisos", pct: true },
   { key: "corners", label: "Córners" },
   { key: "fouls", label: "Faltas" },
   { key: "yellowCards", label: "Amarillas" },
@@ -276,14 +279,14 @@ export function LiveStatBars({
   const rows = STAT_ROWS.filter((r) => {
     const h = stats.home[r.key];
     const a = stats.away[r.key];
-    if (h === null && a === null) return false;
+    if (h == null && a == null) return false;
     // Al arrancar, la fuente reporta 0 % / 100 % de posesión: es ruido, no un dato.
     if (r.pct && (!h || !a)) return false;
     return true;
   });
   if (rows.length === 0) return <></>;
-  const fmt = (v: number | null, r: (typeof STAT_ROWS)[number]) =>
-    v === null ? "—" : r.pct ? `${Math.round(v)} %` : r.digits ? v.toFixed(r.digits) : String(Math.round(v));
+  const fmt = (v: number | null | undefined, r: (typeof STAT_ROWS)[number]) =>
+    v == null ? "—" : r.pct ? `${Math.round(v)} %` : r.digits ? v.toFixed(r.digits) : String(Math.round(v));
   return (
     <section className="pl-live-stats" aria-label="Estadísticas del partido">
       <div className="pl-live-stats-head" aria-hidden="true">

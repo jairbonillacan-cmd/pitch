@@ -4,10 +4,20 @@
  * `settleAndNotify` es el punto de entrada para quien califique picks. Hoy nada lo llama: falta el
  * calificador que decide `won`, `lost` o `void` con el marcador final (ver `docs/architecture/CORREOS.md`).
  */
-import { and, eq, getEmailPreferences, sealedPicks, userPreferences, users, type Db } from "@pitchlab/db";
+import {
+  and,
+  eq,
+  getEmailPreferences,
+  sealedPicks,
+  userPreferences,
+  users,
+  type Db,
+  type SealedParlayLegResult,
+} from "@pitchlab/db";
 import { renderEmail, siteUrl } from "@pitchlab/emails";
 import { firstName, formatOdds, formatPoints } from "./email-format";
 import type { Mailer } from "./mailer";
+import { sendPushToUsers } from "./web-push";
 
 export type PickResult = "won" | "lost" | "void";
 export type SettledPick = typeof sealedPicks.$inferSelect;
@@ -18,14 +28,26 @@ export type SettledPick = typeof sealedPicks.$inferSelect;
  */
 export async function settleSealedPick(
   db: Db,
-  input: { userId: string; pickId: string; result: PickResult; clvPct?: number | null; now: Date },
+  input: {
+    userId: string;
+    pickId: string;
+    result: PickResult;
+    clvPct?: number | null;
+    closingDecimal?: number | null;
+    parlayLegResults?: SealedParlayLegResult[] | null;
+    now: Date;
+  },
 ): Promise<SettledPick | null> {
   const [row] = await db
     .update(sealedPicks)
     .set({
       status: input.result,
       settledAt: input.now,
-      ...(input.clvPct != null ? { clvPct: input.clvPct.toFixed(2) } : {}),
+      ...(input.clvPct != null && Number.isFinite(input.clvPct) ? { clvPct: input.clvPct.toFixed(2) } : {}),
+      ...(input.closingDecimal != null && Number.isFinite(input.closingDecimal)
+        ? { closingDecimal: input.closingDecimal.toFixed(3) }
+        : {}),
+      ...(input.parlayLegResults !== undefined ? { parlayLegResults: input.parlayLegResults } : {}),
     })
     .where(and(eq(sealedPicks.userId, input.userId), eq(sealedPicks.pickId, input.pickId), eq(sealedPicks.status, "pending")))
     .returning();
@@ -78,10 +100,32 @@ export async function notifyPickGraded(db: Db, mailer: Mailer, pick: SettledPick
 export async function settleAndNotify(
   db: Db,
   mailer: Mailer,
-  input: { userId: string; pickId: string; result: PickResult; clvPct?: number | null; now: Date },
+  input: {
+    userId: string;
+    pickId: string;
+    result: PickResult;
+    clvPct?: number | null;
+    closingDecimal?: number | null;
+    parlayLegResults?: SealedParlayLegResult[] | null;
+    now: Date;
+  },
 ): Promise<{ settled: boolean; notice: PickNotice | "error" }> {
   const pick = await settleSealedPick(db, input);
   if (!pick) return { settled: false, notice: "sin_aviso" };
+
+  const pushTitle =
+    pick.status === "won"
+      ? "Pick ganado en tu bitácora"
+      : pick.status === "lost"
+        ? "Pick calificado como perdido"
+        : "Pick calificado como nulo (push)";
+  await sendPushToUsers(db, [pick.userId], "picks", {
+    title: pushTitle,
+    body: `${pick.pickLabel} · ${pick.matchLabel}`,
+    url: "/app/lab",
+    tag: `pick-${pick.id}`,
+  }).catch(() => undefined);
+
   try {
     return { settled: true, notice: await notifyPickGraded(db, mailer, pick) };
   } catch (error) {

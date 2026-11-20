@@ -6,6 +6,11 @@ import { isDisposableEmailDomain, normalizeTrialEmail } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
 import { PlSelect } from "../components/PlSelect";
+import {
+  hasLocalAnalyticsConsent,
+  sendConsentGatedFunnelStage,
+  syncLocalAnalyticsConsent,
+} from "../funnel-consent";
 import { usePlatform } from "../platform-provider";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import { requestLoginMagicLink, startLoginSocialSignIn } from "./LoginSurfaceV4";
@@ -464,6 +469,12 @@ export function SignupSurfaceV4({
               : "Así te verán en Comunidad.";
 
   useEffect(() => {
+    if (step === "method" && hasLocalAnalyticsConsent()) {
+      sendConsentGatedFunnelStage("signup_step1", "/signup");
+    }
+  }, [step]);
+
+  useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
       return;
@@ -606,6 +617,7 @@ export function SignupSurfaceV4({
     };
 
     setSubmitting(true);
+    syncLocalAnalyticsConsent(analytics);
     submitSignupDetails(details);
 
     if (!accountsEnabled) {
@@ -1087,7 +1099,14 @@ export function SignupSurfaceV4({
                         <input
                           type="checkbox"
                           checked={analytics}
-                          onChange={(e) => setAnalytics(e.target.checked)}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+                            setAnalytics(checked);
+                            syncLocalAnalyticsConsent(checked);
+                            if (checked) {
+                              sendConsentGatedFunnelStage("signup_step1", "/signup");
+                            }
+                          }}
                         />
                         <span className="pl-auth-check-text">
                           {narrow ? "Analítica anónima" : "Analítica anónima para mejorar PitchLab"}

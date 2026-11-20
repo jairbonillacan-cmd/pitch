@@ -221,13 +221,22 @@ describe("Parte 1 · Compuerta legal, adaptadores grabados, cadencia y armado de
       recursive: true,
     });
 
-    const nowIso = "2026-11-14T18:30:00Z";
+    const existingLive = JSON.parse(
+      readFileSync(join(tmpSpacetimeData, "live_matchday_v3_snapshot.json"), "utf8"),
+    ) as LiveMatchdaySnapshotPayload;
+    const baseMs = Math.max(
+      Date.parse("2026-11-14T18:00:00Z"),
+      Date.parse(existingLive.outlooks_meta?.generated_at_utc ?? existingLive.generated_at),
+    );
+    const nowIso = new Date(baseMs + 30 * 60_000).toISOString().replace(".000Z", "Z");
+    const capturedAtIso = new Date(baseMs + 20 * 60_000).toISOString().replace(".000Z", "Z");
+    const commenceTimeIso = new Date(baseMs + 48 * 3600_000).toISOString().replace(".000Z", "Z");
     const incomingTicks = parseTheOddsApiEvents({
       eventsPayload: [
         {
           home_team: "1. FC Union Berlin",
           away_team: "RB Leipzig",
-          commence_time: "2026-11-16T14:30:00Z",
+          commence_time: commenceTimeIso,
           bookmakers: [
             {
               key: "pinnacle",
@@ -246,7 +255,7 @@ describe("Parte 1 · Compuerta legal, adaptadores grabados, cadencia y armado de
         },
       ],
       appLeague: "bundesliga",
-      capturedAtIso: "2026-11-14T18:20:00Z",
+      capturedAtIso,
       rawSha256: "sha-union-leipzig",
       nowMs: Date.parse(nowIso),
     });
@@ -262,7 +271,7 @@ describe("Parte 1 · Compuerta legal, adaptadores grabados, cadencia y armado de
     expect(result.ok).toBe(true);
     expect(result.wroteQuotesLedger).toBe(true);
     expect(result.wroteLiveSnapshot).toBe(true);
-    expect(result.nOutlooksTotal).toBe(130);
+    expect(result.nOutlooksTotal).toBe(existingLive.outlooks?.length ?? 130);
     expect(result.nWithFreshQuotesLt72h).toBeGreaterThanOrEqual(1);
 
     const updatedLive = JSON.parse(
@@ -274,7 +283,7 @@ describe("Parte 1 · Compuerta legal, adaptadores grabados, cadencia y armado de
     expect(unionMatch).toBeDefined();
     const x12Market = unionMatch?.marketsByKey["1x2"]?.market;
     expect(x12Market?.book).toBe("pinnacle");
-    expect(x12Market?.tsCaptured).toBe("2026-11-14T18:20:00Z");
+    expect(x12Market?.tsCaptured).toBe(capturedAtIso);
     expect(x12Market?.oddsBySelection).toEqual({
       home: 2.38,
       draw: 3.4,
@@ -290,7 +299,7 @@ describe("Parte 1 · Compuerta legal, adaptadores grabados, cadencia y armado de
       rootDir: tmp,
       incomingTicks: [],
       activeSources: ["the_odds_api"],
-      nowIso: "2026-11-13T10:00:00Z",
+      nowIso: new Date(baseMs - 24 * 3600_000).toISOString().replace(".000Z", "Z"),
       forceSnapshotWrite: true,
     });
     expect(staleAttempt.ok).toBe(false);

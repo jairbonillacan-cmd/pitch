@@ -69,6 +69,7 @@ jobs:
         id: refresh
         env:
           BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
           BETFAIR_APP_KEY: ${{ secrets.BETFAIR_APP_KEY }}
           BETFAIR_SESSION_TOKEN: ${{ secrets.BETFAIR_SESSION_TOKEN }}
@@ -135,4 +136,18 @@ jobs:
             echo "Deploy hook disparado."
           else
             echo "Sin deploy hook configurado; se omite."
+          fi
+
+      - name: Sincronizar cuotas de cierre, liquidación y alertas push
+        if: success()
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          PITCHLAB_SITE_URL: ${{ secrets.PITCHLAB_SITE_URL }}
+        run: |
+          if [ -n "$CRON_SECRET" ] && [ -n "$PITCHLAB_SITE_URL" ]; then
+            printf 'url = "%s/api/cron/settle-picks"\nheader = "Authorization: Bearer %s"\n' "${PITCHLAB_SITE_URL%/}" "$CRON_SECRET" | curl -fsS --config - >/dev/null || echo "Aviso: cron settle-picks no respondió 200."
+            printf 'url = "%s/api/cron/push-alerts"\nheader = "Authorization: Bearer %s"\n' "${PITCHLAB_SITE_URL%/}" "$CRON_SECRET" | curl -fsS --config - >/dev/null || echo "Aviso: cron push-alerts no respondió 200."
+            echo "Liquidación, cierre y alertas push sincronizados."
+          else
+            echo "Sin CRON_SECRET/PITCHLAB_SITE_URL; se omite."
           fi

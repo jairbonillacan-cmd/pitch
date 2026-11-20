@@ -2,14 +2,22 @@ import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
+  BZZOIRO_LEAGUE_IDS,
   BZZOIRO_TEAM_IDS,
+  buildBzzoiroTeamEmblemUrlById,
+  getBzzoiroLeagueEmblemUrl,
+  getBzzoiroLeagueId,
   getBzzoiroTeamEmblemUrl,
   getBzzoiroTeamId,
   getEmblemPath,
-  getLeagueAsset,
   getMascotPath,
+  getOfficialEspnLeagueLogoUrl,
+  getOfficialEspnTeamLogoUrl,
   getResolvedTeamEmblem,
+  getLeagueAsset,
   getTeamAsset,
+  isValidBzzoiroImageUrl,
+  resolvePersonPhotoUrl,
   TEAM_ASSETS,
 } from "../src/index";
 
@@ -207,5 +215,80 @@ describe("@pitchlab/sports-assets", () => {
         isExternal: false,
       });
     }
+  });
+
+  it("resuelve los emblemas de ligas cubiertas en Bzzoiro y valida host", () => {
+    expect(BZZOIRO_LEAGUE_IDS["liga-mx"]).toBe(19);
+    expect(getBzzoiroLeagueId("premier-league")).toBe(1);
+    expect(getBzzoiroLeagueId("la-liga")).toBe(3);
+    expect(getBzzoiroLeagueEmblemUrl("liga-mx")).toBe(
+      "https://sports.bzzoiro.com/img/league/19/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("nba")).toBe(
+      "https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("nfl")).toBeNull();
+    expect(getBzzoiroLeagueEmblemUrl("mlb")).toBeNull();
+    expect(getBzzoiroLeagueEmblemUrl("nhl")).toBeNull();
+
+    expect(buildBzzoiroTeamEmblemUrlById("liga-mx", 309)).toBe(
+      "https://sports.bzzoiro.com/img/team/309/?bg=transparent",
+    );
+    expect(buildBzzoiroTeamEmblemUrlById("nba", 10)).toBe(
+      "https://sports.bzzoiro.com/img/basketball/team/10/?bg=transparent",
+    );
+    expect(buildBzzoiroTeamEmblemUrlById("liga-mx", 0)).toBeNull();
+
+    expect(isValidBzzoiroImageUrl("https://sports.bzzoiro.com/img/team/309/?bg=transparent")).toBe(
+      true,
+    );
+    expect(isValidBzzoiroImageUrl("http://sports.bzzoiro.com/img/team/309/")).toBe(false);
+    expect(isValidBzzoiroImageUrl("https://evil.example.com/img/team/309/")).toBe(false);
+  });
+
+  it("resuelve los 30 escudos oficiales de MLB y retratos locales seguros de entrenadores", () => {
+    const webPublic = resolve(import.meta.dirname, "../../../apps/web/public");
+    expect(getOfficialEspnLeagueLogoUrl("mlb")).toBe("/brand/official/mlb/mlb.png");
+    expect(existsSync(resolve(webPublic, "brand/official/mlb/mlb.png"))).toBe(true);
+
+    const mlbTeams = Object.values(TEAM_ASSETS).filter((a) => a.league === "mlb");
+    expect(mlbTeams).toHaveLength(30);
+    for (const team of mlbTeams) {
+      const url = getOfficialEspnTeamLogoUrl("mlb", team.slug);
+      expect(url).toBe(`/brand/official/mlb/${team.slug}.png`);
+      expect(existsSync(resolve(webPublic, `.${url}`))).toBe(true);
+    }
+
+    expect(resolvePersonPhotoUrl("/brand/official/coaches/mlb/los-angeles-dodgers.webp")).toBe(
+      "/brand/official/coaches/mlb/los-angeles-dodgers.webp",
+    );
+    expect(resolvePersonPhotoUrl("/brand/official/coaches/../secrets.webp")).toBeNull();
+    expect(resolvePersonPhotoUrl("https://img.mlbstatic.com/foo.png")).toBeNull();
+  });
+
+  it("resuelve emblemas oficiales para las 37 competiciones de expansión de fútbol (ADR-043)", () => {
+    const webPublic = resolve(import.meta.dirname, "../../../apps/web/public");
+    expect(getBzzoiroLeagueEmblemUrl("champions-league")).toBe(
+      "https://sports.bzzoiro.com/img/league/7/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("mls")).toBe(
+      "https://sports.bzzoiro.com/img/league/18/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("libertadores")).toBe(
+      "https://sports.bzzoiro.com/img/league/32/?bg=transparent",
+    );
+    expect(getBzzoiroLeagueEmblemUrl("j1-league")).toBe(
+      "https://sports.bzzoiro.com/img/league/49/?bg=transparent",
+    );
+    expect(getOfficialEspnLeagueLogoUrl("concacaf-champions")).toBe(
+      "/brand/official/competitions/concacaf-champions.png",
+    );
+    expect(getOfficialEspnLeagueLogoUrl("leagues-cup")).toBe(
+      "/brand/official/competitions/leagues-cup.png",
+    );
+    expect(existsSync(resolve(webPublic, "brand/official/competitions/concacaf-champions.png"))).toBe(
+      true,
+    );
+    expect(existsSync(resolve(webPublic, "brand/official/competitions/leagues-cup.png"))).toBe(true);
   });
 });

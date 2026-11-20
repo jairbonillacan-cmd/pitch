@@ -12,10 +12,12 @@ function buildSecurityHeaders(isDev) {
     "default-src 'self'",
     scriptSrc,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https:",
+    "img-src 'self' data: blob: https://sports.bzzoiro.com https://a.espncdn.com https://*.blob.vercel-storage.com",
     "font-src 'self' data:",
     connectSrc,
     "frame-src https://challenges.cloudflare.com",
+    "worker-src 'self'",
+    "manifest-src 'self'",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -52,6 +54,11 @@ function buildSecurityHeaders(isDev) {
 
 /** @type {import('next').NextConfig} */
 const baseConfig = {
+  poweredByHeader: false,
+  compress: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   transpilePackages: [
     "@pitchlab/tokens",
     "@pitchlab/contracts",
@@ -100,6 +107,32 @@ export default function config(phase) {
         {
           source: "/:path*",
           headers: securityHeaders,
+        },
+        {
+          source: "/sw.js",
+          headers: [
+            { key: "Cache-Control", value: "no-cache, no-store, must-revalidate" },
+            { key: "Service-Worker-Allowed", value: "/" },
+          ],
+        },
+        {
+          source: "/manifest.webmanifest",
+          headers: [
+            { key: "Content-Type", value: "application/manifest+json; charset=utf-8" },
+            { key: "Cache-Control", value: "public, max-age=3600" },
+          ],
+        },
+        {
+          source: "/brand/:path*",
+          headers: [
+            { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+          ],
+        },
+        {
+          source: "/icons/:path*",
+          headers: [
+            { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+          ],
         },
       ];
     },

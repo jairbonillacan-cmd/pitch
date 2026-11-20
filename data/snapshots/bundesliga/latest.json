@@ -4,7 +4,7 @@
   "season": "bundesliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 10",
-  "updatedAt": "2026-11-19T23:45:34.084Z",
+  "updatedAt": "2026-11-15T17:34:02.833Z",
   "source": "openfootball+espn",
   "provenance": "derived",
   "isDemo": false,
@@ -17,30 +17,30 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 6,
-      "adjustedFor": 1.5901594760335631,
-      "adjustedAgainst": 1.7513438922200668
+      "adjustedFor": 1.5873090524028644,
+      "adjustedAgainst": 1.7456728830734862
     },
     "bundesliga.bayer-leverkusen": {
       "teamId": "bundesliga.bayer-leverkusen",
       "name": "Bayer 04 Leverkusen",
       "shortName": "Leverkusen",
       "code": "B04",
-      "forPerGame": 2.4,
-      "againstPerGame": 1.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.8921244650714077,
-      "adjustedAgainst": 1.4193294129101799
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 6,
+      "adjustedFor": 1.7940068760800132,
+      "adjustedAgainst": 1.4912865395411359
     },
     "bundesliga.bayern-munchen": {
       "teamId": "bundesliga.bayern-munchen",
       "name": "FC Bayern München",
       "shortName": "Bayern München",
       "code": "FCB",
-      "forPerGame": 3.6,
+      "forPerGame": 3.5,
       "againstPerGame": 1,
-      "gamesPlayed": 5,
-      "adjustedFor": 2.9606685647270767,
-      "adjustedAgainst": 1.0957522259922219
+      "gamesPlayed": 6,
+      "adjustedFor": 2.9834205621867023,
+      "adjustedAgainst": 1.1014534958633433
     },
     "bundesliga.borussia-dortmund": {
       "teamId": "bundesliga.borussia-dortmund",
@@ -50,8 +50,8 @@
       "forPerGame": 2.1666666666666665,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 6,
-      "adjustedFor": 1.9835670566085548,
-      "adjustedAgainst": 0.9786325180768507
+      "adjustedFor": 1.9690798298522907,
+      "adjustedAgainst": 0.9777061082529548
     },
     "bundesliga.borussia-monchengladbach": {
       "teamId": "bundesliga.borussia-monchengladbach",
@@ -61,8 +61,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 3.1666666666666665,
       "gamesPlayed": 6,
-      "adjustedFor": 1.392296190670151,
-      "adjustedAgainst": 2.0010144159327843
+      "adjustedFor": 1.3881624423347936,
+      "adjustedAgainst": 2.0128580310718243
     },
     "bundesliga.eintracht-frankfurt": {
       "teamId": "bundesliga.eintracht-frankfurt",
@@ -72,8 +72,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 6,
-      "adjustedFor": 1.8091867893810203,
-      "adjustedAgainst": 1.799179052915335
+      "adjustedFor": 1.8092195283296315,
+      "adjustedAgainst": 1.8040621177685914
     },
     "bundesliga.elversberg": {
       "teamId": "bundesliga.elversberg",
@@ -83,19 +83,19 @@
       "forPerGame": 2.6,
       "againstPerGame": 2,
       "gamesPlayed": 5,
-      "adjustedFor": 2.1871341863661438,
-      "adjustedAgainst": 1.4975658200589144
+      "adjustedFor": 2.1751168916931434,
+      "adjustedAgainst": 1.5054151168843646
     },
     "bundesliga.freiburg": {
       "teamId": "bundesliga.freiburg",
       "name": "SC Freiburg",
       "shortName": "Freiburg",
       "code": "SCF",
-      "forPerGame": 2.6666666666666665,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.7563571171831078,
-      "adjustedAgainst": 1.3698209277571705
+      "forPerGame": 2.4285714285714284,
+      "againstPerGame": 1,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.7240746409707355,
+      "adjustedAgainst": 1.3765947060357844
     },
     "bundesliga.hamburger": {
       "teamId": "bundesliga.hamburger",
@@ -105,19 +105,19 @@
       "forPerGame": 1,
       "againstPerGame": 2.8333333333333335,
       "gamesPlayed": 6,
-      "adjustedFor": 1.2456404265676366,
-      "adjustedAgainst": 1.8793385294805036
+      "adjustedFor": 1.2450320806239374,
+      "adjustedAgainst": 1.8849131397000818
     },
     "bundesliga.hoffenheim": {
       "teamId": "bundesliga.hoffenheim",
       "name": "TSG 1899 Hoffenheim",
       "shortName": "Hoffenheim",
       "code": "TSG",
-      "forPerGame": 1.5,
-      "againstPerGame": 2.1666666666666665,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.679375743773508,
-      "adjustedAgainst": 1.7281574149943455
+      "forPerGame": 1.7142857142857142,
+      "againstPerGame": 1.8571428571428572,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.7310658839008133,
+      "adjustedAgainst": 1.6394789637465106
     },
     "bundesliga.koln": {
       "teamId": "bundesliga.koln",
@@ -127,8 +127,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4079087240143302,
-      "adjustedAgainst": 1.787873232882814
+      "adjustedFor": 1.4123944222810885,
+      "adjustedAgainst": 1.7883454468929096
     },
     "bundesliga.mainz": {
       "teamId": "bundesliga.mainz",
@@ -138,8 +138,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 2.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.6060628212950712,
-      "adjustedAgainst": 1.6066447136734432
+      "adjustedFor": 1.6130016056213607,
+      "adjustedAgainst": 1.6062645964377644
     },
     "bundesliga.paderborn": {
       "teamId": "bundesliga.paderborn",
@@ -149,8 +149,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.198671050309563,
-      "adjustedAgainst": 1.3183312141126176
+      "adjustedFor": 1.2040624570469585,
+      "adjustedAgainst": 1.317856793752862
     },
     "bundesliga.rb-leipzig": {
       "teamId": "bundesliga.rb-leipzig",
@@ -160,8 +160,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 6,
-      "adjustedFor": 1.9432591882881296,
-      "adjustedAgainst": 1.3582510641311285
+      "adjustedFor": 1.9305676933802958,
+      "adjustedAgainst": 1.3525967965288284
     },
     "bundesliga.schalke": {
       "teamId": "bundesliga.schalke",
@@ -171,8 +171,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 4,
-      "adjustedFor": 1.2469370200610665,
-      "adjustedAgainst": 1.6467809534877489
+      "adjustedFor": 1.2550864204163583,
+      "adjustedAgainst": 1.6432492124088485
     },
     "bundesliga.stuttgart": {
       "teamId": "bundesliga.stuttgart",
@@ -182,8 +182,8 @@
       "forPerGame": 1.8333333333333333,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.9542594844151011,
-      "adjustedAgainst": 1.4527723777005104
+      "adjustedFor": 1.9560113870691656,
+      "adjustedAgainst": 1.4612929836876172
     },
     "bundesliga.union-berlin": {
       "teamId": "bundesliga.union-berlin",
@@ -193,8 +193,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 3.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.2615762543882425,
-      "adjustedAgainst": 1.9673831255191434
+      "adjustedFor": 1.2580964604724816,
+      "adjustedAgainst": 1.977064683166381
     },
     "bundesliga.werder-bremen": {
       "teamId": "bundesliga.werder-bremen",
@@ -204,8 +204,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.5,
       "gamesPlayed": 6,
-      "adjustedFor": 1.3247893792596115,
-      "adjustedAgainst": 1.4628924832489423
+      "adjustedFor": 1.3351148626086733,
+      "adjustedAgainst": 1.4526268930326702
     }
   },
   "games": [
@@ -232,11 +232,12 @@
         "code": "BOR"
       },
       "venue": "Alemania",
+      "referee": "Sven Jablonski",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-19T23:45:37.269Z",
+        "observedAt": "2026-11-15T17:34:07.515Z",
         "source": "football-data"
       }
     },
@@ -263,11 +264,12 @@
         "code": "AUG"
       },
       "venue": "Alemania",
+      "referee": "Daniel Schlager",
       "neutralSite": false,
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:37.269Z",
+        "observedAt": "2026-11-15T17:34:07.515Z",
         "source": "football-data"
       }
     },
@@ -294,11 +296,12 @@
         "code": "ELV"
       },
       "venue": "Alemania",
+      "referee": "Harm Osmers",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T23:45:37.269Z",
+        "observedAt": "2026-11-15T17:34:07.515Z",
         "source": "football-data"
       }
     },
@@ -325,11 +328,12 @@
         "code": "BAY"
       },
       "venue": "Alemania",
+      "referee": "Robert Schröder",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:37.269Z",
+        "observedAt": "2026-11-15T17:34:07.515Z",
         "source": "football-data"
       }
     },
@@ -356,11 +360,12 @@
         "code": "EIN"
       },
       "venue": "Alemania",
+      "referee": "Bastian Dankert",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T23:45:37.269Z",
+        "observedAt": "2026-11-15T17:34:07.515Z",
         "source": "football-data"
       }
     },
@@ -387,11 +392,12 @@
         "code": "WER"
       },
       "venue": "Alemania",
+      "referee": "Sören Storks",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T23:45:37.269Z",
+        "observedAt": "2026-11-15T17:34:07.515Z",
         "source": "football-data"
       }
     },
@@ -418,11 +424,12 @@
         "code": "UNI"
       },
       "venue": "Alemania",
+      "referee": "Sascha Stegemann",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T23:45:37.269Z",
+        "observedAt": "2026-11-15T17:34:07.515Z",
         "source": "football-data"
       }
     },
@@ -449,11 +456,12 @@
         "code": "SCH"
       },
       "venue": "Alemania",
+      "referee": "Martin Petersen",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T23:45:37.269Z",
+        "observedAt": "2026-11-15T17:34:07.515Z",
         "source": "football-data"
       }
     },
@@ -480,6 +488,7 @@
         "code": "KOL"
       },
       "venue": "Alemania",
+      "referee": "Robin Braun",
       "neutralSite": false
     },
     {
@@ -505,6 +514,7 @@
         "code": "PAD"
       },
       "venue": "Alemania",
+      "referee": "Tobias Reichel",
       "neutralSite": false
     },
     {
@@ -530,6 +540,7 @@
         "code": "RBL"
       },
       "venue": "Alemania",
+      "referee": "Christian Dingert",
       "neutralSite": false
     },
     {
@@ -555,6 +566,7 @@
         "code": "FRE"
       },
       "venue": "Alemania",
+      "referee": "Richard Hempel",
       "neutralSite": false
     },
     {
@@ -580,6 +592,7 @@
         "code": "BOR"
       },
       "venue": "Alemania",
+      "referee": "Robert Hartmann",
       "neutralSite": false
     },
     {
@@ -605,6 +618,7 @@
         "code": "HOF"
       },
       "venue": "Alemania",
+      "referee": "Max Burda",
       "neutralSite": false
     },
     {
@@ -630,6 +644,7 @@
         "code": "STU"
       },
       "venue": "Alemania",
+      "referee": "Daniel Siebert",
       "neutralSite": false
     },
     {
@@ -1151,6 +1166,17 @@
           "home": 5,
           "away": 6
         }
+      },
+      "matchContext": {
+        "referee": "Sven Jablonski",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 76,
+          "avgYellow": 3.14,
+          "avgRed": 0.13,
+          "avgFouls": 22,
+          "avgGoals": 3.22
+        }
       }
     },
     "bundesliga-2026-27-md9-rb-leipzig-augsburg": {
@@ -1620,6 +1646,17 @@
           "home": 7,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Daniel Schlager",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 56,
+          "avgYellow": 3.32,
+          "avgRed": 0.18,
+          "avgFouls": 21.5,
+          "avgGoals": 3.07
+        }
       }
     },
     "bundesliga-2026-27-md9-borussia-dortmund-elversberg": {
@@ -2051,6 +2088,17 @@
         "restDays": {
           "home": 7,
           "away": 8
+        }
+      },
+      "matchContext": {
+        "referee": "Harm Osmers",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 68,
+          "avgYellow": 3.87,
+          "avgRed": 0.16,
+          "avgFouls": 21.5,
+          "avgGoals": 2.84
         }
       }
     },
@@ -2521,6 +2569,17 @@
           "home": 8,
           "away": 7
         }
+      },
+      "matchContext": {
+        "referee": "Robert Schröder",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 28,
+          "avgYellow": 3.18,
+          "avgRed": 0.21,
+          "avgFouls": 23.9,
+          "avgGoals": 2.86
+        }
       }
     },
     "bundesliga-2026-27-md9-paderborn-eintracht-frankfurt": {
@@ -2983,6 +3042,17 @@
         "restDays": {
           "home": 7,
           "away": 6
+        }
+      },
+      "matchContext": {
+        "referee": "Bastian Dankert",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 35,
+          "avgYellow": 3.14,
+          "avgRed": 0.11,
+          "avgFouls": 21,
+          "avgGoals": 3.46
         }
       }
     },
@@ -3452,6 +3522,17 @@
         "restDays": {
           "home": 7,
           "away": 7
+        }
+      },
+      "matchContext": {
+        "referee": "Sören Storks",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 39,
+          "avgYellow": 3.82,
+          "avgRed": 0.15,
+          "avgFouls": 22.1,
+          "avgGoals": 2.97
         }
       }
     },
@@ -3923,6 +4004,17 @@
           "home": 8,
           "away": 15
         }
+      },
+      "matchContext": {
+        "referee": "Sascha Stegemann",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 61,
+          "avgYellow": 3.59,
+          "avgRed": 0.21,
+          "avgFouls": 22.7,
+          "avgGoals": 3.03
+        }
       }
     },
     "bundesliga-2026-27-md9-hoffenheim-schalke": {
@@ -4392,10 +4484,56 @@
           "home": 8,
           "away": 8
         }
+      },
+      "matchContext": {
+        "referee": "Martin Petersen",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 39,
+          "avgYellow": 3.28,
+          "avgRed": 0.18,
+          "avgFouls": 23.4,
+          "avgGoals": 3.08
+        }
       }
     },
     "bundesliga-2026-27-md10-bayern-munchen-koln": {
       "game": "bundesliga-2026-27-md10-bayern-munchen-koln",
+      "counts": {
+        "corners": {
+          "home": 7.43,
+          "away": 3.7,
+          "total": 11.13,
+          "line": 10.5,
+          "pOver": 0.5305,
+          "sample": {
+            "home": 553,
+            "away": 417
+          }
+        },
+        "fouls": {
+          "home": 9.28,
+          "away": 8.86,
+          "total": 18.14,
+          "line": 17.5,
+          "pOver": 0.5415,
+          "sample": {
+            "home": 553,
+            "away": 417
+          }
+        },
+        "yellow": {
+          "home": 1.7,
+          "away": 1.98,
+          "total": 3.69,
+          "line": 3.5,
+          "pOver": 0.5036,
+          "sample": {
+            "home": 553,
+            "away": 417
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -4542,6 +4680,48 @@
           "selection": "3–0",
           "p": 0.06437758579324591,
           "fairOdds": 15.53335664390375
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.5305,
+          "fairOdds": 1.885014137606032
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.46950000000000003,
+          "fairOdds": 2.1299254526091587
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 17.5",
+          "line": 17.5,
+          "p": 0.5415,
+          "fairOdds": 1.8467220683287167
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 17.5",
+          "line": 17.5,
+          "p": 0.4585,
+          "fairOdds": 2.1810250817884405
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5036,
+          "fairOdds": 1.9857029388403493
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.49639999999999995,
+          "fairOdds": 2.0145044319097503
         }
       ],
       "marketGroups": [
@@ -4723,6 +4903,69 @@
               "fairOdds": 15.53335664390375
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.5305,
+              "fairOdds": 1.885014137606032
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.46950000000000003,
+              "fairOdds": 2.1299254526091587
+            }
+          ]
+        },
+        {
+          "group": "Faltas 17.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 17.5",
+              "line": 17.5,
+              "p": 0.5415,
+              "fairOdds": 1.8467220683287167
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 17.5",
+              "line": 17.5,
+              "p": 0.4585,
+              "fairOdds": 2.1810250817884405
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5036,
+              "fairOdds": 1.9857029388403493
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.49639999999999995,
+              "fairOdds": 2.0145044319097503
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -4796,6 +5039,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 87% / 12% / 1% · temporada 90% / 6% / 4%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "11.1 tiros de esquina esperados",
+          "detail": "FC Bayern München 7.4 · 1. FC Köln 3.7"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "18.1 faltas esperados",
+          "detail": "FC Bayern München 9.3 · 1. FC Köln 8.9"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.7 amarillas esperados",
+          "detail": "FC Bayern München 1.7 · 1. FC Köln 2.0"
         }
       ],
       "steps": [
@@ -4885,10 +5146,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Robin Braun",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 33,
+          "avgYellow": 2.03,
+          "avgRed": 0.15,
+          "avgFouls": 22.1,
+          "avgGoals": 2.88
+        }
+      }
     },
     "bundesliga-2026-27-md10-bayer-leverkusen-paderborn": {
       "game": "bundesliga-2026-27-md10-bayer-leverkusen-paderborn",
+      "counts": {
+        "corners": {
+          "home": 7.1,
+          "away": 3.74,
+          "total": 10.84,
+          "line": 10.5,
+          "pOver": 0.5021,
+          "sample": {
+            "home": 553,
+            "away": 77
+          }
+        },
+        "fouls": {
+          "home": 9.77,
+          "away": 11.3,
+          "total": 21.07,
+          "line": 20.5,
+          "pOver": 0.5324,
+          "sample": {
+            "home": 553,
+            "away": 77
+          }
+        },
+        "yellow": {
+          "home": 1.79,
+          "away": 2.3,
+          "total": 4.09,
+          "line": 3.5,
+          "pOver": 0.584,
+          "sample": {
+            "home": 553,
+            "away": 77
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -5035,6 +5342,48 @@
           "selection": "1–0",
           "p": 0.09054559615050056,
           "fairOdds": 11.044159434743218
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.5021,
+          "fairOdds": 1.9916351324437362
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.4979,
+          "fairOdds": 2.008435428800964
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 20.5",
+          "line": 20.5,
+          "p": 0.5324,
+          "fairOdds": 1.8782870022539444
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 20.5",
+          "line": 20.5,
+          "p": 0.4676,
+          "fairOdds": 2.13857998289136
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.584,
+          "fairOdds": 1.7123287671232879
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.41600000000000004,
+          "fairOdds": 2.4038461538461537
         }
       ],
       "marketGroups": [
@@ -5216,6 +5565,69 @@
               "fairOdds": 11.044159434743218
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.5021,
+              "fairOdds": 1.9916351324437362
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.4979,
+              "fairOdds": 2.008435428800964
+            }
+          ]
+        },
+        {
+          "group": "Faltas 20.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 20.5",
+              "line": 20.5,
+              "p": 0.5324,
+              "fairOdds": 1.8782870022539444
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 20.5",
+              "line": 20.5,
+              "p": 0.4676,
+              "fairOdds": 2.13857998289136
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.584,
+              "fairOdds": 1.7123287671232879
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.41600000000000004,
+              "fairOdds": 2.4038461538461537
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5289,6 +5701,24 @@
           "label": "Memoria larga",
           "value": "+7 pts al local",
           "detail": "historia 76% / 16% / 8% · temporada 61% / 19% / 20%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.8 tiros de esquina esperados",
+          "detail": "Bayer 04 Leverkusen 7.1 · SC Paderborn 07 3.7"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "21.1 faltas esperados",
+          "detail": "Bayer 04 Leverkusen 9.8 · SC Paderborn 07 11.3"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.1 amarillas esperados",
+          "detail": "Bayer 04 Leverkusen 1.8 · SC Paderborn 07 2.3"
         }
       ],
       "steps": [
@@ -5382,10 +5812,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Tobias Reichel",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 36,
+          "avgYellow": 3.47,
+          "avgRed": 0.11,
+          "avgFouls": 23.6,
+          "avgGoals": 2.44
+        }
+      }
     },
     "bundesliga-2026-27-md10-union-berlin-rb-leipzig": {
       "game": "bundesliga-2026-27-md10-union-berlin-rb-leipzig",
+      "counts": {
+        "corners": {
+          "home": 5.17,
+          "away": 4.64,
+          "total": 9.81,
+          "line": 9.5,
+          "pOver": 0.5016,
+          "sample": {
+            "home": 246,
+            "away": 349
+          }
+        },
+        "fouls": {
+          "home": 12.35,
+          "away": 9.9,
+          "total": 22.25,
+          "line": 22.5,
+          "pOver": 0.464,
+          "sample": {
+            "home": 246,
+            "away": 349
+          }
+        },
+        "yellow": {
+          "home": 1.89,
+          "away": 1.68,
+          "total": 3.57,
+          "line": 3.5,
+          "pOver": 0.4792,
+          "sample": {
+            "home": 246,
+            "away": 349
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -5532,6 +6008,48 @@
           "selection": "2–2",
           "p": 0.07720482640074308,
           "fairOdds": 12.952558105750436
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5016,
+          "fairOdds": 1.993620414673046
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.49839999999999995,
+          "fairOdds": 2.006420545746389
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 22.5",
+          "line": 22.5,
+          "p": 0.464,
+          "fairOdds": 2.155172413793103
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 22.5",
+          "line": 22.5,
+          "p": 0.536,
+          "fairOdds": 1.8656716417910446
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4792,
+          "fairOdds": 2.0868113522537564
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5207999999999999,
+          "fairOdds": 1.9201228878648235
         }
       ],
       "marketGroups": [
@@ -5713,6 +6231,69 @@
               "fairOdds": 12.952558105750436
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5016,
+              "fairOdds": 1.993620414673046
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.49839999999999995,
+              "fairOdds": 2.006420545746389
+            }
+          ]
+        },
+        {
+          "group": "Faltas 22.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 22.5",
+              "line": 22.5,
+              "p": 0.464,
+              "fairOdds": 2.155172413793103
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 22.5",
+              "line": 22.5,
+              "p": 0.536,
+              "fairOdds": 1.8656716417910446
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4792,
+              "fairOdds": 2.0868113522537564
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5207999999999999,
+              "fairOdds": 1.9201228878648235
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5786,6 +6367,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 24% / 25% / 50% · temporada 25% / 19% / 55%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.8 tiros de esquina esperados",
+          "detail": "1. FC Union Berlin 5.2 · RB Leipzig 4.6"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "22.3 faltas esperados",
+          "detail": "1. FC Union Berlin 12.3 · RB Leipzig 9.9"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.6 amarillas esperados",
+          "detail": "1. FC Union Berlin 1.9 · RB Leipzig 1.7"
         }
       ],
       "steps": [
@@ -5883,10 +6482,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Christian Dingert",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 35,
+          "avgYellow": 3.43,
+          "avgRed": 0.2,
+          "avgFouls": 22.4,
+          "avgGoals": 2.83
+        }
+      }
     },
     "bundesliga-2026-27-md10-elversberg-freiburg": {
       "game": "bundesliga-2026-27-md10-elversberg-freiburg",
+      "counts": {
+        "corners": {
+          "home": 4.97,
+          "away": 4.41,
+          "total": 9.37,
+          "line": 9.5,
+          "pOver": 0.4536,
+          "sample": {
+            "home": 9,
+            "away": 519
+          }
+        },
+        "fouls": {
+          "home": 12.37,
+          "away": 11.47,
+          "total": 23.84,
+          "line": 23.5,
+          "pOver": 0.5111,
+          "sample": {
+            "home": 9,
+            "away": 519
+          }
+        },
+        "yellow": {
+          "home": 1.75,
+          "away": 1.88,
+          "total": 3.63,
+          "line": 3.5,
+          "pOver": 0.4907,
+          "sample": {
+            "home": 9,
+            "away": 519
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -6033,6 +6678,48 @@
           "selection": "2–1",
           "p": 0.06808940381375579,
           "fairOdds": 14.686573005328247
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4536,
+          "fairOdds": 2.204585537918871
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5464,
+          "fairOdds": 1.8301610541727673
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.5111,
+          "fairOdds": 1.9565642731363726
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.4889,
+          "fairOdds": 2.045408058907752
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4907,
+          "fairOdds": 2.037905033625433
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5093,
+          "fairOdds": 1.9634792852935403
         }
       ],
       "marketGroups": [
@@ -6214,6 +6901,69 @@
               "fairOdds": 14.686573005328247
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4536,
+              "fairOdds": 2.204585537918871
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5464,
+              "fairOdds": 1.8301610541727673
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.5111,
+              "fairOdds": 1.9565642731363726
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.4889,
+              "fairOdds": 2.045408058907752
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4907,
+              "fairOdds": 2.037905033625433
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5093,
+              "fairOdds": 1.9634792852935403
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6287,6 +7037,24 @@
           "label": "Memoria larga",
           "value": "−8 pts al local",
           "detail": "historia 38% / 29% / 33% · temporada 53% / 19% / 28%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.4 tiros de esquina esperados",
+          "detail": "SV 07 Elversberg 5.0 · SC Freiburg 4.4"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "23.8 faltas esperados",
+          "detail": "SV 07 Elversberg 12.4 · SC Freiburg 11.5"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.6 amarillas esperados",
+          "detail": "SV 07 Elversberg 1.8 · SC Freiburg 1.9"
         }
       ],
       "steps": [
@@ -6349,10 +7117,56 @@
           "La historia larga favorece menos a SV 07 Elversberg que esta temporada."
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Richard Hempel",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 27,
+          "avgYellow": 1.07,
+          "avgRed": 0.04,
+          "avgFouls": 24.9,
+          "avgGoals": 3.11
+        }
+      }
     },
     "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund": {
       "game": "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund",
+      "counts": {
+        "corners": {
+          "home": 4.76,
+          "away": 4.76,
+          "total": 9.52,
+          "line": 9.5,
+          "pOver": 0.4695,
+          "sample": {
+            "home": 553,
+            "away": 553
+          }
+        },
+        "fouls": {
+          "home": 11.79,
+          "away": 10.73,
+          "total": 22.52,
+          "line": 22.5,
+          "pOver": 0.4862,
+          "sample": {
+            "home": 553,
+            "away": 553
+          }
+        },
+        "yellow": {
+          "home": 1.89,
+          "away": 1.94,
+          "total": 3.83,
+          "line": 3.5,
+          "pOver": 0.532,
+          "sample": {
+            "home": 553,
+            "away": 553
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -6499,6 +7313,48 @@
           "selection": "1–3",
           "p": 0.07551526560917331,
           "fairOdds": 13.242355594370363
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4695,
+          "fairOdds": 2.1299254526091587
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5305,
+          "fairOdds": 1.885014137606032
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 22.5",
+          "line": 22.5,
+          "p": 0.4862,
+          "fairOdds": 2.0567667626491155
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 22.5",
+          "line": 22.5,
+          "p": 0.5138,
+          "fairOdds": 1.9462826002335538
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.532,
+          "fairOdds": 1.8796992481203008
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.46799999999999997,
+          "fairOdds": 2.1367521367521367
         }
       ],
       "marketGroups": [
@@ -6680,6 +7536,69 @@
               "fairOdds": 13.242355594370363
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4695,
+              "fairOdds": 2.1299254526091587
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5305,
+              "fairOdds": 1.885014137606032
+            }
+          ]
+        },
+        {
+          "group": "Faltas 22.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 22.5",
+              "line": 22.5,
+              "p": 0.4862,
+              "fairOdds": 2.0567667626491155
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 22.5",
+              "line": 22.5,
+              "p": 0.5138,
+              "fairOdds": 1.9462826002335538
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.532,
+              "fairOdds": 1.8796992481203008
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.46799999999999997,
+              "fairOdds": 2.1367521367521367
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -6753,6 +7672,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 16% / 21% / 63% · temporada 17% / 17% / 66%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.5 tiros de esquina esperados",
+          "detail": "Borussia Mönchengladbach 4.8 · Borussia Dortmund 4.8"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "22.5 faltas esperados",
+          "detail": "Borussia Mönchengladbach 11.8 · Borussia Dortmund 10.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.8 amarillas esperados",
+          "detail": "Borussia Mönchengladbach 1.9 · Borussia Dortmund 1.9"
         }
       ],
       "steps": [
@@ -6853,10 +7790,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Robert Hartmann",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 40,
+          "avgYellow": 2.7,
+          "avgRed": 0.1,
+          "avgFouls": 24.5,
+          "avgGoals": 3.42
+        }
+      }
     },
     "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim": {
       "game": "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim",
+      "counts": {
+        "corners": {
+          "home": 5.49,
+          "away": 4.75,
+          "total": 10.24,
+          "line": 9.5,
+          "pOver": 0.5469,
+          "sample": {
+            "home": 519,
+            "away": 553
+          }
+        },
+        "fouls": {
+          "home": 9.25,
+          "away": 13.13,
+          "total": 22.38,
+          "line": 22.5,
+          "pOver": 0.4744,
+          "sample": {
+            "home": 519,
+            "away": 553
+          }
+        },
+        "yellow": {
+          "home": 1.71,
+          "away": 1.88,
+          "total": 3.59,
+          "line": 3.5,
+          "pOver": 0.4825,
+          "sample": {
+            "home": 519,
+            "away": 553
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -7003,6 +7986,48 @@
           "selection": "1–1",
           "p": 0.06431599566236185,
           "fairOdds": 15.54823165996957
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5469,
+          "fairOdds": 1.8284878405558602
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.45309999999999995,
+          "fairOdds": 2.2070183182520418
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 22.5",
+          "line": 22.5,
+          "p": 0.4744,
+          "fairOdds": 2.1079258010118043
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 22.5",
+          "line": 22.5,
+          "p": 0.5256000000000001,
+          "fairOdds": 1.902587519025875
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4825,
+          "fairOdds": 2.072538860103627
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5175000000000001,
+          "fairOdds": 1.9323671497584538
         }
       ],
       "marketGroups": [
@@ -7184,6 +8209,69 @@
               "fairOdds": 15.54823165996957
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5469,
+              "fairOdds": 1.8284878405558602
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.45309999999999995,
+              "fairOdds": 2.2070183182520418
+            }
+          ]
+        },
+        {
+          "group": "Faltas 22.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 22.5",
+              "line": 22.5,
+              "p": 0.4744,
+              "fairOdds": 2.1079258010118043
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 22.5",
+              "line": 22.5,
+              "p": 0.5256000000000001,
+              "fairOdds": 1.902587519025875
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4825,
+              "fairOdds": 2.072538860103627
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5175000000000001,
+              "fairOdds": 1.9323671497584538
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7257,6 +8345,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 47% / 27% / 27% · temporada 49% / 18% / 32%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.2 tiros de esquina esperados",
+          "detail": "Eintracht Frankfurt 5.5 · TSG 1899 Hoffenheim 4.8"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "22.4 faltas esperados",
+          "detail": "Eintracht Frankfurt 9.3 · TSG 1899 Hoffenheim 13.1"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.6 amarillas esperados",
+          "detail": "Eintracht Frankfurt 1.7 · TSG 1899 Hoffenheim 1.9"
         }
       ],
       "steps": [
@@ -7355,10 +8461,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Max Burda",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 32,
+          "avgYellow": 1,
+          "avgRed": 0,
+          "avgFouls": 24.5,
+          "avgGoals": 3.34
+        }
+      }
     },
     "bundesliga-2026-27-md10-schalke-stuttgart": {
       "game": "bundesliga-2026-27-md10-schalke-stuttgart",
+      "counts": {
+        "corners": {
+          "home": 5.21,
+          "away": 5.43,
+          "total": 10.64,
+          "line": 10.5,
+          "pOver": 0.4831,
+          "sample": {
+            "home": 417,
+            "away": 485
+          }
+        },
+        "fouls": {
+          "home": 11.13,
+          "away": 10.84,
+          "total": 21.97,
+          "line": 21.5,
+          "pOver": 0.5229,
+          "sample": {
+            "home": 417,
+            "away": 485
+          }
+        },
+        "yellow": {
+          "home": 1.85,
+          "away": 1.85,
+          "total": 3.7,
+          "line": 3.5,
+          "pOver": 0.5059,
+          "sample": {
+            "home": 417,
+            "away": 485
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -7505,6 +8657,48 @@
           "selection": "2–2",
           "p": 0.08085480041573977,
           "fairOdds": 12.367849464202411
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4831,
+          "fairOdds": 2.06996481059822
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5169,
+          "fairOdds": 1.934610176049526
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 21.5",
+          "line": 21.5,
+          "p": 0.5229,
+          "fairOdds": 1.9124115509657678
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 21.5",
+          "line": 21.5,
+          "p": 0.47709999999999997,
+          "fairOdds": 2.095996646405366
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5059,
+          "fairOdds": 1.9766752322593397
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4941,
+          "fairOdds": 2.0238818053025702
         }
       ],
       "marketGroups": [
@@ -7686,6 +8880,69 @@
               "fairOdds": 12.367849464202411
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4831,
+              "fairOdds": 2.06996481059822
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5169,
+              "fairOdds": 1.934610176049526
+            }
+          ]
+        },
+        {
+          "group": "Faltas 21.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 21.5",
+              "line": 21.5,
+              "p": 0.5229,
+              "fairOdds": 1.9124115509657678
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 21.5",
+              "line": 21.5,
+              "p": 0.47709999999999997,
+              "fairOdds": 2.095996646405366
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5059,
+              "fairOdds": 1.9766752322593397
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4941,
+              "fairOdds": 2.0238818053025702
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -7759,6 +9016,24 @@
           "label": "Memoria larga",
           "value": "−8 pts al local",
           "detail": "historia 22% / 25% / 53% · temporada 39% / 20% / 41%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.6 tiros de esquina esperados",
+          "detail": "FC Schalke 04 5.2 · VfB Stuttgart 5.4"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "22.0 faltas esperados",
+          "detail": "FC Schalke 04 11.1 · VfB Stuttgart 10.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.7 amarillas esperados",
+          "detail": "FC Schalke 04 1.9 · VfB Stuttgart 1.9"
         }
       ],
       "steps": [
@@ -7858,10 +9133,56 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Daniel Siebert",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 76,
+          "avgYellow": 4.46,
+          "avgRed": 0.24,
+          "avgFouls": 22.2,
+          "avgGoals": 3.04
+        }
+      }
     },
     "bundesliga-2026-27-md10-augsburg-mainz": {
       "game": "bundesliga-2026-27-md10-augsburg-mainz",
+      "counts": {
+        "corners": {
+          "home": 5.35,
+          "away": 4.78,
+          "total": 10.13,
+          "line": 9.5,
+          "pOver": 0.5354,
+          "sample": {
+            "home": 519,
+            "away": 553
+          }
+        },
+        "fouls": {
+          "home": 9.22,
+          "away": 11.83,
+          "total": 21.04,
+          "line": 20.5,
+          "pOver": 0.5297,
+          "sample": {
+            "home": 519,
+            "away": 553
+          }
+        },
+        "yellow": {
+          "home": 1.82,
+          "away": 2.03,
+          "total": 3.86,
+          "line": 3.5,
+          "pOver": 0.5379,
+          "sample": {
+            "home": 519,
+            "away": 553
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -8008,6 +9329,48 @@
           "selection": "2–1",
           "p": 0.07968913755803979,
           "fairOdds": 12.548761733952416
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5354,
+          "fairOdds": 1.8677624206200971
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.4646,
+          "fairOdds": 2.152389151958674
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 20.5",
+          "line": 20.5,
+          "p": 0.5297,
+          "fairOdds": 1.887861053426468
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 20.5",
+          "line": 20.5,
+          "p": 0.47030000000000005,
+          "fairOdds": 2.1263023601956195
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5379,
+          "fairOdds": 1.8590816136828405
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.46209999999999996,
+          "fairOdds": 2.1640337589266396
         }
       ],
       "marketGroups": [
@@ -8189,6 +9552,69 @@
               "fairOdds": 12.548761733952416
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5354,
+              "fairOdds": 1.8677624206200971
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.4646,
+              "fairOdds": 2.152389151958674
+            }
+          ]
+        },
+        {
+          "group": "Faltas 20.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 20.5",
+              "line": 20.5,
+              "p": 0.5297,
+              "fairOdds": 1.887861053426468
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 20.5",
+              "line": 20.5,
+              "p": 0.47030000000000005,
+              "fairOdds": 2.1263023601956195
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5379,
+              "fairOdds": 1.8590816136828405
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.46209999999999996,
+              "fairOdds": 2.1640337589266396
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8262,6 +9688,24 @@
           "label": "Memoria larga",
           "value": "−3 pts al local",
           "detail": "historia 41% / 28% / 31% · temporada 47% / 20% / 32%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.1 tiros de esquina esperados",
+          "detail": "FC Augsburg 5.3 · 1. FSV Mainz 05 4.8"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "21.0 faltas esperados",
+          "detail": "FC Augsburg 9.2 · 1. FSV Mainz 05 11.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.9 amarillas esperados",
+          "detail": "FC Augsburg 1.8 · 1. FSV Mainz 05 2.0"
         }
       ],
       "steps": [
@@ -8362,6 +9806,41 @@
     },
     "bundesliga-2026-27-md10-werder-bremen-hamburger": {
       "game": "bundesliga-2026-27-md10-werder-bremen-hamburger",
+      "counts": {
+        "corners": {
+          "home": 5.8,
+          "away": 4.15,
+          "total": 9.95,
+          "line": 9.5,
+          "pOver": 0.5161,
+          "sample": {
+            "home": 519,
+            "away": 315
+          }
+        },
+        "fouls": {
+          "home": 11.45,
+          "away": 11.47,
+          "total": 22.93,
+          "line": 22.5,
+          "pOver": 0.5188,
+          "sample": {
+            "home": 519,
+            "away": 315
+          }
+        },
+        "yellow": {
+          "home": 1.91,
+          "away": 1.81,
+          "total": 3.72,
+          "line": 3.5,
+          "pOver": 0.5102,
+          "sample": {
+            "home": 519,
+            "away": 315
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-bundesliga",
         "version": "2.0.0",
@@ -8508,6 +9987,48 @@
           "selection": "2–0",
           "p": 0.07273944316549098,
           "fairOdds": 13.747699411512949
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5161,
+          "fairOdds": 1.937608990505716
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.4839,
+          "fairOdds": 2.0665426741062203
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 22.5",
+          "line": 22.5,
+          "p": 0.5188,
+          "fairOdds": 1.9275250578257517
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 22.5",
+          "line": 22.5,
+          "p": 0.48119999999999996,
+          "fairOdds": 2.0781379883624274
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5102,
+          "fairOdds": 1.9600156801254411
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4898,
+          "fairOdds": 2.041649652919559
         }
       ],
       "marketGroups": [
@@ -8689,6 +10210,69 @@
               "fairOdds": 13.747699411512949
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5161,
+              "fairOdds": 1.937608990505716
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.4839,
+              "fairOdds": 2.0665426741062203
+            }
+          ]
+        },
+        {
+          "group": "Faltas 22.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 22.5",
+              "line": 22.5,
+              "p": 0.5188,
+              "fairOdds": 1.9275250578257517
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 22.5",
+              "line": 22.5,
+              "p": 0.48119999999999996,
+              "fairOdds": 2.0781379883624274
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5102,
+              "fairOdds": 1.9600156801254411
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4898,
+              "fairOdds": 2.041649652919559
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -8762,6 +10346,24 @@
           "label": "Memoria larga",
           "value": "−5 pts al local",
           "detail": "historia 50% / 26% / 25% · temporada 59% / 20% / 22%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.9 tiros de esquina esperados",
+          "detail": "SV Werder Bremen 5.8 · Hamburger SV 4.2"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "22.9 faltas esperados",
+          "detail": "SV Werder Bremen 11.4 · Hamburger SV 11.5"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.7 amarillas esperados",
+          "detail": "SV Werder Bremen 1.9 · Hamburger SV 1.8"
         }
       ],
       "steps": [
@@ -8866,17 +10468,44 @@
   },
   "standings": [
     {
-      "teamId": "bundesliga.freiburg",
-      "name": "SC Freiburg",
-      "shortName": "Freiburg",
-      "code": "SCF",
+      "teamId": "bundesliga.bayern-munchen",
+      "name": "FC Bayern München",
+      "shortName": "Bayern München",
+      "code": "FCB",
       "played": 6,
       "won": 5,
       "drawn": 1,
       "lost": 0,
-      "goalsFor": 16,
-      "goalsAgainst": 4,
-      "points": 16
+      "goalsFor": 21,
+      "goalsAgainst": 6,
+      "points": 16,
+      "form": [
+        "D",
+        "W",
+        "W",
+        "D",
+        "W"
+      ]
+    },
+    {
+      "teamId": "bundesliga.freiburg",
+      "name": "SC Freiburg",
+      "shortName": "Freiburg",
+      "code": "SCF",
+      "played": 7,
+      "won": 5,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 17,
+      "goalsAgainst": 7,
+      "points": 16,
+      "form": [
+        "W",
+        "L",
+        "L",
+        "W",
+        "W"
+      ]
     },
     {
       "teamId": "bundesliga.borussia-dortmund",
@@ -8889,20 +10518,14 @@
       "lost": 0,
       "goalsFor": 13,
       "goalsAgainst": 5,
-      "points": 16
-    },
-    {
-      "teamId": "bundesliga.bayern-munchen",
-      "name": "FC Bayern München",
-      "shortName": "Bayern München",
-      "code": "FCB",
-      "played": 5,
-      "won": 4,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 18,
-      "goalsAgainst": 5,
-      "points": 13
+      "points": 16,
+      "form": [
+        "D",
+        "D",
+        "W",
+        "D",
+        "W"
+      ]
     },
     {
       "teamId": "bundesliga.rb-leipzig",
@@ -8915,7 +10538,14 @@
       "lost": 2,
       "goalsFor": 16,
       "goalsAgainst": 7,
-      "points": 12
+      "points": 12,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "W",
+        "W"
+      ]
     },
     {
       "teamId": "bundesliga.werder-bremen",
@@ -8928,7 +10558,14 @@
       "lost": 2,
       "goalsFor": 10,
       "goalsAgainst": 9,
-      "points": 10
+      "points": 10,
+      "form": [
+        "D",
+        "D",
+        "W",
+        "W",
+        "L"
+      ]
     },
     {
       "teamId": "bundesliga.elversberg",
@@ -8941,7 +10578,14 @@
       "lost": 2,
       "goalsFor": 13,
       "goalsAgainst": 10,
-      "points": 9
+      "points": 9,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "W",
+        "L"
+      ]
     },
     {
       "teamId": "bundesliga.eintracht-frankfurt",
@@ -8954,7 +10598,14 @@
       "lost": 1,
       "goalsFor": 14,
       "goalsAgainst": 13,
-      "points": 9
+      "points": 9,
+      "form": [
+        "D",
+        "L",
+        "L",
+        "W",
+        "D"
+      ]
     },
     {
       "teamId": "bundesliga.stuttgart",
@@ -8967,20 +10618,34 @@
       "lost": 3,
       "goalsFor": 11,
       "goalsAgainst": 11,
-      "points": 9
+      "points": 9,
+      "form": [
+        "W",
+        "L",
+        "L",
+        "W",
+        "W"
+      ]
     },
     {
-      "teamId": "bundesliga.bayer-leverkusen",
-      "name": "Bayer 04 Leverkusen",
-      "shortName": "Leverkusen",
-      "code": "B04",
-      "played": 5,
-      "won": 2,
-      "drawn": 1,
-      "lost": 2,
+      "teamId": "bundesliga.hoffenheim",
+      "name": "TSG 1899 Hoffenheim",
+      "shortName": "Hoffenheim",
+      "code": "TSG",
+      "played": 7,
+      "won": 3,
+      "drawn": 0,
+      "lost": 4,
       "goalsFor": 12,
-      "goalsAgainst": 9,
-      "points": 7
+      "goalsAgainst": 13,
+      "points": 9,
+      "form": [
+        "L",
+        "W",
+        "W",
+        "L",
+        "W"
+      ]
     },
     {
       "teamId": "bundesliga.augsburg",
@@ -8993,7 +10658,34 @@
       "lost": 3,
       "goalsFor": 14,
       "goalsAgainst": 13,
-      "points": 7
+      "points": 7,
+      "form": [
+        "D",
+        "L",
+        "D",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "teamId": "bundesliga.bayer-leverkusen",
+      "name": "Bayer 04 Leverkusen",
+      "shortName": "Leverkusen",
+      "code": "B04",
+      "played": 6,
+      "won": 2,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 12,
+      "goalsAgainst": 12,
+      "points": 7,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "L",
+        "L"
+      ]
     },
     {
       "teamId": "bundesliga.mainz",
@@ -9006,20 +10698,14 @@
       "lost": 3,
       "goalsFor": 12,
       "goalsAgainst": 12,
-      "points": 6
-    },
-    {
-      "teamId": "bundesliga.hoffenheim",
-      "name": "TSG 1899 Hoffenheim",
-      "shortName": "Hoffenheim",
-      "code": "TSG",
-      "played": 6,
-      "won": 2,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 9,
-      "goalsAgainst": 13,
-      "points": 6
+      "points": 6,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "L",
+        "L"
+      ]
     },
     {
       "teamId": "bundesliga.hamburger",
@@ -9032,7 +10718,14 @@
       "lost": 4,
       "goalsFor": 6,
       "goalsAgainst": 17,
-      "points": 6
+      "points": 6,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ]
     },
     {
       "teamId": "bundesliga.paderborn",
@@ -9045,7 +10738,14 @@
       "lost": 2,
       "goalsFor": 5,
       "goalsAgainst": 7,
-      "points": 5
+      "points": 5,
+      "form": [
+        "L",
+        "D",
+        "W",
+        "D",
+        "D"
+      ]
     },
     {
       "teamId": "bundesliga.koln",
@@ -9058,7 +10758,13 @@
       "lost": 2,
       "goalsFor": 6,
       "goalsAgainst": 9,
-      "points": 4
+      "points": 4,
+      "form": [
+        "W",
+        "L",
+        "D",
+        "L"
+      ]
     },
     {
       "teamId": "bundesliga.schalke",
@@ -9071,7 +10777,14 @@
       "lost": 3,
       "goalsFor": 4,
       "goalsAgainst": 8,
-      "points": 3
+      "points": 3,
+      "form": [
+        "D",
+        "L",
+        "L",
+        "L",
+        "L"
+      ]
     },
     {
       "teamId": "bundesliga.borussia-monchengladbach",
@@ -9084,7 +10797,14 @@
       "lost": 5,
       "goalsFor": 7,
       "goalsAgainst": 19,
-      "points": 1
+      "points": 1,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "D",
+        "L"
+      ]
     },
     {
       "teamId": "bundesliga.union-berlin",
@@ -9097,7 +10817,14 @@
       "lost": 4,
       "goalsFor": 4,
       "goalsAgainst": 19,
-      "points": 1
+      "points": 1,
+      "form": [
+        "L",
+        "W",
+        "D",
+        "D",
+        "L"
+      ]
     }
   ]
 }

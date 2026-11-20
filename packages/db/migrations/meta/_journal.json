@@ -162,6 +162,20 @@
       "when": 1794525000011,
       "tag": "0022_partidos_en_vivo",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1794525000012,
+      "tag": "0023_comunidad_hilos_y_seguidos",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1794525000013,
+      "tag": "0024_liquidacion_parlays_push_embudo",
+      "breakpoints": true
     }
   ]
 }

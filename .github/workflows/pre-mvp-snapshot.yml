@@ -77,6 +77,7 @@ jobs:
         continue-on-error: true
         env:
           BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
         run: |
           if [ -z "$BZZOIRO_API_KEY" ]; then
             echo "::notice title=Sin xG::Falta BZZOIRO_API_KEY; el Elo de la Premier sigue con goles."
@@ -103,12 +104,32 @@ jobs:
         continue-on-error: true
         env:
           BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
         run: |
           if [ -z "$BZZOIRO_API_KEY" ]; then
             echo "::notice title=Sin NBA/NHL::Falta BZZOIRO_API_KEY."
             exit 0
           fi
           pnpm --filter @pitchlab/ingest snapshot:us
+
+      # Standings oficiales US (NFL, NBA, NHL, MLB), resultados de temporada (`season-results.json`),
+      # modelo MLB y bajas médicas ESPN/nflverse en un solo paso.
+      - name: Standings US, MLB, resultados de temporada y bajas
+        if: inputs.mode != 'injuries'
+        continue-on-error: true
+        env:
+          BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
+        run: pnpm --filter @pitchlab/ingest snapshot:us-standings --leagues=nfl,nba,nhl,mlb
+
+      # Expansión de fútbol (+37 competiciones Bzzoiro/CONCACAF) y árbitros en ligas principales y US.
+      - name: Expansión fútbol clubes y árbitros
+        if: inputs.mode != 'injuries'
+        continue-on-error: true
+        env:
+          BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
+        run: pnpm --filter @pitchlab/ingest snapshot:expansion --max-squad-teams=8
 
       - name: Guardar caché de Bzzoiro
         if: always()
@@ -121,6 +142,8 @@ jobs:
       - name: Recolectar calendario, resultados y bajas (validados por Parte 3)
         id: ingest
         env:
+          BZZOIRO_API_KEY: ${{ secrets.BZZOIRO_API_KEY }}
+          BZZOIRO_UNLIMITED: ${{ vars.BZZOIRO_UNLIMITED }}
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
           BETFAIR_APP_KEY: ${{ secrets.BETFAIR_APP_KEY }}
@@ -143,6 +166,13 @@ jobs:
             MATCHDAY_ARG="--matchday-only"
           fi
           pnpm --filter @pitchlab/ingest exec tsx src/cli.ts "$MODE_ARG" $MATCHDAY_ARG
+
+      # Hidrata `Últimas 5` (`StandingRow.form`) y `season-results.json` para Liga MX y las 5 ligas europeas
+      # respetando `ADR-029` (sin tocar `data/history/*.jsonl`).
+      - name: Hidratar Últimas 5 y resultados de temporada (Fútbol)
+        if: inputs.mode != 'injuries'
+        continue-on-error: true
+        run: pnpm --filter @pitchlab/ingest exec tsx src/season-form-cli.ts
 
       # SEC-10: Sincronización diaria de artefactos JSON validados (`--data-only`) en el corte de las 11:00 UTC
       # o en ejecución manual completa, ahorrando minutos de Actions en los cortes rápidos de jornada.
@@ -182,6 +212,11 @@ jobs:
         if: inputs.mode != 'injuries'
         continue-on-error: true
         run: pnpm --filter @pitchlab/ingest exec tsx src/market-pulse-cli.ts
+
+      # Índice precompilado único para arranque en frío instantáneo en Vercel (< 50 ms).
+      - name: Precompilar shell-index.json (57 competencias)
+        continue-on-error: true
+        run: pnpm --filter @pitchlab/ingest snapshot:shell-index
 
       - name: Respaldo de Salud de datos ante caída abrupta
         if: failure()

@@ -172,9 +172,13 @@ export function liveMomentKey(m: LiveMomentInput): string {
   return `${m.gameId}:${m.kind}`;
 }
 
-/** Guarda momentos nuevos; devuelve cuántos no existían. */
-export async function recordLiveMoments(db: Db, moments: readonly LiveMomentInput[], now: Date): Promise<number> {
-  let inserted = 0;
+/** Guarda momentos nuevos; devuelve cuáles no existían para disparar avisos sin duplicar. */
+export async function recordLiveMomentsDetailed(
+  db: Db,
+  moments: readonly LiveMomentInput[],
+  now: Date,
+): Promise<LiveMomentInput[]> {
+  const inserted: LiveMomentInput[] = [];
   for (const m of moments) {
     if (!GAME_ID_RE.test(m.gameId)) continue;
     const rows = await db
@@ -191,9 +195,43 @@ export async function recordLiveMoments(db: Db, moments: readonly LiveMomentInpu
       })
       .onConflictDoNothing()
       .returning({ id: liveMatchEvents.id });
-    inserted += rows.length;
+    if (rows.length > 0) inserted.push(m);
   }
   return inserted;
+}
+
+/** Guarda momentos nuevos; devuelve cuántos no existían. */
+export async function recordLiveMoments(db: Db, moments: readonly LiveMomentInput[], now: Date): Promise<number> {
+  const inserted = await recordLiveMomentsDetailed(db, moments, now);
+  return inserted.length;
+}
+
+export interface LiveGameWatcher {
+  userId: string;
+  gameId: string;
+  kickoff: boolean;
+  goals: boolean;
+  final: boolean;
+}
+
+/** Lista los socios que siguen alguno de estos partidos y sus preferencias por evento. */
+export async function listLiveGameWatchers(
+  db: Db,
+  gameIds: readonly string[],
+): Promise<LiveGameWatcher[]> {
+  const ids = [...new Set(gameIds.filter((id) => GAME_ID_RE.test(id)))];
+  if (ids.length === 0) return [];
+  const rows = await db
+    .select({
+      userId: watchlist.userId,
+      gameId: watchlist.gameId,
+      kickoff: watchlist.alertKickoff,
+      goals: watchlist.alertGoals,
+      final: watchlist.alertFinal,
+    })
+    .from(watchlist)
+    .where(inArray(watchlist.gameId, ids));
+  return rows;
 }
 
 export interface LiveAlert {

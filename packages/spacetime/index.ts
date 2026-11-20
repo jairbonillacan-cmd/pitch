@@ -34,3 +34,7 @@ export {
 } from "./src/outlook";
 // Punto 5: mercados derivados deterministas para fútbol y NFL (sin editar `src/` sincronizado).
 export * from "./derived/outlook_derived";
+// v5.1 Candidate Suite (`EXP_V50`–`EXP_V56` + Remediación `REM_00`–`REM_08`):
+// namespace dedicado para no colisionar con la superficie congelada v3.0/v3.1/v3.2
+// (también disponible vía import directo `@pitchlab/spacetime/v5`).
+export * as spacetimeV5 from "./src/v5_index";

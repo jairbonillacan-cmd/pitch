@@ -167,4 +167,20 @@ describe("football-data.co.uk — normalización de una temporada", () => {
       date: "2026-08-16",
     });
   });
+
+  it("extrae Referee como campo opcional limpio y lo omite si falta", () => {
+    const csv = [
+      "Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,Referee",
+      "E0,16/08/2024,Man United,Fulham,1,0,\uFFFDM   Oliver ",
+      "E0,17/08/2024,Arsenal,Chelsea,2,1,   ",
+    ].join("\n");
+    const res = normalizeFdSeason(csv, {
+      league: getHistoryLeague("premier-league"),
+      season: "2024-25",
+    });
+    expect(res.games).toHaveLength(2);
+    expect(res.games[0]?.referee).toBe("M Oliver");
+    expect(res.games[1]?.referee).toBeUndefined();
+    expect("referee" in res.games[1]!).toBe(false);
+  });
 });

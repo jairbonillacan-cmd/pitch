@@ -4,7 +4,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 17",
-  "updatedAt": "2026-11-15T21:10:17.380Z",
+  "updatedAt": "2026-11-15T18:45:23.950Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -975,6 +975,41 @@
     },
     "mx-2026-j17-puebla-atletico-san-luis-401877054": {
       "game": "mx-2026-j17-puebla-atletico-san-luis-401877054",
+      "counts": {
+        "corners": {
+          "home": 5.43,
+          "away": 4.67,
+          "total": 10.09,
+          "line": 9.5,
+          "pOver": 0.532,
+          "sample": {
+            "home": 49,
+            "away": 49
+          }
+        },
+        "fouls": {
+          "home": 11.59,
+          "away": 9,
+          "total": 20.59,
+          "line": 20.5,
+          "pOver": 0.4913,
+          "sample": {
+            "home": 48,
+            "away": 49
+          }
+        },
+        "yellow": {
+          "home": 1.61,
+          "away": 1.57,
+          "total": 3.19,
+          "line": 3.5,
+          "pOver": 0.3946,
+          "sample": {
+            "home": 217,
+            "away": 218
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -1121,6 +1156,48 @@
           "selection": "0–0",
           "p": 0.09362253942405767,
           "fairOdds": 10.681188591462575
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.532,
+          "fairOdds": 1.8796992481203008
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.46799999999999997,
+          "fairOdds": 2.1367521367521367
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 20.5",
+          "line": 20.5,
+          "p": 0.4913,
+          "fairOdds": 2.0354162426216162
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 20.5",
+          "line": 20.5,
+          "p": 0.5086999999999999,
+          "fairOdds": 1.9657951641438964
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3946,
+          "fairOdds": 2.534211860111505
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6053999999999999,
+          "fairOdds": 1.6518004625041296
         }
       ],
       "marketGroups": [
@@ -1302,6 +1379,69 @@
               "fairOdds": 10.681188591462575
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.532,
+              "fairOdds": 1.8796992481203008
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.46799999999999997,
+              "fairOdds": 2.1367521367521367
+            }
+          ]
+        },
+        {
+          "group": "Faltas 20.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 20.5",
+              "line": 20.5,
+              "p": 0.4913,
+              "fairOdds": 2.0354162426216162
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 20.5",
+              "line": 20.5,
+              "p": 0.5086999999999999,
+              "fairOdds": 1.9657951641438964
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3946,
+              "fairOdds": 2.534211860111505
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6053999999999999,
+              "fairOdds": 1.6518004625041296
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -1375,6 +1515,24 @@
           "label": "Memoria larga",
           "value": "+2 pts al local",
           "detail": "historia 42% / 28% / 30% · temporada 38% / 29% / 34%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.1 tiros de esquina esperados",
+          "detail": "Puebla 5.4 · Atl. San Luis 4.7"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "20.6 faltas esperados",
+          "detail": "Puebla 11.6 · Atl. San Luis 9.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.2 amarillas esperados",
+          "detail": "Puebla 1.6 · Atl. San Luis 1.6"
         }
       ],
       "steps": [
@@ -1482,6 +1640,41 @@
     },
     "mx-2026-j17-fc-juarez-atlas-401877053": {
       "game": "mx-2026-j17-fc-juarez-atlas-401877053",
+      "counts": {
+        "corners": {
+          "home": 5.76,
+          "away": 5.06,
+          "total": 10.81,
+          "line": 10.5,
+          "pOver": 0.5006,
+          "sample": {
+            "home": 53,
+            "away": 51
+          }
+        },
+        "fouls": {
+          "home": 12.44,
+          "away": 12.66,
+          "total": 25.1,
+          "line": 24.5,
+          "pOver": 0.531,
+          "sample": {
+            "home": 53,
+            "away": 51
+          }
+        },
+        "yellow": {
+          "home": 2.04,
+          "away": 2.08,
+          "total": 4.12,
+          "line": 3.5,
+          "pOver": 0.5905,
+          "sample": {
+            "home": 208,
+            "away": 221
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -1628,6 +1821,48 @@
           "selection": "2–2",
           "p": 0.07407070661260155,
           "fairOdds": 13.500613747754787
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.5006,
+          "fairOdds": 1.997602876548142
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.49939999999999996,
+          "fairOdds": 2.002402883460152
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.531,
+          "fairOdds": 1.8832391713747645
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.469,
+          "fairOdds": 2.1321961620469083
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5905,
+          "fairOdds": 1.6934801016088061
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4095,
+          "fairOdds": 2.442002442002442
         }
       ],
       "marketGroups": [
@@ -1809,6 +2044,69 @@
               "fairOdds": 13.500613747754787
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.5006,
+              "fairOdds": 1.997602876548142
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.49939999999999996,
+              "fairOdds": 2.002402883460152
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.531,
+              "fairOdds": 1.8832391713747645
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.469,
+              "fairOdds": 2.1321961620469083
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5905,
+              "fairOdds": 1.6934801016088061
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4095,
+              "fairOdds": 2.442002442002442
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -1882,6 +2180,24 @@
           "label": "Memoria larga",
           "value": "+6 pts al local",
           "detail": "historia 35% / 30% / 35% · temporada 22% / 21% / 56%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.8 tiros de esquina esperados",
+          "detail": "Juárez 5.8 · Atlas 5.1"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.1 faltas esperados",
+          "detail": "Juárez 12.4 · Atlas 12.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.1 amarillas esperados",
+          "detail": "Juárez 2.0 · Atlas 2.1"
         }
       ],
       "steps": [
@@ -2458,6 +2774,41 @@
     },
     "mx-2026-j17-pachuca-toluca-401877050": {
       "game": "mx-2026-j17-pachuca-toluca-401877050",
+      "counts": {
+        "corners": {
+          "home": 5.36,
+          "away": 4.97,
+          "total": 10.33,
+          "line": 10.5,
+          "pOver": 0.4506,
+          "sample": {
+            "home": 55,
+            "away": 57
+          }
+        },
+        "fouls": {
+          "home": 14.3,
+          "away": 11.22,
+          "total": 25.51,
+          "line": 25.5,
+          "pOver": 0.4861,
+          "sample": {
+            "home": 55,
+            "away": 57
+          }
+        },
+        "yellow": {
+          "home": 2.21,
+          "away": 2.05,
+          "total": 4.26,
+          "line": 4.5,
+          "pOver": 0.4228,
+          "sample": {
+            "home": 233,
+            "away": 233
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -2604,6 +2955,48 @@
           "selection": "1–2",
           "p": 0.07715934504207557,
           "fairOdds": 12.960192954653678
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4506,
+          "fairOdds": 2.2192632046160674
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5494,
+          "fairOdds": 1.8201674554058973
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4861,
+          "fairOdds": 2.057189878625797
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5139,
+          "fairOdds": 1.9459038723487059
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4228,
+          "fairOdds": 2.3651844843897822
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5771999999999999,
+          "fairOdds": 1.7325017325017327
         }
       ],
       "marketGroups": [
@@ -2785,6 +3178,69 @@
               "fairOdds": 12.960192954653678
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4506,
+              "fairOdds": 2.2192632046160674
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5494,
+              "fairOdds": 1.8201674554058973
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4861,
+              "fairOdds": 2.057189878625797
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5139,
+              "fairOdds": 1.9459038723487059
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4228,
+              "fairOdds": 2.3651844843897822
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5771999999999999,
+              "fairOdds": 1.7325017325017327
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -2858,6 +3314,24 @@
           "label": "Memoria larga",
           "value": "−2 pts al local",
           "detail": "historia 34% / 30% / 36% · temporada 38% / 23% / 39%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.3 tiros de esquina esperados",
+          "detail": "Pachuca 5.4 · Toluca 5.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.5 faltas esperados",
+          "detail": "Pachuca 14.3 · Toluca 11.2"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.3 amarillas esperados",
+          "detail": "Pachuca 2.2 · Toluca 2.0"
         }
       ],
       "steps": [
@@ -2966,6 +3440,41 @@
     },
     "mx-2026-j17-santos-laguna-leon-401877051": {
       "game": "mx-2026-j17-santos-laguna-leon-401877051",
+      "counts": {
+        "corners": {
+          "home": 6.78,
+          "away": 4.54,
+          "total": 11.31,
+          "line": 10.5,
+          "pOver": 0.5494,
+          "sample": {
+            "home": 49,
+            "away": 49
+          }
+        },
+        "fouls": {
+          "home": 12.49,
+          "away": 12.16,
+          "total": 24.66,
+          "line": 24.5,
+          "pOver": 0.4971,
+          "sample": {
+            "home": 49,
+            "away": 49
+          }
+        },
+        "yellow": {
+          "home": 2.12,
+          "away": 2.02,
+          "total": 4.15,
+          "line": 3.5,
+          "pOver": 0.5944,
+          "sample": {
+            "home": 219,
+            "away": 217
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -3112,6 +3621,48 @@
           "selection": "1–2",
           "p": 0.08884691555820053,
           "fairOdds": 11.255314759294427
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.5494,
+          "fairOdds": 1.8201674554058973
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.4506,
+          "fairOdds": 2.2192632046160674
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.4971,
+          "fairOdds": 2.011667672500503
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.5029,
+          "fairOdds": 1.9884668920262476
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5944,
+          "fairOdds": 1.6823687752355314
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.40559999999999996,
+          "fairOdds": 2.465483234714004
         }
       ],
       "marketGroups": [
@@ -3293,6 +3844,69 @@
               "fairOdds": 11.255314759294427
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.5494,
+              "fairOdds": 1.8201674554058973
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.4506,
+              "fairOdds": 2.2192632046160674
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.4971,
+              "fairOdds": 2.011667672500503
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.5029,
+              "fairOdds": 1.9884668920262476
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5944,
+              "fairOdds": 1.6823687752355314
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.40559999999999996,
+              "fairOdds": 2.465483234714004
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -3366,6 +3980,24 @@
           "label": "Memoria larga",
           "value": "−5 pts al local",
           "detail": "historia 30% / 28% / 43% · temporada 40% / 27% / 33%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "11.3 tiros de esquina esperados",
+          "detail": "Santos Laguna 6.8 · León 4.5"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "24.7 faltas esperados",
+          "detail": "Santos Laguna 12.5 · León 12.2"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.2 amarillas esperados",
+          "detail": "Santos Laguna 2.1 · León 2.0"
         }
       ],
       "steps": [
@@ -3473,6 +4105,41 @@
     },
     "mx-2026-j17-pumas-unam-monterrey-401877049": {
       "game": "mx-2026-j17-pumas-unam-monterrey-401877049",
+      "counts": {
+        "corners": {
+          "home": 5.1,
+          "away": 4.95,
+          "total": 10.04,
+          "line": 9.5,
+          "pOver": 0.5268,
+          "sample": {
+            "home": 56,
+            "away": 52
+          }
+        },
+        "fouls": {
+          "home": 11.26,
+          "away": 10.4,
+          "total": 21.66,
+          "line": 21.5,
+          "pOver": 0.4975,
+          "sample": {
+            "home": 56,
+            "away": 52
+          }
+        },
+        "yellow": {
+          "home": 1.87,
+          "away": 1.85,
+          "total": 3.73,
+          "line": 3.5,
+          "pOver": 0.5111,
+          "sample": {
+            "home": 226,
+            "away": 235
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -3619,6 +4286,48 @@
           "selection": "2–1",
           "p": 0.07984834842422267,
           "fairOdds": 12.523740562386404
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.5268,
+          "fairOdds": 1.8982536066818525
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.47319999999999995,
+          "fairOdds": 2.113271344040575
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 21.5",
+          "line": 21.5,
+          "p": 0.4975,
+          "fairOdds": 2.0100502512562812
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 21.5",
+          "line": 21.5,
+          "p": 0.5025,
+          "fairOdds": 1.9900497512437814
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5111,
+          "fairOdds": 1.9565642731363726
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4889,
+          "fairOdds": 2.045408058907752
         }
       ],
       "marketGroups": [
@@ -3800,6 +4509,69 @@
               "fairOdds": 12.523740562386404
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.5268,
+              "fairOdds": 1.8982536066818525
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.47319999999999995,
+              "fairOdds": 2.113271344040575
+            }
+          ]
+        },
+        {
+          "group": "Faltas 21.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 21.5",
+              "line": 21.5,
+              "p": 0.4975,
+              "fairOdds": 2.0100502512562812
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 21.5",
+              "line": 21.5,
+              "p": 0.5025,
+              "fairOdds": 1.9900497512437814
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5111,
+              "fairOdds": 1.9565642731363726
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4889,
+              "fairOdds": 2.045408058907752
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -3873,6 +4645,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 38% / 29% / 33% · temporada 37% / 23% / 40%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.0 tiros de esquina esperados",
+          "detail": "Pumas 5.1 · Monterrey 5.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "21.7 faltas esperados",
+          "detail": "Pumas 11.3 · Monterrey 10.4"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "3.7 amarillas esperados",
+          "detail": "Pumas 1.9 · Monterrey 1.9"
         }
       ],
       "steps": [
@@ -3978,6 +4768,41 @@
     },
     "mx-2026-j17-tigres-uanl-america-401877048": {
       "game": "mx-2026-j17-tigres-uanl-america-401877048",
+      "counts": {
+        "corners": {
+          "home": 6.26,
+          "away": 4.55,
+          "total": 10.82,
+          "line": 10.5,
+          "pOver": 0.5005,
+          "sample": {
+            "home": 57,
+            "away": 53
+          }
+        },
+        "fouls": {
+          "home": 12.28,
+          "away": 13.67,
+          "total": 25.95,
+          "line": 25.5,
+          "pOver": 0.519,
+          "sample": {
+            "home": 57,
+            "away": 53
+          }
+        },
+        "yellow": {
+          "home": 2.24,
+          "away": 2.19,
+          "total": 4.42,
+          "line": 4.5,
+          "pOver": 0.4532,
+          "sample": {
+            "home": 243,
+            "away": 246
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -4124,6 +4949,48 @@
           "selection": "0–2",
           "p": 0.07054021005180129,
           "fairOdds": 14.176311628015409
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.5005,
+          "fairOdds": 1.9980019980019983
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.49950000000000006,
+          "fairOdds": 2.0020020020020017
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.519,
+          "fairOdds": 1.9267822736030829
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.481,
+          "fairOdds": 2.079002079002079
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4532,
+          "fairOdds": 2.206531332744925
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5468,
+          "fairOdds": 1.82882223847842
         }
       ],
       "marketGroups": [
@@ -4305,6 +5172,69 @@
               "fairOdds": 14.176311628015409
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.5005,
+              "fairOdds": 1.9980019980019983
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.49950000000000006,
+              "fairOdds": 2.0020020020020017
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.519,
+              "fairOdds": 1.9267822736030829
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.481,
+              "fairOdds": 2.079002079002079
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4532,
+              "fairOdds": 2.206531332744925
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5468,
+              "fairOdds": 1.82882223847842
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -4378,6 +5308,24 @@
           "label": "Memoria larga",
           "value": "+5 pts al local",
           "detail": "historia 30% / 28% / 42% · temporada 20% / 21% / 59%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.8 tiros de esquina esperados",
+          "detail": "Tigres 6.3 · América 4.5"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.9 faltas esperados",
+          "detail": "Tigres 12.3 · América 13.7"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.4 amarillas esperados",
+          "detail": "Tigres 2.2 · América 2.2"
         }
       ],
       "steps": [
@@ -4485,6 +5433,41 @@
     },
     "mx-2026-j17-chivas-cruz-azul-401877047": {
       "game": "mx-2026-j17-chivas-cruz-azul-401877047",
+      "counts": {
+        "corners": {
+          "home": 6.68,
+          "away": 4.37,
+          "total": 11.05,
+          "line": 10.5,
+          "pOver": 0.5239,
+          "sample": {
+            "home": 55,
+            "away": 59
+          }
+        },
+        "fouls": {
+          "home": 11.8,
+          "away": 11.79,
+          "total": 23.59,
+          "line": 23.5,
+          "pOver": 0.492,
+          "sample": {
+            "home": 55,
+            "away": 59
+          }
+        },
+        "yellow": {
+          "home": 1.84,
+          "away": 2.16,
+          "total": 4,
+          "line": 3.5,
+          "pOver": 0.5664,
+          "sample": {
+            "home": 226,
+            "away": 240
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -4631,6 +5614,48 @@
           "selection": "2–1",
           "p": 0.0750965605357617,
           "fairOdds": 13.316189088630635
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.5239,
+          "fairOdds": 1.908761213972132
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.47609999999999997,
+          "fairOdds": 2.1003990758244067
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 23.5",
+          "line": 23.5,
+          "p": 0.492,
+          "fairOdds": 2.032520325203252
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 23.5",
+          "line": 23.5,
+          "p": 0.508,
+          "fairOdds": 1.968503937007874
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5664,
+          "fairOdds": 1.7655367231638417
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4336,
+          "fairOdds": 2.3062730627306274
         }
       ],
       "marketGroups": [
@@ -4812,6 +5837,69 @@
               "fairOdds": 13.316189088630635
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.5239,
+              "fairOdds": 1.908761213972132
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.47609999999999997,
+              "fairOdds": 2.1003990758244067
+            }
+          ]
+        },
+        {
+          "group": "Faltas 23.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 23.5",
+              "line": 23.5,
+              "p": 0.492,
+              "fairOdds": 2.032520325203252
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 23.5",
+              "line": 23.5,
+              "p": 0.508,
+              "fairOdds": 1.968503937007874
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5664,
+              "fairOdds": 1.7655367231638417
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4336,
+              "fairOdds": 2.3062730627306274
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -4885,6 +5973,24 @@
           "label": "Memoria larga",
           "value": "−7 pts al local",
           "detail": "historia 29% / 28% / 43% · temporada 44% / 24% / 32%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "11.1 tiros de esquina esperados",
+          "detail": "Chivas 6.7 · Cruz Azul 4.4"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "23.6 faltas esperados",
+          "detail": "Chivas 11.8 · Cruz Azul 11.8"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.0 amarillas esperados",
+          "detail": "Chivas 1.8 · Cruz Azul 2.2"
         }
       ],
       "steps": [
@@ -4993,6 +6099,41 @@
     },
     "mx-2026-j17-queretaro-necaxa-401877046": {
       "game": "mx-2026-j17-queretaro-necaxa-401877046",
+      "counts": {
+        "corners": {
+          "home": 6.23,
+          "away": 4.98,
+          "total": 11.21,
+          "line": 10.5,
+          "pOver": 0.5399,
+          "sample": {
+            "home": 48,
+            "away": 49
+          }
+        },
+        "fouls": {
+          "home": 11.72,
+          "away": 11.04,
+          "total": 22.75,
+          "line": 22.5,
+          "pOver": 0.5048,
+          "sample": {
+            "home": 47,
+            "away": 49
+          }
+        },
+        "yellow": {
+          "home": 2.07,
+          "away": 2.08,
+          "total": 4.15,
+          "line": 3.5,
+          "pOver": 0.5954,
+          "sample": {
+            "home": 202,
+            "away": 208
+          }
+        }
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -5139,6 +6280,48 @@
           "selection": "2–1",
           "p": 0.09195060651881647,
           "fairOdds": 10.875404065935806
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.5399,
+          "fairOdds": 1.8521948508983144
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.46009999999999995,
+          "fairOdds": 2.1734405564007826
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 22.5",
+          "line": 22.5,
+          "p": 0.5048,
+          "fairOdds": 1.9809825673534072
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 22.5",
+          "line": 22.5,
+          "p": 0.4952,
+          "fairOdds": 2.0193861066235868
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5954,
+          "fairOdds": 1.6795431642593213
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.40459999999999996,
+          "fairOdds": 2.471576866040534
         }
       ],
       "marketGroups": [
@@ -5320,6 +6503,69 @@
               "fairOdds": 10.875404065935806
             }
           ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.5399,
+              "fairOdds": 1.8521948508983144
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.46009999999999995,
+              "fairOdds": 2.1734405564007826
+            }
+          ]
+        },
+        {
+          "group": "Faltas 22.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 22.5",
+              "line": 22.5,
+              "p": 0.5048,
+              "fairOdds": 1.9809825673534072
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 22.5",
+              "line": 22.5,
+              "p": 0.4952,
+              "fairOdds": 2.0193861066235868
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 3.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5954,
+              "fairOdds": 1.6795431642593213
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.40459999999999996,
+              "fairOdds": 2.471576866040534
+            }
+          ]
         }
       ],
       "mostLikelyScore": {
@@ -5393,6 +6639,24 @@
           "label": "Memoria larga",
           "value": "coincide con la temporada",
           "detail": "historia 45% / 27% / 28% · temporada 45% / 26% / 29%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "11.2 tiros de esquina esperados",
+          "detail": "Querétaro 6.2 · Necaxa 5.0"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "22.8 faltas esperados",
+          "detail": "Querétaro 11.7 · Necaxa 11.0"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.2 amarillas esperados",
+          "detail": "Querétaro 2.1 · Necaxa 2.1"
         }
       ],
       "steps": [
