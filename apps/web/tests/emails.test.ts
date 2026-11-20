@@ -520,6 +520,13 @@ describe("correos de ciclo de vida, digests y baja en un clic", () => {
         .set({ authUserId: `auth_${sub.id}`, termsAcceptedAt: now, isAdult: true, handle: "mateo_digest" })
         .where(eq(users.id, sub.id));
       await setEmailPreferences(db, sub.id, { pickResults: false, weeklyDigest: true, monthlyRecord: true });
+      await grantDays(db, {
+        userId: sub.id,
+        sourceKind: "admin_grant",
+        days: 7,
+        idempotencyKey: "digest-test-grant",
+        now,
+      });
 
       const futureKickoff = new Date(now.getTime() + 2 * 86_400_000).toISOString();
       await db.insert(watchlist).values({ userId: sub.id, gameId: "lmx-digest-1" });

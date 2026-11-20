@@ -133,14 +133,14 @@ describe("Web Push VAPID y RFC 8291", () => {
       const ua2 = createECDH("prime256v1");
       await upsertPushSubscription(db, {
         userId: user!.id,
-        endpoint: "https://push.example/ok-sub",
+        endpoint: "https://fcm.googleapis.com/fcm/send/ok-sub",
         p256dh: ua1.generateKeys().toString("base64url"),
         auth: randomBytes(16).toString("base64url"),
         topicPicks: true,
       });
       await upsertPushSubscription(db, {
         userId: user!.id,
-        endpoint: "https://push.example/gone-sub",
+        endpoint: "https://fcm.googleapis.com/fcm/send/gone-sub",
         p256dh: ua2.generateKeys().toString("base64url"),
         auth: randomBytes(16).toString("base64url"),
         topicPicks: true,
@@ -167,7 +167,7 @@ describe("Web Push VAPID y RFC 8291", () => {
       // Verifica que sendPushNotification individual funcione.
       const single = await sendPushNotification(
         {
-          endpoint: "https://push.example/single",
+          endpoint: "https://fcm.googleapis.com/fcm/send/single",
           p256dh: ua1.getPublicKey().toString("base64url"),
           auth: randomBytes(16).toString("base64url"),
         },
