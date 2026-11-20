@@ -1,7 +1,10 @@
 import type { LeagueId } from "@pitchlab/contracts";
 import {
   DEFAULT_PREFERRED_BOOKS,
+  formatCanonicalBookLabel,
+  normalizeBookKey,
   sanitizePreferredBooks,
+  type BookmakerOption,
 } from "../../bookmakers";
 import {
   DEFAULT_RECORD_PRIVACY,
@@ -9,7 +12,7 @@ import {
   type RecordPrivacy,
 } from "../../record-stats";
 import { MEMBERSHIP_SPEC } from "../../spacetime-catalog";
-import type { ViewerRole } from "../../types";
+import type { OddsFormat, ViewerRole } from "../../types";
 
 export const SHORT_INVITE_HOST = "pitchlab.mx";
 export const REFERRAL_CODE_REGEX = /^[A-Z0-9-]{4,24}$/i;
@@ -498,5 +501,92 @@ export function formatUnitsAsMxn(units: number, unitMxn: number): string {
   const amount = Math.round(Math.abs(safeUnits) * safeUnit);
   const sign = safeUnits < 0 ? "−" : safeUnits > 0 ? "+" : "";
   return `${sign}$${amount.toLocaleString("es-MX")} MXN`;
+}
+
+/**
+ * Casas de apuestas prioritarias para México y línea sharp de referencia
+ * (en orden exacto de visualización en Preferencias y comparadores).
+ */
+export const PRIORITY_MX_BOOKMAKER_IDS = [
+  "pinnacle",
+  "bet365",
+  "codere",
+  "betcris",
+  "caliente_mx",
+] as const;
+
+export type PriorityMxBookmakerId = (typeof PRIORITY_MX_BOOKMAKER_IDS)[number];
+
+const PRIORITY_MX_RANK: ReadonlyMap<string, number> = new Map(
+  PRIORITY_MX_BOOKMAKER_IDS.map((id, idx) => [id, idx]),
+);
+
+export function isPriorityMxBookmaker(bookId: string): boolean {
+  return PRIORITY_MX_RANK.has(normalizeBookKey(bookId));
+}
+
+export interface PartitionedBookmakers {
+  readonly priorityMx: readonly BookmakerOption[];
+  readonly others: readonly BookmakerOption[];
+}
+
+/**
+ * Separa y ordena las casas prioritarias MX (`Pinnacle`, `Bet365`, `Codere`, `Betcris`, `Caliente`)
+ * del resto del catálogo manteniendo estable el orden del resto.
+ */
+export function partitionPriorityBookmakers(
+  options: readonly BookmakerOption[],
+): PartitionedBookmakers {
+  const priorityMx: BookmakerOption[] = [];
+  const others: BookmakerOption[] = [];
+  for (const option of options) {
+    if (PRIORITY_MX_RANK.has(normalizeBookKey(option.id))) {
+      priorityMx.push(option);
+    } else {
+      others.push(option);
+    }
+  }
+  priorityMx.sort(
+    (a, b) =>
+      (PRIORITY_MX_RANK.get(normalizeBookKey(a.id)) ?? 99) -
+      (PRIORITY_MX_RANK.get(normalizeBookKey(b.id)) ?? 99),
+  );
+  return { priorityMx, others };
+}
+
+/** Resumen corto y legible de casas seleccionadas (priorizando el orden MX). */
+export function formatPreferredBooksSummary(bookIds: readonly string[]): string {
+  if (bookIds.length === 0) return "Sin casas";
+  const ordered = [...bookIds].sort((a, b) => {
+    const rankA = PRIORITY_MX_RANK.get(normalizeBookKey(a)) ?? 99;
+    const rankB = PRIORITY_MX_RANK.get(normalizeBookKey(b)) ?? 99;
+    return rankA - rankB;
+  });
+  const firstTwo = ordered.slice(0, 2).map((id) => formatCanonicalBookLabel(id));
+  const extra = ordered.length - firstTwo.length;
+  return extra > 0 ? `${firstTwo.join(", ")} +${extra}` : firstTwo.join(", ");
+}
+
+/** Vista previa tabular para el selector de formato de momios (Americano MX vs Decimal). */
+export function getOddsFormatPreview(format: OddsFormat): {
+  readonly label: string;
+  readonly shortExample: string;
+  readonly detail: string;
+  readonly sampleFair: string;
+} {
+  if (format === "decimal") {
+    return {
+      label: "Decimal",
+      shortExample: "1.77 · 2.31",
+      detail: "Así: 1.77 · 2.31 (formato europeo, incluye tu unidad).",
+      sampleFair: "56.0 % → 1.79",
+    };
+  }
+  return {
+    label: "Americano",
+    shortExample: "−130 · +131",
+    detail: "Así: −130 · +131. Estándar en casas de México.",
+    sampleFair: "56.0 % → −127",
+  };
 }
 

@@ -365,7 +365,7 @@ export function PwaAndPushSection({
               onClick={() => {
                 void handleTopicChange(t.key, !topics[t.key]);
               }}
-              className="pl-acct-league-pill min-h-10 px-3 text-xs"
+              className="pl-acct-league-pill min-h-11 sm:min-h-9 px-3 text-xs"
             >
               {t.label}
             </button>
@@ -397,7 +397,7 @@ export function PwaAndPushSection({
         {canShowInstallButton ? (
           <button
             type="button"
-            className="pl-btn-glass text-xs min-h-10 px-3.5 shrink-0 inline-flex items-center gap-1.5"
+            className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3.5 shrink-0 inline-flex items-center gap-1.5"
             aria-disabled={installBusy ? "true" : undefined}
             data-pwa-install-btn=""
             onClick={() => {

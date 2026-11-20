@@ -109,11 +109,11 @@ export function BillingTab({
               Ver pagos SPEI
             </a>
           </div>
-          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+          <p className="m-0 text-sm break-words" style={{ color: "var(--pl-text-secondary)" }}>
             En Beta 1.0 las facturas CFDI 4.0 se emiten bajo solicitud después de aprobar tu
             transferencia SPEI. Valida aquí tus datos fiscales y envíalos junto con tu referencia{" "}
             <code>PL-...</code> a{" "}
-            <a href="mailto:soporte@pitchlab.mx" className="font-bold underline">
+            <a href="mailto:soporte@pitchlab.mx" className="font-bold underline break-all">
               soporte@pitchlab.mx
             </a>{" "}
             dentro del mismo mes calendario del pago.
@@ -131,7 +131,7 @@ export function BillingTab({
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="pl-acct-cfdi-form" noValidate>
+        <form onSubmit={handleSubmit} className="pl-acct-cfdi-form min-w-0" noValidate>
           <div className="pl-acct-cfdi-grid">
             <div className="pl-acct-field">
               <label htmlFor="cfdi-rfc" className="pl-acct-field-label">
@@ -149,7 +149,7 @@ export function BillingTab({
                 }}
                 placeholder="ABCD890123XYZ"
                 autoComplete="off"
-                className="pl-acct-input pl-acct-mono num"
+                className="pl-acct-input pl-acct-mono num text-base sm:text-sm min-h-11"
               />
             </div>
 
@@ -168,7 +168,7 @@ export function BillingTab({
                 }}
                 placeholder="TAL COMO APARECE EN TU CONSTANCIA"
                 autoComplete="organization"
-                className="pl-acct-input"
+                className="pl-acct-input text-base sm:text-sm min-h-11"
               />
             </div>
 
@@ -187,6 +187,7 @@ export function BillingTab({
                 size="md"
                 fullWidth
                 popoverWidth="trigger"
+                triggerClassName="text-base sm:text-sm min-h-11"
                 value={regimenFiscal}
                 onChange={(next) => {
                   setRegimenFiscal(next);
@@ -233,6 +234,7 @@ export function BillingTab({
                 size="md"
                 fullWidth
                 popoverWidth="trigger"
+                triggerClassName="text-base sm:text-sm min-h-11"
                 value={usoCfdi}
                 onChange={(next) => {
                   setUsoCfdi(next);
@@ -262,7 +264,7 @@ export function BillingTab({
                 }}
                 placeholder="06600"
                 autoComplete="postal-code"
-                className="pl-acct-input num"
+                className="pl-acct-input num text-base sm:text-sm min-h-11"
               />
             </div>
           </div>
