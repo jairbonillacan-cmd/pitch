@@ -69,15 +69,17 @@ if (shellIdx) {
   }
 }
 
-// 4) Script de migración segura de producción
+// 4) Script de migración segura de producción y empaquetado Cloud Run
 checkFile("scripts/migrate-prod.ps1", "Script de migración controlada Neon");
+checkFile("Dockerfile", "Contenedor multi-etapa Cloud Run");
+checkFile(".github/workflows/deploy-cloud-run.yml", "Workflow de despliegue automático Cloud Run");
 
 // 5) Variables de entorno de producción (solo presencia, JAMÁS valores)
 const prodEnvGroups = [
   { group: "Base de datos y Auth", vars: ["DATABASE_URL", "BETTER_AUTH_SECRET", "BETTER_AUTH_URL"] },
   { group: "Crons y Seguridad", vars: ["CRON_SECRET", "TURNSTILE_SITE_KEY_OR_PUBLIC", "TURNSTILE_SECRET_KEY"] },
   { group: "Web Push (VAPID)", vars: ["NEXT_PUBLIC_VAPID_PUBLIC_KEY", "VAPID_PRIVATE_KEY"] },
-  { group: "Correo y Media", vars: ["RESEND_API_KEY", "BLOB_READ_WRITE_TOKEN"] },
+  { group: "Correo y Media", vars: ["RESEND_API_KEY", "MEDIA_STORAGE_GCS_OR_BLOB"] },
   { group: "Cobro SPEI / Admin", vars: ["PITCHLAB_ADMIN_EMAILS", "PITCHLAB_TRANSFER_CLABE"] },
 ];
 
@@ -86,12 +88,15 @@ for (const { group, vars } of prodEnvGroups) {
     if (name === "TURNSTILE_SITE_KEY_OR_PUBLIC") {
       return !(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || process.env.TURNSTILE_SITE_KEY?.trim());
     }
+    if (name === "MEDIA_STORAGE_GCS_OR_BLOB") {
+      return !(process.env.GCS_AVATAR_BUCKET?.trim() || process.env.BLOB_READ_WRITE_TOKEN?.trim());
+    }
     return !process.env[name]?.trim();
   });
   if (missing.length === 0) {
     okItems.push(`Env [${group}]: completo en el entorno actual`);
   } else {
-    warnings.push(`Env [${group}] faltante en entorno local (configurar en Vercel Prod): ${missing.join(", ")}`);
+    warnings.push(`Env [${group}] faltante en entorno local (configurar en Cloud Run / Vercel Prod): ${missing.join(", ")}`);
   }
 }
 

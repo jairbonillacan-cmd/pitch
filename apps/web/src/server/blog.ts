@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { Marked } from "marked";
@@ -328,7 +329,10 @@ export function parseBlogPost(slug: string, source: string): BlogPost {
 }
 
 export function blogContentDir(): string {
-  return path.join(process.cwd(), "content", "blog");
+  const local = path.join(process.cwd(), "content", "blog");
+  if (existsSync(local)) return local;
+  const monorepo = path.join(process.cwd(), "apps", "web", "content", "blog");
+  return existsSync(monorepo) ? monorepo : local;
 }
 
 /** Lee y valida todos los archivos `.md` de una carpeta (incluye borradores y programados). */

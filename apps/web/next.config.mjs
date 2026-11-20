@@ -12,7 +12,7 @@ function buildSecurityHeaders(isDev) {
     "default-src 'self'",
     scriptSrc,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https://sports.bzzoiro.com https://a.espncdn.com https://*.blob.vercel-storage.com",
+    "img-src 'self' data: blob: https://sports.bzzoiro.com https://a.espncdn.com https://*.blob.vercel-storage.com https://storage.googleapis.com",
     "font-src 'self' data:",
     connectSrc,
     "frame-src https://challenges.cloudflare.com",
@@ -81,6 +81,9 @@ const baseConfig = {
     "/blog/rss.xml": ["./content/blog/**/*"],
     "/sitemap.xml": ["./content/blog/**/*"],
   },
+  // Empaquetado autónomo para Docker / Google Cloud Run (activado solo con PITCHLAB_STANDALONE=1
+  // para no alterar `next start` local, E2E ni Vercel).
+  ...(process.env.PITCHLAB_STANDALONE === "1" ? { output: "standalone" } : {}),
   // Cada página importa solo lo que usa de estos paquetes (no el barril completo).
   experimental: {
     optimizePackageImports: ["@pitchlab/ui", "@heroui/react", "@base-ui/react", "@astryxdesign/core"],
