@@ -1,11 +1,10 @@
 import "../record-v2.css";
 import React from "react";
 import type { Metadata } from "next";
-import { hasPublicSessionCookie } from "../../src/server/public-session";
 import { ResultadosPageSurface } from "@pitchlab/ui/public-sections";
 import { loadResultadosViewProps } from "../../src/server/public-site-data";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Resultados · PitchLab",
@@ -14,6 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ResultadosPage(): Promise<React.JSX.Element> {
-  const [props, hasSession] = await Promise.all([loadResultadosViewProps(), hasPublicSessionCookie()]);
-  return <ResultadosPageSurface {...props} hasSession={hasSession} />;
+  const props = await loadResultadosViewProps();
+  return <ResultadosPageSurface {...props} />;
 }

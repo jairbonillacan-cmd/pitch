@@ -25,7 +25,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
   liveEntry?: LiveScoreboardEntry;
 }): React.JSX.Element {
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
-  const { setAuraFromGame, navigateTo } = usePlatformActions();
+  const { setAuraFromGame, navigateTo, prefetchRoute } = usePlatformActions();
 
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
@@ -112,6 +112,8 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
                 <p className={`m-0 truncate text-[15px] ${favored ? "font-extrabold" : "font-bold"}`}>
                   <a
                     href={teamHref}
+                    onPointerEnter={() => prefetchRoute(teamHref)}
+                    onTouchStart={() => prefetchRoute(teamHref)}
                     onClick={(e) => {
                       e.preventDefault();
                       navigateTo(teamHref);
@@ -264,6 +266,8 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
         ) : null}
         <a
           href={studioHref}
+          onPointerEnter={() => prefetchRoute(studioHref)}
+          onTouchStart={() => prefetchRoute(studioHref)}
           onClick={openStudio}
           data-card-open=""
           className="pl-btn-glass text-xs min-h-11 px-3 inline-flex flex-1 items-center justify-center gap-1.5"

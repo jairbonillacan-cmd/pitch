@@ -593,7 +593,7 @@ export function HomeFilterHeader({
   );
 }
 
-const INITIAL_HOME_CARDS_LIMIT = 32;
+const INITIAL_HOME_CARDS_LIMIT = 14;
 
 const LEAGUE_REGION_LABELS: Readonly<Record<string, string>> = {
   nfl: "Estados Unidos",
@@ -662,7 +662,7 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
   readonly showOdds?: boolean;
 }): React.JSX.Element {
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref, userTimezone } = usePlatformCore();
-  const { setAuraFromGame, navigateTo } = usePlatformActions();
+  const { setAuraFromGame, navigateTo, prefetchRoute } = usePlatformActions();
 
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
@@ -740,6 +740,8 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
       <div className="pl-astro-row-top">
         <a
           href={studioHref}
+          onPointerEnter={() => prefetchRoute(studioHref)}
+          onTouchStart={() => prefetchRoute(studioHref)}
           onClick={openStudio}
           data-card-open=""
           aria-label={`Ver partido ${matchLabel}`}
@@ -783,6 +785,8 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
               <div className="pl-astro-team-info">
                 <a
                   href={homeHref}
+                  onPointerEnter={() => prefetchRoute(homeHref)}
+                  onTouchStart={() => prefetchRoute(homeHref)}
                   onClick={openTeam(homeHref)}
                   className={`pl-team-link pl-astro-team-name ${homeStrong ? "is-strong" : ""}`.trim()}
                 >
@@ -815,6 +819,8 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
               <div className="pl-astro-team-info">
                 <a
                   href={awayHref}
+                  onPointerEnter={() => prefetchRoute(awayHref)}
+                  onTouchStart={() => prefetchRoute(awayHref)}
                   onClick={openTeam(awayHref)}
                   className={`pl-team-link pl-astro-team-name ${awayStrong ? "is-strong" : ""}`.trim()}
                 >
@@ -1031,6 +1037,7 @@ function HomeMatchCardsSection({
   onToggleFavoriteLeague,
   onResetFilters,
   hasActiveFilters = false,
+  resetKey,
 }: {
   readonly groups: ReturnType<typeof groupMatchesByDayAndLeague>;
   readonly today: string;
@@ -1041,11 +1048,16 @@ function HomeMatchCardsSection({
   readonly onToggleFavoriteLeague: (lg: LeagueId) => void;
   readonly onResetFilters?: () => void;
   readonly hasActiveFilters?: boolean;
+  readonly resetKey?: string;
 }): React.JSX.Element {
-  const { navigateTo } = usePlatformActions();
+  const { navigateTo, prefetchRoute } = usePlatformActions();
   const totalGames = groups.reduce((sum, d) => sum + d.count, 0);
   const [limit, setLimit] = useState<number>(INITIAL_HOME_CARDS_LIMIT);
   const [collapsedLeagues, setCollapsedLeagues] = useState<ReadonlySet<string>>(() => new Set());
+
+  useEffect(() => {
+    setLimit(INITIAL_HOME_CARDS_LIMIT);
+  }, [resetKey]);
 
   const toggleCollapseLeague = useCallback((lg: string) => {
     setCollapsedLeagues((prev) => {
@@ -1118,6 +1130,8 @@ function HomeMatchCardsSection({
             <header className={`pl-astro-league-head ${isCollapsed ? "is-collapsed" : ""}`.trim()}>
               <a
                 href={leagueHref}
+                onPointerEnter={() => prefetchRoute(leagueHref)}
+                onTouchStart={() => prefetchRoute(leagueHref)}
                 onClick={(e) => {
                   e.preventDefault();
                   navigateTo(leagueHref);
@@ -2118,7 +2132,7 @@ export function HomeClubView({
   const journal = useJournalEntries();
   const watchlistGameIds = useWatchlistGameIds();
   const { topics, toggleLeague: toggleTopicLeague } = useFollowedTopics();
-  const { navigateTo, setFavoriteLeagues } = usePlatformActions();
+  const { navigateTo, setFavoriteLeagues, requestFullShell } = usePlatformActions();
   const homeNav = useHomeNavFilter();
   const { setTodayOverride } = homeNav;
   const games = dataset.games;
@@ -2585,12 +2599,14 @@ export function HomeClubView({
   };
 
   const pickDay = (d: DaySelection) => {
+    void requestFullShell();
     setDay(d);
     setLeague(
       league !== ALL && gamesForSelection(games, d, today).some((g) => g.league === league) ? league : ALL,
     );
   };
   const jumpDay = (targetDay: string, resetFilters: boolean) => {
+    void requestFullShell();
     if (resetFilters) {
       homeNav.resetFilters(targetDay);
       return;
@@ -2812,6 +2828,7 @@ export function HomeClubView({
                       aria-controls={calendarPopoverId}
                       data-day-center=""
                       onClick={() => {
+                        void requestFullShell();
                         setCalendarOpen((prev) => {
                           if (!prev) {
                             setCalMonth(parseIsoYearMonth(day));
@@ -3061,7 +3078,10 @@ export function HomeClubView({
                     aria-haspopup="dialog"
                     aria-expanded={filtersOpen}
                     data-home-filters-trigger=""
-                    onClick={() => setFiltersOpen(true)}
+                    onClick={() => {
+                      void requestFullShell();
+                      setFiltersOpen(true);
+                    }}
                   >
                     <MaestroIcon name="filter" size={14} />
                     <span>Filtros</span>
@@ -3096,6 +3116,7 @@ export function HomeClubView({
               onToggleFavoriteLeague={onToggleFavoriteLeague}
               onResetFilters={resetModalFilters}
               hasActiveFilters={activeModalFilterCount > 0}
+              resetKey={`${day}|${sport}|${league}|${boardView}|${statusFilter}|${signalFilter}`}
             />
 
             <HomeFiltersDialog

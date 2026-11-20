@@ -132,13 +132,20 @@ function ParlayToggle({ pick }: { pick: MatchPick }): React.JSX.Element {
  * vistas guardadas multi-deporte, slider no lineal de momios (68 % en 1.30–3.00), chips
  * rápidos de 1 toque, mejor cuota en tus casas y comparador manual en fila (ADR-048).
  */
+const INITIAL_VISIBLE_PICKS = 12;
+const PICKS_PAGE_STEP = 16;
+
 export function PicksFinderClubView(): React.JSX.Element {
   const { dataset, viewerRole, oddsFormat, preferredBooks, userTimezone, savedScreenerViews } = usePlatformCore();
-  const { setSavedScreenerViews, pushToast, openComposer, navigateTo } = usePlatformActions();
+  const { setSavedScreenerViews, pushToast, openComposer, navigateTo, prefetchRoute, requestFullShell } = usePlatformActions();
   const minSliderId = useId();
   const maxSliderId = useId();
   const minSliderRef = useRef<HTMLInputElement | null>(null);
   const maxSliderRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    void requestFullShell();
+  }, [requestFullShell]);
 
   const [preset, setPreset] = useState<QuickPreset>("todos");
   const [sport, setSport] = useState<ScreenerSportFilter>("all");
@@ -154,7 +161,7 @@ export function PicksFinderClubView(): React.JSX.Element {
   const [saveOpen, setSaveOpen] = useState<boolean>(false);
   const [saveName, setSaveName] = useState<string>("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
-  const [shown, setShown] = useState(30);
+  const [shown, setShown] = useState(INITIAL_VISIBLE_PICKS);
   const [manualOddsByPick, setManualOddsByPick] = useState<Record<string, string>>({});
   const [openManualPickId, setOpenManualPickId] = useState<string | null>(null);
 
@@ -270,7 +277,7 @@ export function PicksFinderClubView(): React.JSX.Element {
   const applyQuickPreset = (next: QuickPreset) => {
     setActiveViewId(null);
     setPreset(next);
-    setShown(30);
+    setShown(INITIAL_VISIBLE_PICKS);
     if (next === "todos") {
       setBand("all");
       setKind("all");
@@ -311,7 +318,7 @@ export function PicksFinderClubView(): React.JSX.Element {
     setMinOddsStep(view.minOddsStep);
     setMaxOddsStep(view.maxOddsStep);
     setWindowFilter(view.window);
-    setShown(30);
+    setShown(INITIAL_VISIBLE_PICKS);
   };
 
   const handleSaveCurrentView = (e: React.FormEvent) => {
@@ -365,7 +372,7 @@ export function PicksFinderClubView(): React.JSX.Element {
     setSort("p");
     setMinOddsStep(0);
     setMaxOddsStep(100);
-    setShown(30);
+    setShown(INITIAL_VISIBLE_PICKS);
   };
 
   const activeAdvancedCount =
@@ -637,7 +644,7 @@ export function PicksFinderClubView(): React.JSX.Element {
                   setPreset("todos");
                   setOnlyPositiveEdge(false);
                   setBand(b.id);
-                  setShown(30);
+                  setShown(INITIAL_VISIBLE_PICKS);
                 }}
               >
                 {b.label} <span className="num opacity-70">{counts[b.id]}</span>
@@ -905,6 +912,8 @@ export function PicksFinderClubView(): React.JSX.Element {
                     <a
                       href={href}
                       className="pl-btn-glass text-xs min-h-11 px-3 inline-flex items-center gap-1"
+                      onPointerEnter={() => prefetchRoute(href)}
+                      onTouchStart={() => prefetchRoute(href)}
                       onClick={(e) => {
                         e.preventDefault();
                         navigateTo(href);
@@ -921,7 +930,7 @@ export function PicksFinderClubView(): React.JSX.Element {
         )}
         {rows.length > shown ? (
           <div className="flex justify-center">
-            <button type="button" className="pl-btn-glass text-sm min-h-11 px-5" onClick={() => setShown((n) => n + 30)}>
+            <button type="button" className="pl-btn-glass text-sm min-h-11 px-5" onClick={() => setShown((n) => n + PICKS_PAGE_STEP)}>
               Ver más ({rows.length - shown})
             </button>
           </div>

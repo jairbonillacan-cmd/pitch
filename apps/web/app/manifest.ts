@@ -4,13 +4,14 @@ import { BRAND_TOKENS } from "@pitchlab/tokens";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "PitchLab · Club Privado",
+    name: "PitchLab",
     short_name: "PitchLab",
     description:
       "Probabilidad estimada antes del partido, momio justo, armador de parlays y bitácora sellada.",
     start_url: "/app",
     scope: "/",
     display: "standalone",
+    display_override: ["standalone", "minimal-ui"],
     orientation: "any",
     lang: "es-MX",
     background_color: BRAND_TOKENS["--background-primary"],

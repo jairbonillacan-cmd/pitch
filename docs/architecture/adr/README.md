@@ -56,3 +56,4 @@
 | [ADR-050](ADR-050-arquitectura-agnostica-de-proveedor-y-portabilidad.md) | Arquitectura agnóstica de proveedor y portabilidad entre plataformas (cero lock-in a Vercel, Google Cloud o Cloudflare) | Aceptada |
 | [ADR-051](ADR-051-arquitectura-server-first-css-modular-y-cero-jank.md) | Arquitectura *Server-First* (HTML/RSC sin JS + islas cliente acotadas), CSS modular por ruta, carga diferida y gobernanza cero-jank | Aceptada |
 | [ADR-052](ADR-052-experiencia-movil-app-nativa-pwa-y-navegacion-explorar.md) | Experiencia Mobile-First tipo App Nativa, PWA y navegación `Explorar` (retiro del copy visible «del Club») | Aceptada |
+| [ADR-053](ADR-053-app-nativa-gestos-pwa-offline-y-shell-progresivo.md) | Sensación 100 % App Nativa, gestos táctiles, PWA `/offline`, shell RSC progresivo en 2 etapas y caché público ISR | Aceptada |

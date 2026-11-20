@@ -252,6 +252,7 @@ import {
   writeSavedScreenerViews,
   type SavedScreenerView,
 } from "./screener-views";
+import { triggerHaptic } from "./navigation-helpers";
 import type {
   JournalEntry,
   MatchPick,
@@ -513,6 +514,10 @@ export interface PlatformContextValue {
   toasts: ToastMessage[];
   pushToast: (text: string, tone?: ToastMessage["tone"]) => void;
   navigateTo: (href: string) => void;
+  /** Precarga bajo demanda (touch/hover) deduplicada en memoria (ADR-053). */
+  prefetchRoute: (href: string) => void;
+  /** Solicita el resto del horizonte diferido del shell si aún no llegó (`/api/shell/extend`). */
+  requestFullShell: () => void;
 }
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);
@@ -608,6 +613,8 @@ const ACTION_KEYS = [
   "logoutSession",
   "pushToast",
   "navigateTo",
+  "prefetchRoute",
+  "requestFullShell",
 ] as const satisfies readonly ActionKey[];
 // Si falta alguna acción en la lista, esto no compila.
 type MissingActionKey = Exclude<ActionKey, (typeof ACTION_KEYS)[number]>;
@@ -771,6 +778,8 @@ export function PlatformProvider({
   initialShareTicket = null,
   initialCmdkOpen = false,
   onNavigate,
+  onPrefetchRoute,
+  onRequestFullShell,
   onSubmitPinOverride,
   onLogoutOverride,
   children,
@@ -791,6 +800,8 @@ export function PlatformProvider({
   /** Estado inicial de CommandPaletteModal (pruebas y Storybook). */
   initialCmdkOpen?: boolean;
   onNavigate?: (href: string) => void;
+  onPrefetchRoute?: (href: string) => void;
+  onRequestFullShell?: () => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
   children: React.ReactNode;
@@ -1313,6 +1324,7 @@ export function PlatformProvider({
         return false;
       }
       setParlayLegs((prev) => [...prev, { pick }]);
+      triggerHaptic(8);
       pushToast(`Agregado al Parlay: ${pick.label}`, "success");
       return true;
     },
@@ -1321,6 +1333,7 @@ export function PlatformProvider({
 
   const removePickFromParlay = useCallback((pickId: string) => {
     setParlayLegs((prev) => prev.filter((l) => l.pick.id !== pickId));
+    triggerHaptic(6);
   }, []);
 
   const clearParlay = useCallback(() => {
@@ -1421,6 +1434,7 @@ export function PlatformProvider({
       };
       setJournal((prev) => [entry, ...prev]);
       setComposerPick(null);
+      triggerHaptic(10);
       pushToast(`Pick registrado en tu bitácora (${entry.units}u).`, "success");
       // Con cuenta: el servidor sella con la hora de inicio oficial y una huella SHA-256.
       if (hasAccountSessionAuth && entry.status === "pending") {
@@ -1487,6 +1501,7 @@ export function PlatformProvider({
         note: note ?? "Armador Inteligente Geodesic v2.0",
       };
       setJournal((prev) => [entry, ...prev]);
+      triggerHaptic(10);
       pushToast(
         `Boleto combinado de ${parlaySummary.legs.length} selecciones sellado en Bitácora.`,
         "success",
@@ -2004,6 +2019,7 @@ export function PlatformProvider({
       const target = socialPosts.find((p) => p.id === postId);
       if (!target || isPendingPost(target)) return;
       const liked = !target.likedByMe;
+      triggerHaptic(6);
       setSocialPosts((prev) =>
         prev.map((p) =>
           p.id === postId ? { ...p, likedByMe: liked, likes: liked ? p.likes + 1 : Math.max(0, p.likes - 1) } : p,
@@ -2287,6 +2303,7 @@ export function PlatformProvider({
   const toggleWatchlistGame = useCallback(
     (gameId: string) => {
       const exists = watchlistGameIds.includes(gameId);
+      triggerHaptic(8);
       setWatchlistGameIds((prev) =>
         prev.includes(gameId) ? prev.filter((id) => id !== gameId) : [...prev, gameId],
       );
@@ -2296,7 +2313,20 @@ export function PlatformProvider({
           : "Siguiendo: te avisamos del inicio, los goles y el final.",
         "default",
       );
-      if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
+      if (hasAccountSessionAuth) {
+        void postJson("/api/me/watchlist", { gameId, watched: !exists }).then((res) => {
+          if (!res || !res.ok) {
+            // Rollback silencioso ante error de red (ADR-053 UI optimista)
+            setWatchlistGameIds((prev) =>
+              exists
+                ? prev.includes(gameId)
+                  ? prev
+                  : [...prev, gameId]
+                : prev.filter((id) => id !== gameId),
+            );
+          }
+        });
+      }
     },
     [watchlistGameIds, pushToast, hasAccountSessionAuth],
   );
@@ -2335,6 +2365,21 @@ export function PlatformProvider({
     },
     [onNavigate],
   );
+
+  const prefetchRoute = useCallback(
+    (href: string) => {
+      if (onPrefetchRoute) {
+        onPrefetchRoute(href);
+      }
+    },
+    [onPrefetchRoute],
+  );
+
+  const requestFullShell = useCallback(() => {
+    if (onRequestFullShell) {
+      onRequestFullShell();
+    }
+  }, [onRequestFullShell]);
 
   const openBetaPin = useCallback((nextPath: string = "/app") => {
     setBetaPinNextPath(nextPath);
@@ -2506,6 +2551,8 @@ export function PlatformProvider({
       toasts,
       pushToast,
       navigateTo,
+      prefetchRoute,
+      requestFullShell,
     }),
     [
       rawDataset,
@@ -2595,6 +2642,8 @@ export function PlatformProvider({
       toasts,
       pushToast,
       navigateTo,
+      prefetchRoute,
+      requestFullShell,
     ],
   );
 

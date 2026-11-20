@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { canonicalGameHref, isLeagueActiveInWindow } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports";
 import { decimalToAmericanInt, formatOddsValue, isPickUnlocked } from "../access-guard";
@@ -119,12 +119,16 @@ function Converter(): React.JSX.Element {
  */
 export function OddsCompareClubView(): React.JSX.Element {
   const { dataset, viewerRole, oddsFormat, preferredBooks, userTimezone } = usePlatformCore();
-  const { navigateTo, addPickToParlay, removePickFromParlay } = usePlatformActions();
+  const { navigateTo, addPickToParlay, removePickFromParlay, requestFullShell } = usePlatformActions();
   const { parlayLegs } = useParlayState();
   const [league, setLeague] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBookTag, setSelectedBookTag] = useState<string>("all");
   const [inputs, setInputs] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    void requestFullShell();
+  }, [requestFullShell]);
 
   const today = useMemo(() => todayId(userTimezone || "America/Mexico_City"), [userTimezone]);
   const parlayIds = useMemo(() => new Set(parlayLegs.map((l) => l.pick.id)), [parlayLegs]);

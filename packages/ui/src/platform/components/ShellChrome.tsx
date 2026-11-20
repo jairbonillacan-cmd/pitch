@@ -60,6 +60,8 @@ import {
   TopLayerModalDialog,
 } from "./PlatformOverlays";
 import { NotificationBell } from "./NotificationInbox";
+import { NetworkAndSwBanners } from "./NetworkAndSwBanners";
+import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
 const LazyLeagueCategorySheet = lazy(() =>
   import("./LeagueCategorySheet").then((m) => ({ default: m.LeagueCategorySheet })),
@@ -486,6 +488,7 @@ function AtmosphereStageImpl({
           </>
         ) : null}
         <LazyAppOverlays inClubApp={inClubApp} />
+        <NetworkAndSwBanners />
         <ToastViewport />
       </div>
     </EmblemSurfaceProvider>
@@ -780,7 +783,7 @@ function ClubWorkspaceShellImpl({
   initialHomeLeague = ALL,
 }: ClubWorkspaceShellProps): React.JSX.Element {
   const { dataset, viewerRole, allowRoleSimulation, oddsFormat, favoriteLeagues, viewerIdentity, hasAccountSession, upgradeHref, userTimezone } = usePlatformCore();
-  const { setViewerRole, setCmdkOpen, logoutSession, navigateTo, setOddsFormat } = usePlatformActions();
+  const { setViewerRole, setCmdkOpen, logoutSession, navigateTo, prefetchRoute, requestFullShell, setOddsFormat } = usePlatformActions();
   const { parlayLegs } = useParlayState();
   const journal = useJournalEntries();
   const homeNav = useOptionalHomeNavFilter();
@@ -999,6 +1002,14 @@ function ClubWorkspaceShellImpl({
   };
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
   const [leagueHubSheetOpen, setLeagueHubSheetOpen] = useState<boolean>(false);
+  const profileSheetSwipe = useSheetSwipeDismiss({
+    onDismiss: closeProfileMenu,
+    disabled: !profileMenuOpen,
+  });
+  const moreSheetSwipe = useSheetSwipeDismiss({
+    onDismiss: () => setMobileMoreOpen(false),
+    disabled: !mobileMoreOpen,
+  });
 
   // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
   // El portal de tipsters y la consola solo aparecen para quien los usa.
@@ -1149,6 +1160,8 @@ function ClubWorkspaceShellImpl({
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         aria-label={item.label}
+                        onPointerEnter={() => prefetchRoute(item.href)}
+                        onTouchStart={() => prefetchRoute(item.href)}
                         onClick={(e) => {
                           e.preventDefault();
                           closeHeaderNav();
@@ -1201,6 +1214,8 @@ function ClubWorkspaceShellImpl({
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         aria-label={item.label}
+                        onPointerEnter={() => prefetchRoute(item.href)}
+                        onTouchStart={() => prefetchRoute(item.href)}
                         onClick={(e) => {
                           e.preventDefault();
                           closeHeaderNav();
@@ -1419,7 +1434,10 @@ function ClubWorkspaceShellImpl({
                 type="button"
                 className="pl-btn-glass pl-header-search text-[13px] min-h-11 sm:min-h-10 px-2.5 sm:px-3.5 inline-flex items-center justify-between gap-2 sm:gap-3 shrink-0"
                 aria-label="Buscar partido, liga o @socio"
-                onClick={() => setCmdkOpen(true)}
+                onClick={() => {
+                  requestFullShell();
+                  setCmdkOpen(true);
+                }}
               >
                 <span className="inline-flex items-center gap-1.5 sm:gap-2.5 min-w-0" style={{ color: "var(--pl-text-secondary)" }}>
                   <MaestroIcon name="search" size={16} className="shrink-0" />
@@ -1502,8 +1520,9 @@ function ClubWorkspaceShellImpl({
               role="dialog"
               aria-label="Menú de tu cuenta"
               onKeyDown={onProfileMenuKeyDown}
+              style={profileSheetSwipe.sheetStyle}
             >
-              <div className="pl-profile-menu-sheet-top">
+              <div className="pl-profile-menu-sheet-top" {...profileSheetSwipe.handleProps}>
                 <span className="pl-profile-menu-grab" aria-hidden="true" />
                 <button
                   type="button"
@@ -1796,6 +1815,8 @@ function ClubWorkspaceShellImpl({
               key={item.href}
               href={item.href}
               aria-current={active ? "page" : undefined}
+              onPointerEnter={() => prefetchRoute(item.href)}
+              onTouchStart={() => prefetchRoute(item.href)}
               onClick={(e) => {
                 e.preventDefault();
                 navigateTo(item.href);
@@ -1827,21 +1848,26 @@ function ClubWorkspaceShellImpl({
         maxWidth="28rem"
         dialogClassName="pl-more-sheet-dialog"
       >
-        <div className="pl-more-sheet-inner glass-lens glass-ring w-full space-y-4 overflow-y-auto">
-          <div className="pl-bottom-sheet-handle sm:hidden" aria-hidden="true" />
-          <div className="flex items-center justify-between">
-            <h2 id="mobile-more-dialog-title" className="m-0 text-base font-bold">
-              Explorar
-            </h2>
-            <button
-              type="button"
-              autoFocus
-              className="pl-btn-glass px-2.5 min-h-11 min-w-11 inline-flex items-center justify-center"
-              aria-label="Cerrar menú móvil"
-              onClick={() => setMobileMoreOpen(false)}
-            >
-              <MaestroIcon name="x" size={16} />
-            </button>
+        <div
+          className="pl-more-sheet-inner glass-lens glass-ring w-full space-y-4 overflow-y-auto"
+          style={moreSheetSwipe.sheetStyle}
+        >
+          <div className="pl-sheet-drag-zone space-y-3" {...moreSheetSwipe.handleProps}>
+            <div className="pl-bottom-sheet-handle sm:hidden" aria-hidden="true" />
+            <div className="flex items-center justify-between">
+              <h2 id="mobile-more-dialog-title" className="m-0 text-base font-bold">
+                Explorar
+              </h2>
+              <button
+                type="button"
+                autoFocus
+                className="pl-btn-glass px-2.5 min-h-11 min-w-11 inline-flex items-center justify-center"
+                aria-label="Cerrar menú móvil"
+                onClick={() => setMobileMoreOpen(false)}
+              >
+                <MaestroIcon name="x" size={16} />
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-2">
@@ -1850,6 +1876,8 @@ function ClubWorkspaceShellImpl({
                 key={m.href}
                 href={m.href}
                 aria-current={activePath === m.href ? "page" : undefined}
+                onPointerEnter={() => prefetchRoute(m.href)}
+                onTouchStart={() => prefetchRoute(m.href)}
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileMoreOpen(false);

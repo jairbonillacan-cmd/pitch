@@ -7,7 +7,7 @@
  * por props para Storybook y pruebas; los contenedores (`LiveMatchPanel`, `LiveScoreboardStrip`)
  * los leen del sondeo compartido (`live-store.ts`).
  */
-import React from "react";
+import React, { useEffect } from "react";
 import {
   canonicalGameHref,
   LIVE_PHASE_LABEL_ES,
@@ -432,6 +432,58 @@ export function LiveMatchPanelView({
   const oddsFormat = platformCore?.oddsFormat ?? "american";
   const home = game.home.shortName;
   const away = game.away.shortName;
+  const live = Boolean(detail && isLivePhaseActive(detail.entry.phase));
+
+  // Screen Wake Lock opcional: mantiene la pantalla encendida solo mientras el partido en vivo
+  // esté activo y visible, liberando el bloqueo al cambiar de pestaña/app o desmontar (ADR-053).
+  useEffect(() => {
+    if (!live || typeof navigator === "undefined" || typeof document === "undefined") return;
+    const nav = navigator as Navigator & {
+      wakeLock?: {
+        request: (type: "screen") => Promise<{ release: () => Promise<void> }>;
+      };
+    };
+    if (!nav.wakeLock || typeof nav.wakeLock.request !== "function") return;
+    let active = true;
+    let sentinel: { release: () => Promise<void> } | null = null;
+
+    const acquire = async () => {
+      if (!active || document.visibilityState !== "visible") return;
+      try {
+        sentinel = await nav.wakeLock!.request("screen");
+        if (!active && sentinel) {
+          void sentinel.release().catch(() => undefined);
+          sentinel = null;
+        }
+      } catch (err) {
+        void err;
+      }
+    };
+
+    const release = () => {
+      if (!sentinel) return;
+      const current = sentinel;
+      sentinel = null;
+      void current.release().catch(() => undefined);
+    };
+
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") {
+        void acquire();
+      } else {
+        release();
+      }
+    };
+
+    void acquire();
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      active = false;
+      document.removeEventListener("visibilitychange", onVisibility);
+      release();
+    };
+  }, [live]);
+
   if (!detail) {
     if (!loading) return null;
     return (
@@ -443,7 +495,6 @@ export function LiveMatchPanelView({
   const { entry } = detail;
   if (entry.phase === "scheduled" && detail.incidents.length === 0) return null;
   const goals = detail.incidents.filter((i) => i.kind === "goal" || i.kind === "own_goal" || i.kind === "penalty_goal");
-  const live = isLivePhaseActive(entry.phase);
 
   return (
     <section className="pl-live-panel glass-card glass-ring" aria-labelledby={`live-${game.id}`}>

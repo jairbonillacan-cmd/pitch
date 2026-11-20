@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { CouponRedeemBox } from "../../components/CanjearCouponView";
 import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
+import { triggerHaptic } from "../../navigation-helpers";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { ACCOUNT_TAB_EVENT } from "../../components/ShellChrome";
 import { usePlatform } from "../../platform-provider";
@@ -725,6 +726,7 @@ export function PlanTab({
     async (value: string, key: "clabe" | "ref", label: string) => {
       try {
         await navigator.clipboard.writeText(value);
+        triggerHaptic(8);
         setCopiedKey(key);
         pushToast(`${label} copiado`, "success");
         window.setTimeout(() => setCopiedKey(null), 2000);

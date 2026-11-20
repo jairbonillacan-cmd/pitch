@@ -18,6 +18,7 @@ import {
   usePackIconBase,
 } from "../../../pack-icon-theme";
 import { LeagueBadge, TeamBadge } from "../../../sports";
+import { ContextualBackButton } from "../../components/ContextualBackButton";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { PlSelect, type PlSelectOption } from "../../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
@@ -1567,6 +1568,7 @@ export function TeamProfileClubView({
       <ClubWorkspaceShell activePath={canonicalTeamHref(profile.league, profile.team.slug)}>
         {/* Ruta superior estilo editorial deportivo */}
         <nav aria-label="Ruta del equipo" className="pl-team-crumb">
+          <ContextualBackButton fallbackHref={leagueHref} />
           <ol className="pl-team-crumb-list">
             <li>
               <a

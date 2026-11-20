@@ -23357,3 +23357,223 @@ dialog.pl-native-dialog.pl-more-sheet-dialog[open] {
     transition: none;
   }
 }
+
+/* ==========================================================================
+   ADR-053 · Sensación 100 % App Nativa: Skeletons, ← Atrás, Swipe, Anti-Zoom,
+   View Transitions progresivas, Dynamic Island standalone y banners de red/SW
+   ========================================================================== */
+
+html,
+body {
+  overscroll-behavior-x: none;
+}
+
+/* Contención de overscroll dentro de hojas y diálogos nativos */
+.pl-native-dialog,
+.pl-bottom-sheet-dialog,
+.pl-more-sheet-inner,
+.pl-profile-menu,
+.pl-bottom-sheet-inner {
+  overscroll-behavior-y: contain;
+}
+
+.pl-sheet-drag-zone {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.pl-sheet-drag-zone:active {
+  cursor: grabbing;
+}
+
+/* Cero selección accidental en cromos y controles de app; prosa y códigos siguen seleccionables */
+.mobile-dock,
+.pl-header,
+.seg-btn,
+.pl-btn-primary,
+.pl-btn-glass,
+.pl-prof-btn,
+.pl-back-btn,
+.day-chip,
+.pl-astro-sport-tab,
+.pl-bottom-sheet-handle {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Anti-zoom automático en iOS Safari (< 768 px): todos los controles >= 16px */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  textarea,
+  select {
+    font-size: max(1rem, 1em);
+  }
+}
+
+/* Scroll magnético suave en carruseles táctiles */
+.day-chips,
+.pl-astro-league-strip,
+.pl-home-sport-strip,
+.pl-props-streaks-rail {
+  scroll-snap-type: x proximity;
+}
+
+.day-chips > *,
+.pl-astro-league-strip > *,
+.pl-home-sport-strip > *,
+.pl-props-streaks-rail > * {
+  scroll-snap-align: start;
+}
+
+/* Botón contextual ← Atrás (>= 44×44 px WCAG 2.5.5) */
+.pl-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-card-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    transform 120ms ease;
+}
+
+.pl-back-btn:hover {
+  background: var(--pl-surface-2);
+  border-color: var(--pl-border-strong);
+}
+
+.pl-back-btn:active {
+  transform: scale(0.97);
+}
+
+.pl-match-crumb,
+.pl-team-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+
+/* Skeletons contextuales ultraligeros (100 % tokens, 0 backdrop-filter) */
+.pl-route-skel {
+  width: 100%;
+  padding-block: 4px 16px;
+}
+
+.pl-skel-card {
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-card-border);
+}
+
+@keyframes pl-skel-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.pl-skel-bar {
+  background: var(--pl-surface-2);
+  animation: pl-skel-pulse 1.35s ease-in-out infinite;
+}
+
+/* View Transitions API nativa progresiva (sutil cross-fade) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 140ms;
+  animation-timing-function: ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-skel-bar {
+    animation: none;
+    opacity: 0.65;
+  }
+  .pl-back-btn:active {
+    transform: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Dynamic Island / Notch en PWA instalada (`display-mode: standalone`) */
+@media (display-mode: standalone) {
+  .pl-header,
+  .pl-public-header {
+    padding-top: max(8px, env(safe-area-inset-top, 0px));
+  }
+}
+
+/* Pills no bloqueantes de red («Sin conexión») y actualización PWA */
+.pl-status-banners {
+  position: fixed;
+  top: calc(var(--pl-header-h, 64px) + env(safe-area-inset-top, 0px) + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 65;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  max-width: calc(100vw - 24px);
+}
+
+.pl-offline-pill,
+.pl-sw-update-pill {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  min-height: 36px;
+  border-radius: 999px;
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  border: 1px solid var(--pl-card-border);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pl-offline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--pl-warning);
+  flex-shrink: 0;
+}
+
+.pl-sw-update-btn {
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--pl-btn-primary-bg);
+  color: var(--pl-btn-primary-fg);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}

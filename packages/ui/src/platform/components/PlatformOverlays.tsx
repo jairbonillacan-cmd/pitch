@@ -21,6 +21,7 @@ import {
 import { shortDateLabel } from "../club/home/home-model";
 import { assessParlayRisk } from "../parlay-engine";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
+import { triggerHaptic } from "../navigation-helpers";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import { PersonAvatar } from "../club/team/PersonAvatar";
 import type { MatchPick, PlatformGame, ViewerRole } from "../types";
@@ -754,6 +755,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
         throw new Error("no_clipboard");
       }
       await navigator.clipboard.writeText(shareUrl);
+      triggerHaptic(8);
       setCopyState("copied");
       pushToast(
         codeParam
@@ -829,7 +831,15 @@ export function ShareTicketModal(): React.JSX.Element | null {
         };
     const fileName = `pitchlab-boleto-${aspect === "9:16" ? "9x16" : "4x5"}.png`;
     downloadTicketPng(content, card, fileName).then(
-      () => pushToast(`Boleto ${aspect === "9:16" ? "1080×1920" : "1080×1350"} descargado.`, "success"),
+      (mode) => {
+        triggerHaptic(8);
+        pushToast(
+          mode === "shared"
+            ? `Boleto ${aspect === "9:16" ? "1080×1920" : "1080×1350"} listo para compartir.`
+            : `Boleto ${aspect === "9:16" ? "1080×1920" : "1080×1350"} descargado.`,
+          "success",
+        );
+      },
       () => pushToast("No se pudo generar la imagen del boleto.", "danger"),
     );
   };
@@ -1561,6 +1571,10 @@ export function CommandPaletteModal({
             <input
               ref={inputRef}
               type="search"
+              enterKeyHint="search"
+              autoCorrect="off"
+              autoCapitalize="none"
+              spellCheck={false}
               autoFocus
               aria-label="Buscar partido, equipo, jugador, liga o @socio"
               value={query}

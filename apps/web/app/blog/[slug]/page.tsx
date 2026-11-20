@@ -15,10 +15,9 @@ import {
   toPostView,
 } from "../../../src/server/blog";
 import { JsonLd } from "../../../src/server/json-ld";
-import { hasPublicSessionCookie } from "../../../src/server/public-session";
 import { getSiteUrl } from "../../../src/server/site-url";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 type Params = Promise<{ slug: string }>;
 
@@ -58,10 +57,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function BlogPostPage({ params }: { params: Params }): Promise<React.JSX.Element> {
   const { slug } = await params;
-  const [found, published, hasSession] = await Promise.all([
+  const [found, published] = await Promise.all([
     getPostBySlug(slug),
     getPublishedPosts(),
-    hasPublicSessionCookie(),
   ]);
   if (!found) notFound();
 
@@ -87,7 +85,6 @@ export default async function BlogPostPage({ params }: { params: Params }): Prom
         post={toPostView(post)}
         related={pickRelatedPosts(post, published).map(toPostSummaryView)}
         isPreview={isPreview}
-        hasSession={hasSession}
       />
     </>
   );

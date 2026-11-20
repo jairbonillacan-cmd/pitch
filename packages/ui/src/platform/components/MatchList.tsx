@@ -99,7 +99,7 @@ export const MatchListRow = React.memo(function MatchListRow({
   readonly game: PlatformGame;
 }): React.JSX.Element {
   const { viewerRole, hasAccountSession, upgradeHref } = usePlatformCore();
-  const { setAuraFromGame, navigateTo } = usePlatformActions();
+  const { setAuraFromGame, navigateTo, prefetchRoute } = usePlatformActions();
 
   const isNfl = !sportHasDraw(game.sport);
   const isFinished = game.status === "FT" && game.score !== undefined;
@@ -140,6 +140,8 @@ export const MatchListRow = React.memo(function MatchListRow({
 
         <a
           href={studioHref}
+          onPointerEnter={() => prefetchRoute(studioHref)}
+          onTouchStart={() => prefetchRoute(studioHref)}
           onClick={openStudio}
           aria-label={`Abrir ficha de ${matchLabel}`}
           className="pl-mlist-matchup"

@@ -1,9 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { LegalDocumentSurface } from "@pitchlab/ui/legal";
-import { hasPublicSessionCookie } from "../../../src/server/public-session";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 const DESCRIPTION =
   "Condiciones del servicio de análisis estadístico deportivo en México (+18), cobro por transferencia SPEI, cupones de acceso, privacidad de récord y reglas de comunidad.";
@@ -14,9 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/legal/terminos" },
 };
 
-export default async function TerminosPage(): Promise<React.JSX.Element> {
-  const hasSession = await hasPublicSessionCookie();
-
+export default function TerminosPage(): React.JSX.Element {
   return (
     <LegalDocumentSurface
       slug="terminos"
@@ -24,7 +21,6 @@ export default async function TerminosPage(): Promise<React.JSX.Element> {
       title="Términos de uso"
       lede={DESCRIPTION}
       lastUpdated="Última actualización: noviembre de 2026"
-      hasSession={hasSession}
       intro={
         <p>
           <strong>Alcance en México:</strong> Estos Términos regulan el acceso y uso de{" "}

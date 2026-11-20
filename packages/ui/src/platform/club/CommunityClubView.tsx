@@ -80,7 +80,7 @@ const TABS: readonly TabDef<CommunityTab>[] = [
   { key: "ranking", label: "Ranking" },
 ];
 const TAB_KEYS = TABS.map((t) => t.key);
-const FEED_PAGE = 20;
+const FEED_PAGE = 8;
 const TOP_N = 10;
 
 const KICKOFF_FMT = new Intl.DateTimeFormat("es-MX", {

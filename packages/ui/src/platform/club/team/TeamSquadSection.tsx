@@ -8,6 +8,7 @@ import {
   usePackIconBase,
 } from "../../../pack-icon-theme";
 import { resolveCircularCountryFlag } from "../../country-flags";
+import { useOptionalPlatformActions } from "../../platform-provider";
 import { PersonAvatar } from "./PersonAvatar";
 import type { TeamInjuryItem, TeamProfileData, TeamSquadPlayer } from "./types";
 
@@ -222,6 +223,7 @@ export function TeamSquadSection({
       .filter((sec) => sec.players.length > 0);
   }, [sport, squad.players]);
 
+  const platformActions = useOptionalPlatformActions();
   const navigateOnPlainClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
@@ -376,6 +378,8 @@ export function TeamSquadSection({
                           <div className="pl-sq-identity">
                             <a
                               href={href}
+                              onPointerEnter={() => platformActions?.prefetchRoute(href)}
+                              onTouchStart={() => platformActions?.prefetchRoute(href)}
                               onClick={(e) => navigateOnPlainClick(e, href)}
                               className="pl-team-link pl-sq-name"
                             >

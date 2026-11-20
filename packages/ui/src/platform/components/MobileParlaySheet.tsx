@@ -10,6 +10,7 @@ import {
 } from "../platform-provider";
 import { MaestroIcon } from "./MaestroPrimitives";
 import { SgpCopulaAuditCard } from "./SgpCopulaAuditCard";
+import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
 let cachedCanTransitionDisplay: boolean | undefined;
 
@@ -67,6 +68,13 @@ export function MobileParlaySheet(): React.JSX.Element | null {
     dialog.close();
     setOpen(false);
   }, []);
+
+  const sheetSwipe = useSheetSwipeDismiss({
+    onDismiss: () => {
+      void closeSheet();
+    },
+    disabled: !open,
+  });
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -150,26 +158,28 @@ export function MobileParlaySheet(): React.JSX.Element | null {
         {...({ closedby: "any" } as Record<string, string>)}
         data-mobile-parlay-sheet=""
       >
-        <div className="pl-bottom-sheet-inner">
-          <div className="pl-bottom-sheet-handle" aria-hidden="true" />
-          <header className="pl-bottom-sheet-head">
-            <div>
-              <h2 id={titleId} className="m-0 text-base font-extrabold">
-                Tu parlay ({parlayLegs.length})
-              </h2>
-              <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                Probabilidad {(summary.combinedProbability * 100).toFixed(1)} % · Momio justo {oddsText}
-              </p>
-            </div>
-            <button
-              type="button"
-              className="pl-icon-btn"
-              aria-label="Cerrar boleto de parlay"
-              onClick={() => void closeSheet()}
-            >
-              <MaestroIcon name="x" size={18} />
-            </button>
-          </header>
+        <div className="pl-bottom-sheet-inner" style={sheetSwipe.sheetStyle}>
+          <div className="pl-sheet-drag-zone" {...sheetSwipe.handleProps}>
+            <div className="pl-bottom-sheet-handle" aria-hidden="true" />
+            <header className="pl-bottom-sheet-head">
+              <div>
+                <h2 id={titleId} className="m-0 text-base font-extrabold">
+                  Tu parlay ({parlayLegs.length})
+                </h2>
+                <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+                  Probabilidad {(summary.combinedProbability * 100).toFixed(1)} % · Momio justo {oddsText}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="pl-icon-btn"
+                aria-label="Cerrar boleto de parlay"
+                onClick={() => void closeSheet()}
+              >
+                <MaestroIcon name="x" size={18} />
+              </button>
+            </header>
+          </div>
 
           <ul className="pl-bottom-sheet-legs" role="list">
             {parlayLegs.map((leg) => (

@@ -3,6 +3,7 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ClubLayoutShell } from "@pitchlab/ui/club-shell";
+import { clearRouteScroll, readRouteScroll } from "@pitchlab/ui/navigation-helpers";
 
 /** Las 4 páginas del menú principal: se precargan para que el clic sea inmediato. */
 const PRIMARY_ROUTES = ["/app", "/app/parlays", "/app/social", "/app/lab"] as const;
@@ -17,16 +18,37 @@ function resetWindowScrollToTop(): void {
 
 /**
  * Monta el encabezado y la barra lateral una sola vez en el layout de /app.
- * Cada página solo aporta su contenido y al cambiar de ruta sube siempre al inicio.
+ * Al avanzar entre pantallas sube al inicio; al volver atrás (`popstate` / botón Atrás)
+ * restaura la posición de scroll guardada (ADR-053).
  */
 export function ClubShellBridge({ children }: { children: React.ReactNode }): React.JSX.Element {
   const pathname = usePathname() ?? "/app";
   const router = useRouter();
   const prevPathnameRef = useRef<string>(pathname);
+  const isBackNavigationRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    const onPopState = () => {
+      isBackNavigationRef.current = true;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   useLayoutEffect(() => {
     if (prevPathnameRef.current !== pathname) {
       prevPathnameRef.current = pathname;
+      if (isBackNavigationRef.current) {
+        isBackNavigationRef.current = false;
+        const savedY = readRouteScroll(pathname);
+        if (savedY !== null && savedY > 0) {
+          clearRouteScroll(pathname);
+          const restore = () => window.scrollTo({ top: savedY, left: 0, behavior: "instant" });
+          restore();
+          const raf = window.requestAnimationFrame(restore);
+          return () => window.cancelAnimationFrame(raf);
+        }
+      }
       resetWindowScrollToTop();
       const raf = window.requestAnimationFrame(resetWindowScrollToTop);
       return () => window.cancelAnimationFrame(raf);

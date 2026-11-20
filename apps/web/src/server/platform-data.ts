@@ -117,6 +117,8 @@ interface DatasetMemoBundle {
   redactedGamesById: Map<string, PlatformGame> | null;
   slimMemberShell: PlatformDataset | null;
   slimVisitorShell: PlatformDataset | null;
+  initialMemberShell: PlatformDataset | null;
+  initialVisitorShell: PlatformDataset | null;
   at: number;
 }
 
@@ -135,6 +137,8 @@ function getDatasetMemoBundle(): DatasetMemoBundle {
     redactedGamesById: null,
     slimMemberShell: null,
     slimVisitorShell: null,
+    initialMemberShell: null,
+    initialVisitorShell: null,
     at: now,
   };
   return datasetMemo;
@@ -167,6 +171,162 @@ function getSlimVisitorShell(bundle: DatasetMemoBundle): PlatformDataset {
     bundle.slimVisitorShell = withoutGameDetail(upcomingPlusRecentFinished(dataset, 12));
   }
   return bundle.slimVisitorShell;
+}
+
+function mxDayId(date: Date): string {
+  try {
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/Mexico_City",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+  } catch (err) {
+    void err;
+    return date.toISOString().slice(0, 10);
+  }
+}
+
+const INITIAL_SHELL_MAX_GAMES = 52;
+
+/**
+ * Shell RSC en dos tiempos (ADR-053): conserva en el primer HTML únicamente la ventana inmediata
+ * (en vivo + hoy + ligas prioritarias de mañana + picks promocionales) sin `parlayCandidates`
+ * redundantes, manteniendo el payload inicial por debajo de `500 KB`.
+ * El resto del horizonte (7 días / todas las ligas / `parlayCandidates`) llega vía `/api/shell/extend`
+ * al estar ocioso el navegador o al interactuar con buscador/filtros/parlays.
+ */
+export function splitInitialShellDataset(
+  slim: PlatformDataset,
+  nowMs: number = Date.now(),
+): PlatformDataset {
+  const todayStr = mxDayId(new Date(nowMs));
+  const tomorrowStr = mxDayId(new Date(nowMs + 86_400_000));
+
+  const upcomingDays = Array.from(
+    new Set(
+      slim.games
+        .filter((g) => g.status !== "FT" && g.dayId)
+        .map((g) => g.dayId),
+    ),
+  ).sort();
+  const primaryDay =
+    upcomingDays.includes(todayStr)
+      ? todayStr
+      : (upcomingDays.find((d) => d >= todayStr) ?? upcomingDays[0] ?? todayStr);
+  const secondaryDay =
+    primaryDay === todayStr
+      ? tomorrowStr
+      : (upcomingDays.find((d) => d > primaryDay) ?? tomorrowStr);
+
+  const selected: PlatformGame[] = [];
+  const selectedIds = new Set<string>();
+  const addGame = (g: PlatformGame): void => {
+    if (selectedIds.has(g.id)) return;
+    selectedIds.add(g.id);
+    // En el tramo 1 omitimos `parlayCandidates`; `/api/shell/extend` los hidrata en ocioso.
+    const { parlayCandidates: _omit, ...leanGame } = g;
+    void _omit;
+    selected.push(leanGame);
+  };
+
+  // 1) Siempre: partidos en vivo y partidos que contienen los picks destacados/promocionales
+  for (const g of slim.games) {
+    if (
+      g.status === "LIVE" ||
+      g.picks.some(
+        (p) =>
+          (slim.dailyPromoPickId && p.id === slim.dailyPromoPickId) ||
+          (slim.tipsterWeeklyPickId && p.id === slim.tipsterWeeklyPickId),
+      )
+    ) {
+      addGame(g);
+    }
+  }
+
+  // 2) Todos los partidos del día principal (Hoy) ordenados por prestigio y hora
+  const primaryGames = slim.games
+    .filter((g) => g.status !== "FT" && g.dayId === primaryDay)
+    .sort((a, b) => {
+      const aCore = CORE_SHELL_LEAGUES.has(a.league) ? 0 : 1;
+      const bCore = CORE_SHELL_LEAGUES.has(b.league) ? 0 : 1;
+      if (aCore !== bCore) return aCore - bCore;
+      return (a.kickoffUtc || "").localeCompare(b.kickoffUtc || "");
+    });
+  for (const g of primaryGames) {
+    if (selected.length >= INITIAL_SHELL_MAX_GAMES) break;
+    addGame(g);
+  }
+
+  // 3) Ligas prioritarias/core del día siguiente (Mañana) hasta el tope del tramo 1
+  if (selected.length < INITIAL_SHELL_MAX_GAMES) {
+    const secondaryGames = slim.games
+      .filter((g) => {
+        if (g.status === "FT" || g.dayId !== secondaryDay) return false;
+        if (CORE_SHELL_LEAGUES.has(g.league)) return true;
+        const tier = COMPETITION_BY_ID[g.league]?.prestigeTier ?? 4;
+        return tier <= 2;
+      })
+      .sort((a, b) => {
+        const aCore = CORE_SHELL_LEAGUES.has(a.league) ? 0 : 1;
+        const bCore = CORE_SHELL_LEAGUES.has(b.league) ? 0 : 1;
+        if (aCore !== bCore) return aCore - bCore;
+        return (a.kickoffUtc || "").localeCompare(b.kickoffUtc || "");
+      });
+    for (const g of secondaryGames) {
+      if (selected.length >= INITIAL_SHELL_MAX_GAMES) break;
+      addGame(g);
+    }
+  }
+
+  // Respaldo si solo hay partidos FT
+  if (selected.length === 0) {
+    for (const g of slim.games.slice(0, 12)) addGame(g);
+  }
+
+  const stage1TeamKeys = new Set<string>();
+  for (const g of selected) {
+    stage1TeamKeys.add(`${g.league}:${g.home.slug}`);
+    stage1TeamKeys.add(`${g.league}:${g.away.slug}`);
+  }
+  const stage1Teams = (slim.teams ?? []).filter((t) =>
+    stage1TeamKeys.has(`${t.league}:${t.slug}`),
+  );
+
+  return {
+    ...slim,
+    games: selected,
+    teams: stage1Teams,
+  };
+}
+
+function getInitialMemberShell(bundle: DatasetMemoBundle): PlatformDataset {
+  if (!bundle.initialMemberShell) {
+    bundle.initialMemberShell = splitInitialShellDataset(getSlimMemberShell(bundle));
+  }
+  return bundle.initialMemberShell;
+}
+
+function getInitialVisitorShell(bundle: DatasetMemoBundle): PlatformDataset {
+  if (!bundle.initialVisitorShell) {
+    bundle.initialVisitorShell = splitInitialShellDataset(getSlimVisitorShell(bundle));
+  }
+  return bundle.initialVisitorShell;
+}
+
+/** Tramo 2 diferido para `/api/shell/extend` respetando estrictamente Cero-Fuga. */
+export function loadExtendedShellPayload(fullAccess: boolean): {
+  games: PlatformGame[];
+  teams: NonNullable<PlatformDataset["teams"]>;
+  isRedactedForVisitor: boolean;
+} {
+  const bundle = getDatasetMemoBundle();
+  const slim = fullAccess ? getSlimMemberShell(bundle) : getSlimVisitorShell(bundle);
+  return {
+    games: slim.games,
+    teams: slim.teams ?? [],
+    isRedactedForVisitor: !fullAccess,
+  };
 }
 
 /**
@@ -707,7 +867,7 @@ export async function loadClubPlatformState(
 
   if (!hasActiveSession) {
     return {
-      dataset: getSlimVisitorShell(bundle),
+      dataset: getInitialVisitorShell(bundle),
       initialRole: "visitor",
       hasActiveSession: false,
       allowRoleSimulation: false,
@@ -728,7 +888,7 @@ export async function loadClubPlatformState(
     : preferredRole;
 
   return {
-    dataset: getSlimMemberShell(bundle),
+    dataset: getInitialMemberShell(bundle),
     initialRole: resolvedRole,
     hasActiveSession: true,
     allowRoleSimulation: previewToolsEnabled(access.isAdmin),

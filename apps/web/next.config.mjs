@@ -178,6 +178,60 @@ export default function config(phase) {
             { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
           ],
         },
+        // Caché HTTP estándar independiente de proveedor (ADR-050/ADR-053) para rutas públicas
+        // sin datos de sesión ni cookies personalizadas. Nunca aplica a `/precio`, `/app/*` ni `/api/*`.
+        ...(!isDev
+          ? [
+              {
+                source: "/",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/resultados",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/blog",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/blog/categoria/:categoria",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/blog/:slug",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+                ],
+              },
+              {
+                source: "/motores",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+                ],
+              },
+              {
+                source: "/legal/:path*",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+                ],
+              },
+              {
+                source: "/offline",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+                ],
+              },
+            ]
+          : []),
       ];
     },
   };

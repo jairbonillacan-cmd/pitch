@@ -114,6 +114,7 @@ export default async function ClubAppLayout({
   return (
     <PlatformClientBridge
       dataset={state.dataset}
+      deferredShellExtend
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}

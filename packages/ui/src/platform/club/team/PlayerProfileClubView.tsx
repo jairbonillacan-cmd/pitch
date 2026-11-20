@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { canonicalTeamHref } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../../sports";
+import { ContextualBackButton } from "../../components/ContextualBackButton";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import {
   PlayerPropStreakCard,
@@ -595,6 +596,7 @@ export function PlayerProfileClubView({
       <ClubWorkspaceShell activePath={leagueHref}>
         {/* Ruta superior del jugador */}
         <nav aria-label="Ruta del jugador" className="pl-team-crumb">
+          <ContextualBackButton fallbackHref={teamHref} />
           <ol className="pl-team-crumb-list">
             <li>
               <a

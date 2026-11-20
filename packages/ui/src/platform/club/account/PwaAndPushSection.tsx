@@ -80,6 +80,7 @@ export function PwaAndPushSection({
     Boolean(storyPushState?.installAvailable),
   );
   const [isStandalone, setIsStandalone] = useState<boolean>(false);
+  const [isIosSafari, setIsIosSafari] = useState<boolean>(false);
   const [installBusy, setInstallBusy] = useState<boolean>(false);
   const [installStatus, setInstallStatus] = useState<string>("");
 
@@ -89,6 +90,13 @@ export function PwaAndPushSection({
       window.matchMedia?.("(display-mode: standalone)").matches ||
       Boolean((window.navigator as Navigator & { standalone?: boolean }).standalone);
     setIsStandalone(standalone);
+
+    const ua = window.navigator.userAgent || "";
+    const isIosDevice =
+      /iP(hone|ad|od)/i.test(ua) ||
+      (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+    const isSafariEngine = /Safari/i.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+    setIsIosSafari(isIosDevice && isSafariEngine && !standalone);
 
     const webInstallAvailable =
       typeof (window.navigator as Navigator & { install?: () => Promise<void> }).install ===
@@ -374,14 +382,16 @@ export function PwaAndPushSection({
       {/* Botón progresivo de instalación PWA: oculto cuando el navegador no soporta la API */}
       <div
         className="flex flex-wrap items-center justify-between gap-2.5 pt-2 hairline-t"
-        hidden={!canShowInstallButton && !installStatus && !isStandalone}
+        hidden={!canShowInstallButton && !installStatus && !isStandalone && !isIosSafari}
       >
         <div className="min-w-0">
           <b className="pl-acct-prefs-row-title block">App en tu pantalla de inicio</b>
           <span className="pl-acct-prefs-row-detail">
             {isStandalone
               ? "Estás usando PitchLab en modo aplicación instalada."
-              : "Instala PitchLab como app ligera con acceso directo y modo pantalla completa."}
+              : isIosSafari && !canShowInstallButton
+                ? "Instala PitchLab en tu iPhone o iPad desde Safari en 2 pasos:"
+                : "Instala PitchLab como app ligera con acceso directo y modo pantalla completa."}
           </span>
         </div>
         {canShowInstallButton ? (
@@ -399,6 +409,45 @@ export function PwaAndPushSection({
           </button>
         ) : null}
       </div>
+
+      {isIosSafari && !isStandalone && !canShowInstallButton ? (
+        <ol
+          className="m-0 pl-0 list-none grid gap-2 sm:grid-cols-2 text-xs"
+          aria-label="Cómo instalar PitchLab en iOS Safari"
+          data-ios-install-guide=""
+        >
+          <li
+            className="rounded-xl p-2.5 flex items-start gap-2"
+            style={{ background: "var(--pl-surface)", border: "1px solid var(--pl-border)" }}
+          >
+            <span
+              className="inline-flex size-5 shrink-0 items-center justify-center rounded-full font-extrabold text-[11px]"
+              style={{ background: "var(--pl-brand)", color: "var(--pl-btn-primary-fg)" }}
+              aria-hidden="true"
+            >
+              1
+            </span>
+            <span>
+              Toca el botón <strong>Compartir</strong> en la barra inferior de Safari.
+            </span>
+          </li>
+          <li
+            className="rounded-xl p-2.5 flex items-start gap-2"
+            style={{ background: "var(--pl-surface)", border: "1px solid var(--pl-border)" }}
+          >
+            <span
+              className="inline-flex size-5 shrink-0 items-center justify-center rounded-full font-extrabold text-[11px]"
+              style={{ background: "var(--pl-brand)", color: "var(--pl-btn-primary-fg)" }}
+              aria-hidden="true"
+            >
+              2
+            </span>
+            <span>
+              Elige <strong>«Agregar a pantalla de inicio»</strong> y confirma.
+            </span>
+          </li>
+        </ol>
+      ) : null}
 
       {installStatus ? (
         <p role="status" className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>

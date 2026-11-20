@@ -35,11 +35,35 @@ export function PublicNavBarClient({
 }): React.JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [detectedSession, setDetectedSession] = useState(hasSession);
+  const effectiveSession = hasSession || detectedSession;
   const landing = activePath === "/";
   const navItems = landing ? LANDING_NAV_ITEMS : PUBLIC_NAV_ITEMS;
   const menuBtnRef = useRef<HTMLButtonElement | null>(null);
   const scrollMarker = useRef<HTMLSpanElement | null>(null);
   const drawerId = useId();
+
+  useEffect(() => {
+    if (hasSession) {
+      setDetectedSession(true);
+      return;
+    }
+    if (typeof window === "undefined" || typeof fetch !== "function") return;
+    let alive = true;
+    fetch("/api/public/session", { credentials: "same-origin" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { authenticated?: boolean } | null) => {
+        if (alive && data?.authenticated === true) {
+          setDetectedSession(true);
+        }
+      })
+      .catch((err: unknown) => {
+        void err;
+      });
+    return () => {
+      alive = false;
+    };
+  }, [hasSession]);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -102,13 +126,13 @@ export function PublicNavBarClient({
               <ThemeToggle shape="pill" />
               <a
                 className="pl-lp-navlink pl-lp-navlink--login"
-                href={hasSession ? "/app" : "/login"}
+                href={effectiveSession ? "/app" : "/login"}
               >
-                {hasSession ? "Ir a la app" : "Entrar"}
+                {effectiveSession ? "Ir a la app" : "Entrar"}
               </a>
               <a
                 className="pl-lp-btn pl-lp-btn--compact pl-lp-btn-primary pl-lp-bar-cta"
-                href={hasSession ? "/app" : "/signup"}
+                href={effectiveSession ? "/app" : "/signup"}
               >
                 Probar 7 días
               </a>
@@ -172,7 +196,7 @@ export function PublicNavBarClient({
               ))}
               <a
                 className="pl-lp-btn pl-lp-btn-primary"
-                href={hasSession ? "/app" : "/signup"}
+                href={effectiveSession ? "/app" : "/signup"}
                 onClick={() => setMenuOpen(false)}
               >
                 Probar 7 días gratis{" "}

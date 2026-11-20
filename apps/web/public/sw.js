@@ -1,6 +1,8 @@
-/* Service Worker de PitchLab · Web Push + caché acotado CacheFirst para activos estáticos inmutables (solo fuera de desarrollo local) */
+/* Service Worker de PitchLab · Web Push + caché acotado CacheFirst para estáticos + respaldo /offline (solo fuera de desarrollo local) */
 
 const STATIC_CACHE_NAME = "pitchlab-static-v2";
+const OFFLINE_CACHE_NAME = "pitchlab-offline-v1";
+const OFFLINE_URL = "/offline";
 const STATIC_CACHE_MAX_ENTRIES = 150;
 const STATIC_PATH_PREFIXES = ["/_next/static/", "/fonts/", "/brand/", "/icons/", "/icons-dark/"];
 
@@ -40,7 +42,22 @@ async function trimStaticCache(cache) {
 }
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(self.skipWaiting());
+  if (isLocalDevHost()) {
+    event.waitUntil(self.skipWaiting());
+    return;
+  }
+  event.waitUntil(
+    caches
+      .open(OFFLINE_CACHE_NAME)
+      .then((cache) => cache.add(new Request(OFFLINE_URL, { cache: "reload" })))
+      .catch(() => undefined),
+  );
+});
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener("activate", (event) => {
@@ -51,11 +68,11 @@ self.addEventListener("activate", (event) => {
       .then((names) =>
         Promise.all(
           names
-            .filter(
-              (name) =>
-                name.startsWith("pitchlab-static-") &&
-                (purgeAllLocal || name !== STATIC_CACHE_NAME),
-            )
+            .filter((name) => {
+              if (!name.startsWith("pitchlab-")) return false;
+              if (purgeAllLocal) return true;
+              return name !== STATIC_CACHE_NAME && name !== OFFLINE_CACHE_NAME;
+            })
             .map((name) => caches.delete(name)),
         ),
       )
@@ -64,6 +81,25 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+  if (isLocalDevHost()) return;
+
+  // Navegaciones: siempre red primero; jamás cachear HTML privado (/app) ni violar Cero-Fuga.
+  // Si falla la red por completo, devolver la página pública `/offline` precacheada.
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(async () => {
+        const offlineCache = await caches.open(OFFLINE_CACHE_NAME);
+        const fallback = await offlineCache.match(OFFLINE_URL);
+        if (fallback) return fallback;
+        return new Response("Sin conexión a internet.", {
+          status: 503,
+          headers: { "Content-Type": "text/plain; charset=utf-8" },
+        });
+      }),
+    );
+    return;
+  }
+
   if (!isCacheableStaticAsset(event.request)) return;
   event.respondWith(
     caches.open(STATIC_CACHE_NAME).then(async (cache) => {

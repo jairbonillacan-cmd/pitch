@@ -888,6 +888,10 @@ export function PrefsTab({
               <MaestroIcon name="search" size={14} />
               <input
                 type="search"
+                enterKeyHint="search"
+                autoCorrect="off"
+                autoCapitalize="none"
+                spellCheck={false}
                 value={leagueSearch}
                 onChange={(e) => setLeagueSearch(e.target.value)}
                 placeholder="Buscar liga o copa (Liga MX, Champions, MLS, MLB…)"
@@ -1162,13 +1166,15 @@ export function PrefsTab({
                     <span>$</span>
                     <input
                       id={unitInputId}
+                      type="text"
+                      inputMode="numeric"
+                      enterKeyHint="done"
                       className="pl-acct-unit-input num"
                       value={unitDraft}
                       onChange={(e) => handleUnitInputChange(e.target.value)}
                       onBlur={handleUnitBlur}
                       aria-invalid={unitError ? "true" : "false"}
                       aria-describedby={unitError ? unitErrorId : undefined}
-                      inputMode="numeric"
                       autoComplete="off"
                     />
                     <span>MXN</span>

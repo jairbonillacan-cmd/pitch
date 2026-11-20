@@ -496,6 +496,24 @@ export function NotificationBell(): React.JSX.Element {
 
   const count = unreadCount(items, effectiveReadIds);
 
+  // Sincroniza el contador de avisos sin leer con el ícono de la PWA (App Badging API, ADR-053).
+  useEffect(() => {
+    if (typeof navigator === "undefined") return;
+    const nav = navigator as Navigator & {
+      setAppBadge?: (contents?: number) => Promise<void>;
+      clearAppBadge?: () => Promise<void>;
+    };
+    try {
+      if (count > 0 && typeof nav.setAppBadge === "function") {
+        void nav.setAppBadge(count).catch(() => undefined);
+      } else if (count === 0 && typeof nav.clearAppBadge === "function") {
+        void nav.clearAppBadge().catch(() => undefined);
+      }
+    } catch (err) {
+      void err;
+    }
+  }, [count]);
+
   const close = () => {
     try {
       menuRef.current?.hidePopover();

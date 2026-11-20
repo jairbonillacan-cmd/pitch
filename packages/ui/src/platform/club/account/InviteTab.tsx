@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
+import { triggerHaptic } from "../../navigation-helpers";
 import { usePlatform } from "../../platform-provider";
 import { MEMBERSHIP_SPEC, referralEarnedDays } from "../../spacetime-catalog";
 import {
@@ -226,6 +227,7 @@ export function InviteTab({
       try {
         if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(text);
+          triggerHaptic(8);
           copied = true;
         }
       } catch (err) {

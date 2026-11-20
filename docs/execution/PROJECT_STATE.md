@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-20 · **Rama:** `gemini-dos` (consolida `0.0.1-alpha`, Bzzoiro Fase 1, `ADR-041`–`ADR-049` ya integrados a `main`, **`ADR-050`** arquitectura agnóstica de proveedor, **`ADR-051`** arquitectura *Server-First*, CSS modular por ruta y gobernanza cero-jank, y **`ADR-052`** experiencia móvil tipo app nativa + navegación `Explorar`)
+> **Última actualización:** 2026-11-20 · **Rama:** `gemini-dos` (consolida `0.0.1-alpha`, Bzzoiro Fase 1, `ADR-041`–`ADR-049` ya integrados a `main`, **`ADR-050`** arquitectura agnóstica de proveedor, **`ADR-051`** arquitectura *Server-First*, CSS modular por ruta y gobernanza cero-jank, **`ADR-052`** experiencia móvil tipo app nativa + navegación `Explorar`, y **`ADR-053`** sensación 100 % app nativa, gestos táctiles, PWA `/offline`, shell RSC progresivo en 2 etapas y caché público ISR)
 
 ## Estado actual
 
@@ -9,7 +9,7 @@
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
 - **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
-- **F3 (arquitectura y ADRs):** ✅ completa y actualizada al 2026-11-20: **52 ADRs aceptadas** (`ADR-001`…`ADR-052`; ver índice completo en `docs/architecture/adr/README.md`) y 8 documentos base de arquitectura. Auditoría del proyecto: `docs/execution/PROJECT_AUDIT_2026_11_13.md`.
+- **F3 (arquitectura y ADRs):** ✅ completa y actualizada al 2026-11-20: **53 ADRs aceptadas** (`ADR-001`…`ADR-053`; ver índice completo en `docs/architecture/adr/README.md`) y 8 documentos base de arquitectura. Auditoría del proyecto: `docs/execution/PROJECT_AUDIT_2026_11_13.md`.
 - **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
 - **Pre-MVP para socios:** ✅ implementado originalmente en `feat/pre-mvp` (`docs/product/PRE_MVP.md` y `docs/product/PRE_MVP_DEPLOY.md`). Desde 2026-11-11 ese trabajo vive íntegro en `gemini-reestructura`, la rama que va a producción; `feat/pre-mvp` se eliminó y su PR #1 se cerró como sustituido.
 - **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.
@@ -1552,3 +1552,21 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - Payload RSC del shell (`slimMemberShell`): **`2,281.6 KB` → `1,880.6 KB`** (**−61.7 %** frente a `4,910.5 KB` iniciales).
   - Eliminados `apps/web/src/server/model-metrics.ts` y `apps/web/src/client/use-beta-pin.ts`; retirados `@astryxdesign/*` y `@stylexjs/stylex` de `apps/web/package.json` (movidos a `devDependencies` de `packages/ui`); `drizzle-orm` movido a `devDependencies` de `apps/web` (uso exclusivo en pruebas).
 - **Documentación y gobernanza formal:** creadas `ADR-051` y `ADR-052`, registradas en `docs/architecture/adr/README.md`, y agregada regla permanente en `AGENTS.md`.
+
+### APP-NATIVA-VELOCIDAD-FASE3-2026-11-20 · Sensación 100 % App Nativa, Gestos Táctiles, PWA `/offline`, Shell Progresivo e ISR Público (`ADR-053`) — 2026-11-20 — Rama `gemini-dos`
+- **Navegación «0 ms» y continuidad espacial:**
+  - `prefetchRoute(href)` deduplicado (`Set` acotado a `80`) desde `PlatformClientBridge` / `usePlatformActions` conectado en `onPointerEnter` / `onTouchStart` sobre tarjetas/filas de partido (`HomeMatchCard`, `MatchListRow`, `AstroMatchRow`), ligas, equipos (`/t/`), jugadores (`/p/`), `PicksFinderView` y navegación principal de `ShellChrome`.
+  - Cinco `loading.tsx` contextuales (`[league]/g/[gameSlug]`, `[league]`, `[league]/t/[teamSlug]`, `parlays`, `comparar`) respaldados por `@pitchlab/ui/route-skeletons` (tokens `--pl-*`, `0 backdrop-filter`).
+  - `ContextualBackButton` (`>= 44×44 px`, respaldo seguro hacia equipo/liga/`/app`) en fichas de partido, equipo y jugador + restauración real de `window.scrollY` por ruta en `sessionStorage` (`navigation-helpers.ts` + `ClubShellBridge` en `popstate`) y View Transitions API progresiva (`runWithViewTransition`, respetando `prefers-reduced-motion`).
+- **Física táctil 100 % app móvil (iOS + Android):**
+  - Hook reutilizable `useSheetSwipeDismiss` (`packages/ui/src/platform/components/use-sheet-swipe-dismiss.ts`, GPU `transform: translateY`) conectado a **`Explorar`**, **`Menú de tu cuenta`** y **`MobileParlaySheet`**.
+  - `overscroll-behavior-x: none` global, `overscroll-behavior-y: contain` en hojas/diálogos, `user-select: none` sobre chrome de navegación, anti-zoom iOS Safari (`font-size: max(1rem, 1em)` `< 768 px`), `scroll-snap-type: x proximity` en carruseles de días/ligas/Player Props, teclado móvil (`inputMode`/`enterKeyHint`/`autoCorrect="off"`), micro-háptica segura `triggerHaptic()` y rollback optimista en `toggleWatchlistGame`.
+- **PWA instalada «de verdad» (conservando 100 % el bloqueo/purga del SW en `localhost`/`127.0.0.1`):**
+  - `manifest.ts` actualizado a `name: "PitchLab"` + `display_override: ["standalone", "minimal-ui"]`; `@media (display-mode: standalone)` con `env(safe-area-inset-top)`.
+  - Ruta pública `/offline` (`apps/web/app/offline/page.tsx`) precacheada en `public/sw.js` únicamente fuera de loopback/dev (nunca cachea HTML de `/app`), pill `Sin conexión` + banner `Nueva versión lista · Actualizar` (`NetworkAndSwBanners`), App Badging en `NotificationInbox`, Web Share API con archivos PNG en `share-ticket-raster.ts`, Screen Wake Lock en `LiveMatchPanelView` y guía visual de 2 pasos para iOS Safari en `PwaAndPushSection`.
+- **Velocidad profunda:**
+  - **Shell RSC en 2 etapas (`-85.3 %`):** `splitInitialShellDataset` reduce `slimMemberShell` de **`1,920.0 KB` → `281.5 KB`** (`52` partidos, `60` equipos, sin `parlayCandidates`) y `PlatformClientBridge` extiende en `requestIdleCallback` o bajo demanda (`requestFullShell`) contra `GET /api/shell/extend` respetando estrictamente `Cero-Fuga` (`401` sin sesión, visitante redactado vs. socio).
+  - **Paginación progresiva (`< 1,500` nodos DOM iniciales):** `/app` (`32` → `14` partidos), `/app/picks` (`30` → `12` picks) y `/app/social` (`20` → `8` publicaciones).
+  - **Caché real / ISR público independiente de proveedor (`ADR-050`):** `/`, `/resultados`, `/blog`, `/blog/categoria/[categoria]` (`revalidate = 300`), `/motores`, `/blog/[slug]`, `/legal/*` (`revalidate = 3600`) + `Cache-Control` estándar en `next.config.mjs` (solo producción) + `GET /api/public/session` en cliente para `PublicNavBarClient` (`/precio` conserva `force-dynamic` por referencia SPEI personalizada).
+  - **Consolidación headless:** `Badge` (`packages/ui/src/components/ui/badge.tsx`) migrado a `<span>` nativo sin `@base-ui/react` + hoja de ruta documentada en `ADR-053`.
+- **Validación rápida en verde:** `lint-codebase`, `check-no-demo-prod`, `check-no-secrets` (`7,809` archivos), `@pitchlab/ui typecheck`, `@pitchlab/web typecheck` y Vitest dirigido (`native-app-phase3.test.ts` 6/6, `shell-header-nav.test.tsx` 4/4, `home-header.test.tsx` 5/5, `match-redesign.test.tsx` 12/12, `shell-progressive-and-offline.test.ts` 3/3, `pwa-push-funnel.test.ts` 4/4, `cloud-portability.test.ts` 6/6). Verificación visual en navegador diferida por petición del usuario.

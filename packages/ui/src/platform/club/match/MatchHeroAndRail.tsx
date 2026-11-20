@@ -13,6 +13,7 @@ import {
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import { ConfidenceChip } from "../../components/ConfidenceChip";
+import { ContextualBackButton } from "../../components/ContextualBackButton";
 import { CrestPedestal, MaestroIcon } from "../../components/MaestroPrimitives";
 import { shareMatchStoryCard } from "../../components/share-story-card";
 import { FollowControl, LivePhaseBadge } from "../../live/LiveMatchCenter";
@@ -204,15 +205,24 @@ export function MatchBreadcrumb({
   readonly game: PlatformGame;
   readonly onNavigate: (href: string) => void;
 }): React.JSX.Element {
+  const { prefetchRoute } = usePlatformActions();
+  const leagueHref = `/app/${game.league}`;
   const go = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     onNavigate(href);
   };
   return (
     <nav aria-label="Ruta del partido" className="pl-match-crumb">
+      <ContextualBackButton fallbackHref={leagueHref} />
       <ol className="pl-match-crumb-list">
         <li>
-          <a href="/app" onClick={go("/app")} className="pl-match-crumb-link">
+          <a
+            href="/app"
+            onPointerEnter={() => prefetchRoute("/app")}
+            onTouchStart={() => prefetchRoute("/app")}
+            onClick={go("/app")}
+            className="pl-match-crumb-link"
+          >
             <MaestroIcon name="arrowLeft" size={13} />
             <span>Inicio</span>
           </a>
@@ -226,8 +236,10 @@ export function MatchBreadcrumb({
         </li>
         <li>
           <a
-            href={`/app/${game.league}`}
-            onClick={go(`/app/${game.league}`)}
+            href={leagueHref}
+            onPointerEnter={() => prefetchRoute(leagueHref)}
+            onTouchStart={() => prefetchRoute(leagueHref)}
+            onClick={go(leagueHref)}
             className="pl-match-crumb-link pl-match-crumb-link--league"
           >
             <LeagueBadge
@@ -274,7 +286,7 @@ export function MatchHeroScoreboard({
   readonly onNavigate: (href: string) => void;
 }): React.JSX.Element {
   const { oddsFormat } = usePlatformCore();
-  const { pushToast } = usePlatformActions();
+  const { pushToast, prefetchRoute } = usePlatformActions();
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
   const isFinished = game.status === "FT" && game.score !== undefined;
@@ -365,6 +377,8 @@ export function MatchHeroScoreboard({
             <h1 className="pl-match-hero-name">
               <a
                 href={canonicalTeamHref(game.league, game.home.slug)}
+                onPointerEnter={() => prefetchRoute(canonicalTeamHref(game.league, game.home.slug))}
+                onTouchStart={() => prefetchRoute(canonicalTeamHref(game.league, game.home.slug))}
                 onClick={goTeam(game.home.slug)}
                 className="pl-team-link"
                 title={`Ver perfil de ${game.home.name}`}
@@ -475,6 +489,8 @@ export function MatchHeroScoreboard({
             <h2 className="pl-match-hero-name">
               <a
                 href={canonicalTeamHref(game.league, game.away.slug)}
+                onPointerEnter={() => prefetchRoute(canonicalTeamHref(game.league, game.away.slug))}
+                onTouchStart={() => prefetchRoute(canonicalTeamHref(game.league, game.away.slug))}
                 onClick={goTeam(game.away.slug)}
                 className="pl-team-link"
                 title={`Ver perfil de ${game.away.name}`}

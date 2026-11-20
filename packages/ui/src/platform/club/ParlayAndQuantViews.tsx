@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { OddsCompareClubView } from "./OddsCompareView";
 import { PersonalParlayQuickBar } from "./PersonalParlayQuickBar";
 import { shortDateLabel } from "./home/home-model";
@@ -103,8 +103,12 @@ function getCompactBlockReason(
 
 export function ParlayBuilderClubView(): React.JSX.Element {
   const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat } = usePlatformCore();
-  const { setAllowSgp, setParlayStakeUnits, addPickToParlay, removePickFromParlay, clearParlay, generateAutoParlay, sealParlayToJournal, openShareTicket, navigateTo } = usePlatformActions();
+  const { setAllowSgp, setParlayStakeUnits, addPickToParlay, removePickFromParlay, clearParlay, generateAutoParlay, sealParlayToJournal, openShareTicket, navigateTo, requestFullShell } = usePlatformActions();
   const { parlayLegs, allowSgp, parlayStakeUnits, parlaySummary } = useParlayState();
+
+  useEffect(() => {
+    void requestFullShell();
+  }, [requestFullShell]);
 
   const [selectedLeagues, setSelectedLeagues] = useState<LeagueId[]>(() =>
     dataset.leagues.map((l) => l.league),

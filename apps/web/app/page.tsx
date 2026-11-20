@@ -1,10 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
-import { hasPublicSessionCookie } from "../src/server/public-session";
 import { LandingSurface } from "@pitchlab/ui/landing";
 import { loadLandingViewProps } from "../src/server/public-site-data";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "PitchLab — Lo más probable de cada partido, con su momio justo",
@@ -13,6 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage(): Promise<React.JSX.Element> {
-  const [props, hasSession] = await Promise.all([loadLandingViewProps(), hasPublicSessionCookie()]);
-  return <LandingSurface {...props} hasSession={hasSession} />;
+  const props = await loadLandingViewProps();
+  return <LandingSurface {...props} />;
 }

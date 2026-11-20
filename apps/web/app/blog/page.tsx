@@ -8,10 +8,9 @@ import {
   toPostSummaryView,
 } from "../../src/server/blog";
 import { JsonLd } from "../../src/server/json-ld";
-import { hasPublicSessionCookie } from "../../src/server/public-session";
 import { getSiteUrl } from "../../src/server/site-url";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const TITLE = "Blog · PitchLab";
 const DESCRIPTION =
@@ -36,14 +35,13 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage(): Promise<React.JSX.Element> {
-  const [posts, hasSession] = await Promise.all([getPublishedPosts(), hasPublicSessionCookie()]);
+  const posts = await getPublishedPosts();
   return (
     <>
       <JsonLd data={buildBlogJsonLd(posts, getSiteUrl())} />
       <BlogIndexSurface
         posts={posts.map(toPostSummaryView)}
         categories={blogCategoryLinks()}
-        hasSession={hasSession}
       />
     </>
   );
