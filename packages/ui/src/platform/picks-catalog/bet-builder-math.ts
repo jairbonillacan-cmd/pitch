@@ -138,6 +138,7 @@ const GL12_HALF_WEIGHTS = [
 ] as const;
 
 function clamp(v: number, lo: number, hi: number): number {
+  if (!Number.isFinite(v)) return lo;
   return Math.min(hi, Math.max(lo, v));
 }
 
@@ -155,7 +156,7 @@ function round4(v: number): number {
 
 /** Inversa exacta de Φ por bisección en [-6, 6] (convergencia < 1e-12 en 54 pasos). */
 function normalInvCdf(p: number): number {
-  const safe = clamp(p, 1e-6, 1 - 1e-6);
+  const safe = clamp(Number.isFinite(p) ? p : 0.5, 1e-6, 1 - 1e-6);
   let lo = -6;
   let hi = 6;
   for (let i = 0; i < 54; i += 1) {
@@ -172,9 +173,9 @@ function normalInvCdf(p: number): number {
  * `Φ₂(a, b; ρ) = Φ(a)Φ(b) + (1 / 2π) ∫₀^ρ (1 / √(1-r²)) exp(-(a² - 2abr + b²) / (2(1-r²))) dr`.
  */
 export function bivariateNormalJointProb(pA: number, pB: number, rho: number): number {
-  const a = clamp(pA, 0.001, 0.999);
-  const b = clamp(pB, 0.001, 0.999);
-  const rClamped = clamp(rho, -0.92, 0.92);
+  const a = clamp(Number.isFinite(pA) ? pA : 0.5, 0.001, 0.999);
+  const b = clamp(Number.isFinite(pB) ? pB : 0.5, 0.001, 0.999);
+  const rClamped = clamp(Number.isFinite(rho) ? rho : 0, -0.92, 0.92);
   if (Math.abs(rClamped) < 1e-6) return a * b;
 
   const zA = normalInvCdf(a);
@@ -196,7 +197,7 @@ export function bivariateNormalJointProb(pA: number, pB: number, rho: number): n
   const joint = a * b + (halfRho * integral) / (2 * Math.PI);
   const frechetLo = Math.max(0.0001, a + b - 1);
   const frechetHi = Math.min(a, b);
-  return clamp(joint, frechetLo, frechetHi);
+  return clamp(Number.isFinite(joint) ? joint : a * b, frechetLo, frechetHi);
 }
 
 /** Convierte un `CatalogPickItem` en entrada directa para el motor de Bet Builder. */
@@ -349,7 +350,15 @@ function isTotalScoreAxis(axis: PickAxisKey): boolean {
 function legRequiresHomeWin(leg: BetBuilderLegInput): boolean {
   const s = leg.selectionKey.toLowerCase();
   if (leg.family === "double_chance" && (s === "1x" || s === "12")) return false;
-  if (leg.family === "1x2" || leg.family === "dnb" || leg.family === "win_to_nil") {
+  if (
+    leg.family === "1x2" ||
+    leg.family === "dnb" ||
+    leg.family === "win_to_nil" ||
+    leg.family === "nba_moneyline" ||
+    leg.family === "mlb_moneyline" ||
+    leg.family === "nhl_moneyline" ||
+    leg.family === "nfl_moneyline"
+  ) {
     return s === "home" || s === "1" || s === "dnb_home" || s === "home_yes";
   }
   if (leg.family === "combo_1x2_over" || leg.family === "combo_1x2_btts") {
@@ -357,10 +366,13 @@ function legRequiresHomeWin(leg: BetBuilderLegInput): boolean {
   }
   if (
     (leg.family === "asian_handicap" ||
+      leg.family === "nba_spread" ||
+      leg.family === "nfl_spread" ||
       leg.family === "mlb_run_line" ||
       leg.family === "nhl_puck_line") &&
     s.startsWith("home") &&
     leg.line !== null &&
+    Number.isFinite(leg.line) &&
     leg.line < 0
   ) {
     return true;
@@ -371,7 +383,15 @@ function legRequiresHomeWin(leg: BetBuilderLegInput): boolean {
 function legRequiresAwayWin(leg: BetBuilderLegInput): boolean {
   const s = leg.selectionKey.toLowerCase();
   if (leg.family === "double_chance" && (s === "x2" || s === "12")) return false;
-  if (leg.family === "1x2" || leg.family === "dnb" || leg.family === "win_to_nil") {
+  if (
+    leg.family === "1x2" ||
+    leg.family === "dnb" ||
+    leg.family === "win_to_nil" ||
+    leg.family === "nba_moneyline" ||
+    leg.family === "mlb_moneyline" ||
+    leg.family === "nhl_moneyline" ||
+    leg.family === "nfl_moneyline"
+  ) {
     return s === "away" || s === "2" || s === "dnb_away" || s === "away_yes";
   }
   if (leg.family === "combo_1x2_over" || leg.family === "combo_1x2_btts") {
@@ -379,10 +399,13 @@ function legRequiresAwayWin(leg: BetBuilderLegInput): boolean {
   }
   if (
     (leg.family === "asian_handicap" ||
+      leg.family === "nba_spread" ||
+      leg.family === "nfl_spread" ||
       leg.family === "mlb_run_line" ||
       leg.family === "nhl_puck_line") &&
     s.startsWith("away") &&
     leg.line !== null &&
+    Number.isFinite(leg.line) &&
     leg.line < 0
   ) {
     return true;
@@ -396,6 +419,224 @@ function legIsStrictDraw(leg: BetBuilderLegInput): boolean {
     (leg.family === "1x2" && (s === "draw" || s === "x")) ||
     ((leg.family === "combo_1x2_over" || leg.family === "combo_1x2_btts") && s.startsWith("draw"))
   );
+}
+
+const FOOTBALL_FEASIBILITY_MAX_GOALS = 15;
+
+function minIntForOver(line: number): number {
+  return Math.floor(line) + 1;
+}
+
+function maxIntForUnder(line: number): number {
+  return Number.isInteger(line) ? line - 1 : Math.floor(line);
+}
+
+/**
+ * Construye el predicado exacto de marcador final `(h, a)` en fútbol para una pierna SGP,
+ * o `null` si la pierna no restringe el marcador de goles (p. ej. córners, tarjetas, tiros).
+ */
+function buildFootballScoreConstraint(
+  leg: BetBuilderLegInput,
+): ((h: number, a: number) => boolean) | null {
+  if (leg.sport !== "football") return null;
+  const s = leg.selectionKey.toLowerCase();
+  const validLine =
+    typeof leg.line === "number" && Number.isFinite(leg.line) ? leg.line : null;
+
+  if (leg.family === "double_chance") {
+    if (s === "1x" || s === "home_or_draw") return (h, a) => h >= a;
+    if (s === "x2" || s === "away_or_draw") return (h, a) => a >= h;
+    if (s === "12" || s === "home_or_away") return (h, a) => h !== a;
+    return null;
+  }
+
+  if (leg.family === "dnb") {
+    if (s === "home" || s === "dnb_home") return (h, a) => h > a;
+    if (s === "away" || s === "dnb_away") return (h, a) => a > h;
+    if (leg.direction === "home") return (h, a) => h > a;
+    if (leg.direction === "away") return (h, a) => a > h;
+    return null;
+  }
+
+  if (leg.family === "win_to_nil" || leg.axis === "win_to_nil") {
+    if (s === "home" || s === "home_yes") return (h, a) => h > 0 && a === 0;
+    if (s === "away" || s === "away_yes") return (h, a) => a > 0 && h === 0;
+    if (leg.direction === "home") return (h, a) => h > 0 && a === 0;
+    if (leg.direction === "away") return (h, a) => a > 0 && h === 0;
+    return null;
+  }
+
+  if (leg.family === "combo_1x2_over" || leg.axis === "combo_result_goals") {
+    if (validLine === null || validLine > FOOTBALL_FEASIBILITY_MAX_GOALS * 2) return null;
+    const resPred: ((h: number, a: number) => boolean) | null = s.startsWith("home")
+      ? (h, a) => h > a
+      : s.startsWith("away")
+        ? (h, a) => a > h
+        : s.startsWith("draw")
+          ? (h, a) => h === a
+          : s.startsWith("1x")
+            ? (h, a) => h >= a
+            : s.startsWith("x2")
+              ? (h, a) => a >= h
+              : null;
+    if (!resPred) return null;
+    if (s.includes("over")) return (h, a) => resPred(h, a) && h + a > validLine;
+    if (s.includes("under")) return (h, a) => resPred(h, a) && h + a < validLine;
+    return null;
+  }
+
+  if (leg.family === "combo_1x2_btts" || leg.axis === "combo_result_btts") {
+    const resPred: ((h: number, a: number) => boolean) | null = s.startsWith("home")
+      ? (h, a) => h > a
+      : s.startsWith("away")
+        ? (h, a) => a > h
+        : s.startsWith("draw")
+          ? (h, a) => h === a
+          : null;
+    if (!resPred) return null;
+    if (s.includes("btts_yes") || s.endsWith("_yes")) {
+      return (h, a) => resPred(h, a) && h > 0 && a > 0;
+    }
+    if (s.includes("btts_no") || s.endsWith("_no")) {
+      return (h, a) => resPred(h, a) && (h === 0 || a === 0);
+    }
+    return null;
+  }
+
+  if (leg.family === "btts" || leg.axis === "btts") {
+    if (s === "yes" || s === "btts_yes") return (h, a) => h > 0 && a > 0;
+    if (s === "no" || s === "btts_no") return (h, a) => h === 0 || a === 0;
+    if (leg.direction === "yes") return (h, a) => h > 0 && a > 0;
+    if (leg.direction === "no") return (h, a) => h === 0 || a === 0;
+    return null;
+  }
+
+  if (leg.family === "totals" || leg.axis === "goals_total") {
+    if (validLine === null || validLine > FOOTBALL_FEASIBILITY_MAX_GOALS * 2) return null;
+    if (s.includes("over")) return (h, a) => h + a > validLine;
+    if (s.includes("under")) return (h, a) => h + a < validLine;
+    if (leg.direction === "over") return (h, a) => h + a > validLine;
+    if (leg.direction === "under") return (h, a) => h + a < validLine;
+    return null;
+  }
+
+  if (
+    leg.axis === "team_goals_home" ||
+    (leg.family === "team_totals" && s.startsWith("home"))
+  ) {
+    if (validLine === null || validLine > FOOTBALL_FEASIBILITY_MAX_GOALS) return null;
+    if (s.includes("over")) return (h) => h > validLine;
+    if (s.includes("under")) return (h) => h < validLine;
+    if (leg.direction === "over") return (h) => h > validLine;
+    if (leg.direction === "under") return (h) => h < validLine;
+    return null;
+  }
+
+  if (
+    leg.axis === "team_goals_away" ||
+    (leg.family === "team_totals" && s.startsWith("away"))
+  ) {
+    if (validLine === null || validLine > FOOTBALL_FEASIBILITY_MAX_GOALS) return null;
+    if (s.includes("over")) return (_h, a) => a > validLine;
+    if (s.includes("under")) return (_h, a) => a < validLine;
+    if (leg.direction === "over") return (_h, a) => a > validLine;
+    if (leg.direction === "under") return (_h, a) => a < validLine;
+    return null;
+  }
+
+  if (
+    leg.axis === "clean_sheet_home" ||
+    (leg.family === "clean_sheet" && s.startsWith("home"))
+  ) {
+    if (s === "home_yes" || s === "yes") return (_h, a) => a === 0;
+    if (s === "home_no" || s === "no") return (_h, a) => a > 0;
+    if (leg.direction === "yes") return (_h, a) => a === 0;
+    if (leg.direction === "no") return (_h, a) => a > 0;
+    return null;
+  }
+
+  if (
+    leg.axis === "clean_sheet_away" ||
+    (leg.family === "clean_sheet" && s.startsWith("away"))
+  ) {
+    if (s === "away_yes" || s === "yes") return (h) => h === 0;
+    if (s === "away_no" || s === "no") return (h) => h > 0;
+    if (leg.direction === "yes") return (h) => h === 0;
+    if (leg.direction === "no") return (h) => h > 0;
+    return null;
+  }
+
+  if (
+    leg.family === "asian_handicap" ||
+    (leg.axis === "handicap" && leg.family === "other")
+  ) {
+    if (validLine === null || Math.abs(validLine) > FOOTBALL_FEASIBILITY_MAX_GOALS) return null;
+    if (s.startsWith("home")) return (h, a) => h + validLine > a;
+    if (s.startsWith("away")) return (h, a) => a + validLine > h;
+    if (leg.direction === "home") return (h, a) => h + validLine > a;
+    if (leg.direction === "away") return (h, a) => a + validLine > h;
+    return null;
+  }
+
+  if (leg.family === "1x2" || (leg.axis === "result_ft" && leg.family === "other")) {
+    if (s === "home" || s === "1") return (h, a) => h > a;
+    if (s === "away" || s === "2") return (h, a) => a > h;
+    if (s === "draw" || s === "x") return (h, a) => h === a;
+    if (leg.direction === "home") return (h, a) => h > a;
+    if (leg.direction === "away") return (h, a) => a > h;
+    if (leg.direction === "draw") return (h, a) => h === a;
+    return null;
+  }
+
+  if (leg.axis === "result_ht" || leg.axis === "result_2h") {
+    if (s.includes("draw")) return null;
+    if (s.includes("home")) return (h) => h >= 1;
+    if (s.includes("away")) return (_h, a) => a >= 1;
+    if (leg.direction === "home") return (h) => h >= 1;
+    if (leg.direction === "away") return (_h, a) => a >= 1;
+    return null;
+  }
+
+  if (
+    leg.axis === "player_prop" &&
+    leg.playerStatKey === "goal_or_assist" &&
+    leg.direction === "over"
+  ) {
+    const minGoals = validLine !== null ? Math.max(1, minIntForOver(validLine)) : 1;
+    if (minGoals > FOOTBALL_FEASIBILITY_MAX_GOALS) return null;
+    if (leg.playerTeamSide === "home") return (h) => h >= minGoals;
+    if (leg.playerTeamSide === "away") return (_h, a) => a >= minGoals;
+    return (h, a) => h + a >= minGoals;
+  }
+
+  return null;
+}
+
+/**
+ * Verifica exhaustivamente si existe al menos un marcador entero `(h, a)` en `[0..15]×[0..15]`
+ * que satisfaga simultáneamente todas las restricciones de goles de la cesta de fútbol.
+ */
+function hasFeasibleFootballScore(legs: readonly BetBuilderLegInput[]): boolean {
+  const constraints: Array<(h: number, a: number) => boolean> = [];
+  for (const leg of legs) {
+    const pred = buildFootballScoreConstraint(leg);
+    if (pred) constraints.push(pred);
+  }
+  if (constraints.length < 2) return true;
+
+  for (let h = 0; h <= FOOTBALL_FEASIBILITY_MAX_GOALS; h += 1) {
+    for (let a = 0; a <= FOOTBALL_FEASIBILITY_MAX_GOALS; a += 1) {
+      let ok = true;
+      for (let i = 0; i < constraints.length; i += 1) {
+        if (!constraints[i]!(h, a)) {
+          ok = false;
+          break;
+        }
+      }
+      if (ok) return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -676,15 +917,18 @@ export function checkBetBuilderPairCompatibility(
       if (
         (winnerLeg.family === "mlb_run_line" ||
           winnerLeg.family === "nhl_puck_line" ||
-          winnerLeg.family === "asian_handicap") &&
+          winnerLeg.family === "asian_handicap" ||
+          winnerLeg.family === "nba_spread" ||
+          winnerLeg.family === "nfl_spread") &&
         winnerLeg.line !== null &&
-        winnerLeg.line <= -1.5 &&
-        otherLeg.line < 2
+        Number.isFinite(winnerLeg.line) &&
+        winnerLeg.line < 0 &&
+        otherLeg.line <= Math.abs(winnerLeg.line)
       ) {
         return {
           allowed: false,
           code: "logical_contradiction",
-          reason: `Contradicción lógica: cubrir «${winnerLeg.label}» exige diferencia de 2+ y choca con «${otherLeg.label}».`,
+          reason: `Contradicción lógica: cubrir «${winnerLeg.label}» exige margen superior al total permitido por «${otherLeg.label}».`,
           conflictingLegId: a.id,
         };
       }
@@ -792,6 +1036,41 @@ export function checkBetBuilderPairCompatibility(
     }
   }
 
+  // 4f. Córners por equipo Over X vs Córners totales Under Y (X >= Y es físicamente imposible)
+  const teamCornersLeg = pair.find(
+    (x) => x.axis === "corners_home" || x.axis === "corners_away",
+  );
+  const totalCornersLeg = pair.find((x) => x.axis === "corners_total");
+  if (
+    teamCornersLeg &&
+    totalCornersLeg &&
+    teamCornersLeg.direction === "over" &&
+    totalCornersLeg.direction === "under" &&
+    teamCornersLeg.line !== null &&
+    totalCornersLeg.line !== null &&
+    Number.isFinite(teamCornersLeg.line) &&
+    Number.isFinite(totalCornersLeg.line) &&
+    (teamCornersLeg.line >= totalCornersLeg.line ||
+      minIntForOver(teamCornersLeg.line) > maxIntForUnder(totalCornersLeg.line))
+  ) {
+    return {
+      allowed: false,
+      code: "logical_contradiction",
+      reason: `Contradicción lógica: los córners de un equipo («${teamCornersLeg.label}») no pueden superar el total de córners («${totalCornersLeg.label}»).`,
+      conflictingLegId: a.id,
+    };
+  }
+
+  // 4g. Validador exacto de factibilidad entera `(h, a)` en `[0..15]×[0..15]` para fútbol
+  if (a.sport === "football" && b.sport === "football" && !hasFeasibleFootballScore([a, b])) {
+    return {
+      allowed: false,
+      code: "logical_contradiction",
+      reason: `Contradicción lógica: ningún marcador final satisface simultáneamente «${a.label}» y «${b.label}».`,
+      conflictingLegId: a.id,
+    };
+  }
+
   return { allowed: true };
 }
 
@@ -799,6 +1078,8 @@ export function checkBetBuilderPairCompatibility(
  * Comprueba contradicciones multi-pierna dentro de un mismo partido (3+ selecciones):
  * - Empate + Ambos anotan No + Más de 0.5 goles (el único empate sin ambos anotan es 0-0).
  * - Local Más de 0.5 goles + Visita Más de 0.5 goles + Ambos anotan No.
+ * - Cualquier cesta de fútbol sin marcador entero `(h, a)` factible en `[0..15]×[0..15]`.
+ * - Córners Local Over X + Córners Visita Over Y + Córners Totales Under Z imposibles.
  */
 function checkSameGameBasketContradiction(
   legs: readonly BetBuilderLegInput[],
@@ -824,6 +1105,42 @@ function checkSameGameBasketContradiction(
   if (hasBttsNo && homeScores && awayScores) {
     return "Contradicción lógica multi-pierna: si ambos equipos anotan al menos 1 gol, «Ambos anotan: No» es imposible.";
   }
+
+  const cornersHomeOver = legs.find(
+    (l) =>
+      l.axis === "corners_home" &&
+      l.direction === "over" &&
+      l.line !== null &&
+      Number.isFinite(l.line),
+  );
+  const cornersAwayOver = legs.find(
+    (l) =>
+      l.axis === "corners_away" &&
+      l.direction === "over" &&
+      l.line !== null &&
+      Number.isFinite(l.line),
+  );
+  const cornersTotalUnder = legs.find(
+    (l) =>
+      l.axis === "corners_total" &&
+      l.direction === "under" &&
+      l.line !== null &&
+      Number.isFinite(l.line),
+  );
+  if (
+    cornersHomeOver &&
+    cornersAwayOver &&
+    cornersTotalUnder &&
+    minIntForOver(cornersHomeOver.line!) + minIntForOver(cornersAwayOver.line!) >
+      maxIntForUnder(cornersTotalUnder.line!)
+  ) {
+    return "Contradicción lógica multi-pierna: la suma mínima de córners por equipo supera el máximo permitido en córners totales.";
+  }
+
+  if (legs.every((l) => l.sport === "football") && !hasFeasibleFootballScore(legs)) {
+    return "Contradicción lógica multi-pierna: ningún marcador final satisface simultáneamente todas las selecciones combinadas del partido.";
+  }
+
   return null;
 }
 
@@ -929,7 +1246,7 @@ export function getPairwiseCorrelationRho(
   const [x, y] = a.axis <= b.axis ? [a, b] : [b, a];
   const pairKey = `${x.axis}|${y.axis}`;
 
-  // 1) Goles totales ↔ Ambos anotan (fuerte acoplamiento)
+  // 1) Goles totales ↔ Ambos anotan / Goles por equipo (fuerte acoplamiento)
   if (pairKey === "btts|goals_total") {
     const sign = directionSign(x) * directionSign(y);
     const rho = 0.52 * sign;
@@ -939,6 +1256,29 @@ export function getPairwiseCorrelationRho(
         rho > 0
           ? "Más goles totales y ambos anotan se refuerzan directamente."
           : "Goles totales y ambos anotan tiran en direcciones opuestas.",
+    };
+  }
+  if (
+    pairKey === "goals_total|team_goals_home" ||
+    pairKey === "goals_total|team_goals_away"
+  ) {
+    const rho = 0.54 * directionSign(x) * directionSign(y);
+    return {
+      rho,
+      explanation:
+        rho > 0
+          ? "Los goles de un equipo forman parte directa del total del partido."
+          : "Goles de un equipo y total del partido apuntan en direcciones opuestas.",
+    };
+  }
+  if (pairKey === "btts|team_goals_home" || pairKey === "btts|team_goals_away") {
+    const rho = 0.42 * directionSign(x) * directionSign(y);
+    return {
+      rho,
+      explanation:
+        rho > 0
+          ? "La producción goleadora de un equipo refuerza que ambos equipos anoten."
+          : "Goles de equipo y ambos anotan apuntan en sentidos opuestos.",
     };
   }
 
@@ -1248,12 +1588,15 @@ export function evaluateBetBuilder(
   }
 
   const byGame = new Map<string, BetBuilderLegInput[]>();
+  const sanitizedLegs: BetBuilderLegInput[] = [];
   let independentProbability = 1;
   for (const leg of legs) {
-    const p = clamp(leg.p, 0.01, 0.99);
+    const p = clamp(Number.isFinite(leg.p) ? leg.p : 0.5, 0.01, 0.99);
+    const sanitizedLeg: BetBuilderLegInput = { ...leg, p };
+    sanitizedLegs.push(sanitizedLeg);
     independentProbability *= p;
     const list = byGame.get(leg.gameId) ?? [];
-    list.push({ ...leg, p });
+    list.push(sanitizedLeg);
     byGame.set(leg.gameId, list);
   }
 
@@ -1325,8 +1668,16 @@ export function evaluateBetBuilder(
     }
   }
 
-  jointProbability = clamp(jointProbability, 0.0001, 0.99);
-  independentProbability = clamp(independentProbability, 0.0001, 0.99);
+  independentProbability = clamp(
+    Number.isFinite(independentProbability) ? independentProbability : 0.0001,
+    0.0001,
+    0.99,
+  );
+  jointProbability = clamp(
+    Number.isFinite(jointProbability) ? jointProbability : independentProbability,
+    0.0001,
+    0.99,
+  );
   const correlationMultiplier = round4(jointProbability / independentProbability);
   const correlationDirection: BetBuilderEvaluation["correlationDirection"] =
     sgpGamesCount === 0
@@ -1343,7 +1694,7 @@ export function evaluateBetBuilder(
   const offeredBookDecimal =
     typeof options.offeredBookDecimal === "number" &&
     Number.isFinite(options.offeredBookDecimal) &&
-    options.offeredBookDecimal > 1.001
+    options.offeredBookDecimal >= 1.01
       ? round2(options.offeredBookDecimal)
       : null;
   const evPct =
@@ -1374,7 +1725,7 @@ export function evaluateBetBuilder(
         "Correlación negativa detectada: algunas selecciones del mismo partido se restan probabilidad entre sí.",
     });
   }
-  const unconfirmedProp = legs.find(
+  const unconfirmedProp = sanitizedLegs.find(
     (l) => l.axis === "player_prop" && l.lineupStatus !== "confirmed",
   );
   if (unconfirmedProp) {
@@ -1384,7 +1735,7 @@ export function evaluateBetBuilder(
       message: `Alineación aún no confirmada oficialmente para «${unconfirmedProp.label}».`,
     });
   }
-  const weakest = legs.reduce((min, l) => (l.p < min.p ? l : min), legs[0]!);
+  const weakest = sanitizedLegs.reduce((min, l) => (l.p < min.p ? l : min), sanitizedLegs[0]!);
   if (weakest.p < 0.35) {
     warnings.push({
       code: "longshot_leg",

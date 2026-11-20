@@ -71,12 +71,19 @@ const DEFAULT_MAX_VISITOR_LOCKED_SLOTS = 8;
 
 /**
  * Redacta un pick bloqueado bajo la política `Cero-Fuga`:
- * ninguna probabilidad, cuota justa/casa, EV, ventaja, lado, línea, evidencia ni jugador
- * se serializa hacia visitantes sin Pase PitchLab Ultra activo.
+ * ninguna probabilidad, cuota justa/casa, EV, ventaja, lado, línea, evidencia, eje direccional
+ * ni jugador se serializa hacia visitantes sin Pase PitchLab Ultra activo.
  */
-export function redactCatalogPickForVisitor(item: CatalogPickItem): CatalogPickItem {
+export function redactCatalogPickForVisitor(
+  item: CatalogPickItem,
+  slotIdx?: number,
+): CatalogPickItem {
+  const opaqueId =
+    typeof slotIdx === "number" && Number.isInteger(slotIdx) && slotIdx >= 0
+      ? `${item.gameId}__locked__${item.family}__${slotIdx}`
+      : `${item.gameId}__locked__${item.family}`;
   return {
-    id: item.id,
+    id: opaqueId,
     gameId: item.gameId,
     league: item.league,
     leagueLabel: item.leagueLabel,
@@ -88,7 +95,7 @@ export function redactCatalogPickForVisitor(item: CatalogPickItem): CatalogPickI
     family: item.family,
     familyLabel: item.familyLabel,
     category: item.category,
-    axis: item.axis,
+    axis: item.family,
     selectionKey: "locked",
     label: "Selección reservada Pase PitchLab Ultra",
     line: null,
@@ -287,6 +294,7 @@ export function buildServerMatchPicksCatalog(
   );
 
   const openPicks: CatalogPickItem[] = [];
+  const seenOpenIds = new Set<string>();
   const redactedByFamily = new Map<MarketFamilyId, CatalogPickItem>();
 
   for (const item of catalog.picks) {
@@ -295,9 +303,12 @@ export function buildServerMatchPicksCatalog(
       Boolean(item.isTipsterWeeklyOpen) ||
       unlockedIds.has(item.id);
     if (isUnlocked) {
-      openPicks.push(item);
+      if (!seenOpenIds.has(item.id)) {
+        seenOpenIds.add(item.id);
+        openPicks.push(item);
+      }
     } else if (!redactedByFamily.has(item.family) && redactedByFamily.size < maxLockedSlots) {
-      redactedByFamily.set(item.family, redactCatalogPickForVisitor(item));
+      redactedByFamily.set(item.family, redactCatalogPickForVisitor(item, redactedByFamily.size));
     }
   }
 

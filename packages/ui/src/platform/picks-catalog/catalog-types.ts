@@ -118,7 +118,8 @@ export const CATALOG_CATEGORY_LABELS: Readonly<Record<CatalogCategoryKey, string
   player_props: "Player Props",
 };
 
-/** Eje lógico fino usado por la matriz de compatibilidad y correlación SGP (Bet Builder). */
+/** Eje lógico fino usado por la matriz de compatibilidad y correlación SGP (Bet Builder).
+ * Incluye `MarketFamilyId` para neutralizar el eje al valor de familia en slots redactados (`Cero-Fuga`). */
 export type PickAxisKey =
   | "result_ft"
   | "result_ht"
@@ -145,7 +146,8 @@ export type PickAxisKey =
   | "points_total"
   | "runs_total"
   | "f5_totals"
-  | "exact_score";
+  | "exact_score"
+  | MarketFamilyId;
 
 export type PickDirection =
   | "home"

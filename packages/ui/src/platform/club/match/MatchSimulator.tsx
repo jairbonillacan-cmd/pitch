@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { normalCdf } from "../../spacetime-markets";
 import type { PlatformGame } from "../../types";
 import {
   mulberry32,
@@ -84,7 +85,17 @@ export function MatchSimulator({ game }: { game: PlatformGame }): React.JSX.Elem
     !game.x12 ||
     game.hasForecast === false ||
     !Number.isFinite(game.projection.home) ||
-    !Number.isFinite(game.projection.away)
+    !Number.isFinite(game.projection.away) ||
+    game.projection.home <= 0 ||
+    game.projection.away <= 0 ||
+    !Number.isFinite(game.x12[0]) ||
+    !Number.isFinite(game.x12[1]) ||
+    !Number.isFinite(game.x12[2]) ||
+    game.x12[0] < 0 ||
+    game.x12[1] < 0 ||
+    game.x12[2] < 0 ||
+    game.x12[0] + game.x12[1] + game.x12[2] <= 0 ||
+    (!sportHasDraw(game.sport) && game.x12[0] + game.x12[2] <= 0)
   ) {
     return null;
   }
@@ -162,8 +173,11 @@ function MatchSimulatorInner({
     const awayExpected = Math.max(0.05, baseAwayExpected * (1 + awayAdjPct / 100));
     const baseTwoWay = modelProbs.home + modelProbs.away;
     const basePHome = baseTwoWay > 0 ? clamp01(modelProbs.home / baseTwoWay) : 0.5;
+    const marginSd = game.sport === "basketball" ? 11.5 : 13.5;
     const pHome = isAdjusted
-      ? clamp01(homeExpected / Math.max(0.0001, homeExpected + awayExpected))
+      ? isPoints
+        ? clamp01(normalCdf((homeExpected - awayExpected) / marginSd))
+        : clamp01(homeExpected / Math.max(0.0001, homeExpected + awayExpected))
       : basePHome;
     return {
       sport: game.sport,
@@ -171,7 +185,7 @@ function MatchSimulatorInner({
       awayExpected,
       pHome,
     };
-  }, [game.sport, baseHomeExpected, baseAwayExpected, homeAdjPct, awayAdjPct, modelProbs, isAdjusted]);
+  }, [game.sport, baseHomeExpected, baseAwayExpected, homeAdjPct, awayAdjPct, modelProbs, isAdjusted, isPoints]);
 
   const handleAdjustHome = useCallback(
     (next: number) => {

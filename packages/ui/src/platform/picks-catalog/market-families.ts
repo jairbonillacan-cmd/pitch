@@ -617,22 +617,26 @@ function logGamma(z: number): number {
 
 /** PMF exacta de Binomial Negativa `NB(mean = mu, dispersion = r)` para `k = 0..maxK`. */
 function negBinomPmfArray(mu: number, r: number, maxK: number): number[] {
-  const safeMu = Math.max(0.02, mu);
-  const safeR = Math.max(0.5, r);
+  const safeMu = Number.isFinite(mu) ? Math.max(0.001, mu) : 0.02;
+  const safeR = Number.isFinite(r) ? Math.max(0.001, r) : 0.5;
+  const safeMaxK = Number.isFinite(maxK) ? Math.max(1, Math.min(110, Math.floor(maxK))) : 25;
   const logP = Math.log(safeR / (safeR + safeMu));
   const logQ = Math.log(safeMu / (safeR + safeMu));
   const lgR = logGamma(safeR);
 
-  const pmf = new Array<number>(maxK + 1);
+  const pmf = new Array<number>(safeMaxK + 1);
   let sum = 0;
-  for (let k = 0; k <= maxK; k += 1) {
+  for (let k = 0; k <= safeMaxK; k += 1) {
     const lp = logGamma(k + safeR) - logGamma(k + 1) - lgR + safeR * logP + k * logQ;
-    const val = Math.exp(lp);
+    const val = Number.isFinite(lp) ? Math.exp(lp) : 0;
     pmf[k] = val;
     sum += val;
   }
-  if (sum > 0) {
-    for (let k = 0; k <= maxK; k += 1) pmf[k] = pmf[k]! / sum;
+  if (sum > 0 && Number.isFinite(sum)) {
+    for (let k = 0; k <= safeMaxK; k += 1) pmf[k] = pmf[k]! / sum;
+  } else {
+    pmf.fill(0);
+    pmf[0] = 1;
   }
   return pmf;
 }
@@ -643,10 +647,15 @@ function negBinomOverUnder(
   dispersionR: number,
   line: number,
 ): { readonly pOver: number; readonly pUnder: number; readonly pPush: number } {
-  const maxK = Math.max(25, Math.ceil(mu + 6 * Math.sqrt(mu + (mu * mu) / dispersionR) + 8));
-  const pmf = negBinomPmfArray(mu, dispersionR, Math.min(maxK, 110));
-  const isInt = Math.abs(line - Math.round(line)) < 1e-6;
-  const intLine = Math.round(line);
+  const safeMu = Number.isFinite(mu) ? Math.max(0.001, mu) : 0.001;
+  const safeR = Number.isFinite(dispersionR) ? Math.max(0.001, dispersionR) : 0.5;
+  const safeLine = Number.isFinite(line) ? line : 0.5;
+  const variance = safeMu + (safeMu * safeMu) / safeR;
+  const rawMaxK = Math.ceil(safeMu + 6 * Math.sqrt(Math.max(0, variance)) + 8);
+  const maxK = Number.isFinite(rawMaxK) ? clamp(rawMaxK, 25, 110) : 110;
+  const pmf = negBinomPmfArray(safeMu, safeR, maxK);
+  const isInt = Math.abs(safeLine - Math.round(safeLine)) < 1e-6;
+  const intLine = Math.round(safeLine);
 
   let pUnder = 0;
   let pPush = 0;
@@ -654,7 +663,7 @@ function negBinomOverUnder(
   for (let k = 0; k < pmf.length; k += 1) {
     const pk = pmf[k]!;
     if (isInt && k === intLine) pPush += pk;
-    else if (k < line) pUnder += pk;
+    else if (k < safeLine) pUnder += pk;
     else pOver += pk;
   }
   const active = Math.max(1e-6, pOver + pUnder);
@@ -790,7 +799,7 @@ function buildQuoteIndex(
 
   for (const row of markets) {
     const dec =
-      typeof row.currentDecimal === "number" && Number.isFinite(row.currentDecimal) && row.currentDecimal > 1.001
+      typeof row.currentDecimal === "number" && Number.isFinite(row.currentDecimal) && row.currentDecimal >= 1.01
         ? row.currentDecimal
         : null;
     if (dec === null && !Number.isFinite(row.p)) continue;
@@ -813,7 +822,7 @@ function buildQuoteIndex(
   const stMarket = game.spacetime?.market;
   if (stMarket) {
     const book = stMarket.bookLabel.split(" · ")[0]?.trim() ?? stMarket.bookLabel;
-    if (stMarket.odds.home > 1.001) {
+    if (stMarket.odds.home >= 1.01) {
       put("1x2|home", {
         decimal: stMarket.odds.home,
         bookLabel: book,
@@ -825,7 +834,7 @@ function buildQuoteIndex(
         capturedAtUtc: stMarket.asOfUtc,
       });
     }
-    if (stMarket.odds.draw !== null && stMarket.odds.draw > 1.001) {
+    if (stMarket.odds.draw !== null && stMarket.odds.draw >= 1.01) {
       put("1x2|draw", {
         decimal: stMarket.odds.draw,
         bookLabel: book,
@@ -837,7 +846,7 @@ function buildQuoteIndex(
         capturedAtUtc: stMarket.asOfUtc,
       });
     }
-    if (stMarket.odds.away > 1.001) {
+    if (stMarket.odds.away >= 1.01) {
       put("1x2|away", {
         decimal: stMarket.odds.away,
         bookLabel: book,
@@ -860,7 +869,7 @@ function lookupQuote(
 ): IndexedQuote | null {
   for (const k of keys) {
     const found = quoteIndex.get(k);
-    if (found && found.decimal > 1.001) return found;
+    if (found && found.decimal >= 1.01) return found;
   }
   return null;
 }
@@ -876,18 +885,54 @@ function lookupPublishedProb(
   return null;
 }
 
+function parseLineFromKey(key: string): number | null {
+  const trimmed = key.trim().toLowerCase();
+  const direct = trimmed.match(/(?:_|\s)([+-]?\d+(?:\.\d+)?)$/);
+  if (direct?.[1]) {
+    const n = Number(direct[1]);
+    if (Number.isFinite(n)) return n;
+  }
+  const underscoreDec = trimmed.match(/(?:_|\s)([+-]?\d+)_(\d+)$/);
+  if (underscoreDec?.[1] && underscoreDec?.[2]) {
+    const n = Number(`${underscoreDec[1]}.${underscoreDec[2]}`);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+}
+
 function findMatchingPrimaryPick(
   game: PlatformGame,
   family: MarketFamilyId,
   selectionKey: string,
   line: number | null,
+  claimedPrimaryIds: ReadonlySet<string>,
 ): MatchPick | null {
   const sNorm = selectionKey.toLowerCase();
+  const targetTotalDir =
+    sNorm === "over" || sNorm.startsWith("over_")
+      ? "over"
+      : sNorm === "under" || sNorm.startsWith("under_")
+        ? "under"
+        : null;
+
   for (const pk of game.picks) {
+    if (claimedPrimaryIds.has(pk.id)) continue;
     const pm = (pk.market ?? "").toLowerCase();
     const ps = pk.selectionKey.toLowerCase();
+    const explicitPkLine =
+      typeof pk.line === "number" && Number.isFinite(pk.line) ? pk.line : null;
+    const psLine = parseLineFromKey(ps);
+    const pmLine = parseLineFromKey(pm);
+    if (explicitPkLine !== null && psLine !== null && Math.abs(explicitPkLine - psLine) >= 0.01) {
+      continue;
+    }
+    const pkLine = explicitPkLine ?? psLine ?? pmLine;
     const sameLine =
-      line === null || pk.line == null ? true : Math.abs(pk.line - line) < 0.01;
+      line === null
+        ? true
+        : family === "dnb"
+          ? pkLine === null || Math.abs(pkLine - line) < 0.01
+          : pkLine !== null && Math.abs(pkLine - line) < 0.01;
 
     if (!sameLine) continue;
     if (
@@ -910,12 +955,25 @@ function findMatchingPrimaryPick(
         family === "mlb_totals" ||
         family === "nhl_totals" ||
         family === "nfl_totals") &&
-      pm === "totals" &&
-      (ps === sNorm || ps.startsWith(sNorm.split("_")[0] ?? ""))
+      (pm === "totals" || pm === family || pm.startsWith("totals_") || pm === "over_under")
+    ) {
+      const pkTotalDir =
+        ps === "over" || ps.startsWith("over_")
+          ? "over"
+          : ps === "under" || ps.startsWith("under_")
+            ? "under"
+            : null;
+      if (ps === sNorm || (targetTotalDir !== null && pkTotalDir === targetTotalDir)) {
+        return pk;
+      }
+    }
+    if (
+      family === "team_totals" &&
+      pm.startsWith("team_") &&
+      (ps === sNorm || ps === sNorm.replace(/_[+-]?\d+(?:\.\d+)?$/, ""))
     ) {
       return pk;
     }
-    if (family === "team_totals" && pm.startsWith("team_") && ps === sNorm) return pk;
     if (
       (family === "asian_handicap" ||
         family === "nba_spread" ||
@@ -923,7 +981,7 @@ function findMatchingPrimaryPick(
         family === "nhl_puck_line" ||
         family === "nfl_spread") &&
       (pm.includes("spread") || pm.includes("handicap") || pm.includes("puck") || pm.includes("run")) &&
-      ps === sNorm
+      (ps === sNorm || ((ps === "home" || ps === "away") && sNorm.startsWith(`${ps}_`)))
     ) {
       return pk;
     }
@@ -1093,6 +1151,7 @@ interface EmitPickArgs {
   readonly marketDecimal?: number | null;
   readonly companionMarketDecimals?: readonly number[] | null;
   readonly companionIndex?: number;
+  readonly companionProbSum?: number;
   readonly marketBookLabel?: string | null;
   readonly marketCapturedAtUtc?: string | null;
   readonly bookQuotes?: readonly BookQuoteItem[];
@@ -1155,6 +1214,8 @@ export function buildMatchPicksCatalog(
 
   const picks: CatalogPickItem[] = [];
   const seenKeys = new Set<string>();
+  const seenIds = new Set<string>();
+  const claimedPrimaryIds = new Set<string>();
 
   const emit = (args: EmitPickArgs) => {
     const spec = MARKET_FAMILIES[args.family];
@@ -1162,12 +1223,22 @@ export function buildMatchPicksCatalog(
     if (seenKeys.has(dedupKey)) return;
     seenKeys.add(dedupKey);
 
-    const primaryMatch = findMatchingPrimaryPick(game, args.family, args.selectionKey, args.line);
+    const primaryMatch = findMatchingPrimaryPick(
+      game,
+      args.family,
+      args.selectionKey,
+      args.line,
+      claimedPrimaryIds,
+    );
+    if (primaryMatch) {
+      claimedPrimaryIds.add(primaryMatch.id);
+    }
     const pricing = computePickPricing({
       calibratedProb: args.p,
       marketDecimal: args.marketDecimal ?? primaryMatch?.marketDecimal ?? null,
       companionMarketDecimals: args.companionMarketDecimals ?? null,
       companionIndex: args.companionIndex,
+      companionProbSum: args.companionProbSum,
       marketBookLabel: args.marketBookLabel ?? primaryMatch?.marketBookLabel ?? null,
       marketCapturedAtUtc: args.marketCapturedAtUtc ?? primaryMatch?.marketCapturedAtUtc ?? null,
       deVigPreference: deVigPref,
@@ -1200,7 +1271,9 @@ export function buildMatchPicksCatalog(
     });
 
     const lineTag = args.line !== null ? `__${args.line}` : "";
-    const id = primaryMatch?.id ?? `${game.id}__cat__${args.family}__${args.selectionKey}${lineTag}`;
+    const fallbackId = `${game.id}__cat__${args.family}__${args.selectionKey}${lineTag}`;
+    const id = primaryMatch?.id && !seenIds.has(primaryMatch.id) ? primaryMatch.id : fallbackId;
+    seenIds.add(id);
 
     picks.push({
       id,
@@ -1352,7 +1425,7 @@ function emitFootballCatalog(
     isDerived: false,
   });
 
-  // (2) double_chance
+  // (2) double_chance (las 3 vías 1X + X2 + 12 suman probabilidad teórica 2.0)
   const q1X = lookupQuote(quoteIndex, ["double_chance|1x"]);
   const qX2 = lookupQuote(quoteIndex, ["double_chance|x2"]);
   const q12 = lookupQuote(quoteIndex, ["double_chance|12"]);
@@ -1367,6 +1440,7 @@ function emitFootballCatalog(
     marketDecimal: q1X?.decimal ?? null,
     companionMarketDecimals: dcComp,
     companionIndex: 0,
+    companionProbSum: 2,
     marketBookLabel: q1X?.bookLabel,
     marketCapturedAtUtc: q1X?.capturedAtUtc,
     bookQuotes: q1X?.bookQuotes,
@@ -1382,6 +1456,7 @@ function emitFootballCatalog(
     marketDecimal: qX2?.decimal ?? null,
     companionMarketDecimals: dcComp,
     companionIndex: 1,
+    companionProbSum: 2,
     marketBookLabel: qX2?.bookLabel,
     marketCapturedAtUtc: qX2?.capturedAtUtc,
     bookQuotes: qX2?.bookQuotes,
@@ -1397,6 +1472,7 @@ function emitFootballCatalog(
     marketDecimal: q12?.decimal ?? null,
     companionMarketDecimals: dcComp,
     companionIndex: 2,
+    companionProbSum: 2,
     marketBookLabel: q12?.bookLabel,
     marketCapturedAtUtc: q12?.capturedAtUtc,
     bookQuotes: q12?.bookQuotes,
@@ -2125,7 +2201,7 @@ function emitFootballPlayerProps(
   const candidates: FootballPlayerPropCandidateInput[] = [...(context.footballPlayers ?? [])];
   const explicitKeys = new Set(candidates.map((c) => normalizeName(c.playerName)));
 
-  // Convertir PlayerPropItem existentes del partido sin mutar la entrada
+  // Convertir PlayerPropItem existentes del partido sin mutar la entrada (solo con minutos reales verificados)
   const fromItemsByPlayer = new Map<
     string,
     {
@@ -2133,6 +2209,7 @@ function emitFootballPlayerProps(
       teamSide: "home" | "away";
       teamName: string;
       position: string;
+      avgMinutes: number | null;
       matchLogs: Array<{
         minutesPlayed: number;
         shots?: number;
@@ -2156,6 +2233,25 @@ function emitFootballPlayerProps(
     if (!statKey) continue;
     const pKey = normalizeName(pp.player);
     if (explicitKeys.has(pKey)) continue;
+
+    // Guardia estricta minMinutes >= 45: fallar cerrado si faltan minutos reales (cero minutos sintéticos)
+    const rawCarrier = pp as typeof pp & {
+      readonly minutesPlayed?: readonly number[];
+      readonly avgMinutes?: number | null;
+      readonly minutesPerGame?: number | null;
+    };
+    const realMinutesLog = Array.isArray(rawCarrier.minutesPlayed)
+      ? rawCarrier.minutesPlayed
+      : null;
+    if (!realMinutesLog || realMinutesLog.length === 0) continue;
+    const realAvgMinutes =
+      typeof rawCarrier.avgMinutes === "number" && Number.isFinite(rawCarrier.avgMinutes)
+        ? rawCarrier.avgMinutes
+        : typeof rawCarrier.minutesPerGame === "number" &&
+            Number.isFinite(rawCarrier.minutesPerGame)
+          ? rawCarrier.minutesPerGame
+          : null;
+
     const isHome =
       pp.teamSlug === game.home.slug || normalizeName(pp.teamName) === normalizeName(game.home.name);
 
@@ -2166,6 +2262,7 @@ function emitFootballPlayerProps(
         teamSide: isHome ? "home" : "away",
         teamName: pp.teamName,
         position: pp.position,
+        avgMinutes: realAvgMinutes,
         matchLogs: [],
         marketQuotes: {},
       };
@@ -2174,7 +2271,9 @@ function emitFootballPlayerProps(
 
     for (let i = 0; i < pp.last10.length; i += 1) {
       const val = pp.last10[i]!;
-      const log = bucket.matchLogs[i] ?? { minutesPlayed: 75 };
+      const rawMins = realMinutesLog[i];
+      const realMins = typeof rawMins === "number" && Number.isFinite(rawMins) ? rawMins : Number.NaN;
+      const log = bucket.matchLogs[i] ?? { minutesPlayed: realMins };
       if (statKey === "shots") log.shots = val;
       else if (statKey === "shots_on_target") log.shotsOnTarget = val;
       else if (statKey === "goal_or_assist") log.goals = val;
@@ -2185,8 +2284,8 @@ function emitFootballPlayerProps(
 
     bucket.marketQuotes[statKey] = {
       line: pp.baseLine,
-      overDecimal: pp.marketOverDecimal > 1.01 ? pp.marketOverDecimal : null,
-      underDecimal: pp.marketUnderDecimal > 1.01 ? pp.marketUnderDecimal : null,
+      overDecimal: pp.marketOverDecimal >= 1.01 ? pp.marketOverDecimal : null,
+      underDecimal: pp.marketUnderDecimal >= 1.01 ? pp.marketUnderDecimal : null,
     };
   }
 
@@ -2197,7 +2296,7 @@ function emitFootballPlayerProps(
       teamName: bucket.teamName,
       position: bucket.position,
       minMinutes: FOOTBALL_PROP_MIN_MINUTES,
-      avgMinutes: 75,
+      avgMinutes: bucket.avgMinutes,
       matchLogs: bucket.matchLogs,
       marketQuotes: bucket.marketQuotes,
     });
@@ -2213,7 +2312,12 @@ function emitFootballPlayerProps(
   ];
 
   for (const cand of candidates) {
-    const minMinutesGuard = Math.max(FOOTBALL_PROP_MIN_MINUTES, cand.minMinutes ?? FOOTBALL_PROP_MIN_MINUTES);
+    const minMinutesGuard = Math.max(
+      FOOTBALL_PROP_MIN_MINUTES,
+      typeof cand.minMinutes === "number" && Number.isFinite(cand.minMinutes)
+        ? cand.minMinutes
+        : FOOTBALL_PROP_MIN_MINUTES,
+    );
     const lineupCheck = resolveLineupStatusForPlayer(
       game,
       cand.playerName,
@@ -2222,7 +2326,7 @@ function emitFootballPlayerProps(
     );
     if (lineupCheck.isRuledOut) continue;
 
-    // Guardia estricta de minutos >= 45
+    // Guardia estricta de minutos >= 45 (falla cerrado si faltan minutos o son NaN)
     const qualifiedLogs = cand.matchLogs
       ? cand.matchLogs.filter((l) => Number.isFinite(l.minutesPlayed) && l.minutesPlayed >= minMinutesGuard)
       : null;
@@ -2230,10 +2334,11 @@ function emitFootballPlayerProps(
     if (qualifiedLogs !== null) {
       if (qualifiedLogs.length < 3) continue;
     } else if (
-      cand.avgMinutes === null ||
-      cand.avgMinutes === undefined ||
+      typeof cand.avgMinutes !== "number" ||
+      !Number.isFinite(cand.avgMinutes) ||
       cand.avgMinutes < minMinutesGuard ||
       !cand.seasonTotals ||
+      !Number.isFinite(cand.seasonTotals.appearances) ||
       cand.seasonTotals.appearances < 3
     ) {
       continue;
@@ -2635,12 +2740,23 @@ function emitNbaPlayerProps(
     const key = normalizeName(pp.player);
     let bucket = byPlayer.get(key);
     if (!bucket) {
+      const rawCarrier = pp as typeof pp & {
+        readonly avgMinutes?: number | null;
+        readonly minutesPerGame?: number | null;
+      };
+      const realAvgMinutes =
+        typeof rawCarrier.avgMinutes === "number" && Number.isFinite(rawCarrier.avgMinutes)
+          ? rawCarrier.avgMinutes
+          : typeof rawCarrier.minutesPerGame === "number" &&
+              Number.isFinite(rawCarrier.minutesPerGame)
+            ? rawCarrier.minutesPerGame
+            : null;
       bucket = {
         playerName: pp.player,
         teamSide: isHome ? "home" : "away",
         teamName: pp.teamName,
         position: pp.position,
-        avgMinutes: 28,
+        avgMinutes: realAvgMinutes,
         statProjections: {},
       };
       byPlayer.set(key, bucket);
@@ -2651,8 +2767,8 @@ function emitNbaPlayerProps(
         mean: pp.projectionMean,
         sd: pp.projectionSd,
         last10: pp.last10,
-        overDecimal: pp.marketOverDecimal > 1.01 ? pp.marketOverDecimal : null,
-        underDecimal: pp.marketUnderDecimal > 1.01 ? pp.marketUnderDecimal : null,
+        overDecimal: pp.marketOverDecimal >= 1.01 ? pp.marketOverDecimal : null,
+        underDecimal: pp.marketUnderDecimal >= 1.01 ? pp.marketUnderDecimal : null,
       };
     }
   }
@@ -2662,7 +2778,12 @@ function emitNbaPlayerProps(
   const statOrder: readonly NbaPlayerPropStatKey[] = ["PTS", "REB", "AST", "3PM"];
 
   for (const cand of candidates) {
-    const minMinutes = Math.max(NBA_PROP_DEFAULT_MIN_MINUTES, cand.minMinutes ?? NBA_PROP_DEFAULT_MIN_MINUTES);
+    const minMinutes = Math.max(
+      NBA_PROP_DEFAULT_MIN_MINUTES,
+      typeof cand.minMinutes === "number" && Number.isFinite(cand.minMinutes)
+        ? cand.minMinutes
+        : NBA_PROP_DEFAULT_MIN_MINUTES,
+    );
     const lineupCheck = resolveLineupStatusForPlayer(
       game,
       cand.playerName,
@@ -2675,8 +2796,16 @@ function emitNbaPlayerProps(
       ? cand.matchLogs.filter((l) => Number.isFinite(l.minutesPlayed) && l.minutesPlayed >= minMinutes)
       : null;
 
-    if (qualifiedLogs !== null && qualifiedLogs.length < 3) continue;
-    if (qualifiedLogs === null && cand.avgMinutes != null && cand.avgMinutes < minMinutes) continue;
+    // Guardia estricta de minutos >= 18 en NBA (fallar cerrado ante minutos faltantes o NaN)
+    if (qualifiedLogs !== null) {
+      if (qualifiedLogs.length < 3) continue;
+    } else if (
+      typeof cand.avgMinutes !== "number" ||
+      !Number.isFinite(cand.avgMinutes) ||
+      cand.avgMinutes < minMinutes
+    ) {
+      continue;
+    }
 
     const playerSlug =
       cand.playerSlug ?? normalizeName(cand.playerName).replace(/\s+/g, "-");

@@ -77,26 +77,99 @@ export function resolveFinishedPickAuditStatus(
   if (pick.result === "miss") return "lost";
   if (!score) return "pending";
 
-  const market = `${pick.market ?? ""} ${pick.marketGroup ?? ""}`.toLowerCase();
+  const rawMarket = (pick.market ?? "").toLowerCase().trim();
+  const market = `${rawMarket} ${pick.marketGroup ?? ""}`.toLowerCase();
   const sel = (pick.selectionKey ?? "").toLowerCase();
   const lbl = pick.label.toLowerCase();
 
+  const isDoubleChance =
+    rawMarket === "double_chance" ||
+    market.includes("double_chance") ||
+    market.includes("doble oportunidad") ||
+    market.includes("doble op") ||
+    sel === "1x" ||
+    sel === "x2" ||
+    sel === "12" ||
+    sel === "home_or_draw" ||
+    sel === "away_or_draw" ||
+    sel === "home_or_away" ||
+    lbl.includes("doble oportunidad") ||
+    lbl.includes("(1x)") ||
+    lbl.includes("(x2)") ||
+    lbl.includes("(12)");
+
   const isDnb =
-    market.includes("dnb") ||
-    lbl.includes("sin empate") ||
-    lbl.includes("empate no acción") ||
-    lbl.includes("empate no accion");
+    !isDoubleChance &&
+    (rawMarket === "dnb" ||
+      rawMarket === "draw_no_bet" ||
+      market.includes("dnb") ||
+      market.includes("draw_no_bet") ||
+      lbl.includes("empate no acción") ||
+      lbl.includes("empate no accion") ||
+      (lbl.includes("sin empate") && !/\s+o\s+/.test(lbl)));
   if (isDnb && score.home === score.away) {
     return "push";
   }
 
   if (typeof pick.line === "number" && Number.isFinite(pick.line) && Number.isInteger(pick.line)) {
+    const isNonFullGameTotal =
+      rawMarket.startsWith("team_") ||
+      market.includes("team_total") ||
+      market.includes("team_goal") ||
+      market.includes("por equipo") ||
+      market.includes("corner") ||
+      market.includes("córner") ||
+      market.includes("card") ||
+      market.includes("yellow") ||
+      market.includes("tarjeta") ||
+      market.includes("foul") ||
+      market.includes("falta") ||
+      market.includes("shot") ||
+      market.includes("sot") ||
+      market.includes("remate") ||
+      market.includes("tiro") ||
+      market.includes("prop") ||
+      market.includes("jugador") ||
+      market.includes("f5") ||
+      market.includes("ht_") ||
+      market.includes("1h_") ||
+      market.includes("2h_") ||
+      market.includes("1p_") ||
+      market.includes("first_half") ||
+      market.includes("half_time") ||
+      market.includes("second_half") ||
+      market.includes("first_period") ||
+      market.includes("combo_") ||
+      sel.startsWith("home_") ||
+      sel.startsWith("away_") ||
+      sel.startsWith("f5_") ||
+      sel.startsWith("ht_") ||
+      sel.startsWith("1h_") ||
+      sel.startsWith("2h_") ||
+      sel.startsWith("1p_") ||
+      /\b(córners|corners|tarjetas|amarillas|faltas|remates|tiros|a puerta|f5|5 entradas|1t|2t|1\.er tiempo|primer tiempo|segunda mitad|pts|reb|ast|3pm|asistencias|rebotes|triples)\b/.test(
+        lbl,
+      );
+
+    const isFullGameTotalMarket =
+      rawMarket === "totals" ||
+      rawMarket === "nba_totals" ||
+      rawMarket === "mlb_totals" ||
+      rawMarket === "nhl_totals" ||
+      rawMarket === "nfl_totals" ||
+      rawMarket === "over_under" ||
+      rawMarket === "ou" ||
+      /^totals_\d/.test(rawMarket);
+
     const isTotal =
-      market.includes("total") ||
-      pick.conflictGroup === "over_total" ||
-      pick.conflictGroup === "under_total" ||
-      lbl.includes("más de") ||
-      lbl.includes("menos de");
+      !isNonFullGameTotal &&
+      (isFullGameTotalMarket ||
+        (!rawMarket &&
+          (market.includes("total") ||
+            pick.conflictGroup === "over_total" ||
+            pick.conflictGroup === "under_total" ||
+            lbl.includes("más de") ||
+            lbl.includes("menos de"))));
     if (isTotal && score.home + score.away === pick.line) {
       return "push";
     }
@@ -273,7 +346,7 @@ export function computeJournalEntryEvPct(
   ) {
     return null;
   }
-  const impliedFairP = Math.min(0.99, Math.max(0.01, 1 / entry.fairDecimal));
+  const impliedFairP = 1 / entry.fairDecimal;
   return computePickEvPct(impliedFairP, entry.userDecimal);
 }
 
@@ -281,10 +354,15 @@ export function computeJournalEntryEvPct(
 export function computeJournalSettlementUnits(
   entry: Pick<JournalEntry, "status" | "units" | "userDecimal">,
 ): number | null {
-  if (entry.status === "won") return Math.round(entry.units * (entry.userDecimal - 1) * 100) / 100;
-  if (entry.status === "lost") return Math.round(-entry.units * 100) / 100;
   if (entry.status === "void") return 0;
-  return null;
+  if (entry.status !== "won" && entry.status !== "lost") return null;
+  if (!Number.isFinite(entry.units) || entry.units < 0) return null;
+  if (entry.status === "won") {
+    if (!Number.isFinite(entry.userDecimal) || entry.userDecimal <= 1) return null;
+    return Math.round(entry.units * (entry.userDecimal - 1) * 100) / 100;
+  }
+  if (!Number.isFinite(entry.userDecimal) || entry.userDecimal <= 1) return null;
+  return entry.units === 0 ? 0 : Math.round(-entry.units * 100) / 100;
 }
 
 /** Casa de apuestas real capturada en el pick (nunca inventada). */
@@ -359,13 +437,19 @@ export function computeJournalMarketFamilyBreakdown(
       clvCount: 0,
     };
 
+    const validUnits = Number.isFinite(entry.units) && entry.units >= 0;
+    const validOdds = Number.isFinite(entry.userDecimal) && entry.userDecimal > 1;
     if (entry.status === "won") {
       row.won += 1;
       row.total += 1;
-      row.netUnits += entry.units * (entry.userDecimal - 1);
+      if (validUnits && validOdds) {
+        row.netUnits += entry.units * (entry.userDecimal - 1);
+      }
     } else if (entry.status === "lost") {
       row.total += 1;
-      row.netUnits -= entry.units;
+      if (validUnits && validOdds) {
+        row.netUnits -= entry.units;
+      }
     } else if (entry.status === "void") {
       row.pushes += 1;
     } else {
@@ -387,17 +471,20 @@ export function computeJournalMarketFamilyBreakdown(
 
   return Array.from(buckets.values())
     .filter((r) => r.total > 0 || r.pushes > 0)
-    .map((r) => ({
-      key: r.key,
-      label: r.label,
-      won: r.won,
-      total: r.total,
-      pushes: r.pushes,
-      pending: r.pending,
-      netUnits: Math.round(r.netUnits * 100) / 100,
-      avgEvPct: r.evCount > 0 ? Math.round((r.evSum / r.evCount) * 10) / 10 : null,
-      avgClvPct: r.clvCount > 0 ? Math.round((r.clvSum / r.clvCount) * 10) / 10 : null,
-    }))
+    .map((r) => {
+      const roundedNet = Math.round(r.netUnits * 100) / 100;
+      return {
+        key: r.key,
+        label: r.label,
+        won: r.won,
+        total: r.total,
+        pushes: r.pushes,
+        pending: r.pending,
+        netUnits: roundedNet === 0 ? 0 : roundedNet,
+        avgEvPct: r.evCount > 0 ? Math.round((r.evSum / r.evCount) * 10) / 10 : null,
+        avgClvPct: r.clvCount > 0 ? Math.round((r.clvSum / r.clvCount) * 10) / 10 : null,
+      };
+    })
     .sort((a, b) => b.total + b.pushes - (a.total + a.pushes));
 }
 

@@ -86,24 +86,33 @@ export interface DeVigComputationResult {
 
 /**
  * Remoción proporcional (multiplicativa) del margen de casa sobre cuotas decimales (2 o 3 vías).
+ * Para mercados cuyas probabilidades teóricas suman `2.0` (Doble Oportunidad `1X + X2 + 12`),
+ * pasar `targetProbSum = 2` normaliza contra `sum / 2`.
  */
 export function computeProportionalDeVig(
   decimals: readonly number[],
+  targetProbSum = 1,
 ): DeVigComputationResult | null {
   if (decimals.length < 2) return null;
+  const target = Number.isFinite(targetProbSum) && targetProbSum > 0 ? targetProbSum : 1;
   const implied: number[] = [];
   let sum = 0;
   for (const d of decimals) {
-    if (!Number.isFinite(d) || d <= 1.001) return null;
+    if (!Number.isFinite(d) || d < 1.01) return null;
     const q = 1 / d;
     implied.push(q);
     sum += q;
   }
-  if (sum < MIN_DE_VIG_IMPLIED_SUM || sum > MAX_DE_VIG_IMPLIED_SUM) return null;
+  const effectiveSum = sum / target;
+  if (effectiveSum < MIN_DE_VIG_IMPLIED_SUM || effectiveSum > MAX_DE_VIG_IMPLIED_SUM) return null;
+  const probs = implied.map((q) => round4(q / effectiveSum));
+  if (target !== 1 && probs.some((p) => !Number.isFinite(p) || p <= 0 || p >= 1)) {
+    return null;
+  }
   return {
-    probs: implied.map((q) => round4(q / sum)),
+    probs,
     method: "proportional",
-    overroundPct: round2((sum - 1) * 100),
+    overroundPct: round2((effectiveSum - 1) * 100),
   };
 }
 
@@ -119,7 +128,7 @@ export function computeShinDeVig(
   const q: number[] = [];
   let sumQ = 0;
   for (const d of decimals) {
-    if (!Number.isFinite(d) || d <= 1.001) return null;
+    if (!Number.isFinite(d) || d < 1.01) return null;
     const qi = 1 / d;
     q.push(qi);
     sumQ += qi;
@@ -175,13 +184,18 @@ export function computeShinDeVig(
 /**
  * Selecciona el método de de-vig óptimo:
  * - `"auto"`: Shin cuando el overround es >= 3.5 % (casas recreativas) y proporcional en
- *   mercados sharp (< 3.5 %).
+ *   mercados sharp (< 3.5 %). Para mercados con suma teórica distinta de 1 (p. ej. Doble
+ *   Oportunidad con `targetProbSum = 2`), aplica siempre normalización proporcional.
  */
 export function computeAdaptiveDeVig(
   decimals: readonly number[],
   preference: "auto" | "proportional" | "shin" = "auto",
+  targetProbSum = 1,
 ): DeVigComputationResult | null {
   if (decimals.length < 2) return null;
+  if (targetProbSum !== 1) {
+    return computeProportionalDeVig(decimals, targetProbSum);
+  }
   if (preference === "proportional") return computeProportionalDeVig(decimals);
   if (preference === "shin") return computeShinDeVig(decimals) ?? computeProportionalDeVig(decimals);
 
@@ -198,6 +212,8 @@ export interface ComputePickPricingInput {
   readonly marketDecimal?: number | null;
   readonly companionMarketDecimals?: readonly number[] | null;
   readonly companionIndex?: number;
+  /** Suma teórica de probabilidades de las vías compañeras (`1` por defecto; `2` para `double_chance`). */
+  readonly companionProbSum?: number;
   readonly marketBookLabel?: string | null;
   readonly marketCapturedAtUtc?: string | null;
   readonly deVigPreference?: "auto" | "proportional" | "shin";
@@ -222,7 +238,7 @@ export function computePickPricing(input: ComputePickPricingInput): PickPricingM
   const validMarket =
     typeof input.marketDecimal === "number" &&
     Number.isFinite(input.marketDecimal) &&
-    input.marketDecimal > 1.001
+    input.marketDecimal >= 1.01
       ? round2(input.marketDecimal)
       : null;
 
@@ -239,6 +255,7 @@ export function computePickPricing(input: ComputePickPricingInput): PickPricingM
     const devig = computeAdaptiveDeVig(
       input.companionMarketDecimals,
       input.deVigPreference ?? "auto",
+      input.companionProbSum ?? 1,
     );
     if (devig && idx >= 0 && idx < devig.probs.length) {
       deVigMarketProb = devig.probs[idx] ?? null;
@@ -447,14 +464,25 @@ function gradeScoreOutcome(params: {
   const total = h + a;
 
   switch (family) {
-    case "1x2":
+    case "1x2": {
+      if (sel === "home" || sel === "1") return h > a ? "hit" : "miss";
+      if (sel === "away" || sel === "2") return a > h ? "hit" : "miss";
+      if (sel === "draw" || sel === "x") return h === a ? "hit" : "miss";
+      return null;
+    }
+
     case "nba_moneyline":
     case "mlb_moneyline":
     case "nhl_moneyline":
     case "nfl_moneyline": {
-      if (sel === "home" || sel === "1") return h > a ? "hit" : "miss";
-      if (sel === "away" || sel === "2") return a > h ? "hit" : "miss";
-      if (sel === "draw" || sel === "x") return h === a ? "hit" : "miss";
+      if (sel === "home" || sel === "1") {
+        if (h === a) return "push";
+        return h > a ? "hit" : "miss";
+      }
+      if (sel === "away" || sel === "2") {
+        if (h === a) return "push";
+        return a > h ? "hit" : "miss";
+      }
       return null;
     }
 
@@ -768,11 +796,11 @@ function evaluateRecordListWindow(params: {
     if (res === "hit") hits += 1;
     else if (res === "push") pushes += 1;
 
-    if (params.family === "totals" || params.family.endsWith("_totals")) {
-      valueSum += rec.goalsFor + rec.goalsAgainst;
-      valueCount += 1;
-    } else if (params.family === "team_totals") {
+    if (params.family === "team_totals") {
       valueSum += rec.goalsFor;
+      valueCount += 1;
+    } else if (params.family === "totals" || params.family.endsWith("_totals")) {
+      valueSum += rec.goalsFor + rec.goalsAgainst;
       valueCount += 1;
     } else if (params.family === "corners_total" && rec.cornersFor != null && rec.cornersAgainst != null) {
       valueSum += rec.cornersFor + rec.cornersAgainst;
