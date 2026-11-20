@@ -1,3 +1,4 @@
+import "../shell-ergonomics.css";
 import React from "react";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
@@ -105,10 +106,12 @@ export default async function ClubAppLayout({
   }
 
   const state = await loadClubPlatformState("member");
-  const showExpiredPassGate =
+  const passExpired =
     access.via === "account" &&
     !access.fullAccess &&
-    !access.isAdmin &&
+    !access.isAdmin;
+  const showExpiredPassGate =
+    passExpired &&
     !isAllowedRecoveryRoute(safeNext);
 
   return (
@@ -130,7 +133,18 @@ export default async function ClubAppLayout({
           paymentMode={state.paymentMode}
         />
       ) : (
-        <ClubShellBridge>{children}</ClubShellBridge>
+        <ClubShellBridge
+          expiredPassGate={
+            passExpired
+              ? {
+                  memberHandle: state.viewerIdentity?.handle ?? null,
+                  paymentMode: state.paymentMode,
+                }
+              : null
+          }
+        >
+          {children}
+        </ClubShellBridge>
       )}
     </PlatformClientBridge>
   );

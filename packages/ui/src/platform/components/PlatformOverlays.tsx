@@ -941,7 +941,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
           </div>
 
           <div
-            className={`share-ticket-card relative overflow-hidden mx-auto flex flex-col justify-between transition-all duration-200 ${
+            className={`share-ticket-card relative overflow-hidden mx-auto flex flex-col justify-between transition-[transform,opacity] duration-200 ${
               aspect === "9:16" ? "px-5 py-7" : "p-5"
             }`}
             style={{

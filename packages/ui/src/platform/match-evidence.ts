@@ -353,7 +353,7 @@ export function buildEnrichedMatchPicks(
   const combined: Array<{ pick: MatchPick; primary: boolean }> = [];
 
   for (const pk of game.picks) {
-    const key = norm(pk.label);
+    const key = pk.isRedacted ? pk.id : norm(pk.label);
     if (seenLabels.has(key)) continue;
     seenLabels.add(key);
     combined.push({ pick: pk, primary: true });

@@ -76,7 +76,12 @@ self.addEventListener("activate", (event) => {
             .map((name) => caches.delete(name)),
         ),
       )
-      .then(() => self.clients.claim()),
+      .then(() => {
+        if (purgeAllLocal && self.registration && typeof self.registration.unregister === "function") {
+          return self.registration.unregister();
+        }
+        return self.clients.claim();
+      }),
   );
 });
 

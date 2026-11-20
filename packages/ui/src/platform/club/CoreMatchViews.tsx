@@ -266,7 +266,7 @@ function buildFallbackLeagueNews(
         title: `${g.home.name} vs ${g.away.name} (${shortDateLabel(g.dayId)} · ${g.kickoffLocal})`,
         summary: g.preGame.cortexSynthesis,
         publishedAtLabel: `${shortDateLabel(g.dayId)} · ${g.kickoffLocal}`,
-        badge: g.confidenceScore ? `Conf. ${g.confidenceScore}` : g.round,
+        badge: g.round,
         team: {
           slug: g.home.slug,
           name: g.home.name,

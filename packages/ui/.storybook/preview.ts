@@ -17,6 +17,9 @@ import "../../../apps/web/app/pre-match.css";
 import "../../../apps/web/app/live.css";
 import "../../../apps/web/app/data-health.css";
 import "../../../apps/web/app/sport-outlook.css";
+import "../../../apps/web/app/picks-screener.css";
+import "../../../apps/web/app/atomic-sofascore.css";
+import "../../../apps/web/app/shell-ergonomics.css";
 
 /* Tema de PitchLab en la barra de Storybook: cambia data-theme en <html>
    sobre el modo sólido unificado, que leen los tokens, shadcn y HeroUI a la vez. */

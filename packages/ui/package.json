@@ -61,7 +61,10 @@
     "./prop-streak-card": "./src/platform/components/PlayerPropStreakCard.tsx",
     "./route-skeletons": "./src/platform/components/RouteSkeletons.tsx",
     "./navigation-helpers": "./src/platform/navigation-helpers.ts",
-    "./swipe-dismiss": "./src/platform/components/use-sheet-swipe-dismiss.ts"
+    "./swipe-dismiss": "./src/platform/components/use-sheet-swipe-dismiss.ts",
+    "./picks-catalog": "./src/platform/picks-catalog/index.ts",
+    "./atomic": "./src/platform/atomic/index.ts",
+    "./picks-components": "./src/platform/club/picks/index.ts"
   },
   "scripts": {
     "build": "tsc --noEmit",

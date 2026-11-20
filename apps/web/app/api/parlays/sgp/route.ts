@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import type { SgpLegInput } from "@pitchlab/spacetime/v5";
-import { checkEndpointRateLimit, trustedClientIp } from "../../../../src/server/request-security";
+import {
+  checkEndpointRateLimit,
+  trustedClientIp,
+  verifySameOriginMutation,
+} from "../../../../src/server/request-security";
 import { evaluateSgpCopulaV5 } from "../../../../src/server/spacetime-v5";
+import { getViewerAccess } from "../../../../src/server/viewer-access";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -34,6 +39,17 @@ interface SgpRequestBody {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: true });
+  if (originErr) return originErr;
+
+  const access = await getViewerAccess();
+  if (access.via === "none") {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+  if (!access.fullAccess) {
+    return NextResponse.json({ error: "pase_requerido" }, { status: 403 });
+  }
+
   const rate = await checkEndpointRateLimit({
     bucket: "parlays-sgp-eval",
     key: trustedClientIp(request.headers) || "local",

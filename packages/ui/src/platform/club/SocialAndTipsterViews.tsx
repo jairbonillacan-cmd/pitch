@@ -864,7 +864,7 @@ export function TipsterPortalClubView({
               >
                 <button
                   type="button"
-                  className="seg-btn text-xs min-h-9 px-3"
+                  className="seg-btn text-xs min-h-11 sm:min-h-9 px-3"
                   aria-pressed={previewRatio === "4:5"}
                   onClick={() => setPreviewRatio("4:5")}
                 >
@@ -872,7 +872,7 @@ export function TipsterPortalClubView({
                 </button>
                 <button
                   type="button"
-                  className="seg-btn text-xs min-h-9 px-3"
+                  className="seg-btn text-xs min-h-11 sm:min-h-9 px-3"
                   aria-pressed={previewRatio === "9:16"}
                   onClick={() => setPreviewRatio("9:16")}
                 >
@@ -883,7 +883,7 @@ export function TipsterPortalClubView({
 
             <div
               ref={previewCardRef}
-              className={`share-ticket-card glass-ring p-6 flex flex-col justify-between transition-all ${
+              className={`share-ticket-card glass-ring p-6 flex flex-col justify-between transition-[transform,opacity,background-color,border-color] ${
                 previewRatio === "9:16" ? "min-h-[468px]" : "min-h-[382px]"
               }`}
             >

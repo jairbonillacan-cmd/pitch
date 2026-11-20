@@ -393,7 +393,7 @@ function loadAnalysisAndResultNews(
             : `Lectura previa publicada para el ${formatTimestampEs(game.startTime)}.`,
         ),
         publishedAtLabel: formatTimestampEs(game.startTime),
-        badge: analysis.confidence ? `Conf. ${analysis.confidence.score}` : `${favPct} %`,
+        badge: `${favPct} %`,
         team: {
           slug: favSlug,
           name: favTeam.name,

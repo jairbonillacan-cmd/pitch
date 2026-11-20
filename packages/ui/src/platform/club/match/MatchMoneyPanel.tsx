@@ -178,7 +178,7 @@ function OddsMovementSparkline({
               type="button"
               aria-pressed={r.id === active.id}
               onClick={() => setSelectedId(r.id)}
-              className={`pl-pill text-[11px] min-h-8 px-2.5 cursor-pointer ${r.id === active.id ? "pl-pill--brand" : ""}`.trim()}
+              className={`pl-pill text-[11px] min-h-11 sm:min-h-8 px-2.5 cursor-pointer ${r.id === active.id ? "pl-pill--brand" : ""}`.trim()}
             >
               {r.label}
             </button>

@@ -22,7 +22,12 @@ import type {
   TeamComparisonPayload,
 } from "@pitchlab/ui/compare";
 import { hydratePlayerLivePerformance } from "./player-live-stats";
-import { loadLeagueSnapshotEnvelope, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
+import {
+  loadLeagueSnapshotEnvelope,
+  PRODUCT_LEAGUES,
+  resolveSnapshotsRoot,
+  type ProductLeague,
+} from "./snapshots";
 import { loadPlayerProfile, loadTeamProfile } from "./team-profile";
 
 function mexicoCityTodayIso(now: Date = new Date()): string {
@@ -87,8 +92,10 @@ export function buildCompareLeagueCatalog(options?: { todayIso?: string }): Comp
 }
 
 export function listComparePlayersForLeague(leagueRaw: string): ComparePlayerOption[] {
+  const normalized = leagueRaw.trim().toLowerCase();
+  if (!(PRODUCT_LEAGUES as readonly string[]).includes(normalized)) return [];
   const root = resolveSnapshotsRoot();
-  const filePath = path.join(root, leagueRaw, "squads.json");
+  const filePath = path.join(root, normalized, "squads.json");
   if (!fs.existsSync(filePath)) return [];
   try {
     const parsed = LeagueSquadsFileSchema.safeParse(JSON.parse(fs.readFileSync(filePath, "utf8")));

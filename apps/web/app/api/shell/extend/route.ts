@@ -18,7 +18,7 @@ export async function GET(): Promise<NextResponse> {
   return NextResponse.json(payload, {
     status: 200,
     headers: {
-      "Cache-Control": "private, max-age=30",
+      "Cache-Control": "private, no-store",
     },
   });
 }

@@ -16,7 +16,6 @@ import type {
   PlatformMarketRow,
   PlayerPropItem,
 } from "@pitchlab/ui/types";
-// Listo para conmutar a `"@pitchlab/ui/picks-catalog"` al registrarse el subpath en `packages/ui/package.json`.
 import {
   buildMatchPicksCatalog,
   type CatalogBuildContext,
@@ -27,7 +26,7 @@ import {
   type MatchPicksCatalog,
   type NbaPlayerPropCandidateInput,
   type TeamMatchEvidenceRecord,
-} from "../../../../packages/ui/src/platform/picks-catalog";
+} from "@pitchlab/ui/picks-catalog";
 
 export interface ServerMatchPicksCatalogOptions {
   /** `true` para socios autenticados; `false` aplica redacción estricta Cero-Fuga. */

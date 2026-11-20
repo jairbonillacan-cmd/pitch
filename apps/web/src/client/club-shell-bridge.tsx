@@ -3,10 +3,22 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ClubLayoutShell } from "@pitchlab/ui/club-shell";
+import { ExpiredPassGate } from "@pitchlab/ui/expired-pass";
 import { clearRouteScroll, readRouteScroll } from "@pitchlab/ui/navigation-helpers";
+import type { PaymentMode } from "@pitchlab/ui/types";
 
 /** Las 4 páginas del menú principal: se precargan para que el clic sea inmediato. */
 const PRIMARY_ROUTES = ["/app", "/app/parlays", "/app/social", "/app/lab"] as const;
+
+function isAllowedRecoveryPath(rawPath: string): boolean {
+  const pathOnly = (rawPath.split(/[?#]/, 1)[0] ?? "/").replace(/\/+$/, "") || "/";
+  return (
+    pathOnly === "/app/account" ||
+    pathOnly.startsWith("/app/account/") ||
+    pathOnly === "/app/canjear" ||
+    pathOnly.startsWith("/app/canjear/")
+  );
+}
 
 function resetWindowScrollToTop(): void {
   if (typeof window === "undefined") return;
@@ -20,8 +32,19 @@ function resetWindowScrollToTop(): void {
  * Monta el encabezado y la barra lateral una sola vez en el layout de /app.
  * Al avanzar entre pantallas sube al inicio; al volver atrás (`popstate` / botón Atrás)
  * restaura la posición de scroll guardada (ADR-053).
+ * Si el pase venció (`expiredPassGate`), reevalúa la ruta en cada transición cliente para
+ * impedir saltarse `ExpiredPassGate` desde `/app/account` o `/app/canjear`.
  */
-export function ClubShellBridge({ children }: { children: React.ReactNode }): React.JSX.Element {
+export function ClubShellBridge({
+  children,
+  expiredPassGate = null,
+}: {
+  children: React.ReactNode;
+  expiredPassGate?: {
+    memberHandle: string | null;
+    paymentMode: PaymentMode;
+  } | null;
+}): React.JSX.Element {
   const pathname = usePathname() ?? "/app";
   const router = useRouter();
   const prevPathnameRef = useRef<string>(pathname);
@@ -57,6 +80,7 @@ export function ClubShellBridge({ children }: { children: React.ReactNode }): Re
   }, [pathname]);
 
   useEffect(() => {
+    if (expiredPassGate) return;
     // Precarga completa (datos incluidos): las páginas son dinámicas, así que la precarga
     // parcial por defecto solo traería el esqueleto de carga.
     const idle =
@@ -71,6 +95,15 @@ export function ClubShellBridge({ children }: { children: React.ReactNode }): Re
     // Solo al montar el layout: las rutas precargadas quedan en la caché del router.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (expiredPassGate && !isAllowedRecoveryPath(pathname)) {
+    return (
+      <ExpiredPassGate
+        memberHandle={expiredPassGate.memberHandle}
+        paymentMode={expiredPassGate.paymentMode}
+      />
+    );
+  }
 
   return <ClubLayoutShell activePath={pathname}>{children}</ClubLayoutShell>;
 }
