@@ -1486,9 +1486,14 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - **Chequeo en vivo sobre `next start` (producción local):**
     - `localizeInjuryLabelEs` en `Análisis IA` (`?tab=ia`): `0` fugas de inglés en Bundesliga (`Bayern vs Köln`) y NFL (`Houston vs Indianapolis`: `Baja, Isquiotibiales`, `Duda, Muñeca`, `Duda, Enfermedad`).
     - Latencias medidas (`status 200`, `0` errores de consola/página): `/app` frío `TTFB 247 ms` / hidratado `763 ms` (caliente `179 ms` / `586 ms`); ficha partido Bundesliga frío `284 ms` / `736 ms` (caliente `279 ms` / `601 ms`); ficha NFL `220 ms` / `566 ms`; `/app/parlays` frío `230 ms` / `553 ms` (caliente `202 ms` / `493 ms`).
-- **Pendiente (requiere acción / decisión Go-No-Go del fundador previo al merge `gemini-dos` → `main`):**
-  1. **Checklist operativo de producción (Neon / Vercel / GitHub Actions):**
-     - Ejecutar `scripts/migrate-prod.ps1` en Neon producción para aplicar `0023_comunidad_hilos_y_seguidos.sql` y `0024_liquidacion_parlays_push_embudo.sql`.
-     - Confirmar secretos/variables en Vercel y GitHub Actions (`BZZOIRO_API_KEY`, `BZZOIRO_UNLIMITED=1`, `THE_ODDS_API_KEY`, `RESEND_API_KEY`, `CRON_SECRET`, `VAPID_PUBLIC_KEY`, `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `UNSUBSCRIBE_SECRET`, `TURNSTILE_*`, `PITCHLAB_TRANSFER_*`, `PITCHLAB_ADMIN_EMAILS`, `VERCEL_DEPLOY_HOOK_URL`).
-     - Revisión jurídica final (`LEGAL-1`) y confirmación explícita del fundador para fusionar `gemini-dos` → `main` (conciliando los cortes automáticos de datos del día en `origin/main` y regenerando `shell-index.json` si aplica) y activar los crons.
-     - (Opcional posterior) Correr el prompt **UI → Motor** en el repo `prediction-lab` para la siguiente iteración de Spacetime.
+- **Integración a `main`, Neon y cierre de GitHub Actions (2026-11-19):**
+  - Merge `gemini-dos` → `main` (`a1cd7184`) + ajuste Opción A en `apps/web/vercel.json` (`b153dcc9`, crons diarios en Vercel Hobby + ejecución 3–10×/día vía `odds-refresh.yml`) + `timeout-minutes: 35` en `.github/workflows/ci.yml` (antes cortaba a los 20 min durante los 48 E2E).
+  - **Migraciones Neon producción aplicadas (`lively-cloud-08121218`, rama `main` / `neondb`, región `us-east-1`):** `0023_comunidad_hilos_y_seguidos` y `0024_liquidacion_parlays_push_embudo` verificadas (`25/25` aplicadas, `0` pendientes; tablas `closing_odds`, `cortex_cache`, `funnel_events`, `push_subscriptions`, `social_comment_likes` presentes).
+  - **GitHub Actions configurado:** secretos cargados (`BZZOIRO_API_KEY`, `CRON_SECRET`, `FIVEDOLLAR_FOOTBALL_API_KEY`, `FOOTBALL_DATA_API_KEY`, `OPENROUTER_API_KEY`) y variables (`OPENROUTER_MODEL`, `PITCHLAB_AI_ENABLED`).
+- **Pendiente (requiere acción / decisión del fundador):**
+  1. **Últimos parámetros en GitHub Actions / Hosting:**
+     - Confirmar URL pública de producción (`PITCHLAB_SITE_URL` en GitHub Secrets) para activar el disparo automático de `/api/cron/settle-picks` y `/api/cron/push-alerts` al cerrar cada `odds-refresh.yml`, y confirmar si el plan de Bzzoiro es comercial ilimitado (`vars.BZZOIRO_UNLIMITED=1`).
+     - Opcionales en GitHub Secrets si se habilitan alertas de salud/momios NFL/hook: `THE_ODDS_API_KEY`, `RESEND_API_KEY`, `EMAIL_FROM`, `PITCHLAB_ADMIN_EMAILS`, `VERCEL_DEPLOY_HOOK_URL`.
+     - Confirmar en hosting de producción (Vercel o migración a Google Cloud Run `us-east4` + Cloud Scheduler + Cloud Storage) las variables de runtime (`VAPID_*`, `UNSUBSCRIBE_SECRET`, `TURNSTILE_*`, `PITCHLAB_TRANSFER_*`, `PITCHLAB_ADMIN_EMAILS`).
+  2. **Revisión jurídica final (`LEGAL-1`)** antes de recibir cobros comerciales reales.
+  3. *(Opcional posterior)* Correr el prompt **UI → Motor** en el repo `prediction-lab` para la siguiente iteración de Spacetime.
