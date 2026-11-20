@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import { Writable } from "node:stream";
 import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToPipeableStream, renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import {
   LeagueSnapshotSchema,
@@ -412,7 +413,30 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(decimalComma.text).toBe(plusEdge.text);
   });
 
-  it("renders Public & Club surfaces cleanly in SSR without leaking forbidden terms", () => {
+  it("renders Public & Club surfaces cleanly in SSR without leaking forbidden terms", async () => {
+    const renderHtmlAsync = (element: React.ReactElement): Promise<string> =>
+      new Promise((resolve, reject) => {
+        const chunks: Buffer[] = [];
+        const writable = new Writable({
+          write(chunk, _enc, cb) {
+            chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+            cb();
+          },
+        });
+        const { pipe } = renderToPipeableStream(element, {
+          onAllReady() {
+            pipe(writable);
+          },
+          onError(err) {
+            reject(err);
+          },
+        });
+        writable.on("finish", () =>
+          resolve(Buffer.concat(chunks).toString("utf8").replace(/<!--\s*-->/g, "")),
+        );
+        writable.on("error", reject);
+      });
+
     const redacted = redactDatasetForVisitor(dataset);
     const firstGame = dataset.games[0]!;
     const heroCards = buildHeroLeagueCards(dataset.games, dataset.leagues);
@@ -447,6 +471,17 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
       </PlatformProvider>,
     );
 
+    // ADR-051: la pestaña «Análisis IA» (`LazyCortexAnalysisCard`) se monta bajo demanda con `initialTab="ia"`.
+    const matchIaHtml = await renderHtmlAsync(
+      <PlatformProvider dataset={dataset} initialRole="member">
+        <MatchStudioClubView
+          leagueId={firstGame.league}
+          gameId={firstGame.id}
+          initialTab="ia"
+        />
+      </PlatformProvider>,
+    );
+
     expect(landingAndMenuHtml).toContain("Lo más probable de cada partido, con su momio justo.");
     expect(landingAndMenuHtml).toContain("Tachyon");
     expect(landingAndMenuHtml).toContain("Singularity");
@@ -471,14 +506,19 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     }
 
     expect(tipsterPickHtml).toContain("data-locked-pick");
-    expect(clubHtml).toContain("Cortex IA");
+    expect(matchIaHtml).toContain("Cortex IA");
     expect(clubHtml).toContain("los dos reciben +7 días");
     // Tipsters y comunidad de demostración siempre van marcados como ejemplo
     // (SOCIAL-2: cada publicación de ejemplo lleva su ficha «Ejemplo»).
     expect(clubHtml).toContain("data-example-badge");
     expect(clubHtml).not.toContain("Récord Verificado");
 
-    const combinedLower = (landingAndMenuHtml + tipsterPickHtml + clubHtml).toLowerCase();
+    const combinedLower = (
+      landingAndMenuHtml +
+      tipsterPickHtml +
+      clubHtml +
+      matchIaHtml
+    ).toLowerCase();
     for (const term of FORBIDDEN_UI_TERMS) {
       expect(combinedLower).not.toContain(term);
     }
