@@ -11,6 +11,7 @@ import {
   type PlatformSport,
 } from "@pitchlab/contracts";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../../sports";
+import { AtomicFormStrip } from "../../atomic/AtomicFormStrip";
 import { ContextualBackButton } from "../../components/ContextualBackButton";
 import { CrestPedestal, MaestroIcon } from "../../components/MaestroPrimitives";
 import { SportEventIcon } from "../../components/SportEventIcons";
@@ -320,7 +321,7 @@ export function MatchHeroScoreboard({
         <div className="pl-match-hero-actions">
           <button
             type="button"
-            className="pl-btn-glass text-xs min-h-9 px-2.5 inline-flex items-center gap-1.5"
+            className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 sm:px-2.5 inline-flex items-center gap-1.5"
             aria-label="Compartir tarjeta 9:16 del partido"
             data-share-match-story=""
             onClick={() => {
@@ -412,7 +413,7 @@ export function MatchHeroScoreboard({
               >
                 Sin pronóstico
               </strong>
-              <span className="pl-match-hero-sub">Sin pronóstico ni confianza publicados</span>
+              <span className="pl-match-hero-sub">Aún sin pronóstico publicado</span>
             </>
           ) : intelUnlocked ? (
             <>
@@ -523,7 +524,7 @@ export function MatchHeroScoreboard({
             }}
             data-empty-forecast=""
           >
-            Este snapshot aún no incluye pronóstico ni confianza publicados para este partido.
+            Este partido aún no tiene pronóstico publicado.
           </div>
         )}
       </div>
@@ -534,15 +535,6 @@ export function MatchHeroScoreboard({
           <span className="num">
             {game.dayLabel} · {game.kickoffLocal}
           </span>
-        </span>
-        <span className="pl-match-hero-meta-item">
-          <LeagueBadge
-            league={game.league}
-            label={game.leagueLabel}
-            logoUrl={game.leagueLogoUrl}
-            size={15}
-          />
-          <span>{game.leagueLabel}</span>
         </span>
         {resolvedVenue ? (
           <span className="pl-match-hero-meta-item">
@@ -687,7 +679,7 @@ export function MatchLeftRail({
           {totalSubs > 0 ? (
             <button
               type="button"
-              className="pl-pill text-[11px] cursor-pointer num"
+              className="pl-pill text-[11px] cursor-pointer num min-h-11 sm:min-h-7 px-3 sm:px-2.5"
               aria-pressed={showSubsInRail}
               onClick={() => setShowSubsInRail((prev) => !prev)}
             >
@@ -695,9 +687,7 @@ export function MatchLeftRail({
                 ? "Ocultar cambios"
                 : `${totalSubs} ${totalSubs === 1 ? "cambio" : "cambios"}`}
             </button>
-          ) : (
-            <span className="pl-pill text-[11px]">Minuto a minuto</span>
-          )}
+          ) : null}
         </div>
 
         {firstLeg ? (
@@ -833,16 +823,16 @@ export function MatchLeftRail({
                     name={game.home.shortName}
                     logoUrl={game.home.logoUrl}
                     size={18}
+                    decorative
                   />
                   <span className="text-xs font-semibold truncate">{game.home.shortName}</span>
                 </span>
-                <span className="pl-form" aria-label={`Forma ${game.home.shortName}`}>
-                  {homeForm.map((r, i) => (
-                    <span key={i} className={`pl-form-dot is-${r}`}>
-                      {r}
-                    </span>
-                  ))}
-                </span>
+                <AtomicFormStrip
+                  form={homeForm}
+                  sport={game.sport}
+                  teamName={game.home.shortName}
+                  size="sm"
+                />
               </div>
             ) : null}
             {awayForm.length > 0 ? (
@@ -854,16 +844,16 @@ export function MatchLeftRail({
                     name={game.away.shortName}
                     logoUrl={game.away.logoUrl}
                     size={18}
+                    decorative
                   />
                   <span className="text-xs font-semibold truncate">{game.away.shortName}</span>
                 </span>
-                <span className="pl-form" aria-label={`Forma ${game.away.shortName}`}>
-                  {awayForm.map((r, i) => (
-                    <span key={i} className={`pl-form-dot is-${r}`}>
-                      {r}
-                    </span>
-                  ))}
-                </span>
+                <AtomicFormStrip
+                  form={awayForm}
+                  sport={game.sport}
+                  teamName={game.away.shortName}
+                  size="sm"
+                />
               </div>
             ) : null}
           </div>

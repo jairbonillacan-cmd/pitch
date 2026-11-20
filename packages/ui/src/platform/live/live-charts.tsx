@@ -11,7 +11,14 @@
  */
 import React, { useId, useMemo, useState } from "react";
 import type { LiveIncident, LiveMomentumPoint, LiveTeamStats, LiveXgPoint } from "@pitchlab/contracts";
+import {
+  AtomicStatComparisonBar,
+  computeStatBarWidths,
+  type StatBarWidths,
+} from "../atomic/AtomicStatComparisonBar";
 import { SportEventIcon } from "../components/SportEventIcons";
+
+export { computeStatBarWidths, type StatBarWidths };
 
 const W = 640;
 const H = 168;
@@ -207,27 +214,36 @@ export function MomentumChart({
       {momentum.length > 0 ? (
         <details className="pl-live-table">
           <summary>Ver como tabla</summary>
-          <table>
-            <caption className="sr-only">Momentum cada 5 minutos</caption>
-            <thead>
-              <tr>
-                <th scope="col">Minuto</th>
-                <th scope="col">Quién empuja</th>
-                <th scope="col">Intensidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              {momentum
-                .filter((p, i) => i === momentum.length - 1 || Math.round(p.minute) % 5 === 0)
-                .map((p) => (
-                  <tr key={p.minute}>
-                    <td className="num">{formatMinute(p.minute)}</td>
-                    <td>{p.value === 0 ? "Parejo" : p.value > 0 ? homeLabel : awayLabel}</td>
-                    <td className="num">{Math.abs(Math.round(p.value))}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+          <div
+            className="pl-live-table-scroll"
+            role="region"
+            tabIndex={0}
+            aria-labelledby={`${uid}-tbl-cap`}
+          >
+            <table>
+              <caption id={`${uid}-tbl-cap`} className="sr-only">
+                Momentum cada 5 minutos
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Minuto</th>
+                  <th scope="col">Quién empuja</th>
+                  <th scope="col" className="num">Intensidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                {momentum
+                  .filter((p, i) => i === momentum.length - 1 || Math.round(p.minute) % 5 === 0)
+                  .map((p) => (
+                    <tr key={p.minute}>
+                      <th scope="row" className="num">{formatMinute(p.minute)}</th>
+                      <td>{p.value === 0 ? "Parejo" : p.value > 0 ? homeLabel : awayLabel}</td>
+                      <td className="num">{Math.abs(Math.round(p.value))}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         </details>
       ) : null}
     </figure>
@@ -308,68 +324,6 @@ const STAT_ROWS: { key: StatKey; label: string; digits?: number; pct?: boolean; 
   { key: "redCards", label: "Rojas" },
 ];
 
-export interface StatBarWidths {
-  readonly homePct: number;
-  readonly awayPct: number;
-  readonly homeNegative: boolean;
-  readonly awayNegative: boolean;
-  readonly lead: "home" | "away" | "tie";
-}
-
-/**
- * Calcula anchos limpios [0..100] para barras comparativas pareadas (ADR-054):
- * - Porcentajes (`pct`): ancho directo sobre 100 %.
- * - Métricas con signo (`signed`, ej. `Goles evitados -0.54 vs -0.44`): escala sobre `max(|h|, |a|)`
- *   para que nunca se rendericen vacías por valores negativos, marcando `homeNegative`/`awayNegative`.
- * - Conteos/acumulados positivos: proporción directa `h / (h + a)` para lectura comparativa instantánea.
- */
-export function computeStatBarWidths(
-  home: number,
-  away: number,
-  opts?: { pct?: boolean; signed?: boolean },
-): StatBarWidths {
-  const h = Number.isFinite(home) ? home : 0;
-  const a = Number.isFinite(away) ? away : 0;
-  const lead: "home" | "away" | "tie" = h > a ? "home" : a > h ? "away" : "tie";
-  const clampPct = (v: number) => Math.max(0, Math.min(100, Math.round(v * 10) / 10));
-
-  if (opts?.pct) {
-    return {
-      homePct: clampPct(h),
-      awayPct: clampPct(a),
-      homeNegative: false,
-      awayNegative: false,
-      lead,
-    };
-  }
-
-  if (opts?.signed || h < 0 || a < 0) {
-    const maxAbs = Math.max(Math.abs(h), Math.abs(a));
-    if (maxAbs <= 0) {
-      return { homePct: 0, awayPct: 0, homeNegative: false, awayNegative: false, lead: "tie" };
-    }
-    return {
-      homePct: clampPct((Math.abs(h) / maxAbs) * 100),
-      awayPct: clampPct((Math.abs(a) / maxAbs) * 100),
-      homeNegative: h < 0,
-      awayNegative: a < 0,
-      lead,
-    };
-  }
-
-  const total = h + a;
-  if (total <= 0) {
-    return { homePct: 0, awayPct: 0, homeNegative: false, awayNegative: false, lead: "tie" };
-  }
-  return {
-    homePct: clampPct((h / total) * 100),
-    awayPct: clampPct((a / total) * 100),
-    homeNegative: false,
-    awayNegative: false,
-    lead,
-  };
-}
-
 /** Barras pareadas planas estilo Sofascore con soporte real a métricas negativas. */
 export function LiveStatBars({
   stats,
@@ -389,8 +343,6 @@ export function LiveStatBars({
     return true;
   });
   if (rows.length === 0) return <></>;
-  const fmt = (v: number | null | undefined, r: (typeof STAT_ROWS)[number]) =>
-    v == null ? "—" : r.pct ? `${Math.round(v)} %` : r.digits ? v.toFixed(r.digits) : String(Math.round(v));
   return (
     <section className="pl-live-stats" aria-label="Estadísticas del partido">
       <div className="pl-live-stats-head" aria-hidden="true">
@@ -402,46 +354,20 @@ export function LiveStatBars({
         </span>
       </div>
       <dl className="pl-live-stat-list">
-        {rows.map((r) => {
-          const h = stats.home[r.key] ?? 0;
-          const a = stats.away[r.key] ?? 0;
-          const bar = computeStatBarWidths(h, a, { pct: r.pct, signed: r.signed });
-          return (
-            <div key={r.key} className="pl-live-stat">
-              <dt>{r.label}</dt>
-              <dd>
-                <span
-                  className="pl-live-stat-value num"
-                  data-lead={bar.lead === "home" ? "" : undefined}
-                >
-                  <span className="sr-only">{homeLabel}: </span>
-                  {fmt(stats.home[r.key], r)}
-                </span>
-                <span className="pl-live-stat-track pl-live-stat-track--home" aria-hidden="true">
-                  <span
-                    data-lead={bar.lead === "home" ? "true" : undefined}
-                    data-negative={bar.homeNegative ? "true" : undefined}
-                    style={{ inlineSize: `${bar.homePct}%` }}
-                  />
-                </span>
-                <span className="pl-live-stat-track pl-live-stat-track--away" aria-hidden="true">
-                  <span
-                    data-lead={bar.lead === "away" ? "true" : undefined}
-                    data-negative={bar.awayNegative ? "true" : undefined}
-                    style={{ inlineSize: `${bar.awayPct}%` }}
-                  />
-                </span>
-                <span
-                  className="pl-live-stat-value num"
-                  data-lead={bar.lead === "away" ? "" : undefined}
-                >
-                  <span className="sr-only">{awayLabel}: </span>
-                  {fmt(stats.away[r.key], r)}
-                </span>
-              </dd>
-            </div>
-          );
-        })}
+        {rows.map((r) => (
+          <AtomicStatComparisonBar
+            key={r.key}
+            label={r.label}
+            homeValue={stats.home[r.key]}
+            awayValue={stats.away[r.key]}
+            homeLabel={homeLabel}
+            awayLabel={awayLabel}
+            pct={r.pct}
+            signed={r.signed}
+            digits={r.digits}
+            asDefinitionItem
+          />
+        ))}
       </dl>
     </section>
   );

@@ -46,7 +46,12 @@
   border-radius: 999px;
   background: var(--pl-danger);
   flex-shrink: 0;
-  animation: pl-live-pulse 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-live-pulse {
+    animation: pl-live-pulse 1.6s ease-in-out infinite;
+  }
 }
 
 .pl-live-phase--halftime .pl-live-pulse {
@@ -69,10 +74,6 @@
   content: "";
   inline-size: 40px;
   flex: 0 0 40px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pl-live-pulse { animation: none; }
 }
 
 /* ---------- «Siguiendo» ---------- */
@@ -712,9 +713,23 @@
   font-size: 12px;
   color: var(--pl-text-muted);
   cursor: pointer;
-  min-block-size: 32px;
+  min-block-size: 36px;
   display: inline-flex;
   align-items: center;
+}
+
+.pl-live-table-scroll {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  margin-block-start: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--pl-border);
+}
+
+.pl-live-table-scroll:focus-visible,
+.pl-live-table summary:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
 }
 
 .pl-live-table table {
@@ -725,8 +740,12 @@
 
 .pl-live-table :is(th, td) {
   text-align: start;
-  padding: 4px 6px;
+  padding: 5px 8px;
   border-block-end: 1px solid var(--pl-border);
+}
+
+.pl-live-table :is(th, td).num {
+  text-align: end;
 }
 
 /* ---------- Barras pareadas ---------- */
@@ -1051,6 +1070,14 @@
     padding: 8px 10px;
     border-block-end: 1px solid var(--pl-border);
   }
+  .pl-live-players-table tbody th {
+    grid-column: 1 / -1;
+    padding: 2px 0;
+    border: 0;
+    font-weight: 700;
+    color: var(--pl-text);
+    white-space: normal;
+  }
   .pl-live-players-table td {
     display: flex;
     justify-content: space-between;
@@ -1064,12 +1091,17 @@
     color: var(--pl-text-muted);
     font-weight: 600;
   }
-  .pl-live-players-table td:first-child {
-    grid-column: 1 / -1;
-    font-weight: 700;
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-live-follow-btn,
+  .pl-live-chip,
+  .pl-live-tab,
+  .pl-live-table summary {
+    min-block-size: 44px;
   }
-  .pl-live-players-table td:first-child::before {
-    display: none;
+  .pl-live-follow-btn {
+    min-inline-size: 44px;
   }
 }
 }

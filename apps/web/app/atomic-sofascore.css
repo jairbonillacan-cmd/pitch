@@ -1,0 +1,1232 @@
+@layer components {
+/* ==========================================================================
+   PitchLab · Librería Atómica Plana estilo Sofascore / Apple Nativo (ADR-054+)
+   100 % tokens --pl-* (@pitchlab/tokens) · Oscuro y Claro · Cero hex ·
+   Superficies sólidas planas · Cero sombras animadas · @container queries
+   ========================================================================== */
+
+:root {
+  --pl-atom-home: var(--pl-live-home, var(--pl-aura-default-home, var(--pl-brand)));
+  --pl-atom-away: var(--pl-live-away, var(--pl-aura-default-away, var(--pl-info)));
+  --pl-atom-pitch-bg: color-mix(in oklab, var(--pl-success) 10%, var(--pl-surface-elevated));
+  --pl-atom-pitch-stroke: color-mix(in oklab, var(--pl-text) 24%, var(--pl-border-strong));
+}
+
+html[data-theme="light"] {
+  --pl-atom-pitch-bg: color-mix(in oklab, var(--pl-success) 11%, var(--pl-surface));
+  --pl-atom-pitch-stroke: color-mix(in oklab, var(--pl-text) 28%, var(--pl-border-strong));
+}
+
+/* ---------- Contenedor base plano y controles segmentados ---------- */
+
+.pl-atom-card {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius-overlay, 16px);
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.pl-atom-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--pl-text);
+  text-wrap: balance;
+}
+
+.pl-atom-sub {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pl-text-muted);
+}
+
+.pl-atom-empty {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--pl-text-muted);
+  text-wrap: pretty;
+}
+
+.pl-atom-team-dot {
+  display: inline-block;
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 999px;
+  flex: none;
+}
+.pl-atom-team-dot.is-home { background: var(--pl-atom-home); }
+.pl-atom-team-dot.is-away { background: var(--pl-atom-away); }
+
+.pl-atom-sep {
+  color: var(--pl-text-muted);
+  font-weight: 600;
+}
+
+.pl-atom-seg-group {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  max-inline-size: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pl-atom-seg-group::-webkit-scrollbar { display: none; }
+
+.pl-atom-seg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  min-block-size: 32px;
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--pl-text-secondary);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+.pl-atom-seg-btn:hover:not(:disabled) {
+  background: var(--pl-surface-hover);
+  color: var(--pl-text);
+}
+
+.pl-atom-seg-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.pl-atom-seg-btn.is-active {
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  border: 1px solid var(--pl-border-strong);
+}
+
+.pl-atom-seg-btn.is-active.is-home {
+  border-color: color-mix(in oklab, var(--pl-atom-home) 55%, var(--pl-border-strong));
+}
+
+.pl-atom-seg-btn.is-active.is-away {
+  border-color: color-mix(in oklab, var(--pl-atom-away) 55%, var(--pl-border-strong));
+}
+
+.pl-atom-seg-btn:focus-visible,
+.pl-atom-disclosure summary:focus-visible,
+.pl-atom-table-wrap:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+/* ---------- Tabla accesible en <details> (responsive-table) ---------- */
+
+.pl-atom-disclosure {
+  border-block-start: 1px solid var(--pl-border);
+  padding-block-start: 8px;
+}
+
+.pl-atom-disclosure summary {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 36px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--pl-text-secondary);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.pl-atom-disclosure summary:hover {
+  color: var(--pl-text);
+}
+
+.pl-atom-table-wrap {
+  container-type: inline-size;
+  margin-block-start: 8px;
+  overflow: auto;
+  max-inline-size: 100%;
+  max-block-size: min(360px, 60vh);
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+}
+
+.pl-atom-table {
+  inline-size: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.75rem;
+}
+
+.pl-atom-table thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  background: var(--pl-table-head-bg, var(--pl-surface-elevated));
+}
+
+.pl-atom-table th,
+.pl-atom-table td {
+  padding: 7px 10px;
+  border-block-end: 1px solid var(--pl-border);
+  text-align: start;
+  white-space: nowrap;
+  color: var(--pl-text-secondary);
+}
+
+.pl-atom-table thead th {
+  font-size: 0.6875rem;
+  font-weight: 750;
+  color: var(--pl-text-muted);
+}
+
+.pl-atom-table tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  background: var(--pl-surface);
+  font-weight: 750;
+  color: var(--pl-text);
+}
+
+.pl-atom-table :is(th, td).num {
+  text-align: end;
+}
+
+.pl-atom-table tbody tr:last-child :is(th, td) {
+  border-block-end: 0;
+}
+
+@container (width < 460px) {
+  .pl-atom-table thead {
+    display: none;
+  }
+  .pl-atom-table tbody {
+    display: grid;
+  }
+  .pl-atom-table tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 10px;
+    padding: 8px 10px;
+    border-block-end: 1px solid var(--pl-border);
+  }
+  .pl-atom-table tr:last-child {
+    border-block-end: 0;
+  }
+  .pl-atom-table tbody th {
+    position: static;
+    grid-column: 1 / -1;
+    padding: 0 0 2px;
+    border: 0;
+    background: transparent;
+    text-align: start;
+  }
+  .pl-atom-table td {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 2px 0;
+    border: 0;
+    text-align: end;
+  }
+  .pl-atom-table td::before {
+    content: attr(data-label);
+    color: var(--pl-text-muted);
+    font-weight: 650;
+    text-align: start;
+  }
+}
+
+/* ---------- 1. AtomicShotmapPitch ---------- */
+
+.pl-atom-shotmap-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pl-atom-shotmap-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+}
+
+.pl-atom-shotmap-xg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: var(--pl-text-secondary);
+}
+
+.pl-atom-shotmap-xg strong {
+  font-size: 0.875rem;
+  font-weight: 850;
+  color: var(--pl-text);
+}
+
+.pl-atom-shotmap-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pl-atom-pitch-frame {
+  position: relative;
+  inline-size: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-atom-pitch-bg);
+}
+
+.pl-atom-pitch-svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.pl-atom-pitch-grass {
+  fill: var(--pl-atom-pitch-bg);
+  stroke: var(--pl-atom-pitch-stroke);
+  stroke-width: 1.3;
+}
+
+.pl-atom-pitch-line {
+  fill: none;
+  stroke: var(--pl-atom-pitch-stroke);
+  stroke-width: 1.25;
+}
+
+.pl-atom-pitch-spot {
+  fill: var(--pl-atom-pitch-stroke);
+}
+
+.pl-atom-pitch-hint {
+  fill: var(--pl-text-muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+
+.pl-atom-shot {
+  cursor: pointer;
+}
+
+.pl-atom-shot-focus {
+  fill: none;
+  stroke: var(--pl-text);
+  stroke-width: 1.4;
+  stroke-dasharray: 2.5 2;
+}
+
+.pl-atom-shot--home { --shot-color: var(--pl-atom-home); }
+.pl-atom-shot--away { --shot-color: var(--pl-atom-away); }
+
+.pl-atom-shot--goal .pl-atom-shot-dot {
+  fill: var(--shot-color);
+  stroke: var(--pl-surface);
+  stroke-width: 1.8;
+}
+
+.pl-atom-shot-goal-ring {
+  fill: none;
+  stroke: var(--shot-color);
+  stroke-width: 1.4;
+  opacity: 0.85;
+}
+
+.pl-atom-shot-goal-core {
+  fill: var(--pl-on-solid);
+  pointer-events: none;
+}
+
+.pl-atom-shot--on_target .pl-atom-shot-dot {
+  fill: color-mix(in oklab, var(--shot-color) 36%, var(--pl-surface));
+  stroke: var(--shot-color);
+  stroke-width: 1.9;
+}
+
+.pl-atom-shot--blocked .pl-atom-shot-dot {
+  fill: var(--pl-surface);
+  stroke: var(--shot-color);
+  stroke-width: 1.5;
+  stroke-dasharray: 2.4 1.8;
+}
+
+.pl-atom-shot-block-x {
+  stroke: var(--shot-color);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.pl-atom-shot--miss .pl-atom-shot-dot {
+  fill: color-mix(in oklab, var(--shot-color) 14%, transparent);
+  stroke: var(--pl-text-muted);
+  stroke-width: 1.3;
+}
+
+.pl-atom-shot--miss.is-post .pl-atom-shot-dot {
+  stroke: var(--pl-warning);
+  stroke-width: 1.9;
+}
+
+.pl-atom-shotmap-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-block-size: 22px;
+}
+
+.pl-atom-shot-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-size: 0.72rem;
+  color: var(--pl-text-secondary);
+}
+
+.pl-atom-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pl-atom-legend-hint {
+  color: var(--pl-text-muted);
+  font-weight: 600;
+}
+
+.pl-atom-swatch {
+  display: inline-block;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 999px;
+}
+
+.pl-atom-swatch.is-goal {
+  background: var(--pl-atom-home);
+  border: 2px solid var(--pl-surface);
+  outline: 1.5px solid var(--pl-atom-home);
+}
+
+.pl-atom-swatch.is-on-target {
+  background: color-mix(in oklab, var(--pl-atom-home) 34%, var(--pl-surface));
+  border: 2px solid var(--pl-atom-home);
+}
+
+.pl-atom-swatch.is-blocked {
+  background: var(--pl-surface);
+  border: 1.5px dashed var(--pl-atom-home);
+}
+
+.pl-atom-swatch.is-miss {
+  background: color-mix(in oklab, var(--pl-text-muted) 18%, transparent);
+  border: 1.5px solid var(--pl-text-muted);
+}
+
+.pl-atom-shot-readout {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  font-size: 0.75rem;
+  color: var(--pl-text-secondary);
+}
+
+.pl-atom-shot-readout strong {
+  color: var(--pl-text);
+  font-weight: 800;
+}
+
+.pl-atom-shot-note {
+  font-size: 0.7rem;
+  color: var(--pl-text-muted);
+}
+
+/* ---------- 2. AtomicAveragePositionsPitch ---------- */
+
+.pl-atom-avgpos-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.pl-atom-avgpos-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.pl-atom-avgpos-canvas {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 420px;
+  margin-inline: auto;
+  aspect-ratio: 320 / 380;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-atom-pitch-bg);
+}
+
+.pl-atom-avgpos-block {
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+  opacity: 0.78;
+}
+.pl-atom-avgpos-block.is-home { stroke: var(--pl-atom-home); }
+.pl-atom-avgpos-block.is-away { stroke: var(--pl-atom-away); }
+
+.pl-atom-pitch-nodes {
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pl-atom-avgpos-node,
+.pl-atom-lineup-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  max-inline-size: 76px;
+  pointer-events: none;
+}
+
+.pl-atom-jersey {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: calc(28px * var(--node-scale, 1));
+  block-size: calc(28px * var(--node-scale, 1));
+  border-radius: 999px;
+  border: 2px solid var(--pl-surface);
+  font-size: 0.72rem;
+  font-weight: 850;
+  line-height: 1;
+  color: var(--pl-on-solid);
+}
+
+.pl-atom-jersey.is-home { background: var(--pl-atom-home); }
+.pl-atom-jersey.is-away { background: var(--pl-atom-away); }
+
+.pl-atom-player-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  max-inline-size: 74px;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  color: var(--pl-text);
+  font-size: 0.65rem;
+  font-weight: 750;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- 3. AtomicLineupPitch (@container size-aware-styling) ---------- */
+
+.pl-atom-lineup-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pl-atom-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 750;
+  border: 1px solid var(--pl-border);
+}
+
+.pl-atom-status-pill.is-confirmed {
+  background: var(--pl-pill-success-bg);
+  color: var(--pl-pill-success-fg);
+  border-color: var(--pl-pill-success-border);
+}
+
+.pl-atom-status-pill.is-probable {
+  background: var(--pl-pill-warning-bg);
+  color: var(--pl-pill-warning-fg);
+  border-color: var(--pl-pill-warning-border);
+}
+
+.pl-atom-lineup-mobile-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+}
+
+.pl-atom-lineup-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.pl-atom-lineup-pane {
+  display: none;
+  min-inline-size: 0;
+}
+
+.pl-atom-lineup-pane.is-mobile-visible {
+  display: block;
+}
+
+/* Respaldo con @media cuando container queries no existan */
+@media (min-width: 768px) {
+  .pl-atom-lineup-mobile-tabs { display: none; }
+  .pl-atom-lineup-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pl-atom-lineup-pane { display: block; }
+}
+
+@supports (container-type: inline-size) {
+  @media (min-width: 768px) {
+    .pl-atom-lineup-mobile-tabs { display: grid; }
+    .pl-atom-lineup-board { grid-template-columns: minmax(0, 1fr); }
+    .pl-atom-lineup-pane { display: none; }
+    .pl-atom-lineup-pane.is-mobile-visible { display: block; }
+  }
+  @container (min-width: 620px) {
+    .pl-atom-lineup-mobile-tabs { display: none; }
+    .pl-atom-lineup-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pl-atom-lineup-pane { display: block; }
+  }
+}
+
+.pl-atom-lineup-half {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-inline-size: 0;
+}
+
+.pl-atom-lineup-half-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8rem;
+}
+
+.pl-atom-lineup-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-inline-size: 0;
+}
+
+.pl-atom-formation {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  font-size: 0.72rem;
+  font-weight: 750;
+  color: var(--pl-text-secondary);
+}
+
+.pl-atom-lineup-canvas {
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 320 / 272;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-atom-pitch-bg);
+}
+
+.pl-atom-lineup-anchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pl-atom-rating {
+  position: absolute;
+  inset-block-start: -6px;
+  inset-inline-start: -15px;
+  padding: 1px 4px;
+  border-radius: 5px;
+  font-size: 0.6rem;
+  font-weight: 850;
+  line-height: 1.2;
+  border: 1px solid var(--pl-surface);
+}
+
+.pl-atom-rating.is-elite {
+  background: var(--pl-pill-info-bg);
+  color: var(--pl-pill-info-fg);
+  border-color: var(--pl-pill-info-border);
+}
+
+.pl-atom-rating.is-good {
+  background: var(--pl-pill-success-bg);
+  color: var(--pl-pill-success-fg);
+  border-color: var(--pl-pill-success-border);
+}
+
+.pl-atom-rating.is-mid {
+  background: var(--pl-pill-warning-bg);
+  color: var(--pl-pill-warning-fg);
+  border-color: var(--pl-pill-warning-border);
+}
+
+.pl-atom-rating.is-low {
+  background: var(--pl-pill-danger-bg);
+  color: var(--pl-pill-danger-fg);
+  border-color: var(--pl-pill-danger-border);
+}
+
+.pl-atom-node-events {
+  position: absolute;
+  inset-block-start: -6px;
+  inset-inline-end: -14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.pl-atom-node-evt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: 999px;
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  color: var(--pl-text);
+}
+
+.pl-atom-cap {
+  text-decoration: none;
+  font-size: 0.58rem;
+  font-weight: 850;
+  color: var(--pl-brand);
+}
+
+.pl-atom-coach {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--pl-text-muted);
+}
+
+.pl-atom-coach strong {
+  color: var(--pl-text-secondary);
+  font-weight: 700;
+}
+
+/* ---------- 4. AtomicStatComparisonBar ---------- */
+
+.pl-atom-stat {
+  display: grid;
+  gap: 4px;
+  min-inline-size: 0;
+}
+
+.pl-atom-stat-teams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 650;
+  color: var(--pl-text-muted);
+}
+
+.pl-atom-stat-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pl-text-muted);
+}
+
+.pl-atom-stat-row {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 4.5ch minmax(0, 1fr) minmax(0, 1fr) 4.5ch;
+  align-items: center;
+  gap: 3px;
+}
+
+.pl-atom-stat--compact .pl-atom-stat-row {
+  grid-template-columns: 3.8ch minmax(0, 1fr) minmax(0, 1fr) 3.8ch;
+  gap: 4px;
+}
+
+.pl-atom-stat-val {
+  font-size: 0.8125rem;
+  font-weight: 650;
+  color: var(--pl-text-secondary);
+}
+
+.pl-atom-stat-val:last-child { text-align: end; }
+.pl-atom-stat-val[data-lead] { color: var(--pl-text); font-weight: 800; }
+
+.pl-atom-stat--compact .pl-atom-stat-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--pl-text);
+}
+
+.pl-atom-stat-track {
+  display: flex;
+  block-size: 6px;
+  border-radius: 999px;
+  background: var(--pl-surface-hover);
+  overflow: hidden;
+}
+
+.pl-atom-stat-track--home { justify-content: flex-end; }
+.pl-atom-stat-track--away { justify-content: flex-start; }
+
+.pl-atom-stat-track span {
+  display: block;
+  block-size: 100%;
+  min-inline-size: 0;
+  border-radius: 999px;
+  opacity: 0.45;
+  transition: opacity 180ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-atom-stat-track span {
+    transition: inline-size 280ms ease, opacity 180ms ease;
+  }
+}
+
+.pl-atom-stat-track span[data-lead="true"] { opacity: 1; }
+.pl-atom-stat-track--home span { background: var(--pl-atom-home); }
+.pl-atom-stat-track--away span { background: var(--pl-atom-away); }
+
+.pl-atom-stat-track span[data-negative="true"] {
+  background: color-mix(in oklab, var(--pl-danger) 72%, var(--pl-warning));
+  opacity: 0.68;
+}
+
+.pl-atom-stat-track span[data-negative="true"][data-lead="true"] {
+  background: var(--pl-warning);
+  opacity: 0.92;
+}
+
+/* ---------- 5. AtomicFormStrip (G/E/P y W/L US · contraste AA) ---------- */
+
+.pl-atom-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
+.pl-atom-form-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-weight: 800;
+  line-height: 1;
+  border: 1px solid transparent;
+  user-select: none;
+  flex: none;
+}
+
+.pl-atom-form--xs .pl-atom-form-cell {
+  inline-size: 18px;
+  block-size: 18px;
+  border-radius: 5px;
+  font-size: 0.6rem;
+}
+
+.pl-atom-form--sm .pl-atom-form-cell {
+  inline-size: 22px;
+  block-size: 22px;
+  font-size: 0.66rem;
+}
+
+.pl-atom-form--md .pl-atom-form-cell {
+  inline-size: 26px;
+  block-size: 26px;
+  border-radius: 7px;
+  font-size: 0.72rem;
+}
+
+.pl-atom-form-cell.is-win {
+  background: var(--pl-pill-success-bg);
+  color: var(--pl-pill-success-fg);
+  border-color: var(--pl-pill-success-border);
+}
+
+.pl-atom-form-cell.is-draw {
+  background: var(--pl-pill-warning-bg);
+  color: var(--pl-pill-warning-fg);
+  border-color: var(--pl-pill-warning-border);
+}
+
+.pl-atom-form-cell.is-loss {
+  background: var(--pl-pill-danger-bg);
+  color: var(--pl-pill-danger-fg);
+  border-color: var(--pl-pill-danger-border);
+}
+
+.pl-atom-form-empty {
+  font-size: 0.75rem;
+  color: var(--pl-text-muted);
+}
+
+/* ---------- 6. AtomicOddsChip (Momio justo + Casa + Delta/Steam) ---------- */
+
+.pl-atom-odds {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text);
+  min-inline-size: 0;
+}
+
+.pl-atom-odds.is-compact {
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.pl-atom-odds.is-highlight {
+  background: var(--pl-surface-active);
+  border-color: color-mix(in oklab, var(--pl-brand) 48%, var(--pl-border));
+}
+
+.pl-atom-odds-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+  line-height: 1.2;
+}
+
+.pl-atom-odds-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.pl-atom-odds-fair,
+.pl-atom-odds-market {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 0.8125rem;
+}
+
+.pl-atom-odds-kicker {
+  font-size: 0.68rem;
+  font-weight: 650;
+  color: var(--pl-text-muted);
+}
+
+.pl-atom-odds-fair strong {
+  font-weight: 850;
+  color: var(--pl-text);
+}
+
+.pl-atom-odds-market strong {
+  font-weight: 800;
+  color: var(--pl-text-secondary);
+}
+
+.pl-atom-odds-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.2;
+  border: 1px solid transparent;
+}
+
+.pl-atom-odds-delta.is-shortening {
+  background: var(--pl-pill-success-bg);
+  color: var(--pl-pill-success-fg);
+  border-color: var(--pl-pill-success-border);
+}
+
+.pl-atom-odds-delta.is-drifting {
+  background: var(--pl-pill-danger-bg);
+  color: var(--pl-pill-danger-fg);
+  border-color: var(--pl-pill-danger-border);
+}
+
+.pl-atom-odds-delta.is-steam {
+  background: var(--pl-pill-warning-bg);
+  color: var(--pl-pill-warning-fg);
+  border-color: var(--pl-pill-warning-border);
+}
+
+.pl-atom-odds-value {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--pl-pill-brand-bg);
+  color: var(--pl-pill-brand-fg);
+  border: 1px solid var(--pl-pill-brand-border);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+/* ---------- 7. AtomicMatchHeaderBar (compacta single-row / sticky) ---------- */
+
+.pl-atom-header {
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-block-size: 48px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.pl-atom-header.is-sticky {
+  position: sticky;
+  inset-block-start: var(--layout-header, 64px);
+  z-index: 20;
+  border-radius: 0 0 12px 12px;
+  border-block-start: 0;
+}
+
+.pl-atom-header-grid {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.pl-atom-header-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-inline-size: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--pl-text-secondary);
+}
+
+.pl-atom-header-team.is-home { justify-content: flex-end; text-align: end; }
+.pl-atom-header-team.is-away { justify-content: flex-start; text-align: start; }
+.pl-atom-header-team.is-lead { color: var(--pl-text); font-weight: 850; }
+
+.pl-atom-header-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pl-atom-header-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--pl-danger);
+  flex: none;
+}
+
+.pl-atom-header-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  white-space: nowrap;
+}
+
+.pl-atom-header-clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--pl-text-muted);
+}
+
+.pl-atom-header-clock.is-live {
+  color: var(--pl-pill-danger-fg);
+}
+
+.pl-atom-header-dot {
+  display: inline-block;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 999px;
+  background: var(--pl-danger);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-atom-header-dot {
+    animation: pl-atom-live-pulse 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes pl-atom-live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.72; transform: scale(0.86); }
+}
+
+.pl-atom-header-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.875rem;
+  font-weight: 850;
+  color: var(--pl-text);
+}
+
+.pl-atom-header-event {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  max-inline-size: 200px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  font-size: 0.72rem;
+  color: var(--pl-text-secondary);
+  flex: none;
+}
+
+.pl-atom-header-event-min {
+  font-weight: 800;
+  color: var(--pl-text);
+}
+
+.pl-atom-header-trailing {
+  flex: none;
+}
+
+@container (min-width: 600px) {
+  .pl-atom-header-event {
+    display: inline-flex;
+  }
+}
+
+/* ---------- Squircle progresivo (ADR-054, excluyendo píldoras y círculos) ---------- */
+
+@supports (corner-shape: squircle) {
+  .pl-atom-card,
+  .pl-atom-pitch-frame,
+  .pl-atom-avgpos-canvas,
+  .pl-atom-lineup-canvas,
+  .pl-atom-odds,
+  .pl-atom-table-wrap,
+  .pl-atom-seg-group {
+    corner-shape: squircle;
+  }
+}
+
+/* ---------- Objetivos táctiles >= 44 px en móvil / puntero grueso (WCAG 2.5.5) ---------- */
+
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-atom-seg-btn {
+    min-block-size: 44px;
+    min-inline-size: 44px;
+    padding: 6px 12px;
+  }
+  .pl-atom-disclosure summary {
+    min-block-size: 44px;
+  }
+  .pl-atom-card {
+    padding: 12px;
+  }
+  .pl-atom-jersey {
+    inline-size: calc(26px * var(--node-scale, 1));
+    block-size: calc(26px * var(--node-scale, 1));
+    font-size: 0.68rem;
+  }
+  .pl-atom-player-tag {
+    max-inline-size: 66px;
+    font-size: 0.62rem;
+  }
+}
+}

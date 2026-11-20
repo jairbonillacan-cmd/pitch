@@ -36,10 +36,10 @@ export function LiveWinProbBar({
 
   return (
     <div
-      className="rounded-2xl p-3.5 space-y-2.5"
+      className="rounded-xl p-3.5 space-y-2.5"
       style={{
-        background: "var(--pl-surface)",
-        boxShadow: "inset 0 0 0 1px var(--pl-border)",
+        background: "var(--pl-surface-elevated)",
+        border: "1px solid var(--pl-border)",
       }}
       data-live-win-prob=""
       aria-live="polite"
@@ -56,12 +56,12 @@ export function LiveWinProbBar({
       </div>
 
       <div
-        className="flex h-2.5 w-full overflow-hidden rounded-full"
+        className="flex h-2 w-full overflow-hidden rounded-full"
         style={{ background: "var(--pl-surface-hover)" }}
         role="img"
         aria-label={`${homeLabel} ${pct0(pH)}${inPlay.pDraw !== null ? `, Empate ${pct0(pD)}` : ""}, ${awayLabel} ${pct0(pA)}`}
       >
-        <span style={{ width: `${wH}%`, background: "var(--pl-brand)" }} />
+        <span style={{ width: `${wH}%`, background: "var(--pl-live-home, var(--pl-brand))" }} />
         {inPlay.pDraw !== null ? (
           <span
             style={{
@@ -70,7 +70,7 @@ export function LiveWinProbBar({
             }}
           />
         ) : null}
-        <span style={{ width: `${wA}%`, background: "var(--pl-info)" }} />
+        <span style={{ width: `${wA}%`, background: "var(--pl-live-away, var(--pl-info))" }} />
       </div>
 
       <div className="grid grid-cols-3 gap-2 text-xs num">

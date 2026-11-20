@@ -18,6 +18,11 @@ import {
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
+import {
+  AtomicAveragePositionsPitch,
+  type AtomicAveragePositionPlayer,
+} from "../atomic/AtomicAveragePositionsPitch";
+import { AtomicShotmapPitch } from "../atomic/AtomicShotmapPitch";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { SportEventIcon } from "../components/SportEventIcons";
 import {
@@ -235,6 +240,8 @@ export interface LiveMatchPanelViewProps {
   hideScoreboard?: boolean;
   /** Oculta la línea de tiempo duplicada cuando ya vive por tiempos en el riel lateral. */
   hideTimeline?: boolean;
+  /** Posiciones medias reales opcionales (0..100); se omite la cancha cuando faltan datos. */
+  averagePositions?: readonly AtomicAveragePositionPlayer[];
 }
 
 type LiveRightTabKey = "timeline" | "commentary" | "players";
@@ -359,6 +366,7 @@ function LiveDetailRightColumn({
             aria-label="Actuaciones individuales del partido"
           >
             <table className="pl-live-players-table">
+              <caption className="sr-only">Actuaciones individuales del partido</caption>
               <thead>
                 <tr>
                   <th scope="col">Jugador</th>
@@ -372,13 +380,13 @@ function LiveDetailRightColumn({
               <tbody>
                 {players.slice(0, 18).map((p, idx) => (
                   <tr key={`${p.side}-${p.player}-${idx}`}>
-                    <td>
+                    <th scope="row">
                       <strong>{p.player}</strong>{" "}
                       <small style={{ color: "var(--pl-text-muted)" }}>
                         {p.side === "home" ? home : away}
                         {p.position ? ` · ${p.position}` : ""}
                       </small>
-                    </td>
+                    </th>
                     <td className="num" data-label="Nota">
                       {p.rating != null ? p.rating.toFixed(1) : "—"}
                     </td>
@@ -415,6 +423,7 @@ export function LiveMatchPanelView({
   hideMomentum = false,
   hideScoreboard = false,
   hideTimeline = false,
+  averagePositions,
 }: LiveMatchPanelViewProps): React.JSX.Element | null {
   const platformCore = useOptionalPlatformCore();
   const oddsFormat = platformCore?.oddsFormat ?? "american";
@@ -583,6 +592,16 @@ export function LiveMatchPanelView({
             />
           )}
           <XgRaceChart points={detail.xgTimeline} homeLabel={home} awayLabel={away} estimated={detail.xgEstimated} />
+          {detail.shots.length > 0 ? (
+            <AtomicShotmapPitch shots={detail.shots} homeLabel={home} awayLabel={away} />
+          ) : null}
+          {averagePositions && averagePositions.length > 0 ? (
+            <AtomicAveragePositionsPitch
+              players={averagePositions}
+              homeLabel={home}
+              awayLabel={away}
+            />
+          ) : null}
           {detail.stats ? <LiveStatBars stats={detail.stats} homeLabel={home} awayLabel={away} /> : null}
         </div>
         {hideTimeline ? null : (
