@@ -14,18 +14,38 @@ import {
   PrecioPageSurface,
   type PrecioTransferContext,
 } from "@pitchlab/ui/public-sections";
+import { LANDING_FAQS } from "@pitchlab/ui/spacetime-catalog";
 import { getTransferBankConfig, paymentMode } from "../../src/server/billing/payment-mode";
+import { buildPricingPageJsonLd, JsonLd } from "../../src/server/json-ld";
 import { serializeTransferRequest } from "../../src/server/member-plan";
 import { hasPublicSessionCookie } from "../../src/server/public-session";
 import { serverDb } from "../../src/server/session-user";
+import { getSiteUrl } from "../../src/server/site-url";
 import { getViewerAccess, getViewerAccountUserId } from "../../src/server/viewer-access";
 
+// Dinámico por diseño (ADR-053): entrega referencia SPEI, cotización con referido y estado del pase por cuenta.
 export const dynamic = "force-dynamic";
 
+const TITLE = "Precio · PitchLab";
+const DESCRIPTION = `Pase PitchLab Ultra: $${MEMBERSHIP_SPEC.monthlyMxn} MXN/mes o $${MEMBERSHIP_SPEC.annualMxn.toLocaleString("en-US")} MXN/año con IVA incluido y factura CFDI. 7 días gratis sin tarjeta y pago vía SPEI.`;
+
 export const metadata: Metadata = {
-  title: "Precio · PitchLab",
-  description:
-    "Pase PitchLab Ultra mensual o anual: todos los partidos, mercados, parlays y comunidad. 7 días gratis, sin tarjeta, pago por transferencia SPEI o cupón, IVA incluido y factura CFDI.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/precio" },
+  openGraph: {
+    type: "website",
+    locale: "es_MX",
+    siteName: "PitchLab",
+    url: "/precio",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default async function PrecioPage(): Promise<React.JSX.Element> {
@@ -106,5 +126,10 @@ export default async function PrecioPage(): Promise<React.JSX.Element> {
     }
   }
 
-  return <PrecioPageSurface hasSession={hasSession} transferContext={transferContext} />;
+  return (
+    <>
+      <JsonLd data={buildPricingPageJsonLd(getSiteUrl(), MEMBERSHIP_SPEC, LANDING_FAQS)} />
+      <PrecioPageSurface hasSession={hasSession} transferContext={transferContext} />
+    </>
+  );
 }

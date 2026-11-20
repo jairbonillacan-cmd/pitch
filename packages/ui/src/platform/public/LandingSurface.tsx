@@ -45,20 +45,31 @@ export function LandingSurface({
     <PublicSiteShell activePath="/" hasSession={hasSession} className="pl-lp--clean">
       <section id="top" className="pl-clean-hero" aria-labelledby="pl-clean-title">
         <div className="pl-clean-hero-light" aria-hidden="true">
-          <img src="/landing/hero-light.webp" width={1536} height={1024} decoding="async" alt="" />
+          <img
+            src="/landing/hero-light.webp"
+            width={1536}
+            height={1024}
+            fetchPriority="low"
+            decoding="async"
+            alt=""
+          />
         </div>
         <div className="pl-lp-wrap pl-clean-hero-grid">
           <div className="pl-clean-hero-copy">
-            <p className="pl-clean-proof">{SPACETIME_METRICS_HEADLINE.historicalMatches} partidos analizados con datos reales</p>
+            <p className="pl-clean-proof">
+              <span className="num">{SPACETIME_METRICS_HEADLINE.historicalMatches}</span> partidos históricos con datos reales
+            </p>
             <h1 id="pl-clean-title">Lo más probable de cada partido, con su momio justo.</h1>
-            <p className="pl-clean-lede">Consulta la probabilidad de cada resultado y compara lo que debería pagar con el momio que te ofrece tu casa.</p>
+            <p className="pl-clean-lede">
+              Ves la probabilidad estimada de cada resultado, su momio justo sin margen y si el precio de tu casa paga más o menos. Tú decides.
+            </p>
             <div className="pl-clean-hero-actions">
               <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
-                Probar 7 días gratis <span aria-hidden="true">→</span>
+                {hasSession ? "Ir a la app" : "Probar 7 días gratis"} <span aria-hidden="true">→</span>
               </a>
               <a className="pl-lp-btn pl-clean-secondary" href="#hoy">Comparar momio</a>
             </div>
-            <p className="pl-lp-fine">Empieza gratis sin tarjeta · solo mayores de 18.</p>
+            <p className="pl-lp-fine">7 días sin tarjeta · No somos casa de apuestas · Solo mayores de 18.</p>
           </div>
           <figure className="pl-clean-hero-device">
             <img
@@ -78,21 +89,24 @@ export function LandingSurface({
           <header className="pl-clean-heading">
             <p className="pl-clean-proof">Partidos históricos en los motores</p>
             <h2 id="pl-clean-method">Cada partido, probado desde cinco ángulos.</h2>
-            <p>Aprendemos de {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos históricos y medimos el desempeño en {SPACETIME_METRICS_HEADLINE.holdoutTestMatches} encuentros evaluados fuera de muestra.</p>
+            <p>
+              Entrenados con <span className="num">{SPACETIME_METRICS_HEADLINE.historicalMatches}</span> partidos históricos y medidos fuera de muestra en{" "}
+              <span className="num">{SPACETIME_METRICS_HEADLINE.holdoutTestMatches}</span> encuentros, sin datos posteriores al inicio.
+            </p>
           </header>
           <div className="pl-clean-analysis">
             <div className="pl-clean-callouts pl-clean-callouts--left">
-              <p><strong>El consenso de los motores</strong>Contrasta el partido desde cinco perspectivas.<CalloutArrow /></p>
-              <p><strong>La probabilidad del modelo</strong>Ve el resultado más probable y cómo se reparte el resto.<CalloutArrow /></p>
+              <p><strong>Cinco motores propios</strong>Fuerza real, mercado sin margen y contexto previo.<CalloutArrow /></p>
+              <p><strong>Probabilidad y reparto</strong>Resultado más probable y distribución completa del partido.<CalloutArrow /></p>
             </div>
             <div className="pl-clean-analysis-stage">
-              <aside className="pl-clean-engine-sheet" aria-label="Motores de PitchLab">
+              <aside className="pl-clean-engine-sheet" aria-label="Cinco motores propios de PitchLab">
                 <ul>{SPACETIME_ENGINES.map((engine) => <li key={engine.key}>{engine.shortName}</li>)}</ul>
               </aside>
               <HeroMatchDemoIsland cards={cards} variant="clean" />
             </div>
             <div className="pl-clean-callouts pl-clean-callouts--right">
-              <p><strong>El precio que te ofrecen</strong>Escribe tu momio y compáralo con el justo.<CalloutArrow reverse /></p>
+              <p><strong>Tu momio contra el justo</strong>Escribe el momio de tu casa y mide la diferencia.<CalloutArrow reverse /></p>
             </div>
           </div>
         </div>
@@ -103,8 +117,9 @@ export function LandingSurface({
       <section id="precio" className="pl-clean-section" aria-labelledby="pl-clean-pricing">
         <div className="pl-lp-wrap pl-clean-pricing">
           <header className="pl-clean-heading">
+            <p className="pl-clean-proof">Un solo pase · sin niveles ocultos</p>
             <h2 id="pl-clean-pricing">Elige tu plan.</h2>
-            <p>Explora el comparador gratis o abre el análisis completo con el Pase PitchLab Ultra.</p>
+            <p>Usa el comparador público gratis o abre todos los partidos, mercados y parlays con el Pase PitchLab Ultra. Precios en MXN con IVA incluido.</p>
           </header>
           <PricingCardIsland layout="compare" hasSession={hasSession} />
         </div>
