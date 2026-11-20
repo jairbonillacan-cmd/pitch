@@ -17,7 +17,11 @@ import {
   AtmosphereStage,
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import {
+  useJournalEntries,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { shortDateLabel } from "./home/home-model";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 
@@ -98,20 +102,22 @@ export function TipsterPortalClubView({
   const {
     dataset,
     viewerRole,
-    setViewerRole,
     allowRoleSimulation,
-    journal,
     oddsFormat,
     tipsterWeeklyPickOrigin,
-    setTipsterWeeklyPickOrigin,
     selectedTipsterPickId,
+    hasAccountSessionAuth,
+    paymentMode,
+  } = usePlatformCore();
+  const {
+    setViewerRole,
+    setTipsterWeeklyPickOrigin,
     setSelectedTipsterPickId,
     openShareTicket,
     navigateTo,
     pushToast,
-    hasAccountSessionAuth,
-    paymentMode,
-  } = usePlatform();
+  } = usePlatformActions();
+  const journal = useJournalEntries();
 
   const sofia = TIPSTER_CREATORS[0]!;
   const [connectBusy, setConnectBusy] = useState<boolean>(false);

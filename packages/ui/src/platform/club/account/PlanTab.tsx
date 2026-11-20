@@ -6,7 +6,7 @@ import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/Maest
 import { triggerHaptic } from "../../navigation-helpers";
 import { ConfirmActionDialog, TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { ACCOUNT_TAB_EVENT } from "../../components/ShellChrome";
-import { usePlatform } from "../../platform-provider";
+import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import {
   PREVIEW_SPEI_EVENT,
   readPreviewSpeiState,
@@ -174,9 +174,9 @@ export function PlanTab({
     hasAccountSessionAuth,
     allowRoleSimulation,
     paymentMode: ctxPaymentMode,
-    pushToast,
     referralPaidFriends,
-  } = usePlatform();
+  } = usePlatformCore();
+  const { pushToast } = usePlatformActions();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const [simPlanState, setSimPlanState] = useState<PlanStateOverride | null>(null);

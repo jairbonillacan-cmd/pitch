@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Switch } from "@heroui/react";
 import type { DataHealthReport } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../sports";
 import { ExampleNotice, MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+  useSocialState,
+} from "../platform-provider";
 import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE, TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { SocialReportReason } from "../types";
 import { AdminDataHealthSection } from "./AdminDataHealthSection";
@@ -150,13 +154,20 @@ export function FounderAdminClubView({
   const {
     dataset,
     month1NoCardMode,
-    setMonth1NoCardMode,
-    blockedSpamAttempts,
     referralPaidFriends,
-    pushToast,
     accountsEnabled,
     hasAccountSessionAuth,
-  } = usePlatform();
+  } = usePlatformCore();
+  const { setMonth1NoCardMode, pushToast } = usePlatformActions();
+  const { blockedSpamAttempts } = useSocialState();
+
+  const mountedRef = useRef(true);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   const [newCreatorCode, setNewCreatorCode] = useState<string>("");
   const [newCreatorHandle, setNewCreatorHandle] = useState<string>("");
@@ -177,39 +188,56 @@ export function FounderAdminClubView({
   const [moderationError, setModerationError] = useState<string | null>(null);
   const [moderationBusyKey, setModerationBusyKey] = useState<string | null>(null);
 
-  const loadModeration = useCallback(async () => {
-    if (!hasAccountSessionAuth || storyModeration) {
-      setModerationLoading(false);
-      return;
-    }
-    setModerationLoading(true);
-    setModerationError(null);
-    try {
-      const res = await fetch("/api/admin/moderation", { credentials: "same-origin" });
-      if (!res.ok) {
-        setModerationError(
-          res.status === 403
-            ? "Solo el equipo fundador tiene acceso al panel de moderación."
-            : "No se pudo cargar la cola de moderación.",
-        );
+  const loadModeration = useCallback(
+    async (signal?: AbortSignal) => {
+      if (!hasAccountSessionAuth || storyModeration) {
+        if (!signal?.aborted && mountedRef.current) {
+          setModerationLoading(false);
+        }
         return;
       }
-      const json = (await res.json()) as ModerationPanelResponse;
-      setModeration({
-        pendingQueue: json.pendingQueue ?? [],
-        hiddenItems: json.hiddenItems ?? [],
-        pausedMembers: json.pausedMembers ?? [],
-      });
-    } catch (err) {
-      void err;
-      setModerationError("No se pudo conectar con el servidor de moderación.");
-    } finally {
-      setModerationLoading(false);
-    }
-  }, [hasAccountSessionAuth, storyModeration]);
+      setModerationLoading(true);
+      setModerationError(null);
+      try {
+        const res = await fetch("/api/admin/moderation", {
+          credentials: "same-origin",
+          ...(signal ? { signal } : {}),
+        });
+        if (signal?.aborted || !mountedRef.current) return;
+        if (!res.ok) {
+          setModerationError(
+            res.status === 403
+              ? "Solo el equipo fundador tiene acceso al panel de moderación."
+              : "No se pudo cargar la cola de moderación.",
+          );
+          return;
+        }
+        const json = (await res.json()) as ModerationPanelResponse;
+        if (signal?.aborted || !mountedRef.current) return;
+        setModeration({
+          pendingQueue: json.pendingQueue ?? [],
+          hiddenItems: json.hiddenItems ?? [],
+          pausedMembers: json.pausedMembers ?? [],
+        });
+      } catch (err) {
+        if (signal?.aborted || !mountedRef.current) return;
+        if (err instanceof DOMException && err.name === "AbortError") return;
+        setModerationError("No se pudo conectar con el servidor de moderación.");
+      } finally {
+        if (!signal?.aborted && mountedRef.current) {
+          setModerationLoading(false);
+        }
+      }
+    },
+    [hasAccountSessionAuth, storyModeration],
+  );
 
   useEffect(() => {
-    void loadModeration();
+    const controller = new AbortController();
+    void loadModeration(controller.signal);
+    return () => {
+      controller.abort();
+    };
   }, [loadModeration]);
 
   const runModerationAction = useCallback(
@@ -275,15 +303,27 @@ export function FounderAdminClubView({
   );
 
   useEffect(() => {
-    if (!hasAccountSessionAuth) return;
+    if (!hasAccountSessionAuth) return undefined;
+    const controller = new AbortController();
+    let cancelled = false;
     void (async () => {
       try {
-        const res = await fetch("/api/admin/overview", { credentials: "same-origin" });
+        const res = await fetch("/api/admin/overview", {
+          credentials: "same-origin",
+          signal: controller.signal,
+        });
+        if (cancelled || controller.signal.aborted) return;
         if (!res.ok) {
-          pushToast(res.status === 403 ? "Tu cuenta no es del equipo fundador." : "No se pudo cargar la consola.", "warning");
+          pushToast(
+            res.status === 403
+              ? "Tu cuenta no es del equipo fundador."
+              : "No se pudo cargar la consola.",
+            "warning",
+          );
           return;
         }
         const json = (await res.json()) as AdminOverviewResponse;
+        if (cancelled || controller.signal.aborted) return;
         setServerOverview(json.overview);
         setServerFunnel(json.funnel ?? null);
         setPromoRows(json.tipsters.map(toPromoRow));
@@ -291,6 +331,10 @@ export function FounderAdminClubView({
         void err;
       }
     })();
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
   }, [hasAccountSessionAuth, pushToast]);
 
   const totalActiveReferrals = useMemo(

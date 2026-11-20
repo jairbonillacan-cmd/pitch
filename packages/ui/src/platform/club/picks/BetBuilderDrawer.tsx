@@ -105,25 +105,72 @@ export function BetBuilderDrawer({
     scrollContainerRef: bodyScrollRef,
   });
 
+  const pickId = pick?.id ?? null;
+
   useEffect(() => {
     const dialog = dialogRef.current;
-    if (!dialog) return;
+    if (!dialog) return undefined;
 
-    if (!open || !pick) {
-      if (dialog.open) dialog.close();
-      return;
+    const closeDialogSafely = () => {
+      if (typeof dialog.close === "function" && dialog.open) {
+        try {
+          dialog.returnValue = "";
+          dialog.close();
+          return;
+        } catch (err) {
+          void err;
+        }
+      }
+      if (dialog.hasAttribute("open")) {
+        dialog.removeAttribute("open");
+      }
+    };
+
+    if (!open || !pickId) {
+      closeDialogSafely();
+      return undefined;
     }
 
     if (!dialog.open) {
-      dialog.showModal();
+      if (typeof dialog.showModal === "function") {
+        try {
+          dialog.showModal();
+        } catch (err) {
+          void err;
+          dialog.setAttribute("open", "");
+        }
+      } else if (typeof dialog.show === "function") {
+        try {
+          dialog.show();
+        } catch (err) {
+          void err;
+          dialog.setAttribute("open", "");
+        }
+      } else {
+        dialog.setAttribute("open", "");
+      }
     }
+
+    const handleCancel = (event: Event) => {
+      event.preventDefault();
+      onCloseRef.current();
+    };
 
     const handleClose = () => {
       if (dialog.open) return;
       dialog.returnValue = "";
       onCloseRef.current();
     };
+    dialog.addEventListener("cancel", handleCancel);
     dialog.addEventListener("close", handleClose);
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.key !== "Escape") return;
+      if (!dialog.open && !dialog.hasAttribute("open")) return;
+      e.preventDefault();
+      onCloseRef.current();
+    };
+    window.addEventListener("keydown", handleEscape);
 
     // Respaldo de light-dismiss cuando <dialog closedby="any"> no existe (Safari)
     let cleanupLightDismiss: (() => void) | undefined;
@@ -147,7 +194,16 @@ export function BetBuilderDrawer({
       };
       const onPointerUp = (e: PointerEvent) => {
         if (pressedOutside && isOutside(e)) {
-          dialog.close();
+          if (typeof dialog.close === "function" && dialog.open) {
+            try {
+              dialog.close();
+              return;
+            } catch (err) {
+              void err;
+            }
+          }
+          dialog.removeAttribute("open");
+          onCloseRef.current();
         }
       };
       dialog.addEventListener("pointerdown", onPointerDown);
@@ -159,11 +215,13 @@ export function BetBuilderDrawer({
     }
 
     return () => {
+      window.removeEventListener("keydown", handleEscape);
+      dialog.removeEventListener("cancel", handleCancel);
       dialog.removeEventListener("close", handleClose);
       cleanupLightDismiss?.();
-      if (dialog.open) dialog.close();
+      closeDialogSafely();
     };
-  }, [open, pick]);
+  }, [open, pickId]);
 
   const resolvedGame = useMemo(() => {
     if (game) return game;

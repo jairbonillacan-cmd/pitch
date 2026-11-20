@@ -219,7 +219,7 @@
     }
   }
 
-  /* ---------- 6. Filas de partido planas editoriales (Sofascore + ScoutPicks) ---------- */
+  /* ---------- 6. Filas de partido planas editoriales ---------- */
   .pl-astro-rows {
     container: match-feed / inline-size;
     display: flex;

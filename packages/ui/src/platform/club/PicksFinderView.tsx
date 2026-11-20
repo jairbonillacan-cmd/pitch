@@ -663,18 +663,63 @@ function MobileFiltersSheet({
 
   useEffect(() => {
     const dialog = dialogRef.current;
-    if (!dialog) return;
+    if (!dialog) return undefined;
+
+    const closeDialogSafely = () => {
+      if (typeof dialog.close === "function" && dialog.open) {
+        try {
+          dialog.returnValue = "";
+          dialog.close();
+          return;
+        } catch (err) {
+          void err;
+        }
+      }
+      if (dialog.hasAttribute("open")) {
+        dialog.removeAttribute("open");
+      }
+    };
 
     if (!dialog.open) {
-      dialog.showModal();
+      if (typeof dialog.showModal === "function") {
+        try {
+          dialog.showModal();
+        } catch (err) {
+          void err;
+          dialog.setAttribute("open", "");
+        }
+      } else if (typeof dialog.show === "function") {
+        try {
+          dialog.show();
+        } catch (err) {
+          void err;
+          dialog.setAttribute("open", "");
+        }
+      } else {
+        dialog.setAttribute("open", "");
+      }
     }
+
+    const handleCancel = (event: Event) => {
+      event.preventDefault();
+      onCloseRef.current();
+    };
 
     const handleClose = () => {
       if (dialog.open) return;
       dialog.returnValue = "";
       onCloseRef.current();
     };
+    dialog.addEventListener("cancel", handleCancel);
     dialog.addEventListener("close", handleClose);
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.key !== "Escape") return;
+      if (!dialog.open && !dialog.hasAttribute("open")) return;
+      e.preventDefault();
+      onCloseRef.current();
+    };
+    window.addEventListener("keydown", handleEscape);
 
     let cleanupLightDismiss: (() => void) | undefined;
     if (
@@ -696,7 +741,18 @@ function MobileFiltersSheet({
         pressedOutside = isOutside(e);
       };
       const onPointerUp = (e: PointerEvent) => {
-        if (pressedOutside && isOutside(e)) dialog.close();
+        if (pressedOutside && isOutside(e)) {
+          if (typeof dialog.close === "function" && dialog.open) {
+            try {
+              dialog.close();
+              return;
+            } catch (err) {
+              void err;
+            }
+          }
+          dialog.removeAttribute("open");
+          onCloseRef.current();
+        }
       };
       dialog.addEventListener("pointerdown", onPointerDown);
       dialog.addEventListener("pointerup", onPointerUp);
@@ -707,9 +763,11 @@ function MobileFiltersSheet({
     }
 
     return () => {
+      window.removeEventListener("keydown", handleEscape);
+      dialog.removeEventListener("cancel", handleCancel);
       dialog.removeEventListener("close", handleClose);
       cleanupLightDismiss?.();
-      if (dialog.open) dialog.close();
+      closeDialogSafely();
     };
   }, []);
 
@@ -767,7 +825,7 @@ function MobileFiltersSheet({
 }
 
 /**
- * Screener editorial de Picks (`/app/picks`) en Desktop (terminal Sofascore/ScoutPicks con `@container`)
+ * Screener editorial de Picks (`/app/picks`) en Desktop (terminal editorial con `@container`)
  * y Mobile (tarjetas táctiles `>= 44 px` + bottom sheet nativo con `useSheetSwipeDismiss`).
  * Incluye agrupación `Por partido / Por mercado / Lista plana`, ordenación por `EV+ / Probabilidad /
  * Movimiento / Inicio`, conmutador `Próximos / En vivo` con barra `actual / línea` consciente de

@@ -80,18 +80,21 @@ export function ClubShellBridge({
   }, [pathname]);
 
   useEffect(() => {
-    if (expiredPassGate) return;
-    // Precarga completa (datos incluidos): las páginas son dinámicas, así que la precarga
-    // parcial por defecto solo traería el esqueleto de carga.
-    const idle =
-      typeof window.requestIdleCallback === "function"
-        ? window.requestIdleCallback
-        : (cb: () => void) => window.setTimeout(cb, 400);
-    idle(() => {
+    if (expiredPassGate) return undefined;
+    const prefetchPrimaryRoutes = () => {
       for (const href of PRIMARY_ROUTES) {
-        if (href !== pathname) router.prefetch(href, { kind: "full" } as never);
+        if (href !== pathname) router.prefetch(href);
       }
-    });
+    };
+    if (
+      typeof window.requestIdleCallback === "function" &&
+      typeof window.cancelIdleCallback === "function"
+    ) {
+      const idleHandle = window.requestIdleCallback(prefetchPrimaryRoutes);
+      return () => window.cancelIdleCallback(idleHandle);
+    }
+    const timerId = window.setTimeout(prefetchPrimaryRoutes, 400);
+    return () => window.clearTimeout(timerId);
     // Solo al montar el layout: las rutas precargadas quedan en la caché del router.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

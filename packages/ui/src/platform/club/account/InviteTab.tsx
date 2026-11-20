@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
 import { triggerHaptic } from "../../navigation-helpers";
-import { usePlatform } from "../../platform-provider";
+import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import { MEMBERSHIP_SPEC, referralEarnedDays } from "../../spacetime-catalog";
 import {
   buildInviteShareMessage,
@@ -136,9 +136,9 @@ export function InviteTab({
     hasAccountSessionAuth,
     allowRoleSimulation,
     referralPaidFriends,
-    simulateFriendFirstPayment,
     viewerIdentity,
-  } = usePlatform();
+  } = usePlatformCore();
+  const { simulateFriendFirstPayment } = usePlatformActions();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const isLoading = storyOverride?.loading ?? referralsLoading;

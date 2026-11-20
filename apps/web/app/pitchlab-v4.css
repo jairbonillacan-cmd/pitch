@@ -699,7 +699,7 @@ dialog.pl-native-dialog .glass-lens {
 }
 
 /* ---------- Barras de Probabilidad dentro de .pl-stage ---------- */
-/* Barras de probabilidad planas estilo Sofascore con tokens PitchLab (ADR-054). */
+/* Barras de probabilidad planas editoriales con tokens PitchLab (ADR-054). */
 .pl-stage .psplit {
   display: flex;
   gap: 3px;
@@ -6186,7 +6186,7 @@ details.pl-lp-faq > p {
   color: var(--pl-text-muted);
 }
 
-/* ---------- Rediseño editorial estilo ScoutPicks (sobre tokens PitchLab) ---------- */
+/* ---------- Rediseño editorial de portada (sobre tokens PitchLab) ---------- */
 .pl-lp-hero--scout {
   padding-top: 36px;
 }
@@ -6635,7 +6635,7 @@ html[data-theme="light"] .pl-lp-hero-sweep {
   }
 }
 
-/* Sección 2: Showcase interactivo 4 pilares estilo ScoutPicks */
+/* Sección 2: Showcase interactivo editorial de 4 pilares */
 .pl-lp-showcase-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
@@ -9942,7 +9942,7 @@ html[data-theme="light"] .pl-stage.pl-auth,
   scroll-margin-top: 84px;
 }
 
-/* ---------- Inicio estilo Astranalisis + identidad PitchLab (.pl-astro-*) ---------- */
+/* ---------- Inicio editorial + identidad PitchLab (.pl-astro-*) ---------- */
 .pl-astro-topbar {
   display: flex;
   flex-direction: column;
@@ -15243,7 +15243,7 @@ dialog::backdrop {
   padding: 0;
   list-style: none;
 }
-/* Eventos por tiempo planos estilo Sofascore (ADR-054): sin tarjetas individuales apiladas */
+/* Eventos por tiempo planos editoriales (ADR-054): sin tarjetas individuales apiladas */
 .pl-rail-event {
   display: flex;
   align-items: center;
@@ -23617,7 +23617,7 @@ body {
 }
 
 /* ==========================================================================
-   ADR-054 · Pulido Nativo iOS/Android + Acabado Plano Editorial (Sofascore × PitchLab)
+   ADR-054 · Pulido Nativo iOS/Android + Acabado Plano Editorial (PitchLab)
    ========================================================================== */
 
 /* Iconos deportivos vectoriales planos (contraste >= 3:1, no se encogen ni atrapan clics) */
@@ -23824,7 +23824,7 @@ dialog::backdrop {
   }
 }
 
-/* Tablero de Picks con Evidencia real estilo ScoutPicks (ADR-054) */
+/* Tablero de Picks con Evidencia real (ADR-054) */
 .pl-ev-filters {
   display: flex;
   align-items: center;

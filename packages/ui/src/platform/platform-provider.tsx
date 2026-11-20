@@ -561,6 +561,14 @@ export interface PlatformCoreValue {
   preferredBooks: string[];
   savedScreenerViews: SavedScreenerView[];
   month1NoCardMode: boolean;
+  referralPaidFriends: number;
+  memberReferralsSnapshot: (ServerProfileSummary & {
+    referralCode: string | null;
+    paidFriends: number;
+    pendingFriends: number;
+  }) | null;
+  tipsterWeeklyPickOrigin: "spacetime" | "bitacora";
+  selectedTipsterPickId: string;
 }
 
 type AnyFn = (...args: never[]) => unknown;
@@ -2798,6 +2806,10 @@ export function PlatformProvider({
       preferredBooks,
       savedScreenerViews,
       month1NoCardMode,
+      referralPaidFriends,
+      memberReferralsSnapshot,
+      tipsterWeeklyPickOrigin,
+      selectedTipsterPickId,
     }),
     [
       rawDataset,
@@ -2820,6 +2832,10 @@ export function PlatformProvider({
       preferredBooks,
       savedScreenerViews,
       month1NoCardMode,
+      referralPaidFriends,
+      memberReferralsSnapshot,
+      tipsterWeeklyPickOrigin,
+      selectedTipsterPickId,
     ],
   );
 

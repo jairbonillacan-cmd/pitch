@@ -14,7 +14,6 @@ import {
 import {
   useOverlayState,
   useParlayState,
-  usePlatform,
   usePlatformActions,
   usePlatformCore,
 } from "../platform-provider";
@@ -730,15 +729,14 @@ export function PickComposerModal(): React.JSX.Element | null {
 }
 
 export function ShareTicketModal(): React.JSX.Element | null {
+  const { shareTicket } = useOverlayState();
   const {
-    shareTicket,
-    closeShareTicket,
     viewerRole,
     oddsFormat,
-    pushToast,
     viewerIdentity,
     memberReferralsSnapshot,
-  } = usePlatform();
+  } = usePlatformCore();
+  const { closeShareTicket, pushToast } = usePlatformActions();
   const [aspect, setAspect] = useState<"4:5" | "9:16">("4:5");
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
   const ticketRef = useRef<HTMLDivElement>(null);
