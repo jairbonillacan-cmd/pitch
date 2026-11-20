@@ -234,8 +234,9 @@ test.describe("Fase 2 NBA y NHL en rutas reales", () => {
     await expect(studio).toBeVisible();
     await expect(studio.locator("[data-empty-forecast]")).toBeVisible();
     await expect(studio).toContainText("Sin pronóstico");
+    await expect(main).toContainText(/Aún no hay (picks|selecciones) publicad[ao]s/i);
+    await main.locator('[data-section-tab="ia"]').click();
     await expect(main).toContainText("Sin lectura publicada");
-    await expect(main).toContainText("Aún no hay picks publicados");
     await expect(main).not.toContainText("Simulador del partido");
     await assertNoHorizontalOverflow(page);
     await assertAxeClean(page);

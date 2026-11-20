@@ -196,18 +196,24 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     .getByRole("button", { name: "Cerrar" })
     .click();
 
-  // 1) Armador Inteligente de Parlays & Generador personal
+  // 1) Armador Inteligente de Parlays & Generador automático unificado (ADR-054/055)
   await page.goto("/app/parlays");
   await expect(
     page.getByRole("heading", { name: /Armar parlay/i }),
   ).toBeVisible();
-  // Bajo carga, React puede dejar un instante la copia transmitida en un segmento oculto
-  // antes de revelarla: se acota a la barra visible para no chocar con el modo estricto.
-  const quickbar = page.locator("[data-personal-parlay-quickbar]:visible");
-  await expect(quickbar).toHaveCount(1);
-  await expect(quickbar).toBeVisible();
-  await quickbar.locator('[data-quick-count="4"]').click();
-  await quickbar.locator('[data-quick-risk="conservador"]').click();
+  const autoPanel = page.locator("[data-parlay-auto-panel]:visible");
+  await expect(autoPanel).toHaveCount(1);
+  await expect(autoPanel).toBeVisible();
+  const fourLegsBtn = autoPanel
+    .getByRole("group", { name: "Número de selecciones" })
+    .getByRole("button", { name: "4", exact: true });
+  if (await fourLegsBtn.isEnabled()) {
+    await fourLegsBtn.click();
+  }
+  await autoPanel
+    .getByRole("group", { name: "Estilo de riesgo" })
+    .getByRole("button", { name: "Conservador" })
+    .click();
   if (width <= 640) {
     await page.setViewportSize({ width: 375, height: 844 });
     const overflowParlays375 = await page.evaluate(
@@ -217,8 +223,9 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await page.setViewportSize({ width, height: 900 });
   }
   await page.locator("[data-generate-parlay]").click();
-  await expect(page.getByRole("button", { name: /Sellar Parlay/i })).toBeEnabled();
-  await page.getByRole("button", { name: /Sellar Parlay/i }).click();
+  const sealParlayBtn = page.getByRole("button", { name: /Sellar en Mi récord/i });
+  await expect(sealParlayBtn).toBeEnabled();
+  await sealParlayBtn.click();
 
   // 2) Player Props Lab interactivo
   await page.goto("/app/props");
