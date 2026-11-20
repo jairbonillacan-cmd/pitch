@@ -54,6 +54,25 @@ export function useMatchUrlTab(
   return [active, selectTab];
 }
 
+type NearestScrollIntoViewOptions = ScrollIntoViewOptions & {
+  readonly container?: "all" | "nearest";
+};
+
+function scrollTabIntoView(el: HTMLButtonElement | null): void {
+  if (!el || typeof el.scrollIntoView !== "function") return;
+  const opts: NearestScrollIntoViewOptions = {
+    block: "nearest",
+    inline: "nearest",
+    container: "nearest",
+  };
+  try {
+    el.scrollIntoView(opts);
+  } catch (err) {
+    void err;
+    el.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
+}
+
 /**
  * Barra de 5 pestañas accesibles de la ficha («Resumen», «Análisis IA», «Números», «¿Dónde está el dinero?», «Contexto»).
  * Usa selección por activación para no reescribir la URL al recorrerlas con flechas,
@@ -71,6 +90,7 @@ export function MatchTabs({
   readonly onSelect: (key: MatchTabKey) => void;
 }): React.JSX.Element {
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const didMountRef = useRef(false);
   const [focusedIndex, setFocusedIndex] = useState<number>(() =>
     Math.max(
       0,
@@ -80,7 +100,13 @@ export function MatchTabs({
 
   useEffect(() => {
     const idx = tabs.findIndex((t) => t.key === active);
-    if (idx >= 0) setFocusedIndex(idx);
+    if (idx >= 0) {
+      setFocusedIndex(idx);
+      if (didMountRef.current) {
+        scrollTabIntoView(refs.current[idx] ?? null);
+      }
+    }
+    didMountRef.current = true;
     // Solo resincronizar el foco roving cuando cambia la pestaña activa; evitar
     // depender de la referencia de `tabs` que cambia en cada render del padre.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,13 +114,16 @@ export function MatchTabs({
 
   const moveFocus = (nextIdx: number) => {
     setFocusedIndex(nextIdx);
-    refs.current[nextIdx]?.focus();
+    const el = refs.current[nextIdx] ?? null;
+    el?.focus();
+    scrollTabIntoView(el);
   };
 
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLButtonElement>,
     index: number,
   ) => {
+    if (tabs.length === 0) return;
     if (event.key === "ArrowRight") {
       event.preventDefault();
       moveFocus((index + 1) % tabs.length);
@@ -130,6 +159,11 @@ export function MatchTabs({
       className="pl-match-tabs"
       role="tablist"
       aria-label="Secciones del partido"
+      aria-orientation="horizontal"
+      style={{
+        overscrollBehaviorX: "contain",
+        scrollSnapType: "x proximity",
+      }}
     >
       {tabs.map((tab, index) => {
         const isSelected = tab.key === active;
@@ -149,11 +183,12 @@ export function MatchTabs({
             onFocus={() => setFocusedIndex(index)}
             onClick={(e) => {
               setFocusedIndex(index);
-              e.currentTarget.scrollIntoView?.({ block: "nearest", inline: "nearest" });
+              scrollTabIntoView(e.currentTarget);
               onSelect(tab.key);
             }}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className="pl-match-tab"
+            className="pl-match-tab min-h-11 sm:min-h-9 shrink-0 touch-manipulation"
+            style={{ scrollSnapAlign: "start" }}
           >
             <span>{tab.label}</span>
             {tab.count !== undefined ? (
