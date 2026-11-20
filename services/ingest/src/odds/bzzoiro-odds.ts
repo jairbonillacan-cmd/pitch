@@ -226,15 +226,31 @@ function round3(v: number): number {
   return Math.round(v * 1000) / 1000;
 }
 
-function parseDecimalOdds(raw: unknown): number | null {
+function parseFiniteNumber(raw: unknown): number | null {
+  if (raw == null || typeof raw === "boolean") return null;
+  if (typeof raw === "string" && raw.trim() === "") return null;
   const n = typeof raw === "number" ? raw : Number(raw);
-  if (!Number.isFinite(n) || n < 1.01 || n > 1000) return null;
+  return Number.isFinite(n) ? n : null;
+}
+
+function parseExplicitLine(raw: unknown): number | null {
+  const n = parseFiniteNumber(raw);
+  return n !== null ? normalizeLine(n) : null;
+}
+
+function parseDecimalOdds(raw: unknown): number | null {
+  const n = parseFiniteNumber(raw);
+  if (n === null || n < 1.01 || n > 1000) return null;
   return round3(n);
 }
 
-function inferLineFromMarketSlug(rawMarket: string, rawLine: unknown): number | null {
-  const explicit = normalizeLine(Number(rawLine));
-  if (explicit !== null) return explicit;
+function inferLineFromMarketSlug(
+  rawMarket: string,
+  rawLine: unknown,
+  requirePositive: boolean = true,
+): number | null {
+  const explicit = parseExplicitLine(rawLine);
+  if (explicit !== null && (!requirePositive || explicit > 0)) return explicit;
   const suffix = /(\d{2,3})$/.exec(rawMarket);
   if (suffix?.[1]) {
     const val = Number(suffix[1]) / 10;
@@ -295,8 +311,8 @@ export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
     /^total_corners_\d+$/.test(market) ||
     /^corners_\d+$/.test(market)
   ) {
-    const line = inferLineFromMarketSlug(market, row.line);
-    if (line === null || (outcome !== "over" && outcome !== "under")) return null;
+    const line = inferLineFromMarketSlug(market, row.line, true);
+    if (line === null || line <= 0 || (outcome !== "over" && outcome !== "under")) return null;
     return { market: "corners_total", line, selection: outcome };
   }
   if (
@@ -306,8 +322,8 @@ export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
     /^totals_\d+$/.test(market) ||
     market === "total_goals"
   ) {
-    const line = inferLineFromMarketSlug(market, row.line);
-    if (line === null || (outcome !== "over" && outcome !== "under")) return null;
+    const line = inferLineFromMarketSlug(market, row.line, true);
+    if (line === null || line <= 0 || (outcome !== "over" && outcome !== "under")) return null;
     return { market: "totals", line, selection: outcome };
   }
   if (market === "btts" || market === "both_teams_to_score") {
@@ -337,7 +353,7 @@ export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
     market.startsWith("ah_")
   ) {
     // Bzzoiro publica la línea del local para ambos lados («Home -1.25» / «Away +1.25»).
-    const line = normalizeLine(Number(row.line));
+    const line = parseExplicitLine(row.line);
     if (line === null) return null;
     if (outcome === "home" || outcome === "1") return { market: "ah", line, selection: "home" };
     if (outcome === "away" || outcome === "2") return { market: "ah", line, selection: "away" };
@@ -375,8 +391,14 @@ export function classifyLineMovement(params: {
     .replace(/[\s-]+/g, "_");
   const coordBooks = params.coordinatedShorteningBooks ?? 0;
 
+  const shorteningConsistent = deltaPct === null || deltaPct < 0;
+  const driftingConsistent = deltaPct === null || deltaPct > 0;
+
   let signal: LineMovementSignal;
-  if (rawDir === "STEAM" || rawDir === "STEAM_MOVE" || rawDir === "SHARP_STEAM") {
+  if (
+    shorteningConsistent &&
+    (rawDir === "STEAM" || rawDir === "STEAM_MOVE" || rawDir === "SHARP_STEAM")
+  ) {
     signal = "STEAM";
   } else if (
     deltaPct !== null &&
@@ -387,9 +409,9 @@ export function classifyLineMovement(params: {
     signal = "STEAM";
   } else if (params.sharpShortened && coordBooks >= 2 && deltaPct !== null && deltaPct <= -3.5) {
     signal = "STEAM";
-  } else if (rawDir === "SHORTENING" || rawDir === "DOWN") {
+  } else if (shorteningConsistent && (rawDir === "SHORTENING" || rawDir === "DOWN")) {
     signal = "SHORTENING";
-  } else if (rawDir === "DRIFTING" || rawDir === "UP") {
+  } else if (driftingConsistent && (rawDir === "DRIFTING" || rawDir === "UP")) {
     signal = "DRIFTING";
   } else if (
     deltaPct !== null &&
@@ -428,10 +450,11 @@ function resolveOpeningAndMovement(
 ): { openingPrice?: number; movementDirection?: OddsLineMovement; signal: LineMovementSignal; deltaPct: number | null } {
   const rawOpen = row.opening_odds ?? row.opening_decimal_odds ?? row.opening_price;
   const rawDir = row.movement ?? row.movement_direction;
-  const hasOpening = parseDecimalOdds(rawOpen) !== null;
+  const parsedOpen = parseDecimalOdds(rawOpen);
+  const hasOpening = parsedOpen !== null;
   const hasDir = typeof rawDir === "string" && rawDir.trim().length > 0;
   const classified = classifyLineMovement({
-    openingDecimal: hasOpening ? Number(rawOpen) : null,
+    openingDecimal: parsedOpen,
     currentDecimal,
     rawMovement: hasDir ? String(rawDir) : null,
   });
@@ -460,6 +483,28 @@ function normalizeComparisonBook(
 function selectionPriorKey(market: string, line: number | null, selection: string): string {
   const normSel = market === "double_chance" ? selection.toUpperCase() : selection.toLowerCase();
   return `${market}|${line === null ? "null" : String(line)}|${normSel}`;
+}
+
+/**
+ * Convierte la línea publicada por Bzzoiro (perspectiva local para ambos lados en `ah`/`spread`)
+ * a la línea del lado elegido al cruzar contra probabilidades Spacetime (`Away -1.5` en vez de `+1.5`).
+ */
+function sidePerspectiveLine(market: string, selection: string, line: number | null): number | null {
+  if (line === null) return null;
+  if ((market === "ah" || market === "spread") && selection === "away") {
+    return line === 0 ? 0 : -line;
+  }
+  return line;
+}
+
+function isOlderCapture(existingUtc: string | undefined, incomingUtc: string | undefined): boolean {
+  if (!existingUtc) return false;
+  const existingMs = Date.parse(existingUtc);
+  if (!Number.isFinite(existingMs)) return false;
+  if (!incomingUtc) return true;
+  const incomingMs = Date.parse(incomingUtc);
+  if (!Number.isFinite(incomingMs)) return true;
+  return existingMs > incomingMs;
 }
 
 function lookupModelProb(
@@ -606,6 +651,7 @@ export function parseBzzoiroOddsComparison(
 
     const quote = mapBzzoiroMarketQuote(row);
     if (!quote) continue;
+    const selectionLine = sidePerspectiveLine(quote.market, quote.selection, quote.line);
     const currentDecimal = parseDecimalOdds(row.decimal_odds ?? row.odds ?? row.price_decimal ?? row.price);
     if (currentDecimal === null) continue;
     const openingDecimal = parseDecimalOdds(row.opening_odds ?? row.opening_decimal_odds ?? row.opening_price);
@@ -617,16 +663,20 @@ export function parseBzzoiroOddsComparison(
     const capturedAtUtc =
       typeof rawTs === "string" && Number.isFinite(Date.parse(rawTs)) ? rawTs.trim() : undefined;
 
-    const key = selectionPriorKey(quote.market, quote.line, quote.selection);
+    const key = selectionPriorKey(quote.market, selectionLine, quote.selection);
     let bucket = grouped.get(key);
     if (!bucket) {
       bucket = {
         market: quote.market,
         selection: quote.selection,
-        line: quote.line,
+        line: selectionLine,
         byBook: new Map(),
       };
       grouped.set(key, bucket);
+    }
+    const existingBook = bucket.byBook.get(bookMeta.canonical);
+    if (existingBook && isOlderCapture(existingBook.capturedAtUtc, capturedAtUtc)) {
+      continue;
     }
     bucket.byBook.set(bookMeta.canonical, {
       book: bookMeta.canonical,
@@ -693,15 +743,25 @@ export function parseBzzoiroOddsComparison(
     );
     const pinnacleQuote = books.find((b) => b.book === "pinnacle") ?? null;
 
+    const consensusDeltaPct =
+      openingConsensusDecimal !== null
+        ? round2(((currentConsensusDecimal - openingConsensusDecimal) / openingConsensusDecimal) * 100)
+        : null;
+    const consensusShorteningOrUnknown = consensusDeltaPct === null || consensusDeltaPct < 0;
+    const consensusDriftingOrUnknown = consensusDeltaPct === null || consensusDeltaPct > 0;
     const consensusMovement = classifyLineMovement({
       openingDecimal: openingConsensusDecimal,
       currentDecimal: currentConsensusDecimal,
       rawMovement:
-        books.some((b) => b.signal === "STEAM")
+        consensusShorteningOrUnknown && books.some((b) => b.signal === "STEAM")
           ? "STEAM"
-          : books.some((b) => b.signal === "SHORTENING") && !books.some((b) => b.signal === "DRIFTING")
+          : consensusShorteningOrUnknown &&
+              books.some((b) => b.signal === "SHORTENING") &&
+              !books.some((b) => b.signal === "DRIFTING")
             ? "SHORTENING"
-            : books.some((b) => b.signal === "DRIFTING") && !books.some((b) => b.signal === "SHORTENING")
+            : consensusDriftingOrUnknown &&
+                books.some((b) => b.signal === "DRIFTING") &&
+                !books.some((b) => b.signal === "SHORTENING")
               ? "DRIFTING"
               : null,
       coordinatedShorteningBooks,
@@ -760,6 +820,7 @@ export function parseBzzoiroBestOdds(
 
     const quote = mapBzzoiroMarketQuote(row);
     if (!quote) continue;
+    const selectionLine = sidePerspectiveLine(quote.market, quote.selection, quote.line);
     const currentDecimal = parseDecimalOdds(row.decimal_odds ?? row.odds ?? row.price_decimal ?? row.price);
     if (currentDecimal === null) continue;
 
@@ -775,7 +836,7 @@ export function parseBzzoiroBestOdds(
     const kickoffRaw = typeof row.event_date === "string" && Number.isFinite(Date.parse(row.event_date))
       ? row.event_date.trim()
       : undefined;
-    const modelProb = lookupModelProb(options.modelProbsByKey, quote.market, quote.line, quote.selection);
+    const modelProb = lookupModelProb(options.modelProbsByKey, quote.market, selectionLine, quote.selection);
     if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, currentDecimal);
 
@@ -784,7 +845,7 @@ export function parseBzzoiroBestOdds(
       ...(kickoffRaw ? { kickoffUtc: kickoffRaw } : {}),
       market: quote.market,
       selection: quote.selection,
-      line: quote.line,
+      line: selectionLine,
       book: bookMeta.canonical,
       bookLabel: bookMeta.label,
       openingDecimal: mv.openingDecimal,
@@ -833,7 +894,8 @@ export function parseBzzoiroOdds(params: {
   const candidates: OddsSnapshotRow[] = [];
 
   for (const ev of params.events) {
-    const bzId = Number(ev.id);
+    const bzId = parseFiniteNumber(ev.id);
+    if (bzId === null) continue;
     const rows = params.oddsByEvent.get(bzId);
     if (!rows || rows.length === 0) continue;
     const home = teamName(ev.home_team);
@@ -861,7 +923,8 @@ export function parseBzzoiroOdds(params: {
       if (!book) continue;
       const quote = mapBzzoiroMarketQuote(row);
       if (!quote) continue;
-      const currentDecimal = Number(row.decimal_odds ?? row.odds ?? row.price_decimal);
+      const currentDecimal = parseDecimalOdds(row.decimal_odds ?? row.odds ?? row.price_decimal);
+      if (currentDecimal === null) continue;
       const { openingPrice, movementDirection } = resolveOpeningAndMovement(row, currentDecimal);
       candidates.push({
         event_id: resolved.eventId,

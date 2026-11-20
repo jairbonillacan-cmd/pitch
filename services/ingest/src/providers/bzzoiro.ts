@@ -332,7 +332,7 @@ export function parseTeamStats(raw: BzTeamStatsRaw | undefined): TeamMatchStats 
   const xgNode = raw?.xg;
   const xgObj = xgNode && typeof xgNode === "object" && "actual" in xgNode ? xgNode : null;
   return {
-    xg: num(xgObj?.actual) ?? plain(raw, "expected_goals"),
+    xg: num(xgObj?.actual) ?? plain(raw, "xg") ?? plain(raw, "expected_goals"),
     xgEstimated: typeof xgObj?.estimated === "boolean" ? xgObj.estimated : null,
     xgOnTarget: plain(raw, "expected_goals_on_target"),
     shots: plain(raw, "total_shots"),

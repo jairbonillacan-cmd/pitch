@@ -67,6 +67,8 @@ interface ParsedEventQuotes {
   readonly gameId?: string;
   readonly homeHint: string;
   readonly awayHint: string;
+  readonly eventDateYmd?: string;
+  readonly kickoffMs?: number;
   readonly bySelectionKey: ReadonlyMap<string, readonly BookQuoteItem[]>;
 }
 
@@ -207,9 +209,16 @@ function round3(v: number): number {
   return Math.round(v * 1000) / 1000;
 }
 
-function parseValidDecimal(raw: unknown): number | null {
+function parseFiniteNumberStrict(raw: unknown): number | null {
+  if (raw == null || typeof raw === "boolean") return null;
+  if (typeof raw === "string" && raw.trim() === "") return null;
   const n = typeof raw === "number" ? raw : Number(raw);
-  if (!Number.isFinite(n) || n <= 1.01 || n > 500) return null;
+  return Number.isFinite(n) ? n : null;
+}
+
+function parseValidDecimal(raw: unknown): number | null {
+  const n = parseFiniteNumberStrict(raw);
+  if (n === null || n <= 1.01 || n > 500) return null;
   return round3(n);
 }
 
@@ -241,8 +250,14 @@ export function classifyQuoteMovement(params: {
     .replace(/[\s-]+/g, "_");
   const coordBooks = params.coordinatedShorteningBooks ?? 0;
 
+  const shorteningConsistent = deltaPct === null || deltaPct < 0;
+  const driftingConsistent = deltaPct === null || deltaPct > 0;
+
   let signal: BookLineMovementSignal;
-  if (rawDir === "STEAM" || rawDir === "STEAM_MOVE" || rawDir === "SHARP_STEAM") {
+  if (
+    shorteningConsistent &&
+    (rawDir === "STEAM" || rawDir === "STEAM_MOVE" || rawDir === "SHARP_STEAM")
+  ) {
     signal = "STEAM";
   } else if (
     deltaPct !== null &&
@@ -253,9 +268,9 @@ export function classifyQuoteMovement(params: {
     signal = "STEAM";
   } else if (params.sharpShortened && coordBooks >= 2 && deltaPct !== null && deltaPct <= -3.5) {
     signal = "STEAM";
-  } else if (rawDir === "SHORTENING" || rawDir === "DOWN") {
+  } else if (shorteningConsistent && (rawDir === "SHORTENING" || rawDir === "DOWN")) {
     signal = "SHORTENING";
-  } else if (rawDir === "DRIFTING" || rawDir === "UP") {
+  } else if (driftingConsistent && (rawDir === "DRIFTING" || rawDir === "UP")) {
     signal = "DRIFTING";
   } else if (
     deltaPct !== null &&
@@ -316,6 +331,7 @@ function normalizeMarketKey(rawMarket: string | undefined, rawSelection?: string
   }
   if (
     m === "spread" ||
+    m === "spreads" ||
     m === "handicap" ||
     m === "ah" ||
     m === "asian_handicap" ||
@@ -345,9 +361,13 @@ function normalizeMarketKey(rawMarket: string | undefined, rawSelection?: string
 function normalizeSelectionToken(market: string, rawSelection: string | undefined): string {
   const s = (rawSelection ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
   if (market === "1x2" || market === "spread" || market === "dnb") {
-    if (s === "1" || s === "home" || s === "local") return "home";
+    if (s === "1" || s === "home" || s === "local" || s.startsWith("home_") || s.startsWith("local_")) {
+      return "home";
+    }
     if (s === "x" || s === "draw" || s === "empate") return "draw";
-    if (s === "2" || s === "away" || s === "visita") return "away";
+    if (s === "2" || s === "away" || s === "visita" || s.startsWith("away_") || s.startsWith("visita_")) {
+      return "away";
+    }
   }
   if (
     market === "btts" ||
@@ -375,25 +395,101 @@ function normalizeSelectionToken(market: string, rawSelection: string | undefine
   return s;
 }
 
+function normalizeSignedZero(v: number): number {
+  const rounded = Math.round(v * 100) / 100;
+  return rounded === 0 ? 0 : rounded;
+}
+
 function normalizeLineValue(
   market: string,
   line: number | null | undefined,
+  rawSelection?: string,
   labelFallback?: string,
 ): string {
   if (market !== "totals" && market !== "corners_total" && market !== "spread") return "null";
   if (typeof line === "number" && Number.isFinite(line)) {
-    return String(Math.round(line * 100) / 100);
+    return String(normalizeSignedZero(line));
+  }
+  if (rawSelection) {
+    const selMatch = /(?:^|[\s_])([+-]?\d+(?:\.\d+)?)$/.exec(rawSelection.trim());
+    if (selMatch?.[1]) {
+      const parsed = Number(selMatch[1]);
+      if (Number.isFinite(parsed)) {
+        return String(normalizeSignedZero(parsed));
+      }
+    }
   }
   if (labelFallback) {
-    const match = /([+-]?\d+(?:\.\d+)?)/.exec(labelFallback);
+    const parenMatch = /\(([+-]?\d+(?:\.\d+)?)\)/.exec(labelFallback);
+    const match = parenMatch ?? /([+-]?\d+(?:\.\d+)?)/.exec(labelFallback);
     if (match?.[1]) {
       const parsed = Number(match[1]);
       if (Number.isFinite(parsed)) {
-        return String(Math.round(parsed * 100) / 100);
+        return String(normalizeSignedZero(parsed));
       }
     }
   }
   return "null";
+}
+
+function inferSourceLine(
+  canonicalMarket: string,
+  rawMarket: unknown,
+  rawLine: unknown,
+): number | null {
+  if (canonicalMarket !== "totals" && canonicalMarket !== "corners_total" && canonicalMarket !== "spread") {
+    return null;
+  }
+  const explicit = parseFiniteNumberStrict(rawLine);
+  if (explicit !== null) {
+    const clean = normalizeSignedZero(explicit);
+    if (canonicalMarket === "spread") return clean;
+    if (clean > 0) return clean;
+  }
+  if (canonicalMarket === "totals" || canonicalMarket === "corners_total") {
+    const slug = String(rawMarket ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
+    const suffix = /(\d{2,3})$/.exec(slug);
+    if (suffix?.[1]) {
+      const val = Number(suffix[1]) / 10;
+      if (Number.isFinite(val) && val > 0 && val <= 30) {
+        return normalizeSignedZero(val);
+      }
+    }
+  }
+  return null;
+}
+
+/**
+ * Los feeds fuente (`Bzzoiro` / `The Odds API`) publican la línea del local para ambos lados
+ * en hándicap asiático / spread; al cruzar contra el catálogo (que usa la línea del lado elegido),
+ * negamos la línea cuando `selection === "away"` (`+1.5` local -> `-1.5` visita).
+ */
+function sidePerspectiveLine(
+  canonicalMarket: string,
+  canonicalSelection: string,
+  line: number | null,
+): number | null {
+  if (line === null) return null;
+  if (canonicalMarket === "spread" && canonicalSelection === "away") {
+    return line === 0 ? 0 : normalizeSignedZero(-line);
+  }
+  return normalizeSignedZero(line);
+}
+
+function buildSourceTickLookupKey(
+  rawMarket: string | undefined,
+  rawSelection: string | undefined,
+  rawLine: unknown,
+): string | null {
+  const market = normalizeMarketKey(rawMarket, rawSelection);
+  const selection = normalizeSelectionToken(market, rawSelection);
+  if (!market || !selection) return null;
+  const parsedLine = inferSourceLine(market, rawMarket, rawLine);
+  if ((market === "totals" || market === "corners_total" || market === "spread") && parsedLine === null) {
+    return null;
+  }
+  const lineForSide = sidePerspectiveLine(market, selection, parsedLine);
+  return `${market}|${lineForSide === null ? "null" : String(lineForSide)}|${selection}`;
 }
 
 function buildLookupKey(
@@ -404,17 +500,70 @@ function buildLookupKey(
 ): string {
   const market = normalizeMarketKey(rawMarket, rawSelection);
   const selection = normalizeSelectionToken(market, rawSelection);
-  const normLine = normalizeLineValue(market, line, labelFallback);
+  const normLine = normalizeLineValue(market, line, rawSelection, labelFallback);
   return `${market}|${normLine}|${selection}`;
 }
 
-function extractEventTeamHints(eventId: string): { homeHint: string; awayHint: string } | null {
+function isOlderCapture(existingUtc: string | undefined, incomingUtc: string | undefined): boolean {
+  if (!existingUtc) return false;
+  const existingMs = Date.parse(existingUtc);
+  if (!Number.isFinite(existingMs)) return false;
+  if (!incomingUtc) return true;
+  const incomingMs = Date.parse(incomingUtc);
+  if (!Number.isFinite(incomingMs)) return true;
+  return existingMs > incomingMs;
+}
+
+function finalizeBookQuoteList(items: readonly BookQuoteItem[]): BookQuoteItem[] {
+  if (items.length === 0) return [];
+  const sorted = [...items].sort(
+    (a, b) => b.decimal - a.decimal || a.book.localeCompare(b.book),
+  );
+  const bestPrice = sorted[0]!.decimal;
+  return sorted.map((q) => {
+    const { isBest: _staleBest, ...rest } = q;
+    void _staleBest;
+    return Math.abs(q.decimal - bestPrice) < 1e-6 ? { ...rest, isBest: true } : rest;
+  });
+}
+
+function extractYmdFromToken(raw: string | undefined): string | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  const compact = /^(\d{8})$/.exec(trimmed);
+  if (compact?.[1]) return compact[1];
+  const iso = /(\d{4})-(\d{2})-(\d{2})/.exec(trimmed);
+  if (iso?.[1] && iso[2] && iso[3]) return `${iso[1]}${iso[2]}${iso[3]}`;
+  return null;
+}
+
+function ymdToUtcDayStartMs(ymd: string): number | null {
+  if (!/^\d{8}$/.test(ymd)) return null;
+  const y = Number(ymd.slice(0, 4));
+  const m = Number(ymd.slice(4, 6));
+  const d = Number(ymd.slice(6, 8));
+  const ms = Date.UTC(y, m - 1, d);
+  return Number.isFinite(ms) ? ms : null;
+}
+
+function extractEventTeamHints(
+  eventId: string,
+  tsEventStart?: string,
+): { homeHint: string; awayHint: string; eventDateYmd?: string; kickoffMs?: number } | null {
   const parts = eventId.split(":");
   if (parts.length < 6) return null;
   const homeRaw = parts[4]?.replace(/[_-]+/g, " ").trim() ?? "";
   const awayRaw = parts[5]?.replace(/[_-]+/g, " ").trim() ?? "";
   if (!homeRaw || !awayRaw) return null;
-  return { homeHint: homeRaw, awayHint: awayRaw };
+  const eventDateYmd = extractYmdFromToken(tsEventStart) ?? extractYmdFromToken(parts[3]);
+  const parsedStart = tsEventStart ? Date.parse(tsEventStart) : Number.NaN;
+  const kickoffMs = Number.isFinite(parsedStart) ? parsedStart : undefined;
+  return {
+    homeHint: homeRaw,
+    awayHint: awayRaw,
+    ...(eventDateYmd ? { eventDateYmd } : {}),
+    ...(kickoffMs !== undefined ? { kickoffMs } : {}),
+  };
 }
 
 let ledgerCache: {
@@ -433,6 +582,8 @@ export function parseQuotesLedgerTicks(
       appLeague: string;
       homeHint: string;
       awayHint: string;
+      eventDateYmd?: string;
+      kickoffMs?: number;
       quotesByKey: Map<string, Map<string, BookQuoteItem>>;
     }
   >();
@@ -448,10 +599,13 @@ export function parseQuotesLedgerTicks(
       ? (QUOTE_LEAGUE_TO_APP[tick.league] ?? (COMPETITION_BY_ID[tick.league] ? tick.league : undefined))
       : undefined;
     if (!appLeague || !tick.event_id) continue;
-    const hints = extractEventTeamHints(tick.event_id);
+    const hints = extractEventTeamHints(tick.event_id, tick.ts_event_start);
     if (!hints) continue;
     const book = normalizeServerBookKey(tick.book ?? "");
     if (!book) continue;
+
+    const selKey = buildSourceTickLookupKey(tick.market, tick.selection, tick.line);
+    if (!selKey) continue;
 
     const eventKey = `${appLeague}::${tick.event_id}`;
     let eventBucket = eventsMap.get(eventKey);
@@ -460,12 +614,18 @@ export function parseQuotesLedgerTicks(
         appLeague,
         homeHint: hints.homeHint,
         awayHint: hints.awayHint,
+        ...(hints.eventDateYmd ? { eventDateYmd: hints.eventDateYmd } : {}),
+        ...(hints.kickoffMs !== undefined ? { kickoffMs: hints.kickoffMs } : {}),
         quotesByKey: new Map(),
       };
       eventsMap.set(eventKey, eventBucket);
+    } else {
+      if (!eventBucket.eventDateYmd && hints.eventDateYmd) eventBucket.eventDateYmd = hints.eventDateYmd;
+      if (eventBucket.kickoffMs === undefined && hints.kickoffMs !== undefined) {
+        eventBucket.kickoffMs = hints.kickoffMs;
+      }
     }
 
-    const selKey = buildLookupKey(tick.market, tick.selection, tick.line);
     let bookMap = eventBucket.quotesByKey.get(selKey);
     if (!bookMap) {
       bookMap = new Map();
@@ -474,7 +634,7 @@ export function parseQuotesLedgerTicks(
 
     const capturedAtUtc = tick.ts_captured!;
     const existing = bookMap.get(book);
-    if (existing && Date.parse(existing.capturedAtUtc) > Date.parse(capturedAtUtc)) {
+    if (existing && isOlderCapture(existing.capturedAtUtc, capturedAtUtc)) {
       continue;
     }
 
@@ -498,7 +658,6 @@ export function parseQuotesLedgerTicks(
       capturedAtUtc,
       ...(openingDecimal !== undefined ? { openingDecimal } : {}),
       ...(movementDirection ? { movementDirection } : {}),
-      ...(tick.is_best_odds === true ? { isBest: true } : {}),
     });
   }
 
@@ -506,16 +665,8 @@ export function parseQuotesLedgerTicks(
   for (const ev of eventsMap.values()) {
     const finalizedMap = new Map<string, readonly BookQuoteItem[]>();
     for (const [k, bookMap] of ev.quotesByKey.entries()) {
-      const rawSorted = [...bookMap.values()].sort((a, b) => b.decimal - a.decimal);
-      if (rawSorted.length > 0) {
-        const bestPrice = rawSorted[0]!.decimal;
-        const hasExplicitBest = rawSorted.some((q) => q.isBest === true);
-        const sorted = rawSorted.map((q) => ({
-          ...q,
-          ...(q.isBest === true || (!hasExplicitBest && Math.abs(q.decimal - bestPrice) < 1e-6)
-            ? { isBest: true }
-            : {}),
-        }));
+      const sorted = finalizeBookQuoteList([...bookMap.values()]);
+      if (sorted.length > 0) {
         finalizedMap.set(k, sorted);
       }
     }
@@ -525,6 +676,8 @@ export function parseQuotesLedgerTicks(
       appLeague: ev.appLeague,
       homeHint: ev.homeHint,
       awayHint: ev.awayHint,
+      ...(ev.eventDateYmd ? { eventDateYmd: ev.eventDateYmd } : {}),
+      ...(ev.kickoffMs !== undefined ? { kickoffMs: ev.kickoffMs } : {}),
       bySelectionKey: finalizedMap,
     });
     byLeague.set(ev.appLeague, list);
@@ -616,7 +769,8 @@ function loadSnapshotMarketLinesByLeague(nowMs: number): {
         const capturedAtUtc = line.capturedAtUtc ?? fallbackCaptured;
         if (!isMarketFresh(capturedAtUtc, nowMs)) continue;
         const book = normalizeServerBookKey(line.book ?? "consensus") || "consensus";
-        const selKey = buildLookupKey(line.market, line.outcome, line.line);
+        const selKey = buildSourceTickLookupKey(line.market, line.outcome, line.line);
+        if (!selKey) continue;
 
         let bucket = eventsMap.get(line.gameId);
         if (!bucket) {
@@ -632,6 +786,10 @@ function loadSnapshotMarketLinesByLeague(nowMs: number): {
         if (!bookMap) {
           bookMap = new Map();
           bucket.quotesByKey.set(selKey, bookMap);
+        }
+        const existingSnapQuote = bookMap.get(book);
+        if (existingSnapQuote && isOlderCapture(existingSnapQuote.capturedAtUtc, capturedAtUtc)) {
+          continue;
         }
         const roundedDec = Math.round(price * 1000) / 1000;
         const openingDecimal =
@@ -665,24 +823,19 @@ function loadSnapshotMarketLinesByLeague(nowMs: number): {
       for (const ev of eventsMap.values()) {
         const finalizedMap = new Map<string, readonly BookQuoteItem[]>();
         for (const [k, bookMap] of ev.quotesByKey.entries()) {
-          const rawSorted = [...bookMap.values()].sort((a, b) => b.decimal - a.decimal);
-          if (rawSorted.length > 0) {
-            const bestPrice = rawSorted[0]!.decimal;
-            finalizedMap.set(
-              k,
-              rawSorted.map((q) => ({
-                ...q,
-                ...(Math.abs(q.decimal - bestPrice) < 1e-6 ? { isBest: true } : {}),
-              })),
-            );
+          const sorted = finalizeBookQuoteList([...bookMap.values()]);
+          if (sorted.length > 0) {
+            finalizedMap.set(k, sorted);
           }
         }
         if (finalizedMap.size === 0) continue;
+        const eventDateYmd = extractYmdFromToken(ev.gameId);
         list.push({
           appLeague,
           gameId: ev.gameId,
           homeHint: ev.homeHint,
           awayHint: ev.awayHint,
+          ...(eventDateYmd ? { eventDateYmd } : {}),
           bySelectionKey: finalizedMap,
         });
       }
@@ -749,8 +902,54 @@ function getParsedQuotesByLeague(nowMs: number = Date.now()): Map<string, Parsed
   return merged;
 }
 
+function evaluateKickoffWindowMatch(
+  gameKickoffMs: number | null,
+  gameYmd: string | null,
+  cand: ParsedEventQuotes,
+): { ok: boolean; bonus: number } {
+  if (gameKickoffMs === null && gameYmd === null) {
+    return { ok: true, bonus: 0 };
+  }
+  // Ambos tienen timestamp exacto de kickoff: ventana ±12 h (impide cruzar Juego 1 vs Juego 2 en series diarias).
+  if (gameKickoffMs !== null && cand.kickoffMs !== undefined) {
+    const diffMs = Math.abs(gameKickoffMs - cand.kickoffMs);
+    if (diffMs > 12 * 3_600_000) return { ok: false, bonus: 0 };
+    return { ok: true, bonus: diffMs <= 3 * 3_600_000 ? 0.25 : 0.1 };
+  }
+  // Juego tiene kickoff exacto y candidato solo fecha UTC YYYYMMDD: distancia al intervalo UTC [00:00, 24:00] <= 12 h.
+  if (gameKickoffMs !== null && cand.eventDateYmd !== undefined) {
+    const dayStart = ymdToUtcDayStartMs(cand.eventDateYmd);
+    if (dayStart !== null) {
+      const dayEnd = dayStart + 86_400_000;
+      const distMs =
+        gameKickoffMs < dayStart
+          ? dayStart - gameKickoffMs
+          : gameKickoffMs > dayEnd
+            ? gameKickoffMs - dayEnd
+            : 0;
+      if (distMs > 12 * 3_600_000) return { ok: false, bonus: 0 };
+      return { ok: true, bonus: distMs === 0 ? 0.25 : 0.05 };
+    }
+  }
+  // Ambos tienen fecha YYYYMMDD: tolerancia ±1 día por diferencia horaria UTC vs MX, priorizando mismo día.
+  if (gameYmd !== null && cand.eventDateYmd !== undefined) {
+    const gStart = ymdToUtcDayStartMs(gameYmd);
+    const cStart = ymdToUtcDayStartMs(cand.eventDateYmd);
+    if (gStart !== null && cStart !== null) {
+      const diffDays = Math.abs(gStart - cStart) / 86_400_000;
+      if (diffDays > 1) return { ok: false, bonus: 0 };
+      return { ok: true, bonus: diffDays === 0 ? 0.25 : 0 };
+    }
+  }
+  return { ok: true, bonus: 0 };
+}
+
 function findEventQuotesForGame(
-  game: Pick<PlatformGame, "league" | "home" | "away"> & { readonly id?: string },
+  game: Pick<PlatformGame, "league" | "home" | "away"> & {
+    readonly id?: string;
+    readonly kickoffUtc?: string;
+    readonly dayId?: string;
+  },
   byLeague: Map<string, ParsedEventQuotes[]>,
 ): ParsedEventQuotes | null {
   const candidates = byLeague.get(game.league);
@@ -761,6 +960,13 @@ function findEventQuotesForGame(
     if (byId) return byId;
   }
 
+  const parsedGameKo = game.kickoffUtc ? Date.parse(game.kickoffUtc) : Number.NaN;
+  const gameKickoffMs = Number.isFinite(parsedGameKo) ? parsedGameKo : null;
+  const gameYmd =
+    extractYmdFromToken(game.kickoffUtc) ??
+    extractYmdFromToken(game.dayId) ??
+    extractYmdFromToken(game.id);
+
   let bestMatch: ParsedEventQuotes | null = null;
   let bestScore = 0;
   const homeSlugText = game.home.slug.replace(/[-_]+/g, " ");
@@ -768,6 +974,8 @@ function findEventQuotesForGame(
 
   for (const cand of candidates) {
     if (!cand.homeHint || !cand.awayHint) continue;
+    const dateCheck = evaluateKickoffWindowMatch(gameKickoffMs, gameYmd, cand);
+    if (!dateCheck.ok) continue;
     const hScore = Math.max(
       teamScore(cand.homeHint, game.home.name),
       teamScore(cand.homeHint, homeSlugText),
@@ -776,7 +984,7 @@ function findEventQuotesForGame(
       teamScore(cand.awayHint, game.away.name),
       teamScore(cand.awayHint, awaySlugText),
     );
-    const total = hScore > 0 && aScore > 0 ? hScore + aScore : 0;
+    const total = hScore > 0 && aScore > 0 ? hScore + aScore + dateCheck.bonus : 0;
     if (total > bestScore) {
       bestScore = total;
       bestMatch = cand;
@@ -808,7 +1016,7 @@ function enrichPickWithQuotes(
   ) {
     const existingBookKey = normalizeServerBookKey(pick.marketBookLabel);
     if (existingBookKey && !quotes.some((q) => q.book === existingBookKey)) {
-      mergedQuotes = [
+      mergedQuotes = finalizeBookQuoteList([
         ...quotes,
         {
           book: existingBookKey,
@@ -816,8 +1024,12 @@ function enrichPickWithQuotes(
           decimal: pick.marketDecimal,
           capturedAtUtc: pick.marketCapturedAtUtc,
         },
-      ].sort((a, b) => b.decimal - a.decimal);
+      ]);
+    } else {
+      mergedQuotes = finalizeBookQuoteList(quotes);
     }
+  } else {
+    mergedQuotes = finalizeBookQuoteList(quotes);
   }
 
   const top = mergedQuotes[0]!;
@@ -841,7 +1053,11 @@ function enrichPickWithQuotes(
 }
 
 export function enrichMarketRowsWithBookQuotes(
-  game: Pick<PlatformGame, "league" | "home" | "away" | "status"> & { readonly id?: string },
+  game: Pick<PlatformGame, "league" | "home" | "away" | "status"> & {
+    readonly id?: string;
+    readonly kickoffUtc?: string;
+    readonly dayId?: string;
+  },
   rows: readonly PlatformMarketRow[],
   nowMs: number = Date.now(),
   byLeagueOverride?: Map<string, ParsedEventQuotes[]>,
@@ -1021,7 +1237,14 @@ function computeAnalyticsForPrice(
   edgePts: number | null;
   evPct: number | null;
 } {
-  if (modelProb === null) {
+  if (
+    modelProb === null ||
+    !Number.isFinite(modelProb) ||
+    modelProb <= 0.001 ||
+    modelProb >= 0.999 ||
+    !Number.isFinite(currentDecimal) ||
+    currentDecimal <= 1.01
+  ) {
     return { modelProb: null, fairDecimal: null, edgePts: null, evPct: null };
   }
   return {
@@ -1077,15 +1300,11 @@ export function parseBzzoiroComparisonPayload(
     const market = normalizeMarketKey(String(row.market ?? ""), String(row.outcome ?? row.selection ?? ""));
     const selection = normalizeSelectionToken(market, String(row.outcome ?? row.selection ?? ""));
     if (!market || !selection) continue;
-    const lineNum =
-      typeof row.line === "number" && Number.isFinite(row.line)
-        ? Math.round(row.line * 100) / 100
-        : market === "totals" || market === "corners_total" || market === "spread"
-          ? (() => {
-              const m = /(\d{2,3})$/.exec(String(row.market ?? ""));
-              return m?.[1] ? Number(m[1]) / 10 : null;
-            })()
-          : null;
+    const parsedLine = inferSourceLine(market, row.market, row.line);
+    if ((market === "totals" || market === "corners_total" || market === "spread") && parsedLine === null) {
+      continue;
+    }
+    const lineNum = sidePerspectiveLine(market, selection, parsedLine);
     const lookupKey = `${market}|${lineNum === null ? "null" : String(lineNum)}|${selection}`;
 
     let bucket = grouped.get(lookupKey);
@@ -1102,6 +1321,11 @@ export function parseBzzoiroComparisonPayload(
     const rawTs = row.updated_at ?? row.captured_at;
     const capturedAtUtc =
       typeof rawTs === "string" && Number.isFinite(Date.parse(rawTs)) ? rawTs.trim() : undefined;
+
+    const existingBook = bucket.byBook.get(book);
+    if (existingBook && isOlderCapture(existingBook.capturedAtUtc, capturedAtUtc)) {
+      continue;
+    }
 
     bucket.byBook.set(book, {
       book,
@@ -1159,10 +1383,15 @@ export function parseBzzoiroComparisonPayload(
     const openingConsensusDecimal =
       openings.length > 0 ? round3(openings.reduce((a, b) => a + b, 0) / openings.length) : null;
     const currentConsensusDecimal = round3(books.reduce((a, b) => a + b.currentDecimal, 0) / books.length);
+    const consensusDeltaPct =
+      openingConsensusDecimal !== null
+        ? round2(((currentConsensusDecimal - openingConsensusDecimal) / openingConsensusDecimal) * 100)
+        : null;
+    const consensusShorteningOrUnknown = consensusDeltaPct === null || consensusDeltaPct < 0;
     const consensusMv = classifyQuoteMovement({
       openingDecimal: openingConsensusDecimal,
       currentDecimal: currentConsensusDecimal,
-      rawDirection: books.some((b) => b.signal === "STEAM") ? "STEAM" : null,
+      rawDirection: consensusShorteningOrUnknown && books.some((b) => b.signal === "STEAM") ? "STEAM" : null,
       coordinatedShorteningBooks,
       sharpShortened,
     });
@@ -1218,8 +1447,11 @@ export function parseBzzoiroBestOddsPayload(
     const market = normalizeMarketKey(String(row.market ?? ""), String(row.outcome ?? row.selection ?? ""));
     const selection = normalizeSelectionToken(market, String(row.outcome ?? row.selection ?? ""));
     if (!market || !selection) continue;
-    const lineNum =
-      typeof row.line === "number" && Number.isFinite(row.line) ? Math.round(row.line * 100) / 100 : null;
+    const parsedLine = inferSourceLine(market, row.market, row.line);
+    if ((market === "totals" || market === "corners_total" || market === "spread") && parsedLine === null) {
+      continue;
+    }
+    const lineNum = sidePerspectiveLine(market, selection, parsedLine);
     const lookupKey = `${market}|${lineNum === null ? "null" : String(lineNum)}|${selection}`;
 
     const openingDecimal = parseValidDecimal(row.opening_odds ?? row.opening_decimal_odds ?? row.opening_price);
@@ -1306,15 +1538,27 @@ export function buildMarketRowComparison(row: PlatformMarketRow): SelectionBookC
   const openingConsensusDecimal =
     openings.length > 0 ? round3(openings.reduce((a, b) => a + b, 0) / openings.length) : null;
   const currentConsensusDecimal = round3(books.reduce((a, b) => a + b.currentDecimal, 0) / books.length);
+  const consensusDeltaPct =
+    openingConsensusDecimal !== null
+      ? round2(((currentConsensusDecimal - openingConsensusDecimal) / openingConsensusDecimal) * 100)
+      : null;
+  const consensusShorteningOrUnknown = consensusDeltaPct === null || consensusDeltaPct < 0;
   const consensusMv = classifyQuoteMovement({
     openingDecimal: openingConsensusDecimal,
     currentDecimal: currentConsensusDecimal,
-    rawDirection: books.some((b) => b.signal === "STEAM") ? "STEAM" : row.movementDirection ?? null,
+    rawDirection:
+      consensusShorteningOrUnknown && books.some((b) => b.signal === "STEAM")
+        ? "STEAM"
+        : row.movementDirection ?? null,
     coordinatedShorteningBooks,
     sharpShortened,
   });
 
-  const analytics = computeAnalyticsForPrice(row.p, bestDecimal);
+  const validModelProb =
+    typeof row.p === "number" && Number.isFinite(row.p) && row.p > 0.001 && row.p < 0.999
+      ? row.p
+      : null;
+  const analytics = computeAnalyticsForPrice(validModelProb, bestDecimal);
   return {
     market: normalizeMarketKey(row.market, row.selection),
     selection: normalizeSelectionToken(normalizeMarketKey(row.market, row.selection), row.selection),

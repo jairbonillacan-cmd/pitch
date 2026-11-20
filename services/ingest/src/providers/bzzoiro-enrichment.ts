@@ -114,11 +114,22 @@ export interface BzPredictionRaw {
 }
 
 function normProb(raw: unknown): number | null {
+  if (raw == null || typeof raw === "boolean" || (typeof raw === "string" && raw.trim() === "")) {
+    return null;
+  }
   const n = typeof raw === "number" ? raw : Number(raw);
   if (!Number.isFinite(n) || n < 0) return null;
   if (n > 1 && n <= 100) return Math.min(0.999, Math.max(0.001, n / 100));
   if (n <= 1) return Math.min(0.999, Math.max(0.001, n));
   return null;
+}
+
+function positiveIntId(raw: unknown): number | null {
+  if (raw == null || typeof raw === "boolean" || (typeof raw === "string" && raw.trim() === "")) {
+    return null;
+  }
+  const n = typeof raw === "number" ? raw : Number(raw);
+  return Number.isFinite(n) && Number.isInteger(n) && n > 0 ? n : null;
 }
 
 function mapAvailabilityStatus(raw: string | null | undefined): "Baja" | "Duda" | null {
@@ -413,6 +424,9 @@ export interface NormalizedRefereeRigor {
 }
 
 function finiteNonNeg(raw: unknown): number | null {
+  if (raw == null || typeof raw === "boolean" || (typeof raw === "string" && raw.trim() === "")) {
+    return null;
+  }
   const n = typeof raw === "number" ? raw : Number(raw);
   return Number.isFinite(n) && n >= 0 ? n : null;
 }
@@ -877,8 +891,8 @@ export function parseBzzoiroScheduleChanges(raw: BzList<BzScheduleChangeRaw> | n
   const rows = Array.isArray(raw) ? raw : (raw?.results ?? []);
   const out: ParsedScheduleChange[] = [];
   for (const r of rows) {
-    const id = Number(r.event_id ?? r.id);
-    if (!Number.isFinite(id)) continue;
+    const id = positiveIntId(r.event_id) ?? positiveIntId(r.id);
+    if (id === null) continue;
     const home = typeof r.home_team === "string" ? r.home_team : r.home_team?.name ?? "";
     const away = typeof r.away_team === "string" ? r.away_team : r.away_team?.name ?? "";
     out.push({
@@ -1106,11 +1120,11 @@ export interface NormalizedBzzoiroPrediction {
 }
 
 export function parseBzzoiroPredictionRow(raw: BzPredictionRaw): NormalizedBzzoiroPrediction | null {
-  const id = Number(raw.event_id ?? raw.id);
+  const id = positiveIntId(raw.event_id) ?? positiveIntId(raw.id);
   const pH = normProb(raw.prob_home ?? raw.home_win_prob);
   const pD = normProb(raw.prob_draw ?? raw.draw_prob) ?? 0;
   const pA = normProb(raw.prob_away ?? raw.away_win_prob);
-  if (!Number.isFinite(id) || pH === null || pA === null) return null;
+  if (id === null || pH === null || pA === null) return null;
   const sum = pH + pD + pA;
   if (!(sum > 0)) return null;
 

@@ -210,6 +210,38 @@ function num(value: unknown): number | null {
   return null;
 }
 
+export interface ParsedFootballMinute {
+  readonly minute: number;
+  readonly addedTime: number | null;
+}
+
+/**
+ * Parsea minutos de fútbol numéricos o en texto (`"67'"`, `"45+2'"`, `"90+4"`, `"45 + 2"`, `84`)
+ * devolviendo `{ minute, addedTime }`. Rechaza negativos, vacíos o no numéricos.
+ */
+export function parseFootballMinute(raw: unknown): ParsedFootballMinute | null {
+  if (typeof raw === "number") {
+    if (!Number.isFinite(raw) || raw < 0) return null;
+    return { minute: raw, addedTime: null };
+  }
+  if (typeof raw !== "string") return null;
+  const cleaned = raw.trim().replace(/[′’`']/g, "").trim();
+  if (!cleaned) return null;
+
+  const plusMatch = /^(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)$/.exec(cleaned);
+  if (plusMatch?.[1] && plusMatch[2]) {
+    const base = Number(plusMatch[1]);
+    const extra = Number(plusMatch[2]);
+    if (!Number.isFinite(base) || !Number.isFinite(extra) || base < 0 || extra < 0) return null;
+    return { minute: base, addedTime: extra > 0 ? Math.round(extra) : null };
+  }
+
+  if (!/^\d+(?:\.\d+)?$/.test(cleaned)) return null;
+  const base = Number(cleaned);
+  if (!Number.isFinite(base) || base < 0) return null;
+  return { minute: base, addedTime: null };
+}
+
 const URL_FRAGMENT_RE = /https?:\/\/\S+|www\.\S+/gi;
 
 /** Limpia cadenas destinadas a cliente: descarta URLs o hotlinks externos (`FD-16`). */
@@ -246,15 +278,15 @@ function nameOf(value: unknown): string | null {
  * (`inprogress`, `halftime`, `1st_half`…). Se aceptan ambos.
  */
 export function phaseFrom(status: string | null | undefined, period: string | null | undefined): LivePhase {
-  const s = (status ?? "").toLowerCase().replace(/[\s-]+/g, "_");
-  const p = (period ?? "").toLowerCase().replace(/[\s-]+/g, "_");
-  if (p === "halftime" || p === "ht" || p === "half_time" || s === "halftime") return "halftime";
-  if (p.includes("penalt") || s === "penalties") return "penalties";
+  const s = (status ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
+  const p = (period ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
   if (["finished", "ended", "ft", "aet", "ap", "after_penalties", "after_extra_time"].includes(s)) return "final";
   if (s === "postponed" || s === "delayed" || s === "suspended" || s === "interrupted") return "postponed";
   if (s === "cancelled" || s === "canceled" || s === "abandoned") return "cancelled";
   if (s === "unresolved") return "unknown";
   if (["upcoming", "notstarted", "not_started", "scheduled", "ns", ""].includes(s)) return "scheduled";
+  if (p === "halftime" || p === "ht" || p === "half_time" || s === "halftime") return "halftime";
+  if (p.includes("penalt") || s === "penalties") return "penalties";
   if (["live", "inprogress", "in_progress", "1st_half", "2nd_half", "extratime", "extra_time", "1h", "2h", "et"].includes(s)) {
     return "live";
   }
@@ -292,7 +324,11 @@ export function bzLeagueId(e: BzLiveEvent): number | null {
 /** Convierte un evento del proveedor a una fila del marcador con NUESTRO id. */
 export function toScoreboardEntry(e: BzLiveEvent, gameId: string, league: string, kickoffUtc: string): LiveScoreboardEntry {
   const phase = phaseFrom(e.status, e.period);
-  const minute = num(e.current_minute) ?? num(e.minute);
+  const parsedMin = parseFootballMinute(e.current_minute) ?? parseFootballMinute(e.minute);
+  const minute = parsedMin?.minute ?? null;
+  const explicitInjury = num(e.injury_time);
+  const injury =
+    explicitInjury !== null && explicitInjury > 0 ? explicitInjury : (parsedMin?.addedTime ?? null);
   const ft = score(e.home_score, e.away_score);
   // `home_score` es solo tiempo regular; el tiempo extra suma aparte.
   const et = e.extra_time_score ? score(e.extra_time_score.home, e.extra_time_score.away) : null;
@@ -303,7 +339,7 @@ export function toScoreboardEntry(e: BzLiveEvent, gameId: string, league: string
     gameId,
     league,
     phase,
-    clock: clockFrom(minute, num(e.injury_time), phase),
+    clock: clockFrom(minute, injury, phase),
     minute: phase === "live" ? minute : null,
     score: phase === "scheduled" ? null : (total ?? (phase === "live" || phase === "halftime" ? { home: 0, away: 0 } : null)),
     htScore: score(e.home_score_ht, e.away_score_ht),
@@ -439,13 +475,20 @@ export function parseIncidents(raw: BzList<BzLiveIncident> | null): LiveIncident
   list<BzLiveIncident>(raw).forEach((r, index) => {
     const kind = incidentKind(r);
     if (!kind) return;
-    const minute = num(r.minute);
-    const added = num(r.added_time);
+    const parsedMin = parseFootballMinute(r.minute);
+    const minute = parsedMin?.minute ?? null;
+    const explicitAdded = num(r.added_time);
+    const added =
+      explicitAdded !== null && explicitAdded > 0
+        ? Math.round(explicitAdded)
+        : (parsedMin?.addedTime ?? null);
     const isSub = kind === "sub";
-    // Orden: minuto, luego tiempo agregado (45+7 va antes del medio tiempo y del 46').
+    // Escala unificada `minute * 100 + addedTime` (45+7 -> 4507 antes del corte HT 4599 y del 46' -> 4600).
+    const clampedAdded = added !== null ? Math.min(Math.max(added, 0), 98) : 0;
     const order =
-      num(r.period_second) ??
-      (minute !== null ? minute * 100 + Math.min(added ?? 0, 30) + (kind === "period" ? 99 : 0) : index);
+      minute !== null
+        ? Math.round(minute) * 100 + (kind === "period" ? 99 : clampedAdded)
+        : 1_000_000 + index;
     out.push({
       order,
       kind,
@@ -580,11 +623,15 @@ export function parseCommentary(raw: BzList<BzLiveCommentaryRaw> | null): LiveCo
   list<BzLiveCommentaryRaw>(raw).forEach((r, idx) => {
     const text = sanitizeClientText(r.text ?? r.commentary);
     if (!text) return;
-    const minute = num(r.minute);
-    const added = num(r.added_time);
-    const order =
-      num(r.period_second) ??
-      (minute !== null ? minute * 100 + Math.min(added ?? 0, 30) : idx);
+    const parsedMin = parseFootballMinute(r.minute);
+    const minute = parsedMin?.minute ?? null;
+    const explicitAdded = num(r.added_time);
+    const added =
+      explicitAdded !== null && explicitAdded > 0
+        ? Math.round(explicitAdded)
+        : (parsedMin?.addedTime ?? null);
+    const clampedAdded = added !== null ? Math.min(Math.max(added, 0), 98) : 0;
+    const order = minute !== null ? Math.round(minute) * 100 + clampedAdded : 1_000_000 + idx;
     const side =
       typeof r.is_home === "boolean"
         ? r.is_home
@@ -770,18 +817,21 @@ function clampCoord(v: number, scaleTo100: boolean): number {
 
 function detectUnitCoordScale(pairs: readonly { x: number; y: number }[]): boolean {
   if (pairs.length === 0) return false;
-  let allInUnit = true;
+  let maxAbs = 0;
   let anyFractional = false;
   for (const p of pairs) {
-    if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) {
-      allInUnit = false;
-      break;
-    }
-    if ((p.x > 0 && p.x < 1) || (p.y > 0 && p.y < 1)) {
+    const ax = Math.abs(p.x);
+    const ay = Math.abs(p.y);
+    if (ax > maxAbs) maxAbs = ax;
+    if (ay > maxAbs) maxAbs = ay;
+    if (
+      (ax > 0 && ax < 1.15 && !Number.isInteger(p.x)) ||
+      (ay > 0 && ay < 1.15 && !Number.isInteger(p.y))
+    ) {
       anyFractional = true;
     }
   }
-  return allInUnit && anyFractional;
+  return maxAbs <= 1.15 && anyFractional;
 }
 
 /** Normaliza resultado de disparo Bzzoiro a `goal | saved | blocked | miss | post`. */
@@ -908,7 +958,8 @@ export function parseBzzoiroShotmap(
     if (!s || typeof s !== "object") continue;
     const side = resolveSideFromFlags(s);
     const outcome = normalizeShotOutcome(s.type ?? s.outcome ?? s.shot_type ?? s.result);
-    const minuteRaw = num(s.min ?? s.minute ?? s.time);
+    const parsedMin = parseFootballMinute(s.min ?? s.minute ?? s.time);
+    const minuteRaw = parsedMin?.minute ?? null;
     const rawX = num(s.pos?.x ?? s.position?.x ?? s.coordinates?.x ?? s.x);
     const rawY = num(s.pos?.y ?? s.position?.y ?? s.coordinates?.y ?? s.y);
     if (!side || !outcome || minuteRaw === null || minuteRaw < 0 || rawX === null || rawY === null) {
@@ -927,7 +978,11 @@ export function parseBzzoiroShotmap(
     const xgRaw = num(s.xg ?? s.expected_goals ?? s.xG);
     const xg = xgRaw !== null && xgRaw >= 0 && xgRaw <= 1.2 ? round3(xgRaw) : 0;
     const addedRaw = num(s.added_time);
-    const addedTime = addedRaw !== null && addedRaw > 0 ? Math.round(addedRaw) : undefined;
+    const addedCandidate =
+      addedRaw !== null && addedRaw > 0
+        ? Math.round(addedRaw)
+        : (parsedMin?.addedTime ?? undefined);
+    const addedTime = addedCandidate !== undefined && addedCandidate > 0 ? addedCandidate : undefined;
     const bodyPart = normalizeShotBodyPart(s.body_part ?? s.bodyPart ?? s.part);
 
     preliminary.push({
@@ -958,8 +1013,7 @@ export function parseBzzoiroShotmap(
     }))
     .sort(
       (a, b) =>
-        a.minute - b.minute ||
-        (a.addedTime ?? 0) - (b.addedTime ?? 0) ||
+        a.minute * 100 + Math.min(a.addedTime ?? 0, 98) - (b.minute * 100 + Math.min(b.addedTime ?? 0, 98)) ||
         (a.side === b.side ? 0 : a.side === "home" ? -1 : 1),
     );
 
@@ -969,7 +1023,7 @@ export function parseBzzoiroShotmap(
   if (rawTimeline.length > 0) {
     const sortedRaw = rawTimeline
       .map((pt) => ({
-        minute: num(pt.m ?? pt.minute),
+        minute: parseFootballMinute(pt.m ?? pt.minute)?.minute ?? null,
         xgHome: num(pt.xg_home),
         xgAway: num(pt.xg_away),
         cumHome: num(pt.cum_home),
@@ -1242,31 +1296,66 @@ export function parseLiveStats(raw: BzLiveStats | null): Pick<
 > {
   if (!raw) return { stats: null, xgEstimated: null, momentum: [], xgTimeline: [], shots: [] };
   const momentum: LiveMomentumPoint[] = (raw.momentum ?? [])
-    .map((p) => ({ minute: num(p.m), value: num(p.v) }))
+    .map((p) => ({ minute: parseFootballMinute(p.m)?.minute ?? null, value: num(p.v) }))
     .filter((p): p is LiveMomentumPoint => p.minute !== null && p.value !== null)
     .map((p) => ({ minute: p.minute, value: Math.max(-100, Math.min(100, p.value)) }))
     .sort((a, b) => a.minute - b.minute);
   const xgTimeline: LiveXgPoint[] = (raw.xg_per_minute ?? [])
-    .map((p) => ({ minute: num(p.m ?? p.minute), home: num(p.cum_home), away: num(p.cum_away) }))
+    .map((p) => ({
+      minute: parseFootballMinute(p.m ?? p.minute)?.minute ?? null,
+      home: num(p.cum_home),
+      away: num(p.cum_away),
+    }))
     .filter((p): p is LiveXgPoint => p.minute !== null && p.home !== null && p.away !== null)
     .sort((a, b) => a.minute - b.minute);
-  const shots: LiveShot[] = [];
+  const preliminaryShots: Array<{
+    order: number;
+    minute: number;
+    side: "home" | "away";
+    outcome: LiveShot["outcome"];
+    xg: number | null;
+    rawX: number | null;
+    rawY: number | null;
+  }> = [];
   for (const s of raw.shotmap ?? raw.shots ?? []) {
-    const minute = num(s.min ?? s.minute ?? s.time);
+    const parsedMin = parseFootballMinute(s.min ?? s.minute ?? s.time);
     const side = resolveSideFromFlags(s);
     const normOutcome = normalizeShotOutcome(s.type ?? s.outcome ?? s.shot_type ?? s.result);
-    if (minute === null || !side || !normOutcome) continue;
+    if (!parsedMin || !side || !normOutcome) continue;
+    const explicitAdded = num(s.added_time);
+    const added =
+      explicitAdded !== null && explicitAdded > 0
+        ? Math.round(explicitAdded)
+        : (parsedMin.addedTime ?? 0);
+    const minute = Math.max(0, Math.min(130, Math.round(parsedMin.minute)));
+    const order = minute * 100 + Math.min(Math.max(added, 0), 98);
     const rawX = num(s.pos?.x ?? s.position?.x ?? s.coordinates?.x ?? s.x);
     const rawY = num(s.pos?.y ?? s.position?.y ?? s.coordinates?.y ?? s.y);
-    shots.push({
+    preliminaryShots.push({
+      order,
       minute,
       side,
       outcome: toLegacyLiveShotOutcome(normOutcome),
       xg: num(s.xg ?? s.expected_goals ?? s.xG),
-      x: rawX !== null ? Math.max(0, Math.min(100, rawX)) : null,
-      y: rawY !== null ? Math.max(0, Math.min(100, rawY)) : null,
+      rawX,
+      rawY,
     });
   }
+  const unitScale = detectUnitCoordScale(
+    preliminaryShots
+      .filter((p): p is typeof p & { rawX: number; rawY: number } => p.rawX !== null && p.rawY !== null)
+      .map((p) => ({ x: p.rawX, y: p.rawY })),
+  );
+  const shots: LiveShot[] = preliminaryShots
+    .sort((a, b) => a.order - b.order)
+    .map((p) => ({
+      minute: p.minute,
+      side: p.side,
+      outcome: p.outcome,
+      xg: p.xg,
+      x: p.rawX !== null ? clampCoord(p.rawX, unitScale) : null,
+      y: p.rawY !== null ? clampCoord(p.rawY, unitScale) : null,
+    }));
   const home = raw.stats?.home;
   const away = raw.stats?.away;
   return {
@@ -1298,17 +1387,23 @@ export function detectMoments(prev: LiveScoreboardEntry | undefined, next: LiveS
   const moments: LiveMoment[] = [];
   const s = next.score ?? { home: 0, away: 0 };
   const base = { gameId: next.gameId, minute: next.minute };
-  // Primera vez que vemos un partido ya terminado: solo el final (no avisar goles viejos).
-  if (!prev && next.phase === "final") {
-    return [{ ...base, kind: "final", side: null, minute: 90, homeScore: s.home, awayScore: s.away }];
+  // Primera vez que vemos el partido (arranque en frío):
+  // - si ya terminó, registrar solo el final (sin goles retroactivos);
+  // - si ya está iniciado (`live`/`halftime`/`penalties`) o programado, inicializar estado sin spam de kickoff/goles viejos.
+  if (!prev) {
+    if (next.phase === "final") {
+      return [{ ...base, kind: "final", side: null, minute: 90, homeScore: s.home, awayScore: s.away }];
+    }
+    return [];
   }
-  const wasPlaying = prev ? prev.phase !== "scheduled" : false;
+  const wasPlaying =
+    prev.phase === "live" || prev.phase === "halftime" || prev.phase === "penalties" || prev.phase === "final";
   const playing = next.phase === "live" || next.phase === "halftime" || next.phase === "penalties" || next.phase === "final";
 
   if (playing && !wasPlaying) {
     moments.push({ ...base, kind: "kickoff", side: null, minute: 1, homeScore: 0, awayScore: 0 });
   }
-  const before = prev?.score ?? { home: 0, away: 0 };
+  const before = prev.score ?? { home: 0, away: 0 };
   // Un gol por cada tanto nuevo, con el marcador intermedio (2–0 visto de golpe: 1–0 y 2–0).
   for (let h = before.home + 1; h <= s.home; h++) {
     moments.push({ ...base, kind: "goal", side: "home", homeScore: h, awayScore: Math.min(before.away, s.away) });

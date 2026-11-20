@@ -313,7 +313,8 @@ export interface NbaPlayerPropSeed {
 }
 
 function num(v: unknown): number | null {
-  if (v === null || v === undefined || v === "") return null;
+  if (v === null || v === undefined || typeof v === "boolean") return null;
+  if (typeof v === "string" && v.trim() === "") return null;
   const n = typeof v === "number" ? v : Number(v);
   return Number.isFinite(n) ? n : null;
 }
@@ -671,15 +672,17 @@ function mapNbaMarket(row: BzNbaOddsRowRaw): {
     return null;
   }
   if (rawMkt === "spread" || rawMkt === "handicap" || rawMkt === "point_spread") {
-    const line = normalizeLine(Number(row.line));
+    const rawLine = num(row.line);
+    const line = rawLine !== null ? normalizeLine(rawLine) : null;
     if (line !== null && (rawSel === "home" || rawSel === "away")) {
       return { market: "spread", selection: rawSel, line };
     }
     return null;
   }
   if (rawMkt === "totals" || rawMkt === "over_under" || rawMkt === "total_points") {
-    const line = normalizeLine(Number(row.line));
-    if (line !== null && (rawSel === "over" || rawSel === "under")) {
+    const rawLine = num(row.line);
+    const line = rawLine !== null ? normalizeLine(rawLine) : null;
+    if (line !== null && line > 0 && (rawSel === "over" || rawSel === "under")) {
       return { market: "totals", selection: rawSel, line };
     }
     return null;
@@ -809,6 +812,16 @@ export function parseBzzoiroNbaOddsComparison(
       bucket = { ...mapped, byBook: new Map() };
       grouped.set(key, bucket);
     }
+    const capturedAtUtc =
+      row.updated_at && Number.isFinite(Date.parse(row.updated_at)) ? row.updated_at : undefined;
+    const existing = bucket.byBook.get(bookMeta.canonical);
+    if (existing?.capturedAtUtc) {
+      const existingMs = Date.parse(existing.capturedAtUtc);
+      const incomingMs = capturedAtUtc ? Date.parse(capturedAtUtc) : Number.NaN;
+      if (Number.isFinite(existingMs) && (!Number.isFinite(incomingMs) || existingMs > incomingMs)) {
+        continue;
+      }
+    }
     bucket.byBook.set(bookMeta.canonical, {
       book: bookMeta.canonical,
       bookLabel: bookMeta.label,
@@ -816,7 +829,7 @@ export function parseBzzoiroNbaOddsComparison(
       openingDecimal,
       currentDecimal: round3(price),
       rawMovement,
-      ...(row.updated_at && Number.isFinite(Date.parse(row.updated_at)) ? { capturedAtUtc: row.updated_at } : {}),
+      ...(capturedAtUtc ? { capturedAtUtc } : {}),
     });
   }
 
@@ -866,10 +879,15 @@ export function parseBzzoiroNbaOddsComparison(
     const openingConsensusDecimal =
       openings.length > 0 ? round3(openings.reduce((acc, v) => acc + v, 0) / openings.length) : null;
     const currentConsensusDecimal = round3(books.reduce((acc, b) => acc + b.currentDecimal, 0) / books.length);
+    const consensusDeltaPct =
+      openingConsensusDecimal !== null
+        ? round2(((currentConsensusDecimal - openingConsensusDecimal) / openingConsensusDecimal) * 100)
+        : null;
+    const consensusShorteningOrUnknown = consensusDeltaPct === null || consensusDeltaPct < 0;
     const consensusMv = classifyLineMovement({
       openingDecimal: openingConsensusDecimal,
       currentDecimal: currentConsensusDecimal,
-      rawMovement: books.some((b) => b.signal === "STEAM") ? "STEAM" : null,
+      rawMovement: consensusShorteningOrUnknown && books.some((b) => b.signal === "STEAM") ? "STEAM" : null,
       coordinatedShorteningBooks,
       sharpShortened,
     });

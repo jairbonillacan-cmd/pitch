@@ -641,7 +641,14 @@ export function loadNbaGuardedPropsBridge(options: {
     if (!seed || typeof seed.player !== "string" || !Number.isFinite(seed.projectionMean)) continue;
     const slug = normalizeTeamSlug(seed.teamSlug);
     if (targetTeam && slug !== targetTeam) continue;
-    if (minMinutes > 0 && typeof seed.avgMinutes === "number" && seed.avgMinutes < minMinutes) continue;
+    if (
+      minMinutes > 0 &&
+      (typeof seed.avgMinutes !== "number" ||
+        !Number.isFinite(seed.avgMinutes) ||
+        seed.avgMinutes < minMinutes)
+    ) {
+      continue;
+    }
 
     const inj = injuryByKey.get(`${slug}|${normNameKey(seed.player)}`);
     if (inj?.status === "Baja") continue;

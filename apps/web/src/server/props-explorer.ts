@@ -227,6 +227,49 @@ function mapBridgeStatKeyToCode(statKey: NbaGuardedPlayerProp["statKey"]): NbaPr
   return null;
 }
 
+function normalizeSeasonMinutesPerGame(
+  sport: PlatformSport,
+  seasonMinMetric: { readonly key: string; readonly label: string; readonly value: string } | undefined,
+  seasonGp: number,
+  avgFromLogs: number | null,
+): number | null {
+  if (!seasonMinMetric) return null;
+  const raw = parseNumericStat(seasonMinMetric.value);
+  if (raw === null) return null;
+
+  const k = seasonMinMetric.key.trim().toLowerCase();
+  const l = seasonMinMetric.label.trim().toUpperCase();
+  const isExplicitPerGame =
+    k.includes("per_game") ||
+    k.includes("avg") ||
+    k === "mpg" ||
+    l.includes("/P") ||
+    l.includes("MPG");
+  const isExplicitTotal = k.includes("total") || l.includes("TOTAL");
+
+  if (sport === "basketball") {
+    // NBA `seasonMetrics.min` suele venir por partido (p. ej. 31.9); si llega acumulado
+    // (> 48 min/p, marcado total o múltiplo de `seasonGp` frente a logs), normalizar entre `seasonGp`.
+    if (
+      !isExplicitPerGame &&
+      seasonGp > 1 &&
+      (isExplicitTotal ||
+        raw > 48 ||
+        (avgFromLogs !== null && avgFromLogs > 0 && raw / avgFromLogs >= Math.max(2, seasonGp * 0.6)))
+    ) {
+      return Math.round((raw / seasonGp) * 10) / 10;
+    }
+    return Math.round(raw * 10) / 10;
+  }
+
+  // En fútbol (y resto de deportes), `seasonMetrics.min` representa suma acumulada de temporada
+  // salvo indicación explícita por partido: dividir entre `seasonGp` para obtener minutos reales por partido.
+  if (!isExplicitPerGame && seasonGp > 1) {
+    return Math.round((raw / seasonGp) * 10) / 10;
+  }
+  return Math.round(raw * 10) / 10;
+}
+
 function extractPlayerMinutesMeta(
   player: LeagueSquadsFile["teams"][number]["players"][number],
   sport: PlatformSport,
@@ -245,7 +288,7 @@ function extractPlayerMinutesMeta(
   const seasonMinMetric = player.seasonMetrics?.find((m) => {
     const k = m.key.trim().toLowerCase();
     const l = m.label.trim().toUpperCase();
-    return k === "min" || l === "MIN";
+    return k === "min" || l === "MIN" || k === "min_per_game" || k === "mpg";
   });
   const seasonGpMetric = player.seasonMetrics?.find((m) => {
     const k = m.key.trim().toLowerCase();
@@ -253,7 +296,6 @@ function extractPlayerMinutesMeta(
     return k === "gp" || l === "JJ" || l === "PJ";
   });
 
-  const seasonMin = seasonMinMetric ? parseNumericStat(seasonMinMetric.value) : null;
   const seasonGp =
     (seasonGpMetric ? parseNumericStat(seasonGpMetric.value) : null) ??
     player.stats.appearances;
@@ -261,10 +303,17 @@ function extractPlayerMinutesMeta(
     logMins.length > 0
       ? Math.round((logMins.reduce((a, b) => a + b, 0) / logMins.length) * 10) / 10
       : null;
-  const avgMinutes = seasonMin ?? avgFromLogs;
+  const seasonMinPerGame = normalizeSeasonMinutesPerGame(
+    sport,
+    seasonMinMetric,
+    seasonGp,
+    avgFromLogs,
+  );
 
   if (sport === "basketball") {
+    const avgMinutes = logMins.length >= 3 ? avgFromLogs : (seasonMinPerGame ?? avgFromLogs);
     const sampleGames = Math.max(logMins.length, Math.round(seasonGp));
+    const qualifiedLogs = logMins.filter((m) => m >= NBA_MIN_MINUTES_PER_GAME).length;
     const totalSampleMin =
       logMins.length > 0
         ? logMins.reduce((a, b) => a + b, 0)
@@ -275,19 +324,34 @@ function extractPlayerMinutesMeta(
       avgMinutes !== null &&
       avgMinutes >= NBA_MIN_MINUTES_PER_GAME &&
       sampleGames >= 3 &&
-      totalSampleMin >= FOOTBALL_MIN_MINUTES;
+      totalSampleMin >= FOOTBALL_MIN_MINUTES &&
+      (logMins.length < 3 || qualifiedLogs >= 3);
     return { avgMinutes, minMinutesGuard, sampleGames };
   }
 
+  const avgMinutes = avgFromLogs ?? seasonMinPerGame;
   if (logMins.length > 0) {
     const qualifiedCount = logMins.filter((m) => m >= FOOTBALL_MIN_MINUTES).length;
     const minMinutesGuard =
-      qualifiedCount >= 3 ||
-      (avgMinutes !== null && avgMinutes >= FOOTBALL_MIN_MINUTES && logMins.length >= 3);
-    return { avgMinutes, minMinutesGuard, sampleGames: Math.max(qualifiedCount, logMins.length) };
+      qualifiedCount >= 3 &&
+      avgFromLogs !== null &&
+      avgFromLogs >= FOOTBALL_MIN_MINUTES;
+    return { avgMinutes: avgFromLogs, minMinutesGuard, sampleGames: qualifiedCount };
+  }
+
+  if (seasonMinPerGame !== null) {
+    const sampleGames = Math.max(0, Math.round(seasonGp));
+    const minMinutesGuard =
+      seasonMinPerGame >= FOOTBALL_MIN_MINUTES && sampleGames >= 3;
+    return { avgMinutes: seasonMinPerGame, minMinutesGuard, sampleGames };
   }
 
   const apps = player.stats.appearances;
+  if (sport === "football") {
+    // Sin minutos verificados en logs ni temporada: fallar cerrado para guardia >= 45 min.
+    return { avgMinutes: null, minMinutesGuard: false, sampleGames: apps };
+  }
+
   const starts = Math.max(0, apps - player.stats.subIns);
   const starterRatio = apps > 0 ? starts / apps : 0;
   const minMinutesGuard = apps >= 3 && (starts >= 3 || starterRatio >= 0.5);
@@ -520,10 +584,10 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
               if (sport === "football") {
                 const minHit = g.stats.find((s) => {
                   const u = s.label.trim().toUpperCase();
-                  return u === "MIN" || u === "MINS";
+                  return u === "MIN" || u === "MINS" || u === "MINUTOS";
                 });
                 const minVal = minHit ? parseNumericStat(minHit.value) : null;
-                if (minVal !== null && minVal < FOOTBALL_MIN_MINUTES) return null;
+                if (minVal === null || minVal < FOOTBALL_MIN_MINUTES) return null;
               }
               const hit = g.stats.find((s) => s.label === lbl);
               const val = hit ? parseNumericStat(hit.value) : null;
@@ -901,7 +965,10 @@ export function loadStructuredPlayerProps(options: {
 
     const minutesMeta = matchedPlayer
       ? extractPlayerMinutesMeta(matchedPlayer, sport)
-      : { avgMinutes: null, minMinutesGuard: true, sampleGames: 0 };
+      : { avgMinutes: null, minMinutesGuard: false, sampleGames: 0 };
+    if (!minutesMeta.minMinutesGuard) {
+      continue;
+    }
 
     const lineupStatus = findLineupStatusInSnapshot(
       snapshot,
