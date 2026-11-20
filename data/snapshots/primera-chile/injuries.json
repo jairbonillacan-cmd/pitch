@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "primera-chile",
-  "observedAt": "2026-11-19T16:05:39.021Z",
+  "observedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Chest Injury",
       "injuryType": "Chest Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "primera-chile.union-la-calera",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "primera-chile.colo-colo",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "Appendicitis",
       "injuryType": "Appendicitis",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "primera-chile.universidad-concepcion",
@@ -39,7 +39,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "primera-chile.o-higgins",
@@ -48,7 +48,34 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "primera-chile.deportes-la-serena",
+      "player": "Andrés Zanini",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "primera-chile.deportes-la-serena",
+      "player": "Gonzalo Gabriel Figueroa",
+      "position": "F",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "primera-chile.deportes-la-serena",
+      "player": "Nicolás Stefanelli",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Knock Injury",
+      "injuryType": "Knock Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "sudamericana",
-  "observedAt": "2026-11-19T16:05:39.021Z",
+  "observedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,15 +12,7 @@
       "status": "Baja",
       "detail": "Hip Injury",
       "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
-    },
-    {
-      "teamId": "sudamericana.vasco-gama",
-      "player": "Cauan Barros",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Lesión reportada",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.vasco-gama",
@@ -29,7 +21,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.vasco-gama",
@@ -38,7 +30,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.santos",
@@ -47,16 +39,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
-    },
-    {
-      "teamId": "sudamericana.santos",
-      "player": "Gabriel Bontempo",
-      "position": "M",
-      "status": "Baja",
-      "detail": "national_team",
-      "injuryType": "national_team",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.santos",
@@ -65,7 +48,7 @@
       "status": "Baja",
       "detail": "Dislocated Shoulder",
       "injuryType": "Dislocated Shoulder",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.santos",
@@ -74,7 +57,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.santos",
@@ -83,7 +66,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.botafogo",
@@ -92,7 +75,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.botafogo",
@@ -101,7 +84,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.cienciano",
@@ -110,16 +93,7 @@
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
-    },
-    {
-      "teamId": "sudamericana.cienciano",
-      "player": "Cristian Souza",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "sudamericana.cienciano",
@@ -128,7 +102,88 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.river-plate",
+      "player": "Agustín Ruberto",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.river-plate",
+      "player": "Aníbal Moreno",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Back Injury",
+      "injuryType": "Back Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.river-plate",
+      "player": "Gonzalo Montiel",
+      "position": "D",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.river-plate",
+      "player": "Juan Cruz Meza",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.river-plate",
+      "player": "Juan Portillo",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.independiente-santa-fe",
+      "player": "Christian Mafla",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.independiente-santa-fe",
+      "player": "Jeison Angulo",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.independiente-santa-fe",
+      "player": "Jhojan Torres",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "sudamericana.independiente-santa-fe",
+      "player": "Kevin Balanta",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     }
   ]
 }

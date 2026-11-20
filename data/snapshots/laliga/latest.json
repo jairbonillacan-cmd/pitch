@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
   "league": "laliga",
+  "logoUrl": "https://sports.bzzoiro.com/img/league/3/?bg=transparent",
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 13",
-  "updatedAt": "2026-11-15T17:34:02.833Z",
-  "source": "openfootball+espn",
+  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -14,220 +15,240 @@
       "name": "Athletic Club",
       "shortName": "Athletic Club",
       "code": "ATH",
-      "forPerGame": 1.75,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/51/?bg=transparent",
+      "forPerGame": 1.3636363636363635,
       "againstPerGame": 1,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.339765978049767,
-      "adjustedAgainst": 1.139471745078221
+      "gamesPlayed": 11,
+      "adjustedFor": 1.2268917903861118,
+      "adjustedAgainst": 1.1181686600332001
     },
     "laliga.atletico-madrid": {
       "teamId": "laliga.atletico-madrid",
       "name": "Atlético de Madrid",
       "shortName": "Atlético de Madrid",
       "code": "ATM",
-      "forPerGame": 2.111111111111111,
-      "againstPerGame": 1,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.7387755475055748,
-      "adjustedAgainst": 1.0409840104384016
+      "logoUrl": "https://sports.bzzoiro.com/img/team/54/?bg=transparent",
+      "forPerGame": 1.9166666666666667,
+      "againstPerGame": 0.8333333333333334,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.6954293756944765,
+      "adjustedAgainst": 0.953340874494481
     },
     "laliga.osasuna": {
       "teamId": "laliga.osasuna",
       "name": "CA Osasuna",
       "shortName": "CA Osasuna",
       "code": "OSA",
-      "forPerGame": 0.875,
-      "againstPerGame": 2,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1496318047541507,
-      "adjustedAgainst": 1.4863436652285031
+      "logoUrl": "https://sports.bzzoiro.com/img/team/58/?bg=transparent",
+      "forPerGame": 1,
+      "againstPerGame": 1.9166666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.1305472894822535,
+      "adjustedAgainst": 1.5111817114853723
     },
     "laliga.celta-vigo": {
       "teamId": "laliga.celta-vigo",
       "name": "Celta de Vigo",
       "shortName": "Celta de Vigo",
       "code": "CELV",
-      "forPerGame": 1,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.2041785657317787,
-      "adjustedAgainst": 1.2006679171909598
+      "logoUrl": "https://sports.bzzoiro.com/img/team/49/?bg=transparent",
+      "forPerGame": 0.8333333333333334,
+      "againstPerGame": 0.8333333333333334,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.09467652904553,
+      "adjustedAgainst": 1.0619563094435769
     },
     "laliga.alaves": {
       "teamId": "laliga.alaves",
       "name": "Deportivo Alavés",
       "shortName": "Deportivo Alavés",
       "code": "ALA",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.244877768763629,
-      "adjustedAgainst": 1.3066981308582521
+      "logoUrl": "https://sports.bzzoiro.com/img/team/45/?bg=transparent",
+      "forPerGame": 1.25,
+      "againstPerGame": 1.4166666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.1756633865847343,
+      "adjustedAgainst": 1.3022688391205937
     },
     "laliga.elche": {
       "teamId": "laliga.elche",
       "name": "Elche CF",
       "shortName": "Elche CF",
       "code": "ELC",
-      "forPerGame": 1.2222222222222223,
-      "againstPerGame": 2.2222222222222223,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.2844968685167906,
-      "adjustedAgainst": 1.5679266150226858
+      "logoUrl": "https://sports.bzzoiro.com/img/team/55/?bg=transparent",
+      "forPerGame": 1.1666666666666667,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.2575355908909993,
+      "adjustedAgainst": 1.3798210780749576
     },
     "laliga.barcelona": {
       "teamId": "laliga.barcelona",
       "name": "FC Barcelona",
       "shortName": "FC Barcelona",
       "code": "BAR",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/44/?bg=transparent",
       "forPerGame": 4,
-      "againstPerGame": 1.1,
-      "gamesPlayed": 10,
-      "adjustedFor": 2.760778463155525,
-      "adjustedAgainst": 1.0134475145555462
+      "againstPerGame": 1.0833333333333333,
+      "gamesPlayed": 12,
+      "adjustedFor": 2.869604490910291,
+      "adjustedAgainst": 1.013594550044225
     },
     "laliga.getafe": {
       "teamId": "laliga.getafe",
       "name": "Getafe CF",
       "shortName": "Getafe CF",
       "code": "GET",
-      "forPerGame": 0.7,
-      "againstPerGame": 1.4,
-      "gamesPlayed": 10,
-      "adjustedFor": 0.8662056757292365,
-      "adjustedAgainst": 1.176441396010997
+      "logoUrl": "https://sports.bzzoiro.com/img/team/50/?bg=transparent",
+      "forPerGame": 0.6666666666666666,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 12,
+      "adjustedFor": 0.8279137088669969,
+      "adjustedAgainst": 1.1811642780044365
     },
     "laliga.levante": {
       "teamId": "laliga.levante",
       "name": "Levante UD",
       "shortName": "Levante UD",
       "code": "LEV",
-      "forPerGame": 1.2857142857142858,
-      "againstPerGame": 2.2857142857142856,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.3284619258856556,
-      "adjustedAgainst": 1.5722609282229474
+      "logoUrl": "https://sports.bzzoiro.com/img/team/46/?bg=transparent",
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 1.75,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.3370832465137534,
+      "adjustedAgainst": 1.4840187052196574
     },
     "laliga.malaga": {
       "teamId": "laliga.malaga",
       "name": "Málaga CF",
       "shortName": "Málaga CF",
       "code": "MAL",
-      "forPerGame": 0.625,
-      "againstPerGame": 2,
-      "gamesPlayed": 8,
-      "adjustedFor": 0.8712216489070462,
-      "adjustedAgainst": 1.5648585416125989
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1259/?bg=transparent",
+      "forPerGame": 0.75,
+      "againstPerGame": 1.9166666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 0.86914969573452,
+      "adjustedAgainst": 1.6031606960971232
     },
     "laliga.racing-santander": {
       "teamId": "laliga.racing-santander",
       "name": "Racing de Santander",
       "shortName": "Racing de Santander",
       "code": "RAC",
-      "forPerGame": 1.4444444444444444,
-      "againstPerGame": 2.7777777777777777,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.4116228708027312,
-      "adjustedAgainst": 2.0449264358486343
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1400/?bg=transparent",
+      "forPerGame": 1.4166666666666667,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.3733327403159854,
+      "adjustedAgainst": 2.0246521621809097
     },
     "laliga.rayo-vallecano": {
       "teamId": "laliga.rayo-vallecano",
       "name": "Rayo Vallecano",
       "shortName": "Rayo Vallecano",
       "code": "RAY",
-      "forPerGame": 1.5555555555555556,
-      "againstPerGame": 1.8888888888888888,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.3111474384903525,
-      "adjustedAgainst": 1.3456432501281383
+      "logoUrl": "https://sports.bzzoiro.com/img/team/40/?bg=transparent",
+      "forPerGame": 1.3636363636363635,
+      "againstPerGame": 1.9090909090909092,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.2443718813702311,
+      "adjustedAgainst": 1.3963726668338436
     },
     "laliga.deportivo-la-coruna": {
       "teamId": "laliga.deportivo-la-coruna",
       "name": "Deportivo de La Coruña",
       "shortName": "Deportivo de La Coruña",
       "code": "DEP",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 1.1428571428571428,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.3241209744225353,
-      "adjustedAgainst": 1.1991390915103728
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1260/?bg=transparent",
+      "forPerGame": 1.25,
+      "againstPerGame": 1.1666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.1833533474859468,
+      "adjustedAgainst": 1.1484444133933065
     },
     "laliga.espanyol": {
       "teamId": "laliga.espanyol",
       "name": "RCD Espanyol",
       "shortName": "RCD Espanyol",
       "code": "ESP",
-      "forPerGame": 1.375,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.2418779572679508,
-      "adjustedAgainst": 1.2750112937021172
+      "logoUrl": "https://sports.bzzoiro.com/img/team/53/?bg=transparent",
+      "forPerGame": 1.0833333333333333,
+      "againstPerGame": 1.1666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.111394839410052,
+      "adjustedAgainst": 1.217980238727563
     },
     "laliga.real-betis": {
       "teamId": "laliga.real-betis",
       "name": "Real Betis",
       "shortName": "Real Betis",
       "code": "BET",
-      "forPerGame": 1.3,
-      "againstPerGame": 0.8,
-      "gamesPlayed": 10,
-      "adjustedFor": 1.4594979132902826,
-      "adjustedAgainst": 1.0664105143133695
+      "logoUrl": "https://sports.bzzoiro.com/img/team/56/?bg=transparent",
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.6123129432796683,
+      "adjustedAgainst": 1.1912736528377268
     },
     "laliga.real-madrid": {
       "teamId": "laliga.real-madrid",
       "name": "Real Madrid",
       "shortName": "Real Madrid",
       "code": "RMA",
-      "forPerGame": 2.6,
-      "againstPerGame": 0.9,
-      "gamesPlayed": 10,
-      "adjustedFor": 2.086579442597623,
-      "adjustedAgainst": 0.9106625500135545
+      "logoUrl": "https://sports.bzzoiro.com/img/team/57/?bg=transparent",
+      "forPerGame": 2.5833333333333335,
+      "againstPerGame": 0.8333333333333334,
+      "gamesPlayed": 12,
+      "adjustedFor": 2.0896775597645263,
+      "adjustedAgainst": 0.8635651616728277
     },
     "laliga.real-sociedad": {
       "teamId": "laliga.real-sociedad",
       "name": "Real Sociedad",
       "shortName": "Real Sociedad",
       "code": "RSO",
-      "forPerGame": 1.4444444444444444,
-      "againstPerGame": 1.7777777777777777,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.4573267838247126,
-      "adjustedAgainst": 1.4962766175314224
+      "logoUrl": "https://sports.bzzoiro.com/img/team/48/?bg=transparent",
+      "forPerGame": 1.75,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.607212344871032,
+      "adjustedAgainst": 1.5109523060120045
     },
     "laliga.sevilla": {
       "teamId": "laliga.sevilla",
       "name": "Sevilla FC",
       "shortName": "Sevilla FC",
       "code": "SEV",
-      "forPerGame": 1.3,
-      "againstPerGame": 1.2,
-      "gamesPlayed": 10,
-      "adjustedFor": 1.200654231295537,
-      "adjustedAgainst": 1.2632193330608534
+      "logoUrl": "https://sports.bzzoiro.com/img/team/52/?bg=transparent",
+      "forPerGame": 1.4166666666666667,
+      "againstPerGame": 1.5833333333333333,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.2814434919529865,
+      "adjustedAgainst": 1.3945328546722024
     },
     "laliga.valencia": {
       "teamId": "laliga.valencia",
       "name": "Valencia CF",
       "shortName": "Valencia CF",
       "code": "VAL",
-      "forPerGame": 0.625,
-      "againstPerGame": 2,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.081626787755625,
-      "adjustedAgainst": 1.3716815356264394
+      "logoUrl": "https://sports.bzzoiro.com/img/team/47/?bg=transparent",
+      "forPerGame": 0.6666666666666666,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.0086495628917693,
+      "adjustedAgainst": 1.2967445859691253
     },
     "laliga.villarreal": {
       "teamId": "laliga.villarreal",
       "name": "Villarreal CF",
       "shortName": "Villarreal CF",
       "code": "VIL",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.4444444444444444,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.6433708302864636,
-      "adjustedAgainst": 1.2488545644708684
+      "logoUrl": "https://sports.bzzoiro.com/img/team/41/?bg=transparent",
+      "forPerGame": 1.4166666666666667,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.5568536355512108,
+      "adjustedAgainst": 1.164077593063441
     }
   },
   "games": [
@@ -237,29 +258,30 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-06T20:00Z",
+      "startTime": "2026-11-06T20:00:00Z",
       "status": "final",
       "home": {
         "id": "laliga.sevilla",
         "league": "laliga",
         "name": "Sevilla FC",
         "shortName": "Sevilla FC",
-        "code": "SEV"
+        "code": "SEV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/52/?bg=transparent"
       },
       "away": {
         "id": "laliga.alaves",
         "league": "laliga",
         "name": "Deportivo Alavés",
         "shortName": "Deportivo Alavés",
-        "code": "ALA"
+        "code": "ALA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/45/?bg=transparent"
       },
       "venue": "Ramón Sánchez-Pizjuán",
-      "referee": "Luis Bestard Servera",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -269,29 +291,63 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-07T13:00Z",
+      "startTime": "2026-11-07T13:00:00Z",
       "status": "final",
       "home": {
         "id": "laliga.malaga",
         "league": "laliga",
         "name": "Málaga CF",
         "shortName": "Málaga CF",
-        "code": "MAL"
+        "code": "MAL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1259/?bg=transparent"
       },
       "away": {
         "id": "laliga.racing-santander",
         "league": "laliga",
         "name": "Racing de Santander",
         "shortName": "Racing de Santander",
-        "code": "RAC"
+        "code": "RAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1400/?bg=transparent"
       },
       "venue": "La Rosaleda",
-      "referee": "Isidro Diaz de Mera Escuderos",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
+        "source": "football-data"
+      }
+    },
+    {
+      "id": "laliga-2026-27-md12-espanyol-deportivo-la-coruna",
+      "league": "laliga",
+      "season": "laliga-2026-27",
+      "week": 12,
+      "round": "Jornada 12",
+      "startTime": "2026-11-07T15:15:00Z",
+      "status": "final",
+      "home": {
+        "id": "laliga.espanyol",
+        "league": "laliga",
+        "name": "RCD Espanyol",
+        "shortName": "RCD Espanyol",
+        "code": "ESP",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/53/?bg=transparent"
+      },
+      "away": {
+        "id": "laliga.deportivo-la-coruna",
+        "league": "laliga",
+        "name": "Deportivo de La Coruña",
+        "shortName": "Deportivo de La Coruña",
+        "code": "DEP",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1260/?bg=transparent"
+      },
+      "venue": "RCDE Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 0,
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -301,29 +357,30 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-07T17:30Z",
+      "startTime": "2026-11-07T17:30:00Z",
       "status": "final",
       "home": {
         "id": "laliga.osasuna",
         "league": "laliga",
         "name": "CA Osasuna",
         "shortName": "CA Osasuna",
-        "code": "OSA"
+        "code": "OSA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/58/?bg=transparent"
       },
       "away": {
         "id": "laliga.athletic-club",
         "league": "laliga",
         "name": "Athletic Club",
         "shortName": "Athletic Club",
-        "code": "ATH"
+        "code": "ATH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/51/?bg=transparent"
       },
       "venue": "El Sadar",
-      "referee": "Miguel Sesma Espinosa",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -333,29 +390,30 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-07T20:00Z",
+      "startTime": "2026-11-07T20:00:00Z",
       "status": "final",
       "home": {
         "id": "laliga.valencia",
         "league": "laliga",
         "name": "Valencia CF",
         "shortName": "Valencia CF",
-        "code": "VAL"
+        "code": "VAL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/47/?bg=transparent"
       },
       "away": {
         "id": "laliga.real-madrid",
         "league": "laliga",
         "name": "Real Madrid",
         "shortName": "Real Madrid",
-        "code": "RMA"
+        "code": "RMA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/57/?bg=transparent"
       },
       "venue": "Mestalla",
-      "referee": "Francisco Hernandez Maeso",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -365,29 +423,30 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-08T13:00Z",
+      "startTime": "2026-11-08T13:00:00Z",
       "status": "final",
       "home": {
         "id": "laliga.elche",
         "league": "laliga",
         "name": "Elche CF",
         "shortName": "Elche CF",
-        "code": "ELC"
+        "code": "ELC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/55/?bg=transparent"
       },
       "away": {
         "id": "laliga.real-betis",
         "league": "laliga",
         "name": "Real Betis",
         "shortName": "Real Betis",
-        "code": "BET"
+        "code": "BET",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/56/?bg=transparent"
       },
       "venue": "Martínez Valero",
-      "referee": "César Soto Grado",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -397,29 +456,30 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-08T15:15Z",
+      "startTime": "2026-11-08T15:15:00Z",
       "status": "final",
       "home": {
         "id": "laliga.real-sociedad",
         "league": "laliga",
         "name": "Real Sociedad",
         "shortName": "Real Sociedad",
-        "code": "RSO"
+        "code": "RSO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/48/?bg=transparent"
       },
       "away": {
         "id": "laliga.rayo-vallecano",
         "league": "laliga",
         "name": "Rayo Vallecano",
         "shortName": "Rayo Vallecano",
-        "code": "RAY"
+        "code": "RAY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/40/?bg=transparent"
       },
       "venue": "Reale Arena",
-      "referee": "Juan Martinez Munuera",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -429,29 +489,30 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-08T17:30Z",
+      "startTime": "2026-11-08T17:30:00Z",
       "status": "final",
       "home": {
         "id": "laliga.celta-vigo",
         "league": "laliga",
         "name": "Celta de Vigo",
         "shortName": "Celta de Vigo",
-        "code": "CELV"
+        "code": "CELV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/49/?bg=transparent"
       },
       "away": {
         "id": "laliga.levante",
         "league": "laliga",
         "name": "Levante UD",
         "shortName": "Levante UD",
-        "code": "LEV"
+        "code": "LEV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/46/?bg=transparent"
       },
       "venue": "Balaídos",
-      "referee": "Miguel Angel Ortiz Arias",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -461,29 +522,30 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-08T17:30Z",
+      "startTime": "2026-11-08T17:30:00Z",
       "status": "final",
       "home": {
         "id": "laliga.villarreal",
         "league": "laliga",
         "name": "Villarreal CF",
         "shortName": "Villarreal CF",
-        "code": "VIL"
+        "code": "VIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/41/?bg=transparent"
       },
       "away": {
         "id": "laliga.getafe",
         "league": "laliga",
         "name": "Getafe CF",
         "shortName": "Getafe CF",
-        "code": "GET"
+        "code": "GET",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/50/?bg=transparent"
       },
       "venue": "Estadio de la Cerámica",
-      "referee": "Carlos Muniz Munoz",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -493,29 +555,30 @@
       "season": "laliga-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-08T20:00Z",
+      "startTime": "2026-11-08T20:00:00Z",
       "status": "final",
       "home": {
         "id": "laliga.atletico-madrid",
         "league": "laliga",
         "name": "Atlético de Madrid",
         "shortName": "Atlético de Madrid",
-        "code": "ATM"
+        "code": "ATM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/54/?bg=transparent"
       },
       "away": {
         "id": "laliga.barcelona",
         "league": "laliga",
         "name": "FC Barcelona",
         "shortName": "FC Barcelona",
-        "code": "BAR"
+        "code": "BAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/44/?bg=transparent"
       },
       "venue": "Riyadh Air Metropolitano",
-      "referee": "Javier Alberola Rojas",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:06.126Z",
+        "observedAt": "2026-11-20T13:29:31.700Z",
         "source": "football-data"
       }
     },
@@ -525,23 +588,52 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-20T20:00Z",
+      "startTime": "2026-11-20T20:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.athletic-club",
         "league": "laliga",
         "name": "Athletic Club",
         "shortName": "Athletic Club",
-        "code": "ATH"
+        "code": "ATH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/51/?bg=transparent"
       },
       "away": {
         "id": "laliga.espanyol",
         "league": "laliga",
         "name": "RCD Espanyol",
         "shortName": "RCD Espanyol",
-        "code": "ESP"
+        "code": "ESP",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/53/?bg=transparent"
       },
       "venue": "San Mamés",
+      "neutralSite": false
+    },
+    {
+      "id": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
+      "league": "laliga",
+      "season": "laliga-2026-27",
+      "week": 13,
+      "round": "Jornada 13",
+      "startTime": "2026-11-21T13:00:00Z",
+      "status": "scheduled",
+      "home": {
+        "id": "laliga.alaves",
+        "league": "laliga",
+        "name": "Deportivo Alavés",
+        "shortName": "Deportivo Alavés",
+        "code": "ALA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/45/?bg=transparent"
+      },
+      "away": {
+        "id": "laliga.deportivo-la-coruna",
+        "league": "laliga",
+        "name": "Deportivo de La Coruña",
+        "shortName": "Deportivo de La Coruña",
+        "code": "DEP",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1260/?bg=transparent"
+      },
+      "venue": "Mendizorroza",
       "neutralSite": false
     },
     {
@@ -550,21 +642,23 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-21T15:15Z",
+      "startTime": "2026-11-21T15:15:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.rayo-vallecano",
         "league": "laliga",
         "name": "Rayo Vallecano",
         "shortName": "Rayo Vallecano",
-        "code": "RAY"
+        "code": "RAY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/40/?bg=transparent"
       },
       "away": {
         "id": "laliga.valencia",
         "league": "laliga",
         "name": "Valencia CF",
         "shortName": "Valencia CF",
-        "code": "VAL"
+        "code": "VAL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/47/?bg=transparent"
       },
       "venue": "Estadio de Vallecas",
       "neutralSite": false
@@ -575,21 +669,23 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-21T17:30Z",
+      "startTime": "2026-11-21T17:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.sevilla",
         "league": "laliga",
         "name": "Sevilla FC",
         "shortName": "Sevilla FC",
-        "code": "SEV"
+        "code": "SEV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/52/?bg=transparent"
       },
       "away": {
         "id": "laliga.real-betis",
         "league": "laliga",
         "name": "Real Betis",
         "shortName": "Real Betis",
-        "code": "BET"
+        "code": "BET",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/56/?bg=transparent"
       },
       "venue": "Ramón Sánchez-Pizjuán",
       "neutralSite": false
@@ -600,21 +696,23 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-21T20:00Z",
+      "startTime": "2026-11-21T20:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.real-madrid",
         "league": "laliga",
         "name": "Real Madrid",
         "shortName": "Real Madrid",
-        "code": "RMA"
+        "code": "RMA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/57/?bg=transparent"
       },
       "away": {
         "id": "laliga.celta-vigo",
         "league": "laliga",
         "name": "Celta de Vigo",
         "shortName": "Celta de Vigo",
-        "code": "CELV"
+        "code": "CELV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/49/?bg=transparent"
       },
       "venue": "Santiago Bernabéu",
       "neutralSite": false
@@ -625,48 +723,25 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-22T13:00Z",
+      "startTime": "2026-11-22T13:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.barcelona",
         "league": "laliga",
         "name": "FC Barcelona",
         "shortName": "FC Barcelona",
-        "code": "BAR"
+        "code": "BAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/44/?bg=transparent"
       },
       "away": {
         "id": "laliga.villarreal",
         "league": "laliga",
         "name": "Villarreal CF",
         "shortName": "Villarreal CF",
-        "code": "VIL"
+        "code": "VIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/41/?bg=transparent"
       },
       "venue": "Spotify Camp Nou",
-      "neutralSite": false
-    },
-    {
-      "id": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
-      "league": "laliga",
-      "season": "laliga-2026-27",
-      "week": 13,
-      "round": "Jornada 13",
-      "startTime": "2026-11-22T15:00:00",
-      "status": "scheduled",
-      "home": {
-        "id": "laliga.alaves",
-        "league": "laliga",
-        "name": "Deportivo Alavés",
-        "shortName": "Deportivo Alavés",
-        "code": "ALA"
-      },
-      "away": {
-        "id": "laliga.deportivo-la-coruna",
-        "league": "laliga",
-        "name": "Deportivo de La Coruña",
-        "shortName": "Deportivo de La Coruña",
-        "code": "DEP"
-      },
-      "venue": "Mendizorroza",
       "neutralSite": false
     },
     {
@@ -675,21 +750,23 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-22T15:15Z",
+      "startTime": "2026-11-22T15:15:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.racing-santander",
         "league": "laliga",
         "name": "Racing de Santander",
         "shortName": "Racing de Santander",
-        "code": "RAC"
+        "code": "RAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1400/?bg=transparent"
       },
       "away": {
         "id": "laliga.real-sociedad",
         "league": "laliga",
         "name": "Real Sociedad",
         "shortName": "Real Sociedad",
-        "code": "RSO"
+        "code": "RSO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/48/?bg=transparent"
       },
       "venue": "El Sardinero",
       "neutralSite": false
@@ -700,21 +777,23 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-22T17:30Z",
+      "startTime": "2026-11-22T17:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.osasuna",
         "league": "laliga",
         "name": "CA Osasuna",
         "shortName": "CA Osasuna",
-        "code": "OSA"
+        "code": "OSA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/58/?bg=transparent"
       },
       "away": {
         "id": "laliga.malaga",
         "league": "laliga",
         "name": "Málaga CF",
         "shortName": "Málaga CF",
-        "code": "MAL"
+        "code": "MAL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1259/?bg=transparent"
       },
       "venue": "El Sadar",
       "neutralSite": false
@@ -725,21 +804,23 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-22T20:00Z",
+      "startTime": "2026-11-22T20:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.getafe",
         "league": "laliga",
         "name": "Getafe CF",
         "shortName": "Getafe CF",
-        "code": "GET"
+        "code": "GET",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/50/?bg=transparent"
       },
       "away": {
         "id": "laliga.atletico-madrid",
         "league": "laliga",
         "name": "Atlético de Madrid",
         "shortName": "Atlético de Madrid",
-        "code": "ATM"
+        "code": "ATM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/54/?bg=transparent"
       },
       "venue": "Coliseum",
       "neutralSite": false
@@ -750,21 +831,23 @@
       "season": "laliga-2026-27",
       "week": 13,
       "round": "Jornada 13",
-      "startTime": "2026-11-23T20:00Z",
+      "startTime": "2026-11-23T20:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "laliga.levante",
         "league": "laliga",
         "name": "Levante UD",
         "shortName": "Levante UD",
-        "code": "LEV"
+        "code": "LEV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/46/?bg=transparent"
       },
       "away": {
         "id": "laliga.elche",
         "league": "laliga",
         "name": "Elche CF",
         "shortName": "Elche CF",
-        "code": "ELC"
+        "code": "ELC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/55/?bg=transparent"
       },
       "venue": "Ciutat de València",
       "neutralSite": false
@@ -1690,6 +1773,633 @@
           "avgRed": 0.44,
           "avgFouls": 23.6,
           "avgGoals": 2.8
+        }
+      }
+    },
+    "laliga-2026-27-md12-espanyol-deportivo-la-coruna": {
+      "game": "laliga-2026-27-md12-espanyol-deportivo-la-coruna",
+      "counts": {
+        "corners": {
+          "home": 5.07,
+          "away": 4.72,
+          "total": 9.79,
+          "line": 9.5,
+          "pOver": 0.4995,
+          "sample": {
+            "home": 126,
+            "away": 12
+          }
+        },
+        "fouls": {
+          "home": 14.27,
+          "away": 11.26,
+          "total": 25.53,
+          "line": 25.5,
+          "pOver": 0.4871,
+          "sample": {
+            "home": 126,
+            "away": 12
+          }
+        },
+        "yellow": {
+          "home": 2.52,
+          "away": 2.4,
+          "total": 4.91,
+          "line": 4.5,
+          "pOver": 0.544,
+          "sample": {
+            "home": 126,
+            "away": 12
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-laliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.3074527964856304,
+        "away": 1.1291025134624932,
+        "total": 2.4365553099481234,
+        "margin": 0.17835028302313716
+      },
+      "x12": [
+        0.422394611720751,
+        0.2759951070130753,
+        0.3016102812661735
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "RCD Espanyol gana",
+          "p": 0.422394611720751,
+          "fairOdds": 2.367454442484956
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2759951070130753,
+          "fairOdds": 3.623252639593444
+        },
+        {
+          "market": "h2h",
+          "selection": "Deportivo de La Coruña gana",
+          "p": 0.3016102812661735,
+          "fairOdds": 3.315536843777192
+        },
+        {
+          "market": "double_chance",
+          "selection": "RCD Espanyol o empate",
+          "p": 0.6983897187338263,
+          "fairOdds": 1.4318652940839252
+        },
+        {
+          "market": "double_chance",
+          "selection": "Deportivo de La Coruña o empate",
+          "p": 0.5776053882792488,
+          "fairOdds": 1.7312857883461097
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7240048929869245,
+          "fairOdds": 1.381206135050333
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7032238560277106,
+          "fairOdds": 1.4220222926575388
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.44116415364979344,
+          "fairOdds": 2.266729950126056
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.5588358463502066,
+          "fairOdds": 1.7894342435816624
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.22944425357902332,
+          "fairOdds": 4.358357136434399
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.7705557464209767,
+          "fairOdds": 1.2977646388917738
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.49586873685498206,
+          "fairOdds": 2.016662728814969
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.5041312631450179,
+          "fairOdds": 1.9836103671918894
+        },
+        {
+          "market": "team_totals",
+          "selection": "RCD Espanyol más de 1.5",
+          "line": 1.5,
+          "p": 0.38763204896565717,
+          "fairOdds": 2.579766050481023
+        },
+        {
+          "market": "team_totals",
+          "selection": "RCD Espanyol menos de 1.5",
+          "line": 1.5,
+          "p": 0.6123679510343428,
+          "fairOdds": 1.6330051210402388
+        },
+        {
+          "market": "team_totals",
+          "selection": "Deportivo de La Coruña más de 1.5",
+          "line": 1.5,
+          "p": 0.30146556027870575,
+          "fairOdds": 3.317128494132123
+        },
+        {
+          "market": "team_totals",
+          "selection": "Deportivo de La Coruña menos de 1.5",
+          "line": 1.5,
+          "p": 0.6985344397212943,
+          "fairOdds": 1.4315686430564345
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.13079306056854909,
+          "fairOdds": 7.645665570123246
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.11638956837731207,
+          "fairOdds": 8.591835281648239
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.09075915079711899,
+          "fairOdds": 11.018172726575836
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 9.5",
+          "line": 9.5,
+          "p": 0.4995,
+          "fairOdds": 2.002002002002002
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 9.5",
+          "line": 9.5,
+          "p": 0.5005,
+          "fairOdds": 1.9980019980019983
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 25.5",
+          "line": 25.5,
+          "p": 0.4871,
+          "fairOdds": 2.0529665366454526
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 25.5",
+          "line": 25.5,
+          "p": 0.5129,
+          "fairOdds": 1.9496977968414895
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.544,
+          "fairOdds": 1.838235294117647
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.45599999999999996,
+          "fairOdds": 2.192982456140351
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "RCD Espanyol gana",
+              "p": 0.422394611720751,
+              "fairOdds": 2.367454442484956
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2759951070130753,
+              "fairOdds": 3.623252639593444
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Deportivo de La Coruña gana",
+              "p": 0.3016102812661735,
+              "fairOdds": 3.315536843777192
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "RCD Espanyol o empate",
+              "p": 0.6983897187338263,
+              "fairOdds": 1.4318652940839252
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Deportivo de La Coruña o empate",
+              "p": 0.5776053882792488,
+              "fairOdds": 1.7312857883461097
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7240048929869245,
+              "fairOdds": 1.381206135050333
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7032238560277106,
+              "fairOdds": 1.4220222926575388
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.44116415364979344,
+              "fairOdds": 2.266729950126056
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.5588358463502066,
+              "fairOdds": 1.7894342435816624
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.22944425357902332,
+              "fairOdds": 4.358357136434399
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.7705557464209767,
+              "fairOdds": 1.2977646388917738
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.49586873685498206,
+              "fairOdds": 2.016662728814969
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.5041312631450179,
+              "fairOdds": 1.9836103671918894
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "RCD Espanyol más de 1.5",
+              "line": 1.5,
+              "p": 0.38763204896565717,
+              "fairOdds": 2.579766050481023
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "RCD Espanyol menos de 1.5",
+              "line": 1.5,
+              "p": 0.6123679510343428,
+              "fairOdds": 1.6330051210402388
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Deportivo de La Coruña más de 1.5",
+              "line": 1.5,
+              "p": 0.30146556027870575,
+              "fairOdds": 3.317128494132123
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Deportivo de La Coruña menos de 1.5",
+              "line": 1.5,
+              "p": 0.6985344397212943,
+              "fairOdds": 1.4315686430564345
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.13079306056854909,
+              "fairOdds": 7.645665570123246
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.11638956837731207,
+              "fairOdds": 8.591835281648239
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.09075915079711899,
+              "fairOdds": 11.018172726575836
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 9.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 9.5",
+              "line": 9.5,
+              "p": 0.4995,
+              "fairOdds": 2.002002002002002
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 9.5",
+              "line": 9.5,
+              "p": 0.5005,
+              "fairOdds": 1.9980019980019983
+            }
+          ]
+        },
+        {
+          "group": "Faltas 25.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 25.5",
+              "line": 25.5,
+              "p": 0.4871,
+              "fairOdds": 2.0529665366454526
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 25.5",
+              "line": 25.5,
+              "p": 0.5129,
+              "fairOdds": 1.9496977968414895
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.544,
+              "fairOdds": 1.838235294117647
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.45599999999999996,
+              "fairOdds": 2.192982456140351
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.13079306056854909
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.00 goles/partido",
+          "detail": "13 % menos que la media · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.15 concedidos/partido",
+          "detail": "10 % menos que la media · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.13 goles/partido",
+          "detail": "7 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.22 concedidos/partido",
+          "detail": "5 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.31",
+          "detail": "estimada de 587 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.7–3.6",
+          "detail": "local 23%–66% · 587 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "13.º · 12 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "9.º · 15 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-P-P-G · 4 pts",
+          "detail": "4 goles a favor · 7 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-P-E-P-G · 5 pts",
+          "detail": "6 goles a favor · 7 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "coincide con la temporada",
+          "detail": "historia 44% / 27% / 29% · temporada 40% / 28% / 32%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "9.8 tiros de esquina esperados",
+          "detail": "RCD Espanyol 5.1 · Deportivo de La Coruña 4.7"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.5 faltas esperados",
+          "detail": "RCD Espanyol 14.3 · Deportivo de La Coruña 11.3"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.9 amarillas esperados",
+          "detail": "RCD Espanyol 2.5 · Deportivo de La Coruña 2.4"
+        }
+      ],
+      "steps": [
+        "Sincronizando LaLiga · corte 7 nov 2026, 14:15",
+        "Fuerza ajustada por rival · ESP 0.87 / 0.95 · DEP 0.93 / 0.90",
+        "Ponderando 214.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.31 – 1.13 · total 2.44",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–0"
+      ],
+      "inputsAsOf": "2026-11-07T14:15:00.000Z",
+      "publishedAt": "2026-11-07T14:15:00.000Z",
+      "source": "openfootball+football-data",
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.11638956837731207
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.4 goles: 1.3 de RCD Espanyol y 1.1 de Deportivo de La Coruña.",
+          "RCD Espanyol anota 13 % menos que la media.",
+          "Deportivo de La Coruña concede 10 % menos que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2018-02-23",
+            "homeTeamId": "laliga.deportivo-la-coruna",
+            "awayTeamId": "laliga.espanyol",
+            "homeGoals": 0,
+            "awayGoals": 0
+          },
+          {
+            "date": "2017-09-24",
+            "homeTeamId": "laliga.espanyol",
+            "awayTeamId": "laliga.deportivo-la-coruna",
+            "homeGoals": 4,
+            "awayGoals": 1
+          },
+          {
+            "date": "2017-05-07",
+            "homeTeamId": "laliga.deportivo-la-coruna",
+            "awayTeamId": "laliga.espanyol",
+            "homeGoals": 1,
+            "awayGoals": 2
+          },
+          {
+            "date": "2017-01-06",
+            "homeTeamId": "laliga.espanyol",
+            "awayTeamId": "laliga.deportivo-la-coruna",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2016-02-20",
+            "homeTeamId": "laliga.espanyol",
+            "awayTeamId": "laliga.deportivo-la-coruna",
+            "homeGoals": 1,
+            "awayGoals": 0
+          }
+        ],
+        "restDays": {
+          "home": 8,
+          "away": 5
         }
       }
     },
@@ -3606,11 +4316,11 @@
         "referee": "Juan Martinez Munuera",
         "refereeStats": {
           "country": "Spain",
-          "matches": 59,
+          "matches": 60,
           "avgYellow": 4.63,
-          "avgRed": 0.2,
+          "avgRed": 0.22,
           "avgFouls": 26.7,
-          "avgGoals": 2.56
+          "avgGoals": 2.52
         }
       }
     },
@@ -4085,11 +4795,11 @@
         "referee": "Miguel Angel Ortiz Arias",
         "refereeStats": {
           "country": "Spain",
-          "matches": 47,
-          "avgYellow": 3.66,
-          "avgRed": 0.26,
+          "matches": 48,
+          "avgYellow": 3.65,
+          "avgRed": 0.25,
           "avgFouls": 22.1,
-          "avgGoals": 2.79
+          "avgGoals": 2.88
         }
       }
     },
@@ -4565,11 +5275,11 @@
         "referee": "Carlos Muniz Munoz",
         "refereeStats": {
           "country": "Spain",
-          "matches": 53,
-          "avgYellow": 3.55,
-          "avgRed": 0.26,
+          "matches": 54,
+          "avgYellow": 3.61,
+          "avgRed": 0.33,
           "avgFouls": 25.1,
-          "avgGoals": 2.74
+          "avgGoals": 2.72
         }
       }
     },
@@ -5045,9 +5755,9 @@
         "referee": "Javier Alberola Rojas",
         "refereeStats": {
           "country": "Spain",
-          "matches": 65,
-          "avgYellow": 3.89,
-          "avgRed": 0.28,
+          "matches": 66,
+          "avgYellow": 3.91,
+          "avgRed": 0.27,
           "avgFouls": 26.5,
           "avgGoals": 3.18
         }
@@ -5055,6 +5765,84 @@
     },
     "laliga-2026-27-md13-athletic-club-espanyol": {
       "game": "laliga-2026-27-md13-athletic-club-espanyol",
+      "cortex": {
+        "headline": "Athletic empuja en casa ante un Espanyol que llega más descansado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Athletic llega mejor: es favorito con 56 % y suma 16 puntos por 12 del Espanyol, séptimo contra decimotercero. El descanso juega al revés, con 21 días para el visitante y 13 para el local.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido con 2.82 goles de total y un 77 % de superar los 1.5. El Athletic aporta 1.76 y el Espanyol 1.06; el 54 % de ambos anotan deja la puerta abierta al visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.76,
+                "away": 1.06
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "54 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "54 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Athletic empuja con 6.5 tiros de esquina por 3.6 del Espanyol, y el total llega a 10.0. Las faltas suman 25.3, con el visitante cortando más (13.6) que un local que acumula 11.7.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.5,
+                "away": 3.6
+              },
+              {
+                "label": "Faltas",
+                "home": 11.7,
+                "away": 13.6
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.3,
+                "away": 2.5
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Athletic es séptimo con 16 puntos en 11 partidos y diferencia de 4. El Espanyol es decimotercero con 12 puntos en 12 jornadas y diferencia de -1, con 21 días de descanso por 13 del local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 16,
+                "away": 12
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto aguanta el corte del Espanyol, y el primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "f95e9c34d31c74f8",
+        "generatedAt": "2026-11-20T13:31:13.162Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.46,
@@ -5712,10 +6500,831 @@
           "away": 21
         }
       },
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Mateo Busquets Ferrer",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 47,
+          "avgYellow": 5.45,
+          "avgRed": 0.3,
+          "avgFouls": 24.3,
+          "avgGoals": 2.85
+        }
+      }
+    },
+    "laliga-2026-27-md13-alaves-deportivo-la-coruna": {
+      "game": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
+      "cortex": {
+        "headline": "Alavés favorito en casa ante un Deportivo mejor clasificado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Deportivo llega mejor en la tabla: noveno con 15 puntos por los 13 del Alavés, duodécimo. Aun así el peso de jugar en casa inclina la probabilidad hacia el Alavés, con 45 % frente al 30 % del visitante.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido con 2.84 goles de proyección, y el 77 % de las veces se supera el 1.5. El Alavés aporta más en ataque con 1.50 por 1.34 del Deportivo, y el 57 % de los escenarios contempla que ambos anoten.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.5,
+                "away": 1.34
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "57 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "54 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Alavés empuja más: 5.8 tiros de esquina por 4.6 del Deportivo, 10.4 en total. Las faltas suman 25.0, repartidas casi por igual, con 4.3 amarillas. Un partido con contacto y pocas pausas largas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.8,
+                "away": 4.6
+              },
+              {
+                "label": "Faltas",
+                "home": 12.9,
+                "away": 12.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Deportivo es noveno con 15 puntos y diferencia de más uno en 12 jornadas. El Alavés es duodécimo con 13 puntos y diferencia de menos dos. El local acumula 16 días de descanso; del visitante no hay dato.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 13,
+                "away": 15
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con 25 faltas proyectadas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "c5b7851dae8b09fa",
+        "generatedAt": "2026-11-20T13:31:16.290Z",
+        "version": "2"
+      },
+      "counts": {
+        "corners": {
+          "home": 5.76,
+          "away": 4.63,
+          "total": 10.4,
+          "line": 10.5,
+          "pOver": 0.4575,
+          "sample": {
+            "home": 354,
+            "away": 240
+          }
+        },
+        "fouls": {
+          "home": 12.91,
+          "away": 12.14,
+          "total": 25.04,
+          "line": 24.5,
+          "pOver": 0.5265,
+          "sample": {
+            "home": 354,
+            "away": 240
+          }
+        },
+        "yellow": {
+          "home": 2.13,
+          "away": 2.19,
+          "total": 4.32,
+          "line": 4.5,
+          "pOver": 0.4334,
+          "sample": {
+            "home": 354,
+            "away": 240
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-laliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.4969194438178093,
+        "away": 1.3396767085434849,
+        "total": 2.8365961523612944,
+        "margin": 0.15724273527432442
+      },
+      "x12": [
+        0.4490959968861068,
+        0.24933526853317756,
+        0.3015687345807155
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Deportivo Alavés gana",
+          "p": 0.4490959968861068,
+          "fairOdds": 2.226695421321258
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24933526853317756,
+          "fairOdds": 4.010664058409915
+        },
+        {
+          "market": "h2h",
+          "selection": "Deportivo de La Coruña gana",
+          "p": 0.3015687345807155,
+          "fairOdds": 3.3159936204605054
+        },
+        {
+          "market": "double_chance",
+          "selection": "Deportivo Alavés o empate",
+          "p": 0.6984312654192844,
+          "fairOdds": 1.4317801185484973
+        },
+        {
+          "market": "double_chance",
+          "selection": "Deportivo de La Coruña o empate",
+          "p": 0.550904003113893,
+          "fairOdds": 1.815198282001341
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7506647314668222,
+          "fairOdds": 1.3321526349665702
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7700939510022362,
+          "fairOdds": 1.2985428579182492
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5364424313288498,
+          "fairOdds": 1.864132927596438
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.46355756867115017,
+          "fairOdds": 2.1572293660669457
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3168932975857238,
+          "fairOdds": 3.155636321811088
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6831067024142762,
+          "fairOdds": 1.4639001439537056
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5697824719486999,
+          "fairOdds": 1.755055743606719
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4302175280513001,
+          "fairOdds": 2.324405526965786
+        },
+        {
+          "market": "team_totals",
+          "selection": "Deportivo Alavés más de 1.5",
+          "line": 1.5,
+          "p": 0.46433683304004514,
+          "fairOdds": 2.1536090373294994
+        },
+        {
+          "market": "team_totals",
+          "selection": "Deportivo Alavés menos de 1.5",
+          "line": 1.5,
+          "p": 0.5356631669599549,
+          "fairOdds": 1.8668448041243764
+        },
+        {
+          "market": "team_totals",
+          "selection": "Deportivo de La Coruña más de 1.5",
+          "line": 1.5,
+          "p": 0.36156692504262056,
+          "fairOdds": 2.7657397033263553
+        },
+        {
+          "market": "team_totals",
+          "selection": "Deportivo de La Coruña menos de 1.5",
+          "line": 1.5,
+          "p": 0.6384330749573794,
+          "fairOdds": 1.5663348896307698
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.11686222192509094,
+          "fairOdds": 8.5570852883578
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.10101868380430479,
+          "fairOdds": 9.899158871810465
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09493192914973689,
+          "fairOdds": 10.533863674282781
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4575,
+          "fairOdds": 2.1857923497267757
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5425,
+          "fairOdds": 1.8433179723502304
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 24.5",
+          "line": 24.5,
+          "p": 0.5265,
+          "fairOdds": 1.8993352326685662
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 24.5",
+          "line": 24.5,
+          "p": 0.47350000000000003,
+          "fairOdds": 2.1119324181626187
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4334,
+          "fairOdds": 2.3073373327180433
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5666,
+          "fairOdds": 1.7649135192375573
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Deportivo Alavés gana",
+              "p": 0.4490959968861068,
+              "fairOdds": 2.226695421321258
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24933526853317756,
+              "fairOdds": 4.010664058409915
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Deportivo de La Coruña gana",
+              "p": 0.3015687345807155,
+              "fairOdds": 3.3159936204605054
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Deportivo Alavés o empate",
+              "p": 0.6984312654192844,
+              "fairOdds": 1.4317801185484973
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Deportivo de La Coruña o empate",
+              "p": 0.550904003113893,
+              "fairOdds": 1.815198282001341
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7506647314668222,
+              "fairOdds": 1.3321526349665702
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7700939510022362,
+              "fairOdds": 1.2985428579182492
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5364424313288498,
+              "fairOdds": 1.864132927596438
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.46355756867115017,
+              "fairOdds": 2.1572293660669457
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3168932975857238,
+              "fairOdds": 3.155636321811088
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6831067024142762,
+              "fairOdds": 1.4639001439537056
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5697824719486999,
+              "fairOdds": 1.755055743606719
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4302175280513001,
+              "fairOdds": 2.324405526965786
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Deportivo Alavés más de 1.5",
+              "line": 1.5,
+              "p": 0.46433683304004514,
+              "fairOdds": 2.1536090373294994
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Deportivo Alavés menos de 1.5",
+              "line": 1.5,
+              "p": 0.5356631669599549,
+              "fairOdds": 1.8668448041243764
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Deportivo de La Coruña más de 1.5",
+              "line": 1.5,
+              "p": 0.36156692504262056,
+              "fairOdds": 2.7657397033263553
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Deportivo de La Coruña menos de 1.5",
+              "line": 1.5,
+              "p": 0.6384330749573794,
+              "fairOdds": 1.5663348896307698
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11686222192509094,
+              "fairOdds": 8.5570852883578
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.10101868380430479,
+              "fairOdds": 9.899158871810465
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09493192914973689,
+              "fairOdds": 10.533863674282781
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4575,
+              "fairOdds": 2.1857923497267757
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5425,
+              "fairOdds": 1.8433179723502304
+            }
+          ]
+        },
+        {
+          "group": "Faltas 24.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 24.5",
+              "line": 24.5,
+              "p": 0.5265,
+              "fairOdds": 1.8993352326685662
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 24.5",
+              "line": 24.5,
+              "p": 0.47350000000000003,
+              "fairOdds": 2.1119324181626187
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4334,
+              "fairOdds": 2.3073373327180433
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5666,
+              "fairOdds": 1.7649135192375573
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.11686222192509094
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.14 goles/partido",
+          "detail": "4 % menos que la media · 8 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.19 concedidos/partido",
+          "detail": "8 % menos que la media · 7 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.34 goles/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.31 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.31",
+          "detail": "estimada de 566 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–4.3",
+          "detail": "local 21%–70% · 566 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "10.º · 11 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "13.º · 10 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-P-E · 4 pts",
+          "detail": "7 goles a favor · 11 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-E-P-E · 8 pts",
+          "detail": "8 goles a favor · 6 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "+3 pts al local",
+          "detail": "historia 48% / 26% / 26% · temporada 42% / 24% / 35%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.4 tiros de esquina esperados",
+          "detail": "Deportivo Alavés 5.8 · Deportivo de La Coruña 4.6"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "25.0 faltas esperados",
+          "detail": "Deportivo Alavés 12.9 · Deportivo de La Coruña 12.1"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.3 amarillas esperados",
+          "detail": "Deportivo Alavés 2.1 · Deportivo de La Coruña 2.2"
+        }
+      ],
+      "steps": [
+        "Sincronizando LaLiga · corte 14 nov 2026, 08:07",
+        "Fuerza ajustada por rival · ALA 0.96 / 1.01 · DEP 1.02 / 0.92",
+        "Ponderando 190.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.50 – 1.34 · total 2.84",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-14T14:07:39.275Z",
+      "publishedAt": "2026-11-14T14:07:39.275Z",
+      "source": "openfootball+espn",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7700939510022362,
+          "fairOdds": 1.2985428579182492
+        },
+        {
+          "profile": "intermedia",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Deportivo Alavés o empate",
+          "p": 0.6984312654192844,
+          "fairOdds": 1.4317801185484973
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "Deportivo Alavés más de 1.5",
+          "line": 1.5,
+          "p": 0.46433683304004514,
+          "fairOdds": 2.1536090373294994
+        }
+      ],
+      "confidence": {
+        "score": 36,
+        "level": "baja",
+        "reasons": [
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09493192914973689
+      },
+      "insights": {
+        "why": [
+          "Deportivo Alavés gana en 45% de los escenarios; el empate, en 25%.",
+          "Deportivo de La Coruña concede 8 % menos que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2018-02-17",
+            "homeTeamId": "laliga.alaves",
+            "awayTeamId": "laliga.deportivo-la-coruna",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2017-09-20",
+            "homeTeamId": "laliga.deportivo-la-coruna",
+            "awayTeamId": "laliga.alaves",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2017-02-18",
+            "homeTeamId": "laliga.deportivo-la-coruna",
+            "awayTeamId": "laliga.alaves",
+            "homeGoals": 0,
+            "awayGoals": 1
+          },
+          {
+            "date": "2016-09-19",
+            "homeTeamId": "laliga.alaves",
+            "awayTeamId": "laliga.deportivo-la-coruna",
+            "homeGoals": 0,
+            "awayGoals": 0
+          }
+        ],
+        "restDays": {
+          "home": 16
+        }
+      },
       "picksAt": "2026-11-14T14:07:39.275Z"
     },
     "laliga-2026-27-md13-rayo-vallecano-valencia": {
       "game": "laliga-2026-27-md13-rayo-vallecano-valencia",
+      "cortex": {
+        "headline": "Rayo en casa con más peso ofensivo que un Valencia en descenso",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Rayo llega mejor: gana en probabilidad con 50 % frente al 26 % del Valencia y suma 12 puntos por 9 del visitante. El Valencia está en la posición 19 con diferencia de -12, la peor del duelo, y necesita sostener el resultado fuera.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 2.89, con 78 % de más de 1.5 y 56 % de ambos anotan. El Rayo aporta más con 1.73 goles esperados por 1.16 del Valencia, que depende de menos volumen.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.73,
+                "away": 1.16
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "56 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "55 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Rayo empuja con 5.9 tiros de esquina por 4.4 del Valencia, 10.3 en total. Las faltas suman 23.8, con 12.3 del visitante, así que el juego se corta más de su lado y las amarillas llegan a 4.7.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.9,
+                "away": 4.4
+              },
+              {
+                "label": "Faltas",
+                "home": 11.5,
+                "away": 12.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.4,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Rayo es 14 con 12 puntos en 11 partidos y diferencia de -6. El Valencia es 19 con 9 puntos en 12 y -12. El descanso es casi igual: 13 días para el local y 14 para el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 9
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Rayo o la contención del Valencia. El criterio del árbitro define cuánto se corta el juego con faltas, y el primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "f51d7c9a1477e4df",
+        "generatedAt": "2026-11-20T13:31:19.708Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.88,
@@ -7042,6 +8651,84 @@
     },
     "laliga-2026-27-md13-real-madrid-celta-vigo": {
       "game": "laliga-2026-27-md13-real-madrid-celta-vigo",
+      "cortex": {
+        "headline": "El Real Madrid manda en casa y el Celta llega a resistir",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Real Madrid llega mejor: segundo con 30 puntos y diferencia de 21, frente a un Celta undécimo con 13 puntos y diferencia de cero. La probabilidad de 76 % frente al 9 % del visitante confirma esa distancia antes de rodar el balón.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: la proyección suma 3.38 goles, con 2.53 del Real Madrid y 0.84 del Celta. El 66 % de más de 2.5 y el 52 % de ambos anotan dicen que el aporte ofensivo se concentra en el local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.53,
+                "away": 0.84
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "52 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "66 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Real Madrid empuja con 6.0 tiros de esquina por 3.1 del Celta, 9.1 en total. Las faltas se cargan al visitante, 14.0 contra 9.9, así que el juego se corta cuando el Celta frena la posesión local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6,
+                "away": 3.1
+              },
+              {
+                "label": "Faltas",
+                "home": 9.9,
+                "away": 14
+              },
+              {
+                "label": "Amarillas",
+                "home": 2,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Real Madrid es segundo con 30 puntos en 12 partidos y llega con 14 días de descanso. El Celta es undécimo con 13 puntos y 13 días de descanso, con diferencia de cero.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 30,
+                "away": 13
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del local; el criterio del árbitro define cuánto aguanta el Celta antes de la amarilla. Un primer gol temprano del Real Madrid cambia el plan visitante.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "153fcb54d784b7bf",
+        "generatedAt": "2026-11-20T13:31:25.131Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.02,
@@ -7705,6 +9392,84 @@
     },
     "laliga-2026-27-md13-barcelona-villarreal": {
       "game": "laliga-2026-27-md13-barcelona-villarreal",
+      "cortex": {
+        "headline": "Barcelona primero con 75 % y un ataque que proyecta 3.48 goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Barcelona llega mejor: es primero con 33 puntos y una diferencia de 35 tras 12 jornadas, mientras el Villarreal es octavo con 15 puntos y diferencia de 2. La ventaja de localía y ese margen de gol explican por qué la probabilidad del Barcelona es de 75 %.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 4.77 y el marcador proyectado 3.48 a 1.30. El 85 % de más de 2.5 goles y el 71 % de ambos anotan apuntan a un partido con anotaciones de los dos, con el Barcelona cargando el mayor volumen.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 3.48,
+                "away": 1.3
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "71 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "85 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Barcelona empuja con 6.5 tiros de esquina por 4.0 del Villarreal, 10.6 en total. Las faltas están parejas, 10.7 y 10.5 para 21.1, así que el juego se corta poco y las amarillas se quedan en 4.2.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.5,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 10.7,
+                "away": 10.5
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Barcelona es primero con 33 puntos y diferencia de 35 en 12 partidos. El Villarreal es octavo con 15 puntos y diferencia de 2. Los dos llegan con 14 días de descanso, sin ventaja física de un lado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 33,
+                "away": 15
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el ritmo con faltas y amarillas. El primer gol cambia el guion: si el Villarreal anota temprano, el partido se abre distinto.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "bd7428cd661718b9",
+        "generatedAt": "2026-11-20T13:31:32.675Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.54,
@@ -8368,662 +10133,86 @@
       },
       "picksAt": "2026-11-14T14:07:39.275Z"
     },
-    "laliga-2026-27-md13-alaves-deportivo-la-coruna": {
-      "game": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
-      "counts": {
-        "corners": {
-          "home": 5.76,
-          "away": 4.63,
-          "total": 10.4,
-          "line": 10.5,
-          "pOver": 0.4575,
-          "sample": {
-            "home": 354,
-            "away": 240
-          }
-        },
-        "fouls": {
-          "home": 12.91,
-          "away": 12.14,
-          "total": 25.04,
-          "line": 24.5,
-          "pOver": 0.5265,
-          "sample": {
-            "home": 354,
-            "away": 240
-          }
-        },
-        "yellow": {
-          "home": 2.13,
-          "away": 2.19,
-          "total": 4.32,
-          "line": 4.5,
-          "pOver": 0.4334,
-          "sample": {
-            "home": 354,
-            "away": 240
-          }
-        }
-      },
-      "model": {
-        "id": "pitchlab-statistical-laliga",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.4969194438178093,
-        "away": 1.3396767085434849,
-        "total": 2.8365961523612944,
-        "margin": 0.15724273527432442
-      },
-      "x12": [
-        0.4490959968861068,
-        0.24933526853317756,
-        0.3015687345807155
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Deportivo Alavés gana",
-          "p": 0.4490959968861068,
-          "fairOdds": 2.226695421321258
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.24933526853317756,
-          "fairOdds": 4.010664058409915
-        },
-        {
-          "market": "h2h",
-          "selection": "Deportivo de La Coruña gana",
-          "p": 0.3015687345807155,
-          "fairOdds": 3.3159936204605054
-        },
-        {
-          "market": "double_chance",
-          "selection": "Deportivo Alavés o empate",
-          "p": 0.6984312654192844,
-          "fairOdds": 1.4317801185484973
-        },
-        {
-          "market": "double_chance",
-          "selection": "Deportivo de La Coruña o empate",
-          "p": 0.550904003113893,
-          "fairOdds": 1.815198282001341
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7506647314668222,
-          "fairOdds": 1.3321526349665702
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7700939510022362,
-          "fairOdds": 1.2985428579182492
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5364424313288498,
-          "fairOdds": 1.864132927596438
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.46355756867115017,
-          "fairOdds": 2.1572293660669457
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3168932975857238,
-          "fairOdds": 3.155636321811088
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6831067024142762,
-          "fairOdds": 1.4639001439537056
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5697824719486999,
-          "fairOdds": 1.755055743606719
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4302175280513001,
-          "fairOdds": 2.324405526965786
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportivo Alavés más de 1.5",
-          "line": 1.5,
-          "p": 0.46433683304004514,
-          "fairOdds": 2.1536090373294994
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportivo Alavés menos de 1.5",
-          "line": 1.5,
-          "p": 0.5356631669599549,
-          "fairOdds": 1.8668448041243764
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportivo de La Coruña más de 1.5",
-          "line": 1.5,
-          "p": 0.36156692504262056,
-          "fairOdds": 2.7657397033263553
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportivo de La Coruña menos de 1.5",
-          "line": 1.5,
-          "p": 0.6384330749573794,
-          "fairOdds": 1.5663348896307698
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11686222192509094,
-          "fairOdds": 8.5570852883578
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.10101868380430479,
-          "fairOdds": 9.899158871810465
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09493192914973689,
-          "fairOdds": 10.533863674282781
-        },
-        {
-          "market": "corners_total",
-          "selection": "Más de 10.5",
-          "line": 10.5,
-          "p": 0.4575,
-          "fairOdds": 2.1857923497267757
-        },
-        {
-          "market": "corners_total",
-          "selection": "Menos de 10.5",
-          "line": 10.5,
-          "p": 0.5425,
-          "fairOdds": 1.8433179723502304
-        },
-        {
-          "market": "fouls_total",
-          "selection": "Más de 24.5",
-          "line": 24.5,
-          "p": 0.5265,
-          "fairOdds": 1.8993352326685662
-        },
-        {
-          "market": "fouls_total",
-          "selection": "Menos de 24.5",
-          "line": 24.5,
-          "p": 0.47350000000000003,
-          "fairOdds": 2.1119324181626187
-        },
-        {
-          "market": "yellow_total",
-          "selection": "Más de 4.5",
-          "line": 4.5,
-          "p": 0.4334,
-          "fairOdds": 2.3073373327180433
-        },
-        {
-          "market": "yellow_total",
-          "selection": "Menos de 4.5",
-          "line": 4.5,
-          "p": 0.5666,
-          "fairOdds": 1.7649135192375573
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Deportivo Alavés gana",
-              "p": 0.4490959968861068,
-              "fairOdds": 2.226695421321258
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.24933526853317756,
-              "fairOdds": 4.010664058409915
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Deportivo de La Coruña gana",
-              "p": 0.3015687345807155,
-              "fairOdds": 3.3159936204605054
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Deportivo Alavés o empate",
-              "p": 0.6984312654192844,
-              "fairOdds": 1.4317801185484973
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Deportivo de La Coruña o empate",
-              "p": 0.550904003113893,
-              "fairOdds": 1.815198282001341
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7506647314668222,
-              "fairOdds": 1.3321526349665702
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7700939510022362,
-              "fairOdds": 1.2985428579182492
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5364424313288498,
-              "fairOdds": 1.864132927596438
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.46355756867115017,
-              "fairOdds": 2.1572293660669457
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3168932975857238,
-              "fairOdds": 3.155636321811088
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6831067024142762,
-              "fairOdds": 1.4639001439537056
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5697824719486999,
-              "fairOdds": 1.755055743606719
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4302175280513001,
-              "fairOdds": 2.324405526965786
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Deportivo Alavés más de 1.5",
-              "line": 1.5,
-              "p": 0.46433683304004514,
-              "fairOdds": 2.1536090373294994
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Deportivo Alavés menos de 1.5",
-              "line": 1.5,
-              "p": 0.5356631669599549,
-              "fairOdds": 1.8668448041243764
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Deportivo de La Coruña más de 1.5",
-              "line": 1.5,
-              "p": 0.36156692504262056,
-              "fairOdds": 2.7657397033263553
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Deportivo de La Coruña menos de 1.5",
-              "line": 1.5,
-              "p": 0.6384330749573794,
-              "fairOdds": 1.5663348896307698
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11686222192509094,
-              "fairOdds": 8.5570852883578
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.10101868380430479,
-              "fairOdds": 9.899158871810465
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09493192914973689,
-              "fairOdds": 10.533863674282781
-            }
-          ]
-        },
-        {
-          "group": "Tiros de esquina 10.5",
-          "rows": [
-            {
-              "market": "corners_total",
-              "selection": "over",
-              "label": "Más de 10.5",
-              "line": 10.5,
-              "p": 0.4575,
-              "fairOdds": 2.1857923497267757
-            },
-            {
-              "market": "corners_total",
-              "selection": "under",
-              "label": "Menos de 10.5",
-              "line": 10.5,
-              "p": 0.5425,
-              "fairOdds": 1.8433179723502304
-            }
-          ]
-        },
-        {
-          "group": "Faltas 24.5",
-          "rows": [
-            {
-              "market": "fouls_total",
-              "selection": "over",
-              "label": "Más de 24.5",
-              "line": 24.5,
-              "p": 0.5265,
-              "fairOdds": 1.8993352326685662
-            },
-            {
-              "market": "fouls_total",
-              "selection": "under",
-              "label": "Menos de 24.5",
-              "line": 24.5,
-              "p": 0.47350000000000003,
-              "fairOdds": 2.1119324181626187
-            }
-          ]
-        },
-        {
-          "group": "Tarjetas amarillas 4.5",
-          "rows": [
-            {
-              "market": "yellow_total",
-              "selection": "over",
-              "label": "Más de 4.5",
-              "line": 4.5,
-              "p": 0.4334,
-              "fairOdds": 2.3073373327180433
-            },
-            {
-              "market": "yellow_total",
-              "selection": "under",
-              "label": "Menos de 4.5",
-              "line": 4.5,
-              "p": 0.5666,
-              "fairOdds": 1.7649135192375573
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11686222192509094
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.14 goles/partido",
-          "detail": "4 % menos que la media · 8 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.19 concedidos/partido",
-          "detail": "8 % menos que la media · 7 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.34 goles/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.31 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.31",
-          "detail": "estimada de 566 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–4.3",
-          "detail": "local 21%–70% · 566 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "10.º · 11 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "13.º · 10 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-P-P-E · 4 pts",
-          "detail": "7 goles a favor · 11 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-E-P-E · 8 pts",
-          "detail": "8 goles a favor · 6 en contra"
-        },
-        {
-          "key": "long_memory",
-          "label": "Memoria larga",
-          "value": "+3 pts al local",
-          "detail": "historia 48% / 26% / 26% · temporada 42% / 24% / 35%"
-        },
-        {
-          "key": "corners_expected",
-          "label": "Tiros de esquina",
-          "value": "10.4 tiros de esquina esperados",
-          "detail": "Deportivo Alavés 5.8 · Deportivo de La Coruña 4.6"
-        },
-        {
-          "key": "fouls_expected",
-          "label": "Faltas",
-          "value": "25.0 faltas esperados",
-          "detail": "Deportivo Alavés 12.9 · Deportivo de La Coruña 12.1"
-        },
-        {
-          "key": "yellow_expected",
-          "label": "Tarjetas amarillas",
-          "value": "4.3 amarillas esperados",
-          "detail": "Deportivo Alavés 2.1 · Deportivo de La Coruña 2.2"
-        }
-      ],
-      "steps": [
-        "Sincronizando LaLiga · corte 14 nov 2026, 08:07",
-        "Fuerza ajustada por rival · ALA 0.96 / 1.01 · DEP 1.02 / 0.92",
-        "Ponderando 190.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.50 – 1.34 · total 2.84",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-14T14:07:39.275Z",
-      "publishedAt": "2026-11-14T14:07:39.275Z",
-      "source": "openfootball+espn",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7700939510022362,
-          "fairOdds": 1.2985428579182492
-        },
-        {
-          "profile": "intermedia",
-          "market": "double_chance",
-          "selection": "1x",
-          "label": "Deportivo Alavés o empate",
-          "p": 0.6984312654192844,
-          "fairOdds": 1.4317801185484973
-        },
-        {
-          "profile": "arriesgada",
-          "market": "team_totals",
-          "selection": "home_over",
-          "label": "Deportivo Alavés más de 1.5",
-          "line": 1.5,
-          "p": 0.46433683304004514,
-          "fairOdds": 2.1536090373294994
-        }
-      ],
-      "confidence": {
-        "score": 36,
-        "level": "baja",
-        "reasons": [
-          "Rango de incertidumbre amplio"
-        ]
-      },
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09493192914973689
-      },
-      "insights": {
-        "why": [
-          "Deportivo Alavés gana en 45% de los escenarios; el empate, en 25%.",
-          "Deportivo de La Coruña concede 8 % menos que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2018-02-17",
-            "homeTeamId": "laliga.alaves",
-            "awayTeamId": "laliga.deportivo-la-coruna",
-            "homeGoals": 1,
-            "awayGoals": 0
-          },
-          {
-            "date": "2017-09-20",
-            "homeTeamId": "laliga.deportivo-la-coruna",
-            "awayTeamId": "laliga.alaves",
-            "homeGoals": 1,
-            "awayGoals": 0
-          },
-          {
-            "date": "2017-02-18",
-            "homeTeamId": "laliga.deportivo-la-coruna",
-            "awayTeamId": "laliga.alaves",
-            "homeGoals": 0,
-            "awayGoals": 1
-          },
-          {
-            "date": "2016-09-19",
-            "homeTeamId": "laliga.alaves",
-            "awayTeamId": "laliga.deportivo-la-coruna",
-            "homeGoals": 0,
-            "awayGoals": 0
-          }
-        ],
-        "restDays": {
-          "home": 16
-        }
-      },
-      "picksAt": "2026-11-14T14:07:39.275Z"
-    },
     "laliga-2026-27-md13-racing-santander-real-sociedad": {
       "game": "laliga-2026-27-md13-racing-santander-real-sociedad",
+      "cortex": {
+        "headline": "Racing favorito por un punto de probabilidad y un partido con goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Racing llega con 40 % de probabilidad frente al 36 % de la Real Sociedad, aunque en la tabla está décimo con 14 puntos y diferencia de -13. La Real Sociedad es quinta con 22 puntos y diferencia de 1, así que su mejor posición sostiene la visita pese a la ligera ventaja local.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 4.39 goles en total, con 80 % de que se superen los 2.5 y 80 % de que ambos anoten. El reparto es casi idéntico, 2.18 del Racing y 2.21 de la Real Sociedad, con el visitante un poco arriba.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.18,
+                "away": 2.21
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "80 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "80 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "La Real Sociedad empuja más con 5.8 tiros de esquina por 4.9 del Racing, y también corta más con 13.7 faltas frente a 11.3. El total de 25.0 faltas anticipa un juego trabado, con 10.8 córners repartidos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.9,
+                "away": 5.8
+              },
+              {
+                "label": "Faltas",
+                "home": 11.3,
+                "away": 13.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.4,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Racing es décimo con 14 puntos en 12 partidos y diferencia de -13. La Real Sociedad es quinta con 22 puntos y diferencia de 1. El descanso es parejo: 15 días para el local y 14 para el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 14,
+                "away": 22
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se sostiene el ritmo de faltas. El primer gol cambia el guion: si la Real Sociedad anota antes, el Racing tendrá que abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "57a696bf976e843d",
+        "generatedAt": "2026-11-20T13:31:37.555Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.93,
@@ -9651,6 +10840,84 @@
     },
     "laliga-2026-27-md13-osasuna-malaga": {
       "game": "laliga-2026-27-md13-osasuna-malaga",
+      "cortex": {
+        "headline": "Osasuna favorito en casa ante un Málaga último y sin margen",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "CA Osasuna parte adelante: gana en 55 % de los escenarios, contra 22 % de Málaga CF; el empate se queda en 23 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 2.81, con 1.80 para Osasuna y 1.01 para el Málaga. El 53 % de más de 2.5 y el 53 % de ambos anotan hablan de un partido con goles repartidos, aunque el peso ofensivo se concentra en el local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.8,
+                "away": 1.01
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "53 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "53 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina proyectan 9.0 en total, 4.9 de Osasuna y 4.2 del Málaga: el local empuja más. Las faltas suman 24.2, con 12.5 del local y 11.7 del visitante, un partido cortado pero sin exceso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.9,
+                "away": 4.2
+              },
+              {
+                "label": "Faltas",
+                "home": 12.5,
+                "away": 11.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.3,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Osasuna está en la posición 16 con 12 puntos y diferencia de -11 tras 12 jornadas. El Málaga es último, posición 20, con 5 puntos y -14. Ambos llegan con 15 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 5
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro influye en un partido con muchas faltas previstas, y el primer gol define si el Málaga se abre o se cierra atrás.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "22af5ec045ee9de5",
+        "generatedAt": "2026-11-20T13:31:39.558Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.88,
@@ -10315,6 +11582,84 @@
     },
     "laliga-2026-27-md13-getafe-atletico-madrid": {
       "game": "laliga-2026-27-md13-getafe-atletico-madrid",
+      "cortex": {
+        "headline": "Atlético favorito con 53 % y un Getafe que necesita cortar el juego",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Atlético llega mejor: tercero con 28 puntos y diferencia de 13, frente al Getafe, decimoquinto con 12 puntos y diferencia de 10. La probabilidad de 53 % para el visitante marca la distancia entre un equipo que sostiene resultados y otro que pelea abajo.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 2.48, con 0.91 para el Getafe y 1.57 para el Atlético. El 70 % de más de 1.5 goles y el 45 % de más de 2.5 describen un partido con margen de gol, y el 47 % de ambos anotan deja la puerta abierta al local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 0.91,
+                "away": 1.57
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "47 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "45 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners suman 9.1, con 4.9 del Atlético y 4.2 del Getafe: el visitante empuja más. Las faltas llegan a 24.5, casi parejas entre ambos, y las amarillas a 4.7, así que el juego se corta seguido.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.2,
+                "away": 4.9
+              },
+              {
+                "label": "Faltas",
+                "home": 12.4,
+                "away": 12.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.3,
+                "away": 2.4
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Getafe es decimoquinto con 12 puntos en 12 partidos y diferencia de 10 en contra. El Atlético es tercero con 28 puntos y diferencia de 13. Los dos llegan con 14 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 28
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto aguanta un partido de faltas altas. El primer gol cambia el guion: si el Getafe anota antes, el Atlético debe abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "14c4cb11f3aa0e9f",
+        "generatedAt": "2026-11-20T13:31:47.268Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.24,
@@ -10977,6 +12322,84 @@
     },
     "laliga-2026-27-md13-levante-elche": {
       "game": "laliga-2026-27-md13-levante-elche",
+      "cortex": {
+        "headline": "Levante con más peso en casa ante un Elche necesitado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Levante llega con la probabilidad más alta del partido, 47 %, y un punto más que su rival. El Elche, con 29 %, está abajo en la tabla y necesita romper esa inercia fuera de casa.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 3.67, con 70 % de que se superen los 2.5 goles y 70 % de que ambos anoten. El Levante aporta 2.02 y el Elche 1.65: el peso ofensivo se inclina al local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.02,
+                "away": 1.65
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "70 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "70 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners suman 9.1, con 4.8 del Levante y 4.3 del Elche: el local empuja más arriba. Las faltas llegan a 25.3 y las amarillas a 4.3, así que el partido se corta seguido.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.8,
+                "away": 4.3
+              },
+              {
+                "label": "Faltas",
+                "home": 12.5,
+                "away": 12.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 2,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Levante es 17 con 11 puntos y diferencia de -5 en 12 jornadas. El Elche es 18 con 10 puntos y -6. Ambos llegan con 15 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 11,
+                "away": 10
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el reparto ofensivo, el criterio del árbitro define cuánto se corta el juego y el primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "e545a559f41b5a8f",
+        "generatedAt": "2026-11-20T13:31:49.133Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.84,
@@ -11644,13 +13067,14 @@
       "name": "FC Barcelona",
       "shortName": "FC Barcelona",
       "code": "BAR",
-      "played": 10,
-      "won": 9,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/44/?bg=transparent",
+      "played": 12,
+      "won": 11,
       "drawn": 0,
       "lost": 1,
-      "goalsFor": 40,
-      "goalsAgainst": 11,
-      "points": 27,
+      "goalsFor": 48,
+      "goalsAgainst": 13,
+      "points": 33,
       "form": [
         "W",
         "W",
@@ -11664,37 +13088,18 @@
       "name": "Real Madrid",
       "shortName": "Real Madrid",
       "code": "RMA",
-      "played": 10,
-      "won": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/57/?bg=transparent",
+      "played": 12,
+      "won": 10,
       "drawn": 0,
       "lost": 2,
-      "goalsFor": 26,
-      "goalsAgainst": 9,
-      "points": 24,
+      "goalsFor": 31,
+      "goalsAgainst": 10,
+      "points": 30,
       "form": [
         "W",
         "W",
         "W",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "laliga.real-betis",
-      "name": "Real Betis",
-      "shortName": "Real Betis",
-      "code": "BET",
-      "played": 10,
-      "won": 7,
-      "drawn": 2,
-      "lost": 1,
-      "goalsFor": 13,
-      "goalsAgainst": 8,
-      "points": 23,
-      "form": [
-        "W",
-        "L",
-        "D",
         "W",
         "W"
       ]
@@ -11704,13 +13109,14 @@
       "name": "Atlético de Madrid",
       "shortName": "Atlético de Madrid",
       "code": "ATM",
-      "played": 9,
-      "won": 6,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/54/?bg=transparent",
+      "played": 12,
+      "won": 9,
       "drawn": 1,
       "lost": 2,
-      "goalsFor": 19,
-      "goalsAgainst": 9,
-      "points": 19,
+      "goalsFor": 23,
+      "goalsAgainst": 10,
+      "points": 28,
       "form": [
         "W",
         "W",
@@ -11720,23 +13126,24 @@
       ]
     },
     {
-      "teamId": "laliga.sevilla",
-      "name": "Sevilla FC",
-      "shortName": "Sevilla FC",
-      "code": "SEV",
-      "played": 10,
-      "won": 5,
+      "teamId": "laliga.real-betis",
+      "name": "Real Betis",
+      "shortName": "Real Betis",
+      "code": "BET",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/56/?bg=transparent",
+      "played": 12,
+      "won": 8,
       "drawn": 2,
-      "lost": 3,
-      "goalsFor": 13,
-      "goalsAgainst": 12,
-      "points": 17,
+      "lost": 2,
+      "goalsFor": 20,
+      "goalsAgainst": 15,
+      "points": 26,
       "form": [
-        "D",
-        "L",
         "W",
         "L",
-        "D"
+        "D",
+        "W",
+        "W"
       ]
     },
     {
@@ -11744,13 +13151,14 @@
       "name": "Real Sociedad",
       "shortName": "Real Sociedad",
       "code": "RSO",
-      "played": 9,
-      "won": 5,
-      "drawn": 0,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/48/?bg=transparent",
+      "played": 12,
+      "won": 7,
+      "drawn": 1,
       "lost": 4,
-      "goalsFor": 13,
-      "goalsAgainst": 16,
-      "points": 15,
+      "goalsFor": 21,
+      "goalsAgainst": 20,
+      "points": 22,
       "form": [
         "W",
         "W",
@@ -11760,17 +13168,39 @@
       ]
     },
     {
+      "teamId": "laliga.sevilla",
+      "name": "Sevilla FC",
+      "shortName": "Sevilla FC",
+      "code": "SEV",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/52/?bg=transparent",
+      "played": 12,
+      "won": 5,
+      "drawn": 3,
+      "lost": 4,
+      "goalsFor": 17,
+      "goalsAgainst": 19,
+      "points": 18,
+      "form": [
+        "D",
+        "L",
+        "W",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "laliga.athletic-club",
       "name": "Athletic Club",
       "shortName": "Athletic Club",
       "code": "ATH",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/51/?bg=transparent",
+      "played": 11,
       "won": 4,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 14,
-      "goalsAgainst": 8,
-      "points": 14,
+      "drawn": 4,
+      "lost": 3,
+      "goalsFor": 15,
+      "goalsAgainst": 11,
+      "points": 16,
       "form": [
         "D",
         "L",
@@ -11784,13 +13214,14 @@
       "name": "Villarreal CF",
       "shortName": "Villarreal CF",
       "code": "VIL",
-      "played": 9,
-      "won": 3,
-      "drawn": 2,
-      "lost": 4,
-      "goalsFor": 15,
-      "goalsAgainst": 13,
-      "points": 11,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/41/?bg=transparent",
+      "played": 12,
+      "won": 4,
+      "drawn": 3,
+      "lost": 5,
+      "goalsFor": 17,
+      "goalsAgainst": 15,
+      "points": 15,
       "form": [
         "L",
         "D",
@@ -11800,22 +13231,107 @@
       ]
     },
     {
+      "teamId": "laliga.deportivo-la-coruna",
+      "name": "Deportivo de La Coruña",
+      "shortName": "Deportivo de La Coruña",
+      "code": "DEP",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1260/?bg=transparent",
+      "played": 12,
+      "won": 3,
+      "drawn": 6,
+      "lost": 3,
+      "goalsFor": 15,
+      "goalsAgainst": 14,
+      "points": 15,
+      "form": [
+        "L",
+        "D",
+        "L",
+        "W",
+        "D"
+      ]
+    },
+    {
+      "teamId": "laliga.racing-santander",
+      "name": "Racing de Santander",
+      "shortName": "Racing de Santander",
+      "code": "RAC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1400/?bg=transparent",
+      "played": 12,
+      "won": 4,
+      "drawn": 2,
+      "lost": 6,
+      "goalsFor": 17,
+      "goalsAgainst": 30,
+      "points": 14,
+      "form": [
+        "D",
+        "L",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "laliga.celta-vigo",
+      "name": "Celta de Vigo",
+      "shortName": "Celta de Vigo",
+      "code": "CELV",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/49/?bg=transparent",
+      "played": 12,
+      "won": 2,
+      "drawn": 7,
+      "lost": 3,
+      "goalsFor": 10,
+      "goalsAgainst": 10,
+      "points": 13,
+      "form": [
+        "D",
+        "W",
+        "D",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "laliga.alaves",
       "name": "Deportivo Alavés",
       "shortName": "Deportivo Alavés",
       "code": "ALA",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/45/?bg=transparent",
+      "played": 12,
       "won": 3,
-      "drawn": 2,
-      "lost": 3,
-      "goalsFor": 12,
-      "goalsAgainst": 12,
-      "points": 11,
+      "drawn": 4,
+      "lost": 5,
+      "goalsFor": 15,
+      "goalsAgainst": 17,
+      "points": 13,
       "form": [
         "L",
         "L",
-        "W",
         "D",
+        "L",
+        "D"
+      ]
+    },
+    {
+      "teamId": "laliga.espanyol",
+      "name": "RCD Espanyol",
+      "shortName": "RCD Espanyol",
+      "code": "ESP",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/53/?bg=transparent",
+      "played": 12,
+      "won": 3,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 13,
+      "goalsAgainst": 14,
+      "points": 12,
+      "form": [
+        "D",
+        "L",
+        "L",
+        "W",
         "D"
       ]
     },
@@ -11824,13 +13340,14 @@
       "name": "Rayo Vallecano",
       "shortName": "Rayo Vallecano",
       "code": "RAY",
-      "played": 9,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/40/?bg=transparent",
+      "played": 11,
       "won": 3,
-      "drawn": 2,
-      "lost": 4,
-      "goalsFor": 14,
-      "goalsAgainst": 17,
-      "points": 11,
+      "drawn": 3,
+      "lost": 5,
+      "goalsFor": 15,
+      "goalsAgainst": 21,
+      "points": 12,
       "form": [
         "D",
         "D",
@@ -11844,79 +13361,20 @@
       "name": "Getafe CF",
       "shortName": "Getafe CF",
       "code": "GET",
-      "played": 10,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/50/?bg=transparent",
+      "played": 12,
       "won": 3,
-      "drawn": 2,
-      "lost": 5,
-      "goalsFor": 7,
-      "goalsAgainst": 14,
-      "points": 11,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 8,
+      "goalsAgainst": 18,
+      "points": 12,
       "form": [
         "L",
         "D",
         "L",
         "W",
         "L"
-      ]
-    },
-    {
-      "teamId": "laliga.deportivo-la-coruna",
-      "name": "Deportivo de La Coruña",
-      "shortName": "Deportivo de La Coruña",
-      "code": "DEP",
-      "played": 7,
-      "won": 2,
-      "drawn": 4,
-      "lost": 1,
-      "goalsFor": 10,
-      "goalsAgainst": 8,
-      "points": 10,
-      "form": [
-        "W",
-        "W",
-        "D",
-        "L",
-        "D"
-      ]
-    },
-    {
-      "teamId": "laliga.espanyol",
-      "name": "RCD Espanyol",
-      "shortName": "RCD Espanyol",
-      "code": "ESP",
-      "played": 8,
-      "won": 3,
-      "drawn": 1,
-      "lost": 4,
-      "goalsFor": 11,
-      "goalsAgainst": 10,
-      "points": 10,
-      "form": [
-        "D",
-        "L",
-        "L",
-        "W",
-        "D"
-      ]
-    },
-    {
-      "teamId": "laliga.racing-santander",
-      "name": "Racing de Santander",
-      "shortName": "Racing de Santander",
-      "code": "RAC",
-      "played": 9,
-      "won": 3,
-      "drawn": 1,
-      "lost": 5,
-      "goalsFor": 13,
-      "goalsAgainst": 25,
-      "points": 10,
-      "form": [
-        "D",
-        "L",
-        "W",
-        "L",
-        "W"
       ]
     },
     {
@@ -11924,79 +13382,20 @@
       "name": "CA Osasuna",
       "shortName": "CA Osasuna",
       "code": "OSA",
-      "played": 8,
-      "won": 2,
-      "drawn": 2,
-      "lost": 4,
-      "goalsFor": 7,
-      "goalsAgainst": 16,
-      "points": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/58/?bg=transparent",
+      "played": 12,
+      "won": 3,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 12,
+      "goalsAgainst": 23,
+      "points": 12,
       "form": [
         "L",
         "W",
         "L",
         "L",
         "D"
-      ]
-    },
-    {
-      "teamId": "laliga.celta-vigo",
-      "name": "Celta de Vigo",
-      "shortName": "Celta de Vigo",
-      "code": "CELV",
-      "played": 8,
-      "won": 1,
-      "drawn": 4,
-      "lost": 3,
-      "goalsFor": 8,
-      "goalsAgainst": 9,
-      "points": 7,
-      "form": [
-        "D",
-        "W",
-        "D",
-        "L",
-        "D"
-      ]
-    },
-    {
-      "teamId": "laliga.valencia",
-      "name": "Valencia CF",
-      "shortName": "Valencia CF",
-      "code": "VAL",
-      "played": 8,
-      "won": 2,
-      "drawn": 0,
-      "lost": 6,
-      "goalsFor": 5,
-      "goalsAgainst": 16,
-      "points": 6,
-      "form": [
-        "D",
-        "D",
-        "L",
-        "W",
-        "L"
-      ]
-    },
-    {
-      "teamId": "laliga.elche",
-      "name": "Elche CF",
-      "shortName": "Elche CF",
-      "code": "ELC",
-      "played": 9,
-      "won": 1,
-      "drawn": 2,
-      "lost": 6,
-      "goalsFor": 11,
-      "goalsAgainst": 20,
-      "points": 5,
-      "form": [
-        "D",
-        "D",
-        "W",
-        "L",
-        "L"
       ]
     },
     {
@@ -12004,13 +13403,14 @@
       "name": "Levante UD",
       "shortName": "Levante UD",
       "code": "LEV",
-      "played": 7,
-      "won": 1,
-      "drawn": 1,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/46/?bg=transparent",
+      "played": 12,
+      "won": 2,
+      "drawn": 5,
       "lost": 5,
-      "goalsFor": 9,
-      "goalsAgainst": 16,
-      "points": 4,
+      "goalsFor": 16,
+      "goalsAgainst": 21,
+      "points": 11,
       "form": [
         "D",
         "W",
@@ -12020,17 +13420,60 @@
       ]
     },
     {
+      "teamId": "laliga.elche",
+      "name": "Elche CF",
+      "shortName": "Elche CF",
+      "code": "ELC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/55/?bg=transparent",
+      "played": 12,
+      "won": 2,
+      "drawn": 4,
+      "lost": 6,
+      "goalsFor": 14,
+      "goalsAgainst": 20,
+      "points": 10,
+      "form": [
+        "D",
+        "D",
+        "W",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "teamId": "laliga.valencia",
+      "name": "Valencia CF",
+      "shortName": "Valencia CF",
+      "code": "VAL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/47/?bg=transparent",
+      "played": 12,
+      "won": 2,
+      "drawn": 3,
+      "lost": 7,
+      "goalsFor": 8,
+      "goalsAgainst": 20,
+      "points": 9,
+      "form": [
+        "D",
+        "D",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
       "teamId": "laliga.malaga",
       "name": "Málaga CF",
       "shortName": "Málaga CF",
       "code": "MAL",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1259/?bg=transparent",
+      "played": 12,
       "won": 0,
-      "drawn": 2,
-      "lost": 6,
-      "goalsFor": 5,
-      "goalsAgainst": 16,
-      "points": 2,
+      "drawn": 5,
+      "lost": 7,
+      "goalsFor": 9,
+      "goalsAgainst": 23,
+      "points": 5,
       "form": [
         "D",
         "L",

@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "league": "laliga",
   "season": "laliga-2026-27",
-  "updatedAt": "2026-11-15T17:34:02.833Z",
+  "updatedAt": "2026-11-20T13:29:28.978Z",
   "matches": [
     {
-      "id": "laliga-espn-401882926",
+      "id": "la-liga:2026-27:alaves:getafe",
       "date": "2026-08-15",
-      "startTime": "2026-08-15T17:30Z",
-      "round": null,
+      "startTime": "2026-08-15T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "laliga.alaves",
       "awayTeam": "laliga.getafe",
       "homeScore": 3,
@@ -16,10 +16,10 @@
       "neutralSite": false
     },
     {
-      "id": "laliga-espn-401882918",
+      "id": "la-liga:2026-27:sevilla:rayo-vallecano",
       "date": "2026-08-15",
-      "startTime": "2026-08-15T19:30Z",
-      "round": null,
+      "startTime": "2026-08-15T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "laliga.sevilla",
       "awayTeam": "laliga.rayo-vallecano",
       "homeScore": 2,
@@ -38,10 +38,10 @@
       "neutralSite": false
     },
     {
-      "id": "laliga-espn-401882920",
+      "id": "la-liga:2026-27:real-racing-santander:villarreal",
       "date": "2026-08-16",
-      "startTime": "2026-08-16T15:00Z",
-      "round": null,
+      "startTime": "2026-08-16T12:00:00Z",
+      "round": "Jornada 1",
       "homeTeam": "laliga.racing-santander",
       "awayTeam": "laliga.villarreal",
       "homeScore": 2,
@@ -49,33 +49,11 @@
       "neutralSite": false
     },
     {
-      "id": "laliga-espn-401882922",
-      "date": "2026-08-16",
-      "startTime": "2026-08-16T17:00Z",
-      "round": null,
-      "homeTeam": "laliga.espanyol",
-      "awayTeam": "laliga.levante",
-      "homeScore": 3,
-      "awayScore": 0,
-      "neutralSite": false
-    },
-    {
-      "id": "la-liga:2026-27:deportivo-la-coruna:elche",
-      "date": "2026-08-17",
-      "startTime": "2026-08-17T12:00:00Z",
-      "round": "Jornada 1",
-      "homeTeam": "laliga.deportivo-la-coruna",
-      "awayTeam": "laliga.elche",
-      "homeScore": 1,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "laliga-espn-401882923",
       "date": "2026-08-17",
       "startTime": "2026-08-17T19:00Z",
       "round": null,
-      "homeTeam": "laliga.alaves",
+      "homeTeam": "laliga.deportivo-la-coruna",
       "awayTeam": "laliga.elche",
       "homeScore": 1,
       "awayScore": 1,
@@ -192,17 +170,6 @@
       "neutralSite": false
     },
     {
-      "id": "la-liga:2026-27:malaga:deportivo-la-coruna",
-      "date": "2026-08-24",
-      "startTime": "2026-08-24T12:00:00Z",
-      "round": "Jornada 2",
-      "homeTeam": "laliga.malaga",
-      "awayTeam": "laliga.deportivo-la-coruna",
-      "homeScore": 1,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "laliga-espn-401882909",
       "date": "2026-08-24",
       "startTime": "2026-08-24T17:30Z",
@@ -219,7 +186,7 @@
       "startTime": "2026-08-24T19:30Z",
       "round": null,
       "homeTeam": "laliga.malaga",
-      "awayTeam": "laliga.alaves",
+      "awayTeam": "laliga.deportivo-la-coruna",
       "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
@@ -335,17 +302,6 @@
       "neutralSite": false
     },
     {
-      "id": "la-liga:2026-27:deportivo-la-coruna:valencia",
-      "date": "2026-08-30",
-      "startTime": "2026-08-30T12:00:00Z",
-      "round": "Jornada 3",
-      "homeTeam": "laliga.deportivo-la-coruna",
-      "awayTeam": "laliga.valencia",
-      "homeScore": 3,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "laliga-espn-401882899",
       "date": "2026-08-30",
       "startTime": "2026-08-30T15:00Z",
@@ -361,7 +317,7 @@
       "date": "2026-08-30",
       "startTime": "2026-08-30T17:30Z",
       "round": null,
-      "homeTeam": "laliga.alaves",
+      "homeTeam": "laliga.deportivo-la-coruna",
       "awayTeam": "laliga.valencia",
       "homeScore": 3,
       "awayScore": 1,
@@ -423,17 +379,6 @@
       "neutralSite": false
     },
     {
-      "id": "la-liga:2026-27:villarreal:deportivo-la-coruna",
-      "date": "2026-09-05",
-      "startTime": "2026-09-05T12:00:00Z",
-      "round": "Jornada 4",
-      "homeTeam": "laliga.villarreal",
-      "awayTeam": "laliga.deportivo-la-coruna",
-      "homeScore": 2,
-      "awayScore": 3,
-      "neutralSite": false
-    },
-    {
       "id": "laliga-espn-401882895",
       "date": "2026-09-05",
       "startTime": "2026-09-05T14:15Z",
@@ -461,7 +406,7 @@
       "startTime": "2026-09-05T19:00Z",
       "round": null,
       "homeTeam": "laliga.villarreal",
-      "awayTeam": "laliga.alaves",
+      "awayTeam": "laliga.deportivo-la-coruna",
       "homeScore": 2,
       "awayScore": 3,
       "neutralSite": false
@@ -610,17 +555,6 @@
       "neutralSite": false
     },
     {
-      "id": "la-liga:2026-27:getafe:deportivo-la-coruna",
-      "date": "2026-09-13",
-      "startTime": "2026-09-13T12:00:00Z",
-      "round": "Jornada 5",
-      "homeTeam": "laliga.getafe",
-      "awayTeam": "laliga.deportivo-la-coruna",
-      "homeScore": 1,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "laliga-espn-401882885",
       "date": "2026-09-13",
       "startTime": "2026-09-13T12:00Z",
@@ -648,7 +582,7 @@
       "startTime": "2026-09-13T16:30Z",
       "round": null,
       "homeTeam": "laliga.getafe",
-      "awayTeam": "laliga.alaves",
+      "awayTeam": "laliga.deportivo-la-coruna",
       "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
@@ -720,17 +654,6 @@
       "neutralSite": false
     },
     {
-      "id": "la-liga:2026-27:deportivo-la-coruna:sevilla",
-      "date": "2026-09-16",
-      "startTime": "2026-09-16T12:00:00Z",
-      "round": "Jornada 6",
-      "homeTeam": "laliga.deportivo-la-coruna",
-      "awayTeam": "laliga.sevilla",
-      "homeScore": 0,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "laliga-espn-401882875",
       "date": "2026-09-16",
       "startTime": "2026-09-16T17:00Z",
@@ -746,7 +669,7 @@
       "date": "2026-09-16",
       "startTime": "2026-09-16T17:00Z",
       "round": null,
-      "homeTeam": "laliga.alaves",
+      "homeTeam": "laliga.deportivo-la-coruna",
       "awayTeam": "laliga.sevilla",
       "homeScore": 0,
       "awayScore": 1,
@@ -852,17 +775,6 @@
       "neutralSite": false
     },
     {
-      "id": "la-liga:2026-27:deportivo-la-coruna:real-betis",
-      "date": "2026-09-20",
-      "startTime": "2026-09-20T12:00:00Z",
-      "round": "Jornada 7",
-      "homeTeam": "laliga.deportivo-la-coruna",
-      "awayTeam": "laliga.real-betis",
-      "homeScore": 1,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "laliga-espn-401882861",
       "date": "2026-09-20",
       "startTime": "2026-09-20T12:00Z",
@@ -885,6 +797,17 @@
       "neutralSite": false
     },
     {
+      "id": "laliga-espn-401882863",
+      "date": "2026-09-20",
+      "startTime": "2026-09-20T16:30Z",
+      "round": null,
+      "homeTeam": "laliga.deportivo-la-coruna",
+      "awayTeam": "laliga.real-betis",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
       "id": "laliga-espn-401882857",
       "date": "2026-09-20",
       "startTime": "2026-09-20T16:30Z",
@@ -892,17 +815,6 @@
       "homeTeam": "laliga.villarreal",
       "awayTeam": "laliga.levante",
       "homeScore": 3,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
-      "id": "laliga-espn-401882863",
-      "date": "2026-09-20",
-      "startTime": "2026-09-20T16:30Z",
-      "round": null,
-      "homeTeam": "laliga.alaves",
-      "awayTeam": "laliga.real-betis",
-      "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
     },
@@ -978,7 +890,7 @@
       "startTime": "2026-10-11T14:15Z",
       "round": null,
       "homeTeam": "laliga.real-sociedad",
-      "awayTeam": "laliga.alaves",
+      "awayTeam": "laliga.deportivo-la-coruna",
       "homeScore": 3,
       "awayScore": 2,
       "neutralSite": false
@@ -1021,7 +933,7 @@
       "date": "2026-10-16",
       "startTime": "2026-10-16T19:00Z",
       "round": null,
-      "homeTeam": "laliga.alaves",
+      "homeTeam": "laliga.deportivo-la-coruna",
       "awayTeam": "laliga.levante",
       "homeScore": 1,
       "awayScore": 1,
@@ -1187,7 +1099,7 @@
       "startTime": "2026-10-24T19:00Z",
       "round": null,
       "homeTeam": "laliga.atletico-madrid",
-      "awayTeam": "laliga.alaves",
+      "awayTeam": "laliga.deportivo-la-coruna",
       "homeScore": 1,
       "awayScore": 0,
       "neutralSite": false
@@ -1351,7 +1263,7 @@
       "date": "2026-11-02",
       "startTime": "2026-11-02T20:00Z",
       "round": null,
-      "homeTeam": "laliga.alaves",
+      "homeTeam": "laliga.deportivo-la-coruna",
       "awayTeam": "laliga.osasuna",
       "homeScore": 2,
       "awayScore": 1,
@@ -1360,7 +1272,7 @@
     {
       "id": "laliga-2026-27-md12-sevilla-alaves",
       "date": "2026-11-06",
-      "startTime": "2026-11-06T20:00Z",
+      "startTime": "2026-11-06T20:00:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.sevilla",
       "awayTeam": "laliga.alaves",
@@ -1371,7 +1283,7 @@
     {
       "id": "laliga-2026-27-md12-malaga-racing-santander",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T13:00Z",
+      "startTime": "2026-11-07T13:00:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.malaga",
       "awayTeam": "laliga.racing-santander",
@@ -1380,12 +1292,12 @@
       "neutralSite": false
     },
     {
-      "id": "laliga-espn-401882813",
+      "id": "laliga-2026-27-md12-espanyol-deportivo-la-coruna",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T15:15Z",
-      "round": null,
+      "startTime": "2026-11-07T15:15:00Z",
+      "round": "Jornada 12",
       "homeTeam": "laliga.espanyol",
-      "awayTeam": "laliga.alaves",
+      "awayTeam": "laliga.deportivo-la-coruna",
       "homeScore": 0,
       "awayScore": 0,
       "neutralSite": false
@@ -1393,7 +1305,7 @@
     {
       "id": "laliga-2026-27-md12-osasuna-athletic-club",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T17:30Z",
+      "startTime": "2026-11-07T17:30:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.osasuna",
       "awayTeam": "laliga.athletic-club",
@@ -1404,7 +1316,7 @@
     {
       "id": "laliga-2026-27-md12-valencia-real-madrid",
       "date": "2026-11-07",
-      "startTime": "2026-11-07T20:00Z",
+      "startTime": "2026-11-07T20:00:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.valencia",
       "awayTeam": "laliga.real-madrid",
@@ -1415,7 +1327,7 @@
     {
       "id": "laliga-2026-27-md12-elche-real-betis",
       "date": "2026-11-08",
-      "startTime": "2026-11-08T13:00Z",
+      "startTime": "2026-11-08T13:00:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.elche",
       "awayTeam": "laliga.real-betis",
@@ -1426,7 +1338,7 @@
     {
       "id": "laliga-2026-27-md12-real-sociedad-rayo-vallecano",
       "date": "2026-11-08",
-      "startTime": "2026-11-08T15:15Z",
+      "startTime": "2026-11-08T15:15:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.real-sociedad",
       "awayTeam": "laliga.rayo-vallecano",
@@ -1437,7 +1349,7 @@
     {
       "id": "laliga-2026-27-md12-celta-vigo-levante",
       "date": "2026-11-08",
-      "startTime": "2026-11-08T17:30Z",
+      "startTime": "2026-11-08T17:30:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.celta-vigo",
       "awayTeam": "laliga.levante",
@@ -1448,7 +1360,7 @@
     {
       "id": "laliga-2026-27-md12-villarreal-getafe",
       "date": "2026-11-08",
-      "startTime": "2026-11-08T17:30Z",
+      "startTime": "2026-11-08T17:30:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.villarreal",
       "awayTeam": "laliga.getafe",
@@ -1459,7 +1371,7 @@
     {
       "id": "laliga-2026-27-md12-atletico-madrid-barcelona",
       "date": "2026-11-08",
-      "startTime": "2026-11-08T20:00Z",
+      "startTime": "2026-11-08T20:00:00Z",
       "round": "Jornada 12",
       "homeTeam": "laliga.atletico-madrid",
       "awayTeam": "laliga.barcelona",

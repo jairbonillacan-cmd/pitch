@@ -5,7 +5,7 @@
   "season": "copa-del-rey-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round 1",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 3,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 2.213403055815632,
-      "adjustedAgainst": 1.6025554322460247
+      "adjustedFor": 1.9666666666666666,
+      "adjustedAgainst": 1.411111111111111
     },
     "copa-del-rey.junio": {
       "teamId": "copa-del-rey.junio",
@@ -29,8 +29,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3673711749496045,
-      "adjustedAgainst": 2.037035584649933
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.9625
     },
     "copa-del-rey.atletico-calatayud": {
       "teamId": "copa-del-rey.atletico-calatayud",
@@ -40,8 +40,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 3,
-      "adjustedFor": 1.6191929841463746,
-      "adjustedAgainst": 1.9810063328159468
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.7444444444444445
     },
     "copa-del-rey.baztan": {
       "teamId": "copa-del-rey.baztan",
@@ -51,8 +51,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.284799356045451,
-      "adjustedAgainst": 1.8057594691508236
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.5875
     },
     "copa-del-rey.anaitasuna-ft": {
       "teamId": "copa-del-rey.anaitasuna-ft",
@@ -62,8 +62,8 @@
       "forPerGame": 3.6666666666666665,
       "againstPerGame": 2.6666666666666665,
       "gamesPlayed": 3,
-      "adjustedFor": 2.3830659036494906,
-      "adjustedAgainst": 2.083569686253345
+      "adjustedFor": 2.1888888888888887,
+      "adjustedAgainst": 1.8555555555555554
     },
     "copa-del-rey.tedeon": {
       "teamId": "copa-del-rey.tedeon",
@@ -73,8 +73,8 @@
       "forPerGame": 1,
       "againstPerGame": 5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4113749194063125,
-      "adjustedAgainst": 2.3884436922071455
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 2.3375
     },
     "copa-del-rey.ribadesella": {
       "teamId": "copa-del-rey.ribadesella",
@@ -84,8 +84,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3873518501465338,
-      "adjustedAgainst": 1.4721057704404297
+      "adjustedFor": 1.1888888888888889,
+      "adjustedAgainst": 1.2999999999999998
     },
     "copa-del-rey.noja-sd": {
       "teamId": "copa-del-rey.noja-sd",
@@ -95,8 +95,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3983788816520237,
-      "adjustedAgainst": 1.5645422472997845
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "copa-del-rey.pinatar": {
       "teamId": "copa-del-rey.pinatar",
@@ -106,8 +106,8 @@
       "forPerGame": 4,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 2.4783675532359144,
-      "adjustedAgainst": 1.496256059127966
+      "adjustedFor": 2.3,
+      "adjustedAgainst": 1.2999999999999998
     },
     "copa-del-rey.atletico-melilla": {
       "teamId": "copa-del-rey.atletico-melilla",
@@ -117,8 +117,8 @@
       "forPerGame": 0,
       "againstPerGame": 5.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2300384565524831,
-      "adjustedAgainst": 2.4797791319636056
+      "adjustedFor": 1.0875,
+      "adjustedAgainst": 2.4625
     },
     "copa-del-rey.auriense-cented-academy": {
       "teamId": "copa-del-rey.auriense-cented-academy",
@@ -128,8 +128,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3858053670096788,
-      "adjustedAgainst": 1.6021937953949434
+      "adjustedFor": 1.1888888888888889,
+      "adjustedAgainst": 1.411111111111111
     },
     "copa-del-rey.c-d-san-jose-soria": {
       "teamId": "copa-del-rey.c-d-san-jose-soria",
@@ -139,8 +139,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3670506930437138,
-      "adjustedAgainst": 1.562760162265127
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "copa-del-rey.sporting-hortaleza": {
       "teamId": "copa-del-rey.sporting-hortaleza",
@@ -150,8 +150,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5062657134614779,
-      "adjustedAgainst": 1.8045670679005863
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.6333333333333333
     },
     "copa-del-rey.atletico-union-guimar": {
       "teamId": "copa-del-rey.atletico-union-guimar",
@@ -161,8 +161,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.6335239464270992,
-      "adjustedAgainst": 1.6888944613052999
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.4625
     },
     "copa-del-rey.sant-rafel": {
       "teamId": "copa-del-rey.sant-rafel",
@@ -172,8 +172,8 @@
       "forPerGame": 0.3333333333333333,
       "againstPerGame": 5,
       "gamesPlayed": 3,
-      "adjustedFor": 1.103174638934819,
-      "adjustedAgainst": 2.4174808019414784
+      "adjustedFor": 1.0777777777777777,
+      "adjustedAgainst": 2.6333333333333333
     },
     "copa-del-rey.ae-prat": {
       "teamId": "copa-del-rey.ae-prat",
@@ -183,8 +183,8 @@
       "forPerGame": 4,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 2.669916897405502,
-      "adjustedAgainst": 1.855808691528982
+      "adjustedFor": 2.4699999999999998,
+      "adjustedAgainst": 1.5699999999999998
     },
     "copa-del-rey.cp-talayuela": {
       "teamId": "copa-del-rey.cp-talayuela",
@@ -194,8 +194,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3644177810385227,
-      "adjustedAgainst": 1.6860469473174509
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "copa-del-rey.sporting-alcazar": {
       "teamId": "copa-del-rey.sporting-alcazar",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5056745985693059,
-      "adjustedAgainst": 1.6005326613552968
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.411111111111111
     },
     "copa-del-rey.maracena": {
       "teamId": "copa-del-rey.maracena",
@@ -216,8 +216,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2797881769186448,
-      "adjustedAgainst": 1.4362461480761566
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.2125
     },
     "copa-del-rey.ue-tavernes": {
       "teamId": "copa-del-rey.ue-tavernes",
@@ -227,8 +227,8 @@
       "forPerGame": 0.3333333333333333,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 3,
-      "adjustedFor": 1.2638320990381413,
-      "adjustedAgainst": 1.9885700023435315
+      "adjustedFor": 1.0777777777777777,
+      "adjustedAgainst": 1.7444444444444445
     },
     "copa-del-rey.cuarte": {
       "teamId": "copa-del-rey.cuarte",
@@ -238,8 +238,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4532075959542203,
-      "adjustedAgainst": 1.7574015524519113
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.girona": {
       "teamId": "copa-del-rey.girona",
@@ -249,8 +249,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6860962717279224,
-      "adjustedAgainst": 1.4158294232188278
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.calamocha": {
       "teamId": "copa-del-rey.calamocha",
@@ -260,8 +260,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4532075959542203,
-      "adjustedAgainst": 1.914110889386309
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.ce-europa": {
       "teamId": "copa-del-rey.ce-europa",
@@ -271,8 +271,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8350935648700841,
-      "adjustedAgainst": 1.4158294232188278
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.elche": {
       "teamId": "copa-del-rey.elche",
@@ -282,8 +282,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.926833382727025,
-      "adjustedAgainst": 1.434387469296246
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.sestao-river": {
       "teamId": "copa-del-rey.sestao-river",
@@ -293,8 +293,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8039413743977442,
-      "adjustedAgainst": 1.7574015524519113
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.espanyol": {
       "teamId": "copa-del-rey.espanyol",
@@ -304,8 +304,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6860962717279224,
-      "adjustedAgainst": 1.7335038377721124
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.castellonense": {
       "teamId": "copa-del-rey.castellonense",
@@ -315,8 +315,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4532075959542203,
-      "adjustedAgainst": 1.4295098953082426
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.almeria": {
       "teamId": "copa-del-rey.almeria",
@@ -326,8 +326,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3736287060383463,
-      "adjustedAgainst": 1.4158294232188278
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.ciudad-lucena": {
       "teamId": "copa-del-rey.ciudad-lucena",
@@ -337,8 +337,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4532075959542203,
-      "adjustedAgainst": 1.5960201703452748
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.rayo-majadahonda": {
       "teamId": "copa-del-rey.rayo-majadahonda",
@@ -348,8 +348,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5324269347199153,
-      "adjustedAgainst": 1.4158294232188278
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.llanera": {
       "teamId": "copa-del-rey.llanera",
@@ -359,8 +359,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305781938593529,
-      "adjustedAgainst": 1.5960201703452748
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.sd-ponferradina": {
       "teamId": "copa-del-rey.sd-ponferradina",
@@ -370,8 +370,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5324269347199153,
-      "adjustedAgainst": 1.5775749408422162
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.gimnastica-segoviana": {
       "teamId": "copa-del-rey.gimnastica-segoviana",
@@ -381,8 +381,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4532075959542203,
-      "adjustedAgainst": 1.5960201703452748
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.cultural-leonesa": {
       "teamId": "copa-del-rey.cultural-leonesa",
@@ -392,8 +392,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5324269347199153,
-      "adjustedAgainst": 1.4158294232188278
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.atletico-tordesillas": {
       "teamId": "copa-del-rey.atletico-tordesillas",
@@ -403,8 +403,8 @@
       "forPerGame": 3,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9736302633782865,
-      "adjustedAgainst": 1.914110889386309
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.mirandes": {
       "teamId": "copa-del-rey.mirandes",
@@ -414,8 +414,8 @@
       "forPerGame": 3,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8350935648700841,
-      "adjustedAgainst": 1.8840996344171401
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.rsd-alcala": {
       "teamId": "copa-del-rey.rsd-alcala",
@@ -425,8 +425,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305781938593529,
-      "adjustedAgainst": 1.5960201703452748
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.las-palmas": {
       "teamId": "copa-del-rey.las-palmas",
@@ -436,8 +436,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5324269347199153,
-      "adjustedAgainst": 1.5775749408422162
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.don-benito": {
       "teamId": "copa-del-rey.don-benito",
@@ -447,8 +447,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8039413743977442,
-      "adjustedAgainst": 1.7574015524519113
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.extremadura": {
       "teamId": "copa-del-rey.extremadura",
@@ -458,8 +458,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6860962717279224,
-      "adjustedAgainst": 1.7335038377721124
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.ce-manresa": {
       "teamId": "copa-del-rey.ce-manresa",
@@ -469,8 +469,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4532075959542203,
-      "adjustedAgainst": 1.4295098953082426
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.ue-sant-andreu": {
       "teamId": "copa-del-rey.ue-sant-andreu",
@@ -480,8 +480,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3736287060383463,
-      "adjustedAgainst": 1.4158294232188278
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.arosa": {
       "teamId": "copa-del-rey.arosa",
@@ -491,8 +491,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8039413743977442,
-      "adjustedAgainst": 1.4295098953082426
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.pontevedra": {
       "teamId": "copa-del-rey.pontevedra",
@@ -502,8 +502,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3736287060383463,
-      "adjustedAgainst": 1.7335038377721124
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.atletico-paso": {
       "teamId": "copa-del-rey.atletico-paso",
@@ -513,8 +513,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9736302633782865,
-      "adjustedAgainst": 1.5960201703452748
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.cordoba": {
       "teamId": "copa-del-rey.cordoba",
@@ -524,8 +524,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5324269347199153,
-      "adjustedAgainst": 1.8840996344171401
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.tudelano": {
       "teamId": "copa-del-rey.tudelano",
@@ -535,8 +535,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4532075959542203,
-      "adjustedAgainst": 2.0665409905945262
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "copa-del-rey.real-zaragoza": {
       "teamId": "copa-del-rey.real-zaragoza",
@@ -546,8 +546,8 @@
       "forPerGame": 4,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9798116236478909,
-      "adjustedAgainst": 1.4158294232188278
+      "adjustedFor": 1.8142857142857143,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.malaga": {
       "teamId": "copa-del-rey.malaga",
@@ -557,8 +557,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9030911861476858,
-      "adjustedAgainst": 1.4069520908022384
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.recreativo-huelva": {
       "teamId": "copa-del-rey.recreativo-huelva",
@@ -568,8 +568,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305781938593529,
-      "adjustedAgainst": 1.5960201703452748
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.rayo-vallecano": {
       "teamId": "copa-del-rey.rayo-vallecano",
@@ -579,8 +579,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5324269347199153,
-      "adjustedAgainst": 1.5775749408422162
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.manacor": {
       "teamId": "copa-del-rey.manacor",
@@ -590,8 +590,8 @@
       "forPerGame": 0,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4532075959542203,
-      "adjustedAgainst": 2.2150325311293693
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.957142857142857
     },
     "copa-del-rey.villarreal": {
       "teamId": "copa-del-rey.villarreal",
@@ -601,8 +601,8 @@
       "forPerGame": 5,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 2.120591123175567,
-      "adjustedAgainst": 1.4158294232188278
+      "adjustedFor": 1.957142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.portugalete": {
       "teamId": "copa-del-rey.portugalete",
@@ -612,8 +612,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4467621467561633,
-      "adjustedAgainst": 1.4209360041655894
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.real-union": {
       "teamId": "copa-del-rey.real-union",
@@ -623,8 +623,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.365054816228234,
-      "adjustedAgainst": 1.4064740863609748
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.utebo": {
       "teamId": "copa-del-rey.utebo",
@@ -634,8 +634,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4467621467561633,
-      "adjustedAgainst": 1.9196880873127855
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.ce-sabadell": {
       "teamId": "copa-del-rey.ce-sabadell",
@@ -645,8 +645,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8396831787196033,
-      "adjustedAgainst": 1.4064740863609748
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.pamplona": {
       "teamId": "copa-del-rey.pamplona",
@@ -656,8 +656,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.449121649636824,
-      "adjustedAgainst": 1.9176512112173079
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.eibar": {
       "teamId": "copa-del-rey.eibar",
@@ -667,8 +667,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8380102093110608,
-      "adjustedAgainst": 1.4098988196107178
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.tarancon": {
       "teamId": "copa-del-rey.tarancon",
@@ -678,8 +678,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6302920897005417,
-      "adjustedAgainst": 1.593546084625922
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.levante": {
       "teamId": "copa-del-rey.levante",
@@ -689,8 +689,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5297148041180904,
-      "adjustedAgainst": 1.574205672282333
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.deportivo-alaves": {
       "teamId": "copa-del-rey.deportivo-alaves",
@@ -700,8 +700,8 @@
       "forPerGame": 6,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 2.341186252345553,
-      "adjustedAgainst": 1.4438781712864932
+      "adjustedFor": 2.1,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.sd-amorebieta": {
       "teamId": "copa-del-rey.sd-amorebieta",
@@ -711,8 +711,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6303268889619857,
-      "adjustedAgainst": 1.4240726709967977
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.logrones": {
       "teamId": "copa-del-rey.logrones",
@@ -722,8 +722,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3681914825674253,
-      "adjustedAgainst": 1.5746303616289896
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.badajoz": {
       "teamId": "copa-del-rey.badajoz",
@@ -733,8 +733,8 @@
       "forPerGame": 2,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8092292544580235,
-      "adjustedAgainst": 2.2282030908421016
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.957142857142857
     },
     "copa-del-rey.tenerife": {
       "teamId": "copa-del-rey.tenerife",
@@ -744,8 +744,8 @@
       "forPerGame": 5,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.1321157096220427,
-      "adjustedAgainst": 1.7330087923868285
+      "adjustedFor": 1.957142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.calvo-sotelo-puertollano": {
       "teamId": "copa-del-rey.calvo-sotelo-puertollano",
@@ -755,8 +755,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4485334548899533,
-      "adjustedAgainst": 1.9181594961040882
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.albacete-balompie": {
       "teamId": "copa-del-rey.albacete-balompie",
@@ -766,8 +766,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8384280354316662,
-      "adjustedAgainst": 1.409045076168852
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.trival-valderas-alcorcon": {
       "teamId": "copa-del-rey.trival-valderas-alcorcon",
@@ -777,8 +777,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.449121649636824,
-      "adjustedAgainst": 1.5938567987908019
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.leganes": {
       "teamId": "copa-del-rey.leganes",
@@ -788,8 +788,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5300556711417805,
-      "adjustedAgainst": 1.4098988196107178
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.alcoyano": {
       "teamId": "copa-del-rey.alcoyano",
@@ -799,8 +799,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.630189407008257,
-      "adjustedAgainst": 1.5926114808524987
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.mallorca": {
       "teamId": "copa-del-rey.mallorca",
@@ -810,8 +810,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.528689051228102,
-      "adjustedAgainst": 1.5729255244091809
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.reus-reddis": {
       "teamId": "copa-del-rey.reus-reddis",
@@ -821,8 +821,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.630189407008257,
-      "adjustedAgainst": 1.5926114808524987
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.barakaldo": {
       "teamId": "copa-del-rey.barakaldo",
@@ -832,8 +832,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.528689051228102,
-      "adjustedAgainst": 1.5729255244091809
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.deportiva-minera": {
       "teamId": "copa-del-rey.deportiva-minera",
@@ -843,8 +843,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.630189407008257,
-      "adjustedAgainst": 1.5926114808524987
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.cartagena": {
       "teamId": "copa-del-rey.cartagena",
@@ -854,8 +854,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.528689051228102,
-      "adjustedAgainst": 1.5729255244091809
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.salamanca-uds": {
       "teamId": "copa-del-rey.salamanca-uds",
@@ -865,8 +865,8 @@
       "forPerGame": 0,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4482389371469497,
-      "adjustedAgainst": 2.225199487694616
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.957142857142857
     },
     "copa-del-rey.celta-vigo": {
       "teamId": "copa-del-rey.celta-vigo",
@@ -876,8 +876,8 @@
       "forPerGame": 5,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 2.129492255536772,
-      "adjustedAgainst": 1.4086175942970345
+      "adjustedFor": 1.957142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.valencia": {
       "teamId": "copa-del-rey.valencia",
@@ -887,8 +887,8 @@
       "forPerGame": 6,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 2.36683743392329,
-      "adjustedAgainst": 1.442776107703076
+      "adjustedFor": 2.1,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.cda-navalcarnero": {
       "teamId": "copa-del-rey.cda-navalcarnero",
@@ -898,8 +898,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8077699698315008,
-      "adjustedAgainst": 1.7583335121276191
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.real-betis": {
       "teamId": "copa-del-rey.real-betis",
@@ -909,8 +909,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6865521408114243,
-      "adjustedAgainst": 1.7331529086579498
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.pena-sport": {
       "teamId": "copa-del-rey.pena-sport",
@@ -920,8 +920,8 @@
       "forPerGame": 1,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305414868355468,
-      "adjustedAgainst": 2.2162249123895323
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.957142857142857
     },
     "copa-del-rey.huesca": {
       "teamId": "copa-del-rey.huesca",
@@ -931,8 +931,8 @@
       "forPerGame": 5,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 2.121636697288733,
-      "adjustedAgainst": 1.5771573043989116
+      "adjustedFor": 1.957142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.numancia": {
       "teamId": "copa-del-rey.numancia",
@@ -942,8 +942,8 @@
       "forPerGame": 3,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9745854288750264,
-      "adjustedAgainst": 1.9146147403371894
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.real-oviedo": {
       "teamId": "copa-del-rey.real-oviedo",
@@ -953,8 +953,8 @@
       "forPerGame": 3,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8355093315253548,
-      "adjustedAgainst": 1.884392950173461
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.s-s-reyes": {
       "teamId": "copa-del-rey.s-s-reyes",
@@ -964,8 +964,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305414868355468,
-      "adjustedAgainst": 1.5957123725618627
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.coria": {
       "teamId": "copa-del-rey.coria",
@@ -975,8 +975,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5320897755671048,
-      "adjustedAgainst": 1.5771573043989116
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.coruxo": {
       "teamId": "copa-del-rey.coruxo",
@@ -986,8 +986,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4526272578578343,
-      "adjustedAgainst": 1.757517275919628
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.zamora": {
       "teamId": "copa-del-rey.zamora",
@@ -997,8 +997,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6861532723544763,
-      "adjustedAgainst": 1.4149870834148823
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.poblense": {
       "teamId": "copa-del-rey.poblense",
@@ -1008,8 +1008,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305414868355468,
-      "adjustedAgainst": 1.757517275919628
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.ad-ceuta": {
       "teamId": "copa-del-rey.ad-ceuta",
@@ -1019,8 +1019,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6861532723544763,
-      "adjustedAgainst": 1.5771573043989116
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.atletico-baleares": {
       "teamId": "copa-del-rey.atletico-baleares",
@@ -1030,8 +1030,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4526272578578343,
-      "adjustedAgainst": 1.5957123725618627
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.eldense": {
       "teamId": "copa-del-rey.eldense",
@@ -1041,8 +1041,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5320897755671048,
-      "adjustedAgainst": 1.4149870834148823
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.osasuna": {
       "teamId": "copa-del-rey.osasuna",
@@ -1052,8 +1052,8 @@
       "forPerGame": 6,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 2.356510245012895,
-      "adjustedAgainst": 1.3871126449414952
+      "adjustedFor": 2.1,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.getafe": {
       "teamId": "copa-del-rey.getafe",
@@ -1063,8 +1063,8 @@
       "forPerGame": 3,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9033854416705143,
-      "adjustedAgainst": 1.6551201095221735
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.cieza": {
       "teamId": "copa-del-rey.cieza",
@@ -1074,8 +1074,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4526272578578343,
-      "adjustedAgainst": 1.9146147403371894
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.granada": {
       "teamId": "copa-del-rey.granada",
@@ -1085,8 +1085,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8355093315253548,
-      "adjustedAgainst": 1.4149870834148823
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.antequera": {
       "teamId": "copa-del-rey.antequera",
@@ -1096,8 +1096,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.804414995973667,
-      "adjustedAgainst": 1.4287372069618844
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.cda-aguilas": {
       "teamId": "copa-del-rey.cda-aguilas",
@@ -1107,8 +1107,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3728560178104925,
-      "adjustedAgainst": 1.7334625673754742
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.cp-mijas-las-lagunas": {
       "teamId": "copa-del-rey.cp-mijas-las-lagunas",
@@ -1118,8 +1118,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6303268889619857,
-      "adjustedAgainst": 1.7582162456741688
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.real-jaen": {
       "teamId": "copa-del-rey.real-jaen",
@@ -1129,8 +1129,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6864951801800392,
-      "adjustedAgainst": 1.5746303616289896
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.real-avila": {
       "teamId": "copa-del-rey.real-avila",
@@ -1140,8 +1140,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4526272578578343,
-      "adjustedAgainst": 1.4287372069618844
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.unionistas-salamanca": {
       "teamId": "copa-del-rey.unionistas-salamanca",
@@ -1151,8 +1151,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3728560178104925,
-      "adjustedAgainst": 1.4149870834148823
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.varea": {
       "teamId": "copa-del-rey.varea",
@@ -1162,8 +1162,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4526272578578343,
-      "adjustedAgainst": 1.9146147403371894
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.andorra": {
       "teamId": "copa-del-rey.andorra",
@@ -1173,8 +1173,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8355093315253548,
-      "adjustedAgainst": 1.4149870834148823
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.laredo": {
       "teamId": "copa-del-rey.laredo",
@@ -1184,8 +1184,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.804414995973667,
-      "adjustedAgainst": 2.067402408445449
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "copa-del-rey.burgos": {
       "teamId": "copa-del-rey.burgos",
@@ -1195,8 +1195,8 @@
       "forPerGame": 4,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9805555957674223,
-      "adjustedAgainst": 1.7334625673754742
+      "adjustedFor": 1.8142857142857143,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-del-rey.conquense": {
       "teamId": "copa-del-rey.conquense",
@@ -1206,8 +1206,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4526272578578343,
-      "adjustedAgainst": 1.9146147403371894
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.castellon": {
       "teamId": "copa-del-rey.castellon",
@@ -1217,8 +1217,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8355093315253548,
-      "adjustedAgainst": 1.4149870834148823
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.guijuelo": {
       "teamId": "copa-del-rey.guijuelo",
@@ -1228,8 +1228,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305414868355468,
-      "adjustedAgainst": 1.9146147403371894
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.sporting-gijon": {
       "teamId": "copa-del-rey.sporting-gijon",
@@ -1239,8 +1239,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8355093315253548,
-      "adjustedAgainst": 1.5771573043989116
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.covadonga": {
       "teamId": "copa-del-rey.covadonga",
@@ -1250,8 +1250,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4526272578578343,
-      "adjustedAgainst": 1.5957123725618627
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.real-valladolid": {
       "teamId": "copa-del-rey.real-valladolid",
@@ -1261,8 +1261,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5320897755671048,
-      "adjustedAgainst": 1.4149870834148823
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.gimnastica-torrelavega": {
       "teamId": "copa-del-rey.gimnastica-torrelavega",
@@ -1272,8 +1272,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305414868355468,
-      "adjustedAgainst": 1.5957123725618627
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.union-deportiva-ourense": {
       "teamId": "copa-del-rey.union-deportiva-ourense",
@@ -1283,8 +1283,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5320897755671048,
-      "adjustedAgainst": 1.5771573043989116
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.sevilla": {
       "teamId": "copa-del-rey.sevilla",
@@ -1294,8 +1294,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8588861934800538,
-      "adjustedAgainst": 1.4058892874837325
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.athletic": {
       "teamId": "copa-del-rey.athletic",
@@ -1305,8 +1305,8 @@
       "forPerGame": 6,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 2.3904529839201745,
-      "adjustedAgainst": 1.4047144967167187
+      "adjustedFor": 2.1,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.xerez": {
       "teamId": "copa-del-rey.xerez",
@@ -1316,8 +1316,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6305414868355468,
-      "adjustedAgainst": 1.9146147403371894
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-del-rey.cadiz": {
       "teamId": "copa-del-rey.cadiz",
@@ -1327,8 +1327,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8355093315253548,
-      "adjustedAgainst": 1.5771573043989116
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-del-rey.real-racing": {
       "teamId": "copa-del-rey.real-racing",
@@ -1338,8 +1338,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.7440771592493554,
-      "adjustedAgainst": 1.4262187557713208
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "copa-del-rey.deportivo-a-coruna": {
       "teamId": "copa-del-rey.deportivo-a-coruna",
@@ -1349,8 +1349,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9034670136683238,
-      "adjustedAgainst": 1.4264870155006215
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     }
   },
   "games": [
@@ -1384,7 +1384,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1418,7 +1418,7 @@
       "result": {
         "home": 1,
         "away": 6,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1452,7 +1452,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1486,7 +1486,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1520,7 +1520,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1554,7 +1554,7 @@
       "result": {
         "home": 0,
         "away": 6,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1588,7 +1588,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1622,7 +1622,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1656,7 +1656,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1689,7 +1689,7 @@
       "result": {
         "home": 0,
         "away": 5,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1723,7 +1723,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1757,7 +1757,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1790,7 +1790,7 @@
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1823,7 +1823,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1857,7 +1857,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1890,7 +1890,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     }

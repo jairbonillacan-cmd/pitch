@@ -5,7 +5,7 @@
   "season": "dfb-pokal-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round 2",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 2.1663790203027653,
-      "adjustedAgainst": 2.113116005629213
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "dfb-pokal.kaiserslautern": {
       "teamId": "dfb-pokal.kaiserslautern",
@@ -29,8 +29,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 1.9852607371779682,
-      "adjustedAgainst": 1.6662022611099803
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.0875
     },
     "dfb-pokal.preu-en-munster": {
       "teamId": "dfb-pokal.preu-en-munster",
@@ -40,8 +40,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.2941485648460307,
-      "adjustedAgainst": 2.4717533737458757
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.karlsruher": {
       "teamId": "dfb-pokal.karlsruher",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.9691347596238755,
-      "adjustedAgainst": 2.137193674354501
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "dfb-pokal.st-tonis": {
       "teamId": "dfb-pokal.st-tonis",
@@ -62,8 +62,8 @@
       "forPerGame": 0,
       "againstPerGame": 11,
       "gamesPlayed": 1,
-      "adjustedFor": 2.1407106830249307,
-      "adjustedAgainst": 3.6749433557809117
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 2.814285714285714
     },
     "dfb-pokal.eintracht-frankfurt": {
       "teamId": "dfb-pokal.eintracht-frankfurt",
@@ -73,8 +73,8 @@
       "forPerGame": 7,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 3.3943394360404393,
-      "adjustedAgainst": 1.9038659114747714
+      "adjustedFor": 2.8375,
+      "adjustedAgainst": 1.2125
     },
     "dfb-pokal.hansa-rostock": {
       "teamId": "dfb-pokal.hansa-rostock",
@@ -84,8 +84,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 2.158449979103311,
-      "adjustedAgainst": 2.7564627274208457
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "dfb-pokal.stuttgart": {
       "teamId": "dfb-pokal.stuttgart",
@@ -95,8 +95,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 2.3088317503738187,
-      "adjustedAgainst": 1.739014022225013
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.0875
     },
     "dfb-pokal.energie-cottbus": {
       "teamId": "dfb-pokal.energie-cottbus",
@@ -106,8 +106,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.1255239490428646,
-      "adjustedAgainst": 2.380545529076807
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.augsburg": {
       "teamId": "dfb-pokal.augsburg",
@@ -117,8 +117,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 2.471106924251478,
-      "adjustedAgainst": 2.043296807065759
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.3375
     },
     "dfb-pokal.wehen-wiesbaden": {
       "teamId": "dfb-pokal.wehen-wiesbaden",
@@ -128,8 +128,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 2.118774903594587,
-      "adjustedAgainst": 2.60754999302502
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "dfb-pokal.bayer-leverkusen": {
       "teamId": "dfb-pokal.bayer-leverkusen",
@@ -139,8 +139,8 @@
       "forPerGame": 4.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 3.078843172522819,
-      "adjustedAgainst": 2.1075251046734174
+      "adjustedFor": 2.2125,
+      "adjustedAgainst": 1.3375
     },
     "dfb-pokal.viktoria-koln": {
       "teamId": "dfb-pokal.viktoria-koln",
@@ -150,8 +150,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 2.24638580195546,
-      "adjustedAgainst": 2.266054165946614
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "dfb-pokal.nurnberg": {
       "teamId": "dfb-pokal.nurnberg",
@@ -161,8 +161,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 2.1273859693890556,
-      "adjustedAgainst": 2.56681778545093
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.8375
     },
     "dfb-pokal.hemelingen": {
       "teamId": "dfb-pokal.hemelingen",
@@ -172,8 +172,8 @@
       "forPerGame": 1,
       "againstPerGame": 9,
       "gamesPlayed": 1,
-      "adjustedFor": 2.280586778450916,
-      "adjustedAgainst": 3.4636153140536203
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 2.5285714285714285
     },
     "dfb-pokal.hannover": {
       "teamId": "dfb-pokal.hannover",
@@ -183,8 +183,8 @@
       "forPerGame": 4.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.938805094874026,
-      "adjustedAgainst": 2.256583260303573
+      "adjustedFor": 2.2125,
+      "adjustedAgainst": 1.4625
     },
     "dfb-pokal.msv-duisburg": {
       "teamId": "dfb-pokal.msv-duisburg",
@@ -194,8 +194,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 2.285029074582537,
-      "adjustedAgainst": 2.605719523059918
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "dfb-pokal.elversberg": {
       "teamId": "dfb-pokal.elversberg",
@@ -205,8 +205,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.1920163010436373,
-      "adjustedAgainst": 2.2169690199312284
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.4625
     },
     "dfb-pokal.saarbrucken": {
       "teamId": "dfb-pokal.saarbrucken",
@@ -216,8 +216,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 2.3299286022234966,
-      "adjustedAgainst": 2.273457320760436
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "dfb-pokal.hertha-bsc": {
       "teamId": "dfb-pokal.hertha-bsc",
@@ -227,8 +227,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.084194251307785,
-      "adjustedAgainst": 1.8250551959060477
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.2125
     },
     "dfb-pokal.lsk-hansa-luneburg": {
       "teamId": "dfb-pokal.lsk-hansa-luneburg",
@@ -238,8 +238,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 2.113893290292781,
-      "adjustedAgainst": 2.5714043880122133
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "dfb-pokal.werder-bremen": {
       "teamId": "dfb-pokal.werder-bremen",
@@ -249,8 +249,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.3698832581973988,
-      "adjustedAgainst": 2.154236928313387
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.4625
     },
     "dfb-pokal.erzgebirge-aue": {
       "teamId": "dfb-pokal.erzgebirge-aue",
@@ -260,8 +260,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 2.13852148822241,
-      "adjustedAgainst": 2.7480597733414514
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "dfb-pokal.hoffenheim": {
       "teamId": "dfb-pokal.hoffenheim",
@@ -271,8 +271,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.3520050570665676,
-      "adjustedAgainst": 1.9207468594833594
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.2125
     },
     "dfb-pokal.sg-sonnenhof-gro-aspach": {
       "teamId": "dfb-pokal.sg-sonnenhof-gro-aspach",
@@ -282,8 +282,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 2.555683328130755,
-      "adjustedAgainst": 2.6587690272632054
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.8375
     },
     "dfb-pokal.arminia-bielefeld": {
       "teamId": "dfb-pokal.arminia-bielefeld",
@@ -293,8 +293,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.2312838491427813,
-      "adjustedAgainst": 2.365841142625889
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.tsv-munchen": {
       "teamId": "dfb-pokal.tsv-munchen",
@@ -304,8 +304,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.1402508935406845,
-      "adjustedAgainst": 2.422554168852325
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.holstein-kiel": {
       "teamId": "dfb-pokal.holstein-kiel",
@@ -315,8 +315,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.2351431705722695,
-      "adjustedAgainst": 1.904553172648248
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.2125
     },
     "dfb-pokal.eintracht-trier": {
       "teamId": "dfb-pokal.eintracht-trier",
@@ -326,8 +326,8 @@
       "forPerGame": 0,
       "againstPerGame": 6,
       "gamesPlayed": 1,
-      "adjustedFor": 2.140778767239034,
-      "adjustedAgainst": 3.0132559639531813
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 2.1
     },
     "dfb-pokal.rb-leipzig": {
       "teamId": "dfb-pokal.rb-leipzig",
@@ -337,8 +337,8 @@
       "forPerGame": 4,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.715926345823655,
-      "adjustedAgainst": 1.8996150792724469
+      "adjustedFor": 2.0875,
+      "adjustedAgainst": 1.2125
     },
     "dfb-pokal.greuther-furth": {
       "teamId": "dfb-pokal.greuther-furth",
@@ -348,8 +348,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.3317793818603207,
-      "adjustedAgainst": 2.3942814149894125
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.bochum": {
       "teamId": "dfb-pokal.bochum",
@@ -359,8 +359,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.3922042548430094,
-      "adjustedAgainst": 1.8087316153001598
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.2125
     },
     "dfb-pokal.ssv-jeddeloh": {
       "teamId": "dfb-pokal.ssv-jeddeloh",
@@ -370,8 +370,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 2.6435996741284096,
-      "adjustedAgainst": 2.3892299601833713
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.5875
     },
     "dfb-pokal.heidenheim": {
       "teamId": "dfb-pokal.heidenheim",
@@ -381,8 +381,8 @@
       "forPerGame": 2,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 2.27560860517393,
-      "adjustedAgainst": 2.8600597026215704
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.957142857142857
     },
     "dfb-pokal.westfalia-rhynern": {
       "teamId": "dfb-pokal.westfalia-rhynern",
@@ -392,8 +392,8 @@
       "forPerGame": 0,
       "againstPerGame": 6,
       "gamesPlayed": 1,
-      "adjustedFor": 2.1527359448193737,
-      "adjustedAgainst": 2.9849088823162577
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 2.1
     },
     "dfb-pokal.sg-dynamo-dresden": {
       "teamId": "dfb-pokal.sg-dynamo-dresden",
@@ -403,8 +403,8 @@
       "forPerGame": 4,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 2.850992113545689,
-      "adjustedAgainst": 1.785022239355776
+      "adjustedFor": 2.0875,
+      "adjustedAgainst": 1.0875
     },
     "dfb-pokal.bahlinger": {
       "teamId": "dfb-pokal.bahlinger",
@@ -414,8 +414,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 2.0696142417131416,
-      "adjustedAgainst": 2.7527781928731963
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "dfb-pokal.magdeburg": {
       "teamId": "dfb-pokal.magdeburg",
@@ -425,8 +425,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 2.330909907924255,
-      "adjustedAgainst": 2.583093050238758
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.8375
     },
     "dfb-pokal.carl-zeiss-jena": {
       "teamId": "dfb-pokal.carl-zeiss-jena",
@@ -436,8 +436,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.3228899005770596,
-      "adjustedAgainst": 2.42372026886608
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.darmstadt": {
       "teamId": "dfb-pokal.darmstadt",
@@ -447,8 +447,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.2281391223649556,
-      "adjustedAgainst": 1.884865981383799
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.2125
     },
     "dfb-pokal.krieschow": {
       "teamId": "dfb-pokal.krieschow",
@@ -458,8 +458,8 @@
       "forPerGame": 0,
       "againstPerGame": 9,
       "gamesPlayed": 1,
-      "adjustedFor": 2.122630283077381,
-      "adjustedAgainst": 3.5056001083529105
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 2.5285714285714285
     },
     "dfb-pokal.mainz": {
       "teamId": "dfb-pokal.mainz",
@@ -469,8 +469,8 @@
       "forPerGame": 4.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 2.776361546381389,
-      "adjustedAgainst": 2.0668540957831176
+      "adjustedFor": 2.2125,
+      "adjustedAgainst": 1.3375
     },
     "dfb-pokal.tsv-schott-mainz": {
       "teamId": "dfb-pokal.tsv-schott-mainz",
@@ -480,8 +480,8 @@
       "forPerGame": 0,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 2.152690759555959,
-      "adjustedAgainst": 2.8386814794679798
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.957142857142857
     },
     "dfb-pokal.borussia-m-gladbach": {
       "teamId": "dfb-pokal.borussia-m-gladbach",
@@ -491,8 +491,8 @@
       "forPerGame": 3.5,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 2.7472181291345366,
-      "adjustedAgainst": 1.7854393308653755
+      "adjustedFor": 1.9625,
+      "adjustedAgainst": 1.0875
     },
     "dfb-pokal.eintracht-braunschweig": {
       "teamId": "dfb-pokal.eintracht-braunschweig",
@@ -502,8 +502,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 2.402598495645113,
-      "adjustedAgainst": 2.7810176678985505
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "dfb-pokal.union-berlin": {
       "teamId": "dfb-pokal.union-berlin",
@@ -513,8 +513,8 @@
       "forPerGame": 2,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.1943717163942225,
-      "adjustedAgainst": 2.726119324687657
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.9625
     },
     "dfb-pokal.phonix-lubeck": {
       "teamId": "dfb-pokal.phonix-lubeck",
@@ -524,8 +524,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 2.4698365442913257,
-      "adjustedAgainst": 2.752458950111225
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "dfb-pokal.paderborn": {
       "teamId": "dfb-pokal.paderborn",
@@ -535,8 +535,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.3324699425273248,
-      "adjustedAgainst": 2.159541689470553
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.4625
     },
     "dfb-pokal.rot-weiss-essen": {
       "teamId": "dfb-pokal.rot-weiss-essen",
@@ -546,8 +546,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 2.3902454718855064,
-      "adjustedAgainst": 2.035864363000649
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.3375
     },
     "dfb-pokal.st-pauli": {
       "teamId": "dfb-pokal.st-pauli",
@@ -557,8 +557,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.9990611991115468,
-      "adjustedAgainst": 2.394628775219546
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.fortuna-dusseldorf": {
       "teamId": "dfb-pokal.fortuna-dusseldorf",
@@ -568,8 +568,8 @@
       "forPerGame": 1,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 2.287067359757094,
-      "adjustedAgainst": 2.814496701427473
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.957142857142857
     },
     "dfb-pokal.freiburg": {
       "teamId": "dfb-pokal.freiburg",
@@ -579,8 +579,8 @@
       "forPerGame": 4,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.866338337929343,
-      "adjustedAgainst": 2.1976689563612286
+      "adjustedFor": 2.0875,
+      "adjustedAgainst": 1.4625
     },
     "dfb-pokal.wurzburger-kickers": {
       "teamId": "dfb-pokal.wurzburger-kickers",
@@ -590,8 +590,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.3228821105828463,
-      "adjustedAgainst": 2.3199166931921615
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.koln": {
       "teamId": "dfb-pokal.koln",
@@ -601,8 +601,8 @@
       "forPerGame": 3.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.823649087801779,
-      "adjustedAgainst": 1.8843076185368544
+      "adjustedFor": 1.9625,
+      "adjustedAgainst": 1.2125
     },
     "dfb-pokal.verl": {
       "teamId": "dfb-pokal.verl",
@@ -612,8 +612,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 2.1203850257930257,
-      "adjustedAgainst": 2.573092449576842
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "dfb-pokal.hamburger": {
       "teamId": "dfb-pokal.hamburger",
@@ -623,8 +623,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.362401817585939,
-      "adjustedAgainst": 2.0842301908867515
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.4625
     },
     "dfb-pokal.vsg-altglienicke": {
       "teamId": "dfb-pokal.vsg-altglienicke",
@@ -634,8 +634,8 @@
       "forPerGame": 3,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 2.6033632330747634,
-      "adjustedAgainst": 2.575961644249682
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.6714285714285713
     },
     "dfb-pokal.wolfsburg": {
       "teamId": "dfb-pokal.wolfsburg",
@@ -645,8 +645,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 2.3474128375678114,
-      "adjustedAgainst": 2.5121273249125093
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.8375
     },
     "dfb-pokal.hallescher": {
       "teamId": "dfb-pokal.hallescher",
@@ -656,8 +656,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.460303288526308,
-      "adjustedAgainst": 2.4717795910266935
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "dfb-pokal.schalke": {
       "teamId": "dfb-pokal.schalke",
@@ -667,8 +667,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.9685511852584683,
-      "adjustedAgainst": 2.2393158527248103
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.5875
     },
     "dfb-pokal.hamburg-eimsbutteler-ballspiel": {
       "teamId": "dfb-pokal.hamburg-eimsbutteler-ballspiel",
@@ -678,8 +678,8 @@
       "forPerGame": 0,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 2.118988140901882,
-      "adjustedAgainst": 2.8087052741800598
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.957142857142857
     },
     "dfb-pokal.borussia-dortmund": {
       "teamId": "dfb-pokal.borussia-dortmund",
@@ -689,8 +689,8 @@
       "forPerGame": 4,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 2.916612550729363,
-      "adjustedAgainst": 2.06586296451547
+      "adjustedFor": 2.0875,
+      "adjustedAgainst": 1.3375
     },
     "dfb-pokal.osnabruck": {
       "teamId": "dfb-pokal.osnabruck",
@@ -700,8 +700,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 2.305108489678887,
-      "adjustedAgainst": 2.5787676140752054
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "dfb-pokal.bayern-munchen": {
       "teamId": "dfb-pokal.bayern-munchen",
@@ -711,8 +711,8 @@
       "forPerGame": 5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 3.2455139033680447,
-      "adjustedAgainst": 2.030044183687694
+      "adjustedFor": 2.3375,
+      "adjustedAgainst": 1.3375
     }
   },
   "games": [
@@ -747,7 +747,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -782,7 +782,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -817,7 +817,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -852,7 +852,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -887,7 +887,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -922,7 +922,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -957,7 +957,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -992,7 +992,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1027,7 +1027,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1062,7 +1062,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1097,7 +1097,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1132,7 +1132,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1167,7 +1167,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1202,7 +1202,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1237,7 +1237,7 @@
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1272,7 +1272,7 @@
       "result": {
         "home": 6,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1927,11 +1927,11 @@
         "referee": "Patrick Schwengers",
         "refereeStats": {
           "country": "Germany",
-          "matches": 22,
-          "avgYellow": 0.73,
+          "matches": 23,
+          "avgYellow": 0.7,
           "avgRed": 0,
           "avgFouls": 21.3,
-          "avgGoals": 2.59
+          "avgGoals": 2.57
         },
         "weather": {
           "description": "cloudy",
@@ -2373,11 +2373,11 @@
         "referee": "Michael Bacher",
         "refereeStats": {
           "country": "Germany",
-          "matches": 29,
-          "avgYellow": 1,
-          "avgRed": 0.14,
+          "matches": 30,
+          "avgYellow": 0.97,
+          "avgRed": 0.13,
           "avgFouls": 25.1,
-          "avgGoals": 2.59
+          "avgGoals": 2.53
         },
         "weather": {
           "description": "cloudy",
@@ -2820,11 +2820,11 @@
         "referee": "Tobias Stieler",
         "refereeStats": {
           "country": "Germany",
-          "matches": 67,
-          "avgYellow": 3.48,
-          "avgRed": 0.15,
+          "matches": 69,
+          "avgYellow": 3.43,
+          "avgRed": 0.14,
           "avgFouls": 21.3,
-          "avgGoals": 3.06
+          "avgGoals": 3.09
         },
         "weather": {
           "description": "cloudy",
@@ -3267,11 +3267,11 @@
         "referee": "Florian Exner",
         "refereeStats": {
           "country": "Germany",
-          "matches": 42,
-          "avgYellow": 3.83,
+          "matches": 43,
+          "avgYellow": 3.79,
           "avgRed": 0.21,
           "avgFouls": 23.8,
-          "avgGoals": 3.48
+          "avgGoals": 3.51
         },
         "weather": {
           "description": "cloudy",
@@ -3712,8 +3712,8 @@
         "referee": "Daniel Schlager",
         "refereeStats": {
           "country": "Germany",
-          "matches": 56,
-          "avgYellow": 3.32,
+          "matches": 57,
+          "avgYellow": 3.37,
           "avgRed": 0.18,
           "avgFouls": 21.5,
           "avgGoals": 3.07
@@ -5946,11 +5946,11 @@
         "referee": "Wolfgang Haslberger",
         "refereeStats": {
           "country": "Germany",
-          "matches": 30,
-          "avgYellow": 1.3,
+          "matches": 31,
+          "avgYellow": 1.39,
           "avgRed": 0,
           "avgFouls": 23.2,
-          "avgGoals": 2.8
+          "avgGoals": 2.77
         },
         "weather": {
           "description": "cloudy",
@@ -6392,11 +6392,11 @@
         "referee": "Sören Storks",
         "refereeStats": {
           "country": "Germany",
-          "matches": 39,
-          "avgYellow": 3.82,
+          "matches": 40,
+          "avgYellow": 3.73,
           "avgRed": 0.15,
           "avgFouls": 22.1,
-          "avgGoals": 2.97
+          "avgGoals": 2.95
         },
         "weather": {
           "description": "cloudy",
@@ -6839,11 +6839,11 @@
         "referee": "Florian Badstubner",
         "refereeStats": {
           "country": "Germany",
-          "matches": 60,
-          "avgYellow": 2.78,
+          "matches": 61,
+          "avgYellow": 2.77,
           "avgRed": 0.18,
           "avgFouls": 23.4,
-          "avgGoals": 3.03
+          "avgGoals": 3.05
         },
         "weather": {
           "description": "cloudy",
@@ -7733,11 +7733,11 @@
         "referee": "Bastian Dankert",
         "refereeStats": {
           "country": "Germany",
-          "matches": 35,
-          "avgYellow": 3.14,
+          "matches": 36,
+          "avgYellow": 3.31,
           "avgRed": 0.11,
           "avgFouls": 21,
-          "avgGoals": 3.46
+          "avgGoals": 3.44
         },
         "weather": {
           "description": "cloudy",
@@ -8183,11 +8183,11 @@
         "referee": "Felix Zwayer",
         "refereeStats": {
           "country": "Germany",
-          "matches": 82,
+          "matches": 85,
           "avgYellow": 4.76,
-          "avgRed": 0.23,
+          "avgRed": 0.22,
           "avgFouls": 22.1,
-          "avgGoals": 3.17
+          "avgGoals": 3.18
         },
         "weather": {
           "description": "cloudy",
@@ -8630,11 +8630,11 @@
         "referee": "Harm Osmers",
         "refereeStats": {
           "country": "Germany",
-          "matches": 68,
-          "avgYellow": 3.87,
-          "avgRed": 0.16,
+          "matches": 69,
+          "avgYellow": 3.91,
+          "avgRed": 0.17,
           "avgFouls": 21.5,
-          "avgGoals": 2.84
+          "avgGoals": 2.83
         },
         "weather": {
           "description": "cloudy",

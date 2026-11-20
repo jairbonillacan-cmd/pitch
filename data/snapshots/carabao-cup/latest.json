@@ -5,7 +5,7 @@
   "season": "carabao-cup-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round 3",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5313945733413112,
-      "adjustedAgainst": 1.5650656688148683
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.rochdale": {
       "teamId": "carabao-cup.rochdale",
@@ -29,8 +29,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3888215437021698,
-      "adjustedAgainst": 1.5749080244384723
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.york-city": {
       "teamId": "carabao-cup.york-city",
@@ -40,8 +40,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2516560380371542,
-      "adjustedAgainst": 1.587016403500757
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.crawley-town": {
       "teamId": "carabao-cup.crawley-town",
@@ -51,8 +51,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.272631855639698,
-      "adjustedAgainst": 1.2215414651440477
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.2125
     },
     "carabao-cup.bristol-city": {
       "teamId": "carabao-cup.bristol-city",
@@ -62,8 +62,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2751591493784604,
-      "adjustedAgainst": 1.42854656985651
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.walsall": {
       "teamId": "carabao-cup.walsall",
@@ -73,8 +73,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1961428765996531,
-      "adjustedAgainst": 1.0610846752880245
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.0875
     },
     "carabao-cup.wycombe-wanderers": {
       "teamId": "carabao-cup.wycombe-wanderers",
@@ -84,8 +84,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3572192925561295,
-      "adjustedAgainst": 1.5756771912624672
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.stevenage": {
       "teamId": "carabao-cup.stevenage",
@@ -95,8 +95,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.33687046064415,
-      "adjustedAgainst": 1.6289760784925995
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.wolverhampton": {
       "teamId": "carabao-cup.wolverhampton",
@@ -106,8 +106,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.569826895720456,
-      "adjustedAgainst": 1.0143037213697772
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.0777777777777777
     },
     "carabao-cup.port-vale": {
       "teamId": "carabao-cup.port-vale",
@@ -117,8 +117,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2817137909905627,
-      "adjustedAgainst": 1.699708783682411
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "carabao-cup.middlesbrough": {
       "teamId": "carabao-cup.middlesbrough",
@@ -128,8 +128,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.4538716918741643,
-      "adjustedAgainst": 1.438706843082548
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.411111111111111
     },
     "carabao-cup.wrexham": {
       "teamId": "carabao-cup.wrexham",
@@ -139,8 +139,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.217855479656672,
-      "adjustedAgainst": 1.3853415057446907
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.cambridge-united": {
       "teamId": "carabao-cup.cambridge-united",
@@ -150,8 +150,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3478394042647919,
-      "adjustedAgainst": 1.3759954151069236
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "carabao-cup.barnet": {
       "teamId": "carabao-cup.barnet",
@@ -161,8 +161,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3969362804225474,
-      "adjustedAgainst": 1.5737975466134464
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.queens-park-rangers": {
       "teamId": "carabao-cup.queens-park-rangers",
@@ -172,8 +172,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4363541733595802,
-      "adjustedAgainst": 1.4352563835972432
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.millwall": {
       "teamId": "carabao-cup.millwall",
@@ -183,8 +183,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.1568060832781788,
-      "adjustedAgainst": 1.1477444409846407
+      "adjustedFor": 1.1888888888888889,
+      "adjustedAgainst": 1.1888888888888889
     },
     "carabao-cup.watford": {
       "teamId": "carabao-cup.watford",
@@ -194,8 +194,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.355632103579843,
-      "adjustedAgainst": 1.7377448294802744
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.7125
     },
     "carabao-cup.bradford-city": {
       "teamId": "carabao-cup.bradford-city",
@@ -205,8 +205,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.635092851376921,
-      "adjustedAgainst": 0.8895295663234651
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 0.97
     },
     "carabao-cup.crewe-alexandra": {
       "teamId": "carabao-cup.crewe-alexandra",
@@ -216,8 +216,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.57940498471987,
-      "adjustedAgainst": 1.5804543726887987
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.accrington-stanley": {
       "teamId": "carabao-cup.accrington-stanley",
@@ -227,8 +227,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3639040569993532,
-      "adjustedAgainst": 1.5316443084116824
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.fleetwood-town": {
       "teamId": "carabao-cup.fleetwood-town",
@@ -238,8 +238,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.5998186922443995,
-      "adjustedAgainst": 0.8932365588753408
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 0.97
     },
     "carabao-cup.chesterfield": {
       "teamId": "carabao-cup.chesterfield",
@@ -249,8 +249,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.300899445364224,
-      "adjustedAgainst": 1.361884723734202
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.wimbledon": {
       "teamId": "carabao-cup.wimbledon",
@@ -260,8 +260,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.209790171937416,
-      "adjustedAgainst": 1.5988374948895234
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.newport-county": {
       "teamId": "carabao-cup.newport-county",
@@ -271,8 +271,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3610104814828932,
-      "adjustedAgainst": 1.426067619945555
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.bristol-rovers": {
       "teamId": "carabao-cup.bristol-rovers",
@@ -282,8 +282,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2139322243589712,
-      "adjustedAgainst": 1.3247632382744012
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.peterborough-united": {
       "teamId": "carabao-cup.peterborough-united",
@@ -293,8 +293,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.8426486112348908,
-      "adjustedAgainst": 1.4678358187879823
+      "adjustedFor": 1.77,
+      "adjustedAgainst": 1.47
     },
     "carabao-cup.salford-city": {
       "teamId": "carabao-cup.salford-city",
@@ -304,8 +304,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3361371011531133,
-      "adjustedAgainst": 1.41855473973905
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.shrewsbury-town": {
       "teamId": "carabao-cup.shrewsbury-town",
@@ -315,8 +315,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2536204952441736,
-      "adjustedAgainst": 1.7654145593552013
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.7125
     },
     "carabao-cup.bromley": {
       "teamId": "carabao-cup.bromley",
@@ -326,8 +326,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4241155653742426,
-      "adjustedAgainst": 1.3758673387058744
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.reading": {
       "teamId": "carabao-cup.reading",
@@ -337,8 +337,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5117480134615433,
-      "adjustedAgainst": 1.2185151981334623
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.2999999999999998
     },
     "carabao-cup.stockport-county": {
       "teamId": "carabao-cup.stockport-county",
@@ -348,8 +348,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3555052535129644,
-      "adjustedAgainst": 1.404940669462154
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.doncaster-rovers": {
       "teamId": "carabao-cup.doncaster-rovers",
@@ -359,8 +359,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3342403858649614,
-      "adjustedAgainst": 1.6389226726957358
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.grimsby-town": {
       "teamId": "carabao-cup.grimsby-town",
@@ -370,8 +370,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.338320554353525,
-      "adjustedAgainst": 1.70346481323336
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "carabao-cup.blackpool": {
       "teamId": "carabao-cup.blackpool",
@@ -381,8 +381,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5526254794314438,
-      "adjustedAgainst": 1.750971819466713
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.7125
     },
     "carabao-cup.barnsley": {
       "teamId": "carabao-cup.barnsley",
@@ -392,8 +392,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.8011784182436799,
-      "adjustedAgainst": 1.6133357112197622
+      "adjustedFor": 1.7444444444444445,
+      "adjustedAgainst": 1.6333333333333333
     },
     "carabao-cup.wigan-athletic": {
       "teamId": "carabao-cup.wigan-athletic",
@@ -403,8 +403,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.358737050905854,
-      "adjustedAgainst": 1.330958894531852
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.stoke-city": {
       "teamId": "carabao-cup.stoke-city",
@@ -414,8 +414,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4804206572302478,
-      "adjustedAgainst": 1.2372824759189025
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.2125
     },
     "carabao-cup.oldham-athletic": {
       "teamId": "carabao-cup.oldham-athletic",
@@ -425,8 +425,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2469976888094527,
-      "adjustedAgainst": 1.5493835156562052
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.leyton-orient": {
       "teamId": "carabao-cup.leyton-orient",
@@ -436,8 +436,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.383754317410816,
-      "adjustedAgainst": 1.326024120001825
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.2999999999999998
     },
     "carabao-cup.oxford-united": {
       "teamId": "carabao-cup.oxford-united",
@@ -447,8 +447,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2338114691024307,
-      "adjustedAgainst": 1.5671083353060433
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.preston-north-end": {
       "teamId": "carabao-cup.preston-north-end",
@@ -458,8 +458,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2381796362416233,
-      "adjustedAgainst": 1.6997867557405044
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.7125
     },
     "carabao-cup.huddersfield-town": {
       "teamId": "carabao-cup.huddersfield-town",
@@ -469,8 +469,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3453369538528952,
-      "adjustedAgainst": 1.421192434653876
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.cardiff-city": {
       "teamId": "carabao-cup.cardiff-city",
@@ -480,8 +480,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5310220977239966,
-      "adjustedAgainst": 1.582083808426676
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.swindon-town": {
       "teamId": "carabao-cup.swindon-town",
@@ -491,8 +491,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5300138206076335,
-      "adjustedAgainst": 1.707745432207291
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "carabao-cup.burton-albion": {
       "teamId": "carabao-cup.burton-albion",
@@ -502,8 +502,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3826822133487788,
-      "adjustedAgainst": 1.545539807750719
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.blackburn-rovers": {
       "teamId": "carabao-cup.blackburn-rovers",
@@ -513,8 +513,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5016754021706444,
-      "adjustedAgainst": 1.4674066934739018
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.4625
     },
     "carabao-cup.sheffield-wednesday": {
       "teamId": "carabao-cup.sheffield-wednesday",
@@ -524,8 +524,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.237781719853555,
-      "adjustedAgainst": 1.344589975822395
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "carabao-cup.bolton-wanderers": {
       "teamId": "carabao-cup.bolton-wanderers",
@@ -535,8 +535,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2310879833829182,
-      "adjustedAgainst": 1.4212605382316952
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.derby-county": {
       "teamId": "carabao-cup.derby-county",
@@ -546,8 +546,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3632779183056474,
-      "adjustedAgainst": 1.5143737212145538
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.lincoln-city": {
       "teamId": "carabao-cup.lincoln-city",
@@ -557,8 +557,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.6780021396761113,
-      "adjustedAgainst": 1.5891702805130905
+      "adjustedFor": 1.6333333333333333,
+      "adjustedAgainst": 1.6333333333333333
     },
     "carabao-cup.norwich-city": {
       "teamId": "carabao-cup.norwich-city",
@@ -568,8 +568,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 3,
-      "adjustedFor": 1.601159633028105,
-      "adjustedAgainst": 1.732557252051826
+      "adjustedFor": 1.6333333333333333,
+      "adjustedAgainst": 1.7444444444444445
     },
     "carabao-cup.milton-keynes-dons": {
       "teamId": "carabao-cup.milton-keynes-dons",
@@ -579,8 +579,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.340326232257845,
-      "adjustedAgainst": 1.8600518920855422
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "carabao-cup.swansea-city": {
       "teamId": "carabao-cup.swansea-city",
@@ -590,8 +590,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.163588191920458,
-      "adjustedAgainst": 1.407269506625018
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.birmingham-city": {
       "teamId": "carabao-cup.birmingham-city",
@@ -601,8 +601,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3203389536862193,
-      "adjustedAgainst": 1.8379845690650798
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.8375
     },
     "carabao-cup.gillingham": {
       "teamId": "carabao-cup.gillingham",
@@ -612,8 +612,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.24144151401578,
-      "adjustedAgainst": 1.7260790229566298
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "carabao-cup.luton-town": {
       "teamId": "carabao-cup.luton-town",
@@ -623,8 +623,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4397064539262965,
-      "adjustedAgainst": 1.2782615383756932
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.3375
     },
     "carabao-cup.burnley": {
       "teamId": "carabao-cup.burnley",
@@ -634,8 +634,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2544823781015808,
-      "adjustedAgainst": 1.1579602489057332
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.2125
     },
     "carabao-cup.notts-county": {
       "teamId": "carabao-cup.notts-county",
@@ -645,8 +645,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4339714704199047,
-      "adjustedAgainst": 1.4184078402032643
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.leicester-city": {
       "teamId": "carabao-cup.leicester-city",
@@ -656,8 +656,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2927953188402335,
-      "adjustedAgainst": 1.4653544779560963
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "carabao-cup.northampton-town": {
       "teamId": "carabao-cup.northampton-town",
@@ -667,8 +667,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2136617413946837,
-      "adjustedAgainst": 1.4119066016862107
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "carabao-cup.west-ham-united": {
       "teamId": "carabao-cup.west-ham-united",
@@ -678,8 +678,8 @@
       "forPerGame": 3,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 3,
-      "adjustedFor": 2.043952765120687,
-      "adjustedAgainst": 1.526152655621954
+      "adjustedFor": 1.9666666666666666,
+      "adjustedAgainst": 1.5222222222222221
     },
     "carabao-cup.portsmouth": {
       "teamId": "carabao-cup.portsmouth",
@@ -689,8 +689,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3725236716588145,
-      "adjustedAgainst": 1.6115932327886615
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "carabao-cup.cheltenham-town": {
       "teamId": "carabao-cup.cheltenham-town",
@@ -700,8 +700,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3217168978881941,
-      "adjustedAgainst": 1.703523057566001
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "carabao-cup.charlton-athletic": {
       "teamId": "carabao-cup.charlton-athletic",
@@ -711,8 +711,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.552330439814566,
-      "adjustedAgainst": 1.8619996562582801
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.8375
     },
     "carabao-cup.rotherham-united": {
       "teamId": "carabao-cup.rotherham-united",
@@ -722,8 +722,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3599182798164862,
-      "adjustedAgainst": 1.8111409215945018
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "carabao-cup.west-bromwich-albion": {
       "teamId": "carabao-cup.west-bromwich-albion",
@@ -733,8 +733,8 @@
       "forPerGame": 3,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.8352251764220924,
-      "adjustedAgainst": 1.6106054725172079
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.colchester-united": {
       "teamId": "carabao-cup.colchester-united",
@@ -744,8 +744,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1993459349654632,
-      "adjustedAgainst": 1.5560473431222257
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.southampton": {
       "teamId": "carabao-cup.southampton",
@@ -755,8 +755,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4438194806866531,
-      "adjustedAgainst": 1.5718825709468751
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.mansfield-town": {
       "teamId": "carabao-cup.mansfield-town",
@@ -766,8 +766,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2596772385945447,
-      "adjustedAgainst": 1.700533362090698
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "carabao-cup.sheffield-united": {
       "teamId": "carabao-cup.sheffield-united",
@@ -777,8 +777,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.569328644670412,
-      "adjustedAgainst": 1.15496079239139
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.1888888888888889
     },
     "carabao-cup.plymouth-argyle": {
       "teamId": "carabao-cup.plymouth-argyle",
@@ -788,8 +788,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.558294506211842,
-      "adjustedAgainst": 1.6242656500906159
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.exeter-city": {
       "teamId": "carabao-cup.exeter-city",
@@ -799,8 +799,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1906217278768303,
-      "adjustedAgainst": 1.5356083489181391
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.hull-city": {
       "teamId": "carabao-cup.hull-city",
@@ -810,8 +810,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.223573612911661,
-      "adjustedAgainst": 1.2923711883858058
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "carabao-cup.coventry-city": {
       "teamId": "carabao-cup.coventry-city",
@@ -821,8 +821,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.7240002987628558,
-      "adjustedAgainst": 1.7504684449848695
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.7125
     },
     "carabao-cup.ipswich-town": {
       "teamId": "carabao-cup.ipswich-town",
@@ -832,8 +832,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.777862885276291,
-      "adjustedAgainst": 1.7406720908560271
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.7125
     },
     "carabao-cup.brentford": {
       "teamId": "carabao-cup.brentford",
@@ -843,8 +843,8 @@
       "forPerGame": 3.3333333333333335,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 3,
-      "adjustedFor": 2.1908010698471094,
-      "adjustedAgainst": 1.538206007892697
+      "adjustedFor": 2.0777777777777775,
+      "adjustedAgainst": 1.5222222222222221
     },
     "carabao-cup.nottingham-forest": {
       "teamId": "carabao-cup.nottingham-forest",
@@ -854,8 +854,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1513592440284064,
-      "adjustedAgainst": 1.4971392611639331
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "carabao-cup.leeds-united": {
       "teamId": "carabao-cup.leeds-united",
@@ -865,8 +865,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.783264418084177,
-      "adjustedAgainst": 1.8713510928584887
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.8375
     },
     "carabao-cup.tottenham-hotspur": {
       "teamId": "carabao-cup.tottenham-hotspur",
@@ -876,8 +876,8 @@
       "forPerGame": 3,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.8858628185134274,
-      "adjustedAgainst": 1.5850326120475184
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.newcastle-united": {
       "teamId": "carabao-cup.newcastle-united",
@@ -887,8 +887,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 3,
-      "adjustedFor": 1.6205399871700619,
-      "adjustedAgainst": 1.4719346986274353
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.5222222222222221
     },
     "carabao-cup.everton": {
       "teamId": "carabao-cup.everton",
@@ -898,8 +898,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 0.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.9694731432335943,
-      "adjustedAgainst": 1.0094763910214233
+      "adjustedFor": 1.8555555555555554,
+      "adjustedAgainst": 1.0777777777777777
     },
     "carabao-cup.chelsea": {
       "teamId": "carabao-cup.chelsea",
@@ -909,8 +909,8 @@
       "forPerGame": 3,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 2.0588545966681897,
-      "adjustedAgainst": 1.348268517662963
+      "adjustedFor": 1.9666666666666666,
+      "adjustedAgainst": 1.411111111111111
     },
     "carabao-cup.fulham": {
       "teamId": "carabao-cup.fulham",
@@ -920,8 +920,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.693263378414986,
-      "adjustedAgainst": 1.2154465355387205
+      "adjustedFor": 1.6333333333333333,
+      "adjustedAgainst": 1.2999999999999998
     },
     "carabao-cup.sunderland": {
       "teamId": "carabao-cup.sunderland",
@@ -931,8 +931,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.6548176017989207,
-      "adjustedAgainst": 1.256590301754379
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.3375
     },
     "carabao-cup.bournemouth": {
       "teamId": "carabao-cup.bournemouth",
@@ -942,8 +942,8 @@
       "forPerGame": 3.5,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 2.04907166444498,
-      "adjustedAgainst": 0.979450038860806
+      "adjustedFor": 1.9625,
+      "adjustedAgainst": 1.0875
     },
     "carabao-cup.crystal-palace": {
       "teamId": "carabao-cup.crystal-palace",
@@ -953,8 +953,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 1.66019979029476,
-      "adjustedAgainst": 0.9791156887912207
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.0875
     },
     "carabao-cup.liverpool": {
       "teamId": "carabao-cup.liverpool",
@@ -964,8 +964,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.6135260407675944,
-      "adjustedAgainst": 1.1822306964544231
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.3375
     },
     "carabao-cup.arsenal": {
       "teamId": "carabao-cup.arsenal",
@@ -975,8 +975,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.8257288484891674,
-      "adjustedAgainst": 1.3961585405351353
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.4625
     },
     "carabao-cup.aston-villa": {
       "teamId": "carabao-cup.aston-villa",
@@ -986,8 +986,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.486347156442046,
-      "adjustedAgainst": 1.4984050428695017
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.manchester-united": {
       "teamId": "carabao-cup.manchester-united",
@@ -997,8 +997,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5468346048728188,
-      "adjustedAgainst": 1.6722685571128564
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "carabao-cup.brighton-hove-albion": {
       "teamId": "carabao-cup.brighton-hove-albion",
@@ -1008,8 +1008,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.7755209260548537,
-      "adjustedAgainst": 1.5191619305929847
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.5875
     },
     "carabao-cup.manchester-city": {
       "teamId": "carabao-cup.manchester-city",
@@ -1019,8 +1019,8 @@
       "forPerGame": 3.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 2.0074319222310533,
-      "adjustedAgainst": 1.2629038595412572
+      "adjustedFor": 1.9625,
+      "adjustedAgainst": 1.3375
     }
   },
   "games": [
@@ -1055,7 +1055,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1090,7 +1090,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1125,7 +1125,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1160,7 +1160,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1195,7 +1195,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1230,7 +1230,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1265,7 +1265,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1300,7 +1300,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1335,7 +1335,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1370,7 +1370,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1405,7 +1405,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1440,7 +1440,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1475,7 +1475,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1510,7 +1510,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1545,7 +1545,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1580,7 +1580,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -2120,11 +2120,11 @@
         "referee": "Andy Madley",
         "refereeStats": {
           "country": "England",
-          "matches": 62,
-          "avgYellow": 3.84,
+          "matches": 63,
+          "avgYellow": 3.81,
           "avgRed": 0.11,
           "avgFouls": 23.1,
-          "avgGoals": 2.89
+          "avgGoals": 2.95
         },
         "weather": {
           "description": "cloudy",
@@ -3015,7 +3015,7 @@
         "referee": "Peter Bankes",
         "refereeStats": {
           "country": "England",
-          "matches": 56,
+          "matches": 57,
           "avgYellow": 3.98,
           "avgRed": 0.18,
           "avgFouls": 22.5,
@@ -3917,11 +3917,11 @@
         "referee": "Benjamin Speedie",
         "refereeStats": {
           "country": "England",
-          "matches": 77,
-          "avgYellow": 3.13,
+          "matches": 78,
+          "avgYellow": 3.14,
           "avgRed": 0.1,
           "avgFouls": 21.9,
-          "avgGoals": 2.39
+          "avgGoals": 2.37
         },
         "weather": {
           "description": "rain",
@@ -4361,8 +4361,8 @@
         "referee": "Robert Jones",
         "refereeStats": {
           "country": "England",
-          "matches": 60,
-          "avgYellow": 4.12,
+          "matches": 61,
+          "avgYellow": 4.1,
           "avgRed": 0.05,
           "avgFouls": 23.1,
           "avgGoals": 2.85
@@ -4796,11 +4796,11 @@
         "referee": "Farai Hallam",
         "refereeStats": {
           "country": "England",
-          "matches": 69,
-          "avgYellow": 3.64,
+          "matches": 70,
+          "avgYellow": 3.67,
           "avgRed": 0.03,
           "avgFouls": 21.1,
-          "avgGoals": 2.65
+          "avgGoals": 2.67
         },
         "weather": {
           "description": "cloudy",
@@ -6134,11 +6134,11 @@
         "referee": "Michael Salisbury",
         "refereeStats": {
           "country": "England",
-          "matches": 45,
-          "avgYellow": 3.58,
-          "avgRed": 0.18,
+          "matches": 47,
+          "avgYellow": 3.68,
+          "avgRed": 0.17,
           "avgFouls": 22.2,
-          "avgGoals": 3.18
+          "avgGoals": 3.19
         },
         "weather": {
           "description": "cloudy",
@@ -6584,11 +6584,11 @@
         "referee": "Andy Madley",
         "refereeStats": {
           "country": "England",
-          "matches": 62,
-          "avgYellow": 3.84,
+          "matches": 63,
+          "avgYellow": 3.81,
           "avgRed": 0.11,
           "avgFouls": 23.1,
-          "avgGoals": 2.89
+          "avgGoals": 2.95
         },
         "weather": {
           "description": "cloudy",
@@ -7482,11 +7482,11 @@
         "referee": "Simon Hooper",
         "refereeStats": {
           "country": "England",
-          "matches": 46,
-          "avgYellow": 4.28,
+          "matches": 47,
+          "avgYellow": 4.4,
           "avgRed": 0.13,
           "avgFouls": 23.3,
-          "avgGoals": 3.24
+          "avgGoals": 3.23
         },
         "weather": {
           "description": "cloudy",
@@ -8827,11 +8827,11 @@
         "referee": "Farai Hallam",
         "refereeStats": {
           "country": "England",
-          "matches": 69,
-          "avgYellow": 3.64,
+          "matches": 70,
+          "avgYellow": 3.67,
           "avgRed": 0.03,
           "avgFouls": 21.1,
-          "avgGoals": 2.65
+          "avgGoals": 2.67
         },
         "weather": {
           "description": "cloudy",

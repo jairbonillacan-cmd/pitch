@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "saudi-pro-league",
-  "observedAt": "2026-11-19T16:05:39.021Z",
+  "observedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "saudi-pro-league.al-hilal",
@@ -21,7 +21,52 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "saudi-pro-league.abha",
+      "player": "Abdou Diallo",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Back Injury",
+      "injuryType": "Back Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "saudi-pro-league.abha",
+      "player": "Basil Yousef Al-Sayyali",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Ligament Injury",
+      "injuryType": "Ligament Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "saudi-pro-league.abha",
+      "player": "Georges-Kévin N'Koudou",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "saudi-pro-league.abha",
+      "player": "Khaled Al Shamrani",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "saudi-pro-league.abha",
+      "player": "Nabil Fekir",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     }
   ]
 }

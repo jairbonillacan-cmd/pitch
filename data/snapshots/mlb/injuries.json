@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "mlb",
-  "observedAt": "2026-11-19T14:16:45.965Z",
+  "observedAt": "2026-11-20T13:22:42.740Z",
   "source": "espn-public-mlb",
   "coverageStatus": "ok",
   "entries": [
@@ -187,6 +187,16 @@
     },
     {
       "teamId": "mlb.baltimore-orioles",
+      "player": "Reed Trimble",
+      "position": "LF",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-19T21:24:00.000Z"
+    },
+    {
+      "teamId": "mlb.baltimore-orioles",
       "player": "Jordan Westburg",
       "position": "3B",
       "status": "Baja",
@@ -256,22 +266,12 @@
       "reportedAt": "2026-10-15T16:00:00.000Z"
     },
     {
-      "teamId": "mlb.baltimore-orioles",
-      "player": "Reed Trimble",
-      "position": "LF",
-      "status": "Duda",
-      "detail": "Isquiotibiales",
-      "injuryType": "Hamstring",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-08-17T16:48:00.000Z"
-    },
-    {
       "teamId": "mlb.boston-red-sox",
       "player": "Roman Anthony",
       "position": "LF",
       "status": "Baja",
-      "detail": "Hand",
-      "injuryType": "Hand",
+      "detail": "Finger",
+      "injuryType": "Finger",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-10T17:11:00.000Z"
     },
@@ -362,7 +362,7 @@
       "status": "Baja",
       "detail": "Cuello",
       "injuryType": "Neck",
-      "returnDate": "2027-02-01",
+      "returnDate": "2027-06-01",
       "reportedAt": "2026-11-10T19:08:00.000Z"
     },
     {
@@ -564,6 +564,16 @@
       "injuryType": "Elbow",
       "returnDate": "2028-02-01",
       "reportedAt": "2026-09-10T17:03:00.000Z"
+    },
+    {
+      "teamId": "mlb.colorado-rockies",
+      "player": "Hunter Goodman",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-20T03:18:00.000Z"
     },
     {
       "teamId": "mlb.colorado-rockies",
@@ -947,16 +957,6 @@
     },
     {
       "teamId": "mlb.minnesota-twins",
-      "player": "Anthony Banda",
-      "position": "RP",
-      "status": "Baja",
-      "detail": "Lat",
-      "injuryType": "Lat",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-10-29T19:01:00.000Z"
-    },
-    {
-      "teamId": "mlb.minnesota-twins",
       "player": "Jeff Hoffman",
       "position": "RP",
       "status": "Baja",
@@ -1064,6 +1064,16 @@
       "injuryType": "Elbow",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-03T04:50:00.000Z"
+    },
+    {
+      "teamId": "mlb.philadelphia-phillies",
+      "player": "Bryan Rincon",
+      "position": "SS",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-19T15:48:00.000Z"
     },
     {
       "teamId": "mlb.philadelphia-phillies",

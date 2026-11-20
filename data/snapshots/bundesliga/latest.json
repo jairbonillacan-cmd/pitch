@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga",
+  "logoUrl": "https://sports.bzzoiro.com/img/league/5/?bg=transparent",
   "season": "bundesliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 10",
-  "updatedAt": "2026-11-15T17:34:02.833Z",
-  "source": "openfootball+espn",
+  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -14,198 +15,216 @@
       "name": "FC Augsburg",
       "shortName": "Augsburg",
       "code": "FCA",
-      "forPerGame": 2.3333333333333335,
-      "againstPerGame": 2.1666666666666665,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.5873090524028644,
-      "adjustedAgainst": 1.7456728830734862
+      "logoUrl": "https://sports.bzzoiro.com/img/team/90/?bg=transparent",
+      "forPerGame": 2.2222222222222223,
+      "againstPerGame": 2.2222222222222223,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.615849305389532,
+      "adjustedAgainst": 1.695591928659998
     },
     "bundesliga.bayer-leverkusen": {
       "teamId": "bundesliga.bayer-leverkusen",
       "name": "Bayer 04 Leverkusen",
       "shortName": "Leverkusen",
       "code": "B04",
-      "forPerGame": 2,
-      "againstPerGame": 2,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.7940068760800132,
-      "adjustedAgainst": 1.4912865395411359
+      "logoUrl": "https://sports.bzzoiro.com/img/team/85/?bg=transparent",
+      "forPerGame": 2.2222222222222223,
+      "againstPerGame": 1.8888888888888888,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.8829043564130106,
+      "adjustedAgainst": 1.4542053292815345
     },
     "bundesliga.bayern-munchen": {
       "teamId": "bundesliga.bayern-munchen",
       "name": "FC Bayern München",
       "shortName": "Bayern München",
       "code": "FCB",
-      "forPerGame": 3.5,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/79/?bg=transparent",
+      "forPerGame": 3.2222222222222223,
       "againstPerGame": 1,
-      "gamesPlayed": 6,
-      "adjustedFor": 2.9834205621867023,
-      "adjustedAgainst": 1.1014534958633433
+      "gamesPlayed": 9,
+      "adjustedFor": 2.9525862495894697,
+      "adjustedAgainst": 1.044277994184264
     },
     "bundesliga.borussia-dortmund": {
       "teamId": "bundesliga.borussia-dortmund",
       "name": "Borussia Dortmund",
       "shortName": "Dortmund",
       "code": "BVB",
-      "forPerGame": 2.1666666666666665,
-      "againstPerGame": 0.8333333333333334,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.9690798298522907,
-      "adjustedAgainst": 0.9777061082529548
+      "logoUrl": "https://sports.bzzoiro.com/img/team/92/?bg=transparent",
+      "forPerGame": 1.7777777777777777,
+      "againstPerGame": 0.7777777777777778,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.7777134775570902,
+      "adjustedAgainst": 0.9081443478020261
     },
     "bundesliga.borussia-monchengladbach": {
       "teamId": "bundesliga.borussia-monchengladbach",
       "name": "Borussia Mönchengladbach",
       "shortName": "M’gladbach",
       "code": "BMG",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 3.1666666666666665,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.3881624423347936,
-      "adjustedAgainst": 2.0128580310718243
+      "logoUrl": "https://sports.bzzoiro.com/img/team/95/?bg=transparent",
+      "forPerGame": 1.3333333333333333,
+      "againstPerGame": 2.7777777777777777,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.3870637181998742,
+      "adjustedAgainst": 1.9251558749828293
     },
     "bundesliga.eintracht-frankfurt": {
       "teamId": "bundesliga.eintracht-frankfurt",
       "name": "Eintracht Frankfurt",
       "shortName": "Frankfurt",
       "code": "SGE",
-      "forPerGame": 2.3333333333333335,
-      "againstPerGame": 2.1666666666666665,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.8092195283296315,
-      "adjustedAgainst": 1.8040621177685914
+      "logoUrl": "https://sports.bzzoiro.com/img/team/87/?bg=transparent",
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 2.2222222222222223,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.6415626674509212,
+      "adjustedAgainst": 1.7623261532921357
     },
     "bundesliga.elversberg": {
       "teamId": "bundesliga.elversberg",
       "name": "SV 07 Elversberg",
       "shortName": "Elversberg",
       "code": "ELV",
-      "forPerGame": 2.6,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1833/?bg=transparent",
+      "forPerGame": 1.8888888888888888,
       "againstPerGame": 2,
-      "gamesPlayed": 5,
-      "adjustedFor": 2.1751168916931434,
-      "adjustedAgainst": 1.5054151168843646
+      "gamesPlayed": 9,
+      "adjustedFor": 1.7781404689313347,
+      "adjustedAgainst": 1.5982889264299716
     },
     "bundesliga.freiburg": {
       "teamId": "bundesliga.freiburg",
       "name": "SC Freiburg",
       "shortName": "Freiburg",
       "code": "SCF",
-      "forPerGame": 2.4285714285714284,
-      "againstPerGame": 1,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.7240746409707355,
-      "adjustedAgainst": 1.3765947060357844
+      "logoUrl": "https://sports.bzzoiro.com/img/team/89/?bg=transparent",
+      "forPerGame": 2.2222222222222223,
+      "againstPerGame": 1.1111111111111112,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.7079184409305235,
+      "adjustedAgainst": 1.3498641337236994
     },
     "bundesliga.hamburger": {
       "teamId": "bundesliga.hamburger",
       "name": "Hamburger SV",
       "shortName": "Hamburger SV",
       "code": "HSV",
-      "forPerGame": 1,
-      "againstPerGame": 2.8333333333333335,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.2450320806239374,
-      "adjustedAgainst": 1.8849131397000818
+      "logoUrl": "https://sports.bzzoiro.com/img/team/96/?bg=transparent",
+      "forPerGame": 1.1111111111111112,
+      "againstPerGame": 2.2222222222222223,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.2327900189349297,
+      "adjustedAgainst": 1.6980979996678405
     },
     "bundesliga.hoffenheim": {
       "teamId": "bundesliga.hoffenheim",
       "name": "TSG 1899 Hoffenheim",
       "shortName": "Hoffenheim",
       "code": "TSG",
-      "forPerGame": 1.7142857142857142,
-      "againstPerGame": 1.8571428571428572,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.7310658839008133,
-      "adjustedAgainst": 1.6394789637465106
+      "logoUrl": "https://sports.bzzoiro.com/img/team/86/?bg=transparent",
+      "forPerGame": 1.7777777777777777,
+      "againstPerGame": 1.8888888888888888,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.7241281340025882,
+      "adjustedAgainst": 1.6447166233084793
     },
     "bundesliga.koln": {
       "teamId": "bundesliga.koln",
       "name": "1. FC Köln",
       "shortName": "Köln",
       "code": "KOE",
-      "forPerGame": 1.5,
-      "againstPerGame": 2.25,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.4123944222810885,
-      "adjustedAgainst": 1.7883454468929096
+      "logoUrl": "https://sports.bzzoiro.com/img/team/94/?bg=transparent",
+      "forPerGame": 1.1111111111111112,
+      "againstPerGame": 1.5555555555555556,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.2048476440662468,
+      "adjustedAgainst": 1.564962326226828
     },
     "bundesliga.mainz": {
       "teamId": "bundesliga.mainz",
       "name": "1. FSV Mainz 05",
       "shortName": "Mainz 05",
       "code": "M05",
-      "forPerGame": 2.4,
-      "againstPerGame": 2.4,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.6130016056213607,
-      "adjustedAgainst": 1.6062645964377644
+      "logoUrl": "https://sports.bzzoiro.com/img/team/93/?bg=transparent",
+      "forPerGame": 2,
+      "againstPerGame": 2.111111111111111,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.563567077230703,
+      "adjustedAgainst": 1.6184823211187984
     },
     "bundesliga.paderborn": {
       "teamId": "bundesliga.paderborn",
       "name": "SC Paderborn 07",
       "shortName": "Paderborn",
       "code": "SCP",
-      "forPerGame": 1,
-      "againstPerGame": 1.4,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.2040624570469585,
-      "adjustedAgainst": 1.317856793752862
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1293/?bg=transparent",
+      "forPerGame": 0.8888888888888888,
+      "againstPerGame": 1.2222222222222223,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.0001423125037585,
+      "adjustedAgainst": 1.175449379367866
     },
     "bundesliga.rb-leipzig": {
       "teamId": "bundesliga.rb-leipzig",
       "name": "RB Leipzig",
       "shortName": "RB Leipzig",
       "code": "RBL",
-      "forPerGame": 2.6666666666666665,
-      "againstPerGame": 1.1666666666666667,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.9305676933802958,
-      "adjustedAgainst": 1.3525967965288284
+      "logoUrl": "https://sports.bzzoiro.com/img/team/80/?bg=transparent",
+      "forPerGame": 3,
+      "againstPerGame": 1.4444444444444444,
+      "gamesPlayed": 9,
+      "adjustedFor": 2.111573850886885,
+      "adjustedAgainst": 1.3172689681281686
     },
     "bundesliga.schalke": {
       "teamId": "bundesliga.schalke",
       "name": "FC Schalke 04",
       "shortName": "Schalke 04",
       "code": "S04",
-      "forPerGame": 1,
-      "againstPerGame": 2,
-      "gamesPlayed": 4,
-      "adjustedFor": 1.2550864204163583,
-      "adjustedAgainst": 1.6432492124088485
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1290/?bg=transparent",
+      "forPerGame": 0.5555555555555556,
+      "againstPerGame": 1.2222222222222223,
+      "gamesPlayed": 9,
+      "adjustedFor": 0.8098128422124065,
+      "adjustedAgainst": 1.1003494615751808
     },
     "bundesliga.stuttgart": {
       "teamId": "bundesliga.stuttgart",
       "name": "VfB Stuttgart",
       "shortName": "Stuttgart",
       "code": "VFB",
-      "forPerGame": 1.8333333333333333,
-      "againstPerGame": 1.8333333333333333,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.9560113870691656,
-      "adjustedAgainst": 1.4612929836876172
+      "logoUrl": "https://sports.bzzoiro.com/img/team/84/?bg=transparent",
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.818768324385571,
+      "adjustedAgainst": 1.4066556281768505
     },
     "bundesliga.union-berlin": {
       "teamId": "bundesliga.union-berlin",
       "name": "1. FC Union Berlin",
       "shortName": "Union Berlin",
       "code": "FCU",
-      "forPerGame": 0.8,
-      "againstPerGame": 3.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.2580964604724816,
-      "adjustedAgainst": 1.977064683166381
+      "logoUrl": "https://sports.bzzoiro.com/img/team/83/?bg=transparent",
+      "forPerGame": 0.7777777777777778,
+      "againstPerGame": 2.3333333333333335,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.1326478308167376,
+      "adjustedAgainst": 1.667324233540788
     },
     "bundesliga.werder-bremen": {
       "teamId": "bundesliga.werder-bremen",
       "name": "SV Werder Bremen",
       "shortName": "Werder Bremen",
       "code": "SVW",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.3351148626086733,
-      "adjustedAgainst": 1.4526268930326702
+      "logoUrl": "https://sports.bzzoiro.com/img/team/88/?bg=transparent",
+      "forPerGame": 1.8888888888888888,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.4586608370420193,
+      "adjustedAgainst": 1.4720307267006898
     }
   },
   "games": [
@@ -215,29 +234,30 @@
       "season": "bundesliga-2026-27",
       "week": 9,
       "round": "Jornada 9",
-      "startTime": "2026-11-06T19:30Z",
+      "startTime": "2026-11-06T19:30:00Z",
       "status": "final",
       "home": {
         "id": "bundesliga.hamburger",
         "league": "bundesliga",
         "name": "Hamburger SV",
         "shortName": "Hamburger SV",
-        "code": "HAM"
+        "code": "HAM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/96/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.borussia-monchengladbach",
         "league": "bundesliga",
         "name": "Borussia Mönchengladbach",
         "shortName": "Borussia Mönchengladbach",
-        "code": "BOR"
+        "code": "BOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/95/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Sven Jablonski",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:07.515Z",
+        "observedAt": "2026-11-20T13:29:32.416Z",
         "source": "football-data"
       }
     },
@@ -247,29 +267,30 @@
       "season": "bundesliga-2026-27",
       "week": 9,
       "round": "Jornada 9",
-      "startTime": "2026-11-07T14:30Z",
+      "startTime": "2026-11-07T14:30:00Z",
       "status": "final",
       "home": {
         "id": "bundesliga.rb-leipzig",
         "league": "bundesliga",
         "name": "RB Leipzig",
         "shortName": "RB Leipzig",
-        "code": "RBL"
+        "code": "RBL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/80/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.augsburg",
         "league": "bundesliga",
         "name": "FC Augsburg",
         "shortName": "FC Augsburg",
-        "code": "AUG"
+        "code": "AUG",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/90/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Daniel Schlager",
       "neutralSite": false,
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:07.515Z",
+        "observedAt": "2026-11-20T13:29:32.416Z",
         "source": "football-data"
       }
     },
@@ -279,29 +300,30 @@
       "season": "bundesliga-2026-27",
       "week": 9,
       "round": "Jornada 9",
-      "startTime": "2026-11-07T14:30Z",
+      "startTime": "2026-11-07T14:30:00Z",
       "status": "final",
       "home": {
         "id": "bundesliga.borussia-dortmund",
         "league": "bundesliga",
         "name": "Borussia Dortmund",
         "shortName": "Borussia Dortmund",
-        "code": "BOR"
+        "code": "BOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/92/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.elversberg",
         "league": "bundesliga",
         "name": "SV 07 Elversberg",
         "shortName": "SV 07 Elversberg",
-        "code": "ELV"
+        "code": "ELV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1833/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Harm Osmers",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:07.515Z",
+        "observedAt": "2026-11-20T13:29:32.416Z",
         "source": "football-data"
       }
     },
@@ -311,29 +333,30 @@
       "season": "bundesliga-2026-27",
       "week": 9,
       "round": "Jornada 9",
-      "startTime": "2026-11-07T14:30Z",
+      "startTime": "2026-11-07T14:30:00Z",
       "status": "final",
       "home": {
         "id": "bundesliga.mainz",
         "league": "bundesliga",
         "name": "1. FSV Mainz 05",
         "shortName": "1. FSV Mainz 05",
-        "code": "MAI"
+        "code": "MAI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/93/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.bayern-munchen",
         "league": "bundesliga",
         "name": "FC Bayern München",
         "shortName": "FC Bayern München",
-        "code": "BAY"
+        "code": "BAY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/79/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Robert Schröder",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:07.515Z",
+        "observedAt": "2026-11-20T13:29:32.416Z",
         "source": "football-data"
       }
     },
@@ -343,29 +366,30 @@
       "season": "bundesliga-2026-27",
       "week": 9,
       "round": "Jornada 9",
-      "startTime": "2026-11-07T14:30Z",
+      "startTime": "2026-11-07T14:30:00Z",
       "status": "final",
       "home": {
         "id": "bundesliga.paderborn",
         "league": "bundesliga",
         "name": "SC Paderborn 07",
         "shortName": "SC Paderborn 07",
-        "code": "PAD"
+        "code": "PAD",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1293/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.eintracht-frankfurt",
         "league": "bundesliga",
         "name": "Eintracht Frankfurt",
         "shortName": "Eintracht Frankfurt",
-        "code": "EIN"
+        "code": "EIN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/87/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Bastian Dankert",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:07.515Z",
+        "observedAt": "2026-11-20T13:29:32.416Z",
         "source": "football-data"
       }
     },
@@ -375,29 +399,63 @@
       "season": "bundesliga-2026-27",
       "week": 9,
       "round": "Jornada 9",
-      "startTime": "2026-11-07T17:30Z",
+      "startTime": "2026-11-07T17:30:00Z",
       "status": "final",
       "home": {
         "id": "bundesliga.stuttgart",
         "league": "bundesliga",
         "name": "VfB Stuttgart",
         "shortName": "VfB Stuttgart",
-        "code": "STU"
+        "code": "STU",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/84/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.werder-bremen",
         "league": "bundesliga",
         "name": "SV Werder Bremen",
         "shortName": "SV Werder Bremen",
-        "code": "WER"
+        "code": "WER",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/88/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Sören Storks",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:07.515Z",
+        "observedAt": "2026-11-20T13:29:32.416Z",
+        "source": "football-data"
+      }
+    },
+    {
+      "id": "bundesliga-2026-27-md9-koln-bayer-leverkusen",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-08T14:30:00Z",
+      "status": "final",
+      "home": {
+        "id": "bundesliga.koln",
+        "league": "bundesliga",
+        "name": "1. FC Köln",
+        "shortName": "1. FC Köln",
+        "code": "KOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/94/?bg=transparent"
+      },
+      "away": {
+        "id": "bundesliga.bayer-leverkusen",
+        "league": "bundesliga",
+        "name": "Bayer 04 Leverkusen",
+        "shortName": "Bayer 04 Leverkusen",
+        "code": "BAY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/85/?bg=transparent"
+      },
+      "venue": "Alemania",
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 2,
+        "observedAt": "2026-11-20T13:29:32.416Z",
         "source": "football-data"
       }
     },
@@ -407,29 +465,30 @@
       "season": "bundesliga-2026-27",
       "week": 9,
       "round": "Jornada 9",
-      "startTime": "2026-11-08T16:30Z",
+      "startTime": "2026-11-08T16:30:00Z",
       "status": "final",
       "home": {
         "id": "bundesliga.freiburg",
         "league": "bundesliga",
         "name": "SC Freiburg",
         "shortName": "SC Freiburg",
-        "code": "FRE"
+        "code": "FRE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/89/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.union-berlin",
         "league": "bundesliga",
         "name": "1. FC Union Berlin",
         "shortName": "1. FC Union Berlin",
-        "code": "UNI"
+        "code": "UNI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/83/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Sascha Stegemann",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:07.515Z",
+        "observedAt": "2026-11-20T13:29:32.416Z",
         "source": "football-data"
       }
     },
@@ -439,29 +498,30 @@
       "season": "bundesliga-2026-27",
       "week": 9,
       "round": "Jornada 9",
-      "startTime": "2026-11-08T18:30Z",
+      "startTime": "2026-11-08T18:30:00Z",
       "status": "final",
       "home": {
         "id": "bundesliga.hoffenheim",
         "league": "bundesliga",
         "name": "TSG 1899 Hoffenheim",
         "shortName": "TSG 1899 Hoffenheim",
-        "code": "HOF"
+        "code": "HOF",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/86/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.schalke",
         "league": "bundesliga",
         "name": "FC Schalke 04",
         "shortName": "FC Schalke 04",
-        "code": "SCH"
+        "code": "SCH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1290/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Martin Petersen",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:07.515Z",
+        "observedAt": "2026-11-20T13:29:32.416Z",
         "source": "football-data"
       }
     },
@@ -471,24 +531,25 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-20T20:30:00",
+      "startTime": "2026-11-20T19:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.bayern-munchen",
         "league": "bundesliga",
         "name": "FC Bayern München",
         "shortName": "FC Bayern München",
-        "code": "BAY"
+        "code": "BAY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/79/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.koln",
         "league": "bundesliga",
         "name": "1. FC Köln",
         "shortName": "1. FC Köln",
-        "code": "KOL"
+        "code": "KOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/94/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Robin Braun",
       "neutralSite": false
     },
     {
@@ -497,24 +558,25 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-21T14:30Z",
+      "startTime": "2026-11-21T14:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.bayer-leverkusen",
         "league": "bundesliga",
         "name": "Bayer 04 Leverkusen",
         "shortName": "Bayer 04 Leverkusen",
-        "code": "BAY"
+        "code": "BAY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/85/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.paderborn",
         "league": "bundesliga",
         "name": "SC Paderborn 07",
         "shortName": "SC Paderborn 07",
-        "code": "PAD"
+        "code": "PAD",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1293/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Tobias Reichel",
       "neutralSite": false
     },
     {
@@ -523,24 +585,25 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-21T14:30Z",
+      "startTime": "2026-11-21T14:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.union-berlin",
         "league": "bundesliga",
         "name": "1. FC Union Berlin",
         "shortName": "1. FC Union Berlin",
-        "code": "UNI"
+        "code": "UNI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/83/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.rb-leipzig",
         "league": "bundesliga",
         "name": "RB Leipzig",
         "shortName": "RB Leipzig",
-        "code": "RBL"
+        "code": "RBL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/80/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Christian Dingert",
       "neutralSite": false
     },
     {
@@ -549,24 +612,25 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-21T14:30Z",
+      "startTime": "2026-11-21T14:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.elversberg",
         "league": "bundesliga",
         "name": "SV 07 Elversberg",
         "shortName": "SV 07 Elversberg",
-        "code": "ELV"
+        "code": "ELV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1833/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.freiburg",
         "league": "bundesliga",
         "name": "SC Freiburg",
         "shortName": "SC Freiburg",
-        "code": "FRE"
+        "code": "FRE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/89/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Richard Hempel",
       "neutralSite": false
     },
     {
@@ -575,24 +639,25 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-21T14:30Z",
+      "startTime": "2026-11-21T14:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.borussia-monchengladbach",
         "league": "bundesliga",
         "name": "Borussia Mönchengladbach",
         "shortName": "Borussia Mönchengladbach",
-        "code": "BOR"
+        "code": "BOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/95/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.borussia-dortmund",
         "league": "bundesliga",
         "name": "Borussia Dortmund",
         "shortName": "Borussia Dortmund",
-        "code": "BOR"
+        "code": "BOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/92/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Robert Hartmann",
       "neutralSite": false
     },
     {
@@ -601,24 +666,25 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-21T14:30Z",
+      "startTime": "2026-11-21T14:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.eintracht-frankfurt",
         "league": "bundesliga",
         "name": "Eintracht Frankfurt",
         "shortName": "Eintracht Frankfurt",
-        "code": "EIN"
+        "code": "EIN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/87/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.hoffenheim",
         "league": "bundesliga",
         "name": "TSG 1899 Hoffenheim",
         "shortName": "TSG 1899 Hoffenheim",
-        "code": "HOF"
+        "code": "HOF",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/86/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Max Burda",
       "neutralSite": false
     },
     {
@@ -627,24 +693,25 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-21T17:30Z",
+      "startTime": "2026-11-21T17:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.schalke",
         "league": "bundesliga",
         "name": "FC Schalke 04",
         "shortName": "FC Schalke 04",
-        "code": "SCH"
+        "code": "SCH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1290/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.stuttgart",
         "league": "bundesliga",
         "name": "VfB Stuttgart",
         "shortName": "VfB Stuttgart",
-        "code": "STU"
+        "code": "STU",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/84/?bg=transparent"
       },
       "venue": "Alemania",
-      "referee": "Daniel Siebert",
       "neutralSite": false
     },
     {
@@ -653,21 +720,23 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-22T14:30Z",
+      "startTime": "2026-11-22T14:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.augsburg",
         "league": "bundesliga",
         "name": "FC Augsburg",
         "shortName": "FC Augsburg",
-        "code": "AUG"
+        "code": "AUG",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/90/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.mainz",
         "league": "bundesliga",
         "name": "1. FSV Mainz 05",
         "shortName": "1. FSV Mainz 05",
-        "code": "MAI"
+        "code": "MAI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/93/?bg=transparent"
       },
       "venue": "Alemania",
       "neutralSite": false
@@ -678,21 +747,23 @@
       "season": "bundesliga-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-22T16:30Z",
+      "startTime": "2026-11-22T16:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "bundesliga.werder-bremen",
         "league": "bundesliga",
         "name": "SV Werder Bremen",
         "shortName": "SV Werder Bremen",
-        "code": "WER"
+        "code": "WER",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/88/?bg=transparent"
       },
       "away": {
         "id": "bundesliga.hamburger",
         "league": "bundesliga",
         "name": "Hamburger SV",
         "shortName": "Hamburger SV",
-        "code": "HAM"
+        "code": "HAM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/96/?bg=transparent"
       },
       "venue": "Alemania",
       "neutralSite": false
@@ -1651,8 +1722,8 @@
         "referee": "Daniel Schlager",
         "refereeStats": {
           "country": "Germany",
-          "matches": 56,
-          "avgYellow": 3.32,
+          "matches": 57,
+          "avgYellow": 3.37,
           "avgRed": 0.18,
           "avgFouls": 21.5,
           "avgGoals": 3.07
@@ -2094,11 +2165,11 @@
         "referee": "Harm Osmers",
         "refereeStats": {
           "country": "Germany",
-          "matches": 68,
-          "avgYellow": 3.87,
-          "avgRed": 0.16,
+          "matches": 69,
+          "avgYellow": 3.91,
+          "avgRed": 0.17,
           "avgFouls": 21.5,
-          "avgGoals": 2.84
+          "avgGoals": 2.83
         }
       }
     },
@@ -3048,11 +3119,11 @@
         "referee": "Bastian Dankert",
         "refereeStats": {
           "country": "Germany",
-          "matches": 35,
-          "avgYellow": 3.14,
+          "matches": 36,
+          "avgYellow": 3.31,
           "avgRed": 0.11,
           "avgFouls": 21,
-          "avgGoals": 3.46
+          "avgGoals": 3.44
         }
       }
     },
@@ -3528,11 +3599,639 @@
         "referee": "Sören Storks",
         "refereeStats": {
           "country": "Germany",
-          "matches": 39,
-          "avgYellow": 3.82,
+          "matches": 40,
+          "avgYellow": 3.73,
           "avgRed": 0.15,
           "avgFouls": 22.1,
-          "avgGoals": 2.97
+          "avgGoals": 2.95
+        }
+      }
+    },
+    "bundesliga-2026-27-md9-koln-bayer-leverkusen": {
+      "game": "bundesliga-2026-27-md9-koln-bayer-leverkusen",
+      "counts": {
+        "corners": {
+          "home": 4.92,
+          "away": 5.39,
+          "total": 10.31,
+          "line": 10.5,
+          "pOver": 0.4486,
+          "sample": {
+            "home": 111,
+            "away": 145
+          }
+        },
+        "fouls": {
+          "home": 10.04,
+          "away": 10.08,
+          "total": 20.12,
+          "line": 19.5,
+          "pOver": 0.5375,
+          "sample": {
+            "home": 111,
+            "away": 145
+          }
+        },
+        "yellow": {
+          "home": 2.2,
+          "away": 2.23,
+          "total": 4.43,
+          "line": 4.5,
+          "pOver": 0.4547,
+          "sample": {
+            "home": 111,
+            "away": 145
+          }
+        }
+      },
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.5968689856988805,
+        "away": 2.0106610578917,
+        "total": 3.6075300435905806,
+        "margin": -0.41379207219281966
+      },
+      "x12": [
+        0.2529595037247166,
+        0.2175923241103936,
+        0.5294481721648896
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "1. FC Köln gana",
+          "p": 0.2529595037247166,
+          "fairOdds": 3.953201936576579
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2175923241103936,
+          "fairOdds": 4.595750351435461
+        },
+        {
+          "market": "h2h",
+          "selection": "Bayer 04 Leverkusen gana",
+          "p": 0.5294481721648896,
+          "fairOdds": 1.8887589996033896
+        },
+        {
+          "market": "double_chance",
+          "selection": "1. FC Köln o empate",
+          "p": 0.4705518278351102,
+          "fairOdds": 2.1251644151521987
+        },
+        {
+          "market": "double_chance",
+          "selection": "Bayer 04 Leverkusen o empate",
+          "p": 0.7470404962752832,
+          "fairOdds": 1.3386155168106195
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7824076758896061,
+          "fairOdds": 1.278106070295117
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8726151184724531,
+          "fairOdds": 1.1459806033965343
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6969347544258478,
+          "fairOdds": 1.434854545062579
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.30306524557415215,
+          "fairOdds": 3.2996195195708315
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.489028913084288,
+          "fairOdds": 2.0448688681678053
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.510971086915712,
+          "fairOdds": 1.9570578954596631
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6881608803499798,
+          "fairOdds": 1.45314857114724
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3118391196500202,
+          "fairOdds": 3.2067817569595145
+        },
+        {
+          "market": "team_totals",
+          "selection": "1. FC Köln más de 1.5",
+          "line": 1.5,
+          "p": 0.43913356087489486,
+          "fairOdds": 2.2772115117042735
+        },
+        {
+          "market": "team_totals",
+          "selection": "1. FC Köln menos de 1.5",
+          "line": 1.5,
+          "p": 0.5608664391251051,
+          "fairOdds": 1.7829556740101953
+        },
+        {
+          "market": "team_totals",
+          "selection": "Bayer 04 Leverkusen más de 1.5",
+          "line": 1.5,
+          "p": 0.6311863312744926,
+          "fairOdds": 1.5843182123110906
+        },
+        {
+          "market": "team_totals",
+          "selection": "Bayer 04 Leverkusen menos de 1.5",
+          "line": 1.5,
+          "p": 0.36881366872550736,
+          "fairOdds": 2.7113962545250954
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.09651484060401179,
+          "fairOdds": 10.361100880877727
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.0873660624145123,
+          "fairOdds": 11.446092136503236
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07381885739758458,
+          "fairOdds": 13.54667405123939
+        },
+        {
+          "market": "corners_total",
+          "selection": "Más de 10.5",
+          "line": 10.5,
+          "p": 0.4486,
+          "fairOdds": 2.229157378510923
+        },
+        {
+          "market": "corners_total",
+          "selection": "Menos de 10.5",
+          "line": 10.5,
+          "p": 0.5514,
+          "fairOdds": 1.8135654697134567
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Más de 19.5",
+          "line": 19.5,
+          "p": 0.5375,
+          "fairOdds": 1.8604651162790697
+        },
+        {
+          "market": "fouls_total",
+          "selection": "Menos de 19.5",
+          "line": 19.5,
+          "p": 0.4625,
+          "fairOdds": 2.162162162162162
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Más de 4.5",
+          "line": 4.5,
+          "p": 0.4547,
+          "fairOdds": 2.1992522542335604
+        },
+        {
+          "market": "yellow_total",
+          "selection": "Menos de 4.5",
+          "line": 4.5,
+          "p": 0.5453,
+          "fairOdds": 1.8338529249954154
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "1. FC Köln gana",
+              "p": 0.2529595037247166,
+              "fairOdds": 3.953201936576579
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2175923241103936,
+              "fairOdds": 4.595750351435461
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Bayer 04 Leverkusen gana",
+              "p": 0.5294481721648896,
+              "fairOdds": 1.8887589996033896
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "1. FC Köln o empate",
+              "p": 0.4705518278351102,
+              "fairOdds": 2.1251644151521987
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Bayer 04 Leverkusen o empate",
+              "p": 0.7470404962752832,
+              "fairOdds": 1.3386155168106195
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7824076758896061,
+              "fairOdds": 1.278106070295117
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8726151184724531,
+              "fairOdds": 1.1459806033965343
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6969347544258478,
+              "fairOdds": 1.434854545062579
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.30306524557415215,
+              "fairOdds": 3.2996195195708315
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.489028913084288,
+              "fairOdds": 2.0448688681678053
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.510971086915712,
+              "fairOdds": 1.9570578954596631
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6881608803499798,
+              "fairOdds": 1.45314857114724
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3118391196500202,
+              "fairOdds": 3.2067817569595145
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "1. FC Köln más de 1.5",
+              "line": 1.5,
+              "p": 0.43913356087489486,
+              "fairOdds": 2.2772115117042735
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "1. FC Köln menos de 1.5",
+              "line": 1.5,
+              "p": 0.5608664391251051,
+              "fairOdds": 1.7829556740101953
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Bayer 04 Leverkusen más de 1.5",
+              "line": 1.5,
+              "p": 0.6311863312744926,
+              "fairOdds": 1.5843182123110906
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Bayer 04 Leverkusen menos de 1.5",
+              "line": 1.5,
+              "p": 0.36881366872550736,
+              "fairOdds": 2.7113962545250954
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.09651484060401179,
+              "fairOdds": 10.361100880877727
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.0873660624145123,
+              "fairOdds": 11.446092136503236
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07381885739758458,
+              "fairOdds": 13.54667405123939
+            }
+          ]
+        },
+        {
+          "group": "Tiros de esquina 10.5",
+          "rows": [
+            {
+              "market": "corners_total",
+              "selection": "over",
+              "label": "Más de 10.5",
+              "line": 10.5,
+              "p": 0.4486,
+              "fairOdds": 2.229157378510923
+            },
+            {
+              "market": "corners_total",
+              "selection": "under",
+              "label": "Menos de 10.5",
+              "line": 10.5,
+              "p": 0.5514,
+              "fairOdds": 1.8135654697134567
+            }
+          ]
+        },
+        {
+          "group": "Faltas 19.5",
+          "rows": [
+            {
+              "market": "fouls_total",
+              "selection": "over",
+              "label": "Más de 19.5",
+              "line": 19.5,
+              "p": 0.5375,
+              "fairOdds": 1.8604651162790697
+            },
+            {
+              "market": "fouls_total",
+              "selection": "under",
+              "label": "Menos de 19.5",
+              "line": 19.5,
+              "p": 0.4625,
+              "fairOdds": 2.162162162162162
+            }
+          ]
+        },
+        {
+          "group": "Tarjetas amarillas 4.5",
+          "rows": [
+            {
+              "market": "yellow_total",
+              "selection": "over",
+              "label": "Más de 4.5",
+              "line": 4.5,
+              "p": 0.4547,
+              "fairOdds": 2.1992522542335604
+            },
+            {
+              "market": "yellow_total",
+              "selection": "under",
+              "label": "Menos de 4.5",
+              "line": 4.5,
+              "p": 0.5453,
+              "fairOdds": 1.8338529249954154
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09651484060401179
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.20 goles/partido",
+          "detail": "18 % menos que la media · 9 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.45 concedidos/partido",
+          "detail": "en la media de la liga · 9 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.01 goles/partido",
+          "detail": "28 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.56 concedidos/partido",
+          "detail": "7 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.34",
+          "detail": "estimada de 456 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.7–4.7",
+          "detail": "local 11%–46% · 456 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "15.º · 9 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "5.º · 16 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-P-E-E · 5 pts",
+          "detail": "4 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-P-P · 9 pts",
+          "detail": "10 goles a favor · 11 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "−6 pts al local",
+          "detail": "historia 19% / 23% / 58% · temporada 31% / 21% / 48%"
+        },
+        {
+          "key": "corners_expected",
+          "label": "Tiros de esquina",
+          "value": "10.3 tiros de esquina esperados",
+          "detail": "1. FC Köln 4.9 · Bayer 04 Leverkusen 5.4"
+        },
+        {
+          "key": "fouls_expected",
+          "label": "Faltas",
+          "value": "20.1 faltas esperados",
+          "detail": "1. FC Köln 10.0 · Bayer 04 Leverkusen 10.1"
+        },
+        {
+          "key": "yellow_expected",
+          "label": "Tarjetas amarillas",
+          "value": "4.4 amarillas esperados",
+          "detail": "1. FC Köln 2.2 · Bayer 04 Leverkusen 2.2"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 13:30",
+        "Fuerza ajustada por rival · KOL 0.82 / 1.07 · BAY 1.28 / 0.99",
+        "Ponderando 159.9 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.60 – 2.01 · total 3.61",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-08T13:30:00.000Z",
+      "publishedAt": "2026-11-08T13:30:00.000Z",
+      "source": "openfootball+football-data",
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09651484060401179
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.6 goles: 1.6 de 1. FC Köln y 2.0 de Bayer 04 Leverkusen.",
+          "Bayer 04 Leverkusen anota 28 % más que la media.",
+          "1. FC Köln anota 18 % menos que la media.",
+          "La historia larga favorece menos a 1. FC Köln que esta temporada."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-04-25",
+            "homeTeamId": "bundesliga.koln",
+            "awayTeamId": "bundesliga.bayer-leverkusen",
+            "homeGoals": 1,
+            "awayGoals": 2
+          },
+          {
+            "date": "2025-12-13",
+            "homeTeamId": "bundesliga.bayer-leverkusen",
+            "awayTeamId": "bundesliga.koln",
+            "homeGoals": 2,
+            "awayGoals": 0
+          },
+          {
+            "date": "2024-03-03",
+            "homeTeamId": "bundesliga.koln",
+            "awayTeamId": "bundesliga.bayer-leverkusen",
+            "homeGoals": 0,
+            "awayGoals": 2
+          },
+          {
+            "date": "2023-10-08",
+            "homeTeamId": "bundesliga.bayer-leverkusen",
+            "awayTeamId": "bundesliga.koln",
+            "homeGoals": 3,
+            "awayGoals": 0
+          },
+          {
+            "date": "2023-05-05",
+            "homeTeamId": "bundesliga.bayer-leverkusen",
+            "awayTeamId": "bundesliga.koln",
+            "homeGoals": 1,
+            "awayGoals": 2
+          }
+        ],
+        "restDays": {
+          "home": 7,
+          "away": 8
         }
       }
     },
@@ -4009,11 +4708,11 @@
         "referee": "Sascha Stegemann",
         "refereeStats": {
           "country": "Germany",
-          "matches": 61,
-          "avgYellow": 3.59,
+          "matches": 62,
+          "avgYellow": 3.6,
           "avgRed": 0.21,
           "avgFouls": 22.7,
-          "avgGoals": 3.03
+          "avgGoals": 3.05
         }
       }
     },
@@ -4499,6 +5198,84 @@
     },
     "bundesliga-2026-27-md10-bayern-munchen-koln": {
       "game": "bundesliga-2026-27-md10-bayern-munchen-koln",
+      "cortex": {
+        "headline": "Bayern, 89 % de probabilidad en casa ante el Köln",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Bayern llega como primero con 21 puntos y diferencia de 20, sostenido por una probabilidad de 89 %. El Köln es decimoquinto con 9 puntos y diferencia de -4, y su visita se lee con apenas 2 % de probabilidad.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se proyecta un partido abierto: 5.37 goles esperados en total, con 4.38 del Bayern y 0.99 del Köln. El 89 % de más de 2.5 goles y el 63 % de ambos anotan apuntan a que el local concentra el aporte.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 4.38,
+                "away": 0.99
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "63 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "89 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Bayern empuja con 7.4 tiros de esquina frente a 3.7 del Köln, 11.1 en total. Las faltas van parejas, 9.3 y 8.9 para 18.1, así que el juego se corta poco y el local sostiene el asedio.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 7.4,
+                "away": 3.7
+              },
+              {
+                "label": "Faltas",
+                "home": 9.3,
+                "away": 8.9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.7,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Bayern está en la posición 1 con 21 puntos en 9 partidos jugados y diferencia de 20. El Köln aparece en la posición 15 con 9 puntos y diferencia de -4, también con 9 jugados.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 21,
+                "away": 9
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Bayern, el criterio del árbitro define cuánto se corta el ritmo con faltas, y un primer gol temprano del Köln obligaría a otra lectura del partido.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "5ec1a62708b5a79c",
+        "generatedAt": "2026-11-20T13:32:32.729Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 7.43,
@@ -5161,6 +5938,84 @@
     },
     "bundesliga-2026-27-md10-bayer-leverkusen-paderborn": {
       "game": "bundesliga-2026-27-md10-bayer-leverkusen-paderborn",
+      "cortex": {
+        "headline": "Leverkusen, 69 % en casa y ataque de 2.20 goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Leverkusen llega mejor: quinto con 16 puntos y diferencia de 3, frente al decimotercero Paderborn con 10 puntos y diferencia de -3. La probabilidad de 69 % contra 14 % confirma esa distancia, y el local la sostiene jugando en casa.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.36 goles esperados en total, con 66 % de superar los 2.5 y 60 % de que anoten ambos. Leverkusen aporta 2.20 y concentra el peso ofensivo; Paderborn suma 1.16 y necesita aprovechar lo poco que genere.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.2,
+                "away": 1.16
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "60 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "66 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Leverkusen empuja con 7.1 tiros de esquina por 3.7 del visitante, 10.8 en total. Las faltas llegan a 21.1, con Paderborn en 11.3, así que el juego se corta seguido y el local acumula presión por bandas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 7.1,
+                "away": 3.7
+              },
+              {
+                "label": "Faltas",
+                "home": 9.8,
+                "away": 11.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Leverkusen es quinto con 16 puntos en 9 partidos y diferencia de 3. Paderborn es decimotercero con 10 puntos en 9 jornadas y diferencia de -3. El local juega en casa; el visitante, fuera.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 16,
+                "away": 10
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del local, el criterio del árbitro define cuánto se corta el juego con tantas faltas, y un gol temprano de Paderborn obliga a Leverkusen a estirarse y abre más espacios.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "38abf8cf4d4ef5dd",
+        "generatedAt": "2026-11-20T13:32:39.789Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 7.1,
@@ -5827,6 +6682,84 @@
     },
     "bundesliga-2026-27-md10-union-berlin-rb-leipzig": {
       "game": "bundesliga-2026-27-md10-union-berlin-rb-leipzig",
+      "cortex": {
+        "headline": "Leipzig llega cuarto y con más gol; Union necesita cortar el ritmo",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Leipzig llega mejor: cuarto con 18 puntos y una diferencia de +14, con 53 % de probabilidad frente al 25 % del Union Berlin. El Union es decimosexto con 7 puntos y -14, y en casa tendría que sostener el partido desde el orden antes que desde el balón.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.74, con 71 % de más de 2.5 y 70 % de ambos anotan. El Leipzig aporta la mayor cuota ofensiva con 2.25 goles esperados, frente a 1.49 del Union Berlin.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.49,
+                "away": 2.25
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "70 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "71 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Union empuja más por los costados con 5.2 tiros de esquina por 4.6 del Leipzig, en un total de 9.8. Las faltas suman 22.3, con 12.3 del local: partido cortado, con el Union frenando y el Leipzig circulando.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.2,
+                "away": 4.6
+              },
+              {
+                "label": "Faltas",
+                "home": 12.3,
+                "away": 9.9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 1.7
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Union Berlin es decimosexto con 7 puntos y diferencia de -14 en 9 jornadas. El Leipzig es cuarto con 18 puntos y +14 en los mismos 9 partidos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 7,
+                "away": 18
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Leipzig y la contención del Union. El criterio del árbitro importa con 22.3 faltas previstas, y el primer gol define si el Union se cierra o se estira.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "ea7f04b1daf2a726",
+        "generatedAt": "2026-11-20T13:32:44.483Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.17,
@@ -6487,16 +7420,94 @@
         "referee": "Christian Dingert",
         "refereeStats": {
           "country": "Germany",
-          "matches": 35,
-          "avgYellow": 3.43,
-          "avgRed": 0.2,
+          "matches": 36,
+          "avgYellow": 3.42,
+          "avgRed": 0.19,
           "avgFouls": 22.4,
-          "avgGoals": 2.83
+          "avgGoals": 2.75
         }
       }
     },
     "bundesliga-2026-27-md10-elversberg-freiburg": {
       "game": "bundesliga-2026-27-md10-elversberg-freiburg",
+      "cortex": {
+        "headline": "Elversberg en casa con más probabilidad, pero Freiburg llega tercero",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Elversberg tiene el 45 % por jugar en casa, aunque su diferencia de -1 lo deja séptimo con 13 puntos. Freiburg llega tercero con 19 puntos y +10, el mejor respaldo de la cancha, pero su 31 % lo pone por debajo del local.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 4.15 y el más de 2.5 llega al 77 %, con ambos anotan en 76 %. Elversberg aporta más con 2.40 goles esperados por 1.75 de Freiburg, así que el peso ofensivo se inclina al local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.4,
+                "away": 1.75
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "76 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "77 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Elversberg empuja con 5.0 tiros de esquina por 4.4 de Freiburg, 9.4 en total. Las faltas suman 23.8, con 12.4 del local, y 3.6 amarillas: un partido con contacto y pocas pausas largas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5,
+                "away": 4.4
+              },
+              {
+                "label": "Faltas",
+                "home": 12.4,
+                "away": 11.5
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Freiburg es tercero con 19 puntos y +10 tras 9 jornadas. Elversberg es séptimo con 13 puntos y -1, también con 9 jugados, así que la carga de partidos es la misma para los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 13,
+                "away": 19
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El árbitro define qué tan cortado se juega con ese volumen de faltas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "3ec7cae1cf8aa24c",
+        "generatedAt": "2026-11-20T13:32:48.094Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.97,
@@ -7122,8 +8133,8 @@
         "referee": "Richard Hempel",
         "refereeStats": {
           "country": "Germany",
-          "matches": 27,
-          "avgYellow": 1.07,
+          "matches": 28,
+          "avgYellow": 1.04,
           "avgRed": 0.04,
           "avgFouls": 24.9,
           "avgGoals": 3.11
@@ -7132,6 +8143,84 @@
     },
     "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund": {
       "game": "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund",
+      "cortex": {
+        "headline": "Dortmund llega con 64 % y un ataque que proyecta 2.52 goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Dortmund llega mejor: 64 % de probabilidad y segundo lugar con 21 puntos, contra un Gladbach último con 4. La proyección marca 2.52 goles para el visitante y 1.22 para el local, así que la diferencia se explica en el área, no en el ritmo.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.74 goles esperados, 88 % de superar 1.5 y 71 % de pasar 2.5. El Dortmund aporta 2.52 de esa cifra y el Gladbach 1.22; ambos anotan en 65 % de los escenarios.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.22,
+                "away": 2.52
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "65 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "71 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina están parejos, 4.8 por lado y 9.5 en total, así que ninguno empuja claramente más. Las faltas suman 22.5, con 11.8 del Gladbach y 10.7 del Dortmund: partido cortado, con 3.8 amarillas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.8,
+                "away": 4.8
+              },
+              {
+                "label": "Faltas",
+                "home": 11.8,
+                "away": 10.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Gladbach es último con 4 puntos en 9 jornadas y diferencia de -13. El Dortmund es segundo con 21 puntos y +9. No hay datos de descanso para ninguno de los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 4,
+                "away": 21
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Dortmund. El árbitro importa con 22.5 faltas y 3.8 amarillas en juego. Un gol temprano del Gladbach obligaría al visitante a estirarse y abriría más espacios.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "52548fac4abc077a",
+        "generatedAt": "2026-11-20T13:32:52.536Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.76,
@@ -7805,6 +8894,84 @@
     },
     "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim": {
       "game": "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim",
+      "cortex": {
+        "headline": "Frankfurt con más peso ofensivo en casa ante un Hoffenheim incómodo",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Frankfurt llega con 48 % de probabilidad y una proyección de 2.49 goles a favor, el respaldo más claro del partido. Hoffenheim queda en 30 % y llega con mejor diferencia de gol (-1 contra -5), aunque con los mismos 12 puntos.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 4.50, con 82 % de más de 2.5 y 80 % de ambos anotan: se ve abierto y con espacio para los dos. Frankfurt aporta la cuota mayor con 2.49 por 2.02 del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.49,
+                "away": 2.02
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "80 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "82 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners se reparten 5.5 para Frankfurt y 4.8 para Hoffenheim, total 10.2: el local empuja más. Las faltas cargan al visitante, 13.1 contra 9.3, con 22.4 en total, así que el juego se corta del lado de Hoffenheim.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.5,
+                "away": 4.8
+              },
+              {
+                "label": "Faltas",
+                "home": 9.3,
+                "away": 13.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.7,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Hoffenheim es 9º con 12 puntos y diferencia de -1 en 9 partidos. Frankfurt es 10º con 12 puntos y -5 en los mismos 9 encuentros. Llegan con carga idéntica de partidos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 12
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El árbitro importa por las 22.4 faltas y 3.6 amarillas proyectadas. El primer gol define si Hoffenheim sigue cortando o se estira.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "ff67cffc825e3141",
+        "generatedAt": "2026-11-20T13:32:56.760Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.49,
@@ -8466,16 +9633,94 @@
         "referee": "Max Burda",
         "refereeStats": {
           "country": "Germany",
-          "matches": 32,
-          "avgYellow": 1,
+          "matches": 34,
+          "avgYellow": 1.06,
           "avgRed": 0,
           "avgFouls": 24.5,
-          "avgGoals": 3.34
+          "avgGoals": 3.35
         }
       }
     },
     "bundesliga-2026-27-md10-schalke-stuttgart": {
       "game": "bundesliga-2026-27-md10-schalke-stuttgart",
+      "cortex": {
+        "headline": "Stuttgart llega mejor y el partido apunta a goles",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Stuttgart se presenta con 47 % de probabilidad y una diferencia de cero en la tabla, mientras Schalke carga con 31 % y una diferencia de menos seis. La ventaja visitante no es amplia, pero el local llega con más huecos que argumentos.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es de 3.89, con 1.92 para Schalke y 1.97 para Stuttgart. El 74 % de más de 2.5 y el mismo 74 % de ambos anotan describen un partido de ida y vuelta, donde el aporte goleador se reparte casi parejo.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.92,
+                "away": 1.97
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "74 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "74 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina vienen casi igualados, 5.2 del local y 5.4 del visitante, con 10.6 de total. Las faltas suman 22.0, así que habrá empuje por las bandas y un juego cortado a ratos, sin un dominador claro del ritmo.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.2,
+                "away": 5.4
+              },
+              {
+                "label": "Faltas",
+                "home": 11.1,
+                "away": 10.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Schalke está en la posición 17 con 6 puntos y diferencia de menos seis tras 9 jornadas. Stuttgart es 8 con 12 puntos y diferencia de cero, también con 9 jugados. El descanso es el mismo para ambos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 6,
+                "away": 12
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con 22.0 faltas proyectadas. El primer gol mueve la lectura: si Schalke anota temprano, el partido se abre distinto.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "8f5f147d7dfeabe3",
+        "generatedAt": "2026-11-20T13:33:01.014Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.21,
@@ -9138,16 +10383,94 @@
         "referee": "Daniel Siebert",
         "refereeStats": {
           "country": "Germany",
-          "matches": 76,
-          "avgYellow": 4.46,
-          "avgRed": 0.24,
+          "matches": 78,
+          "avgYellow": 4.51,
+          "avgRed": 0.23,
           "avgFouls": 22.2,
-          "avgGoals": 3.04
+          "avgGoals": 2.97
         }
       }
     },
     "bundesliga-2026-27-md10-augsburg-mainz": {
       "game": "bundesliga-2026-27-md10-augsburg-mainz",
+      "cortex": {
+        "headline": "Augsburg en casa manda en el papel, Mainz aprieta en la tabla",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Augsburg llega con la ventaja de la localía y la probabilidad más alta, 44 % frente al 32 % del Mainz. En la tabla, sin embargo, el Mainz está un escalón arriba con 10 puntos por 9 del Augsburg, así que la diferencia real es mínima.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.70 goles en total, con 2.03 del Augsburg y 1.67 del Mainz. El 70 % de más de 2.5 y el 71 % de ambos anotan apuntan a que los dos encuentran la red.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.03,
+                "away": 1.67
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "71 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "70 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Augsburg empuja con 5.3 tiros de esquina por 4.8 del Mainz, 10.1 en total. El Mainz corta más el juego con 11.8 faltas frente a 9.2 del Augsburg, 21.0 en conjunto: partido trabado en el medio.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.3,
+                "away": 4.8
+              },
+              {
+                "label": "Faltas",
+                "home": 9.2,
+                "away": 11.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Mainz es 12º con 10 puntos en 9 partidos y diferencia de -1. El Augsburg es 14º con 9 puntos en 9 partidos y diferencia de 0. No hay datos de descanso para ninguno de los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 9,
+                "away": 10
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas, el criterio del árbitro para las faltas y quién anota primero pueden mover la lectura. Un gol temprano del Augsburg obliga al Mainz a estirarse y abre el ritmo.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "be3ae971f4e05e65",
+        "generatedAt": "2026-11-20T13:33:03.161Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.35,
@@ -9802,10 +11125,99 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Martin Petersen",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 39,
+          "avgYellow": 3.28,
+          "avgRed": 0.18,
+          "avgFouls": 23.4,
+          "avgGoals": 3.08
+        }
+      }
     },
     "bundesliga-2026-27-md10-werder-bremen-hamburger": {
       "game": "bundesliga-2026-27-md10-werder-bremen-hamburger",
+      "cortex": {
+        "headline": "Werder en casa con más peso ofensivo que su visitante",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Werder Bremen llega sexto con 15 puntos y diferencia de 2, mientras el Hamburgo es undécimo con 12 y diferencia de -10. La probabilidad de 54 % a favor del local se apoya en esa brecha defensiva: el visitante concede mucho más de lo que produce.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.38 y el más de 2.5 llega a 65 %, con ambos anotan en 63 %. El Werder aporta 2.15 y el Hamburgo 1.23, así que el peso ofensivo se carga del lado local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.15,
+                "away": 1.23
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "63 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "65 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Werder empuja con 5.8 tiros de esquina por 4.2 del Hamburgo, 9.9 en total. Las faltas están parejas, 11.4 y 11.5 para 22.9, con 3.7 amarillas: partido cortado pero no roto.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.8,
+                "away": 4.2
+              },
+              {
+                "label": "Faltas",
+                "home": 11.4,
+                "away": 11.5
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 1.8
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Werder es sexto con 15 puntos en 9 jugados y diferencia de 2. El Hamburgo es undécimo con 12 puntos en 9 jugados y diferencia de -10, la señal más clara de su problema atrás.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 15,
+                "away": 12
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol ordena el partido: si cae temprano, el Hamburgo queda expuesto.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "5c84d79814373996",
+        "generatedAt": "2026-11-20T13:33:07.355Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.8,
@@ -10463,7 +11875,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Florian Badstubner",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 61,
+          "avgYellow": 2.77,
+          "avgRed": 0.18,
+          "avgFouls": 23.4,
+          "avgGoals": 3.05
+        }
+      }
     }
   },
   "standings": [
@@ -10472,16 +11895,38 @@
       "name": "FC Bayern München",
       "shortName": "Bayern München",
       "code": "FCB",
-      "played": 6,
-      "won": 5,
-      "drawn": 1,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/79/?bg=transparent",
+      "played": 9,
+      "won": 6,
+      "drawn": 3,
       "lost": 0,
-      "goalsFor": 21,
-      "goalsAgainst": 6,
-      "points": 16,
+      "goalsFor": 29,
+      "goalsAgainst": 9,
+      "points": 21,
       "form": [
         "D",
         "W",
+        "W",
+        "D",
+        "W"
+      ]
+    },
+    {
+      "teamId": "bundesliga.borussia-dortmund",
+      "name": "Borussia Dortmund",
+      "shortName": "Dortmund",
+      "code": "BVB",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/92/?bg=transparent",
+      "played": 9,
+      "won": 6,
+      "drawn": 3,
+      "lost": 0,
+      "goalsFor": 16,
+      "goalsAgainst": 7,
+      "points": 21,
+      "form": [
+        "D",
+        "D",
         "W",
         "D",
         "W"
@@ -10492,38 +11937,19 @@
       "name": "SC Freiburg",
       "shortName": "Freiburg",
       "code": "SCF",
-      "played": 7,
-      "won": 5,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/89/?bg=transparent",
+      "played": 9,
+      "won": 6,
       "drawn": 1,
-      "lost": 1,
-      "goalsFor": 17,
-      "goalsAgainst": 7,
-      "points": 16,
+      "lost": 2,
+      "goalsFor": 20,
+      "goalsAgainst": 10,
+      "points": 19,
       "form": [
         "W",
         "L",
         "L",
         "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "bundesliga.borussia-dortmund",
-      "name": "Borussia Dortmund",
-      "shortName": "Dortmund",
-      "code": "BVB",
-      "played": 6,
-      "won": 5,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 13,
-      "goalsAgainst": 5,
-      "points": 16,
-      "form": [
-        "D",
-        "D",
-        "W",
-        "D",
         "W"
       ]
     },
@@ -10532,13 +11958,14 @@
       "name": "RB Leipzig",
       "shortName": "RB Leipzig",
       "code": "RBL",
-      "played": 6,
-      "won": 4,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/80/?bg=transparent",
+      "played": 9,
+      "won": 6,
       "drawn": 0,
-      "lost": 2,
-      "goalsFor": 16,
-      "goalsAgainst": 7,
-      "points": 12,
+      "lost": 3,
+      "goalsFor": 27,
+      "goalsAgainst": 13,
+      "points": 18,
       "form": [
         "W",
         "L",
@@ -10548,17 +11975,39 @@
       ]
     },
     {
+      "teamId": "bundesliga.bayer-leverkusen",
+      "name": "Bayer 04 Leverkusen",
+      "shortName": "Leverkusen",
+      "code": "B04",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/85/?bg=transparent",
+      "played": 9,
+      "won": 5,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 20,
+      "goalsAgainst": 17,
+      "points": 16,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "bundesliga.werder-bremen",
       "name": "SV Werder Bremen",
       "shortName": "Werder Bremen",
       "code": "SVW",
-      "played": 6,
-      "won": 3,
-      "drawn": 1,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/88/?bg=transparent",
+      "played": 9,
+      "won": 4,
+      "drawn": 3,
       "lost": 2,
-      "goalsFor": 10,
-      "goalsAgainst": 9,
-      "points": 10,
+      "goalsFor": 17,
+      "goalsAgainst": 15,
+      "points": 15,
       "form": [
         "D",
         "D",
@@ -10572,13 +12021,14 @@
       "name": "SV 07 Elversberg",
       "shortName": "Elversberg",
       "code": "ELV",
-      "played": 5,
-      "won": 3,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 13,
-      "goalsAgainst": 10,
-      "points": 9,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1833/?bg=transparent",
+      "played": 9,
+      "won": 4,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 17,
+      "goalsAgainst": 18,
+      "points": 13,
       "form": [
         "L",
         "W",
@@ -10588,37 +12038,18 @@
       ]
     },
     {
-      "teamId": "bundesliga.eintracht-frankfurt",
-      "name": "Eintracht Frankfurt",
-      "shortName": "Frankfurt",
-      "code": "SGE",
-      "played": 6,
-      "won": 2,
-      "drawn": 3,
-      "lost": 1,
-      "goalsFor": 14,
-      "goalsAgainst": 13,
-      "points": 9,
-      "form": [
-        "D",
-        "L",
-        "L",
-        "W",
-        "D"
-      ]
-    },
-    {
       "teamId": "bundesliga.stuttgart",
       "name": "VfB Stuttgart",
       "shortName": "Stuttgart",
       "code": "VFB",
-      "played": 6,
-      "won": 3,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/84/?bg=transparent",
+      "played": 9,
+      "won": 4,
       "drawn": 0,
-      "lost": 3,
-      "goalsFor": 11,
-      "goalsAgainst": 11,
-      "points": 9,
+      "lost": 5,
+      "goalsFor": 15,
+      "goalsAgainst": 15,
+      "points": 12,
       "form": [
         "W",
         "L",
@@ -10632,13 +12063,14 @@
       "name": "TSG 1899 Hoffenheim",
       "shortName": "Hoffenheim",
       "code": "TSG",
-      "played": 7,
-      "won": 3,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/86/?bg=transparent",
+      "played": 9,
+      "won": 4,
       "drawn": 0,
-      "lost": 4,
-      "goalsFor": 12,
-      "goalsAgainst": 13,
-      "points": 9,
+      "lost": 5,
+      "goalsFor": 16,
+      "goalsAgainst": 17,
+      "points": 12,
       "form": [
         "L",
         "W",
@@ -10648,63 +12080,24 @@
       ]
     },
     {
-      "teamId": "bundesliga.augsburg",
-      "name": "FC Augsburg",
-      "shortName": "Augsburg",
-      "code": "FCA",
-      "played": 6,
-      "won": 2,
-      "drawn": 1,
+      "teamId": "bundesliga.eintracht-frankfurt",
+      "name": "Eintracht Frankfurt",
+      "shortName": "Frankfurt",
+      "code": "SGE",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/87/?bg=transparent",
+      "played": 9,
+      "won": 3,
+      "drawn": 3,
       "lost": 3,
-      "goalsFor": 14,
-      "goalsAgainst": 13,
-      "points": 7,
+      "goalsFor": 15,
+      "goalsAgainst": 20,
+      "points": 12,
       "form": [
         "D",
         "L",
-        "D",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "bundesliga.bayer-leverkusen",
-      "name": "Bayer 04 Leverkusen",
-      "shortName": "Leverkusen",
-      "code": "B04",
-      "played": 6,
-      "won": 2,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 12,
-      "goalsAgainst": 12,
-      "points": 7,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "bundesliga.mainz",
-      "name": "1. FSV Mainz 05",
-      "shortName": "Mainz 05",
-      "code": "M05",
-      "played": 5,
-      "won": 2,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 12,
-      "goalsAgainst": 12,
-      "points": 6,
-      "form": [
         "L",
         "W",
-        "L",
-        "L",
-        "L"
+        "D"
       ]
     },
     {
@@ -10712,13 +12105,14 @@
       "name": "Hamburger SV",
       "shortName": "Hamburger SV",
       "code": "HSV",
-      "played": 6,
-      "won": 2,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/96/?bg=transparent",
+      "played": 9,
+      "won": 4,
       "drawn": 0,
-      "lost": 4,
-      "goalsFor": 6,
-      "goalsAgainst": 17,
-      "points": 6,
+      "lost": 5,
+      "goalsFor": 10,
+      "goalsAgainst": 20,
+      "points": 12,
       "form": [
         "W",
         "W",
@@ -10728,17 +12122,39 @@
       ]
     },
     {
+      "teamId": "bundesliga.mainz",
+      "name": "1. FSV Mainz 05",
+      "shortName": "Mainz 05",
+      "code": "M05",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/93/?bg=transparent",
+      "played": 9,
+      "won": 3,
+      "drawn": 1,
+      "lost": 5,
+      "goalsFor": 18,
+      "goalsAgainst": 19,
+      "points": 10,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "L",
+        "L"
+      ]
+    },
+    {
       "teamId": "bundesliga.paderborn",
       "name": "SC Paderborn 07",
       "shortName": "Paderborn",
       "code": "SCP",
-      "played": 5,
-      "won": 1,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 5,
-      "goalsAgainst": 7,
-      "points": 5,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1293/?bg=transparent",
+      "played": 9,
+      "won": 2,
+      "drawn": 4,
+      "lost": 3,
+      "goalsFor": 8,
+      "goalsAgainst": 11,
+      "points": 10,
       "form": [
         "L",
         "D",
@@ -10748,20 +12164,64 @@
       ]
     },
     {
+      "teamId": "bundesliga.augsburg",
+      "name": "FC Augsburg",
+      "shortName": "Augsburg",
+      "code": "FCA",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/90/?bg=transparent",
+      "played": 9,
+      "won": 2,
+      "drawn": 3,
+      "lost": 4,
+      "goalsFor": 20,
+      "goalsAgainst": 20,
+      "points": 9,
+      "form": [
+        "D",
+        "L",
+        "D",
+        "L",
+        "L"
+      ]
+    },
+    {
       "teamId": "bundesliga.koln",
       "name": "1. FC Köln",
       "shortName": "Köln",
       "code": "KOE",
-      "played": 4,
-      "won": 1,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 6,
-      "goalsAgainst": 9,
-      "points": 4,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/94/?bg=transparent",
+      "played": 9,
+      "won": 2,
+      "drawn": 3,
+      "lost": 4,
+      "goalsFor": 10,
+      "goalsAgainst": 14,
+      "points": 9,
       "form": [
         "W",
         "L",
+        "D",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "teamId": "bundesliga.union-berlin",
+      "name": "1. FC Union Berlin",
+      "shortName": "Union Berlin",
+      "code": "FCU",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/83/?bg=transparent",
+      "played": 9,
+      "won": 1,
+      "drawn": 4,
+      "lost": 4,
+      "goalsFor": 7,
+      "goalsAgainst": 21,
+      "points": 7,
+      "form": [
+        "L",
+        "W",
+        "D",
         "D",
         "L"
       ]
@@ -10771,13 +12231,14 @@
       "name": "FC Schalke 04",
       "shortName": "Schalke 04",
       "code": "S04",
-      "played": 4,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1290/?bg=transparent",
+      "played": 9,
       "won": 1,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 4,
-      "goalsAgainst": 8,
-      "points": 3,
+      "drawn": 3,
+      "lost": 5,
+      "goalsFor": 5,
+      "goalsAgainst": 11,
+      "points": 6,
       "form": [
         "D",
         "L",
@@ -10791,37 +12252,18 @@
       "name": "Borussia Mönchengladbach",
       "shortName": "M’gladbach",
       "code": "BMG",
-      "played": 6,
-      "won": 0,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/95/?bg=transparent",
+      "played": 9,
+      "won": 1,
       "drawn": 1,
-      "lost": 5,
-      "goalsFor": 7,
-      "goalsAgainst": 19,
-      "points": 1,
+      "lost": 7,
+      "goalsFor": 12,
+      "goalsAgainst": 25,
+      "points": 4,
       "form": [
         "L",
         "L",
         "W",
-        "D",
-        "L"
-      ]
-    },
-    {
-      "teamId": "bundesliga.union-berlin",
-      "name": "1. FC Union Berlin",
-      "shortName": "Union Berlin",
-      "code": "FCU",
-      "played": 5,
-      "won": 0,
-      "drawn": 1,
-      "lost": 4,
-      "goalsFor": 4,
-      "goalsAgainst": 19,
-      "points": 1,
-      "form": [
-        "L",
-        "W",
-        "D",
         "D",
         "L"
       ]

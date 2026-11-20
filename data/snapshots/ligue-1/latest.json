@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
   "league": "ligue-1",
+  "logoUrl": "https://sports.bzzoiro.com/img/league/6/?bg=transparent",
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-15T17:34:02.833Z",
-  "source": "openfootball+espn",
+  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -14,198 +15,216 @@
       "name": "Angers SCO",
       "shortName": "Angers",
       "code": "SCO",
-      "forPerGame": 0.8571428571428571,
-      "againstPerGame": 1.2857142857142858,
-      "gamesPlayed": 7,
-      "adjustedFor": 0.8905223564682362,
-      "adjustedAgainst": 1.3383782480395414
+      "logoUrl": "https://sports.bzzoiro.com/img/team/107/?bg=transparent",
+      "forPerGame": 0.9,
+      "againstPerGame": 1.9,
+      "gamesPlayed": 10,
+      "adjustedFor": 0.9213390391716244,
+      "adjustedAgainst": 1.559093706226109
     },
     "ligue-1.aj-auxerre": {
       "teamId": "ligue-1.aj-auxerre",
       "name": "AJ Auxerre",
       "shortName": "Auxerre",
       "code": "AJA",
-      "forPerGame": 1.125,
-      "againstPerGame": 2.375,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1959942331454694,
-      "adjustedAgainst": 1.6551797245007933
+      "logoUrl": "https://sports.bzzoiro.com/img/team/109/?bg=transparent",
+      "forPerGame": 1.3,
+      "againstPerGame": 2.4,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.2411013649260683,
+      "adjustedAgainst": 1.7151386008270086
     },
     "ligue-1.stade-brestois": {
       "teamId": "ligue-1.stade-brestois",
       "name": "Stade Brestois 29",
       "shortName": "Brest",
       "code": "SB29",
-      "forPerGame": 1.5714285714285714,
-      "againstPerGame": 1.1428571428571428,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.4020907062965497,
-      "adjustedAgainst": 1.3862838353134725
+      "logoUrl": "https://sports.bzzoiro.com/img/team/105/?bg=transparent",
+      "forPerGame": 1.8,
+      "againstPerGame": 1.2,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5159248835373687,
+      "adjustedAgainst": 1.398461948588242
     },
     "ligue-1.le-havre": {
       "teamId": "ligue-1.le-havre",
       "name": "Le Havre AC",
       "shortName": "Le Havre",
       "code": "HAC",
-      "forPerGame": 1.1428571428571428,
-      "againstPerGame": 2.5714285714285716,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.2269210746174701,
-      "adjustedAgainst": 1.7315458134770805
+      "logoUrl": "https://sports.bzzoiro.com/img/team/102/?bg=transparent",
+      "forPerGame": 0.9,
+      "againstPerGame": 2.2,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.107763217468547,
+      "adjustedAgainst": 1.6870859296898977
     },
     "ligue-1.le-mans": {
       "teamId": "ligue-1.le-mans",
       "name": "Le Mans FC",
       "shortName": "Le Mans",
       "code": "LMFC",
-      "forPerGame": 1.375,
-      "againstPerGame": 1.625,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.3038461223138724,
-      "adjustedAgainst": 1.4542680087742506
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1619/?bg=transparent",
+      "forPerGame": 1.2,
+      "againstPerGame": 1.9,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.2209392865852597,
+      "adjustedAgainst": 1.602997503238679
     },
     "ligue-1.racing-lens": {
       "teamId": "ligue-1.racing-lens",
       "name": "Racing Club de Lens",
       "shortName": "Lens",
       "code": "RCL",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 1.7142857142857142,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.6060979367839332,
-      "adjustedAgainst": 1.2450792088092455
+      "logoUrl": "https://sports.bzzoiro.com/img/team/99/?bg=transparent",
+      "forPerGame": 1.7,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.709473374360776,
+      "adjustedAgainst": 1.2256344039783973
     },
     "ligue-1.lorient": {
       "teamId": "ligue-1.lorient",
       "name": "FC Lorient",
       "shortName": "Lorient",
       "code": "FCL",
-      "forPerGame": 1,
-      "againstPerGame": 1.1428571428571428,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.2292070099882932,
-      "adjustedAgainst": 1.3090012573310212
+      "logoUrl": "https://sports.bzzoiro.com/img/team/110/?bg=transparent",
+      "forPerGame": 0.9,
+      "againstPerGame": 0.8,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.1532249451363779,
+      "adjustedAgainst": 1.1208544148524877
     },
     "ligue-1.lille-osc": {
       "teamId": "ligue-1.lille-osc",
       "name": "Lille OSC",
       "shortName": "Lille",
       "code": "LOSC",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.4725211087933774,
-      "adjustedAgainst": 0.9530522688129405
+      "logoUrl": "https://sports.bzzoiro.com/img/team/106/?bg=transparent",
+      "forPerGame": 1.4,
+      "againstPerGame": 0.7,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.396510708790865,
+      "adjustedAgainst": 0.909976350762498
     },
     "ligue-1.olympique-lyonnais": {
       "teamId": "ligue-1.olympique-lyonnais",
       "name": "Olympique Lyonnais",
       "shortName": "Lyon",
       "code": "OL",
-      "forPerGame": 1.7142857142857142,
-      "againstPerGame": 0.8571428571428571,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.5861344260660628,
-      "adjustedAgainst": 1.1476420461836179
+      "logoUrl": "https://sports.bzzoiro.com/img/team/100/?bg=transparent",
+      "forPerGame": 1.5,
+      "againstPerGame": 0.9,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5171477611627866,
+      "adjustedAgainst": 1.1011038878030266
     },
     "ligue-1.olympique-marseille": {
       "teamId": "ligue-1.olympique-marseille",
       "name": "Olympique de Marseille",
       "shortName": "Marseille",
       "code": "OM",
-      "forPerGame": 1.875,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.7094841886321375,
-      "adjustedAgainst": 1.3038305588056398
+      "logoUrl": "https://sports.bzzoiro.com/img/team/98/?bg=transparent",
+      "forPerGame": 2.2,
+      "againstPerGame": 1.4,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.8700632189208612,
+      "adjustedAgainst": 1.3074987300526297
     },
     "ligue-1.monaco": {
       "teamId": "ligue-1.monaco",
       "name": "AS Monaco FC",
       "shortName": "Monaco",
       "code": "ASM",
-      "forPerGame": 1.375,
-      "againstPerGame": 1,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.5780974368737508,
-      "adjustedAgainst": 1.2190957162259466
+      "logoUrl": "https://sports.bzzoiro.com/img/team/101/?bg=transparent",
+      "forPerGame": 1.3,
+      "againstPerGame": 1.1,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5363487626959738,
+      "adjustedAgainst": 1.2395476926530065
     },
     "ligue-1.ogc-nice": {
       "teamId": "ligue-1.ogc-nice",
       "name": "OGC Nice",
       "shortName": "Nice",
       "code": "OGCN",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.3926430543574138,
-      "adjustedAgainst": 1.5014551342627733
+      "logoUrl": "https://sports.bzzoiro.com/img/team/103/?bg=transparent",
+      "forPerGame": 1.5,
+      "againstPerGame": 1.2,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.3623676907615023,
+      "adjustedAgainst": 1.389309912318549
     },
     "ligue-1.paris": {
       "teamId": "ligue-1.paris",
       "name": "Paris FC",
       "shortName": "Paris FC",
       "code": "PFC",
-      "forPerGame": 2.4,
-      "againstPerGame": 0.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.678351278595899,
-      "adjustedAgainst": 1.2001984497937068
+      "logoUrl": "https://sports.bzzoiro.com/img/team/108/?bg=transparent",
+      "forPerGame": 1.7,
+      "againstPerGame": 1,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5584679004079594,
+      "adjustedAgainst": 1.1816309705877877
     },
     "ligue-1.paris-saint-germain": {
       "teamId": "ligue-1.paris-saint-germain",
       "name": "Paris Saint-Germain FC",
       "shortName": "Paris SG",
       "code": "PSG",
-      "forPerGame": 2,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/114/?bg=transparent",
+      "forPerGame": 2.2,
       "againstPerGame": 1,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.947415975074859,
-      "adjustedAgainst": 0.9510658683710991
+      "gamesPlayed": 10,
+      "adjustedFor": 1.9907259764032825,
+      "adjustedAgainst": 0.9471663145029735
     },
     "ligue-1.stade-rennais": {
       "teamId": "ligue-1.stade-rennais",
       "name": "Stade Rennais FC 1901",
       "shortName": "Rennes",
       "code": "SRFC",
-      "forPerGame": 1.75,
-      "againstPerGame": 2,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.7214613867992656,
-      "adjustedAgainst": 1.5816199251780767
+      "logoUrl": "https://sports.bzzoiro.com/img/team/97/?bg=transparent",
+      "forPerGame": 2.1,
+      "againstPerGame": 2.1,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.8491936131975515,
+      "adjustedAgainst": 1.6358699856185865
     },
     "ligue-1.strasbourg-alsace": {
       "teamId": "ligue-1.strasbourg-alsace",
       "name": "RC Strasbourg Alsace",
       "shortName": "Strasbourg",
       "code": "RCSA",
-      "forPerGame": 2,
-      "againstPerGame": 2.125,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.7995137528651322,
-      "adjustedAgainst": 1.5948881913190804
+      "logoUrl": "https://sports.bzzoiro.com/img/team/112/?bg=transparent",
+      "forPerGame": 1.8,
+      "againstPerGame": 2.2,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.7533778654622365,
+      "adjustedAgainst": 1.6193077099597475
     },
     "ligue-1.toulouse": {
       "teamId": "ligue-1.toulouse",
       "name": "Toulouse FC",
       "shortName": "Toulouse",
       "code": "TFC",
-      "forPerGame": 1.25,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.332857804583061,
-      "adjustedAgainst": 1.373576492481822
+      "logoUrl": "https://sports.bzzoiro.com/img/team/104/?bg=transparent",
+      "forPerGame": 1.5,
+      "againstPerGame": 1.4,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.4541013192100163,
+      "adjustedAgainst": 1.3469353861184643
     },
     "ligue-1.es-troyes": {
       "teamId": "ligue-1.es-troyes",
       "name": "ES Troyes AC",
       "shortName": "Troyes",
       "code": "ESTAC",
-      "forPerGame": 0.8571428571428571,
-      "againstPerGame": 1.7142857142857142,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.0813437860509347,
-      "adjustedAgainst": 1.4524925285025274
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1303/?bg=transparent",
+      "forPerGame": 0.7,
+      "againstPerGame": 1.7,
+      "gamesPlayed": 10,
+      "adjustedFor": 0.9012825720449108,
+      "adjustedAgainst": 1.4316665113544178
     }
   },
   "games": [
@@ -215,29 +234,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-06T19:45Z",
+      "startTime": "2026-11-06T19:45:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.toulouse",
         "league": "ligue-1",
         "name": "Toulouse FC",
         "shortName": "Toulouse FC",
-        "code": "TOU"
+        "code": "TOU",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/104/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.strasbourg-alsace",
         "league": "ligue-1",
         "name": "RC Strasbourg Alsace",
         "shortName": "RC Strasbourg Alsace",
-        "code": "STR"
+        "code": "STR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/112/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Mathieu Vernice",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -247,29 +267,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-07T18:00Z",
+      "startTime": "2026-11-07T18:00:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.aj-auxerre",
         "league": "ligue-1",
         "name": "AJ Auxerre",
         "shortName": "AJ Auxerre",
-        "code": "AJA"
+        "code": "AJA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/109/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.paris",
         "league": "ligue-1",
         "name": "Paris FC",
         "shortName": "Paris FC",
-        "code": "PAR"
+        "code": "PAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/108/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Marc Bollengier",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -279,29 +300,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-07T20:05Z",
+      "startTime": "2026-11-07T20:05:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.paris-saint-germain",
         "league": "ligue-1",
         "name": "Paris Saint-Germain FC",
         "shortName": "Paris Saint-Germain FC",
-        "code": "PAR"
+        "code": "PAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/114/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.es-troyes",
         "league": "ligue-1",
         "name": "ES Troyes AC",
         "shortName": "ES Troyes AC",
-        "code": "EST"
+        "code": "EST",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1303/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Ruddy Buquet",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -311,29 +333,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T14:00Z",
+      "startTime": "2026-11-08T14:00:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.stade-rennais",
         "league": "ligue-1",
         "name": "Stade Rennais FC 1901",
         "shortName": "Stade Rennais FC 1901",
-        "code": "STA"
+        "code": "STA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/97/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.lille-osc",
         "league": "ligue-1",
         "name": "Lille OSC",
         "shortName": "Lille OSC",
-        "code": "LIL"
+        "code": "LIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/106/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Jeremy Stinat",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -343,29 +366,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T16:15Z",
+      "startTime": "2026-11-08T16:15:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.le-mans",
         "league": "ligue-1",
         "name": "Le Mans FC",
         "shortName": "Le Mans FC",
-        "code": "LEM"
+        "code": "LEM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1619/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.monaco",
         "league": "ligue-1",
         "name": "AS Monaco FC",
         "shortName": "AS Monaco FC",
-        "code": "MON"
+        "code": "MON",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/101/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Bastien Dechepy",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -375,29 +399,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T16:15Z",
+      "startTime": "2026-11-08T16:15:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.stade-brestois",
         "league": "ligue-1",
         "name": "Stade Brestois 29",
         "shortName": "Stade Brestois 29",
-        "code": "STA"
+        "code": "STA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/105/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.olympique-lyonnais",
         "league": "ligue-1",
         "name": "Olympique Lyonnais",
         "shortName": "Olympique Lyonnais",
-        "code": "OLY"
+        "code": "OLY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/100/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Jeremy Stinat",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -407,29 +432,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T16:15Z",
+      "startTime": "2026-11-08T16:15:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.le-havre",
         "league": "ligue-1",
         "name": "Le Havre AC",
         "shortName": "Le Havre AC",
-        "code": "LEH"
+        "code": "LEH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/102/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.lorient",
         "league": "ligue-1",
         "name": "FC Lorient",
         "shortName": "FC Lorient",
-        "code": "LOR"
+        "code": "LOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/110/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Aurelien Petit",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -439,29 +465,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T16:15Z",
+      "startTime": "2026-11-08T16:15:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.angers-sco",
         "league": "ligue-1",
         "name": "Angers SCO",
         "shortName": "Angers SCO",
-        "code": "ANG"
+        "code": "ANG",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/107/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.ogc-nice",
         "league": "ligue-1",
         "name": "OGC Nice",
         "shortName": "OGC Nice",
-        "code": "OGC"
+        "code": "OGC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/103/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Geoffrey Kubler",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -471,29 +498,30 @@
       "season": "ligue-1-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T19:45Z",
+      "startTime": "2026-11-08T19:45:00Z",
       "status": "final",
       "home": {
         "id": "ligue-1.racing-lens",
         "league": "ligue-1",
         "name": "Racing Club de Lens",
         "shortName": "Racing Club de Lens",
-        "code": "RAC"
+        "code": "RAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/99/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.olympique-marseille",
         "league": "ligue-1",
         "name": "Olympique de Marseille",
         "shortName": "Olympique de Marseille",
-        "code": "OLY"
+        "code": "OLY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/98/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Willy Delajod",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:10.146Z",
+        "observedAt": "2026-11-20T13:29:34.021Z",
         "source": "football-data"
       }
     },
@@ -503,24 +531,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-20T19:45Z",
+      "startTime": "2026-11-20T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.es-troyes",
         "league": "ligue-1",
         "name": "ES Troyes AC",
         "shortName": "ES Troyes AC",
-        "code": "EST"
+        "code": "EST",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1303/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.le-havre",
         "league": "ligue-1",
         "name": "Le Havre AC",
         "shortName": "Le Havre AC",
-        "code": "LEH"
+        "code": "LEH",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/102/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Jeremie Pignard",
       "neutralSite": false
     },
     {
@@ -529,24 +558,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T16:15Z",
+      "startTime": "2026-11-21T16:15:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.ogc-nice",
         "league": "ligue-1",
         "name": "OGC Nice",
         "shortName": "OGC Nice",
-        "code": "OGC"
+        "code": "OGC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/103/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.paris-saint-germain",
         "league": "ligue-1",
         "name": "Paris Saint-Germain FC",
         "shortName": "Paris Saint-Germain FC",
-        "code": "PAR"
+        "code": "PAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/114/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Jérôme Brisard",
       "neutralSite": false
     },
     {
@@ -555,24 +585,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T19:45Z",
+      "startTime": "2026-11-21T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.monaco",
         "league": "ligue-1",
         "name": "AS Monaco FC",
         "shortName": "AS Monaco FC",
-        "code": "MON"
+        "code": "MON",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/101/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.aj-auxerre",
         "league": "ligue-1",
         "name": "AJ Auxerre",
         "shortName": "AJ Auxerre",
-        "code": "AJA"
+        "code": "AJA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/109/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Jeremy Stinat",
       "neutralSite": false
     },
     {
@@ -581,24 +612,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T19:45Z",
+      "startTime": "2026-11-21T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.racing-lens",
         "league": "ligue-1",
         "name": "Racing Club de Lens",
         "shortName": "Racing Club de Lens",
-        "code": "RAC"
+        "code": "RAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/99/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.toulouse",
         "league": "ligue-1",
         "name": "Toulouse FC",
         "shortName": "Toulouse FC",
-        "code": "TOU"
+        "code": "TOU",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/104/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Bastien Dechepy",
       "neutralSite": false
     },
     {
@@ -607,24 +639,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T19:45Z",
+      "startTime": "2026-11-21T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.lille-osc",
         "league": "ligue-1",
         "name": "Lille OSC",
         "shortName": "Lille OSC",
-        "code": "LIL"
+        "code": "LIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/106/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.olympique-lyonnais",
         "league": "ligue-1",
         "name": "Olympique Lyonnais",
         "shortName": "Olympique Lyonnais",
-        "code": "OLY"
+        "code": "OLY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/100/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "François Letexier",
       "neutralSite": false
     },
     {
@@ -633,24 +666,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T19:45Z",
+      "startTime": "2026-11-21T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.strasbourg-alsace",
         "league": "ligue-1",
         "name": "RC Strasbourg Alsace",
         "shortName": "RC Strasbourg Alsace",
-        "code": "STR"
+        "code": "STR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/112/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.stade-brestois",
         "league": "ligue-1",
         "name": "Stade Brestois 29",
         "shortName": "Stade Brestois 29",
-        "code": "STA"
+        "code": "STA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/105/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Azzedine Souifi",
       "neutralSite": false
     },
     {
@@ -659,24 +693,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-22T14:00Z",
+      "startTime": "2026-11-22T14:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.paris",
         "league": "ligue-1",
         "name": "Paris FC",
         "shortName": "Paris FC",
-        "code": "PAR"
+        "code": "PAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/108/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.angers-sco",
         "league": "ligue-1",
         "name": "Angers SCO",
         "shortName": "Angers SCO",
-        "code": "ANG"
+        "code": "ANG",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/107/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Aurelien Petit",
       "neutralSite": false
     },
     {
@@ -685,24 +720,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-22T16:15Z",
+      "startTime": "2026-11-22T16:15:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.lorient",
         "league": "ligue-1",
         "name": "FC Lorient",
         "shortName": "FC Lorient",
-        "code": "LOR"
+        "code": "LOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/110/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.stade-rennais",
         "league": "ligue-1",
         "name": "Stade Rennais FC 1901",
         "shortName": "Stade Rennais FC 1901",
-        "code": "STA"
+        "code": "STA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/97/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Marc Bollengier",
       "neutralSite": false
     },
     {
@@ -711,24 +747,25 @@
       "season": "ligue-1-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-22T19:45Z",
+      "startTime": "2026-11-22T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "ligue-1.olympique-marseille",
         "league": "ligue-1",
         "name": "Olympique de Marseille",
         "shortName": "Olympique de Marseille",
-        "code": "OLY"
+        "code": "OLY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/98/?bg=transparent"
       },
       "away": {
         "id": "ligue-1.le-mans",
         "league": "ligue-1",
         "name": "Le Mans FC",
         "shortName": "Le Mans FC",
-        "code": "LEM"
+        "code": "LEM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1619/?bg=transparent"
       },
       "venue": "Francia",
-      "referee": "Eric Wattellier",
       "neutralSite": false
     }
   ],
@@ -1657,11 +1694,11 @@
         "referee": "Marc Bollengier",
         "refereeStats": {
           "country": "France",
-          "matches": 41,
+          "matches": 42,
           "avgYellow": 3.98,
           "avgRed": 0.24,
           "avgFouls": 28,
-          "avgGoals": 2.76
+          "avgGoals": 2.83
         }
       }
     },
@@ -2137,11 +2174,11 @@
         "referee": "Ruddy Buquet",
         "refereeStats": {
           "country": "France",
-          "matches": 36,
-          "avgYellow": 3.5,
-          "avgRed": 0.17,
+          "matches": 37,
+          "avgYellow": 3.51,
+          "avgRed": 0.16,
           "avgFouls": 23.2,
-          "avgGoals": 2.64
+          "avgGoals": 2.68
         }
       }
     },
@@ -2617,11 +2654,11 @@
         "referee": "Jeremy Stinat",
         "refereeStats": {
           "country": "France",
-          "matches": 44,
-          "avgYellow": 3.75,
+          "matches": 45,
+          "avgYellow": 3.76,
           "avgRed": 0.27,
           "avgFouls": 23.3,
-          "avgGoals": 3.16
+          "avgGoals": 3.18
         }
       }
     },
@@ -3540,11 +3577,11 @@
         "referee": "Jeremy Stinat",
         "refereeStats": {
           "country": "France",
-          "matches": 44,
-          "avgYellow": 3.75,
+          "matches": 45,
+          "avgYellow": 3.76,
           "avgRed": 0.27,
           "avgFouls": 23.3,
-          "avgGoals": 3.16
+          "avgGoals": 3.18
         }
       }
     },
@@ -4013,11 +4050,11 @@
         "referee": "Aurelien Petit",
         "refereeStats": {
           "country": "France",
-          "matches": 40,
-          "avgYellow": 3.95,
-          "avgRed": 0.23,
+          "matches": 41,
+          "avgYellow": 3.93,
+          "avgRed": 0.24,
           "avgFouls": 27.2,
-          "avgGoals": 2.48
+          "avgGoals": 2.44
         }
       }
     },
@@ -4493,11 +4530,11 @@
         "referee": "Geoffrey Kubler",
         "refereeStats": {
           "country": "French Guiana",
-          "matches": 39,
-          "avgYellow": 4.08,
-          "avgRed": 0.18,
+          "matches": 40,
+          "avgYellow": 4.05,
+          "avgRed": 0.17,
           "avgFouls": 26.7,
-          "avgGoals": 2.38
+          "avgGoals": 2.4
         }
       }
     },
@@ -4983,6 +5020,84 @@
     },
     "ligue-1-2026-27-md11-es-troyes-le-havre": {
       "game": "ligue-1-2026-27-md11-es-troyes-le-havre",
+      "cortex": {
+        "headline": "Troyes con mínima ventaja en casa ante un Le Havre hundido",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Troyes llega como favorito leve con 38 % de probabilidad, aunque su posición es 17 con 8 puntos y diferencia de -10. El Le Havre está último en el 18 con solo 2 puntos y -13, así que la localía pesa más que la forma.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.30 goles de total proyectado, con 63 % de que se superen los 2.5 y 66 % de que ambos anoten. El Le Havre aporta 1.70 por 1.61 del Troyes, así que el gol visitante está tan vivo como el local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.61,
+                "away": 1.7
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "66 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "63 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Troyes empuja con 4.9 tiros de esquina por 4.3 del Le Havre, 9.2 en total. Las faltas están parejas en 13.9 por lado, 27.9 en conjunto, con 3.4 amarillas: un partido cortado pero sin un dominador claro del contacto.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.9,
+                "away": 4.3
+              },
+              {
+                "label": "Faltas",
+                "home": 13.9,
+                "away": 13.9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 1.8
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Troyes es 17 con 8 puntos y -10 tras diez jornadas; el Le Havre es 18 con 2 puntos y -13 en los mismos diez partidos. La distancia en la tabla es corta en posición pero amplia en puntos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 8,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden inclinar la balanza hacia el lado con más peso ofensivo. El criterio del árbitro define qué tan cortado se juega, y el primer gol cambia quién empuja y quién se repliega.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "798fb2ddc6ef10fa",
+        "generatedAt": "2026-11-20T13:33:11.866Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.88,
@@ -5608,9 +5723,9 @@
         "referee": "Jeremie Pignard",
         "refereeStats": {
           "country": "France",
-          "matches": 52,
-          "avgYellow": 4.1,
-          "avgRed": 0.23,
+          "matches": 53,
+          "avgYellow": 4.13,
+          "avgRed": 0.25,
           "avgFouls": 21.9,
           "avgGoals": 2.98
         }
@@ -6280,11 +6395,11 @@
         "referee": "Jérôme Brisard",
         "refereeStats": {
           "country": "France",
-          "matches": 58,
-          "avgYellow": 4.24,
-          "avgRed": 0.34,
+          "matches": 60,
+          "avgYellow": 4.27,
+          "avgRed": 0.33,
           "avgFouls": 23.4,
-          "avgGoals": 2.95
+          "avgGoals": 2.93
         }
       }
     },
@@ -6953,11 +7068,11 @@
         "referee": "Jeremy Stinat",
         "refereeStats": {
           "country": "France",
-          "matches": 44,
-          "avgYellow": 3.75,
+          "matches": 45,
+          "avgYellow": 3.76,
           "avgRed": 0.27,
           "avgFouls": 23.3,
-          "avgGoals": 3.16
+          "avgGoals": 3.18
         }
       }
     },
@@ -8297,9 +8412,9 @@
         "referee": "François Letexier",
         "refereeStats": {
           "country": "France",
-          "matches": 76,
-          "avgYellow": 4.08,
-          "avgRed": 0.3,
+          "matches": 77,
+          "avgYellow": 4.04,
+          "avgRed": 0.31,
           "avgFouls": 21.8,
           "avgGoals": 3.05
         }
@@ -8307,6 +8422,84 @@
     },
     "ligue-1-2026-27-md11-strasbourg-alsace-stade-brestois": {
       "game": "ligue-1-2026-27-md11-strasbourg-alsace-stade-brestois",
+      "cortex": {
+        "headline": "Strasbourg favorito en casa ante un Brest mejor ubicado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Brest llega mejor clasificado: noveno con 15 puntos y diferencia de +6, mientras Strasbourg es decimotercero con 10 puntos y -4. Aun así, la localía pesa y Strasbourg sale con 59 % de probabilidad frente al 21 % del visitante.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.86, con 73 % de más de 2.5 y 70 % de ambos anotan. Strasbourg aporta más con 2.41 goles esperados por 1.45 de Brest.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.41,
+                "away": 1.45
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "70 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "73 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Strasbourg empuja con 4.9 tiros de esquina por 3.8 de Brest, 8.7 en total. Las faltas están parejas, 12.4 y 12.7, para 25.2: un partido cortado y con pocas pausas limpias.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.9,
+                "away": 3.8
+              },
+              {
+                "label": "Faltas",
+                "home": 12.4,
+                "away": 12.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 1.8
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Brest es noveno con 15 puntos y +6; Strasbourg, decimotercero con 10 y -4. Ambos han jugado 10 partidos, sin diferencia de carga entre ellos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 10,
+                "away": 15
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. Un primer gol temprano obliga a Brest a estirarse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "9d009e3a82c5b8e4",
+        "generatedAt": "2026-11-20T13:33:35.036Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.9,
@@ -9612,16 +9805,94 @@
         "referee": "Aurelien Petit",
         "refereeStats": {
           "country": "France",
-          "matches": 40,
-          "avgYellow": 3.95,
-          "avgRed": 0.23,
+          "matches": 41,
+          "avgYellow": 3.93,
+          "avgRed": 0.24,
           "avgFouls": 27.2,
-          "avgGoals": 2.48
+          "avgGoals": 2.44
         }
       }
     },
     "ligue-1-2026-27-md11-lorient-stade-rennais": {
       "game": "ligue-1-2026-27-md11-lorient-stade-rennais",
+      "cortex": {
+        "headline": "Rennes con más probabilidad, pero el ataque de Lorient pesa en casa",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Stade Rennais llega con 39 % de probabilidad frente al 36 % del Lorient, y sostiene esa ventaja con 16 puntos por 15 del local. La diferencia es mínima y el Lorient juega en casa, así que el partido se decide en detalles más que en jerarquía.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se proyecta un partido abierto: 3.44 goles esperados en total, con 66 % de que se superen los 2.5 y 68 % de que ambos anoten. El reparto es casi idéntico, 1.75 para el Lorient y 1.68 para el Rennes, sin un aportante claro por encima del otro.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.75,
+                "away": 1.68
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "68 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "66 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Rennes empuja más en ataque con 5.1 tiros de esquina por 4.4 del Lorient, 9.5 en total. En faltas el visitante también corta más: 13.8 contra 10.6, para 24.4 en conjunto y 3.8 amarillas, un juego trabado en la media.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.4,
+                "away": 5.1
+              },
+              {
+                "label": "Faltas",
+                "home": 10.6,
+                "away": 13.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.7,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Rennes es octavo con 16 puntos y diferencia de 0 en 10 jornadas. El Lorient es décimo con 15 puntos y diferencia de 1, también con 10 jugados. La tabla los separa por un punto y un lugar.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 15,
+                "away": 16
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define qué tan cortado se vuelve el juego con ese volumen de faltas. El primer gol cambia el guion: obliga a uno a estirarse y abre espacios.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "cc525f18da8830ce",
+        "generatedAt": "2026-11-20T13:33:44.339Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.39,
@@ -10284,11 +10555,11 @@
         "referee": "Marc Bollengier",
         "refereeStats": {
           "country": "France",
-          "matches": 41,
+          "matches": 42,
           "avgYellow": 3.98,
           "avgRed": 0.24,
           "avgFouls": 28,
-          "avgGoals": 2.76
+          "avgGoals": 2.83
         }
       }
     },
@@ -10932,13 +11203,14 @@
       "name": "Paris Saint-Germain FC",
       "shortName": "Paris SG",
       "code": "PSG",
-      "played": 8,
-      "won": 5,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/114/?bg=transparent",
+      "played": 10,
+      "won": 7,
       "drawn": 2,
       "lost": 1,
-      "goalsFor": 16,
-      "goalsAgainst": 8,
-      "points": 17,
+      "goalsFor": 22,
+      "goalsAgainst": 10,
+      "points": 23,
       "form": [
         "W",
         "W",
@@ -10952,13 +11224,14 @@
       "name": "Lille OSC",
       "shortName": "Lille",
       "code": "LOSC",
-      "played": 8,
-      "won": 5,
-      "drawn": 2,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/106/?bg=transparent",
+      "played": 10,
+      "won": 6,
+      "drawn": 3,
       "lost": 1,
-      "goalsFor": 12,
-      "goalsAgainst": 6,
-      "points": 17,
+      "goalsFor": 14,
+      "goalsAgainst": 7,
+      "points": 21,
       "form": [
         "W",
         "D",
@@ -10972,17 +11245,81 @@
       "name": "Paris FC",
       "shortName": "Paris FC",
       "code": "PFC",
-      "played": 5,
-      "won": 5,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 12,
-      "goalsAgainst": 4,
-      "points": 15,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/108/?bg=transparent",
+      "played": 10,
+      "won": 6,
+      "drawn": 2,
+      "lost": 2,
+      "goalsFor": 17,
+      "goalsAgainst": 10,
+      "points": 20,
       "form": [
         "L",
         "W",
         "L",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "ligue-1.olympique-marseille",
+      "name": "Olympique de Marseille",
+      "shortName": "Marseille",
+      "code": "OM",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/98/?bg=transparent",
+      "played": 10,
+      "won": 6,
+      "drawn": 0,
+      "lost": 4,
+      "goalsFor": 22,
+      "goalsAgainst": 14,
+      "points": 18,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "ligue-1.olympique-lyonnais",
+      "name": "Olympique Lyonnais",
+      "shortName": "Lyon",
+      "code": "OL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/100/?bg=transparent",
+      "played": 10,
+      "won": 5,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 15,
+      "goalsAgainst": 9,
+      "points": 17,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "ligue-1.ogc-nice",
+      "name": "OGC Nice",
+      "shortName": "Nice",
+      "code": "OGCN",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/103/?bg=transparent",
+      "played": 10,
+      "won": 5,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 15,
+      "goalsAgainst": 12,
+      "points": 17,
+      "form": [
+        "W",
+        "L",
+        "W",
         "W",
         "W"
       ]
@@ -10992,13 +11329,14 @@
       "name": "AS Monaco FC",
       "shortName": "Monaco",
       "code": "ASM",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/101/?bg=transparent",
+      "played": 10,
       "won": 4,
-      "drawn": 3,
-      "lost": 1,
-      "goalsFor": 11,
-      "goalsAgainst": 8,
-      "points": 15,
+      "drawn": 4,
+      "lost": 2,
+      "goalsFor": 13,
+      "goalsAgainst": 11,
+      "points": 16,
       "form": [
         "D",
         "L",
@@ -11008,63 +11346,24 @@
       ]
     },
     {
-      "teamId": "ligue-1.olympique-lyonnais",
-      "name": "Olympique Lyonnais",
-      "shortName": "Lyon",
-      "code": "OL",
-      "played": 7,
-      "won": 4,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 12,
-      "goalsAgainst": 6,
-      "points": 13,
-      "form": [
-        "L",
-        "W",
-        "L",
-        "W",
-        "L"
-      ]
-    },
-    {
       "teamId": "ligue-1.stade-rennais",
       "name": "Stade Rennais FC 1901",
       "shortName": "Rennes",
       "code": "SRFC",
-      "played": 8,
-      "won": 4,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/97/?bg=transparent",
+      "played": 10,
+      "won": 5,
       "drawn": 1,
-      "lost": 3,
-      "goalsFor": 14,
-      "goalsAgainst": 16,
-      "points": 13,
+      "lost": 4,
+      "goalsFor": 21,
+      "goalsAgainst": 21,
+      "points": 16,
       "form": [
         "W",
         "L",
         "W",
         "L",
         "L"
-      ]
-    },
-    {
-      "teamId": "ligue-1.olympique-marseille",
-      "name": "Olympique de Marseille",
-      "shortName": "Marseille",
-      "code": "OM",
-      "played": 8,
-      "won": 4,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 15,
-      "goalsAgainst": 12,
-      "points": 12,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "W",
-        "W"
       ]
     },
     {
@@ -11072,78 +11371,19 @@
       "name": "Stade Brestois 29",
       "shortName": "Brest",
       "code": "SB29",
-      "played": 7,
-      "won": 3,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 11,
-      "goalsAgainst": 8,
-      "points": 11,
-      "form": [
-        "W",
-        "D",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "ligue-1.ogc-nice",
-      "name": "OGC Nice",
-      "shortName": "Nice",
-      "code": "OGCN",
-      "played": 6,
-      "won": 3,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 10,
-      "goalsAgainst": 8,
-      "points": 10,
-      "form": [
-        "W",
-        "L",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "ligue-1.strasbourg-alsace",
-      "name": "RC Strasbourg Alsace",
-      "shortName": "Strasbourg",
-      "code": "RCSA",
-      "played": 8,
-      "won": 3,
-      "drawn": 1,
-      "lost": 4,
-      "goalsFor": 16,
-      "goalsAgainst": 17,
-      "points": 10,
-      "form": [
-        "L",
-        "L",
-        "L",
-        "W",
-        "L"
-      ]
-    },
-    {
-      "teamId": "ligue-1.toulouse",
-      "name": "Toulouse FC",
-      "shortName": "Toulouse",
-      "code": "TFC",
-      "played": 8,
-      "won": 2,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/105/?bg=transparent",
+      "played": 10,
+      "won": 4,
       "drawn": 3,
       "lost": 3,
-      "goalsFor": 10,
+      "goalsFor": 18,
       "goalsAgainst": 12,
-      "points": 9,
+      "points": 15,
       "form": [
-        "D",
         "W",
         "D",
         "L",
+        "W",
         "W"
       ]
     },
@@ -11152,13 +11392,14 @@
       "name": "FC Lorient",
       "shortName": "Lorient",
       "code": "FCL",
-      "played": 7,
-      "won": 2,
-      "drawn": 2,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/110/?bg=transparent",
+      "played": 10,
+      "won": 4,
+      "drawn": 3,
       "lost": 3,
-      "goalsFor": 7,
+      "goalsFor": 9,
       "goalsAgainst": 8,
-      "points": 8,
+      "points": 15,
       "form": [
         "W",
         "W",
@@ -11168,16 +11409,101 @@
       ]
     },
     {
+      "teamId": "ligue-1.racing-lens",
+      "name": "Racing Club de Lens",
+      "shortName": "Lens",
+      "code": "RCL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/99/?bg=transparent",
+      "played": 10,
+      "won": 4,
+      "drawn": 1,
+      "lost": 5,
+      "goalsFor": 17,
+      "goalsAgainst": 15,
+      "points": 13,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "teamId": "ligue-1.toulouse",
+      "name": "Toulouse FC",
+      "shortName": "Toulouse",
+      "code": "TFC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/104/?bg=transparent",
+      "played": 10,
+      "won": 3,
+      "drawn": 4,
+      "lost": 3,
+      "goalsFor": 15,
+      "goalsAgainst": 14,
+      "points": 13,
+      "form": [
+        "D",
+        "W",
+        "D",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "ligue-1.strasbourg-alsace",
+      "name": "RC Strasbourg Alsace",
+      "shortName": "Strasbourg",
+      "code": "RCSA",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/112/?bg=transparent",
+      "played": 10,
+      "won": 3,
+      "drawn": 1,
+      "lost": 6,
+      "goalsFor": 18,
+      "goalsAgainst": 22,
+      "points": 10,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "ligue-1.aj-auxerre",
+      "name": "AJ Auxerre",
+      "shortName": "Auxerre",
+      "code": "AJA",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/109/?bg=transparent",
+      "played": 10,
+      "won": 3,
+      "drawn": 1,
+      "lost": 6,
+      "goalsFor": 13,
+      "goalsAgainst": 24,
+      "points": 10,
+      "form": [
+        "L",
+        "W",
+        "D",
+        "L",
+        "L"
+      ]
+    },
+    {
       "teamId": "ligue-1.le-mans",
       "name": "Le Mans FC",
       "shortName": "Le Mans",
       "code": "LMFC",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1619/?bg=transparent",
+      "played": 10,
       "won": 1,
       "drawn": 5,
-      "lost": 2,
-      "goalsFor": 11,
-      "goalsAgainst": 13,
+      "lost": 4,
+      "goalsFor": 12,
+      "goalsAgainst": 19,
       "points": 8,
       "form": [
         "L",
@@ -11192,13 +11518,14 @@
       "name": "Angers SCO",
       "shortName": "Angers",
       "code": "SCO",
-      "played": 7,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/107/?bg=transparent",
+      "played": 10,
       "won": 2,
-      "drawn": 1,
-      "lost": 4,
-      "goalsFor": 6,
-      "goalsAgainst": 9,
-      "points": 7,
+      "drawn": 2,
+      "lost": 6,
+      "goalsFor": 9,
+      "goalsAgainst": 19,
+      "points": 8,
       "form": [
         "L",
         "L",
@@ -11212,58 +11539,19 @@
       "name": "ES Troyes AC",
       "shortName": "Troyes",
       "code": "ESTAC",
-      "played": 7,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1303/?bg=transparent",
+      "played": 10,
       "won": 2,
-      "drawn": 1,
-      "lost": 4,
-      "goalsFor": 6,
-      "goalsAgainst": 12,
-      "points": 7,
+      "drawn": 2,
+      "lost": 6,
+      "goalsFor": 7,
+      "goalsAgainst": 17,
+      "points": 8,
       "form": [
         "L",
         "L",
         "D",
         "W",
-        "L"
-      ]
-    },
-    {
-      "teamId": "ligue-1.aj-auxerre",
-      "name": "AJ Auxerre",
-      "shortName": "Auxerre",
-      "code": "AJA",
-      "played": 8,
-      "won": 2,
-      "drawn": 1,
-      "lost": 5,
-      "goalsFor": 9,
-      "goalsAgainst": 19,
-      "points": 7,
-      "form": [
-        "L",
-        "W",
-        "D",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "ligue-1.racing-lens",
-      "name": "Racing Club de Lens",
-      "shortName": "Lens",
-      "code": "RCL",
-      "played": 7,
-      "won": 1,
-      "drawn": 1,
-      "lost": 5,
-      "goalsFor": 10,
-      "goalsAgainst": 12,
-      "points": 4,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "L",
         "L"
       ]
     },
@@ -11272,13 +11560,14 @@
       "name": "Le Havre AC",
       "shortName": "Le Havre",
       "code": "HAC",
-      "played": 7,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/102/?bg=transparent",
+      "played": 10,
       "won": 0,
-      "drawn": 1,
-      "lost": 6,
-      "goalsFor": 8,
-      "goalsAgainst": 18,
-      "points": 1,
+      "drawn": 2,
+      "lost": 8,
+      "goalsFor": 9,
+      "goalsAgainst": 22,
+      "points": 2,
       "form": [
         "L",
         "L",

@@ -5,7 +5,7 @@
   "season": "uefa-super-cup-2026",
   "seasonLabel": "2026",
   "periodLabel": "Final",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.427777328866702,
-      "adjustedAgainst": 1.3020522630511457
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.3857142857142857
     },
     "uefa-super-cup.aston-villa": {
       "teamId": "uefa-super-cup.aston-villa",
@@ -29,8 +29,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3281690245085354,
-      "adjustedAgainst": 1.4564159027323165
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     }
   },
   "games": [
@@ -65,7 +65,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     }

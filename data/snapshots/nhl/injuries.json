@@ -1,20 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-19T14:16:45.965Z",
+  "observedAt": "2026-11-20T13:22:42.740Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "nhl.anaheim-ducks",
-      "player": "Beckett Sennecke",
-      "position": "RW",
-      "status": "Duda",
-      "detail": "Enfermedad",
-      "injuryType": "Illness",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T14:37:00.000Z"
-    },
     {
       "teamId": "nhl.anaheim-ducks",
       "player": "Ryan Poehling",
@@ -23,7 +13,7 @@
       "detail": "Rodilla",
       "injuryType": "Knee",
       "returnDate": "2026-12-06",
-      "reportedAt": "2026-11-11T22:59:00.000Z"
+      "reportedAt": "2026-11-20T03:31:00.000Z"
     },
     {
       "teamId": "nhl.anaheim-ducks",
@@ -109,11 +99,11 @@
       "teamId": "nhl.chicago-blackhawks",
       "player": "Connor Bedard",
       "position": "C",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Hombro",
       "injuryType": "Shoulder",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T16:42:00.000Z"
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-19T16:45:00.000Z"
     },
     {
       "teamId": "nhl.chicago-blackhawks",
@@ -129,11 +119,11 @@
       "teamId": "nhl.colorado-avalanche",
       "player": "Gavin Brindley",
       "position": "C",
-      "status": "Duda",
-      "detail": "Upper Body",
-      "injuryType": "Upper Body",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-19T04:38:00.000Z"
+      "status": "Baja",
+      "detail": "Protocolo de conmoción",
+      "injuryType": "Concussion",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-20T05:04:00.000Z"
     },
     {
       "teamId": "nhl.colorado-avalanche",
@@ -143,7 +133,7 @@
       "detail": "Lower Body",
       "injuryType": "Lower Body",
       "returnDate": "2026-11-28",
-      "reportedAt": "2026-11-14T17:37:00.000Z"
+      "reportedAt": "2026-11-19T21:33:00.000Z"
     },
     {
       "teamId": "nhl.colorado-avalanche",
@@ -177,6 +167,16 @@
     },
     {
       "teamId": "nhl.columbus-blue-jackets",
+      "player": "Mathieu Olivier",
+      "position": "RW",
+      "status": "Duda",
+      "detail": "Parte médico reservado",
+      "injuryType": "Undisclosed",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-20T03:56:00.000Z"
+    },
+    {
+      "teamId": "nhl.columbus-blue-jackets",
       "player": "Sean Monahan",
       "position": "C",
       "status": "Baja",
@@ -184,6 +184,16 @@
       "injuryType": "Upper Body",
       "returnDate": "2026-11-25",
       "reportedAt": "2026-11-16T17:42:00.000Z"
+    },
+    {
+      "teamId": "nhl.dallas-stars",
+      "player": "Oskar Back",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Finger",
+      "injuryType": "Finger",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-19T20:29:00.000Z"
     },
     {
       "teamId": "nhl.dallas-stars",
@@ -217,16 +227,6 @@
     },
     {
       "teamId": "nhl.dallas-stars",
-      "player": "Oskar Back",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Finger",
-      "injuryType": "Finger",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-10-24T18:32:00.000Z"
-    },
-    {
-      "teamId": "nhl.dallas-stars",
       "player": "Matt Duchene",
       "position": "C",
       "status": "Baja",
@@ -239,11 +239,11 @@
       "teamId": "nhl.detroit-red-wings",
       "player": "William Wallinder",
       "position": "D",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
       "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-18T16:15:00.000Z"
+      "reportedAt": "2026-11-19T17:54:00.000Z"
     },
     {
       "teamId": "nhl.detroit-red-wings",
@@ -279,11 +279,11 @@
       "teamId": "nhl.edmonton-oilers",
       "player": "Ryan Nugent-Hopkins",
       "position": "C",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Parte médico reservado",
       "injuryType": "Undisclosed",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T14:37:00.000Z"
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-20T00:24:00.000Z"
     },
     {
       "teamId": "nhl.edmonton-oilers",
@@ -327,6 +327,16 @@
     },
     {
       "teamId": "nhl.florida-panthers",
+      "player": "Jonah Gadjovich",
+      "position": "LW",
+      "status": "Baja",
+      "detail": "Cuello",
+      "injuryType": "Neck",
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-19T16:20:00.000Z"
+    },
+    {
+      "teamId": "nhl.florida-panthers",
       "player": "Brad Marchand",
       "position": "LW",
       "status": "Baja",
@@ -342,18 +352,18 @@
       "status": "Baja",
       "detail": "Rodilla",
       "injuryType": "Knee",
-      "returnDate": "2026-11-27",
+      "returnDate": "2026-11-21",
       "reportedAt": "2026-11-06T16:30:00.000Z"
     },
     {
-      "teamId": "nhl.florida-panthers",
-      "player": "Jonah Gadjovich",
+      "teamId": "nhl.los-angeles-kings",
+      "player": "Trevor Moore",
       "position": "LW",
       "status": "Baja",
-      "detail": "Cuello",
-      "injuryType": "Neck",
-      "returnDate": "2026-11-28",
-      "reportedAt": "2026-09-17T20:53:00.000Z"
+      "detail": "Parte médico reservado",
+      "injuryType": "Undisclosed",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T17:25:00.000Z"
     },
     {
       "teamId": "nhl.los-angeles-kings",
@@ -362,8 +372,8 @@
       "status": "Baja",
       "detail": "Personal",
       "injuryType": "Personal",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-19T13:02:00.000Z"
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T16:23:00.000Z"
     },
     {
       "teamId": "nhl.los-angeles-kings",
@@ -377,13 +387,33 @@
     },
     {
       "teamId": "nhl.minnesota-wild",
+      "player": "Quinn Hughes",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-20T04:12:00.000Z"
+    },
+    {
+      "teamId": "nhl.minnesota-wild",
       "player": "Filip Gustavsson",
       "position": "G",
       "status": "Baja",
       "detail": "Cadera",
       "injuryType": "Hip",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-18T04:51:00.000Z"
+      "reportedAt": "2026-11-19T20:31:00.000Z"
+    },
+    {
+      "teamId": "nhl.minnesota-wild",
+      "player": "Yakov Trenin",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Personal",
+      "injuryType": "Personal",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T17:45:00.000Z"
     },
     {
       "teamId": "nhl.minnesota-wild",
@@ -399,11 +429,11 @@
       "teamId": "nhl.montreal-canadiens",
       "player": "Zack Bolduc",
       "position": "RW",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-19T05:26:00.000Z"
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T17:59:00.000Z"
     },
     {
       "teamId": "nhl.montreal-canadiens",
@@ -507,23 +537,23 @@
     },
     {
       "teamId": "nhl.new-york-islanders",
-      "player": "Jean-Gabriel Pageau",
-      "position": "C",
+      "player": "Ryan Pulock",
+      "position": "D",
       "status": "Duda",
       "detail": "Lower Body",
       "injuryType": "Lower Body",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T14:37:00.000Z"
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-20T02:53:00.000Z"
     },
     {
       "teamId": "nhl.new-york-islanders",
       "player": "Logan Stanley",
       "position": "D",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Lower Body",
       "injuryType": "Lower Body",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T14:37:00.000Z"
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T23:39:00.000Z"
     },
     {
       "teamId": "nhl.new-york-islanders",
@@ -609,31 +639,21 @@
       "teamId": "nhl.ottawa-senators",
       "player": "Nick Cousins",
       "position": "C",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T14:37:00.000Z"
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T21:58:00.000Z"
     },
     {
       "teamId": "nhl.ottawa-senators",
       "player": "Hayden Hodgson",
       "position": "RW",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Ingle",
       "injuryType": "Groin",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T14:37:00.000Z"
-    },
-    {
-      "teamId": "nhl.ottawa-senators",
-      "player": "Thomas Chabot",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Parte médico reservado",
-      "injuryType": "Undisclosed",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T03:35:00.000Z"
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T21:56:00.000Z"
     },
     {
       "teamId": "nhl.ottawa-senators",
@@ -674,6 +694,16 @@
       "injuryType": "Back",
       "returnDate": "2027-02-13",
       "reportedAt": "2026-10-10T16:58:00.000Z"
+    },
+    {
+      "teamId": "nhl.pittsburgh-penguins",
+      "player": "Nick Robertson",
+      "position": "LW",
+      "status": "Baja",
+      "detail": "Lower Body",
+      "injuryType": "Lower Body",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T23:50:00.000Z"
     },
     {
       "teamId": "nhl.pittsburgh-penguins",
@@ -747,13 +777,13 @@
     },
     {
       "teamId": "nhl.seattle-kraken",
-      "player": "Jacob Melanson",
-      "position": "RW",
+      "player": "Jake O'Brien",
+      "position": "C",
       "status": "Baja",
-      "detail": "Chest",
-      "injuryType": "Chest",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-13T14:39:00.000Z"
+      "detail": "Lower Body",
+      "injuryType": "Lower Body",
+      "returnDate": "2026-12-10",
+      "reportedAt": "2026-11-19T20:30:00.000Z"
     },
     {
       "teamId": "nhl.seattle-kraken",
@@ -762,7 +792,7 @@
       "status": "Baja",
       "detail": "Not Injury Related",
       "injuryType": "Not Injury Related",
-      "returnDate": "2026-11-19",
+      "returnDate": "2026-11-21",
       "reportedAt": "2026-11-07T20:12:00.000Z"
     },
     {
@@ -786,24 +816,14 @@
       "reportedAt": "2026-10-25T17:08:00.000Z"
     },
     {
-      "teamId": "nhl.seattle-kraken",
-      "player": "Jake O'Brien",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Lower Body",
-      "injuryType": "Lower Body",
-      "returnDate": "2026-11-28",
-      "reportedAt": "2026-10-01T00:06:00.000Z"
-    },
-    {
       "teamId": "nhl.st-louis-blues",
       "player": "Ross Johnston",
       "position": "LW",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T14:37:00.000Z"
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-19T23:56:00.000Z"
     },
     {
       "teamId": "nhl.st-louis-blues",
@@ -837,23 +857,23 @@
     },
     {
       "teamId": "nhl.tampa-bay-lightning",
-      "player": "Brandon Hagel",
-      "position": "LW",
-      "status": "Duda",
-      "detail": "Lower Body",
-      "injuryType": "Lower Body",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T18:12:00.000Z"
+      "player": "Zemgus Girgensons",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-19T23:24:00.000Z"
     },
     {
       "teamId": "nhl.tampa-bay-lightning",
-      "player": "Zemgus Girgensons",
-      "position": "C",
-      "status": "Duda",
-      "detail": "Upper Body",
-      "injuryType": "Upper Body",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-18T18:08:00.000Z"
+      "player": "Brandon Hagel",
+      "position": "LW",
+      "status": "Baja",
+      "detail": "Lower Body",
+      "injuryType": "Lower Body",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-19T15:54:00.000Z"
     },
     {
       "teamId": "nhl.tampa-bay-lightning",
@@ -862,7 +882,7 @@
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-22",
+      "returnDate": "2026-11-27",
       "reportedAt": "2026-11-17T18:19:00.000Z"
     },
     {
@@ -1007,6 +1027,16 @@
     },
     {
       "teamId": "nhl.vancouver-canucks",
+      "player": "Brendan Gallagher",
+      "position": "RW",
+      "status": "Duda",
+      "detail": "Lower Body",
+      "injuryType": "Lower Body",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-20T05:02:00.000Z"
+    },
+    {
+      "teamId": "nhl.vancouver-canucks",
       "player": "Guillaume Brisebois",
       "position": "D",
       "status": "Baja",
@@ -1067,23 +1097,23 @@
     },
     {
       "teamId": "nhl.winnipeg-jets",
-      "player": "Isak Rosen",
-      "position": "RW",
-      "status": "Baja",
-      "detail": "Parte médico reservado",
-      "injuryType": "Undisclosed",
-      "returnDate": "2026-11-19",
-      "reportedAt": "2026-11-17T15:15:00.000Z"
-    },
-    {
-      "teamId": "nhl.winnipeg-jets",
       "player": "Dylan DeMelo",
       "position": "D",
       "status": "Baja",
       "detail": "Lower Body",
       "injuryType": "Lower Body",
+      "returnDate": "2026-12-26",
+      "reportedAt": "2026-11-19T16:39:00.000Z"
+    },
+    {
+      "teamId": "nhl.winnipeg-jets",
+      "player": "Isak Rosen",
+      "position": "RW",
+      "status": "Baja",
+      "detail": "Parte médico reservado",
+      "injuryType": "Undisclosed",
       "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-13T16:33:00.000Z"
+      "reportedAt": "2026-11-17T15:15:00.000Z"
     },
     {
       "teamId": "nhl.winnipeg-jets",
@@ -1092,7 +1122,7 @@
       "status": "Baja",
       "detail": "Personal",
       "injuryType": "Personal",
-      "returnDate": "2026-11-19",
+      "returnDate": "2026-11-21",
       "reportedAt": "2026-11-08T00:05:00.000Z"
     },
     {

@@ -1,10 +1,11 @@
 {
   "schemaVersion": 1,
   "league": "leagues-cup",
+  "logoUrl": "/brand/official/competitions/leagues-cup.png",
   "season": "leagues-cup-2026",
   "seasonLabel": "2026",
   "periodLabel": "Fase de grupos y KO",
-  "updatedAt": "2026-11-19T16:13:44.585Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-concacaf-v1",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 0.5754657215548504,
-      "adjustedAgainst": 0.4427775668212471
+      "adjustedFor": 0.575665716939011,
+      "adjustedAgainst": 0.44314300461968165
     },
     "leagues-cup.america": {
       "teamId": "leagues-cup.america",
@@ -28,8 +29,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 0.468284925650812,
-      "adjustedAgainst": 0.602163734710111
+      "adjustedFor": 0.46859506858131034,
+      "adjustedAgainst": 0.6023001937066184
     },
     "leagues-cup.toluca": {
       "teamId": "leagues-cup.toluca",
@@ -39,8 +40,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 0.6991119732948463,
-      "adjustedAgainst": 0.44266231994613386
+      "adjustedFor": 0.6992157764714586,
+      "adjustedAgainst": 0.44302780819377924
     },
     "leagues-cup.monterrey": {
       "teamId": "leagues-cup.monterrey",
@@ -50,8 +51,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 0.46816967872497506,
-      "adjustedAgainst": 0.7473205047991325
+      "adjustedFor": 0.4684798721054511,
+      "adjustedAgainst": 0.747278259421608
     }
   },
   "games": [
@@ -82,7 +83,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:13:44.585Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-concacaf"
       }
     },
@@ -113,7 +114,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:13:44.585Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-concacaf"
       }
     }
@@ -1005,6 +1006,5 @@
         "L"
       ]
     }
-  ],
-  "logoUrl": "/brand/official/competitions/leagues-cup.png"
+  ]
 }

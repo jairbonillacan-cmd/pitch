@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
   "league": "premier-league",
+  "logoUrl": "https://sports.bzzoiro.com/img/league/1/?bg=transparent",
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-15T17:34:02.833Z",
-  "source": "openfootball+espn",
+  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "source": "football-data",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -14,220 +15,240 @@
       "name": "AFC Bournemouth",
       "shortName": "Bournemouth",
       "code": "BOU",
-      "forPerGame": 1.625,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.5857646074814846,
-      "adjustedAgainst": 1.2458989520786143
+      "logoUrl": "https://sports.bzzoiro.com/img/team/2/?bg=transparent",
+      "forPerGame": 1.6,
+      "againstPerGame": 1.4,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5578094728958412,
+      "adjustedAgainst": 1.3340924809150656
     },
     "premier-league.arsenal": {
       "teamId": "premier-league.arsenal",
       "name": "Arsenal",
       "shortName": "Arsenal",
       "code": "ARS",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 0.5714285714285714,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.6001931713381403,
-      "adjustedAgainst": 0.7787522952016962
+      "logoUrl": "https://sports.bzzoiro.com/img/team/18/?bg=transparent",
+      "forPerGame": 1.5,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.6212433005975342,
+      "adjustedAgainst": 0.7277884378564056
     },
     "premier-league.aston-villa": {
       "teamId": "premier-league.aston-villa",
       "name": "Aston Villa",
       "shortName": "Aston Villa",
       "code": "AVL",
-      "forPerGame": 1.5,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.5663718412604064,
-      "adjustedAgainst": 1.5075927362956354
+      "logoUrl": "https://sports.bzzoiro.com/img/team/3/?bg=transparent",
+      "forPerGame": 1.4,
+      "againstPerGame": 1.7,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5540473547179492,
+      "adjustedAgainst": 1.3722025036783922
     },
     "premier-league.brentford": {
       "teamId": "premier-league.brentford",
       "name": "Brentford",
       "shortName": "Brentford",
       "code": "BRE",
-      "forPerGame": 1.625,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.5529510918042315,
-      "adjustedAgainst": 1.1907791879815446
+      "logoUrl": "https://sports.bzzoiro.com/img/team/16/?bg=transparent",
+      "forPerGame": 1.6,
+      "againstPerGame": 1.1,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5665412418615592,
+      "adjustedAgainst": 1.2383636394723778
     },
     "premier-league.brighton-hove-albion": {
       "teamId": "premier-league.brighton-hove-albion",
       "name": "Brighton & Hove Albion",
       "shortName": "Brighton",
       "code": "BHA",
-      "forPerGame": 2.375,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.7647103875777213,
-      "adjustedAgainst": 1.0935337900547664
+      "logoUrl": "https://sports.bzzoiro.com/img/team/5/?bg=transparent",
+      "forPerGame": 2.6,
+      "againstPerGame": 0.7,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.863374952251025,
+      "adjustedAgainst": 1.0126417162071883
     },
     "premier-league.chelsea": {
       "teamId": "premier-league.chelsea",
       "name": "Chelsea",
       "shortName": "Chelsea",
       "code": "CHE",
-      "forPerGame": 1.7142857142857142,
-      "againstPerGame": 1.8571428571428572,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.5366761760490595,
-      "adjustedAgainst": 1.4049010099601937
+      "logoUrl": "https://sports.bzzoiro.com/img/team/13/?bg=transparent",
+      "forPerGame": 1.9,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.6387550397187998,
+      "adjustedAgainst": 1.372434648118259
     },
     "premier-league.coventry-city": {
       "teamId": "premier-league.coventry-city",
       "name": "Coventry City",
       "shortName": "Coventry City",
       "code": "COV",
-      "forPerGame": 0.7142857142857143,
-      "againstPerGame": 2,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.0723698808060604,
-      "adjustedAgainst": 1.6185218410129312
+      "logoUrl": "https://sports.bzzoiro.com/img/team/203/?bg=transparent",
+      "forPerGame": 1,
+      "againstPerGame": 1.9,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.181912792406059,
+      "adjustedAgainst": 1.6616278419499766
     },
     "premier-league.crystal-palace": {
       "teamId": "premier-league.crystal-palace",
       "name": "Crystal Palace",
       "shortName": "Crystal Palace",
       "code": "CRY",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/14/?bg=transparent",
       "forPerGame": 1,
-      "againstPerGame": 2.5714285714285716,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.1898000895179393,
-      "adjustedAgainst": 1.7743832496415424
+      "againstPerGame": 2.4,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.1915869068391503,
+      "adjustedAgainst": 1.8035642346979361
     },
     "premier-league.everton": {
       "teamId": "premier-league.everton",
       "name": "Everton",
       "shortName": "Everton",
       "code": "EVE",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.3013259676880642,
-      "adjustedAgainst": 1.0979057492736761
+      "logoUrl": "https://sports.bzzoiro.com/img/team/20/?bg=transparent",
+      "forPerGame": 1.2,
+      "againstPerGame": 1,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.1986199355654132,
+      "adjustedAgainst": 1.143106312821083
     },
     "premier-league.fulham": {
       "teamId": "premier-league.fulham",
       "name": "Fulham",
       "shortName": "Fulham",
       "code": "FUL",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.1895455805039121,
-      "adjustedAgainst": 1.3784424504671378
+      "logoUrl": "https://sports.bzzoiro.com/img/team/6/?bg=transparent",
+      "forPerGame": 1,
+      "againstPerGame": 1.2,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.1106033022993362,
+      "adjustedAgainst": 1.240541734307367
     },
     "premier-league.hull-city": {
       "teamId": "premier-league.hull-city",
       "name": "Hull City",
       "shortName": "Hull City",
       "code": "HUL",
-      "forPerGame": 1.2857142857142858,
-      "againstPerGame": 1.1428571428571428,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.2585955831084599,
-      "adjustedAgainst": 1.1294285333959972
+      "logoUrl": "https://sports.bzzoiro.com/img/team/204/?bg=transparent",
+      "forPerGame": 1.1,
+      "againstPerGame": 1.1,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.1180453659901768,
+      "adjustedAgainst": 1.085816359783801
     },
     "premier-league.ipswich-town": {
       "teamId": "premier-league.ipswich-town",
       "name": "Ipswich Town",
       "shortName": "Ipswich Town",
       "code": "IPS",
-      "forPerGame": 1.4285714285714286,
-      "againstPerGame": 2.142857142857143,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.325367949552162,
-      "adjustedAgainst": 1.809027372611795
+      "logoUrl": "https://sports.bzzoiro.com/img/team/200/?bg=transparent",
+      "forPerGame": 1.5,
+      "againstPerGame": 2,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.3925395978428208,
+      "adjustedAgainst": 1.7924931880066433
     },
     "premier-league.leeds-united": {
       "teamId": "premier-league.leeds-united",
       "name": "Leeds United",
       "shortName": "Leeds United",
       "code": "LEE",
-      "forPerGame": 1.1428571428571428,
-      "againstPerGame": 0.7142857142857143,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.2991097694894622,
-      "adjustedAgainst": 1.1732622584413175
+      "logoUrl": "https://sports.bzzoiro.com/img/team/19/?bg=transparent",
+      "forPerGame": 1,
+      "againstPerGame": 0.8,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.2008034960014662,
+      "adjustedAgainst": 1.1343117199145938
     },
     "premier-league.liverpool": {
       "teamId": "premier-league.liverpool",
       "name": "Liverpool",
       "shortName": "Liverpool",
       "code": "LIV",
-      "forPerGame": 1.7142857142857142,
-      "againstPerGame": 0.8571428571428571,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.6494885513659092,
-      "adjustedAgainst": 1.1858688435045088
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1/?bg=transparent",
+      "forPerGame": 1.4,
+      "againstPerGame": 1,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5336616292500198,
+      "adjustedAgainst": 1.1740557396236497
     },
     "premier-league.manchester-city": {
       "teamId": "premier-league.manchester-city",
       "name": "Manchester City",
       "shortName": "Manchester City",
       "code": "MCI",
-      "forPerGame": 2,
-      "againstPerGame": 1.2857142857142858,
-      "gamesPlayed": 7,
-      "adjustedFor": 1.79223184290203,
-      "adjustedAgainst": 1.055705652098488
+      "logoUrl": "https://sports.bzzoiro.com/img/team/12/?bg=transparent",
+      "forPerGame": 2.1,
+      "againstPerGame": 1.3,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.8283620805373588,
+      "adjustedAgainst": 1.066794472608127
     },
     "premier-league.manchester-united": {
       "teamId": "premier-league.manchester-united",
       "name": "Manchester United",
       "shortName": "Man. United",
       "code": "MUN",
-      "forPerGame": 1.5,
-      "againstPerGame": 2.125,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.576097793465243,
-      "adjustedAgainst": 1.504008327384483
+      "logoUrl": "https://sports.bzzoiro.com/img/team/17/?bg=transparent",
+      "forPerGame": 1.4,
+      "againstPerGame": 1.9,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.5333801199056818,
+      "adjustedAgainst": 1.4762741967604063
     },
     "premier-league.newcastle-united": {
       "teamId": "premier-league.newcastle-united",
       "name": "Newcastle United",
       "shortName": "Newcastle",
       "code": "NEW",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.4937895635053056,
-      "adjustedAgainst": 1.3644870892862984
+      "logoUrl": "https://sports.bzzoiro.com/img/team/4/?bg=transparent",
+      "forPerGame": 1.3,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.397933250883388,
+      "adjustedAgainst": 1.4548057805989125
     },
     "premier-league.nottingham-forest": {
       "teamId": "premier-league.nottingham-forest",
       "name": "Nottingham Forest",
       "shortName": "Nottingham Forest",
       "code": "NFO",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.317729528348242,
-      "adjustedAgainst": 1.260380196689811
+      "logoUrl": "https://sports.bzzoiro.com/img/team/15/?bg=transparent",
+      "forPerGame": 0.9,
+      "againstPerGame": 1.3,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.173455148859549,
+      "adjustedAgainst": 1.2571738654340676
     },
     "premier-league.sunderland": {
       "teamId": "premier-league.sunderland",
       "name": "Sunderland",
       "shortName": "Sunderland",
       "code": "SUN",
-      "forPerGame": 1,
-      "againstPerGame": 1.625,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1640044930194142,
-      "adjustedAgainst": 1.4087033745037094
+      "logoUrl": "https://sports.bzzoiro.com/img/team/7/?bg=transparent",
+      "forPerGame": 0.8,
+      "againstPerGame": 1.7,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.071197754499603,
+      "adjustedAgainst": 1.403005363893668
     },
     "premier-league.tottenham-hotspur": {
       "teamId": "premier-league.tottenham-hotspur",
       "name": "Tottenham Hotspur",
       "shortName": "Tottenham",
       "code": "TOT",
-      "forPerGame": 0.8,
-      "againstPerGame": 1.8,
-      "gamesPlayed": 5,
-      "adjustedFor": 1.0996541924207333,
-      "adjustedAgainst": 1.5408284658733542
+      "logoUrl": "https://sports.bzzoiro.com/img/team/9/?bg=transparent",
+      "forPerGame": 1,
+      "againstPerGame": 1.1,
+      "gamesPlayed": 10,
+      "adjustedFor": 1.101748091250134,
+      "adjustedAgainst": 1.3227173467757802
     }
   },
   "games": [
@@ -237,30 +258,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-06T20:00Z",
+      "startTime": "2026-11-06T20:00:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.everton",
         "league": "premier-league",
         "name": "Everton",
         "shortName": "Everton",
-        "code": "EVE"
+        "code": "EVE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/20/?bg=transparent"
       },
       "away": {
         "id": "premier-league.coventry-city",
         "league": "premier-league",
         "name": "Coventry City",
         "shortName": "Coventry City",
-        "code": "COV"
+        "code": "COV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/203/?bg=transparent"
       },
       "venue": "Hill Dickinson Stadium",
-      "referee": "Stuart Attwell",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -269,30 +291,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-07T12:30Z",
+      "startTime": "2026-11-07T12:30:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.leeds-united",
         "league": "premier-league",
         "name": "Leeds United",
         "shortName": "Leeds United",
-        "code": "LEE"
+        "code": "LEE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/19/?bg=transparent"
       },
       "away": {
         "id": "premier-league.tottenham-hotspur",
         "league": "premier-league",
         "name": "Tottenham Hotspur",
         "shortName": "Tottenham",
-        "code": "TOT"
+        "code": "TOT",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/9/?bg=transparent"
       },
       "venue": "Elland Road",
-      "referee": "John Brooks",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -301,30 +324,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-07T15:00Z",
+      "startTime": "2026-11-07T15:00:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.arsenal",
         "league": "premier-league",
         "name": "Arsenal",
         "shortName": "Arsenal",
-        "code": "ARS"
+        "code": "ARS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/18/?bg=transparent"
       },
       "away": {
         "id": "premier-league.hull-city",
         "league": "premier-league",
         "name": "Hull City",
         "shortName": "Hull City",
-        "code": "HUL"
+        "code": "HUL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/204/?bg=transparent"
       },
       "venue": "Emirates Stadium",
-      "referee": "Farai Hallam",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -333,30 +357,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-07T15:00Z",
+      "startTime": "2026-11-07T15:00:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.fulham",
         "league": "premier-league",
         "name": "Fulham",
         "shortName": "Fulham",
-        "code": "FUL"
+        "code": "FUL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/6/?bg=transparent"
       },
       "away": {
         "id": "premier-league.newcastle-united",
         "league": "premier-league",
         "name": "Newcastle United",
         "shortName": "Newcastle",
-        "code": "NEW"
+        "code": "NEW",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/4/?bg=transparent"
       },
       "venue": "Craven Cottage",
-      "referee": "Robert Jones",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -365,30 +390,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-07T17:30Z",
+      "startTime": "2026-11-07T17:30:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.nottingham-forest",
         "league": "premier-league",
         "name": "Nottingham Forest",
         "shortName": "Nottingham Forest",
-        "code": "NFO"
+        "code": "NFO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/15/?bg=transparent"
       },
       "away": {
         "id": "premier-league.manchester-city",
         "league": "premier-league",
         "name": "Manchester City",
         "shortName": "Manchester City",
-        "code": "MCI"
+        "code": "MCI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/12/?bg=transparent"
       },
       "venue": "City Ground",
-      "referee": "Samuel Barrott",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -397,30 +423,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T14:00Z",
+      "startTime": "2026-11-08T14:00:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.crystal-palace",
         "league": "premier-league",
         "name": "Crystal Palace",
         "shortName": "Crystal Palace",
-        "code": "CRY"
+        "code": "CRY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/14/?bg=transparent"
       },
       "away": {
         "id": "premier-league.liverpool",
         "league": "premier-league",
         "name": "Liverpool",
         "shortName": "Liverpool",
-        "code": "LIV"
+        "code": "LIV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1/?bg=transparent"
       },
       "venue": "Selhurst Park",
-      "referee": "Tony Harrington",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -429,30 +456,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T14:00Z",
+      "startTime": "2026-11-08T14:00:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.sunderland",
         "league": "premier-league",
         "name": "Sunderland",
         "shortName": "Sunderland",
-        "code": "SUN"
+        "code": "SUN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/7/?bg=transparent"
       },
       "away": {
         "id": "premier-league.chelsea",
         "league": "premier-league",
         "name": "Chelsea",
         "shortName": "Chelsea",
-        "code": "CHE"
+        "code": "CHE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/13/?bg=transparent"
       },
       "venue": "Stadium of Light",
-      "referee": "Jarred Gillett",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -461,30 +489,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T14:00Z",
+      "startTime": "2026-11-08T14:00:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.ipswich-town",
         "league": "premier-league",
         "name": "Ipswich Town",
         "shortName": "Ipswich Town",
-        "code": "IPS"
+        "code": "IPS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/200/?bg=transparent"
       },
       "away": {
         "id": "premier-league.afc-bournemouth",
         "league": "premier-league",
         "name": "AFC Bournemouth",
         "shortName": "Bournemouth",
-        "code": "BOU"
+        "code": "BOU",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/2/?bg=transparent"
       },
       "venue": "Portman Road",
-      "referee": "Simon Hooper",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -493,30 +522,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T14:00Z",
+      "startTime": "2026-11-08T14:00:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.brighton-hove-albion",
         "league": "premier-league",
         "name": "Brighton & Hove Albion",
         "shortName": "Brighton",
-        "code": "BHA"
+        "code": "BHA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/5/?bg=transparent"
       },
       "away": {
         "id": "premier-league.brentford",
         "league": "premier-league",
         "name": "Brentford",
         "shortName": "Brentford",
-        "code": "BRE"
+        "code": "BRE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/16/?bg=transparent"
       },
       "venue": "Amex Stadium",
-      "referee": "Michael Oliver",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -525,30 +555,31 @@
       "season": "premier-league-2026-27",
       "week": 10,
       "round": "Jornada 10",
-      "startTime": "2026-11-08T16:30Z",
+      "startTime": "2026-11-08T16:30:00Z",
       "status": "final",
       "home": {
         "id": "premier-league.manchester-united",
         "league": "premier-league",
         "name": "Manchester United",
         "shortName": "Man. United",
-        "code": "MUN"
+        "code": "MUN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/17/?bg=transparent"
       },
       "away": {
         "id": "premier-league.aston-villa",
         "league": "premier-league",
         "name": "Aston Villa",
         "shortName": "Aston Villa",
-        "code": "AVL"
+        "code": "AVL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/3/?bg=transparent"
       },
       "venue": "Old Trafford",
-      "referee": "Chris Kavanagh",
       "neutralSite": false,
       "result": {
         "home": 4,
         "away": 4,
-        "observedAt": "2026-11-15T17:34:04.560Z",
-        "source": "football-data"
+        "observedAt": "2026-11-20T12:00:00.000Z",
+        "source": "openfootball"
       }
     },
     {
@@ -557,24 +588,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T12:30Z",
+      "startTime": "2026-11-21T12:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.manchester-city",
         "league": "premier-league",
         "name": "Manchester City",
         "shortName": "Manchester City",
-        "code": "MCI"
+        "code": "MCI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/12/?bg=transparent"
       },
       "away": {
         "id": "premier-league.fulham",
         "league": "premier-league",
         "name": "Fulham",
         "shortName": "Fulham",
-        "code": "FUL"
+        "code": "FUL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/6/?bg=transparent"
       },
       "venue": "Etihad Stadium",
-      "referee": "Thomas Bramall",
       "neutralSite": false
     },
     {
@@ -583,24 +615,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T15:00Z",
+      "startTime": "2026-11-21T15:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.chelsea",
         "league": "premier-league",
         "name": "Chelsea",
         "shortName": "Chelsea",
-        "code": "CHE"
+        "code": "CHE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/13/?bg=transparent"
       },
       "away": {
         "id": "premier-league.leeds-united",
         "league": "premier-league",
         "name": "Leeds United",
         "shortName": "Leeds United",
-        "code": "LEE"
+        "code": "LEE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/19/?bg=transparent"
       },
       "venue": "Stamford Bridge",
-      "referee": "Michael Oliver",
       "neutralSite": false
     },
     {
@@ -609,24 +642,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T15:00Z",
+      "startTime": "2026-11-21T15:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.aston-villa",
         "league": "premier-league",
         "name": "Aston Villa",
         "shortName": "Aston Villa",
-        "code": "AVL"
+        "code": "AVL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/3/?bg=transparent"
       },
       "away": {
         "id": "premier-league.sunderland",
         "league": "premier-league",
         "name": "Sunderland",
         "shortName": "Sunderland",
-        "code": "SUN"
+        "code": "SUN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/7/?bg=transparent"
       },
       "venue": "Villa Park",
-      "referee": "Andy Madley",
       "neutralSite": false
     },
     {
@@ -635,24 +669,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T15:00Z",
+      "startTime": "2026-11-21T15:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.afc-bournemouth",
         "league": "premier-league",
         "name": "AFC Bournemouth",
         "shortName": "Bournemouth",
-        "code": "BOU"
+        "code": "BOU",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/2/?bg=transparent"
       },
       "away": {
         "id": "premier-league.nottingham-forest",
         "league": "premier-league",
         "name": "Nottingham Forest",
         "shortName": "Nottingham Forest",
-        "code": "NFO"
+        "code": "NFO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/15/?bg=transparent"
       },
       "venue": "Vitality Stadium",
-      "referee": "Adam Herczeg",
       "neutralSite": false
     },
     {
@@ -661,24 +696,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T15:00Z",
+      "startTime": "2026-11-21T15:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.tottenham-hotspur",
         "league": "premier-league",
         "name": "Tottenham Hotspur",
         "shortName": "Tottenham",
-        "code": "TOT"
+        "code": "TOT",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/9/?bg=transparent"
       },
       "away": {
         "id": "premier-league.ipswich-town",
         "league": "premier-league",
         "name": "Ipswich Town",
         "shortName": "Ipswich Town",
-        "code": "IPS"
+        "code": "IPS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/200/?bg=transparent"
       },
       "venue": "Tottenham Hotspur Stadium",
-      "referee": "Robert Jones",
       "neutralSite": false
     },
     {
@@ -687,24 +723,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T15:00Z",
+      "startTime": "2026-11-21T15:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.coventry-city",
         "league": "premier-league",
         "name": "Coventry City",
         "shortName": "Coventry City",
-        "code": "COV"
+        "code": "COV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/203/?bg=transparent"
       },
       "away": {
         "id": "premier-league.crystal-palace",
         "league": "premier-league",
         "name": "Crystal Palace",
         "shortName": "Crystal Palace",
-        "code": "CRY"
+        "code": "CRY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/14/?bg=transparent"
       },
       "venue": "Coventry Building Society Arena",
-      "referee": "Darren England",
       "neutralSite": false
     },
     {
@@ -713,24 +750,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-21T17:30Z",
+      "startTime": "2026-11-21T17:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.newcastle-united",
         "league": "premier-league",
         "name": "Newcastle United",
         "shortName": "Newcastle",
-        "code": "NEW"
+        "code": "NEW",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/4/?bg=transparent"
       },
       "away": {
         "id": "premier-league.arsenal",
         "league": "premier-league",
         "name": "Arsenal",
         "shortName": "Arsenal",
-        "code": "ARS"
+        "code": "ARS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/18/?bg=transparent"
       },
       "venue": "St. James' Park",
-      "referee": "Chris Kavanagh",
       "neutralSite": false
     },
     {
@@ -739,24 +777,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-22T14:00Z",
+      "startTime": "2026-11-22T14:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.hull-city",
         "league": "premier-league",
         "name": "Hull City",
         "shortName": "Hull City",
-        "code": "HUL"
+        "code": "HUL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/204/?bg=transparent"
       },
       "away": {
         "id": "premier-league.brighton-hove-albion",
         "league": "premier-league",
         "name": "Brighton & Hove Albion",
         "shortName": "Brighton",
-        "code": "BHA"
+        "code": "BHA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/5/?bg=transparent"
       },
       "venue": "MKM Stadium",
-      "referee": "Peter Bankes",
       "neutralSite": false
     },
     {
@@ -765,24 +804,25 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-22T16:30Z",
+      "startTime": "2026-11-22T16:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.liverpool",
         "league": "premier-league",
         "name": "Liverpool",
         "shortName": "Liverpool",
-        "code": "LIV"
+        "code": "LIV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1/?bg=transparent"
       },
       "away": {
         "id": "premier-league.manchester-united",
         "league": "premier-league",
         "name": "Manchester United",
         "shortName": "Man. United",
-        "code": "MUN"
+        "code": "MUN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/17/?bg=transparent"
       },
       "venue": "Anfield",
-      "referee": "Samuel Barrott",
       "neutralSite": false
     },
     {
@@ -791,21 +831,23 @@
       "season": "premier-league-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-23T20:00Z",
+      "startTime": "2026-11-23T20:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "premier-league.brentford",
         "league": "premier-league",
         "name": "Brentford",
         "shortName": "Brentford",
-        "code": "BRE"
+        "code": "BRE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/16/?bg=transparent"
       },
       "away": {
         "id": "premier-league.everton",
         "league": "premier-league",
         "name": "Everton",
         "shortName": "Everton",
-        "code": "EVE"
+        "code": "EVE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/20/?bg=transparent"
       },
       "venue": "Gtech Community Stadium",
       "neutralSite": false
@@ -1727,11 +1769,11 @@
         "referee": "John Brooks",
         "refereeStats": {
           "country": "England",
-          "matches": 54,
-          "avgYellow": 4.87,
-          "avgRed": 0.19,
+          "matches": 56,
+          "avgYellow": 4.86,
+          "avgRed": 0.18,
           "avgFouls": 23,
-          "avgGoals": 2.74
+          "avgGoals": 2.7
         }
       }
     },
@@ -2208,11 +2250,11 @@
         "referee": "Farai Hallam",
         "refereeStats": {
           "country": "England",
-          "matches": 69,
-          "avgYellow": 3.64,
+          "matches": 70,
+          "avgYellow": 3.67,
           "avgRed": 0.03,
           "avgFouls": 21.1,
-          "avgGoals": 2.65
+          "avgGoals": 2.67
         }
       }
     },
@@ -2688,8 +2730,8 @@
         "referee": "Robert Jones",
         "refereeStats": {
           "country": "England",
-          "matches": 60,
-          "avgYellow": 4.12,
+          "matches": 61,
+          "avgYellow": 4.1,
           "avgRed": 0.05,
           "avgFouls": 23.1,
           "avgGoals": 2.85
@@ -3168,8 +3210,8 @@
         "referee": "Samuel Barrott",
         "refereeStats": {
           "country": "England",
-          "matches": 68,
-          "avgYellow": 4.03,
+          "matches": 69,
+          "avgYellow": 4.06,
           "avgRed": 0.04,
           "avgFouls": 20.9,
           "avgGoals": 3.07
@@ -4587,11 +4629,11 @@
         "referee": "Simon Hooper",
         "refereeStats": {
           "country": "England",
-          "matches": 46,
-          "avgYellow": 4.28,
+          "matches": 47,
+          "avgYellow": 4.4,
           "avgRed": 0.13,
           "avgFouls": 23.3,
-          "avgGoals": 3.24
+          "avgGoals": 3.23
         }
       }
     },
@@ -5547,11 +5589,11 @@
         "referee": "Chris Kavanagh",
         "refereeStats": {
           "country": "England",
-          "matches": 86,
-          "avgYellow": 4.31,
+          "matches": 87,
+          "avgYellow": 4.33,
           "avgRed": 0.16,
           "avgFouls": 23.3,
-          "avgGoals": 2.69
+          "avgGoals": 2.68
         }
       }
     },
@@ -6230,6 +6272,84 @@
     },
     "pl-2026-27-md11-chelsea-leeds-united": {
       "game": "pl-2026-27-md11-chelsea-leeds-united",
+      "cortex": {
+        "headline": "Chelsea con la ventaja mínima en casa ante un Leeds que compite",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Chelsea parte adelante: gana en 46 % de los escenarios, contra 29 % de Leeds United; el empate se queda en 24 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido con 2.96 goles: 1.56 del Chelsea y 1.40 del Leeds. El 79 % de más de 1.5 y el 59 % de ambos anotan hablan de un juego con espacios; el Chelsea aporta un poco más en ataque.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.56,
+                "away": 1.4
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "59 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "57 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Chelsea empuja por las bandas con 5.7 tiros de esquina por 4.1 del Leeds, 9.9 en total. El Leeds corta más con 13.8 faltas frente a 10.8, un total de 24.5 que anticipa un juego trabado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.7,
+                "away": 4.1
+              },
+              {
+                "label": "Faltas",
+                "home": 10.8,
+                "away": 13.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 2,
+                "away": 2.6
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Chelsea es quinto con 16 puntos y diferencia de 3 en 10 jornadas; el Leeds es noveno con 14 y diferencia de 2. Llegan parecidos en descanso: 13 días el Chelsea y 14 el Leeds.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 16,
+                "away": 14
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones de última hora, el criterio del árbitro con las faltas y quién anota primero pueden mover la lectura: un gol temprano del Chelsea obliga al Leeds a abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "f17b55465c40a6b2",
+        "generatedAt": "2026-11-20T13:30:36.525Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.74,
@@ -7572,11 +7692,11 @@
         "referee": "Andy Madley",
         "refereeStats": {
           "country": "England",
-          "matches": 62,
-          "avgYellow": 3.84,
+          "matches": 63,
+          "avgYellow": 3.81,
           "avgRed": 0.11,
           "avgFouls": 23.1,
-          "avgGoals": 2.89
+          "avgGoals": 2.95
         }
       }
     },
@@ -8897,8 +9017,8 @@
         "referee": "Robert Jones",
         "refereeStats": {
           "country": "England",
-          "matches": 60,
-          "avgYellow": 4.12,
+          "matches": 61,
+          "avgYellow": 4.1,
           "avgRed": 0.05,
           "avgFouls": 23.1,
           "avgGoals": 2.85
@@ -10206,11 +10326,11 @@
         "referee": "Chris Kavanagh",
         "refereeStats": {
           "country": "England",
-          "matches": 86,
-          "avgYellow": 4.31,
+          "matches": 87,
+          "avgYellow": 4.33,
           "avgRed": 0.16,
           "avgFouls": 23.3,
-          "avgGoals": 2.69
+          "avgGoals": 2.68
         }
       }
     },
@@ -10844,7 +10964,7 @@
         "referee": "Peter Bankes",
         "refereeStats": {
           "country": "England",
-          "matches": 56,
+          "matches": 57,
           "avgYellow": 3.98,
           "avgRed": 0.18,
           "avgFouls": 22.5,
@@ -10854,6 +10974,84 @@
     },
     "pl-2026-27-md11-liverpool-manchester-united": {
       "game": "pl-2026-27-md11-liverpool-manchester-united",
+      "cortex": {
+        "headline": "Liverpool favorito en casa ante un United hundido en la tabla",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Liverpool llega cuarto con 18 puntos y una diferencia de 4, mientras el Manchester United es decimoctavo con 8 puntos y diferencia de -5. La probabilidad de 59 % para el local confirma esa distancia, aunque ambos tuvieron 14 días de descanso.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.68 goles totales, con 88 % de más de 1.5 y 71 % de más de 2.5. El Liverpool aporta 2.29 y el United 1.39, y ambos anotan aparece con 68 %.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.29,
+                "away": 1.39
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "68 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "71 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Liverpool empuja con 5.7 tiros de esquina por 4.3 del United, 10.0 en total. Las faltas suman 23.3, con 12.3 del local y 11.0 del visitante, así que habrá juego cortado y muchas pausas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.7,
+                "away": 4.3
+              },
+              {
+                "label": "Faltas",
+                "home": 12.3,
+                "away": 11
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 2.5
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Liverpool está cuarto con 18 puntos en 10 partidos y diferencia de 4. El United es decimoctavo con 8 puntos y diferencia de -5. Los dos llegan con 14 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 18,
+                "away": 8
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro influye en cuántas faltas se cobran y en el ritmo. Un gol temprano del United obligaría al Liverpool a empujar más.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "67fdc416281e557e",
+        "generatedAt": "2026-11-20T13:31:06.794Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.68,
@@ -11521,8 +11719,8 @@
         "referee": "Samuel Barrott",
         "refereeStats": {
           "country": "England",
-          "matches": 68,
-          "avgYellow": 4.03,
+          "matches": 69,
+          "avgYellow": 4.06,
           "avgRed": 0.04,
           "avgFouls": 20.9,
           "avgGoals": 3.07
@@ -11531,6 +11729,84 @@
     },
     "pl-2026-27-md11-brentford-everton": {
       "game": "pl-2026-27-md11-brentford-everton",
+      "cortex": {
+        "headline": "Brentford favorito en casa ante un Everton mejor ubicado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Everton llega con 16 puntos y sexto lugar, dos más que el Brentford, octavo con 14. Aun así el Brentford tiene la mayor probabilidad con 49 % y mejor diferencia de goles, 5 frente a 2, y juega en casa.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 2.74, con 75 % de más de 1.5 y 51 % de más de 2.5. El Brentford aporta más con 1.61 goles esperados frente a 1.13 del Everton, y ambos anotan aparece con 54 %.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.61,
+                "away": 1.13
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "54 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "51 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Brentford empuja más: 5.1 tiros de esquina por 4.5 del Everton, 9.6 en total. En faltas el local también va arriba, 11.2 contra 9.4, con 20.6 de suma y 4.0 amarillas, un partido cortado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.1,
+                "away": 4.5
+              },
+              {
+                "label": "Faltas",
+                "home": 11.2,
+                "away": 9.4
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Everton es sexto con 16 puntos en 10 jornadas y diferencia de 2; el Brentford es octavo con 14 y diferencia de 5. El descanso es amplio para ambos: 15 días el local y 17 el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 14,
+                "away": 16
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol ordena el partido: si el Brentford anota temprano, el Everton debe abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "6dd027e3793ae81a",
+        "generatedAt": "2026-11-20T13:31:11.070Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.12,
@@ -12201,13 +12477,14 @@
       "name": "Arsenal",
       "shortName": "Arsenal",
       "code": "ARS",
-      "played": 7,
-      "won": 6,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/18/?bg=transparent",
+      "played": 10,
+      "won": 9,
       "drawn": 0,
       "lost": 1,
-      "goalsFor": 10,
-      "goalsAgainst": 4,
-      "points": 18,
+      "goalsFor": 15,
+      "goalsAgainst": 5,
+      "points": 27,
       "form": [
         "W",
         "W",
@@ -12221,13 +12498,14 @@
       "name": "Brighton & Hove Albion",
       "shortName": "Brighton",
       "code": "BHA",
-      "played": 8,
-      "won": 5,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/5/?bg=transparent",
+      "played": 10,
+      "won": 7,
       "drawn": 1,
       "lost": 2,
-      "goalsFor": 19,
+      "goalsFor": 26,
       "goalsAgainst": 7,
-      "points": 16,
+      "points": 22,
       "form": [
         "W",
         "W",
@@ -12241,13 +12519,14 @@
       "name": "Manchester City",
       "shortName": "Manchester City",
       "code": "MCI",
-      "played": 7,
-      "won": 5,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/12/?bg=transparent",
+      "played": 10,
+      "won": 7,
       "drawn": 0,
-      "lost": 2,
-      "goalsFor": 14,
-      "goalsAgainst": 9,
-      "points": 15,
+      "lost": 3,
+      "goalsFor": 21,
+      "goalsAgainst": 13,
+      "points": 21,
       "form": [
         "W",
         "W",
@@ -12261,13 +12540,14 @@
       "name": "Liverpool",
       "shortName": "Liverpool",
       "code": "LIV",
-      "played": 7,
-      "won": 4,
-      "drawn": 2,
-      "lost": 1,
-      "goalsFor": 12,
-      "goalsAgainst": 6,
-      "points": 14,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1/?bg=transparent",
+      "played": 10,
+      "won": 5,
+      "drawn": 3,
+      "lost": 2,
+      "goalsFor": 14,
+      "goalsAgainst": 10,
+      "points": 18,
       "form": [
         "L",
         "W",
@@ -12277,21 +12557,64 @@
       ]
     },
     {
+      "teamId": "premier-league.chelsea",
+      "name": "Chelsea",
+      "shortName": "Chelsea",
+      "code": "CHE",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/13/?bg=transparent",
+      "played": 10,
+      "won": 5,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 19,
+      "goalsAgainst": 16,
+      "points": 16,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
       "teamId": "premier-league.everton",
       "name": "Everton",
       "shortName": "Everton",
       "code": "EVE",
-      "played": 6,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/20/?bg=transparent",
+      "played": 10,
       "won": 4,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 10,
-      "goalsAgainst": 4,
-      "points": 14,
+      "drawn": 4,
+      "lost": 2,
+      "goalsFor": 12,
+      "goalsAgainst": 10,
+      "points": 16,
       "form": [
         "D",
         "L",
         "L",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "premier-league.afc-bournemouth",
+      "name": "AFC Bournemouth",
+      "shortName": "Bournemouth",
+      "code": "BOU",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/2/?bg=transparent",
+      "played": 10,
+      "won": 4,
+      "drawn": 3,
+      "lost": 3,
+      "goalsFor": 16,
+      "goalsAgainst": 14,
+      "points": 15,
+      "form": [
+        "L",
+        "W",
+        "W",
         "W",
         "W"
       ]
@@ -12301,39 +12624,20 @@
       "name": "Brentford",
       "shortName": "Brentford",
       "code": "BRE",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/16/?bg=transparent",
+      "played": 10,
       "won": 3,
-      "drawn": 4,
-      "lost": 1,
-      "goalsFor": 13,
-      "goalsAgainst": 7,
-      "points": 13,
+      "drawn": 5,
+      "lost": 2,
+      "goalsFor": 16,
+      "goalsAgainst": 11,
+      "points": 14,
       "form": [
         "D",
         "L",
         "D",
         "W",
         "L"
-      ]
-    },
-    {
-      "teamId": "premier-league.afc-bournemouth",
-      "name": "AFC Bournemouth",
-      "shortName": "Bournemouth",
-      "code": "BOU",
-      "played": 8,
-      "won": 3,
-      "drawn": 3,
-      "lost": 2,
-      "goalsFor": 13,
-      "goalsAgainst": 9,
-      "points": 12,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "W",
-        "W"
       ]
     },
     {
@@ -12341,179 +12645,20 @@
       "name": "Leeds United",
       "shortName": "Leeds United",
       "code": "LEE",
-      "played": 7,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/19/?bg=transparent",
+      "played": 10,
       "won": 3,
-      "drawn": 3,
-      "lost": 1,
-      "goalsFor": 8,
-      "goalsAgainst": 5,
-      "points": 12,
-      "form": [
-        "L",
-        "D",
-        "D",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "premier-league.newcastle-united",
-      "name": "Newcastle United",
-      "shortName": "Newcastle",
-      "code": "NEW",
-      "played": 8,
-      "won": 3,
-      "drawn": 3,
+      "drawn": 5,
       "lost": 2,
-      "goalsFor": 12,
-      "goalsAgainst": 11,
-      "points": 12,
-      "form": [
-        "L",
-        "L",
-        "W",
-        "L",
-        "D"
-      ]
-    },
-    {
-      "teamId": "premier-league.chelsea",
-      "name": "Chelsea",
-      "shortName": "Chelsea",
-      "code": "CHE",
-      "played": 7,
-      "won": 3,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 12,
-      "goalsAgainst": 13,
-      "points": 10,
-      "form": [
-        "W",
-        "W",
-        "L",
-        "W",
-        "L"
-      ]
-    },
-    {
-      "teamId": "premier-league.hull-city",
-      "name": "Hull City",
-      "shortName": "Hull City",
-      "code": "HUL",
-      "played": 7,
-      "won": 2,
-      "drawn": 3,
-      "lost": 2,
-      "goalsFor": 9,
-      "goalsAgainst": 8,
-      "points": 9,
-      "form": [
-        "D",
-        "L",
-        "D",
-        "D",
-        "L"
-      ]
-    },
-    {
-      "teamId": "premier-league.sunderland",
-      "name": "Sunderland",
-      "shortName": "Sunderland",
-      "code": "SUN",
-      "played": 8,
-      "won": 2,
-      "drawn": 2,
-      "lost": 4,
-      "goalsFor": 8,
-      "goalsAgainst": 13,
-      "points": 8,
-      "form": [
-        "L",
-        "L",
-        "D",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "premier-league.nottingham-forest",
-      "name": "Nottingham Forest",
-      "shortName": "Nottingham Forest",
-      "code": "NFO",
-      "played": 6,
-      "won": 2,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 7,
-      "goalsAgainst": 8,
-      "points": 7,
-      "form": [
-        "L",
-        "L",
-        "D",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "premier-league.ipswich-town",
-      "name": "Ipswich Town",
-      "shortName": "Ipswich Town",
-      "code": "IPS",
-      "played": 7,
-      "won": 2,
-      "drawn": 1,
-      "lost": 4,
       "goalsFor": 10,
-      "goalsAgainst": 15,
-      "points": 7,
+      "goalsAgainst": 8,
+      "points": 14,
       "form": [
-        "W",
         "L",
         "D",
         "D",
-        "L"
-      ]
-    },
-    {
-      "teamId": "premier-league.manchester-united",
-      "name": "Manchester United",
-      "shortName": "Man. United",
-      "code": "MUN",
-      "played": 8,
-      "won": 1,
-      "drawn": 3,
-      "lost": 4,
-      "goalsFor": 12,
-      "goalsAgainst": 17,
-      "points": 6,
-      "form": [
-        "D",
-        "D",
         "L",
-        "L",
-        "D"
-      ]
-    },
-    {
-      "teamId": "premier-league.coventry-city",
-      "name": "Coventry City",
-      "shortName": "Coventry City",
-      "code": "COV",
-      "played": 7,
-      "won": 2,
-      "drawn": 0,
-      "lost": 5,
-      "goalsFor": 5,
-      "goalsAgainst": 14,
-      "points": 6,
-      "form": [
-        "W",
-        "L",
-        "L",
-        "W",
-        "L"
+        "W"
       ]
     },
     {
@@ -12521,35 +12666,16 @@
       "name": "Aston Villa",
       "shortName": "Aston Villa",
       "code": "AVL",
-      "played": 6,
-      "won": 1,
-      "drawn": 2,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/3/?bg=transparent",
+      "played": 10,
+      "won": 3,
+      "drawn": 4,
       "lost": 3,
-      "goalsFor": 9,
-      "goalsAgainst": 14,
-      "points": 5,
+      "goalsFor": 14,
+      "goalsAgainst": 17,
+      "points": 13,
       "form": [
         "D",
-        "W",
-        "W",
-        "D",
-        "D"
-      ]
-    },
-    {
-      "teamId": "premier-league.fulham",
-      "name": "Fulham",
-      "shortName": "Fulham",
-      "code": "FUL",
-      "played": 6,
-      "won": 0,
-      "drawn": 3,
-      "lost": 3,
-      "goalsFor": 7,
-      "goalsAgainst": 10,
-      "points": 3,
-      "form": [
-        "L",
         "W",
         "W",
         "D",
@@ -12561,13 +12687,14 @@
       "name": "Tottenham Hotspur",
       "shortName": "Tottenham",
       "code": "TOT",
-      "played": 5,
-      "won": 1,
-      "drawn": 0,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/9/?bg=transparent",
+      "played": 10,
+      "won": 3,
+      "drawn": 3,
       "lost": 4,
-      "goalsFor": 4,
-      "goalsAgainst": 9,
-      "points": 3,
+      "goalsFor": 10,
+      "goalsAgainst": 11,
+      "points": 12,
       "form": [
         "D",
         "W",
@@ -12577,17 +12704,186 @@
       ]
     },
     {
+      "teamId": "premier-league.newcastle-united",
+      "name": "Newcastle United",
+      "shortName": "Newcastle",
+      "code": "NEW",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/4/?bg=transparent",
+      "played": 10,
+      "won": 3,
+      "drawn": 3,
+      "lost": 4,
+      "goalsFor": 13,
+      "goalsAgainst": 16,
+      "points": 12,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "L",
+        "D"
+      ]
+    },
+    {
+      "teamId": "premier-league.hull-city",
+      "name": "Hull City",
+      "shortName": "Hull City",
+      "code": "HUL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/204/?bg=transparent",
+      "played": 10,
+      "won": 2,
+      "drawn": 5,
+      "lost": 3,
+      "goalsFor": 11,
+      "goalsAgainst": 11,
+      "points": 11,
+      "form": [
+        "D",
+        "L",
+        "D",
+        "D",
+        "L"
+      ]
+    },
+    {
+      "teamId": "premier-league.ipswich-town",
+      "name": "Ipswich Town",
+      "shortName": "Ipswich Town",
+      "code": "IPS",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/200/?bg=transparent",
+      "played": 10,
+      "won": 3,
+      "drawn": 2,
+      "lost": 5,
+      "goalsFor": 15,
+      "goalsAgainst": 20,
+      "points": 11,
+      "form": [
+        "W",
+        "L",
+        "D",
+        "D",
+        "L"
+      ]
+    },
+    {
+      "teamId": "premier-league.fulham",
+      "name": "Fulham",
+      "shortName": "Fulham",
+      "code": "FUL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/6/?bg=transparent",
+      "played": 10,
+      "won": 2,
+      "drawn": 4,
+      "lost": 4,
+      "goalsFor": 10,
+      "goalsAgainst": 12,
+      "points": 10,
+      "form": [
+        "L",
+        "W",
+        "W",
+        "D",
+        "D"
+      ]
+    },
+    {
+      "teamId": "premier-league.nottingham-forest",
+      "name": "Nottingham Forest",
+      "shortName": "Nottingham Forest",
+      "code": "NFO",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/15/?bg=transparent",
+      "played": 10,
+      "won": 2,
+      "drawn": 3,
+      "lost": 5,
+      "goalsFor": 9,
+      "goalsAgainst": 13,
+      "points": 9,
+      "form": [
+        "L",
+        "L",
+        "D",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "premier-league.coventry-city",
+      "name": "Coventry City",
+      "shortName": "Coventry City",
+      "code": "COV",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/203/?bg=transparent",
+      "played": 10,
+      "won": 3,
+      "drawn": 0,
+      "lost": 7,
+      "goalsFor": 10,
+      "goalsAgainst": 19,
+      "points": 9,
+      "form": [
+        "W",
+        "L",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "premier-league.manchester-united",
+      "name": "Manchester United",
+      "shortName": "Man. United",
+      "code": "MUN",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/17/?bg=transparent",
+      "played": 10,
+      "won": 1,
+      "drawn": 5,
+      "lost": 4,
+      "goalsFor": 14,
+      "goalsAgainst": 19,
+      "points": 8,
+      "form": [
+        "D",
+        "D",
+        "L",
+        "L",
+        "D"
+      ]
+    },
+    {
+      "teamId": "premier-league.sunderland",
+      "name": "Sunderland",
+      "shortName": "Sunderland",
+      "code": "SUN",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/7/?bg=transparent",
+      "played": 10,
+      "won": 2,
+      "drawn": 2,
+      "lost": 6,
+      "goalsFor": 8,
+      "goalsAgainst": 17,
+      "points": 8,
+      "form": [
+        "L",
+        "L",
+        "D",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "premier-league.crystal-palace",
       "name": "Crystal Palace",
       "shortName": "Crystal Palace",
       "code": "CRY",
-      "played": 7,
-      "won": 1,
-      "drawn": 0,
-      "lost": 6,
-      "goalsFor": 7,
-      "goalsAgainst": 18,
-      "points": 3,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/14/?bg=transparent",
+      "played": 10,
+      "won": 2,
+      "drawn": 1,
+      "lost": 7,
+      "goalsFor": 10,
+      "goalsAgainst": 24,
+      "points": 7,
       "form": [
         "W",
         "L",

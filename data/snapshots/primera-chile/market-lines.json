@@ -1,151 +1,128 @@
 {
   "schemaVersion": 1,
   "league": "primera-chile",
-  "updatedAt": "2026-11-19T19:46:43.684Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "lines": [
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "1x2",
-      "outcome": "HOME",
+      "market": "btts",
+      "outcome": "yes",
       "line": null,
-      "book": "bet365",
-      "decimal": 2.25,
-      "openingDecimal": 2.25,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "book": "1xbet",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "1x2",
-      "outcome": "DRAW",
+      "market": "btts",
+      "outcome": "yes",
       "line": null,
-      "book": "bet365",
-      "decimal": 3.6,
-      "openingDecimal": 3.6,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "book": "betano",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "1x2",
-      "outcome": "AWAY",
+      "market": "btts",
+      "outcome": "yes",
       "line": null,
-      "book": "bet365",
-      "decimal": 2.65,
-      "openingDecimal": 2.65,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "book": "interwetten",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "double_chance",
-      "outcome": "1X",
+      "market": "btts",
+      "outcome": "yes",
       "line": null,
-      "book": "bet365",
-      "decimal": 1.444,
-      "openingDecimal": 1.444,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "book": "unibet",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "double_chance",
-      "outcome": "X2",
+      "market": "btts",
+      "outcome": "yes",
       "line": null,
-      "book": "bet365",
-      "decimal": 1.571,
-      "openingDecimal": 1.571,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "book": "novibet",
+      "decimal": 1.64,
+      "openingDecimal": 1.64,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "double_chance",
-      "outcome": "12",
+      "market": "btts",
+      "outcome": "yes",
       "line": null,
-      "book": "bet365",
-      "decimal": 1.286,
-      "openingDecimal": 1.286,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "book": "bwin",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "over_under_15",
-      "outcome": "over",
-      "line": 1.5,
-      "book": "bet365",
-      "decimal": 1.222,
-      "openingDecimal": 1.222,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "over_under_15",
-      "outcome": "under",
-      "line": 1.5,
-      "book": "bet365",
-      "decimal": 4,
-      "openingDecimal": 4,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.615,
+      "openingDecimal": 1.615,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "bet365",
-      "decimal": 1.75,
-      "openingDecimal": 1.75,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "over_under_25",
-      "outcome": "under",
-      "line": 2.5,
-      "book": "bet365",
-      "decimal": 2.05,
-      "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
-      "homeName": "Cobresal",
-      "awayName": "Audax Italiano",
-      "market": "over_under_35",
-      "outcome": "over",
-      "line": 3.5,
-      "book": "bet365",
-      "decimal": 2.75,
-      "openingDecimal": 2.75,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
-      "homeName": "Cobresal",
-      "awayName": "Audax Italiano",
-      "market": "over_under_35",
-      "outcome": "under",
-      "line": 3.5,
-      "book": "bet365",
-      "decimal": 1.4,
-      "openingDecimal": 1.4,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
@@ -157,7 +134,152 @@
       "book": "bet365",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.58,
+      "openingDecimal": 1.58,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "10bet",
+      "decimal": 1.55,
+      "openingDecimal": 1.55,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betano",
+      "decimal": 1.67,
+      "openingDecimal": 1.7,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "unibet",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "novibet",
+      "decimal": 1.63,
+      "openingDecimal": 1.63,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bwin",
+      "decimal": 1.68,
+      "openingDecimal": 1.68,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 1.68,
+      "openingDecimal": 1.68,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.65,
+      "openingDecimal": 1.65,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
@@ -167,9 +289,143 @@
       "outcome": "HOME",
       "line": null,
       "book": "bet365",
-      "decimal": 1.727,
+      "decimal": 1.615,
       "openingDecimal": 1.727,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.66,
+      "openingDecimal": 1.66,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "10bet",
+      "decimal": 1.65,
+      "openingDecimal": 1.65,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 1.68,
+      "openingDecimal": 1.68,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betano",
+      "decimal": 2.12,
+      "openingDecimal": 2.07,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "novibet",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bwin",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betway",
+      "decimal": 2.15,
+      "openingDecimal": 2.15,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
@@ -179,9 +435,167 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bet365",
-      "decimal": 2,
+      "decimal": 2.2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betsson",
+      "decimal": 2.15,
+      "openingDecimal": 2.15,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "10bet",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "1xbet",
+      "decimal": 2.222,
+      "openingDecimal": 2.222,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betano",
+      "decimal": 2.2,
+      "openingDecimal": 2.18,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "novibet",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bwin",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betway",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
@@ -193,199 +607,748 @@
       "book": "bet365",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "over_under_05",
-      "outcome": "over",
-      "line": 0.5,
-      "book": "bet365",
-      "decimal": 1.04,
-      "openingDecimal": 1.04,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betsson",
+      "decimal": 2.28,
+      "openingDecimal": 2.22,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "over_under_05",
-      "outcome": "under",
-      "line": 0.5,
-      "book": "bet365",
-      "decimal": 13,
-      "openingDecimal": 13,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 10.5,
-      "book": "bet365",
-      "decimal": 1.833,
-      "openingDecimal": 1.833,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "10bet",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
       "homeName": "Cobresal",
       "awayName": "Audax Italiano",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 10.5,
-      "book": "bet365",
-      "decimal": 1.833,
-      "openingDecimal": 1.833,
-      "capturedAtUtc": "2026-11-14T20:52:40Z"
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "1x2",
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
       "outcome": "HOME",
-      "line": null,
-      "book": "bet365",
-      "decimal": 1.71,
-      "openingDecimal": 1.71,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "bet365",
-      "decimal": 3.6,
-      "openingDecimal": 3.6,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "bet365",
-      "decimal": 4.2,
-      "openingDecimal": 4.2,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "double_chance",
-      "outcome": "1X",
-      "line": null,
-      "book": "bet365",
-      "decimal": 1.222,
-      "openingDecimal": 1.222,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "double_chance",
-      "outcome": "X2",
-      "line": null,
-      "book": "bet365",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "double_chance",
-      "outcome": "12",
-      "line": null,
-      "book": "bet365",
-      "decimal": 1.286,
-      "openingDecimal": 1.286,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "over_under_15",
-      "outcome": "over",
-      "line": 1.5,
-      "book": "bet365",
-      "decimal": 1.25,
-      "openingDecimal": 1.25,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "over_under_15",
-      "outcome": "under",
-      "line": 1.5,
-      "book": "bet365",
-      "decimal": 3.75,
-      "openingDecimal": 3.75,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
-    },
-    {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "bet365",
-      "decimal": 1.85,
+      "line": -0.25,
+      "book": "1xbet",
+      "decimal": 1.86,
       "openingDecimal": 1.85,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
-      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
-      "homeName": "Palestino",
-      "awayName": "Unión La Calera",
-      "market": "over_under_25",
-      "outcome": "under",
-      "line": 2.5,
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "novibet",
+      "decimal": 1.93,
+      "openingDecimal": 1.92,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
       "book": "bet365",
+      "decimal": 1.975,
+      "openingDecimal": 1.975,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "betsson",
       "decimal": 1.95,
       "openingDecimal": 1.95,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "10bet",
+      "decimal": 1.93,
+      "openingDecimal": 1.93,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "1xbet",
+      "decimal": 1.84,
+      "openingDecimal": 1.85,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "novibet",
+      "decimal": 1.87,
+      "openingDecimal": 1.88,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "bet365",
+      "decimal": 1.825,
+      "openingDecimal": 1.825,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "betsson",
+      "decimal": 1.83,
+      "openingDecimal": 1.83,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "10bet",
+      "decimal": 1.769,
+      "openingDecimal": 1.769,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 5.65,
+      "openingDecimal": 5.65,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "novibet",
+      "decimal": 5.3,
+      "openingDecimal": 5.3,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "bet365",
+      "decimal": 5.5,
+      "openingDecimal": 5.5,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 1.078,
+      "openingDecimal": 1.078,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "novibet",
+      "decimal": 1.16,
+      "openingDecimal": 1.16,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "bet365",
+      "decimal": 1.15,
+      "openingDecimal": 1.15,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 3.8,
+      "openingDecimal": 3.8,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "novibet",
+      "decimal": 3.75,
+      "openingDecimal": 3.75,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "bet365",
+      "decimal": 3.7,
+      "openingDecimal": 3.7,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 1.22,
+      "openingDecimal": 1.22,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "novibet",
+      "decimal": 1.27,
+      "openingDecimal": 1.27,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "bet365",
+      "decimal": 1.26,
+      "openingDecimal": 1.26,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 2.62,
+      "openingDecimal": 2.62,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "novibet",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "bet365",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "betsson",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 1.43,
+      "openingDecimal": 1.43,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "novibet",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "bet365",
+      "decimal": 1.475,
+      "openingDecimal": 1.475,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "betsson",
+      "decimal": 1.47,
+      "openingDecimal": 1.47,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "1xbet",
+      "decimal": 1.51,
+      "openingDecimal": 1.51,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "novibet",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "bet365",
+      "decimal": 1.525,
+      "openingDecimal": 1.525,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.25,
+      "book": "1xbet",
+      "decimal": 2.37,
+      "openingDecimal": 2.37,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.25,
+      "book": "novibet",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.25,
+      "book": "bet365",
+      "decimal": 2.425,
+      "openingDecimal": 2.425,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.75,
+      "book": "1xbet",
+      "decimal": 1.28,
+      "openingDecimal": 1.28,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.75,
+      "book": "novibet",
+      "decimal": 1.28,
+      "openingDecimal": 1.28,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.75,
+      "book": "bet365",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.75,
+      "book": "1xbet",
+      "decimal": 3.35,
+      "openingDecimal": 3.35,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.75,
+      "book": "novibet",
+      "decimal": 3.65,
+      "openingDecimal": 3.65,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.75,
+      "book": "bet365",
+      "decimal": 3.45,
+      "openingDecimal": 3.45,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1.25,
+      "book": "1xbet",
+      "decimal": 1.15,
+      "openingDecimal": 1.15,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1.25,
+      "book": "novibet",
+      "decimal": 1.14,
+      "openingDecimal": 1.14,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1.25,
+      "book": "bet365",
+      "decimal": 1.15,
+      "openingDecimal": 1.15,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-cobresal-audax-italiano-ndexzu",
+      "homeName": "Cobresal",
+      "awayName": "Audax Italiano",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1.25,
+      "book": "1xbet",
+      "decimal": 4.7,
+      "openingDecimal": 4.7,
+      "capturedAtUtc": "2026-11-20T11:21:03Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
       "homeName": "Palestino",
       "awayName": "Unión La Calera",
-      "market": "over_under_35",
-      "outcome": "over",
-      "line": 3.5,
-      "book": "bet365",
-      "decimal": 3,
-      "openingDecimal": 3,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "1xbet",
+      "decimal": 1.67,
+      "openingDecimal": 1.67,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
       "homeName": "Palestino",
       "awayName": "Unión La Calera",
-      "market": "over_under_35",
-      "outcome": "under",
-      "line": 3.5,
-      "book": "bet365",
-      "decimal": 1.364,
-      "openingDecimal": 1.364,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betano",
+      "decimal": 1.67,
+      "openingDecimal": 1.7,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "unibet",
+      "decimal": 1.67,
+      "openingDecimal": 1.67,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "novibet",
+      "decimal": 1.72,
+      "openingDecimal": 1.68,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bwin",
+      "decimal": 1.66,
+      "openingDecimal": 1.66,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 1.66,
+      "openingDecimal": 1.66,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.727,
+      "openingDecimal": 1.667,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.667,
+      "openingDecimal": 1.667,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.667,
+      "openingDecimal": 1.667,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
@@ -395,9 +1358,157 @@
       "outcome": "yes",
       "line": null,
       "book": "bet365",
-      "decimal": 1.727,
+      "decimal": 1.667,
       "openingDecimal": 1.727,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.68,
+      "openingDecimal": 1.7,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "10bet",
+      "decimal": 1.615,
+      "openingDecimal": 1.615,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 1.66,
+      "openingDecimal": 1.66,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betano",
+      "decimal": 1.52,
+      "openingDecimal": 1.5,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "unibet",
+      "decimal": 1.48,
+      "openingDecimal": 1.48,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "novibet",
+      "decimal": 1.51,
+      "openingDecimal": 1.51,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bwin",
+      "decimal": 1.43,
+      "openingDecimal": 1.43,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 1.43,
+      "openingDecimal": 1.43,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.475,
+      "openingDecimal": 1.45,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.444,
+      "openingDecimal": 1.444,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.444,
+      "openingDecimal": 1.444,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
@@ -407,9 +1518,144 @@
       "outcome": "HOME",
       "line": null,
       "book": "bet365",
-      "decimal": 1.333,
+      "decimal": 1.444,
       "openingDecimal": 1.333,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.47,
+      "openingDecimal": 1.45,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "10bet",
+      "decimal": 1.444,
+      "openingDecimal": 1.444,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 1.43,
+      "openingDecimal": 1.43,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betano",
+      "decimal": 2.5,
+      "openingDecimal": 2.5,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2.5,
+      "openingDecimal": 2.5,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "novibet",
+      "decimal": 2.45,
+      "openingDecimal": 2.45,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bwin",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betway",
+      "decimal": 2.5,
+      "openingDecimal": 2.5,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.5,
+      "openingDecimal": 2.5,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.5,
+      "openingDecimal": 2.5,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
@@ -419,9 +1665,170 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bet365",
-      "decimal": 3.25,
+      "decimal": 2.625,
       "openingDecimal": 3.25,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betsson",
+      "decimal": 2.6,
+      "openingDecimal": 2.65,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "10bet",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 2.6,
+      "openingDecimal": 2.6,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "1xbet",
+      "decimal": 2.079,
+      "openingDecimal": 2.079,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betano",
+      "decimal": 2.02,
+      "openingDecimal": 2.05,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "novibet",
+      "decimal": 2.08,
+      "openingDecimal": 2.15,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bwin",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betway",
+      "decimal": 2.05,
+      "openingDecimal": 2.1,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
@@ -431,57 +1838,607 @@
       "outcome": "no",
       "line": null,
       "book": "bet365",
-      "decimal": 2,
+      "decimal": 2.1,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
       "homeName": "Palestino",
       "awayName": "Unión La Calera",
-      "market": "over_under_05",
-      "outcome": "over",
-      "line": 0.5,
-      "book": "bet365",
-      "decimal": 1.04,
-      "openingDecimal": 1.04,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betsson",
+      "decimal": 2.08,
+      "openingDecimal": 2.08,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
       "homeName": "Palestino",
       "awayName": "Unión La Calera",
-      "market": "over_under_05",
-      "outcome": "under",
-      "line": 0.5,
-      "book": "bet365",
-      "decimal": 12,
-      "openingDecimal": 12,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 2.02,
+      "openingDecimal": 2.02,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
       "homeName": "Palestino",
       "awayName": "Unión La Calera",
-      "market": "total_corners",
-      "outcome": "over",
-      "line": 9.5,
-      "book": "bet365",
-      "decimal": 1.833,
-      "openingDecimal": 1.833,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "10bet",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
       "homeName": "Palestino",
       "awayName": "Unión La Calera",
-      "market": "total_corners",
-      "outcome": "under",
-      "line": 9.5,
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "1xbet",
+      "decimal": 1.65,
+      "openingDecimal": 1.65,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "novibet",
+      "decimal": 1.79,
+      "openingDecimal": 1.79,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
       "book": "bet365",
-      "decimal": 1.833,
-      "openingDecimal": 1.833,
-      "capturedAtUtc": "2026-11-14T20:52:42Z"
+      "decimal": 1.725,
+      "openingDecimal": 1.725,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "betsson",
+      "decimal": 1.72,
+      "openingDecimal": 1.7,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "10bet",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "1xbet",
+      "decimal": 2.02,
+      "openingDecimal": 2.02,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "novibet",
+      "decimal": 2.03,
+      "openingDecimal": 2.02,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "bet365",
+      "decimal": 2.075,
+      "openingDecimal": 2.075,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "betsson",
+      "decimal": 2.05,
+      "openingDecimal": 2.1,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "10bet",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 4.25,
+      "openingDecimal": 4.25,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "novibet",
+      "decimal": 4.85,
+      "openingDecimal": 4.85,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "bet365",
+      "decimal": 4.5,
+      "openingDecimal": 4.5,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 1.15,
+      "openingDecimal": 1.15,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "novibet",
+      "decimal": 1.18,
+      "openingDecimal": 1.18,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "bet365",
+      "decimal": 1.19,
+      "openingDecimal": 1.19,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 3.04,
+      "openingDecimal": 3.04,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "novibet",
+      "decimal": 3.45,
+      "openingDecimal": 3.45,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "bet365",
+      "decimal": 3.3,
+      "openingDecimal": 3.3,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 1.29,
+      "openingDecimal": 1.29,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "novibet",
+      "decimal": 1.31,
+      "openingDecimal": 1.31,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "bet365",
+      "decimal": 1.325,
+      "openingDecimal": 1.325,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 2.14,
+      "openingDecimal": 2.14,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "novibet",
+      "decimal": 2.4,
+      "openingDecimal": 2.4,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "bet365",
+      "decimal": 2.3,
+      "openingDecimal": 2.25,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "betsson",
+      "decimal": 2.3,
+      "openingDecimal": 2.25,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 1.57,
+      "openingDecimal": 1.57,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "novibet",
+      "decimal": 1.58,
+      "openingDecimal": 1.58,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "bet365",
+      "decimal": 1.6,
+      "openingDecimal": 1.625,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "betsson",
+      "decimal": 1.57,
+      "openingDecimal": 1.62,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "1xbet",
+      "decimal": 1.32,
+      "openingDecimal": 1.32,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "novibet",
+      "decimal": 1.41,
+      "openingDecimal": 1.4,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "bet365",
+      "decimal": 1.375,
+      "openingDecimal": 1.375,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.25,
+      "book": "1xbet",
+      "decimal": 2.9,
+      "openingDecimal": 2.9,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.25,
+      "book": "novibet",
+      "decimal": 2.9,
+      "openingDecimal": 2.95,
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.25,
+      "book": "bet365",
+      "decimal": 3,
+      "openingDecimal": 3,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.75,
+      "book": "1xbet",
+      "decimal": 1.154,
+      "openingDecimal": 1.154,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.75,
+      "book": "novibet",
+      "decimal": 1.22,
+      "openingDecimal": 1.22,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.75,
+      "book": "bet365",
+      "decimal": 1.2,
+      "openingDecimal": 1.2,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.75,
+      "book": "1xbet",
+      "decimal": 4.2,
+      "openingDecimal": 4.2,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.75,
+      "book": "novibet",
+      "decimal": 4.25,
+      "openingDecimal": 4.25,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.75,
+      "book": "bet365",
+      "decimal": 4.4,
+      "openingDecimal": 4.4,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1.25,
+      "book": "1xbet",
+      "decimal": 1.046,
+      "openingDecimal": 1.046,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1.25,
+      "book": "1xbet",
+      "decimal": 6.7,
+      "openingDecimal": 6.7,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
+    },
+    {
+      "gameId": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "homeName": "Palestino",
+      "awayName": "Unión La Calera",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1.75,
+      "book": "1xbet",
+      "decimal": 9.2,
+      "openingDecimal": 9.2,
+      "capturedAtUtc": "2026-11-20T11:21:07Z"
     },
     {
       "gameId": "primera-chile-2026-11-21-coquimbo-unido-everton-vina-m-iyxl79",
@@ -1454,7 +3411,7 @@
       "decimal": 2.02,
       "openingDecimal": 2.04,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1466,7 +3423,7 @@
       "book": "pinnacle",
       "decimal": 2.13,
       "openingDecimal": 2.13,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1478,7 +3435,7 @@
       "book": "unibet",
       "decimal": 2.06,
       "openingDecimal": 2.06,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1490,7 +3447,7 @@
       "book": "bwin",
       "decimal": 2.1,
       "openingDecimal": 2.1,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1503,7 +3460,7 @@
       "decimal": 2.15,
       "openingDecimal": 2.1,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1515,7 +3472,7 @@
       "book": "betfair",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1527,7 +3484,7 @@
       "book": "coral",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1539,7 +3496,7 @@
       "book": "dafabet",
       "decimal": 2.18,
       "openingDecimal": 2.18,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1551,7 +3508,7 @@
       "book": "ladbrokes",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1561,10 +3518,10 @@
       "outcome": "HOME",
       "line": null,
       "book": "melbet",
-      "decimal": 2.03,
+      "decimal": 2.07,
       "openingDecimal": 2.04,
-      "movement": "shortening",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1576,7 +3533,7 @@
       "book": "mansionbet",
       "decimal": 2.08,
       "openingDecimal": 2.08,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1586,9 +3543,10 @@
       "outcome": "HOME",
       "line": null,
       "book": "sbo",
-      "decimal": 2.09,
+      "decimal": 2.04,
       "openingDecimal": 2.09,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1600,7 +3558,7 @@
       "book": "1xbet",
       "decimal": 3.6,
       "openingDecimal": 3.6,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1612,7 +3570,7 @@
       "book": "pinnacle",
       "decimal": 3.81,
       "openingDecimal": 3.81,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1624,7 +3582,7 @@
       "book": "unibet",
       "decimal": 3.6,
       "openingDecimal": 3.6,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1636,7 +3594,7 @@
       "book": "bwin",
       "decimal": 3.6,
       "openingDecimal": 3.6,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1648,7 +3606,7 @@
       "book": "bet365",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1660,7 +3618,7 @@
       "book": "betfair",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1672,7 +3630,7 @@
       "book": "coral",
       "decimal": 3.4,
       "openingDecimal": 3.4,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1684,7 +3642,7 @@
       "book": "dafabet",
       "decimal": 3.65,
       "openingDecimal": 3.65,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1696,7 +3654,7 @@
       "book": "ladbrokes",
       "decimal": 3.4,
       "openingDecimal": 3.4,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1706,9 +3664,10 @@
       "outcome": "DRAW",
       "line": null,
       "book": "melbet",
-      "decimal": 3.6,
+      "decimal": 3.55,
       "openingDecimal": 3.6,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1720,7 +3679,7 @@
       "book": "mansionbet",
       "decimal": 3.4,
       "openingDecimal": 3.4,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1730,9 +3689,10 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.29,
+      "decimal": 3.19,
       "openingDecimal": 3.29,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1745,7 +3705,7 @@
       "decimal": 3.01,
       "openingDecimal": 3,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1757,7 +3717,7 @@
       "book": "pinnacle",
       "decimal": 3.1,
       "openingDecimal": 3.1,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1769,7 +3729,7 @@
       "book": "unibet",
       "decimal": 3.2,
       "openingDecimal": 3.2,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1781,7 +3741,7 @@
       "book": "bwin",
       "decimal": 3.1,
       "openingDecimal": 3.1,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1793,7 +3753,7 @@
       "book": "bet365",
       "decimal": 3.1,
       "openingDecimal": 3.1,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1805,7 +3765,7 @@
       "book": "betfair",
       "decimal": 2.9,
       "openingDecimal": 2.9,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1817,7 +3777,7 @@
       "book": "coral",
       "decimal": 2.9,
       "openingDecimal": 2.9,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1829,7 +3789,7 @@
       "book": "dafabet",
       "decimal": 3.15,
       "openingDecimal": 3.15,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1841,7 +3801,7 @@
       "book": "ladbrokes",
       "decimal": 2.9,
       "openingDecimal": 2.9,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1854,7 +3814,7 @@
       "decimal": 3.01,
       "openingDecimal": 3,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1866,7 +3826,7 @@
       "book": "mansionbet",
       "decimal": 2.91,
       "openingDecimal": 2.91,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1876,9 +3836,10 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sbo",
-      "decimal": 2.94,
+      "decimal": 2.86,
       "openingDecimal": 2.94,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1891,7 +3852,7 @@
       "decimal": 1.61,
       "openingDecimal": 1.615,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1903,7 +3864,7 @@
       "book": "bet365",
       "decimal": 2.25,
       "openingDecimal": 2.25,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1916,7 +3877,7 @@
       "decimal": 1.53,
       "openingDecimal": 1.533,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1929,7 +3890,7 @@
       "decimal": 2.37,
       "openingDecimal": 2.375,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -1941,7 +3902,7 @@
       "book": "1xbet",
       "decimal": 2.04,
       "openingDecimal": 2.04,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -1953,7 +3914,7 @@
       "book": "pinnacle",
       "decimal": 2.16,
       "openingDecimal": 2.16,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -1965,7 +3926,7 @@
       "book": "unibet",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -1977,7 +3938,7 @@
       "book": "bwin",
       "decimal": 2.15,
       "openingDecimal": 2.15,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -1989,7 +3950,7 @@
       "book": "william-hill",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2002,7 +3963,7 @@
       "decimal": 2.1,
       "openingDecimal": 2.05,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2014,7 +3975,7 @@
       "book": "betfair",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2026,7 +3987,7 @@
       "book": "coral",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2038,7 +3999,7 @@
       "book": "dafabet",
       "decimal": 2.15,
       "openingDecimal": 2.15,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2050,7 +4011,7 @@
       "book": "ladbrokes",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2062,7 +4023,7 @@
       "book": "mansionbet",
       "decimal": 2.03,
       "openingDecimal": 2.03,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2074,7 +4035,7 @@
       "book": "sbo",
       "decimal": 2.04,
       "openingDecimal": 2.04,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2086,7 +4047,7 @@
       "book": "macauslot",
       "decimal": 2.04,
       "openingDecimal": 2.04,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2098,7 +4059,7 @@
       "book": "1xbet",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2110,7 +4071,7 @@
       "book": "pinnacle",
       "decimal": 3.65,
       "openingDecimal": 3.65,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2122,7 +4083,7 @@
       "book": "unibet",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2134,7 +4095,7 @@
       "book": "bwin",
       "decimal": 3.7,
       "openingDecimal": 3.7,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2146,7 +4107,7 @@
       "book": "william-hill",
       "decimal": 3.3,
       "openingDecimal": 3.3,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2158,7 +4119,7 @@
       "book": "bet365",
       "decimal": 3.6,
       "openingDecimal": 3.6,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2170,7 +4131,7 @@
       "book": "betfair",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2182,7 +4143,7 @@
       "book": "coral",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2194,7 +4155,7 @@
       "book": "dafabet",
       "decimal": 3.7,
       "openingDecimal": 3.7,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2206,7 +4167,7 @@
       "book": "ladbrokes",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2218,7 +4179,7 @@
       "book": "mansionbet",
       "decimal": 3.4,
       "openingDecimal": 3.4,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2230,7 +4191,7 @@
       "book": "sbo",
       "decimal": 3.24,
       "openingDecimal": 3.24,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2242,7 +4203,7 @@
       "book": "macauslot",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2254,7 +4215,7 @@
       "book": "1xbet",
       "decimal": 3.06,
       "openingDecimal": 3.06,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2266,7 +4227,7 @@
       "book": "pinnacle",
       "decimal": 3.16,
       "openingDecimal": 3.16,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2278,7 +4239,7 @@
       "book": "unibet",
       "decimal": 3,
       "openingDecimal": 3,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2290,7 +4251,7 @@
       "book": "bwin",
       "decimal": 3,
       "openingDecimal": 3,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2302,7 +4263,7 @@
       "book": "william-hill",
       "decimal": 3.1,
       "openingDecimal": 3.1,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2314,7 +4275,7 @@
       "book": "bet365",
       "decimal": 3,
       "openingDecimal": 3,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2326,7 +4287,7 @@
       "book": "betfair",
       "decimal": 2.9,
       "openingDecimal": 2.9,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2338,7 +4299,7 @@
       "book": "coral",
       "decimal": 2.87,
       "openingDecimal": 2.87,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2350,7 +4311,7 @@
       "book": "dafabet",
       "decimal": 3.15,
       "openingDecimal": 3.15,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2362,7 +4323,7 @@
       "book": "ladbrokes",
       "decimal": 2.87,
       "openingDecimal": 2.87,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2374,7 +4335,7 @@
       "book": "mansionbet",
       "decimal": 2.9,
       "openingDecimal": 2.9,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2386,7 +4347,7 @@
       "book": "sbo",
       "decimal": 2.85,
       "openingDecimal": 2.85,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2398,7 +4359,7 @@
       "book": "macauslot",
       "decimal": 3.06,
       "openingDecimal": 3.06,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2410,7 +4371,7 @@
       "book": "1xbet",
       "decimal": 1.3,
       "openingDecimal": 1.3,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2422,7 +4383,7 @@
       "book": "william-hill",
       "decimal": 1.35,
       "openingDecimal": 1.35,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2434,7 +4395,7 @@
       "book": "betfair",
       "decimal": 1.33,
       "openingDecimal": 1.33,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2446,7 +4407,7 @@
       "book": "sbo",
       "decimal": 1.23,
       "openingDecimal": 1.23,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2458,7 +4419,7 @@
       "book": "1xbet",
       "decimal": 1.62,
       "openingDecimal": 1.62,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2470,7 +4431,7 @@
       "book": "william-hill",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2482,7 +4443,7 @@
       "book": "betfair",
       "decimal": 1.67,
       "openingDecimal": 1.67,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2494,7 +4455,7 @@
       "book": "sbo",
       "decimal": 1.75,
       "openingDecimal": 1.75,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2506,7 +4467,7 @@
       "book": "1xbet",
       "decimal": 1.2,
       "openingDecimal": 1.2,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2518,7 +4479,7 @@
       "book": "william-hill",
       "decimal": 1.3,
       "openingDecimal": 1.3,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2530,7 +4491,7 @@
       "book": "betfair",
       "decimal": 1.22,
       "openingDecimal": 1.22,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2542,7 +4503,7 @@
       "book": "sbo",
       "decimal": 1.17,
       "openingDecimal": 1.17,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2554,7 +4515,7 @@
       "book": "1xbet",
       "decimal": 1.13,
       "openingDecimal": 1.13,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2566,7 +4527,7 @@
       "book": "pinnacle",
       "decimal": 1.18,
       "openingDecimal": 1.18,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2578,7 +4539,7 @@
       "book": "1xbet",
       "decimal": 4.9,
       "openingDecimal": 4.9,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2590,7 +4551,7 @@
       "book": "pinnacle",
       "decimal": 4.75,
       "openingDecimal": 4.75,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2602,7 +4563,7 @@
       "book": "1xbet",
       "decimal": 1.51,
       "openingDecimal": 1.51,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2614,7 +4575,7 @@
       "book": "pinnacle",
       "decimal": 1.6,
       "openingDecimal": 1.6,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2627,7 +4588,7 @@
       "decimal": 1.6,
       "openingDecimal": 1.571,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2639,7 +4600,7 @@
       "book": "1xbet",
       "decimal": 2.37,
       "openingDecimal": 2.37,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2651,7 +4612,7 @@
       "book": "pinnacle",
       "decimal": 2.33,
       "openingDecimal": 2.33,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2664,7 +4625,7 @@
       "decimal": 2.3,
       "openingDecimal": 2.35,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2676,7 +4637,7 @@
       "book": "1xbet",
       "decimal": 2.25,
       "openingDecimal": 2.25,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2688,7 +4649,7 @@
       "book": "pinnacle",
       "decimal": 2.46,
       "openingDecimal": 2.46,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2700,7 +4661,7 @@
       "book": "1xbet",
       "decimal": 1.57,
       "openingDecimal": 1.57,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2712,7 +4673,7 @@
       "book": "pinnacle",
       "decimal": 1.54,
       "openingDecimal": 1.54,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2724,7 +4685,7 @@
       "book": "1xbet",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2736,7 +4697,7 @@
       "book": "william-hill",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2748,7 +4709,7 @@
       "book": "bet365",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2760,7 +4721,7 @@
       "book": "betfair",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2772,7 +4733,7 @@
       "book": "1xbet",
       "decimal": 2.45,
       "openingDecimal": 2.45,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2784,7 +4745,7 @@
       "book": "william-hill",
       "decimal": 2.4,
       "openingDecimal": 2.4,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2796,7 +4757,7 @@
       "book": "bet365",
       "decimal": 2.5,
       "openingDecimal": 2.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2808,7 +4769,7 @@
       "book": "betfair",
       "decimal": 2.5,
       "openingDecimal": 2.5,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2820,7 +4781,7 @@
       "book": "1xbet",
       "decimal": 13.9,
       "openingDecimal": 13.9,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2832,7 +4793,7 @@
       "book": "1xbet",
       "decimal": 1.19,
       "openingDecimal": 1.19,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2844,7 +4805,7 @@
       "book": "1xbet",
       "decimal": 3.9,
       "openingDecimal": 3.9,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2854,9 +4815,10 @@
       "outcome": "over",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 1.4,
+      "decimal": 1.41,
       "openingDecimal": 1.4,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2866,10 +4828,10 @@
       "outcome": "under",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 2.75,
+      "decimal": 2.7,
       "openingDecimal": 2.7,
-      "movement": "drifting",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2879,9 +4841,10 @@
       "outcome": "over",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 1.7,
+      "decimal": 1.73,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2891,9 +4854,10 @@
       "outcome": "under",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 2.03,
+      "decimal": 1.99,
       "openingDecimal": 2.03,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2903,10 +4867,10 @@
       "outcome": "over",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 2.17,
+      "decimal": 2.22,
       "openingDecimal": 2.15,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2916,9 +4880,10 @@
       "outcome": "under",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 1.61,
+      "decimal": 1.59,
       "openingDecimal": 1.61,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2928,9 +4893,10 @@
       "outcome": "over",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 2.85,
+      "decimal": 2.95,
       "openingDecimal": 2.85,
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     },
     {
       "gameId": "primera-chile-2026-11-22-deportes-limac-deportes-la-se-qgz024",
@@ -2940,10 +4906,10 @@
       "outcome": "under",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 1.37,
+      "decimal": 1.35,
       "openingDecimal": 1.36,
-      "movement": "drifting",
-      "capturedAtUtc": "2026-11-19T19:35:05Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T13:20:06Z"
     }
   ]
 }

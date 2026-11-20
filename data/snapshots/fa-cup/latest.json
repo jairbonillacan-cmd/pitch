@@ -5,7 +5,7 @@
   "season": "fa-cup-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round 1",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3004812832721495,
-      "adjustedAgainst": 1.5320247598367416
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.pontefract-collieries": {
       "teamId": "fa-cup.pontefract-collieries",
@@ -29,8 +29,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.187371287653665,
-      "adjustedAgainst": 1.3581124377049547
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.three-bridges": {
       "teamId": "fa-cup.three-bridges",
@@ -40,8 +40,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2079512575174018,
-      "adjustedAgainst": 1.3833896479842345
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.kingstonian": {
       "teamId": "fa-cup.kingstonian",
@@ -51,8 +51,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1547062296013684,
-      "adjustedAgainst": 1.1432479127345365
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.2125
     },
     "fa-cup.quorn": {
       "teamId": "fa-cup.quorn",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2611015499034928,
-      "adjustedAgainst": 1.4275148951005496
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.shepshed-dynamo": {
       "teamId": "fa-cup.shepshed-dynamo",
@@ -73,8 +73,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3855775484682757,
-      "adjustedAgainst": 1.5450091171178495
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.flackwell-heath": {
       "teamId": "fa-cup.flackwell-heath",
@@ -84,8 +84,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1940657287400653,
-      "adjustedAgainst": 1.341329677007665
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.hanwell-town": {
       "teamId": "fa-cup.hanwell-town",
@@ -95,8 +95,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.4003033419957338,
-      "adjustedAgainst": 1.2203112698628447
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.2999999999999998
     },
     "fa-cup.aveley": {
       "teamId": "fa-cup.aveley",
@@ -106,8 +106,8 @@
       "forPerGame": 3,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.7444524555757104,
-      "adjustedAgainst": 1.6404332543797713
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.cheshunt": {
       "teamId": "fa-cup.cheshunt",
@@ -117,8 +117,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5283249290931251,
-      "adjustedAgainst": 1.7959797564228321
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.knowle": {
       "teamId": "fa-cup.knowle",
@@ -128,8 +128,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.272518879035255,
-      "adjustedAgainst": 1.2887768418958032
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.worcester-city": {
       "teamId": "fa-cup.worcester-city",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2857142857142858,
       "againstPerGame": 0.7142857142857143,
       "gamesPlayed": 7,
-      "adjustedFor": 1.4182604457622576,
-      "adjustedAgainst": 0.965064381572691
+      "adjustedFor": 1.3615384615384616,
+      "adjustedAgainst": 1.0538461538461539
     },
     "fa-cup.curzon-ashton": {
       "teamId": "fa-cup.curzon-ashton",
@@ -150,8 +150,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4039890327308897,
-      "adjustedAgainst": 1.5312600649921095
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.bradford-park-avenue": {
       "teamId": "fa-cup.bradford-park-avenue",
@@ -161,8 +161,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3333995499509708,
-      "adjustedAgainst": 1.0845860825617601
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.1888888888888889
     },
     "fa-cup.burgess-hill-town": {
       "teamId": "fa-cup.burgess-hill-town",
@@ -172,8 +172,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.4155981203203314,
-      "adjustedAgainst": 1.317244867964412
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.2999999999999998
     },
     "fa-cup.jersey-bulls": {
       "teamId": "fa-cup.jersey-bulls",
@@ -183,8 +183,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1687873619810576,
-      "adjustedAgainst": 1.4448867760725053
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.north-ferriby": {
       "teamId": "fa-cup.north-ferriby",
@@ -194,8 +194,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9873076515329071,
-      "adjustedAgainst": 1.2773028057309468
+      "adjustedFor": 1.0875,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.barton-town": {
       "teamId": "fa-cup.barton-town",
@@ -205,8 +205,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4640416688248763,
-      "adjustedAgainst": 1.434500693281413
+      "adjustedFor": 1.47,
+      "adjustedAgainst": 1.3699999999999999
     },
     "fa-cup.taunton-town": {
       "teamId": "fa-cup.taunton-town",
@@ -216,8 +216,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.7819476946229926,
-      "adjustedAgainst": 1.4168031991824637
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.millbrook": {
       "teamId": "fa-cup.millbrook",
@@ -227,8 +227,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2038724768256457,
-      "adjustedAgainst": 1.7885891924235833
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.stafford-rangers": {
       "teamId": "fa-cup.stafford-rangers",
@@ -238,8 +238,8 @@
       "forPerGame": 2.4285714285714284,
       "againstPerGame": 1,
       "gamesPlayed": 7,
-      "adjustedFor": 1.8689746968788405,
-      "adjustedAgainst": 1.1613918551744278
+      "adjustedFor": 1.9769230769230768,
+      "adjustedAgainst": 1.2076923076923076
     },
     "fa-cup.northampton-on-chenecks": {
       "teamId": "fa-cup.northampton-on-chenecks",
@@ -249,8 +249,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2431607814469217,
-      "adjustedAgainst": 1.6027548884004024
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.redcar-athletic": {
       "teamId": "fa-cup.redcar-athletic",
@@ -260,8 +260,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2827257844878943,
-      "adjustedAgainst": 1.3005382341594771
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.stocksbridge-park-steels": {
       "teamId": "fa-cup.stocksbridge-park-steels",
@@ -271,8 +271,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2214442869921214,
-      "adjustedAgainst": 1.3610662525569257
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.fleetlands": {
       "teamId": "fa-cup.fleetlands",
@@ -282,8 +282,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1275894607991004,
-      "adjustedAgainst": 1.6608971918773598
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.cirencester-town": {
       "teamId": "fa-cup.cirencester-town",
@@ -293,8 +293,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.5702329441788756,
-      "adjustedAgainst": 1.6124749389605346
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 1.5699999999999998
     },
     "fa-cup.petts-wood-holmesdale": {
       "teamId": "fa-cup.petts-wood-holmesdale",
@@ -304,8 +304,8 @@
       "forPerGame": 1,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3076690321860773,
-      "adjustedAgainst": 1.9653531546082759
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.957142857142857
     },
     "fa-cup.windsor-eton": {
       "teamId": "fa-cup.windsor-eton",
@@ -315,8 +315,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.7499601392226274,
-      "adjustedAgainst": 1.5676242464335448
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.thame-united": {
       "teamId": "fa-cup.thame-united",
@@ -326,8 +326,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.6982462868632378,
-      "adjustedAgainst": 1.5117566102487194
+      "adjustedFor": 1.77,
+      "adjustedAgainst": 1.5699999999999998
     },
     "fa-cup.reading-city": {
       "teamId": "fa-cup.reading-city",
@@ -337,8 +337,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.552482494580505,
-      "adjustedAgainst": 1.6354739982713185
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.tadley-calleva": {
       "teamId": "fa-cup.tadley-calleva",
@@ -348,8 +348,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.3272569210687142,
-      "adjustedAgainst": 1.247281094672325
+      "adjustedFor": 1.518181818181818,
+      "adjustedAgainst": 1.3363636363636362
     },
     "fa-cup.laverstock-ford": {
       "teamId": "fa-cup.laverstock-ford",
@@ -359,8 +359,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4170210300400232,
-      "adjustedAgainst": 1.711391104799544
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.mulbarton-wanderers": {
       "teamId": "fa-cup.mulbarton-wanderers",
@@ -370,8 +370,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.6426473860749722,
-      "adjustedAgainst": 1.2456224313741397
+      "adjustedFor": 1.6333333333333333,
+      "adjustedAgainst": 1.2999999999999998
     },
     "fa-cup.cornard-united": {
       "teamId": "fa-cup.cornard-united",
@@ -381,8 +381,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.229923679202469,
-      "adjustedAgainst": 1.6464195813579947
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.se-d-ns": {
       "teamId": "fa-cup.se-d-ns",
@@ -392,8 +392,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.9152362802785377,
-      "adjustedAgainst": 1.2860952917855968
+      "adjustedFor": 1.8699999999999999,
+      "adjustedAgainst": 1.3699999999999999
     },
     "fa-cup.erith-town": {
       "teamId": "fa-cup.erith-town",
@@ -403,8 +403,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2236630556442105,
-      "adjustedAgainst": 1.4274225745923024
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.harleston-town": {
       "teamId": "fa-cup.harleston-town",
@@ -414,8 +414,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4677180302610484,
-      "adjustedAgainst": 1.369600064720955
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.romford": {
       "teamId": "fa-cup.romford",
@@ -425,8 +425,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3954480256983806,
-      "adjustedAgainst": 1.681833194833561
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.yaxley": {
       "teamId": "fa-cup.yaxley",
@@ -436,8 +436,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1508368025112636,
-      "adjustedAgainst": 1.5657541865935292
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.buckhurst-hill": {
       "teamId": "fa-cup.buckhurst-hill",
@@ -447,8 +447,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.4956028556053869,
-      "adjustedAgainst": 1.384049077180146
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.hanley-town": {
       "teamId": "fa-cup.hanley-town",
@@ -458,8 +458,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2880737833354774,
-      "adjustedAgainst": 1.4328138983708616
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.abbey-hulton-united": {
       "teamId": "fa-cup.abbey-hulton-united",
@@ -469,8 +469,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3845547071456328,
-      "adjustedAgainst": 1.5399869876009769
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.baffins-milton-rovers": {
       "teamId": "fa-cup.baffins-milton-rovers",
@@ -480,8 +480,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3141699385856076,
-      "adjustedAgainst": 1.8087019485737044
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.slimbridge": {
       "teamId": "fa-cup.slimbridge",
@@ -491,8 +491,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.688018491866843,
-      "adjustedAgainst": 1.532794317114684
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.dunstable": {
       "teamId": "fa-cup.dunstable",
@@ -502,8 +502,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3357030561831307,
-      "adjustedAgainst": 1.6571213472563247
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.woodford-town": {
       "teamId": "fa-cup.woodford-town",
@@ -513,8 +513,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5889969444265144,
-      "adjustedAgainst": 1.4198482389511096
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.heaton-stannington": {
       "teamId": "fa-cup.heaton-stannington",
@@ -524,8 +524,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2410276870748351,
-      "adjustedAgainst": 1.3013611428843432
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.knaresborough-town": {
       "teamId": "fa-cup.knaresborough-town",
@@ -535,8 +535,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2213181208704964,
-      "adjustedAgainst": 1.3682448686493407
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.lower-breck": {
       "teamId": "fa-cup.lower-breck",
@@ -546,8 +546,8 @@
       "forPerGame": 3,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.6824426800532168,
-      "adjustedAgainst": 1.434912348090948
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.thornaby": {
       "teamId": "fa-cup.thornaby",
@@ -557,8 +557,8 @@
       "forPerGame": 1,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3841959657277865,
-      "adjustedAgainst": 1.9812496251203555
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.957142857142857
     },
     "fa-cup.sittingbourne": {
       "teamId": "fa-cup.sittingbourne",
@@ -568,8 +568,8 @@
       "forPerGame": 3,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5914618952367923,
-      "adjustedAgainst": 1.7587863951300886
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.greenwich-borough": {
       "teamId": "fa-cup.greenwich-borough",
@@ -579,8 +579,8 @@
       "forPerGame": 3,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.9250814428238125,
-      "adjustedAgainst": 1.8419273290002287
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.8375
     },
     "fa-cup.portchester": {
       "teamId": "fa-cup.portchester",
@@ -590,8 +590,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2842329091815636,
-      "adjustedAgainst": 1.3261390552715424
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.portland-united": {
       "teamId": "fa-cup.portland-united",
@@ -601,8 +601,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4030374667160823,
-      "adjustedAgainst": 1.5407310854984584
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.redhill": {
       "teamId": "fa-cup.redhill",
@@ -612,8 +612,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3703779963121772,
-      "adjustedAgainst": 1.543107212678321
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.sheppey-united": {
       "teamId": "fa-cup.sheppey-united",
@@ -623,8 +623,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.2719926639663253,
-      "adjustedAgainst": 1.2454299804973095
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.2999999999999998
     },
     "fa-cup.lye-town": {
       "teamId": "fa-cup.lye-town",
@@ -634,8 +634,8 @@
       "forPerGame": 1,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3134060587113305,
-      "adjustedAgainst": 1.933936214280255
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.957142857142857
     },
     "fa-cup.racing-warwick": {
       "teamId": "fa-cup.racing-warwick",
@@ -645,8 +645,8 @@
       "forPerGame": 3,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.8866606800173948,
-      "adjustedAgainst": 1.5368692257244598
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.crowborough-athletic": {
       "teamId": "fa-cup.crowborough-athletic",
@@ -656,8 +656,8 @@
       "forPerGame": 2.2,
       "againstPerGame": 1.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.7520171308808004,
-      "adjustedAgainst": 1.6132143907706509
+      "adjustedFor": 1.7909090909090908,
+      "adjustedAgainst": 1.6090909090909091
     },
     "fa-cup.whyteleafe": {
       "teamId": "fa-cup.whyteleafe",
@@ -667,8 +667,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3842623051701608,
-      "adjustedAgainst": 1.4869608747185836
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.south-liverpool": {
       "teamId": "fa-cup.south-liverpool",
@@ -678,8 +678,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3625067393359325,
-      "adjustedAgainst": 1.6355510963467257
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.6333333333333333
     },
     "fa-cup.prestwich-heys": {
       "teamId": "fa-cup.prestwich-heys",
@@ -689,8 +689,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3767182020858724,
-      "adjustedAgainst": 1.609361182457971
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.coventry-united": {
       "teamId": "fa-cup.coventry-united",
@@ -700,8 +700,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.410291422378787,
-      "adjustedAgainst": 1.3900417885271863
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.bedworth-united": {
       "teamId": "fa-cup.bedworth-united",
@@ -711,8 +711,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3919067428201761,
-      "adjustedAgainst": 1.5166794881310623
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.ware": {
       "teamId": "fa-cup.ware",
@@ -722,8 +722,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 3.6666666666666665,
       "gamesPlayed": 3,
-      "adjustedFor": 1.7411570532486909,
-      "adjustedAgainst": 2.241734379098763
+      "adjustedFor": 1.8555555555555554,
+      "adjustedAgainst": 2.1888888888888887
     },
     "fa-cup.fakenham-town": {
       "teamId": "fa-cup.fakenham-town",
@@ -733,8 +733,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3446038864335832,
-      "adjustedAgainst": 1.7714525626907425
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.8375
     },
     "fa-cup.northwich-victoria": {
       "teamId": "fa-cup.northwich-victoria",
@@ -744,8 +744,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4945242004022596,
-      "adjustedAgainst": 1.6335165097737945
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.atherton-collieries": {
       "teamId": "fa-cup.atherton-collieries",
@@ -755,8 +755,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.7082688490173565,
-      "adjustedAgainst": 1.5018651041021327
+      "adjustedFor": 1.7,
+      "adjustedAgainst": 1.6090909090909091
     },
     "fa-cup.margate": {
       "teamId": "fa-cup.margate",
@@ -766,8 +766,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3558850781530296,
-      "adjustedAgainst": 1.6896198565736467
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.snodland-town": {
       "teamId": "fa-cup.snodland-town",
@@ -777,8 +777,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4302390308475845,
-      "adjustedAgainst": 1.3172455313256077
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.desborough-town": {
       "teamId": "fa-cup.desborough-town",
@@ -788,8 +788,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1739966795637136,
-      "adjustedAgainst": 1.6325096026180819
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.rushden-diamonds": {
       "teamId": "fa-cup.rushden-diamonds",
@@ -799,8 +799,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.7134332433516808,
-      "adjustedAgainst": 1.332380114590871
+      "adjustedFor": 1.7,
+      "adjustedAgainst": 1.4272727272727272
     },
     "fa-cup.hendon": {
       "teamId": "fa-cup.hendon",
@@ -810,8 +810,8 @@
       "forPerGame": 4,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.0619716073928607,
-      "adjustedAgainst": 1.8887904699738007
+      "adjustedFor": 2.0875,
+      "adjustedAgainst": 1.9625
     },
     "fa-cup.hullbridge-sports": {
       "teamId": "fa-cup.hullbridge-sports",
@@ -821,8 +821,8 @@
       "forPerGame": 3,
       "againstPerGame": 7,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6573555121089643,
-      "adjustedAgainst": 2.222862380257054
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 2.242857142857143
     },
     "fa-cup.northampton-sileby-rangers": {
       "teamId": "fa-cup.northampton-sileby-rangers",
@@ -832,8 +832,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1677250557320134,
-      "adjustedAgainst": 1.8099014870342855
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.anstey-nomads": {
       "teamId": "fa-cup.anstey-nomads",
@@ -843,8 +843,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.6824824467583364,
-      "adjustedAgainst": 1.3689316534099156
+      "adjustedFor": 1.7,
+      "adjustedAgainst": 1.4272727272727272
     },
     "fa-cup.brantham-athletic": {
       "teamId": "fa-cup.brantham-athletic",
@@ -854,8 +854,8 @@
       "forPerGame": 0,
       "againstPerGame": 7,
       "gamesPlayed": 1,
-      "adjustedFor": 1.163471811865116,
-      "adjustedAgainst": 2.2812784885722923
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 2.242857142857143
     },
     "fa-cup.waltham-abbey": {
       "teamId": "fa-cup.waltham-abbey",
@@ -865,8 +865,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.8385047913516812,
-      "adjustedAgainst": 1.3939445020656787
+      "adjustedFor": 1.8555555555555554,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.bourne-town": {
       "teamId": "fa-cup.bourne-town",
@@ -876,8 +876,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2536109445302628,
-      "adjustedAgainst": 1.450913236032348
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.boldmere-st-michaels": {
       "teamId": "fa-cup.boldmere-st-michaels",
@@ -887,8 +887,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3827174656051278,
-      "adjustedAgainst": 1.5597060296618266
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.5222222222222221
     },
     "fa-cup.hayes-yeading": {
       "teamId": "fa-cup.hayes-yeading",
@@ -898,8 +898,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5885659809606862,
-      "adjustedAgainst": 1.7201458036399229
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.camberley-town": {
       "teamId": "fa-cup.camberley-town",
@@ -909,8 +909,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.337110077340915,
-      "adjustedAgainst": 1.4839193512280353
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.witham-town": {
       "teamId": "fa-cup.witham-town",
@@ -920,8 +920,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.392897241427534,
-      "adjustedAgainst": 1.6958014027503674
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.stotfold": {
       "teamId": "fa-cup.stotfold",
@@ -931,8 +931,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5183076531845558,
-      "adjustedAgainst": 1.697449844410243
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.hanworth-villa": {
       "teamId": "fa-cup.hanworth-villa",
@@ -942,8 +942,8 @@
       "forPerGame": 3.3333333333333335,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 2.0616902465927094,
-      "adjustedAgainst": 1.114903126652064
+      "adjustedFor": 2.0777777777777775,
+      "adjustedAgainst": 1.1888888888888889
     },
     "fa-cup.whitstable-town": {
       "teamId": "fa-cup.whitstable-town",
@@ -953,8 +953,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4411323768616868,
-      "adjustedAgainst": 1.73125382265754
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.leighton-town": {
       "teamId": "fa-cup.leighton-town",
@@ -964,8 +964,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2816335950060462,
-      "adjustedAgainst": 1.7667916852606242
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.gorleston": {
       "teamId": "fa-cup.gorleston",
@@ -975,8 +975,8 @@
       "forPerGame": 3.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.8861594727354116,
-      "adjustedAgainst": 1.710655086757129
+      "adjustedFor": 1.9625,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.uxbridge": {
       "teamId": "fa-cup.uxbridge",
@@ -986,8 +986,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.626899946223333,
-      "adjustedAgainst": 1.380363725631233
+      "adjustedFor": 1.7,
+      "adjustedAgainst": 1.4272727272727272
     },
     "fa-cup.haywards-heath-town": {
       "teamId": "fa-cup.haywards-heath-town",
@@ -997,8 +997,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2093251445992144,
-      "adjustedAgainst": 1.6495463292447512
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.falmouth-town": {
       "teamId": "fa-cup.falmouth-town",
@@ -1008,8 +1008,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.488352832288118,
-      "adjustedAgainst": 1.821631062671176
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.frome-town": {
       "teamId": "fa-cup.frome-town",
@@ -1019,8 +1019,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.6287332333317892,
-      "adjustedAgainst": 1.5307870018811836
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.vauxhall-motors": {
       "teamId": "fa-cup.vauxhall-motors",
@@ -1030,8 +1030,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.179450512307225,
-      "adjustedAgainst": 1.5371912464534239
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.dunston-uts": {
       "teamId": "fa-cup.dunston-uts",
@@ -1041,8 +1041,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3025382763314663,
-      "adjustedAgainst": 1.3009100192649585
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.winslow-united": {
       "teamId": "fa-cup.winslow-united",
@@ -1052,8 +1052,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1404233354578281,
-      "adjustedAgainst": 1.4743557822193771
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.swindon-supermarine": {
       "teamId": "fa-cup.swindon-supermarine",
@@ -1063,8 +1063,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.309136542729877,
-      "adjustedAgainst": 1.4275098997973663
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.prescot-cables": {
       "teamId": "fa-cup.prescot-cables",
@@ -1074,8 +1074,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2581382579818188,
-      "adjustedAgainst": 1.2779361590243552
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.horbury-town": {
       "teamId": "fa-cup.horbury-town",
@@ -1085,8 +1085,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.224920016717687,
-      "adjustedAgainst": 1.545805472068512
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.cambridge-city": {
       "teamId": "fa-cup.cambridge-city",
@@ -1096,8 +1096,8 @@
       "forPerGame": 3.3333333333333335,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.972993042951337,
-      "adjustedAgainst": 1.3210292747469183
+      "adjustedFor": 2.0777777777777775,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.maldon-tiptree": {
       "teamId": "fa-cup.maldon-tiptree",
@@ -1107,8 +1107,8 @@
       "forPerGame": 1,
       "againstPerGame": 6,
       "gamesPlayed": 1,
-      "adjustedFor": 1.403935189096213,
-      "adjustedAgainst": 2.0801833964241596
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 2.1
     },
     "fa-cup.leatherhead": {
       "teamId": "fa-cup.leatherhead",
@@ -1118,8 +1118,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.5823692297421168,
-      "adjustedAgainst": 1.3286172130387979
+      "adjustedFor": 1.7,
+      "adjustedAgainst": 1.518181818181818
     },
     "fa-cup.croydon-athletic": {
       "teamId": "fa-cup.croydon-athletic",
@@ -1129,8 +1129,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.21715373797176,
-      "adjustedAgainst": 1.658452946773396
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.wells-city": {
       "teamId": "fa-cup.wells-city",
@@ -1140,8 +1140,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.168702943520097,
-      "adjustedAgainst": 1.7636067310946875
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.hungerford-town": {
       "teamId": "fa-cup.hungerford-town",
@@ -1151,8 +1151,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.9016031533169984,
-      "adjustedAgainst": 1.363206747876489
+      "adjustedFor": 1.8555555555555554,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.yate-town": {
       "teamId": "fa-cup.yate-town",
@@ -1162,8 +1162,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3285822027368144,
-      "adjustedAgainst": 1.1557043300406324
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.1888888888888889
     },
     "fa-cup.devizes-town": {
       "teamId": "fa-cup.devizes-town",
@@ -1173,8 +1173,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2440647940873395,
-      "adjustedAgainst": 1.7111073668088155
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.redcar-town": {
       "teamId": "fa-cup.redcar-town",
@@ -1184,8 +1184,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3608641292740702,
-      "adjustedAgainst": 1.5959154441896886
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.blyth-spartans": {
       "teamId": "fa-cup.blyth-spartans",
@@ -1195,8 +1195,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1777699755625504,
-      "adjustedAgainst": 1.3478150387935928
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.maccabi-london-lions": {
       "teamId": "fa-cup.maccabi-london-lions",
@@ -1206,8 +1206,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4268816204204102,
-      "adjustedAgainst": 1.7924366384920192
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.bury-town": {
       "teamId": "fa-cup.bury-town",
@@ -1217,8 +1217,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 2.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.7638170216016746,
-      "adjustedAgainst": 1.832528601847849
+      "adjustedFor": 1.77,
+      "adjustedAgainst": 1.8699999999999999
     },
     "fa-cup.basingstoke-town": {
       "teamId": "fa-cup.basingstoke-town",
@@ -1228,8 +1228,8 @@
       "forPerGame": 0,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.917792628160714,
-      "adjustedAgainst": 1.1872134258219198
+      "adjustedFor": 1.0875,
+      "adjustedAgainst": 1.2125
     },
     "fa-cup.stoneham": {
       "teamId": "fa-cup.stoneham",
@@ -1239,8 +1239,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.2232283830011703,
-      "adjustedAgainst": 1.7701935673513127
+      "adjustedFor": 1.1888888888888889,
+      "adjustedAgainst": 1.6333333333333333
     },
     "fa-cup.avro": {
       "teamId": "fa-cup.avro",
@@ -1250,8 +1250,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.0752110165329836,
-      "adjustedAgainst": 1.5314332493974134
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.witton-albion": {
       "teamId": "fa-cup.witton-albion",
@@ -1261,8 +1261,8 @@
       "forPerGame": 1,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3324951976771844,
-      "adjustedAgainst": 1.9576542951963019
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.9625
     },
     "fa-cup.brixham": {
       "teamId": "fa-cup.brixham",
@@ -1272,8 +1272,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4976506315441738,
-      "adjustedAgainst": 1.6881874931839478
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.dorchester-town": {
       "teamId": "fa-cup.dorchester-town",
@@ -1283,8 +1283,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4371075276622052,
-      "adjustedAgainst": 1.4873039308435307
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.belper-town": {
       "teamId": "fa-cup.belper-town",
@@ -1294,8 +1294,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.152611976716556,
-      "adjustedAgainst": 1.6752499150595943
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.evesham-united": {
       "teamId": "fa-cup.evesham-united",
@@ -1305,8 +1305,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4996780801304372,
-      "adjustedAgainst": 1.4586471019469547
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.workington": {
       "teamId": "fa-cup.workington",
@@ -1316,8 +1316,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5700177949756604,
-      "adjustedAgainst": 1.661085791436261
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.marske-united": {
       "teamId": "fa-cup.marske-united",
@@ -1327,8 +1327,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.168551260254874,
-      "adjustedAgainst": 1.660940481992624
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.wimborne-town": {
       "teamId": "fa-cup.wimborne-town",
@@ -1338,8 +1338,8 @@
       "forPerGame": 1.2857142857142858,
       "againstPerGame": 0.42857142857142855,
       "gamesPlayed": 7,
-      "adjustedFor": 1.3415847980169044,
-      "adjustedAgainst": 0.8183559819484829
+      "adjustedFor": 1.3615384615384616,
+      "adjustedAgainst": 0.8999999999999999
     },
     "fa-cup.portishead-town": {
       "teamId": "fa-cup.portishead-town",
@@ -1349,8 +1349,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.322282452920229,
-      "adjustedAgainst": 1.4645814038599727
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.st-blazey": {
       "teamId": "fa-cup.st-blazey",
@@ -1360,8 +1360,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3618731177686634,
-      "adjustedAgainst": 1.5384743144728188
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.tiverton-town": {
       "teamId": "fa-cup.tiverton-town",
@@ -1371,8 +1371,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2958933735755311,
-      "adjustedAgainst": 1.2873881273723708
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.broadfields-united": {
       "teamId": "fa-cup.broadfields-united",
@@ -1382,8 +1382,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3145868623832562,
-      "adjustedAgainst": 1.7718025104201485
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.chichester-city": {
       "teamId": "fa-cup.chichester-city",
@@ -1393,8 +1393,8 @@
       "forPerGame": 3,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.8619765907025176,
-      "adjustedAgainst": 1.5305724274133041
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.bromsgrove-sporting": {
       "teamId": "fa-cup.bromsgrove-sporting",
@@ -1404,8 +1404,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5073963507941215,
-      "adjustedAgainst": 1.1395389799343
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.2999999999999998
     },
     "fa-cup.nuneaton-town": {
       "teamId": "fa-cup.nuneaton-town",
@@ -1415,8 +1415,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.246641634491637,
-      "adjustedAgainst": 1.4986579914403428
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.sporting-khalsa": {
       "teamId": "fa-cup.sporting-khalsa",
@@ -1426,8 +1426,8 @@
       "forPerGame": 0,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1774410715159762,
-      "adjustedAgainst": 1.9283177217240481
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.957142857142857
     },
     "fa-cup.leek-town": {
       "teamId": "fa-cup.leek-town",
@@ -1437,8 +1437,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.911577411556893,
-      "adjustedAgainst": 1.3124710278877436
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.lancaster-city": {
       "teamId": "fa-cup.lancaster-city",
@@ -1448,8 +1448,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.2815014159220846,
-      "adjustedAgainst": 1.174813239121994
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.1888888888888889
     },
     "fa-cup.tadcaster-albion": {
       "teamId": "fa-cup.tadcaster-albion",
@@ -1459,8 +1459,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.208358052912631,
-      "adjustedAgainst": 1.4828073993612423
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.bamber-bridge": {
       "teamId": "fa-cup.bamber-bridge",
@@ -1470,8 +1470,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3122156339545075,
-      "adjustedAgainst": 1.6664617174629452
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.trafford": {
       "teamId": "fa-cup.trafford",
@@ -1481,8 +1481,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.5427345235206178,
-      "adjustedAgainst": 1.5432289982940388
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 1.5699999999999998
     },
     "fa-cup.sholing": {
       "teamId": "fa-cup.sholing",
@@ -1492,8 +1492,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.4767999633465922,
-      "adjustedAgainst": 1.2732671149510708
+      "adjustedFor": 1.4272727272727272,
+      "adjustedAgainst": 1.4272727272727272
     },
     "fa-cup.andover-new-street": {
       "teamId": "fa-cup.andover-new-street",
@@ -1503,8 +1503,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2256405483350417,
-      "adjustedAgainst": 1.5042899730372383
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.faversham-town": {
       "teamId": "fa-cup.faversham-town",
@@ -1514,8 +1514,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2314732971052476,
-      "adjustedAgainst": 1.4537368844966665
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.welling-united": {
       "teamId": "fa-cup.welling-united",
@@ -1525,8 +1525,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3735773947552639,
-      "adjustedAgainst": 1.6416303812877235
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.6333333333333333
     },
     "fa-cup.wingate-finchley": {
       "teamId": "fa-cup.wingate-finchley",
@@ -1536,8 +1536,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 6,
-      "adjustedFor": 1.4067185759719332,
-      "adjustedAgainst": 1.350950119612464
+      "adjustedFor": 1.3916666666666666,
+      "adjustedAgainst": 1.3083333333333333
     },
     "fa-cup.felixstowe-walton": {
       "teamId": "fa-cup.felixstowe-walton",
@@ -1547,8 +1547,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0061024568651296,
-      "adjustedAgainst": 1.292783604319656
+      "adjustedFor": 1.0875,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.canvey-island": {
       "teamId": "fa-cup.canvey-island",
@@ -1558,8 +1558,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.1550724403012658,
-      "adjustedAgainst": 1.1642414409736899
+      "adjustedFor": 1.1888888888888889,
+      "adjustedAgainst": 1.1888888888888889
     },
     "fa-cup.newmarket-town": {
       "teamId": "fa-cup.newmarket-town",
@@ -1569,8 +1569,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2114287231948773,
-      "adjustedAgainst": 1.3645220490114638
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.dulwich-hamlet": {
       "teamId": "fa-cup.dulwich-hamlet",
@@ -1580,8 +1580,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.859382230058218,
-      "adjustedAgainst": 1.502030026455502
+      "adjustedFor": 1.8555555555555554,
+      "adjustedAgainst": 1.6333333333333333
     },
     "fa-cup.east-grinstead-town": {
       "teamId": "fa-cup.east-grinstead-town",
@@ -1591,8 +1591,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1913094030990783,
-      "adjustedAgainst": 1.7723416466501862
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.biggleswade-town": {
       "teamId": "fa-cup.biggleswade-town",
@@ -1602,8 +1602,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1798065125976367,
-      "adjustedAgainst": 1.5744283565453892
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.hitchin-town": {
       "teamId": "fa-cup.hitchin-town",
@@ -1613,8 +1613,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.4690549699013167,
-      "adjustedAgainst": 1.276459576177793
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.2999999999999998
     },
     "fa-cup.malvern-town": {
       "teamId": "fa-cup.malvern-town",
@@ -1624,8 +1624,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2358188408545154,
-      "adjustedAgainst": 1.6790865541116848
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.redditch-united": {
       "teamId": "fa-cup.redditch-united",
@@ -1635,8 +1635,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.5957525859152026,
-      "adjustedAgainst": 1.083672967510326
+      "adjustedFor": 1.67,
+      "adjustedAgainst": 1.17
     },
     "fa-cup.peterborough-sports": {
       "teamId": "fa-cup.peterborough-sports",
@@ -1646,8 +1646,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.6781353901320901,
-      "adjustedAgainst": 1.4329299151986075
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.ipswich-wanderers": {
       "teamId": "fa-cup.ipswich-wanderers",
@@ -1657,8 +1657,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2014749484850147,
-      "adjustedAgainst": 1.8108444811319606
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.sherwood-colliery": {
       "teamId": "fa-cup.sherwood-colliery",
@@ -1668,8 +1668,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.506937046100398,
-      "adjustedAgainst": 1.7728925640754711
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.gainsborough-trinity": {
       "teamId": "fa-cup.gainsborough-trinity",
@@ -1679,8 +1679,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.8567337975703548,
-      "adjustedAgainst": 1.4444099741447782
+      "adjustedFor": 1.8699999999999999,
+      "adjustedAgainst": 1.47
     },
     "fa-cup.grays-athletic": {
       "teamId": "fa-cup.grays-athletic",
@@ -1690,8 +1690,8 @@
       "forPerGame": 0,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0336823070022474,
-      "adjustedAgainst": 1.6460474685453763
+      "adjustedFor": 1.0875,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.leiston": {
       "teamId": "fa-cup.leiston",
@@ -1701,8 +1701,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 5,
-      "adjustedFor": 1.6987153146259133,
-      "adjustedAgainst": 1.2356618627057598
+      "adjustedFor": 1.7,
+      "adjustedAgainst": 1.2454545454545454
     },
     "fa-cup.shildon": {
       "teamId": "fa-cup.shildon",
@@ -1712,8 +1712,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3508548827009672,
-      "adjustedAgainst": 1.8257700277662574
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.8375
     },
     "fa-cup.warrington-town": {
       "teamId": "fa-cup.warrington-town",
@@ -1723,8 +1723,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.5927292161852042,
-      "adjustedAgainst": 1.2288194022208878
+      "adjustedFor": 1.77,
+      "adjustedAgainst": 1.27
     },
     "fa-cup.stanway-rovers": {
       "teamId": "fa-cup.stanway-rovers",
@@ -1734,8 +1734,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.103763821942127,
-      "adjustedAgainst": 1.4411080338451345
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.needham-market": {
       "teamId": "fa-cup.needham-market",
@@ -1745,8 +1745,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4175629847351183,
-      "adjustedAgainst": 1.5743682632860478
+      "adjustedFor": 1.47,
+      "adjustedAgainst": 1.5699999999999998
     },
     "fa-cup.cleethorpes-town": {
       "teamId": "fa-cup.cleethorpes-town",
@@ -1756,8 +1756,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3368945897005156,
-      "adjustedAgainst": 1.5027802630694396
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.newcastle-town": {
       "teamId": "fa-cup.newcastle-town",
@@ -1767,8 +1767,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4849794107657879,
-      "adjustedAgainst": 1.4137045554688112
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.alvechurch": {
       "teamId": "fa-cup.alvechurch",
@@ -1778,8 +1778,8 @@
       "forPerGame": 2.1666666666666665,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.8767036670276411,
-      "adjustedAgainst": 1.259628309803304
+      "adjustedFor": 1.8083333333333333,
+      "adjustedAgainst": 1.3916666666666666
     },
     "fa-cup.wolverhampton-city": {
       "teamId": "fa-cup.wolverhampton-city",
@@ -1789,8 +1789,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.227750001564215,
-      "adjustedAgainst": 1.4338618624921975
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.bishop-s-stortford": {
       "teamId": "fa-cup.bishop-s-stortford",
@@ -1800,8 +1800,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5887610299665222,
-      "adjustedAgainst": 1.5828083837795677
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.berkhamsted-town": {
       "teamId": "fa-cup.berkhamsted-town",
@@ -1811,8 +1811,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 1,
       "gamesPlayed": 5,
-      "adjustedFor": 1.976519981941412,
-      "adjustedAgainst": 1.0881365825825817
+      "adjustedFor": 1.8818181818181818,
+      "adjustedAgainst": 1.2454545454545454
     },
     "fa-cup.halesowen-town": {
       "teamId": "fa-cup.halesowen-town",
@@ -1822,8 +1822,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.560353357639071,
-      "adjustedAgainst": 1.15482056440393
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 1.27
     },
     "fa-cup.basford-united": {
       "teamId": "fa-cup.basford-united",
@@ -1833,8 +1833,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.433775866246567,
-      "adjustedAgainst": 1.6628919647281104
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.concord-rangers": {
       "teamId": "fa-cup.concord-rangers",
@@ -1844,8 +1844,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2729695856174614,
-      "adjustedAgainst": 1.4433525945459158
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.brentwood-town": {
       "teamId": "fa-cup.brentwood-town",
@@ -1855,8 +1855,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.9070597686172983,
-      "adjustedAgainst": 1.4933954019928
+      "adjustedFor": 1.8818181818181818,
+      "adjustedAgainst": 1.518181818181818
     },
     "fa-cup.stamford": {
       "teamId": "fa-cup.stamford",
@@ -1866,8 +1866,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.178786202907622,
-      "adjustedAgainst": 1.3726669117608337
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.mickleover": {
       "teamId": "fa-cup.mickleover",
@@ -1877,8 +1877,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2155592245525368,
-      "adjustedAgainst": 1.3047277563433057
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.chertsey-town": {
       "teamId": "fa-cup.chertsey-town",
@@ -1888,8 +1888,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.520662653250303,
-      "adjustedAgainst": 1.2581422294798768
+      "adjustedFor": 1.518181818181818,
+      "adjustedAgainst": 1.3363636363636362
     },
     "fa-cup.carshalton-athletic": {
       "teamId": "fa-cup.carshalton-athletic",
@@ -1899,8 +1899,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.342336447162235,
-      "adjustedAgainst": 1.4094507085775512
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.bishop-s-cleeve": {
       "teamId": "fa-cup.bishop-s-cleeve",
@@ -1910,8 +1910,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2559022196582303,
-      "adjustedAgainst": 1.302149400445588
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.poole-town": {
       "teamId": "fa-cup.poole-town",
@@ -1921,8 +1921,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4072621529049767,
-      "adjustedAgainst": 1.5462418003478655
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.banbury-united": {
       "teamId": "fa-cup.banbury-united",
@@ -1932,8 +1932,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0999743517907048,
-      "adjustedAgainst": 1.2811955062091422
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.exmouth-town": {
       "teamId": "fa-cup.exmouth-town",
@@ -1943,8 +1943,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.450243581449457,
-      "adjustedAgainst": 1.5899107511489534
+      "adjustedFor": 1.47,
+      "adjustedAgainst": 1.5699999999999998
     },
     "fa-cup.bury": {
       "teamId": "fa-cup.bury",
@@ -1954,8 +1954,8 @@
       "forPerGame": 3.4,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 2.180078949414183,
-      "adjustedAgainst": 1.2772694479817037
+      "adjustedFor": 2.3363636363636364,
+      "adjustedAgainst": 1.3363636363636362
     },
     "fa-cup.wythenshawe": {
       "teamId": "fa-cup.wythenshawe",
@@ -1965,8 +1965,8 @@
       "forPerGame": 0,
       "againstPerGame": 8,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2250229045387082,
-      "adjustedAgainst": 2.3548801072337366
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 2.3857142857142857
     },
     "fa-cup.ramsgate": {
       "teamId": "fa-cup.ramsgate",
@@ -1976,8 +1976,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.193611028515997,
-      "adjustedAgainst": 1.335261801915588
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.bracknell-town": {
       "teamId": "fa-cup.bracknell-town",
@@ -1987,8 +1987,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2161428299285166,
-      "adjustedAgainst": 1.1945029844152535
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.frenford": {
       "teamId": "fa-cup.frenford",
@@ -1998,8 +1998,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1011709273373018,
-      "adjustedAgainst": 1.7594914809754705
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.enfield-town": {
       "teamId": "fa-cup.enfield-town",
@@ -2009,8 +2009,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 3,
-      "adjustedFor": 1.921639448010476,
-      "adjustedAgainst": 1.7824715486020093
+      "adjustedFor": 1.8555555555555554,
+      "adjustedAgainst": 1.7444444444444445
     },
     "fa-cup.lewes": {
       "teamId": "fa-cup.lewes",
@@ -2020,8 +2020,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4358110402074278,
-      "adjustedAgainst": 1.434694643468225
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.cray-wanderers": {
       "teamId": "fa-cup.cray-wanderers",
@@ -2031,8 +2031,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.75,
       "gamesPlayed": 8,
-      "adjustedFor": 1.4330715937876726,
-      "adjustedAgainst": 0.978745917750986
+      "adjustedFor": 1.4785714285714284,
+      "adjustedAgainst": 1.05
     },
     "fa-cup.whitby-town": {
       "teamId": "fa-cup.whitby-town",
@@ -2042,8 +2042,8 @@
       "forPerGame": 2,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.500371253444701,
-      "adjustedAgainst": 1.9658454109662178
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.957142857142857
     },
     "fa-cup.ashton-united": {
       "teamId": "fa-cup.ashton-united",
@@ -2053,8 +2053,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.7478531852993184,
-      "adjustedAgainst": 1.4746823825711908
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.westfield": {
       "teamId": "fa-cup.westfield",
@@ -2064,8 +2064,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1471889637086632,
-      "adjustedAgainst": 1.3708987093754914
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.dartford": {
       "teamId": "fa-cup.dartford",
@@ -2075,8 +2075,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.6573715963991378,
-      "adjustedAgainst": 1.397981792935246
+      "adjustedFor": 1.67,
+      "adjustedAgainst": 1.3699999999999999
     },
     "fa-cup.egham-town": {
       "teamId": "fa-cup.egham-town",
@@ -2086,8 +2086,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2355961419559969,
-      "adjustedAgainst": 1.8519017028542062
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.chatham-town": {
       "teamId": "fa-cup.chatham-town",
@@ -2097,8 +2097,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.493167751909702,
-      "adjustedAgainst": 0.9930899356329764
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.0777777777777777
     },
     "fa-cup.whitehawk": {
       "teamId": "fa-cup.whitehawk",
@@ -2108,8 +2108,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.577634408521914,
-      "adjustedAgainst": 1.8076122789686462
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.eastbourne-borough": {
       "teamId": "fa-cup.eastbourne-borough",
@@ -2119,8 +2119,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.6930541653899545,
-      "adjustedAgainst": 1.13441246948427
+      "adjustedFor": 1.67,
+      "adjustedAgainst": 1.3699999999999999
     },
     "fa-cup.gloucester-city": {
       "teamId": "fa-cup.gloucester-city",
@@ -2130,8 +2130,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 6,
-      "adjustedFor": 1.5269716287688206,
-      "adjustedAgainst": 1.018227180482458
+      "adjustedFor": 1.4749999999999999,
+      "adjustedAgainst": 1.0583333333333333
     },
     "fa-cup.mangotsfield-united": {
       "teamId": "fa-cup.mangotsfield-united",
@@ -2141,8 +2141,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.255494614624217,
-      "adjustedAgainst": 1.7034962964753126
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.warrington-rylands": {
       "teamId": "fa-cup.warrington-rylands",
@@ -2152,8 +2152,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4029465333151312,
-      "adjustedAgainst": 1.2609938383524992
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.hyde-united": {
       "teamId": "fa-cup.hyde-united",
@@ -2163,8 +2163,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4145693651153244,
-      "adjustedAgainst": 1.6953355243656043
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.wellingborough-town": {
       "teamId": "fa-cup.wellingborough-town",
@@ -2174,8 +2174,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.425191129933571,
-      "adjustedAgainst": 1.5493056439497042
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.kettering-town": {
       "teamId": "fa-cup.kettering-town",
@@ -2185,8 +2185,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.5441288489513134,
-      "adjustedAgainst": 1.4788554662210192
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 1.47
     },
     "fa-cup.leamington": {
       "teamId": "fa-cup.leamington",
@@ -2196,8 +2196,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3024305922003614,
-      "adjustedAgainst": 1.4074082910264578
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.5222222222222221
     },
     "fa-cup.ilkeston-town": {
       "teamId": "fa-cup.ilkeston-town",
@@ -2207,8 +2207,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3889122218173602,
-      "adjustedAgainst": 1.716723821264496
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.real-bedford": {
       "teamId": "fa-cup.real-bedford",
@@ -2218,8 +2218,8 @@
       "forPerGame": 3,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.93056133216768,
-      "adjustedAgainst": 1.5858680840429433
+      "adjustedFor": 1.9666666666666666,
+      "adjustedAgainst": 1.6333333333333333
     },
     "fa-cup.royston-town": {
       "teamId": "fa-cup.royston-town",
@@ -2229,8 +2229,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.358870960534968,
-      "adjustedAgainst": 1.7576650509358975
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.gosport-borough": {
       "teamId": "fa-cup.gosport-borough",
@@ -2240,8 +2240,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4442650750492396,
-      "adjustedAgainst": 1.6312021957328136
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.plymouth-parkway": {
       "teamId": "fa-cup.plymouth-parkway",
@@ -2251,8 +2251,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.720148338487223,
-      "adjustedAgainst": 0.9017075934268493
+      "adjustedFor": 1.7,
+      "adjustedAgainst": 1.0636363636363635
     },
     "fa-cup.stockton-town": {
       "teamId": "fa-cup.stockton-town",
@@ -2262,8 +2262,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.618222326505991,
-      "adjustedAgainst": 1.4501616252077962
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.guiseley": {
       "teamId": "fa-cup.guiseley",
@@ -2273,8 +2273,8 @@
       "forPerGame": 2.1666666666666665,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 6,
-      "adjustedFor": 1.8768810113276768,
-      "adjustedAgainst": 0.9448795812360071
+      "adjustedFor": 1.8083333333333333,
+      "adjustedAgainst": 1.0583333333333333
     },
     "fa-cup.chippenham-town": {
       "teamId": "fa-cup.chippenham-town",
@@ -2284,8 +2284,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.345933140982226,
-      "adjustedAgainst": 1.347767292510076
+      "adjustedFor": 1.3363636363636362,
+      "adjustedAgainst": 1.3363636363636362
     },
     "fa-cup.havant-waterlooville": {
       "teamId": "fa-cup.havant-waterlooville",
@@ -2295,8 +2295,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3145260452508833,
-      "adjustedAgainst": 1.6159471116221642
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.bath-city": {
       "teamId": "fa-cup.bath-city",
@@ -2306,8 +2306,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.121666815383221,
-      "adjustedAgainst": 1.4688785031055749
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.weymouth": {
       "teamId": "fa-cup.weymouth",
@@ -2317,8 +2317,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.6730794570869285,
-      "adjustedAgainst": 1.649889029564563
+      "adjustedFor": 1.6333333333333333,
+      "adjustedAgainst": 1.6333333333333333
     },
     "fa-cup.alfreton-town": {
       "teamId": "fa-cup.alfreton-town",
@@ -2328,8 +2328,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.175183359607128,
-      "adjustedAgainst": 1.4900906839426742
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.stratford-town": {
       "teamId": "fa-cup.stratford-town",
@@ -2339,8 +2339,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5543838558240213,
-      "adjustedAgainst": 1.3255074246991971
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.garforth-town": {
       "teamId": "fa-cup.garforth-town",
@@ -2350,8 +2350,8 @@
       "forPerGame": 1,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3326956188264825,
-      "adjustedAgainst": 1.8962465736400442
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.957142857142857
     },
     "fa-cup.united-of-manchester": {
       "teamId": "fa-cup.united-of-manchester",
@@ -2361,8 +2361,8 @@
       "forPerGame": 2.8,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 2.0566313846498825,
-      "adjustedAgainst": 1.4354041426250161
+      "adjustedFor": 2.0636363636363635,
+      "adjustedAgainst": 1.518181818181818
     },
     "fa-cup.st-albans-city": {
       "teamId": "fa-cup.st-albans-city",
@@ -2372,8 +2372,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.594444528573507,
-      "adjustedAgainst": 1.1561321844383752
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 1.17
     },
     "fa-cup.hashtag-united": {
       "teamId": "fa-cup.hashtag-united",
@@ -2383,8 +2383,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0533097738275434,
-      "adjustedAgainst": 1.2434307405332865
+      "adjustedFor": 1.0875,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.northampton-town": {
       "teamId": "fa-cup.northampton-town",
@@ -2394,8 +2394,8 @@
       "forPerGame": 0,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2190517156252039,
-      "adjustedAgainst": 1.8237782966958604
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.emley": {
       "teamId": "fa-cup.emley",
@@ -2405,8 +2405,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 3,
-      "adjustedFor": 1.2106495177331364,
-      "adjustedAgainst": 1.5268835530401759
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.5222222222222221
     },
     "fa-cup.bishop-auckland": {
       "teamId": "fa-cup.bishop-auckland",
@@ -2416,8 +2416,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1138601090597888,
-      "adjustedAgainst": 1.50611669690749
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.ascot-united": {
       "teamId": "fa-cup.ascot-united",
@@ -2427,8 +2427,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0503248581821694,
-      "adjustedAgainst": 1.493955282668291
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.pagham": {
       "teamId": "fa-cup.pagham",
@@ -2438,8 +2438,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 3,
-      "adjustedFor": 1.2468680997359418,
-      "adjustedAgainst": 1.8026831446037255
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.7444444444444445
     },
     "fa-cup.stourbridge": {
       "teamId": "fa-cup.stourbridge",
@@ -2449,8 +2449,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3688606481156977,
-      "adjustedAgainst": 1.6908040242772693
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.rushall-olympic": {
       "teamId": "fa-cup.rushall-olympic",
@@ -2460,8 +2460,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.42668271961489,
-      "adjustedAgainst": 1.2521873590488413
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.southall": {
       "teamId": "fa-cup.southall",
@@ -2471,8 +2471,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.6974823380005142,
-      "adjustedAgainst": 1.573822361059518
+      "adjustedFor": 1.7444444444444445,
+      "adjustedAgainst": 1.6333333333333333
     },
     "fa-cup.cobham": {
       "teamId": "fa-cup.cobham",
@@ -2482,8 +2482,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.360705530239522,
-      "adjustedAgainst": 1.4646770936403706
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.darlington": {
       "teamId": "fa-cup.darlington",
@@ -2493,8 +2493,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.6754325627851228,
-      "adjustedAgainst": 1.7351253138094689
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.hampton-richmond-borough": {
       "teamId": "fa-cup.hampton-richmond-borough",
@@ -2504,8 +2504,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.52944804360785,
-      "adjustedAgainst": 1.7739439987249683
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.8375
     },
     "fa-cup.spennymoor-town": {
       "teamId": "fa-cup.spennymoor-town",
@@ -2515,8 +2515,8 @@
       "forPerGame": 3,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.9775705744797987,
-      "adjustedAgainst": 1.368067912382154
+      "adjustedFor": 1.9666666666666666,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.spalding-united": {
       "teamId": "fa-cup.spalding-united",
@@ -2526,8 +2526,8 @@
       "forPerGame": 1.8,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.5097155301303713,
-      "adjustedAgainst": 1.2804306808788308
+      "adjustedFor": 1.6090909090909091,
+      "adjustedAgainst": 1.4272727272727272
     },
     "fa-cup.scarborough-athletic": {
       "teamId": "fa-cup.scarborough-athletic",
@@ -2537,8 +2537,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5867005647147923,
-      "adjustedAgainst": 1.2343319421097885
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.2999999999999998
     },
     "fa-cup.chesham-united": {
       "teamId": "fa-cup.chesham-united",
@@ -2548,8 +2548,8 @@
       "forPerGame": 2.75,
       "againstPerGame": 2.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.9160122987477588,
-      "adjustedAgainst": 1.8070961470319113
+      "adjustedFor": 1.97,
+      "adjustedAgainst": 1.8699999999999999
     },
     "fa-cup.hemel-hempstead": {
       "teamId": "fa-cup.hemel-hempstead",
@@ -2559,8 +2559,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.311101614239138,
-      "adjustedAgainst": 1.4442104112292866
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.hebburn-town": {
       "teamId": "fa-cup.hebburn-town",
@@ -2570,8 +2570,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4339723794441395,
-      "adjustedAgainst": 1.776244500484986
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.weston-super-mare": {
       "teamId": "fa-cup.weston-super-mare",
@@ -2581,8 +2581,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3185297294417524,
-      "adjustedAgainst": 1.151409565204535
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.2125
     },
     "fa-cup.torquay-united": {
       "teamId": "fa-cup.torquay-united",
@@ -2592,8 +2592,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.7288769032706095,
-      "adjustedAgainst": 1.0819174781242902
+      "adjustedFor": 1.7444444444444445,
+      "adjustedAgainst": 1.1888888888888889
     },
     "fa-cup.chelmsford-city": {
       "teamId": "fa-cup.chelmsford-city",
@@ -2603,8 +2603,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.4198720833119456,
-      "adjustedAgainst": 1.0382692565488347
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 1.0777777777777777
     },
     "fa-cup.maidstone-united": {
       "teamId": "fa-cup.maidstone-united",
@@ -2614,8 +2614,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.264093943574456,
-      "adjustedAgainst": 1.4360584984052867
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.braintree-town": {
       "teamId": "fa-cup.braintree-town",
@@ -2625,8 +2625,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 3,
-      "adjustedFor": 1.7530648378855143,
-      "adjustedAgainst": 1.4756317969746704
+      "adjustedFor": 1.7444444444444445,
+      "adjustedAgainst": 1.5222222222222221
     },
     "fa-cup.harborough-town": {
       "teamId": "fa-cup.harborough-town",
@@ -2636,8 +2636,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 4,
-      "adjustedFor": 1.7308124627996382,
-      "adjustedAgainst": 1.5421333766433956
+      "adjustedFor": 1.67,
+      "adjustedAgainst": 1.67
     },
     "fa-cup.chester": {
       "teamId": "fa-cup.chester",
@@ -2647,8 +2647,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4963951878937467,
-      "adjustedAgainst": 1.6118353938572774
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.totton": {
       "teamId": "fa-cup.totton",
@@ -2658,8 +2658,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.225629177360005,
-      "adjustedAgainst": 1.4969679175884145
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.dagenham-redbridge": {
       "teamId": "fa-cup.dagenham-redbridge",
@@ -2669,8 +2669,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5237545205050427,
-      "adjustedAgainst": 1.2341212947101627
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.macclesfield": {
       "teamId": "fa-cup.macclesfield",
@@ -2680,8 +2680,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.5484470113402125,
-      "adjustedAgainst": 1.2834902887203312
+      "adjustedFor": 1.4749999999999999,
+      "adjustedAgainst": 1.3916666666666666
     },
     "fa-cup.hednesford-town": {
       "teamId": "fa-cup.hednesford-town",
@@ -2691,8 +2691,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1578121670201835,
-      "adjustedAgainst": 1.3380404752136799
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.farnborough": {
       "teamId": "fa-cup.farnborough",
@@ -2702,8 +2702,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3010112142671297,
-      "adjustedAgainst": 1.5254606929858976
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.farnham-town": {
       "teamId": "fa-cup.farnham-town",
@@ -2713,8 +2713,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3822896115308156,
-      "adjustedAgainst": 1.5434475830999588
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.tonbridge-angels": {
       "teamId": "fa-cup.tonbridge-angels",
@@ -2724,8 +2724,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3136387733183514,
-      "adjustedAgainst": 1.2728173604449309
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.salisbury": {
       "teamId": "fa-cup.salisbury",
@@ -2735,8 +2735,8 @@
       "forPerGame": 4.5,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 2.827270277260187,
-      "adjustedAgainst": 0.7779634472497501
+      "adjustedFor": 2.67,
+      "adjustedAgainst": 0.97
     },
     "fa-cup.hereford": {
       "teamId": "fa-cup.hereford",
@@ -2746,8 +2746,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.625691958264975,
-      "adjustedAgainst": 1.6068221529164406
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.chorley": {
       "teamId": "fa-cup.chorley",
@@ -2757,8 +2757,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.6200003945095112,
-      "adjustedAgainst": 1.0998938393788527
+      "adjustedFor": 1.47,
+      "adjustedAgainst": 1.17
     },
     "fa-cup.telford-united": {
       "teamId": "fa-cup.telford-united",
@@ -2768,8 +2768,8 @@
       "forPerGame": 2,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5158499188949923,
-      "adjustedAgainst": 1.9937548125726214
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.9625
     },
     "fa-cup.worksop-town": {
       "teamId": "fa-cup.worksop-town",
@@ -2779,8 +2779,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5638635836234602,
-      "adjustedAgainst": 1.656383993636202
+      "adjustedFor": 1.7444444444444445,
+      "adjustedAgainst": 1.7444444444444445
     },
     "fa-cup.oxford-city": {
       "teamId": "fa-cup.oxford-city",
@@ -2790,8 +2790,8 @@
       "forPerGame": 2.75,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.9934988401516576,
-      "adjustedAgainst": 1.208693076036381
+      "adjustedFor": 1.97,
+      "adjustedAgainst": 1.3699999999999999
     },
     "fa-cup.billericay-town": {
       "teamId": "fa-cup.billericay-town",
@@ -2801,8 +2801,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2650931424801253,
-      "adjustedAgainst": 1.5967621912148489
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.brackley-town": {
       "teamId": "fa-cup.brackley-town",
@@ -2812,8 +2812,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1651692337930613,
-      "adjustedAgainst": 1.3082492031970392
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.bedford-town": {
       "teamId": "fa-cup.bedford-town",
@@ -2823,8 +2823,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1,
       "gamesPlayed": 5,
-      "adjustedFor": 1.5825117220504272,
-      "adjustedAgainst": 1.1919438213825737
+      "adjustedFor": 1.518181818181818,
+      "adjustedAgainst": 1.2454545454545454
     },
     "fa-cup.king-s-lynn-town": {
       "teamId": "fa-cup.king-s-lynn-town",
@@ -2834,8 +2834,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4262546968653578,
-      "adjustedAgainst": 1.4866683377843797
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.slough-town": {
       "teamId": "fa-cup.slough-town",
@@ -2845,8 +2845,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2305018849938196,
-      "adjustedAgainst": 1.3241497872160652
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.dover-athletic": {
       "teamId": "fa-cup.dover-athletic",
@@ -2856,8 +2856,8 @@
       "forPerGame": 2.75,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.9509994714575019,
-      "adjustedAgainst": 1.2804744660239131
+      "adjustedFor": 1.97,
+      "adjustedAgainst": 1.3699999999999999
     },
     "fa-cup.folkestone-invicta": {
       "teamId": "fa-cup.folkestone-invicta",
@@ -2867,8 +2867,8 @@
       "forPerGame": 2,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.600778089683068,
-      "adjustedAgainst": 1.7606475183411585
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.8142857142857143
     },
     "fa-cup.maidenhead-united": {
       "teamId": "fa-cup.maidenhead-united",
@@ -2878,8 +2878,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3276834742389418,
-      "adjustedAgainst": 1.6634005872317057
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.ebbsfleet-united": {
       "teamId": "fa-cup.ebbsfleet-united",
@@ -2889,8 +2889,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5846560781729817,
-      "adjustedAgainst": 1.447189584113418
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.marine": {
       "teamId": "fa-cup.marine",
@@ -2900,8 +2900,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.5629191592755036,
-      "adjustedAgainst": 1.7159179395372872
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 1.77
     },
     "fa-cup.radcliffe": {
       "teamId": "fa-cup.radcliffe",
@@ -2911,8 +2911,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.515833352592967,
-      "adjustedAgainst": 1.667890583012552
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.buxton": {
       "teamId": "fa-cup.buxton",
@@ -2922,8 +2922,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1060793082534648,
-      "adjustedAgainst": 1.1454303389782847
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.south-shields": {
       "teamId": "fa-cup.south-shields",
@@ -2933,8 +2933,8 @@
       "forPerGame": 3.6666666666666665,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 2.2463211003678194,
-      "adjustedAgainst": 1.2953285156504855
+      "adjustedFor": 2.1888888888888887,
+      "adjustedAgainst": 1.2999999999999998
     },
     "fa-cup.walton-hersham": {
       "teamId": "fa-cup.walton-hersham",
@@ -2944,8 +2944,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.177025657177247,
-      "adjustedAgainst": 1.6388634151781774
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.horsham": {
       "teamId": "fa-cup.horsham",
@@ -2955,8 +2955,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.705550635248561,
-      "adjustedAgainst": 1.2803515669875205
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.merthyr-town": {
       "teamId": "fa-cup.merthyr-town",
@@ -2966,8 +2966,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2535645943772111,
-      "adjustedAgainst": 1.3935845417757533
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "fa-cup.truro-city": {
       "teamId": "fa-cup.truro-city",
@@ -2977,8 +2977,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.575368909592264,
-      "adjustedAgainst": 1.0120363546624105
+      "adjustedFor": 1.5699999999999998,
+      "adjustedAgainst": 1.0699999999999998
     },
     "fa-cup.morecambe": {
       "teamId": "fa-cup.morecambe",
@@ -2988,8 +2988,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5631021289138052,
-      "adjustedAgainst": 1.078803504806959
+      "adjustedFor": 1.6333333333333333,
+      "adjustedAgainst": 1.1888888888888889
     },
     "fa-cup.southport": {
       "teamId": "fa-cup.southport",
@@ -2999,8 +2999,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2517184643245747,
-      "adjustedAgainst": 1.4902515442171684
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.dorking-wanderers": {
       "teamId": "fa-cup.dorking-wanderers",
@@ -3010,8 +3010,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 4,
-      "adjustedFor": 1.713425163721122,
-      "adjustedAgainst": 1.545489063048125
+      "adjustedFor": 1.67,
+      "adjustedAgainst": 1.67
     },
     "fa-cup.harrogate-town": {
       "teamId": "fa-cup.harrogate-town",
@@ -3021,8 +3021,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 2,
       "gamesPlayed": 3,
-      "adjustedFor": 1.5927861364890772,
-      "adjustedAgainst": 1.3422317915587916
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.6333333333333333
     },
     "fa-cup.hornchurch": {
       "teamId": "fa-cup.hornchurch",
@@ -3032,8 +3032,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.8009202250783816,
-      "adjustedAgainst": 1.0940132287513409
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.2125
     },
     "fa-cup.aldershot-town": {
       "teamId": "fa-cup.aldershot-town",
@@ -3043,8 +3043,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 3,
-      "adjustedFor": 1.7236510029190628,
-      "adjustedAgainst": 1.9596270179758462
+      "adjustedFor": 1.6333333333333333,
+      "adjustedAgainst": 1.9666666666666666
     },
     "fa-cup.yeovil-town": {
       "teamId": "fa-cup.yeovil-town",
@@ -3054,8 +3054,8 @@
       "forPerGame": 3.6666666666666665,
       "againstPerGame": 3,
       "gamesPlayed": 3,
-      "adjustedFor": 2.3861964063563614,
-      "adjustedAgainst": 1.9532103095455517
+      "adjustedFor": 2.1888888888888887,
+      "adjustedAgainst": 1.9666666666666666
     },
     "fa-cup.eastleigh": {
       "teamId": "fa-cup.eastleigh",
@@ -3065,8 +3065,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5551281741705458,
-      "adjustedAgainst": 1.4969256616091802
+      "adjustedFor": 1.5875,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.gateshead": {
       "teamId": "fa-cup.gateshead",
@@ -3076,8 +3076,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1979755726621981,
-      "adjustedAgainst": 1.745982520253393
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.8375
     },
     "fa-cup.hartlepool-united": {
       "teamId": "fa-cup.hartlepool-united",
@@ -3087,8 +3087,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.089758059782277,
-      "adjustedAgainst": 1.4938524788914964
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.fylde": {
       "teamId": "fa-cup.fylde",
@@ -3098,8 +3098,8 @@
       "forPerGame": 4.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 2.4059019363216323,
-      "adjustedAgainst": 1.0667988545154163
+      "adjustedFor": 2.2125,
+      "adjustedAgainst": 1.2125
     },
     "fa-cup.altrincham": {
       "teamId": "fa-cup.altrincham",
@@ -3109,8 +3109,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.8822499412291296,
-      "adjustedAgainst": 1.2128586344876966
+      "adjustedFor": 1.8555555555555554,
+      "adjustedAgainst": 1.411111111111111
     },
     "fa-cup.kidderminster-harriers": {
       "teamId": "fa-cup.kidderminster-harriers",
@@ -3120,8 +3120,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.6462740733420513,
-      "adjustedAgainst": 1.1393280636449725
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.2125
     },
     "fa-cup.solihull-moors": {
       "teamId": "fa-cup.solihull-moors",
@@ -3131,8 +3131,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4349983472866683,
-      "adjustedAgainst": 1.4778883013999817
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.southend-united": {
       "teamId": "fa-cup.southend-united",
@@ -3142,8 +3142,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3993635466245844,
-      "adjustedAgainst": 1.4178576078929783
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.wealdstone": {
       "teamId": "fa-cup.wealdstone",
@@ -3153,8 +3153,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4027212258043444,
-      "adjustedAgainst": 1.2388118046059908
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.3375
     },
     "fa-cup.worthing": {
       "teamId": "fa-cup.worthing",
@@ -3164,8 +3164,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2151618166503289,
-      "adjustedAgainst": 1.714795621218385
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.barrow": {
       "teamId": "fa-cup.barrow",
@@ -3175,8 +3175,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 3,
-      "adjustedFor": 1.376809576533334,
-      "adjustedAgainst": 0.8242452957708475
+      "adjustedFor": 1.2999999999999998,
+      "adjustedAgainst": 0.9666666666666666
     },
     "fa-cup.halifax-town": {
       "teamId": "fa-cup.halifax-town",
@@ -3186,8 +3186,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.5092288003410745,
-      "adjustedAgainst": 1.454726259171728
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.5875
     },
     "fa-cup.boston-united": {
       "teamId": "fa-cup.boston-united",
@@ -3197,8 +3197,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2681795508107043,
-      "adjustedAgainst": 1.634191515321791
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.scunthorpe-united": {
       "teamId": "fa-cup.scunthorpe-united",
@@ -3208,8 +3208,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.7754332988109074,
-      "adjustedAgainst": 1.7234431815165505
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.sutton-united": {
       "teamId": "fa-cup.sutton-united",
@@ -3219,8 +3219,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2504438310427042,
-      "adjustedAgainst": 1.0488661548014275
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.2125
     },
     "fa-cup.carlisle-united": {
       "teamId": "fa-cup.carlisle-united",
@@ -3230,8 +3230,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3896364793863079,
-      "adjustedAgainst": 1.1393280636449725
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.2125
     },
     "fa-cup.tamworth": {
       "teamId": "fa-cup.tamworth",
@@ -3241,8 +3241,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4349983472866683,
-      "adjustedAgainst": 1.5281684352054088
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.forest-green-rovers": {
       "teamId": "fa-cup.forest-green-rovers",
@@ -3252,8 +3252,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 3,
-      "adjustedFor": 1.448061604829551,
-      "adjustedAgainst": 0.9960351020312816
+      "adjustedFor": 1.5222222222222221,
+      "adjustedAgainst": 1.1888888888888889
     },
     "fa-cup.boreham-wood": {
       "teamId": "fa-cup.boreham-wood",
@@ -3263,8 +3263,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.385619913029519,
-      "adjustedAgainst": 1.6892322923281051
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.7125
     },
     "fa-cup.woking": {
       "teamId": "fa-cup.woking",
@@ -3274,8 +3274,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5233936760377504,
-      "adjustedAgainst": 1.718685200493239
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.bristol-rovers": {
       "teamId": "fa-cup.bristol-rovers",
@@ -3285,8 +3285,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4959361125715076,
-      "adjustedAgainst": 1.1680153556506712
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.cambridge-united": {
       "teamId": "fa-cup.cambridge-united",
@@ -3296,8 +3296,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2193774357197689,
-      "adjustedAgainst": 1.50997923426331
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.leicester-city": {
       "teamId": "fa-cup.leicester-city",
@@ -3307,8 +3307,8 @@
       "forPerGame": 4,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.0437140539593823,
-      "adjustedAgainst": 1.415090374512301
+      "adjustedFor": 1.8142857142857143,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.colchester-united": {
       "teamId": "fa-cup.colchester-united",
@@ -3318,8 +3318,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4268987055888978,
-      "adjustedAgainst": 1.1359607627360757
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.gillingham": {
       "teamId": "fa-cup.gillingham",
@@ -3329,8 +3329,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2479542331246134,
-      "adjustedAgainst": 1.3386155681604548
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.chesterfield": {
       "teamId": "fa-cup.chesterfield",
@@ -3340,8 +3340,8 @@
       "forPerGame": 4,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.7561773758867085,
-      "adjustedAgainst": 1.5204747437514956
+      "adjustedFor": 1.8142857142857143,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.mansfield-town": {
       "teamId": "fa-cup.mansfield-town",
@@ -3351,8 +3351,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.7494658224802544,
-      "adjustedAgainst": 1.1161407582592076
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.barnsley": {
       "teamId": "fa-cup.barnsley",
@@ -3362,8 +3362,8 @@
       "forPerGame": 7,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 2.290373094946623,
-      "adjustedAgainst": 1.4651034948988046
+      "adjustedFor": 2.242857142857143,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.plymouth-argyle": {
       "teamId": "fa-cup.plymouth-argyle",
@@ -3373,8 +3373,8 @@
       "forPerGame": 4,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.955353654329096,
-      "adjustedAgainst": 1.0691069834930096
+      "adjustedFor": 1.8142857142857143,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.luton-town": {
       "teamId": "fa-cup.luton-town",
@@ -3384,8 +3384,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6273750287396676,
-      "adjustedAgainst": 1.1313618407139217
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.shrewsbury-town": {
       "teamId": "fa-cup.shrewsbury-town",
@@ -3395,8 +3395,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5649956112859649,
-      "adjustedAgainst": 1.306653116850593
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.cheltenham-town": {
       "teamId": "fa-cup.cheltenham-town",
@@ -3406,8 +3406,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.509086921539005,
-      "adjustedAgainst": 1.1220382369636361
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.burton-albion": {
       "teamId": "fa-cup.burton-albion",
@@ -3417,8 +3417,8 @@
       "forPerGame": 4,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.932365447245386,
-      "adjustedAgainst": 1.0919948235305947
+      "adjustedFor": 1.8142857142857143,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.doncaster-rovers": {
       "teamId": "fa-cup.doncaster-rovers",
@@ -3428,8 +3428,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.223954237405547,
-      "adjustedAgainst": 1.6693020197696857
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.blackpool": {
       "teamId": "fa-cup.blackpool",
@@ -3439,8 +3439,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4434270405358283,
-      "adjustedAgainst": 1.2650189608777285
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.barnet": {
       "teamId": "fa-cup.barnet",
@@ -3450,8 +3450,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6460101985020918,
-      "adjustedAgainst": 1.1676896357233404
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.tranmere-rovers": {
       "teamId": "fa-cup.tranmere-rovers",
@@ -3461,8 +3461,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2190517156252039,
-      "adjustedAgainst": 1.66936032128076
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.leyton-orient": {
       "teamId": "fa-cup.leyton-orient",
@@ -3472,8 +3472,8 @@
       "forPerGame": 5,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 2.0592857044527184,
-      "adjustedAgainst": 1.276621382866459
+      "adjustedFor": 1.957142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.newport-county": {
       "teamId": "fa-cup.newport-county",
@@ -3483,8 +3483,8 @@
       "forPerGame": 3,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6460101985020918,
-      "adjustedAgainst": 1.3352115765241066
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.walsall": {
       "teamId": "fa-cup.walsall",
@@ -3494,8 +3494,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3953944010784767,
-      "adjustedAgainst": 1.66936032128076
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.6714285714285713
     },
     "fa-cup.bradford-city": {
       "teamId": "fa-cup.bradford-city",
@@ -3505,8 +3505,8 @@
       "forPerGame": 7,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 2.375310163175911,
-      "adjustedAgainst": 1.1139800635206294
+      "adjustedFor": 2.242857142857143,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.milton-keynes-dons": {
       "teamId": "fa-cup.milton-keynes-dons",
@@ -3516,8 +3516,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4959531474513814,
-      "adjustedAgainst": 1.3352115765241066
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.swindon-town": {
       "teamId": "fa-cup.swindon-town",
@@ -3527,8 +3527,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3953944010784767,
-      "adjustedAgainst": 1.5101299031764035
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.accrington-stanley": {
       "teamId": "fa-cup.accrington-stanley",
@@ -3538,8 +3538,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1753959813334804,
-      "adjustedAgainst": 1.4961548539448537
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.wycombe-wanderers": {
       "teamId": "fa-cup.wycombe-wanderers",
@@ -3549,8 +3549,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5651584176789477,
-      "adjustedAgainst": 1.1748810683149646
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.crewe-alexandra": {
       "teamId": "fa-cup.crewe-alexandra",
@@ -3560,8 +3560,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.4959531474513814,
-      "adjustedAgainst": 1.3352115765241066
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.wimbledon": {
       "teamId": "fa-cup.wimbledon",
@@ -3571,8 +3571,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3953944010784767,
-      "adjustedAgainst": 1.5101299031764035
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.fleetwood-town": {
       "teamId": "fa-cup.fleetwood-town",
@@ -3582,8 +3582,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3393558185091563,
-      "adjustedAgainst": 1.3352115765241066
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.rochdale": {
       "teamId": "fa-cup.rochdale",
@@ -3593,8 +3593,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3953944010784767,
-      "adjustedAgainst": 1.34552855884958
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.bromley": {
       "teamId": "fa-cup.bromley",
@@ -3604,8 +3604,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1753959813334804,
-      "adjustedAgainst": 1.4961548539448537
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.rotherham-united": {
       "teamId": "fa-cup.rotherham-united",
@@ -3615,8 +3615,8 @@
       "forPerGame": 2,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5651584176789477,
-      "adjustedAgainst": 1.1748810683149646
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.york-city": {
       "teamId": "fa-cup.york-city",
@@ -3626,8 +3626,8 @@
       "forPerGame": 4,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.7902070495261002,
-      "adjustedAgainst": 1.1676896357233404
+      "adjustedFor": 1.8142857142857143,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.port-vale": {
       "teamId": "fa-cup.port-vale",
@@ -3637,8 +3637,8 @@
       "forPerGame": 4,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.8175081280660585,
-      "adjustedAgainst": 1.455236025054084
+      "adjustedFor": 1.8142857142857143,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.salford-city": {
       "teamId": "fa-cup.salford-city",
@@ -3648,8 +3648,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.223954237405547,
-      "adjustedAgainst": 1.3362642555088027
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.huddersfield-town": {
       "teamId": "fa-cup.huddersfield-town",
@@ -3659,8 +3659,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3393558185091563,
-      "adjustedAgainst": 1.4961548539448537
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.exeter-city": {
       "teamId": "fa-cup.exeter-city",
@@ -3670,8 +3670,8 @@
       "forPerGame": 2,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.5651584176789477,
-      "adjustedAgainst": 1.34552855884958
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.wigan-athletic": {
       "teamId": "fa-cup.wigan-athletic",
@@ -3681,8 +3681,8 @@
       "forPerGame": 3,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.7204011315239165,
-      "adjustedAgainst": 1.141040839921297
+      "adjustedFor": 1.6714285714285713,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.oxford-united": {
       "teamId": "fa-cup.oxford-united",
@@ -3692,8 +3692,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1753959813334804,
-      "adjustedAgainst": 1.3352115765241066
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.stevenage": {
       "teamId": "fa-cup.stevenage",
@@ -3703,8 +3703,8 @@
       "forPerGame": 1,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3953944010784767,
-      "adjustedAgainst": 1.1748810683149646
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.notts-county": {
       "teamId": "fa-cup.notts-county",
@@ -3714,8 +3714,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6273826840477394,
-      "adjustedAgainst": 1.435295120740208
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.peterborough-united": {
       "teamId": "fa-cup.peterborough-united",
@@ -3725,8 +3725,8 @@
       "forPerGame": 0,
       "againstPerGame": 5,
       "gamesPlayed": 1,
-      "adjustedFor": 1.1753959813334804,
-      "adjustedAgainst": 1.9459782452116343
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.957142857142857
     },
     "fa-cup.reading": {
       "teamId": "fa-cup.reading",
@@ -3736,8 +3736,8 @@
       "forPerGame": 5,
       "againstPerGame": 0,
       "gamesPlayed": 1,
-      "adjustedFor": 2.041443992739582,
-      "adjustedAgainst": 1.1748810683149646
+      "adjustedFor": 1.957142857142857,
+      "adjustedAgainst": 1.2428571428571427
     },
     "fa-cup.grimsby-town": {
       "teamId": "fa-cup.grimsby-town",
@@ -3747,8 +3747,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6395072328987725,
-      "adjustedAgainst": 1.4377858993973966
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.stockport-county": {
       "teamId": "fa-cup.stockport-county",
@@ -3758,8 +3758,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.6830283068586114,
-      "adjustedAgainst": 1.523231776876451
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.crawley-town": {
       "teamId": "fa-cup.crawley-town",
@@ -3769,8 +3769,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2820195286937197,
-      "adjustedAgainst": 1.54247082250181
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.5285714285714285
     },
     "fa-cup.oldham-athletic": {
       "teamId": "fa-cup.oldham-athletic",
@@ -3780,8 +3780,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3391910131438607,
-      "adjustedAgainst": 1.335113787473086
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "fa-cup.sheffield-wednesday": {
       "teamId": "fa-cup.sheffield-wednesday",
@@ -3791,8 +3791,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.395313387136783,
-      "adjustedAgainst": 1.3454616894558005
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     }
   },
   "games": [
@@ -3826,7 +3826,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3860,7 +3860,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3894,7 +3894,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3927,7 +3927,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3961,7 +3961,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3994,7 +3994,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4029,7 +4029,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4062,7 +4062,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4096,7 +4096,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4129,7 +4129,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4163,7 +4163,7 @@
       "result": {
         "home": 0,
         "away": 5,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4196,7 +4196,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4229,7 +4229,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4262,7 +4262,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4297,7 +4297,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4330,7 +4330,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },

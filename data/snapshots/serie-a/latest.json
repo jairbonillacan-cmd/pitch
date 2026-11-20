@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
   "league": "serie-a",
+  "logoUrl": "https://sports.bzzoiro.com/img/league/4/?bg=transparent",
   "season": "serie-a-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-15T17:34:02.833Z",
-  "source": "openfootball+espn",
+  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
   "teamRates": {
@@ -14,220 +15,240 @@
       "name": "AC Milan",
       "shortName": "Milan",
       "code": "MIL",
-      "forPerGame": 2.111111111111111,
-      "againstPerGame": 1.1111111111111112,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.6694913411144667,
-      "adjustedAgainst": 1.097398099853583
+      "logoUrl": "https://sports.bzzoiro.com/img/team/63/?bg=transparent",
+      "forPerGame": 2.090909090909091,
+      "againstPerGame": 1.1818181818181819,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.6842204653420902,
+      "adjustedAgainst": 1.114782510384628
     },
     "serie-a.monza": {
       "teamId": "serie-a.monza",
       "name": "AC Monza",
       "shortName": "Monza",
       "code": "MON",
-      "forPerGame": 1.25,
-      "againstPerGame": 2.375,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1794165653990811,
-      "adjustedAgainst": 1.939651914698287
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1286/?bg=transparent",
+      "forPerGame": 1.5454545454545454,
+      "againstPerGame": 2.272727272727273,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.3890950515701845,
+      "adjustedAgainst": 1.9523363735839974
     },
     "serie-a.fiorentina": {
       "teamId": "serie-a.fiorentina",
       "name": "ACF Fiorentina",
       "shortName": "Fiorentina",
       "code": "FIO",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 2.2222222222222223,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.4921071140166375,
-      "adjustedAgainst": 1.5407311422537957
+      "logoUrl": "https://sports.bzzoiro.com/img/team/68/?bg=transparent",
+      "forPerGame": 1.5454545454545454,
+      "againstPerGame": 2.272727272727273,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.4705027056980695,
+      "adjustedAgainst": 1.6005859682962966
     },
     "serie-a.roma": {
       "teamId": "serie-a.roma",
       "name": "AS Roma",
       "shortName": "Roma",
       "code": "ROM",
-      "forPerGame": 3.25,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.9850830718992705,
-      "adjustedAgainst": 0.8921064052546711
+      "logoUrl": "https://sports.bzzoiro.com/img/team/65/?bg=transparent",
+      "forPerGame": 2.8181818181818183,
+      "againstPerGame": 0.9090909090909091,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.990430117749706,
+      "adjustedAgainst": 0.9034835151604159
     },
     "serie-a.atalanta-bc": {
       "teamId": "serie-a.atalanta-bc",
       "name": "Atalanta BC",
       "shortName": "Atalanta",
       "code": "ATA",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 1.7777777777777777,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.3867527030986808,
-      "adjustedAgainst": 1.259702987034401
+      "logoUrl": "https://sports.bzzoiro.com/img/team/71/?bg=transparent",
+      "forPerGame": 1.5454545454545454,
+      "againstPerGame": 1.8181818181818181,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.4432934108147653,
+      "adjustedAgainst": 1.3360723228651274
     },
     "serie-a.bologna": {
       "teamId": "serie-a.bologna",
       "name": "Bologna FC 1909",
       "shortName": "Bologna",
       "code": "BOL",
-      "forPerGame": 1.375,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.3428747161609356,
-      "adjustedAgainst": 1.2194371842797165
+      "logoUrl": "https://sports.bzzoiro.com/img/team/66/?bg=transparent",
+      "forPerGame": 1.4545454545454546,
+      "againstPerGame": 1.2727272727272727,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.3831136308058594,
+      "adjustedAgainst": 1.2125600998922017
     },
     "serie-a.cagliari": {
       "teamId": "serie-a.cagliari",
       "name": "Cagliari Calcio",
       "shortName": "Cagliari",
       "code": "CAG",
-      "forPerGame": 1.125,
-      "againstPerGame": 1,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1918743048552853,
-      "adjustedAgainst": 1.1973170814138623
+      "logoUrl": "https://sports.bzzoiro.com/img/team/67/?bg=transparent",
+      "forPerGame": 0.9090909090909091,
+      "againstPerGame": 1.3636363636363635,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.082019147676684,
+      "adjustedAgainst": 1.3159373332229751
     },
     "serie-a.como": {
       "teamId": "serie-a.como",
       "name": "Como 1907",
       "shortName": "Como",
       "code": "COM",
-      "forPerGame": 1.625,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.7002138592709526,
-      "adjustedAgainst": 1.018929496738824
+      "logoUrl": "https://sports.bzzoiro.com/img/team/69/?bg=transparent",
+      "forPerGame": 1.6363636363636365,
+      "againstPerGame": 0.9090909090909091,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.6865260418407915,
+      "adjustedAgainst": 0.9145629390487822
     },
     "serie-a.internazionale-milano": {
       "teamId": "serie-a.internazionale-milano",
       "name": "FC Internazionale Milano",
       "shortName": "Inter",
       "code": "INT",
-      "forPerGame": 2.4444444444444446,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 9,
-      "adjustedFor": 2.1289909868746095,
-      "adjustedAgainst": 1.0918371463219145
+      "logoUrl": "https://sports.bzzoiro.com/img/team/77/?bg=transparent",
+      "forPerGame": 2.5454545454545454,
+      "againstPerGame": 1.1818181818181819,
+      "gamesPlayed": 11,
+      "adjustedFor": 2.2013264111026865,
+      "adjustedAgainst": 1.0610337139521013
     },
     "serie-a.frosinone": {
       "teamId": "serie-a.frosinone",
       "name": "Frosinone Calcio",
       "shortName": "Frosinone",
       "code": "FRO",
-      "forPerGame": 2.2222222222222223,
-      "againstPerGame": 1.1111111111111112,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.9023299517650487,
-      "adjustedAgainst": 1.2005323118643447
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1277/?bg=transparent",
+      "forPerGame": 2.1818181818181817,
+      "againstPerGame": 1.3636363636363635,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.9064953875036579,
+      "adjustedAgainst": 1.359993457860937
     },
     "serie-a.genoa-cfc": {
       "teamId": "serie-a.genoa-cfc",
       "name": "Genoa CFC",
       "shortName": "Genoa",
       "code": "GEN",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/59/?bg=transparent",
       "forPerGame": 1,
-      "againstPerGame": 1.4444444444444444,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.1978968726689352,
-      "adjustedAgainst": 1.3594533767574553
+      "againstPerGame": 1.4545454545454546,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.1894702809720814,
+      "adjustedAgainst": 1.3449520090403868
     },
     "serie-a.juventus": {
       "teamId": "serie-a.juventus",
       "name": "Juventus FC",
       "shortName": "Juventus",
       "code": "JUV",
-      "forPerGame": 1.5555555555555556,
-      "againstPerGame": 0.8888888888888888,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.5068705807717273,
-      "adjustedAgainst": 0.977381747324169
+      "logoUrl": "https://sports.bzzoiro.com/img/team/73/?bg=transparent",
+      "forPerGame": 1.3636363636363635,
+      "againstPerGame": 1.0909090909090908,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.4487792900800065,
+      "adjustedAgainst": 1.0404893254145882
     },
     "serie-a.lazio": {
       "teamId": "serie-a.lazio",
       "name": "SS Lazio",
       "shortName": "Lazio",
       "code": "LAZ",
-      "forPerGame": 2.125,
-      "againstPerGame": 0.875,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.5582317897544824,
-      "adjustedAgainst": 1.0974248369490351
+      "logoUrl": "https://sports.bzzoiro.com/img/team/70/?bg=transparent",
+      "forPerGame": 2.272727272727273,
+      "againstPerGame": 0.8181818181818182,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.667418365121849,
+      "adjustedAgainst": 1.0665738436793948
     },
     "serie-a.lecce": {
       "teamId": "serie-a.lecce",
       "name": "US Lecce",
       "shortName": "Lecce",
       "code": "LEC",
-      "forPerGame": 0.8888888888888888,
-      "againstPerGame": 2.2222222222222223,
-      "gamesPlayed": 9,
-      "adjustedFor": 0.95518222680588,
-      "adjustedAgainst": 1.6235708868413303
+      "logoUrl": "https://sports.bzzoiro.com/img/team/60/?bg=transparent",
+      "forPerGame": 1.0909090909090908,
+      "againstPerGame": 2,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.0256190672556769,
+      "adjustedAgainst": 1.5816619212526866
     },
     "serie-a.napoli": {
       "teamId": "serie-a.napoli",
       "name": "SSC Napoli",
       "shortName": "Napoli",
       "code": "NAP",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.5055150403133464,
-      "adjustedAgainst": 1.05351719652692
+      "logoUrl": "https://sports.bzzoiro.com/img/team/62/?bg=transparent",
+      "forPerGame": 1.6363636363636365,
+      "againstPerGame": 1.2727272727272727,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.5830837595019558,
+      "adjustedAgainst": 1.0609158357644906
     },
     "serie-a.parma": {
       "teamId": "serie-a.parma",
       "name": "Parma Calcio 1913",
       "shortName": "Parma",
       "code": "PAR",
-      "forPerGame": 1,
-      "againstPerGame": 1.125,
-      "gamesPlayed": 8,
-      "adjustedFor": 0.996883479527667,
-      "adjustedAgainst": 1.2005557732285026
+      "logoUrl": "https://sports.bzzoiro.com/img/team/74/?bg=transparent",
+      "forPerGame": 0.8181818181818182,
+      "againstPerGame": 1.5454545454545454,
+      "gamesPlayed": 11,
+      "adjustedFor": 0.9258716333069987,
+      "adjustedAgainst": 1.3241734530647005
     },
     "serie-a.sassuolo": {
       "teamId": "serie-a.sassuolo",
       "name": "US Sassuolo Calcio",
       "shortName": "Sassuolo",
       "code": "SAS",
-      "forPerGame": 1.625,
-      "againstPerGame": 2.75,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.4167929477634518,
-      "adjustedAgainst": 1.7688616819135328
+      "logoUrl": "https://sports.bzzoiro.com/img/team/61/?bg=transparent",
+      "forPerGame": 1.4545454545454546,
+      "againstPerGame": 2.6363636363636362,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.3943798383521953,
+      "adjustedAgainst": 1.758062379788425
     },
     "serie-a.torino": {
       "teamId": "serie-a.torino",
       "name": "Torino FC",
       "shortName": "Torino",
       "code": "TOR",
-      "forPerGame": 0.875,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.1253784850369113,
-      "adjustedAgainst": 1.5156146673984714
+      "logoUrl": "https://sports.bzzoiro.com/img/team/78/?bg=transparent",
+      "forPerGame": 1.3636363636363635,
+      "againstPerGame": 1.5454545454545454,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.270124178073453,
+      "adjustedAgainst": 1.486862780353002
     },
     "serie-a.udinese": {
       "teamId": "serie-a.udinese",
       "name": "Udinese Calcio",
       "shortName": "Udinese",
       "code": "UDI",
-      "forPerGame": 1.2222222222222223,
-      "againstPerGame": 2.2222222222222223,
-      "gamesPlayed": 9,
-      "adjustedFor": 1.2115981110651135,
-      "adjustedAgainst": 1.5288841194446428
+      "logoUrl": "https://sports.bzzoiro.com/img/team/75/?bg=transparent",
+      "forPerGame": 1.0909090909090908,
+      "againstPerGame": 2.272727272727273,
+      "gamesPlayed": 11,
+      "adjustedFor": 1.14767661140835,
+      "adjustedAgainst": 1.6134063305141357
     },
     "serie-a.venezia": {
       "teamId": "serie-a.venezia",
       "name": "Venezia FC",
       "shortName": "Venezia",
       "code": "VEN",
-      "forPerGame": 0.6666666666666666,
-      "againstPerGame": 2,
-      "gamesPlayed": 9,
-      "adjustedFor": 0.8666496520083656,
-      "adjustedAgainst": 1.5195866106492182
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1285/?bg=transparent",
+      "forPerGame": 0.7272727272727273,
+      "againstPerGame": 1.9090909090909092,
+      "gamesPlayed": 11,
+      "adjustedFor": 0.8971655983448411,
+      "adjustedAgainst": 1.503342299457493
     }
   },
   "games": [
@@ -237,29 +258,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-06T19:45Z",
+      "startTime": "2026-11-06T19:45:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.venezia",
         "league": "serie-a",
         "name": "Venezia FC",
         "shortName": "Venezia FC",
-        "code": "VEN"
+        "code": "VEN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1285/?bg=transparent"
       },
       "away": {
         "id": "serie-a.udinese",
         "league": "serie-a",
         "name": "Udinese Calcio",
         "shortName": "Udinese Calcio",
-        "code": "UDI"
+        "code": "UDI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/75/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Juan Luca Sacchi",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -269,29 +291,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-07T14:00Z",
+      "startTime": "2026-11-07T14:00:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.torino",
         "league": "serie-a",
         "name": "Torino FC",
         "shortName": "Torino FC",
-        "code": "TOR"
+        "code": "TOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/78/?bg=transparent"
       },
       "away": {
         "id": "serie-a.lecce",
         "league": "serie-a",
         "name": "US Lecce",
         "shortName": "US Lecce",
-        "code": "LEC"
+        "code": "LEC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/60/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Ermanno Feliciani",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -301,29 +324,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-07T14:00Z",
+      "startTime": "2026-11-07T14:00:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.cagliari",
         "league": "serie-a",
         "name": "Cagliari Calcio",
         "shortName": "Cagliari Calcio",
-        "code": "CAG"
+        "code": "CAG",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/67/?bg=transparent"
       },
       "away": {
         "id": "serie-a.frosinone",
         "league": "serie-a",
         "name": "Frosinone Calcio",
         "shortName": "Frosinone Calcio",
-        "code": "FRO"
+        "code": "FRO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1277/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Giovanni Ayroldi",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -333,29 +357,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-07T17:00Z",
+      "startTime": "2026-11-07T17:00:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.parma",
         "league": "serie-a",
         "name": "Parma Calcio 1913",
         "shortName": "Parma Calcio 1913",
-        "code": "PAR"
+        "code": "PAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/74/?bg=transparent"
       },
       "away": {
         "id": "serie-a.bologna",
         "league": "serie-a",
         "name": "Bologna FC 1909",
         "shortName": "Bologna FC 1909",
-        "code": "BOL"
+        "code": "BOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/66/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Luca Zufferli",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -365,29 +390,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-07T19:45Z",
+      "startTime": "2026-11-07T19:45:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.roma",
         "league": "serie-a",
         "name": "AS Roma",
         "shortName": "AS Roma",
-        "code": "ROM"
+        "code": "ROM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/65/?bg=transparent"
       },
       "away": {
         "id": "serie-a.sassuolo",
         "league": "serie-a",
         "name": "US Sassuolo Calcio",
         "shortName": "US Sassuolo Calcio",
-        "code": "SAS"
+        "code": "SAS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/61/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Marco Di Bello",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -397,29 +423,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-08T11:30Z",
+      "startTime": "2026-11-08T11:30:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.napoli",
         "league": "serie-a",
         "name": "SSC Napoli",
         "shortName": "SSC Napoli",
-        "code": "NAP"
+        "code": "NAP",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/62/?bg=transparent"
       },
       "away": {
         "id": "serie-a.lazio",
         "league": "serie-a",
         "name": "SS Lazio",
         "shortName": "SS Lazio",
-        "code": "LAZ"
+        "code": "LAZ",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/70/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Luca Pairetto",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -429,29 +456,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-08T14:00Z",
+      "startTime": "2026-11-08T14:00:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.genoa-cfc",
         "league": "serie-a",
         "name": "Genoa CFC",
         "shortName": "Genoa CFC",
-        "code": "GEN"
+        "code": "GEN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/59/?bg=transparent"
       },
       "away": {
         "id": "serie-a.milan",
         "league": "serie-a",
         "name": "AC Milan",
         "shortName": "AC Milan",
-        "code": "MIL"
+        "code": "MIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/63/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Davide Massa",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -461,29 +489,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-08T14:00Z",
+      "startTime": "2026-11-08T14:00:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.monza",
         "league": "serie-a",
         "name": "AC Monza",
         "shortName": "AC Monza",
-        "code": "MON"
+        "code": "MON",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1286/?bg=transparent"
       },
       "away": {
         "id": "serie-a.atalanta-bc",
         "league": "serie-a",
         "name": "Atalanta BC",
         "shortName": "Atalanta BC",
-        "code": "ATA"
+        "code": "ATA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/71/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Claudio Giuseppe Allegretta",
       "neutralSite": false,
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -493,29 +522,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-08T17:00Z",
+      "startTime": "2026-11-08T17:00:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.internazionale-milano",
         "league": "serie-a",
         "name": "FC Internazionale Milano",
         "shortName": "FC Internazionale Milano",
-        "code": "INT"
+        "code": "INT",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/77/?bg=transparent"
       },
       "away": {
         "id": "serie-a.como",
         "league": "serie-a",
         "name": "Como 1907",
         "shortName": "Como 1907",
-        "code": "COM"
+        "code": "COM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/69/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Daniele Chiffi",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -525,29 +555,30 @@
       "season": "serie-a-2026-27",
       "week": 11,
       "round": "Jornada 11",
-      "startTime": "2026-11-08T19:45Z",
+      "startTime": "2026-11-08T19:45:00Z",
       "status": "final",
       "home": {
         "id": "serie-a.fiorentina",
         "league": "serie-a",
         "name": "ACF Fiorentina",
         "shortName": "ACF Fiorentina",
-        "code": "FIO"
+        "code": "FIO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/68/?bg=transparent"
       },
       "away": {
         "id": "serie-a.juventus",
         "league": "serie-a",
         "name": "Juventus FC",
         "shortName": "Juventus FC",
-        "code": "JUV"
+        "code": "JUV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/73/?bg=transparent"
       },
       "venue": "Italia",
-      "referee": "Andrea Colombo",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-15T17:34:08.893Z",
+        "observedAt": "2026-11-20T13:29:33.226Z",
         "source": "football-data"
       }
     },
@@ -557,21 +588,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-21T14:00Z",
+      "startTime": "2026-11-21T14:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.como",
         "league": "serie-a",
         "name": "Como 1907",
         "shortName": "Como 1907",
-        "code": "COM"
+        "code": "COM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/69/?bg=transparent"
       },
       "away": {
         "id": "serie-a.cagliari",
         "league": "serie-a",
         "name": "Cagliari Calcio",
         "shortName": "Cagliari Calcio",
-        "code": "CAG"
+        "code": "CAG",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/67/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -582,21 +615,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-21T14:00Z",
+      "startTime": "2026-11-21T14:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.lazio",
         "league": "serie-a",
         "name": "SS Lazio",
         "shortName": "SS Lazio",
-        "code": "LAZ"
+        "code": "LAZ",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/70/?bg=transparent"
       },
       "away": {
         "id": "serie-a.lecce",
         "league": "serie-a",
         "name": "US Lecce",
         "shortName": "US Lecce",
-        "code": "LEC"
+        "code": "LEC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/60/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -607,21 +642,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-21T17:00Z",
+      "startTime": "2026-11-21T17:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.parma",
         "league": "serie-a",
         "name": "Parma Calcio 1913",
         "shortName": "Parma Calcio 1913",
-        "code": "PAR"
+        "code": "PAR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/74/?bg=transparent"
       },
       "away": {
         "id": "serie-a.roma",
         "league": "serie-a",
         "name": "AS Roma",
         "shortName": "AS Roma",
-        "code": "ROM"
+        "code": "ROM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/65/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -632,21 +669,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-21T19:45Z",
+      "startTime": "2026-11-21T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.napoli",
         "league": "serie-a",
         "name": "SSC Napoli",
         "shortName": "SSC Napoli",
-        "code": "NAP"
+        "code": "NAP",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/62/?bg=transparent"
       },
       "away": {
         "id": "serie-a.torino",
         "league": "serie-a",
         "name": "Torino FC",
         "shortName": "Torino FC",
-        "code": "TOR"
+        "code": "TOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/78/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -657,21 +696,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-22T11:30Z",
+      "startTime": "2026-11-22T11:30:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.juventus",
         "league": "serie-a",
         "name": "Juventus FC",
         "shortName": "Juventus FC",
-        "code": "JUV"
+        "code": "JUV",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/73/?bg=transparent"
       },
       "away": {
         "id": "serie-a.venezia",
         "league": "serie-a",
         "name": "Venezia FC",
         "shortName": "Venezia FC",
-        "code": "VEN"
+        "code": "VEN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1285/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -682,21 +723,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-22T14:00Z",
+      "startTime": "2026-11-22T14:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.sassuolo",
         "league": "serie-a",
         "name": "US Sassuolo Calcio",
         "shortName": "US Sassuolo Calcio",
-        "code": "SAS"
+        "code": "SAS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/61/?bg=transparent"
       },
       "away": {
         "id": "serie-a.genoa-cfc",
         "league": "serie-a",
         "name": "Genoa CFC",
         "shortName": "Genoa CFC",
-        "code": "GEN"
+        "code": "GEN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/59/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -707,21 +750,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-22T14:00Z",
+      "startTime": "2026-11-22T14:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.bologna",
         "league": "serie-a",
         "name": "Bologna FC 1909",
         "shortName": "Bologna FC 1909",
-        "code": "BOL"
+        "code": "BOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/66/?bg=transparent"
       },
       "away": {
         "id": "serie-a.udinese",
         "league": "serie-a",
         "name": "Udinese Calcio",
         "shortName": "Udinese Calcio",
-        "code": "UDI"
+        "code": "UDI",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/75/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -732,21 +777,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-22T17:00Z",
+      "startTime": "2026-11-22T17:00:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.milan",
         "league": "serie-a",
         "name": "AC Milan",
         "shortName": "AC Milan",
-        "code": "MIL"
+        "code": "MIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/63/?bg=transparent"
       },
       "away": {
         "id": "serie-a.frosinone",
         "league": "serie-a",
         "name": "Frosinone Calcio",
         "shortName": "Frosinone Calcio",
-        "code": "FRO"
+        "code": "FRO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1277/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -757,21 +804,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-22T19:45Z",
+      "startTime": "2026-11-22T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.atalanta-bc",
         "league": "serie-a",
         "name": "Atalanta BC",
         "shortName": "Atalanta BC",
-        "code": "ATA"
+        "code": "ATA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/71/?bg=transparent"
       },
       "away": {
         "id": "serie-a.internazionale-milano",
         "league": "serie-a",
         "name": "FC Internazionale Milano",
         "shortName": "FC Internazionale Milano",
-        "code": "INT"
+        "code": "INT",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/77/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -782,21 +831,23 @@
       "season": "serie-a-2026-27",
       "week": 12,
       "round": "Jornada 12",
-      "startTime": "2026-11-23T19:45Z",
+      "startTime": "2026-11-23T19:45:00Z",
       "status": "scheduled",
       "home": {
         "id": "serie-a.monza",
         "league": "serie-a",
         "name": "AC Monza",
         "shortName": "AC Monza",
-        "code": "MON"
+        "code": "MON",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1286/?bg=transparent"
       },
       "away": {
         "id": "serie-a.fiorentina",
         "league": "serie-a",
         "name": "ACF Fiorentina",
         "shortName": "ACF Fiorentina",
-        "code": "FIO"
+        "code": "FIO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/68/?bg=transparent"
       },
       "venue": "Italia",
       "neutralSite": false
@@ -1268,11 +1319,11 @@
         "referee": "Juan Luca Sacchi",
         "refereeStats": {
           "country": "Italy",
-          "matches": 37,
-          "avgYellow": 2.22,
+          "matches": 38,
+          "avgYellow": 2.16,
           "avgRed": 0.05,
           "avgFouls": 26.5,
-          "avgGoals": 2.54
+          "avgGoals": 2.58
         }
       }
     },
@@ -1749,11 +1800,11 @@
         "referee": "Ermanno Feliciani",
         "refereeStats": {
           "country": "Italy",
-          "matches": 38,
-          "avgYellow": 1.74,
+          "matches": 39,
+          "avgYellow": 1.72,
           "avgRed": 0.05,
           "avgFouls": 24.4,
-          "avgGoals": 2.87
+          "avgGoals": 2.97
         }
       }
     },
@@ -2703,11 +2754,11 @@
         "referee": "Luca Zufferli",
         "refereeStats": {
           "country": "Italy",
-          "matches": 45,
-          "avgYellow": 2.38,
+          "matches": 46,
+          "avgYellow": 2.37,
           "avgRed": 0.2,
           "avgFouls": 26,
-          "avgGoals": 2.82
+          "avgGoals": 2.85
         }
       }
     },
@@ -3664,11 +3715,11 @@
         "referee": "Luca Pairetto",
         "refereeStats": {
           "country": "Italy",
-          "matches": 45,
-          "avgYellow": 3.4,
-          "avgRed": 0.24,
+          "matches": 47,
+          "avgYellow": 3.36,
+          "avgRed": 0.28,
           "avgFouls": 24.3,
-          "avgGoals": 2.49
+          "avgGoals": 2.55
         }
       }
     },
@@ -4144,11 +4195,11 @@
         "referee": "Davide Massa",
         "refereeStats": {
           "country": "Italy",
-          "matches": 72,
-          "avgYellow": 3.61,
-          "avgRed": 0.31,
+          "matches": 73,
+          "avgYellow": 3.66,
+          "avgRed": 0.32,
           "avgFouls": 25.2,
-          "avgGoals": 2.49
+          "avgGoals": 2.52
         }
       }
     },
@@ -4624,11 +4675,11 @@
         "referee": "Claudio Giuseppe Allegretta",
         "refereeStats": {
           "country": "Italy",
-          "matches": 34,
-          "avgYellow": 0.76,
+          "matches": 35,
+          "avgYellow": 0.74,
           "avgRed": 0.06,
           "avgFouls": 25.1,
-          "avgGoals": 2.53
+          "avgGoals": 2.57
         }
       }
     },
@@ -5091,11 +5142,11 @@
         "referee": "Daniele Chiffi",
         "refereeStats": {
           "country": "Italy",
-          "matches": 49,
-          "avgYellow": 2.92,
+          "matches": 50,
+          "avgYellow": 2.98,
           "avgRed": 0.18,
           "avgFouls": 23.2,
-          "avgGoals": 2.53
+          "avgGoals": 2.5
         }
       }
     },
@@ -5571,16 +5622,94 @@
         "referee": "Andrea Colombo",
         "refereeStats": {
           "country": "Italy",
-          "matches": 62,
-          "avgYellow": 4.05,
-          "avgRed": 0.26,
+          "matches": 63,
+          "avgYellow": 4,
+          "avgRed": 0.25,
           "avgFouls": 26.7,
-          "avgGoals": 2.92
+          "avgGoals": 2.9
         }
       }
     },
     "serie-a-2026-27-md12-como-cagliari": {
       "game": "serie-a-2026-27-md12-como-cagliari",
+      "cortex": {
+        "headline": "Como llega mejor y sostiene la localía",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Como llega quinto con 23 puntos y diferencia de más ocho, mientras el Cagliari es noveno con 16 y diferencia de menos cinco. La probabilidad de 62 por ciento a favor del local confirma esa distancia entre ambos en la tabla.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido con 2.62 goles en total. El Como aporta 1.70 y el Cagliari 0.92, así que el peso ofensivo se inclina al local. Más de 1.5 llega al 74 por ciento y ambos anotan al 48 por ciento.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.7,
+                "away": 0.92
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "48 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "50 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Como empuja con 6.1 tiros de esquina frente a 3.5 del Cagliari, 9.6 en total. Las faltas suman 21.6, con el visitante más cortado: 12.1 contra 9.4. Las amarillas proyectan 3.2, con 1.9 del Cagliari.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.1,
+                "away": 3.5
+              },
+              {
+                "label": "Faltas",
+                "home": 9.4,
+                "away": 12.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.3,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Como está quinto con 23 puntos en 11 partidos y diferencia de más ocho. El Cagliari es noveno con 16 puntos en 11 partidos y diferencia de menos cinco.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 23,
+                "away": 16
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas, el criterio del árbitro y quién anota primero pueden mover la lectura. Un gol temprano del Cagliari obligaría al Como a sostener más el balón y abrir espacios atrás.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "278785604f6cd839",
+        "generatedAt": "2026-11-20T13:31:52.481Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.14,
@@ -6223,10 +6352,99 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Andrea Calzavara",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 36,
+          "avgYellow": 1.19,
+          "avgRed": 0,
+          "avgFouls": 28.6,
+          "avgGoals": 2.11
+        }
+      }
     },
     "serie-a-2026-27-md12-lazio-lecce": {
       "game": "serie-a-2026-27-md12-lazio-lecce",
+      "cortex": {
+        "headline": "Lazio líder en casa ante un Lecce que concede y comete faltas",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "La Lazio llega con 29 puntos y líder de la Serie A, con una diferencia de 16 goles en 11 partidos. El Lecce suma 10 puntos en la posición 14 y una diferencia de -10, así que llega a este partido con menos margen.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 2.45: la Lazio aporta 1.64 y el Lecce 0.81. El 46 % de los escenarios supera los 2.5 goles y el 43 % ve anotar a ambos, así que el peso ofensivo está del lado local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.64,
+                "away": 0.81
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "43 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "46 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "La Lazio empuja con 5.3 tiros de esquina por 4.0 del Lecce, 9.3 en total. Las faltas suman 23.5, con 13.5 del visitante, y 3.6 amarillas: el juego se corta más del lado del Lecce.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.3,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 10,
+                "away": 13.5
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.5,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "La Lazio es primera con 29 puntos y +16 tras 11 jornadas. El Lecce es decimocuarto con 10 puntos y -10, también con 11 partidos jugados.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 29,
+                "away": 10
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo local; el criterio del árbitro define cuánto se corta el juego con 23.5 faltas; un primer gol temprano del Lecce obliga a la Lazio a estirarse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "54d6ac437991c813",
+        "generatedAt": "2026-11-20T13:31:56.563Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.28,
@@ -6884,7 +7102,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Matteo Marcenaro",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 41,
+          "avgYellow": 2.85,
+          "avgRed": 0.17,
+          "avgFouls": 26.2,
+          "avgGoals": 2.85
+        }
+      }
     },
     "serie-a-2026-27-md12-parma-roma": {
       "game": "serie-a-2026-27-md12-parma-roma",
@@ -7545,10 +7774,99 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Simone Sozza",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 67,
+          "avgYellow": 3.13,
+          "avgRed": 0.19,
+          "avgFouls": 23.9,
+          "avgGoals": 2.82
+        }
+      }
     },
     "serie-a-2026-27-md12-napoli-torino": {
       "game": "serie-a-2026-27-md12-napoli-torino",
+      "cortex": {
+        "headline": "Napoli con más peso ofensivo en casa ante un Torino corto",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Napoli llega con 65 % de probabilidad y una diferencia de +4, sostenido por su localía. El Torino, con 15 % y diferencia de -2, compite cerca en puntos pero con menos respaldo en el marcador esperado.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se proyecta un partido de 2.85 goles totales, con el Napoli aportando 1.88 frente a 0.97 del Torino. El 78 % de más de 1.5 y el 51 % de ambos anotan hablan de un juego con llegada, pero sin descontrol.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.88,
+                "away": 0.97
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "51 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "55 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Napoli empuja con 5.8 tiros de esquina por 3.5 del Torino, señal de un equipo que juega en campo rival. Las 19.0 faltas totales y el Torino con 10.3 anticipan un partido cortado en la mitad.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.8,
+                "away": 3.5
+              },
+              {
+                "label": "Faltas",
+                "home": 8.7,
+                "away": 10.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.2,
+                "away": 1.7
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Napoli décimo con 15 puntos en 11 partidos y diferencia de +4. Torino undécimo con 14 puntos en 11 jornadas y diferencia de -2. Separación mínima en la tabla, con el local mejor parado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 15,
+                "away": 14
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Napoli. El criterio del árbitro define cuánto se corta el juego con faltas. Un gol temprano del Torino obligaría al local a estirarse y abrir el partido.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "0c9dd1073025e8ca",
+        "generatedAt": "2026-11-20T13:32:03.678Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.82,
@@ -8205,7 +8523,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Antonio Rapuano",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 42,
+          "avgYellow": 2.67,
+          "avgRed": 0.31,
+          "avgFouls": 28,
+          "avgGoals": 2.36
+        }
+      }
     },
     "serie-a-2026-27-md12-juventus-venezia": {
       "game": "serie-a-2026-27-md12-juventus-venezia",
@@ -8849,7 +9178,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Alberto Ruben Arena",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 36,
+          "avgYellow": 1.67,
+          "avgRed": 0.06,
+          "avgFouls": 22.5,
+          "avgGoals": 2.78
+        }
+      }
     },
     "serie-a-2026-27-md12-sassuolo-genoa-cfc": {
       "game": "serie-a-2026-27-md12-sassuolo-genoa-cfc",
@@ -9508,7 +9848,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Maria Sole Ferrieri Caputi",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 33,
+          "avgYellow": 0.94,
+          "avgRed": 0.03,
+          "avgFouls": 27.2,
+          "avgGoals": 2.58
+        }
+      }
     },
     "serie-a-2026-27-md12-bologna-udinese": {
       "game": "serie-a-2026-27-md12-bologna-udinese",
@@ -10168,7 +10519,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Livio Marinelli",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 46,
+          "avgYellow": 2.2,
+          "avgRed": 0.09,
+          "avgFouls": 26,
+          "avgGoals": 2.48
+        }
+      }
     },
     "serie-a-2026-27-md12-milan-frosinone": {
       "game": "serie-a-2026-27-md12-milan-frosinone",
@@ -10828,10 +11190,99 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Luca Pairetto",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 47,
+          "avgYellow": 3.36,
+          "avgRed": 0.28,
+          "avgFouls": 24.3,
+          "avgGoals": 2.55
+        }
+      }
     },
     "serie-a-2026-27-md12-atalanta-bc-internazionale-milano": {
       "game": "serie-a-2026-27-md12-atalanta-bc-internazionale-milano",
+      "cortex": {
+        "headline": "Inter favorito de visita ante una Atalanta que no encuentra su sitio",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Inter llega mejor: 50 % de probabilidad, segundo con 28 puntos y diferencia de +15 en 11 jornadas. La Atalanta es local pero está duodécima con 14 puntos y diferencia de -3, así que sostiene el partido desde la necesidad y no desde el control.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido abierto: 3.21 goles de total proyectado, con 62 % de que se superen los 2.5 y 62 % de que ambos anoten. El Inter aporta más con 1.90 esperados por 1.32 de la Atalanta.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.32,
+                "away": 1.9
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "62 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "62 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Inter empuja más y genera 5.1 tiros de esquina por 4.3 de la Atalanta, 9.3 en total. Las faltas son parejas, 8.7 y 9.0 para 17.8, con 2.8 amarillas: juego cortado pero sin exceso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.3,
+                "away": 5.1
+              },
+              {
+                "label": "Faltas",
+                "home": 8.7,
+                "away": 9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.3,
+                "away": 1.4
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Inter es segundo con 28 puntos y +15 en 11 jugados. La Atalanta es duodécima con 14 puntos y -3, también con 11 jornadas. La diferencia de puntos separa a dos equipos que han disputado lo mismo.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 14,
+                "away": 28
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el ritmo con faltas. Un primer gol temprano cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "c8a1f3278b3f77d9",
+        "generatedAt": "2026-11-20T13:32:23.509Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.26,
@@ -11487,7 +11938,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Fabio Maresca",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 33,
+          "avgYellow": 3.03,
+          "avgRed": 0.27,
+          "avgFouls": 26.3,
+          "avgGoals": 2.82
+        }
+      }
     },
     "serie-a-2026-27-md12-monza-fiorentina": {
       "game": "serie-a-2026-27-md12-monza-fiorentina",
@@ -12152,57 +12614,18 @@
   },
   "standings": [
     {
-      "teamId": "serie-a.roma",
-      "name": "AS Roma",
-      "shortName": "Roma",
-      "code": "ROM",
-      "played": 8,
-      "won": 7,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 26,
-      "goalsAgainst": 7,
-      "points": 22,
-      "form": [
-        "W",
-        "D",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "serie-a.internazionale-milano",
-      "name": "FC Internazionale Milano",
-      "shortName": "Inter",
-      "code": "INT",
-      "played": 9,
-      "won": 7,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 22,
-      "goalsAgainst": 12,
-      "points": 22,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "L",
-        "W"
-      ]
-    },
-    {
       "teamId": "serie-a.lazio",
       "name": "SS Lazio",
       "shortName": "Lazio",
       "code": "LAZ",
-      "played": 8,
-      "won": 6,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/70/?bg=transparent",
+      "played": 11,
+      "won": 9,
       "drawn": 2,
       "lost": 0,
-      "goalsFor": 17,
-      "goalsAgainst": 7,
-      "points": 20,
+      "goalsFor": 25,
+      "goalsAgainst": 9,
+      "points": 29,
       "form": [
         "W",
         "W",
@@ -12212,17 +12635,60 @@
       ]
     },
     {
+      "teamId": "serie-a.internazionale-milano",
+      "name": "FC Internazionale Milano",
+      "shortName": "Inter",
+      "code": "INT",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/77/?bg=transparent",
+      "played": 11,
+      "won": 9,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 28,
+      "goalsAgainst": 13,
+      "points": 28,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "serie-a.roma",
+      "name": "AS Roma",
+      "shortName": "Roma",
+      "code": "ROM",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/65/?bg=transparent",
+      "played": 11,
+      "won": 8,
+      "drawn": 3,
+      "lost": 0,
+      "goalsFor": 31,
+      "goalsAgainst": 10,
+      "points": 27,
+      "form": [
+        "W",
+        "D",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "serie-a.milan",
       "name": "AC Milan",
       "shortName": "Milan",
       "code": "MIL",
-      "played": 9,
-      "won": 6,
-      "drawn": 2,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/63/?bg=transparent",
+      "played": 11,
+      "won": 7,
+      "drawn": 3,
       "lost": 1,
-      "goalsFor": 19,
-      "goalsAgainst": 10,
-      "points": 20,
+      "goalsFor": 23,
+      "goalsAgainst": 13,
+      "points": 24,
       "form": [
         "W",
         "W",
@@ -12232,17 +12698,39 @@
       ]
     },
     {
+      "teamId": "serie-a.como",
+      "name": "Como 1907",
+      "shortName": "Como",
+      "code": "COM",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/69/?bg=transparent",
+      "played": 11,
+      "won": 7,
+      "drawn": 2,
+      "lost": 2,
+      "goalsFor": 18,
+      "goalsAgainst": 10,
+      "points": 23,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "L"
+      ]
+    },
+    {
       "teamId": "serie-a.frosinone",
       "name": "Frosinone Calcio",
       "shortName": "Frosinone",
       "code": "FRO",
-      "played": 9,
-      "won": 5,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1277/?bg=transparent",
+      "played": 11,
+      "won": 6,
       "drawn": 2,
-      "lost": 2,
-      "goalsFor": 20,
-      "goalsAgainst": 10,
-      "points": 17,
+      "lost": 3,
+      "goalsFor": 24,
+      "goalsAgainst": 15,
+      "points": 20,
       "form": [
         "W",
         "D",
@@ -12256,13 +12744,14 @@
       "name": "Juventus FC",
       "shortName": "Juventus",
       "code": "JUV",
-      "played": 9,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/73/?bg=transparent",
+      "played": 11,
       "won": 5,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 14,
-      "goalsAgainst": 8,
-      "points": 17,
+      "drawn": 3,
+      "lost": 3,
+      "goalsFor": 15,
+      "goalsAgainst": 12,
+      "points": 18,
       "form": [
         "L",
         "W",
@@ -12272,23 +12761,24 @@
       ]
     },
     {
-      "teamId": "serie-a.como",
-      "name": "Como 1907",
-      "shortName": "Como",
-      "code": "COM",
-      "played": 8,
+      "teamId": "serie-a.bologna",
+      "name": "Bologna FC 1909",
+      "shortName": "Bologna",
+      "code": "BOL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/66/?bg=transparent",
+      "played": 11,
       "won": 5,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 13,
-      "goalsAgainst": 9,
-      "points": 16,
+      "drawn": 2,
+      "lost": 4,
+      "goalsFor": 16,
+      "goalsAgainst": 14,
+      "points": 17,
       "form": [
+        "L",
         "W",
         "W",
         "W",
-        "W",
-        "L"
+        "W"
       ]
     },
     {
@@ -12296,13 +12786,14 @@
       "name": "Cagliari Calcio",
       "shortName": "Cagliari",
       "code": "CAG",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/67/?bg=transparent",
+      "played": 11,
       "won": 5,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 9,
-      "goalsAgainst": 8,
-      "points": 15,
+      "drawn": 1,
+      "lost": 5,
+      "goalsFor": 10,
+      "goalsAgainst": 15,
+      "points": 16,
       "form": [
         "L",
         "L",
@@ -12316,13 +12807,14 @@
       "name": "SSC Napoli",
       "shortName": "Napoli",
       "code": "NAP",
-      "played": 8,
-      "won": 3,
-      "drawn": 2,
-      "lost": 3,
-      "goalsFor": 12,
-      "goalsAgainst": 10,
-      "points": 11,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/62/?bg=transparent",
+      "played": 11,
+      "won": 4,
+      "drawn": 3,
+      "lost": 4,
+      "goalsFor": 18,
+      "goalsAgainst": 14,
+      "points": 15,
       "form": [
         "L",
         "D",
@@ -12332,23 +12824,24 @@
       ]
     },
     {
-      "teamId": "serie-a.bologna",
-      "name": "Bologna FC 1909",
-      "shortName": "Bologna",
-      "code": "BOL",
-      "played": 8,
-      "won": 3,
+      "teamId": "serie-a.torino",
+      "name": "Torino FC",
+      "shortName": "Torino",
+      "code": "TOR",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/78/?bg=transparent",
+      "played": 11,
+      "won": 4,
       "drawn": 2,
-      "lost": 3,
-      "goalsFor": 11,
-      "goalsAgainst": 10,
-      "points": 11,
+      "lost": 5,
+      "goalsFor": 15,
+      "goalsAgainst": 17,
+      "points": 14,
       "form": [
+        "W",
+        "W",
         "L",
-        "W",
-        "W",
-        "W",
-        "W"
+        "L",
+        "D"
       ]
     },
     {
@@ -12356,13 +12849,14 @@
       "name": "Atalanta BC",
       "shortName": "Atalanta",
       "code": "ATA",
-      "played": 9,
-      "won": 3,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/71/?bg=transparent",
+      "played": 11,
+      "won": 4,
       "drawn": 2,
-      "lost": 4,
-      "goalsFor": 12,
-      "goalsAgainst": 16,
-      "points": 11,
+      "lost": 5,
+      "goalsFor": 17,
+      "goalsAgainst": 20,
+      "points": 14,
       "form": [
         "L",
         "D",
@@ -12376,13 +12870,14 @@
       "name": "Genoa CFC",
       "shortName": "Genoa",
       "code": "GEN",
-      "played": 9,
-      "won": 3,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/59/?bg=transparent",
+      "played": 11,
+      "won": 4,
       "drawn": 1,
-      "lost": 5,
-      "goalsFor": 9,
-      "goalsAgainst": 13,
-      "points": 10,
+      "lost": 6,
+      "goalsFor": 11,
+      "goalsAgainst": 16,
+      "points": 13,
       "form": [
         "L",
         "W",
@@ -12392,16 +12887,38 @@
       ]
     },
     {
+      "teamId": "serie-a.lecce",
+      "name": "US Lecce",
+      "shortName": "Lecce",
+      "code": "LEC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/60/?bg=transparent",
+      "played": 11,
+      "won": 3,
+      "drawn": 1,
+      "lost": 7,
+      "goalsFor": 12,
+      "goalsAgainst": 22,
+      "points": 10,
+      "form": [
+        "W",
+        "L",
+        "L",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "serie-a.fiorentina",
       "name": "ACF Fiorentina",
       "shortName": "Fiorentina",
       "code": "FIO",
-      "played": 9,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/68/?bg=transparent",
+      "played": 11,
       "won": 2,
       "drawn": 3,
-      "lost": 4,
-      "goalsFor": 15,
-      "goalsAgainst": 20,
+      "lost": 6,
+      "goalsFor": 17,
+      "goalsAgainst": 25,
       "points": 9,
       "form": [
         "L",
@@ -12416,12 +12933,13 @@
       "name": "Parma Calcio 1913",
       "shortName": "Parma",
       "code": "PAR",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/74/?bg=transparent",
+      "played": 11,
       "won": 2,
       "drawn": 2,
-      "lost": 4,
-      "goalsFor": 8,
-      "goalsAgainst": 9,
+      "lost": 7,
+      "goalsFor": 9,
+      "goalsAgainst": 17,
       "points": 8,
       "form": [
         "L",
@@ -12436,77 +12954,18 @@
       "name": "US Sassuolo Calcio",
       "shortName": "Sassuolo",
       "code": "SAS",
-      "played": 8,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/61/?bg=transparent",
+      "played": 11,
       "won": 2,
-      "drawn": 1,
-      "lost": 5,
-      "goalsFor": 13,
-      "goalsAgainst": 22,
-      "points": 7,
-      "form": [
-        "L",
-        "L",
-        "L",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "serie-a.lecce",
-      "name": "US Lecce",
-      "shortName": "Lecce",
-      "code": "LEC",
-      "played": 9,
-      "won": 2,
-      "drawn": 1,
-      "lost": 6,
-      "goalsFor": 8,
-      "goalsAgainst": 20,
-      "points": 7,
-      "form": [
-        "W",
-        "L",
-        "L",
-        "L",
-        "D"
-      ]
-    },
-    {
-      "teamId": "serie-a.torino",
-      "name": "Torino FC",
-      "shortName": "Torino",
-      "code": "TOR",
-      "played": 8,
-      "won": 1,
       "drawn": 2,
-      "lost": 5,
-      "goalsFor": 7,
-      "goalsAgainst": 14,
-      "points": 5,
-      "form": [
-        "W",
-        "W",
-        "L",
-        "L",
-        "D"
-      ]
-    },
-    {
-      "teamId": "serie-a.udinese",
-      "name": "Udinese Calcio",
-      "shortName": "Udinese",
-      "code": "UDI",
-      "played": 9,
-      "won": 1,
-      "drawn": 2,
-      "lost": 6,
-      "goalsFor": 11,
-      "goalsAgainst": 20,
-      "points": 5,
+      "lost": 7,
+      "goalsFor": 16,
+      "goalsAgainst": 29,
+      "points": 8,
       "form": [
         "L",
         "L",
-        "D",
+        "L",
         "L",
         "L"
       ]
@@ -12516,13 +12975,14 @@
       "name": "AC Monza",
       "shortName": "Monza",
       "code": "MON",
-      "played": 8,
-      "won": 1,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1286/?bg=transparent",
+      "played": 11,
+      "won": 2,
       "drawn": 1,
-      "lost": 6,
-      "goalsFor": 10,
-      "goalsAgainst": 19,
-      "points": 4,
+      "lost": 8,
+      "goalsFor": 17,
+      "goalsAgainst": 25,
+      "points": 7,
       "form": [
         "W",
         "L",
@@ -12536,19 +12996,41 @@
       "name": "Venezia FC",
       "shortName": "Venezia",
       "code": "VEN",
-      "played": 9,
-      "won": 1,
+      "logoUrl": "https://sports.bzzoiro.com/img/team/1285/?bg=transparent",
+      "played": 11,
+      "won": 2,
       "drawn": 0,
-      "lost": 8,
-      "goalsFor": 6,
-      "goalsAgainst": 18,
-      "points": 3,
+      "lost": 9,
+      "goalsFor": 8,
+      "goalsAgainst": 21,
+      "points": 6,
       "form": [
         "W",
         "L",
         "L",
         "L",
         "W"
+      ]
+    },
+    {
+      "teamId": "serie-a.udinese",
+      "name": "Udinese Calcio",
+      "shortName": "Udinese",
+      "code": "UDI",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/75/?bg=transparent",
+      "played": 11,
+      "won": 1,
+      "drawn": 2,
+      "lost": 8,
+      "goalsFor": 12,
+      "goalsAgainst": 25,
+      "points": 5,
+      "form": [
+        "L",
+        "L",
+        "D",
+        "L",
+        "L"
       ]
     }
   ]

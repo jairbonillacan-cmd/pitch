@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "coppa-italia",
-  "observedAt": "2026-11-19T16:13:44.585Z",
+  "observedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-19T16:13:44.585Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "coppa-italia.frosinone",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-19T16:13:44.585Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "coppa-italia.frosinone",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-19T16:13:44.585Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "coppa-italia.frosinone",
@@ -39,16 +39,16 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-19T16:13:44.585Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "coppa-italia.hellas-verona",
       "player": "Davide De Battisti",
       "position": "M",
       "status": "Baja",
-      "detail": "Sprained Knee Injury",
-      "injuryType": "Sprained Knee Injury",
-      "reportedAt": "2026-11-19T16:13:44.585Z"
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "coppa-italia.virtus-entella",
@@ -57,7 +57,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-19T16:13:44.585Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "coppa-italia.virtus-entella",
@@ -66,7 +66,70 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-19T16:13:44.585Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "coppa-italia.lazio",
+      "player": "Adam Marušić",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "coppa-italia.lazio",
+      "player": "Albert Guðmundsson",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "coppa-italia.lazio",
+      "player": "Davide Frattesi",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "coppa-italia.lazio",
+      "player": "Josip Šutalo",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "coppa-italia.lazio",
+      "player": "Mattia Zaccagni",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "coppa-italia.lazio",
+      "player": "Nuno Tavares",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "coppa-italia.mantova",
+      "player": "Jonathan Silva",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     }
   ]
 }

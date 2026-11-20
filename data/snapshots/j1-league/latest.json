@@ -5,7 +5,7 @@
   "season": "j1-league-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 13",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,19 +18,19 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.0714285714285714,
       "gamesPlayed": 14,
-      "adjustedFor": 1.3454826015066572,
-      "adjustedAgainst": 1.0846421708241707
+      "adjustedFor": 1.3531503222500247,
+      "adjustedAgainst": 1.0938889410530104
     },
     "j1-league.kashima-antlers": {
       "teamId": "j1-league.kashima-antlers",
       "name": "Kashima Antlers",
       "shortName": "Kashima Antlers",
       "code": "KAS",
-      "forPerGame": 2.0714285714285716,
-      "againstPerGame": 1.7142857142857142,
-      "gamesPlayed": 14,
-      "adjustedFor": 1.770225212041284,
-      "adjustedAgainst": 1.5533145996140683
+      "forPerGame": 2,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 15,
+      "adjustedFor": 1.7066997806506858,
+      "adjustedAgainst": 1.561582775269569
     },
     "j1-league.gamba-osaka": {
       "teamId": "j1-league.gamba-osaka",
@@ -40,8 +40,8 @@
       "forPerGame": 1.1428571428571428,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 14,
-      "adjustedFor": 1.161240074296246,
-      "adjustedAgainst": 1.5480357810928438
+      "adjustedFor": 1.1649665989781073,
+      "adjustedAgainst": 1.5514116798131707
     },
     "j1-league.urawa-red-diamonds": {
       "teamId": "j1-league.urawa-red-diamonds",
@@ -51,8 +51,8 @@
       "forPerGame": 1.6428571428571428,
       "againstPerGame": 2.0714285714285716,
       "gamesPlayed": 14,
-      "adjustedFor": 1.5778216096770046,
-      "adjustedAgainst": 1.7611125888852535
+      "adjustedFor": 1.5844672621861549,
+      "adjustedAgainst": 1.774762417327512
     },
     "j1-league.nagoya-grampus": {
       "teamId": "j1-league.nagoya-grampus",
@@ -62,41 +62,41 @@
       "forPerGame": 1.0714285714285714,
       "againstPerGame": 1.6428571428571428,
       "gamesPlayed": 14,
-      "adjustedFor": 1.1363242030165686,
-      "adjustedAgainst": 1.4063167125475673
+      "adjustedFor": 1.1373462582234986,
+      "adjustedAgainst": 1.4206259571026538
     },
     "j1-league.shimizu-s-pulse": {
       "teamId": "j1-league.shimizu-s-pulse",
       "name": "Shimizu S-Pulse",
       "shortName": "Shimizu S-Pulse",
       "code": "SHI",
-      "forPerGame": 0.7142857142857143,
-      "againstPerGame": 1.6428571428571428,
-      "gamesPlayed": 14,
-      "adjustedFor": 0.8321827605217683,
-      "adjustedAgainst": 1.5110354080022723
+      "forPerGame": 0.7333333333333333,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 15,
+      "adjustedFor": 0.844576142445085,
+      "adjustedAgainst": 1.462553861671982
     },
     "j1-league.kashiwa-reysol": {
       "teamId": "j1-league.kashiwa-reysol",
       "name": "Kashiwa Reysol",
       "shortName": "Kashiwa Reysol",
       "code": "KAS",
-      "forPerGame": 2.2142857142857144,
-      "againstPerGame": 1.4285714285714286,
-      "gamesPlayed": 14,
-      "adjustedFor": 1.9458327651732465,
-      "adjustedAgainst": 1.3237273253773771
+      "forPerGame": 2.066666666666667,
+      "againstPerGame": 1.4,
+      "gamesPlayed": 15,
+      "adjustedFor": 1.8149813780135267,
+      "adjustedAgainst": 1.3186298225220545
     },
     "j1-league.mito-hollyhock": {
       "teamId": "j1-league.mito-hollyhock",
       "name": "Mito Hollyhock",
       "shortName": "Mito Hollyhock",
       "code": "MIT",
-      "forPerGame": 0.8571428571428571,
-      "againstPerGame": 1.8571428571428572,
-      "gamesPlayed": 14,
-      "adjustedFor": 0.906870946672202,
-      "adjustedAgainst": 1.584379628755082
+      "forPerGame": 0.9333333333333333,
+      "againstPerGame": 1.8,
+      "gamesPlayed": 15,
+      "adjustedFor": 0.9907408136156991,
+      "adjustedAgainst": 1.5562100134099448
     },
     "j1-league.tokyo": {
       "teamId": "j1-league.tokyo",
@@ -106,8 +106,8 @@
       "forPerGame": 2.357142857142857,
       "againstPerGame": 0.5714285714285714,
       "gamesPlayed": 14,
-      "adjustedFor": 1.9764705788199273,
-      "adjustedAgainst": 0.7025709169782779
+      "adjustedFor": 1.99184627893936,
+      "adjustedAgainst": 0.7108948669500698
     },
     "j1-league.machida-zelvia": {
       "teamId": "j1-league.machida-zelvia",
@@ -117,8 +117,8 @@
       "forPerGame": 2.142857142857143,
       "againstPerGame": 0.7142857142857143,
       "gamesPlayed": 14,
-      "adjustedFor": 1.8384559293550664,
-      "adjustedAgainst": 0.7924849047391529
+      "adjustedFor": 1.8492475376431563,
+      "adjustedAgainst": 0.7980828199880068
     },
     "j1-league.cerezo-osaka": {
       "teamId": "j1-league.cerezo-osaka",
@@ -128,8 +128,8 @@
       "forPerGame": 1.1428571428571428,
       "againstPerGame": 1.7857142857142858,
       "gamesPlayed": 14,
-      "adjustedFor": 1.1364190374754224,
-      "adjustedAgainst": 1.6490014142307003
+      "adjustedFor": 1.1446728565802373,
+      "adjustedAgainst": 1.6672328529495324
     },
     "j1-league.fagiano-okayama": {
       "teamId": "j1-league.fagiano-okayama",
@@ -139,8 +139,8 @@
       "forPerGame": 1.1428571428571428,
       "againstPerGame": 1.5714285714285714,
       "gamesPlayed": 14,
-      "adjustedFor": 1.1431270203547623,
-      "adjustedAgainst": 1.4791548652239144
+      "adjustedFor": 1.1449831265739094,
+      "adjustedAgainst": 1.4780539323881607
     },
     "j1-league.avispa-fukuoka": {
       "teamId": "j1-league.avispa-fukuoka",
@@ -150,19 +150,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.7857142857142858,
       "gamesPlayed": 14,
-      "adjustedFor": 0.9921652305475874,
-      "adjustedAgainst": 1.6791105062493927
+      "adjustedFor": 1.0006677865815112,
+      "adjustedAgainst": 1.6824869415770263
     },
     "j1-league.vissel-kobe": {
       "teamId": "j1-league.vissel-kobe",
       "name": "Vissel Kobe",
       "shortName": "Vissel Kobe",
       "code": "VIS",
-      "forPerGame": 1.6428571428571428,
-      "againstPerGame": 1,
-      "gamesPlayed": 14,
-      "adjustedFor": 1.502568717759484,
-      "adjustedAgainst": 1.007064496535362
+      "forPerGame": 1.6,
+      "againstPerGame": 1.0666666666666667,
+      "gamesPlayed": 15,
+      "adjustedFor": 1.4504817534230625,
+      "adjustedAgainst": 1.0845324630072035
     },
     "j1-league.sanfrecce-hiroshima": {
       "teamId": "j1-league.sanfrecce-hiroshima",
@@ -172,19 +172,19 @@
       "forPerGame": 2.2857142857142856,
       "againstPerGame": 0.7142857142857143,
       "gamesPlayed": 14,
-      "adjustedFor": 1.8675164076726916,
-      "adjustedAgainst": 0.8906690448271268
+      "adjustedFor": 1.8796952506525453,
+      "adjustedAgainst": 0.8894803267398333
     },
     "j1-league.jef-united-chiba": {
       "teamId": "j1-league.jef-united-chiba",
       "name": "JEF United Chiba",
       "shortName": "JEF United Chiba",
       "code": "JEF",
-      "forPerGame": 1.1428571428571428,
-      "againstPerGame": 1.7142857142857142,
-      "gamesPlayed": 14,
-      "adjustedFor": 1.1502104919635066,
-      "adjustedAgainst": 1.5615903251523975
+      "forPerGame": 1.1333333333333333,
+      "againstPerGame": 1.6,
+      "gamesPlayed": 15,
+      "adjustedFor": 1.1507733333684649,
+      "adjustedAgainst": 1.4372127970478759
     },
     "j1-league.tokyo-verdy": {
       "teamId": "j1-league.tokyo-verdy",
@@ -194,8 +194,8 @@
       "forPerGame": 0.8571428571428571,
       "againstPerGame": 1.5714285714285714,
       "gamesPlayed": 14,
-      "adjustedFor": 0.9413362173475345,
-      "adjustedAgainst": 1.3966123098265608
+      "adjustedFor": 0.9481050806153829,
+      "adjustedAgainst": 1.4102014922559263
     },
     "j1-league.kawasaki-frontale": {
       "teamId": "j1-league.kawasaki-frontale",
@@ -205,8 +205,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 14,
-      "adjustedFor": 1.7977150387626557,
-      "adjustedAgainst": 1.58400661763391
+      "adjustedFor": 1.8094414432194394,
+      "adjustedAgainst": 1.5975757809133238
     },
     "j1-league.v-varen-nagasaki": {
       "teamId": "j1-league.v-varen-nagasaki",
@@ -216,8 +216,8 @@
       "forPerGame": 1.2142857142857142,
       "againstPerGame": 1.5714285714285714,
       "gamesPlayed": 14,
-      "adjustedFor": 1.1796694739019835,
-      "adjustedAgainst": 1.4102117160673975
+      "adjustedFor": 1.1828550767359907,
+      "adjustedAgainst": 1.4255947158442404
     },
     "j1-league.kyoto-sanga": {
       "teamId": "j1-league.kyoto-sanga",
@@ -227,116 +227,11 @@
       "forPerGame": 1.3571428571428572,
       "againstPerGame": 1.6428571428571428,
       "gamesPlayed": 14,
-      "adjustedFor": 1.341282916539285,
-      "adjustedAgainst": 1.4449701531670043
+      "adjustedFor": 1.3472389750879181,
+      "adjustedAgainst": 1.4525567035889566
     }
   },
   "games": [
-    {
-      "id": "j1-league-2026-10-31-kashima-antler-cerezo-osaka-s5ru2t",
-      "league": "j1-league",
-      "season": "j1-league-2026",
-      "week": 13,
-      "round": "Regular season · Matchday 13",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T06:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "j1-league.kashima-antlers",
-        "league": "j1-league",
-        "name": "Kashima Antlers",
-        "shortName": "Kashima Antlers",
-        "code": "KAS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1937/?bg=transparent"
-      },
-      "away": {
-        "id": "j1-league.cerezo-osaka",
-        "league": "j1-league",
-        "name": "Cerezo Osaka",
-        "shortName": "Cerezo Osaka",
-        "code": "CER",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1938/?bg=transparent"
-      },
-      "venue": "Kashima Soccer Stadium, Kashima",
-      "referee": "Koki Nagamine",
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "j1-league-2026-10-31-kashiwa-reysol-urawa-red-diam-75hwda",
-      "league": "j1-league",
-      "season": "j1-league-2026",
-      "week": 13,
-      "round": "Regular season · Matchday 13",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T07:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "j1-league.kashiwa-reysol",
-        "league": "j1-league",
-        "name": "Kashiwa Reysol",
-        "shortName": "Kashiwa Reysol",
-        "code": "KAS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1945/?bg=transparent"
-      },
-      "away": {
-        "id": "j1-league.urawa-red-diamonds",
-        "league": "j1-league",
-        "name": "Urawa Red Diamonds",
-        "shortName": "Urawa Red Diamonds",
-        "code": "URA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1935/?bg=transparent"
-      },
-      "venue": "Sankyo Frontier Kashiwa Stadium, Kashiwa",
-      "referee": "Hiroki Kasahara",
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "j1-league-2026-11-01-yokohama-f-mar-kawasaki-front-kyg61j",
-      "league": "j1-league",
-      "season": "j1-league-2026",
-      "week": 13,
-      "round": "Regular season · Matchday 13",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T04:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "j1-league.yokohama-f-marinos",
-        "league": "j1-league",
-        "name": "Yokohama F. Marinos",
-        "shortName": "Yokohama F. Marinos",
-        "code": "YOK",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1928/?bg=transparent"
-      },
-      "away": {
-        "id": "j1-league.kawasaki-frontale",
-        "league": "j1-league",
-        "name": "Kawasaki Frontale",
-        "shortName": "Kawasaki Frontale",
-        "code": "KAW",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1944/?bg=transparent"
-      },
-      "venue": "Nissan Stadium, Yokohama",
-      "referee": "Daichi Shiino",
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "j1-league-2026-11-01-v-varen-nagasa-tokyo-verdy-fiamzb",
       "league": "j1-league",
@@ -368,7 +263,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +298,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +333,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +403,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -543,7 +438,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -578,7 +473,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -613,7 +508,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -648,7 +543,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -683,7 +578,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -718,7 +613,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +648,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -788,7 +683,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -800,7 +695,7 @@
       "round": "Regular season · Matchday 15",
       "phase": "Regular season",
       "startTime": "2026-11-20T10:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "j1-league.vissel-kobe",
         "league": "j1-league",
@@ -818,7 +713,14 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1947/?bg=transparent"
       },
       "venue": "Noevir Stadium Kobe, Kobe",
-      "neutralSite": false
+      "referee": "Koki Nagamine",
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 2,
+        "observedAt": "2026-11-20T13:22:46.169Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "j1-league-2026-11-20-kashiwa-reysol-jef-united-chi-2biqon",
@@ -828,7 +730,7 @@
       "round": "Regular season · Matchday 15",
       "phase": "Regular season",
       "startTime": "2026-11-20T10:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "j1-league.kashiwa-reysol",
         "league": "j1-league",
@@ -846,7 +748,14 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1934/?bg=transparent"
       },
       "venue": "Sankyo Frontier Kashiwa Stadium, Kashiwa",
-      "neutralSite": false
+      "referee": "Jumpei Iida",
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-20T13:22:46.169Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "j1-league-2026-11-20-kashima-antler-shimizu-s-puls-gehpbb",
@@ -856,7 +765,7 @@
       "round": "Regular season · Matchday 15",
       "phase": "Regular season",
       "startTime": "2026-11-20T10:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "j1-league.kashima-antlers",
         "league": "j1-league",
@@ -874,7 +783,14 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1943/?bg=transparent"
       },
       "venue": "Kashima Soccer Stadium, Kashima",
-      "neutralSite": false
+      "referee": "Koji Takasaki",
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-20T13:22:46.169Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "j1-league-2026-11-21-tokyo-verdy-nagoya-grampus-0gfz0r",
@@ -1687,1364 +1603,93 @@
       },
       "venue": "Peace Stadium, Nagasaki",
       "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-12-05-cerezo-osaka-mito-hollyhock-ahywbt",
+      "league": "j1-league",
+      "season": "j1-league-2026",
+      "week": 18,
+      "round": "Regular season · Matchday 18",
+      "phase": "Regular season",
+      "startTime": "2026-12-05T06:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "j1-league.cerezo-osaka",
+        "league": "j1-league",
+        "name": "Cerezo Osaka",
+        "shortName": "Cerezo Osaka",
+        "code": "CER",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1938/?bg=transparent"
+      },
+      "away": {
+        "id": "j1-league.mito-hollyhock",
+        "league": "j1-league",
+        "name": "Mito Hollyhock",
+        "shortName": "Mito Hollyhock",
+        "code": "MIT",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1947/?bg=transparent"
+      },
+      "venue": "Yodokou Sakura Stadium , Osaka",
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-12-06-sanfrecce-hiro-vissel-kobe-wi5bwm",
+      "league": "j1-league",
+      "season": "j1-league-2026",
+      "week": 18,
+      "round": "Regular season · Matchday 18",
+      "phase": "Regular season",
+      "startTime": "2026-12-06T05:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "j1-league.sanfrecce-hiroshima",
+        "league": "j1-league",
+        "name": "Sanfrecce Hiroshima",
+        "shortName": "Sanfrecce Hiroshima",
+        "code": "SAN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1933/?bg=transparent"
+      },
+      "away": {
+        "id": "j1-league.vissel-kobe",
+        "league": "j1-league",
+        "name": "Vissel Kobe",
+        "shortName": "Vissel Kobe",
+        "code": "VIS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1931/?bg=transparent"
+      },
+      "venue": "Edion Peace Wing Hiroshima, Hiroshima",
+      "neutralSite": false
+    },
+    {
+      "id": "j1-league-2026-12-06-gamba-osaka-yokohama-f-mar-eghjjn",
+      "league": "j1-league",
+      "season": "j1-league-2026",
+      "week": 18,
+      "round": "Regular season · Matchday 18",
+      "phase": "Regular season",
+      "startTime": "2026-12-06T06:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "j1-league.gamba-osaka",
+        "league": "j1-league",
+        "name": "Gamba Osaka",
+        "shortName": "Gamba Osaka",
+        "code": "GAM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1939/?bg=transparent"
+      },
+      "away": {
+        "id": "j1-league.yokohama-f-marinos",
+        "league": "j1-league",
+        "name": "Yokohama F. Marinos",
+        "shortName": "Yokohama F. Marinos",
+        "code": "YOK",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1928/?bg=transparent"
+      },
+      "venue": "Panasonic Stadium Suita, Suita",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "j1-league-2026-10-31-kashima-antler-cerezo-osaka-s5ru2t": {
-      "game": "j1-league-2026-10-31-kashima-antler-cerezo-osaka-s5ru2t",
-      "model": {
-        "id": "pitchlab-statistical-j1-league",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.6350177063040374,
-        "away": 1.3283907686828538,
-        "total": 3.963408474986891,
-        "margin": 1.3066269376211836
-      },
-      "x12": [
-        0.6453264781372834,
-        0.188685131921641,
-        0.16598838994107618
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Kashima Antlers gana",
-          "p": 0.6453264781372834,
-          "fairOdds": 1.549603237862596
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.188685131921641,
-          "fairOdds": 5.299834649479906
-        },
-        {
-          "market": "h2h",
-          "selection": "Cerezo Osaka gana",
-          "p": 0.16598838994107618,
-          "fairOdds": 6.024517740999763
-        },
-        {
-          "market": "double_chance",
-          "selection": "Kashima Antlers o empate",
-          "p": 0.8340116100589243,
-          "fairOdds": 1.1990240758511124
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cerezo Osaka o empate",
-          "p": 0.35467352186271717,
-          "fairOdds": 2.819494375413421
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8113148680783595,
-          "fairOdds": 1.2325670825786181
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9140080703315173,
-          "fairOdds": 1.0940822433190254
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.7564621722247884,
-          "fairOdds": 1.3219431674408202
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.2435378277752116,
-          "fairOdds": 4.106138291267886
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.5593056381755477,
-          "fairOdds": 1.7879311985160657
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.4406943618244523,
-          "fairOdds": 2.269146344101274
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6906855015880813,
-          "fairOdds": 1.447836964437095
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3093144984119187,
-          "fairOdds": 3.2329554713218944
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kashima Antlers más de 1.5",
-          "line": 1.5,
-          "p": 0.7392795111201264,
-          "fairOdds": 1.352668354740199
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kashima Antlers menos de 1.5",
-          "line": 1.5,
-          "p": 0.26072048887987365,
-          "fairOdds": 3.835525179844027
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cerezo Osaka más de 1.5",
-          "line": 1.5,
-          "p": 0.3832017090160045,
-          "fairOdds": 2.6095917018946144
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cerezo Osaka menos de 1.5",
-          "line": 1.5,
-          "p": 0.6167982909839955,
-          "fairOdds": 1.621275568719025
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.0876231482395618,
-          "fairOdds": 11.412509366429049
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–1",
-          "p": 0.07696284903111625,
-          "fairOdds": 12.993281987205252
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.07482002229713516,
-          "fairOdds": 13.365406335067208
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Kashima Antlers gana",
-              "p": 0.6453264781372834,
-              "fairOdds": 1.549603237862596
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.188685131921641,
-              "fairOdds": 5.299834649479906
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Cerezo Osaka gana",
-              "p": 0.16598838994107618,
-              "fairOdds": 6.024517740999763
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Kashima Antlers o empate",
-              "p": 0.8340116100589243,
-              "fairOdds": 1.1990240758511124
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Cerezo Osaka o empate",
-              "p": 0.35467352186271717,
-              "fairOdds": 2.819494375413421
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8113148680783595,
-              "fairOdds": 1.2325670825786181
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9140080703315173,
-              "fairOdds": 1.0940822433190254
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.7564621722247884,
-              "fairOdds": 1.3219431674408202
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.2435378277752116,
-              "fairOdds": 4.106138291267886
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.5593056381755477,
-              "fairOdds": 1.7879311985160657
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.4406943618244523,
-              "fairOdds": 2.269146344101274
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6906855015880813,
-              "fairOdds": 1.447836964437095
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3093144984119187,
-              "fairOdds": 3.2329554713218944
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Kashima Antlers más de 1.5",
-              "line": 1.5,
-              "p": 0.7392795111201264,
-              "fairOdds": 1.352668354740199
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Kashima Antlers menos de 1.5",
-              "line": 1.5,
-              "p": 0.26072048887987365,
-              "fairOdds": 3.835525179844027
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Cerezo Osaka más de 1.5",
-              "line": 1.5,
-              "p": 0.3832017090160045,
-              "fairOdds": 2.6095917018946144
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Cerezo Osaka menos de 1.5",
-              "line": 1.5,
-              "p": 0.6167982909839955,
-              "fairOdds": 1.621275568719025
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.0876231482395618,
-              "fairOdds": 11.412509366429049
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-1",
-              "label": "3–1",
-              "p": 0.07696284903111625,
-              "fairOdds": 12.993281987205252
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.07482002229713516,
-              "fairOdds": 13.365406335067208
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.0876231482395618
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.20 goles/partido",
-          "detail": "33 % más que la media · 14 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.65 concedidos/partido",
-          "detail": "24 % más que la media · 14 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.33 goles/partido",
-          "detail": "14 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.55 concedidos/partido",
-          "detail": "17 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.20",
-          "detail": "estimada de 140 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.8–5.4",
-          "detail": "local 42%–84% · 140 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "6.º · 23 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "11.º · 17 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-G-G-E-P · 8 pts",
-          "detail": "11 goles a favor · 8 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-P-E-E · 4 pts",
-          "detail": "6 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando J1 League · corte 30 oct 2026, 23:00",
-        "Fuerza ajustada por rival · KAS 1.33 / 1.17 · CER 0.86 / 1.24",
-        "Ponderando 125.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.64 – 1.33 · total 3.96",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-10-31T05:00:00.000Z",
-      "publishedAt": "2026-10-31T05:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.0876231482395618
-      },
-      "insights": {
-        "why": [
-          "Se esperan 4.0 goles: 2.6 de Kashima Antlers y 1.3 de Cerezo Osaka.",
-          "Kashima Antlers anota 33 % más que la media.",
-          "Cerezo Osaka concede 24 % más que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Koki Nagamine",
-        "refereeStats": {
-          "country": "Japan",
-          "matches": 33,
-          "avgYellow": 3.12,
-          "avgRed": 0.06,
-          "avgFouls": 23.1,
-          "avgGoals": 2.39
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 19,
-          "windSpeedKmh": 44
-        },
-        "travelDistanceKm": 491,
-        "halfTimeScore": {
-          "home": 3,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Kashima",
-        "venueCountry": "Japan",
-        "venueCapacity": 40728
-      }
-    },
-    "j1-league-2026-10-31-kashiwa-reysol-urawa-red-diam-75hwda": {
-      "game": "j1-league-2026-10-31-kashiwa-reysol-urawa-red-diam-75hwda",
-      "model": {
-        "id": "pitchlab-statistical-j1-league",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 3.093332621252743,
-        "away": 1.571753217413148,
-        "total": 4.665085838665892,
-        "margin": 1.5215794038395951
-      },
-      "x12": [
-        0.6740450098186208,
-        0.16362788810683257,
-        0.16232710207454637
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Kashiwa Reysol gana",
-          "p": 0.6740450098186208,
-          "fairOdds": 1.4835804515029205
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.16362788810683257,
-          "fairOdds": 6.1114276519116375
-        },
-        {
-          "market": "h2h",
-          "selection": "Urawa Red Diamonds gana",
-          "p": 0.16232710207454637,
-          "fairOdds": 6.1604007415888224
-        },
-        {
-          "market": "double_chance",
-          "selection": "Kashiwa Reysol o empate",
-          "p": 0.8376728979254534,
-          "fairOdds": 1.1937833997931164
-        },
-        {
-          "market": "double_chance",
-          "selection": "Urawa Red Diamonds o empate",
-          "p": 0.32595499018137897,
-          "fairOdds": 3.067908239243541
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8363721118931672,
-          "fairOdds": 1.1956400575533939
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9523497450590144,
-          "fairOdds": 1.050034407199881
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.8440979977981969,
-          "fairOdds": 1.1846965667593912
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.15590200220180306,
-          "fairOdds": 6.414285806962104
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.6846677856932905,
-          "fairOdds": 1.4605623645450267
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.31533221430670955,
-          "fairOdds": 3.1712586111717234
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7620995752394427,
-          "fairOdds": 1.3121644893789788
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.23790042476055728,
-          "fairOdds": 4.2034393213315315
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kashiwa Reysol más de 1.5",
-          "line": 1.5,
-          "p": 0.8142950984423001,
-          "fairOdds": 1.2280560228262982
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kashiwa Reysol menos de 1.5",
-          "line": 1.5,
-          "p": 0.18570490155769992,
-          "fairOdds": 5.384887483377989
-        },
-        {
-          "market": "team_totals",
-          "selection": "Urawa Red Diamonds más de 1.5",
-          "line": 1.5,
-          "p": 0.46589589237718365,
-          "fairOdds": 2.1464022678920984
-        },
-        {
-          "market": "team_totals",
-          "selection": "Urawa Red Diamonds menos de 1.5",
-          "line": 1.5,
-          "p": 0.5341041076228163,
-          "fairOdds": 1.8722941571275067
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–1",
-          "p": 0.07305600653567955,
-          "fairOdds": 13.68812842940729
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.07085174678637682,
-          "fairOdds": 14.113978064860884
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–2",
-          "p": 0.05741300666190515,
-          "fairOdds": 17.41765600064842
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Kashiwa Reysol gana",
-              "p": 0.6740450098186208,
-              "fairOdds": 1.4835804515029205
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.16362788810683257,
-              "fairOdds": 6.1114276519116375
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Urawa Red Diamonds gana",
-              "p": 0.16232710207454637,
-              "fairOdds": 6.1604007415888224
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Kashiwa Reysol o empate",
-              "p": 0.8376728979254534,
-              "fairOdds": 1.1937833997931164
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Urawa Red Diamonds o empate",
-              "p": 0.32595499018137897,
-              "fairOdds": 3.067908239243541
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8363721118931672,
-              "fairOdds": 1.1956400575533939
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9523497450590144,
-              "fairOdds": 1.050034407199881
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.8440979977981969,
-              "fairOdds": 1.1846965667593912
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.15590200220180306,
-              "fairOdds": 6.414285806962104
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.6846677856932905,
-              "fairOdds": 1.4605623645450267
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.31533221430670955,
-              "fairOdds": 3.1712586111717234
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7620995752394427,
-              "fairOdds": 1.3121644893789788
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.23790042476055728,
-              "fairOdds": 4.2034393213315315
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Kashiwa Reysol más de 1.5",
-              "line": 1.5,
-              "p": 0.8142950984423001,
-              "fairOdds": 1.2280560228262982
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Kashiwa Reysol menos de 1.5",
-              "line": 1.5,
-              "p": 0.18570490155769992,
-              "fairOdds": 5.384887483377989
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Urawa Red Diamonds más de 1.5",
-              "line": 1.5,
-              "p": 0.46589589237718365,
-              "fairOdds": 2.1464022678920984
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Urawa Red Diamonds menos de 1.5",
-              "line": 1.5,
-              "p": 0.5341041076228163,
-              "fairOdds": 1.8722941571275067
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "3-1",
-              "label": "3–1",
-              "p": 0.07305600653567955,
-              "fairOdds": 13.68812842940729
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.07085174678637682,
-              "fairOdds": 14.113978064860884
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-2",
-              "label": "3–2",
-              "p": 0.05741300666190515,
-              "fairOdds": 17.41765600064842
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 3,
-        "away": 1,
-        "p": 0.07305600653567955
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.58 goles/partido",
-          "detail": "46 % más que la media · 14 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.76 concedidos/partido",
-          "detail": "33 % más que la media · 14 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.57 goles/partido",
-          "detail": "19 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.32 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.20",
-          "detail": "estimada de 140 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 3.6–6.2",
-          "detail": "local 45%–89% · 140 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "2.º · 31 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "9.º · 22 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-G-P-E-G · 10 pts",
-          "detail": "12 goles a favor · 9 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-G-G-G · 12 pts",
-          "detail": "8 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando J1 League · corte 31 oct 2026, 00:00",
-        "Fuerza ajustada por rival · KAS 1.46 / 1.00 · URA 1.19 / 1.33",
-        "Ponderando 125.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 3.09 – 1.57 · total 4.67",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 3–1"
-      ],
-      "inputsAsOf": "2026-10-31T06:00:00.000Z",
-      "publishedAt": "2026-10-31T06:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 3,
-        "away": 1,
-        "p": 0.07305600653567955
-      },
-      "insights": {
-        "why": [
-          "Se esperan 4.7 goles: 3.1 de Kashiwa Reysol y 1.6 de Urawa Red Diamonds.",
-          "Kashiwa Reysol anota 46 % más que la media.",
-          "Urawa Red Diamonds concede 33 % más que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Hiroki Kasahara",
-        "refereeStats": {
-          "country": "Japan",
-          "matches": 37,
-          "avgYellow": 3,
-          "avgRed": 0.16,
-          "avgFouls": 22.8,
-          "avgGoals": 2.32
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 20,
-          "windSpeedKmh": 62
-        },
-        "travelDistanceKm": 24,
-        "isLocalDerby": true,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Kashiwa",
-        "venueCountry": "Japan",
-        "venueCapacity": 15349
-      }
-    },
-    "j1-league-2026-11-01-yokohama-f-mar-kawasaki-front-kyg61j": {
-      "game": "j1-league-2026-11-01-yokohama-f-mar-kawasaki-front-kyg61j",
-      "model": {
-        "id": "pitchlab-statistical-j1-league",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.9238405121207083,
-        "away": 1.4673552205528881,
-        "total": 3.391195732673596,
-        "margin": 0.45648529156782014
-      },
-      "x12": [
-        0.4718947592983341,
-        0.24475755139016525,
-        0.2833476893115008
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Yokohama F. Marinos gana",
-          "p": 0.4718947592983341,
-          "fairOdds": 2.119116562105737
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.24475755139016525,
-          "fairOdds": 4.08567578127921
-        },
-        {
-          "market": "h2h",
-          "selection": "Kawasaki Frontale gana",
-          "p": 0.2833476893115008,
-          "fairOdds": 3.5292329449725677
-        },
-        {
-          "market": "double_chance",
-          "selection": "Yokohama F. Marinos o empate",
-          "p": 0.7166523106884993,
-          "fairOdds": 1.3953767888354174
-        },
-        {
-          "market": "double_chance",
-          "selection": "Kawasaki Frontale o empate",
-          "p": 0.528105240701666,
-          "fairOdds": 1.8935619700939759
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7552424486098348,
-          "fairOdds": 1.324078118014536
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8640351954034047,
-          "fairOdds": 1.157360261850347
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6585565772961854,
-          "fairOdds": 1.5184724205559799
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.34144342270381456,
-          "fairOdds": 2.928742900013192
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.43971368665564914,
-          "fairOdds": 2.2742071269278576
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5602863133443509,
-          "fairOdds": 1.7848017632824131
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6689688954489982,
-          "fairOdds": 1.4948378120462844
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3310311045510018,
-          "fairOdds": 3.0208641612586904
-        },
-        {
-          "market": "team_totals",
-          "selection": "Yokohama F. Marinos más de 1.5",
-          "line": 1.5,
-          "p": 0.5729852442059136,
-          "fairOdds": 1.745245641335626
-        },
-        {
-          "market": "team_totals",
-          "selection": "Yokohama F. Marinos menos de 1.5",
-          "line": 1.5,
-          "p": 0.42701475579408643,
-          "fairOdds": 2.341839448007779
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kawasaki Frontale más de 1.5",
-          "line": 1.5,
-          "p": 0.4311895100053237,
-          "fairOdds": 2.3191658813491394
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kawasaki Frontale menos de 1.5",
-          "line": 1.5,
-          "p": 0.5688104899946763,
-          "fairOdds": 1.7580547785069143
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.10692566788159596,
-          "fairOdds": 9.352291361016785
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09142574740274596,
-          "fairOdds": 10.937837845556022
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.06973241643429517,
-          "fairOdds": 14.340532726873766
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Yokohama F. Marinos gana",
-              "p": 0.4718947592983341,
-              "fairOdds": 2.119116562105737
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.24475755139016525,
-              "fairOdds": 4.08567578127921
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Kawasaki Frontale gana",
-              "p": 0.2833476893115008,
-              "fairOdds": 3.5292329449725677
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Yokohama F. Marinos o empate",
-              "p": 0.7166523106884993,
-              "fairOdds": 1.3953767888354174
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Kawasaki Frontale o empate",
-              "p": 0.528105240701666,
-              "fairOdds": 1.8935619700939759
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7552424486098348,
-              "fairOdds": 1.324078118014536
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8640351954034047,
-              "fairOdds": 1.157360261850347
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6585565772961854,
-              "fairOdds": 1.5184724205559799
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.34144342270381456,
-              "fairOdds": 2.928742900013192
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.43971368665564914,
-              "fairOdds": 2.2742071269278576
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5602863133443509,
-              "fairOdds": 1.7848017632824131
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6689688954489982,
-              "fairOdds": 1.4948378120462844
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3310311045510018,
-              "fairOdds": 3.0208641612586904
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Yokohama F. Marinos más de 1.5",
-              "line": 1.5,
-              "p": 0.5729852442059136,
-              "fairOdds": 1.745245641335626
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Yokohama F. Marinos menos de 1.5",
-              "line": 1.5,
-              "p": 0.42701475579408643,
-              "fairOdds": 2.341839448007779
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Kawasaki Frontale más de 1.5",
-              "line": 1.5,
-              "p": 0.4311895100053237,
-              "fairOdds": 2.3191658813491394
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Kawasaki Frontale menos de 1.5",
-              "line": 1.5,
-              "p": 0.5688104899946763,
-              "fairOdds": 1.7580547785069143
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.10692566788159596,
-              "fairOdds": 9.352291361016785
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09142574740274596,
-              "fairOdds": 10.937837845556022
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.06973241643429517,
-              "fairOdds": 14.340532726873766
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.10692566788159596
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.60 goles/partido",
-          "detail": "en la media de la liga · 14 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.58 concedidos/partido",
-          "detail": "19 % más que la media · 14 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.47 goles/partido",
-          "detail": "35 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.08 concedidos/partido",
-          "detail": "18 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.20",
-          "detail": "estimada de 140 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.5–4.7",
-          "detail": "local 24%–70% · 140 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "7.º · 22 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "8.º · 22 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-E-E-E · 7 pts",
-          "detail": "5 goles a favor · 3 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-P-G-G-G · 10 pts",
-          "detail": "12 goles a favor · 9 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando J1 League · corte 31 oct 2026, 21:00",
-        "Fuerza ajustada por rival · YOK 1.01 / 0.82 · KAW 1.35 / 1.19",
-        "Ponderando 125.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.92 – 1.47 · total 3.39",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-01T03:00:00.000Z",
-      "publishedAt": "2026-11-01T03:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09142574740274596
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.4 goles: 1.9 de Yokohama F. Marinos y 1.5 de Kawasaki Frontale.",
-          "Kawasaki Frontale anota 35 % más que la media.",
-          "Yokohama F. Marinos concede 18 % menos que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Daichi Shiino",
-        "refereeStats": {
-          "country": "Japan",
-          "matches": 13,
-          "avgYellow": 3.15,
-          "avgRed": 0.08,
-          "avgFouls": 25,
-          "avgGoals": 3
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 21,
-          "windSpeedKmh": 31
-        },
-        "travelDistanceKm": 9,
-        "isLocalDerby": true,
-        "halfTimeScore": {
-          "home": 3,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Yokohama",
-        "venueCountry": "Japan",
-        "venueCapacity": 72327
-      }
-    },
     "j1-league-2026-11-01-v-varen-nagasa-tokyo-verdy-fiamzb": {
       "game": "j1-league-2026-11-01-v-varen-nagasa-tokyo-verdy-fiamzb",
       "model": {
@@ -3474,11 +2119,11 @@
         "referee": "Jumpei Iida",
         "refereeStats": {
           "country": "Japan",
-          "matches": 28,
-          "avgYellow": 2.43,
-          "avgRed": 0.18,
-          "avgFouls": 24.4,
-          "avgGoals": 2.86
+          "matches": 29,
+          "avgYellow": 2.38,
+          "avgRed": 0.17,
+          "avgFouls": 23.9,
+          "avgGoals": 2.79
         },
         "weather": {
           "description": "clear",
@@ -4376,11 +3021,11 @@
         "referee": "Ryo Tanimoto",
         "refereeStats": {
           "country": "Japan",
-          "matches": 35,
-          "avgYellow": 2.14,
-          "avgRed": 0.09,
+          "matches": 36,
+          "avgYellow": 2.17,
+          "avgRed": 0.08,
           "avgFouls": 19.5,
-          "avgGoals": 2.2
+          "avgGoals": 2.25
         },
         "weather": {
           "description": "clear",
@@ -4826,11 +3471,11 @@
         "referee": "Koki Nagamine",
         "refereeStats": {
           "country": "Japan",
-          "matches": 33,
-          "avgYellow": 3.12,
-          "avgRed": 0.06,
-          "avgFouls": 23.1,
-          "avgGoals": 2.39
+          "matches": 34,
+          "avgYellow": 3.06,
+          "avgRed": 0.09,
+          "avgFouls": 22.8,
+          "avgGoals": 2.41
         },
         "weather": {
           "description": "cloudy",
@@ -6178,11 +4823,11 @@
         "referee": "Akihiko Ikeuchi",
         "refereeStats": {
           "country": "Japan",
-          "matches": 48,
-          "avgYellow": 2.46,
+          "matches": 49,
+          "avgYellow": 2.41,
           "avgRed": 0.06,
           "avgFouls": 20.4,
-          "avgGoals": 2.75
+          "avgGoals": 2.69
         },
         "weather": {
           "description": "cloudy",
@@ -6629,11 +5274,11 @@
         "referee": "Koji Takasaki",
         "refereeStats": {
           "country": "Japan",
-          "matches": 38,
-          "avgYellow": 2.97,
-          "avgRed": 0.16,
-          "avgFouls": 21.4,
-          "avgGoals": 2.16
+          "matches": 39,
+          "avgYellow": 2.92,
+          "avgRed": 0.15,
+          "avgFouls": 21.3,
+          "avgGoals": 2.15
         },
         "weather": {
           "description": "clear",
@@ -9370,12 +8015,25 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Koki Nagamine",
+        "refereeStats": {
+          "country": "Japan",
+          "matches": 34,
+          "avgYellow": 3.06,
+          "avgRed": 0.09,
+          "avgFouls": 22.8,
+          "avgGoals": 2.41
+        },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 15,
           "windSpeedKmh": 16
         },
         "travelDistanceKm": 511,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Kobe",
         "venueCountry": "Japan",
@@ -9847,6 +8505,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Jumpei Iida",
+        "refereeStats": {
+          "country": "Japan",
+          "matches": 29,
+          "avgYellow": 2.38,
+          "avgRed": 0.17,
+          "avgFouls": 23.9,
+          "avgGoals": 2.79
+        },
         "weather": {
           "description": "clear",
           "temperatureC": 13,
@@ -9854,6 +8521,10 @@
         },
         "travelDistanceKm": 33,
         "isLocalDerby": true,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Kashiwa",
         "venueCountry": "Japan",
@@ -10324,12 +8995,25 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Koji Takasaki",
+        "refereeStats": {
+          "country": "Japan",
+          "matches": 39,
+          "avgYellow": 2.92,
+          "avgRed": 0.15,
+          "avgFouls": 21.3,
+          "avgGoals": 2.15
+        },
         "weather": {
-          "description": "unknown",
+          "description": "clear",
           "temperatureC": 13,
           "windSpeedKmh": 15
         },
         "travelDistanceKm": 226,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Kashima",
         "venueCountry": "Japan",
@@ -10803,6 +9487,7 @@
           "temperatureC": 16,
           "windSpeedKmh": 12
         },
+        "travelDistanceKm": 224,
         "stageName": "Regular season",
         "venueCity": "Tokyo",
         "venueCountry": "Japan",
@@ -11276,6 +9961,7 @@
           "temperatureC": 12,
           "windSpeedKmh": 82
         },
+        "travelDistanceKm": 669,
         "stageName": "Regular season",
         "venueCity": "Hiroshima",
         "venueCountry": "Japan",
@@ -11749,6 +10435,7 @@
           "temperatureC": 16,
           "windSpeedKmh": 28
         },
+        "travelDistanceKm": 918,
         "stageName": "Regular season",
         "venueCity": "Tokyo",
         "venueCountry": "Japan",
@@ -12223,6 +10910,7 @@
           "temperatureC": 12,
           "windSpeedKmh": 74
         },
+        "travelDistanceKm": 377,
         "stageName": "Regular season",
         "venueCity": "Kyoto",
         "venueCountry": "Japan",
@@ -12698,6 +11386,7 @@
           "temperatureC": 16,
           "windSpeedKmh": 17
         },
+        "travelDistanceKm": 872,
         "stageName": "Regular season",
         "venueCity": "Kawasaki",
         "venueCountry": "Japan",
@@ -13171,6 +11860,7 @@
           "temperatureC": 14,
           "windSpeedKmh": 105
         },
+        "travelDistanceKm": 384,
         "stageName": "Regular season",
         "venueCity": "Osaka",
         "venueCountry": "Japan",
@@ -13646,6 +12336,7 @@
           "temperatureC": 12,
           "windSpeedKmh": 77
         },
+        "travelDistanceKm": 149,
         "stageName": "Regular season",
         "venueCity": "Suita",
         "venueCountry": "Japan",
@@ -22642,6 +21333,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 18,
+          "windSpeedKmh": 35
+        },
         "stageName": "Regular season",
         "venueCity": "Chiba",
         "venueCountry": "Japan",
@@ -23110,6 +21806,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 18,
+          "windSpeedKmh": 27
+        },
         "stageName": "Regular season",
         "venueCity": "Saitama",
         "venueCountry": "Japan",
@@ -23579,6 +22280,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 18,
+          "windSpeedKmh": 41
+        },
         "stageName": "Regular season",
         "venueCity": "Tokyo",
         "venueCountry": "Japan",
@@ -24047,10 +22753,1426 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 18,
+          "windSpeedKmh": 46
+        },
         "stageName": "Regular season",
         "venueCity": "Nagasaki",
         "venueCountry": "Japan",
         "venueCapacity": 20000
+      }
+    },
+    "j1-league-2026-12-05-cerezo-osaka-mito-hollyhock-ahywbt": {
+      "game": "j1-league-2026-12-05-cerezo-osaka-mito-hollyhock-ahywbt",
+      "model": {
+        "id": "pitchlab-statistical-j1-league",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.5649154959270968,
+        "away": 1.2408912816875357,
+        "total": 2.8058067776146327,
+        "margin": 0.32402421423956107
+      },
+      "x12": [
+        0.43814832272587745,
+        0.2699019801968059,
+        0.291949697077317
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Cerezo Osaka gana",
+          "p": 0.43814832272587745,
+          "fairOdds": 2.2823321421810823
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2699019801968059,
+          "fairOdds": 3.7050487709309303
+        },
+        {
+          "market": "h2h",
+          "selection": "Mito Hollyhock gana",
+          "p": 0.291949697077317,
+          "fairOdds": 3.4252476026209755
+        },
+        {
+          "market": "double_chance",
+          "selection": "Cerezo Osaka o empate",
+          "p": 0.7080503029226833,
+          "fairOdds": 1.4123290335054013
+        },
+        {
+          "market": "double_chance",
+          "selection": "Mito Hollyhock o empate",
+          "p": 0.5618516772741229,
+          "fairOdds": 1.7798291621226363
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7300980198031944,
+          "fairOdds": 1.3696791018136996
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7804746729969347,
+          "fairOdds": 1.2812715576792681
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5319289315171739,
+          "fairOdds": 1.8799503857550826
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4680710684828261,
+          "fairOdds": 2.1364277079575382
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3093541137989193,
+          "fairOdds": 3.2325414642780594
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6906458862010807,
+          "fairOdds": 1.4479200122374307
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5727919956401022,
+          "fairOdds": 1.7458344523171758
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4272080043598978,
+          "fairOdds": 2.3407801113144835
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cerezo Osaka más de 1.5",
+          "line": 1.5,
+          "p": 0.46366114948687276,
+          "fairOdds": 2.156747446074975
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cerezo Osaka menos de 1.5",
+          "line": 1.5,
+          "p": 0.5363388505131272,
+          "fairOdds": 1.8644929395722087
+        },
+        {
+          "market": "team_totals",
+          "selection": "Mito Hollyhock más de 1.5",
+          "line": 1.5,
+          "p": 0.35209909237609116,
+          "fairOdds": 2.84010956475815
+        },
+        {
+          "market": "team_totals",
+          "selection": "Mito Hollyhock menos de 1.5",
+          "line": 1.5,
+          "p": 0.6479009076239088,
+          "fairOdds": 1.54344590080506
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12796910103835388,
+          "fairOdds": 7.814386378320248
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09186276569485334,
+          "fairOdds": 10.885803322335912
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.08404545306834281,
+          "fairOdds": 11.898323627178678
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Cerezo Osaka gana",
+              "p": 0.43814832272587745,
+              "fairOdds": 2.2823321421810823
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2699019801968059,
+              "fairOdds": 3.7050487709309303
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Mito Hollyhock gana",
+              "p": 0.291949697077317,
+              "fairOdds": 3.4252476026209755
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Cerezo Osaka o empate",
+              "p": 0.7080503029226833,
+              "fairOdds": 1.4123290335054013
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Mito Hollyhock o empate",
+              "p": 0.5618516772741229,
+              "fairOdds": 1.7798291621226363
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7300980198031944,
+              "fairOdds": 1.3696791018136996
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7804746729969347,
+              "fairOdds": 1.2812715576792681
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5319289315171739,
+              "fairOdds": 1.8799503857550826
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.4680710684828261,
+              "fairOdds": 2.1364277079575382
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3093541137989193,
+              "fairOdds": 3.2325414642780594
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6906458862010807,
+              "fairOdds": 1.4479200122374307
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5727919956401022,
+              "fairOdds": 1.7458344523171758
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4272080043598978,
+              "fairOdds": 2.3407801113144835
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Cerezo Osaka más de 1.5",
+              "line": 1.5,
+              "p": 0.46366114948687276,
+              "fairOdds": 2.156747446074975
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Cerezo Osaka menos de 1.5",
+              "line": 1.5,
+              "p": 0.5363388505131272,
+              "fairOdds": 1.8644929395722087
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Mito Hollyhock más de 1.5",
+              "line": 1.5,
+              "p": 0.35209909237609116,
+              "fairOdds": 2.84010956475815
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Mito Hollyhock menos de 1.5",
+              "line": 1.5,
+              "p": 0.6479009076239088,
+              "fairOdds": 1.54344590080506
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12796910103835388,
+              "fairOdds": 7.814386378320248
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09186276569485334,
+              "fairOdds": 10.885803322335912
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.08404545306834281,
+              "fairOdds": 11.898323627178678
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12796910103835388
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.34 goles/partido",
+          "detail": "14 % menos que la media · 14 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.56 concedidos/partido",
+          "detail": "17 % más que la media · 15 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.24 goles/partido",
+          "detail": "26 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.67 concedidos/partido",
+          "detail": "25 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.17",
+          "detail": "estimada de 143 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.0–4.0",
+          "detail": "local 23%–68% · 143 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "11.º · 17 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "19.º · 12 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-E-P-G · 5 pts",
+          "detail": "9 goles a favor · 13 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-P-P-G · 3 pts",
+          "detail": "2 goles a favor · 13 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando J1 League · corte 20 nov 2026, 13:22",
+        "Fuerza ajustada por rival · CER 0.86 / 1.25 · MIT 0.74 / 1.17",
+        "Ponderando 128.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.56 – 1.24 · total 2.81",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-20T13:22:46.169Z",
+      "publishedAt": "2026-11-20T13:22:46.169Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7804746729969347,
+          "fairOdds": 1.2812715576792681
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6906458862010807,
+          "fairOdds": 1.4479200122374307
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under_2.5",
+          "label": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4680710684828261,
+          "fairOdds": 2.1364277079575382
+        }
+      ],
+      "confidence": {
+        "score": 40,
+        "level": "baja",
+        "reasons": [
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09186276569485334
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.8 goles: 1.6 de Cerezo Osaka y 1.2 de Mito Hollyhock.",
+          "Mito Hollyhock anota 26 % menos que la media.",
+          "Cerezo Osaka concede 25 % más que la media."
+        ],
+        "restDays": {
+          "home": 27,
+          "away": 15
+        }
+      },
+      "picksAt": "2026-11-20T13:22:46.169Z",
+      "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 19,
+          "windSpeedKmh": 48
+        },
+        "stageName": "Regular season",
+        "venueCity": "Osaka",
+        "venueCountry": "Japan",
+        "venueCapacity": 25000
+      }
+    },
+    "j1-league-2026-12-06-sanfrecce-hiro-vissel-kobe-wi5bwm": {
+      "game": "j1-league-2026-12-06-sanfrecce-hiro-vissel-kobe-wi5bwm",
+      "model": {
+        "id": "pitchlab-statistical-j1-league",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.7908998546837471,
+        "away": 0.9692281885588944,
+        "total": 2.7601280432426414,
+        "margin": 0.8216716661248528
+      },
+      "x12": [
+        0.5569918981563088,
+        0.2508356219386734,
+        0.19217247990501776
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Sanfrecce Hiroshima gana",
+          "p": 0.5569918981563088,
+          "fairOdds": 1.7953582508292962
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2508356219386734,
+          "fairOdds": 3.9866745890043047
+        },
+        {
+          "market": "h2h",
+          "selection": "Vissel Kobe gana",
+          "p": 0.19217247990501776,
+          "fairOdds": 5.20365871582786
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sanfrecce Hiroshima o empate",
+          "p": 0.8078275200949823,
+          "fairOdds": 1.2378880084234103
+        },
+        {
+          "market": "double_chance",
+          "selection": "Vissel Kobe o empate",
+          "p": 0.4430081018436912,
+          "fairOdds": 2.25729506037981
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7491643780613265,
+          "fairOdds": 1.3348205404370417
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7719308835070671,
+          "fairOdds": 1.2954527683317452
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5209866994423976,
+          "fairOdds": 1.9194347976066979
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4790133005576024,
+          "fairOdds": 2.087624704441266
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.2992031361402103,
+          "fairOdds": 3.342210957078296
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.7007968638597897,
+          "fairOdds": 1.4269470249799416
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5269839018471446,
+          "fairOdds": 1.8975911721304477
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4730160981528554,
+          "fairOdds": 2.1140929535063084
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sanfrecce Hiroshima más de 1.5",
+          "line": 1.5,
+          "p": 0.5344486157546869,
+          "fairOdds": 1.8710872673660401
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sanfrecce Hiroshima menos de 1.5",
+          "line": 1.5,
+          "p": 0.46555138424531306,
+          "fairOdds": 2.147990606066096
+        },
+        {
+          "market": "team_totals",
+          "selection": "Vissel Kobe más de 1.5",
+          "line": 1.5,
+          "p": 0.2529226096725211,
+          "fairOdds": 3.9537785937555325
+        },
+        {
+          "market": "team_totals",
+          "selection": "Vissel Kobe menos de 1.5",
+          "line": 1.5,
+          "p": 0.7470773903274789,
+          "fairOdds": 1.3385494099368385
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.11973379671240106,
+          "fairOdds": 8.351860773295165
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.10344876774711757,
+          "fairOdds": 9.666620702960122
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.10148585739852768,
+          "fairOdds": 9.853589708298681
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Sanfrecce Hiroshima gana",
+              "p": 0.5569918981563088,
+              "fairOdds": 1.7953582508292962
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2508356219386734,
+              "fairOdds": 3.9866745890043047
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Vissel Kobe gana",
+              "p": 0.19217247990501776,
+              "fairOdds": 5.20365871582786
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Sanfrecce Hiroshima o empate",
+              "p": 0.8078275200949823,
+              "fairOdds": 1.2378880084234103
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Vissel Kobe o empate",
+              "p": 0.4430081018436912,
+              "fairOdds": 2.25729506037981
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7491643780613265,
+              "fairOdds": 1.3348205404370417
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7719308835070671,
+              "fairOdds": 1.2954527683317452
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5209866994423976,
+              "fairOdds": 1.9194347976066979
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.4790133005576024,
+              "fairOdds": 2.087624704441266
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.2992031361402103,
+              "fairOdds": 3.342210957078296
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.7007968638597897,
+              "fairOdds": 1.4269470249799416
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5269839018471446,
+              "fairOdds": 1.8975911721304477
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4730160981528554,
+              "fairOdds": 2.1140929535063084
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Sanfrecce Hiroshima más de 1.5",
+              "line": 1.5,
+              "p": 0.5344486157546869,
+              "fairOdds": 1.8710872673660401
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Sanfrecce Hiroshima menos de 1.5",
+              "line": 1.5,
+              "p": 0.46555138424531306,
+              "fairOdds": 2.147990606066096
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Vissel Kobe más de 1.5",
+              "line": 1.5,
+              "p": 0.2529226096725211,
+              "fairOdds": 3.9537785937555325
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Vissel Kobe menos de 1.5",
+              "line": 1.5,
+              "p": 0.7470773903274789,
+              "fairOdds": 1.3385494099368385
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11973379671240106,
+              "fairOdds": 8.351860773295165
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.10344876774711757,
+              "fairOdds": 9.666620702960122
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.10148585739852768,
+              "fairOdds": 9.853589708298681
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.11973379671240106
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.53 goles/partido",
+          "detail": "41 % más que la media · 14 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.08 concedidos/partido",
+          "detail": "19 % menos que la media · 15 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.97 goles/partido",
+          "detail": "9 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.89 concedidos/partido",
+          "detail": "33 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.17",
+          "detail": "estimada de 143 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.0–4.3",
+          "detail": "local 33%–77% · 143 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "3.º · 30 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "5.º · 27 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-G-G-E · 10 pts",
+          "detail": "10 goles a favor · 4 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-E-G-E-P · 5 pts",
+          "detail": "7 goles a favor · 7 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando J1 League · corte 20 nov 2026, 13:22",
+        "Fuerza ajustada por rival · SAN 1.41 / 0.67 · VIS 1.09 / 0.81",
+        "Ponderando 128.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.79 – 0.97 · total 2.76",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-20T13:22:46.169Z",
+      "publishedAt": "2026-11-20T13:22:46.169Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Sanfrecce Hiroshima o empate",
+          "p": 0.8078275200949823,
+          "fairOdds": 1.2378880084234103
+        },
+        {
+          "profile": "intermedia",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Sanfrecce Hiroshima gana",
+          "p": 0.5569918981563088,
+          "fairOdds": 1.7953582508292962
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under_2.5",
+          "label": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4790133005576024,
+          "fairOdds": 2.087624704441266
+        }
+      ],
+      "confidence": {
+        "score": 57,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09836295373072126
+      },
+      "insights": {
+        "why": [
+          "Sanfrecce Hiroshima gana en 56% de los escenarios; el empate, en 25%.",
+          "Sanfrecce Hiroshima concede 33 % menos que la media.",
+          "Sanfrecce Hiroshima anota 41 % más que la media."
+        ],
+        "restDays": {
+          "home": 28,
+          "away": 16
+        }
+      },
+      "picksAt": "2026-11-20T13:22:46.169Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Hiroshima",
+        "venueCountry": "Japan",
+        "venueCapacity": 28520
+      }
+    },
+    "j1-league-2026-12-06-gamba-osaka-yokohama-f-mar-eghjjn": {
+      "game": "j1-league-2026-12-06-gamba-osaka-yokohama-f-mar-eghjjn",
+      "model": {
+        "id": "pitchlab-statistical-j1-league",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.1195100753180385,
+        "away": 1.5770683704260682,
+        "total": 2.6965784457441067,
+        "margin": -0.4575582951080297
+      },
+      "x12": [
+        0.25941119752300734,
+        0.27201106205893055,
+        0.4685777404180619
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Gamba Osaka gana",
+          "p": 0.25941119752300734,
+          "fairOdds": 3.8548837118386508
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.27201106205893055,
+          "fairOdds": 3.6763210747045
+        },
+        {
+          "market": "h2h",
+          "selection": "Yokohama F. Marinos gana",
+          "p": 0.4685777404180619,
+          "fairOdds": 2.1341175940363852
+        },
+        {
+          "market": "double_chance",
+          "selection": "Gamba Osaka o empate",
+          "p": 0.5314222595819379,
+          "fairOdds": 1.8817427798125832
+        },
+        {
+          "market": "double_chance",
+          "selection": "Yokohama F. Marinos o empate",
+          "p": 0.7405888024769924,
+          "fairOdds": 1.3502769642956716
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7279889379410692,
+          "fairOdds": 1.3736472463829528
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7614333422491822,
+          "fairOdds": 1.3133125968008186
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5055365226977273,
+          "fairOdds": 1.978096448232138
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4944634773022727,
+          "fairOdds": 2.0223940612476934
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.2851529657080941,
+          "fairOdds": 3.506889705729667
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.7148470342919059,
+          "fairOdds": 1.3989006766888994
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5451317049115879,
+          "fairOdds": 1.8344190788943102
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4548682950884121,
+          "fairOdds": 2.1984385607830315
+        },
+        {
+          "market": "team_totals",
+          "selection": "Gamba Osaka más de 1.5",
+          "line": 1.5,
+          "p": 0.30810777429171987,
+          "fairOdds": 3.245617551516856
+        },
+        {
+          "market": "team_totals",
+          "selection": "Gamba Osaka menos de 1.5",
+          "line": 1.5,
+          "p": 0.6918922257082801,
+          "fairOdds": 1.4453118026818619
+        },
+        {
+          "market": "team_totals",
+          "selection": "Yokohama F. Marinos más de 1.5",
+          "line": 1.5,
+          "p": 0.4676291868818141,
+          "fairOdds": 2.138446504308411
+        },
+        {
+          "market": "team_totals",
+          "selection": "Yokohama F. Marinos menos de 1.5",
+          "line": 1.5,
+          "p": 0.5323708131181859,
+          "fairOdds": 1.8783899781109916
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12977656903965076,
+          "fairOdds": 7.705551220840713
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.09563555393630387,
+          "fairOdds": 10.456362292479948
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.09388372580497621,
+          "fairOdds": 10.651473313674094
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Gamba Osaka gana",
+              "p": 0.25941119752300734,
+              "fairOdds": 3.8548837118386508
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.27201106205893055,
+              "fairOdds": 3.6763210747045
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Yokohama F. Marinos gana",
+              "p": 0.4685777404180619,
+              "fairOdds": 2.1341175940363852
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Gamba Osaka o empate",
+              "p": 0.5314222595819379,
+              "fairOdds": 1.8817427798125832
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Yokohama F. Marinos o empate",
+              "p": 0.7405888024769924,
+              "fairOdds": 1.3502769642956716
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7279889379410692,
+              "fairOdds": 1.3736472463829528
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7614333422491822,
+              "fairOdds": 1.3133125968008186
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5055365226977273,
+              "fairOdds": 1.978096448232138
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.4944634773022727,
+              "fairOdds": 2.0223940612476934
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.2851529657080941,
+              "fairOdds": 3.506889705729667
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.7148470342919059,
+              "fairOdds": 1.3989006766888994
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5451317049115879,
+              "fairOdds": 1.8344190788943102
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4548682950884121,
+              "fairOdds": 2.1984385607830315
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Gamba Osaka más de 1.5",
+              "line": 1.5,
+              "p": 0.30810777429171987,
+              "fairOdds": 3.245617551516856
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Gamba Osaka menos de 1.5",
+              "line": 1.5,
+              "p": 0.6918922257082801,
+              "fairOdds": 1.4453118026818619
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Yokohama F. Marinos más de 1.5",
+              "line": 1.5,
+              "p": 0.4676291868818141,
+              "fairOdds": 2.138446504308411
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Yokohama F. Marinos menos de 1.5",
+              "line": 1.5,
+              "p": 0.5323708131181859,
+              "fairOdds": 1.8783899781109916
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12977656903965076,
+              "fairOdds": 7.705551220840713
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.09563555393630387,
+              "fairOdds": 10.456362292479948
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.09388372580497621,
+              "fairOdds": 10.651473313674094
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12977656903965076
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.96 goles/partido",
+          "detail": "12 % menos que la media · 14 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.09 concedidos/partido",
+          "detail": "18 % menos que la media · 14 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.58 goles/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.55 concedidos/partido",
+          "detail": "17 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.17",
+          "detail": "estimada de 143 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.9–3.8",
+          "detail": "local 10%–48% · 143 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "18.º · 12 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "7.º · 22 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-G-E-E-P · 6 pts",
+          "detail": "8 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-E-E-G-E · 7 pts",
+          "detail": "8 goles a favor · 6 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando J1 League · corte 20 nov 2026, 13:22",
+        "Fuerza ajustada por rival · GAM 0.88 / 1.17 · YOK 1.02 / 0.82",
+        "Ponderando 128.4 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.12 – 1.58 · total 2.70",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-20T13:22:46.169Z",
+      "publishedAt": "2026-11-20T13:22:46.169Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7614333422491822,
+          "fairOdds": 1.3133125968008186
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "Gamba Osaka menos de 1.5",
+          "line": 1.5,
+          "p": 0.6918922257082801,
+          "fairOdds": 1.4453118026818619
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_2.5",
+          "label": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5055365226977273,
+          "fairOdds": 1.978096448232138
+        }
+      ],
+      "confidence": {
+        "score": 48,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09388372580497621
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.7 goles: 1.1 de Gamba Osaka y 1.6 de Yokohama F. Marinos.",
+          "Yokohama F. Marinos concede 18 % menos que la media.",
+          "Gamba Osaka concede 17 % más que la media."
+        ],
+        "restDays": {
+          "home": 28,
+          "away": 29
+        }
+      },
+      "picksAt": "2026-11-20T13:22:46.169Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Suita",
+        "venueCountry": "Japan",
+        "venueCapacity": 39694
       }
     }
   },
@@ -24080,19 +24202,19 @@
       "name": "Kashiwa Reysol",
       "shortName": "Kashiwa Reysol",
       "code": "KAS",
-      "played": 14,
+      "played": 15,
       "won": 10,
       "drawn": 1,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 31,
-      "goalsAgainst": 20,
+      "goalsAgainst": 21,
       "points": 31,
       "form": [
-        "L",
         "D",
         "W",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -24140,19 +24262,19 @@
       "name": "Vissel Kobe",
       "shortName": "Vissel Kobe",
       "code": "VIS",
-      "played": 14,
+      "played": 15,
       "won": 8,
       "drawn": 3,
-      "lost": 3,
-      "goalsFor": 23,
-      "goalsAgainst": 14,
+      "lost": 4,
+      "goalsFor": 24,
+      "goalsAgainst": 16,
       "points": 27,
       "form": [
-        "W",
         "L",
         "D",
         "W",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -24160,19 +24282,19 @@
       "name": "Kashima Antlers",
       "shortName": "Kashima Antlers",
       "code": "KAS",
-      "played": 14,
+      "played": 15,
       "won": 7,
-      "drawn": 2,
+      "drawn": 3,
       "lost": 5,
-      "goalsFor": 29,
-      "goalsAgainst": 24,
-      "points": 23,
+      "goalsFor": 30,
+      "goalsAgainst": 25,
+      "points": 24,
       "form": [
-        "W",
         "D",
         "L",
         "W",
-        "L"
+        "L",
+        "D"
       ]
     },
     {
@@ -24296,6 +24418,46 @@
       ]
     },
     {
+      "teamId": "j1-league.jef-united-chiba",
+      "name": "JEF United Chiba",
+      "shortName": "JEF United Chiba",
+      "code": "JEF",
+      "played": 15,
+      "won": 4,
+      "drawn": 4,
+      "lost": 7,
+      "goalsFor": 17,
+      "goalsAgainst": 24,
+      "points": 16,
+      "form": [
+        "L",
+        "D",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "j1-league.shimizu-s-pulse",
+      "name": "Shimizu S-Pulse",
+      "shortName": "Shimizu S-Pulse",
+      "code": "SHI",
+      "played": 15,
+      "won": 4,
+      "drawn": 3,
+      "lost": 8,
+      "goalsFor": 11,
+      "goalsAgainst": 24,
+      "points": 15,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "j1-league.nagoya-grampus",
       "name": "Nagoya Grampus",
       "shortName": "Nagoya Grampus",
@@ -24336,26 +24498,6 @@
       ]
     },
     {
-      "teamId": "j1-league.shimizu-s-pulse",
-      "name": "Shimizu S-Pulse",
-      "shortName": "Shimizu S-Pulse",
-      "code": "SHI",
-      "played": 14,
-      "won": 4,
-      "drawn": 2,
-      "lost": 8,
-      "goalsFor": 10,
-      "goalsAgainst": 23,
-      "points": 14,
-      "form": [
-        "D",
-        "L",
-        "L",
-        "L",
-        "L"
-      ]
-    },
-    {
       "teamId": "j1-league.v-varen-nagasaki",
       "name": "V-Varen Nagasaki",
       "shortName": "V-Varen Nagasaki",
@@ -24373,26 +24515,6 @@
         "L",
         "L",
         "D"
-      ]
-    },
-    {
-      "teamId": "j1-league.jef-united-chiba",
-      "name": "JEF United Chiba",
-      "shortName": "JEF United Chiba",
-      "code": "JEF",
-      "played": 14,
-      "won": 3,
-      "drawn": 4,
-      "lost": 7,
-      "goalsFor": 16,
-      "goalsAgainst": 24,
-      "points": 13,
-      "form": [
-        "D",
-        "L",
-        "D",
-        "W",
-        "W"
       ]
     },
     {
@@ -24420,19 +24542,19 @@
       "name": "Mito Hollyhock",
       "shortName": "Mito Hollyhock",
       "code": "MIT",
-      "played": 14,
-      "won": 2,
+      "played": 15,
+      "won": 3,
       "drawn": 3,
       "lost": 9,
-      "goalsFor": 12,
-      "goalsAgainst": 26,
-      "points": 9,
+      "goalsFor": 14,
+      "goalsAgainst": 27,
+      "points": 12,
       "form": [
         "L",
         "L",
         "L",
         "L",
-        "L"
+        "W"
       ]
     },
     {

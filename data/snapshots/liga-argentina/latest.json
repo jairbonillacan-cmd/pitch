@@ -5,7 +5,7 @@
   "season": "liga-argentina-2026",
   "seasonLabel": "2026",
   "periodLabel": "Clausura, Group B · Matchday 15",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2725563569802074,
-      "adjustedAgainst": 1.3555808125375086
+      "adjustedFor": 1.272485446716397,
+      "adjustedAgainst": 1.35544989742889
     },
     "liga-argentina.argentinos-juniors": {
       "teamId": "liga-argentina.argentinos-juniors",
@@ -29,8 +29,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 0.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1383063819699928,
-      "adjustedAgainst": 0.8957279446385903
+      "adjustedFor": 1.1382925275130722,
+      "adjustedAgainst": 0.8957830433860138
     },
     "liga-argentina.atletico-belgrano": {
       "teamId": "liga-argentina.atletico-belgrano",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0089490189380421,
-      "adjustedAgainst": 0.9590765251063731
+      "adjustedFor": 1.008982120198742,
+      "adjustedAgainst": 0.9591069957428161
     },
     "liga-argentina.rosario-central": {
       "teamId": "liga-argentina.rosario-central",
@@ -51,8 +51,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4399159476200927,
-      "adjustedAgainst": 0.8135886288966309
+      "adjustedFor": 1.439793479612291,
+      "adjustedAgainst": 0.8136723228484655
     },
     "liga-argentina.defensa-y-justicia": {
       "teamId": "liga-argentina.defensa-y-justicia",
@@ -62,8 +62,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2328829190488317,
-      "adjustedAgainst": 0.9261833864694476
+      "adjustedFor": 1.2327952821879717,
+      "adjustedAgainst": 0.9262438747469152
     },
     "liga-argentina.aldosivi": {
       "teamId": "liga-argentina.aldosivi",
@@ -73,8 +73,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9681885618508137,
-      "adjustedAgainst": 1.4512342463162955
+      "adjustedFor": 0.9682352313891812,
+      "adjustedAgainst": 1.4510688897265913
     },
     "liga-argentina.gimnasia-y-esgrima-mendoza": {
       "teamId": "liga-argentina.gimnasia-y-esgrima-mendoza",
@@ -84,8 +84,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.0625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0638498308359081,
-      "adjustedAgainst": 1.0066565350512586
+      "adjustedFor": 1.0638407734780237,
+      "adjustedAgainst": 1.0066983479073441
     },
     "liga-argentina.central-cordoba": {
       "teamId": "liga-argentina.central-cordoba",
@@ -95,8 +95,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.8393450666442238,
-      "adjustedAgainst": 1.465031738993305
+      "adjustedFor": 0.839413287558367,
+      "adjustedAgainst": 1.4648900489024812
     },
     "liga-argentina.velez-sarsfield": {
       "teamId": "liga-argentina.velez-sarsfield",
@@ -106,8 +106,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.0625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4723789826758762,
-      "adjustedAgainst": 1.0550199478607487
+      "adjustedFor": 1.4721705974473407,
+      "adjustedAgainst": 1.0550241878757667
     },
     "liga-argentina.instituto-cordoba": {
       "teamId": "liga-argentina.instituto-cordoba",
@@ -117,8 +117,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.5045066919998706,
-      "adjustedAgainst": 0.9856958223473331
+      "adjustedFor": 1.5043021568711965,
+      "adjustedAgainst": 0.9857218457023249
     },
     "liga-argentina.racing": {
       "teamId": "liga-argentina.racing",
@@ -128,8 +128,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9770871177057822,
-      "adjustedAgainst": 1.37013036199675
+      "adjustedFor": 0.9771243390927383,
+      "adjustedAgainst": 1.3699878934038863
     },
     "liga-argentina.gimnasia-y-esgrima": {
       "teamId": "liga-argentina.gimnasia-y-esgrima",
@@ -139,8 +139,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.396439026233548,
-      "adjustedAgainst": 1.1870932700592287
+      "adjustedFor": 1.3963206787050957,
+      "adjustedAgainst": 1.187018861679129
     },
     "liga-argentina.huracan": {
       "teamId": "liga-argentina.huracan",
@@ -150,8 +150,8 @@
       "forPerGame": 0.875,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.8682256805105014,
-      "adjustedAgainst": 1.0297720483414552
+      "adjustedFor": 0.8683126750429772,
+      "adjustedAgainst": 1.0297592760518515
     },
     "liga-argentina.banfield": {
       "teamId": "liga-argentina.banfield",
@@ -161,8 +161,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1204082352882516,
-      "adjustedAgainst": 1.4396536600984198
+      "adjustedFor": 1.1203746633591785,
+      "adjustedAgainst": 1.4394752968310869
     },
     "liga-argentina.atletico-platense": {
       "teamId": "liga-argentina.atletico-platense",
@@ -172,8 +172,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.140077877525886,
-      "adjustedAgainst": 1.1455247802190458
+      "adjustedFor": 1.1400129952081022,
+      "adjustedAgainst": 1.1454991335352462
     },
     "liga-argentina.atletico-union-santa-fe": {
       "teamId": "liga-argentina.atletico-union-santa-fe",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.374907610766081,
-      "adjustedAgainst": 1.3474395353345086
+      "adjustedFor": 1.3747620374612088,
+      "adjustedAgainst": 1.3473374201620723
     },
     "liga-argentina.estudiantes-rio-cuarto": {
       "teamId": "liga-argentina.estudiantes-rio-cuarto",
@@ -194,8 +194,8 @@
       "forPerGame": 0.625,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7008118649702557,
-      "adjustedAgainst": 1.3203341124899577
+      "adjustedFor": 0.7009618642356655,
+      "adjustedAgainst": 1.3202213910546285
     },
     "liga-argentina.tigre": {
       "teamId": "liga-argentina.tigre",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9534577130429459,
-      "adjustedAgainst": 0.9891565721876622
+      "adjustedFor": 0.9535170421379975,
+      "adjustedAgainst": 0.9891778638510038
     },
     "liga-argentina.newell-s-old-boys": {
       "teamId": "liga-argentina.newell-s-old-boys",
@@ -216,8 +216,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.8125,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9839373626319267,
-      "adjustedAgainst": 0.8127644748199843
+      "adjustedFor": 0.9839586368486147,
+      "adjustedAgainst": 0.8128773215706787
     },
     "liga-argentina.talleres": {
       "teamId": "liga-argentina.talleres",
@@ -227,8 +227,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0740301542922681,
-      "adjustedAgainst": 1.272171073046832
+      "adjustedFor": 1.073994586146496,
+      "adjustedAgainst": 1.2721070864138353
     },
     "liga-argentina.river-plate": {
       "teamId": "liga-argentina.river-plate",
@@ -238,8 +238,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 0.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.210418761130419,
-      "adjustedAgainst": 0.8644068358884653
+      "adjustedFor": 1.210376851958047,
+      "adjustedAgainst": 0.8644811003656334
     },
     "liga-argentina.barracas-central": {
       "teamId": "liga-argentina.barracas-central",
@@ -249,8 +249,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 0.8125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.016954699194836,
-      "adjustedAgainst": 0.8688714182124646
+      "adjustedFor": 1.016991315490377,
+      "adjustedAgainst": 0.8689334317293735
     },
     "liga-argentina.lanus": {
       "teamId": "liga-argentina.lanus",
@@ -260,8 +260,8 @@
       "forPerGame": 1.1875,
       "againstPerGame": 0.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1347992834930984,
-      "adjustedAgainst": 0.7748586566977358
+      "adjustedFor": 1.1347560441666311,
+      "adjustedAgainst": 0.774981777453555
     },
     "liga-argentina.san-lorenzo": {
       "teamId": "liga-argentina.san-lorenzo",
@@ -271,8 +271,8 @@
       "forPerGame": 0.5625,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.6692280093689054,
-      "adjustedAgainst": 0.9907920439712433
+      "adjustedFor": 0.6693773721620762,
+      "adjustedAgainst": 0.9908304425722914
     },
     "liga-argentina.atletico-tucuman": {
       "teamId": "liga-argentina.atletico-tucuman",
@@ -282,8 +282,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.0625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9779391538415704,
-      "adjustedAgainst": 1.0583576431970456
+      "adjustedFor": 0.977984795672814,
+      "adjustedAgainst": 1.0583493847632954
     },
     "liga-argentina.independiente-rivadavia": {
       "teamId": "liga-argentina.independiente-rivadavia",
@@ -293,8 +293,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2311599606865473,
-      "adjustedAgainst": 1.407906554482219
+      "adjustedFor": 1.231098796886197,
+      "adjustedAgainst": 1.4077349698889563
     },
     "liga-argentina.estudiantes-la-plata": {
       "teamId": "liga-argentina.estudiantes-la-plata",
@@ -304,8 +304,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2594067747020699,
-      "adjustedAgainst": 1.2561489016121679
+      "adjustedFor": 1.2593056734695236,
+      "adjustedAgainst": 1.2560936211217337
     },
     "liga-argentina.independiente": {
       "teamId": "liga-argentina.independiente",
@@ -315,8 +315,8 @@
       "forPerGame": 0.9375,
       "againstPerGame": 1,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9323236546342765,
-      "adjustedAgainst": 0.97530614125492
+      "adjustedFor": 0.9323683302499595,
+      "adjustedAgainst": 0.975354681249161
     },
     "liga-argentina.deportivo-riestra": {
       "teamId": "liga-argentina.deportivo-riestra",
@@ -326,8 +326,8 @@
       "forPerGame": 0.6875,
       "againstPerGame": 1.1875,
       "gamesPlayed": 16,
-      "adjustedFor": 0.7532962317726453,
-      "adjustedAgainst": 1.128782146347701
+      "adjustedFor": 0.7534076148852255,
+      "adjustedAgainst": 1.1287686756649986
     },
     "liga-argentina.boca-juniors": {
       "teamId": "liga-argentina.boca-juniors",
@@ -337,8 +337,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3880926837469225,
-      "adjustedAgainst": 0.8649074589352036
+      "adjustedFor": 1.3879401057210439,
+      "adjustedAgainst": 0.864992214519998
     }
   },
   "games": [
@@ -373,7 +373,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -407,7 +407,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -442,7 +442,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -477,7 +477,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -547,7 +547,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -582,7 +582,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -617,7 +617,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -652,7 +652,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -687,7 +687,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -722,7 +722,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -757,7 +757,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -792,7 +792,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -827,7 +827,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -862,7 +862,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -897,7 +897,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1562,8 +1562,8 @@
         "referee": "Yael Falcon Perez",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 88,
-          "avgYellow": 5.49,
+          "matches": 89,
+          "avgYellow": 5.47,
           "avgRed": 0.3,
           "avgFouls": 25,
           "avgGoals": 2.44
@@ -2457,11 +2457,11 @@
         "referee": "Luis Lobo Medina",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 66,
-          "avgYellow": 5.36,
+          "matches": 67,
+          "avgYellow": 5.4,
           "avgRed": 0.3,
           "avgFouls": 22.7,
-          "avgGoals": 1.98
+          "avgGoals": 1.96
         },
         "weather": {
           "description": "rain",
@@ -2908,11 +2908,11 @@
         "referee": "Dario Herrera",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 92,
-          "avgYellow": 5.48,
-          "avgRed": 0.29,
+          "matches": 93,
+          "avgYellow": 5.52,
+          "avgRed": 0.3,
           "avgFouls": 24.6,
-          "avgGoals": 2.03
+          "avgGoals": 2.04
         },
         "weather": {
           "description": "clear",
@@ -5618,11 +5618,11 @@
         "referee": "Facundo Raul Tello Figueroa",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 80,
-          "avgYellow": 5.06,
-          "avgRed": 0.23,
+          "matches": 81,
+          "avgYellow": 5.07,
+          "avgRed": 0.22,
           "avgFouls": 25.8,
-          "avgGoals": 2.14
+          "avgGoals": 2.12
         },
         "weather": {
           "description": "clear",
@@ -6972,11 +6972,11 @@
         "referee": "Sebastian Zunino",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 61,
-          "avgYellow": 5.02,
-          "avgRed": 0.31,
+          "matches": 63,
+          "avgYellow": 4.95,
+          "avgRed": 0.33,
           "avgFouls": 23.9,
-          "avgGoals": 2.11
+          "avgGoals": 2.13
         },
         "weather": {
           "description": "clear",
@@ -7876,9 +7876,9 @@
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 81,
-          "avgYellow": 4.81,
-          "avgRed": 0.19,
+          "matches": 82,
+          "avgYellow": 4.8,
+          "avgRed": 0.18,
           "avgFouls": 24.4,
           "avgGoals": 2.06
         },
@@ -8816,8 +8816,8 @@
         "referee": "Yael Falcon Perez",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 88,
-          "avgYellow": 5.49,
+          "matches": 89,
+          "avgYellow": 5.47,
           "avgRed": 0.3,
           "avgFouls": 25,
           "avgGoals": 2.44
@@ -9299,17 +9299,18 @@
         "referee": "Pablo Echavarria",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 53,
-          "avgYellow": 4.21,
-          "avgRed": 0.25,
+          "matches": 54,
+          "avgYellow": 4.22,
+          "avgRed": 0.24,
           "avgFouls": 22.1,
-          "avgGoals": 2.3
+          "avgGoals": 2.28
         },
         "weather": {
           "description": "rain",
           "temperatureC": 22,
           "windSpeedKmh": 47
         },
+        "travelDistanceKm": 22,
         "stageName": "Round of 16",
         "venueCity": "Gobernador Julio A. Costa",
         "venueCountry": "Argentina",
@@ -9782,17 +9783,18 @@
         "referee": "Jorge Balino",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 25,
-          "avgYellow": 3.88,
-          "avgRed": 0.16,
+          "matches": 26,
+          "avgYellow": 3.92,
+          "avgRed": 0.19,
           "avgFouls": 28.5,
-          "avgGoals": 2.32
+          "avgGoals": 2.31
         },
         "weather": {
           "description": "rain",
           "temperatureC": 22,
           "windSpeedKmh": 46
         },
+        "travelDistanceKm": 12,
         "stageName": "Round of 16",
         "venueCity": "Buenos Aires",
         "venueCountry": "Argentina",
@@ -10265,9 +10267,9 @@
         "referee": "Leandro Rey Hilfer",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 81,
-          "avgYellow": 4.81,
-          "avgRed": 0.19,
+          "matches": 82,
+          "avgYellow": 4.8,
+          "avgRed": 0.18,
           "avgFouls": 24.4,
           "avgGoals": 2.06
         },
@@ -11232,11 +11234,11 @@
         "referee": "Dario Herrera",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 92,
-          "avgYellow": 5.48,
-          "avgRed": 0.29,
+          "matches": 93,
+          "avgYellow": 5.52,
+          "avgRed": 0.3,
           "avgFouls": 24.6,
-          "avgGoals": 2.03
+          "avgGoals": 2.04
         },
         "weather": {
           "temperatureC": 19,

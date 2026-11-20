@@ -5,7 +5,7 @@
   "season": "caf-champions-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Qualification Round 2",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.895237880422541,
-      "adjustedAgainst": 0.5188172408049454
+      "adjustedFor": 0.8922443946064746,
+      "adjustedAgainst": 0.5175424109961171
     },
     "caf-champions.kvz": {
       "teamId": "caf-champions.kvz",
@@ -29,8 +29,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.5613788662528891,
-      "adjustedAgainst": 1.0238561790869227
+      "adjustedFor": 0.5594069638156348,
+      "adjustedAgainst": 1.0214305881775367
     },
     "caf-champions.port": {
       "teamId": "caf-champions.port",
@@ -40,8 +40,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7513714964331312,
-      "adjustedAgainst": 1.1989800989548987
+      "adjustedFor": 0.7489042762913518,
+      "adjustedAgainst": 1.196420855477318
     },
     "caf-champions.zamalek": {
       "teamId": "caf-champions.zamalek",
@@ -51,8 +51,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1333145103247366,
-      "adjustedAgainst": 0.4806599239991445
+      "adjustedFor": 1.1293231627511375,
+      "adjustedAgainst": 0.4794829933577837
     },
     "caf-champions.js-saoura": {
       "teamId": "caf-champions.js-saoura",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8270957333329537,
-      "adjustedAgainst": 0.897783749439223
+      "adjustedFor": 0.8243171635725011,
+      "adjustedAgainst": 0.8955938314574391
     },
     "caf-champions.horoya": {
       "teamId": "caf-champions.horoya",
@@ -73,8 +73,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8527762225234444,
-      "adjustedAgainst": 0.7076671023824384
+      "adjustedFor": 0.8499067143831486,
+      "adjustedAgainst": 0.7061227505120776
     },
     "caf-champions.el-merriekh-bentiu": {
       "teamId": "caf-champions.el-merriekh-bentiu",
@@ -84,8 +84,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8053107462027096,
-      "adjustedAgainst": 0.8513220445187343
+      "adjustedFor": 0.8025661862172215,
+      "adjustedAgainst": 0.8497812968184665
     },
     "caf-champions.heegan": {
       "teamId": "caf-champions.heegan",
@@ -95,8 +95,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.47517466185231644,
-      "adjustedAgainst": 1.05921426201762
+      "adjustedFor": 0.4733141850237921,
+      "adjustedAgainst": 1.056688833060664
     },
     "caf-champions.aigle-noir-cs": {
       "teamId": "caf-champions.aigle-noir-cs",
@@ -106,8 +106,8 @@
       "forPerGame": 0,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6082214273419063,
-      "adjustedAgainst": 0.8100739436793104
+      "adjustedFor": 0.6061666828144586,
+      "adjustedAgainst": 0.8082060968596546
     },
     "caf-champions.al-hilal-omdurman": {
       "teamId": "caf-champions.al-hilal-omdurman",
@@ -117,8 +117,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 0,
       "gamesPlayed": 4,
-      "adjustedFor": 1.120468887089784,
-      "adjustedAgainst": 0.3792952607503263
+      "adjustedFor": 1.1165842068839513,
+      "adjustedAgainst": 0.37828157088459774
     },
     "caf-champions.cffa": {
       "teamId": "caf-champions.cffa",
@@ -128,8 +128,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.786911016385433,
-      "adjustedAgainst": 1.280734191570137
+      "adjustedFor": 0.7841781595749824,
+      "adjustedAgainst": 1.2785712957267508
     },
     "caf-champions.lijabatho": {
       "teamId": "caf-champions.lijabatho",
@@ -139,8 +139,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.5207865519283527,
-      "adjustedAgainst": 0.9162468470763336
+      "adjustedFor": 0.5187186270840075,
+      "adjustedAgainst": 0.9140158740304469
     },
     "caf-champions.mangasport": {
       "teamId": "caf-champions.mangasport",
@@ -150,8 +150,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8016654309416462,
-      "adjustedAgainst": 0.9441451125644228
+      "adjustedFor": 0.7987284383649006,
+      "adjustedAgainst": 0.9418015074917195
     },
     "caf-champions.african-stars": {
       "teamId": "caf-champions.african-stars",
@@ -161,8 +161,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 2,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7170048543098044,
-      "adjustedAgainst": 1.1642900633872562
+      "adjustedFor": 0.7145550596948397,
+      "adjustedAgainst": 1.1622314769911486
     },
     "caf-champions.aiglons-n-djamena": {
       "teamId": "caf-champions.aiglons-n-djamena",
@@ -172,8 +172,8 @@
       "forPerGame": 0,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.48240993093117,
-      "adjustedAgainst": 0.9337721220419054
+      "adjustedFor": 0.48057117492654955,
+      "adjustedAgainst": 0.9314518239718216
     },
     "caf-champions.sidama-bunna": {
       "teamId": "caf-champions.sidama-bunna",
@@ -183,8 +183,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7514450609682717,
-      "adjustedAgainst": 0.8210342658072683
+      "adjustedFor": 0.7489271182428343,
+      "adjustedAgainst": 0.8193831989572378
     },
     "caf-champions.bara-mama": {
       "teamId": "caf-champions.bara-mama",
@@ -194,8 +194,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.49120761122950307,
-      "adjustedAgainst": 0.8118548702302371
+      "adjustedFor": 0.4893798117237778,
+      "adjustedAgainst": 0.8097348515542571
     },
     "caf-champions.teungueth": {
       "teamId": "caf-champions.teungueth",
@@ -205,8 +205,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.6545543648018954,
-      "adjustedAgainst": 0.7827626033024524
+      "adjustedFor": 0.6523531185266288,
+      "adjustedAgainst": 0.7810402474903161
     },
     "caf-champions.san-pedro": {
       "teamId": "caf-champions.san-pedro",
@@ -216,8 +216,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9116613531665818,
-      "adjustedAgainst": 1.0307079126363765
+      "adjustedFor": 0.9085283459494566,
+      "adjustedAgainst": 1.028704706424702
     },
     "caf-champions.rivers-united": {
       "teamId": "caf-champions.rivers-united",
@@ -227,8 +227,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8497464761949052,
-      "adjustedAgainst": 0.8755576996533839
+      "adjustedFor": 0.8467428849299006,
+      "adjustedAgainst": 0.8734627205714681
     },
     "caf-champions.vipers": {
       "teamId": "caf-champions.vipers",
@@ -238,8 +238,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6698655991338367,
-      "adjustedAgainst": 0.6216482606783562
+      "adjustedFor": 0.6675229007088667,
+      "adjustedAgainst": 0.620019825010731
     },
     "caf-champions.nouadhibou": {
       "teamId": "caf-champions.nouadhibou",
@@ -249,8 +249,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7830507534018213,
-      "adjustedAgainst": 0.6991264785287814
+      "adjustedFor": 0.7802586428210915,
+      "adjustedAgainst": 0.6976299694866785
     },
     "caf-champions.star-sport-academy": {
       "teamId": "caf-champions.star-sport-academy",
@@ -260,8 +260,8 @@
       "forPerGame": 0.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.5268649295852383,
-      "adjustedAgainst": 0.8231850220067318
+      "adjustedFor": 0.5250905220654657,
+      "adjustedAgainst": 0.8214786181019135
     },
     "caf-champions.medina-united": {
       "teamId": "caf-champions.medina-united",
@@ -271,8 +271,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6323677022287897,
-      "adjustedAgainst": 0.6937391880983853
+      "adjustedFor": 0.6300957061648899,
+      "adjustedAgainst": 0.6917981732471928
     },
     "caf-champions.al-merrikh-khartoum": {
       "teamId": "caf-champions.al-merrikh-khartoum",
@@ -282,8 +282,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7023419128846085,
-      "adjustedAgainst": 0.4958009811532705
+      "adjustedFor": 0.6998962673021936,
+      "adjustedAgainst": 0.49460541784120565
     },
     "caf-champions.power-dynamos": {
       "teamId": "caf-champions.power-dynamos",
@@ -293,8 +293,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.5686041491864914,
-      "adjustedAgainst": 0.7960007505494806
+      "adjustedFor": 0.566607276346225,
+      "adjustedAgainst": 0.7939660641335721
     },
     "caf-champions.gaborone-united": {
       "teamId": "caf-champions.gaborone-united",
@@ -304,8 +304,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8354447319254041,
-      "adjustedAgainst": 0.7438213840949947
+      "adjustedFor": 0.8326399098055083,
+      "adjustedAgainst": 0.742235304952112
     },
     "caf-champions.young-africans": {
       "teamId": "caf-champions.young-africans",
@@ -315,8 +315,8 @@
       "forPerGame": 2.75,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.3835804396037152,
-      "adjustedAgainst": 0.6870986891257963
+      "adjustedFor": 1.3785046927344742,
+      "adjustedAgainst": 0.6856141372609807
     },
     "caf-champions.africain": {
       "teamId": "caf-champions.africain",
@@ -326,8 +326,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.911315612198528,
-      "adjustedAgainst": 0.6686668162598971
+      "adjustedFor": 0.9081751991458084,
+      "adjustedAgainst": 0.6672421766064532
     },
     "caf-champions.djoliba": {
       "teamId": "caf-champions.djoliba",
@@ -337,8 +337,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8443969873639832,
-      "adjustedAgainst": 0.8754182405048427
+      "adjustedFor": 0.8415564742120365,
+      "adjustedAgainst": 0.8733257516301617
     },
     "caf-champions.la-cure-sylvester": {
       "teamId": "caf-champions.la-cure-sylvester",
@@ -348,8 +348,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7529799062018483,
-      "adjustedAgainst": 0.8188286383936632
+      "adjustedFor": 0.7505068130874035,
+      "adjustedAgainst": 0.8169919795698316
     },
     "caf-champions.orlando-pirates": {
       "teamId": "caf-champions.orlando-pirates",
@@ -359,8 +359,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1008615515926852,
-      "adjustedAgainst": 0.4821610438428691
+      "adjustedFor": 1.0968525040677986,
+      "adjustedAgainst": 0.4809821533529878
     },
     "caf-champions.gor-mahia": {
       "teamId": "caf-champions.gor-mahia",
@@ -370,8 +370,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7592526727173017,
-      "adjustedAgainst": 1.1940534514221013
+      "adjustedFor": 0.7567606189484123,
+      "adjustedAgainst": 1.1917277021018695
     },
     "caf-champions.pyramids": {
       "teamId": "caf-champions.pyramids",
@@ -381,8 +381,8 @@
       "forPerGame": 3,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4636287093525349,
-      "adjustedAgainst": 0.4677857938188106
+      "adjustedFor": 1.4583126973954954,
+      "adjustedAgainst": 0.4666532277371533
     },
     "caf-champions.scottland": {
       "teamId": "caf-champions.scottland",
@@ -392,8 +392,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.713408813718057,
-      "adjustedAgainst": 0.7182003150263722
+      "adjustedFor": 0.7123711292317804,
+      "adjustedAgainst": 0.712929943702365
     },
     "caf-champions.nsingizini-hotspur": {
       "teamId": "caf-champions.nsingizini-hotspur",
@@ -403,8 +403,8 @@
       "forPerGame": 0,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.5062005924289867,
-      "adjustedAgainst": 0.6394667946672387
+      "adjustedFor": 0.5052504750043335,
+      "adjustedAgainst": 0.6373806606101965
     },
     "caf-champions.les-aigles-congo": {
       "teamId": "caf-champions.les-aigles-congo",
@@ -414,8 +414,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6861756214111638,
-      "adjustedAgainst": 0.9447991734246595
+      "adjustedFor": 0.683773059426981,
+      "adjustedAgainst": 0.9424541972249211
     },
     "caf-champions.apr": {
       "teamId": "caf-champions.apr",
@@ -425,19 +425,19 @@
       "forPerGame": 0.75,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.718309483042862,
-      "adjustedAgainst": 0.652277702094633
+      "adjustedFor": 0.7158573677740783,
+      "adjustedAgainst": 0.6509380796013815
     },
-    "caf-champions.uniao-desportiva-songo": {
-      "teamId": "caf-champions.uniao-desportiva-songo",
-      "name": "União Desportiva do Songo",
-      "shortName": "União Desportiva do So",
-      "code": "UNI",
-      "forPerGame": 1,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 2,
-      "adjustedFor": 0.7785701709340217,
-      "adjustedAgainst": 0.8357835292814668
+    "caf-champions.songo": {
+      "teamId": "caf-champions.songo",
+      "name": "UD Songo",
+      "shortName": "Songo",
+      "code": "SON",
+      "forPerGame": 0,
+      "againstPerGame": 1,
+      "gamesPlayed": 1,
+      "adjustedFor": 0.5594379587067868,
+      "adjustedAgainst": 0.6907426783147896
     },
     "caf-champions.atletico-petroleos-luanda": {
       "teamId": "caf-champions.atletico-petroleos-luanda",
@@ -447,8 +447,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.0377724249409959,
-      "adjustedAgainst": 0.8379757306492436
+      "adjustedFor": 1.049783067552996,
+      "adjustedAgainst": 0.8311920323864612
     },
     "caf-champions.mighty-mukuru-wanderers": {
       "teamId": "caf-champions.mighty-mukuru-wanderers",
@@ -458,8 +458,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7293765769176437,
-      "adjustedAgainst": 1.1117497890523744
+      "adjustedFor": 0.7269620004325291,
+      "adjustedAgainst": 1.1097711781067285
     },
     "caf-champions.simba": {
       "teamId": "caf-champions.simba",
@@ -469,8 +469,8 @@
       "forPerGame": 4,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.7063810340547878,
-      "adjustedAgainst": 0.5407803299753445
+      "adjustedFor": 1.6998417026543469,
+      "adjustedAgainst": 0.5394495685984295
     },
     "caf-champions.wiliete": {
       "teamId": "caf-champions.wiliete",
@@ -480,8 +480,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9721231875798358,
-      "adjustedAgainst": 0.5187337809463753
+      "adjustedFor": 0.968846426661729,
+      "adjustedAgainst": 0.5174584574657861
     },
     "caf-champions.foresters": {
       "teamId": "caf-champions.foresters",
@@ -491,8 +491,8 @@
       "forPerGame": 0,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.561750450399153,
-      "adjustedAgainst": 1.1284827230054373
+      "adjustedFor": 0.5597789266203237,
+      "adjustedAgainst": 1.125902436361962
     },
     "caf-champions.colombe": {
       "teamId": "caf-champions.colombe",
@@ -502,8 +502,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 0,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7847702247588783,
-      "adjustedAgainst": 0.3928185195186507
+      "adjustedFor": 0.7821186159597412,
+      "adjustedAgainst": 0.39175859548707764
     },
     "caf-champions.stade-malien": {
       "teamId": "caf-champions.stade-malien",
@@ -513,8 +513,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6026805659021053,
-      "adjustedAgainst": 0.47431211461124345
+      "adjustedFor": 0.6006406172762476,
+      "adjustedAgainst": 0.47294637355997565
     },
     "caf-champions.medeama": {
       "teamId": "caf-champions.medeama",
@@ -524,8 +524,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6708242915844562,
-      "adjustedAgainst": 1.0347262572514606
+      "adjustedFor": 0.6684764581123157,
+      "adjustedAgainst": 1.0323133591519567
     },
     "caf-champions.tout-puissant-mazembe": {
       "teamId": "caf-champions.tout-puissant-mazembe",
@@ -535,8 +535,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8658441053090731,
-      "adjustedAgainst": 0.7022834203830293
+      "adjustedFor": 0.8628225704669369,
+      "adjustedAgainst": 0.7007839683279493
     },
     "caf-champions.enugu-rangers-international": {
       "teamId": "caf-champions.enugu-rangers-international",
@@ -546,8 +546,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8630747754613334,
-      "adjustedAgainst": 0.8535757278750695
+      "adjustedFor": 0.8601695329569988,
+      "adjustedAgainst": 0.8519490120631269
     },
     "caf-champions.sobemap": {
       "teamId": "caf-champions.sobemap",
@@ -557,8 +557,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7704885610375247,
-      "adjustedAgainst": 0.7471880035855929
+      "adjustedFor": 0.7677551850689764,
+      "adjustedAgainst": 0.7453035982443579
     },
     "caf-champions.asc-kara": {
       "teamId": "caf-champions.asc-kara",
@@ -568,8 +568,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7647408843814092,
-      "adjustedAgainst": 0.8758797999238204
+      "adjustedFor": 0.7620358450677904,
+      "adjustedAgainst": 0.8737892881420419
     },
     "caf-champions.asec-mimosas": {
       "teamId": "caf-champions.asec-mimosas",
@@ -579,8 +579,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9106307095588311,
-      "adjustedAgainst": 0.8723036967612653
+      "adjustedFor": 0.9074854823608443,
+      "adjustedAgainst": 0.8706134181548673
     },
     "caf-champions.asn-nigelec": {
       "teamId": "caf-champions.asn-nigelec",
@@ -590,8 +590,8 @@
       "forPerGame": 0,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.5308940099905602,
-      "adjustedAgainst": 1.0795533379411089
+      "adjustedFor": 0.5289731427823277,
+      "adjustedAgainst": 1.0772259133367237
     },
     "caf-champions.mc-alger": {
       "teamId": "caf-champions.mc-alger",
@@ -601,8 +601,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.11105476345801,
-      "adjustedAgainst": 0.625593102073623
+      "adjustedFor": 1.1070807084269332,
+      "adjustedAgainst": 0.6241714550364122
     },
     "caf-champions.maghreb-fes": {
       "teamId": "caf-champions.maghreb-fes",
@@ -612,8 +612,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.0397701728051283,
-      "adjustedAgainst": 0.7016845516683079
+      "adjustedFor": 1.0360910049679832,
+      "adjustedAgainst": 0.7001884483355583
     },
     "caf-champions.rahimo": {
       "teamId": "caf-champions.rahimo",
@@ -623,8 +623,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6685381869014463,
-      "adjustedAgainst": 0.9657677692213048
+      "adjustedFor": 0.6661920593501746,
+      "adjustedAgainst": 0.9635981669061223
     },
     "caf-champions.fomboni": {
       "teamId": "caf-champions.fomboni",
@@ -634,8 +634,8 @@
       "forPerGame": 0,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.3562267144021533,
-      "adjustedAgainst": 1.0776099518169644
+      "adjustedFor": 0.35443403293643944,
+      "adjustedAgainst": 1.0749019166994638
     },
     "caf-champions.agosto-akonibe": {
       "teamId": "caf-champions.agosto-akonibe",
@@ -645,8 +645,19 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.100102611629586,
-      "adjustedAgainst": 1.2267424762600543
+      "adjustedFor": 1.097193687122253,
+      "adjustedAgainst": 1.2249247326981632
+    },
+    "caf-champions.uniao-desportiva-songo": {
+      "teamId": "caf-champions.uniao-desportiva-songo",
+      "name": "União Desportiva do Songo",
+      "shortName": "União Desportiva do So",
+      "code": "UNI",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 1,
+      "adjustedFor": 1.0263769977856472,
+      "adjustedAgainst": 0.8557882422649442
     },
     "caf-champions.rs-berkane": {
       "teamId": "caf-champions.rs-berkane",
@@ -656,8 +667,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9375067771265464,
-      "adjustedAgainst": 0.5182322708936261
+      "adjustedFor": 0.9343199530768548,
+      "adjustedAgainst": 0.516687390975141
     },
     "caf-champions.mamelodi-sundowns": {
       "teamId": "caf-champions.mamelodi-sundowns",
@@ -667,8 +678,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7345941019176595,
-      "adjustedAgainst": 0.5748255605563316
+      "adjustedFor": 0.7321589909165723,
+      "adjustedAgainst": 0.5733521447315107
     },
     "caf-champions.esperance-sportive-tunis": {
       "teamId": "caf-champions.esperance-sportive-tunis",
@@ -678,8 +689,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7346491777383544,
-      "adjustedAgainst": 0.5907558307836625
+      "adjustedFor": 0.7322132246308025,
+      "adjustedAgainst": 0.5892178488861686
     }
   },
   "games": [
@@ -713,7 +724,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -747,7 +758,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -781,7 +792,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -815,7 +826,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -848,7 +859,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -881,7 +892,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -915,7 +926,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -949,7 +960,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -982,7 +993,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1016,7 +1027,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1049,7 +1060,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1083,7 +1094,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1117,7 +1128,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1151,7 +1162,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1185,7 +1196,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1218,7 +1229,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -20906,6 +20917,22 @@
       ]
     },
     {
+      "teamId": "caf-champions.uniao-desportiva-songo",
+      "name": "União Desportiva do Songo",
+      "shortName": "União Desportiva do So",
+      "code": "UNI",
+      "played": 1,
+      "won": 0,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 2,
+      "goalsAgainst": 2,
+      "points": 1,
+      "form": [
+        "D"
+      ]
+    },
+    {
       "teamId": "caf-champions.asc-kara",
       "name": "ASC Kara",
       "shortName": "ASC Kara",
@@ -20954,23 +20981,6 @@
       "form": [
         "D",
         "L"
-      ]
-    },
-    {
-      "teamId": "caf-champions.uniao-desportiva-songo",
-      "name": "União Desportiva do Songo",
-      "shortName": "União Desportiva do So",
-      "code": "UNI",
-      "played": 2,
-      "won": 0,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 2,
-      "goalsAgainst": 3,
-      "points": 1,
-      "form": [
-        "L",
-        "D"
       ]
     },
     {
@@ -21072,6 +21082,22 @@
       "points": 1,
       "form": [
         "D",
+        "L"
+      ]
+    },
+    {
+      "teamId": "caf-champions.songo",
+      "name": "UD Songo",
+      "shortName": "Songo",
+      "code": "SON",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 0,
+      "goalsAgainst": 1,
+      "points": 0,
+      "form": [
         "L"
       ]
     },

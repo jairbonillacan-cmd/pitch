@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao",
   "season": "2026",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "matches": [
     {
       "id": "brasileirao-2026-07-16-vitoria-vasco-gama-a31ng3",
@@ -1872,6 +1872,39 @@
       "awayTeam": "brasileirao.botafogo",
       "homeScore": 4,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-2026-11-19-vitoria-red-bull-braga-q36l1y",
+      "date": "2026-11-19",
+      "startTime": "2026-11-19T22:30:00.000Z",
+      "round": "Regular season · Matchday 35",
+      "homeTeam": "brasileirao.vitoria",
+      "awayTeam": "brasileirao.red-bull-bragantino",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-2026-11-19-vasco-gama-internacional-e8xwqa",
+      "date": "2026-11-19",
+      "startTime": "2026-11-19T22:30:00.000Z",
+      "round": "Regular season · Matchday 35",
+      "homeTeam": "brasileirao.vasco-gama",
+      "awayTeam": "brasileirao.internacional",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-2026-11-20-sao-paulo-fluminense-2j2ty6",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T00:30:00.000Z",
+      "round": "Regular season · Matchday 35",
+      "homeTeam": "brasileirao.sao-paulo",
+      "awayTeam": "brasileirao.fluminense",
+      "homeScore": 0,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

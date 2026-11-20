@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nfl",
   "season": "nfl-2026",
-  "updatedAt": "2026-11-19T01:44:47.629Z",
+  "updatedAt": "2026-11-20T13:29:28.978Z",
   "matches": [
     {
       "id": "nfl-2026-w1-new-england-patriots-seattle-seahawks",
@@ -1652,6 +1652,17 @@
       "awayTeam": "nfl.los-angeles-chargers",
       "homeScore": 20,
       "awayScore": 23,
+      "neutralSite": false
+    },
+    {
+      "id": "nfl-2026-w11-indianapolis-colts-houston-texans",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T01:15:00.000Z",
+      "round": "Semana 11",
+      "homeTeam": "nfl.houston-texans",
+      "awayTeam": "nfl.indianapolis-colts",
+      "homeScore": 26,
+      "awayScore": 3,
       "neutralSite": false
     }
   ]

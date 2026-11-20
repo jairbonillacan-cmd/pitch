@@ -5,7 +5,7 @@
   "season": "championship-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 14",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.7333333333333334,
       "againstPerGame": 1.2,
       "gamesPlayed": 15,
-      "adjustedFor": 1.5840011370862332,
-      "adjustedAgainst": 1.1615271712656348
+      "adjustedFor": 1.5838797660576232,
+      "adjustedAgainst": 1.1615838746680227
     },
     "championship.blackburn-rovers": {
       "teamId": "championship.blackburn-rovers",
@@ -29,8 +29,8 @@
       "forPerGame": 1.4666666666666666,
       "againstPerGame": 1.5333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 1.404876911348135,
-      "adjustedAgainst": 1.4147321019815244
+      "adjustedFor": 1.4048215175148886,
+      "adjustedAgainst": 1.414691651954163
     },
     "championship.bolton-wanderers": {
       "teamId": "championship.bolton-wanderers",
@@ -40,8 +40,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.9333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2671054702036881,
-      "adjustedAgainst": 1.7011310843326997
+      "adjustedFor": 1.267130393896024,
+      "adjustedAgainst": 1.7009858060440832
     },
     "championship.preston-north-end": {
       "teamId": "championship.preston-north-end",
@@ -51,8 +51,8 @@
       "forPerGame": 0.8666666666666667,
       "againstPerGame": 2,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9713861898747812,
-      "adjustedAgainst": 1.8423514479515297
+      "adjustedFor": 0.9715061019211593,
+      "adjustedAgainst": 1.8420888788737708
     },
     "championship.stoke-city": {
       "teamId": "championship.stoke-city",
@@ -62,8 +62,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.2,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4763475063352585,
-      "adjustedAgainst": 1.193431848137171
+      "adjustedFor": 1.476281591303962,
+      "adjustedAgainst": 1.1934629705745594
     },
     "championship.swansea-city": {
       "teamId": "championship.swansea-city",
@@ -73,8 +73,8 @@
       "forPerGame": 1.4666666666666666,
       "againstPerGame": 1.2,
       "gamesPlayed": 15,
-      "adjustedFor": 1.401608714380784,
-      "adjustedAgainst": 1.172235379023492
+      "adjustedFor": 1.4015598044704856,
+      "adjustedAgainst": 1.1722989326580973
     },
     "championship.portsmouth": {
       "teamId": "championship.portsmouth",
@@ -84,8 +84,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.2,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2609514964047375,
-      "adjustedAgainst": 1.1646183304924926
+      "adjustedFor": 1.2609700974783784,
+      "adjustedAgainst": 1.1646749267627328
     },
     "championship.queens-park-rangers": {
       "teamId": "championship.queens-park-rangers",
@@ -95,8 +95,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.2,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4473167008616192,
-      "adjustedAgainst": 1.1821230227762156
+      "adjustedFor": 1.4472687985096044,
+      "adjustedAgainst": 1.1821766046075164
     },
     "championship.norwich-city": {
       "teamId": "championship.norwich-city",
@@ -106,8 +106,8 @@
       "forPerGame": 2.1333333333333333,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.9811362606977867,
-      "adjustedAgainst": 1.5123541457544216
+      "adjustedFor": 1.9808139446175723,
+      "adjustedAgainst": 1.5122382727950705
     },
     "championship.west-bromwich-albion": {
       "teamId": "championship.west-bromwich-albion",
@@ -117,8 +117,8 @@
       "forPerGame": 1.5333333333333334,
       "againstPerGame": 1,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4328443858742357,
-      "adjustedAgainst": 0.9963967440630689
+      "adjustedFor": 1.4327867466414714,
+      "adjustedAgainst": 0.9965306077885022
     },
     "championship.middlesbrough": {
       "teamId": "championship.middlesbrough",
@@ -128,8 +128,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.2666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.7999605149973075,
-      "adjustedAgainst": 1.2279402699381807
+      "adjustedFor": 1.799743926751094,
+      "adjustedAgainst": 1.2279659303356052
     },
     "championship.lincoln-city": {
       "teamId": "championship.lincoln-city",
@@ -139,8 +139,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.7333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 1.0538663939877406,
-      "adjustedAgainst": 1.5765811267866559
+      "adjustedFor": 1.0539645430535964,
+      "adjustedAgainst": 1.576476945072755
     },
     "championship.charlton-athletic": {
       "teamId": "championship.charlton-athletic",
@@ -150,8 +150,8 @@
       "forPerGame": 0.8666666666666667,
       "againstPerGame": 1.5333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 0.8881455766309522,
-      "adjustedAgainst": 1.4294423989081981
+      "adjustedFor": 0.8883203350431153,
+      "adjustedAgainst": 1.429394556516789
     },
     "championship.derby-county": {
       "teamId": "championship.derby-county",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9333333333333333,
       "againstPerGame": 2,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9983682079959747,
-      "adjustedAgainst": 1.7182168052576359
+      "adjustedFor": 0.9984850642723255,
+      "adjustedAgainst": 1.7180785945789865
     },
     "championship.bristol-city": {
       "teamId": "championship.bristol-city",
@@ -172,8 +172,8 @@
       "forPerGame": 1.0666666666666667,
       "againstPerGame": 1.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.056032512082609,
-      "adjustedAgainst": 1.51451255404293
+      "adjustedFor": 1.0561335200657826,
+      "adjustedAgainst": 1.5144119540060565
     },
     "championship.millwall": {
       "teamId": "championship.millwall",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5333333333333334,
       "againstPerGame": 1.8,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4413395232967527,
-      "adjustedAgainst": 1.6137111334630259
+      "adjustedFor": 1.4412731766220395,
+      "adjustedAgainst": 1.6135954899552711
     },
     "championship.sheffield-united": {
       "teamId": "championship.sheffield-united",
@@ -194,8 +194,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.2666666666666666,
       "gamesPlayed": 15,
-      "adjustedFor": 1.3354881499417146,
-      "adjustedAgainst": 1.2901137289327238
+      "adjustedFor": 1.335475560655298,
+      "adjustedAgainst": 1.290092481305675
     },
     "championship.birmingham-city": {
       "teamId": "championship.birmingham-city",
@@ -205,8 +205,8 @@
       "forPerGame": 1.8666666666666667,
       "againstPerGame": 0.9333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.7067699207489058,
-      "adjustedAgainst": 0.9603090251381698
+      "adjustedFor": 1.706593745418764,
+      "adjustedAgainst": 0.9604505742264186
     },
     "championship.watford": {
       "teamId": "championship.watford",
@@ -216,8 +216,8 @@
       "forPerGame": 0.8666666666666667,
       "againstPerGame": 1.5333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9159966450215378,
-      "adjustedAgainst": 1.3864279616132957
+      "adjustedFor": 0.916156895489765,
+      "adjustedAgainst": 1.386413755380247
     },
     "championship.southampton": {
       "teamId": "championship.southampton",
@@ -227,8 +227,8 @@
       "forPerGame": 1.9333333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 15,
-      "adjustedFor": 1.7576859208670947,
-      "adjustedAgainst": 1.0263863659712096
+      "adjustedFor": 1.7574800987443173,
+      "adjustedAgainst": 1.0264965059904463
     },
     "championship.burnley": {
       "teamId": "championship.burnley",
@@ -238,8 +238,8 @@
       "forPerGame": 1.4666666666666666,
       "againstPerGame": 2.066666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.429446066926559,
-      "adjustedAgainst": 1.8461230176879742
+      "adjustedFor": 1.429376658508485,
+      "adjustedAgainst": 1.8458898286037595
     },
     "championship.west-ham-united": {
       "teamId": "championship.west-ham-united",
@@ -249,8 +249,8 @@
       "forPerGame": 2.466666666666667,
       "againstPerGame": 1.5333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 2.1620835295656344,
-      "adjustedAgainst": 1.4946424005550083
+      "adjustedFor": 2.1616979706628894,
+      "adjustedAgainst": 1.4945351203825652
     },
     "championship.cardiff-city": {
       "teamId": "championship.cardiff-city",
@@ -260,8 +260,8 @@
       "forPerGame": 1.8,
       "againstPerGame": 1.8,
       "gamesPlayed": 15,
-      "adjustedFor": 1.680159097797757,
-      "adjustedAgainst": 1.6441550643992293
+      "adjustedFor": 1.6799842442547273,
+      "adjustedAgainst": 1.6440115282608367
     },
     "championship.wrexham": {
       "teamId": "championship.wrexham",
@@ -271,8 +271,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1896338222807685,
-      "adjustedAgainst": 1.2266683680110093
+      "adjustedFor": 1.1896726705172525,
+      "adjustedAgainst": 1.226717025212849
     }
   },
   "games": [
@@ -307,7 +307,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -342,7 +342,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -377,7 +377,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -412,7 +412,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -447,7 +447,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -482,7 +482,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -517,7 +517,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -552,7 +552,7 @@
       "result": {
         "home": 0,
         "away": 5,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -587,7 +587,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -622,7 +622,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -657,7 +657,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -692,7 +692,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -727,7 +727,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -762,7 +762,7 @@
       "result": {
         "home": 5,
         "away": 4,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -797,7 +797,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -832,7 +832,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -2626,11 +2626,11 @@
         "referee": "Oliver Langford",
         "refereeStats": {
           "country": "England",
-          "matches": 58,
-          "avgYellow": 3.47,
-          "avgRed": 0.21,
+          "matches": 59,
+          "avgYellow": 3.46,
+          "avgRed": 0.2,
           "avgFouls": 19.6,
-          "avgGoals": 2.91
+          "avgGoals": 2.9
         },
         "weather": {
           "description": "cloudy",
@@ -3978,11 +3978,11 @@
         "referee": "James Bell",
         "refereeStats": {
           "country": "England",
-          "matches": 50,
-          "avgYellow": 3.88,
-          "avgRed": 0.12,
+          "matches": 51,
+          "avgYellow": 3.9,
+          "avgRed": 0.14,
           "avgFouls": 21.4,
-          "avgGoals": 2.34
+          "avgGoals": 2.41
         },
         "weather": {
           "description": "cloudy",
@@ -4879,11 +4879,11 @@
         "referee": "Benjamin Speedie",
         "refereeStats": {
           "country": "England",
-          "matches": 77,
-          "avgYellow": 3.13,
+          "matches": 78,
+          "avgYellow": 3.14,
           "avgRed": 0.1,
           "avgFouls": 21.9,
-          "avgGoals": 2.39
+          "avgGoals": 2.37
         },
         "weather": {
           "description": "clear",
@@ -5330,11 +5330,11 @@
         "referee": "Lewis Smith",
         "refereeStats": {
           "country": "England",
-          "matches": 71,
-          "avgYellow": 3.58,
+          "matches": 72,
+          "avgYellow": 3.57,
           "avgRed": 0.06,
           "avgFouls": 20.6,
-          "avgGoals": 2.46
+          "avgGoals": 2.5
         },
         "weather": {
           "description": "cloudy",
@@ -8029,11 +8029,11 @@
         "referee": "Oliver Langford",
         "refereeStats": {
           "country": "England",
-          "matches": 58,
-          "avgYellow": 3.47,
-          "avgRed": 0.21,
+          "matches": 59,
+          "avgYellow": 3.46,
+          "avgRed": 0.2,
           "avgFouls": 19.6,
-          "avgGoals": 2.91
+          "avgGoals": 2.9
         },
         "weather": {
           "description": "clear",
@@ -9421,6 +9421,7 @@
           "temperatureC": 12,
           "windSpeedKmh": 35
         },
+        "travelDistanceKm": 224,
         "stageName": "Regular season",
         "venueCity": "Southampton",
         "venueCountry": "England",
@@ -9904,6 +9905,7 @@
           "temperatureC": 10,
           "windSpeedKmh": 27
         },
+        "travelDistanceKm": 335,
         "stageName": "Regular season",
         "venueCity": "Norwich",
         "venueCountry": "England",
@@ -10377,9 +10379,9 @@
         "referee": "Josh Smith",
         "refereeStats": {
           "country": "England",
-          "matches": 62,
-          "avgYellow": 3.68,
-          "avgRed": 0.15,
+          "matches": 63,
+          "avgYellow": 3.7,
+          "avgRed": 0.14,
           "avgFouls": 21.1,
           "avgGoals": 2.89
         },
@@ -10857,17 +10859,18 @@
         "referee": "Simon Hooper",
         "refereeStats": {
           "country": "England",
-          "matches": 46,
-          "avgYellow": 4.28,
+          "matches": 47,
+          "avgYellow": 4.4,
           "avgRed": 0.13,
           "avgFouls": 23.3,
-          "avgGoals": 3.24
+          "avgGoals": 3.23
         },
         "weather": {
           "description": "cloudy",
           "temperatureC": 3,
           "windSpeedKmh": 1
         },
+        "travelDistanceKm": 193,
         "stageName": "Regular season",
         "venueCity": "Wolverhampton",
         "venueCountry": "England",
@@ -11331,17 +11334,18 @@
         "referee": "Will Finnie",
         "refereeStats": {
           "country": "England",
-          "matches": 63,
-          "avgYellow": 3.46,
-          "avgRed": 0.13,
+          "matches": 64,
+          "avgYellow": 3.42,
+          "avgRed": 0.12,
           "avgFouls": 22.8,
-          "avgGoals": 2.48
+          "avgGoals": 2.47
         },
         "weather": {
           "description": "cloudy",
           "temperatureC": 4,
           "windSpeedKmh": 29
         },
+        "travelDistanceKm": 307,
         "stageName": "Regular season",
         "venueCity": "London",
         "venueCountry": "England",
@@ -11824,6 +11828,7 @@
           "temperatureC": 4,
           "windSpeedKmh": 14
         },
+        "travelDistanceKm": 166,
         "stageName": "Regular season",
         "venueCity": "Swansea",
         "venueCountry": "Wales",
@@ -12307,6 +12312,7 @@
           "temperatureC": 3,
           "windSpeedKmh": 5
         },
+        "travelDistanceKm": 61,
         "stageName": "Regular season",
         "venueCity": "Stoke",
         "venueCountry": "England",
@@ -12788,6 +12794,7 @@
           "temperatureC": 3,
           "windSpeedKmh": 11
         },
+        "travelDistanceKm": 205,
         "stageName": "Regular season",
         "venueCity": "Sheffield",
         "venueCountry": "England",
@@ -13271,6 +13278,7 @@
           "temperatureC": 3,
           "windSpeedKmh": 29
         },
+        "travelDistanceKm": 362,
         "stageName": "Regular season",
         "venueCity": "Middlesbrough",
         "venueCountry": "England",
@@ -13753,6 +13761,7 @@
           "temperatureC": 3,
           "windSpeedKmh": 16
         },
+        "travelDistanceKm": 166,
         "stageName": "Regular season",
         "venueCity": "Lincoln",
         "venueCountry": "England",
@@ -14235,6 +14244,7 @@
           "temperatureC": 2,
           "windSpeedKmh": 13
         },
+        "travelDistanceKm": 326,
         "stageName": "Regular season",
         "venueCity": "Horwich",
         "venueCountry": "England",
@@ -14707,11 +14717,11 @@
         "referee": "Lewis Smith",
         "refereeStats": {
           "country": "England",
-          "matches": 71,
-          "avgYellow": 3.58,
+          "matches": 72,
+          "avgYellow": 3.57,
           "avgRed": 0.06,
           "avgFouls": 20.6,
-          "avgGoals": 2.46
+          "avgGoals": 2.5
         },
         "weather": {
           "description": "rain",

@@ -5,7 +5,7 @@
   "season": "copa-colombia-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-19T16:05:39.021Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2.1666666666666665,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 6,
-      "adjustedFor": 1.928530579872152,
-      "adjustedAgainst": 1.0734630389542499
+      "adjustedFor": 1.8083333333333333,
+      "adjustedAgainst": 1.1416666666666666
     },
     "copa-colombia.tigres": {
       "teamId": "copa-colombia.tigres",
@@ -29,8 +29,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.085900509579151,
-      "adjustedAgainst": 1.4262149202981929
+      "adjustedFor": 1.0875,
+      "adjustedAgainst": 1.5875
     },
     "copa-colombia.internacional-bogota": {
       "teamId": "copa-colombia.internacional-bogota",
@@ -40,8 +40,8 @@
       "forPerGame": 1.8333333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 6,
-      "adjustedFor": 1.7070641410728908,
-      "adjustedAgainst": 1.133702673376479
+      "adjustedFor": 1.6416666666666666,
+      "adjustedAgainst": 1.2249999999999999
     },
     "copa-colombia.internacional-palmira": {
       "teamId": "copa-colombia.internacional-palmira",
@@ -51,8 +51,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.223053224864891,
-      "adjustedAgainst": 1.354208567193948
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "copa-colombia.deportes-tolima": {
       "teamId": "copa-colombia.deportes-tolima",
@@ -62,8 +62,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4455639114683223,
-      "adjustedAgainst": 1.4614598223988444
+      "adjustedFor": 1.4625,
+      "adjustedAgainst": 1.4625
     },
     "copa-colombia.deportes-quindio": {
       "teamId": "copa-colombia.deportes-quindio",
@@ -73,8 +73,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3232370550173362,
-      "adjustedAgainst": 1.3756208397060494
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.411111111111111
     },
     "copa-colombia.independiente-santa-fe": {
       "teamId": "copa-colombia.independiente-santa-fe",
@@ -84,8 +84,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.3522686833887338,
-      "adjustedAgainst": 1.3499468326370052
+      "adjustedFor": 1.3699999999999999,
+      "adjustedAgainst": 1.3699999999999999
     },
     "copa-colombia.union-magdalena": {
       "teamId": "copa-colombia.union-magdalena",
@@ -95,8 +95,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1610405208822412,
-      "adjustedAgainst": 1.4465815817608456
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "copa-colombia.deportivo-pasto": {
       "teamId": "copa-colombia.deportivo-pasto",
@@ -106,8 +106,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 3,
-      "adjustedFor": 1.3501475022936353,
-      "adjustedAgainst": 1.5280311862509257
+      "adjustedFor": 1.411111111111111,
+      "adjustedAgainst": 1.5222222222222221
     },
     "copa-colombia.bogota": {
       "teamId": "copa-colombia.bogota",
@@ -117,8 +117,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.124646090696751,
-      "adjustedAgainst": 1.4553419584468703
+      "adjustedFor": 1.2125,
+      "adjustedAgainst": 1.4625
     },
     "copa-colombia.once-caldas": {
       "teamId": "copa-colombia.once-caldas",
@@ -128,8 +128,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.5,
       "gamesPlayed": 6,
-      "adjustedFor": 1.750825603717546,
-      "adjustedAgainst": 0.8866601611500496
+      "adjustedFor": 1.7249999999999999,
+      "adjustedAgainst": 0.975
     },
     "copa-colombia.envigado": {
       "teamId": "copa-colombia.envigado",
@@ -139,8 +139,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1318857884067226,
-      "adjustedAgainst": 1.739531892720497
+      "adjustedFor": 1.0875,
+      "adjustedAgainst": 1.8375
     },
     "copa-colombia.america-cali": {
       "teamId": "copa-colombia.america-cali",
@@ -150,8 +150,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 6,
-      "adjustedFor": 1.9388086314050847,
-      "adjustedAgainst": 1.0260790149845456
+      "adjustedFor": 1.8916666666666666,
+      "adjustedAgainst": 1.1416666666666666
     },
     "copa-colombia.real-cartagena": {
       "teamId": "copa-colombia.real-cartagena",
@@ -161,8 +161,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4048184754414896,
-      "adjustedAgainst": 1.2945804258431295
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.4625
     },
     "copa-colombia.junior-barranquilla": {
       "teamId": "copa-colombia.junior-barranquilla",
@@ -172,8 +172,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.594185000473925,
-      "adjustedAgainst": 1.7233895039427203
+      "adjustedFor": 1.7125,
+      "adjustedAgainst": 1.7125
     },
     "copa-colombia.barranquilla": {
       "teamId": "copa-colombia.barranquilla",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.397828557317144,
-      "adjustedAgainst": 1.798695372661943
+      "adjustedFor": 1.47,
+      "adjustedAgainst": 1.8699999999999999
     },
     "copa-colombia.deportivo-cali": {
       "teamId": "copa-colombia.deportivo-cali",
@@ -194,8 +194,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2180221622921412,
-      "adjustedAgainst": 1.5887162527401963
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.6714285714285713
     },
     "copa-colombia.real-cundinamarca": {
       "teamId": "copa-colombia.real-cundinamarca",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.3888886159985196,
-      "adjustedAgainst": 1.4610505509283263
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.5285714285714285
     },
     "copa-colombia.alianza-valledupar": {
       "teamId": "copa-colombia.alianza-valledupar",
@@ -216,8 +216,8 @@
       "forPerGame": 0,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.248439277114761,
-      "adjustedAgainst": 1.282865126390217
+      "adjustedFor": 1.2428571428571427,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-colombia.independiente-medellin": {
       "teamId": "copa-colombia.independiente-medellin",
@@ -227,8 +227,8 @@
       "forPerGame": 3,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.9465849902149217,
-      "adjustedAgainst": 1.52070620401992
+      "adjustedFor": 1.8375,
+      "adjustedAgainst": 1.5875
     },
     "copa-colombia.millonarios": {
       "teamId": "copa-colombia.millonarios",
@@ -238,8 +238,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 1,
-      "adjustedFor": 1.2753026594353896,
-      "adjustedAgainst": 1.3379965110643346
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.3857142857142857
     },
     "copa-colombia.llaneros": {
       "teamId": "copa-colombia.llaneros",
@@ -249,8 +249,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3348201637877002,
-      "adjustedAgainst": 1.719538175480743
+      "adjustedFor": 1.3375,
+      "adjustedAgainst": 1.7125
     },
     "copa-colombia.deportivo-pereira": {
       "teamId": "copa-colombia.deportivo-pereira",
@@ -260,8 +260,8 @@
       "forPerGame": 1,
       "againstPerGame": 4,
       "gamesPlayed": 1,
-      "adjustedFor": 1.412811300613271,
-      "adjustedAgainst": 1.7533890987555385
+      "adjustedFor": 1.3857142857142857,
+      "adjustedAgainst": 1.8142857142857143
     },
     "copa-colombia.fortaleza": {
       "teamId": "copa-colombia.fortaleza",
@@ -271,8 +271,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 1,
-      "adjustedFor": 1.539501034471841,
-      "adjustedAgainst": 1.5333039014747794
+      "adjustedFor": 1.5285714285714285,
+      "adjustedAgainst": 1.5285714285714285
     }
   },
   "games": [
@@ -306,7 +306,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -339,7 +339,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -373,7 +373,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -406,7 +406,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -439,7 +439,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -472,7 +472,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -505,7 +505,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -538,7 +538,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -572,7 +572,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -605,7 +605,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -638,7 +638,7 @@
       "result": {
         "home": 0,
         "away": 4,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -671,7 +671,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -704,7 +704,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -737,7 +737,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -771,7 +771,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     },
@@ -805,7 +805,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-19T16:05:39.021Z",
+        "observedAt": "2026-11-20T13:22:46.169Z",
         "source": "pitchlab-feed"
       }
     }

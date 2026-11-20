@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga-2",
-  "observedAt": "2026-11-19T16:05:39.021Z",
+  "observedAt": "2026-11-20T13:22:46.169Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "bundesliga-2.wolfsburg",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "bundesliga-2.wolfsburg",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -39,7 +39,7 @@
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -48,7 +48,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -57,7 +57,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "bundesliga-2.magdeburg",
@@ -66,7 +66,7 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     },
     {
       "teamId": "bundesliga-2.magdeburg",
@@ -75,7 +75,43 @@
       "status": "Baja",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-19T16:05:39.021Z"
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "bundesliga-2.karlsruher",
+      "player": "Marcel Franke",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "bundesliga-2.karlsruher",
+      "player": "Moritz Broschinski",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "bundesliga-2.karlsruher",
+      "player": "Sebastian Jung",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
+    },
+    {
+      "teamId": "bundesliga-2.heidenheim",
+      "player": "Luca Kerber",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-20T13:22:46.169Z"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "mls",
   "season": "2026",
-  "updatedAt": "2026-11-19T16:13:44.585Z",
+  "updatedAt": "2026-11-20T13:22:46.169Z",
   "matches": [
     {
       "id": "mls-2026-07-16-montreal-toronto-uyevum",
@@ -3213,6 +3213,28 @@
       "homeTeam": "mls.seattle-sounders",
       "awayTeam": "mls.los-angeles",
       "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-20-orlando-city-cincinnati-ehywr8",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T00:30:00.000Z",
+      "round": "Wild Card Round",
+      "homeTeam": "mls.orlando-city",
+      "awayTeam": "mls.cincinnati",
+      "homeScore": 1,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-20-seattle-sounde-real-salt-lake-s45kzb",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T03:00:00.000Z",
+      "round": "Wild Card Round",
+      "homeTeam": "mls.seattle-sounders",
+      "awayTeam": "mls.real-salt-lake",
+      "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
     }
