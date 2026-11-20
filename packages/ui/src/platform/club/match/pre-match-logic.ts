@@ -318,6 +318,17 @@ export function resolvePreMatchAbsencesState(
   };
 }
 
+const VENDOR_SOURCE_LABEL_RE =
+  /(bzzoiro|espn|api|sofascore|sportmonks|betfair|the[_\s-]?odds|opta|nflverse)/i;
+
+function sanitizeLineupSourceLabel(rawLabel: string, fallback: string): string {
+  const trimmed = rawLabel.trim();
+  if (!trimmed || VENDOR_SOURCE_LABEL_RE.test(trimmed)) {
+    return fallback;
+  }
+  return trimmed;
+}
+
 /**
  * Ranura «Alineación confirmada»: permanece APAGADA salvo que exista una fuente
  * real y verificada con once titular completo para ambos equipos.
@@ -347,9 +358,10 @@ export function resolveConfirmedLineupSlotState(
     };
   }
 
+  const cleanSource = sanitizeLineupSourceLabel(verified.sourceLabel, "Fuente oficial");
   return {
     enabled: true,
-    statusBadge: `Verificada · ${verified.sourceLabel.trim()}`,
+    statusBadge: `Verificada · ${cleanSource}`,
     helperText: "Once titular oficial verificado antes del saque inicial.",
     lineups: verified,
   };
@@ -382,12 +394,11 @@ export function resolveProbableLineupSlotState(
     probable.awayStarters.length >= 11;
 
   if (!hasProbable || !probable) return null;
-  const confText =
-    probable.confidence != null ? ` · Confianza ${Math.round(probable.confidence)} %` : "";
+  const cleanSource = sanitizeLineupSourceLabel(probable.sourceLabel, "Alineación proyectada");
   return {
     available: true,
-    statusBadge: `Once estimado${confText}`,
-    helperText: `${probable.sourceLabel.trim()} · Sujeto a confirmación oficial 60 min antes.`,
+    statusBadge: "Sujeto a confirmación",
+    helperText: `${cleanSource} · Sujeto a confirmación oficial 60 min antes.`,
     lineups: probable,
   };
 }

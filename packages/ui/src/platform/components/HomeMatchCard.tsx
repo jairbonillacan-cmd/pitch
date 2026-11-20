@@ -205,7 +205,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
             <span className="pl-home-eyebrow">Pronóstico</span>
             <strong className="block text-sm">Sin pronóstico publicado</strong>
             <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              El snapshot de este partido no trae probabilidades ni confianza.
+              Pronóstico pendiente para este partido.
             </span>
           </div>
         </div>

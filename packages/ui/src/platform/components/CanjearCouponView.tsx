@@ -6,7 +6,7 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import { lookupPreviewCoupon, redeemPreviewCoupon } from "../preview-spei-store";
-import { ExampleNotice, LensGlowOrbs, MaestroIcon } from "./MaestroPrimitives";
+import { ExampleNotice, MaestroIcon } from "./MaestroPrimitives";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
@@ -400,8 +400,6 @@ export function CanjearCouponView({
       ) : null}
 
       <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-7 space-y-5">
-        <LensGlowOrbs />
-
         <div className="relative z-10 space-y-2">
           <span className="pl-pill pl-pill--brand">
             <MaestroIcon name="gift" size={14} />

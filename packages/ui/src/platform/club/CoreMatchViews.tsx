@@ -40,7 +40,6 @@ import {
 import { resolveCircularCountryFlag } from "../country-flags";
 import {
   CrestPedestal,
-  LensGlowOrbs,
   MaestroIcon,
   StackedAvatars,
 } from "../components/MaestroPrimitives";

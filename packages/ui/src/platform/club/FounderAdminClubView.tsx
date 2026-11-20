@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Switch } from "@heroui/react";
 import type { DataHealthReport } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../sports";
-import { ExampleNotice, LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
+import { ExampleNotice, MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
 import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE, TIPSTER_CREATORS } from "../spacetime-catalog";
@@ -367,7 +367,6 @@ export function FounderAdminClubView({
         ) : null}
         {/* Lente Destacado: Control Mes 1 vs Mes 2 + 4 KPIs de Seguridad y Crecimiento */}
         <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-6 space-y-5">
-          <LensGlowOrbs />
           <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
             <div className="space-y-1 min-w-0 max-w-full">
               <span className="pl-pill pl-pill--warning pl-pill--wrap">
@@ -512,7 +511,7 @@ export function FounderAdminClubView({
                 className="flex items-center justify-between text-xs"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                <span>Partidos en Snapshot</span>
+                <span>Partidos en cartelera</span>
                 <MaestroIcon
                   name="layers"
                   size={15}
@@ -1066,14 +1065,14 @@ export function FounderAdminClubView({
               </div>
             ))}
 
-            {/* Tarjeta 6: Salud de Snapshots de las 7 ligas */}
+            {/* Tarjeta 6: Salud de cartelera de las 7 ligas */}
             <div
               className="glass-ring rounded-2xl p-4 space-y-2"
               style={{ background: "var(--pl-surface)" }}
             >
               <div className="flex items-center justify-between text-xs">
                 <strong className="font-extrabold text-sm">
-                  Snapshots · 7 Ligas
+                  Cartelera · 7 Ligas
                 </strong>
                 <span className="pl-pill pl-pill--info num">
                   {dataset.games.length} juegos

@@ -27,7 +27,6 @@ import { PersonAvatar } from "../club/team/PersonAvatar";
 import type { MatchPick, PlatformGame, ViewerRole } from "../types";
 import {
   ExampleBadge,
-  LensGlowOrbs,
   MaestroIcon,
   type MaestroIconName,
 } from "./MaestroPrimitives";
@@ -455,7 +454,6 @@ export function PickComposerModal(): React.JSX.Element | null {
       maxWidth="30rem"
     >
       <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-6">
-        <LensGlowOrbs subtle />
         <div className="relative z-10 space-y-4">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
@@ -892,7 +890,6 @@ export function ShareTicketModal(): React.JSX.Element | null {
       maxWidth="34rem"
     >
       <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-5">
-        <LensGlowOrbs subtle />
         <div className="relative z-10 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
@@ -952,11 +949,6 @@ export function ShareTicketModal(): React.JSX.Element | null {
             data-share-aspect={aspect}
             ref={ticketRef}
           >
-            <LensGlowOrbs
-              primaryColor="var(--pl-aura-default-home)"
-              secondaryColor="var(--pl-aura-default-away)"
-            />
-
             <div className="relative z-10 space-y-3.5">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
@@ -2049,7 +2041,6 @@ export function BetaPinModal(): React.JSX.Element | null {
       maxWidth="24rem"
     >
       <div className="pin-dialog glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-6">
-        <LensGlowOrbs subtle />
         <div className="relative z-10 space-y-4">
           <div className="flex items-start justify-between gap-2">
             <div>
