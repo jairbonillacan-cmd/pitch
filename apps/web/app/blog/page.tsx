@@ -4,6 +4,7 @@ import { BlogIndexSurface } from "@pitchlab/ui/blog";
 import {
   blogCategoryLinks,
   buildBlogJsonLd,
+  buildBreadcrumbJsonLd,
   getPublishedPosts,
   toPostSummaryView,
 } from "../../src/server/blog";
@@ -36,9 +37,21 @@ export const metadata: Metadata = {
 
 export default async function BlogIndexPage(): Promise<React.JSX.Element> {
   const posts = await getPublishedPosts();
+  const siteUrl = getSiteUrl();
   return (
     <>
-      <JsonLd data={buildBlogJsonLd(posts, getSiteUrl())} />
+      <JsonLd
+        data={[
+          buildBlogJsonLd(posts, siteUrl),
+          buildBreadcrumbJsonLd(
+            [
+              { name: "Inicio", path: "/" },
+              { name: "Blog", path: "/blog" },
+            ],
+            siteUrl,
+          ),
+        ]}
+      />
       <BlogIndexSurface
         posts={posts.map(toPostSummaryView)}
         categories={blogCategoryLinks()}

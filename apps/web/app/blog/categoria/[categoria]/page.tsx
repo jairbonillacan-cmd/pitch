@@ -28,7 +28,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title,
     description: category.description,
-    alternates: { canonical: path },
+    alternates: {
+      canonical: path,
+      types: { "application/rss+xml": [{ url: "/blog/rss.xml", title: "Blog de PitchLab" }] },
+    },
     // Una categoría sin artículos no aporta nada al buscador: se muestra, pero no se indexa.
     robots: posts.length === 0 ? { index: false, follow: true } : undefined,
     openGraph: {
@@ -57,6 +60,7 @@ export default async function BlogCategoryPage({ params }: { params: Params }): 
       <JsonLd
         data={buildBreadcrumbJsonLd(
           [
+            { name: "Inicio", path: "/" },
             { name: "Blog", path: "/blog" },
             { name: category.label, path },
           ],

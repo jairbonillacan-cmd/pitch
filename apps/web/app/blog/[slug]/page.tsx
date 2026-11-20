@@ -73,6 +73,7 @@ export default async function BlogPostPage({ params }: { params: Params }): Prom
           buildBlogPostingJsonLd(post, siteUrl),
           buildBreadcrumbJsonLd(
             [
+              { name: "Inicio", path: "/" },
               { name: "Blog", path: "/blog" },
               { name: post.category.label, path: blogCategoryPath(post.category.slug) },
               { name: post.title, path: blogPostPath(post.slug) },

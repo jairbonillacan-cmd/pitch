@@ -5,7 +5,6 @@ import {
   sportScoringUnit,
   type LeagueId,
 } from "@pitchlab/contracts";
-import { BrandLogo } from "../../brand-logo";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   LazyCalibrationCurveChart as CalibrationCurveChart,
@@ -86,6 +85,7 @@ export interface LandingFinishedResultItem {
   fairAmerican: string;
   hit: boolean;
   kickoffUtc?: string;
+  score?: { home: number; away: number };
 }
 
 export interface LandingParlayDemoData {
@@ -532,6 +532,7 @@ export function buildFinishedResultItems(
       fairAmerican: formatFairAmericanFromProb(fpk.p),
       hit: fpk.result === "hit",
       kickoffUtc: game.kickoffUtc,
+      score: { home: score.home, away: score.away },
     };
   });
 
@@ -620,7 +621,7 @@ function buildExampleParlayFallback(): LandingParlayDemoData {
     categoryLabel: "Doble oportunidad",
     risk: "conservador",
     engineKey: "singularity",
-    engineName: "PitchLab Singularity v3.0",
+    engineName: "PitchLab Singularity",
     marketGroup: "double_chance",
     selectionKey: "x2",
     conflictGroup: "away_side",
@@ -917,18 +918,16 @@ export function MultiAngleValidationSection({
       <div className="pl-lp-wrap pl-lp-stack">
         <div className="pl-lp-section-head pl-lp-section-head--center">
           <p className="pl-lp-eyebrow">Nosotros procesamos los datos por ti</p>
-          <h2 className="pl-lp-h2">
+          <h2 className="pl-lp-h2 text-balance">
             Cada partido, puesto a prueba desde cinco ángulos.
           </h2>
-          <p className="pl-lp-lede">
+          <p className="pl-lp-lede text-pretty">
             Antes de publicar una probabilidad, nuestros modelos cruzan fuerza estructural, forma reciente,
             descanso, movimiento del mercado y contexto en vivo.
           </p>
         </div>
 
         <div className="pl-lp-angles-stage">
-          <div className="pl-lp-angles-glow" aria-hidden="true" />
-
           <div className="pl-lp-angle-callout pl-lp-angle-callout--tl">
             <span>5 motores probados fuera de muestra</span>
             <svg
@@ -1011,13 +1010,13 @@ export function MultiAngleValidationSection({
           </div>
 
           <div className="pl-lp-angles-cards">
-            <article className="pl-lp-card pl-lp-angle-card pl-lp-angle-card--primary glass-lens glass-ring glass-ring--featured">
+            <article className="pl-lp-card pl-lp-angle-card pl-lp-angle-card--primary glass-card glass-ring">
               <div className="pl-lp-angle-card-head">
                 <div>
                   <p className="pl-lp-most-kicker">{primaryLeague} · Desglose multi-ángulo</p>
-                  <h3 className="pl-lp-h3">{primaryMatchTitle}</h3>
+                  <h3 className="pl-lp-h3 text-balance">{primaryMatchTitle}</h3>
                 </div>
-                <span className="pl-lp-pill pl-lp-pill--brand num">Ejemplo</span>
+                <span className="pl-lp-pill pl-lp-pill--brand num" data-example-badge="">Ejemplo</span>
               </div>
 
               <div className="pl-lp-angle-summary num">
@@ -1092,8 +1091,8 @@ export function HowItWorksSection({
       <div className="pl-lp-wrap pl-lp-stack">
         <div className="pl-lp-section-head pl-lp-section-head--center">
           <p className="pl-lp-eyebrow">Cómo se lee</p>
-          <h2 className="pl-lp-h2">Tres números, en este orden.</h2>
-          <p className="pl-lp-lede">
+          <h2 className="pl-lp-h2 text-balance">Tres números, en este orden.</h2>
+          <p className="pl-lp-lede text-pretty">
             Siempre igual en cada partido, para que lo leas en segundos.
           </p>
         </div>
@@ -1103,15 +1102,8 @@ export function HowItWorksSection({
             <span className="pl-lp-step-idx num">01</span>
             <p className="pl-lp-step-fig pl-lp-step-fig--ok num">72.3 %</p>
             <div className="pl-lp-step-body">
-              <h3 className="pl-lp-h3">La probabilidad</h3>
-              <p
-                style={{
-                  margin: 0,
-                  color: "var(--pl-text-secondary)",
-                  lineHeight: 1.5,
-                  fontSize: 15,
-                }}
-              >
+              <h3 className="pl-lp-step-title text-balance">La probabilidad</h3>
+              <p className="pl-lp-step-desc text-pretty">
                 Qué tan seguido pasaría ese resultado si el partido se jugara muchas veces, según el modelo.
               </p>
             </div>
@@ -1121,15 +1113,8 @@ export function HowItWorksSection({
             <span className="pl-lp-step-idx num">02</span>
             <p className="pl-lp-step-fig num">−261</p>
             <div className="pl-lp-step-body">
-              <h3 className="pl-lp-h3">El momio justo</h3>
-              <p
-                style={{
-                  margin: 0,
-                  color: "var(--pl-text-secondary)",
-                  lineHeight: 1.5,
-                  fontSize: 15,
-                }}
-              >
+              <h3 className="pl-lp-step-title text-balance">El momio justo</h3>
+              <p className="pl-lp-step-desc text-pretty">
                 Lo que debería pagar ese resultado sin el margen de la casa. Es la probabilidad escrita como momio.
               </p>
             </div>
@@ -1139,20 +1124,13 @@ export function HowItWorksSection({
             <span className="pl-lp-step-idx num">03</span>
             <p className="pl-lp-step-fig num">
               −200{" "}
-              <span style={{ fontSize: "0.48em", color: "var(--pl-success)" }}>
+              <span className="pl-lp-step-delta">
                 +5.6 pts
               </span>
             </p>
             <div className="pl-lp-step-body">
-              <h3 className="pl-lp-h3">Tu momio contra el justo</h3>
-              <p
-                style={{
-                  margin: 0,
-                  color: "var(--pl-text-secondary)",
-                  lineHeight: 1.5,
-                  fontSize: 15,
-                }}
-              >
+              <h3 className="pl-lp-step-title text-balance">Tu momio contra el justo</h3>
+              <p className="pl-lp-step-desc text-pretty">
                 Escribe el momio de tu casa y ves si paga más o menos que lo justo. La decisión y el monto son tuyos.
               </p>
             </div>
@@ -1161,9 +1139,8 @@ export function HowItWorksSection({
 
         {variant === "teaser" ? (
           <a
-            className="pl-lp-more"
+            className="pl-lp-more pl-lp-more--center"
             href="/#hoy"
-            style={{ alignSelf: "center" }}
           >
             Ir al comparador{" "}
             <span className="pl-lp-arr" aria-hidden="true">
@@ -1187,12 +1164,12 @@ export function EnginesSection({
         <div className="pl-lp-engines-head">
           <div className="pl-lp-section-head" style={{ maxWidth: 640 }}>
             <p className="pl-lp-eyebrow">Los motores</p>
-            <h2 className="pl-lp-h2">
+            <h2 className="pl-lp-h2 text-balance">
               {variant === "page"
                 ? "Arquitectura y pruebas fuera de muestra."
                 : "Cinco motores. Cada uno probado con partidos que no vio."}
             </h2>
-            <p className="pl-lp-lede">
+            <p className="pl-lp-lede text-pretty">
               Un tipster opina. Aquí cada pick sale de un motor que se probó contra el mercado antes de publicarse, y su prueba está a la vista.
             </p>
           </div>
@@ -1232,85 +1209,37 @@ export function EnginesSection({
                 <span aria-hidden="true" className="pl-lp-engine-mono">
                   {engine.mono}
                 </span>
-                <div style={{ minWidth: 0 }}>
-                  <p style={{ margin: 0, fontWeight: 700, fontSize: 17 }}>
-                    {engine.shortName}{" "}
-                    <span
-                      className="num"
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: "var(--pl-text-muted)",
-                      }}
-                    >
-                      {engine.version}
-                    </span>
-                  </p>
-                  <p
-                    style={{
-                      margin: "2px 0 0",
-                      fontSize: 13,
-                      color: "var(--pl-brand)",
-                    }}
-                  >
-                    {engine.roleLabel}
-                  </p>
+                <div className="pl-lp-engine-titles">
+                  <p className="pl-lp-engine-name">{engine.shortName}</p>
+                  <p className="pl-lp-engine-role">{engine.roleLabel}</p>
                   {variant === "page" ? (
-                    <p
-                      style={{
-                        margin: "2px 0 0",
-                        fontSize: 12,
-                        color: "var(--pl-text-muted)",
-                      }}
-                    >
+                    <p className="pl-lp-engine-domain num">
                       {engine.pillar} · {engine.domain}
                     </p>
                   ) : null}
                 </div>
               </div>
 
-              <p className="pl-lp-engine-reads">
-                {engine.readsText}
-                {variant === "page" ? ` ${engine.retrainCadence}` : ""}
-              </p>
+              <div className="pl-lp-engine-reads-wrap">
+                <p className="pl-lp-engine-reads text-pretty">{engine.readsText}</p>
+                {variant === "page" ? (
+                  <p className="pl-lp-engine-cadence num text-pretty">{engine.retrainCadence}</p>
+                ) : null}
+              </div>
 
               <div className="pl-lp-engine-proof">
                 <p
-                  className="num"
-                  style={{
-                    margin: 0,
-                    fontSize: 26,
-                    fontWeight: 800,
-                    letterSpacing: "-0.02em",
-                    color:
-                      engine.proofTone === "ok"
-                        ? "var(--pl-success)"
-                        : "var(--pl-text)",
-                  }}
+                  className={`pl-lp-engine-fig num${
+                    engine.proofTone === "ok" ? " pl-lp-engine-fig--ok" : ""
+                  }`}
                 >
                   {engine.proofFigure}
                 </p>
-                <p
-                  className="num"
-                  style={{
-                    margin: "2px 0 0",
-                    fontSize: 12,
-                    color: "var(--pl-text-muted)",
-                  }}
-                >
-                  {engine.proofContext}
-                </p>
+                <p className="pl-lp-engine-cadence num">{engine.proofContext}</p>
               </div>
             </div>
           ))}
-          <p
-            style={{
-              margin: 0,
-              padding: "16px 0",
-              fontSize: 12,
-              color: "var(--pl-text-muted)",
-            }}
-          >
+          <p className="pl-lp-engines-foot text-pretty">
             Cifras de la temporada de prueba, con partidos que los motores no usaron para aprender. El acierto pasado no garantiza resultados.
           </p>
         </div>
@@ -1340,7 +1269,7 @@ export function EnginesSection({
                   {SPACETIME_VS_TIPSTER_ROWS.map((row) => (
                     <tr key={row.criterion}>
                       <th scope="row">{row.criterion}</th>
-                      <td>{row.pitchlab}</td>
+                      <td className="num">{row.pitchlab}</td>
                       <td>{row.tipster}</td>
                     </tr>
                   ))}
@@ -1350,27 +1279,14 @@ export function EnginesSection({
           </div>
 
           <div className="pl-lp-card pl-lp-cortex-card glass-card glass-ring">
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <p style={{ margin: 0, fontWeight: 700, fontSize: 17 }}>
+            <div className="pl-lp-cortex-copy">
+              <p className="pl-lp-cortex-title text-balance">
                 Cortex IA lo explica en claro
               </p>
-              <p
-                style={{
-                  margin: 0,
-                  color: "var(--pl-text-secondary)",
-                  lineHeight: 1.55,
-                  fontSize: 15,
-                }}
-              >
+              <p className="pl-lp-cortex-quote text-pretty">
                 {CORTEX_SAMPLE_QUOTE}
               </p>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: 12,
-                  color: "var(--pl-text-muted)",
-                }}
-              >
+              <p className="pl-lp-cortex-note text-pretty">
                 Solo usa números de los motores. Si falta un dato, lo dice.
               </p>
             </div>
@@ -1389,80 +1305,137 @@ export function EnginesSection({
   );
 }
 
-export function CalibrationCard(): React.JSX.Element {
+function matchesPrecisionBucket(bucketId: string, p: number): boolean {
+  switch (bucketId) {
+    case "shield":
+      return p >= 0.72;
+    case "core":
+      return p >= 0.6 && p < 0.72;
+    case "balanced":
+      return p >= 0.5 && p < 0.6;
+    case "value":
+      return p < 0.5;
+    default:
+      return false;
+  }
+}
+
+export function CalibrationCard({
+  results,
+}: {
+  results?: readonly LandingFinishedResultItem[];
+} = {}): React.JSX.Element {
+  const validResults = (results ?? []).filter(
+    (item) => Number.isFinite(item.p) && item.p > 0 && item.p < 1,
+  );
+
+  const rows = PRECISION_BUCKETS.map((bucket) => {
+    const bandItems =
+      validResults.length > 0
+        ? validResults.filter((item) => matchesPrecisionBucket(bucket.id, item.p))
+        : [];
+    if (bandItems.length > 0) {
+      const meanP =
+        bandItems.reduce((acc, item) => acc + item.p, 0) / bandItems.length;
+      const hits = bandItems.filter((item) => item.hit).length;
+      const actualRate = hits / bandItems.length;
+      return {
+        id: bucket.id,
+        shortLabel: bucket.shortLabel,
+        announcedPct: Math.round(meanP * 100),
+        actualPct: Math.round(actualRate * 100),
+        sampleCount: bandItems.length,
+      };
+    }
+
+    return {
+      id: bucket.id,
+      shortLabel: bucket.shortLabel,
+      announcedPct: Math.round(bucket.promisedMeanP * 100),
+      actualPct:
+        bucket.actualHitRate !== null ? Math.round(bucket.actualHitRate * 100) : null,
+      sampleCount: bucket.auditedPicksCount,
+    };
+  });
+
+  const hasObserved = rows.some((row) => row.actualPct !== null);
+  const hasPending = rows.some((row) => row.actualPct === null);
+
   return (
     <div
       className="pl-lp-card pl-lp-calib-card glass-card glass-ring"
       style={{ marginTop: 8 }}
     >
-      <p style={{ margin: 0, fontWeight: 700 }}>
+      <p className="pl-lp-calib-title text-balance">
         Probabilidad anunciada contra resultado real
       </p>
-      <p
-        style={{
-          margin: 0,
-          fontSize: 14,
-          color: "var(--pl-text-secondary)",
-          lineHeight: 1.5,
-        }}
-      >
+      <p className="pl-lp-calib-desc text-pretty">
         Si decimos 70 %, esos picks deberían cumplirse cerca de 7 de cada 10 veces.
       </p>
 
-      {PRECISION_BUCKETS.map((bucket) => (
-        <div key={bucket.id} className="pl-lp-calib-row">
-          <span style={{ color: "var(--pl-text-secondary)" }}>
-            {bucket.shortLabel}
-          </span>
-          <div className="pl-lp-calib-bars">
-            <div className="pl-lp-calib-bar" aria-hidden="true">
-              <div
-                className="pl-lp-calib-fill"
-                style={{ width: `${Math.round(bucket.promisedMeanP * 100)}%` }}
-              />
-            </div>
-            {bucket.actualHitRate !== null ? (
+      <div className="pl-lp-calib-list">
+        {rows.map((row) => (
+          <div key={row.id} className="pl-lp-calib-row">
+            <span className="pl-lp-calib-label">{row.shortLabel}</span>
+            <div className="pl-lp-calib-bars">
               <div className="pl-lp-calib-bar" aria-hidden="true">
                 <div
                   className="pl-lp-calib-fill"
-                  style={{
-                    width: `${Math.round(bucket.actualHitRate * 100)}%`,
-                    background: "var(--pl-success)",
-                  }}
+                  style={{ width: `${row.announcedPct}%` }}
                 />
               </div>
-            ) : (
-              <div className="pl-lp-calib-dashed" aria-hidden="true" />
-            )}
+              {row.actualPct !== null ? (
+                <div className="pl-lp-calib-bar" aria-hidden="true">
+                  <div
+                    className="pl-lp-calib-fill pl-lp-calib-fill--actual"
+                    style={{ width: `${row.actualPct}%` }}
+                  />
+                </div>
+              ) : (
+                <div className="pl-lp-calib-dashed" aria-hidden="true" />
+              )}
+              <span
+                className="num text-xs leading-tight"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                {row.actualPct !== null && row.sampleCount !== null
+                  ? `Anunciado ${row.announcedPct} % · Real ${row.actualPct} % (${row.sampleCount})`
+                  : `Referencia ${row.announcedPct} % · Pendiente de muestra`}
+              </span>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <div className="pl-lp-calib-legend">
-        <span className="pl-lp-row" style={{ gap: 6 }}>
+        <span className="pl-lp-calib-key">
           <span
             aria-hidden="true"
-            style={{
-              width: 14,
-              height: 8,
-              borderRadius: 3,
-              background: "var(--pl-text-muted)",
-            }}
+            className="pl-lp-calib-swatch pl-lp-calib-swatch--solid"
           />
           Anunciado
         </span>
-        <span className="pl-lp-row" style={{ gap: 6 }}>
-          <span
-            aria-hidden="true"
-            style={{
-              width: 14,
-              height: 8,
-              borderRadius: 3,
-              border: "1px dashed var(--pl-border-strong)",
-            }}
-          />
-          Real: se publica con los primeros picks auditados
-        </span>
+        {hasObserved ? (
+          <span className="pl-lp-calib-key">
+            <span
+              aria-hidden="true"
+              className="pl-lp-calib-swatch"
+              style={{ background: "var(--pl-success)" }}
+            />
+            Real cumplido
+          </span>
+        ) : null}
+        {hasPending ? (
+          <span className="pl-lp-calib-key">
+            <span
+              aria-hidden="true"
+              className="pl-lp-calib-swatch pl-lp-calib-swatch--dashed"
+            />
+            {hasObserved
+              ? "Sin muestra en esta banda"
+              : "Real: se publica con los primeros picks auditados"}
+          </span>
+        ) : null}
       </div>
     </div>
   );
@@ -1483,16 +1456,12 @@ export function IntegrityHistorySection({
       <div className="pl-lp-wrap pl-lp-history-grid">
         <div className="pl-lp-history-copy">
           <p className="pl-lp-eyebrow">Historial íntegro</p>
-          <h2 className="pl-lp-h2">Lo que falló también se queda.</h2>
-          <p className="pl-lp-lede">
+          <h2 className="pl-lp-h2 text-balance">Lo que falló también se queda.</h2>
+          <p className="pl-lp-lede text-pretty">
             Cada pick se publica antes del partido y no se edita después. Aquí van los últimos, como quedaron.
           </p>
           {variant === "teaser" ? (
-            <a
-              className="pl-lp-more"
-              href="/resultados"
-              style={{ alignSelf: "flex-start" }}
-            >
+            <a className="pl-lp-more" href="/resultados">
               Ver todos los resultados{" "}
               <span className="pl-lp-arr" aria-hidden="true">
                 →
@@ -1500,43 +1469,22 @@ export function IntegrityHistorySection({
             </a>
           ) : null}
 
-          <CalibrationCard />
+          <CalibrationCard results={results} />
         </div>
 
         <div className="pl-lp-card pl-lp-results-card glass-card glass-ring">
           {shown.length === 0 ? (
-            <p className="pl-lp-fine" style={{ padding: "20px 0" }}>
+            <p className="pl-lp-results-empty text-pretty">
               Los resultados se publican automáticamente al terminar cada encuentro.
             </p>
           ) : (
             <>
               {shown.map((item) => (
                 <div key={item.id} className="pl-lp-result-row">
-                  <div style={{ minWidth: 0 }}>
-                    <p
-                      className="num"
-                      style={{
-                        margin: 0,
-                        fontSize: 12,
-                        color: "var(--pl-text-muted)",
-                      }}
-                    >
-                      {item.metaLabel}
-                    </p>
-                    <p
-                      className="num"
-                      style={{ margin: "4px 0 0", fontSize: 16, fontWeight: 700 }}
-                    >
-                      {item.scoreLabel}
-                    </p>
-                    <p
-                      className="num"
-                      style={{
-                        margin: "4px 0 0",
-                        fontSize: 14,
-                        color: "var(--pl-text-secondary)",
-                      }}
-                    >
+                  <div className="pl-lp-result-main">
+                    <p className="pl-lp-result-meta num">{item.metaLabel}</p>
+                    <p className="pl-lp-result-score num">{item.scoreLabel}</p>
+                    <p className="pl-lp-result-pick num">
                       {item.pickLabel} · {formatPctEs(item.p)} · justo{" "}
                       {item.fairAmerican}
                     </p>
@@ -1579,15 +1527,7 @@ export function IntegrityHistorySection({
                   </span>
                 </div>
               ))}
-              <p
-                className="num"
-                style={{
-                  margin: 0,
-                  padding: "16px 0",
-                  fontSize: 13,
-                  color: "var(--pl-text-muted)",
-                }}
-              >
+              <p className="pl-lp-results-foot num">
                 Muestra real publicada antes del partido · {hitsCount} de {shown.length} cumplidos
               </p>
             </>
@@ -1607,21 +1547,21 @@ function ParlayDemoCard({
 }): React.JSX.Element {
   return (
     <div className="pl-lp-card pl-lp-panel glass-card glass-ring">
-      <div className="pl-lp-row pl-lp-row--between">
-        <p style={{ margin: 0, fontWeight: 700, fontSize: 18 }}>Tu parlay</p>
-        <div className="pl-lp-row" style={{ gap: 8 }}>
+      <div className="pl-lp-card-head">
+        <p className="pl-lp-card-title">Tu parlay</p>
+        <div className="pl-lp-pill-group">
           {parlayDemo.isExample ? (
             <span className="pl-lp-pill" data-example-badge="">
               Ejemplo
             </span>
           ) : null}
-          <span className="pl-lp-pill">
+          <span className="pl-lp-pill num">
             {parlayDemo.legs.length} selecciones
           </span>
         </div>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="pl-lp-parlay-legs">
         {parlayDemo.legs.map((leg) => (
           <div
             key={`${leg.matchLabel}-${leg.label}`}
@@ -1634,37 +1574,18 @@ function ParlayDemoCard({
               size={32}
               decorative
             />
-            <div style={{ minWidth: 0 }}>
-              <p style={{ margin: 0, fontWeight: 600 }}>{leg.label}</p>
-              <p
-                style={{
-                  margin: "2px 0 0",
-                  fontSize: 12,
-                  color: "var(--pl-text-muted)",
-                }}
-              >
-                {leg.matchLabel}
-              </p>
+            <div className="pl-lp-parlay-leg-copy">
+              <p className="pl-lp-parlay-leg-title">{leg.label}</p>
+              <p className="pl-lp-parlay-leg-sub">{leg.matchLabel}</p>
             </div>
-            <span className="num" style={{ fontWeight: 700 }}>
+            <span className="pl-lp-parlay-leg-pct num">
               {formatPctEs(leg.p)}
             </span>
           </div>
         ))}
 
         <div className="pl-lp-parlay-leg pl-lp-parlay-leg--blocked">
-          <span
-            aria-hidden="true"
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 999,
-              display: "grid",
-              placeItems: "center",
-              border: "1px solid var(--pl-border-strong)",
-              color: "var(--pl-text-muted)",
-            }}
-          >
+          <span aria-hidden="true" className="pl-lp-ban-circle">
             <svg
               width="14"
               height="14"
@@ -1679,77 +1600,32 @@ function ParlayDemoCard({
               <path d="M5.6 5.6l12.8 12.8" />
             </svg>
           </span>
-          <div style={{ minWidth: 0 }}>
-            <p
-              style={{
-                margin: 0,
-                fontWeight: 600,
-                textDecoration: "line-through",
-              }}
-            >
+          <div className="pl-lp-parlay-leg-copy">
+            <p className="pl-lp-parlay-leg-title pl-lp-strike">
               {parlayDemo.blockedLeg.label}
             </p>
-            <p
-              style={{
-                margin: "2px 0 0",
-                fontSize: 12,
-                color: "var(--pl-text-secondary)",
-              }}
-            >
+            <p className="pl-lp-parlay-leg-conflict">
               Choca con «{parlayDemo.blockedLeg.conflictWithLabel}»
             </p>
           </div>
-          <span style={{ fontSize: 12, color: "var(--pl-text-muted)" }}>
-            Bloqueada
-          </span>
+          <span className="pl-lp-parlay-blocked-tag">Bloqueada</span>
         </div>
       </div>
 
       <div className="pl-lp-parlay-total">
         <div>
-          <p
-            style={{
-              margin: 0,
-              fontSize: 13,
-              color: "var(--pl-text-muted)",
-            }}
-          >
-            Probabilidad combinada
-          </p>
-          <p
-            className="num"
-            style={{
-              margin: "4px 0 0",
-              fontSize: 32,
-              fontWeight: 800,
-              color: "var(--pl-success)",
-            }}
-          >
+          <p className="pl-lp-parlay-sum-label">Probabilidad combinada</p>
+          <p className="pl-lp-parlay-sum-pct num">
             {formatPctEs(parlayDemo.combinedProbability)}
           </p>
         </div>
-        <div style={{ textAlign: "right" }}>
-          <p
-            style={{
-              margin: 0,
-              fontSize: 13,
-              color: "var(--pl-text-muted)",
-            }}
-          >
-            Momio justo
-          </p>
-          <p
-            className="num"
-            style={{ margin: "4px 0 0", fontSize: 22, fontWeight: 700 }}
-          >
-            {parlayDemo.fairAmerican}
-          </p>
+        <div className="pl-lp-parlay-sum-right">
+          <p className="pl-lp-parlay-sum-label">Momio justo</p>
+          <p className="pl-lp-parlay-sum-fair num">{parlayDemo.fairAmerican}</p>
         </div>
       </div>
 
-      <p style={{ margin: 0, fontSize: 12, color: "var(--pl-text-muted)" }}>
-        {parlayDemo.note}
-      </p>
+      <p className="pl-lp-parlay-note text-pretty">{parlayDemo.note}</p>
 
       {showLink ? (
         <a className="pl-lp-more" href="/#que-obtienes">
@@ -1785,10 +1661,8 @@ function CommunitySampleCard({
       id={id}
       className="pl-lp-card pl-lp-panel glass-card glass-ring"
     >
-      <div className="pl-lp-row pl-lp-row--between">
-        <p style={{ margin: 0, fontWeight: 700, fontSize: 18 }}>
-          Comunidad de socios
-        </p>
+      <div className="pl-lp-card-head">
+        <p className="pl-lp-card-title">Comunidad de socios</p>
         <span className="pl-lp-pill" data-example-badge="">
           Ejemplo
         </span>
@@ -1798,30 +1672,12 @@ function CommunitySampleCard({
         <span aria-hidden="true" className="pl-lp-social-avatar">
           {sofia.avatarInitials}
         </span>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 10,
-            minWidth: 0,
-            flex: 1,
-          }}
-        >
-          <p style={{ margin: 0, fontSize: 14 }}>
+        <div className="pl-lp-post-body">
+          <p className="pl-lp-post-author">
             <strong>{sofia.name}</strong>{" "}
-            <span style={{ color: "var(--pl-text-muted)" }}>
-              @{sofia.handle} · Tipster verificada
-            </span>
+            <span>@{sofia.handle} · Tipster verificada</span>
           </p>
-          <p
-            style={{
-              margin: 0,
-              color: "var(--pl-text-secondary)",
-              lineHeight: 1.5,
-            }}
-          >
-            {commentText}
-          </p>
+          <p className="pl-lp-post-text text-pretty">{commentText}</p>
 
           <div className="pl-lp-social-pick">
             <TeamBadge
@@ -1831,65 +1687,28 @@ function CommunitySampleCard({
               size={32}
               decorative
             />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ margin: 0, fontWeight: 700 }}>
-                {featuredPick.pickLabel}
-              </p>
-              <p
-                style={{
-                  margin: "2px 0 0",
-                  fontSize: 12,
-                  color: "var(--pl-text-muted)",
-                }}
-              >
-                {featuredPick.matchLabel}
-              </p>
+            <div className="pl-lp-post-pick-main">
+              <p className="pl-lp-post-pick-label">{featuredPick.pickLabel}</p>
+              <p className="pl-lp-post-pick-match">{featuredPick.matchLabel}</p>
             </div>
-            <div style={{ textAlign: "right" }}>
-              <p
-                className="num"
-                style={{
-                  margin: 0,
-                  fontWeight: 800,
-                  color: "var(--pl-success)",
-                }}
-              >
+            <div className="pl-lp-post-pick-odds">
+              <p className="pl-lp-post-pick-pct num">
                 {formatPctEs(featuredPick.p)}
               </p>
-              <p
-                className="num"
-                style={{
-                  margin: "2px 0 0",
-                  fontSize: 12,
-                  color: "var(--pl-text-muted)",
-                }}
-              >
+              <p className="pl-lp-post-pick-fair num">
                 justo {featuredPick.fairAmerican}
               </p>
             </div>
           </div>
 
-          <p
-            className="num"
-            style={{ margin: 0, fontSize: 12, color: "var(--pl-text-muted)" }}
-          >
+          <p className="pl-lp-post-stamp num">
             Publicado antes del partido · no se puede editar
           </p>
         </div>
       </article>
 
-      <div
-        style={{
-          borderTop: "1px solid var(--pl-border)",
-          paddingTop: 16,
-          display: "flex",
-          flexDirection: "column",
-          gap: 10,
-          fontSize: 14,
-          color: "var(--pl-text-secondary)",
-        }}
-      >
-        <p className="pl-lp-row" style={{ margin: 0 }}>
+      <div className="pl-lp-community-foot">
+        <p className="pl-lp-check-row">
           <svg
             width="16"
             height="16"
@@ -1900,13 +1719,13 @@ function CommunitySampleCard({
             strokeLinecap="round"
             strokeLinejoin="round"
             aria-hidden="true"
-            style={{ flex: "none", color: "var(--pl-success)" }}
+            className="pl-lp-check-icon"
           >
             <path d="M5 12l5 5 9-10" />
           </svg>
           <span>Récord de cada tipster calculado por PitchLab, no por ellos.</span>
         </p>
-        <p className="pl-lp-row" style={{ margin: 0 }}>
+        <p className="pl-lp-check-row">
           <svg
             width="16"
             height="16"
@@ -1917,7 +1736,7 @@ function CommunitySampleCard({
             strokeLinecap="round"
             strokeLinejoin="round"
             aria-hidden="true"
-            style={{ flex: "none", color: "var(--pl-success)" }}
+            className="pl-lp-check-icon"
           >
             <path d="M5 12l5 5 9-10" />
           </svg>
@@ -1925,7 +1744,7 @@ function CommunitySampleCard({
         </p>
         {showLink ? (
           <a className="pl-lp-more" href="/signup">
-            Crear cuenta y entrar al club{" "}
+            Crear cuenta y abrir el tablero{" "}
             <span className="pl-lp-arr" aria-hidden="true">
               →
             </span>
@@ -1948,8 +1767,8 @@ export function ParlaysAndCommunitySection({
       <div className="pl-lp-wrap pl-lp-stack">
         <div className="pl-lp-section-head pl-lp-section-head--center">
           <p className="pl-lp-eyebrow">Más allá de un partido</p>
-          <h2 className="pl-lp-h2">Arma parlays que tengan sentido.</h2>
-          <p className="pl-lp-lede">
+          <h2 className="pl-lp-h2 text-balance">Arma parlays que tengan sentido.</h2>
+          <p className="pl-lp-lede text-pretty">
             Combina de 2 a 6 selecciones, también del mismo partido. Si dos se contradicen, no te deja juntarlas.
           </p>
         </div>
@@ -1987,10 +1806,10 @@ export function PricingSection({
         >
           <div className="pl-lp-pricing-copy">
             <p className="pl-lp-eyebrow">Precio</p>
-            <h1 className="pl-lp-h1 pl-lp-h1--page">
+            <h1 className="pl-lp-h1 pl-lp-h1--page text-balance">
               Un solo pase. Todo incluido.
             </h1>
-            <p className="pl-lp-lede">
+            <p className="pl-lp-lede text-pretty">
               Pase PitchLab Ultra: todos los partidos, todos los mercados, parlays y comunidad. IVA incluido y factura CFDI.
             </p>
             <UltraPassCardStageIsland />
@@ -2002,8 +1821,8 @@ export function PricingSection({
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head pl-lp-section-head--center">
             <p className="pl-lp-eyebrow">Precio</p>
-            <h2 className="pl-lp-h2">Elige tu plan.</h2>
-            <p className="pl-lp-lede">
+            <h2 className="pl-lp-h2 text-balance">Elige tu plan.</h2>
+            <p className="pl-lp-lede text-pretty">
               Un solo pase desbloquea las 7 ligas, los 5 motores y el armador de parlays. IVA incluido y factura CFDI.
             </p>
           </div>
@@ -2038,7 +1857,7 @@ export function FaqSection({ variant }: { variant?: "landing" } = {}): React.JSX
     <section id="faq" className="pl-clean-section pl-clean-faq" aria-labelledby="pl-lp-faq-heading">
       <div className="pl-lp-wrap pl-lp-wrap--narrow pl-lp-stack" style={{ gap: 28 }}>
         <div className="pl-lp-section-head pl-lp-section-head--center">
-          <h2 id="pl-lp-faq-heading" className="pl-lp-h2 pl-lp-h2--faq">
+          <h2 id="pl-lp-faq-heading" className="pl-lp-h2 pl-lp-h2--faq text-balance">
             Preguntas frecuentes
           </h2>
         </div>
@@ -2057,7 +1876,7 @@ export function FaqSection({ variant }: { variant?: "landing" } = {}): React.JSX
                   <path d="m5 8 5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </summary>
-              <p className="pl-lp-faq-body">{item.answer}</p>
+              <p className="pl-lp-faq-body text-pretty">{item.answer}</p>
             </details>
           ))}
         </div>
@@ -2083,10 +1902,10 @@ export function ComoFuncionaPageSurface({
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
             <p className="pl-lp-eyebrow">Cómo funciona</p>
-            <h1 className="pl-lp-h1 pl-lp-h1--page">
+            <h1 className="pl-lp-h1 pl-lp-h1--page text-balance">
               Tres números para leer cualquier partido.
             </h1>
-            <p className="pl-lp-lede">
+            <p className="pl-lp-lede text-pretty">
               En cada encuentro ves qué resultado es más probable según los datos, cuál es su momio justo sin margen y cómo se compara con el momio de tu casa.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
@@ -2110,8 +1929,8 @@ export function ComoFuncionaPageSurface({
         <div className="pl-lp-wrap pl-lp-hero-grid">
           <div className="pl-lp-hero-copy">
             <p className="pl-lp-eyebrow">Comparador interactivo</p>
-            <h2 className="pl-lp-h2">Pon el momio de tu casa frente al justo.</h2>
-            <p className="pl-lp-lede">
+            <h2 className="pl-lp-h2 text-balance">Pon el momio de tu casa frente al justo.</h2>
+            <p className="pl-lp-lede text-pretty">
               Acepta formato americano (−200, +150) o decimal (1.50). Al instante calculamos la probabilidad implícita y cuántos puntos paga de más o de menos.
             </p>
           </div>
@@ -2129,8 +1948,8 @@ export function ComoFuncionaPageSurface({
           <div className="pl-lp-wrap pl-lp-stack">
             <div className="pl-lp-section-head">
               <p className="pl-lp-eyebrow">Ligas con datos reales</p>
-              <h2 className="pl-lp-h2">Un partido real por cada liga activa.</h2>
-              <p className="pl-lp-lede">
+              <h2 className="pl-lp-h2 text-balance">Un partido real por cada liga activa.</h2>
+              <p className="pl-lp-lede text-pretty">
                 La misma estructura aplica en fútbol y NFL: resultado más probable del partido, momio justo y mercados derivados.
               </p>
             </div>
@@ -2139,10 +1958,10 @@ export function ComoFuncionaPageSurface({
               {heroCards.map((card) => (
                 <article
                   key={card.league}
-                  className="pl-lp-card pl-lp-panel glass-card glass-ring"
+                  className="pl-lp-card pl-lp-league-example glass-card glass-ring"
                 >
                   <div className="pl-lp-match-meta">
-                    <span className="pl-lp-row" style={{ gap: 8 }}>
+                    <span className="pl-lp-inline-league">
                       <LeagueBadge league={card.league} size={18} />
                       <span>{card.roundLabel}</span>
                     </span>
@@ -2174,15 +1993,12 @@ export function ComoFuncionaPageSurface({
                   </div>
 
                   <div className="pl-lp-most-box">
-                    <div style={{ minWidth: 0 }}>
+                    <div className="pl-lp-most-copy">
                       <p className="pl-lp-most-kicker">Lo más probable</p>
                       <p className="pl-lp-most-label">{card.mostProbable.label}</p>
                       <p className="pl-lp-most-sub num">
-                        Momio justo{" "}
-                        <strong style={{ color: "var(--pl-text)" }}>
-                          {card.mostProbable.fairAmerican}
-                        </strong>{" "}
-                        · decimal {card.mostProbable.fairDecimal}
+                        Momio justo <strong>{card.mostProbable.fairAmerican}</strong> · decimal{" "}
+                        {card.mostProbable.fairDecimal}
                       </p>
                     </div>
                     <p className="pl-lp-most-prob num">
@@ -2213,11 +2029,11 @@ export function MotoresPageSurface({ hasSession = false }: { hasSession?: boolea
       <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 740 }}>
-            <p className="pl-lp-eyebrow">{SPACETIME_METRICS_HEADLINE.suiteName}</p>
-            <h1 className="pl-lp-h1 pl-lp-h1--page">
+            <p className="pl-lp-eyebrow">Motores Spacetime</p>
+            <h1 className="pl-lp-h1 pl-lp-h1--page text-balance">
               Cinco motores. Cada uno probado con partidos que no vio.
             </h1>
-            <p className="pl-lp-lede">
+            <p className="pl-lp-lede text-pretty">
               Cada motor cumple una tarea distinta: medir fuerza deportiva pura, cruzarla con el mercado sin margen, filtrar ventaja real y explicarla en claro.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
@@ -2241,11 +2057,13 @@ export function MotoresPageSurface({ hasSession = false }: { hasSession?: boolea
         <div className="pl-lp-wrap pl-lp-pricing-grid">
           <div className="pl-lp-pricing-copy">
             <p className="pl-lp-eyebrow">Calibración</p>
-            <h2 className="pl-lp-h2">
+            <h2 className="pl-lp-h2 text-balance">
               La probabilidad anunciada se mide contra la realidad.
             </h2>
-            <p className="pl-lp-lede">
-              {SPACETIME_METRICS_HEADLINE.retrainSchedule}. En {SPACETIME_METRICS_HEADLINE.activeLeaguesCount} ligas activas publicamos de {SPACETIME_METRICS_HEADLINE.picksPerMatchRange} picks estructurados por partido.
+            <p className="pl-lp-lede text-pretty">
+              {SPACETIME_METRICS_HEADLINE.retrainSchedule}. En{" "}
+              <span className="num">{SPACETIME_METRICS_HEADLINE.activeLeaguesCount}</span> ligas activas publicamos de{" "}
+              <span className="num">{SPACETIME_METRICS_HEADLINE.picksPerMatchRange}</span> picks estructurados por partido.
             </p>
           </div>
           <div style={{ flex: "1 1 460px", minWidth: 0 }}>
@@ -2266,18 +2084,50 @@ export function ResultadosPageSurface({
   results: readonly LandingFinishedResultItem[];
   hasSession?: boolean;
 }): React.JSX.Element {
+  const totalSettled = results.length;
+  const totalHits = results.filter((item) => item.hit).length;
+  const hitRatePct = totalSettled > 0 ? ((totalHits / totalSettled) * 100).toFixed(1) : null;
+  const meanPredictedPct =
+    totalSettled > 0
+      ? ((results.reduce((acc, item) => acc + item.p, 0) / totalSettled) * 100).toFixed(1)
+      : null;
+  const uniqueLeaguesCount = new Set(results.map((item) => item.league)).size;
+
   return (
     <PublicSiteShell activePath="/resultados" hasSession={hasSession}>
       <section className="pl-lp-section pl-lp-section--top">
         <div className="pl-lp-wrap pl-lp-stack">
-          <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
-            <p className="pl-lp-eyebrow">Historial íntegro</p>
-            <h1 className="pl-lp-h1 pl-lp-h1--page">
-              Lo que falló también se queda.
-            </h1>
-            <p className="pl-lp-lede">
-              Cada pick queda registrado antes del inicio del partido y se califica con el marcador oficial al terminar. Nada se borra ni se edita después.
-            </p>
+          <div className="pl-lp-engines-head">
+            <div className="pl-lp-section-head" style={{ maxWidth: 680 }}>
+              <p className="pl-lp-eyebrow">Historial íntegro</p>
+              <h1 className="pl-lp-h1 pl-lp-h1--page text-balance">
+                Lo que falló también se queda.
+              </h1>
+              <p className="pl-lp-lede text-pretty">
+                Cada pick queda registrado antes del inicio del partido y se califica con el marcador oficial al terminar. Nada se borra ni se edita después.
+              </p>
+            </div>
+
+            {totalSettled > 0 && hitRatePct !== null && meanPredictedPct !== null ? (
+              <dl className="pl-lp-kpis" aria-label="Resumen del historial publicado">
+                <div>
+                  <dt>Partidos calificados</dt>
+                  <dd className="num">{totalSettled}</dd>
+                </div>
+                <div>
+                  <dt>Tasa cumplida</dt>
+                  <dd className="num">{hitRatePct} %</dd>
+                </div>
+                <div>
+                  <dt>Probabilidad media</dt>
+                  <dd className="num">{meanPredictedPct} %</dd>
+                </div>
+                <div>
+                  <dt>Ligas auditadas</dt>
+                  <dd className="num">{uniqueLeaguesCount}</dd>
+                </div>
+              </dl>
+            ) : null}
           </div>
 
           <ResultsFilterListIsland results={results} />
@@ -2289,7 +2139,7 @@ export function ResultadosPageSurface({
             />
           ) : null}
           <CalibrationHonestyLab settledCount={results.length} />
-          <CalibrationCard />
+          <CalibrationCard results={results} />
         </div>
       </section>
 
@@ -2338,10 +2188,10 @@ export function ParlaysPageSurface({
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 720 }}>
             <p className="pl-lp-eyebrow">Armador de parlays</p>
-            <h1 className="pl-lp-h1 pl-lp-h1--page">
+            <h1 className="pl-lp-h1 pl-lp-h1--page text-balance">
               Arma parlays que tengan sentido.
             </h1>
-            <p className="pl-lp-lede">
+            <p className="pl-lp-lede text-pretty">
               Combina de 2 a 6 selecciones entre distintas ligas o hasta 2 selecciones compatibles del mismo partido, con probabilidad conjunta ajustada por correlación.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
@@ -2360,9 +2210,9 @@ export function ParlaysPageSurface({
         <div className="pl-lp-wrap pl-lp-pricing-grid">
           <div className="pl-lp-pricing-copy">
             <p className="pl-lp-eyebrow">Correlación y reglas</p>
-            <h2 className="pl-lp-h2">De 2 a 6 selecciones, sin contradicciones.</h2>
-            <p className="pl-lp-lede">
-              Cuando juntas dos mercados del mismo encuentro, sus probabilidades no son independientes. Geodesic v2.0 ajusta la probabilidad combinada y bloquea choques lógicos antes de armar tu boleto.
+            <h2 className="pl-lp-h2 text-balance">De 2 a 6 selecciones, sin contradicciones.</h2>
+            <p className="pl-lp-lede text-pretty">
+              Cuando juntas dos mercados del mismo encuentro, sus probabilidades no son independientes. Geodesic ajusta la probabilidad combinada y bloquea choques lógicos antes de armar tu boleto.
             </p>
           </div>
           <ParlayDemoCard parlayDemo={parlayDemo} showLink={false} />
@@ -2373,7 +2223,7 @@ export function ParlaysPageSurface({
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head">
             <p className="pl-lp-eyebrow">Protección lógica</p>
-            <h2 className="pl-lp-h2">Choques que el armador bloquea en automático.</h2>
+            <h2 className="pl-lp-h2 text-balance">Choques que el armador bloquea en automático.</h2>
           </div>
 
           <div className="pl-lp-card pl-lp-table-card glass-card glass-ring">
@@ -2430,10 +2280,10 @@ export function ComunidadPageSurface({
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head" style={{ maxWidth: 740 }}>
             <p className="pl-lp-eyebrow">Comunidad de socios</p>
-            <h1 className="pl-lp-h1 pl-lp-h1--page">
+            <h1 className="pl-lp-h1 pl-lp-h1--page text-balance">
               Récord calculado por PitchLab, nunca por quien publica.
             </h1>
-            <p className="pl-lp-lede">
+            <p className="pl-lp-lede text-pretty">
               Solo escriben socios con su pase activo. Cada publicación queda registrada antes del partido y no acepta enlaces externos ni grupos de spam.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
@@ -2455,8 +2305,8 @@ export function ComunidadPageSurface({
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head">
             <p className="pl-lp-eyebrow">Vista previa de publicaciones</p>
-            <h2 className="pl-lp-h2">Conversación limpia, centrada en el partido.</h2>
-            <p className="pl-lp-lede">
+            <h2 className="pl-lp-h2 text-balance">Conversación limpia, centrada en el partido.</h2>
+            <p className="pl-lp-lede text-pretty">
               Las publicaciones y perfiles de abajo son ejemplos demostrativos de cómo se ve el muro de socios en PitchLab.
             </p>
           </div>
@@ -2465,30 +2315,19 @@ export function ComunidadPageSurface({
             <CommunitySampleCard featuredPick={featuredPick} showLink={false} />
 
             <div className="pl-lp-card pl-lp-panel glass-card glass-ring">
-              <div className="pl-lp-row pl-lp-row--between">
-                <p style={{ margin: 0, fontWeight: 700, fontSize: 18 }}>
-                  Muro de comunidad
-                </p>
+              <div className="pl-lp-card-head">
+                <p className="pl-lp-card-title">Muro de comunidad</p>
                 <span className="pl-lp-pill" data-example-badge="">
                   Ejemplo
                 </span>
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div className="pl-lp-feed-list">
                 {INITIAL_SOCIAL_POSTS.slice(0, 3).map((post) => (
-                  <article
-                    key={post.id}
-                    style={{
-                      borderTop: "1px solid var(--pl-border)",
-                      paddingTop: 14,
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 8,
-                    }}
-                  >
-                    <div className="pl-lp-row pl-lp-row--between">
-                      <p style={{ margin: 0, fontSize: 14 }}>
+                  <article key={post.id} className="pl-lp-feed-item">
+                    <div className="pl-lp-feed-item-head">
+                      <p className="pl-lp-post-author">
                         <strong>{post.authorName}</strong>{" "}
-                        <span style={{ color: "var(--pl-text-muted)" }}>
+                        <span>
                           @{post.authorHandle} · {post.roleBadge}
                         </span>
                       </p>
@@ -2496,24 +2335,8 @@ export function ComunidadPageSurface({
                         Ejemplo
                       </span>
                     </div>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: 14,
-                        color: "var(--pl-text-secondary)",
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {post.body}
-                    </p>
-                    <p
-                      className="num"
-                      style={{
-                        margin: 0,
-                        fontSize: 12,
-                        color: "var(--pl-text-muted)",
-                      }}
-                    >
+                    <p className="pl-lp-post-text text-pretty">{post.body}</p>
+                    <p className="pl-lp-post-stamp num">
                       {post.leagueLabel} · {post.pickBadge} · {post.verifiedRecord}
                     </p>
                   </article>
@@ -2528,12 +2351,13 @@ export function ComunidadPageSurface({
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head">
             <p className="pl-lp-eyebrow">Programa Tipster Oficial</p>
-            <h2 className="pl-lp-h2">
+            <h2 className="pl-lp-h2 text-balance">
               ¿Tienes comunidad deportiva? Audita tu récord con nosotros.
             </h2>
-            <p className="pl-lp-lede">
+            <p className="pl-lp-lede text-pretty">
               Los Tipsters Oficiales comparten 1 pick abierto por semana, regalan{" "}
-              {promoFreeDays} días de prueba con su código y reciben {commissionPct} % de comisión recurrente por cada referido con pase activo.
+              <span className="num">{promoFreeDays}</span> días de prueba con su código y reciben{" "}
+              <span className="num">{commissionPct} %</span> de comisión recurrente por cada referido con pase activo.
             </p>
           </div>
 
@@ -2541,50 +2365,24 @@ export function ComunidadPageSurface({
             {TIPSTER_CREATORS.map((creator) => (
               <article
                 key={creator.handle}
-                className="pl-lp-card pl-lp-panel glass-card glass-ring"
+                className="pl-lp-card pl-lp-tipster-card glass-card glass-ring"
               >
-                <div className="pl-lp-row pl-lp-row--between">
-                  <div className="pl-lp-row" style={{ gap: 10 }}>
+                <div className="pl-lp-card-head">
+                  <div className="pl-lp-tipster-id">
                     <span aria-hidden="true" className="pl-lp-social-avatar">
                       {creator.avatarInitials}
                     </span>
-                    <div style={{ minWidth: 0 }}>
-                      <p style={{ margin: 0, fontWeight: 700, fontSize: 16 }}>
-                        {creator.name}
-                      </p>
-                      <p
-                        style={{
-                          margin: 0,
-                          fontSize: 12,
-                          color: "var(--pl-text-muted)",
-                        }}
-                      >
-                        @{creator.handle}
-                      </p>
+                    <div className="pl-lp-engine-titles">
+                      <p className="pl-lp-engine-name">{creator.name}</p>
+                      <p className="pl-lp-post-stamp">@{creator.handle}</p>
                     </div>
                   </div>
                   <span className="pl-lp-pill" data-example-badge="">
                     Ejemplo
                   </span>
                 </div>
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: 14,
-                    color: "var(--pl-text-secondary)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {creator.specialty}
-                </p>
-                <p
-                  className="num"
-                  style={{
-                    margin: 0,
-                    fontSize: 12,
-                    color: "var(--pl-text-muted)",
-                  }}
-                >
+                <p className="pl-lp-post-text text-pretty">{creator.specialty}</p>
+                <p className="pl-lp-post-stamp num">
                   Unidades verificadas: <strong>{creator.verifiedUnits}</strong> · Ventaja{" "}
                   {creator.clvAvg} · {creator.settledCount} picks calificados
                 </p>
@@ -2692,8 +2490,8 @@ export function PrecioPageSurface({
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head">
             <p className="pl-lp-eyebrow">Programa de referidos</p>
-            <h2 className="pl-lp-h2">Invita a tus amigos y los dos suman días.</h2>
-            <p className="pl-lp-lede">
+            <h2 className="pl-lp-h2 text-balance">Invita a tus amigos y los dos suman días.</h2>
+            <p className="pl-lp-lede text-pretty">
               Cuando un amigo entra con tu código y paga su primer mes, los dos suman{" "}
               {MEMBERSHIP_SPEC.referralBothRewardDays} días en su pase.
             </p>
@@ -2704,15 +2502,8 @@ export function PrecioPageSurface({
               <span className="pl-lp-step-idx num">01</span>
               <p className="pl-lp-step-fig num">7 días</p>
               <div className="pl-lp-step-body">
-                <h3 className="pl-lp-h3">Tu invitado prueba y ahorra</h3>
-                <p
-                  style={{
-                    margin: 0,
-                    color: "var(--pl-text-secondary)",
-                    lineHeight: 1.5,
-                    fontSize: 15,
-                  }}
-                >
+                <h3 className="pl-lp-step-title text-balance">Tu invitado prueba y ahorra</h3>
+                <p className="pl-lp-step-desc text-pretty">
                   Recibe {MEMBERSHIP_SPEC.referralFriendBenefit}.
                 </p>
               </div>
@@ -2723,15 +2514,8 @@ export function PrecioPageSurface({
                 +{MEMBERSHIP_SPEC.referralBothRewardDays} días
               </p>
               <div className="pl-lp-step-body">
-                <h3 className="pl-lp-h3">Los dos suman tiempo</h3>
-                <p
-                  style={{
-                    margin: 0,
-                    color: "var(--pl-text-secondary)",
-                    lineHeight: 1.5,
-                    fontSize: 15,
-                  }}
-                >
+                <h3 className="pl-lp-step-title text-balance">Los dos suman tiempo</h3>
+                <p className="pl-lp-step-desc text-pretty">
                   Al activar su primer mes pagado, los dos suman{" "}
                   {MEMBERSHIP_SPEC.referralBothRewardDays} días sin costo adicional.
                 </p>
@@ -2743,15 +2527,8 @@ export function PrecioPageSurface({
                 +{MEMBERSHIP_SPEC.referralAmbassadorBonusDays} días
               </p>
               <div className="pl-lp-step-body">
-                <h3 className="pl-lp-h3">Nivel Embajador</h3>
-                <p
-                  style={{
-                    margin: 0,
-                    color: "var(--pl-text-secondary)",
-                    lineHeight: 1.5,
-                    fontSize: 15,
-                  }}
-                >
+                <h3 className="pl-lp-step-title text-balance">Nivel Embajador</h3>
+                <p className="pl-lp-step-desc text-pretty">
                   Al llegar a {MEMBERSHIP_SPEC.referralAmbassadorThreshold} amigos activos, sumas{" "}
                   {MEMBERSHIP_SPEC.referralAmbassadorBonusDays} días adicionales en tu cuenta.
                 </p>
