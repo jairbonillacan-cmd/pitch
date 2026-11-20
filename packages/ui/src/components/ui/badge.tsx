@@ -1,5 +1,5 @@
 /**
- * Badge · PitchLab (HTML nativo `<span>`, sin runtime de `@base-ui/react` · ADR-053).
+ * Badge · PitchLab (HTML nativo `<span>`, sin dependencias headless · ADR-053).
  * Variantes: `fav` (favorito / pick, en Pulso), `info` (hoy), `live` (en juego),
  * `success` y `danger` (pick acertado o fallado). Los estados siempre llevan texto, nunca solo color.
  */

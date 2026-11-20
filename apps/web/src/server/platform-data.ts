@@ -5,6 +5,7 @@ import { ALLOWED_BOOKMAKER_IDS } from "@pitchlab/ui/bookmakers";
 import { buildPlatformDataset, type RawLeagueInput } from "@pitchlab/ui/picks-engine";
 import type { ViewerIdentity } from "@pitchlab/ui/platform-provider";
 import type {
+  MatchPick,
   PaymentMode,
   PlatformDataset,
   PlatformGame,
@@ -188,11 +189,35 @@ function mxDayId(date: Date): string {
 }
 
 const INITIAL_SHELL_MAX_GAMES = 52;
+/** Presupuesto estricto del tramo 1 RSC (< 500 KB con margen de 20 KB para envoltorio Flight). */
+const INITIAL_SHELL_MAX_BYTES = 480 * 1024;
+
+function compareShellGamePriority(a: PlatformGame, b: PlatformGame): number {
+  const aCore = CORE_SHELL_LEAGUES.has(a.league) ? 0 : 1;
+  const bCore = CORE_SHELL_LEAGUES.has(b.league) ? 0 : 1;
+  if (aCore !== bCore) return aCore - bCore;
+  const aTier = COMPETITION_BY_ID[a.league]?.prestigeTier ?? 4;
+  const bTier = COMPETITION_BY_ID[b.league]?.prestigeTier ?? 4;
+  if (aTier !== bTier) return aTier - bTier;
+  return (a.kickoffUtc || "").localeCompare(b.kickoffUtc || "");
+}
+
+function filterTeamsForGames(
+  teams: PlatformDataset["teams"],
+  games: readonly PlatformGame[],
+): NonNullable<PlatformDataset["teams"]> {
+  const keys = new Set<string>();
+  for (const g of games) {
+    keys.add(`${g.league}:${g.home.slug}`);
+    keys.add(`${g.league}:${g.away.slug}`);
+  }
+  return (teams ?? []).filter((t) => keys.has(`${t.league}:${t.slug}`));
+}
 
 /**
  * Shell RSC en dos tiempos (ADR-053): conserva en el primer HTML únicamente la ventana inmediata
- * (en vivo + hoy + ligas prioritarias de mañana + picks promocionales) sin `parlayCandidates`
- * redundantes, manteniendo el payload inicial por debajo de `500 KB`.
+ * (picks promocionales + en vivo + hoy + ligas prioritarias de mañana) sin `parlayCandidates`
+ * ni campos enriquecidos de detalle/Bzzoiro, aplicando un tope duro de juegos (`52`) y bytes (`< 500 KB`).
  * El resto del horizonte (7 días / todas las ligas / `parlayCandidates`) llega vía `/api/shell/extend`
  * al estar ocioso el navegador o al interactuar con buscador/filtros/parlays.
  */
@@ -219,40 +244,51 @@ export function splitInitialShellDataset(
       ? tomorrowStr
       : (upcomingDays.find((d) => d > primaryDay) ?? tomorrowStr);
 
+  const isPromoGame = (g: PlatformGame): boolean =>
+    g.picks.some(
+      (p) =>
+        (slim.dailyPromoPickId && p.id === slim.dailyPromoPickId) ||
+        (slim.tipsterWeeklyPickId && p.id === slim.tipsterWeeklyPickId),
+    );
+
   const selected: PlatformGame[] = [];
   const selectedIds = new Set<string>();
+  const promoGameIds = new Set<string>();
   const addGame = (g: PlatformGame): void => {
-    if (selectedIds.has(g.id)) return;
+    if (selected.length >= INITIAL_SHELL_MAX_GAMES || selectedIds.has(g.id)) return;
     selectedIds.add(g.id);
-    // En el tramo 1 omitimos `parlayCandidates`; `/api/shell/extend` los hidrata en ocioso.
-    const { parlayCandidates: _omit, ...leanGame } = g;
-    void _omit;
-    selected.push(leanGame);
+    if (isPromoGame(g)) promoGameIds.add(g.id);
+    // Proyección explícita del tramo 1: omite `parlayCandidates` y garantiza cero campos
+    // pesados de detalle o Bzzoiro (shotmap, posiciones medias, líneas extendidas, evidencia).
+    selected.push(
+      projectShellGame(g, {
+        keepParlayCandidates: false,
+        isVisitorRedacted: slim.isServerRedactedForVisitor,
+      }),
+    );
   };
 
-  // 1) Siempre: partidos en vivo y partidos que contienen los picks destacados/promocionales
+  // 1a) Partidos que contienen los picks promocionales abiertos del día / semana
   for (const g of slim.games) {
-    if (
-      g.status === "LIVE" ||
-      g.picks.some(
-        (p) =>
-          (slim.dailyPromoPickId && p.id === slim.dailyPromoPickId) ||
-          (slim.tipsterWeeklyPickId && p.id === slim.tipsterWeeklyPickId),
-      )
-    ) {
+    if (selected.length >= INITIAL_SHELL_MAX_GAMES) break;
+    if (isPromoGame(g)) {
       addGame(g);
     }
+  }
+
+  // 1b) Partidos LIVE ordenados por CORE_SHELL_LEAGUES y prestigio, respetando INITIAL_SHELL_MAX_GAMES
+  const liveGames = slim.games
+    .filter((g) => g.status === "LIVE")
+    .sort(compareShellGamePriority);
+  for (const g of liveGames) {
+    if (selected.length >= INITIAL_SHELL_MAX_GAMES) break;
+    addGame(g);
   }
 
   // 2) Todos los partidos del día principal (Hoy) ordenados por prestigio y hora
   const primaryGames = slim.games
     .filter((g) => g.status !== "FT" && g.dayId === primaryDay)
-    .sort((a, b) => {
-      const aCore = CORE_SHELL_LEAGUES.has(a.league) ? 0 : 1;
-      const bCore = CORE_SHELL_LEAGUES.has(b.league) ? 0 : 1;
-      if (aCore !== bCore) return aCore - bCore;
-      return (a.kickoffUtc || "").localeCompare(b.kickoffUtc || "");
-    });
+    .sort(compareShellGamePriority);
   for (const g of primaryGames) {
     if (selected.length >= INITIAL_SHELL_MAX_GAMES) break;
     addGame(g);
@@ -267,12 +303,7 @@ export function splitInitialShellDataset(
         const tier = COMPETITION_BY_ID[g.league]?.prestigeTier ?? 4;
         return tier <= 2;
       })
-      .sort((a, b) => {
-        const aCore = CORE_SHELL_LEAGUES.has(a.league) ? 0 : 1;
-        const bCore = CORE_SHELL_LEAGUES.has(b.league) ? 0 : 1;
-        if (aCore !== bCore) return aCore - bCore;
-        return (a.kickoffUtc || "").localeCompare(b.kickoffUtc || "");
-      });
+      .sort(compareShellGamePriority);
     for (const g of secondaryGames) {
       if (selected.length >= INITIAL_SHELL_MAX_GAMES) break;
       addGame(g);
@@ -284,20 +315,57 @@ export function splitInitialShellDataset(
     for (const g of slim.games.slice(0, 12)) addGame(g);
   }
 
-  const stage1TeamKeys = new Set<string>();
-  for (const g of selected) {
-    stage1TeamKeys.add(`${g.league}:${g.home.slug}`);
-    stage1TeamKeys.add(`${g.league}:${g.away.slug}`);
-  }
-  const stage1Teams = (slim.teams ?? []).filter((t) =>
-    stage1TeamKeys.has(`${t.league}:${t.slug}`),
-  );
+  const stage1Leagues = slim.leagues.map((lg) => ({
+    ...lg,
+    standings: [],
+  }));
 
-  return {
+  let stage1Games = selected;
+  let stage1: PlatformDataset = {
     ...slim,
-    games: selected,
-    teams: stage1Teams,
+    playerProps: [],
+    leagues: stage1Leagues,
+    games: stage1Games,
+    teams: filterTeamsForGames(slim.teams, stage1Games),
   };
+
+  // Guardia determinista de presupuesto RSC (< 500 KB): si una jornada pico excede el tope,
+  // primero compacta cuotas secundarias (que el tramo 2 `/api/shell/extend` hidrata en ocioso)
+  // y después recorta partidos de menor prioridad preservando siempre los promocionales.
+  if (Buffer.byteLength(JSON.stringify(stage1), "utf8") > INITIAL_SHELL_MAX_BYTES) {
+    stage1Games = stage1Games.map((g) => ({
+      ...g,
+      picks: g.picks.map((pk, idx) =>
+        idx === 0 ? pk : { ...pk, bookQuotes: undefined },
+      ),
+    }));
+    stage1 = {
+      ...stage1,
+      games: stage1Games,
+    };
+  }
+
+  while (
+    stage1Games.length > 1 &&
+    Buffer.byteLength(JSON.stringify(stage1), "utf8") > INITIAL_SHELL_MAX_BYTES
+  ) {
+    let dropIdx = -1;
+    for (let i = stage1Games.length - 1; i >= 0; i -= 1) {
+      if (!promoGameIds.has(stage1Games[i]!.id)) {
+        dropIdx = i;
+        break;
+      }
+    }
+    if (dropIdx < 0) break;
+    stage1Games = [...stage1Games.slice(0, dropIdx), ...stage1Games.slice(dropIdx + 1)];
+    stage1 = {
+      ...stage1,
+      games: stage1Games,
+      teams: filterTeamsForGames(slim.teams, stage1Games),
+    };
+  }
+
+  return stage1;
 }
 
 function getInitialMemberShell(bundle: DatasetMemoBundle): PlatformDataset {
@@ -476,14 +544,205 @@ export async function loadGameSummary(gameId: string): Promise<PlatformGame | nu
 }
 
 /** Props de jugadores bajo demanda para `/app/props` (fuera del shell compartido). */
-export function loadShellPlayerProps() {
+export function loadShellPlayerProps(options?: { fullAccess?: boolean }) {
+  if (options && options.fullAccess === false) {
+    return [];
+  }
   return buildServerRawPlatformDataset().playerProps ?? [];
+}
+
+/**
+ * Proyección explícita de `MatchPick` para el shell compartido (lista blanca de campos).
+ * Garantiza que ningún campo enriquecido de detalle/Bzzoiro (evidencia multi-ventana,
+ * comparativas extendidas de casas o metadatos internos) infle el shell ni se filtre a visitantes.
+ */
+function projectShellPick(
+  pk: MatchPick,
+  opts: { includeQuotes: boolean },
+): MatchPick {
+  const roundedP = Math.round(pk.p * 10_000) / 10_000;
+  let compactQuotes: MatchPick["bookQuotes"] = undefined;
+
+  if (opts.includeQuotes && !pk.isRedacted && pk.bookQuotes && pk.bookQuotes.length > 0) {
+    const filtered = pk.bookQuotes
+      .filter(
+        (q) =>
+          q.isBest ||
+          ALLOWED_BOOKMAKER_IDS.has(q.book) ||
+          (q.openingDecimal != null &&
+            q.openingDecimal > 1 &&
+            Math.abs((q.decimal - q.openingDecimal) / q.openingDecimal) >= 0.05),
+      )
+      .slice(0, 3)
+      .map((q) => ({
+        book: q.book,
+        bookLabel: q.bookLabel,
+        decimal: q.decimal,
+        capturedAtUtc:
+          q.capturedAtUtc && q.capturedAtUtc !== pk.marketCapturedAtUtc
+            ? q.capturedAtUtc
+            : "",
+        ...(q.openingDecimal != null && Math.abs(q.openingDecimal - q.decimal) >= 0.01
+          ? { openingDecimal: q.openingDecimal }
+          : {}),
+        ...(q.movementDirection && q.movementDirection !== "stable"
+          ? { movementDirection: q.movementDirection }
+          : {}),
+        ...(q.isBest ? { isBest: true } : {}),
+      }));
+    if (filtered.length > 0) {
+      compactQuotes = filtered;
+    }
+  }
+
+  return {
+    id: pk.id,
+    gameId: pk.gameId,
+    league: pk.league,
+    leagueLabel: pk.leagueLabel,
+    matchLabel: pk.matchLabel,
+    kickoffLocal: pk.kickoffLocal,
+    gameStatus: pk.gameStatus,
+    slotIndex: pk.slotIndex,
+    category: pk.category,
+    categoryLabel: pk.categoryLabel,
+    risk: pk.risk,
+    engineKey: pk.engineKey,
+    engineName: pk.engineName,
+    marketGroup: pk.marketGroup,
+    selectionKey: pk.selectionKey,
+    ...(pk.market !== undefined ? { market: pk.market } : {}),
+    ...(pk.line !== undefined ? { line: pk.line } : {}),
+    conflictGroup: pk.conflictGroup,
+    label: pk.label,
+    rationale: "",
+    p: roundedP,
+    fairDecimal: pk.fairDecimal,
+    fairAmerican: pk.fairAmerican,
+    marketDecimal: pk.marketDecimal,
+    marketAmerican: pk.marketAmerican,
+    ...(pk.marketBookLabel !== undefined ? { marketBookLabel: pk.marketBookLabel } : {}),
+    ...(pk.marketCapturedAtUtc !== undefined
+      ? { marketCapturedAtUtc: pk.marketCapturedAtUtc }
+      : {}),
+    ...(compactQuotes ? { bookQuotes: compactQuotes } : {}),
+    edgePts: pk.edgePts,
+    confidenceScore: pk.confidenceScore,
+    suggestedUnits: pk.suggestedUnits,
+    ...(pk.result !== undefined ? { result: pk.result } : {}),
+    ...(pk.isDailyOpenPromo ? { isDailyOpenPromo: true } : {}),
+    ...(pk.isTipsterWeeklyOpen ? { isTipsterWeeklyOpen: true } : {}),
+    ...(pk.tipsterSlug ? { tipsterSlug: pk.tipsterSlug } : {}),
+    ...(pk.isRedacted !== undefined ? { isRedacted: pk.isRedacted } : {}),
+  };
+}
+
+/**
+ * Proyección explícita de `PlatformGame` para el shell compartido (Etapa 1 y Etapa 2).
+ * Cualquier campo enriquecido nuevo de Bzzoiro (shotmap, posiciones medias, líneas extendidas,
+ * evidencia multi-ventana, catálogo extendido o alineaciones probables) queda fuera del shell
+ * y se carga exclusivamente bajo demanda en `loadGameDetail` / rutas de detalle.
+ */
+function projectShellGame(
+  g: PlatformGame,
+  opts: { keepParlayCandidates: boolean; isVisitorRedacted: boolean },
+): PlatformGame {
+  const isFinished = g.status === "FT";
+  const hasPromoOpenPick = g.picks.some(
+    (p) => Boolean(p.isDailyOpenPromo) || Boolean(p.isTipsterWeeklyOpen),
+  );
+  const lockedVisitorGame = opts.isVisitorRedacted && !isFinished && !hasPromoOpenPick;
+  const shellPicks = isFinished ? g.picks.slice(0, 2) : g.picks;
+
+  const projectedParlayCandidates =
+    opts.keepParlayCandidates &&
+    !isFinished &&
+    !lockedVisitorGame &&
+    g.parlayCandidates &&
+    g.parlayCandidates.length > 0
+      ? g.parlayCandidates
+          .slice(0, 3)
+          .map((pk) => projectShellPick(pk, { includeQuotes: false }))
+      : undefined;
+
+  const canKeepMatchContext =
+    !lockedVisitorGame &&
+    !g.preGame?.isRedacted &&
+    Boolean(
+      g.preGame?.matchContext &&
+        (g.preGame.matchContext.isLocalDerby ||
+          g.preGame.matchContext.referee ||
+          g.preGame.matchContext.refereeStats),
+    );
+
+  return {
+    id: g.id,
+    league: g.league,
+    leagueLabel: g.leagueLabel,
+    ...(g.leagueLogoUrl ? { leagueLogoUrl: g.leagueLogoUrl } : {}),
+    sport: g.sport,
+    round: g.round,
+    dayId: g.dayId,
+    dayLabel: g.dayLabel,
+    kickoffUtc: g.kickoffUtc,
+    kickoffLocal: g.kickoffLocal,
+    venue: g.venue,
+    ...(g.referee ? { referee: g.referee } : {}),
+    ...(g.neutralSite !== undefined ? { neutralSite: g.neutralSite } : {}),
+    status: g.status,
+    ...(g.score ? { score: g.score } : {}),
+    home: g.home,
+    away: g.away,
+    ...(g.hasForecast !== undefined ? { hasForecast: g.hasForecast } : {}),
+    x12: g.x12,
+    projection: g.projection,
+    ...(g.goalLine !== undefined ? { goalLine: g.goalLine } : {}),
+    confidenceScore: g.confidenceScore,
+    confidenceLevel: g.confidenceLevel,
+    picks: shellPicks.map((pk) =>
+      projectShellPick(pk, { includeQuotes: !isFinished && !lockedVisitorGame }),
+    ),
+    ...(projectedParlayCandidates ? { parlayCandidates: projectedParlayCandidates } : {}),
+    preGame: g.preGame
+      ? {
+          isRedacted: g.preGame.isRedacted,
+          cortexSynthesis: "",
+          tacticalKeys: [],
+          lineupStatusLabel: "",
+          lineupsConfirmed60m: g.preGame.lineupsConfirmed60m,
+          confirmedLineups: null,
+          absences: [],
+          moneyFlow: null,
+          ...(canKeepMatchContext && g.preGame.matchContext
+            ? {
+                matchContext: {
+                  ...(g.preGame.matchContext.isLocalDerby ? { isLocalDerby: true } : {}),
+                  ...(g.preGame.matchContext.referee
+                    ? { referee: g.preGame.matchContext.referee }
+                    : {}),
+                  ...(g.preGame.matchContext.refereeStats
+                    ? { refereeStats: g.preGame.matchContext.refereeStats }
+                    : {}),
+                },
+              }
+            : {}),
+        }
+      : g.preGame,
+    markets: [],
+    factors: [],
+    headToHead: [],
+    ...(g.restDays ? { restDays: g.restDays } : {}),
+    ...(g.counts && !lockedVisitorGame ? { counts: g.counts } : {}),
+    updatedAtLabel: g.updatedAtLabel,
+    spacetime: null,
+  };
 }
 
 /**
  * Quita el detalle pesado de cada partido y del shell compartido (mercados, H2H, factores,
  * tablas de las 57 ligas, `bookQuotes` redundantes en `parlayCandidates`, prosa `preGame`
- * que solo consume la ficha individual y `playerProps` exclusivos de `/app/props`).
+ * que solo consume la ficha individual, `playerProps` exclusivos de `/app/props` y cualquier
+ * campo enriquecido de Bzzoiro reservado para detalle).
  * Cada página de liga, partido o props recibe su detalle puntual en servidor.
  */
 export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
@@ -507,107 +766,23 @@ export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
     }),
     games: dataset.games.map((g) => {
       const kickoffMs = Date.parse(g.kickoffUtc);
-      const isFinished = g.status === "FT";
       const keepParlayCandidates =
-        !isFinished &&
+        g.status !== "FT" &&
         (!Number.isFinite(kickoffMs) || kickoffMs <= parlayCandidateHorizonMs);
-      const shellPicks = isFinished ? g.picks.slice(0, 2) : g.picks;
-      return {
-        ...g,
-        markets: [],
-        headToHead: [],
-        factors: [],
-        spacetime: null,
-        confidenceDetail: undefined,
-        picks: shellPicks.map((pk) => {
-          const roundedP = Math.round(pk.p * 10_000) / 10_000;
-          if (isFinished || !pk.bookQuotes || pk.bookQuotes.length === 0) {
-            return {
-              ...pk,
-              p: roundedP,
-              rationale: "",
-              bookQuotes: undefined,
-            };
-          }
-          const compactQuotes = pk.bookQuotes
-            .filter(
-              (q) =>
-                q.isBest ||
-                ALLOWED_BOOKMAKER_IDS.has(q.book) ||
-                (q.openingDecimal != null &&
-                  q.openingDecimal > 1 &&
-                  Math.abs((q.decimal - q.openingDecimal) / q.openingDecimal) >= 0.05),
-            )
-            .slice(0, 3)
-            .map((q) => ({
-              book: q.book,
-              bookLabel: q.bookLabel,
-              decimal: q.decimal,
-              capturedAtUtc:
-                q.capturedAtUtc && q.capturedAtUtc !== pk.marketCapturedAtUtc
-                  ? q.capturedAtUtc
-                  : "",
-              ...(q.openingDecimal != null && Math.abs(q.openingDecimal - q.decimal) >= 0.01
-                ? { openingDecimal: q.openingDecimal }
-                : {}),
-              ...(q.movementDirection && q.movementDirection !== "stable"
-                ? { movementDirection: q.movementDirection }
-                : {}),
-              ...(q.isBest ? { isBest: true } : {}),
-            }));
-          return {
-            ...pk,
-            p: roundedP,
-            rationale: "",
-            bookQuotes: compactQuotes.length > 0 ? compactQuotes : undefined,
-          };
-        }),
-        ...(g.parlayCandidates
-          ? {
-              parlayCandidates: keepParlayCandidates
-                ? g.parlayCandidates.slice(0, 3).map((pk) => {
-                    const roundedP = Math.round(pk.p * 10_000) / 10_000;
-                    const { bookQuotes: _omit, ...rest } = pk;
-                    void _omit;
-                    return { ...rest, p: roundedP, rationale: "" };
-                  })
-                : undefined,
-            }
-          : {}),
-        preGame: g.preGame
-          ? {
-              isRedacted: g.preGame.isRedacted,
-              cortexSynthesis: "",
-              tacticalKeys: [],
-              lineupStatusLabel: "",
-              lineupsConfirmed60m: g.preGame.lineupsConfirmed60m,
-              confirmedLineups: null,
-              absences: [],
-              moneyFlow: null,
-              ...(g.preGame.matchContext &&
-              (g.preGame.matchContext.isLocalDerby ||
-                g.preGame.matchContext.referee ||
-                g.preGame.matchContext.refereeStats)
-                ? {
-                    matchContext: {
-                      ...(g.preGame.matchContext.isLocalDerby ? { isLocalDerby: true } : {}),
-                      ...(g.preGame.matchContext.referee
-                        ? { referee: g.preGame.matchContext.referee }
-                        : {}),
-                      ...(g.preGame.matchContext.refereeStats
-                        ? { refereeStats: g.preGame.matchContext.refereeStats }
-                        : {}),
-                    },
-                  }
-                : {}),
-            }
-          : g.preGame,
-      };
+      return projectShellGame(g, {
+        keepParlayCandidates,
+        isVisitorRedacted: dataset.isServerRedactedForVisitor,
+      });
     }),
   };
 }
 
-/** Detalle de un partido con la misma redacción Cero-Fuga que el resto del dataset. */
+/**
+ * Detalle bajo demanda de un partido (`/app/[league]/g/[gameSlug]`) con redacción Cero-Fuga.
+ * Toda carga enriquecida (mercados extendidos, `outlook`, `v5`, shotmap, posiciones medias o
+ * evidencia multi-ventana) vive exclusivamente aquí y jamás se serializa en la Etapa 1 del shell
+ * ni se entrega a visitantes en partidos próximos/en vivo.
+ */
 export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail | null> {
   const bundle = getDatasetMemoBundle();
   const hasSession = await hasAuthenticatedBetaSession();

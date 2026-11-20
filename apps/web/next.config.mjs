@@ -127,7 +127,7 @@ const baseConfig = {
   ...(process.env.PITCHLAB_STANDALONE === "1" ? { output: "standalone" } : {}),
   // Cada página importa solo lo que usa de estos paquetes (no el barril completo).
   experimental: {
-    optimizePackageImports: ["@pitchlab/ui", "@heroui/react", "@base-ui/react", "@astryxdesign/core"],
+    optimizePackageImports: ["@pitchlab/ui", "@heroui/react"],
   },
   webpack: (config) => {
     config.resolve.extensionAlias = {
