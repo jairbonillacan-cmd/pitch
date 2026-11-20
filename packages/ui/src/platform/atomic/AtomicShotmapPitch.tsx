@@ -82,7 +82,7 @@ function formatShotMinute(shot: AtomicShotItem): string {
 }
 
 /**
- * Mapa de tiros atómico plano estilo Sofascore:
+ * Mapa de tiros atómico plano editorial:
  * - Cancha SVG limpia (campo completo o media cancha ofensiva) sobre tokens `--pl-*`.
  * - Círculos escalados por xG con codificación visual redundante (relleno, borde y patrón).
  * - Toggles por equipo y resultado, resumen `xG Local vs Visita` en `.num` y tabla `<details>` accesible.

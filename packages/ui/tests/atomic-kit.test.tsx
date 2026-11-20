@@ -162,7 +162,7 @@ function buildSampleDataset() {
   ]);
 }
 
-describe("Componentes atómicos estilo Sofascore (`packages/ui/src/platform/atomic/*`)", () => {
+describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`)", () => {
   it("renderiza AtomicShotmapPitch en vista completa, media cancha y estado vacío", () => {
     expect(normalizeShotBucket("save")).toBe("on_target");
     expect(normalizeShotBucket("block")).toBe("blocked");

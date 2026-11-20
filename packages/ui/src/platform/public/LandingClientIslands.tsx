@@ -667,7 +667,7 @@ export function PricingCardIsland({
   hasSession?: boolean;
   /** En `/precio`: conteo rodante del precio, color de marca y «Ultra» con espectro animado. */
   animated?: boolean;
-  /** En `/`: comparativa lado a lado estilo ScoutPicks; en `/precio`: tarjeta individual junto al 3D. */
+  /** En `/`: comparativa lado a lado; en `/precio`: tarjeta individual junto al 3D. */
   layout?: "single" | "compare";
 } = {}): React.JSX.Element {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");

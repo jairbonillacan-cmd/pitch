@@ -4,7 +4,7 @@
  * con exposición esperada `E[M_{i,m}]`, cuantificación exacta del perk `sub_cover` (*Sustituto Cuenta*),
  * aislamiento Club vs Selección y guardia dimensional estricta `UnitProbability` en `(0, 1)`.
  *
- * Erradica por construcción los defectos forenses detectados en Scout Picks:
+ * Erradica por construcción los defectos comunes de modelado en props:
  *  - Prohibición total de probabilidades crudas `0%` o `100%` (`LL = +inf`) y de *cherry-picking* multi-ventana.
  *  - Imposibilidad en tiempo de compilación y runtime de restar escalas `[0..100] - [0..1]`.
  *  - `adjustedHitRate` real acoplado al ataque esperado del equipo, defensa rival y rigor arbitral EB.

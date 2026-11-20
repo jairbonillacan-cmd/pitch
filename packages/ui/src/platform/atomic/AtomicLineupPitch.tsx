@@ -253,7 +253,7 @@ function HalfLineupPane({
 }
 
 /**
- * Cancha táctica de alineación estilo Sofascore (`confirmed` / `probable`):
+ * Cancha táctica de alineación editorial (`confirmed` / `probable`):
  * - Dorsales, nota opcional e iconos vectoriales `<SportEventIcon />` de goles, tarjetas y cambios.
  * - Responsiva con `@container` queries: pestañas Local/Visita en 375 px, doble cancha en 1440 px.
  */

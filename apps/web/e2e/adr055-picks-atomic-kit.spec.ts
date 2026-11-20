@@ -75,7 +75,7 @@ async function navigateToFirstAvailableMatchFromHome(page: Page): Promise<string
   return href!;
 }
 
-test.describe("ADR-055 · Screener de Picks, Ficha Sofascore, Props, Móvil Explorar, Política Dual y /offline", () => {
+test.describe("ADR-055 · Screener de Picks, Ficha Atómica, Props, Móvil Explorar, Política Dual y /offline", () => {
   test("1. Screener /app/picks: filtros (mercado/agrupación, slider no lineal, SavedViewsBar + Deshacer), cero Conf./Datos y BetBuilderDrawer", async ({
     page,
   }, testInfo) => {

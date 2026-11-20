@@ -911,6 +911,63 @@ async function resolvePublicWeeklyPick(
   return null;
 }
 
+const PUBLIC_PROVIDER_LOGO_URL_RE = /(?:^https?:\/\/)?(?:[^/]*\.)?sports\.bzzoiro\.com/i;
+
+function stripPublicProviderLogoUrl(url?: string): string | undefined {
+  if (!url) return undefined;
+  return PUBLIC_PROVIDER_LOGO_URL_RE.test(url) ? undefined : url;
+}
+
+function sanitizePublicDatasetGame(g: PlatformGame): PlatformGame {
+  const cleanLeagueLogo = stripPublicProviderLogoUrl(g.leagueLogoUrl);
+  const cleanHomeLogo = stripPublicProviderLogoUrl(g.home.logoUrl);
+  const cleanAwayLogo = stripPublicProviderLogoUrl(g.away.logoUrl);
+
+  const home: PlatformGame["home"] = { ...g.home };
+  if (cleanHomeLogo) {
+    home.logoUrl = cleanHomeLogo;
+  } else {
+    delete home.logoUrl;
+  }
+
+  const away: PlatformGame["away"] = { ...g.away };
+  if (cleanAwayLogo) {
+    away.logoUrl = cleanAwayLogo;
+  } else {
+    delete away.logoUrl;
+  }
+
+  const next: PlatformGame = {
+    ...g,
+    home,
+    away,
+  };
+  if (cleanLeagueLogo) {
+    next.leagueLogoUrl = cleanLeagueLogo;
+  } else {
+    delete next.leagueLogoUrl;
+  }
+  return next;
+}
+
+function sanitizePublicDataset(dataset: PlatformDataset): PlatformDataset {
+  return {
+    ...dataset,
+    teams: [],
+    leagues: dataset.leagues.map((lg) => {
+      const cleanLogo = stripPublicProviderLogoUrl(lg.logoUrl);
+      const next = { ...lg };
+      if (cleanLogo) {
+        next.logoUrl = cleanLogo;
+      } else {
+        delete next.logoUrl;
+      }
+      return next;
+    }),
+    games: dataset.games.map(sanitizePublicDatasetGame),
+  };
+}
+
 /**
  * Carga estado para superficies públicas aplicando redacción Cero-Fuga en servidor
  * cuando el visitante no tiene sesión activa. En `/p/[pickId]` solo acepta slugs semanales
@@ -931,7 +988,12 @@ export async function loadPublicPlatformState(
   if (hasActiveSession) {
     if (publicTipsterSlugOrPickId && !resolvedWeekly) {
       return {
-        dataset: { ...withoutGameDetail(redactDatasetForVisitor(fullDataset)), leagues: [], games: [] },
+        dataset: {
+          ...withoutGameDetail(redactDatasetForVisitor(fullDataset)),
+          leagues: [],
+          games: [],
+          teams: [],
+        },
         initialRole: access.isAdmin ? "admin" : access.isTipster ? "tipster" : "member",
         hasActiveSession: true,
         allowRoleSimulation: previewToolsEnabled(access.isAdmin),
@@ -945,9 +1007,10 @@ export async function loadPublicPlatformState(
     }
     const baseMemberDataset = withoutGameDetail(fullDataset);
     const memberDataset = resolvedWeekly
-      ? {
+      ? sanitizePublicDataset({
           ...baseMemberDataset,
           leagues: [],
+          teams: [],
           games: baseMemberDataset.games
             .filter((g) => g.id === resolvedWeekly.gameId)
             .map((g) => ({
@@ -958,8 +1021,8 @@ export async function loadPublicPlatformState(
                   : p,
               ),
             })),
-        }
-      : baseMemberDataset;
+        })
+      : sanitizePublicDataset(baseMemberDataset);
     return {
       dataset: memberDataset,
       initialRole: access.isAdmin ? "admin" : access.isTipster ? "tipster" : "member",
@@ -986,22 +1049,25 @@ export async function loadPublicPlatformState(
     ? {
         ...redacted,
         leagues: [],
+        teams: [],
         games: resolvedWeekly
           ? redacted.games
               .filter((g) => g.id === resolvedWeekly.gameId)
               .map((g) =>
-                g.status === "FT"
-                  ? g
-                  : {
-                      ...g,
-                      x12: [0, 0, 0] as [number, number, number],
-                      projection: { home: 0, away: 0, total: 0 },
-                      confidenceScore: 0,
-                    },
+                sanitizePublicDatasetGame(
+                  g.status === "FT"
+                    ? g
+                    : {
+                        ...g,
+                        x12: [0, 0, 0] as [number, number, number],
+                        projection: { home: 0, away: 0, total: 0 },
+                        confidenceScore: 0,
+                      },
+                ),
               )
           : [],
       }
-    : redacted;
+    : sanitizePublicDataset(redacted);
 
   return {
     dataset: scopedDataset,

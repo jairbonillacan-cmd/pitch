@@ -22,7 +22,7 @@ import {
 } from "./snapshots";
 
 const FORBIDDEN_RE =
-  /\b(dixon-coles|poisson|lightgbm|platt|pitágoras|log5|nflverse|openfootball|api-football|polymarket|kalshi|understat|espn)\b/gi;
+  /\b(dixon-coles|poisson|lightgbm|platt|pitágoras|log5|nflverse|openfootball|api-football|api-sports|bzzoiro|sofascore|sportmonks|espncdn|flagcdn|polymarket|kalshi|understat|espn)\b/gi;
 
 function sanitizeCopy(text: string): string {
   return text.replace(FORBIDDEN_RE, "PitchLab").replace(/\s{2,}/g, " ").trim();

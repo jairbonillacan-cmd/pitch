@@ -97,7 +97,7 @@ function formatStatValue(
 }
 
 /**
- * Barra comparativa plana estilo Sofascore apoyada en `computeStatBarWidths`:
+ * Barra comparativa plana editorial apoyada en `computeStatBarWidths`:
  * 100 % tokens `--pl-*`, cero gradientes, soporte completo para porcentajes,
  * conteos positivos y métricas negativas (`data-negative="true"`).
  */

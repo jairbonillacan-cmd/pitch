@@ -132,7 +132,7 @@ function getCacheStore(): {
 }
 
 const FORBIDDEN_COPY_RE =
-  /\b(dixon-coles|poisson|lightgbm|platt|pitágoras|log5|nflverse|openfootball|api-football|polymarket|kalshi|understat|espn)\b/i;
+  /\b(dixon-coles|poisson|lightgbm|platt|pitágoras|log5|nflverse|openfootball|api-football|api-sports|bzzoiro|sofascore|sportmonks|espncdn|flagcdn|polymarket|kalshi|understat|espn)\b/i;
 
 function cleanText(text: string): string {
   return text.replace(/^VIDEO:\s*/i, "").replace(/\s{2,}/g, " ").trim();

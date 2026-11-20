@@ -667,7 +667,7 @@ export const FichaEliminatoriaVueltaClaro = {
   ...light,
 };
 
-/** Tablero ScoutPicks de Picks agrupados por mercado con evidencia verificable (ADR-054). */
+/** Tablero editorial de Picks agrupados por mercado con evidencia verificable (ADR-054). */
 export const FichaPicksEvidenciaOscuro = {
   render: () => (
     <PlatformProvider dataset={DATASET} initialRole="member">

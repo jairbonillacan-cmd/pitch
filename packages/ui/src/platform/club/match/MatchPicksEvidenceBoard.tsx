@@ -256,7 +256,7 @@ export function MatchPicksEvidenceBoard({
         </span>
       </div>
 
-      {/* Barra de filtros planos horizontales estilo ScoutPicks */}
+      {/* Barra de filtros planos horizontales por mercado */}
       <div className="pl-ev-filters" role="group" aria-label="Filtrar picks por mercado y criterio">
         <button
           type="button"

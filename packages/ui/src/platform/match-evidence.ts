@@ -1,6 +1,6 @@
 /**
- * Motor puro de Evidencia Histórica y Agrupación de Picks por Mercado (ADR-054 · estilo ScoutPicks).
- * Calcula tasas reales verificables (`X/5`, `X/N H2H`, ritmo proyectado, árbitro/conteos Bzzoiro)
+ * Motor puro de Evidencia Histórica y Agrupación de Picks por Mercado (ADR-054).
+ * Calcula tasas reales verificables (`X/5`, `X/N H2H`, ritmo proyectado, árbitro y conteos reales)
  * estrictamente a partir de datos presentes en el partido — cero números inventados.
  */
 import type {

@@ -2602,7 +2602,7 @@ export function MatchStudioClubView({
               ]}
             />
 
-            {/* Pestaña 1: Picks y Evidencia (estilo ScoutPicks + Bzzoiro + En vivo + Pre-Match) */}
+            {/* Pestaña 1: Picks y Evidencia (tablero editorial + En vivo + Pre-Match) */}
             <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
               {liveSupported || liveDetailOverride ? (
                 <Suspense fallback={<MatchTabFallback />}>

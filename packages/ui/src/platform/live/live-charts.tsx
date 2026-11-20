@@ -148,7 +148,7 @@ export function MomentumChart({
                   <rect x="0" y={mid} width={W} height={mid} />
                 </clipPath>
               </defs>
-              {/* Bandas de fondo suaves estilo Sofascore: local arriba, visita abajo */}
+              {/* Bandas de fondo suaves: local arriba, visita abajo */}
               <rect className="pl-live-band pl-live-band--home" x={PAD_X} y={PAD_Y / 2} width={W - PAD_X * 2} height={mid - PAD_Y / 2} />
               <rect className="pl-live-band pl-live-band--away" x={PAD_X} y={mid} width={W - PAD_X * 2} height={mid - PAD_Y / 2} />
               <path className="pl-live-area pl-live-area--home" d={area} clipPath={`url(#${uid}-up)`} />
@@ -324,7 +324,7 @@ const STAT_ROWS: { key: StatKey; label: string; digits?: number; pct?: boolean; 
   { key: "redCards", label: "Rojas" },
 ];
 
-/** Barras pareadas planas estilo Sofascore con soporte real a métricas negativas. */
+/** Barras pareadas planas editoriales con soporte real a métricas negativas. */
 export function LiveStatBars({
   stats,
   homeLabel,

@@ -70,7 +70,7 @@ function buildFallbackReportFromDataset(dataset: PlatformDataset): DataHealthRep
         updatedAtUtc: dataset.generatedAt,
         ageHours: snapAge,
         maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.calendario.staleHours,
-        sourceLabel: lg.league === "nfl" ? "nflverse" : "espn + openfootball",
+        sourceLabel: "Ingesta de calendario PitchLab",
         recordsCount: lg.totalGames,
         note: lg.roundLabel,
         lastError: null,
@@ -81,7 +81,10 @@ function buildFallbackReportFromDataset(dataset: PlatformDataset): DataHealthRep
         updatedAtUtc: dataset.generatedAt,
         ageHours: snapAge,
         maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.bajas.staleHours,
-        sourceLabel: lg.league === "nfl" ? "nflverse-cc-by-4.0" : "espn-public",
+        sourceLabel:
+          lg.league === "nfl"
+            ? "Reporte semanal de disponibilidad"
+            : "Monitor de disponibilidad PitchLab",
         recordsCount: 0,
         note:
           lg.league === "nfl"
@@ -95,9 +98,9 @@ function buildFallbackReportFromDataset(dataset: PlatformDataset): DataHealthRep
         updatedAtUtc: null,
         ageHours: null,
         maxHours: DATA_FRESHNESS_THRESHOLDS_HOURS.momios.staleHours,
-        sourceLabel: "bzzoiro / the_odds_api / betfair",
+        sourceLabel: "Flujo de mercado PitchLab",
         recordsCount: 0,
-        note: "Configura BZZOIRO_API_KEY, THE_ODDS_API_KEY o Betfair en Actions",
+        note: "Configura las credenciales del flujo de mercado en el servidor",
         lastError: null,
       },
       alineaciones: {

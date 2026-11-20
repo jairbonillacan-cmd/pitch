@@ -81,7 +81,7 @@ function buildEvidenceDataset() {
   ]);
 }
 
-describe("ADR-054 · Evidencia verificable en picks (ScoutPicks/Bzzoiro) y retiro de Conf. N", () => {
+describe("ADR-054 · Evidencia verificable en picks y retiro de Conf. N", () => {
   it("classifyPickGroup agrupa mercados en las 5 categorías editoriales", () => {
     expect(classifyPickGroup({ market: "1x2", label: "Local gana", marketGroup: "Resultado" })).toBe("resultado");
     expect(classifyPickGroup({ market: "double_chance", label: "Local o Empate", marketGroup: "Doble oportunidad" })).toBe("resultado");

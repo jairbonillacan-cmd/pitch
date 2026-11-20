@@ -3,7 +3,7 @@
  * Evolución candidata para `MLB`, `NHL` y `NBA` en TypeScript puro con paridad IEEE-754 `< 1e-13`
  * frente a `run_multisport_v3_6.py`.
  *
- * Corrige las tres fallas estructurales demostradas en la auditoría forense de Astra AI:
+ * Corrige tres fallas estructurales clave en modelado multi-deporte:
  *  1. MLB (`Kepler v3.6 Candidate`):
  *     - Soporte continuo de entradas del abridor `E[IP_SP] ∈ [1.0, 6.8]` (incl. *openers* `1.2 IP`),
  *       contracción Empirical Bayes de `FIP/ERA` (`kappa_ip = 45`), *platoon splits* y ventaja local.

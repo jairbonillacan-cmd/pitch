@@ -70,7 +70,7 @@ Se amplían los adaptadores de ingesta y los puentes de servidor bajo `BZZOIRO_U
   - Integrados en `PicksFinderView.tsx` (modos `Por partido` / `Por mercado` / `Lista plana`, ordenación por `EV+` / probabilidad / movimiento / hora, selector de 7 casas MX/US/sharp, conmutador `Próximos / En vivo` con pausa por `visibilitychange`, filtro multi-deporte y bottom sheet móvil), `MatchPicksEvidenceBoard.tsx` y `MatchMarketsGrid.tsx`.
 - **CSS modular en `@layer components` (fuera de `globals.css`, todas registradas en `packages/ui/.storybook/preview.ts`):**
   - `apps/web/app/picks-screener.css` (`39.5 KB`) — importada solo en `apps/web/app/app/picks/page.tsx` y `apps/web/app/app/[league]/g/[gameSlug]/page.tsx`.
-  - `apps/web/app/atomic-sofascore.css` (`27.0 KB`) — importada solo en `apps/web/app/app/[league]/g/[gameSlug]/page.tsx`.
+  - `apps/web/app/atomic-kit.css` (`27.0 KB`) — importada solo en `apps/web/app/app/[league]/g/[gameSlug]/page.tsx`.
   - `apps/web/app/shell-ergonomics.css` (`13.6 KB`) — importada en `apps/web/app/app/layout.tsx`.
 
 ### 4. Retiro 100 % de `@base-ui/react`, modularización de `HomeClubView`, blindaje RSC `< 500 KB` y cierre de seguridad
@@ -111,7 +111,7 @@ Se amplían los adaptadores de ingesta y los puentes de servidor bajo `BZZOIRO_U
 ## Consecuencias
 
 - **Positivas:** catálogo propio de 34 familias multi-deporte con valoración `de-vig`/`EV+`, SGP con Cópula Gaussiana y liquidación `FT` auditable; integración completa de Bzzoiro Unlimited cumpliendo Licencia v4.0 y `FD-16`; kit atómico Sofascore (`7` componentes) + Screener modular (`5` componentes) con CSS aislado por ruta; retiro al 100 % de `@base-ui/react`; `HomeClubView` reducido en `-83.0 %`; shell RSC garantizado `< 500 KB` (`280.7 KB` socio / `227.3 KB` visitante); cierre integral de hallazgos `Cero-Fuga`/API/SW; y SEO MX/LATAM con JSON-LD `SportsEvent` y sitemap `FD-16` limpio.
-- **Compromisos:** todo campo enriquecido nuevo que se agregue a `PlatformGame` o `MatchPick` queda fuera del shell compartido por defecto salvo inclusión explícita en `projectShellGame`/`projectShellPick`; las rutas que monten vistas atómicas o del screener deben importar explícitamente `atomic-sofascore.css` y/o `picks-screener.css`; y los consumidores/pruebas de `/api/compare`, `/api/news/article`, `/api/parlays/sgp` y `/api/live/games/[gameId]` deben operar bajo el contrato endurecido de sesión, pase, allowlist de ligas y CSRF.
+- **Compromisos:** todo campo enriquecido nuevo que se agregue a `PlatformGame` o `MatchPick` queda fuera del shell compartido por defecto salvo inclusión explícita en `projectShellGame`/`projectShellPick`; las rutas que monten vistas atómicas o del screener deben importar explícitamente `atomic-kit.css` y/o `picks-screener.css`; y los consumidores/pruebas de `/api/compare`, `/api/news/article`, `/api/parlays/sgp` y `/api/live/games/[gameId]` deben operar bajo el contrato endurecido de sesión, pase, allowlist de ligas y CSRF.
 
 ---
 

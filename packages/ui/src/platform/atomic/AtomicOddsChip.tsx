@@ -108,7 +108,7 @@ export interface AtomicOddsChipProps {
 }
 
 /**
- * Chip compacto de cuota estilo Sofascore / PitchLab:
+ * Chip compacto de cuota editorial PitchLab:
  * siempre anclado a `Momio justo`, con cuota de casa opcional y delta direccional (`↓`, `↑`, `Steam`) en `.num`.
  */
 export function AtomicOddsChip({
