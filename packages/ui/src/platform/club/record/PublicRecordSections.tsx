@@ -3,6 +3,7 @@
 import React, { useCallback, useId, useState } from "react";
 import { formatOddsValue } from "../../access-guard";
 import { DailyResultsCalendar } from "../../components/DailyResultsCalendar";
+import { MaestroIcon } from "../../components/MaestroPrimitives";
 import {
   buildMonthlyRecordCalendar,
   type CurvePoint,
@@ -10,7 +11,17 @@ import {
   type RateRow,
 } from "../../record-stats";
 import type { OddsFormat } from "../../types";
-import { PickStatus, outcomeOf } from "../community-ui";
+import {
+  auditStatusFromJournal,
+  classifyMarketFamily,
+  getAuditStatusMeta,
+} from "./record-audit-helpers";
+
+export interface AuditRateDisplayRow extends RateRow {
+  readonly pushes?: number;
+  readonly avgEvPct?: number | null;
+  readonly avgClvPct?: number | null;
+}
 
 export function formatSignedUnits(u: number): string {
   if (Object.is(u, -0) || u === 0) return "0.00u";
@@ -32,7 +43,7 @@ export function formatShortIsoDay(day: string | null | undefined): string {
 }
 
 /**
- * Gráfica SVG accesible de la curva de saldo en unidades con tabla equivalente para lectores de pantalla.
+ * Gráfica SVG plana y accesible de la curva de saldo en unidades con tabla equivalente para lectores de pantalla.
  */
 export function BalanceCurveFigure({
   curve,
@@ -45,11 +56,10 @@ export function BalanceCurveFigure({
 }): React.JSX.Element {
   const uid = useId();
   const titleId = `${uid}-curve-title`;
-  const gradId = `${uid}-curve-grad`;
 
   if (curve.length === 0) {
     return (
-      <p className="pl-rec-hint">
+      <p className="pl-rec-hint [text-wrap:pretty]">
         Cuando se liquide tu primer pick aparecerá aquí tu curva de saldo día por día.
       </p>
     );
@@ -112,12 +122,6 @@ export function BalanceCurveFigure({
           Curva de saldo en unidades del {formatShortIsoDay(first.day)} al{" "}
           {formatShortIsoDay(last.day)}, cerrando en {last.balance.toFixed(2)}u
         </title>
-        <defs>
-          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={strokeVar} stopOpacity="0.28" />
-            <stop offset="100%" stopColor={strokeVar} stopOpacity="0.0" />
-          </linearGradient>
-        </defs>
 
         <line
           x1={left}
@@ -129,12 +133,12 @@ export function BalanceCurveFigure({
           strokeDasharray="4 4"
         />
 
-        <path d={areaPath} fill={`url(#${gradId})`} />
+        <path d={areaPath} fill={strokeVar} fillOpacity="0.09" />
         <path
           d={linePath}
           fill="none"
           stroke={strokeVar}
-          strokeWidth="2.6"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -200,30 +204,51 @@ export function BalanceCurveFigure({
 }
 
 /**
- * Barras horizontales accesibles para acierto por liga, mercado o tipo de pick.
+ * Barras horizontales planas y accesibles para acierto por liga, familia de mercado o tipo de pick.
  */
 export function RateBreakdownList({
   rows,
   emptyText = "Sin picks cerrados todavía.",
   showNetUnits = true,
 }: {
-  rows: readonly RateRow[];
+  rows: readonly AuditRateDisplayRow[];
   emptyText?: string;
   showNetUnits?: boolean;
 }): React.JSX.Element {
   if (rows.length === 0) {
-    return <p className="pl-rec-hint">{emptyText}</p>;
+    return <p className="pl-rec-hint [text-wrap:pretty]">{emptyText}</p>;
   }
   return (
-    <ul className="pl-rec-bars">
+    <ul className="pl-rec-bars" role="list">
       {rows.map((row) => {
         const pct = row.total > 0 ? Math.round((row.won / row.total) * 1000) / 10 : 0;
+        const losses = Math.max(0, row.total - row.won);
+        const pushes = row.pushes ?? 0;
+        const barColor =
+          row.total === 0
+            ? "var(--pl-text-muted)"
+            : pct >= 55
+              ? "var(--pl-success)"
+              : pct < 45
+                ? "var(--pl-warning)"
+                : "var(--pl-brand)";
+        const hasAuditMeta =
+          (typeof row.avgEvPct === "number" && Number.isFinite(row.avgEvPct)) ||
+          (typeof row.avgClvPct === "number" && Number.isFinite(row.avgClvPct));
+
         return (
           <li key={row.key} className="pl-rec-bar-item">
             <div className="pl-rec-bar-top num">
               <span className="pl-rec-bar-label">{row.label}</span>
               <span className="pl-rec-bar-nums">
-                <strong>{pct.toFixed(1)} %</strong> · {row.won} de {row.total}
+                {row.total > 0 ? (
+                  <>
+                    <strong>{pct.toFixed(1)} %</strong> · {row.won}G–{losses}P
+                  </>
+                ) : (
+                  <strong>—</strong>
+                )}
+                {pushes > 0 ? <> · {pushes} Push</> : null}
                 {showNetUnits ? (
                   <>
                     {" "}
@@ -238,9 +263,32 @@ export function RateBreakdownList({
             <div className="pl-rec-bar-track" aria-hidden="true">
               <div
                 className="pl-rec-bar-fill"
-                style={{ width: `${Math.min(100, Math.max(0, pct))}%` }}
+                style={{
+                  width: `${Math.min(100, Math.max(0, pct))}%`,
+                  background: barColor,
+                }}
               />
             </div>
+            {hasAuditMeta ? (
+              <div
+                className="flex flex-wrap items-center gap-2 text-[11px] num"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                {typeof row.avgEvPct === "number" && Number.isFinite(row.avgEvPct) ? (
+                  <span
+                    style={{
+                      color:
+                        row.avgEvPct > 0 ? "var(--pl-success)" : "var(--pl-text-muted)",
+                    }}
+                  >
+                    EV {formatSignedPctValue(row.avgEvPct)}
+                  </span>
+                ) : null}
+                {typeof row.avgClvPct === "number" && Number.isFinite(row.avgClvPct) ? (
+                  <span>CLV {formatSignedPctValue(row.avgClvPct)}</span>
+                ) : null}
+              </div>
+            ) : null}
           </li>
         );
       })}
@@ -294,14 +342,14 @@ export function PublicRecordPreviewCard({
 
   if (hidden || !view) {
     return (
-      <div className="pl-rec-card glass-lens glass-ring" data-public-record-state="hidden">
+      <div className="pl-rec-card glass-card glass-ring" data-public-record-state="hidden">
         <div className="pl-rec-card-head">
-          <h3 className="pl-rec-card-title">
+          <h3 className="pl-rec-card-title [text-wrap:balance]">
             {isPreview ? "Así ven los demás tu récord" : "Récord privado"}
           </h3>
           <span className="pl-pill">Privado</span>
         </div>
-        <p className="pl-rec-hint">
+        <p className="pl-rec-hint [text-wrap:pretty]">
           {isPreview
             ? `Con el interruptor principal apagado, nadie ve el récord ni los picks de @${handle} en su perfil.`
             : `@${handle} eligió mantener su récord en privado.`}
@@ -360,7 +408,7 @@ export function PublicRecordPreviewCard({
       key: "clv",
       label: "Ventaja promedio",
       value: formatSignedPctValue(view.avgClvPct),
-      sub: "Contra momio justo",
+      sub: "CLV contra momio justo",
       tone: view.avgClvPct > 0 ? "pos" : view.avgClvPct < 0 ? "neg" : undefined,
     });
   }
@@ -400,10 +448,10 @@ export function PublicRecordPreviewCard({
       (view.settledPicks && view.settledPicks.length > 0);
 
   return (
-    <div className="pl-rec-card glass-lens glass-ring" data-public-record-state="visible">
+    <div className="pl-rec-card glass-card glass-ring" data-public-record-state="visible">
       <div className="pl-rec-card-head">
-        <div>
-          <h3 className="pl-rec-card-title">
+        <div className="min-w-0">
+          <h3 className="pl-rec-card-title [text-wrap:balance]">
             {isPreview ? "Así ven los demás tu récord" : `Récord público de @${handle}`}
           </h3>
           <p className="pl-rec-card-meta">
@@ -414,7 +462,7 @@ export function PublicRecordPreviewCard({
       </div>
 
       {!hasAnyBlock ? (
-        <p className="pl-rec-hint">
+        <p className="pl-rec-hint [text-wrap:pretty]">
           {settled === 0
             ? "Todavía no hay picks cerrados para mostrar."
             : isPreview
@@ -511,7 +559,7 @@ export function PublicRecordPreviewCard({
               >
                 <button
                   type="button"
-                  className="seg-btn text-xs min-h-9"
+                  className="seg-btn text-xs min-h-11 sm:min-h-9"
                   aria-pressed={picksViewMode === "list"}
                   onClick={() => setPicksViewMode("list")}
                 >
@@ -519,7 +567,7 @@ export function PublicRecordPreviewCard({
                 </button>
                 <button
                   type="button"
-                  className="seg-btn text-xs min-h-9"
+                  className="seg-btn text-xs min-h-11 sm:min-h-9"
                   aria-pressed={picksViewMode === "calendar"}
                   onClick={() => setPicksViewMode("calendar")}
                 >
@@ -534,20 +582,27 @@ export function PublicRecordPreviewCard({
               mode={showPublicUnits ? "units" : "counts"}
             />
           ) : (
-            <ul className="pl-rec-pub-picks num">
-              {view.settledPicks.slice(0, isPreview ? 4 : 15).map((p, idx) => (
-                <li key={`${p.pickLabel}-${p.day ?? idx}-${idx}`} className="pl-rec-pub-pick">
-                  <div className="min-w-0">
-                    <strong className="block text-xs font-bold truncate">{p.pickLabel}</strong>
-                    <span className="block text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
-                      {p.leagueLabel}
-                      {p.day ? ` · ${formatShortIsoDay(p.day)}` : ""} · {p.units.toFixed(2)}u ·{" "}
-                      {formatOddsValue(p.userDecimal, oddsFormat)}
+            <ul className="pl-rec-pub-picks num" role="list">
+              {view.settledPicks.slice(0, isPreview ? 4 : 15).map((p, idx) => {
+                const statusMeta = getAuditStatusMeta(auditStatusFromJournal(p.status));
+                const family = classifyMarketFamily({ pickLabel: p.pickLabel });
+                return (
+                  <li key={`${p.pickLabel}-${p.day ?? idx}-${idx}`} className="pl-rec-pub-pick">
+                    <div className="min-w-0">
+                      <strong className="block text-xs font-bold truncate">{p.pickLabel}</strong>
+                      <span className="block text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
+                        {p.leagueLabel} · {family.shortLabel}
+                        {p.day ? ` · ${formatShortIsoDay(p.day)}` : ""} · {p.units.toFixed(2)}u ·{" "}
+                        {formatOddsValue(p.userDecimal, oddsFormat)}
+                      </span>
+                    </div>
+                    <span className={`${statusMeta.pillClass} shrink-0`} data-audit-status={statusMeta.status}>
+                      <MaestroIcon name={statusMeta.icon} size={11} />
+                      <span>{statusMeta.label}</span>
                     </span>
-                  </div>
-                  <PickStatus status={outcomeOf(p.status)} />
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>

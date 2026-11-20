@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
+import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { WinningTicketDialog } from "../components/WinningTicketDialog";
 import {
@@ -12,12 +12,13 @@ import {
   useWatchlistGameIds,
 } from "../platform-provider";
 import {
+  DEFAULT_RECORD_PRIVACY,
   computeRecordStats,
   normalizeRecordPrivacy,
   type RecordPrivacy,
   type RecordPrivacyBlock,
 } from "../record-stats";
-import type { JournalEntry } from "../types";
+import type { JournalEntry, MatchPick } from "../types";
 import {
   DEFAULT_STORED_PREFS_V1,
   formatUnitsAsMxn,
@@ -33,6 +34,7 @@ import {
 import { RecordBankStatsTab } from "./record/RecordBankStatsTab";
 import { RecordPicksTab } from "./record/RecordPicksTab";
 import { RecordPrivacyTab } from "./record/RecordPrivacyTab";
+import { computeJournalAuditSummary } from "./record/record-audit-helpers";
 
 export type RecordTabKey = "picks" | "banca" | "privacidad";
 
@@ -196,6 +198,24 @@ export function BitacoraClubView({
     [journal, startingUnits],
   );
 
+  const auditSummary = useMemo(
+    () => computeJournalAuditSummary(journal),
+    [journal],
+  );
+
+  const pickById = useMemo(() => {
+    const map = new Map<string, MatchPick>();
+    for (const g of dataset.games) {
+      for (const pk of g.picks) {
+        map.set(pk.id, pk);
+      }
+      for (const cand of g.parlayCandidates ?? []) {
+        if (!map.has(cand.id)) map.set(cand.id, cand);
+      }
+    }
+    return map;
+  }, [dataset.games]);
+
   const watchedGames = useMemo(
     () => dataset.games.filter((g) => watchlistGameIds.includes(g.id)),
     [dataset.games, watchlistGameIds],
@@ -303,6 +323,25 @@ export function BitacoraClubView({
     [persistServerPatch],
   );
 
+  const handleResetPrivacy = useCallback(() => {
+    const freshPrivacy = normalizeRecordPrivacy(DEFAULT_RECORD_PRIVACY);
+    setPrefs((prev) => {
+      const next: StoredAccountPrefsV1 = {
+        ...prev,
+        privacy: { ...prev.privacy, publicProfile: true, showInRanking: true },
+        recordPrivacy: freshPrivacy,
+      };
+      writeStoredPrefs(next);
+      return next;
+    });
+    persistServerPatch({
+      publicRecordVisible: true,
+      showInRanking: true,
+      recordPrivacy: freshPrivacy,
+    });
+    pushToast("Privacidad restaurada a la configuración predeterminada.", "default");
+  }, [persistServerPatch, pushToast]);
+
   const streakValue =
     stats.currentStreak.kind === "won"
       ? `${stats.currentStreak.length}G seguidos`
@@ -314,9 +353,8 @@ export function BitacoraClubView({
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/lab">
         <div className="pl-rec">
-          {/* Hero y 4 indicadores clave */}
-          <header className="pl-rec-hero glass-lens glass-ring">
-            <LensGlowOrbs subtle />
+          {/* Hero editorial plano y 4 indicadores clave */}
+          <header className="pl-rec-hero glass-card glass-ring">
             <div className="pl-rec-hero-top">
               <div className="pl-rec-hero-copy">
                 <div>
@@ -325,14 +363,14 @@ export function BitacoraClubView({
                     <span>Sellado antes del partido</span>
                   </span>
                 </div>
-                <h1 className="pl-rec-title">Mi récord</h1>
-                <p className="pl-rec-sub">
-                  Tus picks individuales y parlays en unidades (0.25u–5.00u), con banca privada
-                  opcional y control de lo que ven otros socios.
+                <h1 className="pl-rec-title [text-wrap:balance]">Mi récord</h1>
+                <p className="pl-rec-sub [text-wrap:pretty]">
+                  Tus picks individuales y parlays en unidades (0.25u–5.00u), con liquidación
+                  auditable, banca privada opcional y control de lo que ven otros socios.
                 </p>
                 <p className="pl-rec-sync" data-local-storage-note="">
                   {hasAccountSessionAuth
-                    ? "Sincronizado y sellado en tu cuenta de socio."
+                    ? "Sincronizado y sellado en tu cuenta de socio (registro inmutable)."
                     : "Guardado en este navegador. Cuando entres con tu cuenta se sincroniza y queda sellado en el servidor."}
                 </p>
               </div>
@@ -340,7 +378,7 @@ export function BitacoraClubView({
               <div className="pl-rec-hero-actions">
                 <button
                   type="button"
-                  className="pl-btn-primary text-xs"
+                  className="pl-btn-primary text-xs min-h-11 sm:min-h-10"
                   onClick={() =>
                     openShareTicket({
                       kind: "pick",
@@ -349,7 +387,7 @@ export function BitacoraClubView({
                       leagueLabel: "Mi récord",
                       pickLabel: `${stats.won}G-${stats.lost}P · ${formatSignedUnits(stats.netUnits)}${
                         stats.avgClvPct !== null
-                          ? ` · Ventaja ${formatSignedPctValue(stats.avgClvPct)}`
+                          ? ` · CLV ${formatSignedPctValue(stats.avgClvPct)}`
                           : ""
                       }`,
                       probability: Math.max(
@@ -370,7 +408,7 @@ export function BitacoraClubView({
 
                 <button
                   type="button"
-                  className="pl-btn-glass text-xs"
+                  className="pl-btn-glass text-xs min-h-11 sm:min-h-10"
                   onClick={() => exportJournalCsv()}
                 >
                   <MaestroIcon name="download" size={14} />
@@ -404,8 +442,9 @@ export function BitacoraClubView({
                   </span>
                 ) : null}
                 <span className="pl-rec-kpi-sub">
-                  {stats.won}G – {stats.lost}P cerrados · {stats.open}{" "}
-                  {stats.open === 1 ? "abierto" : "abiertos"}
+                  {stats.won}G – {stats.lost}P
+                  {auditSummary.pushes > 0 ? ` · ${auditSummary.pushes} Push` : ""} ·{" "}
+                  {stats.open} {stats.open === 1 ? "pendiente" : "pendientes"}
                 </span>
               </div>
 
@@ -423,7 +462,7 @@ export function BitacoraClubView({
                 </strong>
                 <span className="pl-rec-kpi-sub">
                   {stats.settled > 0
-                    ? `${stats.won} de ${stats.settled} cerrados`
+                    ? `${stats.won} de ${stats.settled} decididos`
                     : `${journal.length} picks registrados`}
                 </span>
               </div>
@@ -449,7 +488,10 @@ export function BitacoraClubView({
                   {stats.yieldPct !== null ? formatSignedPctValue(stats.yieldPct) : "—"}
                 </strong>
                 <span className="pl-rec-kpi-sub">
-                  Ventaja {stats.avgClvPct !== null ? formatSignedPctValue(stats.avgClvPct) : "—"}
+                  CLV {stats.avgClvPct !== null ? formatSignedPctValue(stats.avgClvPct) : "—"}
+                  {auditSummary.avgEvPct !== null
+                    ? ` · EV ${formatSignedPctValue(auditSummary.avgEvPct)}`
+                    : ""}
                   {stats.roiPct !== null ? ` · Retorno ${formatSignedPctValue(stats.roiPct)}` : ""}
                 </span>
               </div>
@@ -511,6 +553,8 @@ export function BitacoraClubView({
               bankrollStartMxn={prefs.bankrollStartMxn}
               oddsFormat={oddsFormat}
               onSaveBankroll={handleSaveBankroll}
+              entries={journal}
+              pickById={pickById}
             />
           </TabPanel>
 
@@ -527,6 +571,7 @@ export function BitacoraClubView({
               onToggleShowInRanking={handleToggleShowInRanking}
               onToggleBlock={handleToggleBlock}
               onToggleField={handleToggleField}
+              onResetPrivacy={handleResetPrivacy}
             />
           </TabPanel>
         </div>

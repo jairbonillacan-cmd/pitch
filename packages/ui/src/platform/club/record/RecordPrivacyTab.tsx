@@ -3,7 +3,9 @@
 import React, { useId, useMemo, useState } from "react";
 import { Switch } from "@heroui/react";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { ConfirmActionDialog } from "../../components/PlatformOverlays";
 import {
+  DEFAULT_RECORD_PRIVACY,
   RECORD_PRIVACY_BLOCKS,
   publicRecordView,
   type RecordEntry,
@@ -15,6 +17,25 @@ import type { OddsFormat } from "../../types";
 import { PublicRecordPreviewCard } from "./PublicRecordSections";
 
 const BLOCK_KEYS = Object.keys(RECORD_PRIVACY_BLOCKS) as RecordPrivacyBlock[];
+
+function isPrivacyCustomized(
+  privacy: RecordPrivacy,
+  publicRecordVisible: boolean,
+  showInRanking: boolean,
+): boolean {
+  if (!publicRecordVisible || !showInRanking) return true;
+  for (const blockKey of BLOCK_KEYS) {
+    const cur = privacy[blockKey];
+    const def = DEFAULT_RECORD_PRIVACY[blockKey];
+    if (cur.enabled !== def.enabled) return true;
+    const curFields = cur.fields as Record<string, boolean>;
+    const defFields = def.fields as Record<string, boolean>;
+    for (const fKey of Object.keys(defFields)) {
+      if (Boolean(curFields[fKey]) !== Boolean(defFields[fKey])) return true;
+    }
+  }
+  return false;
+}
 
 export function RecordPrivacyTab({
   handle,
@@ -28,6 +49,7 @@ export function RecordPrivacyTab({
   onToggleShowInRanking,
   onToggleBlock,
   onToggleField,
+  onResetPrivacy,
 }: {
   handle: string;
   stats: RecordStats;
@@ -40,6 +62,7 @@ export function RecordPrivacyTab({
   onToggleShowInRanking: (next: boolean) => void;
   onToggleBlock: (block: RecordPrivacyBlock, enabled: boolean) => void;
   onToggleField: (block: RecordPrivacyBlock, field: string, enabled: boolean) => void;
+  onResetPrivacy?: () => void;
 }): React.JSX.Element {
   const uid = useId();
   const masterLabelId = `${uid}-master-lbl`;
@@ -53,10 +76,16 @@ export function RecordPrivacyTab({
     bank: true,
     history: true,
   });
+  const [confirmResetOpen, setConfirmResetOpen] = useState(false);
 
   const liveView = useMemo(
     () => (publicRecordVisible ? publicRecordView(stats, entries, privacy, 12) : null),
     [entries, privacy, publicRecordVisible, stats],
+  );
+
+  const customized = useMemo(
+    () => isPrivacyCustomized(privacy, publicRecordVisible, showInRanking),
+    [privacy, publicRecordVisible, showInRanking],
   );
 
   return (
@@ -65,8 +94,8 @@ export function RecordPrivacyTab({
         {/* Interruptores generales */}
         <section className="pl-rec-card glass-card glass-ring" aria-labelledby={`${uid}-general-title`}>
           <div className="pl-rec-card-head">
-            <div>
-              <h2 id={`${uid}-general-title`} className="pl-rec-card-title">
+            <div className="min-w-0">
+              <h2 id={`${uid}-general-title`} className="pl-rec-card-title [text-wrap:balance]">
                 Visibilidad general
               </h2>
               <p className="pl-rec-card-meta">
@@ -75,7 +104,7 @@ export function RecordPrivacyTab({
             </div>
           </div>
 
-          <div className="pl-rec-priv-banner">
+          <div className="pl-rec-priv-banner [text-wrap:pretty]">
             <strong>Garantía de privacidad:</strong> los montos en pesos (banca y equivalencias MXN) y tus
             picks abiertos nunca se muestran a nadie, aunque actives todos los bloques.
           </div>
@@ -85,7 +114,11 @@ export function RecordPrivacyTab({
               <strong id={masterLabelId} className="block text-sm font-bold">
                 Mostrar mi récord en mi perfil público
               </strong>
-              <span id={masterDescId} className="block text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+              <span
+                id={masterDescId}
+                className="block text-xs [text-wrap:pretty]"
+                style={{ color: "var(--pl-text-secondary)" }}
+              >
                 Si lo apagas, nadie ve estadísticas ni historial de picks en tu perfil.
               </span>
             </div>
@@ -109,7 +142,11 @@ export function RecordPrivacyTab({
               <strong id={rankLabelId} className="block text-sm font-bold">
                 Aparecer en el ranking de Comunidad
               </strong>
-              <span id={rankDescId} className="block text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+              <span
+                id={rankDescId}
+                className="block text-xs [text-wrap:pretty]"
+                style={{ color: "var(--pl-text-secondary)" }}
+              >
                 Participas en la tabla semanal y mensual cuando cumplas la muestra mínima de picks cerrados.
               </span>
             </div>
@@ -160,7 +197,7 @@ export function RecordPrivacyTab({
                         : `${activeFields} de ${fieldEntries.length} visibles`}
                     </span>
                   </h3>
-                  <p id={blockDescId} className="pl-rec-hint">
+                  <p id={blockDescId} className="pl-rec-hint [text-wrap:pretty]">
                     {spec.hint}
                   </p>
                 </div>
@@ -184,7 +221,7 @@ export function RecordPrivacyTab({
               {fieldEntries.length > 1 ? (
                 <button
                   type="button"
-                  className="pl-rec-disclosure"
+                  className="pl-rec-disclosure min-h-11 sm:min-h-9"
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() =>
@@ -237,6 +274,19 @@ export function RecordPrivacyTab({
             </section>
           );
         })}
+
+        {onResetPrivacy && customized ? (
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-4"
+              data-reset-privacy-trigger=""
+              onClick={() => setConfirmResetOpen(true)}
+            >
+              Restaurar privacidad predeterminada
+            </button>
+          </div>
+        ) : null}
       </div>
 
       {/* Vista previa en vivo: exacto lo que entrega publicRecordView */}
@@ -250,6 +300,19 @@ export function RecordPrivacyTab({
           isPreview
         />
       </aside>
+
+      {onResetPrivacy ? (
+        <ConfirmActionDialog
+          open={confirmResetOpen}
+          title="¿Restaurar privacidad predeterminada?"
+          description="Se restablecerán los bloques visibles a la configuración inicial. Tus montos en pesos y tus picks pendientes siempre permanecerán privados."
+          confirmLabel="Restaurar"
+          cancelLabel="Cancelar"
+          tone="brand"
+          onConfirm={onResetPrivacy}
+          onCancel={() => setConfirmResetOpen(false)}
+        />
+      ) : null}
     </div>
   );
 }
