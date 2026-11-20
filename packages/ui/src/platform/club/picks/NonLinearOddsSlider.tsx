@@ -204,6 +204,7 @@ export function NonLinearOddsSlider({
             max={99}
             step={1}
             value={safeMin}
+            aria-label="Momio mínimo"
             aria-valuetext={`Momio mínimo ${minLabel}`}
             onChange={(e) => {
               const next = Number(e.target.value);
@@ -230,6 +231,7 @@ export function NonLinearOddsSlider({
             max={100}
             step={1}
             value={safeMax}
+            aria-label="Momio máximo"
             aria-valuetext={
               safeMax >= 100 ? `Momio máximo sin tope (${maxLabel})` : `Momio máximo ${maxLabel}`
             }

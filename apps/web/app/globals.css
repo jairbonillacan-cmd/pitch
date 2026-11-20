@@ -595,11 +595,7 @@ html[data-theme="light"] .only-light {
   transition: width 700ms var(--ease-out);
 }
 .pbar.lead > span {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--brand-primary) 55%, transparent),
-    var(--brand-primary)
-  );
+  background: var(--pl-brand);
 }
 .pbar.grow > span {
   width: 0;
@@ -2238,11 +2234,7 @@ fieldset[disabled] button {
   height: 10px;
 }
 .pulse-stack > span.lead {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--brand-primary) 55%, transparent),
-    var(--brand-primary)
-  );
+  background: var(--pl-brand);
 }
 .pulse-stack.is-thin > span {
   background: var(--surface-hover);
@@ -2251,11 +2243,7 @@ fieldset[disabled] button {
   height: 8px;
 }
 .pbar.money > span {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--chart-observed) 45%, transparent),
-    var(--chart-observed)
-  );
+  background: var(--pl-success);
 }
 .pulse-key {
   display: inline-block;

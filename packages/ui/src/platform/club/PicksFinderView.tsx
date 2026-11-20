@@ -1330,7 +1330,7 @@ export function PicksFinderClubView(): React.JSX.Element {
                 setShown(INITIAL_VISIBLE_PICKS);
               }}
             >
-              {b.label} <span className="num opacity-75">{counts[b.id]}</span>
+              {b.label} <span className="num pl-scr-band-count">{counts[b.id]}</span>
             </button>
           ))}
         </div>
@@ -1687,7 +1687,7 @@ export function PicksFinderClubView(): React.JSX.Element {
 
                       <a
                         href={href}
-                        className="pl-scr-group-link"
+                        className="pl-scr-group-link min-h-11 sm:min-h-9 inline-flex items-center"
                         onPointerEnter={() => prefetchRoute(href)}
                         onTouchStart={() => prefetchRoute(href)}
                         onClick={(e) => {

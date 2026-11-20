@@ -501,13 +501,13 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       Selecciones ({effectiveAutoLegCount} de {maxAutoLegs} disp.)
                     </span>
                     <div className="flex flex-wrap items-center gap-2">
-                      <div className="seg-well" role="group" aria-label="Número de selecciones">
+                      <div className="seg-well flex-wrap" role="group" aria-label="Número de selecciones">
                         {[2, 3, 4, 5, 6, 8, 10].map((cnt) => (
                           <button
                             key={cnt}
                             type="button"
                             disabled={cnt > maxAutoLegs}
-                            className="seg-btn num text-xs px-2.5 min-h-11 sm:min-h-10"
+                            className="seg-btn num text-xs justify-center px-2 min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                             aria-pressed={effectiveAutoLegCount === cnt}
                             onClick={() => setAutoLegCount(cnt)}
                           >
@@ -518,6 +518,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       <div className="sl-stepper" role="group" aria-label="Ajustar número de selecciones">
                         <button
                           type="button"
+                          className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                           aria-label="Menos selecciones"
                           disabled={effectiveAutoLegCount <= 2}
                           onClick={() => setAutoLegCount(Math.max(2, effectiveAutoLegCount - 1))}
@@ -527,6 +528,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         <span className="num">{effectiveAutoLegCount}</span>
                         <button
                           type="button"
+                          className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                           aria-label="Más selecciones"
                           disabled={effectiveAutoLegCount >= maxAutoLegs}
                           onClick={() => setAutoLegCount(Math.min(maxAutoLegs, effectiveAutoLegCount + 1))}
@@ -910,6 +912,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   >
                     <button
                       type="button"
+                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                       aria-label="Restar unidades al parlay"
                       onClick={() =>
                         setParlayStakeUnits(
@@ -925,6 +928,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     <span className="num">{parlayStakeUnits.toFixed(2)}u</span>
                     <button
                       type="button"
+                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                       aria-label="Sumar unidades al parlay"
                       onClick={() =>
                         setParlayStakeUnits(
@@ -1826,6 +1830,7 @@ export function PropsLabClubView({
                                   >
                                     <button
                                       type="button"
+                                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                                       aria-label={`Bajar línea de ${prop.player}`}
                                       onClick={() =>
                                         setLineOffsets((prev) => ({
@@ -1839,6 +1844,7 @@ export function PropsLabClubView({
                                     <span className="num">Línea</span>
                                     <button
                                       type="button"
+                                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                                       aria-label={`Subir línea de ${prop.player}`}
                                       onClick={() =>
                                         setLineOffsets((prev) => ({

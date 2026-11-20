@@ -131,7 +131,7 @@ export function HomeParlayHubCard({
           <button
             key={r.id}
             type="button"
-            className="seg-btn flex-1"
+            className="seg-btn flex-1 min-h-11 sm:min-h-9"
             aria-pressed={risk === r.id}
             onClick={() => setRisk(r.id)}
           >
@@ -140,7 +140,7 @@ export function HomeParlayHubCard({
         ))}
       </div>
       <div className="flex flex-wrap items-center justify-between gap-1.5 pt-0.5">
-        <div className="flex items-center gap-1" role="group" aria-label="Atajos de selecciones">
+        <div className="flex flex-wrap items-center gap-1" role="group" aria-label="Atajos de selecciones">
           {AUTO_PARLAY_QUICK_COUNTS.filter((c) => c <= maxAutoLegs || c <= 4).map((cnt) => (
             <button
               key={cnt}
@@ -148,7 +148,7 @@ export function HomeParlayHubCard({
               disabled={cnt > maxAutoLegs}
               aria-pressed={effectiveAutoCount === cnt}
               onClick={() => setAutoCount(cnt)}
-              className="seg-btn num text-xs px-2 min-h-8 justify-center"
+              className="seg-btn num text-xs px-2 min-h-11 min-w-11 sm:min-h-9 sm:min-w-8 justify-center"
               style={{
                 background:
                   effectiveAutoCount === cnt ? "var(--pl-surface-active)" : "var(--pl-surface)",
@@ -162,6 +162,7 @@ export function HomeParlayHubCard({
         <div className="sl-stepper" role="group" aria-label="Cantidad de selecciones del parlay">
           <button
             type="button"
+            className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
             aria-label="Menos selecciones"
             disabled={effectiveAutoCount <= 2}
             onClick={() => setAutoCount(Math.max(2, effectiveAutoCount - 1))}
@@ -171,6 +172,7 @@ export function HomeParlayHubCard({
           <span className="num text-xs font-bold px-1.5">{effectiveAutoCount}</span>
           <button
             type="button"
+            className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
             aria-label="Más selecciones"
             disabled={effectiveAutoCount >= maxAutoLegs}
             onClick={() => setAutoCount(Math.min(maxAutoLegs, effectiveAutoCount + 1))}
@@ -218,7 +220,7 @@ export function HomeParlayHubCard({
           role="tab"
           id="parlay-hub-tab-custom"
           aria-selected={activeTab === "custom"}
-          className="pl-parlay-hub-tab"
+          className="pl-parlay-hub-tab min-h-11 sm:min-h-9"
           onClick={() => setActiveTab("custom")}
           {...(activeTab === "custom"
             ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
@@ -232,7 +234,7 @@ export function HomeParlayHubCard({
           role="tab"
           id="parlay-hub-tab-daily"
           aria-selected={activeTab === "daily"}
-          className="pl-parlay-hub-tab"
+          className="pl-parlay-hub-tab min-h-11 sm:min-h-9"
           onClick={() => setActiveTab("daily")}
           {...(activeTab === "daily"
             ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)

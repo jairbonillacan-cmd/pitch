@@ -1018,7 +1018,7 @@ export function HomeBoardBar({
         <div className="pl-home-board-pills" role="group" aria-label="Estado de los partidos">
           <button
             type="button"
-            className={`pl-home-status-pill is-live-pill ${liveVisibleCount > 0 ? "has-live" : ""} ${statusFilter === "live" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 sm:min-h-9 is-live-pill ${liveVisibleCount > 0 ? "has-live" : ""} ${statusFilter === "live" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "live"}
             onClick={() => onStatusFilterChange(statusFilter === "live" ? "all" : "live")}
           >
@@ -1026,7 +1026,7 @@ export function HomeBoardBar({
           </button>
           <button
             type="button"
-            className={`pl-home-status-pill ${statusFilter === "finished" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 sm:min-h-9 ${statusFilter === "finished" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "finished"}
             onClick={() => onStatusFilterChange(statusFilter === "finished" ? "all" : "finished")}
           >
@@ -1034,7 +1034,7 @@ export function HomeBoardBar({
           </button>
           <button
             type="button"
-            className={`pl-home-status-pill ${statusFilter === "upcoming" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 sm:min-h-9 ${statusFilter === "upcoming" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "upcoming"}
             onClick={() => onStatusFilterChange(statusFilter === "upcoming" ? "all" : "upcoming")}
           >
@@ -1043,7 +1043,7 @@ export function HomeBoardBar({
 
           <button
             type="button"
-            className={`pl-home-filter-btn ${activeModalFilterCount > 0 ? "is-active" : ""}`.trim()}
+            className={`pl-home-filter-btn min-h-11 sm:min-h-9 ${activeModalFilterCount > 0 ? "is-active" : ""}`.trim()}
             aria-haspopup="dialog"
             aria-expanded={filtersOpen}
             data-home-filters-trigger=""

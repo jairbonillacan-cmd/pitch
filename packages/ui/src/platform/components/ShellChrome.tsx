@@ -1144,9 +1144,9 @@ function ClubWorkspaceShellImpl({
       >
         <div className="pl-header-top">
         <div className="pl-header-grid max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7 h-14 sm:h-16">
-          <div className="pl-header-bar flex items-center justify-between gap-3 h-full min-w-0">
+          <div className="pl-header-bar flex items-center justify-between gap-2 xl:gap-3 h-full min-w-0">
             {/* Izquierda: Logo a / + Barra de navegación (hover/clic expande sobre contenido) + Buscador + Rol */}
-            <div className="pl-header-left flex items-center gap-3 min-w-0 flex-1 h-full">
+            <div className="pl-header-left flex items-center gap-2 xl:gap-3 min-w-0 flex-1 h-full">
               <a
                 href="/app"
                 onClick={(e) => {
@@ -1462,21 +1462,21 @@ function ClubWorkspaceShellImpl({
 
               <button
                 type="button"
-                className="pl-btn-glass pl-header-search text-[13px] min-h-11 sm:min-h-10 px-2.5 sm:px-3.5 inline-flex items-center justify-between gap-2 sm:gap-3 shrink-0"
+                className="pl-btn-glass pl-header-search text-[13px] min-h-11 sm:min-h-10 px-2.5 sm:px-3 inline-flex items-center justify-between gap-2 min-w-0"
                 aria-label="Buscar partido, liga o @socio"
                 onClick={() => {
                   requestFullShell();
                   setCmdkOpen(true);
                 }}
               >
-                <span className="inline-flex items-center gap-1.5 sm:gap-2.5 min-w-0" style={{ color: "var(--pl-text-secondary)" }}>
+                <span className="inline-flex items-center gap-1.5 sm:gap-2 min-w-0 sm:flex-1 overflow-hidden" style={{ color: "var(--pl-text-secondary)" }}>
                   <MaestroIcon name="search" size={16} className="shrink-0" />
                   <span className="hidden sm:inline truncate">
                     Buscar partido, liga o @socio
                   </span>
                   <span className="pl-header-search-short sm:hidden font-semibold whitespace-nowrap">Buscar</span>
                 </span>
-                <span className="hidden md:inline-flex items-center pl-header-kbd-group shrink-0" aria-hidden="true">
+                <span className="pl-header-kbd-group items-center shrink-0" aria-hidden="true">
                   <kbd className="pl-header-kbd">
                     {isApplePlatform ? <MaestroIcon name="command" size={11} /> : "Ctrl"}
                   </kbd>
@@ -1930,8 +1930,7 @@ function ClubWorkspaceShellImpl({
               {clubLeagues.length > 10 ? (
                 <button
                   type="button"
-                  className="text-xs font-semibold min-h-11 px-2 inline-flex items-center"
-                  style={{ color: "var(--pl-brand)" }}
+                  className="pl-more-leagues-all-btn num"
                   onClick={() => {
                     setMobileMoreOpen(false);
                     setLeagueHubSheetOpen(true);

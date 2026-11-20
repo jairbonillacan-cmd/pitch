@@ -341,7 +341,19 @@ export function BetBuilderDrawer({
                   data-builder-add-primary=""
                   onClick={() => addPickToParlay(pick)}
                 >
-                  <MaestroIcon name="plus" size={14} />
+                  <svg
+                    width={14}
+                    height={14}
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2.2}
+                    strokeLinecap="round"
+                    aria-hidden="true"
+                    className="pl-bb-cta-icon shrink-0"
+                  >
+                    <path d="M8 3.25v9.5M3.25 8h9.5" />
+                  </svg>
                   <span>Agregar al boleto</span>
                 </button>
               ) : compat.code === "same_game_disabled" && compatWithSgp?.allowed ? (
@@ -350,7 +362,22 @@ export function BetBuilderDrawer({
                   className="pl-btn-primary pl-bb-action-main"
                   onClick={handleEnableSgpAndAdd}
                 >
-                  <MaestroIcon name="layers" size={14} />
+                  <svg
+                    width={14}
+                    height={14}
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.8}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="pl-bb-cta-icon shrink-0"
+                  >
+                    <path d="M8 2.25 2.25 5.25 8 8.25l5.75-3L8 2.25Z" />
+                    <path d="M2.25 8.25 8 11.25l5.75-3" />
+                    <path d="M2.25 11.25 8 14.25l5.75-3" />
+                  </svg>
                   <span>Activar SGP y agregar</span>
                 </button>
               ) : (
@@ -518,7 +545,20 @@ export function BetBuilderDrawer({
               onClose();
             }}
           >
-            <MaestroIcon name="check" size={14} />
+            <svg
+              width={14}
+              height={14}
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="pl-bb-cta-icon shrink-0"
+            >
+              <path d="M3.25 8.5 6.5 11.75 12.75 4.75" />
+            </svg>
             <span>
               {parlayLegs.length >= 2
                 ? `Sellar (${parlayLegs.length})`

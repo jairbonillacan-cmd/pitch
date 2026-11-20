@@ -37,13 +37,48 @@
   @media (min-width: 1280px) {
     /* En escritorio amplio (>= 1280 px) los 4 destinos primarios + Ligas muestran etiqueta inline */
     .pl-header-nav-icon[data-nav-group="primary"] {
-      grid-template-columns: 30px 1fr;
+      grid-template-columns: 28px 1fr;
     }
 
     .pl-header-nav-icon[data-nav-group="primary"] .pl-header-nav-label {
-      padding-inline-end: 10px;
+      padding-inline-end: 8px;
       opacity: 1;
     }
+  }
+
+  /* Botón «Ver todas (N)» en hoja móvil Explorar (100 % tokens --pl-*, contraste AA/AAA) */
+  .pl-more-leagues-all-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 44px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface-elevated);
+    color: var(--pl-text);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--time-fast, 120ms) ease,
+      border-color var(--time-fast, 120ms) ease,
+      color var(--time-fast, 120ms) ease;
+  }
+
+  .pl-more-leagues-all-btn:hover {
+    background: var(--pl-surface-hover);
+    border-color: var(--pl-border-strong);
+  }
+
+  .pl-more-leagues-all-btn:focus-visible {
+    outline: 2px solid var(--pl-brand);
+    outline-offset: 2px;
   }
 
   @media (forced-colors: active) {
@@ -111,9 +146,18 @@
     .pl-astro-fav-btn,
     .pl-astro-collapse-btn,
     .pl-home-icon-btn,
-    .pl-more-sheet-inner .seg-btn {
+    .pl-more-sheet-inner .seg-btn,
+    .pl-prop-win-btn,
+    .sl-stepper > button {
       min-block-size: 44px;
       min-inline-size: 44px;
+    }
+
+    .pl-parlay-hub-tab,
+    .pl-home-rail-card .seg-btn,
+    .pl-range-slider,
+    .sl-stepper > span {
+      min-block-size: 44px;
     }
 
     .pl-home-cal-day {

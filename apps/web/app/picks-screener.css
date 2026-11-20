@@ -503,6 +503,51 @@
   gap: 8px;
 }
 
+.pl-scr-band-row .seg-well .seg-btn {
+  color: var(--pl-text-secondary);
+}
+
+.pl-scr-band-row .seg-well .seg-btn[aria-pressed="true"] {
+  color: var(--pl-text);
+}
+
+.pl-scr-band-count {
+  color: inherit;
+  font-weight: 700;
+}
+
+.pl-scr-filter-body.is-sheet .pl-scr-band-row .seg-well {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  inline-size: 100%;
+  gap: 4px;
+  overflow-x: visible;
+}
+
+.pl-scr-filter-body.is-sheet .pl-scr-band-row .seg-well .seg-btn {
+  inline-size: 100%;
+  min-inline-size: 0;
+  justify-content: center;
+  padding-inline: 8px;
+}
+
+@media (max-width: 640px) {
+  .pl-scr-band-row .seg-well {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    inline-size: 100%;
+    gap: 4px;
+    overflow-x: visible;
+  }
+
+  .pl-scr-band-row .seg-well .seg-btn {
+    inline-size: 100%;
+    min-inline-size: 0;
+    justify-content: center;
+    padding-inline: 8px;
+  }
+}
+
 .pl-scr-ev-toggle {
   display: inline-flex;
   align-items: center;
@@ -924,8 +969,9 @@
   flex: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
-  min-block-size: 36px;
+  min-block-size: 44px;
   padding: 0 10px;
   border-radius: 8px;
   border: 1px solid var(--pl-border);
@@ -937,6 +983,12 @@
   transition:
     background-color var(--time-fast, 120ms) ease,
     color var(--time-fast, 120ms) ease;
+}
+
+@media (min-width: 640px) {
+  .pl-scr-group-link {
+    min-block-size: 36px;
+  }
 }
 
 .pl-scr-group-link:hover {
@@ -1731,6 +1783,18 @@
   font-size: 0.82rem;
 }
 
+.pl-bb-action-main.pl-btn-primary,
+.pl-bb-footer-btn.pl-btn-primary {
+  background: var(--pl-btn-primary-bg);
+  color: var(--pl-btn-primary-fg);
+}
+
+.pl-bb-action-main.pl-btn-primary svg,
+.pl-bb-footer-btn.pl-btn-primary svg,
+.pl-bb-cta-icon {
+  color: currentColor;
+}
+
 .pl-bb-action-sec {
   flex: 0 1 auto;
   min-block-size: 44px;
@@ -1817,13 +1881,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-inline-size: 40px;
-  min-block-size: 40px;
+  min-inline-size: 44px;
+  min-block-size: 44px;
   border-radius: 8px;
   border: 1px solid var(--pl-border);
   background: var(--pl-surface);
   color: var(--pl-text-muted);
   cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .pl-bb-leg-remove {
+    min-inline-size: 38px;
+    min-block-size: 38px;
+  }
 }
 
 .pl-bb-leg-remove:hover {
