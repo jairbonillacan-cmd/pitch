@@ -22,7 +22,7 @@
 | [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) | Iconografía: iconos de marca + Lucide para los genéricos | Aceptada con cambio: set propio MaestroIcon (2026-11-11) |
 | [ADR-017](ADR-017-registro-de-emblemas-deportivos-con-fallback.md) | Registro de emblemas deportivos con fallback | Aceptada |
 | [ADR-018](ADR-018-archivar-la-reconstruccion-de-touchiq-y-reutilizar.md) | Archivar la reconstrucción de TouchIQ y reutilizar su dominio como Baseline 0 | Aceptada |
-| [ADR-019](ADR-019-shadcn-ui-mira-base-ui-con-tokens-pitchlab.md) | Primitivas shadcn/ui (Mira, Base UI) con los tokens de PitchLab | Aceptada (extendida por ADR-028) |
+| [ADR-019](ADR-019-shadcn-ui-mira-base-ui-con-tokens-pitchlab.md) | Primitivas shadcn/ui (Mira, Base UI) con los tokens de PitchLab | Aceptada (extendida por ADR-028; `@base-ui/react` retirado por ADR-055) |
 | [ADR-020](ADR-020-sistema-visual-liquid-glass-v4-y-aislamiento-de-tokens.md) | Sistema visual Liquid Glass v4, aislamiento de tokens duales y diálogos nativos Top Layer | Aceptada (en parte reemplazada por ADR-023 y ADR-035) |
 | [ADR-021](ADR-021-arquitectura-cero-fuga-pase-total-unico-y-crecimiento-tipster.md) | Arquitectura Cero-Fuga en servidor, Pase Total único y motor de crecimiento Tipster + Referidos | Aceptada (en parte actualizada por ADR-025 y ADR-036) |
 | [ADR-022](ADR-022-spacetime-suite-multipicks-por-partido-y-parlays-correlacionados.md) | Abstracción propietaria Spacetime Suite v2.1, derivación de 5 picks por partido y parlays correlacionados | Aceptada (en parte reemplazada por ADR-027) |
@@ -58,3 +58,4 @@
 | [ADR-052](ADR-052-experiencia-movil-app-nativa-pwa-y-navegacion-explorar.md) | Experiencia Mobile-First tipo App Nativa, PWA y navegación `Explorar` (retiro del copy visible «del Club») | Aceptada |
 | [ADR-053](ADR-053-app-nativa-gestos-pwa-offline-y-shell-progresivo.md) | Sensación 100 % App Nativa, gestos táctiles, PWA `/offline`, shell RSC progresivo en 2 etapas y caché público ISR | Aceptada |
 | [ADR-054](ADR-054-pulido-nativo-diseno-plano-scoutpicks-parlays-e-insignias.md) | Pulido 100 % App Nativa, diseño plano editorial, evidencia de picks (ScoutPicks/Bzzoiro), parlays unificados, récord pierna por pierna e insignias animadas | Aceptada |
+| [ADR-055](ADR-055-catalogo-picks-bzzoiro-unlimited-ui-atomica-sofascore.md) | Catálogo de picks de 34 familias, Bzzoiro Unlimited, UI atómica Sofascore, retiro de `@base-ui/react` y blindaje Cero-Fuga | Aceptada |
