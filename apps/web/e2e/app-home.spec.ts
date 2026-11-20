@@ -44,11 +44,12 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await page.locator('[data-daily-risk="medio"]').click();
   await page.getByRole("tab", { name: /Tu parlay/i }).click();
 
-  // Encabezado del Inicio: elegir NBA despliega la tira de ligas del deporte y deja solo sus chips.
+  // Encabezado del Inicio: elegir NBA (deporte de liga única, ADR-048 §1) suprime la franja redundante
+  // de ligas y deja solo sus chips.
   const nbaBtn = sportGroup.getByRole("button", { name: /NBA/i });
   await nbaBtn.click();
   await expect(nbaBtn).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByRole("group", { name: "Ligas del deporte" })).toBeVisible();
+  await expect(page.locator('.pl-header-leagueband[data-open="true"]')).toHaveCount(0);
   const nbaDayJump = page.locator("[data-day-empty] [data-day-jump]");
   if ((await nbaDayJump.count()) > 0) {
     await nbaDayJump.click();
@@ -111,11 +112,12 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await page.setViewportSize({ width, height: 900 });
   }
 
-  // Deporte → liga: si hoy Fútbol no tiene partidos, muestra «Ir al …» y salta al viernes con partidos.
+  // Deporte → liga: Fútbol (múltiples ligas) despliega «Ligas del deporte»; si hoy no tiene partidos, muestra «Ir al …».
   const soccerTile = sportGroup.getByRole("button", { name: /^Fútbol\b/ }).first();
   if ((await soccerTile.count()) > 0) {
     await soccerTile.click();
     await expect(soccerTile).toHaveAttribute("aria-pressed", "true");
+    await expect(page.getByRole("group", { name: "Ligas del deporte" })).toBeVisible();
     const dayEmpty = page.locator("[data-day-empty]");
     if ((await dayEmpty.count()) > 0) {
       await expect(dayEmpty).toContainText("Sin partidos este día");

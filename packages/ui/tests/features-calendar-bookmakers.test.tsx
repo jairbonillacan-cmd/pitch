@@ -199,7 +199,16 @@ describe("Nuevas funciones en gemini-dos (sin simplificación de UX/UI)", () => 
     expect(goalsProg).not.toBeNull();
     expect(goalsProg?.currentValue).toBe(2);
     expect(goalsProg?.targetValue).toBe(3);
-    expect(goalsProg?.statusText).toBe("Van 2 de 3 goles");
+    expect(goalsProg?.statusText).toBe("Falta 1 gol");
+    expect(goalsProg?.progressRatioLabel).toBe("2 / 2.5 goles");
+
+    const pluralGoalsProg = computeLivePickProgress({
+      entry: { ...baseEntry, pickLabel: "Más de 3.5 goles" },
+      game: DATASET.games[0],
+      scoreboardEntry: sbEntry,
+      detail: null,
+    });
+    expect(pluralGoalsProg?.statusText).toBe("Faltan 2 goles");
 
     const detailWithStats: LiveMatchDetail = {
       gameId: "lmx-caz-mty",
@@ -248,7 +257,8 @@ describe("Nuevas funciones en gemini-dos (sin simplificación de UX/UI)", () => 
       scoreboardEntry: sbEntry,
       detail: detailWithStats,
     });
-    expect(cornersProg?.statusText).toBe("Van 8 de 9 córners");
+    expect(cornersProg?.statusText).toBe("Falta 1 córner");
+    expect(cornersProg?.progressRatioLabel).toBe("8 / 8.5 córners");
     expect(cornersProg?.currentValue).toBe(8);
     expect(cornersProg?.targetValue).toBe(9);
 

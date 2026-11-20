@@ -25,9 +25,23 @@ import { hydratePlayerLivePerformance } from "./player-live-stats";
 import { loadLeagueSnapshotEnvelope, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
 import { loadPlayerProfile, loadTeamProfile } from "./team-profile";
 
-export function buildCompareLeagueCatalog(): CompareLeagueCatalog[] {
+function mexicoCityTodayIso(now: Date = new Date()): string {
+  try {
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/Mexico_City",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(now);
+  } catch (err) {
+    void err;
+    return now.toISOString().slice(0, 10);
+  }
+}
+
+export function buildCompareLeagueCatalog(options?: { todayIso?: string }): CompareLeagueCatalog[] {
   const out: CompareLeagueCatalog[] = [];
-  const todayIso = new Date().toISOString().slice(0, 10);
+  const todayIso = options?.todayIso ?? mexicoCityTodayIso();
   for (const meta of COMPETITION_CATALOG) {
     const env = loadLeagueSnapshotEnvelope(meta.id as ProductLeague);
     const snap = env.data;

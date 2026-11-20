@@ -37,6 +37,15 @@ async function assertNoHorizontalOverflow(page: Page): Promise<void> {
 }
 
 async function assertAxeClean(page: Page): Promise<void> {
+  // Esperar a que concluya la animación de entrada (.pl-page-enter, 280 ms en ≥768 px) antes de medir contraste.
+  await expect
+    .poll(async () =>
+      page.evaluate(() => {
+        const el = document.querySelector(".pl-page-enter");
+        return el ? Number(getComputedStyle(el).opacity) : 1;
+      }),
+    )
+    .toBe(1);
   const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
   expect(results.violations).toEqual([]);
 }

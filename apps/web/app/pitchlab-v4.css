@@ -1021,14 +1021,14 @@ dialog.pl-native-dialog .glass-lens {
 :is(.pl-header-sportband, .pl-header-leagueband) .pl-astro-sport-tab.is-empty {
   color: var(--pl-text-muted);
 }
-:is(.pl-header-sportband, .pl-header-leagueband) .pl-astro-sport-tab.is-empty:not(.is-on) {
-  opacity: 0.72;
-}
 :is(.pl-header-sportband, .pl-header-leagueband) .pl-astro-sport-tab.is-empty:not(.is-on):hover {
-  opacity: 1;
+  color: var(--pl-text);
 }
 :is(.pl-header-sportband, .pl-header-leagueband) .pl-astro-sport-tab.is-empty:not(.is-on) .pl-astro-sport-icon {
-  opacity: 0.85;
+  opacity: 0.62;
+}
+:is(.pl-header-sportband, .pl-header-leagueband) .pl-astro-sport-tab.is-empty:not(.is-on):hover .pl-astro-sport-icon {
+  opacity: 1;
 }
 :is(.pl-header-sportband, .pl-header-leagueband) .pl-astro-sport-icon {
   width: 22px;
@@ -17214,6 +17214,14 @@ dialog::backdrop {
 
 .pl-team-main-tab.is-active .pl-team-tab-count {
   color: var(--pl-brand);
+}
+
+@media (max-width: 400px) {
+  .pl-team-main-tab {
+    padding: 0 10px;
+    font-size: 12.5px;
+    gap: 5px;
+  }
 }
 
 /* Tarjeta derecha compacta «Partidos» */

@@ -312,7 +312,7 @@ describe("Encabezado unificado de filtros en Inicio", () => {
 
     expect(html).toContain("pl-astro-league-block");
     expect(html).toContain('data-home-board-bar=""');
-    expect(html).toContain("Favoritos");
+    expect(html).toContain("Para ti");
     expect(html).toContain("Competiciones");
     expect(html).toContain("En Vivo (1)");
     expect(html).toContain("Finalizado");
@@ -338,10 +338,77 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     expect(allHtml).not.toContain('data-home-leaguebar=""');
     expect(allHtml).not.toContain('data-sport-filter="selecciones"');
 
-    const futbolHtml = renderToStaticMarkup(
+    // ADR-048 §1: deportes con una sola liga suprimen la franja redundante
+    const singleLeagueHtml = renderToStaticMarkup(
       <PlatformProvider dataset={DATASET} initialRole="member">
         <HomeClubView
           initialDay="2026-11-15"
+          initialToday="2026-11-15"
+          initialSport="nba"
+          liveBoardOverride={null}
+        />
+      </PlatformProvider>,
+    );
+    expect(singleLeagueHtml).toContain('class="pl-header-leagueband" data-open="false"');
+    expect(singleLeagueHtml).not.toContain('data-home-leaguebar=""');
+
+    // Con múltiples ligas activas de fútbol (ADR-048), la franja despliega las que juegan en la fecha
+    const multiFootballDataset = buildPlatformDataset([
+      {
+        league: asLeagueId("liga-mx"),
+        leagueLabel: "Liga MX",
+        sport: "football",
+        season: "Apertura 2026",
+        roundLabel: "Jornada 17",
+        generatedAt: "2026-11-15T12:00:00Z",
+        games: [
+          gameFixture({
+            id: "lmx-fri",
+            league: "liga-mx",
+            leagueLabel: "Liga MX",
+            sport: "football",
+            day: "2026-11-20",
+            kickoffUtc: "2026-11-21T01:00:00Z",
+            kickoffLocal: "19:00",
+            homeCode: "AME",
+            homeName: "América",
+            awayCode: "TIG",
+            awayName: "Tigres",
+          }),
+        ],
+      },
+      {
+        league: asLeagueId("premier-league"),
+        leagueLabel: "Premier League",
+        sport: "football",
+        season: "2026-27",
+        roundLabel: "Jornada 12",
+        generatedAt: "2026-11-15T12:00:00Z",
+        games: [
+          {
+            ...gameFixture({
+              id: "pl-fri",
+              league: "liga-mx",
+              leagueLabel: "Premier League",
+              sport: "football",
+              day: "2026-11-20",
+              kickoffUtc: "2026-11-20T20:00:00Z",
+              kickoffLocal: "14:00",
+              homeCode: "ARS",
+              homeName: "Arsenal",
+              awayCode: "CHE",
+              awayName: "Chelsea",
+            }),
+            league: asLeagueId("premier-league"),
+          },
+        ],
+      },
+    ]);
+
+    const futbolHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={multiFootballDataset} initialRole="member">
+        <HomeClubView
+          initialDay="2026-11-20"
           initialToday="2026-11-15"
           initialSport="futbol"
           liveBoardOverride={null}
@@ -356,6 +423,7 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     expect(futbolHtml).toContain('data-home-leaguebar=""');
     expect(futbolHtml).toContain('data-league-chip="all"');
     expect(futbolHtml).toContain('data-league-chip="liga-mx"');
+    expect(futbolHtml).toContain('data-league-chip="premier-league"');
     expect(futbolHtml.indexOf('data-home-leaguebar=""')).toBeLessThan(
       futbolHtml.indexOf("</header>"),
     );

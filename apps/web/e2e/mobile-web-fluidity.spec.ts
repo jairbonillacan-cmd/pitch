@@ -135,7 +135,9 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
       .first();
     if ((await matchesSelectTrigger.count()) > 0) {
       await matchesSelectTrigger.click();
+      await expect(page.locator(".pl-select-listbox")).toBeVisible();
       await page.keyboard.press("Escape");
+      await expect(page.locator(".pl-select-listbox")).toHaveCount(0);
     }
 
     // Cambiar a Plantilla y comprobar cero overflow incluso a 320 px

@@ -23,13 +23,18 @@ describe("Búsqueda de jugadores, comparador H2H y paridad US/MLB en disco", () 
   });
 
   it("buildCompareLeagueCatalog incluye ligas activas en ventana de 30 días (y nuevas competencias) y compara equipos H2H", () => {
-    const catalog = buildCompareLeagueCatalog();
+    const nhlSnap = JSON.parse(
+      fs.readFileSync(path.join(resolveSnapshotsRoot(), "nhl", "latest.json"), "utf8"),
+    ) as { updatedAt?: string };
+    const refDay = (nhlSnap.updatedAt ?? "2026-11-19").slice(0, 10);
+    const catalog = buildCompareLeagueCatalog({ todayIso: refDay });
     const leagues = catalog.map((c) => c.league);
     expect(leagues).toContain("liga-mx");
     expect(leagues).toContain("champions-league");
     expect(leagues).toContain("mls");
     expect(leagues).toContain("nba");
     expect(leagues).toContain("nhl");
+    expect(buildCompareLeagueCatalog().length).toBeGreaterThan(0);
 
     const cmp = loadTeamComparison("liga-mx", "america", "chivas", { fullAccess: true });
     expect(cmp).not.toBeNull();

@@ -11,6 +11,7 @@ import React, {
 } from "react";
 import {
   canonicalGameHref,
+  competitionPrestigeScore,
   isLeagueActiveInWindow,
   isNationalCompetition,
   type LeagueId,
@@ -24,6 +25,7 @@ import {
   ALL,
   buildHomeSportLeagues,
   gamesForSelection,
+  leagueRank,
   matchesSportFilter,
   resolveHomeDay,
   todayId,
@@ -1032,6 +1034,10 @@ function ClubWorkspaceShellImpl({
       const aFav = favoriteLeagues.includes(a.league) ? 1 : 0;
       const bFav = favoriteLeagues.includes(b.league) ? 1 : 0;
       if (aFav !== bFav) return bFav - aFav;
+      const prestigeDiff = competitionPrestigeScore(b.league) - competitionPrestigeScore(a.league);
+      if (prestigeDiff !== 0) return prestigeDiff;
+      const rankDiff = leagueRank(a.league) - leagueRank(b.league);
+      if (rankDiff !== 0) return rankDiff;
       return b.upcomingCount - a.upcomingCount;
     });
   }, [activePath, dataset.leagues, dataset.games, favoriteLeagues, homeToday, todayGamesByLeague]);

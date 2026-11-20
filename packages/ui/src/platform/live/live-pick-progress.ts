@@ -140,28 +140,35 @@ export function computeLivePickProgress(params: {
 
   if (parsedTotal) {
     let currentMetric: number | null = null;
+    let unitSingular = "gol";
     let unitWord = "goles";
     if (parsedTotal.metric === "goals") {
       currentMetric = score.home + score.away;
-      unitWord = game?.sport && game.sport !== "football" ? "pts" : "goles";
+      const isNonFootball = Boolean(game?.sport && game.sport !== "football");
+      unitSingular = isNonFootball ? "pt" : "gol";
+      unitWord = isNonFootball ? "pts" : "goles";
     } else if (parsedTotal.metric === "corners" && stats) {
       if (stats.home.corners !== null && stats.away.corners !== null) {
         currentMetric = stats.home.corners + stats.away.corners;
+        unitSingular = "córner";
         unitWord = "córners";
       }
     } else if (parsedTotal.metric === "cards" && stats) {
       if (stats.home.yellowCards !== null && stats.away.yellowCards !== null) {
         currentMetric = stats.home.yellowCards + stats.away.yellowCards;
+        unitSingular = "tarjeta";
         unitWord = "tarjetas";
       }
     } else if (parsedTotal.metric === "sot" && stats) {
       if (stats.home.shotsOnTarget !== null && stats.away.shotsOnTarget !== null) {
         currentMetric = stats.home.shotsOnTarget + stats.away.shotsOnTarget;
+        unitSingular = "tiro a puerta";
         unitWord = "tiros a puerta";
       }
     } else if (parsedTotal.metric === "shots" && stats) {
       if (stats.home.shots !== null && stats.away.shots !== null) {
         currentMetric = stats.home.shots + stats.away.shots;
+        unitSingular = "tiro";
         unitWord = "tiros";
       }
     }
@@ -171,6 +178,7 @@ export function computeLivePickProgress(params: {
       if (parsedTotal.direction === "over") {
         const needed = Math.floor(parsedTotal.line) + 1;
         const met = currentMetric >= needed;
+        const remaining = needed - currentMetric;
         return {
           entryId: entry.id,
           gameId: entry.gameId,
@@ -181,7 +189,9 @@ export function computeLivePickProgress(params: {
           scoreLabel,
           statusText: met
             ? `Línea cumplida (provisional hasta FT)`
-            : `Faltan ${needed - currentMetric} ${unitWord}`,
+            : remaining === 1
+              ? `Falta 1 ${unitSingular}`
+              : `Faltan ${remaining} ${unitWord}`,
           progressRatioLabel: ratioLabel,
           lineReached: met,
           currentValue: Math.min(currentMetric, needed),
@@ -201,8 +211,8 @@ export function computeLivePickProgress(params: {
         clockLabel,
         scoreLabel,
         statusText: busted
-          ? `Línea superada (${currentMetric} ${unitWord})`
-          : `Margen activo · máx. ${maxAllowed} ${unitWord}`,
+          ? `Línea superada (${currentMetric} ${currentMetric === 1 ? unitSingular : unitWord})`
+          : `Margen activo · máx. ${maxAllowed} ${maxAllowed === 1 ? unitSingular : unitWord}`,
         progressRatioLabel: ratioLabel,
         lineReached: false,
         currentValue: Math.min(currentMetric, Math.max(1, maxAllowed + 1)),

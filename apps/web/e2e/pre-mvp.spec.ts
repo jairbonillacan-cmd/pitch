@@ -470,6 +470,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     // /signup: escudo anti-abuso $0 MXN (bloqueo de correo desechable + normalización Gmail)
     await page.goto("/signup?code=SOFIA5");
     await expect(page.getByTestId("invite-notice")).toContainText("te invitó");
+    // Esperar a que termine la animación de entrada (.pl-auth--intro, 440 ms + duración) antes de medir contraste Axe.
+    await expect
+      .poll(async () =>
+        page
+          .locator(".pl-auth-btn-primary")
+          .first()
+          .evaluate((el) => Number(getComputedStyle(el).opacity)),
+      )
+      .toBe(1);
     const signupStep1A11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
@@ -611,7 +620,17 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       const mobileMoreBtn = page.locator("[data-mobile-more-trigger]:visible");
       if (await mobileMoreBtn.isVisible()) await mobileMoreBtn.click();
     }
-    await page.locator(".league-tab[data-league='bundesliga']:visible").first().click();
+    const bundesligaTab = page.locator(".league-tab[data-league='bundesliga']:visible").first();
+    if ((await bundesligaTab.count()) > 0) {
+      await bundesligaTab.click();
+    } else {
+      const exploreAllLeaguesBtn = page
+        .getByRole("button", { name: /Explorar todas las ligas por región|Ver todas/i })
+        .first();
+      await expect(exploreAllLeaguesBtn).toBeVisible();
+      await exploreAllLeaguesBtn.click();
+      await page.locator("[data-sheet-league='bundesliga']:visible").first().click();
+    }
     await page.waitForURL("**/app/bundesliga");
     await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
 
