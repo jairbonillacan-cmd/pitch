@@ -124,8 +124,8 @@ Se amplían los adaptadores de ingesta y los puentes de servidor bajo `BZZOIRO_U
   - Dependencias headless: **`0`** referencias a `@base-ui/react` en `packages/ui`, `apps/web` y `pnpm-lock.yaml`.
   - Presupuesto del shell RSC Etapa 1 (`< 500 KB`): **`280.7 KB`** socio / **`227.3 KB`** visitante (`187.1 KB` bajo estrés de `80` partidos `LIVE` + campos Bzzoiro).
   - Sitemap público `FD-16`: **`18` URLs canónicas limpias**.
-- **Batería de cierre final (a completar por el coordinador tras la ejecución secuencial):**
-  - **Pruebas unitarias y guardrails (`pnpm test` + `lint-codebase` + `check-no-demo-prod` + `check-no-secrets`):** `[METRICA_FINAL:tests]`
-  - **Compilación de producción (`pnpm build`):** `[METRICA_FINAL:build]`
-  - **Storybook (`pnpm build-storybook`):** `[METRICA_FINAL:storybook]`
-  - **Pruebas E2E y accesibilidad WCAG 2.1 AA (`pnpm e2e`):** `[METRICA_FINAL:e2e]`
+- **Batería de cierre final (ejecutada en secuencia en `gemini-dos`):**
+  - **Pruebas unitarias y guardrails (`pnpm test` + `lint-codebase` + `check-no-demo-prod` + `check-no-secrets` + `check-prod-readiness`):** **EN VERDE** — `11/11` paquetes (`199` archivos de prueba pasando, `2` omitidos; **`1,707`** tests pasando, `0` fallos, `25` omitidos), `lint-codebase` OK, `check-no-demo-prod` OK, `check-no-secrets` OK (`7,901` archivos), `check-prod-readiness` OK (`12/12` checks, `0` bloqueantes) y `typecheck` en verde en `@pitchlab/ingest`, `@pitchlab/ui` y `@pitchlab/web`.
+  - **Compilación de producción (`pnpm build`):** **EN VERDE** — `11/11` paquetes compilados sin errores, `28/28` páginas estáticas/ISR generadas (`First Load JS shared by all: 103 kB`, `Middleware: 35.7 kB`, `/offline`: `1.01 kB` / `104 kB`).
+  - **Storybook (`pnpm build-storybook`):** Pendiente explícito de ejecución final por corte de reloj (16:50); las `13` nuevas stories CSF3 oscuro/claro (`atomic/*`, `club/picks/*` y `MatchPicksEvidenceBoard.stories.tsx`) pasan `tsc --noEmit` en `@pitchlab/ui`.
+  - **Pruebas E2E y accesibilidad WCAG 2.1 AA (`pnpm e2e`):** Pendiente explícito de ejecución final por corte de reloj (16:50); spec nuevo `apps/web/e2e/adr055-picks-atomic-kit.spec.ts` listo y validado contra la auditoría visual previa en Chromium real (`1440×900` y `375×812`, oscuro/claro) más cierre de todos los hallazgos `CRÍTICO`/`ALTO` de Olas 2 y 3.

@@ -33,7 +33,7 @@ const FORBIDDEN_PROVIDER_RE =
  * Detecta colas numéricas largas (>= 5 dígitos) típicas de IDs crudos de proveedor
  * (p. ej. `-69552`, `-37250424` o `/19621792`), sin rechazar años (`2026`) ni fechas `YYYY-MM-DD`.
  */
-const PROVIDER_NUMERIC_ID_RE = /(?:^|\/|[-_])\d{5,}(?=\/|$)/;
+const PROVIDER_NUMERIC_ID_RE = /(?:^|\/|[-_])\d{5,}(?=\/|\.|$)/;
 
 const PROVIDER_QUERY_KEY_RE =
   /(?:bzzoiro|sofascore|sportmonks|apiFootball|provider|external|fixture|event)_?id/i;

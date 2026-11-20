@@ -248,6 +248,15 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(emptyCardHtml).not.toContain("Activar Pase");
     expect(emptyCardHtml).not.toContain("Pase PitchLab Ultra");
 
+    const emptyResumenHtml = await renderHtmlAsync(
+      <PlatformProvider dataset={emptyDs} initialRole="member">
+        <MatchStudioClubView leagueId={noForecastScheduled.league} gameId={noForecastScheduled.id} />
+      </PlatformProvider>,
+    );
+    expect(emptyResumenHtml).toContain("Sin pronóstico");
+    expect(emptyResumenHtml).toContain("Aún no hay selecciones publicadas");
+    expect(emptyResumenHtml).not.toContain("Simulador del partido");
+
     const emptyStudioHtml = await renderHtmlAsync(
       <PlatformProvider dataset={emptyDs} initialRole="member">
         <MatchStudioClubView leagueId={noForecastScheduled.league} gameId={noForecastScheduled.id} initialTab="ia" />
@@ -255,7 +264,6 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     );
     expect(emptyStudioHtml).toContain("Sin pronóstico");
     expect(emptyStudioHtml).toContain("Sin lectura publicada");
-    expect(emptyStudioHtml).toContain("Aún no hay picks publicados");
     expect(emptyStudioHtml).not.toContain("Simulador del partido");
 
     const finishedEmpty = {
@@ -268,6 +276,16 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
       ...dataset,
       games: [finishedEmpty],
     };
+    const finishedEmptyResumenHtml = await renderHtmlAsync(
+      <PlatformProvider dataset={finishedEmptyDs} initialRole="visitor">
+        <MatchStudioClubView leagueId={finishedEmpty.league} gameId={finishedEmpty.id} />
+      </PlatformProvider>,
+    );
+    expect(finishedEmptyResumenHtml).toContain("108");
+    expect(finishedEmptyResumenHtml).toContain("116");
+    expect(finishedEmptyResumenHtml).toContain("Aún no hay selecciones publicadas");
+    expect(finishedEmptyResumenHtml).not.toContain("Simulador del partido");
+
     const finishedEmptyStudioHtml = await renderHtmlAsync(
       <PlatformProvider dataset={finishedEmptyDs} initialRole="visitor">
         <MatchStudioClubView leagueId={finishedEmpty.league} gameId={finishedEmpty.id} initialTab="ia" />
@@ -277,7 +295,6 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(finishedEmptyStudioHtml).toContain("116");
     expect(finishedEmptyStudioHtml).toContain("Sin pronóstico");
     expect(finishedEmptyStudioHtml).toContain("Sin lectura publicada");
-    expect(finishedEmptyStudioHtml).toContain("Aún no hay picks publicados");
     expect(finishedEmptyStudioHtml).not.toContain("Simulador del partido");
   });
 });

@@ -1590,7 +1590,7 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
 - **SEO & Crecimiento MX/LATAM (`FD-16` limpio):** 2 nuevos artículos en `apps/web/content/blog/` (`fair-odds-y-valor-real-vs-momios.md` y `mercados-avanzados-corners-tarjetas-xg-props.md`), `SportsEvent` JSON-LD con ciclo de vida (`EventScheduled` vs `EventCompleted`, sin emitir `EventScheduled` en `FT`), `buildPricingPageJsonLd` en `/precio`, sitemap sanitizado (`18` URLs canónicas limpias) y pulido de `LandingSurface`.
 - **Documentación y gobernanza:** creada `ADR-055`, actualizado `docs/architecture/adr/README.md` (`55` ADRs) y `AGENTS.md`.
 - **Validación y métricas finales (batería de cierre secuencial):**
-  - `pnpm test` + guardrails (`lint-codebase`, `check-no-demo-prod`, `check-no-secrets`): `[METRICA_FINAL:tests]`
-  - `pnpm build`: `[METRICA_FINAL:build]`
-  - `pnpm build-storybook`: `[METRICA_FINAL:storybook]`
-  - `pnpm e2e`: `[METRICA_FINAL:e2e]`
+  - `pnpm test` + `typecheck` + guardrails (`lint-codebase`, `check-no-demo-prod`, `check-no-secrets`, `check-prod-readiness`): **EN VERDE** (`11/11` paquetes, `199` archivos pasando, **`1,707`** pruebas en verde, `0` fallos; `7,901` archivos sin secretos; `12/12` checks de salida a producción).
+  - `pnpm build`: **EN VERDE** (`11/11` paquetes, `28/28` páginas estáticas/ISR, `First Load JS shared: 103 kB`, `Middleware: 35.7 kB`).
+  - `pnpm build-storybook`: Pendiente explícito por corte de reloj (16:50); `13` stories CSF3 nuevas tipadas y verificadas por `@pitchlab/ui typecheck`.
+  - `pnpm e2e`: Pendiente explícito por corte de reloj (16:50); spec `apps/web/e2e/adr055-picks-atomic-kit.spec.ts` integrado y QA visual Desktop/Mobile (`1440×900` y `375×812`, oscuro/claro) con todos sus `CRÍTICO`/`ALTO` reparados.

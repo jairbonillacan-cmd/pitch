@@ -278,10 +278,13 @@ describe("caché compartida en Neon (dos instancias)", () => {
     expect(coldRows.rows).toEqual([]);
 
     // Al ocurrir un gol real posterior (0-1 -> 1-1 tras vencer el caché), sí se registra el evento `goal`.
-    const liveNext = structuredClone(fixture("live.json")) as { results: Array<{ home_score: number; away_score: number; current_minute: number }> };
-    liveNext.results[0]!.home_score = 1;
-    liveNext.results[0]!.away_score = 1;
-    liveNext.results[0]!.current_minute = 41;
+    const liveNext = structuredClone(fixture("live.json")) as {
+      events: Array<{ id: number; home_score: number; away_score: number; current_minute: number }>;
+    };
+    const qroEvt = liveNext.events.find((e) => e.id === 602407)!;
+    qroEvt.home_score = 1;
+    qroEvt.away_score = 1;
+    qroEvt.current_minute = 41;
     const p2 = fakeProvider({ "/events/live/": liveNext });
     const c = deps("2026-11-14T23:35:00Z", p2.fetch, { store });
     await getLiveScoreboard(c);
