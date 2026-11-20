@@ -271,7 +271,7 @@ export function AtomicShotmapPitch({
           <svg
             viewBox={`0 0 ${fullW} ${fullH}`}
             className="pl-atom-pitch-svg"
-            role="img"
+            role="group"
             aria-label={`${title}: ${homeLabel} ${summary.homeCount} tiros (${summary.homeXg.toFixed(2)} xG), ${awayLabel} ${summary.awayCount} tiros (${summary.awayXg.toFixed(2)} xG).`}
           >
             {/* Superficie y líneas reglamentarias campo completo */}
@@ -319,11 +319,23 @@ export function AtomicShotmapPitch({
               const r = computeShotRadius(shot.xg);
               const isSelected = selectedIdx === idx;
               const isPost = shot.outcome === "post";
+              const teamName = shot.side === "home" ? homeLabel : awayLabel;
+              const shotLabel = `${shot.player ?? teamName} · ${shot.minute}' · xG ${shot.xg.toFixed(2)}`;
               return (
                 <g
                   key={shot.id ?? `${shot.side}-${shot.minute}-${idx}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={isSelected}
+                  aria-label={shotLabel}
                   className={`pl-atom-shot pl-atom-shot--${shot.side} pl-atom-shot--${bucket}${isPost ? " is-post" : ""}${isSelected ? " is-selected" : ""}`}
                   onClick={() => setSelectedIdx(isSelected ? null : idx)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setSelectedIdx(isSelected ? null : idx);
+                    }
+                  }}
                 >
                   {isSelected ? (
                     <circle cx={cx} cy={cy} r={r + 4} className="pl-atom-shot-focus" />
@@ -349,7 +361,7 @@ export function AtomicShotmapPitch({
           <svg
             viewBox={`0 0 ${halfW} ${halfH}`}
             className="pl-atom-pitch-svg"
-            role="img"
+            role="group"
             aria-label={`${title} en media cancha (${teamFilter === "home" ? homeLabel : teamFilter === "away" ? awayLabel : `${homeLabel} y ${awayLabel}`}).`}
           >
             {/* Media cancha ofensiva (portería arriba) */}
@@ -373,11 +385,23 @@ export function AtomicShotmapPitch({
               const r = computeShotRadius(shot.xg);
               const isSelected = selectedIdx === idx;
               const isPost = shot.outcome === "post";
+              const teamName = shot.side === "home" ? homeLabel : awayLabel;
+              const shotLabel = `${shot.player ?? teamName} · ${shot.minute}' · xG ${shot.xg.toFixed(2)}`;
               return (
                 <g
                   key={shot.id ?? `${shot.side}-${shot.minute}-${idx}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={isSelected}
+                  aria-label={shotLabel}
                   className={`pl-atom-shot pl-atom-shot--${shot.side} pl-atom-shot--${bucket}${isPost ? " is-post" : ""}${isSelected ? " is-selected" : ""}`}
                   onClick={() => setSelectedIdx(isSelected ? null : idx)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setSelectedIdx(isSelected ? null : idx);
+                    }
+                  }}
                 >
                   {isSelected ? (
                     <circle cx={cx} cy={cy} r={r + 4} className="pl-atom-shot-focus" />
