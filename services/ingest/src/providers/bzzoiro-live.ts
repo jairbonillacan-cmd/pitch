@@ -89,20 +89,109 @@ export interface BzLiveIncident {
   is_penalty?: boolean | null;
 }
 
+export interface BzShotRaw {
+  home?: boolean | null;
+  is_home?: boolean | null;
+  side?: string | null;
+  team?: string | { name?: string | null } | null;
+  min?: number | string | null;
+  minute?: number | string | null;
+  time?: number | string | null;
+  added_time?: number | string | null;
+  type?: string | null;
+  outcome?: string | null;
+  shot_type?: string | null;
+  result?: string | null;
+  xg?: number | string | null;
+  expected_goals?: number | string | null;
+  xG?: number | string | null;
+  pos?: { x?: number | string | null; y?: number | string | null; z?: number | string | null } | null;
+  position?: { x?: number | string | null; y?: number | string | null } | null;
+  coordinates?: { x?: number | string | null; y?: number | string | null } | null;
+  x?: number | string | null;
+  y?: number | string | null;
+  player?: string | { id?: number | null; name?: string | null; short_name?: string | null } | null;
+  player_name?: string | null;
+  playerName?: string | null;
+  shooter?: string | { name?: string | null } | null;
+  player_id?: number | null;
+  body_part?: string | null;
+  bodyPart?: string | null;
+  part?: string | null;
+}
+
+export interface BzAveragePositionRaw {
+  id?: number | null;
+  player_id?: number | null;
+  external_id?: string | number | null;
+  player?:
+    | string
+    | {
+        id?: number | null;
+        name?: string | null;
+        short_name?: string | null;
+        jersey_number?: number | null;
+        shirt_number?: number | null;
+        position?: string | null;
+      }
+    | null;
+  player_name?: string | null;
+  name?: string | null;
+  is_home?: boolean | null;
+  home?: boolean | null;
+  side?: string | null;
+  team?: string | { name?: string | null } | null;
+  jersey_number?: number | string | null;
+  shirt_number?: number | string | null;
+  number?: number | string | null;
+  jersey?: number | string | null;
+  position?: string | null;
+  average_x?: number | string | null;
+  average_y?: number | string | null;
+  avg_x?: number | string | null;
+  avg_y?: number | string | null;
+  x?: number | string | null;
+  y?: number | string | null;
+  pos?: { x?: number | string | null; y?: number | string | null } | null;
+  average_position?: { x?: number | string | null; y?: number | string | null } | null;
+  touches?: number | string | null;
+  ball_touches?: number | string | null;
+  points_count?: number | string | null;
+  rating?: number | string | null;
+  match_rating?: number | string | null;
+  photo_url?: string | null;
+  image_url?: string | null;
+}
+
 export interface BzLiveStats {
   event_id?: number;
   xg_estimated?: boolean | null;
   stats?: { home?: BzTeamStatsRaw | null; away?: BzTeamStatsRaw | null } | null;
   momentum?: { m?: number; v?: number }[] | null;
-  xg_per_minute?: { m?: number; cum_home?: number; cum_away?: number }[] | null;
-  shotmap?:
+  xg_per_minute?:
     | {
-        home?: boolean;
-        min?: number;
-        type?: string;
-        xg?: number | null;
-        pos?: { x?: number; y?: number } | null;
+        m?: number;
+        minute?: number;
+        xg_home?: number;
+        xg_away?: number;
+        cum_home?: number;
+        cum_away?: number;
+        estimated?: boolean;
       }[]
+    | null;
+  shotmap?: BzShotRaw[] | null;
+  shots?: BzShotRaw[] | null;
+  average_positions?:
+    | BzList<BzAveragePositionRaw>
+    | { home?: BzAveragePositionRaw[]; away?: BzAveragePositionRaw[] }
+    | null;
+  averagePositions?:
+    | BzList<BzAveragePositionRaw>
+    | { home?: BzAveragePositionRaw[]; away?: BzAveragePositionRaw[] }
+    | null;
+  positions?:
+    | BzList<BzAveragePositionRaw>
+    | { home?: BzAveragePositionRaw[]; away?: BzAveragePositionRaw[] }
     | null;
 }
 
@@ -121,11 +210,30 @@ function num(value: unknown): number | null {
   return null;
 }
 
+const URL_FRAGMENT_RE = /https?:\/\/\S+|www\.\S+/gi;
+
+/** Limpia cadenas destinadas a cliente: descarta URLs o hotlinks externos (`FD-16`). */
+export function sanitizeClientText(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const cleaned = value
+    .replace(URL_FRAGMENT_RE, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return cleaned.length > 0 ? cleaned : null;
+}
+
 function nameOf(value: unknown): string | null {
-  if (typeof value === "string") return value.trim() || null;
-  if (value && typeof value === "object" && "name" in value) {
-    const n = (value as { name?: unknown }).name;
-    return typeof n === "string" && n.trim() ? n.trim() : null;
+  if (typeof value === "string") return sanitizeClientText(value);
+  if (value && typeof value === "object") {
+    const rec = value as { name?: unknown; short_name?: unknown };
+    if (typeof rec.name === "string") {
+      const cleaned = sanitizeClientText(rec.name);
+      if (cleaned) return cleaned;
+    }
+    if (typeof rec.short_name === "string") {
+      const cleaned = sanitizeClientText(rec.short_name);
+      if (cleaned) return cleaned;
+    }
   }
   return null;
 }
@@ -405,12 +513,28 @@ export interface BzLiveCommentaryRaw {
 }
 
 export interface BzLivePlayerStatRaw {
-  player?: string | { name?: string | null } | null;
+  id?: number | null;
+  player_id?: number | null;
+  external_id?: string | number | null;
+  player?:
+    | string
+    | {
+        id?: number | null;
+        name?: string | null;
+        short_name?: string | null;
+        shirt_number?: number | null;
+        jersey_number?: number | null;
+      }
+    | null;
   player_name?: string | null;
   is_home?: boolean | null;
+  home?: boolean | null;
   side?: string | null;
   team?: string | { name?: string | null } | null;
   position?: string | null;
+  shirt_number?: number | string | null;
+  jersey_number?: number | string | null;
+  number?: number | string | null;
   minutes_played?: number | null;
   minutes?: number | null;
   rating?: number | null;
@@ -426,20 +550,35 @@ export interface BzLivePlayerStatRaw {
   expected_assists?: number | null;
   tackles?: number | null;
   saves?: number | null;
+  touches?: number | null;
+  ball_touches?: number | null;
+  average_x?: number | string | null;
+  average_y?: number | string | null;
+  avg_x?: number | string | null;
+  avg_y?: number | string | null;
+  average_position?: { x?: number | string | null; y?: number | string | null } | null;
+  pos?: { x?: number | string | null; y?: number | string | null } | null;
+  photo_url?: string | null;
+  image_url?: string | null;
 }
+
+export type BzPlayerStatsPayload =
+  | BzList<BzLivePlayerStatRaw>
+  | { home?: BzLivePlayerStatRaw[]; away?: BzLivePlayerStatRaw[] };
 
 export interface BzBroadcastRaw {
   channel?: string | null;
   name?: string | null;
   broadcaster?: string | null;
   country_code?: string | null;
+  url?: string | null;
 }
 
 /** Convierte comentarios de `/events/{id}/commentary/?since=` manteniendo orden cronológico. */
 export function parseCommentary(raw: BzList<BzLiveCommentaryRaw> | null): LiveCommentaryItem[] {
   const out: LiveCommentaryItem[] = [];
   list<BzLiveCommentaryRaw>(raw).forEach((r, idx) => {
-    const text = (r.text ?? r.commentary ?? "").trim();
+    const text = sanitizeClientText(r.text ?? r.commentary);
     if (!text) return;
     const minute = num(r.minute);
     const added = num(r.added_time);
@@ -478,10 +617,9 @@ export function mergeCommentary(
   return [...map.values()].sort((a, b) => a.order - b.order);
 }
 
-/** Convierte actuaciones individuales de `/events/{id}/player-stats/`. */
-export function parsePlayerStats(
-  raw: BzList<BzLivePlayerStatRaw> | { home?: BzLivePlayerStatRaw[]; away?: BzLivePlayerStatRaw[] } | null,
-): LivePlayerStatRow[] {
+function flattenTaggedPlayerStats(
+  raw: BzPlayerStatsPayload | null | undefined,
+): Array<{ raw: BzLivePlayerStatRaw; forcedSide?: "home" | "away" }> {
   if (!raw) return [];
   const tagged: Array<{ raw: BzLivePlayerStatRaw; forcedSide?: "home" | "away" }> = [];
   if (typeof raw === "object" && !Array.isArray(raw) && ("home" in raw || "away" in raw)) {
@@ -493,24 +631,41 @@ export function parsePlayerStats(
       tagged.push({ raw: r });
     }
   }
+  return tagged;
+}
 
+function resolveSideFromFlags(
+  item: {
+    is_home?: boolean | null;
+    home?: boolean | null;
+    side?: string | null;
+    team?: string | { name?: string | null } | null;
+  },
+  forcedSide?: "home" | "away",
+): "home" | "away" | null {
+  if (forcedSide) return forcedSide;
+  if (typeof item.is_home === "boolean") return item.is_home ? "home" : "away";
+  if (typeof item.home === "boolean") return item.home ? "home" : "away";
+  const sideStr = (item.side ?? (typeof item.team === "string" ? item.team : "") ?? "").trim().toLowerCase();
+  if (sideStr === "home" || sideStr === "local" || sideStr === "1") return "home";
+  if (sideStr === "away" || sideStr === "visita" || sideStr === "visitante" || sideStr === "2") return "away";
+  return null;
+}
+
+/** Convierte actuaciones individuales de `/events/{id}/player-stats/`. */
+export function parsePlayerStats(
+  raw: BzPlayerStatsPayload | null,
+): LivePlayerStatRow[] {
+  const tagged = flattenTaggedPlayerStats(raw);
   const rows: LivePlayerStatRow[] = [];
   for (const { raw: r, forcedSide } of tagged) {
-    const player = nameOf(r.player) ?? (typeof r.player_name === "string" ? r.player_name.trim() || null : null);
+    const player = nameOf(r.player) ?? sanitizeClientText(r.player_name);
     if (!player) continue;
-    const side: "home" | "away" =
-      forcedSide ??
-      (typeof r.is_home === "boolean"
-        ? r.is_home
-          ? "home"
-          : "away"
-        : r.side === "away" || r.team === "away"
-          ? "away"
-          : "home");
+    const side = resolveSideFromFlags(r, forcedSide) ?? "home";
     rows.push({
       player,
       side,
-      position: typeof r.position === "string" ? r.position.trim() || null : null,
+      position: sanitizeClientText(r.position),
       minutes: num(r.minutes_played) ?? num(r.minutes),
       rating: num(r.rating),
       goals: num(r.goals) ?? 0,
@@ -527,19 +682,559 @@ export function parsePlayerStats(
   return rows.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.goals ?? 0) - (a.goals ?? 0));
 }
 
-/** Extrae canales únicos de `/events/{id}/broadcasts/?country_code=MX`. */
+/** Extrae canales únicos de `/events/{id}/broadcasts/?country_code=MX` (sin URLs externas ni duplicados). */
 export function parseBroadcastsMx(raw: BzList<BzBroadcastRaw> | null): string[] {
-  const seen = new Set<string>();
+  const seenLower = new Set<string>();
+  const out: string[] = [];
   for (const r of list<BzBroadcastRaw>(raw)) {
-    const name = (r.channel ?? r.broadcaster ?? r.name ?? "").trim();
-    if (name && !seen.has(name.toLowerCase())) {
-      seen.add(name);
+    const cc = (r.country_code ?? "").trim().toUpperCase();
+    if (cc && cc !== "MX") continue;
+    const name = sanitizeClientText(r.channel ?? r.broadcaster ?? r.name);
+    if (!name) continue;
+    const key = name.toLowerCase();
+    if (!seenLower.has(key)) {
+      seenLower.add(key);
+      out.push(name.slice(0, 80));
     }
   }
-  return [...seen].slice(0, 8);
+  return out.slice(0, 8);
 }
 
-const SHOT_OUTCOMES = new Set(["goal", "save", "miss", "block", "post"]);
+// ---------- Shotmap normalizado, xG por disparo/minuto y Posiciones Medias (`FD-16`) ----------
+
+export type NormalizedShotOutcome = "goal" | "saved" | "blocked" | "miss" | "post";
+export type ShotBodyPart = "right_foot" | "left_foot" | "head" | "other";
+
+export interface NormalizedShot {
+  readonly x: number;
+  readonly y: number;
+  readonly minute: number;
+  readonly addedTime?: number;
+  readonly xg: number;
+  readonly outcome: NormalizedShotOutcome;
+  readonly side: "home" | "away";
+  readonly playerName: string;
+  readonly bodyPart?: ShotBodyPart;
+}
+
+export interface NormalizedXgTimelinePoint {
+  readonly minute: number;
+  readonly xgHome: number;
+  readonly xgAway: number;
+  readonly cumHome: number;
+  readonly cumAway: number;
+}
+
+export interface NormalizedShotmapSummary {
+  readonly shots: readonly NormalizedShot[];
+  readonly xgHome: number;
+  readonly xgAway: number;
+  readonly xgEstimated: boolean | null;
+  readonly shotsHome: number;
+  readonly shotsAway: number;
+  readonly xgTimeline: readonly NormalizedXgTimelinePoint[];
+}
+
+export interface NormalizedAveragePosition {
+  readonly x: number;
+  readonly y: number;
+  readonly playerName: string;
+  readonly jerseyNumber: number | null;
+  readonly position: string;
+  readonly touches: number;
+  readonly rating?: number;
+}
+
+export interface NormalizedTeamAveragePositions {
+  readonly home: readonly NormalizedAveragePosition[];
+  readonly away: readonly NormalizedAveragePosition[];
+}
+
+export interface BzzoiroMatchVisualTelemetry {
+  readonly shotmap: NormalizedShotmapSummary;
+  readonly averagePositions: NormalizedTeamAveragePositions;
+}
+
+function round2(v: number): number {
+  return Math.round(v * 100) / 100;
+}
+
+function round3(v: number): number {
+  return Math.round(v * 1000) / 1000;
+}
+
+function clampCoord(v: number, scaleTo100: boolean): number {
+  const scaled = scaleTo100 ? v * 100 : v;
+  return round2(Math.max(0, Math.min(100, scaled)));
+}
+
+function detectUnitCoordScale(pairs: readonly { x: number; y: number }[]): boolean {
+  if (pairs.length === 0) return false;
+  let allInUnit = true;
+  let anyFractional = false;
+  for (const p of pairs) {
+    if (p.x < 0 || p.x > 1 || p.y < 0 || p.y > 1) {
+      allInUnit = false;
+      break;
+    }
+    if ((p.x > 0 && p.x < 1) || (p.y > 0 && p.y < 1)) {
+      anyFractional = true;
+    }
+  }
+  return allInUnit && anyFractional;
+}
+
+/** Normaliza resultado de disparo Bzzoiro a `goal | saved | blocked | miss | post`. */
+export function normalizeShotOutcome(raw: unknown): NormalizedShotOutcome | null {
+  const s = String(raw ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[\s-]+/g, "_");
+  if (!s) return null;
+  if (s === "goal" || s === "own_goal" || s === "penalty_goal" || s === "scored") return "goal";
+  if (s === "save" || s === "saved" || s === "attempt_saved" || s === "on_target") return "saved";
+  if (s === "block" || s === "blocked" || s === "blocked_shot") return "blocked";
+  if (s === "post" || s === "woodwork" || s === "hit_woodwork" || s === "crossbar") return "post";
+  if (s === "miss" || s === "missed" || s === "off_target" || s === "wide" || s === "high" || s === "wayward") {
+    return "miss";
+  }
+  return null;
+}
+
+function toLegacyLiveShotOutcome(outcome: NormalizedShotOutcome): LiveShot["outcome"] {
+  if (outcome === "saved") return "save";
+  if (outcome === "blocked") return "block";
+  return outcome;
+}
+
+/** Normaliza parte del cuerpo del disparo (opcional). */
+export function normalizeShotBodyPart(raw: unknown): ShotBodyPart | undefined {
+  const s = String(raw ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[\s-]+/g, "_");
+  if (!s) return undefined;
+  if (s === "right_foot" || s === "right" || s === "pie_derecho" || s === "derecho") return "right_foot";
+  if (s === "left_foot" || s === "left" || s === "pie_izquierdo" || s === "izquierdo") return "left_foot";
+  if (s === "head" || s === "header" || s === "cabeza") return "head";
+  if (s === "other" || s === "chest" || s === "body" || s === "otro") return "other";
+  return undefined;
+}
+
+function extractPlayerLookup(playerStatsRaw?: BzPlayerStatsPayload | null): {
+  nameByInternalId: Map<number, string>;
+  metaBySideName: Map<
+    string,
+    { jerseyNumber: number | null; position: string | null; touches: number | null; rating: number | null }
+  >;
+  metaByInternalId: Map<
+    number,
+    {
+      playerName: string;
+      side: "home" | "away";
+      jerseyNumber: number | null;
+      position: string | null;
+      touches: number | null;
+      rating: number | null;
+    }
+  >;
+} {
+  const nameByInternalId = new Map<number, string>();
+  const metaBySideName = new Map<
+    string,
+    { jerseyNumber: number | null; position: string | null; touches: number | null; rating: number | null }
+  >();
+  const metaByInternalId = new Map<
+    number,
+    {
+      playerName: string;
+      side: "home" | "away";
+      jerseyNumber: number | null;
+      position: string | null;
+      touches: number | null;
+      rating: number | null;
+    }
+  >();
+
+  for (const { raw: r, forcedSide } of flattenTaggedPlayerStats(playerStatsRaw)) {
+    const playerName = nameOf(r.player) ?? sanitizeClientText(r.player_name);
+    if (!playerName) continue;
+    const side = resolveSideFromFlags(r, forcedSide) ?? "home";
+    const playerObj = r.player && typeof r.player === "object" ? r.player : null;
+    const rawId = num(r.player_id ?? playerObj?.id ?? r.id);
+    const rawJersey = num(r.jersey_number ?? r.shirt_number ?? r.number ?? playerObj?.jersey_number ?? playerObj?.shirt_number);
+    const jerseyNumber =
+      rawJersey !== null && Number.isInteger(rawJersey) && rawJersey >= 1 && rawJersey <= 99 ? rawJersey : null;
+    const position = sanitizeClientText(r.position);
+    const rawTouches = num(r.touches ?? r.ball_touches);
+    const touches = rawTouches !== null && rawTouches >= 0 ? Math.round(rawTouches) : null;
+    const rawRating = num(r.rating);
+    const rating = rawRating !== null && rawRating >= 0 && rawRating <= 10 ? round2(rawRating) : null;
+
+    metaBySideName.set(`${side}|${playerName.toLowerCase()}`, { jerseyNumber, position, touches, rating });
+    if (rawId !== null && Number.isInteger(rawId) && rawId > 0) {
+      nameByInternalId.set(rawId, playerName);
+      metaByInternalId.set(rawId, { playerName, side, jerseyNumber, position, touches, rating });
+    }
+  }
+
+  return { nameByInternalId, metaBySideName, metaByInternalId };
+}
+
+/**
+ * Extrae y normaliza shotmap + xG por disparo y por minuto desde `/events/{id}/stats/` y
+ * `/events/{id}/player-stats/` (o feed en vivo). Tolerante a faltantes y libre de IDs/URLs (`FD-16`).
+ */
+export function parseBzzoiroShotmap(
+  statsRaw: BzLiveStats | null | undefined,
+  playerStatsRaw?: BzPlayerStatsPayload | null,
+): NormalizedShotmapSummary {
+  const lookup = extractPlayerLookup(playerStatsRaw);
+  const rawShots = statsRaw?.shotmap ?? statsRaw?.shots ?? [];
+
+  const preliminary: Array<{
+    rawX: number;
+    rawY: number;
+    minute: number;
+    addedTime?: number;
+    xg: number;
+    outcome: NormalizedShotOutcome;
+    side: "home" | "away";
+    playerName: string;
+    bodyPart?: ShotBodyPart;
+  }> = [];
+
+  for (const s of rawShots ?? []) {
+    if (!s || typeof s !== "object") continue;
+    const side = resolveSideFromFlags(s);
+    const outcome = normalizeShotOutcome(s.type ?? s.outcome ?? s.shot_type ?? s.result);
+    const minuteRaw = num(s.min ?? s.minute ?? s.time);
+    const rawX = num(s.pos?.x ?? s.position?.x ?? s.coordinates?.x ?? s.x);
+    const rawY = num(s.pos?.y ?? s.position?.y ?? s.coordinates?.y ?? s.y);
+    if (!side || !outcome || minuteRaw === null || minuteRaw < 0 || rawX === null || rawY === null) {
+      continue;
+    }
+
+    const playerObj = s.player && typeof s.player === "object" ? s.player : null;
+    const internalPlayerId = num(s.player_id ?? playerObj?.id);
+    const resolvedPlayerName =
+      nameOf(s.player) ??
+      sanitizeClientText(s.player_name ?? s.playerName) ??
+      nameOf(s.shooter) ??
+      (internalPlayerId !== null ? lookup.nameByInternalId.get(internalPlayerId) ?? null : null) ??
+      (side === "home" ? "Jugador local" : "Jugador visitante");
+
+    const xgRaw = num(s.xg ?? s.expected_goals ?? s.xG);
+    const xg = xgRaw !== null && xgRaw >= 0 && xgRaw <= 1.2 ? round3(xgRaw) : 0;
+    const addedRaw = num(s.added_time);
+    const addedTime = addedRaw !== null && addedRaw > 0 ? Math.round(addedRaw) : undefined;
+    const bodyPart = normalizeShotBodyPart(s.body_part ?? s.bodyPart ?? s.part);
+
+    preliminary.push({
+      rawX,
+      rawY,
+      minute: Math.max(0, Math.min(130, Math.round(minuteRaw))),
+      ...(addedTime !== undefined ? { addedTime } : {}),
+      xg,
+      outcome,
+      side,
+      playerName: resolvedPlayerName.slice(0, 120),
+      ...(bodyPart ? { bodyPart } : {}),
+    });
+  }
+
+  const unitScale = detectUnitCoordScale(preliminary.map((p) => ({ x: p.rawX, y: p.rawY })));
+  const shots: NormalizedShot[] = preliminary
+    .map((p) => ({
+      x: clampCoord(p.rawX, unitScale),
+      y: clampCoord(p.rawY, unitScale),
+      minute: p.minute,
+      ...(p.addedTime !== undefined ? { addedTime: p.addedTime } : {}),
+      xg: p.xg,
+      outcome: p.outcome,
+      side: p.side,
+      playerName: p.playerName,
+      ...(p.bodyPart ? { bodyPart: p.bodyPart } : {}),
+    }))
+    .sort(
+      (a, b) =>
+        a.minute - b.minute ||
+        (a.addedTime ?? 0) - (b.addedTime ?? 0) ||
+        (a.side === b.side ? 0 : a.side === "home" ? -1 : 1),
+    );
+
+  // Construye línea temporal de xG por minuto desde `xg_per_minute` o derivada desde `shots`
+  let xgTimeline: NormalizedXgTimelinePoint[] = [];
+  const rawTimeline = statsRaw?.xg_per_minute ?? [];
+  if (rawTimeline.length > 0) {
+    const sortedRaw = rawTimeline
+      .map((pt) => ({
+        minute: num(pt.m ?? pt.minute),
+        xgHome: num(pt.xg_home),
+        xgAway: num(pt.xg_away),
+        cumHome: num(pt.cum_home),
+        cumAway: num(pt.cum_away),
+      }))
+      .filter((pt): pt is { minute: number; xgHome: number | null; xgAway: number | null; cumHome: number | null; cumAway: number | null } => pt.minute !== null && pt.minute >= 0)
+      .sort((a, b) => a.minute - b.minute);
+
+    let runningHome = 0;
+    let runningAway = 0;
+    xgTimeline = sortedRaw.map((pt) => {
+      const nextCumHome =
+        pt.cumHome !== null ? Math.max(0, pt.cumHome) : Math.max(0, runningHome + Math.max(0, pt.xgHome ?? 0));
+      const nextCumAway =
+        pt.cumAway !== null ? Math.max(0, pt.cumAway) : Math.max(0, runningAway + Math.max(0, pt.xgAway ?? 0));
+      const incHome = pt.xgHome !== null ? Math.max(0, pt.xgHome) : Math.max(0, nextCumHome - runningHome);
+      const incAway = pt.xgAway !== null ? Math.max(0, pt.xgAway) : Math.max(0, nextCumAway - runningAway);
+      runningHome = nextCumHome;
+      runningAway = nextCumAway;
+      return {
+        minute: Math.round(pt.minute),
+        xgHome: round3(incHome),
+        xgAway: round3(incAway),
+        cumHome: round3(nextCumHome),
+        cumAway: round3(nextCumAway),
+      };
+    });
+  } else if (shots.length > 0) {
+    const byMin = new Map<number, { home: number; away: number }>();
+    for (const sh of shots) {
+      const bucket = byMin.get(sh.minute) ?? { home: 0, away: 0 };
+      if (sh.side === "home") bucket.home += sh.xg;
+      else bucket.away += sh.xg;
+      byMin.set(sh.minute, bucket);
+    }
+    let cumHome = 0;
+    let cumAway = 0;
+    xgTimeline = [...byMin.entries()]
+      .sort((a, b) => a[0] - b[0])
+      .map(([minute, inc]) => {
+        cumHome += inc.home;
+        cumAway += inc.away;
+        return {
+          minute,
+          xgHome: round3(inc.home),
+          xgAway: round3(inc.away),
+          cumHome: round3(cumHome),
+          cumAway: round3(cumAway),
+        };
+      });
+  }
+
+  const statHomeXg = ratio(statsRaw?.stats?.home, "xg") ?? ratio(statsRaw?.stats?.home, "expected_goals");
+  const statAwayXg = ratio(statsRaw?.stats?.away, "xg") ?? ratio(statsRaw?.stats?.away, "expected_goals");
+  const timelineLast = xgTimeline.at(-1);
+  const sumShotsHome = shots.filter((s) => s.side === "home").reduce((acc, s) => acc + s.xg, 0);
+  const sumShotsAway = shots.filter((s) => s.side === "away").reduce((acc, s) => acc + s.xg, 0);
+
+  let playerSumHome = 0;
+  let playerSumAway = 0;
+  let hasPlayerXg = false;
+  for (const row of parsePlayerStats(playerStatsRaw ?? null)) {
+    if (typeof row.xg === "number" && row.xg >= 0) {
+      hasPlayerXg = true;
+      if (row.side === "home") playerSumHome += row.xg;
+      else playerSumAway += row.xg;
+    }
+  }
+
+  const xgHome = round3(
+    statHomeXg ?? timelineLast?.cumHome ?? (shots.length > 0 ? sumShotsHome : hasPlayerXg ? playerSumHome : 0),
+  );
+  const xgAway = round3(
+    statAwayXg ?? timelineLast?.cumAway ?? (shots.length > 0 ? sumShotsAway : hasPlayerXg ? playerSumAway : 0),
+  );
+
+  const shotsHome =
+    ratio(statsRaw?.stats?.home, "total_shots") ?? shots.filter((s) => s.side === "home").length;
+  const shotsAway =
+    ratio(statsRaw?.stats?.away, "total_shots") ?? shots.filter((s) => s.side === "away").length;
+
+  return {
+    shots,
+    xgHome,
+    xgAway,
+    xgEstimated: typeof statsRaw?.xg_estimated === "boolean" ? statsRaw.xg_estimated : null,
+    shotsHome: Math.max(0, Math.round(shotsHome)),
+    shotsAway: Math.max(0, Math.round(shotsAway)),
+    xgTimeline,
+  };
+}
+
+function flattenTaggedAvgPositions(
+  raw:
+    | BzList<BzAveragePositionRaw>
+    | { home?: BzAveragePositionRaw[]; away?: BzAveragePositionRaw[] }
+    | null
+    | undefined,
+): Array<{ raw: BzAveragePositionRaw; forcedSide?: "home" | "away" }> {
+  if (!raw) return [];
+  const tagged: Array<{ raw: BzAveragePositionRaw; forcedSide?: "home" | "away" }> = [];
+  if (typeof raw === "object" && !Array.isArray(raw) && ("home" in raw || "away" in raw)) {
+    const grouped = raw as { home?: BzAveragePositionRaw[]; away?: BzAveragePositionRaw[] };
+    for (const item of grouped.home ?? []) tagged.push({ raw: item, forcedSide: "home" });
+    for (const item of grouped.away ?? []) tagged.push({ raw: item, forcedSide: "away" });
+  } else {
+    for (const item of list<BzAveragePositionRaw>(raw as BzList<BzAveragePositionRaw>)) {
+      tagged.push({ raw: item });
+    }
+  }
+  return tagged;
+}
+
+/**
+ * Extrae posiciones medias normalizadas (0..100) por equipo desde `/events/{id}/stats/` y/o
+ * `/events/{id}/player-stats/`, enriqueciendo `rating`, `touches`, `jerseyNumber` y `position`
+ * sin exponer `externalId` ni URLs de proveedor (`FD-16`).
+ */
+export function parseBzzoiroAveragePositions(
+  statsRaw: BzLiveStats | null | undefined,
+  playerStatsRaw?: BzPlayerStatsPayload | null,
+): NormalizedTeamAveragePositions {
+  const lookup = extractPlayerLookup(playerStatsRaw);
+  const rawPositionsContainer =
+    statsRaw?.average_positions ?? statsRaw?.averagePositions ?? statsRaw?.positions ?? null;
+
+  const candidates: Array<{
+    side: "home" | "away";
+    rawX: number;
+    rawY: number;
+    playerName: string;
+    jerseyNumber: number | null;
+    position: string;
+    touches: number;
+    rating?: number;
+  }> = [];
+
+  const seenKey = new Set<string>();
+
+  const pushCandidate = (entry: {
+    side: "home" | "away";
+    rawX: number;
+    rawY: number;
+    playerName: string;
+    jerseyNumber: number | null;
+    position: string | null;
+    touches: number | null;
+    rating: number | null;
+  }) => {
+    const dedup = `${entry.side}|${entry.playerName.toLowerCase()}`;
+    if (seenKey.has(dedup)) return;
+    seenKey.add(dedup);
+    candidates.push({
+      side: entry.side,
+      rawX: entry.rawX,
+      rawY: entry.rawY,
+      playerName: entry.playerName.slice(0, 120),
+      jerseyNumber: entry.jerseyNumber,
+      position: (entry.position ?? "N/D").slice(0, 24),
+      touches: entry.touches !== null && entry.touches >= 0 ? Math.round(entry.touches) : 0,
+      ...(entry.rating !== null && entry.rating >= 0 && entry.rating <= 10
+        ? { rating: round2(entry.rating) }
+        : {}),
+    });
+  };
+
+  for (const { raw: item, forcedSide } of flattenTaggedAvgPositions(rawPositionsContainer)) {
+    if (!item || typeof item !== "object") continue;
+    const rawX = num(item.average_x ?? item.avg_x ?? item.average_position?.x ?? item.pos?.x ?? item.x);
+    const rawY = num(item.average_y ?? item.avg_y ?? item.average_position?.y ?? item.pos?.y ?? item.y);
+    if (rawX === null || rawY === null) continue;
+
+    const playerObj = item.player && typeof item.player === "object" ? item.player : null;
+    const internalId = num(item.player_id ?? playerObj?.id ?? item.id);
+    const idMeta = internalId !== null ? lookup.metaByInternalId.get(internalId) : undefined;
+    const playerName =
+      nameOf(item.player) ?? sanitizeClientText(item.player_name ?? item.name) ?? idMeta?.playerName ?? null;
+    if (!playerName) continue;
+
+    const side = resolveSideFromFlags(item, forcedSide) ?? idMeta?.side ?? "home";
+    const nameMeta = lookup.metaBySideName.get(`${side}|${playerName.toLowerCase()}`);
+
+    const rawJersey = num(
+      item.jersey_number ??
+        item.shirt_number ??
+        item.number ??
+        item.jersey ??
+        playerObj?.jersey_number ??
+        playerObj?.shirt_number,
+    );
+    const jerseyNumber =
+      rawJersey !== null && Number.isInteger(rawJersey) && rawJersey >= 1 && rawJersey <= 99
+        ? rawJersey
+        : (idMeta?.jerseyNumber ?? nameMeta?.jerseyNumber ?? null);
+    const position =
+      sanitizeClientText(item.position ?? playerObj?.position) ?? idMeta?.position ?? nameMeta?.position ?? null;
+    const touches =
+      num(item.touches ?? item.ball_touches ?? item.points_count) ?? idMeta?.touches ?? nameMeta?.touches ?? null;
+    const rating = num(item.rating ?? item.match_rating) ?? idMeta?.rating ?? nameMeta?.rating ?? null;
+
+    pushCandidate({ side, rawX, rawY, playerName, jerseyNumber, position, touches, rating });
+  }
+
+  // Fallback o complemento desde `/events/{id}/player-stats/` si traen coordenadas medias
+  for (const { raw: ps, forcedSide } of flattenTaggedPlayerStats(playerStatsRaw)) {
+    const rawX = num(ps.average_x ?? ps.avg_x ?? ps.average_position?.x ?? ps.pos?.x);
+    const rawY = num(ps.average_y ?? ps.avg_y ?? ps.average_position?.y ?? ps.pos?.y);
+    if (rawX === null || rawY === null) continue;
+    const playerName = nameOf(ps.player) ?? sanitizeClientText(ps.player_name);
+    if (!playerName) continue;
+    const side = resolveSideFromFlags(ps, forcedSide) ?? "home";
+    const playerObj = ps.player && typeof ps.player === "object" ? ps.player : null;
+    const rawJersey = num(
+      ps.jersey_number ?? ps.shirt_number ?? ps.number ?? playerObj?.jersey_number ?? playerObj?.shirt_number,
+    );
+    const jerseyNumber =
+      rawJersey !== null && Number.isInteger(rawJersey) && rawJersey >= 1 && rawJersey <= 99 ? rawJersey : null;
+    pushCandidate({
+      side,
+      rawX,
+      rawY,
+      playerName,
+      jerseyNumber,
+      position: sanitizeClientText(ps.position),
+      touches: num(ps.touches ?? ps.ball_touches),
+      rating: num(ps.rating),
+    });
+  }
+
+  const unitScale = detectUnitCoordScale(candidates.map((c) => ({ x: c.rawX, y: c.rawY })));
+  const finalizeSide = (side: "home" | "away"): NormalizedAveragePosition[] =>
+    candidates
+      .filter((c) => c.side === side)
+      .map((c) => ({
+        x: clampCoord(c.rawX, unitScale),
+        y: clampCoord(c.rawY, unitScale),
+        playerName: c.playerName,
+        jerseyNumber: c.jerseyNumber,
+        position: c.position,
+        touches: c.touches,
+        ...(c.rating !== undefined ? { rating: c.rating } : {}),
+      }))
+      .sort(
+        (a, b) =>
+          b.touches - a.touches ||
+          (a.jerseyNumber ?? 999) - (b.jerseyNumber ?? 999) ||
+          a.playerName.localeCompare(b.playerName, "es-MX"),
+      );
+
+  return {
+    home: finalizeSide("home"),
+    away: finalizeSide("away"),
+  };
+}
+
+/** Combina shotmap + xG + posiciones medias en un paquete listo para visualización sin IDs crudos. */
+export function extractBzzoiroMatchTelemetry(
+  statsRaw: BzLiveStats | null | undefined,
+  playerStatsRaw?: BzPlayerStatsPayload | null,
+): BzzoiroMatchVisualTelemetry {
+  return {
+    shotmap: parseBzzoiroShotmap(statsRaw, playerStatsRaw),
+    averagePositions: parseBzzoiroAveragePositions(statsRaw, playerStatsRaw),
+  };
+}
 
 export function parseLiveStats(raw: BzLiveStats | null): Pick<
   LiveMatchDetail,
@@ -552,19 +1247,26 @@ export function parseLiveStats(raw: BzLiveStats | null): Pick<
     .map((p) => ({ minute: p.minute, value: Math.max(-100, Math.min(100, p.value)) }))
     .sort((a, b) => a.minute - b.minute);
   const xgTimeline: LiveXgPoint[] = (raw.xg_per_minute ?? [])
-    .map((p) => ({ minute: num(p.m), home: num(p.cum_home), away: num(p.cum_away) }))
+    .map((p) => ({ minute: num(p.m ?? p.minute), home: num(p.cum_home), away: num(p.cum_away) }))
     .filter((p): p is LiveXgPoint => p.minute !== null && p.home !== null && p.away !== null)
     .sort((a, b) => a.minute - b.minute);
-  const shots: LiveShot[] = (raw.shotmap ?? [])
-    .filter((s) => typeof s.min === "number" && typeof s.home === "boolean" && SHOT_OUTCOMES.has(String(s.type)))
-    .map((s) => ({
-      minute: s.min as number,
-      side: s.home ? ("home" as const) : ("away" as const),
-      outcome: s.type as LiveShot["outcome"],
-      xg: num(s.xg),
-      x: num(s.pos?.x),
-      y: num(s.pos?.y),
-    }));
+  const shots: LiveShot[] = [];
+  for (const s of raw.shotmap ?? raw.shots ?? []) {
+    const minute = num(s.min ?? s.minute ?? s.time);
+    const side = resolveSideFromFlags(s);
+    const normOutcome = normalizeShotOutcome(s.type ?? s.outcome ?? s.shot_type ?? s.result);
+    if (minute === null || !side || !normOutcome) continue;
+    const rawX = num(s.pos?.x ?? s.position?.x ?? s.coordinates?.x ?? s.x);
+    const rawY = num(s.pos?.y ?? s.position?.y ?? s.coordinates?.y ?? s.y);
+    shots.push({
+      minute,
+      side,
+      outcome: toLegacyLiveShotOutcome(normOutcome),
+      xg: num(s.xg ?? s.expected_goals ?? s.xG),
+      x: rawX !== null ? Math.max(0, Math.min(100, rawX)) : null,
+      y: rawY !== null ? Math.max(0, Math.min(100, rawY)) : null,
+    });
+  }
   const home = raw.stats?.home;
   const away = raw.stats?.away;
   return {

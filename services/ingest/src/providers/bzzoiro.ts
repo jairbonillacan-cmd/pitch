@@ -126,6 +126,58 @@ export interface BzStatsResponse {
   event_id: number;
   stats?: { home?: BzTeamStatsRaw; away?: BzTeamStatsRaw } | null;
   xg_estimated?: boolean | null;
+  momentum?: readonly { m?: number; v?: number }[] | null;
+  xg_per_minute?: readonly {
+    m?: number;
+    xg_home?: number;
+    xg_away?: number;
+    cum_home?: number;
+    cum_away?: number;
+    estimated?: boolean;
+  }[] | null;
+  shotmap?: readonly Record<string, unknown>[] | null;
+  average_positions?: unknown;
+  averagePositions?: unknown;
+}
+
+export interface BzRefereeRaw {
+  id?: number | null;
+  name?: string | null;
+  full_name?: string | null;
+  country?: string | null;
+  nationality?: string | null;
+  matches?: number | null;
+  matches_total?: number | null;
+  games?: number | null;
+  avg_yellow_per_match?: number | null;
+  yellow_cards_per_game?: number | null;
+  avg_yellow?: number | null;
+  yellow_cards?: number | null;
+  avg_red_per_match?: number | null;
+  red_cards_per_game?: number | null;
+  avg_red?: number | null;
+  red_cards?: number | null;
+  avg_fouls_per_match?: number | null;
+  fouls_per_game?: number | null;
+  avg_fouls?: number | null;
+  fouls?: number | null;
+  avg_goals_per_match?: number | null;
+  avg_goals?: number | null;
+  avg_penalties_per_match?: number | null;
+}
+
+export interface BzH2hMatchRaw {
+  id?: number | null;
+  event_id?: number | null;
+  event_date?: string | null;
+  date?: string | null;
+  home_team?: string | { id?: number | null; name?: string | null } | null;
+  away_team?: string | { id?: number | null; name?: string | null } | null;
+  home_score?: number | null;
+  away_score?: number | null;
+  league?: string | { id?: number | null; name?: string | null } | null;
+  competition?: string | null;
+  status?: string | null;
 }
 
 export interface BzLineupPlayer {
