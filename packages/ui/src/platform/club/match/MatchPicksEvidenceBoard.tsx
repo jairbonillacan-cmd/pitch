@@ -2,7 +2,8 @@
 
 import React, { useMemo, useState } from "react";
 import { PBar } from "../../../sports";
-import { formatOddsValue, isPickUnlocked } from "../../access-guard";
+import { isPickUnlocked } from "../../access-guard";
+import { resolvePreferredBookQuote } from "../../bookmakers";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import {
   MATCH_PICK_GROUP_LABELS,
@@ -22,8 +23,17 @@ import type {
   PlatformGame,
   PlatformMarketRow,
 } from "../../types";
+import {
+  BetBuilderDrawer,
+  BetBuilderQuickButton,
+  BookmakerComparePill,
+  EvidenceWindowPills,
+  classifyOddsMovement,
+  computeExpectedValuePct,
+  extractEvidenceWindows,
+} from "../picks";
 
-type SortKey = "recomendados" | "tasa" | "valor" | "prob";
+type SortKey = "recomendados" | "tasa" | "valor" | "prob" | "movimiento";
 
 function EvidenceParlayButton({ pick }: { readonly pick: MatchPick }): React.JSX.Element {
   const { addPickToParlay, removePickFromParlay } = usePlatformActions();
@@ -31,7 +41,7 @@ function EvidenceParlayButton({ pick }: { readonly pick: MatchPick }): React.JSX
   return (
     <button
       type="button"
-      className={`pl-home-parlay-btn is-sm min-h-10 ${inParlay ? "is-on" : ""}`.trim()}
+      className={`pl-home-parlay-btn is-sm min-h-11 sm:min-h-9 ${inParlay ? "is-on" : ""}`.trim()}
       aria-pressed={inParlay}
       aria-label={`${inParlay ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}`}
       onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
@@ -42,11 +52,22 @@ function EvidenceParlayButton({ pick }: { readonly pick: MatchPick }): React.JSX
   );
 }
 
+interface ResolvedEvidenceItem extends EnrichedMatchPick {
+  readonly effectiveHouseDecimal: number | null;
+  readonly effectiveHouseLabel: string | null;
+  readonly effectiveOpenDecimal: number | null;
+  readonly effectiveMoveDir: "shortening" | "drifting" | "stable" | null;
+  readonly effectiveCapturedAtUtc: string | null;
+  readonly effectiveValuePct: number | null;
+  readonly effectiveEdgePts: number | null;
+  readonly movementScore: number;
+}
+
 /**
  * Tablero accionable de Picks agrupados por mercado con columna de Evidencia real (ADR-054).
- * Estilo editorial plano inspirado en ScoutPicks sobre tokens PitchLab: filtros rápidos,
- * tasas históricas verificables (`X/5`, `H2H`, árbitro/conteos Bzzoiro), Probabilidad %,
- * Momio justo y Valor % vs casa (sin sugerencias de stake).
+ * Estilo editorial plano sobre tokens `--pl-*`: filtros rápidos por familia, píldoras
+ * multi-ventana (`L5 / L10 / L20 / H2H` + `xG`), comparativa de casas con `Valor +X.X %`
+ * y movimiento de línea (`Steam` / `↓ Bajando` / `↑ Subiendo`), más Bet Builder 1-clic.
  */
 export function MatchPicksEvidenceBoard({
   game,
@@ -57,18 +78,78 @@ export function MatchPicksEvidenceBoard({
   readonly markets: readonly PlatformMarketRow[];
   readonly v5?: MatchIntelligenceV5View | null;
 }): React.JSX.Element {
-  const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
+  const { viewerRole, oddsFormat, preferredBooks, hasAccountSession, upgradeHref } =
+    usePlatformCore();
   const { openComposer, navigateTo, setSelectedTipsterPickId, pushToast } = usePlatformActions();
 
   const [marketFilter, setMarketFilter] = useState<MatchPickMarketGroupKey | "all">("all");
   const [sortBy, setSortBy] = useState<SortKey>("recomendados");
   const [onlyValue, setOnlyValue] = useState<boolean>(false);
   const [collapsed, setCollapsed] = useState<ReadonlySet<string>>(() => new Set());
+  const [builderPick, setBuilderPick] = useState<MatchPick | null>(null);
 
-  const enriched = useMemo(
-    () => buildEnrichedMatchPicks(game, markets, v5),
-    [game, markets, v5],
-  );
+  const enriched = useMemo<ResolvedEvidenceItem[]>(() => {
+    const base = buildEnrichedMatchPicks(game, markets, v5);
+    const marketByKey = new Map<string, PlatformMarketRow>();
+    for (const m of markets) {
+      marketByKey.set(`${m.market}::${m.selection}`, m);
+    }
+
+    return base.map((item) => {
+      const matchedRow = item.pick.market
+        ? marketByKey.get(`${item.pick.market}::${item.pick.selectionKey}`)
+        : undefined;
+      const quotes = item.pick.bookQuotes ?? matchedRow?.bookQuotes;
+      const prefQuote = resolvePreferredBookQuote(quotes, preferredBooks);
+      const effectiveHouseDecimal =
+        prefQuote?.decimal ?? item.houseDecimal ?? matchedRow?.currentDecimal ?? null;
+      const effectiveHouseLabel =
+        prefQuote?.bookLabel ?? item.houseBookLabel ?? matchedRow?.quoteBookLabel ?? null;
+      const effectiveOpenDecimal =
+        prefQuote?.openingDecimal ?? matchedRow?.openDecimal ?? null;
+      const effectiveMoveDir =
+        prefQuote?.movementDirection ?? matchedRow?.movementDirection ?? null;
+      const effectiveCapturedAtUtc =
+        prefQuote?.capturedAtUtc ??
+        item.pick.marketCapturedAtUtc ??
+        matchedRow?.quoteCapturedAtUtc ??
+        null;
+
+      const effectiveValuePct = computeExpectedValuePct(item.pick.p, effectiveHouseDecimal);
+      const effectiveEdgePts =
+        effectiveHouseDecimal !== null && effectiveHouseDecimal > 1
+          ? Math.round((item.pick.p - 1 / effectiveHouseDecimal) * 1000) / 10
+          : item.edgePts;
+
+      const mv = classifyOddsMovement(
+        effectiveOpenDecimal,
+        effectiveHouseDecimal,
+        effectiveMoveDir,
+      );
+      const movementScore = !mv
+        ? 0
+        : mv.kind === "steam"
+          ? 100 + Math.abs(mv.deltaPct ?? 8)
+          : mv.kind === "shortening"
+            ? 50 + Math.abs(mv.deltaPct ?? 2)
+            : mv.kind === "drifting"
+              ? 10 + Math.abs(mv.deltaPct ?? 1)
+              : 0;
+
+      return {
+        ...item,
+        pick: quotes && !item.pick.bookQuotes ? { ...item.pick, bookQuotes: quotes } : item.pick,
+        effectiveHouseDecimal,
+        effectiveHouseLabel,
+        effectiveOpenDecimal,
+        effectiveMoveDir,
+        effectiveCapturedAtUtc,
+        effectiveValuePct,
+        effectiveEdgePts,
+        movementScore,
+      };
+    });
+  }, [game, markets, preferredBooks, v5]);
 
   const availableGroups = useMemo(() => {
     const counts = new Map<MatchPickMarketGroupKey, number>();
@@ -88,14 +169,24 @@ export function MatchPicksEvidenceBoard({
       list = list.filter((item) => item.groupKey === marketFilter);
     }
     if (onlyValue) {
-      list = list.filter((item) => item.valuePct !== null && item.valuePct > 0);
+      list = list.filter((item) => item.effectiveValuePct !== null && item.effectiveValuePct > 0);
     }
     return list.slice().sort((a, b) => {
       if (sortBy === "tasa") {
         return (b.evidenceAvgPct ?? -1) - (a.evidenceAvgPct ?? -1) || b.pick.p - a.pick.p;
       }
       if (sortBy === "valor") {
-        return (b.valuePct ?? -999) - (a.valuePct ?? -999) || b.pick.p - a.pick.p;
+        return (
+          (b.effectiveValuePct ?? -999) - (a.effectiveValuePct ?? -999) ||
+          b.pick.p - a.pick.p
+        );
+      }
+      if (sortBy === "movimiento") {
+        return (
+          b.movementScore - a.movementScore ||
+          (b.effectiveValuePct ?? -999) - (a.effectiveValuePct ?? -999) ||
+          b.pick.p - a.pick.p
+        );
       }
       if (sortBy === "prob") {
         return b.pick.p - a.pick.p;
@@ -104,12 +195,16 @@ export function MatchPicksEvidenceBoard({
       if (a.isPrimaryModelPick !== b.isPrimaryModelPick) {
         return a.isPrimaryModelPick ? -1 : 1;
       }
-      return (b.valuePct ?? -50) * 0.25 + b.pick.p * 100 - ((a.valuePct ?? -50) * 0.25 + a.pick.p * 100);
+      return (
+        (b.effectiveValuePct ?? -50) * 0.25 +
+        b.pick.p * 100 -
+        ((a.effectiveValuePct ?? -50) * 0.25 + a.pick.p * 100)
+      );
     });
   }, [enriched, marketFilter, onlyValue, sortBy]);
 
   const grouped = useMemo(() => {
-    const map = new Map<MatchPickMarketGroupKey, EnrichedMatchPick[]>();
+    const map = new Map<MatchPickMarketGroupKey, ResolvedEvidenceItem[]>();
     for (const item of filtered) {
       const arr = map.get(item.groupKey) ?? [];
       arr.push(item);
@@ -131,8 +226,11 @@ export function MatchPicksEvidenceBoard({
     });
   };
 
-  const hasAnyValue = enriched.some((i) => i.valuePct !== null && i.valuePct > 0);
-  const canTipsterFeature = (viewerRole === "tipster" || viewerRole === "admin") && game.status !== "FT";
+  const hasAnyValue = enriched.some(
+    (i) => i.effectiveValuePct !== null && i.effectiveValuePct > 0,
+  );
+  const canTipsterFeature =
+    (viewerRole === "tipster" || viewerRole === "admin") && game.status !== "FT";
 
   if (enriched.length === 0) {
     return (
@@ -150,7 +248,7 @@ export function MatchPicksEvidenceBoard({
         <div className="min-w-0">
           <h2 className="m-0 text-lg font-extrabold">Picks y evidencia del modelo</h2>
           <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
-            Selecciones agrupadas por mercado con tasas reales, probabilidad calibrada y momio justo.
+            Evidencia real por ventana, probabilidad Spacetime, momio justo y comparativa de casas.
           </p>
         </div>
         <span className="pl-pill text-xs num">
@@ -166,7 +264,7 @@ export function MatchPicksEvidenceBoard({
           aria-pressed={marketFilter === "all"}
           onClick={() => setMarketFilter("all")}
         >
-          Todos ({enriched.length})
+          Todos <span className="pl-ev-filter-count num">({enriched.length})</span>
         </button>
         {availableGroups.map((g) => (
           <button
@@ -192,9 +290,10 @@ export function MatchPicksEvidenceBoard({
             aria-label="Ordenar selecciones"
           >
             <option value="recomendados">Recomendados</option>
-            <option value="prob">Mayor probabilidad</option>
+            <option value="valor">Valor real EV+</option>
+            <option value="prob">Probabilidad Spacetime</option>
+            <option value="movimiento">Movimiento de línea</option>
             <option value="tasa">Mayor tasa real</option>
-            <option value="valor">Mayor valor vs casa</option>
           </select>
         </label>
 
@@ -205,7 +304,7 @@ export function MatchPicksEvidenceBoard({
             aria-pressed={onlyValue}
             onClick={() => setOnlyValue((v) => !v)}
           >
-            Solo con valor
+            Solo EV+
           </button>
         ) : null}
       </div>
@@ -217,7 +316,7 @@ export function MatchPicksEvidenceBoard({
           </p>
           <button
             type="button"
-            className="pl-btn-glass text-xs min-h-10 px-3"
+            className="pl-btn-glass text-xs min-h-11 px-3"
             onClick={() => {
               setMarketFilter("all");
               setOnlyValue(false);
@@ -260,6 +359,15 @@ export function MatchPicksEvidenceBoard({
                     {group.items.map((item) => {
                       const unlocked = isPickUnlocked(item.pick, game.status, viewerRole);
                       const isFinished = game.status === "FT";
+                      const windows = unlocked
+                        ? extractEvidenceWindows({
+                            game,
+                            pick: item.pick,
+                            bullets: item.evidence,
+                            v5,
+                          })
+                        : [];
+
                       return (
                         <article
                           key={item.id}
@@ -279,7 +387,14 @@ export function MatchPicksEvidenceBoard({
                               <>
                                 <strong className="pl-ev-label">{item.pick.label}</strong>
                                 <div className="pl-ev-prob-inline num">
-                                  <strong style={{ color: item.pick.p >= 0.65 ? "var(--pl-success)" : "var(--pl-text)" }}>
+                                  <strong
+                                    style={{
+                                      color:
+                                        item.pick.p >= 0.65
+                                          ? "var(--pl-success)"
+                                          : "var(--pl-text)",
+                                    }}
+                                  >
                                     {(item.pick.p * 100).toFixed(1)} %
                                   </strong>
                                   <PBar p={item.pick.p} lead={item.pick.p >= 0.65} />
@@ -292,31 +407,41 @@ export function MatchPicksEvidenceBoard({
                                 </strong>
                                 <button
                                   type="button"
-                                  className="pl-acct-text-link text-xs"
+                                  className="pl-acct-text-link text-xs min-h-11 sm:min-h-9 inline-flex items-center"
                                   onClick={() => navigateTo(upgradeHref)}
                                 >
-                                  {hasAccountSession ? "Activar Pase Ultra" : "Probar 7 días gratis"}
+                                  {hasAccountSession
+                                    ? "Activar Pase Ultra"
+                                    : "Probar 7 días gratis"}
                                 </button>
                               </div>
                             )}
                           </div>
 
-                          {/* Columna 2: Evidencia histórica real (estilo ScoutPicks) */}
-                          <div className="pl-ev-col-evidence">
+                          {/* Columna 2: Evidencia multi-ventana + detalle verificable */}
+                          <div className="pl-ev-col-evidence space-y-2">
                             {unlocked ? (
-                              <ul className="pl-ev-bullets" aria-label="Evidencia del pick">
-                                {item.evidence.map((b, bIdx) => (
-                                  <li key={`${item.id}-ev-${bIdx}`} className="pl-ev-bullet">
-                                    <span className={`pl-ev-dot is-${b.tone}`} aria-hidden="true" />
-                                    <span className="pl-ev-bullet-text">{b.label}</span>
-                                    {b.ratePct !== null ? (
-                                      <strong className={`pl-ev-bullet-pct num is-${b.tone}`}>
-                                        {b.ratePct} %
-                                      </strong>
-                                    ) : null}
-                                  </li>
-                                ))}
-                              </ul>
+                              <>
+                                {windows.length > 0 ? (
+                                  <EvidenceWindowPills windows={windows} size="sm" />
+                                ) : null}
+                                <ul className="pl-ev-bullets" aria-label="Evidencia del pick">
+                                  {item.evidence.map((b, bIdx) => (
+                                    <li key={`${item.id}-ev-${bIdx}`} className="pl-ev-bullet">
+                                      <span
+                                        className={`pl-ev-dot is-${b.tone}`}
+                                        aria-hidden="true"
+                                      />
+                                      <span className="pl-ev-bullet-text">{b.label}</span>
+                                      {b.ratePct !== null ? (
+                                        <strong className={`pl-ev-bullet-pct num is-${b.tone}`}>
+                                          {b.ratePct} %
+                                        </strong>
+                                      ) : null}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </>
                             ) : (
                               <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
                                 Evidencia histórica y tasas reales disponibles con Pase PitchLab Ultra.
@@ -324,44 +449,36 @@ export function MatchPicksEvidenceBoard({
                             )}
                           </div>
 
-                          {/* Columna 3: Momio justo vs Casa + Acciones */}
+                          {/* Columna 3: Momio justo vs Casa + Bet Builder / Parlay */}
                           <div className="pl-ev-col-odds">
                             {unlocked ? (
                               <>
-                                <div className="pl-ev-odds-box num">
-                                  <div className="pl-ev-odds-main">
-                                    <span className="pl-ev-odds-tag">
-                                      {item.houseDecimal ? (item.houseBookLabel ?? "Casa") : "Momio justo"}
-                                    </span>
-                                    <strong className="pl-ev-odds-val">
-                                      {formatOddsValue(
-                                        item.houseDecimal ?? item.pick.fairDecimal,
-                                        oddsFormat,
-                                      )}
-                                    </strong>
-                                  </div>
-                                  {item.houseDecimal ? (
-                                    <div className="pl-ev-odds-sub">
-                                      <span>Justo {formatOddsValue(item.pick.fairDecimal, oddsFormat)}</span>
-                                      {item.valuePct !== null && item.valuePct > 0 ? (
-                                        <span className="pl-ev-val-badge">
-                                          Valor +{item.valuePct.toFixed(1)} %
-                                        </span>
-                                      ) : item.edgePts !== null && item.edgePts > 0 ? (
-                                        <span className="pl-ev-val-badge">
-                                          +{item.edgePts.toFixed(1)} pts
-                                        </span>
-                                      ) : null}
-                                    </div>
-                                  ) : null}
-                                </div>
+                                <BookmakerComparePill
+                                  probability={item.pick.p}
+                                  fairDecimal={item.pick.fairDecimal}
+                                  houseDecimal={item.effectiveHouseDecimal}
+                                  houseBookLabel={item.effectiveHouseLabel}
+                                  openingDecimal={item.effectiveOpenDecimal}
+                                  movementDirection={item.effectiveMoveDir}
+                                  capturedAtUtc={item.effectiveCapturedAtUtc}
+                                  bookQuotes={item.pick.bookQuotes}
+                                  oddsFormat={oddsFormat}
+                                  variant="box"
+                                  showMultiBookQuotes
+                                  edgePtsOverride={item.effectiveEdgePts}
+                                />
 
                                 {!isFinished ? (
                                   <div className="pl-ev-actions">
                                     <EvidenceParlayButton pick={item.pick} />
+                                    <BetBuilderQuickButton
+                                      pick={item.pick}
+                                      onInspect={setBuilderPick}
+                                      compact
+                                    />
                                     <button
                                       type="button"
-                                      className="pl-btn-glass text-xs min-h-10 px-3"
+                                      className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3"
                                       onClick={() => openComposer(item.pick)}
                                     >
                                       Sellar
@@ -369,7 +486,7 @@ export function MatchPicksEvidenceBoard({
                                     {canTipsterFeature ? (
                                       <button
                                         type="button"
-                                        className="pl-btn-glass text-xs min-h-10 px-2.5"
+                                        className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-2.5"
                                         title="Usar como Pick abierto semanal"
                                         aria-label={`Usar ${item.pick.label} como Pick abierto semanal`}
                                         onClick={() => {
@@ -403,6 +520,15 @@ export function MatchPicksEvidenceBoard({
           })}
         </div>
       )}
+
+      {builderPick ? (
+        <BetBuilderDrawer
+          open={Boolean(builderPick)}
+          pick={builderPick}
+          game={game}
+          onClose={() => setBuilderPick(null)}
+        />
+      ) : null}
     </section>
   );
 }

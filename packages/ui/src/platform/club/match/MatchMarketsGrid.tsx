@@ -1,19 +1,35 @@
-import { memo, useMemo, useState } from "react";
-import { formatOddsCaptureEs, type PlatformSport } from "@pitchlab/contracts";
+import React, { memo, useMemo, useState } from "react";
+import type { PlatformSport } from "@pitchlab/contracts";
 import { parseUserOdds } from "../../../sports";
-import { formatOddsValue } from "../../access-guard";
+import { MaestroIcon } from "../../components/MaestroPrimitives";
+import {
+  useIsPickInParlay,
+  useOptionalPlatformActions,
+  useOptionalPlatformCore,
+  usePlatformActions,
+} from "../../platform-provider";
 import { edgeAgainstBook } from "../OddsCompareView";
 import type {
   MarketCardCategory,
+  MatchPick,
   OddsFormat,
+  PlatformGame,
   PlatformMarketRow,
 } from "../../types";
+import {
+  BetBuilderDrawer,
+  BetBuilderQuickButton,
+  BookmakerComparePill,
+  EvidenceWindowPills,
+  extractEvidenceWindows,
+} from "../picks";
 
 export interface MatchMarketsGridProps {
   readonly sport: PlatformSport;
   readonly markets: readonly PlatformMarketRow[];
   readonly oddsFormat: OddsFormat;
   readonly watermark: string;
+  readonly game?: PlatformGame;
   readonly locked?: boolean;
   readonly canSeal?: boolean;
   readonly isFinished?: boolean;
@@ -59,19 +75,26 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
   const g = row.group.toLowerCase();
   if (
     m === "corners_total" ||
+    m === "corners_team" ||
     m === "fouls_total" ||
     m === "yellow_total" ||
+    m === "cards_total" ||
     m === "shots_total" ||
+    m === "shots_on_target" ||
     m === "sot_total" ||
     m === "red_cards" ||
     m === "booking_points" ||
+    m.startsWith("player_props") ||
+    m === "nba_player_props" ||
     g.includes("esquina") ||
     g.includes("córner") ||
     g.includes("corner") ||
     g.includes("faltas") ||
     g.includes("amarillas") ||
     g.includes("tarjeta") ||
-    g.includes("remates")
+    g.includes("remates") ||
+    g.includes("tiros") ||
+    g.includes("jugador")
   ) {
     return "conteos";
   }
@@ -79,6 +102,8 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
   if (
     m.startsWith("ht_") ||
     m.startsWith("2h_") ||
+    m === "half_time_result" ||
+    m === "second_half_result" ||
     m === "mlb_f5" ||
     g.includes("1er tiempo") ||
     g.includes("2do tiempo") ||
@@ -88,13 +113,19 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
   }
   if (
     m === "handicap" ||
+    m === "asian_handicap" ||
     m === "spread" ||
     m === "spreads" ||
+    m === "nba_spread" ||
+    m === "nfl_spread" ||
+    m === "mlb_run_line" ||
+    m === "nhl_puck_line" ||
     m === "nhl_puckline" ||
     m.startsWith("ah_") ||
     g.includes("hándicap") ||
     g.includes("handicap") ||
     g.includes("spread") ||
+    g.includes("run line") ||
     g.includes("puck line")
   ) {
     return "handicap";
@@ -102,10 +133,16 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
   if (
     m === "1x2" ||
     m === "moneyline" ||
+    m === "nba_moneyline" ||
+    m === "mlb_moneyline" ||
+    m === "nhl_moneyline" ||
+    m === "nfl_moneyline" ||
     m === "double_chance" ||
     m === "dnb" ||
     m === "h2h" ||
     m === "nfl_ot" ||
+    m === "win_to_nil" ||
+    m.startsWith("combo_1x2") ||
     g.includes("resultado") ||
     g.includes("ganador") ||
     g.includes("doble oportunidad") ||
@@ -119,6 +156,103 @@ function inferCardCategory(row: PlatformMarketRow): MarketCardCategory {
 
 function rowStableKey(row: PlatformMarketRow, index: number): string {
   return `${row.market}:${row.selection}:${row.cardTitle ?? row.group}:${index}`;
+}
+
+function buildPickFromMarketRow(
+  game: PlatformGame,
+  row: PlatformMarketRow,
+  rowKey: string,
+): MatchPick {
+  const existing = game.picks.find(
+    (p) =>
+      (p.market === row.market && p.selectionKey === row.selection) ||
+      p.label.toLowerCase() === row.label.toLowerCase(),
+  );
+  if (existing) return existing;
+
+  const sel = row.selection.toLowerCase();
+  const lbl = row.label.toLowerCase();
+  const mkt = row.market.toLowerCase();
+  const conflictGroup: MatchPick["conflictGroup"] =
+    mkt.includes("btts")
+      ? sel.includes("no") || lbl.includes("no")
+        ? "btts_no"
+        : "btts_yes"
+      : sel.includes("over") || lbl.includes("más de")
+        ? "over_total"
+        : sel.includes("under") || lbl.includes("menos de")
+          ? "under_total"
+          : sel === "home" || sel.startsWith("home_")
+            ? "home_side"
+            : sel === "away" || sel.startsWith("away_")
+              ? "away_side"
+              : sel === "draw"
+                ? "draw_side"
+                : "independent";
+
+  return {
+    id: `${game.id}__mkt__${rowKey}`,
+    gameId: game.id,
+    league: game.league,
+    leagueLabel: game.leagueLabel,
+    matchLabel: `${game.home.shortName} vs ${game.away.shortName}`,
+    kickoffLocal: game.kickoffLocal,
+    gameStatus: game.status,
+    slotIndex: 40,
+    category: "tactico",
+    categoryLabel: row.group,
+    risk: row.p >= 0.68 ? "conservador" : row.p >= 0.54 ? "medio" : "arriesgado",
+    engineKey: "geodesic",
+    engineName: "PitchLab Geodesic v2.0",
+    marketGroup: row.group,
+    selectionKey: row.selection,
+    market: row.market,
+    ...(typeof row.line === "number" ? { line: row.line } : {}),
+    conflictGroup,
+    label: row.label,
+    rationale: `${row.group} · probabilidad calibrada ${(row.p * 100).toFixed(1)} %.`,
+    p: row.p,
+    fairDecimal: row.fairDecimal,
+    fairAmerican: row.fairAmerican,
+    marketDecimal: row.currentDecimal,
+    marketAmerican: null,
+    marketBookLabel: row.quoteBookLabel ?? null,
+    marketCapturedAtUtc: row.quoteCapturedAtUtc ?? null,
+    bookQuotes: row.bookQuotes,
+    edgePts: row.edgePts,
+    confidenceScore: game.confidenceScore,
+    suggestedUnits: 1.0,
+  };
+}
+
+/**
+ * Controles 1-clic de Parlay y Bet Builder; solo se montan cuando existe `<PlatformProvider>`.
+ */
+function MarketRowParlayControls({
+  pick,
+  onInspect,
+}: {
+  readonly pick: MatchPick;
+  readonly onInspect: (pick: MatchPick) => void;
+}): React.JSX.Element {
+  const { addPickToParlay, removePickFromParlay } = usePlatformActions();
+  const inParlay = useIsPickInParlay(pick.id);
+
+  return (
+    <span className="pl-mkt-builder-group">
+      <button
+        type="button"
+        className={`pl-home-parlay-btn is-sm min-h-11 sm:min-h-9 ${inParlay ? "is-on" : ""}`.trim()}
+        aria-pressed={inParlay}
+        aria-label={`${inParlay ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}`}
+        onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
+      >
+        <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
+        <span>{inParlay ? "En parlay" : "Parlay"}</span>
+      </button>
+      <BetBuilderQuickButton pick={pick} onInspect={onInspect} compact />
+    </span>
+  );
 }
 
 interface MarketCardGroup {
@@ -135,15 +269,17 @@ interface MarketCardGroup {
 
 /**
  * Vista agrupada de mercados del partido:
- * Resultado · Goles · Hándicap · Marcador · 1er tiempo.
- * Resalta la opción más probable por tarjeta, respeta formato de momio del socio,
- * bloqueos de acceso, marca de agua e insignia «Derivado del motor».
+ * Resultado · Goles · Córners y conteos · Hándicap · Marcador · Mitades.
+ * Integra `BookmakerComparePill` (`Momio justo` vs casa, `Valor +X.X %`, movimiento),
+ * `EvidenceWindowPills` (`L5 / H2H / xG`) y acción 1-clic de Bet Builder / Parlay
+ * manteniendo compatibilidad 100 % standalone (sin exigir `<PlatformProvider>`).
  */
 export const MatchMarketsGrid = memo(function MatchMarketsGrid({
   sport,
   markets,
   oddsFormat,
   watermark,
+  game,
   locked = false,
   canSeal = true,
   isFinished = false,
@@ -153,9 +289,36 @@ export const MatchMarketsGrid = memo(function MatchMarketsGrid({
   onHouseOddChange,
   onSealRow,
 }: MatchMarketsGridProps) {
+  const optionalCore = useOptionalPlatformCore();
+  const optionalActions = useOptionalPlatformActions();
   const [selectedCategory, setSelectedCategory] = useState<
     "all" | MarketCardCategory
   >("all");
+  const [builderPick, setBuilderPick] = useState<MatchPick | null>(null);
+
+  // Resolver el partido cuando el grid vive dentro de PlatformProvider sin prop `game` explícito
+  const resolvedGame = useMemo<PlatformGame | null>(() => {
+    if (game) return game;
+    if (!optionalCore || markets.length === 0) return null;
+    const first = markets[0];
+    if (!first) return null;
+    const byRef = optionalCore.dataset.games.find(
+      (g) => g.markets === markets || g.markets.includes(first),
+    );
+    if (byRef) return byRef;
+    const labelsBlob = markets
+      .slice(0, 8)
+      .map((m) => m.label.toLowerCase())
+      .join(" ");
+    return (
+      optionalCore.dataset.games.find(
+        (g) =>
+          g.sport === sport &&
+          labelsBlob.includes(g.home.shortName.toLowerCase()) &&
+          labelsBlob.includes(g.away.shortName.toLowerCase()),
+      ) ?? null
+    );
+  }, [game, markets, optionalCore, sport]);
 
   const grouped = useMemo(() => {
     const cardsById = new Map<
@@ -261,6 +424,8 @@ export const MatchMarketsGrid = memo(function MatchMarketsGrid({
   const visibleCategories =
     activeFilter === "all" ? availableCategories : [activeFilter];
 
+  const canUseBuilder = Boolean(optionalActions && resolvedGame && !isFinished);
+
   return (
     <div className="pl-mkt-wrap" data-watermark={watermark}>
       <div className="pl-mkt-toolbar">
@@ -338,20 +503,27 @@ export const MatchMarketsGrid = memo(function MatchMarketsGrid({
                     <div className="pl-mkt-rows" data-row-count={card.rows.length}>
                       {card.rows.map(({ row, key, isMostLikely }) => {
                         const pct = Math.round(row.p * 1000) / 10;
-                        const fairText = formatOddsValue(
-                          row.fairDecimal,
-                          oddsFormat,
-                        );
                         const rawHouse = houseOddsByKey?.[key] ?? "";
                         const effectiveRaw = rawHouse.trim() || globalHouseOddRaw.trim();
-                        const houseDecimal =
-                          (effectiveRaw ? parseUserOdds(effectiveRaw) : null) ??
-                          row.currentDecimal;
+                        const parsedManual = effectiveRaw ? parseUserOdds(effectiveRaw) : null;
+                        const houseDecimal = parsedManual ?? row.currentDecimal;
                         const edgePts =
                           houseDecimal != null
                             ? edgeAgainstBook(row.p, houseDecimal)
                             : row.edgePts;
                         const isSealed = sealedKeys?.has(key) ?? false;
+
+                        const rowPick =
+                          resolvedGame !== null
+                            ? buildPickFromMarketRow(resolvedGame, row, key)
+                            : null;
+                        const rowWindows =
+                          resolvedGame && rowPick
+                            ? extractEvidenceWindows({
+                                game: resolvedGame,
+                                pick: rowPick,
+                              }).slice(0, 3)
+                            : [];
 
                         return (
                           <div
@@ -370,65 +542,44 @@ export const MatchMarketsGrid = memo(function MatchMarketsGrid({
                                   </span>
                                 ) : null}
                               </div>
+
                               <div className="pl-mkt-row-metrics">
                                 <span className="pl-mkt-row-prob num">
                                   {pct.toFixed(1)} %
                                 </span>
-                                <span
-                                  className="pl-mkt-row-fair num"
-                                  title="Momio justo del modelo"
-                                >
-                                  Justo {fairText}
-                                </span>
-                                {!effectiveRaw && row.currentDecimal !== null ? (
-                                  <>
-                                    <span
-                                      className="pl-mkt-row-fair num"
-                                      data-market-house-quote=""
-                                    >
-                                      Casa {formatOddsValue(row.currentDecimal, oddsFormat)}
-                                      {row.openDecimal != null &&
-                                      Math.abs(row.openDecimal - row.currentDecimal) >= 0.01 ? (
-                                        <>
-                                          {" · Ap. "}
-                                          {formatOddsValue(row.openDecimal, oddsFormat)}{" "}
-                                          {row.movementDirection === "shortening"
-                                            ? "↓"
-                                            : row.movementDirection === "drifting"
-                                              ? "↑"
-                                              : "→"}
-                                        </>
-                                      ) : null}
-                                      {row.quoteCapturedAtUtc ? (
-                                        <>
-                                          {" · "}
-                                          <time
-                                            dateTime={row.quoteCapturedAtUtc}
-                                            data-quote-captured=""
-                                          >
-                                            {row.quoteBookLabel
-                                              ? `${row.quoteBookLabel} · `
-                                              : ""}
-                                            {formatOddsCaptureEs(row.quoteCapturedAtUtc)}
-                                          </time>
-                                        </>
-                                      ) : null}
-                                    </span>
-                                    {row.bookQuotes && row.bookQuotes.length > 1 ? (
-                                      <span className="inline-flex flex-wrap gap-1">
-                                        {row.bookQuotes.slice(0, 3).map((q) => (
-                                          <span
-                                            key={q.book}
-                                            className={`pl-pill text-[10px] num ${q.isBest ? "pl-pill--brand" : ""}`.trim()}
-                                          >
-                                            {q.bookLabel} {formatOddsValue(q.decimal, oddsFormat)}
-                                          </span>
-                                        ))}
-                                      </span>
-                                    ) : null}
-                                  </>
-                                ) : null}
+
+                                <BookmakerComparePill
+                                  probability={row.p}
+                                  fairDecimal={row.fairDecimal}
+                                  houseDecimal={effectiveRaw ? parsedManual : row.currentDecimal}
+                                  houseBookLabel={
+                                    effectiveRaw
+                                      ? "Tu momio"
+                                      : (row.quoteBookLabel ?? null)
+                                  }
+                                  openingDecimal={effectiveRaw ? null : row.openDecimal}
+                                  movementDirection={
+                                    effectiveRaw ? null : (row.movementDirection ?? null)
+                                  }
+                                  capturedAtUtc={
+                                    effectiveRaw ? null : (row.quoteCapturedAtUtc ?? null)
+                                  }
+                                  bookQuotes={effectiveRaw ? undefined : row.bookQuotes}
+                                  oddsFormat={oddsFormat}
+                                  variant="inline"
+                                  showCasaPrefix={!effectiveRaw}
+                                  showMultiBookQuotes={!effectiveRaw}
+                                  showCaptureStamp={!effectiveRaw}
+                                />
                               </div>
+
+                              {rowWindows.length > 0 ? (
+                                <EvidenceWindowPills
+                                  windows={rowWindows}
+                                  size="sm"
+                                  ariaLabel={`Evidencia para ${row.label}`}
+                                />
+                              ) : null}
                             </div>
 
                             <div className="pl-mkt-bar" aria-hidden="true">
@@ -439,7 +590,7 @@ export const MatchMarketsGrid = memo(function MatchMarketsGrid({
                               />
                             </div>
 
-                            {(onHouseOddChange || onSealRow) && !isFinished ? (
+                            {(onHouseOddChange || onSealRow || canUseBuilder) && !isFinished ? (
                               <div className="pl-mkt-row-actions">
                                 {onHouseOddChange ? (
                                   <label className="pl-mkt-house-field">
@@ -470,6 +621,13 @@ export const MatchMarketsGrid = memo(function MatchMarketsGrid({
                                   </span>
                                 ) : null}
 
+                                {canUseBuilder && rowPick ? (
+                                  <MarketRowParlayControls
+                                    pick={rowPick}
+                                    onInspect={setBuilderPick}
+                                  />
+                                ) : null}
+
                                 {onSealRow && canSeal ? (
                                   <button
                                     type="button"
@@ -493,6 +651,15 @@ export const MatchMarketsGrid = memo(function MatchMarketsGrid({
           );
         })}
       </div>
+
+      {canUseBuilder && builderPick ? (
+        <BetBuilderDrawer
+          open={Boolean(builderPick)}
+          pick={builderPick}
+          game={resolvedGame}
+          onClose={() => setBuilderPick(null)}
+        />
+      ) : null}
     </div>
   );
 });
