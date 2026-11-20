@@ -5,14 +5,18 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import {
   applyEmailUnsubscribe,
+  authUser,
   claimEmail,
+  eq,
   findFriendReferrerForUser,
   findModerationTargetAuthor,
+  hasActivePaseTotal,
   listEmailSubscribers,
   listSettledPicksBetween,
   listWatchedGameIds,
   markEmail,
   releaseEmail,
+  users,
   type Db,
   type ScheduledEmailKind,
 } from "@pitchlab/db";
@@ -22,6 +26,7 @@ import { firstName, formatLongDate, formatOdds, formatPoints } from "./email-for
 import type { Mailer } from "./mailer";
 import { buildServerRawPlatformDataset } from "./platform-data";
 import { loadRankingRows } from "./ranking";
+import { isAdminEmail } from "./session-user";
 
 export type UnsubscribeScope = "weekly_digest" | "monthly_record" | "all";
 
@@ -269,7 +274,18 @@ export interface DigestRunSummary {
   skipped: number;
 }
 
-/** Envía el resumen semanal a suscriptores opt-in con próximos partidos reales y baja en un clic. */
+async function hasActiveDigestAccess(db: Db, userId: string, email: string, now: Date): Promise<boolean> {
+  if (await hasActivePaseTotal(db, userId, now)) return true;
+  if (!isAdminEmail(email)) return false;
+  const [row] = await db
+    .select({ emailVerified: authUser.emailVerified })
+    .from(users)
+    .innerJoin(authUser, eq(authUser.id, users.authUserId))
+    .where(eq(users.id, userId));
+  return Boolean(row?.emailVerified);
+}
+
+/** Envía el resumen semanal a suscriptores opt-in con Pase Total activo, próximos partidos reales y baja en un clic. */
 export async function runWeeklyDigestJob(
   db: Db,
   mailer: Mailer,
@@ -294,6 +310,11 @@ export async function runWeeklyDigestJob(
   }
 
   for (const sub of subscribers) {
+    if (!(await hasActiveDigestAccess(db, sub.userId, sub.email, now))) {
+      skipped += 1;
+      continue;
+    }
+
     const watched = new Set(await listWatchedGameIds(db, sub.userId));
     const favLeagues = new Set(sub.favoriteLeagues);
     const ranked = [...upcoming].sort((a, b) => {

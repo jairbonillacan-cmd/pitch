@@ -46,12 +46,50 @@ function parseRfc7239ForwardedFor(header: string | null): string {
   return sanitizeIpCandidate(raw);
 }
 
+export type TrustedProxyMode = "cloudflare" | "fly" | "vercel" | "xff-last" | "auto";
+
+function parseXForwardedForLast(header: string | null): string {
+  if (!header) return "";
+  const parts = header.split(",");
+  for (let i = parts.length - 1; i >= 0; i -= 1) {
+    const ip = sanitizeIpCandidate(parts[i]);
+    if (ip) return ip;
+  }
+  return "";
+}
+
 /**
  * Extrae la IP real del cliente detrás de cualquier borde o proxy reverso (Nginx, Caddy,
- * Traefik, AWS ALB, Fly.io, Fastly, Cloudflare, Vercel, Cloud Run) antes de caer en
- * `X-Forwarded-For`, evitando que un cliente falsifique su IP para saltar cuotas (ADR-050).
+ * Traefik, AWS ALB, Fly.io, Fastly, Cloudflare, Vercel, Cloud Run) evitando que un cliente
+ * falsifique su IP para saltar cuotas (ADR-050).
+ *
+ * Cuando `PITCHLAB_TRUSTED_PROXY` está configurado (`cloudflare` | `fly` | `vercel` | `xff-last`),
+ * SOLO confía en la cabecera correspondiente a ese proxy para impedir suplantación (p. ej.
+ * `CF-Connecting-IP` inyectado por el cliente en Cloud Run / OCI). Sin configurar o en `auto`,
+ * mantiene la cascada compatible de autodetección.
  */
-export function trustedClientIp(headers: Headers): string {
+export function trustedClientIp(
+  headers: Headers,
+  proxyMode: string | undefined = process.env.PITCHLAB_TRUSTED_PROXY,
+): string {
+  const mode = proxyMode?.trim().toLowerCase() || "auto";
+
+  if (mode === "cloudflare") {
+    return sanitizeIpCandidate(headers.get("cf-connecting-ip"));
+  }
+  if (mode === "fly") {
+    return sanitizeIpCandidate(headers.get("fly-client-ip"));
+  }
+  if (mode === "vercel") {
+    return sanitizeIpCandidate(headers.get("x-vercel-forwarded-for")?.split(",")[0]);
+  }
+  if (mode === "xff-last") {
+    return parseXForwardedForLast(headers.get("x-forwarded-for"));
+  }
+  if (mode !== "auto") {
+    return "";
+  }
+
   const cfIp = sanitizeIpCandidate(headers.get("cf-connecting-ip"));
   if (cfIp) return cfIp;
 

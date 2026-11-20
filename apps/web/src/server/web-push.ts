@@ -9,6 +9,7 @@ import {
   hkdfSync,
   randomBytes,
 } from "node:crypto";
+import { isIP } from "node:net";
 import {
   deleteInvalidPushSubscriptions,
   listPushSubscriptionsForUsers,
@@ -17,6 +18,72 @@ import {
   type PushTopic,
   type StoredPushSubscription,
 } from "@pitchlab/db";
+
+const ALLOWED_WEB_PUSH_EXACT_HOSTS = new Set([
+  "fcm.googleapis.com",
+  "android.googleapis.com",
+  "updates.push.services.mozilla.com",
+  "updates-autopush.stage.mozaws.net",
+]);
+
+const ALLOWED_WEB_PUSH_HOST_SUFFIXES = [
+  ".push.apple.com",
+  ".notify.windows.com",
+  ".push.services.mozilla.com",
+] as const;
+
+const SUBDOMAIN_PREFIX_RE =
+  /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*$/;
+
+/**
+ * Valida y normaliza un endpoint Web Push contra una allowlist estricta de proveedores
+ * reales (FCM, Mozilla Autopush, Apple Web Push, Windows WNS), bloqueando SSRF hacia
+ * IPs literales, hosts locales/internos, credenciales embebidas o puertos no estándar.
+ */
+export function parseAllowedWebPushEndpoint(raw: unknown): string | null {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed || trimmed.length > 2048) return null;
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol !== "https:") return null;
+    if (parsed.username || parsed.password) return null;
+    if (parsed.port !== "") return null;
+
+    const host = parsed.hostname.toLowerCase();
+    if (!host || host.endsWith(".") || host.includes("..")) return null;
+    const unwrapped = host.startsWith("[") && host.endsWith("]") ? host.slice(1, -1) : host;
+    if (isIP(unwrapped) !== 0) return null;
+    if (
+      host === "localhost" ||
+      host.endsWith(".localhost") ||
+      host.endsWith(".local") ||
+      host.endsWith(".internal")
+    ) {
+      return null;
+    }
+    if (!/^[a-z0-9.-]+$/.test(host)) return null;
+
+    const exactMatch = ALLOWED_WEB_PUSH_EXACT_HOSTS.has(host);
+    const suffixMatch =
+      !exactMatch &&
+      ALLOWED_WEB_PUSH_HOST_SUFFIXES.some((suffix) => {
+        if (!host.endsWith(suffix)) return false;
+        const prefix = host.slice(0, -suffix.length);
+        return prefix.length > 0 && SUBDOMAIN_PREFIX_RE.test(prefix);
+      });
+    if (!exactMatch && !suffixMatch) return null;
+
+    return parsed.toString();
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+export function isAllowedWebPushEndpoint(raw: unknown): boolean {
+  return parseAllowedWebPushEndpoint(raw) !== null;
+}
 
 export interface WebPushMessagePayload {
   title: string;
@@ -137,6 +204,11 @@ export async function sendPushNotification(
   vapid: VapidConfig,
   fetchImpl: typeof fetch = fetch,
 ): Promise<{ ok: boolean; status: number; gone: boolean }> {
+  const safeEndpoint = parseAllowedWebPushEndpoint(sub.endpoint);
+  if (!safeEndpoint) {
+    return { ok: false, status: 400, gone: false };
+  }
+
   const body = encryptWebPushPayload(
     JSON.stringify({
       title: payload.title,
@@ -149,9 +221,10 @@ export async function sendPushNotification(
     sub.p256dh,
     sub.auth,
   );
-  const headers = buildVapidHeaders(sub.endpoint, vapid);
-  const res = await fetchImpl(sub.endpoint, {
+  const headers = buildVapidHeaders(safeEndpoint, vapid);
+  const res = await fetchImpl(safeEndpoint, {
     method: "POST",
+    redirect: "error",
     headers: {
       ...headers,
       "Content-Encoding": "aes128gcm",

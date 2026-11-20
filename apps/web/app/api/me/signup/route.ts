@@ -52,7 +52,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const remoteIp = trustedClientIp(request.headers);
   const rl = await checkEndpointRateLimit({
     bucket: "signup-step2",
-    key: `${member.userId}:${remoteIp || "local"}`,
+    key: member.userId,
     limit: 10,
     windowMs: 15 * 60_000,
   });
