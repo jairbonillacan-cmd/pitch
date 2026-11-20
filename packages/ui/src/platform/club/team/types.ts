@@ -108,6 +108,45 @@ export interface TeamUpcomingFixtureRow {
   confidenceLabel: string | null;
 }
 
+export type PlayerLineupSignalStatus =
+  | "confirmed"
+  | "probable"
+  | "bench"
+  | "doubtful"
+  | "ruled_out";
+
+export interface TeamRefereeContext {
+  name: string;
+  country?: string | null;
+  matches?: number | null;
+  avgYellow: number | null;
+  avgRed?: number | null;
+  avgFouls: number | null;
+  avgGoals?: number | null;
+  rigorLabel?: string | null;
+  rigorTier?: "estricto" | "promedio" | "permisivo" | null;
+  matchLabel?: string | null;
+}
+
+export interface TeamDisciplinaryProfile {
+  sampleGames: number;
+  yellowCards: number;
+  redCards: number;
+  foulsCommitted: number;
+  foulsSuffered: number;
+  yellowPerGame: number | null;
+  redPerGame: number | null;
+  foulsCommittedPerGame: number | null;
+  foulsSufferedPerGame: number | null;
+  topBookedPlayer?: {
+    name: string;
+    shortName: string;
+    slug: string;
+    yellowCards: number;
+    redCards: number;
+  } | null;
+}
+
 export interface TeamPlayerPick {
   id: string;
   marketKey: string;
@@ -121,6 +160,11 @@ export interface TeamPlayerPick {
   fairDecimal: number | null;
   fairAmerican: number | null;
   rationale: string | null;
+  statCode?: string | null;
+  minMinutesGuard?: boolean;
+  avgMinutes?: number | null;
+  sampleGames?: number | null;
+  lineupStatus?: "confirmed" | "probable" | null;
 }
 
 export interface TeamSquadPlayerStats {
@@ -195,6 +239,9 @@ export interface TeamSquadPlayer {
   availability?: "available" | "injured" | "doubtful" | "suspended" | null;
   injuryDetail?: string | null;
   expectedReturn?: string | null;
+  avgMinutes?: number | null;
+  minMinutesGuard?: boolean;
+  lineupStatus?: "confirmed" | "probable" | null;
   stats: TeamSquadPlayerStats;
   seasonMetrics?: TeamSquadPlayerSeasonMetric[];
   recentGames?: TeamSquadPlayerRecentGame[];
@@ -236,6 +283,8 @@ export interface TeamProfileData {
   upcomingFixtures: TeamUpcomingFixtureRow[];
   recentMatches: TeamMatchHistoryRow[];
   squad?: TeamSquadSummary | null;
+  refereeContext?: TeamRefereeContext | null;
+  disciplinaryProfile?: TeamDisciplinaryProfile | null;
   relatedTeams: Array<{
     slug: string;
     name: string;
@@ -264,6 +313,8 @@ export interface PlayerProfileData {
   picksLocked: boolean;
   lastMatch?: TeamMatchHistoryRow | null;
   nextFixture: TeamUpcomingFixtureRow | null;
+  nextMatchReferee?: TeamRefereeContext | null;
+  lineupStatus?: "confirmed" | "probable" | null;
   teamRecentMatches?: TeamMatchHistoryRow[];
   teammates: Array<{
     slug: string;

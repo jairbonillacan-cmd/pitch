@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { canonicalTeamHref } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../../sports";
@@ -11,6 +11,7 @@ import {
   type PropMetricSeries,
 } from "../../components/PlayerPropStreakCard";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
+import { SportEventIcon } from "../../components/SportEventIcons";
 import { decimalToAmericanInt, formatOddsValue } from "../../access-guard";
 import { evaluatePropLineProbability } from "../../match-picks-engine";
 import {
@@ -26,6 +27,13 @@ import {
 import { resolveCircularCountryFlag } from "../../country-flags";
 import type { MatchPick } from "../../types";
 import { PersonAvatar } from "./PersonAvatar";
+import {
+  MIN_SAMPLE_GUARD_LABEL,
+  deriveStructuredNbaPlayerPicks,
+  evaluatePlayerMinutesGuard,
+  resolvePlayerLineupSignal,
+  resolveTeamNextMatchReferee,
+} from "./props-context-helpers";
 import type { PlayerProfileData, TeamPlayerPick, TeamSquadPlayer } from "./types";
 
 export interface PlayerProfileClubViewProps {
@@ -147,8 +155,19 @@ function PlayerInteractivePickCard({
   const [addedToSlip, setAddedToSlip] = useState<boolean>(false);
 
   const hasModelDistribution = pick.projectionMean != null && pick.projectionSd != null;
-  const minLine = 0.5;
-  const maxLine = Math.max(defaultLine + 2, 3.5);
+  const isWideScale = defaultLine >= 12;
+  const isMidScale = !isWideScale && defaultLine >= 5;
+  const lineStep = isWideScale ? 1 : 0.5;
+  const minLine = isWideScale
+    ? Math.max(0.5, defaultLine - 6)
+    : isMidScale
+      ? Math.max(0.5, defaultLine - 3)
+      : 0.5;
+  const maxLine = isWideScale
+    ? defaultLine + 6
+    : isMidScale
+      ? defaultLine + 3
+      : Math.max(defaultLine + 2, 3.5);
 
   const liveEval = hasModelDistribution
     ? evaluatePropLineProbability(pick.projectionMean!, pick.projectionSd!, lineValue)
@@ -157,12 +176,15 @@ function PlayerInteractivePickCard({
   const activeProb = liveEval ? liveEval.pOver : (pick.p ?? 0.5);
   const activeFairDec = liveEval ? liveEval.fairOverDecimal : (pick.fairDecimal ?? 2.0);
   const parsedCustom = customOddsRaw.trim() ? parseUserOdds(customOddsRaw) : null;
-  const activeBookDec = parsedCustom && parsedCustom > 1.01 ? parsedCustom : activeFairDec;
+  const hasCustomOdds = Boolean(parsedCustom && parsedCustom > 1.01);
+  const activeBookDec = hasCustomOdds && parsedCustom ? parsedCustom : activeFairDec;
   const edgePts = (activeProb - 1 / activeBookDec) * 100;
 
   const constructedPickId = `player-prop:${profile.league}:${profile.team.slug}:${profile.player.slug}:${pick.marketKey}:${lineValue.toFixed(1)}`;
   const inParlay = addedToSlip;
   const alreadySealed = journal.some((j) => j.pickId === constructedPickId);
+  const engineLabel =
+    profile.sport === "basketball" ? "Tachyon NBA Lab" : "Tachyon Player Lab";
 
   const buildMatchPick = (): MatchPick => {
     const fixture = profile.nextFixture;
@@ -188,7 +210,7 @@ function PlayerInteractivePickCard({
       categoryLabel: `Jugador · ${pick.marketLabel}`,
       risk: activeProb >= 0.66 ? "conservador" : activeProb >= 0.52 ? "medio" : "arriesgado",
       engineKey: "tachyon",
-      engineName: "Tachyon Player Lab",
+      engineName: engineLabel,
       marketGroup: "Player Props",
       selectionKey: `over_${lineValue.toFixed(1)}`,
       conflictGroup: "independent",
@@ -199,10 +221,10 @@ function PlayerInteractivePickCard({
       p: activeProb,
       fairDecimal: activeFairDec,
       fairAmerican: decimalToAmericanInt(activeFairDec),
-      marketDecimal: parsedCustom && parsedCustom > 1.01 ? parsedCustom : null,
+      marketDecimal: hasCustomOdds && parsedCustom ? parsedCustom : null,
       marketAmerican:
-        parsedCustom && parsedCustom > 1.01 ? decimalToAmericanInt(parsedCustom) : null,
-      edgePts: parsedCustom && parsedCustom > 1.01 ? edgePts : 0,
+        hasCustomOdds && parsedCustom ? decimalToAmericanInt(parsedCustom) : null,
+      edgePts: hasCustomOdds ? edgePts : 0,
       confidenceScore: Math.round(Math.min(94, Math.max(54, activeProb * 100 + 6))),
       suggestedUnits: 1.0,
     };
@@ -218,13 +240,25 @@ function PlayerInteractivePickCard({
       data-player-pick={pick.id}
     >
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <div className="space-y-0.5">
-          <span
-            className="text-[11px] font-bold uppercase tracking-wider"
-            style={{ color: "var(--pl-brand)" }}
-          >
-            {pick.marketLabel}
-          </span>
+        <div className="space-y-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-1.5">
+            {pick.statCode ? (
+              <span className="pl-pill pl-pill--info text-[10px] font-extrabold num">
+                {pick.statCode}
+              </span>
+            ) : null}
+            <span
+              className="text-[11px] font-bold uppercase tracking-wider"
+              style={{ color: "var(--pl-brand)" }}
+            >
+              {pick.marketLabel}
+            </span>
+            {pick.minMinutesGuard ? (
+              <span className="pl-pill text-[10px] font-semibold">
+                {MIN_SAMPLE_GUARD_LABEL}
+              </span>
+            ) : null}
+          </div>
           <h3 className="m-0 text-sm sm:text-base font-extrabold">
             {hasModelDistribution
               ? `Más de ${lineValue.toFixed(1)} ${pick.marketLabel.toLowerCase()}`
@@ -232,27 +266,27 @@ function PlayerInteractivePickCard({
           </h3>
         </div>
 
-        <div className="text-right">
+        <div className="text-right shrink-0">
           <div className="text-lg font-extrabold num" style={{ color: "var(--pl-text)" }}>
             {formatOddsValue(activeFairDec, oddsFormat)}
           </div>
           <div className="text-[11px] num" style={{ color: "var(--pl-text-muted)" }}>
-            Momio justo · Prob. {(activeProb * 100).toFixed(1)}%
+            Momio justo · Prob. {(activeProb * 100).toFixed(1)} %
           </div>
         </div>
       </div>
 
       {hasModelDistribution ? (
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-xs">
+        <div className="space-y-1.5">
+          <div className="flex flex-wrap items-center justify-between gap-1 text-xs">
             <label
               htmlFor={`line-slider-${pick.id}`}
               style={{ color: "var(--pl-text-muted)" }}
             >
-              Ajustar línea evaluada ({lineValue.toFixed(1)})
+              Línea evaluada (<span className="num font-bold">{lineValue.toFixed(1)}</span>)
             </label>
             <span className="num font-semibold" style={{ color: "var(--pl-text)" }}>
-              Media proyectada: {pick.projectionMean!.toFixed(2)} ± {pick.projectionSd!.toFixed(2)}
+              Proy. Spacetime: {pick.projectionMean!.toFixed(2)} ± {pick.projectionSd!.toFixed(2)}
             </span>
           </div>
           <input
@@ -260,10 +294,18 @@ function PlayerInteractivePickCard({
             type="range"
             min={minLine}
             max={maxLine}
-            step={0.5}
+            step={lineStep}
             value={lineValue}
+            aria-valuetext={`Más de ${lineValue.toFixed(1)} ${pick.marketLabel} (${(activeProb * 100).toFixed(1)} por ciento)`}
             onChange={(e) => setLineValue(Number(e.target.value))}
-            className="w-full accent-[var(--pl-brand)] cursor-pointer"
+            className="pl-range-slider w-full"
+            style={
+              {
+                "--attr-min": String(minLine),
+                "--attr-max": String(maxLine),
+                "--control-value": String(lineValue),
+              } as React.CSSProperties
+            }
           />
         </div>
       ) : null}
@@ -274,11 +316,11 @@ function PlayerInteractivePickCard({
         </p>
       ) : null}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
         <div>
           <label
             htmlFor={`odds-input-${pick.id}`}
-            className="block text-[11px] mb-1"
+            className="block text-[11px] font-semibold mb-1"
             style={{ color: "var(--pl-text-muted)" }}
           >
             Tu momio de casa (opcional, dec. o amer.)
@@ -286,40 +328,37 @@ function PlayerInteractivePickCard({
           <input
             id={`odds-input-${pick.id}`}
             type="text"
+            inputMode="decimal"
+            autoCorrect="off"
+            spellCheck={false}
             value={customOddsRaw}
             onChange={(e) => setCustomOddsRaw(e.target.value)}
             placeholder={formatOddsValue(activeFairDec, oddsFormat)}
-            className="w-full rounded-lg px-2.5 py-1.5 text-xs num outline-none"
-            style={{
-              background: "var(--pl-surface-soft)",
-              border: "1px solid var(--pl-border)",
-              color: "var(--pl-text)",
-            }}
+            className="glass-input w-full rounded-xl px-2.5 text-base sm:text-xs num min-h-11 sm:min-h-9"
           />
         </div>
 
         <div>
           <label
             htmlFor={`units-input-${pick.id}`}
-            className="block text-[11px] mb-1"
+            className="block text-[11px] font-semibold mb-1 num"
             style={{ color: "var(--pl-text-muted)" }}
           >
-            Unidades para bitácora {parsedCustom ? `· Edge ${edgePts >= 0 ? "+" : ""}${edgePts.toFixed(1)} pts` : ""}
+            Unidades para bitácora{" "}
+            {hasCustomOdds
+              ? `· Ventaja ${edgePts >= 0 ? "+" : ""}${edgePts.toFixed(1)} pts`
+              : ""}
           </label>
           <input
             id={`units-input-${pick.id}`}
             type="number"
+            inputMode="decimal"
             min={0.25}
             max={10}
             step={0.25}
             value={unitsInput}
             onChange={(e) => setUnitsInput(e.target.value)}
-            className="w-full rounded-lg px-2.5 py-1.5 text-xs num outline-none"
-            style={{
-              background: "var(--pl-surface-soft)",
-              border: "1px solid var(--pl-border)",
-              color: "var(--pl-text)",
-            }}
+            className="glass-input w-full rounded-xl px-2.5 text-base sm:text-xs num min-h-11 sm:min-h-9"
           />
         </div>
       </div>
@@ -332,9 +371,10 @@ function PlayerInteractivePickCard({
             if (ok) setAddedToSlip(true);
           }}
           disabled={inParlay}
-          className="pl-btn pl-btn--ghost px-3 py-1.5 text-xs font-semibold cursor-pointer disabled:opacity-60"
+          className="pl-btn-glass min-h-11 sm:min-h-9 px-3 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer disabled:opacity-60"
         >
-          {inParlay ? "En tu boleto Parlay" : "Agregar al Parlay"}
+          <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
+          <span>{inParlay ? "En tu boleto Parlay" : "Agregar al Parlay"}</span>
         </button>
 
         <button
@@ -349,9 +389,10 @@ function PlayerInteractivePickCard({
             );
           }}
           disabled={alreadySealed}
-          className="pl-btn pl-btn--primary px-3 py-1.5 text-xs font-semibold cursor-pointer disabled:opacity-60"
+          className="pl-btn-primary min-h-11 sm:min-h-9 px-3.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer disabled:opacity-60"
         >
-          {alreadySealed ? "Registrado en Bitácora" : "Registrar en Bitácora"}
+          <MaestroIcon name={alreadySealed ? "check" : "ticket"} size={12} />
+          <span>{alreadySealed ? "Registrado en Bitácora" : "Registrar en Bitácora"}</span>
         </button>
       </div>
     </article>
@@ -466,7 +507,7 @@ function BioGlyph({
 export function PlayerProfileClubView({
   profile,
 }: PlayerProfileClubViewProps): React.JSX.Element {
-  const { viewerRole, oddsFormat, upgradeHref } = usePlatformCore();
+  const { dataset, viewerRole, oddsFormat, upgradeHref } = usePlatformCore();
   const { addPickToParlay, sealPickToJournal, navigateTo } = usePlatformActions();
   const journal = useJournalEntries();
   const iconBase = usePackIconBase();
@@ -476,6 +517,101 @@ export function PlayerProfileClubView({
   const teamHref = canonicalTeamHref(profile.league, profile.team.slug);
   const squadHref = `${teamHref}?tab=plantilla`;
   const isVisitorRestricted = viewerRole === "visitor" || profile.picksLocked;
+
+  const lineupSignal = useMemo(
+    () =>
+      resolvePlayerLineupSignal(dataset.games, {
+        league: profile.league,
+        teamSlug: profile.team.slug,
+        playerName: profile.player.name,
+        gameId: profile.nextFixture?.id ?? null,
+        sport: profile.sport,
+        explicitStatus: profile.lineupStatus ?? profile.player.lineupStatus ?? null,
+      }),
+    [
+      dataset.games,
+      profile.league,
+      profile.lineupStatus,
+      profile.nextFixture?.id,
+      profile.player.lineupStatus,
+      profile.player.name,
+      profile.sport,
+      profile.team.slug,
+    ],
+  );
+
+  const minutesGuard = useMemo(
+    () => evaluatePlayerMinutesGuard(profile.player, profile.sport),
+    [profile.player, profile.sport],
+  );
+
+  const nextMatchReferee = useMemo(
+    () =>
+      resolveTeamNextMatchReferee(
+        dataset.games,
+        profile.league,
+        profile.team.slug,
+        profile.nextFixture?.id ?? null,
+        profile.nextMatchReferee ?? null,
+      ),
+    [
+      dataset.games,
+      profile.league,
+      profile.nextFixture?.id,
+      profile.nextMatchReferee,
+      profile.team.slug,
+    ],
+  );
+
+  const isPlayerUnavailable =
+    profile.player.availability === "injured" ||
+    profile.player.availability === "suspended" ||
+    lineupSignal?.status === "ruled_out";
+
+  const effectiveCandidatePicks = useMemo<TeamPlayerPick[]>(() => {
+    if (isVisitorRestricted || isPlayerUnavailable) return [];
+
+    if (profile.sport === "basketball") {
+      const derivedNba = deriveStructuredNbaPlayerPicks({
+        player: profile.player,
+        league: profile.league,
+        teamSlug: profile.team.slug,
+        teamName: profile.team.name,
+        nextOpponent: profile.nextFixture?.opponent.shortName ?? null,
+        datasetProps: dataset.playerProps,
+        lineupSignal,
+      });
+      if (profile.player.candidatePicks.length === 0) return derivedNba;
+      const seenKeys = new Set(profile.player.candidatePicks.map((pk) => pk.marketKey));
+      return [
+        ...profile.player.candidatePicks,
+        ...derivedNba.filter((pk) => !seenKeys.has(pk.marketKey)),
+      ];
+    }
+
+    if (!minutesGuard.qualified) return [];
+    return profile.player.candidatePicks.map((pk) => ({
+      ...pk,
+      minMinutesGuard: pk.minMinutesGuard ?? true,
+      lineupStatus:
+        pk.lineupStatus ??
+        (lineupSignal?.status === "confirmed" || lineupSignal?.status === "probable"
+          ? lineupSignal.status
+          : null),
+    }));
+  }, [
+    dataset.playerProps,
+    isPlayerUnavailable,
+    isVisitorRestricted,
+    lineupSignal,
+    minutesGuard.qualified,
+    profile.league,
+    profile.nextFixture?.opponent.shortName,
+    profile.player,
+    profile.sport,
+    profile.team.name,
+    profile.team.slug,
+  ]);
 
   const statTiles = buildPlayerStatTiles(profile.player, profile.sport);
   const birthDateLong = formatBirthDateLongEs(profile.player.birthDate);
@@ -703,6 +839,21 @@ export function PlayerProfileClubView({
                           (regreso est. {profile.player.expectedReturn})
                         </span>
                       ) : null}
+                    </div>
+                  ) : lineupSignal &&
+                    (lineupSignal.status === "confirmed" || lineupSignal.status === "probable") ? (
+                    <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                      <span
+                        className={`pl-pill text-[11px] font-bold ${
+                          lineupSignal.status === "confirmed"
+                            ? "pl-pill--success"
+                            : "pl-pill--info"
+                        }`}
+                        data-player-lineup-signal={lineupSignal.status}
+                      >
+                        {lineupSignal.label}
+                        {lineupSignal.formation ? ` · ${lineupSignal.formation}` : ""}
+                      </span>
                     </div>
                   ) : null}
                 </div>
@@ -959,12 +1110,12 @@ export function PlayerProfileClubView({
                       `/app/comparar?modo=jugadores&liga=${profile.league}&a=${profile.team.slug}:${profile.player.slug}`,
                     )
                   }
-                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+                  className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
                 >
                   <MaestroIcon name="sliders" size={13} />
                   <span>Comparar jugador</span>
                 </a>
-                <span className="pl-pill text-xs">Actualizado: {profile.updatedAt}</span>
+                <span className="pl-pill text-xs num">Actualizado: {profile.updatedAt}</span>
               </div>
             </div>
 
@@ -995,7 +1146,20 @@ export function PlayerProfileClubView({
           {/* Explorador interactivo de racha contra línea deslizable */}
           {profile.player.recentGames && profile.player.recentGames.length >= 3 ? (() => {
             const logs = profile.player.recentGames;
-            const labels = Array.from(new Set(logs.flatMap((g) => g.stats.map((s) => s.label)))).slice(0, 4);
+            const rawLabels = Array.from(new Set(logs.flatMap((g) => g.stats.map((s) => s.label))));
+            const nonPropLabels = new Set(["MIN", "MINS", "%TC", "%3P", "%TL", "%CMP", "FG%", "3P%", "FT%", "AVG", "OBP", "SLG", "OPS"]);
+            const preferredOrder =
+              profile.sport === "basketball"
+                ? ["PTS", "REB", "AST", "3PM", "Puntos", "Rebotes", "Asistencias", "Triples"]
+                : profile.sport === "football"
+                  ? ["Tiros a puerta", "Tiros", "Goles", "Asistencias", "Faltas", "Amarillas"]
+                  : [];
+            const countingLabels = rawLabels.filter((lbl) => !nonPropLabels.has(lbl.trim().toUpperCase()));
+            const sourceLabels = countingLabels.length > 0 ? countingLabels : rawLabels;
+            const labels = [
+              ...preferredOrder.filter((lbl) => sourceLabels.includes(lbl)),
+              ...sourceLabels.filter((lbl) => !preferredOrder.includes(lbl)),
+            ].slice(0, 4);
             const series: PropMetricSeries[] = [];
             for (const lbl of labels) {
               const pts = logs
@@ -1203,18 +1367,83 @@ export function PlayerProfileClubView({
           <section
             className="glass-card glass-ring rounded-2xl p-5 space-y-4"
             aria-labelledby="player-picks-heading"
+            data-player-picks-section=""
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
+              <div className="min-w-0">
                 <h2 id="player-picks-heading" className="m-0 text-base sm:text-lg font-extrabold">
                   Picks individuales aplicables
                 </h2>
                 <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  Evaluación de líneas ajustada por rol de titularidad, volumen por aparición y contexto del rival.
+                  {profile.sport === "basketball"
+                    ? "Props NBA estructurados (PTS, REB, AST, 3PM) ligados a proyección Spacetime y momio justo."
+                    : "Evaluación de líneas ajustada por titularidad, volumen por aparición y contexto del rival."}
                 </p>
               </div>
-              <span className="pl-pill text-xs font-semibold">Tachyon Player Lab</span>
+              <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+                {!isVisitorRestricted && minutesGuard.qualified && !isPlayerUnavailable ? (
+                  <span
+                    className="pl-pill pl-pill--success text-xs font-semibold num"
+                    data-player-sample-guard="qualified"
+                  >
+                    {MIN_SAMPLE_GUARD_LABEL}
+                    {minutesGuard.avgMinutes !== null
+                      ? ` · ${minutesGuard.avgMinutes.toFixed(1)} min/p`
+                      : ""}
+                  </span>
+                ) : null}
+                {!isVisitorRestricted &&
+                lineupSignal &&
+                (lineupSignal.status === "confirmed" || lineupSignal.status === "probable") ? (
+                  <span
+                    className={`pl-pill text-xs font-semibold ${
+                      lineupSignal.status === "confirmed" ? "pl-pill--success" : "pl-pill--info"
+                    }`}
+                  >
+                    {lineupSignal.label}
+                  </span>
+                ) : null}
+                <span className="pl-pill text-xs font-semibold">
+                  {profile.sport === "basketball" ? "Tachyon NBA Lab" : "Tachyon Player Lab"}
+                </span>
+              </div>
             </div>
+
+            {!isVisitorRestricted &&
+            profile.sport === "football" &&
+            nextMatchReferee &&
+            (nextMatchReferee.analytics.avgYellow !== null ||
+              nextMatchReferee.analytics.avgFouls !== null) ? (
+              <div
+                className="rounded-xl px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs num"
+                style={{
+                  background: "var(--pl-surface-elevated)",
+                  border: "1px solid var(--pl-row-rule)",
+                }}
+                data-player-referee-context=""
+              >
+                <span className="inline-flex items-center gap-1.5 font-semibold min-w-0">
+                  <MaestroIcon name="whistle" size={13} />
+                  <span className="truncate">
+                    Árbitro: <strong>{nextMatchReferee.analytics.name}</strong>
+                  </span>
+                </span>
+                <span className="flex flex-wrap items-center gap-2" style={{ color: "var(--pl-text-secondary)" }}>
+                  {nextMatchReferee.analytics.avgYellow !== null ? (
+                    <span className="inline-flex items-center gap-1">
+                      <SportEventIcon kind="yellow" size={11} />
+                      <span>{nextMatchReferee.analytics.avgYellow.toFixed(1)} amar./p</span>
+                    </span>
+                  ) : null}
+                  {nextMatchReferee.analytics.avgFouls !== null ? (
+                    <span>{nextMatchReferee.analytics.avgFouls.toFixed(1)} faltas/p</span>
+                  ) : null}
+                  <span className="pl-pill text-[10px] font-bold">
+                    {nextMatchReferee.analytics.rigorLabel}
+                  </span>
+                </span>
+              </div>
+            ) : null}
 
             {isVisitorRestricted ? (
               <div
@@ -1236,12 +1465,23 @@ export function PlayerProfileClubView({
                 <a
                   href={upgradeHref}
                   onClick={(e) => navigateOnPlainClick(e, upgradeHref)}
-                  className="pl-btn pl-btn--primary inline-flex items-center gap-2 px-4 py-2 text-xs font-bold no-underline"
+                  className="pl-btn-primary inline-flex items-center gap-2 min-h-11 sm:min-h-9 px-4 text-xs font-bold no-underline"
                 >
                   Desbloquear con Pase Ultra
                 </a>
               </div>
-            ) : profile.player.candidatePicks.length === 0 ? (
+            ) : isPlayerUnavailable ? (
+              <div
+                className="rounded-xl p-4 text-xs"
+                style={{
+                  background: "var(--pl-surface-soft)",
+                  color: "var(--pl-text-muted)",
+                }}
+                data-player-picks-unavailable=""
+              >
+                Jugador reportado como no disponible para el próximo encuentro; PitchLab no emite líneas individuales mientras exista baja activa.
+              </div>
+            ) : effectiveCandidatePicks.length === 0 ? (
               <div
                 className="rounded-xl p-4 text-xs"
                 style={{
@@ -1249,12 +1489,13 @@ export function PlayerProfileClubView({
                   color: "var(--pl-text-muted)",
                 }}
               >
-                Muestra estadística todavía acotada (&lt; 3 apariciones o volumen debajo del umbral) para habilitar
-                líneas individuales confiables en este torneo.
+                {!minutesGuard.qualified
+                  ? "Muestra estadística por debajo del umbral mínimo (Muestra ≥ 45 min) para habilitar líneas individuales confiables en este torneo."
+                  : "Muestra estadística todavía acotada (< 3 apariciones o volumen debajo del umbral) para habilitar líneas individuales confiables en este torneo."}
               </div>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                {profile.player.candidatePicks.map((pick) => (
+                {effectiveCandidatePicks.map((pick) => (
                   <PlayerInteractivePickCard
                     key={pick.id}
                     pick={pick}
@@ -1279,7 +1520,7 @@ export function PlayerProfileClubView({
                 <a
                   href={squadHref}
                   onClick={(e) => navigateOnPlainClick(e, squadHref)}
-                  className="pl-team-link text-xs font-semibold"
+                  className="pl-team-link text-xs font-semibold inline-flex items-center min-h-11 sm:min-h-9"
                   style={{ color: "var(--pl-brand)" }}
                 >
                   Ver plantilla completa →
@@ -1291,7 +1532,7 @@ export function PlayerProfileClubView({
                     key={mate.slug}
                     href={mate.href}
                     onClick={(e) => navigateOnPlainClick(e, mate.href)}
-                    className="rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs no-underline transition-colors"
+                    className="rounded-xl px-3 py-2 min-h-11 flex items-center justify-between gap-2 text-xs no-underline transition-colors"
                     style={{
                       background: "var(--pl-surface-elevated)",
                       border: "1px solid var(--pl-row-rule)",
