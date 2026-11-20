@@ -1,0 +1,158 @@
+name: Deploy Google Cloud Run
+
+on:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - "docs/**"
+      - "Reportes/**"
+      - "design/**"
+      - "prompts/**"
+      - "**/*.md"
+      - "apps/web/e2e/**"
+      - "packages/ui/stories/**"
+  # Los commits automáticos de snapshots/momios hechos con GITHUB_TOKEN no disparan `on: push`;
+  # este disparador detecta cuando esos pipelines sí actualizaron `main` y despliega el nuevo snapshot.
+  workflow_run:
+    workflows:
+      - "Pre-MVP Snapshot Pipeline"
+      - "Odds Auto-Refresh Pipeline"
+    types: [completed]
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Forzar rebuild y deploy aunque el commit ya esté desplegado"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy-cloud-run-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Construir y desplegar en Cloud Run
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Si todavía no configuras GCP_PROJECT_ID en Variables de GitHub, el job se omite sin marcar error.
+    if: >-
+      vars.GCP_PROJECT_ID != '' &&
+      (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    env:
+      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      GCP_REGION: ${{ vars.GCP_REGION || 'us-east4' }}
+      GCP_AR_REPO: ${{ vars.GCP_AR_REPO || 'pitchlab' }}
+      GCP_SERVICE: ${{ vars.GCP_CLOUD_RUN_SERVICE || 'pitchlab-web' }}
+      IMAGE_NAME: pitchlab-web
+    steps:
+      - name: Checkout rama main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Autenticar en Google Cloud (Workload Identity sin llaves JSON)
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
+      - name: Configurar gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Verificar si el commit ya está desplegado (ahorra minutos y evita deploys vacíos)
+        id: check
+        run: |
+          SHORT_SHA="$(git rev-parse --short=12 HEAD)"
+          echo "short_sha=$SHORT_SHA" >> "$GITHUB_OUTPUT"
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          DEPLOYED_SHA="$(gcloud run services describe "$GCP_SERVICE" \
+            --project="$GCP_PROJECT_ID" \
+            --region="$GCP_REGION" \
+            --format='value(metadata.labels.git_sha)' 2>/dev/null || true)"
+
+          if [ -n "$DEPLOYED_SHA" ] && [ "$DEPLOYED_SHA" = "$SHORT_SHA" ]; then
+            echo "El commit $SHORT_SHA ya está activo en Cloud Run; se omite rebuild."
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Commit nuevo ($SHORT_SHA != ${DEPLOYED_SHA:-ninguno}); iniciando build."
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configurar Docker Buildx
+        if: steps.check.outputs.should_deploy == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Autenticar Docker contra Artifact Registry
+        if: steps.check.outputs.should_deploy == 'true'
+        run: gcloud auth configure-docker "${GCP_REGION}-docker.pkg.dev" --quiet
+
+      - name: Construir y subir imagen Docker (con caché GHA y cero minutos de Cloud Build)
+        if: steps.check.outputs.should_deploy == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_AR_REPO }}/${{ env.IMAGE_NAME }}:${{ steps.check.outputs.short_sha }}
+            ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_AR_REPO }}/${{ env.IMAGE_NAME }}:latest
+          build-args: |
+            NEXT_PUBLIC_TURNSTILE_SITE_KEY=${{ vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+            NEXT_PUBLIC_VAPID_PUBLIC_KEY=${{ vars.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
+            NEXT_PUBLIC_TELEGRAM_URL=${{ vars.NEXT_PUBLIC_TELEGRAM_URL }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Guardrails anti-sobrecargo integrados:
+      # - min-instances=0: escala a cero sin tráfico ($0 en reposo)
+      # - max-instances=3: techo duro contra picos o bots
+      # - cpu-throttling: solo factura CPU durante peticiones activas
+      # - cpu-boost: arranque en frío más rápido sin costo adicional
+      - name: Desplegar nueva revisión en Cloud Run (con límites de costo)
+        if: steps.check.outputs.should_deploy == 'true'
+        id: deploy
+        run: |
+          IMAGE_URI="${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GCP_AR_REPO}/${IMAGE_NAME}:${{ steps.check.outputs.short_sha }}"
+          gcloud run deploy "$GCP_SERVICE" \
+            --project="$GCP_PROJECT_ID" \
+            --region="$GCP_REGION" \
+            --image="$IMAGE_URI" \
+            --platform=managed \
+            --allow-unauthenticated \
+            --port=8080 \
+            --cpu=1 \
+            --memory=1Gi \
+            --concurrency=80 \
+            --timeout=120 \
+            --min-instances=0 \
+            --max-instances=3 \
+            --cpu-throttling \
+            --cpu-boost \
+            --update-labels="git_sha=${{ steps.check.outputs.short_sha }},managed_by=github_actions" \
+            --quiet
+
+          SERVICE_URL="$(gcloud run services describe "$GCP_SERVICE" \
+            --project="$GCP_PROJECT_ID" \
+            --region="$GCP_REGION" \
+            --format='value(status.url)')"
+          echo "url=$SERVICE_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Verificación de salud post-deploy (/api/health)
+        if: steps.check.outputs.should_deploy == 'true'
+        run: |
+          curl -fsS --retry 3 --retry-delay 3 "${{ steps.deploy.outputs.url }}/api/health" | grep -q '"ok":true'
+          echo "Cloud Run respondió OK en ${{ steps.deploy.outputs.url }}/api/health"

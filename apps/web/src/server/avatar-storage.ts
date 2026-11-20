@@ -1,3 +1,4 @@
+import { randomBytes } from "node:crypto";
 import { del, put } from "@vercel/blob";
 import sharp from "sharp";
 
@@ -20,9 +21,28 @@ export interface AvatarBlobUploader {
 }
 
 const VERCEL_BLOB_HOST_RE = /^https:\/\/[a-z0-9.-]+\.blob\.vercel-storage\.com\//i;
+const GCS_BUCKET_RE = /^[a-z0-9][a-z0-9._-]{1,61}[a-z0-9]$/;
+const GCS_METADATA_TOKEN_URL =
+  "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token";
+
+let cachedMetadataToken: { token: string; expiresAtMs: number } | null = null;
+
+function configuredGcsBucket(): string | null {
+  const raw = process.env.GCS_AVATAR_BUCKET?.trim().toLowerCase() ?? "";
+  if (!raw || !GCS_BUCKET_RE.test(raw)) return null;
+  return raw;
+}
+
+function gcsPublicBaseUrl(bucket: string): string {
+  const custom = process.env.GCS_AVATAR_PUBLIC_BASE_URL?.trim();
+  if (custom && /^https:\/\/[^\s]+$/i.test(custom)) {
+    return custom.replace(/\/+$/, "");
+  }
+  return `https://storage.googleapis.com/${bucket}`;
+}
 
 export function isAvatarStorageEnabled(): boolean {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim());
+  return Boolean(configuredGcsBucket() || process.env.BLOB_READ_WRITE_TOKEN?.trim());
 }
 
 /** Detecta el formato real por firma binaria (evita archivos renombrados o SVG). */
@@ -101,6 +121,111 @@ export async function prepareAvatarImage(
   }
 }
 
+async function resolveGcsAccessToken(): Promise<string> {
+  const explicit = process.env.GCS_ACCESS_TOKEN?.trim();
+  if (explicit) return explicit;
+
+  const now = Date.now();
+  if (cachedMetadataToken && cachedMetadataToken.expiresAtMs > now + 60_000) {
+    return cachedMetadataToken.token;
+  }
+
+  const res = await fetch(GCS_METADATA_TOKEN_URL, {
+    headers: { "Metadata-Flavor": "Google" },
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new Error(`No se pudo obtener token de Google Cloud Storage (${res.status}).`);
+  }
+  const data = (await res.json()) as { access_token?: string; expires_in?: number };
+  if (!data.access_token) {
+    throw new Error("Respuesta inválida del servidor de metadatos de Google Cloud.");
+  }
+  const ttlSec = Math.max(120, Number(data.expires_in ?? 3000));
+  cachedMetadataToken = {
+    token: data.access_token,
+    expiresAtMs: now + ttlSec * 1000,
+  };
+  return data.access_token;
+}
+
+function extractOwnedGcsObjectName(url: string, bucket: string): string | null {
+  const prefixes = [
+    `${gcsPublicBaseUrl(bucket)}/`,
+    `https://storage.googleapis.com/${bucket}/`,
+  ];
+  for (const prefix of prefixes) {
+    if (url.startsWith(prefix)) {
+      const rest = url.slice(prefix.length).split(/[?#]/)[0] ?? "";
+      if (rest.startsWith("avatars/") && !rest.includes("..")) {
+        return decodeURIComponent(rest);
+      }
+    }
+  }
+  return null;
+}
+
+const gcsAvatarUploader: AvatarBlobUploader = {
+  async upload({ userId, buffer, contentType }) {
+    const bucket = configuredGcsBucket();
+    if (!bucket) {
+      throw new Error("GCS_AVATAR_BUCKET no configurado.");
+    }
+    const token = await resolveGcsAccessToken();
+    const safeUser = userId.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 48) || "member";
+    const suffix = randomBytes(6).toString("hex");
+    const objectName = `avatars/${safeUser}-${Date.now()}-${suffix}.webp`;
+
+    const boundary = `pitchlab_${randomBytes(12).toString("hex")}`;
+    const metadataJson = JSON.stringify({
+      name: objectName,
+      contentType,
+      cacheControl: "public, max-age=31536000, immutable",
+    });
+
+    const body = Buffer.concat([
+      Buffer.from(
+        `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${metadataJson}\r\n--${boundary}\r\nContent-Type: ${contentType}\r\n\r\n`,
+        "utf8",
+      ),
+      buffer,
+      Buffer.from(`\r\n--${boundary}--\r\n`, "utf8"),
+    ]);
+
+    const uploadUrl = `https://storage.googleapis.com/upload/storage/v1/b/${encodeURIComponent(bucket)}/o?uploadType=multipart`;
+    const res = await fetch(uploadUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": `multipart/related; boundary=${boundary}`,
+        "Content-Length": String(body.byteLength),
+      },
+      body,
+    });
+    if (!res.ok) {
+      throw new Error(`Error al subir avatar a Google Cloud Storage (${res.status}).`);
+    }
+
+    return { url: `${gcsPublicBaseUrl(bucket)}/${objectName}` };
+  },
+  async remove(url) {
+    const bucket = configuredGcsBucket();
+    if (!bucket) return;
+    const objectName = extractOwnedGcsObjectName(url, bucket);
+    if (!objectName) return;
+    try {
+      const token = await resolveGcsAccessToken();
+      const deleteUrl = `https://storage.googleapis.com/storage/v1/b/${encodeURIComponent(bucket)}/o/${encodeURIComponent(objectName)}`;
+      await fetch(deleteUrl, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } catch (err) {
+      void err;
+    }
+  },
+};
+
 const vercelBlobUploader: AvatarBlobUploader = {
   async upload({ userId, buffer, contentType }) {
     const blob = await put(`avatars/${userId}-${Date.now()}.webp`, buffer, {
@@ -111,7 +236,7 @@ const vercelBlobUploader: AvatarBlobUploader = {
     return { url: blob.url };
   },
   async remove(url) {
-    if (!isAvatarStorageEnabled() || !VERCEL_BLOB_HOST_RE.test(url)) return;
+    if (!process.env.BLOB_READ_WRITE_TOKEN?.trim() || !VERCEL_BLOB_HOST_RE.test(url)) return;
     try {
       await del(url);
     } catch (err) {
@@ -120,13 +245,15 @@ const vercelBlobUploader: AvatarBlobUploader = {
   },
 };
 
-let activeUploader: AvatarBlobUploader = vercelBlobUploader;
+let testUploaderOverride: AvatarBlobUploader | null = null;
 
-/** Permite sustituir la subida real en pruebas sin tocar Vercel Blob. */
+/** Permite sustituir la subida real en pruebas sin tocar Vercel Blob ni Google Cloud Storage. */
 export function setAvatarUploaderForTests(uploader: AvatarBlobUploader | null): void {
-  activeUploader = uploader ?? vercelBlobUploader;
+  testUploaderOverride = uploader;
+  cachedMetadataToken = null;
 }
 
 export function getAvatarUploader(): AvatarBlobUploader {
-  return activeUploader;
+  if (testUploaderOverride) return testUploaderOverride;
+  return configuredGcsBucket() ? gcsAvatarUploader : vercelBlobUploader;
 }

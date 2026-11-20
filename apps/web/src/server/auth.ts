@@ -54,8 +54,12 @@ const consoleSender: SendEmail = async (to, subject, html) => {
   console.info(localEmailLogLine(to, subject, html));
 };
 
+function isHostedRemote(): boolean {
+  return Boolean(process.env.VERCEL || process.env.K_SERVICE);
+}
+
 const local9990Sender: SendEmail = async (to, subject, html) => {
-  if (process.env.VERCEL || (process.env.NODE_ENV === "production" && !isLocalBaseURL(process.env.BETTER_AUTH_URL ?? ""))) {
+  if (isHostedRemote() || (process.env.NODE_ENV === "production" && !isLocalBaseURL(process.env.BETTER_AUTH_URL ?? ""))) {
     throw new Error("El registro local de enlaces mágicos (.local/9990.log) está prohibido fuera de localhost.");
   }
   const cwd = process.cwd();
@@ -276,7 +280,7 @@ export function getAuth(): PitchLabAuth | null {
   if (isProd && !rawBaseURL) {
     throw new Error("BETTER_AUTH_URL es obligatoria en producción.");
   }
-  if (isProd && process.env.VERCEL && rawBaseURL && isLocalBaseURL(rawBaseURL)) {
+  if (isProd && isHostedRemote() && rawBaseURL && isLocalBaseURL(rawBaseURL)) {
     throw new Error("BETTER_AUTH_URL no puede apuntar a localhost en un despliegue remoto.");
   }
 
@@ -284,7 +288,7 @@ export function getAuth(): PitchLabAuth | null {
   const resendKey = process.env.RESEND_API_KEY?.trim();
   const from = process.env.AUTH_EMAIL_FROM ?? "PitchLab <acceso@pitchlab.mx>";
   const allowLocalSender =
-    isLocalBaseURL(baseURL) && !process.env.VERCEL && (!isProd || Boolean(rawBaseURL));
+    isLocalBaseURL(baseURL) && !isHostedRemote() && (!isProd || Boolean(rawBaseURL));
 
   if (!resendKey && !allowLocalSender) {
     throw new Error("RESEND_API_KEY es obligatoria en producción para enviar enlaces de acceso.");
