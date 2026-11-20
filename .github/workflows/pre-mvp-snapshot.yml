@@ -260,13 +260,13 @@ jobs:
           echo "data_changed=$DATA_CHANGED" >> "$GITHUB_OUTPUT"
 
       # SEC-10: Se pasa la URL por stdin (`--config -`) y sin `-S` para jamás imprimir el secreto en logs.
-      - name: Disparar un único deploy hook de Vercel si hubo cambios
+      - name: Disparar un único deploy hook genérico si hubo cambios
         if: steps.commit.outputs.data_changed == 'true'
         env:
-          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+          DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL || secrets.VERCEL_DEPLOY_HOOK_URL }}
         run: |
-          if [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
-            printf 'url = "%s"\n' "$VERCEL_DEPLOY_HOOK_URL" | curl -fsL -X POST --config - >/dev/null
+          if [ -n "$DEPLOY_HOOK_URL" ]; then
+            printf 'url = "%s"\n' "$DEPLOY_HOOK_URL" | curl -fsL -X POST --config - >/dev/null
             echo "Deploy hook disparado."
           else
             echo "Sin deploy hook configurado; se omite."

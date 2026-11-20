@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1.7
-# Imagen multi-etapa de producción para Google Cloud Run (`linux/amd64`, Node 22 Debian slim).
-# Mantiene paridad total con Vercel/local y empaqueta los snapshots, históricos y blog requeridos en runtime.
+# Imagen OCI multi-etapa agnóstica de proveedor (Node 22 Debian slim, ADR-050).
+# Portable a cualquier plataforma de contenedores o VPS (Docker, Coolify, Fly.io, Railway, Render,
+# AWS ECS/App Runner, Azure Container Apps, DigitalOcean, Google Cloud Run) con paridad total con local.
 
 FROM node:22-slim AS builder
 WORKDIR /app

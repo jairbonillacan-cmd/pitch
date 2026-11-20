@@ -53,3 +53,4 @@
 | [ADR-047](ADR-047-indice-precompilado-shell-sincronizacion-preferencias-y-salida-produccion.md) | Índice precompilado `shell-index.json`, sincronización completa de preferencias móvil↔escritorio y pre-vuelo de producción | Aceptada |
 | [ADR-048](ADR-048-tira-activa-screener-arbitros-y-calibracion.md) | Tira activa primero (deportes/ligas), Screener con vistas guardadas y slider no lineal, rigurosidad arbitral bayesiana, overround/vig y laboratorio de calibración | Aceptada |
 | [ADR-049](ADR-049-spacetime-v5-ui-integration.md) | Integración aditiva de Spacetime Suite v5.1 hacia la UI (bandas 90 %, pago anticipado, micro-mercados con árbitros, SGP Cópula Student-t, En Vivo DP y guardrail Cortex) | Aceptada |
+| [ADR-050](ADR-050-arquitectura-agnostica-de-proveedor-y-portabilidad.md) | Arquitectura agnóstica de proveedor y portabilidad entre plataformas (cero lock-in a Vercel, Google Cloud o Cloudflare) | Aceptada |

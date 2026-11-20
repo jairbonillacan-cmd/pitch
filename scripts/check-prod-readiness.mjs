@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 /**
- * Auditoría de solo lectura para salida a producción de PitchLab (ADR-047).
+ * Auditoría de solo lectura para salida a producción de PitchLab (ADR-047 y ADR-050).
+ * Independiente del proveedor de hosting (Docker/VPS, Fly, Railway, Render, AWS, Cloud Run, Vercel).
  * Verifica:
- * 1) Migraciones SQL ordenadas en `packages/db/migrations/`
- * 2) Crons declarados en `apps/web/vercel.json`
+ * 1) Migraciones SQL estándar PostgreSQL en `packages/db/migrations/`
+ * 2) Endpoints HTTP de crons (`apps/web/app/api/cron/<job>/route.ts`) y sonda `/api/health`
  * 3) Frescura e integridad de `data/snapshots/shell-index.json`
- * 4) Presencia (sin imprimir valores) de variables requeridas en producción
- * 5) Guardrails de código (`lint-codebase`, `check-no-demo-prod`, `check-no-secrets`)
+ * 4) Artefacto portable de contenedor (`Dockerfile`)
+ * 5) Presencia (sin imprimir valores) de variables requeridas en producción por capacidad
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
@@ -26,8 +27,8 @@ function checkFile(rel, label) {
   return null;
 }
 
-// 1) Migraciones SQL
-const migDir = checkFile("packages/db/migrations", "Directorio de migraciones DB");
+// 1) Migraciones SQL estándar PostgreSQL (compatibles con cualquier PostgreSQL 15+)
+const migDir = checkFile("packages/db/migrations", "Directorio de migraciones SQL (PostgreSQL)");
 if (migDir) {
   const sqlFiles = readdirSync(migDir).filter((f) => f.endsWith(".sql")).sort();
   if (sqlFiles.length >= 20) {
@@ -37,16 +38,24 @@ if (migDir) {
   }
 }
 
-// 2) Crons en vercel.json
-const vercelFile = checkFile("apps/web/vercel.json", "Configuración de crons Vercel");
-if (vercelFile) {
+// 2) Endpoints HTTP portables de crons + sonda /api/health (fuente de verdad agnóstica de proveedor)
+checkFile("apps/web/app/api/health/route.ts", "Sonda HTTP portable /api/health");
+for (const slug of ["settle-picks", "push-alerts", "tipster-payouts", "weekly-digest", "monthly-record"]) {
+  checkFile(`apps/web/app/api/cron/${slug}/route.ts`, `Endpoint HTTP cron /api/cron/${slug}`);
+}
+
+// Manifiesto opcional de Vercel Cron: si existe, validar consistencia sin exigirlo como dependencia obligatoria.
+const vercelPath = path.join(ROOT, "apps/web/vercel.json");
+if (existsSync(vercelPath)) {
   try {
-    const parsed = JSON.parse(readFileSync(vercelFile, "utf8"));
+    const parsed = JSON.parse(readFileSync(vercelPath, "utf8"));
     const paths = new Set((parsed.crons ?? []).map((c) => c.path));
     for (const required of ["/api/cron/settle-picks", "/api/cron/push-alerts", "/api/cron/tipster-payouts"]) {
-      if (paths.has(required)) okItems.push(`Cron registrado: ${required}`);
-      else errors.push(`Falta cron requerido en vercel.json: ${required}`);
+      if (!paths.has(required)) {
+        errors.push(`Falta cron requerido en el manifiesto opcional vercel.json: ${required}`);
+      }
     }
+    okItems.push("Manifiesto opcional vercel.json consistente con endpoints /api/cron/*");
   } catch (err) {
     errors.push(`No se pudo parsear apps/web/vercel.json: ${err.message}`);
   }
@@ -69,38 +78,52 @@ if (shellIdx) {
   }
 }
 
-// 4) Script de migración segura de producción y empaquetado Cloud Run
-checkFile("scripts/migrate-prod.ps1", "Script de migración controlada Neon");
-checkFile("Dockerfile", "Contenedor multi-etapa Cloud Run");
-checkFile(".github/workflows/deploy-cloud-run.yml", "Workflow de despliegue automático Cloud Run");
+// 4) Empaquetado portable estándar OCI (Docker)
+checkFile("Dockerfile", "Contenedor OCI multi-etapa portable (ADR-050)");
 
-// 5) Variables de entorno de producción (solo presencia, JAMÁS valores)
+// 5) Variables de entorno de producción por capacidad (solo presencia, JAMÁS valores)
+const captchaDisabled =
+  process.env.PITCHLAB_CAPTCHA_PROVIDER?.trim().toLowerCase() === "none" ||
+  process.env.PITCHLAB_ALLOW_NO_TURNSTILE_IN_PROD === "1";
+
+const hasS3Avatar = Boolean(
+  process.env.S3_AVATAR_ENDPOINT?.trim() &&
+    process.env.S3_AVATAR_BUCKET?.trim() &&
+    process.env.S3_AVATAR_ACCESS_KEY_ID?.trim() &&
+    process.env.S3_AVATAR_SECRET_ACCESS_KEY?.trim(),
+);
+
 const prodEnvGroups = [
   { group: "Base de datos y Auth", vars: ["DATABASE_URL", "BETTER_AUTH_SECRET", "BETTER_AUTH_URL"] },
-  { group: "Crons y Seguridad", vars: ["CRON_SECRET", "TURNSTILE_SITE_KEY_OR_PUBLIC", "TURNSTILE_SECRET_KEY"] },
+  { group: "Crons y Anti-abuso", vars: ["CRON_SECRET", "CAPTCHA_OR_EXPLICIT_OPTOUT"] },
   { group: "Web Push (VAPID)", vars: ["NEXT_PUBLIC_VAPID_PUBLIC_KEY", "VAPID_PRIVATE_KEY"] },
-  { group: "Correo y Media", vars: ["RESEND_API_KEY", "MEDIA_STORAGE_GCS_OR_BLOB"] },
+  { group: "Correo y Media", vars: ["RESEND_API_KEY", "MEDIA_STORAGE_ANY_ADAPTER"] },
   { group: "Cobro SPEI / Admin", vars: ["PITCHLAB_ADMIN_EMAILS", "PITCHLAB_TRANSFER_CLABE"] },
 ];
 
 for (const { group, vars } of prodEnvGroups) {
   const missing = vars.filter((name) => {
-    if (name === "TURNSTILE_SITE_KEY_OR_PUBLIC") {
-      return !(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || process.env.TURNSTILE_SITE_KEY?.trim());
+    if (name === "CAPTCHA_OR_EXPLICIT_OPTOUT") {
+      if (captchaDisabled) return false;
+      const hasSite = Boolean(
+        process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || process.env.TURNSTILE_SITE_KEY?.trim(),
+      );
+      const hasSecret = Boolean(process.env.TURNSTILE_SECRET_KEY?.trim());
+      return !(hasSite && hasSecret);
     }
-    if (name === "MEDIA_STORAGE_GCS_OR_BLOB") {
-      return !(process.env.GCS_AVATAR_BUCKET?.trim() || process.env.BLOB_READ_WRITE_TOKEN?.trim());
+    if (name === "MEDIA_STORAGE_ANY_ADAPTER") {
+      return !(hasS3Avatar || process.env.GCS_AVATAR_BUCKET?.trim() || process.env.BLOB_READ_WRITE_TOKEN?.trim());
     }
     return !process.env[name]?.trim();
   });
   if (missing.length === 0) {
     okItems.push(`Env [${group}]: completo en el entorno actual`);
   } else {
-    warnings.push(`Env [${group}] faltante en entorno local (configurar en Cloud Run / Vercel Prod): ${missing.join(", ")}`);
+    warnings.push(`Env [${group}] faltante en entorno local (configurar en tu plataforma de producción): ${missing.join(", ")}`);
   }
 }
 
-console.log("=== PitchLab · Auditoría de salida a producción ===");
+console.log("=== PitchLab · Auditoría de salida a producción (agnóstica de proveedor · ADR-050) ===");
 for (const item of okItems) console.log(`  [OK]   ${item}`);
 for (const warn of warnings) console.log(`  [AVISO] ${warn}`);
 for (const err of errors) console.error(`  [ERR]  ${err}`);

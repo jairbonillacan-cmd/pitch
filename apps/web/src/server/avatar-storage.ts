@@ -1,5 +1,4 @@
-import { randomBytes } from "node:crypto";
-import { del, put } from "@vercel/blob";
+import { createHash, createHmac, randomBytes } from "node:crypto";
 import sharp from "sharp";
 
 export const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
@@ -20,29 +19,89 @@ export interface AvatarBlobUploader {
   remove?(url: string): Promise<void>;
 }
 
+export type AvatarStorageProviderName = "s3" | "gcs" | "vercel-blob";
+
 const VERCEL_BLOB_HOST_RE = /^https:\/\/[a-z0-9.-]+\.blob\.vercel-storage\.com\//i;
-const GCS_BUCKET_RE = /^[a-z0-9][a-z0-9._-]{1,61}[a-z0-9]$/;
+const BUCKET_NAME_RE = /^[a-z0-9][a-z0-9._-]{1,61}[a-z0-9]$/;
 const GCS_METADATA_TOKEN_URL =
   "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token";
 
 let cachedMetadataToken: { token: string; expiresAtMs: number } | null = null;
 
+interface S3AvatarConfig {
+  endpoint: string;
+  bucket: string;
+  region: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+  publicBaseUrl: string;
+}
+
+function configuredS3Avatar(): S3AvatarConfig | null {
+  const endpointRaw = process.env.S3_AVATAR_ENDPOINT?.trim() ?? "";
+  const bucket = process.env.S3_AVATAR_BUCKET?.trim().toLowerCase() ?? "";
+  const accessKeyId = process.env.S3_AVATAR_ACCESS_KEY_ID?.trim() ?? "";
+  const secretAccessKey = process.env.S3_AVATAR_SECRET_ACCESS_KEY?.trim() ?? "";
+  if (!endpointRaw || !bucket || !accessKeyId || !secretAccessKey) return null;
+  if (!BUCKET_NAME_RE.test(bucket)) return null;
+  let endpoint: string;
+  try {
+    const parsed = new URL(endpointRaw);
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
+    endpoint = parsed.origin + parsed.pathname.replace(/\/+$/, "");
+  } catch (err) {
+    void err;
+    return null;
+  }
+  const region = process.env.S3_AVATAR_REGION?.trim() || "us-east-1";
+  const customBase = (
+    process.env.S3_AVATAR_PUBLIC_BASE_URL?.trim() ||
+    process.env.AVATAR_PUBLIC_BASE_URL?.trim() ||
+    ""
+  );
+  const publicBaseUrl =
+    customBase && /^https:\/\/[^\s]+$/i.test(customBase)
+      ? customBase.replace(/\/+$/, "")
+      : `${endpoint}/${bucket}`;
+  return { endpoint, bucket, region, accessKeyId, secretAccessKey, publicBaseUrl };
+}
+
 function configuredGcsBucket(): string | null {
   const raw = process.env.GCS_AVATAR_BUCKET?.trim().toLowerCase() ?? "";
-  if (!raw || !GCS_BUCKET_RE.test(raw)) return null;
+  if (!raw || !BUCKET_NAME_RE.test(raw)) return null;
   return raw;
 }
 
 function gcsPublicBaseUrl(bucket: string): string {
-  const custom = process.env.GCS_AVATAR_PUBLIC_BASE_URL?.trim();
+  const custom =
+    process.env.GCS_AVATAR_PUBLIC_BASE_URL?.trim() || process.env.AVATAR_PUBLIC_BASE_URL?.trim();
   if (custom && /^https:\/\/[^\s]+$/i.test(custom)) {
     return custom.replace(/\/+$/, "");
   }
   return `https://storage.googleapis.com/${bucket}`;
 }
 
+function configuredVercelBlob(): boolean {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim());
+}
+
+/**
+ * Resuelve el adaptador activo de almacenamiento de avatares sin acoplar la app a un solo proveedor (ADR-050).
+ * Prioridad automática: S3-compatible (AWS S3 / Backblaze B2 / MinIO / DO Spaces / Hetzner / R2) → GCS → Vercel Blob.
+ */
+export function resolveAvatarStorageProvider(): AvatarStorageProviderName | null {
+  const explicit = process.env.AVATAR_STORAGE_PROVIDER?.trim().toLowerCase();
+  if (explicit === "s3") return configuredS3Avatar() ? "s3" : null;
+  if (explicit === "gcs") return configuredGcsBucket() ? "gcs" : null;
+  if (explicit === "vercel-blob") return configuredVercelBlob() ? "vercel-blob" : null;
+  if (configuredS3Avatar()) return "s3";
+  if (configuredGcsBucket()) return "gcs";
+  if (configuredVercelBlob()) return "vercel-blob";
+  return null;
+}
+
 export function isAvatarStorageEnabled(): boolean {
-  return Boolean(configuredGcsBucket() || process.env.BLOB_READ_WRITE_TOKEN?.trim());
+  return resolveAvatarStorageProvider() !== null;
 }
 
 /** Detecta el formato real por firma binaria (evita archivos renombrados o SVG). */
@@ -226,8 +285,154 @@ const gcsAvatarUploader: AvatarBlobUploader = {
   },
 };
 
+function sha256Hex(input: Buffer | string): string {
+  return createHash("sha256").update(input).digest("hex");
+}
+
+function hmacSha256(key: Buffer | string, data: string): Buffer {
+  return createHmac("sha256", key).update(data, "utf8").digest();
+}
+
+function encodeS3PathSegment(segment: string): string {
+  return encodeURIComponent(segment).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+}
+
+/** Firma estándar AWS Signature Version 4 (compatible con S3, MinIO, Backblaze B2, Spaces, Hetzner, Tigris, R2). */
+function signS3Request(input: {
+  method: "PUT" | "DELETE";
+  endpoint: string;
+  bucket: string;
+  objectName: string;
+  region: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+  payload: Buffer;
+  now?: Date;
+}): { url: string; headers: Record<string, string> } {
+  const now = input.now ?? new Date();
+  const iso = now.toISOString().replace(/[:-]|\.\d{3}/g, "");
+  const amzDate = iso.slice(0, 15) + "Z";
+  const dateStamp = amzDate.slice(0, 8);
+  const parsedEndpoint = new URL(input.endpoint);
+  const basePath = parsedEndpoint.pathname.replace(/\/+$/, "");
+  const encodedKey = input.objectName.split("/").map(encodeS3PathSegment).join("/");
+  const canonicalUri = `${basePath}/${encodeS3PathSegment(input.bucket)}/${encodedKey}`;
+  const payloadHash = sha256Hex(input.payload);
+  const host = parsedEndpoint.host;
+
+  const canonicalHeaders =
+    `host:${host}\n` +
+    `x-amz-content-sha256:${payloadHash}\n` +
+    `x-amz-date:${amzDate}\n`;
+  const signedHeaders = "host;x-amz-content-sha256;x-amz-date";
+  const canonicalRequest = [
+    input.method,
+    canonicalUri,
+    "",
+    canonicalHeaders,
+    signedHeaders,
+    payloadHash,
+  ].join("\n");
+
+  const credentialScope = `${dateStamp}/${input.region}/s3/aws4_request`;
+  const stringToSign = [
+    "AWS4-HMAC-SHA256",
+    amzDate,
+    credentialScope,
+    sha256Hex(canonicalRequest),
+  ].join("\n");
+
+  const kDate = hmacSha256(`AWS4${input.secretAccessKey}`, dateStamp);
+  const kRegion = hmacSha256(kDate, input.region);
+  const kService = hmacSha256(kRegion, "s3");
+  const kSigning = hmacSha256(kService, "aws4_request");
+  const signature = createHmac("sha256", kSigning).update(stringToSign, "utf8").digest("hex");
+
+  return {
+    url: `${parsedEndpoint.origin}${canonicalUri}`,
+    headers: {
+      Authorization: `AWS4-HMAC-SHA256 Credential=${input.accessKeyId}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`,
+      "x-amz-content-sha256": payloadHash,
+      "x-amz-date": amzDate,
+    },
+  };
+}
+
+function extractOwnedS3ObjectName(url: string, cfg: S3AvatarConfig): string | null {
+  const prefixes = [`${cfg.publicBaseUrl}/`, `${cfg.endpoint}/${cfg.bucket}/`];
+  for (const prefix of prefixes) {
+    if (url.startsWith(prefix)) {
+      const rest = url.slice(prefix.length).split(/[?#]/)[0] ?? "";
+      if (rest.startsWith("avatars/") && !rest.includes("..")) {
+        return decodeURIComponent(rest);
+      }
+    }
+  }
+  return null;
+}
+
+const s3AvatarUploader: AvatarBlobUploader = {
+  async upload({ userId, buffer, contentType }) {
+    const cfg = configuredS3Avatar();
+    if (!cfg) {
+      throw new Error("Almacenamiento S3-compatible de avatares no configurado.");
+    }
+    const safeUser = userId.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 48) || "member";
+    const suffix = randomBytes(6).toString("hex");
+    const objectName = `avatars/${safeUser}-${Date.now()}-${suffix}.webp`;
+    const signed = signS3Request({
+      method: "PUT",
+      endpoint: cfg.endpoint,
+      bucket: cfg.bucket,
+      objectName,
+      region: cfg.region,
+      accessKeyId: cfg.accessKeyId,
+      secretAccessKey: cfg.secretAccessKey,
+      payload: buffer,
+    });
+    const res = await fetch(signed.url, {
+      method: "PUT",
+      headers: {
+        ...signed.headers,
+        "Content-Type": contentType,
+        "Cache-Control": "public, max-age=31536000, immutable",
+      },
+      body: new Uint8Array(buffer),
+    });
+    if (!res.ok) {
+      throw new Error(`Error al subir avatar a almacenamiento S3 (${res.status}).`);
+    }
+    return { url: `${cfg.publicBaseUrl}/${objectName}` };
+  },
+  async remove(url) {
+    const cfg = configuredS3Avatar();
+    if (!cfg) return;
+    const objectName = extractOwnedS3ObjectName(url, cfg);
+    if (!objectName) return;
+    try {
+      const signed = signS3Request({
+        method: "DELETE",
+        endpoint: cfg.endpoint,
+        bucket: cfg.bucket,
+        objectName,
+        region: cfg.region,
+        accessKeyId: cfg.accessKeyId,
+        secretAccessKey: cfg.secretAccessKey,
+        payload: Buffer.alloc(0),
+      });
+      await fetch(signed.url, {
+        method: "DELETE",
+        headers: signed.headers,
+      });
+    } catch (err) {
+      void err;
+    }
+  },
+};
+
 const vercelBlobUploader: AvatarBlobUploader = {
   async upload({ userId, buffer, contentType }) {
+    const { put } = await import("@vercel/blob");
     const blob = await put(`avatars/${userId}-${Date.now()}.webp`, buffer, {
       access: "public",
       addRandomSuffix: true,
@@ -238,6 +443,7 @@ const vercelBlobUploader: AvatarBlobUploader = {
   async remove(url) {
     if (!process.env.BLOB_READ_WRITE_TOKEN?.trim() || !VERCEL_BLOB_HOST_RE.test(url)) return;
     try {
+      const { del } = await import("@vercel/blob");
       await del(url);
     } catch (err) {
       void err;
@@ -247,7 +453,7 @@ const vercelBlobUploader: AvatarBlobUploader = {
 
 let testUploaderOverride: AvatarBlobUploader | null = null;
 
-/** Permite sustituir la subida real en pruebas sin tocar Vercel Blob ni Google Cloud Storage. */
+/** Permite sustituir la subida real en pruebas sin tocar ningún proveedor externo. */
 export function setAvatarUploaderForTests(uploader: AvatarBlobUploader | null): void {
   testUploaderOverride = uploader;
   cachedMetadataToken = null;
@@ -255,5 +461,8 @@ export function setAvatarUploaderForTests(uploader: AvatarBlobUploader | null): 
 
 export function getAvatarUploader(): AvatarBlobUploader {
   if (testUploaderOverride) return testUploaderOverride;
-  return configuredGcsBucket() ? gcsAvatarUploader : vercelBlobUploader;
+  const provider = resolveAvatarStorageProvider();
+  if (provider === "s3") return s3AvatarUploader;
+  if (provider === "gcs") return gcsAvatarUploader;
+  return vercelBlobUploader;
 }
