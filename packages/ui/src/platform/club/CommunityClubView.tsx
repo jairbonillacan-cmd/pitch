@@ -386,9 +386,14 @@ function CommunityContent(): React.JSX.Element {
               <MobileTop ranked={monthRanked} monthName={monthName} goProfile={goProfile} />
               <div className="pl-com-filter-bar" role="region" aria-label="Filtros de Para ti">
                 <div className="pl-com-filter-controls">
-                  <div className="pl-com-seg pl-com-seg--compact" role="group" aria-label="Tipo de publicaciones">
+                  <div
+                    className="pl-com-seg pl-com-seg--compact max-w-full overflow-x-auto"
+                    role="group"
+                    aria-label="Tipo de publicaciones"
+                  >
                     <button
                       type="button"
+                      className="min-h-11 sm:min-h-8"
                       aria-pressed={!forYouOpenOnly}
                       onClick={() => setForYouOpenOnly(false)}
                     >
@@ -396,6 +401,7 @@ function CommunityContent(): React.JSX.Element {
                     </button>
                     <button
                       type="button"
+                      className="min-h-11 sm:min-h-8"
                       aria-pressed={forYouOpenOnly}
                       onClick={() => setForYouOpenOnly(true)}
                     >
@@ -413,13 +419,13 @@ function CommunityContent(): React.JSX.Element {
                     value={forYouLeague}
                     onChange={(next) => setForYouLeague(next)}
                     options={forYouLeagueOptions}
-                    className="pl-com-league-select"
+                    className="pl-com-league-select min-w-0 max-w-full"
                   />
 
                   {forYouLeague !== "all" || forYouOpenOnly ? (
                     <button
                       type="button"
-                      className="pl-com-reset-btn"
+                      className="pl-com-reset-btn min-h-11 sm:min-h-9"
                       onClick={() => {
                         setForYouLeague("all");
                         setForYouOpenOnly(false);
@@ -430,9 +436,14 @@ function CommunityContent(): React.JSX.Element {
                   ) : null}
                 </div>
 
-                <div className="pl-com-seg pl-com-seg--compact" role="group" aria-label="Ordenar publicaciones">
+                <div
+                  className="pl-com-seg pl-com-seg--compact max-w-full overflow-x-auto"
+                  role="group"
+                  aria-label="Ordenar publicaciones"
+                >
                   <button
                     type="button"
+                    className="min-h-11 sm:min-h-8"
                     aria-pressed={forYouSort === "recent"}
                     onClick={() => setForYouSort("recent")}
                   >
@@ -440,6 +451,7 @@ function CommunityContent(): React.JSX.Element {
                   </button>
                   <button
                     type="button"
+                    className="min-h-11 sm:min-h-8"
                     aria-pressed={forYouSort === "most_commented"}
                     onClick={() => setForYouSort("most_commented")}
                   >
@@ -634,7 +646,13 @@ function Composer({
             }}
           />
           {attached ? (
-            <div className="pl-com-attached glass-card glass-ring">
+            <div
+              className="pl-com-attached"
+              style={{
+                background: "var(--pl-surface-elevated)",
+                border: "1px solid var(--pl-border)",
+              }}
+            >
               {meta ? <LeagueBadge league={meta.league} size={18} /> : null}
               <div className="pl-com-attached-main">
                 <span className="pl-com-attached-copy">
@@ -652,6 +670,7 @@ function Composer({
                       <span>Unidades</span>
                       <select
                         aria-label="Unidades del pick"
+                        className="min-h-11 sm:min-h-9 text-base sm:text-[13px] min-w-0 num"
                         value={String(attached.units)}
                         onChange={(e) => {
                           const val = Number(e.target.value);
@@ -676,6 +695,7 @@ function Composer({
                         max="100"
                         inputMode="decimal"
                         aria-label="Momio decimal del pick"
+                        className="min-h-11 sm:min-h-9 text-base sm:text-[13px] min-w-0 num"
                         value={oddsDraft}
                         onChange={(e) => {
                           const raw = e.target.value;
@@ -692,7 +712,7 @@ function Composer({
               </div>
               <button
                 type="button"
-                className="pl-com-icon-btn"
+                className="pl-com-icon-btn min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                 aria-label="Quitar pick adjunto"
                 onClick={() => {
                   setAttached(null);
@@ -710,16 +730,30 @@ function Composer({
       </div>
       <div className="pl-com-composer-bar">
         <div className="pl-com-composer-tools">
-          <button type="button" className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm" onClick={() => setPickerOpen(true)}>
+          <button
+            type="button"
+            className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm min-h-11 sm:min-h-9"
+            onClick={() => setPickerOpen(true)}
+          >
             <MaestroIcon name="plus" size={14} />
             {attached ? "Cambiar pick" : "Adjuntar pick"}
           </button>
           {attached ? (
-            <div className="pl-com-seg" role="group" aria-label="Origen del pick">
-              <button type="button" aria-pressed={origin === "Spacetime Suite"} onClick={() => setOrigin("Spacetime Suite")}>
+            <div className="pl-com-seg max-w-full" role="group" aria-label="Origen del pick">
+              <button
+                type="button"
+                className="min-h-11 sm:min-h-8"
+                aria-pressed={origin === "Spacetime Suite"}
+                onClick={() => setOrigin("Spacetime Suite")}
+              >
                 Del modelo
               </button>
-              <button type="button" aria-pressed={origin === "Bitácora Propia"} onClick={() => setOrigin("Bitácora Propia")}>
+              <button
+                type="button"
+                className="min-h-11 sm:min-h-8"
+                aria-pressed={origin === "Bitácora Propia"}
+                onClick={() => setOrigin("Bitácora Propia")}
+              >
                 Propio
               </button>
             </div>
@@ -731,7 +765,10 @@ function Composer({
               {body.length}/{SOCIAL_POST_MAX_CHARS}
             </span>
           ) : null}
-          <button type="submit" className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm">
+          <button
+            type="submit"
+            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm min-h-11 sm:min-h-9"
+          >
             Publicar
           </button>
         </div>
@@ -758,7 +795,12 @@ function Composer({
           <div className="pl-com-sheet">
             <div className="pl-com-sheet-head">
               <p className="pl-com-sheet-title">Publicar</p>
-              <button type="button" className="pl-com-icon-btn" aria-label="Cerrar" onClick={() => setSheetOpen(false)}>
+              <button
+                type="button"
+                className="pl-com-icon-btn min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+                aria-label="Cerrar"
+                onClick={() => setSheetOpen(false)}
+              >
                 <MaestroIcon name="x" size={16} />
               </button>
             </div>
@@ -843,18 +885,24 @@ function PickPicker({
 
   return (
     <TopLayerModalDialog open onClose={onClose} ariaLabelledBy={`${uid}-title`} maxWidth="34rem">
-      <div className="pl-com-picker glass-lens glass-ring">
+      <div className="pl-com-picker">
         <div className="pl-com-sheet-head">
           <h2 id={`${uid}-title`} className="pl-com-sheet-title">
             Adjuntar pick
           </h2>
-          <button type="button" className="pl-com-icon-btn" aria-label="Cerrar" onClick={onClose}>
+          <button
+            type="button"
+            className="pl-com-icon-btn min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+            aria-label="Cerrar"
+            onClick={onClose}
+          >
             <MaestroIcon name="x" size={16} />
           </button>
         </div>
-        <div className="pl-com-seg pl-com-picker-mode" role="group" aria-label="Fuente del pick">
+        <div className="pl-com-seg pl-com-picker-mode max-w-full" role="group" aria-label="Fuente del pick">
           <button
             type="button"
+            className="min-h-11 sm:min-h-8"
             aria-pressed={origin === "Spacetime Suite"}
             onClick={() => onOriginChange("Spacetime Suite")}
           >
@@ -862,6 +910,7 @@ function PickPicker({
           </button>
           <button
             type="button"
+            className="min-h-11 sm:min-h-8"
             aria-pressed={origin === "Bitácora Propia"}
             onClick={() => onOriginChange("Bitácora Propia")}
           >
@@ -873,7 +922,7 @@ function PickPicker({
         </label>
         <input
           id={`${uid}-q`}
-          className="pl-com-search"
+          className="pl-com-search text-base"
           type="search"
           placeholder={origin === "Bitácora Propia" ? "Buscar en tu bitácora o partido" : "Buscar equipo o liga"}
           value={query}
@@ -898,7 +947,7 @@ function PickPicker({
                         <li key={entry.id}>
                           <button
                             type="button"
-                            className="pl-com-picker-pick"
+                            className="pl-com-picker-pick py-2 min-w-0"
                             onClick={() =>
                               onPick({
                                 matchPick: mp,
@@ -908,10 +957,10 @@ function PickPicker({
                               })
                             }
                           >
-                            <span>
+                            <span className="min-w-0 truncate">
                               {entry.pickLabel} · <small className="pl-prof-muted">{entry.matchLabel}</small>
                             </span>
-                            <span className="num pl-prof-muted">
+                            <span className="num pl-prof-muted shrink-0">
                               {entry.units.toFixed(1)}u @ {formatOddsValue(entry.userDecimal, oddsFormat)}
                             </span>
                           </button>
@@ -948,7 +997,7 @@ function PickPicker({
                       <li key={pick.id}>
                         <button
                           type="button"
-                          className="pl-com-picker-pick"
+                          className="pl-com-picker-pick py-2 min-w-0"
                           onClick={() =>
                             onPick({
                               matchPick: pick,
@@ -957,8 +1006,8 @@ function PickPicker({
                             })
                           }
                         >
-                          <span>{pick.label}</span>
-                          <span className="num pl-prof-muted">
+                          <span className="min-w-0 truncate">{pick.label}</span>
+                          <span className="num pl-prof-muted shrink-0">
                             {formatOddsValue(pick.marketDecimal ?? pick.fairDecimal, oddsFormat)} · modelo{" "}
                             {(pick.p * 100).toFixed(1)} %
                           </span>
@@ -1137,7 +1186,11 @@ function YourMonthCard({
       ) : (
         <p className="pl-com-card-note">Registra {LEADERBOARD_MIN_SETTLED} picks para entrar al ranking.</p>
       )}
-      <a href={`/app/u/${own.handle}`} className="pl-prof-link" onClick={goProfile(own.handle)}>
+      <a
+        href={`/app/u/${own.handle}`}
+        className="pl-prof-link inline-flex items-center min-h-11 sm:min-h-8"
+        onClick={goProfile(own.handle)}
+      >
         Ver mi perfil
       </a>
     </section>
@@ -1161,7 +1214,7 @@ function TopCard({
         <h2 id="pl-com-top" className="pl-prof-eyebrow">
           Top de {monthName}
         </h2>
-        <button type="button" className="pl-com-text-btn" onClick={onRanking}>
+        <button type="button" className="pl-com-text-btn min-h-11 sm:min-h-8" onClick={onRanking}>
           Ver ranking
         </button>
       </div>
@@ -1172,8 +1225,12 @@ function TopCard({
           {ranked.slice(0, 5).map((r) => (
             <li key={r.handle}>
               <span className="pl-com-top-rank num">{r.rank}</span>
-              <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={28} />
-              <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)} className="pl-com-top-name">
+              <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={28} loading="lazy" />
+              <a
+                href={`/app/u/${r.handle}`}
+                onClick={goProfile(r.handle)}
+                className="pl-com-top-name inline-flex items-center min-h-11 sm:min-h-9"
+              >
                 {r.name}
               </a>
               <span className={`num ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}>
@@ -1194,13 +1251,13 @@ function HotCard({ item, onConsensus }: { item: ConsensusGame; onConsensus: () =
       <h2 id="pl-com-hot" className="pl-prof-eyebrow">
         Más comentado hoy
       </h2>
-      <p className="pl-com-hot-match">
+      <p className="pl-com-hot-match flex-wrap min-w-0">
         <TeamBadge league={g.league} slug={g.home.slug} name={g.home.name} size={22} decorative />
         {g.home.shortName || g.home.name} vs {g.away.shortName || g.away.name}
         <TeamBadge league={g.league} slug={g.away.slug} name={g.away.name} size={22} decorative />
       </p>
       <BarsPair label={item.top.label} fans={item.top.fansPct} model={item.top.modelPct} />
-      <button type="button" className="pl-com-text-btn" onClick={onConsensus}>
+      <button type="button" className="pl-com-text-btn min-h-11 sm:min-h-8" onClick={onConsensus}>
         Ver consenso
       </button>
     </section>
@@ -1208,16 +1265,18 @@ function HotCard({ item, onConsensus }: { item: ConsensusGame; onConsensus: () =
 }
 
 function BarsPair({ label, fans, model }: { label: string; fans: number; model: number }): React.JSX.Element {
+  const fansWidth = Math.max(0, Math.min(100, fans));
+  const modelWidth = Math.max(0, Math.min(100, model));
   return (
     <div className="pl-com-bars num" role="img" aria-label={`${label}: socios ${fans} %, modelo ${model} %`}>
       <span className="pl-com-bars-name">Socios</span>
       <span className="pl-com-bar" aria-hidden="true">
-        <span className="pl-com-bar-fill pl-com-bar-fill--fans" style={{ width: `${fans}%` }} />
+        <span className="pl-com-bar-fill pl-com-bar-fill--fans" style={{ width: `${fansWidth}%` }} />
       </span>
       <strong>{fans} %</strong>
       <span className="pl-com-bars-name">Modelo</span>
       <span className="pl-com-bar" aria-hidden="true">
-        <span className="pl-com-bar-fill pl-com-bar-fill--model" style={{ width: `${model}%` }} />
+        <span className="pl-com-bar-fill pl-com-bar-fill--model" style={{ width: `${modelWidth}%` }} />
       </span>
       <strong>{model} %</strong>
     </div>
@@ -1270,7 +1329,7 @@ function FollowingTab({
 }: FeedSharedProps & { posts: readonly SocialPost[]; seasonRanked: readonly RankedAnalyst[] }): React.JSX.Element {
   const { loadFollowingSocialPosts } = usePlatformActions();
   const [filter, setFilter] = useState<FollowFilter>("all");
-  const { follows, dataset, oddsFormat, onToggleFollow, goProfile } = shared;
+  const { follows, dataset, onToggleFollow, goProfile } = shared;
   const followed = follows.following;
   const { topics, toggleLeague, toggleTeam } = useFollowedTopics();
   const topicCount = topics.leagues.length + topics.teams.length;
@@ -1346,7 +1405,7 @@ function FollowingTab({
     <ul className="pl-com-suggest">
       {suggestions.map((r) => (
         <li key={r.handle}>
-          <Avatar initials={r.avatarInitials} gradVar={r.avatarGradVar} size={36} />
+          <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={36} loading="lazy" />
           <span className="pl-com-suggest-who">
             <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
               {r.name}
@@ -1358,7 +1417,7 @@ function FollowingTab({
           </span>
           <button
             type="button"
-            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm"
+            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm min-h-11 sm:min-h-9 shrink-0"
             aria-pressed={false}
             aria-label={`Seguir a ${r.name}`}
             onClick={() => onToggleFollow(r.handle)}
@@ -1416,7 +1475,13 @@ function FollowingTab({
               ["open", "Con pick abierto"],
             ] as const
           ).map(([key, label]) => (
-            <button key={key} type="button" className="pl-prof-chip" aria-pressed={filter === key} onClick={() => setFilter(key)}>
+            <button
+              key={key}
+              type="button"
+              className="pl-prof-chip min-h-11 sm:min-h-9"
+              aria-pressed={filter === key}
+              onClick={() => setFilter(key)}
+            >
               {label}
             </button>
           ))}
@@ -1425,7 +1490,13 @@ function FollowingTab({
         {openPicks.length > 0 ? (
           <ol className="pl-com-open-strip" aria-label="Picks abiertos de quienes sigues">
             {openPicks.map((p) => (
-              <li key={`${p.gameId}-${p.label}`} className="glass-card glass-ring">
+              <li
+                key={`${p.gameId}-${p.label}`}
+                style={{
+                  background: "var(--pl-surface)",
+                  border: "1px solid var(--pl-border)",
+                }}
+              >
                 <p className="pl-prof-row-sub num">
                   {capitalize(kickoffLabel(p.kickoff))} · {p.league}
                 </p>
@@ -1472,7 +1543,6 @@ function FollowingTab({
             {suggestionList}
           </section>
         ) : null}
-        <p className="sr-only">{oddsFormat}</p>
       </aside>
     </div>
   );
@@ -1581,14 +1651,14 @@ function TopicsPicker({
         </p>
 
         {count > 0 ? (
-          <div className="pl-com-filters" role="group" aria-label="Temas seguidos actualmente">
+          <div className="pl-com-filters !mx-0 !px-0" role="group" aria-label="Temas seguidos actualmente">
             {topics.leagues.map((lgId) => {
               const lgObj = leagues.find((item) => item.league === lgId);
               return (
                 <button
                   key={`followed-lg-${lgId}`}
                   type="button"
-                  className="pl-prof-chip"
+                  className="pl-prof-chip min-h-11 sm:min-h-9"
                   aria-pressed={true}
                   onClick={() => onToggleLeague(lgId)}
                 >
@@ -1607,7 +1677,7 @@ function TopicsPicker({
                 <button
                   key={`followed-tm-${key}`}
                   type="button"
-                  className="pl-prof-chip"
+                  className="pl-prof-chip min-h-11 sm:min-h-9"
                   aria-pressed={true}
                   onClick={() => onToggleTeam(key)}
                 >
@@ -1635,13 +1705,13 @@ function TopicsPicker({
               label: l.label,
               icon: <LeagueBadge league={l.league} size={16} />,
             }))}
-            className="pl-com-league-select"
+            className="pl-com-league-select min-w-0 max-w-full"
           />
 
           {activeLeague && !normalizedQuery ? (
             <button
               type="button"
-              className="pl-prof-chip"
+              className="pl-prof-chip min-h-11 sm:min-h-9"
               aria-pressed={isFollowingActiveLeague}
               onClick={() => onToggleLeague(activeLeague.league)}
             >
@@ -1656,7 +1726,7 @@ function TopicsPicker({
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar equipo..."
             aria-label="Buscar equipo para seguir"
-            className="glass-input text-base sm:text-xs px-3 min-h-11 sm:min-h-9 rounded-xl flex-1 min-w-[160px]"
+            className="glass-input text-base sm:text-xs px-3 min-h-11 sm:min-h-9 rounded-xl flex-1 min-w-0 w-full sm:w-auto sm:min-w-[160px]"
           />
         </div>
 
@@ -1671,14 +1741,14 @@ function TopicsPicker({
           {matchingTeams.length === 0 ? (
             <p className="pl-com-card-note">Sin equipos que coincidan con esa búsqueda.</p>
           ) : (
-            <div className="pl-com-filters" role="group" aria-labelledby={`${uid}-teams`}>
+            <div className="pl-com-filters !mx-0 !px-0" role="group" aria-labelledby={`${uid}-teams`}>
               {matchingTeams.map((t) => {
                 const key = teamTopicKey(t.league, t.slug);
                 return (
                   <button
                     key={key}
                     type="button"
-                    className="pl-prof-chip"
+                    className="pl-prof-chip min-h-11 sm:min-h-9"
                     aria-pressed={topics.teams.includes(key)}
                     onClick={() => onToggleTeam(key)}
                   >
@@ -1750,11 +1820,22 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
     <div className="pl-com-consensus">
       <div className="pl-com-toolbar">
         <div className="pl-com-filters" role="group" aria-label="Liga">
-          <button type="button" className="pl-prof-chip" aria-pressed={league === "all"} onClick={() => setLeague("all")}>
+          <button
+            type="button"
+            className="pl-prof-chip min-h-11 sm:min-h-9"
+            aria-pressed={league === "all"}
+            onClick={() => setLeague("all")}
+          >
             Todas
           </button>
           {leagues.map((l) => (
-            <button key={l} type="button" className="pl-prof-chip" aria-pressed={league === l} onClick={() => setLeague(l)}>
+            <button
+              key={l}
+              type="button"
+              className="pl-prof-chip min-h-11 sm:min-h-9"
+              aria-pressed={league === l}
+              onClick={() => setLeague(l)}
+            >
               {l}
             </button>
           ))}
@@ -1804,10 +1885,17 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
               <h3 className="pl-com-consensus-sub">Picks publicados</h3>
               <div className="pl-com-outcomes">
                 {featured.outcomes.slice(0, 3).map((o) => (
-                  <div key={o.pickId} className="pl-com-outcome glass-card glass-ring">
+                  <div
+                    key={o.pickId}
+                    className="pl-com-outcome"
+                    style={{
+                      background: "var(--pl-surface-elevated)",
+                      border: "1px solid var(--pl-border)",
+                    }}
+                  >
                     <div className="pl-com-outcome-head">
                       <p>{o.label}</p>
-                      <span className={diffClass(o.diffPts)}>{formatDiffPts(o.diffPts)}</span>
+                      <span className={`${diffClass(o.diffPts)} num`}>{formatDiffPts(o.diffPts)}</span>
                     </div>
                     <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
                   </div>
@@ -1820,10 +1908,17 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
               <h3 className="pl-com-consensus-sub num">¿Quién gana? · {featured.votes.total} votos</h3>
               <div className="pl-com-outcomes">
                 {featured.votes.outcomes.map((o) => (
-                  <div key={o.pickId} className="pl-com-outcome glass-card glass-ring">
+                  <div
+                    key={o.pickId}
+                    className="pl-com-outcome"
+                    style={{
+                      background: "var(--pl-surface-elevated)",
+                      border: "1px solid var(--pl-border)",
+                    }}
+                  >
                     <div className="pl-com-outcome-head">
                       <p>{o.label}</p>
-                      <span className={diffClass(o.diffPts)}>{formatDiffPts(o.diffPts)}</span>
+                      <span className={`${diffClass(o.diffPts)} num`}>{formatDiffPts(o.diffPts)}</span>
                     </div>
                     <BarsPair label={o.label} fans={o.fansPct} model={o.modelPct} />
                   </div>
@@ -1949,22 +2044,47 @@ function RankingTab({
   return (
     <div className="pl-com-ranking">
       <div className="pl-com-toolbar">
-        <div className="pl-com-seg" role="group" aria-label="Periodo">
-          <button type="button" aria-pressed={window === "7d"} onClick={() => setWindow("7d")}>
+        <div className="pl-com-seg max-w-full" role="group" aria-label="Periodo">
+          <button
+            type="button"
+            className="min-h-11 sm:min-h-9"
+            aria-pressed={window === "7d"}
+            onClick={() => setWindow("7d")}
+          >
             Semana
           </button>
-          <button type="button" aria-pressed={window === "30d"} onClick={() => setWindow("30d")}>
+          <button
+            type="button"
+            className="min-h-11 sm:min-h-9"
+            aria-pressed={window === "30d"}
+            onClick={() => setWindow("30d")}
+          >
             Mes
           </button>
         </div>
-        <div className="pl-com-seg" role="group" aria-label="Ordenar por">
-          <button type="button" aria-pressed={sort === "units"} onClick={() => setSort("units")}>
+        <div className="pl-com-seg max-w-full overflow-x-auto" role="group" aria-label="Ordenar por">
+          <button
+            type="button"
+            className="min-h-11 sm:min-h-9"
+            aria-pressed={sort === "units"}
+            onClick={() => setSort("units")}
+          >
             Saldo
           </button>
-          <button type="button" aria-pressed={sort === "clv"} onClick={() => setSort("clv")}>
+          <button
+            type="button"
+            className="min-h-11 sm:min-h-9"
+            aria-pressed={sort === "clv"}
+            onClick={() => setSort("clv")}
+          >
             Contra el cierre
           </button>
-          <button type="button" aria-pressed={sort === "hits"} onClick={() => setSort("hits")}>
+          <button
+            type="button"
+            className="min-h-11 sm:min-h-9"
+            aria-pressed={sort === "hits"}
+            onClick={() => setSort("hits")}
+          >
             Cumplidos
           </button>
         </div>
@@ -1988,10 +2108,14 @@ function RankingTab({
               const following = follows.isFollowing(r.handle);
               const isMe = own?.handle === r.handle;
               return (
-                <li key={r.handle} className={`pl-com-podium-card glass-lens glass-ring ${r.rank === 1 ? "is-first glass-ring--featured" : ""}`} data-rank={r.rank}>
+                <li
+                  key={r.handle}
+                  className={`pl-com-podium-card glass-lens glass-ring ${r.rank === 1 ? "is-first" : ""}`}
+                  data-rank={r.rank}
+                >
                   <span className="pl-com-podium-rank num">#{r.rank}</span>
                   <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={r.rank === 1 ? 64 : 56} className="pl-com-podium-avatar" />
-                  <p className="pl-com-podium-name">
+                  <p className="pl-com-podium-name flex-wrap">
                     {nameOf(r)}
                     {r.isTipster ? <VerifiedSeal size={16} /> : null}
                   </p>
@@ -2013,7 +2137,9 @@ function RankingTab({
                   {!isMe ? (
                     <button
                       type="button"
-                      className={`pl-prof-btn pl-prof-btn--sm pl-com-podium-follow ${following ? "pl-prof-btn--ghost" : "pl-prof-btn--ghost"}`}
+                      className={`pl-prof-btn pl-prof-btn--sm min-h-11 sm:min-h-9 pl-com-podium-follow ${
+                        following ? "pl-prof-btn--ghost" : "pl-prof-btn--primary"
+                      }`}
                       aria-pressed={following}
                       aria-label={`${following ? "Siguiendo" : "Seguir"} a ${r.name}`}
                       onClick={() => onToggleFollow(r.handle)}
@@ -2026,9 +2152,14 @@ function RankingTab({
             })}
           </ol>
 
-          <div className="pl-com-table-wrap glass-lens glass-ring">
+          <div
+            className="pl-com-table-wrap glass-lens glass-ring"
+            tabIndex={0}
+            role="region"
+            aria-labelledby="pl-com-ranking-caption"
+          >
             <table className="pl-com-table num">
-              <caption className="sr-only">
+              <caption id="pl-com-ranking-caption" className="sr-only">
                 Ranking de Comunidad, {windowLabel}, ordenado por {sortLabel}, del 4.º lugar en adelante
               </caption>
               <thead>
@@ -2047,7 +2178,7 @@ function RankingTab({
                     <td className="pl-prof-muted">{r.rank}</td>
                     <td>
                       <span className="pl-com-table-who">
-                        <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={32} />
+                        <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={32} loading="lazy" />
                         <span>
                           <span className="pl-com-table-name">
                             {nameOf(r)}
@@ -2070,7 +2201,7 @@ function RankingTab({
                     <td className="pl-com-strong">{me ? me.rank : "—"}</td>
                     <td>
                       <span className="pl-com-table-who">
-                        <Avatar initials={own.avatarInitials} gradVar={own.avatarGradVar} size={32} />
+                        <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={32} loading="lazy" />
                         <span>
                           <span className="pl-com-table-name">Tú</span>
                           <span className="pl-com-table-sub">{meNote}</span>
@@ -2091,7 +2222,7 @@ function RankingTab({
             {tableRows.map((r) => (
               <li key={r.handle}>
                 <span className="pl-com-top-rank num">{r.rank}</span>
-                <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={36} />
+                <Avatar initials={r.avatarInitials} avatarUrl={r.avatarUrl} gradVar={r.avatarGradVar} size={36} loading="lazy" />
                 <span className="pl-com-mlist-who">
                   <span>{nameOf(r)}</span>
                   <span className="pl-prof-muted num">
@@ -2107,7 +2238,7 @@ function RankingTab({
           {own && !meInTop ? (
             <div className="pl-com-mme glass-lens glass-ring num">
               <span className="pl-com-top-rank">{me ? me.rank : "—"}</span>
-              <Avatar initials={own.avatarInitials} gradVar={own.avatarGradVar} size={36} />
+              <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={36} loading="lazy" />
               <span className="pl-com-mlist-who">
                 <strong>Tú</strong>
                 <span className="pl-prof-muted">{meNote}</span>

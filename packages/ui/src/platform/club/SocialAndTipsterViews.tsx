@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { getLogoPath, getTeamColors } from "@pitchlab/sports-assets";
+import { getLogoPath } from "@pitchlab/sports-assets";
 import { formatOddsValue } from "../access-guard";
 import { LeagueBadge } from "../../sports";
 import { downloadTicketPng } from "../components/share-ticket-raster";
 import {
-  LensGlowOrbs,
-  MaestroIcon,
+  ExampleBadge,
   ExampleNotice,
+  MaestroIcon,
   NoticeCard,
 } from "../components/MaestroPrimitives";
 import { PlSelect } from "../components/PlSelect";
@@ -233,18 +233,6 @@ export function TipsterPortalClubView({
     return allSlots.filter((p) => p.id !== activePick?.id);
   }, [activePick?.id, selectedMatch]);
 
-  const matchColors = useMemo(() => {
-    if (!selectedMatch) {
-      return ["var(--pl-aura-default-home)", "var(--pl-aura-default-away)"] as const;
-    }
-    const home = getTeamColors(selectedMatch.league, selectedMatch.home.slug)?.[0];
-    const away = getTeamColors(selectedMatch.league, selectedMatch.away.slug)?.[0];
-    return [
-      home ?? "var(--pl-aura-default-home)",
-      away ?? "var(--pl-aura-default-away)",
-    ] as const;
-  }, [selectedMatch]);
-
   const personalJournalEntry = journal[0];
   const isSpacetimeOrigin = tipsterWeeklyPickOrigin === "spacetime";
 
@@ -312,7 +300,7 @@ export function TipsterPortalClubView({
               hasAccountSessionAuth && (viewerRole === "tipster" || viewerRole === "admin") ? (
                 <button
                   type="button"
-                  className="pl-btn-primary text-xs min-h-[44px] px-3"
+                  className="pl-btn-primary text-xs min-h-11 sm:min-h-9 px-3"
                   disabled={connectBusy}
                   onClick={() => void handleSetupPayouts()}
                 >
@@ -349,7 +337,7 @@ export function TipsterPortalClubView({
               action={
                 <button
                   type="button"
-                  className="pl-btn-primary text-xs min-h-[44px] px-3"
+                  className="pl-btn-primary text-xs min-h-11 sm:min-h-9 px-3"
                   disabled={connectBusy}
                   onClick={() => void handleSetupPayouts()}
                   data-connect-payouts=""
@@ -372,7 +360,7 @@ export function TipsterPortalClubView({
             action={
               <button
                 type="button"
-                className="pl-btn-primary text-xs min-h-[44px] px-3"
+                className="pl-btn-primary text-xs min-h-11 sm:min-h-9 px-3"
                 onClick={() => {
                   setViewerRole("tipster");
                   pushToast("Modo Tipster Oficial (@sofia_nfl) activado.", "success");
@@ -389,49 +377,55 @@ export function TipsterPortalClubView({
           </NoticeCard>
         ) : null}
 
-        {/* Encabezado Hero + 4 KPIs */}
-        <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-6 space-y-5">
-          <LensGlowOrbs
-            primaryColor={matchColors[0]}
-            secondaryColor={matchColors[1]}
-            subtle
-          />
-          <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3.5">
+        {/* Encabezado editorial + 4 KPIs planos */}
+        <section className="glass-card glass-ring rounded-2xl p-4 sm:p-5 space-y-4 min-w-0">
+          <div className="flex flex-wrap items-start sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
               <span
                 className="w-12 h-12 rounded-full avatar-ring inline-flex items-center justify-center text-sm font-extrabold shrink-0"
                 style={{
                   background: activeTipster.avatarGradVar,
                   color: "var(--share-card-fg)",
                 }}
+                aria-hidden="true"
               >
                 {activeTipster.avatarInitials}
               </span>
-              <div className="space-y-0.5">
+              <div className="space-y-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
                     Portal tipster (@{activeTipster.handle})
                   </h1>
-                  <span className="pl-pill pl-pill--success">
-                    <MaestroIcon name="check" size={12} />
-                    <span>
-                      {isRealTipster
-                        ? `Oficial · Comisión ${activeTipster.commissionPct} %`
-                        : `Verificada · ${sofia.verifiedUnits}`}
+                  {isRealTipster ? (
+                    <span className="pl-pill pl-pill--success">
+                      <MaestroIcon name="check" size={12} />
+                      <span>
+                        Oficial · Comisión <span className="num">{activeTipster.commissionPct} %</span>
+                      </span>
                     </span>
-                  </span>
+                  ) : (
+                    <>
+                      <ExampleBadge />
+                      <span
+                        className="text-xs font-semibold num"
+                        style={{ color: "var(--pl-text-muted)" }}
+                      >
+                        Muestra ilustrativa · {sofia.verifiedUnits}
+                      </span>
+                    </>
+                  )}
                 </div>
                 <p className="m-0 text-xs sm:text-sm" style={{ color: "var(--pl-text-secondary)" }}>
                   Libera <strong>1 Pick abierto a la semana</strong> con branding oficial de
                   PitchLab y tu código promocional. Los otros 4 picks del partido permanecen
-                  blindados bajo suscripción.
+                  protegidos bajo suscripción.
                 </p>
               </div>
             </div>
 
             <button
               type="button"
-              className="pl-btn-glass text-xs min-h-[44px]"
+              className="pl-btn-glass text-xs min-h-11 sm:min-h-9 max-w-full whitespace-normal sm:whitespace-nowrap text-left"
               onClick={() => setVisitorPreviewOpen(true)}
             >
               <MaestroIcon name="eye" size={14} />
@@ -439,120 +433,100 @@ export function TipsterPortalClubView({
             </button>
           </div>
 
-          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3.5 num">
+          <dl
+            className="m-0 grid grid-cols-2 lg:grid-cols-4 rounded-xl overflow-hidden num"
+            style={{
+              background: "var(--pl-surface-elevated)",
+              border: "1px solid var(--pl-border)",
+            }}
+          >
             <div
-              className="glass-ring rounded-2xl p-4 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
+              className="p-3.5 sm:p-4 space-y-1 min-w-0 border-0 border-solid border-b lg:border-b-0"
+              style={{ borderColor: "var(--pl-border)" }}
             >
-              <div
-                className="flex items-center justify-between text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                <span>Código Personal</span>
-                <MaestroIcon
-                  name="ticket"
-                  size={15}
+              <dt className="text-xs font-medium" style={{ color: "var(--pl-text-muted)" }}>
+                Código personal
+              </dt>
+              <dd className="m-0">
+                <strong
+                  className="block text-lg sm:text-xl font-extrabold break-words"
                   style={{ color: "var(--pl-brand)" }}
-                />
-              </div>
-              <strong
-                className="block text-xl font-extrabold"
-                style={{ color: "var(--pl-brand)" }}
-              >
-                {activeTipster.promoCode}
-              </strong>
-              <span className="block text-xs" style={{ color: "var(--pl-success)" }}>
-                Otorga {activeTipster.freeDays} días Pase PitchLab Ultra gratis
-              </span>
-            </div>
-
-            <div
-              className="glass-ring rounded-2xl p-4 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="flex items-center justify-between text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                <span>{isRealTipster ? "Suscriptores activos" : "Referidos Activos"}</span>
-                <MaestroIcon
-                  name="users"
-                  size={15}
-                  style={{ color: "var(--pl-info)" }}
-                />
-              </div>
-              <strong className="block text-xl font-extrabold">
-                {isRealTipster
-                  ? `${tipsterMe?.counts?.activePaying ?? 0} socios`
-                  : `${sofia.activeReferrals} socios`}
-              </strong>
-              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                {isRealTipster
-                  ? `${tipsterMe?.counts?.trial5d ?? 0} en prueba · ${tipsterMe?.counts?.totalAttributed ?? 0} totales`
-                  : "de 64 pruebas iniciadas"}
-              </span>
-            </div>
-
-            <div
-              className="glass-ring rounded-2xl p-4 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="flex items-center justify-between text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                <span>
-                  {isRealTipster ? "Liberado por cobrar" : `Comisión ${activeTipster.commissionPct} %`}
+                >
+                  {activeTipster.promoCode}
+                </strong>
+                <span className="block text-xs mt-0.5" style={{ color: "var(--pl-success)" }}>
+                  {activeTipster.freeDays} días gratis de Pase Ultra
                 </span>
-                <MaestroIcon
-                  name="crown"
-                  size={15}
-                  style={{ color: "var(--pl-success)" }}
-                />
-              </div>
-              <strong
-                className="block text-xl font-extrabold"
-                style={{ color: "var(--pl-success)" }}
-              >
-                {isRealTipster
-                  ? formatMxnCentavos(tipsterMe?.totals?.payableCentavos ?? 0)
-                  : `$${sofia.monthlyCommissionMxn.toLocaleString("es-MX")} MXN`}
-              </strong>
-              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                {isRealTipster
-                  ? `14 días: ${formatMxnCentavos(tipsterMe?.totals?.pendingClearanceCentavos ?? 0)} · Pagado: ${formatMxnCentavos(tipsterMe?.totals?.paidOutCentavos ?? 0)}`
-                  : "Recurrente + Pase PitchLab Ultra $0"}
-              </span>
+              </dd>
             </div>
 
             <div
-              className="glass-ring rounded-2xl p-4 space-y-1"
-              style={{ background: "var(--pl-surface)" }}
+              className="p-3.5 sm:p-4 space-y-1 min-w-0 border-0 border-solid border-b border-l lg:border-b-0"
+              style={{ borderColor: "var(--pl-border)" }}
             >
-              <div
-                className="flex items-center justify-between text-xs"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                <span>Pick abierto semanal</span>
-                <MaestroIcon
-                  name="unlock"
-                  size={15}
-                  style={{ color: "var(--pl-accent)" }}
-                />
-              </div>
-              <strong className="block text-xl font-extrabold">1 / 1 disp.</strong>
-              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Los otros 4 quedan bloqueados
-              </span>
+              <dt className="text-xs font-medium" style={{ color: "var(--pl-text-muted)" }}>
+                {isRealTipster ? "Suscriptores activos" : "Referidos activos"}
+              </dt>
+              <dd className="m-0">
+                <strong className="block text-lg sm:text-xl font-extrabold">
+                  {isRealTipster
+                    ? `${tipsterMe?.counts?.activePaying ?? 0} socios`
+                    : `${sofia.activeReferrals} socios`}
+                </strong>
+                <span className="block text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                  {isRealTipster
+                    ? `${tipsterMe?.counts?.trial5d ?? 0} en prueba · ${tipsterMe?.counts?.totalAttributed ?? 0} totales`
+                    : "de 64 pruebas iniciadas"}
+                </span>
+              </dd>
             </div>
-          </div>
+
+            <div
+              className="p-3.5 sm:p-4 space-y-1 min-w-0 border-0 border-solid lg:border-l"
+              style={{ borderColor: "var(--pl-border)" }}
+            >
+              <dt className="text-xs font-medium" style={{ color: "var(--pl-text-muted)" }}>
+                {isRealTipster ? "Liberado por cobrar" : `Comisión ${activeTipster.commissionPct} %`}
+              </dt>
+              <dd className="m-0">
+                <strong
+                  className="block text-lg sm:text-xl font-extrabold break-words"
+                  style={{ color: "var(--pl-success)" }}
+                >
+                  {isRealTipster
+                    ? formatMxnCentavos(tipsterMe?.totals?.payableCentavos ?? 0)
+                    : `$${sofia.monthlyCommissionMxn.toLocaleString("es-MX")} MXN`}
+                </strong>
+                <span className="block text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                  {isRealTipster
+                    ? `14 días: ${formatMxnCentavos(tipsterMe?.totals?.pendingClearanceCentavos ?? 0)} · Pagado: ${formatMxnCentavos(tipsterMe?.totals?.paidOutCentavos ?? 0)}`
+                    : "Recurrente + Pase Ultra $0"}
+                </span>
+              </dd>
+            </div>
+
+            <div
+              className="p-3.5 sm:p-4 space-y-1 min-w-0 border-0 border-solid border-l"
+              style={{ borderColor: "var(--pl-border)" }}
+            >
+              <dt className="text-xs font-medium" style={{ color: "var(--pl-text-muted)" }}>
+                Pick abierto semanal
+              </dt>
+              <dd className="m-0">
+                <strong className="block text-lg sm:text-xl font-extrabold">1 / 1 disp.</strong>
+                <span className="block text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                  Los otros 4 quedan bloqueados
+                </span>
+              </dd>
+            </div>
+          </dl>
         </section>
 
         {isRealTipster ? (
-          <section className="glass-card glass-ring rounded-3xl p-5 sm:p-6 space-y-3">
+          <section className="glass-card glass-ring rounded-2xl p-4 sm:p-5 space-y-3 min-w-0">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h2 className="m-0 text-base sm:text-lg font-extrabold">
+              <div className="min-w-0">
+                <h2 id="tipster-ledger-title" className="m-0 text-base sm:text-lg font-extrabold">
                   Historial de comisiones (neto después de IVA 16 %)
                 </h2>
                 <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
@@ -571,16 +545,21 @@ export function TipsterPortalClubView({
                 aparecerá aquí.
               </p>
             ) : (
-              <div className="overflow-x-auto">
+              <div
+                className="overflow-x-auto"
+                tabIndex={0}
+                role="region"
+                aria-labelledby="tipster-ledger-title"
+              >
                 <table className="w-full min-w-[620px] text-left border-collapse text-xs num">
                   <thead>
                     <tr style={{ color: "var(--pl-text-muted)", borderBottom: "1px solid var(--pl-border)" }}>
-                      <th className="py-2 pr-3 font-bold">Fecha</th>
-                      <th className="py-2 pr-3 font-bold">Pago bruto</th>
-                      <th className="py-2 pr-3 font-bold">Neto post-IVA</th>
-                      <th className="py-2 pr-3 font-bold">Comisión</th>
-                      <th className="py-2 pr-3 font-bold">Estado</th>
-                      <th className="py-2 font-bold">Liberación / Nota SPEI</th>
+                      <th scope="col" className="py-2 pr-3 font-bold">Fecha</th>
+                      <th scope="col" className="py-2 pr-3 font-bold">Pago bruto</th>
+                      <th scope="col" className="py-2 pr-3 font-bold">Neto post-IVA</th>
+                      <th scope="col" className="py-2 pr-3 font-bold">Comisión</th>
+                      <th scope="col" className="py-2 pr-3 font-bold">Estado</th>
+                      <th scope="col" className="py-2 font-bold">Liberación / Nota SPEI</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -620,17 +599,12 @@ export function TipsterPortalClubView({
           </section>
         ) : null}
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Izquierda (lg:col-span-7): Configurador con LensGlowOrbs */}
-          <section className="lg:col-span-7 glass-lens glass-ring relative overflow-hidden rounded-3xl p-6 space-y-4">
-            <LensGlowOrbs
-              primaryColor={matchColors[0]}
-              secondaryColor={matchColors[1]}
-              subtle
-            />
-            <div className="relative z-10 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
+          {/* Izquierda (lg:col-span-7): Configurador plano editorial */}
+          <section className="lg:col-span-7 glass-card glass-ring rounded-2xl p-4 sm:p-5 space-y-5 min-w-0">
+            <div className="space-y-4">
               <div className="space-y-2">
-                <h2 className="m-0 text-lg font-extrabold">
+                <h2 className="m-0 text-base sm:text-lg font-extrabold">
                   1. Origen de tu Pick abierto de la semana
                 </h2>
                 <div
@@ -640,7 +614,7 @@ export function TipsterPortalClubView({
                 >
                   <button
                     type="button"
-                    className="seg-btn flex-1 justify-center text-xs"
+                    className="seg-btn flex-1 justify-center text-xs min-h-11 sm:min-h-9"
                     aria-pressed={isSpacetimeOrigin}
                     onClick={() => setTipsterWeeklyPickOrigin("spacetime")}
                   >
@@ -649,12 +623,14 @@ export function TipsterPortalClubView({
                   </button>
                   <button
                     type="button"
-                    className="seg-btn flex-1 justify-center text-xs"
+                    className="seg-btn flex-1 justify-center text-xs min-h-11 sm:min-h-9"
                     aria-pressed={!isSpacetimeOrigin}
                     onClick={() => setTipsterWeeklyPickOrigin("bitacora")}
                   >
                     <MaestroIcon name="ticket" size={14} />
-                    <span>Pick Propio de mi Bitácora ({journal.length})</span>
+                    <span>
+                      Pick Propio de mi Bitácora (<span className="num">{journal.length}</span>)
+                    </span>
                   </button>
                 </div>
               </div>
@@ -704,10 +680,16 @@ export function TipsterPortalClubView({
                       className="block text-xs font-bold"
                       style={{ color: "var(--pl-text-secondary)" }}
                     >
-                      3. Elige cuál de los {matchPicks.length || 5} picks liberarás gratis (los otros permanecen cerrados)
+                      3. Elige cuál de los <span className="num">{matchPicks.length || 5}</span> picks liberarás gratis (los otros permanecen cerrados)
                     </span>
-                    <div className="space-y-2">
-                      {matchPicks.map((pk) => {
+                    <div
+                      className="rounded-xl overflow-hidden"
+                      style={{
+                        background: "var(--pl-surface)",
+                        border: "1px solid var(--pl-border)",
+                      }}
+                    >
+                      {matchPicks.map((pk, idx) => {
                         const isSelected = pk.id === activePick?.id;
                         return (
                           <button
@@ -715,12 +697,16 @@ export function TipsterPortalClubView({
                             type="button"
                             aria-pressed={isSelected}
                             onClick={() => setSelectedTipsterPickId(pk.id)}
-                            className="w-full glass-ring rounded-xl p-3 text-left flex items-center justify-between gap-3 cursor-pointer border-0"
+                            className="w-full min-h-[52px] px-3.5 py-2.5 text-left flex items-center justify-between gap-3 cursor-pointer border-0 transition-colors"
                             style={{
                               background: isSelected
                                 ? "var(--pl-surface-active)"
-                                : "var(--pl-surface)",
+                                : "transparent",
                               color: "var(--pl-text)",
+                              borderTop: idx > 0 ? "1px solid var(--pl-border)" : "none",
+                              borderLeft: isSelected
+                                ? "3px solid var(--pl-brand)"
+                                : "3px solid transparent",
                             }}
                           >
                             <div className="min-w-0">
@@ -750,8 +736,11 @@ export function TipsterPortalClubView({
                 </>
               ) : (
                 <div
-                  className="glass-ring rounded-2xl p-4 space-y-1.5"
-                  style={{ background: "var(--pl-surface)" }}
+                  className="rounded-xl p-3.5 space-y-1.5"
+                  style={{
+                    background: "var(--pl-surface-elevated)",
+                    border: "1px solid var(--pl-border)",
+                  }}
                 >
                   <span
                     className="block text-xs font-bold"
@@ -773,27 +762,32 @@ export function TipsterPortalClubView({
               )}
 
               <div>
-                <label
-                  htmlFor="tipster-thesis-input"
-                  className="block text-xs font-bold mb-1.5"
-                  style={{ color: "var(--pl-text-secondary)" }}
-                >
-                  4. Tu tesis para redes sociales (/p/{activeTipster.weeklyPickSlug} · Instagram / X / TikTok)
-                </label>
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <label
+                    htmlFor="tipster-thesis-input"
+                    className="block text-xs font-bold min-w-0"
+                    style={{ color: "var(--pl-text-secondary)" }}
+                  >
+                    4. Tu tesis para redes sociales (/p/{activeTipster.weeklyPickSlug})
+                  </label>
+                  <span className="text-xs num shrink-0" style={{ color: "var(--pl-text-muted)" }}>
+                    {thesis.length}/220
+                  </span>
+                </div>
                 <textarea
                   id="tipster-thesis-input"
                   rows={3}
                   maxLength={220}
                   value={thesis}
                   onChange={(e) => setThesis(e.target.value)}
-                  className="glass-input w-full p-3 text-base sm:text-sm"
+                  className="glass-input w-full min-w-0 p-3 text-base sm:text-sm"
                 />
               </div>
 
               <div className="flex flex-wrap items-center gap-2.5 pt-1">
                 <button
                   type="button"
-                  className="pl-btn-primary text-xs min-h-[44px]"
+                  className="pl-btn-primary text-xs min-h-11 sm:min-h-9 whitespace-normal sm:whitespace-nowrap text-left"
                   onClick={() => {
                     if (!activePick) return;
                     if (!hasAccountSessionAuth && viewerRole === "member") {
@@ -823,15 +817,6 @@ export function TipsterPortalClubView({
                   <span>Generar boleto 4:5 / 9:16 con mi código</span>
                 </button>
 
-                <button
-                  type="button"
-                  className="pl-btn-glass text-xs min-h-[44px]"
-                  onClick={() => setVisitorPreviewOpen(true)}
-                >
-                  <MaestroIcon name="eye" size={14} />
-                  <span>Simular vista visitante (/p/{activeTipster.weeklyPickSlug})</span>
-                </button>
-
                 <a
                   href={`/p/${activeTipster.weeklyPickSlug}`}
                   onClick={(e) => {
@@ -839,7 +824,7 @@ export function TipsterPortalClubView({
                     pushToast(`Abriendo vista pública /p/${activeTipster.weeklyPickSlug}...`, "default");
                     navigateTo(`/p/${activeTipster.weeklyPickSlug}`);
                   }}
-                  className="pl-btn-glass text-xs min-h-[44px]"
+                  className="pl-btn-glass text-xs min-h-11 sm:min-h-9"
                 >
                   <span>Abrir /p/{activeTipster.weeklyPickSlug}</span>
                   <MaestroIcon name="arrowRight" size={13} />
@@ -848,8 +833,8 @@ export function TipsterPortalClubView({
             </div>
           </section>
 
-          {/* Derecha (lg:col-span-5): Boleto en vivo estilo shows.link */}
-          <aside className="lg:col-span-5 space-y-3">
+          {/* Derecha (lg:col-span-5): Boleto compartible */}
+          <aside className="lg:col-span-5 space-y-3 min-w-0">
             <div className="flex items-center justify-between gap-2">
               <span
                 className="text-xs font-extrabold"
@@ -883,15 +868,10 @@ export function TipsterPortalClubView({
 
             <div
               ref={previewCardRef}
-              className={`share-ticket-card glass-ring p-6 flex flex-col justify-between transition-[transform,opacity,background-color,border-color] ${
+              className={`share-ticket-card glass-ring p-5 sm:p-6 flex flex-col justify-between transition-[transform,opacity,background-color,border-color] ${
                 previewRatio === "9:16" ? "min-h-[468px]" : "min-h-[382px]"
               }`}
             >
-              <LensGlowOrbs
-                primaryColor="var(--pl-aura-default-away)"
-                secondaryColor="var(--pl-aura-default-home)"
-              />
-
               <div className="relative z-10 flex items-center justify-between gap-2">
                 <img
                   src={getLogoPath("horizontal", "dark")}
@@ -921,6 +901,7 @@ export function TipsterPortalClubView({
                       background: activeTipster.avatarGradVar,
                       color: "var(--share-card-fg)",
                     }}
+                    aria-hidden="true"
                   >
                     {activeTipster.avatarInitials}
                   </span>
@@ -934,7 +915,7 @@ export function TipsterPortalClubView({
                       style={{ color: "var(--share-card-accent)" }}
                     >
                       {isSpacetimeOrigin
-                        ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v3.0"}`
+                        ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v5.1"}`
                         : "Tesis propia auditada en Bitácora PitchLab"}
                     </div>
                   </div>
@@ -955,7 +936,7 @@ export function TipsterPortalClubView({
                     {previewSelectionLabel}
                   </div>
                   <div
-                    className="text-xs num flex items-center justify-between pt-0.5"
+                    className="text-xs num flex flex-wrap items-center justify-between gap-2 pt-0.5"
                     style={{ color: "var(--share-card-secondary)" }}
                   >
                     <span>
@@ -990,16 +971,16 @@ export function TipsterPortalClubView({
                   border: "1px solid var(--share-card-border)",
                 }}
               >
-                <div className="text-xs">
+                <div className="text-xs min-w-0">
                   <div className="font-extrabold">
-                    Código {activeTipster.promoCode} · {activeTipster.freeDays} días gratis
+                    Código {activeTipster.promoCode} · <span className="num">{activeTipster.freeDays}</span> días gratis
                   </div>
                   <div style={{ color: "var(--share-card-muted)" }}>
                     Desbloquea los otros 4 picks en pitchlab.mx
                   </div>
                 </div>
                 <span
-                  className="num text-xs font-extrabold px-2 py-1 rounded"
+                  className="num text-xs font-extrabold px-2 py-1 rounded shrink-0"
                   style={{
                     background: "var(--share-card-fg)",
                     color: "var(--share-card-bg)",
@@ -1010,18 +991,19 @@ export function TipsterPortalClubView({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <button
                 type="button"
-                className="pl-btn-glass text-xs min-h-[44px]"
+                className="pl-btn-glass text-xs min-h-11 sm:min-h-9 min-w-0"
+                aria-label={`Copiar enlace público /p/${activeTipster.weeklyPickSlug}`}
                 onClick={handleCopyPublicUrl}
               >
                 <MaestroIcon name="copy" size={13} />
-                <span>Copiar link /p/{activeTipster.weeklyPickSlug}</span>
+                <span className="truncate">Copiar enlace</span>
               </button>
               <button
                 type="button"
-                className="pl-btn-primary text-xs min-h-[44px]"
+                className="pl-btn-primary text-xs min-h-11 sm:min-h-9 min-w-0"
                 onClick={() => {
                   const card = previewCardRef.current;
                   if (!card) return;
@@ -1032,7 +1014,7 @@ export function TipsterPortalClubView({
                       title: `${activeTipster.name} · @${activeTipster.handle}`,
                       subtitle: previewMatchTitle,
                       badge: isSpacetimeOrigin
-                        ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v3.0"}`
+                        ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v5.1"}`
                         : "Tesis propia auditada en Bitácora PitchLab",
                       badgeTone: "success",
                       units: "",
@@ -1068,94 +1050,114 @@ export function TipsterPortalClubView({
           ariaLabelledBy="tipster-visitor-sim-title"
           maxWidth="34rem"
         >
-          <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-6 space-y-4">
-            <LensGlowOrbs subtle />
-            <div className="relative z-10 space-y-4">
-              <div className="flex items-center justify-between gap-2">
-                <span className="pl-pill pl-pill--success">
-                  <MaestroIcon name="eye" size={13} />
-                  <span>
-                    Simulación de visitante externo · pitchlab.mx/p/{activeTipster.weeklyPickSlug}
-                  </span>
-                </span>
-                <button
-                  type="button"
-                  className="pl-btn-glass px-2.5 min-h-[44px]"
-                  aria-label="Cerrar simulación de visitante"
-                  onClick={() => setVisitorPreviewOpen(false)}
-                >
-                  <MaestroIcon name="x" size={15} />
-                </button>
-              </div>
-
-              <div className="flex items-center gap-3">
+          <div className="w-full p-5 sm:p-6 space-y-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0 space-y-0.5">
                 <span
-                  className="w-11 h-11 rounded-full avatar-ring inline-flex items-center justify-center text-xs font-extrabold shrink-0"
-                  style={{
-                    background: activeTipster.avatarGradVar,
-                    color: "var(--share-card-fg)",
-                  }}
-                >
-                  {activeTipster.avatarInitials}
-                </span>
-                <div>
-                  <h2 id="tipster-visitor-sim-title" className="m-0 text-base font-extrabold">
-                    @{activeTipster.handle} liberó 1 Pick Gratis de este partido
-                  </h2>
-                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    {previewMatchTitle} ·{" "}
-                    {activePick?.engineName ?? "PitchLab Spacetime Suite v3.0"}
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className="glass-ring rounded-xl p-4 space-y-2"
-                style={{ background: "var(--pl-surface)" }}
-              >
-                <span
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold"
                   style={{ color: "var(--pl-success)" }}
                 >
-                  <MaestroIcon name="unlock" size={13} />
-                  <span>Pick abierto de la semana</span>
+                  <MaestroIcon name="eye" size={13} />
+                  <span>Simulación de visitante externo</span>
                 </span>
-                <div className="text-xl font-extrabold">
-                  {previewSelectionLabel}
-                </div>
-                <div className="num text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                  Probabilidad Spacetime Suite:{" "}
-                  <strong style={{ color: "var(--pl-brand)" }}>
-                    {(previewProb * 100).toFixed(1)} %
-                  </strong>{" "}
-                  · Cuota justa{" "}
-                  <strong>{formatOddsValue(previewFair, oddsFormat)}</strong>
-                </div>
-                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  “{thesis}”
-                </p>
-              </div>
-
-              <div className="space-y-2">
-                <div
-                  className="text-xs font-bold"
+                <p
+                  className="m-0 text-xs break-words"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Otros {Math.max(4, lockedSiblingPicks.length)} picks de este mismo partido (con Pase PitchLab Ultra):
-                </div>
+                  pitchlab.mx/p/{activeTipster.weeklyPickSlug}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="pl-btn-glass px-2.5 min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 shrink-0"
+                aria-label="Cerrar simulación de visitante"
+                onClick={() => setVisitorPreviewOpen(false)}
+              >
+                <MaestroIcon name="x" size={15} />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span
+                className="w-11 h-11 rounded-full avatar-ring inline-flex items-center justify-center text-xs font-extrabold shrink-0"
+                style={{
+                  background: activeTipster.avatarGradVar,
+                  color: "var(--share-card-fg)",
+                }}
+                aria-hidden="true"
+              >
+                {activeTipster.avatarInitials}
+              </span>
+              <div className="min-w-0">
+                <h2 id="tipster-visitor-sim-title" className="m-0 text-base font-extrabold">
+                  @{activeTipster.handle} liberó 1 Pick Gratis de este partido
+                </h2>
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  {previewMatchTitle} ·{" "}
+                  {activePick?.engineName ?? "PitchLab Spacetime Suite v5.1"}
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="rounded-xl p-4 space-y-2"
+              style={{
+                background: "var(--pl-surface-elevated)",
+                border: "1px solid var(--pl-border)",
+              }}
+            >
+              <span
+                className="inline-flex items-center gap-1.5 text-xs font-extrabold"
+                style={{ color: "var(--pl-success)" }}
+              >
+                <MaestroIcon name="unlock" size={13} />
+                <span>Pick abierto de la semana</span>
+              </span>
+              <div className="text-xl font-extrabold">
+                {previewSelectionLabel}
+              </div>
+              <div className="num text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                Probabilidad Spacetime Suite:{" "}
+                <strong style={{ color: "var(--pl-brand)" }}>
+                  {(previewProb * 100).toFixed(1)} %
+                </strong>{" "}
+                · Cuota justa{" "}
+                <strong>{formatOddsValue(previewFair, oddsFormat)}</strong>
+              </div>
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                “{thesis}”
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <div
+                className="text-xs font-bold num"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                Otros {Math.max(4, lockedSiblingPicks.length)} picks de este mismo partido (con Pase PitchLab Ultra):
+              </div>
+              <div
+                className="rounded-xl overflow-hidden"
+                style={{
+                  background: "var(--pl-surface)",
+                  border: "1px solid var(--pl-border)",
+                }}
+              >
                 {(lockedSiblingPicks.length > 0
                   ? lockedSiblingPicks.slice(0, 4)
                   : [
-                      { id: "lk-1", categoryLabel: "Muy probable", engineName: "Tachyon v3.0" },
-                      { id: "lk-2", categoryLabel: "Goles totales", engineName: "Singularity v3.0" },
+                      { id: "lk-1", categoryLabel: "Muy probable", engineName: "Tachyon v5.1" },
+                      { id: "lk-2", categoryLabel: "Goles totales", engineName: "Singularity v5.1" },
                       { id: "lk-3", categoryLabel: "Lectura del partido", engineName: "Cortex IA" },
                       { id: "lk-4", categoryLabel: "Valor contra la casa", engineName: "Geodesic v2.0" },
                     ]
-                ).map((lp) => (
+                ).map((lp, idx) => (
                   <div
                     key={lp.id}
-                    className="glass-ring rounded-xl px-3.5 py-2.5 flex items-center justify-between gap-2 text-xs"
-                    style={{ background: "var(--pl-surface)" }}
+                    className="px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs"
+                    style={{
+                      borderTop: idx > 0 ? "1px solid var(--pl-border)" : "none",
+                    }}
                   >
                     <span
                       className="inline-flex items-center gap-1.5 font-bold"
@@ -1170,21 +1172,21 @@ export function TipsterPortalClubView({
                   </div>
                 ))}
               </div>
-
-              <button
-                type="button"
-                className="pl-btn-primary w-full text-xs min-h-[44px]"
-                onClick={() => {
-                  setVisitorPreviewOpen(false);
-                  navigateTo(`/signup?code=${activeTipster.promoCode}`);
-                }}
-              >
-                <span>
-                  Canjear código {activeTipster.promoCode} · {activeTipster.freeDays} días de Pase PitchLab Ultra gratis
-                </span>
-                <MaestroIcon name="arrowRight" size={14} />
-              </button>
             </div>
+
+            <button
+              type="button"
+              className="pl-btn-primary w-full text-xs min-h-11 whitespace-normal text-center"
+              onClick={() => {
+                setVisitorPreviewOpen(false);
+                navigateTo(`/signup?code=${activeTipster.promoCode}`);
+              }}
+            >
+              <span>
+                Canjear código {activeTipster.promoCode} · <span className="num">{activeTipster.freeDays}</span> días de Pase PitchLab Ultra gratis
+              </span>
+              <MaestroIcon name="arrowRight" size={14} />
+            </button>
           </div>
         </TopLayerModalDialog>
       </ClubWorkspaceShell>
