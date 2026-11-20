@@ -9,6 +9,7 @@ import {
   OWN_PROFILE_ALIASES,
 } from "../community-examples";
 import { MaestroIcon } from "../components/MaestroPrimitives";
+import { ProgressiveImage } from "../components/ProgressiveImage";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import {
   type ViewerIdentity,
@@ -271,7 +272,7 @@ export function Avatar({
       aria-hidden="true"
     >
       {showImage ? (
-        <img
+        <ProgressiveImage
           src={avatarUrl!}
           alt=""
           width={size}

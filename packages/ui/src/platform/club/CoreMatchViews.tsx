@@ -46,7 +46,6 @@ import {
 } from "../components/MaestroPrimitives";
 import { MatchList } from "../components/MatchList";
 import { PlLeagueSelect } from "../components/PlSelect";
-import { MultiPickRow } from "../components/MatchTicketCard";
 import { groupMatchesByDayAndLeague } from "./home/home-model";
 import type { CortexSectionView } from "./match/CortexAnalysisCard";
 import {
@@ -54,6 +53,7 @@ import {
   MatchHeroScoreboard,
   MatchLeftRail,
 } from "./match/MatchHeroAndRail";
+import { MatchPicksEvidenceBoard } from "./match/MatchPicksEvidenceBoard";
 import { MatchTabPanel, MatchTabs, useMatchUrlTab } from "./match/MatchTabs";
 import { PreMatchModule } from "./match/PreMatchModule";
 import {
@@ -81,10 +81,21 @@ const LazyMatchContextPanel = lazy(() =>
 function MatchTabFallback(): React.JSX.Element {
   return (
     <div
-      className="glass-card glass-ring rounded-2xl p-6"
-      style={{ minHeight: 220 }}
+      className="pl-skel-card rounded-2xl p-5 space-y-3"
+      role="status"
       aria-busy="true"
-    />
+      aria-label="Cargando análisis del partido"
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div className="pl-skel-bar h-5 w-44 rounded-lg" />
+        <div className="pl-skel-bar h-6 w-20 rounded-full" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="pl-skel-bar h-24 rounded-xl" />
+        <div className="pl-skel-bar h-24 rounded-xl" />
+      </div>
+      <div className="pl-skel-bar h-16 rounded-xl" />
+    </div>
   );
 }
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
@@ -2592,10 +2603,10 @@ export function MatchStudioClubView({
               ]}
             />
 
-            {/* Pestaña 1: Resumen (En vivo, picks, Pre-Match, panorama y factores) */}
+            {/* Pestaña 1: Picks y Evidencia (estilo ScoutPicks + Bzzoiro + En vivo + Pre-Match) */}
             <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
               {liveSupported || liveDetailOverride ? (
-                <Suspense fallback={null}>
+                <Suspense fallback={<MatchTabFallback />}>
                   <LazyLiveMatchPanelView
                     game={game}
                     detail={liveDetail}
@@ -2609,60 +2620,11 @@ export function MatchStudioClubView({
                 </Suspense>
               ) : null}
 
-              <section className="pl-resumen-picks-col space-y-3.5 min-w-0" data-picks="">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="m-0 text-lg font-extrabold">Pronóstico del partido</h2>
-                  {viewerRole === "tipster" || viewerRole === "admin" ? (
-                    <span
-                      className="text-xs font-semibold inline-flex items-center gap-1"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      <MaestroIcon name="crown" size={13} />
-                      <span>Elige cualquiera como tu Pick abierto semanal</span>
-                    </span>
-                  ) : null}
-                </div>
-
-                {game.picks.length === 0 ? (
-                  <div
-                    className="glass-card glass-ring rounded-2xl p-4 text-sm"
-                    style={{ color: "var(--pl-text-muted)" }}
-                    data-empty-forecast=""
-                  >
-                    Aún no hay picks publicados para este partido porque el snapshot no incluye pronóstico ni probabilidades.
-                  </div>
-                ) : (
-                  <div
-                    className="pl-resumen-picks-grid"
-                    data-odd-picks={game.picks.length > 1 && game.picks.length % 2 === 1 ? "true" : undefined}
-                  >
-                    {game.picks.map((pk) => (
-                      <div key={pk.id} className="pl-resumen-pick-cell space-y-1.5 min-w-0">
-                        <MultiPickRow pick={pk} gameStatus={game.status} />
-                        {(viewerRole === "tipster" || viewerRole === "admin") &&
-                        game.status !== "FT" ? (
-                          <div className="flex justify-end">
-                            <button
-                              type="button"
-                              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
-                              onClick={() => {
-                                setSelectedTipsterPickId(pk.id);
-                                pushToast(
-                                  `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
-                                  "success",
-                                );
-                              }}
-                            >
-                              <MaestroIcon name="crown" size={12} />
-                              <span>Usar como mi Pick abierto semanal</span>
-                            </button>
-                          </div>
-                        ) : null}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </section>
+              <MatchPicksEvidenceBoard
+                game={game}
+                markets={activeMarkets}
+                v5={detail?.v5 ?? null}
+              />
 
               {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
               {sportOutlook ? (
@@ -2681,18 +2643,9 @@ export function MatchStudioClubView({
                       Factores del partido
                     </h2>
                     <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
-                      Señales cuantitativas que explican la probabilidad y confianza del modelo.
+                      Señales cuantitativas que explican las probabilidades del modelo.
                     </p>
                   </div>
-                  {intelUnlocked && game.confidenceDetail?.reasons.length ? (
-                    <div className="flex flex-wrap gap-1.5">
-                      {game.confidenceDetail.reasons.map((reason) => (
-                        <span key={reason} className="pl-pill text-[11px]">
-                          {reason}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
 
                 {!intelUnlocked && !isFinished ? (
@@ -2745,8 +2698,7 @@ export function MatchStudioClubView({
               intelUnlocked &&
               hasForecast &&
               ((game.spacetime?.drivers.length ?? 0) > 0 ||
-                game.preGame.tacticalKeys.length > 0 ||
-                (game.confidenceDetail?.reasons.length ?? 0) > 0) ? (
+                game.preGame.tacticalKeys.length > 0) ? (
                 <div
                   className="glass-card glass-ring rounded-2xl p-4 space-y-3 min-w-0"
                   data-cortex-signals=""
@@ -2798,17 +2750,6 @@ export function MatchStudioClubView({
                       <ul className="pl-cortex-list text-xs">
                         {game.preGame.tacticalKeys.map((k) => (
                           <li key={k}>{k}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-
-                  {(game.confidenceDetail?.reasons.length ?? 0) > 0 ? (
-                    <div className="space-y-1.5 pt-2 hairline-t">
-                      <h3 className="pl-cortex-label">Qué tan firme es</h3>
-                      <ul className="pl-cortex-list text-xs">
-                        {game.confidenceDetail!.reasons.map((r) => (
-                          <li key={r}>{r}</li>
                         ))}
                       </ul>
                     </div>

@@ -302,6 +302,14 @@ export interface ToastMessage {
   id: string;
   tone: "default" | "success" | "warning" | "danger";
   text: string;
+  actionLabel?: string;
+  onAction?: () => void;
+}
+
+export interface ToastOptions {
+  actionLabel?: string;
+  onAction?: () => void;
+  durationMs?: number;
 }
 
 export interface PinUnlockResult {
@@ -512,7 +520,9 @@ export interface PlatformContextValue {
   logoutSession: () => Promise<void>;
 
   toasts: ToastMessage[];
-  pushToast: (text: string, tone?: ToastMessage["tone"]) => void;
+  pushToast: (text: string, tone?: ToastMessage["tone"], options?: ToastOptions) => void;
+  dismissToast: (id: string) => void;
+  setToastPaused: (id: string, paused: boolean) => void;
   navigateTo: (href: string) => void;
   /** Precarga bajo demanda (touch/hover) deduplicada en memoria (ADR-053). */
   prefetchRoute: (href: string) => void;
@@ -612,6 +622,8 @@ const ACTION_KEYS = [
   "submitBetaPin",
   "logoutSession",
   "pushToast",
+  "dismissToast",
+  "setToastPaused",
   "navigateTo",
   "prefetchRoute",
   "requestFullShell",
@@ -1153,10 +1165,45 @@ export function PlatformProvider({
     at: 0,
   });
 
+  const toastTimersRef = useRef<
+    Map<string, { timerId: number | null; remainingMs: number; startedAt: number }>
+  >(new Map());
+
+  const dismissToast = useCallback((id: string) => {
+    const entry = toastTimersRef.current.get(id);
+    if (entry?.timerId !== null && entry?.timerId !== undefined) {
+      window.clearTimeout(entry.timerId);
+    }
+    toastTimersRef.current.delete(id);
+    setToasts((prev) => prev.filter((item) => item.id !== id));
+  }, []);
+
+  const setToastPaused = useCallback((id: string, paused: boolean) => {
+    const entry = toastTimersRef.current.get(id);
+    if (!entry) return;
+    if (paused) {
+      if (entry.timerId !== null) {
+        window.clearTimeout(entry.timerId);
+        const elapsed = Date.now() - entry.startedAt;
+        entry.remainingMs = Math.max(800, entry.remainingMs - elapsed);
+        entry.timerId = null;
+      }
+      return;
+    }
+    if (entry.timerId === null) {
+      entry.startedAt = Date.now();
+      entry.timerId = window.setTimeout(() => {
+        toastTimersRef.current.delete(id);
+        setToasts((prev) => prev.filter((item) => item.id !== id));
+      }, entry.remainingMs);
+    }
+  }, []);
+
   const pushToast = useCallback(
-    (text: string, tone: ToastMessage["tone"] = "default") => {
+    (text: string, tone: ToastMessage["tone"] = "default", options?: ToastOptions) => {
       const now = Date.now();
       if (
+        !options?.actionLabel &&
         lastToastRef.current.text === text &&
         lastToastRef.current.tone === tone &&
         now - lastToastRef.current.at < 200
@@ -1165,10 +1212,22 @@ export function PlatformProvider({
       }
       lastToastRef.current = { text, tone, at: now };
       const id = `${now}-${Math.random().toString(36).slice(2, 7)}`;
-      setToasts((prev) => [...prev.slice(-3), { id, tone, text }]);
-      window.setTimeout(() => {
+      const durationMs = options?.durationMs ?? (options?.actionLabel ? 5000 : 3600);
+      setToasts((prev) => [
+        ...prev.slice(-3),
+        {
+          id,
+          tone,
+          text,
+          ...(options?.actionLabel ? { actionLabel: options.actionLabel } : {}),
+          ...(options?.onAction ? { onAction: options.onAction } : {}),
+        },
+      ]);
+      const timerId = window.setTimeout(() => {
+        toastTimersRef.current.delete(id);
         setToasts((prev) => prev.filter((item) => item.id !== id));
-      }, 3600);
+      }, durationMs);
+      toastTimersRef.current.set(id, { timerId, remainingMs: durationMs, startedAt: now });
     },
     [],
   );
@@ -1195,14 +1254,31 @@ export function PlatformProvider({
     }
   }, []);
 
-  const setFavoriteLeagues = useCallback((leagues: LeagueId[]) => {
-    setFavoriteLeaguesState(leagues);
-    try {
-      window.localStorage.setItem("pl-fav-leagues", JSON.stringify(leagues));
-    } catch (err) {
-      void err;
-    }
-  }, []);
+  const setFavoriteLeagues = useCallback(
+    (leagues: LeagueId[]) => {
+      const prevLeagues = favoriteLeagues;
+      setFavoriteLeaguesState(leagues);
+      try {
+        window.localStorage.setItem("pl-fav-leagues", JSON.stringify(leagues));
+      } catch (err) {
+        void err;
+      }
+      if (leagues.length < prevLeagues.length) {
+        pushToast("Liga quitada de tus favoritas.", "default", {
+          actionLabel: "Deshacer",
+          onAction: () => {
+            setFavoriteLeaguesState(prevLeagues);
+            try {
+              window.localStorage.setItem("pl-fav-leagues", JSON.stringify(prevLeagues));
+            } catch (err) {
+              void err;
+            }
+          },
+        });
+      }
+    },
+    [favoriteLeagues, pushToast],
+  );
 
   const setRiskPreference = useCallback((risk: RiskBand) => {
     setRiskPreferenceState(risk);
@@ -1331,14 +1407,44 @@ export function PlatformProvider({
     [parlayLegs, allowSgp, pushToast],
   );
 
-  const removePickFromParlay = useCallback((pickId: string) => {
-    setParlayLegs((prev) => prev.filter((l) => l.pick.id !== pickId));
-    triggerHaptic(6);
-  }, []);
+  const removePickFromParlay = useCallback(
+    (pickId: string) => {
+      const idx = parlayLegs.findIndex((l) => l.pick.id === pickId);
+      if (idx === -1) return;
+      const removed = parlayLegs[idx]!;
+      setParlayLegs((prev) => prev.filter((l) => l.pick.id !== pickId));
+      triggerHaptic(6);
+      pushToast(`Quitaste «${removed.pick.label}» del parlay.`, "default", {
+        actionLabel: "Deshacer",
+        onAction: () => {
+          setParlayLegs((prev) => {
+            if (prev.some((l) => l.pick.id === removed.pick.id)) return prev;
+            const copy = [...prev];
+            copy.splice(Math.min(idx, copy.length), 0, removed);
+            return copy;
+          });
+        },
+      });
+    },
+    [parlayLegs, pushToast],
+  );
 
   const clearParlay = useCallback(() => {
+    if (parlayLegs.length === 0) return;
+    const snapshot = [...parlayLegs];
     setParlayLegs([]);
-  }, []);
+    triggerHaptic(8);
+    pushToast(
+      `Boleto vaciado (${snapshot.length} ${snapshot.length === 1 ? "selección" : "selecciones"}).`,
+      "default",
+      {
+        actionLabel: "Deshacer",
+        onAction: () => {
+          setParlayLegs(snapshot);
+        },
+      },
+    );
+  }, [parlayLegs, pushToast]);
 
   const generateAutoParlay = useCallback(
     (opts: {
@@ -2307,12 +2413,19 @@ export function PlatformProvider({
       setWatchlistGameIds((prev) =>
         prev.includes(gameId) ? prev.filter((id) => id !== gameId) : [...prev, gameId],
       );
-      pushToast(
-        exists
-          ? "Dejaste de seguir este partido."
-          : "Siguiendo: te avisamos del inicio, los goles y el final.",
-        "default",
-      );
+      if (exists) {
+        pushToast("Dejaste de seguir este partido.", "default", {
+          actionLabel: "Deshacer",
+          onAction: () => {
+            setWatchlistGameIds((prev) => (prev.includes(gameId) ? prev : [...prev, gameId]));
+            if (hasAccountSessionAuth) {
+              void postJson("/api/me/watchlist", { gameId, watched: true });
+            }
+          },
+        });
+      } else {
+        pushToast("Siguiendo: te avisamos del inicio, los goles y el final.", "default");
+      }
       if (hasAccountSessionAuth) {
         void postJson("/api/me/watchlist", { gameId, watched: !exists }).then((res) => {
           if (!res || !res.ok) {
@@ -2550,6 +2663,8 @@ export function PlatformProvider({
       logoutSession,
       toasts,
       pushToast,
+      dismissToast,
+      setToastPaused,
       navigateTo,
       prefetchRoute,
       requestFullShell,
@@ -2641,6 +2756,8 @@ export function PlatformProvider({
       logoutSession,
       toasts,
       pushToast,
+      dismissToast,
+      setToastPaused,
       navigateTo,
       prefetchRoute,
       requestFullShell,

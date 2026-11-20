@@ -4,6 +4,7 @@ import type { PublicMemberProfile } from "@pitchlab/contracts";
 import { AnalystProfileClubView } from "./club/AnalystProfileClubView";
 import {
   BadgeChip,
+  FeaturedBadgeRow,
   ProfileBadgesSection,
   type OwnBadgesState,
 } from "./club/badges/ProfileBadges";
@@ -200,3 +201,48 @@ const exampleStory = (theme: "dark" | "light") => ({
 /** Perfil de ejemplo: las insignias salen de su récord de ejemplo, calculadas en el navegador. */
 export const PerfilDeEjemploOscuro = exampleStory("dark");
 export const PerfilDeEjemploClaro = exampleStory("light");
+
+function AnimatedFeaturedDemo() {
+  const [selectedIds, setSelectedIds] = React.useState<string[]>(() =>
+    PUBLIC.slice(0, 2).map((b) => b.id),
+  );
+  const active = PUBLIC.filter((b) => selectedIds.includes(b.id));
+  return (
+    <div className="space-y-4">
+      <FeaturedBadgeRow badges={active} />
+      <div className="flex flex-wrap gap-2">
+        {PUBLIC.slice(0, 4).map((b) => {
+          const on = selectedIds.includes(b.id);
+          return (
+            <button
+              key={b.id}
+              type="button"
+              className={on ? "pl-btn-primary text-xs min-h-9 px-3" : "pl-btn-glass text-xs min-h-9 px-3"}
+              onClick={() =>
+                setSelectedIds((prev) =>
+                  prev.includes(b.id) ? prev.filter((x) => x !== b.id) : [...prev, b.id].slice(0, 3),
+                )
+              }
+            >
+              {on ? `Quitar ${b.label}` : `Equipar ${b.label}`}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/** Transición suave al equipar/quitar insignias destacadas (ADR-054). */
+export const DestacadasAnimadasOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <Stage>
+      <AnimatedFeaturedDemo />
+    </Stage>
+  ),
+};
+export const DestacadasAnimadasClaro = {
+  ...DestacadasAnimadasOscuro,
+  globals: { theme: "light" },
+};

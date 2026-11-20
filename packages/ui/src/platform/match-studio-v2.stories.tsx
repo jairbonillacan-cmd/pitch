@@ -666,3 +666,19 @@ export const FichaEliminatoriaVueltaClaro = {
   ...FichaEliminatoriaVueltaOscuro,
   ...light,
 };
+
+/** Tablero ScoutPicks de Picks agrupados por mercado con evidencia verificable (ADR-054). */
+export const FichaPicksEvidenciaOscuro = {
+  render: () => (
+    <PlatformProvider dataset={DATASET} initialRole="member">
+      <MatchStudioClubView
+        leagueId={asLeagueId("liga-mx")}
+        gameId={GAME.id}
+        initialTab="resumen"
+        cortexSections={SECTIONS}
+        cortexHeadline={HEADLINE}
+      />
+    </PlatformProvider>
+  ),
+};
+export const FichaPicksEvidenciaClaro = { ...FichaPicksEvidenciaOscuro, ...light };

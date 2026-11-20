@@ -500,11 +500,12 @@ describe("Parlay oficial del día y generador personal (Punto 4)", () => {
         <ParlayBuilderClubView />
       </PlatformProvider>,
     );
-    expect(parlaysHtml).toContain("Generador personal");
-    expect(parlaysHtml).toContain("Arma tu parlay en un toque");
+    expect(parlaysHtml).toContain("Generador automático");
+    expect(parlaysHtml).toContain("Armar a mano");
     expect(parlaysHtml).toContain("Cuota meta");
     expect(parlaysHtml).toContain("~5.0×");
     expect(parlaysHtml).toContain("Todas las ligas");
+    expect(parlaysHtml).not.toContain("data-personal-parlay-quickbar");
   });
 
   it("buildTargetOddsParlay busca líneas alternativas (JAX -7.5 vs ML 1.21) cumpliendo piso >= 52 % y rango 3.0–7.0 cerca de 5.0", () => {

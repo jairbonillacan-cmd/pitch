@@ -31,6 +31,7 @@ import {
   MaestroIcon,
   type MaestroIconName,
 } from "./MaestroPrimitives";
+import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
 let cachedDisplayTransitionSupport: boolean | undefined;
 
@@ -83,6 +84,24 @@ export function TopLayerModalDialog({
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
+    const mq = window.matchMedia("(max-width: 639px)");
+    const sync = () => setIsMobileViewport(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const sheetSwipe = useSheetSwipeDismiss({
+    onDismiss: () => {
+      onCloseRef.current();
+    },
+    disabled: !open || !isMobileViewport,
+    scrollContainerRef: dialogRef,
+  });
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -203,6 +222,12 @@ export function TopLayerModalDialog({
   if (!keepMounted && !open) return null;
 
   const baseClass = variant === "drawer" ? "pl-native-drawer" : "pl-native-dialog";
+  const dialogStyle: React.CSSProperties = {
+    ...(variant === "modal"
+      ? ({ "--pl-dialog-max-w": maxWidth } as React.CSSProperties)
+      : {}),
+    ...(isMobileViewport ? sheetSwipe.sheetStyle : {}),
+  };
   return (
     <dialog
       ref={dialogRef}
@@ -210,11 +235,8 @@ export function TopLayerModalDialog({
       aria-labelledby={ariaLabelledBy}
       {...({ closedby: "any" } as React.DialogHTMLAttributes<HTMLDialogElement>)}
       className={dialogClassName ? `${baseClass} ${dialogClassName}` : baseClass}
-      style={
-        variant === "modal"
-          ? ({ "--pl-dialog-max-w": maxWidth } as React.CSSProperties)
-          : undefined
-      }
+      style={Object.keys(dialogStyle).length > 0 ? dialogStyle : undefined}
+      {...(isMobileViewport ? sheetSwipe.handleProps : {})}
     >
       {children}
     </dialog>
@@ -225,6 +247,7 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
   const { oddsFormat } = usePlatformCore();
   const { clearParlay, sealParlayToJournal, openShareTicket, navigateTo } = usePlatformActions();
   const { parlaySummary } = useParlayState();
+  const [confirmClearOpen, setConfirmClearOpen] = useState(false);
 
   if (parlaySummary.legs.length === 0) {
     return null;
@@ -241,111 +264,128 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
           : "var(--pl-brand)";
 
   return (
-    <aside
-      className="parlay-dock glass-pill-bar glass-ring"
-      aria-label="Boleto combinado activo"
-      data-parlay-dock=""
-    >
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <span className="pl-pill pl-pill--brand num inline-flex items-center gap-1.5">
-            <MaestroIcon name="layers" size={13} />
-            {parlaySummary.legs.length}{" "}
-            {parlaySummary.legs.length === 1 ? "pick" : "picks"}
-          </span>
-          <span
-            className="pl-pill num text-xs font-extrabold"
-            data-dock-risk={dockRisk.level}
-            style={{ color: dockRiskColor }}
-          >
-            {dockRisk.shortLabel}
-          </span>
-          {parlaySummary.hasSgpCorrelation ? (
-            <span className="pl-pill pl-pill--info">Mismo partido</span>
-          ) : null}
-          <div className="min-w-0">
-            <p className="m-0 text-sm font-bold truncate">
-              Prob. conjunta{" "}
-              <span className="num">
-                {(parlaySummary.combinedProbability * 100).toFixed(1)} %
-              </span>{" "}
-              · Cuota{" "}
-              <span className="num">
-                {formatOddsValue(parlaySummary.bookDecimal, oddsFormat)}
-              </span>
-            </p>
-            <p
-              className="m-0 text-xs"
-              style={{ color: "var(--pl-text-muted)" }}
+    <>
+      <aside
+        className="parlay-dock glass-pill-bar glass-ring"
+        aria-label="Boleto combinado activo"
+        data-parlay-dock=""
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="pl-pill pl-pill--brand num inline-flex items-center gap-1.5">
+              <MaestroIcon name="layers" size={13} />
+              {parlaySummary.legs.length}{" "}
+              {parlaySummary.legs.length === 1 ? "pick" : "picks"}
+            </span>
+            <span
+              className="pl-pill num text-xs font-extrabold"
+              data-dock-risk={dockRisk.level}
+              style={{ color: dockRiskColor }}
             >
-              Momio justo:{" "}
-              <span className="num">
-                {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
-              </span>{" "}
-              · Retorno est.{" "}
-              <span
-                className="num font-semibold"
-                style={{ color: "var(--pl-success)" }}
+              {dockRisk.shortLabel}
+            </span>
+            {parlaySummary.hasSgpCorrelation ? (
+              <span className="pl-pill pl-pill--info">Mismo partido</span>
+            ) : null}
+            <div className="min-w-0">
+              <p className="m-0 text-sm font-bold truncate">
+                Prob. conjunta{" "}
+                <span className="num">
+                  {(parlaySummary.combinedProbability * 100).toFixed(1)} %
+                </span>{" "}
+                · Cuota{" "}
+                <span className="num">
+                  {formatOddsValue(parlaySummary.bookDecimal, oddsFormat)}
+                </span>
+              </p>
+              <p
+                className="m-0 text-xs"
+                style={{ color: "var(--pl-text-muted)" }}
               >
-                {parlaySummary.projectedReturnUnits.toFixed(2)}u
-              </span>
-            </p>
+                Momio justo:{" "}
+                <span className="num">
+                  {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
+                </span>{" "}
+                · Retorno est.{" "}
+                <span
+                  className="num font-semibold"
+                  style={{ color: "var(--pl-success)" }}
+                >
+                  {parlaySummary.projectedReturnUnits.toFixed(2)}u
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="pl-btn-glass text-xs"
+              onClick={() => navigateTo("/app/parlays")}
+            >
+              Ver boleto
+            </button>
+            <button
+              type="button"
+              className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
+              onClick={() =>
+                openShareTicket({
+                  kind: "parlay",
+                  title: `Combinada PitchLab (${parlaySummary.legs.length} picks)`,
+                  subtitle: parlaySummary.hasSgpCorrelation
+                    ? "Mismo partido, con ajuste por correlación"
+                    : "Multi-liga calibrada con Spacetime Suite v3.0",
+                  leagueLabel: "Parlay Inteligente",
+                  pickLabel: parlaySummary.legs
+                    .map((l) => l.pick.label)
+                    .join(" + "),
+                  probability: parlaySummary.combinedProbability,
+                  fairDecimal: parlaySummary.fairDecimal,
+                  marketDecimal: parlaySummary.bookDecimal,
+                  units: parlaySummary.stakeUnits,
+                  gameStatus: "NS",
+                })
+              }
+            >
+              <MaestroIcon name="share" size={13} />
+              Compartir
+            </button>
+            <button
+              type="button"
+              className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
+              disabled={parlaySummary.legs.length < 2}
+              onClick={() => sealParlayToJournal()}
+            >
+              <MaestroIcon name="check" size={13} />
+              Sellar {parlaySummary.stakeUnits.toFixed(1)}u
+            </button>
+            <button
+              type="button"
+              className="pl-btn-glass px-2.5 text-xs"
+              aria-label="Vaciar boleto combinado"
+              onClick={() => {
+                if (parlaySummary.legs.length >= 2) {
+                  setConfirmClearOpen(true);
+                } else {
+                  clearParlay();
+                }
+              }}
+            >
+              <MaestroIcon name="x" size={14} />
+            </button>
           </div>
         </div>
+      </aside>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            className="pl-btn-glass text-xs"
-            onClick={() => navigateTo("/app/parlays")}
-          >
-            Ver boleto
-          </button>
-          <button
-            type="button"
-            className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
-            onClick={() =>
-              openShareTicket({
-                kind: "parlay",
-                title: `Combinada PitchLab (${parlaySummary.legs.length} picks)`,
-                subtitle: parlaySummary.hasSgpCorrelation
-                  ? "Mismo partido, con ajuste por correlación"
-                  : "Multi-liga calibrada con Spacetime Suite v3.0",
-                leagueLabel: "Parlay Inteligente",
-                pickLabel: parlaySummary.legs
-                  .map((l) => l.pick.label)
-                  .join(" + "),
-                probability: parlaySummary.combinedProbability,
-                fairDecimal: parlaySummary.fairDecimal,
-                marketDecimal: parlaySummary.bookDecimal,
-                units: parlaySummary.stakeUnits,
-                gameStatus: "NS",
-              })
-            }
-          >
-            <MaestroIcon name="share" size={13} />
-            Compartir
-          </button>
-          <button
-            type="button"
-            className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
-            disabled={parlaySummary.legs.length < 2}
-            onClick={() => sealParlayToJournal()}
-          >
-            <MaestroIcon name="check" size={13} />
-            Sellar {parlaySummary.stakeUnits.toFixed(1)}u
-          </button>
-          <button
-            type="button"
-            className="pl-btn-glass px-2.5 text-xs"
-            aria-label="Vaciar boleto combinado"
-            onClick={clearParlay}
-          >
-            <MaestroIcon name="x" size={14} />
-          </button>
-        </div>
-      </div>
-    </aside>
+      <ConfirmActionDialog
+        open={confirmClearOpen}
+        title={`¿Vaciar parlay de ${parlaySummary.legs.length} selecciones?`}
+        description="Se quitarán todas las selecciones del boleto actual. Podrás deshacerlo durante unos segundos desde el aviso inferior."
+        confirmLabel="Vaciar boleto"
+        onConfirm={clearParlay}
+        onCancel={() => setConfirmClearOpen(false)}
+      />
+    </>
   );
 }
 
@@ -2201,11 +2241,84 @@ export function RoleSimulatorBar({
   );
 }
 
+export function ConfirmActionDialog({
+  open,
+  title,
+  description,
+  confirmLabel,
+  cancelLabel = "Cancelar",
+  tone = "danger",
+  onConfirm,
+  onCancel,
+}: {
+  open: boolean;
+  title: string;
+  description: string;
+  confirmLabel: string;
+  cancelLabel?: string;
+  tone?: "danger" | "brand";
+  onConfirm: () => void;
+  onCancel: () => void;
+}): React.JSX.Element | null {
+  const titleId = React.useId();
+  const descId = React.useId();
+
+  return (
+    <TopLayerModalDialog
+      open={open}
+      onClose={onCancel}
+      ariaLabelledBy={titleId}
+      maxWidth="24rem"
+    >
+      <div className="p-5 space-y-4" data-confirm-action-dialog="">
+        <div className="space-y-1.5">
+          <h2 id={titleId} className="m-0 text-base font-extrabold">
+            {title}
+          </h2>
+          <p id={descId} className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
+            {description}
+          </p>
+        </div>
+        <div className="flex items-center justify-end gap-2">
+          {/* Foco inicial en la acción segura (modern-web-guidance/dialog) */}
+          <button
+            type="button"
+            autoFocus
+            className="pl-btn-glass min-h-11 px-4 text-xs font-bold"
+            onClick={onCancel}
+          >
+            {cancelLabel}
+          </button>
+          <button
+            type="button"
+            className={tone === "danger" ? "pl-btn-danger min-h-11 px-4 text-xs font-bold" : "pl-btn-primary min-h-11 px-4 text-xs font-bold"}
+            data-confirm-action-btn=""
+            onClick={() => {
+              onConfirm();
+              onCancel();
+            }}
+          >
+            {confirmLabel}
+          </button>
+        </div>
+      </div>
+    </TopLayerModalDialog>
+  );
+}
+
 export function ToastViewport(): React.JSX.Element | null {
   const { toasts } = useOverlayState();
-  const [rendered, setRendered] = useState<Array<{ id: string; tone: string; text: string; closing?: boolean }>>(
-    () => toasts.map((t) => ({ ...t })),
-  );
+  const { dismissToast, setToastPaused } = usePlatformActions();
+  const [rendered, setRendered] = useState<
+    Array<{
+      id: string;
+      tone: string;
+      text: string;
+      actionLabel?: string;
+      onAction?: () => void;
+      closing?: boolean;
+    }>
+  >(() => toasts.map((t) => ({ ...t })));
 
   useEffect(() => {
     const activeIds = new Set(toasts.map((t) => t.id));
@@ -2213,7 +2326,14 @@ export function ToastViewport(): React.JSX.Element | null {
 
     setRendered((prev) => {
       const prevMap = new Map(prev.map((item) => [item.id, item]));
-      const next: Array<{ id: string; tone: string; text: string; closing?: boolean }> = [];
+      const next: Array<{
+        id: string;
+        tone: string;
+        text: string;
+        actionLabel?: string;
+        onAction?: () => void;
+        closing?: boolean;
+      }> = [];
 
       for (const item of prev) {
         if (activeIds.has(item.id)) {
@@ -2255,6 +2375,18 @@ export function ToastViewport(): React.JSX.Element | null {
           key={t.id}
           data-closing={t.closing ? "" : undefined}
           className="pl-toast-item glass-pill-bar glass-ring rounded-xl px-4 py-2.5 text-xs font-semibold shadow-lg flex items-center gap-2.5"
+          onMouseEnter={() => {
+            if (t.actionLabel) setToastPaused(t.id, true);
+          }}
+          onMouseLeave={() => {
+            if (t.actionLabel) setToastPaused(t.id, false);
+          }}
+          onFocusCapture={() => {
+            if (t.actionLabel) setToastPaused(t.id, true);
+          }}
+          onBlurCapture={() => {
+            if (t.actionLabel) setToastPaused(t.id, false);
+          }}
         >
           <span
             className="dot"
@@ -2270,7 +2402,20 @@ export function ToastViewport(): React.JSX.Element | null {
                       : "var(--pl-brand)",
             }}
           />
-          <span>{t.text}</span>
+          <span className="flex-1 min-w-0">{t.text}</span>
+          {t.actionLabel && t.onAction ? (
+            <button
+              type="button"
+              className="pl-toast-action-btn"
+              data-toast-undo=""
+              onClick={() => {
+                t.onAction?.();
+                dismissToast(t.id);
+              }}
+            >
+              {t.actionLabel}
+            </button>
+          ) : null}
         </div>
       ))}
     </div>

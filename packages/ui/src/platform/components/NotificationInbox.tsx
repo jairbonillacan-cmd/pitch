@@ -71,6 +71,22 @@ function markRead(ids: readonly string[]): void {
   for (const fn of readListeners) fn();
 }
 
+function unmarkRead(ids: readonly string[]): void {
+  const next = new Set(loadRead());
+  let changed = false;
+  for (const id of ids) {
+    if (next.delete(id)) changed = true;
+  }
+  if (!changed) return;
+  readSnapshot = next;
+  try {
+    window.localStorage.setItem(READ_KEY, JSON.stringify([...next].slice(-READ_CAP)));
+  } catch (err) {
+    void err;
+  }
+  for (const fn of readListeners) fn();
+}
+
 function subscribeRead(fn: () => void): () => void {
   readListeners.add(fn);
   const onStorage = (e: StorageEvent) => {
@@ -412,7 +428,7 @@ export function NotificationInboxPanel({
 
 export function NotificationBell(): React.JSX.Element {
   const { dataset, oddsFormat, favoriteLeagues, hasAccountSessionAuth, viewerIdentity } = usePlatformCore();
-  const { navigateTo } = usePlatformActions();
+  const { navigateTo, pushToast } = usePlatformActions();
   const journal = useJournalEntries();
   const watchlistGameIds = useWatchlistGameIds();
   const followAlerts = useFollowAlerts();
@@ -576,8 +592,23 @@ export function NotificationBell(): React.JSX.Element {
               navigateTo(n.href);
             }}
             onMarkAllRead={() => {
+              const newlyReadLocal = items
+                .filter((n) => !n.serverId && !effectiveReadIds.has(n.id))
+                .map((n) => n.id);
               markRead(items.map((n) => n.id));
               if (socialEnabled) markSocialServerRead();
+              if (newlyReadLocal.length > 0) {
+                pushToast(
+                  "Notificaciones marcadas como leídas.",
+                  "default",
+                  {
+                    actionLabel: "Deshacer",
+                    onAction: () => {
+                      unmarkRead(newlyReadLocal);
+                    },
+                  },
+                );
+              }
             }}
             onBrowse={() => {
               close();

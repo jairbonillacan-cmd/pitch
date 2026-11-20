@@ -98,13 +98,57 @@ export function BadgeChip({
   );
 }
 
-/** Insignias destacadas junto al nombre del perfil. */
+/** Insignias destacadas junto al nombre del perfil con transición suave al equipar/quitar. */
 export function FeaturedBadgeRow({ badges }: { badges: readonly BadgeView[] }): React.JSX.Element | null {
-  if (badges.length === 0) return null;
+  const [rendered, setRendered] = React.useState<Array<BadgeView & { closing?: boolean }>>(
+    () => badges.map((b) => ({ ...b })),
+  );
+
+  React.useEffect(() => {
+    const activeIds = new Set(badges.map((b) => b.id));
+    let hasNewlyClosing = false;
+
+    setRendered((prev) => {
+      const prevMap = new Map(prev.map((item) => [item.id, item]));
+      const next: Array<BadgeView & { closing?: boolean }> = [];
+
+      for (const item of prev) {
+        if (activeIds.has(item.id)) {
+          const fresh = badges.find((b) => b.id === item.id)!;
+          next.push({ ...fresh, closing: false });
+        } else if (!item.closing) {
+          hasNewlyClosing = true;
+          next.push({ ...item, closing: true });
+        } else {
+          next.push(item);
+        }
+      }
+
+      for (const b of badges) {
+        if (!prevMap.has(b.id)) {
+          next.push({ ...b, closing: false });
+        }
+      }
+
+      return next;
+    });
+
+    if (!hasNewlyClosing) return;
+    const timer = window.setTimeout(() => {
+      setRendered((prev) => prev.filter((item) => !item.closing));
+    }, 220);
+    return () => window.clearTimeout(timer);
+  }, [badges]);
+
+  if (rendered.length === 0) return null;
   return (
     <ul className="pl-badge-row" aria-label="Insignias destacadas">
-      {badges.map((b) => (
-        <li key={b.id}>
+      {rendered.map((b) => (
+        <li
+          key={b.id}
+          className="pl-badge-row-item"
+          data-closing={b.closing ? "true" : undefined}
+        >
           <BadgeChip badge={b} />
         </li>
       ))}
@@ -433,6 +477,9 @@ export function useOwnBadges({
     null,
   );
   const [saving, setSaving] = React.useState(false);
+  const serverRef = React.useRef(server);
+  serverRef.current = server;
+  const seqRef = React.useRef(0);
 
   React.useEffect(() => {
     if (!enabled || !serverBacked) return;
@@ -457,10 +504,16 @@ export function useOwnBadges({
 
   const toggle = React.useCallback(
     (id: string) => {
-      if (!server || saving) return;
-      const prev = server.featuredIds;
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id].slice(0, BADGE_RULES.maxFeatured);
-      setServer({ ...server, featuredIds: next });
+      const current = serverRef.current;
+      if (!current) return;
+      const prev = current.featuredIds;
+      const next = prev.includes(id)
+        ? prev.filter((x) => x !== id)
+        : [...prev, id].slice(0, BADGE_RULES.maxFeatured);
+      if (next.length === prev.length && next.every((v, i) => v === prev[i])) return;
+      // Actualización optimista instantánea (0 ms) sin bloquear clics consecutivos (Regla 2 · ADR-054).
+      const seq = ++seqRef.current;
+      setServer({ ...current, featuredIds: next });
       setSaving(true);
       void fetch("/api/me/preferences", {
         method: "PUT",
@@ -473,12 +526,16 @@ export function useOwnBadges({
         })
         .catch((err: unknown) => {
           void err;
-          setServer((s) => (s ? { ...s, featuredIds: prev } : s));
-          onError("No se pudo guardar tu selección de insignias.");
+          if (seqRef.current === seq) {
+            setServer((s) => (s ? { ...s, featuredIds: prev } : s));
+            onError("No se pudo guardar tu selección de insignias.");
+          }
         })
-        .finally(() => setSaving(false));
+        .finally(() => {
+          if (seqRef.current === seq) setSaving(false);
+        });
     },
-    [onError, saving, server],
+    [onError],
   );
 
   if (!enabled) return { own: null, featured: [], toggle };

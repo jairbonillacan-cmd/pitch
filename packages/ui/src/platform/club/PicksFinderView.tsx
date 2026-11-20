@@ -354,10 +354,24 @@ export function PicksFinderClubView(): React.JSX.Element {
   };
 
   const handleDeleteSavedView = (viewId: string) => {
-    const nextViews = savedScreenerViews.filter((v) => v.id !== viewId);
+    const prevViews = savedScreenerViews;
+    const removed = prevViews.find((v) => v.id === viewId);
+    const nextViews = prevViews.filter((v) => v.id !== viewId);
     setSavedScreenerViews(nextViews);
     if (activeViewId === viewId) setActiveViewId(null);
-    pushToast("Vista guardada eliminada.", "default");
+    pushToast(
+      removed ? `Vista «${removed.name}» eliminada.` : "Vista guardada eliminada.",
+      "default",
+      removed
+        ? {
+            actionLabel: "Deshacer",
+            onAction: () => {
+              setSavedScreenerViews(prevViews);
+              setActiveViewId(removed.id);
+            },
+          }
+        : undefined,
+    );
   };
 
   const resetAllFilters = () => {

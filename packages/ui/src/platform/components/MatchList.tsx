@@ -16,7 +16,6 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { MatchPick, PlatformGame } from "../types";
-import { ConfidenceChip } from "./ConfidenceChip";
 import { MaestroIcon } from "./MaestroPrimitives";
 
 const DEFAULT_LIST_PAGE = 24;
@@ -135,7 +134,7 @@ export const MatchListRow = React.memo(function MatchListRow({
             {shortDateLabel(game.dayId)} · {isFinished ? "Final" : game.kickoffLocal}
           </span>
           <span className="pl-mlist-round">{game.round}</span>
-          {!isFinished ? <ConfidenceChip game={game} /> : null}
+          {/* Sin chip numérico de confianza (ADR-054): manda la probabilidad real del pick */}
         </div>
 
         <a

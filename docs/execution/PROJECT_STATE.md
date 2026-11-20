@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-20 · **Rama:** `gemini-dos` (consolida `0.0.1-alpha`, Bzzoiro Fase 1, `ADR-041`–`ADR-049` ya integrados a `main`, **`ADR-050`** arquitectura agnóstica de proveedor, **`ADR-051`** arquitectura *Server-First*, CSS modular por ruta y gobernanza cero-jank, **`ADR-052`** experiencia móvil tipo app nativa + navegación `Explorar`, y **`ADR-053`** sensación 100 % app nativa, gestos táctiles, PWA `/offline`, shell RSC progresivo en 2 etapas y caché público ISR)
+> **Última actualización:** 2026-11-20 · **Rama:** `gemini-dos` (consolida `0.0.1-alpha`, Bzzoiro Fase 1, `ADR-041`–`ADR-049` ya integrados a `main`, **`ADR-050`** arquitectura agnóstica de proveedor, **`ADR-051`** arquitectura *Server-First*, CSS modular por ruta y gobernanza cero-jank, **`ADR-052`** experiencia móvil tipo app nativa + navegación `Explorar`, **`ADR-053`** sensación 100 % app nativa, gestos táctiles, PWA `/offline`, shell RSC progresivo en 2 etapas y caché público ISR, y **`ADR-054`** pulido nativo integral, diseño plano editorial, tablero de picks con evidencia verificable, retiro total de `Conf. N`, `/app/parlays` unificado, «Mi récord» pierna por pierna e insignias animadas sin redundancia)
 
 ## Estado actual
 
@@ -9,7 +9,7 @@
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
 - **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
-- **F3 (arquitectura y ADRs):** ✅ completa y actualizada al 2026-11-20: **53 ADRs aceptadas** (`ADR-001`…`ADR-053`; ver índice completo en `docs/architecture/adr/README.md`) y 8 documentos base de arquitectura. Auditoría del proyecto: `docs/execution/PROJECT_AUDIT_2026_11_13.md`.
+- **F3 (arquitectura y ADRs):** ✅ completa y actualizada al 2026-11-20: **54 ADRs aceptadas** (`ADR-001`…`ADR-054`; ver índice completo en `docs/architecture/adr/README.md`) y 8 documentos base de arquitectura. Auditoría del proyecto: `docs/execution/PROJECT_AUDIT_2026_11_13.md`.
 - **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
 - **Pre-MVP para socios:** ✅ implementado originalmente en `feat/pre-mvp` (`docs/product/PRE_MVP.md` y `docs/product/PRE_MVP_DEPLOY.md`). Desde 2026-11-11 ese trabajo vive íntegro en `gemini-reestructura`, la rama que va a producción; `feat/pre-mvp` se eliminó y su PR #1 se cerró como sustituido.
 - **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.

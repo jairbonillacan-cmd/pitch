@@ -12,6 +12,8 @@ export interface SheetSwipeDismissOptions {
   readonly velocityPxPerMs?: number;
   /** Desactiva el gesto temporalmente (p. ej. escritorio o sheet bloqueado). */
   readonly disabled?: boolean;
+  /** Contenedor desplazable opcional: solo inicia arrastre si `scrollTop <= 0`. */
+  readonly scrollContainerRef?: React.RefObject<HTMLElement | null>;
 }
 
 export interface SheetSwipeState {
@@ -46,6 +48,7 @@ export function useSheetSwipeDismiss({
   thresholdPx = 92,
   velocityPxPerMs = 0.55,
   disabled = false,
+  scrollContainerRef,
 }: SheetSwipeDismissOptions): {
   readonly offsetY: number;
   readonly dragging: boolean;
@@ -70,12 +73,13 @@ export function useSheetSwipeDismiss({
   const begin = useCallback(
     (clientY: number) => {
       if (disabled) return;
+      if (scrollContainerRef?.current && scrollContainerRef.current.scrollTop > 0) return;
       startYRef.current = clientY;
       lastYRef.current = clientY;
       startTimeRef.current = Date.now();
       setState({ offsetY: 0, dragging: true });
     },
-    [disabled],
+    [disabled, scrollContainerRef],
   );
 
   const move = useCallback(

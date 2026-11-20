@@ -16,7 +16,6 @@ import { usePackIconBase } from "../../../pack-icon-theme";
 import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../../sports";
 import { formatOddsValue, isPickUnlocked, isPreGameIntelUnlocked } from "../../access-guard";
 import { formatKickoffByTimezone } from "../account/account-helpers";
-import { ConfidenceChip } from "../../components/ConfidenceChip";
 import { LivePicksTrackerStrip } from "../../components/LivePicksTrackerStrip";
 import {
   ParlayPickButton,
@@ -26,7 +25,8 @@ import {
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { useLiveScoreboard } from "../../live/live-store";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
-import { TopLayerModalDialog } from "../../components/PlatformOverlays";
+import { ConfirmActionDialog, TopLayerModalDialog } from "../../components/PlatformOverlays";
+import { setActiveSharedTransition } from "../../navigation-helpers";
 import { teamTopicKey, useFollowedTopics } from "../community-ui";
 import {
   useHomeNavFilter,
@@ -719,6 +719,7 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
 
   const openStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    setActiveSharedTransition(e.currentTarget.closest("article"), "pl-match-hero");
     setAuraFromGame(game);
     navigateTo(studioHref);
   };
@@ -726,6 +727,7 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
   const openTeam = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    setActiveSharedTransition(e.currentTarget.closest(".pl-astro-team-row") as HTMLElement | null, "pl-team-hero");
     setAuraFromGame(game);
     navigateTo(href);
   };
@@ -766,8 +768,6 @@ const AstroMatchRow = React.memo(function AstroMatchRow({
             {game.venue ? ` · ${game.venue}` : ""}
           </span>
         </a>
-
-        {!isFinished ? <ConfidenceChip game={game} /> : null}
       </div>
 
       {/* Cuerpo principal: Equipos + Récord + Proyección a la izquierda | Barra 1·X·2 y resultado más probable a la derecha */}
@@ -1524,6 +1524,7 @@ function ParlayHubRail({
   const [activeTab, setActiveTab] = useState<"custom" | "daily">("custom");
   const [risk, setRisk] = useState<RiskBand>(riskPreference);
   const [autoCount, setAutoCount] = useState<number>(3);
+  const [confirmClearOpen, setConfirmClearOpen] = useState<boolean>(false);
   const legs = parlaySummary.legs;
   const prevLegCountRef = useRef<number>(legs.length);
   const customPanelRef = useRef<HTMLDivElement | null>(null);
@@ -1847,10 +1848,28 @@ function ParlayHubRail({
                   <span>Abrir en el armador</span>
                   <MaestroIcon name="arrowRight" size={13} />
                 </a>
-                <button type="button" className="pl-btn-glass text-sm min-h-10 px-3.5" onClick={clearParlay}>
+                <button
+                  type="button"
+                  className="pl-btn-glass text-sm min-h-10 px-3.5"
+                  onClick={() => {
+                    if (legs.length >= 2) {
+                      setConfirmClearOpen(true);
+                    } else {
+                      clearParlay();
+                    }
+                  }}
+                >
                   Vaciar
                 </button>
               </div>
+              <ConfirmActionDialog
+                open={confirmClearOpen}
+                title={`¿Vaciar parlay de ${legs.length} selecciones?`}
+                description="Se quitarán todas las selecciones del boleto actual. Podrás deshacerlo durante unos segundos desde el aviso inferior."
+                confirmLabel="Vaciar boleto"
+                onConfirm={clearParlay}
+                onCancel={() => setConfirmClearOpen(false)}
+              />
 
               <details className="pl-parlay-auto-details">
                 <summary className="pl-parlay-auto-summary">

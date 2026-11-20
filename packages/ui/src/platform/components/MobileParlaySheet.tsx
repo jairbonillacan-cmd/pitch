@@ -43,11 +43,14 @@ export function MobileParlaySheet(): React.JSX.Element | null {
   const { parlayLegs } = useParlayState();
 
   const [open, setOpen] = useState(false);
+  const [confirmClear, setConfirmClear] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const listRef = useRef<HTMLUListElement | null>(null);
   const titleId = useId();
   const summary = useMemo(() => computeParlaySummary(parlayLegs), [parlayLegs]);
 
   const closeSheet = useCallback(async () => {
+    setConfirmClear(false);
     const dialog = dialogRef.current;
     if (!dialog || !dialog.open) {
       setOpen(false);
@@ -74,6 +77,7 @@ export function MobileParlaySheet(): React.JSX.Element | null {
       void closeSheet();
     },
     disabled: !open,
+    scrollContainerRef: listRef,
   });
 
   useEffect(() => {
@@ -181,7 +185,7 @@ export function MobileParlaySheet(): React.JSX.Element | null {
             </header>
           </div>
 
-          <ul className="pl-bottom-sheet-legs" role="list">
+          <ul ref={listRef} className="pl-bottom-sheet-legs" role="list">
             {parlayLegs.map((leg) => (
               <li key={leg.pick.id} className="pl-bottom-sheet-leg">
                 <div className="min-w-0 flex-1">
@@ -210,39 +214,80 @@ export function MobileParlaySheet(): React.JSX.Element | null {
             />
           ) : null}
 
-          <footer className="pl-bottom-sheet-actions">
-            <button
-              type="button"
-              className="pl-btn-primary pl-bottom-sheet-primary min-h-11 text-sm"
-              disabled={parlayLegs.length < 2}
-              onClick={() => {
-                sealParlayToJournal();
-                void closeSheet();
+          {confirmClear ? (
+            <div
+              className="rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2"
+              role="alertdialog"
+              aria-label="Confirmar vaciado de parlay"
+              style={{
+                background: "var(--pl-surface-hover)",
+                border: "1px solid var(--pl-border)",
               }}
             >
-              Guardar en Mi récord
-            </button>
-            <button
-              type="button"
-              className="pl-btn-glass min-h-11 px-3 text-sm"
-              onClick={() => {
-                void closeSheet();
-                navigateTo("/app/parlays");
-              }}
-            >
-              Abrir Parlays
-            </button>
-            <button
-              type="button"
-              className="pl-btn-glass min-h-11 px-3 text-xs"
-              onClick={() => {
-                clearParlay();
-                void closeSheet();
-              }}
-            >
-              Limpiar
-            </button>
-          </footer>
+              <span className="text-xs font-bold">
+                ¿Vaciar las {parlayLegs.length} selecciones del boleto?
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  autoFocus
+                  className="pl-btn-glass min-h-11 px-3 text-xs font-bold"
+                  onClick={() => setConfirmClear(false)}
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  className="pl-btn-danger min-h-11 px-3 text-xs font-bold"
+                  onClick={() => {
+                    setConfirmClear(false);
+                    clearParlay();
+                    void closeSheet();
+                  }}
+                >
+                  Sí, vaciar
+                </button>
+              </div>
+            </div>
+          ) : (
+            <footer className="pl-bottom-sheet-actions">
+              <button
+                type="button"
+                className="pl-btn-primary pl-bottom-sheet-primary min-h-11 text-sm"
+                disabled={parlayLegs.length < 2}
+                onClick={() => {
+                  sealParlayToJournal();
+                  void closeSheet();
+                }}
+              >
+                Guardar en Mi récord
+              </button>
+              <button
+                type="button"
+                className="pl-btn-glass min-h-11 px-3 text-sm"
+                onClick={() => {
+                  void closeSheet();
+                  navigateTo("/app/parlays");
+                }}
+              >
+                Abrir Parlays
+              </button>
+              <button
+                type="button"
+                className="pl-btn-glass min-h-11 px-3 text-xs"
+                onClick={() => {
+                  if (parlayLegs.length >= 2) {
+                    setConfirmClear(true);
+                  } else {
+                    clearParlay();
+                    void closeSheet();
+                  }
+                }}
+              >
+                Limpiar
+              </button>
+            </footer>
+          )}
         </div>
       </dialog>
     </>

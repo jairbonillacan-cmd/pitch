@@ -18,7 +18,6 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { MatchPick, PlatformGame } from "../types";
-import { ConfidenceChip } from "./ConfidenceChip";
 import {
   CrestPedestal,
   LensGlowOrbs,
@@ -366,9 +365,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                 <MaestroIcon name={mainPick.result === "hit" ? "check" : "x"} size={11} />
                 <span>{mainPick.result === "hit" ? "Ganado" : "Perdido"}</span>
               </span>
-            ) : (
-              <ConfidenceChip game={game} />
-            )}
+            ) : null}
           </div>
         </div>
 

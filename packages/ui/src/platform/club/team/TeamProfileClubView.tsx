@@ -1618,6 +1618,7 @@ export function TeamProfileClubView({
         <section
           className="pl-team-hero glass-card glass-ring rounded-3xl p-5 sm:p-6"
           data-team-hero={profile.team.slug}
+          style={{ viewTransitionName: "pl-team-hero" }}
         >
           <div className="pl-team-hero-grid">
             {/* Izquierda: escudo limpio, nombre, país, entrenador/código, racha y sede/liga */}

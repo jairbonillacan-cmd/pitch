@@ -393,7 +393,7 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
         </PlatformProvider>,
       ),
     ]);
-    expect(resumenHtml).toContain("Pronóstico del partido");
+    expect(resumenHtml).toContain("Picks y evidencia del modelo");
     expect(resumenHtml).toContain("Factores del partido");
     expect(iaHtml).toContain("Análisis IA");
     expect(iaHtml).toContain("Cortex IA");
@@ -559,8 +559,8 @@ describe("Lista de partidos agrupada por día y liga", () => {
   });
 });
 
-describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", () => {
-  it("muestra ruta del encuentro, estadio, árbitro asignado y ordena el riel lateral (momento -> eventos -> picks -> cuotas)", () => {
+describe("Rediseño de ficha de partido: breadcrumb, árbitro, tablero de evidencia y riel sin redundancias (ADR-054)", () => {
+  it("muestra ruta del encuentro, estadio, árbitro asignado, tablero de picks con evidencia y riel depurado (momento -> eventos -> pulso)", () => {
     const withRef = buildRichMatch({ id: "mx-con-ref", referee: "Hector Martinez" });
     const ds = buildPlatformDataset([
       {
@@ -590,24 +590,22 @@ describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", (
     expect(html).toContain("Hector Martinez");
     expect(html).toContain("pl-match-layout");
     expect(html).toContain("pl-match-rail");
-    expect(html).toContain("Tiempo reglamentario");
     expect(html).toContain("pl-match-workspace");
+    expect(html).toContain("data-evidence-board");
+    expect(html).toContain("Ambos anotan: Sí");
 
+    // Riel izquierdo depurado: momento -> eventos -> forma y pulso (sin bloques duplicados)
     const idxMomentum = html.indexOf("data-rail-momentum");
     const idxEvents = html.indexOf("data-rail-events");
-    const idxPicks = html.indexOf("data-rail-picks");
-    const idxOdds = html.indexOf('id="rail-odds-heading"');
+    const idxPulse = html.indexOf('id="rail-context-heading"');
     expect(idxMomentum).toBeGreaterThan(-1);
     expect(idxEvents).toBeGreaterThan(idxMomentum);
-    expect(idxPicks).toBeGreaterThan(idxEvents);
-    expect(idxOdds).toBeGreaterThan(idxPicks);
-
-    const picksSlice = html.slice(idxPicks, idxOdds);
-    expect(picksSlice).toContain("Ambos anotan: Sí");
-    expect(picksSlice).not.toContain("pl-match-rail-pick-label truncate");
+    expect(idxPulse).toBeGreaterThan(idxEvents);
+    expect(html).not.toContain("data-rail-picks");
+    expect(html).not.toContain('id="rail-odds-heading"');
   });
 
-  it("muestra periodos en eventos del riel en vivo sin duplicar timeline en Resumen", async () => {
+  it("muestra periodos e iconos deportivos en eventos del riel en vivo sin duplicar timeline en Resumen", async () => {
     const { STORY_INCIDENTS, STORY_STATS } = await import(
       "../src/platform/live/live-story-data"
     );
@@ -661,11 +659,11 @@ describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", (
     expect(html).toContain("2.º tiempo");
     expect(html).toContain("pl-rail-event-score");
     expect(html).toContain("Jugador 9");
-    expect(html).toContain("pl-rail-card-mark--yellow");
+    expect(html).toContain("pl-sport-evt-ico");
     expect(html).not.toContain("pl-live-timeline");
   });
 
-  it("muestra estado honesto cuando no hay árbitro confirmado y respeta candado de visitante en el riel", () => {
+  it("muestra estado honesto cuando no hay árbitro confirmado y respeta candado de visitante", () => {
     const lockedMatch = buildRichMatch({ id: "test-ficha-locked-3" });
     const threeGames = buildPlatformDataset([
       {
@@ -689,7 +687,7 @@ describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", (
       </PlatformProvider>,
     );
     expect(html).toContain("Árbitro por confirmar");
-    expect(html).toContain("Cuotas justas y probabilidades de mercado reservadas para Pase PitchLab Ultra.");
+    expect(html).toContain("Pase PitchLab Ultra");
   });
 
   it("muestra estado finalizado (FT) con Árbitro no reportado y cruce Ida/Agregado en eliminatoria real", () => {

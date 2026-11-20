@@ -93,7 +93,13 @@ export function MatchCommunityPoll({
       setError("");
       const previous = tally.mine[question];
       if (previous === choice) return;
-      // Optimista: mueve el voto en el conteo local.
+      // Snapshot para rollback silencioso ante error de red (Regla 2 · ADR-054).
+      const prevTally: Tally = {
+        ganador: { ...tally.ganador },
+        pick: { ...tally.pick },
+        mine: { ...tally.mine },
+      };
+      // Optimista: mueve el voto en el conteo local al instante (0 ms).
       setTally((t) => {
         const next: Tally = { ganador: { ...t.ganador }, pick: { ...t.pick }, mine: { ...t.mine, [question]: choice } };
         const bucket = next[question] as Record<string, number>;
@@ -111,15 +117,21 @@ export function MatchCommunityPoll({
           body: JSON.stringify({ gameId: game.id, question, choice }),
         });
         const data = (await res.json().catch(() => null)) as { tally?: Tally; error?: string } | null;
-        if (res.ok && data?.tally) setTally(data.tally);
-        else setError(data?.error ?? "No se pudo guardar tu voto.");
-      } catch {
+        if (res.ok && data?.tally) {
+          setTally(data.tally);
+        } else {
+          setTally(prevTally);
+          setError(data?.error ?? "No se pudo guardar tu voto.");
+        }
+      } catch (err) {
+        void err;
+        setTally(prevTally);
         setError("No se pudo guardar tu voto. Revisa tu conexión.");
       } finally {
         setBusy(false);
       }
     },
-    [busy, closed, game.id, hasAccountSession, tally.mine],
+    [busy, closed, game.id, hasAccountSession, tally],
   );
 
   const winnerOptions = [

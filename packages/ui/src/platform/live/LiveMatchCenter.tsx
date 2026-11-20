@@ -19,6 +19,7 @@ import {
 } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { MaestroIcon } from "../components/MaestroPrimitives";
+import { SportEventIcon } from "../components/SportEventIcons";
 import {
   DEFAULT_FOLLOW_ALERTS,
   type FollowAlerts,
@@ -63,19 +64,6 @@ export function LivePhaseBadge({
     </span>
   );
 }
-
-const INCIDENT_ICON: Record<LiveIncident["kind"], string> = {
-  goal: "",
-  own_goal: "",
-  penalty_goal: "",
-  penalty_missed: "✕",
-  yellow: "",
-  second_yellow: "",
-  red: "",
-  sub: "⇄",
-  var: "VAR",
-  period: "",
-};
 
 function incidentText(i: LiveIncident): { title: string; detail: string | null } {
   switch (i.kind) {
@@ -129,7 +117,7 @@ export function LiveTimeline({
           >
             <span className="pl-live-event-min num">{minute}</span>
             <span className={`pl-live-event-icon pl-live-event-icon--${i.kind}`} aria-hidden="true">
-              {INCIDENT_ICON[i.kind]}
+              <SportEventIcon kind={i.kind} size={15} />
             </span>
             <span className="pl-live-event-body">
               <strong>{t.title}</strong>
@@ -560,7 +548,39 @@ export function LiveMatchPanelView({
       <div className={`pl-live-grid-layout${hideTimeline ? " pl-live-grid-layout--single" : ""}`}>
         <div className="pl-live-col">
           {hideMomentum ? null : (
-            <MomentumChart momentum={detail.momentum} goals={goals} homeLabel={home} awayLabel={away} />
+            <MomentumChart
+              momentum={detail.momentum}
+              goals={goals}
+              homeLabel={home}
+              awayLabel={away}
+              homeCrest={
+                <TeamBadge
+                  league={game.league}
+                  slug={game.home.slug}
+                  name={game.home.name}
+                  logoUrl={game.home.logoUrl}
+                  size={18}
+                  decorative
+                />
+              }
+              awayCrest={
+                <TeamBadge
+                  league={game.league}
+                  slug={game.away.slug}
+                  name={game.away.name}
+                  logoUrl={game.away.logoUrl}
+                  size={18}
+                  decorative
+                />
+              }
+              liveMinute={
+                live
+                  ? (Number.parseInt(entry.clock?.replace(/[^0-9]/g, "") ?? "", 10) ||
+                      detail.momentum[detail.momentum.length - 1]?.minute ||
+                      null)
+                  : null
+              }
+            />
           )}
           <XgRaceChart points={detail.xgTimeline} homeLabel={home} awayLabel={away} estimated={detail.xgEstimated} />
           {detail.stats ? <LiveStatBars stats={detail.stats} homeLabel={home} awayLabel={away} /> : null}

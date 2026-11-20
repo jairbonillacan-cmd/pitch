@@ -388,22 +388,33 @@ export function AnalystProfileClubView({
     localBadges,
     onError: (message) => pushToast(message, "warning"),
   });
+  const excludedBadgeIds = useMemo(
+    () => (profile?.isTipster ? ["tipster-verificado"] : []),
+    [profile?.isTipster],
+  );
   const visibleBadges = useMemo<{ public: BadgeView[]; featured: BadgeView[] }>(() => {
+    const exclude = new Set(excludedBadgeIds);
+    const filterList = (list: readonly BadgeView[]) => list.filter((b) => !exclude.has(b.id));
     if (profile?.isExample) {
-      const pub = publicBadgeList(localBadges, {
-        privacy: DEFAULT_RECORD_PRIVACY,
-        recordVisible: true,
-        showInRanking: true,
-      });
+      const pub = filterList(
+        publicBadgeList(localBadges, {
+          privacy: DEFAULT_RECORD_PRIVACY,
+          recordVisible: true,
+          showInRanking: true,
+        }),
+      );
       return { public: pub, featured: pub.slice(0, 3) };
     }
-    if (isOwn) return { public: [], featured: ownBadges.featured };
-    return badges ?? { public: [], featured: [] };
-  }, [badges, isOwn, localBadges, ownBadges.featured, profile?.isExample]);
+    if (isOwn) return { public: [], featured: filterList(ownBadges.featured) };
+    return {
+      public: filterList(badges?.public ?? []),
+      featured: filterList(badges?.featured ?? []),
+    };
+  }, [badges, excludedBadgeIds, isOwn, localBadges, ownBadges.featured, profile?.isExample]);
 
   const [badgesModalOpen, setBadgesModalOpen] = useState(false);
   const badgeTotalCount = isOwn && !profile?.isExample
-    ? ownBadges.own?.all.filter((b) => b.earned).length ?? 0
+    ? ownBadges.own?.all.filter((b) => b.earned && !excludedBadgeIds.includes(b.id)).length ?? 0
     : visibleBadges.public.length;
 
   return (
@@ -441,6 +452,7 @@ export function AnalystProfileClubView({
               publicBadges={visibleBadges.public}
               own={ownBadges.own}
               onToggleFeatured={ownBadges.toggle}
+              excludeBadgeIds={excludedBadgeIds}
             />
           </>
         ) : (

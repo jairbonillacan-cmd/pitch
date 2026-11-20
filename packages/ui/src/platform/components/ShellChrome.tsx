@@ -21,6 +21,7 @@ import {
 import { LIGHT_THEME_TOKENS, STAGE_DARK_TOKENS } from "@pitchlab/tokens";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
+import { ProgressiveImage } from "./ProgressiveImage";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
 import { formatUnits, profileRecord } from "../profile-stats";
 import {
@@ -1492,7 +1493,7 @@ function ClubWorkspaceShellImpl({
                     aria-hidden="true"
                   >
                     {showProfileAvatarImg ? (
-                      <img
+                      <ProgressiveImage
                         src={profileAvatarUrl!}
                         alt=""
                         width={28}
@@ -1622,7 +1623,7 @@ function ClubWorkspaceShellImpl({
                     aria-hidden="true"
                   >
                     {showProfileAvatarImg ? (
-                      <img
+                      <ProgressiveImage
                         src={profileAvatarUrl!}
                         alt=""
                         width={40}

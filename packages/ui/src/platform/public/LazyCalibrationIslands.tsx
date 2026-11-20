@@ -23,10 +23,16 @@ export function LazyCalibrationCurveChart(
     <Suspense
       fallback={
         <div
-          className="glass-card glass-ring rounded-2xl p-5"
+          className="glass-card glass-ring rounded-2xl p-5 space-y-3"
           style={{ minHeight: 280 }}
+          role="status"
           aria-busy="true"
-        />
+          aria-label="Cargando curva de calibración"
+        >
+          <span className="pl-skel-bar" style={{ width: "44%", height: 14 }} />
+          <span className="pl-skel-bar" style={{ width: "100%", height: 190 }} />
+          <span className="pl-skel-bar" style={{ width: "62%", height: 11 }} />
+        </div>
       }
     >
       <LazyCalibrationCurveChartImpl {...props} />
@@ -41,10 +47,16 @@ export function LazyCalibrationHonestyLab(
     <Suspense
       fallback={
         <div
-          className="glass-card glass-ring rounded-2xl p-5"
+          className="glass-card glass-ring rounded-2xl p-5 space-y-3"
           style={{ minHeight: 220 }}
+          role="status"
           aria-busy="true"
-        />
+          aria-label="Cargando laboratorio de calibración"
+        >
+          <span className="pl-skel-bar" style={{ width: "50%", height: 14 }} />
+          <span className="pl-skel-bar" style={{ width: "100%", height: 120 }} />
+          <span className="pl-skel-bar" style={{ width: "75%", height: 11 }} />
+        </div>
       }
     >
       <LazyCalibrationHonestyLabImpl {...props} />

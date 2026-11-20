@@ -123,12 +123,45 @@ export function prefersReducedMotion(): boolean {
   }
 }
 
+let activeSharedEl: HTMLElement | null = null;
+
+/**
+ * Asigna temporalmente un `view-transition-name` único al elemento tocado (Regla 6 · ADR-054)
+ * para lograr Shared Element Transitions sin duplicar nombres en la lista.
+ * Se limpia automáticamente al finalizar la transición o tras un respaldo de 600 ms.
+ */
+export function setActiveSharedTransition(
+  el: HTMLElement | null | undefined,
+  transitionName: "pl-match-hero" | "pl-team-hero",
+): void {
+  if (typeof document === "undefined" || !el || prefersReducedMotion()) return;
+  if (activeSharedEl && activeSharedEl !== el) {
+    activeSharedEl.style.viewTransitionName = "";
+  }
+  activeSharedEl = el;
+  el.style.viewTransitionName = transitionName;
+  window.setTimeout(() => {
+    if (activeSharedEl === el) {
+      el.style.viewTransitionName = "";
+      activeSharedEl = null;
+    }
+  }, 600);
+}
+
+export function clearActiveSharedTransition(): void {
+  if (activeSharedEl) {
+    activeSharedEl.style.viewTransitionName = "";
+    activeSharedEl = null;
+  }
+}
+
 /**
  * Envuelve una actualización de vista en `document.startViewTransition` solo cuando el navegador
  * la soporta y el usuario no prefiere movimiento reducido (degradación progresiva a 0 KB).
  */
 export function runWithViewTransition(update: () => void): void {
   if (typeof document === "undefined" || prefersReducedMotion()) {
+    clearActiveSharedTransition();
     update();
     return;
   }
@@ -136,15 +169,20 @@ export function runWithViewTransition(update: () => void): void {
     startViewTransition?: (cb: () => void) => { finished?: Promise<void> };
   };
   if (typeof docWithVt.startViewTransition !== "function") {
+    clearActiveSharedTransition();
     update();
     return;
   }
   try {
-    docWithVt.startViewTransition(() => {
+    const vt = docWithVt.startViewTransition(() => {
       update();
     });
+    if (vt?.finished && typeof vt.finished.finally === "function") {
+      void vt.finished.finally(() => clearActiveSharedTransition());
+    }
   } catch (err) {
     void err;
+    clearActiveSharedTransition();
     update();
   }
 }

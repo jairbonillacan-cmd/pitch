@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useState } from "react";
 import { OddsCompareClubView } from "./OddsCompareView";
-import { PersonalParlayQuickBar } from "./PersonalParlayQuickBar";
-import { shortDateLabel } from "./home/home-model";
+import { ALL, SPORTS, shortDateLabel, sportOf, type SportFilter } from "./home/home-model";
 import type { LeagueId } from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
 import { getTeamColors } from "@pitchlab/sports-assets";
@@ -16,10 +15,18 @@ import {
   pickReferenceDecimal,
 } from "../access-guard";
 import {
+  buildPersonalQuickParlay,
+  DAILY_PARLAY_STYLE_SPECS,
+  PARLAY_TARGET_PRESETS,
+  type ParlayTargetPresetId,
+  type PersonalParlayScope,
+} from "../daily-parlay";
+import {
   CrestPedestal,
   LensGlowOrbs,
   MaestroIcon,
 } from "../components/MaestroPrimitives";
+import { ConfirmActionDialog } from "../components/PlatformOverlays";
 import { PlLeagueSelect } from "../components/PlSelect";
 import {
   PlayerPropStreakCard,
@@ -102,49 +109,101 @@ function getCompactBlockReason(
 }
 
 export function ParlayBuilderClubView(): React.JSX.Element {
-  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat } = usePlatformCore();
-  const { setAllowSgp, setParlayStakeUnits, addPickToParlay, removePickFromParlay, clearParlay, generateAutoParlay, sealParlayToJournal, openShareTicket, navigateTo, requestFullShell } = usePlatformActions();
+  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat, riskPreference } =
+    usePlatformCore();
+  const {
+    setAllowSgp,
+    setParlayStakeUnits,
+    addPickToParlay,
+    removePickFromParlay,
+    clearParlay,
+    generateAutoParlay,
+    loadParlayPicks,
+    sealParlayToJournal,
+    openShareTicket,
+    navigateTo,
+    requestFullShell,
+  } = usePlatformActions();
   const { parlayLegs, allowSgp, parlayStakeUnits, parlaySummary } = useParlayState();
 
   useEffect(() => {
     void requestFullShell();
   }, [requestFullShell]);
 
-  const [selectedLeagues, setSelectedLeagues] = useState<LeagueId[]>(() =>
-    dataset.leagues.map((l) => l.league),
-  );
-  const [autoRisk, setAutoRisk] = useState<RiskBand>("medio");
+  const leagueSelectId = useId();
+  const [builderMode, setBuilderMode] = useState<"auto" | "manual">("auto");
+  const [sportFilter, setSportFilter] = useState<SportFilter>(ALL);
+  const [leagueFilter, setLeagueFilter] = useState<LeagueId | typeof ALL>(ALL);
+  const [manualQuery, setManualQuery] = useState<string>("");
+  const [autoRisk, setAutoRisk] = useState<RiskBand>(riskPreference);
+  const [targetPreset, setTargetPreset] = useState<ParlayTargetPresetId>("libre");
   const [autoLegCount, setAutoLegCount] = useState<number>(3);
   const [catalogLimit, setCatalogLimit] = useState<number>(12);
   const [bookParlayOddsRaw, setBookParlayOddsRaw] = useState<string>("");
   const [resolvedSgpAudit, setResolvedSgpAudit] = useState<SgpCopulaAuditView | null>(null);
+  const [confirmClearOpen, setConfirmClearOpen] = useState<boolean>(false);
 
   const parsedBookParlayDec = useMemo(
     () => (bookParlayOddsRaw.trim() ? parseUserOdds(bookParlayOddsRaw) : null),
     [bookParlayOddsRaw],
   );
 
-  const toggleAutoLeague = (lg: LeagueId) => {
-    setSelectedLeagues((prev) =>
-      prev.includes(lg)
-        ? prev.length > 1
-          ? prev.filter((x) => x !== lg)
-          : prev
-        : [...prev, lg],
-    );
-  };
-
-  const selectAllLeagues = () => {
-    setSelectedLeagues(dataset.leagues.map((l) => l.league));
-  };
-
-  const allOpenGames = useMemo(
-    () =>
-      dataset.games.filter(
-        (g) => g.status !== "FT" && g.status !== "LIVE" && selectedLeagues.includes(g.league),
-      ),
-    [dataset.games, selectedLeagues],
+  // Solo partidos abiertos (excluye FT y LIVE)
+  const openGamesAll = useMemo(
+    () => dataset.games.filter((g) => g.status !== "FT" && g.status !== "LIVE"),
+    [dataset.games],
   );
+
+  const sportCounts = useMemo(() => {
+    const counts: Record<string, number> = { [ALL]: openGamesAll.length };
+    for (const g of openGamesAll) {
+      const sp = sportOf(g);
+      counts[sp] = (counts[sp] ?? 0) + 1;
+    }
+    return counts;
+  }, [openGamesAll]);
+
+  // Solo ligas con partidos abiertos para el deporte seleccionado (evita muro de 57 ligas)
+  const activeLeagues = useMemo(() => {
+    const countsByLeague = new Map<LeagueId, number>();
+    for (const g of openGamesAll) {
+      if (sportFilter !== ALL && sportOf(g) !== sportFilter) continue;
+      countsByLeague.set(g.league, (countsByLeague.get(g.league) ?? 0) + 1);
+    }
+    return dataset.leagues
+      .filter((l) => countsByLeague.has(l.league))
+      .map((l) => ({ ...l, openCount: countsByLeague.get(l.league) ?? 0 }))
+      .sort((a, b) => b.openCount - a.openCount || a.label.localeCompare(b.label, "es-MX"));
+  }, [dataset.leagues, openGamesAll, sportFilter]);
+
+  const effectiveLeague: LeagueId | typeof ALL = useMemo(() => {
+    if (leagueFilter === ALL) return ALL;
+    return activeLeagues.some((l) => l.league === leagueFilter) ? leagueFilter : ALL;
+  }, [activeLeagues, leagueFilter]);
+
+  const scopedLeagueIds = useMemo<LeagueId[]>(() => {
+    if (effectiveLeague !== ALL) return [effectiveLeague];
+    return activeLeagues.map((l) => l.league);
+  }, [activeLeagues, effectiveLeague]);
+
+  const scope = useMemo<PersonalParlayScope>(() => {
+    if (effectiveLeague !== ALL) return { kind: "league", league: effectiveLeague };
+    if (sportFilter !== ALL) return { kind: "sport", sport: sportFilter };
+    return { kind: "all" };
+  }, [effectiveLeague, sportFilter]);
+
+  const allOpenGames = useMemo(() => {
+    const q = manualQuery.trim().toLowerCase();
+    return openGamesAll.filter((g) => {
+      if (sportFilter !== ALL && sportOf(g) !== sportFilter) return false;
+      if (effectiveLeague !== ALL && g.league !== effectiveLeague) return false;
+      if (q) {
+        const hay = `${g.home.name} ${g.away.name} ${g.home.shortName} ${g.away.shortName} ${g.leagueLabel}`.toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
+  }, [effectiveLeague, manualQuery, openGamesAll, sportFilter]);
 
   const candidateGames = useMemo(
     () => allOpenGames.slice(0, catalogLimit),
@@ -153,6 +212,44 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
   const maxAutoLegs = Math.max(2, allowSgp ? allOpenGames.length * 2 : allOpenGames.length);
   const effectiveAutoLegCount = Math.min(maxAutoLegs, Math.max(2, autoLegCount));
+
+  const autoPreview = useMemo(
+    () =>
+      buildPersonalQuickParlay({
+        games: dataset.games,
+        legCount: effectiveAutoLegCount,
+        risk: autoRisk,
+        targetPreset,
+        scope,
+        viewerRole,
+        allowSgp,
+      }),
+    [allowSgp, autoRisk, dataset.games, effectiveAutoLegCount, scope, targetPreset, viewerRole],
+  );
+
+  const activePresetSpec =
+    PARLAY_TARGET_PRESETS.find((p) => p.id === targetPreset) ?? PARLAY_TARGET_PRESETS[0]!;
+
+  const handleGenerateAuto = () => {
+    if (targetPreset !== "libre" && autoPreview.legs.length > 0) {
+      const styleLabel = DAILY_PARLAY_STYLE_SPECS[autoRisk].label;
+      loadParlayPicks(
+        autoPreview.legs.map((l) => l.pick),
+        {
+          allowSgp,
+          label: `Parlay automático (${activePresetSpec.label} · ${styleLabel})`,
+        },
+      );
+      return;
+    }
+    generateAutoParlay({
+      leagues: scopedLeagueIds.length > 0 ? scopedLeagueIds : dataset.leagues.map((l) => l.league),
+      risk: autoRisk,
+      legCount: effectiveAutoLegCount,
+      allowSgp,
+      games: allOpenGames,
+    });
+  };
 
   // Cuando la Cópula Student-t v5.1 (/api/parlays/sgp) responde, alinea el resumen del boleto
   // para que Prob. Conjunta Real, Momio justo y Nivel de riesgo coincidan exactamente.
@@ -209,96 +306,174 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   return (
     <AtmosphereStage activePath="/app/parlays">
       <ClubWorkspaceShell activePath="/app/parlays">
-        <section className="space-y-2">
-          <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
-            <MaestroIcon name="layers" size={12} />
-            <span>Automático o a mano</span>
-          </span>
-          <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Armar parlay
-          </h1>
-          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Configura los 4 pasos del motor cuantitativo para construir tu combinada óptima, o
-            elige selecciones manualmente con bloqueo en vivo de mercados contradictorios.
-          </p>
+        <section className="flex flex-wrap items-end justify-between gap-3">
+          <div className="space-y-1.5 min-w-0">
+            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
+              Armar parlay
+            </h1>
+            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+              Genera una combinada calibrada al instante o elige piernas manualmente con bloqueo en vivo de mercados contradictorios.
+            </p>
+          </div>
+
+          <div
+            className="seg-well"
+            role="tablist"
+            aria-label="Modo del armador de parlays"
+            data-parlay-mode-tabs=""
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={builderMode === "auto"}
+              className="seg-btn text-xs min-h-10 px-4 inline-flex items-center gap-1.5"
+              data-parlay-tab="auto"
+              onClick={() => setBuilderMode("auto")}
+            >
+              <MaestroIcon name="bolt" size={13} />
+              <span>Automático</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={builderMode === "manual"}
+              className="seg-btn text-xs min-h-10 px-4 inline-flex items-center gap-1.5"
+              data-parlay-tab="manual"
+              onClick={() => setBuilderMode("manual")}
+            >
+              <MaestroIcon name="layers" size={13} />
+              <span>Armar a mano</span>
+            </button>
+          </div>
         </section>
 
-        <PersonalParlayQuickBar />
-
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-          {/* Columna izquierda: 4 Pasos Numerados + Catálogo Manual */}
-          <div className="xl:col-span-7 space-y-5">
-            <section className="glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-5 relative overflow-hidden">
-              <LensGlowOrbs subtle />
-
-              <div className="space-y-5 relative z-10">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="m-0 text-lg font-extrabold">
-                    Auto-Armador Cuantitativo en 4 Pasos
-                  </h2>
-                  <span className="pl-pill pl-pill--info text-xs">
-                    Sin contradicciones
-                  </span>
-                </div>
-
-                {/* Paso 1: Ligas */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-extrabold" style={{ color: "var(--pl-brand)" }}>
-                      1. Ligas ({selectedLeagues.length}/{dataset.leagues.length})
-                    </span>
-                    <button
-                      type="button"
-                      onClick={selectAllLeagues}
-                      className="pl-btn-glass text-[11px] min-h-9 px-3"
-                    >
-                      Seleccionar las {dataset.leagues.length} ligas
-                    </button>
-                  </div>
-                  <div
-                    className="flex flex-wrap gap-1.5"
-                    role="group"
-                    aria-label="1. Ligas para el parlay"
+          {/* Columna izquierda: Un solo flujo limpio (Automático o Armar a mano) */}
+          <div className="xl:col-span-7 space-y-4">
+            {/* Filtro compacto Deporte + Liga activa (cero muro de 57 ligas) */}
+            <section
+              className="glass-card glass-ring rounded-2xl p-4 space-y-3"
+              aria-label="Filtrar deporte y liga"
+              data-parlay-scope-bar=""
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Elegir deporte">
+                  <button
+                    type="button"
+                    className="seg-btn text-xs min-h-9 px-3 num"
+                    aria-pressed={sportFilter === ALL}
+                    onClick={() => {
+                      setSportFilter(ALL);
+                      setLeagueFilter(ALL);
+                      setCatalogLimit(12);
+                    }}
                   >
-                    {dataset.leagues.map((lg) => {
-                      const active = selectedLeagues.includes(lg.league);
-                      return (
-                        <button
-                          key={lg.league}
-                          type="button"
-                          aria-pressed={active}
-                          data-active={active ? "true" : undefined}
-                          onClick={() => toggleAutoLeague(lg.league)}
-                          className="seg-btn text-xs glass-ring"
-                        >
-                          <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={15} />
-                          <span>{lg.label}</span>
-                        </button>
-                      );
-                    })}
+                    Todos ({sportCounts[ALL] ?? 0})
+                  </button>
+                  {SPORTS.filter((sp) => (sportCounts[sp.id] ?? 0) > 0).map((sp) => (
+                    <button
+                      key={sp.id}
+                      type="button"
+                      className="seg-btn text-xs min-h-9 px-3 num"
+                      aria-pressed={sportFilter === sp.id}
+                      onClick={() => {
+                        setSportFilter(sp.id);
+                        setLeagueFilter(ALL);
+                        setCatalogLimit(12);
+                      }}
+                    >
+                      {sp.label} ({sportCounts[sp.id] ?? 0})
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2 min-w-0">
+                  <label htmlFor={leagueSelectId} className="sr-only">
+                    Liga activa
+                  </label>
+                  <select
+                    id={leagueSelectId}
+                    value={effectiveLeague}
+                    onChange={(e) => {
+                      setLeagueFilter(e.target.value as LeagueId | typeof ALL);
+                      setCatalogLimit(12);
+                    }}
+                    className="glass-input text-xs font-semibold min-h-10 px-3 rounded-xl"
+                    style={{ maxWidth: 240 }}
+                  >
+                    <option value={ALL}>
+                      Todas las ligas ({activeLeagues.length})
+                    </option>
+                    {activeLeagues.map((lg) => (
+                      <option key={lg.league} value={lg.league}>
+                        {lg.label} ({lg.openCount})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            {builderMode === "auto" ? (
+              <section
+                className="glass-card glass-ring rounded-3xl p-5 sm:p-6 space-y-5"
+                role="tabpanel"
+                aria-label="Generador automático de parlay"
+                data-parlay-auto-panel=""
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <h2 className="m-0 text-lg font-extrabold">
+                      Generador automático
+                    </h2>
+                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Elige cuota meta, nivel de riesgo y número de selecciones sin contradicciones.
+                    </p>
+                  </div>
+                  {autoPreview.status !== "insufficient" && autoPreview.legs.length > 0 ? (
+                    <span className="pl-pill pl-pill--info num text-xs">
+                      Vista previa: {autoPreview.legs.length} picks ·{" "}
+                      {autoPreview.combinedProbability * 100 < 0.1
+                        ? "< 0.1 %"
+                        : `${(autoPreview.combinedProbability * 100).toFixed(1)} %`}{" "}
+                      · {formatOddsValue(autoPreview.fairDecimal, oddsFormat)}
+                    </span>
+                  ) : null}
+                </div>
+
+                {/* Cuota meta */}
+                <div className="space-y-2">
+                  <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text-secondary)" }}>
+                    Cuota meta
+                  </span>
+                  <div className="seg-well w-full flex-wrap" role="group" aria-label="Cuota meta">
+                    {PARLAY_TARGET_PRESETS.map((preset) => (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        className="seg-btn flex-1 justify-center num text-xs min-h-10"
+                        aria-pressed={targetPreset === preset.id}
+                        data-quick-target={preset.id}
+                        onClick={() => setTargetPreset(preset.id)}
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                {/* Paso 2 y Paso 3 en rejilla */}
+                {/* Riesgo + Selecciones */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Paso 2: Riesgo */}
                   <div className="space-y-2">
-                    <span
-                      className="text-xs font-extrabold block"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      2. Riesgo
+                    <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text-secondary)" }}>
+                      Estilo de riesgo
                     </span>
-                    <div
-                      className="seg-well w-full"
-                      role="group"
-                      aria-label="2. Riesgo del parlay"
-                    >
+                    <div className="seg-well w-full" role="group" aria-label="Estilo de riesgo">
                       {(["conservador", "medio", "arriesgado"] as const).map((r) => (
                         <button
                           key={r}
                           type="button"
-                          className="seg-btn flex-1 justify-center capitalize text-xs"
+                          className="seg-btn flex-1 justify-center text-xs min-h-10"
                           aria-pressed={autoRisk === r}
                           onClick={() => setAutoRisk(r)}
                         >
@@ -312,26 +487,18 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     </div>
                   </div>
 
-                  {/* Paso 3: Selecciones libres (mín. 2) */}
                   <div className="space-y-2">
-                    <span
-                      className="text-xs font-extrabold block"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      3. Selecciones ({effectiveAutoLegCount} de {maxAutoLegs} disp.)
+                    <span className="text-xs font-extrabold block num" style={{ color: "var(--pl-text-secondary)" }}>
+                      Selecciones ({effectiveAutoLegCount} de {maxAutoLegs} disp.)
                     </span>
                     <div className="flex flex-wrap items-center gap-2">
-                      <div
-                        className="seg-well"
-                        role="group"
-                        aria-label="3. Selecciones"
-                      >
+                      <div className="seg-well" role="group" aria-label="Número de selecciones">
                         {[2, 3, 4, 5, 6, 8, 10].map((cnt) => (
                           <button
                             key={cnt}
                             type="button"
                             disabled={cnt > maxAutoLegs}
-                            className="seg-btn num text-xs px-2.5"
+                            className="seg-btn num text-xs px-2.5 min-h-10"
                             aria-pressed={effectiveAutoLegCount === cnt}
                             onClick={() => setAutoLegCount(cnt)}
                           >
@@ -339,11 +506,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           </button>
                         ))}
                       </div>
-                      <div
-                        className="sl-stepper"
-                        role="group"
-                        aria-label="Ajustar número de selecciones"
-                      >
+                      <div className="sl-stepper" role="group" aria-label="Ajustar número de selecciones">
                         <button
                           type="button"
                           aria-label="Menos selecciones"
@@ -366,20 +529,17 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   </div>
                 </div>
 
-                {/* Paso 4: SGP */}
+                {/* Mismo partido (SGP) */}
                 <div
                   className="rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3"
                   style={{ background: "var(--pl-surface)" }}
                 >
-                  <div className="space-y-0.5">
-                    <span
-                      className="text-xs font-extrabold block"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      4. Mismo partido
+                  <div className="space-y-0.5 min-w-0 flex-1">
+                    <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text)" }}>
+                      Mismo partido (SGP)
                     </span>
                     <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                      Permite hasta 2 selecciones de distinto eje del mismo partido (ej. Ganador + Totales). Bloquea líneas redundantes, marcador exacto y contradicciones.
+                      Permite hasta 2 selecciones de distinto eje del mismo partido con ajuste de correlación Student-t.
                     </span>
                   </div>
 
@@ -389,7 +549,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     </Switch.Control>
                     <Switch.Content>
                       <span className="text-xs font-bold">
-                        {allowSgp ? "Mismo partido activado" : "Permitir mismo partido"}
+                        {allowSgp ? "Activado" : "Desactivado"}
                       </span>
                     </Switch.Content>
                   </Switch>
@@ -399,182 +559,204 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   type="button"
                   className="pl-btn-primary pl-btn-wrap w-full min-h-11 text-sm inline-flex items-center justify-center gap-2"
                   data-generate-parlay=""
-                  onClick={() =>
-                    generateAutoParlay({
-                      leagues: selectedLeagues,
-                      risk: autoRisk,
-                      legCount: effectiveAutoLegCount,
-                      allowSgp,
-                    })
-                  }
+                  onClick={handleGenerateAuto}
                 >
                   <MaestroIcon name="sparkles" size={15} />
                   <span>
-                    Generar Mejor Parlay ({effectiveAutoLegCount} selecciones · {autoRisk})
+                    Generar parlay ({effectiveAutoLegCount} selecciones · {autoRisk}
+                    {targetPreset !== "libre" ? ` · ${activePresetSpec.label}` : ""})
                   </span>
                 </button>
-              </div>
-            </section>
-
-            {/* Catálogo Manual con explicación explícita de incompatibilidad */}
-            <section className="space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="m-0 text-lg font-extrabold">
-                  Catálogo Manual · Protección Anti-Contradicción
-                </h2>
-                <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  Haz clic para agregar o quitar del boleto
-                </span>
-              </div>
-
-              {candidateGames.map((g) => (
-                <div
-                  key={g.id}
-                  className="glass-card glass-ring rounded-2xl p-4 space-y-3"
-                >
-                  <div className="flex items-center justify-between gap-2 text-xs">
-                    <span className="inline-flex items-center gap-2 font-bold">
-                      <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={16} />
-                      <span>
-                        {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName}
-                      </span>
-                    </span>
-                    <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                      {shortDateLabel(g.dayId)} · {g.kickoffLocal}
-                    </span>
+              </section>
+            ) : (
+              /* Panel: Armar a mano con protección anti-contradicción */
+              <section
+                className="space-y-3"
+                role="tabpanel"
+                aria-label="Armar parlay a mano"
+                data-parlay-manual-panel=""
+              >
+                <div className="glass-card glass-ring rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 flex-1 min-w-[200px]">
+                    <MaestroIcon name="search" size={15} style={{ color: "var(--pl-text-muted)" }} />
+                    <input
+                      type="search"
+                      value={manualQuery}
+                      onChange={(e) => {
+                        setManualQuery(e.target.value);
+                        setCatalogLimit(12);
+                      }}
+                      placeholder="Buscar equipo o liga…"
+                      aria-label="Buscar equipo o liga para armar parlay"
+                      className="glass-input text-xs min-h-10 px-3 rounded-xl flex-1"
+                    />
                   </div>
+                  <Switch isSelected={allowSgp} onChange={setAllowSgp}>
+                    <Switch.Control>
+                      <Switch.Thumb />
+                    </Switch.Control>
+                    <Switch.Content>
+                      <span className="text-xs font-bold">Mismo partido</span>
+                    </Switch.Content>
+                  </Switch>
+                </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {g.picks.slice(0, 4).map((pk) => {
-                      const unlocked = isPickUnlocked(pk, g.status, viewerRole);
-                      const inSlip = parlayLegs.some((l) => l.pick.id === pk.id);
-                      const sameGameExists = parlayLegs.some(
-                        (l) => l.pick.gameId === pk.gameId && l.pick.id !== pk.id,
-                      );
-                      const compat = checkParlayCompatibility(
-                        parlayLegs,
-                        pk,
-                        allowSgp,
-                      );
+                {candidateGames.length === 0 ? (
+                  <div className="glass-card glass-ring rounded-2xl p-6 text-center space-y-2">
+                    <p className="m-0 text-sm font-bold">Sin partidos abiertos con ese filtro</p>
+                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Prueba con otro deporte, liga o limpia la búsqueda.
+                    </p>
+                  </div>
+                ) : (
+                  candidateGames.map((g) => (
+                    <div
+                      key={g.id}
+                      className="glass-card glass-ring rounded-2xl p-4 space-y-3"
+                    >
+                      <div className="flex items-center justify-between gap-2 text-xs">
+                        <span className="inline-flex items-center gap-2 font-bold min-w-0">
+                          <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={16} />
+                          <span className="truncate">
+                            {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName}
+                          </span>
+                        </span>
+                        <span className="num shrink-0" style={{ color: "var(--pl-text-muted)" }}>
+                          {shortDateLabel(g.dayId)} · {g.kickoffLocal}
+                        </span>
+                      </div>
 
-                      if (!unlocked) {
-                        return (
-                          <a
-                            key={pk.id}
-                            href={upgradeHref}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              navigateTo(upgradeHref);
-                            }}
-                            className="rounded-xl p-2.5 text-xs flex items-center justify-between gap-2 no-underline"
-                            style={{
-                              background: "var(--pl-surface)",
-                              color: "var(--pl-text-secondary)",
-                            }}
-                          >
-                            <span className="inline-flex items-center gap-1.5 font-semibold truncate">
-                              <MaestroIcon name="lock" size={12} />
-                              <span className="truncate">{pk.categoryLabel}</span>
-                            </span>
-                            <span className="pl-pill text-[11px] shrink-0">
-                              {hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}
-                            </span>
-                          </a>
-                        );
-                      }
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {g.picks.slice(0, 4).map((pk) => {
+                          const unlocked = isPickUnlocked(pk, g.status, viewerRole);
+                          const inSlip = parlayLegs.some((l) => l.pick.id === pk.id);
+                          const sameGameExists = parlayLegs.some(
+                            (l) => l.pick.gameId === pk.gameId && l.pick.id !== pk.id,
+                          );
+                          const compat = checkParlayCompatibility(
+                            parlayLegs,
+                            pk,
+                            allowSgp,
+                          );
 
-                      const blockedReason =
-                        !inSlip && !compat.allowed
-                          ? getCompactBlockReason(
-                              sameGameExists,
-                              allowSgp,
-                              compat,
-                            )
-                          : null;
-
-                      return (
-                        <button
-                          key={pk.id}
-                          type="button"
-                          onClick={() =>
-                            inSlip
-                              ? removePickFromParlay(pk.id)
-                              : addPickToParlay(pk)
+                          if (!unlocked) {
+                            return (
+                              <a
+                                key={pk.id}
+                                href={upgradeHref}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  navigateTo(upgradeHref);
+                                }}
+                                className="rounded-xl p-2.5 text-xs flex items-center justify-between gap-2 no-underline"
+                                style={{
+                                  background: "var(--pl-surface)",
+                                  color: "var(--pl-text-secondary)",
+                                }}
+                              >
+                                <span className="inline-flex items-center gap-1.5 font-semibold truncate">
+                                  <MaestroIcon name="lock" size={12} />
+                                  <span className="truncate">{pk.categoryLabel}</span>
+                                </span>
+                                <span className="pl-pill text-[11px] shrink-0">
+                                  {hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}
+                                </span>
+                              </a>
+                            );
                           }
-                          disabled={!inSlip && !compat.allowed}
-                          title={blockedReason ?? undefined}
-                          className="rounded-xl p-3 text-left text-xs cursor-pointer transition-opacity disabled:opacity-60 disabled:cursor-not-allowed space-y-1"
-                          style={{
-                            background: inSlip
-                              ? "var(--pl-surface-active)"
-                              : "var(--pl-surface)",
-                            boxShadow: inSlip
-                              ? "inset 0 0 0 1.5px var(--pl-brand)"
-                              : "inset 0 0 0 1px var(--pl-border)",
-                          }}
-                        >
-                          <div className="flex items-center justify-between gap-1.5 font-bold">
-                            <span className="truncate">{pk.label}</span>
-                            <span className="num shrink-0">
-                              {formatOddsValue(pickReferenceDecimal(pk), oddsFormat)}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between gap-1.5 num">
-                            <span style={{ color: "var(--pl-text-muted)" }}>
-                              {(pk.p * 100).toFixed(0)} % · {pk.categoryLabel}
-                            </span>
-                            {inSlip ? (
-                              <span
-                                className="inline-flex items-center gap-1 font-extrabold shrink-0"
-                                style={{ color: "var(--pl-brand)" }}
-                              >
-                                <MaestroIcon name="check" size={11} />
-                                <span>En boleto</span>
-                              </span>
-                            ) : compat.allowed ? (
-                              <span
-                                className="inline-flex items-center gap-1 font-bold shrink-0"
-                                style={{ color: "var(--pl-success)" }}
-                              >
-                                <MaestroIcon name="plus" size={11} />
-                                <span>Agregar</span>
-                              </span>
-                            ) : (
-                              <span
-                                className="inline-flex items-center gap-1 font-bold shrink-0"
-                                style={{ color: "var(--pl-warning)" }}
-                              >
-                                <MaestroIcon name="x" size={11} />
-                                <span>{blockedReason}</span>
-                              </span>
-                            )}
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
 
-              {allOpenGames.length > catalogLimit ? (
-                <div className="flex justify-center pt-1">
-                  <button
-                    type="button"
-                    className="pl-btn-glass text-xs min-h-11 px-4"
-                    onClick={() => setCatalogLimit((c) => c + 12)}
-                  >
-                    Ver más partidos ({allOpenGames.length - catalogLimit} restantes)
-                  </button>
-                </div>
-              ) : null}
-            </section>
+                          const blockedReason =
+                            !inSlip && !compat.allowed
+                              ? getCompactBlockReason(
+                                  sameGameExists,
+                                  allowSgp,
+                                  compat,
+                                )
+                              : null;
+
+                          return (
+                            <button
+                              key={pk.id}
+                              type="button"
+                              onClick={() =>
+                                inSlip
+                                  ? removePickFromParlay(pk.id)
+                                  : addPickToParlay(pk)
+                              }
+                              disabled={!inSlip && !compat.allowed}
+                              title={blockedReason ?? undefined}
+                              className="rounded-xl p-3 text-left text-xs cursor-pointer transition-opacity disabled:opacity-60 disabled:cursor-not-allowed space-y-1 min-h-11"
+                              style={{
+                                background: inSlip
+                                  ? "var(--pl-surface-active)"
+                                  : "var(--pl-surface)",
+                                border: inSlip
+                                  ? "1.5px solid var(--pl-brand)"
+                                  : "1px solid var(--pl-border)",
+                              }}
+                            >
+                              <div className="flex items-center justify-between gap-1.5 font-bold">
+                                <span className="truncate">{pk.label}</span>
+                                <span className="num shrink-0">
+                                  {formatOddsValue(pickReferenceDecimal(pk), oddsFormat)}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between gap-1.5 num">
+                                <span style={{ color: "var(--pl-text-muted)" }}>
+                                  {(pk.p * 100).toFixed(0)} % · {pk.categoryLabel}
+                                </span>
+                                {inSlip ? (
+                                  <span
+                                    className="inline-flex items-center gap-1 font-extrabold shrink-0"
+                                    style={{ color: "var(--pl-brand)" }}
+                                  >
+                                    <MaestroIcon name="check" size={11} />
+                                    <span>En boleto</span>
+                                  </span>
+                                ) : compat.allowed ? (
+                                  <span
+                                    className="inline-flex items-center gap-1 font-bold shrink-0"
+                                    style={{ color: "var(--pl-success)" }}
+                                  >
+                                    <MaestroIcon name="plus" size={11} />
+                                    <span>Agregar</span>
+                                  </span>
+                                ) : (
+                                  <span
+                                    className="inline-flex items-center gap-1 font-bold shrink-0"
+                                    style={{ color: "var(--pl-warning)" }}
+                                  >
+                                    <MaestroIcon name="x" size={11} />
+                                    <span>{blockedReason}</span>
+                                  </span>
+                                )}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))
+                )}
+
+                {allOpenGames.length > catalogLimit ? (
+                  <div className="flex justify-center pt-1">
+                    <button
+                      type="button"
+                      className="pl-btn-glass text-xs min-h-11 px-4 num"
+                      onClick={() => setCatalogLimit((c) => c + 12)}
+                    >
+                      Ver más partidos ({allOpenGames.length - catalogLimit} restantes)
+                    </button>
+                  </div>
+                ) : null}
+              </section>
+            )}
           </div>
 
-          {/* Columna derecha: Boleto Combinado PitchLab Perforado */}
-          <aside className="xl:col-span-5 glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-4 xl:sticky xl:top-20 xl:max-h-[calc(100dvh-6rem)] xl:overflow-y-auto relative overflow-x-hidden">
-            <LensGlowOrbs subtle />
-
-            <div className="space-y-4 relative z-10">
+          {/* Columna derecha: Boleto Combinado PitchLab (plano, sin brillos decorativos) */}
+          <aside className="xl:col-span-5 glass-card glass-ring rounded-3xl p-5 sm:p-6 space-y-4 xl:sticky xl:top-20 xl:max-h-[calc(100dvh-6rem)] xl:overflow-y-auto overflow-x-hidden">
+            <div className="space-y-4">
               <div className="flex items-center justify-between gap-2">
                 <div>
                   <span
@@ -582,17 +764,23 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     style={{ color: "var(--pl-brand)" }}
                   >
                     <MaestroIcon name="ticket" size={13} />
-                    <span>Boleto Combinado PitchLab</span>
+                    <span>Boleto combinado</span>
                   </span>
-                  <h2 className="m-0 text-xl font-extrabold">
-                    {parlaySummary.legs.length} Selecciones Activas
+                  <h2 className="m-0 text-xl font-extrabold num">
+                    {parlaySummary.legs.length} {parlaySummary.legs.length === 1 ? "selección activa" : "selecciones activas"}
                   </h2>
                 </div>
                 {parlaySummary.legs.length > 0 ? (
                   <button
                     type="button"
-                    className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
-                    onClick={clearParlay}
+                    className="pl-btn-glass text-xs min-h-10 px-3 inline-flex items-center gap-1"
+                    onClick={() => {
+                      if (parlaySummary.legs.length >= 2) {
+                        setConfirmClearOpen(true);
+                      } else {
+                        clearParlay();
+                      }
+                    }}
                   >
                     <MaestroIcon name="x" size={12} />
                     <span>Limpiar</span>
@@ -608,7 +796,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     Tu boleto combinado está vacío
                   </p>
                   <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    Pulsa «Generar Mejor Parlay» o selecciona todas las jugadas compatibles que quieras del catálogo (mínimo 2 para sellar).
+                    Usa el generador automático o cambia a «Armar a mano» para elegir piernas compatibles (mínimo 2 para sellar).
                   </p>
                 </div>
               ) : (
@@ -642,7 +830,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         type="button"
                         aria-label={`Quitar ${pick.label}`}
                         onClick={() => removePickFromParlay(pick.id)}
-                        className="pl-btn-glass px-2.5 min-h-9 text-xs inline-flex items-center justify-center shrink-0"
+                        className="pl-btn-glass px-2.5 min-h-10 text-xs inline-flex items-center justify-center shrink-0"
                       >
                         <MaestroIcon name="x" size={12} />
                       </button>
@@ -656,7 +844,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 className="rounded-2xl p-3.5 space-y-2"
                 style={{
                   background: "var(--pl-surface)",
-                  boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
+                  border: `1px solid color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
                 }}
                 data-parlay-risk-meter={slipRisk.level}
               >
@@ -673,12 +861,12 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 </div>
                 {parlaySummary.legs.length > 0 ? (
                   <div
-                    className="h-2 rounded-full overflow-hidden"
+                    className="h-1.5 rounded-full overflow-hidden"
                     style={{ background: "var(--pl-surface-hover)" }}
                     aria-hidden="true"
                   >
                     <div
-                      className="h-full rounded-full transition-all"
+                      className="h-full rounded-full"
                       style={{
                         width: `${slipRisk.meterPct}%`,
                         background: riskToneCss(slipRisk.tone),
@@ -839,12 +1027,12 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 <button
                   type="button"
                   disabled={parlaySummary.legs.length < 2}
-                  className="pl-btn-glass text-xs inline-flex items-center justify-center gap-1.5"
+                  className="pl-btn-glass min-h-11 text-xs inline-flex items-center justify-center gap-1.5"
                   onClick={() =>
                     openShareTicket({
                       kind: "parlay",
                       title: `Parlay PitchLab (${parlaySummary.legs.length} picks)`,
-                      subtitle: "Armador Inteligente · Spacetime Suite v3.0",
+                      subtitle: "Armador Inteligente · Spacetime Suite v5.1",
                       leagueLabel: "Multi-Liga",
                       pickLabel: parlaySummary.legs
                         .map((l) => l.pick.label)
@@ -871,33 +1059,42 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 <button
                   type="button"
                   disabled={parlaySummary.legs.length < 2}
-                  className="pl-btn-primary text-xs inline-flex items-center justify-center gap-1.5"
+                  className="pl-btn-primary min-h-11 text-xs inline-flex items-center justify-center gap-1.5"
                   onClick={() => sealParlayToJournal()}
                 >
                   <MaestroIcon name="ticket" size={13} />
-                  <span>Sellar Parlay ({parlaySummary.stakeUnits.toFixed(1)}u)</span>
+                  <span>Sellar en Mi récord ({parlaySummary.stakeUnits.toFixed(1)}u)</span>
                 </button>
               </div>
 
-              <div
-                className="rounded-2xl p-3.5 space-y-2"
+              <details
+                className="rounded-2xl p-3.5"
                 style={{ background: "var(--pl-surface)" }}
                 data-parlay-rules=""
               >
-                <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text)" }}>
+                <summary className="text-xs font-extrabold cursor-pointer" style={{ color: "var(--pl-text)" }}>
                   Qué no se puede combinar en parlay
-                </span>
-                <ul className="m-0 pl-4 space-y-1 text-[11px] leading-snug" style={{ color: "var(--pl-text-muted)" }}>
+                </summary>
+                <ul className="m-0 mt-2 pl-4 space-y-1 text-[11px] leading-snug" style={{ color: "var(--pl-text-muted)" }}>
                   {PARLAY_NON_COMBINABLE_RULES.map((rule) => (
                     <li key={rule.title}>
                       <strong style={{ color: "var(--pl-text-secondary)" }}>{rule.title}:</strong> {rule.detail}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </details>
             </div>
           </aside>
         </div>
+
+        <ConfirmActionDialog
+          open={confirmClearOpen}
+          title={`¿Vaciar parlay de ${parlaySummary.legs.length} selecciones?`}
+          description="Se quitarán todas las selecciones del boleto actual. Podrás deshacerlo durante unos segundos desde el aviso inferior."
+          confirmLabel="Vaciar boleto"
+          onConfirm={clearParlay}
+          onCancel={() => setConfirmClearOpen(false)}
+        />
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

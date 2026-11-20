@@ -249,3 +249,186 @@ export function CompareHubSkeleton(): React.JSX.Element {
     </div>
   );
 }
+
+/** Silueta de explorador de picks / comparador de momios (`/app/picks`, `/app/momios`). */
+export function PicksSkeleton(): React.JSX.Element {
+  return (
+    <div className="pl-route-skel space-y-4" role="status" aria-label="Cargando picks" aria-busy="true">
+      <div className="pl-skel-card glass-ring rounded-2xl p-4 sm:p-5 space-y-3">
+        <SkelBlock style={{ width: 190, height: 24, borderRadius: 8 }} />
+        <div className="flex flex-wrap gap-2">
+          {[88, 118, 102, 94, 110].map((w, idx) => (
+            <SkelBlock key={idx} style={{ width: w, height: 36, borderRadius: 10 }} />
+          ))}
+        </div>
+      </div>
+      <div className="space-y-2.5">
+        {[0, 1, 2, 3, 4].map((idx) => (
+          <div key={idx} className="pl-skel-card glass-ring rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="space-y-2 flex-1 min-w-[200px]">
+              <SkelBlock style={{ width: "48%", height: 13, borderRadius: 6 }} />
+              <SkelBlock style={{ width: "68%", height: 18, borderRadius: 8 }} />
+            </div>
+            <SkelBlock style={{ width: 88, height: 32, borderRadius: 10 }} />
+            <SkelBlock style={{ width: 96, height: 38, borderRadius: 10 }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Silueta de Comunidad (`/app/social`). */
+export function SocialSkeleton(): React.JSX.Element {
+  return (
+    <div className="pl-route-skel space-y-4" role="status" aria-label="Cargando comunidad" aria-busy="true">
+      <div className="flex items-center gap-2 overflow-hidden">
+        {[84, 96, 94, 88].map((w, idx) => (
+          <SkelBlock key={idx} style={{ width: w, height: 38, borderRadius: 10, flexShrink: 0 }} />
+        ))}
+      </div>
+      {[0, 1, 2].map((idx) => (
+        <div key={idx} className="pl-skel-card glass-ring rounded-2xl p-4 space-y-3">
+          <div className="flex items-center gap-3">
+            <SkelBlock style={{ width: 38, height: 38, borderRadius: 999 }} />
+            <div className="space-y-1.5 flex-1">
+              <SkelBlock style={{ width: 140, height: 15, borderRadius: 6 }} />
+              <SkelBlock style={{ width: 96, height: 12, borderRadius: 6 }} />
+            </div>
+          </div>
+          <SkelBlock style={{ width: "92%", height: 15, borderRadius: 6 }} />
+          <SkelBlock style={{ width: "74%", height: 15, borderRadius: 6 }} />
+          <SkelBlock style={{ width: "100%", height: 52, borderRadius: 12 }} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Silueta de Player Props (`/app/props`). */
+export function PropsSkeleton(): React.JSX.Element {
+  return (
+    <div className="pl-route-skel space-y-4" role="status" aria-label="Cargando props de jugadores" aria-busy="true">
+      <div className="pl-skel-card glass-ring rounded-2xl p-4 space-y-3">
+        <SkelBlock style={{ width: 180, height: 22, borderRadius: 8 }} />
+        <div className="flex gap-2 overflow-hidden">
+          {[112, 112, 112].map((w, idx) => (
+            <SkelBlock key={idx} style={{ width: w, height: 36, borderRadius: 10, flexShrink: 0 }} />
+          ))}
+        </div>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {[0, 1, 2, 3, 4, 5].map((idx) => (
+          <div key={idx} className="pl-skel-card glass-ring rounded-2xl p-4 space-y-3">
+            <div className="flex items-center gap-2.5">
+              <SkelBlock style={{ width: 40, height: 40, borderRadius: 999 }} />
+              <div className="space-y-1.5 flex-1">
+                <SkelBlock style={{ width: "70%", height: 15, borderRadius: 6 }} />
+                <SkelBlock style={{ width: "45%", height: 12, borderRadius: 6 }} />
+              </div>
+            </div>
+            <SkelBlock style={{ width: "100%", height: 44, borderRadius: 10 }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Silueta de Mi récord (`/app/lab`). */
+export function RecordSkeleton(): React.JSX.Element {
+  return (
+    <div className="pl-route-skel space-y-4" role="status" aria-label="Cargando Mi récord" aria-busy="true">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        {[0, 1, 2, 3].map((idx) => (
+          <div key={idx} className="pl-skel-card glass-ring rounded-2xl p-4 space-y-2">
+            <SkelBlock style={{ width: "58%", height: 12, borderRadius: 6 }} />
+            <SkelBlock style={{ width: "46%", height: 26, borderRadius: 8 }} />
+          </div>
+        ))}
+      </div>
+      <div className="pl-skel-card glass-ring rounded-2xl p-4 space-y-3">
+        <div className="flex items-center justify-between gap-2">
+          <SkelBlock style={{ width: 160, height: 20, borderRadius: 8 }} />
+          <SkelBlock style={{ width: 120, height: 34, borderRadius: 10 }} />
+        </div>
+        {[0, 1, 2, 3].map((idx) => (
+          <SkelBlock key={idx} style={{ width: "100%", height: 52, borderRadius: 12 }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Silueta de Mi cuenta (`/app/account`) y perfil de socio (`/app/u/[handle]`). */
+export function AccountSkeleton(): React.JSX.Element {
+  return (
+    <div className="pl-route-skel space-y-4" role="status" aria-label="Cargando perfil y cuenta" aria-busy="true">
+      <div className="pl-skel-card glass-ring rounded-2xl p-5 flex flex-wrap items-center gap-4">
+        <SkelBlock style={{ width: 64, height: 64, borderRadius: 999 }} />
+        <div className="space-y-2 flex-1 min-w-[180px]">
+          <SkelBlock style={{ width: 180, height: 22, borderRadius: 8 }} />
+          <SkelBlock style={{ width: 120, height: 14, borderRadius: 6 }} />
+        </div>
+      </div>
+      <div className="flex items-center gap-2 overflow-hidden">
+        {[92, 114, 108].map((w, idx) => (
+          <SkelBlock key={idx} style={{ width: w, height: 38, borderRadius: 10, flexShrink: 0 }} />
+        ))}
+      </div>
+      <div className="pl-skel-card glass-ring rounded-2xl p-5 space-y-3">
+        {[0, 1, 2].map((idx) => (
+          <SkelBlock key={idx} style={{ width: "100%", height: 48, borderRadius: 12 }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Silueta de perfil de jugador (`/app/[league]/t/[teamSlug]/p/[playerSlug]`). */
+export function PlayerProfileSkeleton(): React.JSX.Element {
+  return (
+    <div className="pl-route-skel space-y-4" role="status" aria-label="Cargando perfil del jugador" aria-busy="true">
+      <div className="flex items-center gap-2">
+        <SkelBlock style={{ width: 88, height: 36, borderRadius: 999 }} />
+        <SkelBlock style={{ width: 160, height: 16, borderRadius: 8 }} />
+      </div>
+      <div className="pl-skel-card glass-ring rounded-2xl p-5 flex items-center gap-4">
+        <SkelBlock style={{ width: 84, height: 84, borderRadius: 999 }} />
+        <div className="space-y-2 flex-1">
+          <SkelBlock style={{ width: 190, height: 24, borderRadius: 8 }} />
+          <SkelBlock style={{ width: 140, height: 14, borderRadius: 6 }} />
+        </div>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        {[0, 1, 2, 3].map((idx) => (
+          <div key={idx} className="pl-skel-card glass-ring rounded-2xl p-3.5 space-y-2">
+            <SkelBlock style={{ width: "55%", height: 12, borderRadius: 6 }} />
+            <SkelBlock style={{ width: "42%", height: 22, borderRadius: 8 }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Silueta genérica para historial, tipster, admin y canje (`/app/historial`, `/app/tipster`, `/app/admin`, `/app/canjear`). */
+export function GenericSubpageSkeleton(): React.JSX.Element {
+  return (
+    <div className="pl-route-skel space-y-4" role="status" aria-label="Cargando sección" aria-busy="true">
+      <div className="pl-skel-card glass-ring rounded-2xl p-5 space-y-2.5">
+        <SkelBlock style={{ width: 210, height: 24, borderRadius: 8 }} />
+        <SkelBlock style={{ width: "70%", height: 14, borderRadius: 6 }} />
+      </div>
+      <div className="grid gap-3 md:grid-cols-2">
+        {[0, 1, 2, 3].map((idx) => (
+          <div key={idx} className="pl-skel-card glass-ring rounded-2xl p-4 space-y-2.5">
+            <SkelBlock style={{ width: "62%", height: 16, borderRadius: 8 }} />
+            <SkelBlock style={{ width: "90%", height: 13, borderRadius: 6 }} />
+            <SkelBlock style={{ width: "100%", height: 36, borderRadius: 10 }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

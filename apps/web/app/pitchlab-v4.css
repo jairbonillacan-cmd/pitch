@@ -692,59 +692,44 @@ dialog.pl-native-dialog .glass-lens {
 }
 
 /* ---------- Barras de Probabilidad dentro de .pl-stage ---------- */
-/* Segmentos con corte diagonal (como el PitchLab original). El favorito va en verde:
-   de un vistazo se ve quién tiene más probabilidad. */
+/* Barras de probabilidad planas estilo Sofascore con tokens PitchLab (ADR-054). */
 .pl-stage .psplit {
-  --cut: 7px;
   display: flex;
-  gap: 2px;
-  height: 10px;
+  gap: 3px;
+  height: 6px;
   width: 100%;
 }
 .pl-stage .psplit > span {
   display: block;
-  min-width: 10px;
-  background: color-mix(in srgb, var(--pl-text-muted) 34%, transparent);
-  clip-path: polygon(var(--cut) 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
+  min-width: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pl-text-muted) 26%, transparent);
   transform-origin: left center;
   transition:
-    flex 360ms var(--ease-out),
+    flex 300ms var(--ease-out),
     background-color 180ms ease;
-  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-    animation: pl-bar-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
-  }
-}
-.pl-stage .psplit > span:first-child {
-  clip-path: polygon(0 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
-  border-radius: 3px 0 0 3px;
-}
-.pl-stage .psplit > span:last-child {
-  clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%);
-  border-radius: 0 3px 3px 0;
-}
-.pl-stage .psplit > span:nth-child(2) {
-  animation-delay: 60ms;
-}
-.pl-stage .psplit > span:nth-child(3) {
-  animation-delay: 120ms;
 }
 .pl-stage .psplit > span.lead {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--pl-success) 70%, transparent), var(--pl-success));
+  background: var(--pl-success);
 }
 .pl-stage .psplit-wrap {
   display: grid;
   gap: 6px;
 }
 .pl-stage .psplit-legend {
-  display: flex;
-  gap: 2px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 8px;
   font-size: 0.75rem;
-  line-height: 1.2;
+  line-height: 1.25;
+}
+.pl-stage .psplit-legend[data-cols="2"] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .pl-stage .psplit-legend > span {
   display: flex;
   flex-direction: column;
-  min-width: 56px;
+  min-width: 0;
   color: var(--pl-text-muted);
 }
 .pl-stage .psplit-legend > span:last-child:not(:first-child) {
@@ -783,8 +768,8 @@ dialog.pl-native-dialog .glass-lens {
 
 .pl-stage .pbar {
   position: relative;
-  height: 8px;
-  border-radius: 3px;
+  height: 6px;
+  border-radius: 999px;
   overflow: hidden;
   background: var(--pl-surface-hover);
 }
@@ -792,20 +777,16 @@ dialog.pl-native-dialog .glass-lens {
   position: absolute;
   inset: 0 auto 0 0;
   width: var(--w, 0%);
-  border-radius: 3px 0 0 3px;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
-  background: color-mix(in srgb, var(--pl-text-muted) 60%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pl-text-muted) 56%, transparent);
   transform-origin: left center;
   transition:
-    width 340ms var(--ease-out),
-    transform 320ms var(--ease-out),
-    opacity 220ms var(--ease-out);
-  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-    animation: pl-bar-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
-  }
+    width 300ms var(--ease-out),
+    transform 280ms var(--ease-out),
+    opacity 200ms var(--ease-out);
 }
 .pl-stage .pbar.lead > span {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--pl-success) 70%, transparent), var(--pl-success));
+  background: var(--pl-success);
 }
 .pl-stage .pbar.pos > span {
   background: var(--pl-success);
@@ -14910,20 +14891,28 @@ dialog::backdrop {
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: start;
   gap: 12px;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: 600;
   color: var(--pl-text-secondary);
 }
 .pl-match-hero-scorers-side {
   display: grid;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
 }
 .pl-match-hero-scorers-side--home {
+  justify-items: end;
   text-align: right;
 }
 .pl-match-hero-scorers-side--away {
+  justify-items: start;
   text-align: left;
+}
+.pl-match-hero-scorer {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
 }
 .pl-match-hero-scorers-dot {
   color: var(--pl-text-muted);
@@ -15195,7 +15184,7 @@ dialog::backdrop {
 }
 .pl-rail-periods {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 .pl-rail-period {
   display: grid;
@@ -15206,8 +15195,8 @@ dialog::backdrop {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 10px 0;
-  font-size: 0.7rem;
+  padding: 5px 10px 2px;
+  font-size: 0.72rem;
   font-weight: 800;
   color: var(--pl-text-secondary);
 }
@@ -15229,24 +15218,29 @@ dialog::backdrop {
 }
 .pl-rail-events {
   display: grid;
-  gap: 6px;
+  gap: 2px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
+/* Eventos por tiempo planos estilo Sofascore (ADR-054): sin tarjetas individuales apiladas */
 .pl-rail-event {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 5px 8px;
-  border-radius: 10px;
-  background: var(--pl-surface-elevated);
-  border: 1px solid var(--pl-border);
-  font-size: 0.74rem;
+  gap: 8px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  background: transparent;
+  border: 0;
+  font-size: 0.78rem;
   min-width: 0;
+  transition: background-color 150ms ease;
+}
+.pl-rail-event:hover {
+  background: var(--pl-surface-elevated);
 }
 .pl-rail-event.is-goal {
-  border-color: color-mix(in srgb, var(--pl-brand) 44%, var(--pl-border));
+  padding-block: 7px;
 }
 .pl-rail-event.is-away {
   flex-direction: row-reverse;
@@ -15254,25 +15248,27 @@ dialog::backdrop {
 }
 .pl-rail-event-min {
   flex-shrink: 0;
-  font-size: 0.7rem;
+  min-width: 3.4ch;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--pl-text-muted);
 }
 .pl-rail-event-score {
   flex-shrink: 0;
-  padding: 2px 7px;
+  padding: 2px 9px;
   border-radius: 999px;
-  background: var(--pl-surface-active);
+  background: color-mix(in srgb, var(--pl-brand) 10%, var(--pl-surface));
   border: 1px solid color-mix(in srgb, var(--pl-brand) 52%, var(--pl-border));
   color: var(--pl-text);
-  font-size: 0.71rem;
+  font-size: 0.74rem;
   font-weight: 800;
+  line-height: 1.2;
 }
 .pl-rail-event-text {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 2px 5px;
+  gap: 2px 6px;
   min-width: 0;
   flex: 1 1 auto;
 }
@@ -15285,7 +15281,7 @@ dialog::backdrop {
 }
 .pl-rail-event-text small {
   color: var(--pl-text-muted);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
 }
 .pl-rail-card-mark {
   display: inline-block;
@@ -23576,4 +23572,460 @@ body {
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+}
+
+/* ==========================================================================
+   ADR-054 · Pulido Nativo iOS/Android + Acabado Plano Editorial (Sofascore × PitchLab)
+   ========================================================================== */
+
+/* Iconos deportivos vectoriales planos (contraste >= 3:1, no se encogen ni atrapan clics) */
+.pl-sport-evt-ico {
+  display: inline-block;
+  flex: none;
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+/* Regla 9 (10/10): Blur placeholder sobre la propia <img> (0 backdrop-filter, CLS = 0) */
+.pl-prog-img {
+  background: var(--pl-surface-elevated);
+  transition:
+    opacity 260ms ease-out,
+    filter 280ms ease-out;
+}
+.pl-prog-img[data-loaded="false"] {
+  opacity: 0.35;
+  filter: blur(8px);
+}
+.pl-prog-img[data-loaded="true"] {
+  opacity: 1;
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pl-prog-img {
+    transition: none;
+  }
+  .pl-prog-img[data-loaded="false"] {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+/* Regla 8 (9/10): Cortes de línea equilibrados (selectivo, nunca global `*`) */
+.pl-stage :is(h1, h2, h3, h4, .pl-notfound-title, .pl-native-modal-title, .pl-sheet-title) {
+  text-wrap: balance;
+}
+.pl-stage :is(p, .pl-notfound-copy, .pl-bm-crit, .pl-clean-lede) {
+  text-wrap: pretty;
+}
+
+/* Regla 4 (4/10): Squircle corners progresivo respetando radios oficiales y excluyendo pills 999px */
+@supports (corner-shape: squircle) {
+  .pl-stage :is(
+      .glass-card,
+      .glass-lens,
+      .pl-astro-league-block,
+      .pl-match-hero,
+      .pl-match-rail-card,
+      .pl-rec-card,
+      .pl-bm-card,
+      .pl-btn-primary,
+      .pl-btn-glass,
+      .pl-home-parlay-btn,
+      .pl-back-btn,
+      .pl-native-modal,
+      .pl-bottom-sheet-panel
+    ) {
+    corner-shape: squircle;
+  }
+}
+
+/* Regla 6 (6/10): Shared Element Transitions suaves (desactivadas en reduced-motion) */
+::view-transition-old(pl-match-hero),
+::view-transition-new(pl-match-hero),
+::view-transition-old(pl-team-hero),
+::view-transition-new(pl-team-hero) {
+  animation-duration: 210ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  height: 100%;
+}
+
+/* Regla 7 (8/10): Acción «Deshacer» táctil >= 44px dentro de toasts */
+.pl-toast-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  min-width: 44px;
+  padding: 0 12px;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--pl-brand) 48%, var(--pl-border));
+  background: color-mix(in srgb, var(--pl-brand) 14%, transparent);
+  color: var(--pl-brand);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 150ms ease, transform 120ms ease;
+}
+.pl-toast-action-btn:hover {
+  background: color-mix(in srgb, var(--pl-brand) 22%, transparent);
+}
+.pl-toast-action-btn:active {
+  transform: scale(0.96);
+}
+@media (max-width: 767px) {
+  .pl-toast-action-btn {
+    min-height: 44px;
+  }
+}
+
+/* Botón destructivo explícito para diálogos de confirmación (Regla 7 · ADR-054) */
+.pl-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--pl-danger) 55%, var(--pl-border));
+  background: var(--pl-danger);
+  color: var(--pl-on-brand, var(--pl-bg));
+  font-weight: 800;
+  cursor: pointer;
+  transition: opacity 140ms ease, transform 120ms ease;
+}
+.pl-btn-danger:hover {
+  opacity: 0.92;
+}
+.pl-btn-danger:active {
+  transform: scale(0.97);
+}
+.pl-btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Diálogo nativo <dialog>: prevención de scroll chaining en fondo y cuerpo (modern-web-guidance) */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Insignias destacadas con animación fluida de entrada y salida (ADR-054) */
+.pl-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pl-badge-row-item {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition:
+    grid-template-columns 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 180ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pl-badge-row-item > .pl-badge-row-inner {
+  overflow: hidden;
+  display: inline-flex;
+}
+@starting-style {
+  .pl-badge-row-item {
+    grid-template-columns: 0fr;
+    opacity: 0;
+    transform: scale(0.88) translateY(2px);
+  }
+}
+.pl-badge-row-item[data-closing="true"] {
+  grid-template-columns: 0fr;
+  opacity: 0;
+  transform: scale(0.86) translateY(-2px);
+  pointer-events: none;
+}
+.pl-bm-card {
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pl-bm-toggle {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 140ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pl-bm-toggle:active:not(:disabled) {
+  transform: scale(0.96);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pl-badge-row-item,
+  .pl-bm-card,
+  .pl-bm-toggle {
+    transition-duration: 80ms;
+    transform: none;
+  }
+  @starting-style {
+    .pl-badge-row-item {
+      transform: none;
+    }
+  }
+}
+
+/* Tablero de Picks con Evidencia real estilo ScoutPicks (ADR-054) */
+.pl-ev-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  padding-bottom: 2px;
+}
+.pl-ev-filters::-webkit-scrollbar {
+  display: none;
+}
+.pl-ev-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.pl-ev-filter-pill:hover {
+  background: var(--pl-surface-hover);
+  color: var(--pl-text);
+}
+.pl-ev-filter-pill.is-on {
+  border-color: color-mix(in srgb, var(--pl-brand) 58%, var(--pl-border));
+  background: color-mix(in srgb, var(--pl-brand) 14%, var(--pl-surface));
+  color: var(--pl-text);
+}
+.pl-ev-filter-count {
+  font-size: 0.7rem;
+  color: var(--pl-text-muted);
+}
+.pl-ev-filter-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--pl-border);
+  flex-shrink: 0;
+  margin-inline: 2px;
+}
+.pl-ev-sort-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.pl-ev-sort-select {
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  .pl-ev-filter-pill,
+  .pl-ev-sort-select {
+    min-height: 44px;
+  }
+}
+.pl-ev-group {
+  border-radius: 16px;
+  overflow: hidden;
+}
+.pl-ev-group-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  min-height: 44px;
+  border: 0;
+  border-bottom: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text);
+  cursor: pointer;
+  text-align: left;
+}
+.pl-ev-group-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.88rem;
+}
+.pl-ev-group-count {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--pl-text-muted);
+}
+.pl-ev-group-chev {
+  color: var(--pl-text-muted);
+  transition: transform 180ms ease;
+}
+.pl-ev-group-chev.is-collapsed {
+  transform: rotate(-90deg);
+}
+.pl-ev-rows {
+  display: grid;
+}
+.pl-ev-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+}
+.pl-ev-row:last-child {
+  border-bottom: 0;
+}
+@media (min-width: 768px) {
+  .pl-ev-row {
+    grid-template-columns: minmax(180px, 1.15fr) minmax(200px, 1.45fr) minmax(175px, 0.95fr);
+    align-items: center;
+    gap: 16px;
+  }
+}
+.pl-ev-col-pick {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.pl-ev-cat {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+.pl-ev-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--pl-text);
+  line-height: 1.3;
+}
+.pl-ev-prob-inline {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+}
+.pl-ev-col-evidence {
+  min-width: 0;
+}
+.pl-ev-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 5px;
+}
+.pl-ev-bullet {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.76rem;
+  color: var(--pl-text-secondary);
+  min-width: 0;
+}
+.pl-ev-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: var(--pl-text-muted);
+}
+.pl-ev-dot.is-high { background: var(--pl-success); }
+.pl-ev-dot.is-mid { background: var(--pl-warning); }
+.pl-ev-dot.is-low { background: var(--pl-danger); }
+.pl-ev-bullet-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.pl-ev-bullet-pct {
+  flex-shrink: 0;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+.pl-ev-bullet-pct.is-high { color: var(--pl-success); }
+.pl-ev-bullet-pct.is-mid { color: var(--pl-warning); }
+.pl-ev-bullet-pct.is-low { color: var(--pl-danger); }
+.pl-ev-col-odds {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+@media (min-width: 768px) {
+  .pl-ev-col-odds {
+    align-items: flex-end;
+  }
+}
+.pl-ev-odds-box {
+  display: grid;
+  gap: 2px;
+  padding: 7px 11px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  min-width: 132px;
+}
+.pl-ev-odds-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.pl-ev-odds-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+.pl-ev-odds-val {
+  font-size: 0.94rem;
+  font-weight: 850;
+  color: var(--pl-text);
+}
+.pl-ev-odds-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 0.68rem;
+  color: var(--pl-text-muted);
+}
+.pl-ev-val-badge {
+  font-weight: 800;
+  color: var(--pl-success);
+}
+.pl-ev-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
