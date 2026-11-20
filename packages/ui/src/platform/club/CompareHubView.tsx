@@ -13,7 +13,9 @@ import { MaestroIcon } from "../components/MaestroPrimitives";
 import { PlSelect } from "../components/PlSelect";
 import { shareH2hStoryCard } from "../components/share-story-card";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+} from "../platform-provider";
 import { PersonAvatar } from "./team/PersonAvatar";
 
 export type CompareMode = "equipos" | "jugadores";
@@ -208,7 +210,7 @@ export function CompareHubView({
   initialPlayerComparison,
   disableLiveFetch = false,
 }: CompareHubViewProps): React.JSX.Element {
-  const { navigateTo } = usePlatform();
+  const { navigateTo } = usePlatformActions();
   const tabIdBase = useId();
   const [mode, setMode] = useState<CompareMode>(initialMode);
   const [league, setLeague] = useState<LeagueId>(initialLeague);
@@ -356,7 +358,7 @@ export function CompareHubView({
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
-                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
+                  className="pl-btn-glass text-xs min-h-11 lg:min-h-9 px-3 inline-flex items-center gap-1.5"
                   aria-label="Compartir comparativa H2H en formato 9:16"
                   data-share-h2h-story=""
                   disabled={mode === "equipos" ? !teamComparison : !playerComparison}
@@ -406,7 +408,7 @@ export function CompareHubView({
                   role="tab"
                   aria-selected={mode === "equipos"}
                   aria-controls={`${tabIdBase}-panel-equipos`}
-                  className={`seg-btn ${mode === "equipos" ? "is-active" : ""}`.trim()}
+                  className={`seg-btn min-h-11 lg:min-h-9 ${mode === "equipos" ? "is-active" : ""}`.trim()}
                   onClick={() => setMode("equipos")}
                 >
                   Equipos H2H
@@ -417,7 +419,7 @@ export function CompareHubView({
                   role="tab"
                   aria-selected={mode === "jugadores"}
                   aria-controls={`${tabIdBase}-panel-jugadores`}
-                  className={`seg-btn ${mode === "jugadores" ? "is-active" : ""}`.trim()}
+                  className={`seg-btn min-h-11 lg:min-h-9 ${mode === "jugadores" ? "is-active" : ""}`.trim()}
                   onClick={() => setMode("jugadores")}
                 >
                   Jugadores
@@ -474,7 +476,7 @@ export function CompareHubView({
                   <div className="flex items-end justify-center">
                     <button
                       type="button"
-                      className="pl-btn-glass min-h-10 px-3 text-xs font-bold"
+                      className="pl-btn-glass min-h-11 min-w-11 lg:min-h-10 px-3 text-xs font-bold"
                       aria-label="Intercambiar lado A y lado B"
                       onClick={handleSwap}
                     >

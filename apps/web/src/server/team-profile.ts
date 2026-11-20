@@ -16,7 +16,7 @@ import {
   type TeamSquadEntry,
 } from "@pitchlab/contracts";
 import type { NbaPlayerPropSeed } from "@pitchlab/ingest/providers/bzzoiro-nba-rich";
-import type { PlatformGame, PlayerPropItem } from "@pitchlab/ui";
+import type { PlatformGame, PlayerPropItem } from "@pitchlab/ui/types";
 import { resolveTeamVenueGeo } from "@pitchlab/ui/team-venues";
 import type {
   PlatformSport,

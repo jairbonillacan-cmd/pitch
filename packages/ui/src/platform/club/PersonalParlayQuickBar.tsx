@@ -14,14 +14,17 @@ import {
 } from "../daily-parlay";
 import { ALL, SPORTS, sportOf, type SportFilter } from "./home/home-model";
 import { assessParlayRisk } from "../parlay-engine";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import type { RiskBand } from "../types";
 
 const QUICK_LEG_COUNTS = [2, 3, 4, 5, 6, 8, 10] as const;
 
 export function PersonalParlayQuickBar(): React.JSX.Element {
-  const { dataset, viewerRole, oddsFormat, riskPreference, loadParlayPicks } =
-    usePlatform();
+  const { dataset, viewerRole, oddsFormat, riskPreference } = usePlatformCore();
+  const { loadParlayPicks } = usePlatformActions();
   const leagueSelectId = useId();
   const [legCount, setLegCount] = useState<number>(4);
   const [risk, setRisk] = useState<RiskBand>(riskPreference);

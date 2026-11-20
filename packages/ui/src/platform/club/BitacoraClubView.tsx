@@ -4,7 +4,13 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { WinningTicketDialog } from "../components/WinningTicketDialog";
-import { ownHandleFor, usePlatform } from "../platform-provider";
+import {
+  ownHandleFor,
+  useJournalEntries,
+  usePlatformActions,
+  usePlatformCore,
+  useWatchlistGameIds,
+} from "../platform-provider";
 import {
   computeRecordStats,
   normalizeRecordPrivacy,
@@ -66,24 +72,10 @@ export function BitacoraClubView({
   initialTab,
   storyPrefs,
 }: BitacoraClubViewProps = {}): React.JSX.Element {
-  const {
-    dataset,
-    journal,
-    oddsFormat,
-    showMxnBalance,
-    setShowMxnBalance,
-    unitMxn,
-    setUnitMxn,
-    watchlistGameIds,
-    toggleWatchlistGame,
-    exportJournalCsv,
-    openShareTicket,
-    pushToast,
-    navigateTo,
-    viewerIdentity,
-    viewerRole,
-    hasAccountSessionAuth,
-  } = usePlatform();
+  const { dataset, oddsFormat, showMxnBalance, unitMxn, viewerIdentity, viewerRole, hasAccountSessionAuth } = usePlatformCore();
+  const { setShowMxnBalance, setUnitMxn, toggleWatchlistGame, exportJournalCsv, openShareTicket, pushToast, navigateTo } = usePlatformActions();
+  const journal = useJournalEntries();
+  const watchlistGameIds = useWatchlistGameIds();
 
   const canPersistServer = Boolean(hasAccountSessionAuth && !storyPrefs);
 

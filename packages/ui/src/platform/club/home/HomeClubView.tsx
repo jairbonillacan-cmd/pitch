@@ -32,9 +32,10 @@ import {
   useHomeNavFilter,
   useIsPickInParlay,
   useJournalEntries,
-  usePlatform,
+  useParlayState,
   usePlatformActions,
   usePlatformCore,
+  useWatchlistGameIds,
 } from "../../platform-provider";
 import { OfficialDailyParlayCard } from "./OfficialDailyParlayCard";
 import {
@@ -1502,16 +1503,9 @@ function ParlayHubRail({
   readonly isPastDay: boolean;
   readonly activeLeague: LeagueId | null;
 }): React.JSX.Element {
-  const {
-    parlaySummary,
-    removePickFromParlay,
-    clearParlay,
-    generateAutoParlay,
-    navigateTo,
-    oddsFormat,
-    riskPreference,
-    viewerRole,
-  } = usePlatform();
+  const { oddsFormat, riskPreference, viewerRole } = usePlatformCore();
+  const { removePickFromParlay, clearParlay, generateAutoParlay, navigateTo } = usePlatformActions();
+  const { parlaySummary } = useParlayState();
   const { userTimezone } = usePlatformCore();
   const [activeTab, setActiveTab] = useState<"custom" | "daily">("custom");
   const [risk, setRisk] = useState<RiskBand>(riskPreference);
@@ -2120,10 +2114,11 @@ export function HomeClubView({
   initialLeague = ALL,
   liveBoardOverride,
 }: HomeClubViewProps = {}): React.JSX.Element {
-  const { dataset, viewerRole, userTimezone } = usePlatformCore();
-  const { journal, favoriteLeagues, setFavoriteLeagues, watchlistGameIds } = usePlatform();
+  const { dataset, viewerRole, userTimezone, favoriteLeagues } = usePlatformCore();
+  const journal = useJournalEntries();
+  const watchlistGameIds = useWatchlistGameIds();
   const { topics, toggleLeague: toggleTopicLeague } = useFollowedTopics();
-  const { navigateTo } = usePlatformActions();
+  const { navigateTo, setFavoriteLeagues } = usePlatformActions();
   const homeNav = useHomeNavFilter();
   const { setTodayOverride } = homeNav;
   const games = dataset.games;

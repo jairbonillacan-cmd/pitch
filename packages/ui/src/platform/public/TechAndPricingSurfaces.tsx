@@ -11,7 +11,10 @@ import {
   PublicFooterV4,
   PublicHeaderV4,
 } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import {
   MEMBERSHIP_SPEC,
   PRECISION_BUCKETS,
@@ -28,7 +31,8 @@ export function TechPrecisionSection({
   inClub?: boolean;
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const { viewerRole, upgradeHref, navigateTo } = usePlatform();
+  const { viewerRole, upgradeHref } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
   const hasFullAccess = viewerRole !== "visitor";
   const isPrimaryHeading = isStandalone || inClub;
   const PrimaryHeadingTag = isPrimaryHeading ? "h1" : "h2";
@@ -382,15 +386,8 @@ export function PlansAndReferralsSection({
 }: {
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const {
-    month1NoCardMode,
-    navigateTo,
-    accountsEnabled,
-    hasAccountSession,
-    paymentMode,
-    upgradeHref,
-    pushToast,
-  } = usePlatform();
+  const { month1NoCardMode, accountsEnabled, hasAccountSession, paymentMode, upgradeHref } = usePlatformCore();
+  const { navigateTo, pushToast } = usePlatformActions();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const [checkoutBusy, setCheckoutBusy] = useState<boolean>(false);
 

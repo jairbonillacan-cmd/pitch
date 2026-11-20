@@ -1,7 +1,9 @@
 "use client";
 
 import React, {
+  Suspense,
   createContext,
+  lazy,
   useContext,
   useEffect,
   useId,
@@ -16,11 +18,21 @@ import {
   isNationalCompetition,
   type LeagueId,
 } from "@pitchlab/contracts";
+import { LIGHT_THEME_TOKENS, STAGE_DARK_TOKENS } from "@pitchlab/tokens";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { EmblemSurfaceProvider, LeagueBadge } from "../../sports";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
 import { formatUnits, profileRecord } from "../profile-stats";
-import { ownHandleFor, useAuraColors, useOptionalHomeNavFilter, usePlatform } from "../platform-provider";
+import {
+  ownHandleFor,
+  useAuraColors,
+  useJournalEntries,
+  useOptionalHomeNavFilter,
+  useOverlayState,
+  useParlayState,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import {
   ALL,
   buildHomeSportLeagues,
@@ -34,9 +46,7 @@ import {
   type SportFilter,
 } from "../club/home/home-model";
 import { HomeLeagueStrip, HomeSportStrip } from "../club/home/HomeSportStrip";
-import { LeagueCategorySheet } from "./LeagueCategorySheet";
-import { MobileParlaySheet } from "./MobileParlaySheet";
-import type { OddsFormat } from "../types";
+import type { OddsFormat, ViewerRole } from "../types";
 import {
   MaestroIcon,
   UltraTag,
@@ -44,16 +54,44 @@ import {
   type MaestroIconName,
 } from "./MaestroPrimitives";
 import {
-  BetaPinModal,
-  CommandPaletteModal,
   ParlayFloatingDock,
-  PickComposerModal,
   RoleSimulatorBar,
-  ShareTicketModal,
   ToastViewport,
   TopLayerModalDialog,
 } from "./PlatformOverlays";
 import { NotificationBell } from "./NotificationInbox";
+
+const LazyLeagueCategorySheet = lazy(() =>
+  import("./LeagueCategorySheet").then((m) => ({ default: m.LeagueCategorySheet })),
+);
+const LazyMobileParlaySheet = lazy(() =>
+  import("./MobileParlaySheet").then((m) => ({ default: m.MobileParlaySheet })),
+);
+const LazyPickComposerModal = lazy(() =>
+  import("./PlatformOverlays").then((m) => ({ default: m.PickComposerModal })),
+);
+const LazyShareTicketModal = lazy(() =>
+  import("./PlatformOverlays").then((m) => ({ default: m.ShareTicketModal })),
+);
+const LazyCommandPaletteModal = lazy(() =>
+  import("./PlatformOverlays").then((m) => ({ default: m.CommandPaletteModal })),
+);
+const LazyBetaPinModal = lazy(() =>
+  import("./PlatformOverlays").then((m) => ({ default: m.BetaPinModal })),
+);
+
+/** Monta modales del shell bajo demanda (ADR-051): cero costo inicial hasta que se abren. */
+function LazyAppOverlays({ inClubApp }: { inClubApp: boolean }): React.JSX.Element {
+  const { composerPick, shareTicket, cmdkOpen, betaPinOpen } = useOverlayState();
+  return (
+    <Suspense fallback={null}>
+      {inClubApp && composerPick ? <LazyPickComposerModal /> : null}
+      {inClubApp && shareTicket ? <LazyShareTicketModal /> : null}
+      {inClubApp && cmdkOpen ? <LazyCommandPaletteModal /> : null}
+      {betaPinOpen ? <LazyBetaPinModal /> : null}
+    </Suspense>
+  );
+}
 
 /** Opciones de formato de momios disponibles en el menú y en móvil. */
 
@@ -68,7 +106,8 @@ const ODDS_FORMAT_OPTIONS: ReadonlyArray<{ value: OddsFormat; label: string }> =
  * solo por este control (P0-08 de la auditoría 2026-11-13).
  */
 export function OddsFormatSegment(): React.JSX.Element {
-  const { oddsFormat, setOddsFormat } = usePlatform();
+  const { oddsFormat } = usePlatformCore();
+  const { setOddsFormat } = usePlatformActions();
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
   const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, idx: number) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
@@ -125,6 +164,14 @@ function applyTheme(next: "dark" | "light"): void {
   if ((root.dataset.theme === "light" ? "light" : "dark") === next) return;
   root.dataset.themeSwitching = "true";
   root.dataset.theme = next;
+  root.style.colorScheme = next;
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])');
+  if (meta) {
+    meta.content =
+      next === "light"
+        ? LIGHT_THEME_TOKENS["--background-elevated"]
+        : STAGE_DARK_TOKENS["--pl-glass-nav"];
+  }
   void root.offsetHeight;
   delete root.dataset.themeSwitching;
   try {
@@ -209,7 +256,8 @@ function FloatingQuickJumpBar({
 }: {
   activePath?: string;
 }): React.JSX.Element | null {
-  const { rawDataset, openBetaPin, navigateTo, allowRoleSimulation } = usePlatform();
+  const { rawDataset, allowRoleSimulation } = usePlatformCore();
+  const { openBetaPin, navigateTo } = usePlatformActions();
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const [clientPath, setClientPath] = useState<string>(activePath ?? "");
 
@@ -273,7 +321,7 @@ function FloatingQuickJumpBar({
     <aside
       aria-label="Salto rápido de 11 vistas PitchLab"
       data-quick-jump-bar=""
-      className="pl-quick-jump-bar glass-ring hidden md:inline-flex lg:max-w-[calc(100vw-16rem)]"
+      className="pl-quick-jump-bar glass-ring hidden lg:inline-flex lg:max-w-[calc(100vw-16rem)]"
     >
       {collapsed ? (
         <button
@@ -434,13 +482,10 @@ function AtmosphereStageImpl({
           <>
             <FloatingQuickJumpBar activePath={activePath} />
             {activePath !== "/app/parlays" ? <ParlayFloatingDock /> : null}
-            <PickComposerModal />
-            <ShareTicketModal />
-            <CommandPaletteModal />
             <RoleSimulatorBar activePath={activePath} />
           </>
         ) : null}
-        <BetaPinModal />
+        <LazyAppOverlays inClubApp={inClubApp} />
         <ToastViewport />
       </div>
     </EmblemSurfaceProvider>
@@ -452,7 +497,8 @@ export function PublicHeaderV4({
 }: {
   activePath?: string;
 }): React.JSX.Element {
-  const { navigateTo, viewerRole } = usePlatform();
+  const { viewerRole } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
 
   const navItems = [
     { href: "/motores", label: "Motores" },
@@ -571,13 +617,13 @@ export function PublicHeaderV4({
 export const PublicGlassHeader = PublicHeaderV4;
 
 export function PublicFooterV4(): React.JSX.Element {
-  const { navigateTo } = usePlatform();
+  const { navigateTo } = usePlatformActions();
 
   return (
     <footer className="relative z-10 mt-16 hairline-t py-10 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-xl">
-          <BrandLogo variant="horizontal" width={120} height={24} alt="PitchLab" />
+          <BrandLogo variant="horizontal" width={120} height={24} alt="PitchLab" lazy />
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
             Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de
             18.
@@ -636,6 +682,7 @@ export function PublicFooterV4(): React.JSX.Element {
 interface RailNavItem {
   href: string;
   label: string;
+  shortLabel?: string;
   icon: MaestroIconName;
   badge?: string;
   badgeBrand?: boolean;
@@ -675,7 +722,7 @@ const CLUB_FOOTER_LINKS = [
 
 /** Pie compacto del club: cierra la página sin dejar un hueco vacío al final. */
 function ClubFooter(): React.JSX.Element {
-  const { navigateTo } = usePlatform();
+  const { navigateTo } = usePlatformActions();
   return (
     <footer className="pl-club-footer">
       <span>
@@ -732,22 +779,10 @@ function ClubWorkspaceShellImpl({
   initialHomeSport = ALL,
   initialHomeLeague = ALL,
 }: ClubWorkspaceShellProps): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    parlayLegs,
-    journal,
-    setCmdkOpen,
-    logoutSession,
-    navigateTo,
-    oddsFormat,
-    setOddsFormat,
-    favoriteLeagues,
-    viewerIdentity,
-    hasAccountSession,
-    upgradeHref,
-    userTimezone,
-  } = usePlatform();
+  const { dataset, viewerRole, allowRoleSimulation, oddsFormat, favoriteLeagues, viewerIdentity, hasAccountSession, upgradeHref, userTimezone } = usePlatformCore();
+  const { setViewerRole, setCmdkOpen, logoutSession, navigateTo, setOddsFormat } = usePlatformActions();
+  const { parlayLegs } = useParlayState();
+  const journal = useJournalEntries();
   const homeNav = useOptionalHomeNavFilter();
   const normalizedPath = (activePath.split(/[?#]/, 1)[0] ?? "/").replace(/\/+$/, "") || "/";
   const isHomeRoute = normalizedPath === "/app";
@@ -970,11 +1005,11 @@ function ClubWorkspaceShellImpl({
   const railGroups: RailNavGroup[] = useMemo(() => {
     // Cuenta, «Cómo calculamos», Portal tipster y Consola viven en el menú del perfil.
     const explore: RailNavItem[] = [
-      { href: "/app/picks", label: "Buscar picks", icon: "search" },
-      { href: "/app/props", label: "Tendencias de jugadores", icon: "users" },
-      { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
-      { href: "/app/comparar", label: "Comparar H2H", icon: "layers" },
-      { href: "/app/historial", label: "Resultados", icon: "shield" },
+      { href: "/app/picks", label: "Buscar picks", shortLabel: "Buscar picks", icon: "search" },
+      { href: "/app/props", label: "Tendencias de jugadores", shortLabel: "Player Props", icon: "users" },
+      { href: "/app/momios", label: "Compara tu momio", shortLabel: "Momios", icon: "activity" },
+      { href: "/app/comparar", label: "Comparar H2H", shortLabel: "Comparar H2H", icon: "layers" },
+      { href: "/app/historial", label: "Resultados", shortLabel: "Resultados", icon: "shield" },
     ];
     return [
       { title: "Club", items: primaryNavItems(parlayLegs.length, journal.length) },
@@ -1096,7 +1131,7 @@ function ClubWorkspaceShellImpl({
 
               <nav
                 ref={navContainerRef}
-                aria-label="Menú del Club PitchLab"
+                aria-label="Menú de PitchLab"
                 data-expanded={navExpanded ? "true" : "false"}
                 className="hidden lg:flex h-full items-center pl-header-nav shrink-0"
                 onBlur={(e) => {
@@ -1191,7 +1226,7 @@ function ClubWorkspaceShellImpl({
                     className="pl-header-nav-toggle rail-group-toggle"
                     aria-expanded={navExpanded}
                     aria-controls={headerNavPanelId}
-                    aria-label={navExpanded ? "Cerrar menú expandido" : "Expandir menú del Club"}
+                    aria-label={navExpanded ? "Cerrar menú expandido" : "Expandir menú"}
                     title={navExpanded ? "Cerrar menú" : "Expandir menú"}
                     onClick={handleNavTriggerClick}
                   >
@@ -1382,8 +1417,8 @@ function ClubWorkspaceShellImpl({
 
               <button
                 type="button"
-                className="pl-btn-glass pl-header-search text-[13px] min-h-10 px-2.5 sm:px-3.5 inline-flex items-center justify-between gap-2 sm:gap-3 shrink-0"
-                aria-label="Buscar"
+                className="pl-btn-glass pl-header-search text-[13px] min-h-11 sm:min-h-10 px-2.5 sm:px-3.5 inline-flex items-center justify-between gap-2 sm:gap-3 shrink-0"
+                aria-label="Buscar partido, liga o @socio"
                 onClick={() => setCmdkOpen(true)}
               >
                 <span className="inline-flex items-center gap-1.5 sm:gap-2.5 min-w-0" style={{ color: "var(--pl-text-secondary)" }}>
@@ -1391,7 +1426,7 @@ function ClubWorkspaceShellImpl({
                   <span className="hidden sm:inline truncate">
                     Buscar partido, liga o @socio
                   </span>
-                  <span className="sm:hidden font-semibold whitespace-nowrap">Buscar</span>
+                  <span className="pl-header-search-short sm:hidden font-semibold whitespace-nowrap">Buscar</span>
                 </span>
                 <span className="hidden md:inline-flex items-center pl-header-kbd-group shrink-0" aria-hidden="true">
                   <kbd className="pl-header-kbd">
@@ -1468,7 +1503,17 @@ function ClubWorkspaceShellImpl({
               aria-label="Menú de tu cuenta"
               onKeyDown={onProfileMenuKeyDown}
             >
-              <span className="pl-profile-menu-grab" aria-hidden="true" />
+              <div className="pl-profile-menu-sheet-top">
+                <span className="pl-profile-menu-grab" aria-hidden="true" />
+                <button
+                  type="button"
+                  className="pl-profile-menu-close"
+                  aria-label="Cerrar menú de tu cuenta"
+                  onClick={closeProfileMenu}
+                >
+                  <MaestroIcon name="x" size={16} />
+                </button>
+              </div>
               {viewerRole === "visitor" && hasAccountSession && viewerIdentity ? (
                 <div className="pl-profile-menu-head pl-profile-menu-head--visitor">
                   <div className="flex items-center gap-3">
@@ -1563,6 +1608,7 @@ function ClubWorkspaceShellImpl({
                         alt=""
                         width={40}
                         height={40}
+                        loading="lazy"
                         fetchPriority="low"
                         decoding="async"
                         className="pl-avatar-img"
@@ -1635,6 +1681,22 @@ function ClubWorkspaceShellImpl({
                     ]}
                   />
                 </div>
+                {allowRoleSimulation ? (
+                  <div className="pl-profile-menu-setting pl-profile-menu-setting--mobile-only">
+                    <span id={`${profileMenuId}-role`}>Rol</span>
+                    <MenuSegment
+                      labelledBy={`${profileMenuId}-role`}
+                      value={viewerRole}
+                      onChange={(v) => setViewerRole(v as ViewerRole)}
+                      options={[
+                        { value: "visitor", label: "Visita" },
+                        { value: "subscriber", label: "Socio" },
+                        { value: "tipster", label: "Tipster" },
+                        { value: "admin", label: "Admin" },
+                      ]}
+                    />
+                  </div>
+                ) : null}
               </div>
 
               {viewerRole !== "visitor" ? (
@@ -1716,7 +1778,7 @@ function ClubWorkspaceShellImpl({
 
       {/* Barra inferior móvil: los 4 destinos principales y «Más» */}
       <nav
-        aria-label="Navegación móvil del Club"
+        aria-label="Navegación móvil"
         className="mobile-dock glass-pill-bar glass-ring"
       >
         {(
@@ -1762,12 +1824,14 @@ function ClubWorkspaceShellImpl({
         open={mobileMoreOpen}
         onClose={() => setMobileMoreOpen(false)}
         ariaLabelledBy="mobile-more-dialog-title"
-        maxWidth="24rem"
+        maxWidth="28rem"
+        dialogClassName="pl-more-sheet-dialog"
       >
-        <div className="glass-lens glass-ring w-full rounded-2xl p-5 space-y-4 max-h-[82vh] overflow-y-auto">
+        <div className="pl-more-sheet-inner glass-lens glass-ring w-full space-y-4 overflow-y-auto">
+          <div className="pl-bottom-sheet-handle sm:hidden" aria-hidden="true" />
           <div className="flex items-center justify-between">
             <h2 id="mobile-more-dialog-title" className="m-0 text-base font-bold">
-              Más del Club
+              Explorar
             </h2>
             <button
               type="button"
@@ -1776,7 +1840,7 @@ function ClubWorkspaceShellImpl({
               aria-label="Cerrar menú móvil"
               onClick={() => setMobileMoreOpen(false)}
             >
-              <MaestroIcon name="x" size={14} />
+              <MaestroIcon name="x" size={16} />
             </button>
           </div>
 
@@ -1794,7 +1858,7 @@ function ClubWorkspaceShellImpl({
                 className="pl-btn-glass min-h-11 text-xs justify-start gap-2"
               >
                 <MaestroIcon name={m.icon} size={14} />
-                <span className="truncate">{m.label}</span>
+                <span className="truncate">{m.shortLabel ?? m.label}</span>
               </a>
             ))}
           </div>
@@ -1883,27 +1947,35 @@ function ClubWorkspaceShellImpl({
         </div>
       </TopLayerModalDialog>
 
-      <LeagueCategorySheet
-        open={leagueHubSheetOpen}
-        onClose={() => setLeagueHubSheetOpen(false)}
-        title="Todas las competiciones"
-        selectedLeague="all"
-        includeAllOption={false}
-        allowShowInactive
-        onSelect={(next) => {
-          if (next !== "all") navigateTo(`/app/${next}`);
-        }}
-        leagues={dataset.leagues.map((lg) => ({
-          league: lg.league,
-          label: lg.label,
-          logoUrl: lg.logoUrl,
-          activeCount: lg.upcomingCount || lg.totalGames,
-          dayCount: todayGamesByLeague.get(lg.league) ?? 0,
-          isFavorite: favoriteLeagues.includes(lg.league),
-          isActive: isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30),
-        }))}
-      />
-      {activePath !== "/app/parlays" ? <MobileParlaySheet /> : null}
+      {leagueHubSheetOpen ? (
+        <Suspense fallback={null}>
+          <LazyLeagueCategorySheet
+            open={leagueHubSheetOpen}
+            onClose={() => setLeagueHubSheetOpen(false)}
+            title="Todas las competiciones"
+            selectedLeague="all"
+            includeAllOption={false}
+            allowShowInactive
+            onSelect={(next) => {
+              if (next !== "all") navigateTo(`/app/${next}`);
+            }}
+            leagues={dataset.leagues.map((lg) => ({
+              league: lg.league,
+              label: lg.label,
+              logoUrl: lg.logoUrl,
+              activeCount: lg.upcomingCount || lg.totalGames,
+              dayCount: todayGamesByLeague.get(lg.league) ?? 0,
+              isFavorite: favoriteLeagues.includes(lg.league),
+              isActive: isLeagueActiveInWindow(dataset.games, lg.league, homeToday, 30),
+            }))}
+          />
+        </Suspense>
+      ) : null}
+      {activePath !== "/app/parlays" && parlayLegs.length > 0 ? (
+        <Suspense fallback={null}>
+          <LazyMobileParlaySheet />
+        </Suspense>
+      ) : null}
     </>
   );
 }

@@ -12,7 +12,11 @@ import {
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { decimalToAmericanInt, formatOddsValue } from "../../access-guard";
 import { evaluatePropLineProbability } from "../../match-picks-engine";
-import { usePlatform } from "../../platform-provider";
+import {
+  useJournalEntries,
+  usePlatformActions,
+  usePlatformCore,
+} from "../../platform-provider";
 import {
   resolveThemedPackSrcSet,
   resolveThemedPackUrl,
@@ -461,15 +465,9 @@ function BioGlyph({
 export function PlayerProfileClubView({
   profile,
 }: PlayerProfileClubViewProps): React.JSX.Element {
-  const {
-    viewerRole,
-    oddsFormat,
-    upgradeHref,
-    journal,
-    addPickToParlay,
-    sealPickToJournal,
-    navigateTo,
-  } = usePlatform();
+  const { viewerRole, oddsFormat, upgradeHref } = usePlatformCore();
+  const { addPickToParlay, sealPickToJournal, navigateTo } = usePlatformActions();
+  const journal = useJournalEntries();
   const iconBase = usePackIconBase();
   void getTeamColors;
 

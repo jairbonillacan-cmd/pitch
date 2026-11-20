@@ -17,7 +17,7 @@ import {
   setCachedCortexSummary,
   type Db,
 } from "@pitchlab/db";
-import type { PlatformGame } from "@pitchlab/ui";
+import type { PlatformGame } from "@pitchlab/ui/types";
 import { checkEndpointRateLimit } from "./request-security";
 import { auditCortexNarrativeV5 } from "./spacetime-v5";
 

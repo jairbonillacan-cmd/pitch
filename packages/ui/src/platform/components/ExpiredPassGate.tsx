@@ -2,7 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { BrandLogo, ThemeToggle } from "../../primitives";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import type { PaymentMode } from "../types";
 import { CouponRedeemBox } from "./CanjearCouponView";
 import { LensGlowOrbs, MaestroIcon } from "./MaestroPrimitives";
@@ -47,13 +50,8 @@ export function ExpiredPassGate({
   paymentMode,
   storyOverride,
 }: ExpiredPassGateProps): React.JSX.Element {
-  const {
-    paymentMode: ctxPaymentMode,
-    hasAccountSessionAuth,
-    viewerIdentity,
-    navigateTo,
-    logoutSession,
-  } = usePlatform();
+  const { paymentMode: ctxPaymentMode, hasAccountSessionAuth, viewerIdentity } = usePlatformCore();
+  const { navigateTo, logoutSession } = usePlatformActions();
 
   const [fetchedEndedIso, setFetchedEndedIso] = useState<string | null>(null);
   const [redeemedPayload, setRedeemedPayload] = useState<{

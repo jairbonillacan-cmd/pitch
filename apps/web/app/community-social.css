@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    SOCIAL-2 · Comunidad (/app/social): Para ti, Siguiendo, Consenso y Ranking
    Usa las piezas de community-v2.css. Solo tokens --pl-*, sin desenfoques.
@@ -1002,7 +1003,7 @@
   display: none;
 }
 
-.pl-stage:has(.pl-notfound) > div {
+.pl-stage:has(.pl-notfound) > div:has(.pl-notfound) {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -2180,6 +2181,28 @@
   background: color-mix(in srgb, var(--pl-text) 8%, transparent);
 }
 
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-prof-pill {
+    min-height: 44px;
+    padding: 0 14px;
+  }
+
+  .pl-com-reset-btn {
+    min-height: 44px;
+    padding: 0 10px;
+  }
+
+  .pl-com-filters {
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .pl-com-filters::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .pl-prof-pill.is-on {
   border-color: color-mix(in srgb, var(--pl-brand) 55%, var(--pl-border));
   background: color-mix(in srgb, var(--pl-brand) 14%, transparent);
@@ -2601,4 +2624,17 @@
   .pl-com-attached-field input {
     min-block-size: 44px;
   }
+}
+
+/* Diferir renderizado solo en publicaciones debajo del primer pliegue sin recortar menús activos */
+.pl-com-post:nth-of-type(n + 5):not(:focus-within) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 280px;
+}
+
+@supports not (content-visibility: auto) {
+  .pl-com-post:nth-of-type(n + 5):not(:focus-within) {
+    contain: layout style paint;
+  }
+}
 }

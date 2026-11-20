@@ -1,16 +1,17 @@
 import { cache } from "react";
 import { COMPETITION_BY_ID, type StandingRow } from "@pitchlab/contracts";
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
+import { ALLOWED_BOOKMAKER_IDS } from "@pitchlab/ui/bookmakers";
 import { buildPlatformDataset, type RawLeagueInput } from "@pitchlab/ui/picks-engine";
+import type { ViewerIdentity } from "@pitchlab/ui/platform-provider";
 import type {
   PaymentMode,
   PlatformDataset,
   PlatformGame,
   PlatformGameDetail,
-  ViewerIdentity,
   ViewerRole,
   ViewerVia,
-} from "@pitchlab/ui/platform";
+} from "@pitchlab/ui/types";
 import { paymentMode } from "./billing/payment-mode";
 import { getViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals } from "./spacetime";
@@ -246,7 +247,9 @@ export function upcomingPlusRecentFinished(
   const upcomingAll = dataset.games.filter((g) => g.status !== "FT");
   if (upcomingAll.length === 0) return dataset;
   const nowMs = Date.now();
-  const maxExpansionHorizonMs = nowMs + 16 * 86_400_000;
+  // Ventana de 8 días para ligas de expansión (cubre "Hoy" y "Próximos 7 días" completos);
+  // las páginas `/app/[league]` cargan toda la agenda de esa liga bajo demanda.
+  const maxExpansionHorizonMs = nowMs + 8 * 86_400_000;
   const perExpansionCount = new Map<string, number>();
 
   const upcoming = upcomingAll
@@ -257,7 +260,7 @@ export function upcomingPlusRecentFinished(
       const ms = Date.parse(g.kickoffUtc);
       if (Number.isFinite(ms) && ms > maxExpansionHorizonMs) return false;
       const seen = perExpansionCount.get(g.league) ?? 0;
-      if (seen >= 10) return false;
+      if (seen >= 6) return false;
       perExpansionCount.set(g.league, seen + 1);
       return true;
     });
@@ -312,36 +315,135 @@ export async function loadGameSummary(gameId: string): Promise<PlatformGame | nu
   return game ? { ...game, markets: [], headToHead: [], factors: [] } : null;
 }
 
+/** Props de jugadores bajo demanda para `/app/props` (fuera del shell compartido). */
+export function loadShellPlayerProps() {
+  return buildServerRawPlatformDataset().playerProps ?? [];
+}
+
 /**
  * Quita el detalle pesado de cada partido y del shell compartido (mercados, H2H, factores,
- * tablas de las 57 ligas, alineaciones probables y clubes amateur de copas menores).
- * Cada página de liga o partido recibe su tabla y detalle puntual en servidor.
+ * tablas de las 57 ligas, `bookQuotes` redundantes en `parlayCandidates`, prosa `preGame`
+ * que solo consume la ficha individual y `playerProps` exclusivos de `/app/props`).
+ * Cada página de liga, partido o props recibe su detalle puntual en servidor.
  */
 export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
+  const parlayCandidateHorizonMs = Date.now() + 2 * 86_400_000;
+  const activeShellLeagues = new Set<string>([
+    ...CORE_SHELL_LEAGUES,
+    ...dataset.games.map((g) => g.league),
+  ]);
   return {
     ...dataset,
+    playerProps: [],
     leagues: dataset.leagues.map((lg) => ({
       ...lg,
       standings: [],
     })),
     teams: (dataset.teams ?? []).filter((t) => {
       if (CORE_SHELL_LEAGUES.has(t.league)) return true;
+      if (!activeShellLeagues.has(t.league)) return false;
       const tier = COMPETITION_BY_ID[t.league]?.prestigeTier ?? 4;
       return tier <= 2;
     }),
-    games: dataset.games.map((g) => ({
-      ...g,
-      markets: [],
-      headToHead: [],
-      factors: [],
-      preGame: g.preGame
-        ? {
-            ...g.preGame,
-            injuries: undefined,
-            probableLineups: undefined,
+    games: dataset.games.map((g) => {
+      const kickoffMs = Date.parse(g.kickoffUtc);
+      const isFinished = g.status === "FT";
+      const keepParlayCandidates =
+        !isFinished &&
+        (!Number.isFinite(kickoffMs) || kickoffMs <= parlayCandidateHorizonMs);
+      const shellPicks = isFinished ? g.picks.slice(0, 2) : g.picks;
+      return {
+        ...g,
+        markets: [],
+        headToHead: [],
+        factors: [],
+        spacetime: null,
+        confidenceDetail: undefined,
+        picks: shellPicks.map((pk) => {
+          const roundedP = Math.round(pk.p * 10_000) / 10_000;
+          if (isFinished || !pk.bookQuotes || pk.bookQuotes.length === 0) {
+            return {
+              ...pk,
+              p: roundedP,
+              rationale: "",
+              bookQuotes: undefined,
+            };
           }
-        : g.preGame,
-    })),
+          const compactQuotes = pk.bookQuotes
+            .filter(
+              (q) =>
+                q.isBest ||
+                ALLOWED_BOOKMAKER_IDS.has(q.book) ||
+                (q.openingDecimal != null &&
+                  q.openingDecimal > 1 &&
+                  Math.abs((q.decimal - q.openingDecimal) / q.openingDecimal) >= 0.05),
+            )
+            .slice(0, 3)
+            .map((q) => ({
+              book: q.book,
+              bookLabel: q.bookLabel,
+              decimal: q.decimal,
+              capturedAtUtc:
+                q.capturedAtUtc && q.capturedAtUtc !== pk.marketCapturedAtUtc
+                  ? q.capturedAtUtc
+                  : "",
+              ...(q.openingDecimal != null && Math.abs(q.openingDecimal - q.decimal) >= 0.01
+                ? { openingDecimal: q.openingDecimal }
+                : {}),
+              ...(q.movementDirection && q.movementDirection !== "stable"
+                ? { movementDirection: q.movementDirection }
+                : {}),
+              ...(q.isBest ? { isBest: true } : {}),
+            }));
+          return {
+            ...pk,
+            p: roundedP,
+            rationale: "",
+            bookQuotes: compactQuotes.length > 0 ? compactQuotes : undefined,
+          };
+        }),
+        ...(g.parlayCandidates
+          ? {
+              parlayCandidates: keepParlayCandidates
+                ? g.parlayCandidates.slice(0, 3).map((pk) => {
+                    const roundedP = Math.round(pk.p * 10_000) / 10_000;
+                    const { bookQuotes: _omit, ...rest } = pk;
+                    void _omit;
+                    return { ...rest, p: roundedP, rationale: "" };
+                  })
+                : undefined,
+            }
+          : {}),
+        preGame: g.preGame
+          ? {
+              isRedacted: g.preGame.isRedacted,
+              cortexSynthesis: "",
+              tacticalKeys: [],
+              lineupStatusLabel: "",
+              lineupsConfirmed60m: g.preGame.lineupsConfirmed60m,
+              confirmedLineups: null,
+              absences: [],
+              moneyFlow: null,
+              ...(g.preGame.matchContext &&
+              (g.preGame.matchContext.isLocalDerby ||
+                g.preGame.matchContext.referee ||
+                g.preGame.matchContext.refereeStats)
+                ? {
+                    matchContext: {
+                      ...(g.preGame.matchContext.isLocalDerby ? { isLocalDerby: true } : {}),
+                      ...(g.preGame.matchContext.referee
+                        ? { referee: g.preGame.matchContext.referee }
+                        : {}),
+                      ...(g.preGame.matchContext.refereeStats
+                        ? { refereeStats: g.preGame.matchContext.refereeStats }
+                        : {}),
+                    },
+                  }
+                : {}),
+            }
+          : g.preGame,
+      };
+    }),
   };
 }
 

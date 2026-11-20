@@ -104,7 +104,7 @@ const WINDOWS = [5, 10, 20] as const;
  * Usa `<input type="range">` nativo estilizado con custom properties (`--control-value`,
  * `--attr-min`, `--attr-max`) para máxima accesibilidad y compatibilidad cross-browser.
  */
-export function PlayerPropStreakCard({
+export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
   playerName,
   teamName,
   teamSlug = "equipo",
@@ -157,7 +157,7 @@ export function PlayerPropStreakCard({
     [activeSeries, line, windowSize],
   );
 
-  const lineBottomPct = Math.max(4, Math.min(92, (line / summary.maxVal) * 100));
+  const lineBottomPct = Math.max(8, Math.min(82, (line / summary.maxVal) * 82));
 
   if (!activeSeries) {
     return (
@@ -319,4 +319,4 @@ export function PlayerPropStreakCard({
       </footer>
     </article>
   );
-}
+});

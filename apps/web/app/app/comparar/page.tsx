@@ -1,3 +1,4 @@
+import "../../pre-match.css";
 import type { Metadata } from "next";
 import { CompareHubView, type CompareMode } from "@pitchlab/ui/compare";
 import {

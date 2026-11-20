@@ -5,7 +5,10 @@ import { BrandLogo } from "../../primitives";
 import { isDisposableEmailDomain } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import {
   getTurnstileToken,
   TURNSTILE_ACTION_MAGIC_LINK,
@@ -231,7 +234,8 @@ export function LoginSurfaceV4({
   initialStep = "email",
   initialEmail = "",
 }: LoginSurfaceV4Props): React.JSX.Element {
-  const { accountsEnabled, openBetaPin, navigateTo } = usePlatform();
+  const { accountsEnabled } = usePlatformCore();
+  const { openBetaPin, navigateTo } = usePlatformActions();
 
   const resolvedInitialStep: LoginStep =
     initialStep === "password" && !passwordSignInEnabled ? "email" : initialStep;

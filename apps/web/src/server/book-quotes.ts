@@ -12,7 +12,7 @@ import type {
   PlatformDataset,
   PlatformGame,
   PlatformMarketRow,
-} from "@pitchlab/ui/platform";
+} from "@pitchlab/ui/types";
 import { isMarketFresh, teamScore } from "./spacetime";
 
 interface RawQuoteTick {

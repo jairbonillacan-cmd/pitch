@@ -1,3 +1,6 @@
+import "../../data-health.css";
+import "../../community-v2.css";
+import "../../community-social.css";
 import React from "react";
 import { notFound } from "next/navigation";
 import { FounderAdminClubView } from "@pitchlab/ui/admin";

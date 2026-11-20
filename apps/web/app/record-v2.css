@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    MI RÉCORD (/app/lab) y Récord público compartido (/app/u/[handle])
    Solo tokens --pl-*; cero literales hexadecimales, cero backdrop-filter.
@@ -690,18 +691,34 @@
   }
 }
 
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-rec-chip {
+    min-height: 44px;
+    padding: 0 14px;
+  }
+
+  .pl-rec-tabs .seg-btn {
+    min-height: 44px;
+  }
+}
+
 @media (max-width: 560px) {
   .pl-rec-hero {
-    padding: 18px 16px;
+    padding: 18px 14px;
     border-radius: 20px;
   }
 
   .pl-rec-card {
-    padding: 16px;
+    padding: 14px;
   }
 
   .pl-rec-input-row {
     flex-direction: column;
+  }
+
+  .pl-rec-card .pl-table-region {
+    margin-inline: -4px;
+    padding-inline: 4px 12px;
   }
 }
 
@@ -1015,4 +1032,5 @@ progress.pl-live-progress::-moz-progress-bar {
   progress.pl-live-progress::-moz-progress-bar {
     transition: none;
   }
+}
 }

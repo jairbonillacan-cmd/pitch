@@ -6,7 +6,7 @@ import {
 } from "@pitchlab/contracts";
 import type { MatchOutlook, MarketOutlook } from "@pitchlab/spacetime";
 import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
-import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui/platform";
+import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui/types";
 import {
   bookLabelWithDate,
   formatBookLabel,

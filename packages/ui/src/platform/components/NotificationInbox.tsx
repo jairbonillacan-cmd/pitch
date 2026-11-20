@@ -22,7 +22,13 @@ import {
   type ServerSocialNotification,
 } from "../notifications";
 import { useLiveScoreboard } from "../live/live-store";
-import { usePlatform } from "../platform-provider";
+import {
+  useFollowAlerts,
+  useJournalEntries,
+  usePlatformActions,
+  usePlatformCore,
+  useWatchlistGameIds,
+} from "../platform-provider";
 import { MaestroIcon, type MaestroIconName } from "./MaestroPrimitives";
 
 /* ---------- Leídas locales: almacén compartido (conviven dos encabezados durante la carga) ---------- */
@@ -405,17 +411,11 @@ export function NotificationInboxPanel({
 /* ---------- Campana + popover (contenedor) ---------- */
 
 export function NotificationBell(): React.JSX.Element {
-  const {
-    dataset,
-    watchlistGameIds,
-    journal,
-    oddsFormat,
-    favoriteLeagues,
-    hasAccountSessionAuth,
-    viewerIdentity,
-    navigateTo,
-    followAlerts,
-  } = usePlatform();
+  const { dataset, oddsFormat, favoriteLeagues, hasAccountSessionAuth, viewerIdentity } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
+  const journal = useJournalEntries();
+  const watchlistGameIds = useWatchlistGameIds();
+  const followAlerts = useFollowAlerts();
   const socialEnabled = Boolean(hasAccountSessionAuth && viewerIdentity);
   const now = useMinuteClock();
   const localReadIds = useReadIds();

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { formatOddsCaptureEs, type PlatformSport } from "@pitchlab/contracts";
 import { parseUserOdds } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
@@ -139,7 +139,7 @@ interface MarketCardGroup {
  * Resalta la opción más probable por tarjeta, respeta formato de momio del socio,
  * bloqueos de acceso, marca de agua e insignia «Derivado del motor».
  */
-export function MatchMarketsGrid({
+export const MatchMarketsGrid = memo(function MatchMarketsGrid({
   sport,
   markets,
   oddsFormat,
@@ -495,4 +495,4 @@ export function MatchMarketsGrid({
       </div>
     </div>
   );
-}
+});

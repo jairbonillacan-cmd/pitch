@@ -1,5 +1,5 @@
 import React from "react";
-import { ClosingCtaSection, PublicSiteShell } from "./PublicSiteSections";
+import { ClosingCtaSection, PublicSiteShell } from "./PublicSiteShell";
 
 /**
  * Superficies del blog público (`/blog`, `/blog/categoria/[categoria]` y `/blog/[slug]`).

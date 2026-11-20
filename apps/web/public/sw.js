@@ -1,11 +1,81 @@
-/* Service Worker mínimo de PitchLab · Web Push + apertura en primer plano */
+/* Service Worker de PitchLab · Web Push + caché acotado CacheFirst para activos estáticos inmutables (solo fuera de desarrollo local) */
+
+const STATIC_CACHE_NAME = "pitchlab-static-v2";
+const STATIC_CACHE_MAX_ENTRIES = 150;
+const STATIC_PATH_PREFIXES = ["/_next/static/", "/fonts/", "/brand/", "/icons/", "/icons-dark/"];
+
+function isLocalDevHost() {
+  const host = (self.location && self.location.hostname) || "";
+  return (
+    host === "localhost" ||
+    host === "127.0.0.1" ||
+    host === "::1" ||
+    host === "[::1]" ||
+    host.endsWith(".localhost")
+  );
+}
+
+function isCacheableStaticAsset(request) {
+  if (isLocalDevHost()) return false;
+  if (request.method !== "GET") return false;
+  let parsed;
+  try {
+    parsed = new URL(request.url);
+  } catch {
+    return false;
+  }
+  if (parsed.origin !== self.location.origin) return false;
+  return STATIC_PATH_PREFIXES.some((prefix) => parsed.pathname.startsWith(prefix));
+}
+
+async function trimStaticCache(cache) {
+  try {
+    const keys = await cache.keys();
+    if (keys.length <= STATIC_CACHE_MAX_ENTRIES) return;
+    const excess = keys.length - STATIC_CACHE_MAX_ENTRIES;
+    await Promise.all(keys.slice(0, excess).map((key) => cache.delete(key)));
+  } catch {
+    // Ignorar errores de cuota del navegador
+  }
+}
 
 self.addEventListener("install", (event) => {
   event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(self.clients.claim());
+  const purgeAllLocal = isLocalDevHost();
+  event.waitUntil(
+    caches
+      .keys()
+      .then((names) =>
+        Promise.all(
+          names
+            .filter(
+              (name) =>
+                name.startsWith("pitchlab-static-") &&
+                (purgeAllLocal || name !== STATIC_CACHE_NAME),
+            )
+            .map((name) => caches.delete(name)),
+        ),
+      )
+      .then(() => self.clients.claim()),
+  );
+});
+
+self.addEventListener("fetch", (event) => {
+  if (!isCacheableStaticAsset(event.request)) return;
+  event.respondWith(
+    caches.open(STATIC_CACHE_NAME).then(async (cache) => {
+      const cached = await cache.match(event.request);
+      if (cached) return cached;
+      const network = await fetch(event.request);
+      if (network && network.ok && network.type === "basic") {
+        cache.put(event.request, network.clone()).then(() => trimStaticCache(cache)).catch(() => undefined);
+      }
+      return network;
+    }),
+  );
 });
 
 function sanitizeTargetUrl(raw) {
@@ -18,7 +88,7 @@ function sanitizeTargetUrl(raw) {
 self.addEventListener("push", (event) => {
   let payload = {
     title: "PitchLab",
-    body: "Tienes una actualización en tu cuenta del club.",
+    body: "Tienes una actualización en tu cuenta de PitchLab.",
     url: "/app",
     tag: "pitchlab-general",
   };

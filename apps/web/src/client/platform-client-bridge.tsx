@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useCallback } from "react";
-import { useRouter } from "next/navigation";
-import {
-  PlatformProvider,
-  type PaymentMode,
-  type PlatformDataset,
-  type ViewerIdentity,
-  type ViewerRole,
-  type ViewerVia,
-} from "@pitchlab/ui";
+import React, { useCallback, useEffect, useState, useTransition } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { PlatformProvider, type ViewerIdentity } from "@pitchlab/ui/platform-provider";
+import type {
+  PaymentMode,
+  PlatformDataset,
+  ViewerRole,
+  ViewerVia,
+} from "@pitchlab/ui/types";
 
 export function PlatformClientBridge({
   dataset,
@@ -33,18 +32,34 @@ export function PlatformClientBridge({
   children: React.ReactNode;
 }): React.JSX.Element {
   const router = useRouter();
+  const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
+  const [navPending, setNavPending] = useState(false);
+
+  useEffect(() => {
+    setNavPending(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!navPending) return;
+    const timeout = window.setTimeout(() => setNavPending(false), 4000);
+    return () => window.clearTimeout(timeout);
+  }, [navPending]);
 
   const handleNavigate = useCallback(
     (href: string) => {
       if (typeof window !== "undefined" && !href.includes("#")) {
         const nextPath = href.split("?")[0] || "/";
         if (nextPath !== window.location.pathname) {
+          setNavPending(true);
           window.scrollTo({ top: 0, left: 0, behavior: "instant" });
           document.documentElement.scrollTop = 0;
           document.body.scrollTop = 0;
         }
       }
-      router.push(href, { scroll: !href.includes("#") });
+      startTransition(() => {
+        router.push(href, { scroll: !href.includes("#") });
+      });
     },
     [router],
   );
@@ -61,6 +76,14 @@ export function PlatformClientBridge({
       viewerIdentity={viewerIdentity}
       onNavigate={handleNavigate}
     >
+      {navPending || isPending ? (
+        <div
+          className="pl-route-progress"
+          role="progressbar"
+          aria-label="Cargando pantalla"
+          aria-busy="true"
+        />
+      ) : null}
       {children}
     </PlatformProvider>
   );

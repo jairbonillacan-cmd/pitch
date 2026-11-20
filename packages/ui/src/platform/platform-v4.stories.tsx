@@ -3,11 +3,10 @@ import { asLeagueId, asMarketKey, type LiveScoreboardEntry, type MatchAnalysis }
 import { STORY_DATASET, makeStoryMatch } from "./story-fixtures";
 import { redactDatasetForVisitor } from "./access-guard";
 import {
-  JornadaClubView,
   LeagueHubClubView,
   MatchStudioClubView,
-  MultiPicksClubView,
 } from "./club/CoreMatchViews";
+import { PicksFinderClubView as MultiPicksClubView } from "./club/PicksFinderView";
 import {
   AccountReferralsClubView,
   BitacoraClubView,
@@ -23,7 +22,7 @@ import {
   SocialVipClubView,
   TipsterPortalClubView,
 } from "./club/SocialAndTipsterViews";
-import { HomeClubView, HomeFilterHeader } from "./club/home/HomeClubView";
+import { HomeClubView, HomeClubView as JornadaClubView, HomeFilterHeader } from "./club/home/HomeClubView";
 import { HomeLeagueStrip, HomeSportStrip } from "./club/home/HomeSportStrip";
 import {
   ALL,

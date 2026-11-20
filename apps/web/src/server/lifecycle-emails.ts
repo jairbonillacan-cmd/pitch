@@ -17,7 +17,7 @@ import {
   type ScheduledEmailKind,
 } from "@pitchlab/db";
 import { noreplySender, renderEmail, siteUrl, type EmailTemplateId } from "@pitchlab/emails";
-import type { PlatformDataset, PlatformGame } from "@pitchlab/ui";
+import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
 import { firstName, formatLongDate, formatOdds, formatPoints } from "./email-format";
 import type { Mailer } from "./mailer";
 import { buildServerRawPlatformDataset } from "./platform-data";

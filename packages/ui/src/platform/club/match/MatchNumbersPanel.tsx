@@ -298,8 +298,8 @@ export function MatchNumbersPanel({
 
                 {card.marketRows.length > 0 ? (
                   <ul className="pl-num-rows num" role="list">
-                    {card.marketRows.map((row) => (
-                      <li key={`${row.market}-${row.selection}`}>
+                    {card.marketRows.map((row, rowIdx) => (
+                      <li key={`${row.market}-${row.selection}-${row.line ?? "base"}-${rowIdx}`}>
                         <span>{row.label}</span>
                         <strong>
                           {Math.round(row.p * 100)} % · {formatOddsValue(row.fairDecimal, oddsFormat)}

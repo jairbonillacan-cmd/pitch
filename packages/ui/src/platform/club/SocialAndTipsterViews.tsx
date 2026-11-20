@@ -898,6 +898,8 @@ export function TipsterPortalClubView({
                   alt="PitchLab"
                   width={108}
                   height={21}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <span
                   className="text-xs font-extrabold px-2.5 py-0.5 rounded-md"

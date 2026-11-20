@@ -9,7 +9,10 @@ import { DailyResultsCalendar } from "../components/DailyResultsCalendar";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { DailyParlaysResultsSection } from "./DailyParlaysResultsSection";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { buildModelDailyCalendar } from "../record-stats";
 import type { PlatformGame } from "../types";
 
@@ -78,7 +81,8 @@ const DAY_FMT = new Intl.DateTimeFormat("es-MX", { weekday: "long", day: "numeri
  * oficial. Acierto por liga y por tipo de pick, racha reciente y lista por día.
  */
 export function HistorialClubView(): React.JSX.Element {
-  const { dataset, navigateTo, oddsFormat, userTimezone } = usePlatform();
+  const { dataset, oddsFormat, userTimezone } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
   const [outcome, setOutcome] = useState<Outcome>("all");
   const [league, setLeague] = useState("all");
   const [viewMode, setViewMode] = useState<"list" | "calendar">("list");

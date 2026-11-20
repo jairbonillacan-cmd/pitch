@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    «Panorama por deporte» (NHL, MLB, NBA, NCAAF) · SportOutlookCard
    Solo tokens · sin hex · sin backdrop-filter · container queries
@@ -404,4 +405,5 @@
   margin: 0;
   font-size: 0.75rem;
   color: var(--pl-text-muted);
+}
 }

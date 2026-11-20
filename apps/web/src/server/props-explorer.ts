@@ -13,7 +13,7 @@ import {
   type LeagueId,
   type PlatformSport,
 } from "@pitchlab/contracts";
-import type { PlayerPropStreakCardProps, PropMetricSeries } from "@pitchlab/ui/platform";
+import type { PlayerPropStreakCardProps, PropMetricSeries } from "@pitchlab/ui/prop-streak-card";
 import { PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
 
 export interface ExplorerStreakCard extends PlayerPropStreakCardProps {

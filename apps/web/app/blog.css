@@ -1,3 +1,4 @@
+@layer components {
 /*
   Blog público (/blog, /blog/categoria/*, /blog/[slug]).
   Solo tokens de la marca (--pl-*, --radius-*, --time-*, --ease-out); sin hex.
@@ -600,4 +601,5 @@
   color: var(--pl-brand);
   font-weight: 600;
   white-space: nowrap;
+}
 }

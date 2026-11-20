@@ -11,7 +11,10 @@ import {
   MaestroIcon,
   ExampleBadge,
 } from "../components/MaestroPrimitives";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
 import { LoginSurfaceV4, type LoginStep } from "./LoginSurfaceV4";
@@ -58,24 +61,8 @@ export function OnboardingSurfaceV4({
 }: {
   hasSession?: boolean;
 } = {}): React.JSX.Element {
-  const {
-    rawDataset,
-    dataset,
-    favoriteLeagues,
-    setFavoriteLeagues,
-    riskPreference,
-    setRiskPreference,
-    oddsFormat,
-    setOddsFormat,
-    unitMxn,
-    setUnitMxn,
-    hasAccountSession,
-    viewerRole,
-    openBetaPin,
-    navigateTo,
-    pushToast,
-    accountsEnabled,
-  } = usePlatform();
+  const { rawDataset, dataset, favoriteLeagues, riskPreference, oddsFormat, unitMxn, hasAccountSession, viewerRole, accountsEnabled } = usePlatformCore();
+  const { setFavoriteLeagues, setRiskPreference, setOddsFormat, setUnitMxn, openBetaPin, navigateTo, pushToast } = usePlatformActions();
 
   // Con cuentas, aquí llega el enlace mágico (o la vuelta de Google): se guardan la fecha de
   // nacimiento y los consentimientos del paso 2, y con eso se activa la prueba.
@@ -416,15 +403,8 @@ export function PublicSharedPickSurface({
   inviteCode?: string | null;
   hasSession?: boolean;
 }): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    oddsFormat,
-    month1NoCardMode,
-    hasAccountSession,
-    navigateTo,
-    pushToast,
-  } = usePlatform();
+  const { dataset, viewerRole, oddsFormat, month1NoCardMode, hasAccountSession } = usePlatformCore();
+  const { navigateTo, pushToast } = usePlatformActions();
 
   const matchedCreator =
     TIPSTER_CREATORS.find((c) => c.weeklyPickSlug === pickSlug) ?? null;
@@ -545,7 +525,7 @@ export function PublicSharedPickSurface({
                     className="m-0 mt-0.5 text-xs font-semibold"
                     style={{ color: "var(--share-card-secondary)" }}
                   >
-                    Boleto público verificado desde el analizador del club.
+                    Boleto público verificado de PitchLab.
                   </p>
                 </div>
               )}

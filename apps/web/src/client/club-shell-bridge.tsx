@@ -2,7 +2,7 @@
 
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { ClubLayoutShell } from "@pitchlab/ui";
+import { ClubLayoutShell } from "@pitchlab/ui/club-shell";
 
 /** Las 4 páginas del menú principal: se precargan para que el clic sea inmediato. */
 const PRIMARY_ROUTES = ["/app", "/app/parlays", "/app/social", "/app/lab"] as const;

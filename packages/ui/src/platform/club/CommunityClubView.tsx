@@ -19,7 +19,14 @@ import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPr
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { PlSelect } from "../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { socialScopeKey, usePlatform, type SocialFeedScope } from "../platform-provider";
+import {
+  socialScopeKey,
+  type SocialFeedScope,
+  type usePlatform,
+  usePlatformActions,
+  usePlatformCore,
+  useSocialState,
+} from "../platform-provider";
 import {
   LEADERBOARD_MIN_SETTLED,
   entriesInWindow,
@@ -113,8 +120,8 @@ function capitalize(text: string): string {
    ========================================================================= */
 
 export function SocialVipClubView(): React.JSX.Element {
-  const platform = usePlatform();
-  const { viewerRole, hasAccountSession, upgradeHref, navigateTo } = platform;
+  const { viewerRole, hasAccountSession, upgradeHref } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
 
   if (viewerRole === "visitor") {
     return (
@@ -156,26 +163,9 @@ export function SocialVipClubView(): React.JSX.Element {
 }
 
 function CommunityContent(): React.JSX.Element {
-  const {
-    dataset,
-    socialPosts,
-    oddsFormat,
-    publishSocialPost,
-    addSocialComment,
-    deleteSocialComment,
-    toggleSocialCommentHelpful,
-    loadAllPostComments,
-    recordSocialPostCopy,
-    toggleSocialLike,
-    deleteSocialPost,
-    refreshSocialFeed,
-    ensureSocialPostLoaded,
-    sealPickToJournal,
-    addPickToParlay,
-    hasAccountSessionAuth,
-    pushToast,
-    navigateTo,
-  } = usePlatform();
+  const { dataset, oddsFormat, hasAccountSessionAuth } = usePlatformCore();
+  const { publishSocialPost, addSocialComment, deleteSocialComment, toggleSocialCommentHelpful, loadAllPostComments, recordSocialPostCopy, toggleSocialLike, deleteSocialPost, refreshSocialFeed, ensureSocialPostLoaded, sealPickToJournal, addPickToParlay, pushToast, navigateTo } = usePlatformActions();
+  const { socialPosts } = useSocialState();
   const [tab, setTab] = useUrlTab<CommunityTab>(TAB_KEYS, "para-ti");
   const [voteTallies, setVoteTallies] = useState<WinnerVoteTally[]>([]);
   // Votos de «¿Quién gana?» para el consenso (solo con cuenta: con PIN no se guardan votos).
@@ -818,7 +808,7 @@ function PickPicker({
   onPick: (picked: AttachedPick) => void;
 }): React.JSX.Element {
   const uid = useId();
-  const { userTimezone } = usePlatform();
+  const { userTimezone } = usePlatformCore();
   const [query, setQuery] = useState("");
   const q = query.trim().toLowerCase();
 
@@ -1022,7 +1012,8 @@ function Feed({
   scope?: SocialFeedScope;
   emptyText?: string;
 }): React.JSX.Element {
-  const { socialFeedPages, loadOlderSocialPosts } = usePlatform();
+  const { loadOlderSocialPosts } = usePlatformActions();
+  const { socialFeedPages } = useSocialState();
   const [limit, setLimit] = useState(FEED_PAGE);
   const pageState = socialFeedPages[socialScopeKey(scope)];
   const hasMoreServer = Boolean(pageState?.hasMore);
@@ -1277,7 +1268,7 @@ function FollowingTab({
   seasonRanked,
   ...shared
 }: FeedSharedProps & { posts: readonly SocialPost[]; seasonRanked: readonly RankedAnalyst[] }): React.JSX.Element {
-  const { loadFollowingSocialPosts } = usePlatform();
+  const { loadFollowingSocialPosts } = usePlatformActions();
   const [filter, setFilter] = useState<FollowFilter>("all");
   const { follows, dataset, oddsFormat, onToggleFollow, goProfile } = shared;
   const followed = follows.following;
@@ -1728,7 +1719,7 @@ function sampleLabel(item: ConsensusGame): string {
 const sampleSize = (item: ConsensusGame): number => item.totalPicks + (item.votes?.total ?? 0);
 
 function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX.Element {
-  const { userTimezone } = usePlatform();
+  const { userTimezone } = usePlatformCore();
   const sortLabelId = useId();
   const [league, setLeague] = useState("all");
   const [sort, setSort] = useState<ConsensusSort>("diff");
@@ -1920,7 +1911,7 @@ function RankingTab({
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
   onPrivacy: () => void;
 }): React.JSX.Element {
-  const { hasAccountSessionAuth } = usePlatform();
+  const { hasAccountSessionAuth } = usePlatformCore();
   const [window, setWindow] = useState<LeaderboardWindow>("30d");
   const [sort, setSort] = useState<LeaderboardSort>("units");
   const minSettled = leaderboardMinSettled(window);

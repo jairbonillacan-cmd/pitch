@@ -43,7 +43,7 @@ import type {
   PlatformGame,
   PlatformMarketRow,
   SgpCopulaAuditView,
-} from "@pitchlab/ui/platform";
+} from "@pitchlab/ui/types";
 import { teamScore } from "./spacetime";
 
 const epistemicArtifact = epistemicArtifactJson as unknown as EpistemicConformalArtifactV51;

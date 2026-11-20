@@ -258,7 +258,7 @@ export function RecordPicksTab({
                     <td className="py-3 pl-2 text-right">
                       <button
                         type="button"
-                        className={`${item.status === "won" ? "pl-btn-primary" : "pl-btn-glass"} px-2.5 min-h-8 text-xs inline-flex items-center`}
+                        className={`${item.status === "won" ? "pl-btn-primary" : "pl-btn-glass"} px-2.5 min-h-10 sm:min-h-8 text-xs inline-flex items-center`}
                         aria-label={`Compartir boleto ${item.pickLabel}`}
                         onClick={() =>
                           item.status === "won"

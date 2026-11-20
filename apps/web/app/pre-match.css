@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    Módulo «Antes del partido» (ficha del partido)
    100 % tokens @pitchlab/tokens · Cero hex · Cero backdrop-filter · Container queries
@@ -498,4 +499,5 @@
   .pl-prematch-bell-btn {
     inline-size: 100%;
   }
+}
 }

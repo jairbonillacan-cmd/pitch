@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    PROFILE-2 y SOCIAL-2 · Perfil (/app/u/[handle]) y Comunidad (/app/social)
    Solo tokens --pl-*; vidrio falso (degradados), sin filtros de desenfoque.
@@ -193,7 +194,6 @@
   text-decoration: none;
   cursor: pointer;
   transition:
-    box-shadow 200ms ease,
     background-color 200ms ease;
 }
 
@@ -1341,4 +1341,5 @@ html[data-theme="light"] .pl-prof-cover {
   .pl-prof-bar-label {
     font-size: 11px;
   }
+}
 }

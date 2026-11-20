@@ -2,7 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import React from "react";
 import { ImageResponse } from "next/og";
-import { MEMBERSHIP_SPEC, normalizeReferralCode } from "@pitchlab/ui";
+import { normalizeReferralCode } from "@pitchlab/ui/account-helpers";
+import { MEMBERSHIP_SPEC } from "@pitchlab/ui/spacetime-catalog";
 import {
   resolveOgDisplayHandle,
   resolveShortInviteTarget,

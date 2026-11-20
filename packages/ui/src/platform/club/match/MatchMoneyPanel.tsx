@@ -345,7 +345,7 @@ export function MatchMoneyPanel({
             ? Math.round((m.p - 1 / houseDecimal) * 1000) / 10
             : m.edgePts;
         out.push({
-          id: `${m.market}-${m.selection}`,
+          id: `${m.market}-${m.selection}-${m.line ?? out.length}`,
           label: m.label,
           group: m.group,
           p: m.p,

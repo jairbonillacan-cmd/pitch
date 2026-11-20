@@ -23,8 +23,13 @@ import { PlSelect, type PlSelectOption } from "../../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
 import { useLiveScoreboard } from "../../live/live-store";
 import { resolveCircularCountryFlag } from "../../country-flags";
-import { usePlatform } from "../../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+  useWatchlistGameIds,
+} from "../../platform-provider";
 import { teamTopicKey, useFollowedTopics } from "../community-ui";
+import { localizeInjuryLabelEs } from "../match/pre-match-logic";
 import { PersonAvatar } from "./PersonAvatar";
 import { resolveTeamVenueGeo, type TeamVenueGeo } from "./team-venues";
 import { TeamSquadSection } from "./TeamSquadSection";
@@ -665,7 +670,7 @@ function TeamContextCard({
                   ) : null}
                   {inj.detail ? (
                     <span className="block text-[11px]" style={{ color: "var(--pl-text-secondary)" }}>
-                      {inj.detail}
+                      {localizeInjuryLabelEs(inj.detail)}
                     </span>
                   ) : null}
                 </div>
@@ -1320,15 +1325,9 @@ export function TeamProfileClubView({
   initialTab = "resumen",
   liveBoardOverride,
 }: TeamProfileClubViewProps): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    hasAccountSession,
-    upgradeHref,
-    watchlistGameIds,
-    toggleWatchlistGame,
-    navigateTo,
-  } = usePlatform();
+  const { dataset, viewerRole, hasAccountSession, upgradeHref } = usePlatformCore();
+  const { toggleWatchlistGame, navigateTo } = usePlatformActions();
+  const watchlistGameIds = useWatchlistGameIds();
   const { topics, toggleTeam } = useFollowedTopics();
   const teamKey = teamTopicKey(profile.league, profile.team.slug);
   const isFollowingTeam = topics.teams.includes(teamKey);
@@ -1786,7 +1785,7 @@ export function TeamProfileClubView({
                       `/app/comparar?modo=equipos&liga=${profile.league}&a=${profile.team.slug}`,
                     );
                   }}
-                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+                  className="pl-btn-glass text-xs min-h-11 lg:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
                 >
                   <MaestroIcon name="chart" size={13} />
                   <span>Comparar</span>

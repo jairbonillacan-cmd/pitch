@@ -221,6 +221,16 @@ export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
   preferredBooks: [...DEFAULT_PREFERRED_BOOKS],
 };
 
+function isValidIanaTimeZone(tz: string): boolean {
+  try {
+    new Intl.DateTimeFormat("en-CA", { timeZone: tz }).format(new Date(0));
+    return true;
+  } catch (err) {
+    void err;
+    return false;
+  }
+}
+
 export function readStoredPrefs(): StoredAccountPrefsV1 {
   if (typeof window === "undefined") return DEFAULT_STORED_PREFS_V1;
   try {
@@ -236,16 +246,17 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
       return { ...DEFAULT_STORED_PREFS_V1, themeMode: fallbackTheme };
     }
     const parsed = JSON.parse(raw) as Partial<StoredAccountPrefsV1> | null;
-    if (!parsed || typeof parsed !== "object") {
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
       return { ...DEFAULT_STORED_PREFS_V1, themeMode: fallbackTheme };
     }
     const themeMode: ThemePreference =
       parsed.themeMode === "light" || parsed.themeMode === "dark" || parsed.themeMode === "system"
         ? parsed.themeMode
         : fallbackTheme;
+    const rawTz = typeof parsed.timezone === "string" ? parsed.timezone.trim() : "";
     const timezone =
-      typeof parsed.timezone === "string" && parsed.timezone.trim().length > 0
-        ? parsed.timezone
+      rawTz.length > 0 && isValidIanaTimeZone(rawTz)
+        ? rawTz
         : DEFAULT_STORED_PREFS_V1.timezone;
     const unitMxn =
       typeof parsed.unitMxn === "number" && Number.isFinite(parsed.unitMxn) && parsed.unitMxn >= 10
@@ -255,6 +266,14 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
       parsed.pauseChoice === "24h" || parsed.pauseChoice === "7d" || parsed.pauseChoice === "30d"
         ? parsed.pauseChoice
         : null;
+    const rawAlerts =
+      parsed.alerts && typeof parsed.alerts === "object" && !Array.isArray(parsed.alerts)
+        ? parsed.alerts
+        : null;
+    const rawPrivacy =
+      parsed.privacy && typeof parsed.privacy === "object" && !Array.isArray(parsed.privacy)
+        ? parsed.privacy
+        : null;
 
     return {
       v: 1,
@@ -263,15 +282,30 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
       showMxnBalance: Boolean(parsed.showMxnBalance),
       unitMxn,
       alerts: {
-        valueAlerts: parsed.alerts?.valueAlerts ?? DEFAULT_STORED_PREFS_V1.alerts.valueAlerts,
-        beforeMatch: parsed.alerts?.beforeMatch ?? DEFAULT_STORED_PREFS_V1.alerts.beforeMatch,
-        pickSettled: parsed.alerts?.pickSettled ?? DEFAULT_STORED_PREFS_V1.alerts.pickSettled,
+        valueAlerts:
+          typeof rawAlerts?.valueAlerts === "boolean"
+            ? rawAlerts.valueAlerts
+            : DEFAULT_STORED_PREFS_V1.alerts.valueAlerts,
+        beforeMatch:
+          typeof rawAlerts?.beforeMatch === "boolean"
+            ? rawAlerts.beforeMatch
+            : DEFAULT_STORED_PREFS_V1.alerts.beforeMatch,
+        pickSettled:
+          typeof rawAlerts?.pickSettled === "boolean"
+            ? rawAlerts.pickSettled
+            : DEFAULT_STORED_PREFS_V1.alerts.pickSettled,
         billingReminder:
-          parsed.alerts?.billingReminder ?? DEFAULT_STORED_PREFS_V1.alerts.billingReminder,
+          typeof rawAlerts?.billingReminder === "boolean"
+            ? rawAlerts.billingReminder
+            : DEFAULT_STORED_PREFS_V1.alerts.billingReminder,
         weeklyDigest:
-          parsed.alerts?.weeklyDigest ?? DEFAULT_STORED_PREFS_V1.alerts.weeklyDigest,
+          typeof rawAlerts?.weeklyDigest === "boolean"
+            ? rawAlerts.weeklyDigest
+            : DEFAULT_STORED_PREFS_V1.alerts.weeklyDigest,
         monthlyRecord:
-          parsed.alerts?.monthlyRecord ?? DEFAULT_STORED_PREFS_V1.alerts.monthlyRecord,
+          typeof rawAlerts?.monthlyRecord === "boolean"
+            ? rawAlerts.monthlyRecord
+            : DEFAULT_STORED_PREFS_V1.alerts.monthlyRecord,
       },
       alertCadence:
         parsed.alertCadence === "cada_15m" || parsed.alertCadence === "solo_hitos"
@@ -279,11 +313,17 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
           : "inmediato",
       privacy: {
         publicProfile:
-          parsed.privacy?.publicProfile ?? DEFAULT_STORED_PREFS_V1.privacy.publicProfile,
+          typeof rawPrivacy?.publicProfile === "boolean"
+            ? rawPrivacy.publicProfile
+            : DEFAULT_STORED_PREFS_V1.privacy.publicProfile,
         showInRanking:
-          parsed.privacy?.showInRanking ?? DEFAULT_STORED_PREFS_V1.privacy.showInRanking,
+          typeof rawPrivacy?.showInRanking === "boolean"
+            ? rawPrivacy.showInRanking
+            : DEFAULT_STORED_PREFS_V1.privacy.showInRanking,
         pauseCommunity:
-          parsed.privacy?.pauseCommunity ?? DEFAULT_STORED_PREFS_V1.privacy.pauseCommunity,
+          typeof rawPrivacy?.pauseCommunity === "boolean"
+            ? rawPrivacy.pauseCommunity
+            : DEFAULT_STORED_PREFS_V1.privacy.pauseCommunity,
       },
       pauseChoice,
       pauseChosenAtIso:

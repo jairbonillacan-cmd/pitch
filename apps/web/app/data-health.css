@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    Panel «Salud de datos» (Consola del fundador · /app/admin)
    100 % tokens @pitchlab/tokens · Cero hex · Cero backdrop-filter · Container queries
@@ -535,4 +536,5 @@
       color: var(--pl-text-muted);
     }
   }
+}
 }

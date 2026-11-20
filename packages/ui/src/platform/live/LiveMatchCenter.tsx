@@ -19,7 +19,15 @@ import {
 } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { MaestroIcon } from "../components/MaestroPrimitives";
-import { DEFAULT_FOLLOW_ALERTS, useOptionalPlatformCore, usePlatform, type FollowAlerts } from "../platform-provider";
+import {
+  DEFAULT_FOLLOW_ALERTS,
+  type FollowAlerts,
+  useFollowAlerts,
+  useOptionalPlatformCore,
+  usePlatformActions,
+  usePlatformCore,
+  useWatchlistGameIds,
+} from "../platform-provider";
 import type { PlatformGame } from "../types";
 import { LiveStatBars, MomentumChart, XgRaceChart } from "./live-charts";
 import { LiveWinProbBar } from "./LiveWinProbBar";
@@ -145,7 +153,9 @@ export function LiveTimeline({
 
 /** «Siguiendo»: seguir el partido y elegir qué avisos llegan a la campana. */
 export function FollowControl({ gameId, compact = false }: { gameId: string; compact?: boolean }): React.JSX.Element {
-  const { watchlistGameIds, toggleWatchlistGame, followAlerts, setFollowAlerts } = usePlatform();
+  const { toggleWatchlistGame, setFollowAlerts } = usePlatformActions();
+  const watchlistGameIds = useWatchlistGameIds();
+  const followAlerts = useFollowAlerts();
   const following = watchlistGameIds.includes(gameId);
   const [closingAlerts, setClosingAlerts] = React.useState(false);
   const [pulseSeq, setPulseSeq] = React.useState(0);
@@ -630,7 +640,8 @@ export function LiveScoreboardView({ board, games, onOpen, showFollow = true }: 
 }
 
 export function LiveScoreboardStrip(): React.JSX.Element | null {
-  const { dataset, navigateTo } = usePlatform();
+  const { dataset } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
   const snap = useLiveScoreboard(true);
   return (
     <LiveScoreboardView

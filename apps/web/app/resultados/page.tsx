@@ -1,3 +1,4 @@
+import "../record-v2.css";
 import React from "react";
 import type { Metadata } from "next";
 import { hasPublicSessionCookie } from "../../src/server/public-session";

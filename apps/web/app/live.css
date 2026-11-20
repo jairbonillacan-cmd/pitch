@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    Match Center en vivo (EN-VIVO-1): marcador del día, ficha en vivo, «Siguiendo»
    100 % tokens @pitchlab/tokens · Cero hex · Cero backdrop-filter · Container queries
@@ -1021,4 +1022,5 @@
   .pl-live-players-table td:first-child::before {
     display: none;
   }
+}
 }

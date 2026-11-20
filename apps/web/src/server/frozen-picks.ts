@@ -4,7 +4,7 @@ import {
   PRE_MATCH_FREEZE_WINDOW_MS,
   parseKickoffUtcMs,
 } from "@pitchlab/ui/pre-match";
-import type { FrozenMainPickSnapshot, PlatformGame } from "@pitchlab/ui/platform";
+import type { FrozenMainPickSnapshot, PlatformGame } from "@pitchlab/ui/types";
 
 /**
  * Caché en memoria del proceso para el modo beta sin `DATABASE_URL` y como primera capa

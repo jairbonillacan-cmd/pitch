@@ -21,7 +21,11 @@ import { PlSelect } from "../../components/PlSelect";
 import { SettingsGroup, SettingsRow } from "../../components/SettingsGroup";
 import { BOOKMAKER_OPTIONS, sanitizePreferredBooks } from "../../bookmakers";
 import { todayId } from "../home/home-model";
-import { usePlatform } from "../../platform-provider";
+import {
+  useJournalEntries,
+  usePlatformActions,
+  usePlatformCore,
+} from "../../platform-provider";
 import { formatUnits, profileRecord } from "../../profile-stats";
 import { normalizeRecordPrivacy } from "../../record-stats";
 import type { OddsFormat, RiskBand } from "../../types";
@@ -253,26 +257,9 @@ export function PrefsTab({
   onSaved?: () => void;
   storyOverride?: PrefsTabStoryOverride;
 }): React.JSX.Element {
-  const {
-    dataset,
-    hasAccountSessionAuth,
-    favoriteLeagues,
-    setFavoriteLeagues,
-    oddsFormat,
-    setOddsFormat,
-    riskPreference,
-    setRiskPreference,
-    userTimezone,
-    setUserTimezone,
-    setShowMxnBalance,
-    setUnitMxn,
-    preferredBooks,
-    setPreferredBooks,
-    journal,
-    pushToast,
-    navigateTo,
-    logoutSession,
-  } = usePlatform();
+  const { dataset, hasAccountSessionAuth, favoriteLeagues, oddsFormat, riskPreference, userTimezone, preferredBooks } = usePlatformCore();
+  const { setFavoriteLeagues, setOddsFormat, setRiskPreference, setUserTimezone, setShowMxnBalance, setUnitMxn, setPreferredBooks, pushToast, navigateTo, logoutSession } = usePlatformActions();
+  const journal = useJournalEntries();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const canPersistServer = Boolean(

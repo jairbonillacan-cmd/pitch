@@ -13,7 +13,7 @@ import {
   writeLiveCache,
   type Db,
 } from "@pitchlab/db";
-import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/platform";
+import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
 import { buildServerRawPlatformDataset } from "./platform-data";
 import { isWebPushConfigured, sendPushToUsers } from "./web-push";
 

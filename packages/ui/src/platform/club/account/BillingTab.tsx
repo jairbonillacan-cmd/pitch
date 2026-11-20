@@ -3,7 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
 import { PlSelect } from "../../components/PlSelect";
-import { usePlatform } from "../../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../../platform-provider";
 import { MEMBERSHIP_SPEC } from "../../spacetime-catalog";
 import {
   DEFAULT_CFDI_DRAFT_V1,
@@ -17,7 +20,8 @@ export function BillingTab({
 }: {
   accountsEnabledOverride?: boolean;
 } = {}): React.JSX.Element {
-  const { hasAccountSessionAuth, paymentMode, navigateTo } = usePlatform();
+  const { hasAccountSessionAuth, paymentMode } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
   const accountsEnabled = accountsEnabledOverride ?? hasAccountSessionAuth;
 
   const [rfc, setRfc] = useState(DEFAULT_CFDI_DRAFT_V1.rfc);

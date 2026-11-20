@@ -1,3 +1,5 @@
+import "../precio-motion.css";
+import "../account-v2.css";
 import React from "react";
 import type { Metadata } from "next";
 import {

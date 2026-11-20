@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogPostSurface } from "@pitchlab/ui";
+import { BlogPostSurface } from "@pitchlab/ui/blog";
 import {
   blogDateToIso,
   blogPostPath,

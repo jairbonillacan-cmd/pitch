@@ -479,13 +479,20 @@ export function localizeInjuryLabelEs(raw: string | null | undefined): string {
   if (!raw) return "";
   const trimmed = raw.trim();
   if (!trimmed) return "";
-  const exact = INJURY_ES_MAP[trimmed.toLowerCase()];
+  const normalized = trimmed.toLowerCase().replace(/[_-]+/g, " ").replace(/\s+/g, " ");
+  const exact = INJURY_ES_MAP[normalized];
   if (exact) return exact;
   return trimmed
+    .replace(/[_]+/g, " ")
+    .replace(/\bRed\s+Card\s+Suspension\b/gi, "Suspensión por roja")
+    .replace(/\bYellow\s+Card\s+Suspension\b/gi, "Acumulación de amarillas")
+    .replace(/\bSuspension\b/gi, "Suspensión")
     .replace(/\bSprained\s+Knee\b/gi, "Esguince de rodilla")
     .replace(/\bSprained\s+Ankle\b/gi, "Esguince de tobillo")
     .replace(/\bKnee\s+Injury\b/gi, "Lesión de rodilla")
     .replace(/\bAnkle\s+Injury\b/gi, "Lesión de tobillo")
+    .replace(/\bHamstring\s+Injury\b/gi, "Lesión de isquiotibiales")
+    .replace(/\bMuscle\s+Injury\b/gi, "Lesión muscular")
     .replace(/\bInjury\b/gi, "lesión")
     .replace(/\bSuspended\b/gi, "Suspendido")
     .replace(/\bIllness\b/gi, "Enfermedad");

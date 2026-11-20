@@ -35,7 +35,14 @@ import {
 } from "../components/MaestroPrimitives";
 import { PlSelect } from "../components/PlSelect";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { socialScopeKey, usePlatform } from "../platform-provider";
+import {
+  socialScopeKey,
+  useJournalEntries,
+  type usePlatform,
+  usePlatformActions,
+  usePlatformCore,
+  useSocialState,
+} from "../platform-provider";
 import {
   analystRank,
   calibrationBuckets,
@@ -206,20 +213,10 @@ export function AnalystProfileClubView({
   xEnabled?: boolean;
   xLinkError?: boolean;
 }): React.JSX.Element {
-  const {
-    dataset,
-    journal,
-    socialPosts,
-    oddsFormat,
-    viewerRole,
-    favoriteLeagues,
-    toggleSocialLike,
-    pushToast,
-    navigateTo,
-    viewerIdentity,
-    updateViewerIdentity,
-    loadSocialPostsByAuthor,
-  } = usePlatform();
+  const { dataset, oddsFormat, viewerRole, favoriteLeagues, viewerIdentity } = usePlatformCore();
+  const { toggleSocialLike, pushToast, navigateTo, updateViewerIdentity, loadSocialPostsByAuthor } = usePlatformActions();
+  const { socialPosts } = useSocialState();
+  const journal = useJournalEntries();
   const [edited, setEdited] = useState<EditableProfile | null>(null);
   // Publicaciones del socio guardadas en el servidor (no solo las del feed reciente).
   const memberHandle = memberProfile?.handle ?? null;
@@ -941,24 +938,10 @@ function PostsPanel({
   canReport: boolean;
   ownHandle: string | null;
 }): React.JSX.Element {
-  const {
-    socialFeedPages,
-    loadOlderSocialPosts,
-    viewerRole,
-    viewerIdentity,
-    hasAccountSessionAuth,
-    journal,
-    addSocialComment,
-    deleteSocialComment,
-    toggleSocialCommentHelpful,
-    loadAllPostComments,
-    deleteSocialPost,
-    sealPickToJournal,
-    recordSocialPostCopy,
-    addPickToParlay,
-    navigateTo,
-    pushToast,
-  } = usePlatform();
+  const { viewerRole, viewerIdentity, hasAccountSessionAuth } = usePlatformCore();
+  const { loadOlderSocialPosts, addSocialComment, deleteSocialComment, toggleSocialCommentHelpful, loadAllPostComments, deleteSocialPost, sealPickToJournal, recordSocialPostCopy, addPickToParlay, navigateTo, pushToast } = usePlatformActions();
+  const { socialFeedPages } = useSocialState();
+  const journal = useJournalEntries();
   const follows = useFollowing();
   const [limit, setLimit] = useState(PROFILE_POSTS_PAGE);
   const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
@@ -1087,7 +1070,7 @@ function PicksPanel({
   isVisitor: boolean;
   navigateTo: (path: string) => void;
 }): React.JSX.Element {
-  const { hasAccountSession, upgradeHref } = usePlatform();
+  const { hasAccountSession, upgradeHref } = usePlatformCore();
   const [status, setStatus] = useState<StatusFilter>("all");
   const [league, setLeague] = useState<string>("all");
   const [filtersOpen, setFiltersOpen] = useState(false);

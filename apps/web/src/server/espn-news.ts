@@ -11,7 +11,7 @@ import type {
   LeagueNewsArticleSummary,
   LeagueNewsCategory,
   LeagueNewsItem,
-} from "@pitchlab/ui";
+} from "@pitchlab/ui/types";
 import type { ProductLeague } from "./snapshots";
 
 const ESPN_NEWS_SLUGS: Readonly<

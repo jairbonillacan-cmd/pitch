@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    CUENTA-2 · Mi cuenta (/app/account)
    Invitar amigos · Mi plan · Preferencias · Facturación
@@ -2015,4 +2016,5 @@ html[data-theme="light"] .pl-acct-seg button[aria-pressed="true"] {
   .pl-acct-text-link {
     min-height: 44px;
   }
+}
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { ClosingCtaSection, PublicSiteShell } from "./PublicSiteSections";
+import { ClosingCtaSection, PublicSiteShell } from "./PublicSiteShell";
 
 /**
  * Documentos legales (`/legal/*`) con el mismo lenguaje visual que los artículos del blog:

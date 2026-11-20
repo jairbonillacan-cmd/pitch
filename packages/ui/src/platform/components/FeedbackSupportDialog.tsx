@@ -241,7 +241,7 @@ export function FeedbackSupportDialog({
         {isTelegram ? (
           <div className="space-y-3">
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Nuestro canal oficial de Telegram estará disponible muy pronto para socios del Club. Mientras tanto,
+              Nuestro canal oficial de Telegram estará disponible muy pronto para socios de PitchLab. Mientras tanto,
               puedes participar en <strong>Comunidad</strong> dentro de la app o escribirnos por{" "}
               <strong>Feedback e ideas</strong>.
             </p>

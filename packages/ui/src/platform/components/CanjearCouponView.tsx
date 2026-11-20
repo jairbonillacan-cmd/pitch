@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useCallback, useEffect, useId, useState } from "react";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { lookupPreviewCoupon, redeemPreviewCoupon } from "../preview-spei-store";
 import { ExampleNotice, LensGlowOrbs, MaestroIcon } from "./MaestroPrimitives";
 import {
@@ -76,7 +79,8 @@ export function CouponRedeemBox({
     newAccessUntilIso?: string | null;
   };
 }): React.JSX.Element {
-  const { accountsEnabled, hasAccountSessionAuth, pushToast } = usePlatform();
+  const { accountsEnabled, hasAccountSessionAuth } = usePlatformCore();
+  const { pushToast } = usePlatformActions();
   const effectiveAccountSession = hasAccountSessionOverride ?? hasAccountSessionAuth;
   const [code, setCode] = useState<string>(() => normalizeInputCode(initialCode));
   const [busy, setBusy] = useState<boolean>(false);
@@ -302,11 +306,8 @@ export function CanjearCouponView({
   initialPreview = null,
   storyOverride,
 }: CanjearCouponViewProps): React.JSX.Element {
-  const {
-    accountsEnabled: ctxAccountsEnabled,
-    hasAccountSessionAuth: ctxHasAccountSessionAuth,
-    navigateTo,
-  } = usePlatform();
+  const { accountsEnabled: ctxAccountsEnabled, hasAccountSessionAuth: ctxHasAccountSessionAuth } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
   const hasAccountSession = storyOverride?.hasAccountSession ?? ctxHasAccountSessionAuth;

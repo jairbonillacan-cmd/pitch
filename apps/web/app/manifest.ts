@@ -11,11 +11,17 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: "/app",
     scope: "/",
     display: "standalone",
-    orientation: "portrait",
+    orientation: "any",
     lang: "es-MX",
     background_color: BRAND_TOKENS["--background-primary"],
     theme_color: BRAND_TOKENS["--background-primary"],
     categories: ["sports", "utilities"],
+    shortcuts: [
+      { name: "Partidos de hoy", short_name: "Hoy", url: "/app" },
+      { name: "Armar parlay", short_name: "Parlays", url: "/app/parlays" },
+      { name: "Buscar picks", short_name: "Picks", url: "/app/picks" },
+      { name: "Mi récord", short_name: "Récord", url: "/app/lab" },
+    ],
     icons: [
       {
         src: "/brand/app-icons/icon-192.png",

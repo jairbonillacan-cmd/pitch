@@ -10,7 +10,11 @@ import {
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { TacticalPitchSvg } from "../../components/TacticalPitchSvg";
 import { formatPctEs } from "../../notifications";
-import { usePlatform } from "../../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+  useWatchlistGameIds,
+} from "../../platform-provider";
 import type {
   FrozenMainPickSnapshot,
   PlatformGame,
@@ -74,15 +78,9 @@ export function PreMatchModule({
   now: nowProp,
   timeZone: timeZoneProp,
 }: PreMatchModuleProps): React.JSX.Element {
-  const {
-    viewerRole,
-    watchlistGameIds,
-    oddsFormat,
-    userTimezone,
-    toggleWatchlistGame,
-    upgradeHref,
-    navigateTo,
-  } = usePlatform();
+  const { viewerRole, oddsFormat, userTimezone, upgradeHref } = usePlatformCore();
+  const { toggleWatchlistGame, navigateTo } = usePlatformActions();
+  const watchlistGameIds = useWatchlistGameIds();
 
   const headingId = useId();
   // Ancla determinista en SSR para evitar discrepancias de hidratación si el minuto cambia entre servidor y cliente.

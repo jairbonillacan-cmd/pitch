@@ -40,7 +40,12 @@ import {
   PARLAY_NON_COMBINABLE_RULES,
   type ParlayCompatibilityResult,
 } from "../parlay-engine";
-import { usePlatform } from "../platform-provider";
+import {
+  useJournalEntries,
+  useParlayState,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import type { MatchPick, PlayerPropItem, RiskBand, SgpCopulaAuditView } from "../types";
 
 function riskToneCss(tone: "success" | "info" | "warning" | "danger"): string {
@@ -97,26 +102,9 @@ function getCompactBlockReason(
 }
 
 export function ParlayBuilderClubView(): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    hasAccountSession,
-    upgradeHref,
-    oddsFormat,
-    parlayLegs,
-    allowSgp,
-    setAllowSgp,
-    parlayStakeUnits,
-    setParlayStakeUnits,
-    parlaySummary,
-    addPickToParlay,
-    removePickFromParlay,
-    clearParlay,
-    generateAutoParlay,
-    sealParlayToJournal,
-    openShareTicket,
-    navigateTo,
-  } = usePlatform();
+  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat } = usePlatformCore();
+  const { setAllowSgp, setParlayStakeUnits, addPickToParlay, removePickFromParlay, clearParlay, generateAutoParlay, sealParlayToJournal, openShareTicket, navigateTo } = usePlatformActions();
+  const { parlayLegs, allowSgp, parlayStakeUnits, parlaySummary } = useParlayState();
 
   const [selectedLeagues, setSelectedLeagues] = useState<LeagueId[]>(() =>
     dataset.leagues.map((l) => l.league),
@@ -919,22 +907,23 @@ export interface PropsStreakExplorerItem extends PlayerPropStreakCardProps {
 
 export interface PropsLabClubViewProps {
   streakCards?: readonly PropsStreakExplorerItem[];
+  playerProps?: readonly PlayerPropItem[];
 }
 
-export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {}): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    hasAccountSession,
-    upgradeHref,
-    oddsFormat,
-    journal,
-    sealPickToJournal,
-    navigateTo,
-  } = usePlatform();
+const INITIAL_STREAK_PAGE_SIZE = 8;
+const INITIAL_CATALOG_PAGE_SIZE = 10;
+
+export function PropsLabClubView({
+  streakCards = [],
+  playerProps,
+}: PropsLabClubViewProps = {}): React.JSX.Element {
+  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat } = usePlatformCore();
+  const { sealPickToJournal, navigateTo } = usePlatformActions();
+  const journal = useJournalEntries();
+  const effectivePlayerProps = playerProps ?? dataset.playerProps;
   const catalog = useMemo(
-    () => buildPlayerPropsCatalog(dataset.games, dataset.playerProps),
-    [dataset.games, dataset.playerProps],
+    () => buildPlayerPropsCatalog(dataset.games, effectivePlayerProps),
+    [dataset.games, effectivePlayerProps],
   );
   const [lineOffsets, setLineOffsets] = useState<Record<string, number>>({});
   const [propOddsInputs, setPropOddsInputs] = useState<Record<string, string>>(
@@ -942,6 +931,8 @@ export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {
   );
   const [streakSport, setStreakSport] = useState<string>("all");
   const [streakQuery, setStreakQuery] = useState<string>("");
+  const [streakVisibleCount, setStreakVisibleCount] = useState<number>(INITIAL_STREAK_PAGE_SIZE);
+  const [catalogVisibleCount, setCatalogVisibleCount] = useState<number>(INITIAL_CATALOG_PAGE_SIZE);
 
   const filteredStreaks = useMemo(() => {
     const q = streakQuery.trim().toLowerCase();
@@ -1064,16 +1055,29 @@ export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {
             </div>
 
             {filteredStreaks.length > 0 ? (
-              <div className="pl-props-grid">
-                {filteredStreaks.map((card) => (
-                  <PlayerPropStreakCard
-                    key={card.id}
-                    {...card}
-                    oddsFormat={oddsFormat}
-                    onNavigate={navigateTo}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="pl-props-grid">
+                  {filteredStreaks.slice(0, streakVisibleCount).map((card) => (
+                    <PlayerPropStreakCard
+                      key={card.id}
+                      {...card}
+                      oddsFormat={oddsFormat}
+                      onNavigate={navigateTo}
+                    />
+                  ))}
+                </div>
+                {filteredStreaks.length > streakVisibleCount ? (
+                  <div className="flex justify-center pt-2">
+                    <button
+                      type="button"
+                      className="pl-btn-glass min-h-11 px-5 text-xs font-bold"
+                      onClick={() => setStreakVisibleCount((c) => c + INITIAL_STREAK_PAGE_SIZE)}
+                    >
+                      Mostrar más tendencias ({filteredStreaks.length - streakVisibleCount} restantes)
+                    </button>
+                  </div>
+                ) : null}
+              </>
             ) : (
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
                 Ningún jugador coincide con «{streakQuery}». Prueba con otro nombre o deporte.
@@ -1117,8 +1121,9 @@ export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {
             </p>
           </div>
         ) : (
+          <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            {catalog.map((prop) => {
+            {catalog.slice(0, catalogVisibleCount).map((prop) => {
               const offset = lineOffsets[prop.id] ?? 0;
               const activeLine = Math.min(
                 prop.maxLine,
@@ -1452,6 +1457,18 @@ export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {
               );
             })}
           </div>
+          {catalog.length > catalogVisibleCount ? (
+            <div className="flex justify-center pt-2">
+              <button
+                type="button"
+                className="pl-btn-glass min-h-11 px-5 text-xs font-bold"
+                onClick={() => setCatalogVisibleCount((c) => c + INITIAL_CATALOG_PAGE_SIZE)}
+              >
+                Mostrar más props ({catalog.length - catalogVisibleCount} restantes)
+              </button>
+            </div>
+          ) : null}
+          </>
         )}
       </ClubWorkspaceShell>
     </AtmosphereStage>

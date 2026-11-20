@@ -1,8 +1,10 @@
 import React from "react";
-import { PropsLabClubView } from "@pitchlab/ui";
+import { PropsLabClubView } from "@pitchlab/ui/parlays";
+import { loadShellPlayerProps } from "../../../src/server/platform-data";
 import { loadPlayerPropStreakCards } from "../../../src/server/props-explorer";
 
 export default function ClubPropsPage(): React.JSX.Element {
   const streakCards = loadPlayerPropStreakCards(36);
-  return <PropsLabClubView streakCards={streakCards} />;
+  const playerProps = loadShellPlayerProps();
+  return <PropsLabClubView streakCards={streakCards} playerProps={playerProps} />;
 }

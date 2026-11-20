@@ -1,3 +1,4 @@
+import "../community-v2.css";
 import React from "react";
 import type { Metadata } from "next";
 import { PublicSiteShell } from "@pitchlab/ui/public-sections";

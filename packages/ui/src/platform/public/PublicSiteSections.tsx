@@ -5,10 +5,12 @@ import {
   sportScoringUnit,
   type LeagueId,
 } from "@pitchlab/contracts";
-import { BrandLogo } from "../../primitives";
+import { BrandLogo } from "../../brand-logo";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
-import { CalibrationCurveChart } from "../components/CalibrationCurveChart";
-import { CalibrationHonestyLab } from "../components/CalibrationHonestyLab";
+import {
+  LazyCalibrationCurveChart as CalibrationCurveChart,
+  LazyCalibrationHonestyLab as CalibrationHonestyLab,
+} from "./LazyCalibrationIslands";
 import { checkParlayCompatibility, computeParlaySummary } from "../parlay-engine";
 import {
   CORTEX_SAMPLE_QUOTE,
@@ -35,18 +37,18 @@ import type {
 import {
   HeroMatchDemoIsland,
   PricingCardIsland,
-  PublicNavBarClient,
   ResultsFilterListIsland,
   SpeiTransferPricingIsland,
   UltraPassCardStageIsland,
 } from "./LandingClientIslands";
+import {
+  ClosingCtaSection,
+  PublicSiteShell,
+  type PublicNavPath,
+} from "./PublicSiteShell";
 
-export { MEMBERSHIP_SPEC };
-export type PublicNavPath =
-  | "/"
-  | "/motores"
-  | "/resultados"
-  | "/precio";
+export { ClosingCtaSection, MEMBERSHIP_SPEC, PublicSiteShell };
+export type { PublicNavPath };
 
 export interface LandingHeroLeagueCard {
   league: LeagueId;
@@ -872,85 +874,6 @@ export function buildFeaturedCommunityPick(
   }
 
   return DEFAULT_FEATURED_COMMUNITY_PICK;
-}
-
-function buildFooterLinks(activePath?: PublicNavPath) {
-  const isHome = activePath === "/";
-  return [
-    {
-      title: "Producto",
-      links: [
-        { href: isHome ? "#que-obtienes" : "/#que-obtienes", label: "Funciones" },
-        { href: isHome ? "#hoy" : "/#hoy", label: "Comparador" },
-        { href: "/precio", label: "Precio" },
-        { href: "/blog", label: "Blog" },
-      ],
-    },
-    {
-      title: "Transparencia",
-      links: [
-        { href: "/motores", label: "Motores" },
-        { href: "/resultados", label: "Resultados" },
-        { href: "/legal/creditos", label: "Créditos" },
-      ],
-    },
-    {
-      title: "Legal",
-      links: [
-        { href: "/legal/terminos", label: "Términos" },
-        { href: "/legal/privacidad", label: "Aviso de privacidad" },
-        { href: "/legal/juego-responsable", label: "Juego responsable" },
-      ],
-    },
-  ] as const;
-}
-
-export function PublicSiteShell({
-  activePath,
-  children,
-  hasSession = false,
-  className,
-}: {
-  activePath?: PublicNavPath;
-  hasSession?: boolean;
-  /** Clase extra en la raíz, para estilos propios de una página (p. ej. `pl-lp--precio`). */
-  className?: string;
-  children: React.ReactNode;
-}): React.JSX.Element {
-  const extraClass = className && className !== "pl-lp--clean" ? ` ${className}` : "";
-  const footerColumns = buildFooterLinks(activePath);
-
-  return (
-    <div className={`pl-stage pl-lp pl-lp--clean${extraClass}`}>
-      <a className="skip-link" href="#main">
-        Saltar al contenido principal
-      </a>
-      <PublicNavBarClient activePath={activePath} hasSession={hasSession} />
-      <main id="main">{children}</main>
-      <footer className="pl-clean-footer">
-        <div className="pl-lp-wrap">
-          <nav aria-label="Pie" className="pl-clean-footer-links">
-            {footerColumns.map(({ title, links }) => (
-              <div key={title}>
-                <h2>{title}</h2>
-                <ul>
-                  {links.map(({ href, label }) => (
-                    <li key={href}>
-                      <a href={href}>{label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
-          <div className="pl-clean-footer-note">
-            <BrandLogo variant="horizontal" width={113} height={22} alt="PitchLab" />
-            <p>Información para decidir · No somos casa de apuestas · +18</p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
 }
 
 export function MultiAngleValidationSection({
@@ -2143,31 +2066,6 @@ export function FaqSection({ variant }: { variant?: "landing" } = {}): React.JSX
   );
 }
 
-export function ClosingCtaSection({
-  hasSession = false,
-  variant,
-}: { hasSession?: boolean; variant?: "banner" } = {}): React.JSX.Element {
-  void variant;
-  return (
-    <section className="pl-clean-section pl-clean-closing" aria-labelledby="pl-clean-cta-title">
-      <div className="pl-lp-wrap">
-        <div className="pl-clean-banner">
-          <div className="pl-clean-banner-copy">
-            <h2 id="pl-clean-cta-title">Lee el juego con datos.</h2>
-            <p>Abre la jornada y compara el momio justo antes de decidir.</p>
-            <a className="pl-lp-btn" href={hasSession ? "/app" : "/signup"}>
-              Probar 7 días gratis <span aria-hidden="true">→</span>
-            </a>
-          </div>
-          <figure className="pl-clean-banner-render">
-            <img src="/landing/cta-ball-cards.webp" width={1480} height={1010} loading="lazy" decoding="async" alt="" />
-          </figure>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ==========================================================================
    6 Superficies completas de las rutas del menú público
    ========================================================================== */
@@ -2559,7 +2457,7 @@ export function ComunidadPageSurface({
             <p className="pl-lp-eyebrow">Vista previa de publicaciones</p>
             <h2 className="pl-lp-h2">Conversación limpia, centrada en el partido.</h2>
             <p className="pl-lp-lede">
-              Las publicaciones y perfiles de abajo son ejemplos demostrativos de cómo se ve el muro de socios dentro del club.
+              Las publicaciones y perfiles de abajo son ejemplos demostrativos de cómo se ve el muro de socios en PitchLab.
             </p>
           </div>
 
@@ -2569,7 +2467,7 @@ export function ComunidadPageSurface({
             <div className="pl-lp-card pl-lp-panel glass-card glass-ring">
               <div className="pl-lp-row pl-lp-row--between">
                 <p style={{ margin: 0, fontWeight: 700, fontSize: 18 }}>
-                  Muro del club
+                  Muro de comunidad
                 </p>
                 <span className="pl-lp-pill" data-example-badge="">
                   Ejemplo

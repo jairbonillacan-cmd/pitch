@@ -12,7 +12,7 @@ import {
   getBzzoiroTeamEmblemUrl,
   getOfficialEspnTeamLogoUrl,
 } from "@pitchlab/sports-assets";
-import type { LeagueNewsItem } from "@pitchlab/ui";
+import type { LeagueNewsItem } from "@pitchlab/ui/types";
 import { fetchEspnLeagueNews } from "./espn-news";
 import {
   LEAGUE_LABELS,

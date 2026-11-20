@@ -10,7 +10,13 @@ import {
 } from "../community-examples";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
-import { useOptionalPlatformCore, usePlatform, type ViewerIdentity } from "../platform-provider";
+import {
+  type ViewerIdentity,
+  useJournalEntries,
+  useOptionalPlatformCore,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
 import type { JournalEntry, PlatformDataset, SocialPost, SocialReportReason, ViewerRole } from "../types";
 
@@ -122,7 +128,8 @@ export function useLeaderboardRows(): {
   /** Tu récord local (para decirte cuántos picks te faltan aunque no aparezcas). */
   ownJournal: readonly JournalEntry[];
 } {
-  const { journal, viewerRole, viewerIdentity, hasAccountSessionAuth } = usePlatform();
+  const { viewerRole, viewerIdentity, hasAccountSessionAuth } = usePlatformCore();
+  const journal = useJournalEntries();
   const today = useMemo(() => new Date(), []);
   const own = useMemo(() => ownIdentityFor(viewerRole, viewerIdentity), [viewerRole, viewerIdentity]);
   const [serverRows, setServerRows] = useState<ServerRankingRow[] | null>(null);
@@ -550,7 +557,8 @@ export function useFollowing(): {
   isFollowing: (handle: string) => boolean;
   toggle: (handle: string) => boolean;
 } {
-  const { hasAccountSessionAuth, viewerIdentity, pushToast } = usePlatform();
+  const { hasAccountSessionAuth, viewerIdentity } = usePlatformCore();
+  const { pushToast } = usePlatformActions();
   const owner = viewerIdentity?.handle ?? null;
   const [following, setFollowing] = useState<string[]>([]);
   useEffect(() => {
@@ -771,7 +779,7 @@ export function SocialReportDialog({
   onClose: () => void;
 }): React.JSX.Element | null {
   const uid = useId();
-  const { reportSocialContent } = usePlatform();
+  const { reportSocialContent } = usePlatformActions();
   const [reason, setReason] = useState<SocialReportReason>("spam_enlaces");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");

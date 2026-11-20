@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { BlogIndexSurface } from "@pitchlab/ui";
+import { BlogIndexSurface } from "@pitchlab/ui/blog";
 import {
   blogCategoryLinks,
   buildBlogJsonLd,

@@ -12,7 +12,7 @@ import footballModelJson from "@pitchlab/spacetime/data/model_motor_a.json";
 import multisportModelJson from "@pitchlab/spacetime/data/model_multisport.json";
 import nflModelJson from "@pitchlab/spacetime/data/model_nfl.json";
 import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
-import type { SpacetimeSignal } from "@pitchlab/ui";
+import type { SpacetimeSignal } from "@pitchlab/ui/types";
 
 /**
  * Corre PitchLab Spacetime Suite v3.0 sobre los partidos de los snapshots de la app.

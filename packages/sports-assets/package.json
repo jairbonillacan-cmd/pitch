@@ -3,8 +3,10 @@
   "version": "0.0.1-alpha",
   "private": true,
   "type": "module",
+  "sideEffects": false,
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./brand": "./src/brand.ts"
   },
   "scripts": {
     "build": "node scripts/sync-assets.mjs && tsc --noEmit",

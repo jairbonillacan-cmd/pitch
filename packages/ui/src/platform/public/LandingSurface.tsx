@@ -45,7 +45,7 @@ export function LandingSurface({
     <PublicSiteShell activePath="/" hasSession={hasSession} className="pl-lp--clean">
       <section id="top" className="pl-clean-hero" aria-labelledby="pl-clean-title">
         <div className="pl-clean-hero-light" aria-hidden="true">
-          <img src="/landing/hero-light.webp" width={1536} height={1024} alt="" />
+          <img src="/landing/hero-light.webp" width={1536} height={1024} decoding="async" alt="" />
         </div>
         <div className="pl-lp-wrap pl-clean-hero-grid">
           <div className="pl-clean-hero-copy">

@@ -11,7 +11,13 @@ import {
   getSessionWatermark,
   pickReferenceDecimal,
 } from "../access-guard";
-import { usePlatform } from "../platform-provider";
+import {
+  useOverlayState,
+  useParlayState,
+  usePlatform,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { shortDateLabel } from "../club/home/home-model";
 import { assessParlayRisk } from "../parlay-engine";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
@@ -169,8 +175,21 @@ export function TopLayerModalDialog({
       };
     }
 
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && dialog.open) {
+        e.preventDefault();
+        if (!keepMounted || supportsTopLayerExit()) {
+          dialog.close();
+        } else {
+          onCloseRef.current();
+        }
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+
     return () => {
       cancelled = true;
+      window.removeEventListener("keydown", handleEscape);
       dialog.removeEventListener("cancel", handleCancel);
       dialog.removeEventListener("close", handleClose);
       cleanupLightDismiss?.();
@@ -202,14 +221,9 @@ export function TopLayerModalDialog({
 }
 
 export function ParlayFloatingDock(): React.JSX.Element | null {
-  const {
-    parlaySummary,
-    oddsFormat,
-    clearParlay,
-    sealParlayToJournal,
-    openShareTicket,
-    navigateTo,
-  } = usePlatform();
+  const { oddsFormat } = usePlatformCore();
+  const { clearParlay, sealParlayToJournal, openShareTicket, navigateTo } = usePlatformActions();
+  const { parlaySummary } = useParlayState();
 
   if (parlaySummary.legs.length === 0) {
     return null;
@@ -335,8 +349,9 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
 }
 
 export function PickComposerModal(): React.JSX.Element | null {
-  const { composerPick, closeComposer, sealPickToJournal, oddsFormat } =
-    usePlatform();
+  const { oddsFormat } = usePlatformCore();
+  const { closeComposer, sealPickToJournal } = usePlatformActions();
+  const { composerPick } = useOverlayState();
   const [units, setUnits] = useState<number>(1.5);
   const [userDec, setUserDec] = useState<string>("1.95");
   const [oddsMode, setOddsMode] = useState<"observed" | "manual">("observed");
@@ -898,6 +913,8 @@ export function ShareTicketModal(): React.JSX.Element | null {
                   <img
                     src={getLogoPath("horizontal", "dark")}
                     alt="PitchLab"
+                    loading="lazy"
+                    decoding="async"
                     className="h-5 w-auto object-contain"
                   />
                 </div>
@@ -1265,8 +1282,9 @@ export function CommandPaletteModal({
 }: {
   initialQuery?: string;
 } = {}): React.JSX.Element | null {
-  const { cmdkOpen, setCmdkOpen, dataset, navigateTo, viewerRole, allowRoleSimulation } =
-    usePlatform();
+  const { dataset, viewerRole, allowRoleSimulation } = usePlatformCore();
+  const { setCmdkOpen, navigateTo } = usePlatformActions();
+  const { cmdkOpen } = useOverlayState();
   const [query, setQuery] = useState<string>(initialQuery);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [rendered, setRendered] = useState<boolean>(cmdkOpen);
@@ -1592,7 +1610,7 @@ export function CommandPaletteModal({
                 Sin coincidencias para «{query}»
               </p>
               <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Prueba con MLB, Liga MX, un equipo, un jugador o un @socio del club.
+                Prueba con MLB, Liga MX, un equipo, un jugador o un @socio.
               </p>
             </div>
           ) : null}
@@ -1856,9 +1874,9 @@ export function CommandPaletteModal({
           ) : null}
 
           {quickRoutes.length > 0 ? (
-            <section className="pl-cmd-group" aria-label="Vistas y herramientas del club">
+            <section className="pl-cmd-group" aria-label="Explorar PitchLab">
               <div className="pl-cmd-group-head">
-                <span>Vistas y Herramientas del Club</span>
+                <span>Explorar PitchLab</span>
                 <span className="pl-cmd-group-count num">{quickRoutes.length}</span>
               </div>
               <div className="pl-cmd-list">
@@ -1932,7 +1950,8 @@ export function CommandPaletteModal({
 }
 
 export function BetaPinModal(): React.JSX.Element | null {
-  const { betaPinOpen, closeBetaPin, submitBetaPin } = usePlatform();
+  const { closeBetaPin, submitBetaPin } = usePlatformActions();
+  const { betaPinOpen } = useOverlayState();
   const [digits, setDigits] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [busy, setBusy] = useState<boolean>(false);
@@ -2094,7 +2113,8 @@ export function RoleSimulatorBar({
 }: {
   activePath?: string;
 } = {}): React.JSX.Element | null {
-  const { allowRoleSimulation, viewerRole, setViewerRole } = usePlatform();
+  const { allowRoleSimulation, viewerRole } = usePlatformCore();
+  const { setViewerRole } = usePlatformActions();
   const [expanded, setExpanded] = useState<boolean>(false);
   const [clientPath, setClientPath] = useState<string>(activePath ?? "");
 
@@ -2124,7 +2144,7 @@ export function RoleSimulatorBar({
 
   return (
     <div
-      className="role-sim-pill glass-pill-bar glass-ring"
+      className="role-sim-pill glass-pill-bar glass-ring hidden lg:inline-flex h-auto self-end"
       role="region"
       aria-label="Simulador de rol de usuario"
       data-role-simulator=""
@@ -2168,7 +2188,7 @@ export function RoleSimulatorBar({
 }
 
 export function ToastViewport(): React.JSX.Element | null {
-  const { toasts } = usePlatform();
+  const { toasts } = useOverlayState();
   const [rendered, setRendered] = useState<Array<{ id: string; tone: string; text: string; closing?: boolean }>>(
     () => toasts.map((t) => ({ ...t })),
   );
@@ -2213,7 +2233,7 @@ export function ToastViewport(): React.JSX.Element | null {
 
   return (
     <div
-      className="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none max-w-sm"
+      className="pl-toast-viewport"
       aria-live="polite"
     >
       {rendered.map((t) => (

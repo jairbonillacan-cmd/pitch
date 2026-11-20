@@ -57,17 +57,35 @@ function isJournalEntry(v: unknown): v is JournalEntry {
   const e = v as Partial<JournalEntry> | null;
   return (
     !!e &&
+    typeof e === "object" &&
     typeof e.id === "string" &&
     typeof e.pickId === "string" &&
+    typeof e.gameId === "string" &&
+    typeof e.leagueLabel === "string" &&
+    typeof e.matchLabel === "string" &&
+    typeof e.pickLabel === "string" &&
     typeof e.units === "number" &&
+    Number.isFinite(e.units) &&
     typeof e.userDecimal === "number" &&
+    Number.isFinite(e.userDecimal) &&
+    (e.fairDecimal === undefined ||
+      (typeof e.fairDecimal === "number" && Number.isFinite(e.fairDecimal))) &&
     (e.status === "pending" || e.status === "won" || e.status === "lost" || e.status === "void")
   );
 }
 
 function isOwnSocialPost(v: unknown): v is SocialPost {
   const p = v as Partial<SocialPost> | null;
-  return !!p && typeof p.id === "string" && typeof p.body === "string" && !p.isExample && Array.isArray(p.comments);
+  return (
+    !!p &&
+    typeof p === "object" &&
+    typeof p.id === "string" &&
+    typeof p.body === "string" &&
+    typeof p.authorHandle === "string" &&
+    typeof p.authorName === "string" &&
+    !p.isExample &&
+    Array.isArray(p.comments)
+  );
 }
 
 interface ServerJournalRow {
@@ -596,13 +614,61 @@ type MissingActionKey = Exclude<ActionKey, (typeof ACTION_KEYS)[number]>;
 const ACTION_KEYS_COMPLETE: [MissingActionKey] extends [never] ? true : MissingActionKey = true;
 void ACTION_KEYS_COMPLETE;
 
-const PlatformCoreContext = createContext<PlatformCoreValue | null>(null);
-const PlatformActionsContext = createContext<PlatformActions | null>(null);
-const AuraContext = createContext<readonly [string, string]>([
+const DEFAULT_AURA_COLORS: readonly [string, string] = [
   "var(--pl-aura-default-home)",
   "var(--pl-aura-default-away)",
-]);
+];
+
+function createAuraStore(initial: readonly [string, string] = DEFAULT_AURA_COLORS) {
+  let colors = initial;
+  const listeners = new Set<() => void>();
+  return {
+    get: () => colors,
+    set(next: readonly [string, string]) {
+      if (colors[0] === next[0] && colors[1] === next[1]) return;
+      colors = next;
+      for (const l of listeners) l();
+    },
+    subscribe(listener: () => void) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  };
+}
+type AuraStore = ReturnType<typeof createAuraStore>;
+const defaultAuraStore = createAuraStore();
+
+const PlatformCoreContext = createContext<PlatformCoreValue | null>(null);
+const PlatformActionsContext = createContext<PlatformActions | null>(null);
+const AuraStoreContext = createContext<AuraStore>(defaultAuraStore);
 const JournalContext = createContext<JournalEntry[]>([]);
+const WatchlistContext = createContext<string[]>([]);
+
+export interface ParlayStateValue {
+  parlayLegs: ParlayLeg[];
+  allowSgp: boolean;
+  parlayStakeUnits: number;
+  parlaySummary: ParlaySummary;
+}
+export interface SocialStateValue {
+  socialPosts: SocialPost[];
+  socialFeedPages: Readonly<Record<string, SocialFeedPageState>>;
+  socialOnServer: boolean;
+  blockedSpamAttempts: number;
+}
+export interface OverlayStateValue {
+  composerPick: MatchPick | null;
+  shareTicket: ShareTicketPayload | null;
+  cmdkOpen: boolean;
+  betaPinOpen: boolean;
+  betaPinNextPath: string;
+  toasts: ToastMessage[];
+}
+
+const ParlayStateContext = createContext<ParlayStateValue | null>(null);
+const SocialStateContext = createContext<SocialStateValue | null>(null);
+const OverlayStateContext = createContext<OverlayStateValue | null>(null);
+const FollowAlertsContext = createContext<Record<string, FollowAlerts>>({});
 
 export interface HomeNavFilterValue {
   sport: SportFilter;
@@ -655,10 +721,26 @@ export function useOptionalPlatformActions(): PlatformActions | null {
   return useContext(PlatformActionsContext);
 }
 export function useAuraColors(): readonly [string, string] {
-  return useContext(AuraContext);
+  const store = useContext(AuraStoreContext);
+  return useSyncExternalStore(store.subscribe, store.get, store.get);
 }
 export function useJournalEntries(): JournalEntry[] {
   return useContext(JournalContext);
+}
+export function useWatchlistGameIds(): string[] {
+  return useContext(WatchlistContext);
+}
+export function useFollowAlerts(): Record<string, FollowAlerts> {
+  return useContext(FollowAlertsContext);
+}
+export function useParlayState(): ParlayStateValue {
+  return required(useContext(ParlayStateContext), "useParlayState");
+}
+export function useSocialState(): SocialStateValue {
+  return required(useContext(SocialStateContext), "useSocialState");
+}
+export function useOverlayState(): OverlayStateValue {
+  return required(useContext(OverlayStateContext), "useOverlayState");
 }
 export function useHomeNavFilter(): HomeNavFilterValue {
   return required(useContext(HomeNavFilterContext), "useHomeNavFilter");
@@ -851,15 +933,13 @@ export function PlatformProvider({
     [],
   );
 
-  const [auraColors, setAuraColors] = useState<readonly [string, string]>(() =>
-    resolveColorsForGame(defaultGame),
-  );
+  const [auraStore] = useState(() => createAuraStore(resolveColorsForGame(defaultGame)));
 
   const setAuraFromGame = useCallback(
     (game: PlatformGame | undefined) => {
-      setAuraColors(resolveColorsForGame(game));
+      auraStore.set(resolveColorsForGame(game));
     },
-    [resolveColorsForGame],
+    [auraStore, resolveColorsForGame],
   );
 
   // Hidratar preferencias persistidas en cliente
@@ -879,26 +959,30 @@ export function PlatformProvider({
       }
       const rawFavLeagues = window.localStorage.getItem("pl-fav-leagues");
       if (rawFavLeagues) {
-        const knownLeagueIds = new Set<string>([
-          "liga-mx",
-          "nfl",
-          "nba",
-          "nhl",
-          "premier-league",
-          "laliga",
-          "bundesliga",
-          "serie-a",
-          "ligue-1",
-          ...rawDataset.leagues.map((l) => l.league),
-        ]);
-        const parsedLeagues: unknown = JSON.parse(rawFavLeagues);
-        if (Array.isArray(parsedLeagues)) {
-          const validLeagues = parsedLeagues.filter(
-            (id): id is LeagueId => typeof id === "string" && knownLeagueIds.has(id),
-          );
-          if (validLeagues.length > 0) {
-            setFavoriteLeaguesState(Array.from(new Set(validLeagues)));
+        try {
+          const knownLeagueIds = new Set<string>([
+            "liga-mx",
+            "nfl",
+            "nba",
+            "nhl",
+            "premier-league",
+            "laliga",
+            "bundesliga",
+            "serie-a",
+            "ligue-1",
+            ...rawDataset.leagues.map((l) => l.league),
+          ]);
+          const parsedLeagues: unknown = JSON.parse(rawFavLeagues);
+          if (Array.isArray(parsedLeagues)) {
+            const validLeagues = parsedLeagues.filter(
+              (id): id is LeagueId => typeof id === "string" && knownLeagueIds.has(id),
+            );
+            if (validLeagues.length > 0) {
+              setFavoriteLeaguesState(Array.from(new Set(validLeagues)));
+            }
           }
+        } catch (err) {
+          void err;
         }
       }
       const storedPrefs = readStoredPrefs();
@@ -2341,7 +2425,7 @@ export function PlatformProvider({
       updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
-      auraColors,
+      auraColors: auraStore.get(),
       setAuraFromGame,
       parlayLegs,
       allowSgp,
@@ -2439,7 +2523,7 @@ export function PlatformProvider({
       updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
-      auraColors,
+      auraStore,
       setAuraFromGame,
       parlayLegs,
       allowSgp,
@@ -2608,6 +2692,38 @@ export function PlatformProvider({
     ],
   );
 
+  const parlayState = useMemo<ParlayStateValue>(
+    () => ({
+      parlayLegs,
+      allowSgp,
+      parlayStakeUnits,
+      parlaySummary,
+    }),
+    [parlayLegs, allowSgp, parlayStakeUnits, parlaySummary],
+  );
+
+  const socialState = useMemo<SocialStateValue>(
+    () => ({
+      socialPosts,
+      socialFeedPages,
+      socialOnServer,
+      blockedSpamAttempts,
+    }),
+    [socialPosts, socialFeedPages, socialOnServer, blockedSpamAttempts],
+  );
+
+  const overlayState = useMemo<OverlayStateValue>(
+    () => ({
+      composerPick,
+      shareTicket,
+      cmdkOpen,
+      betaPinOpen,
+      betaPinNextPath,
+      toasts,
+    }),
+    [composerPick, shareTicket, cmdkOpen, betaPinOpen, betaPinNextPath, toasts],
+  );
+
   const [parlayIdStore] = useState(createParlayIdStore);
   useLayoutEffect(() => {
     parlayIdStore.set(new Set(parlayLegs.map((l) => l.pick.id)));
@@ -2617,13 +2733,23 @@ export function PlatformProvider({
     <PlatformActionsContext.Provider value={actions}>
       <PlatformCoreContext.Provider value={core}>
         <ParlayIdStoreContext.Provider value={parlayIdStore}>
-          <JournalContext.Provider value={journal}>
-            <AuraContext.Provider value={auraColors}>
-              <HomeNavFilterContext.Provider value={homeNavFilter}>
-                <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
-              </HomeNavFilterContext.Provider>
-            </AuraContext.Provider>
-          </JournalContext.Provider>
+          <ParlayStateContext.Provider value={parlayState}>
+            <SocialStateContext.Provider value={socialState}>
+              <OverlayStateContext.Provider value={overlayState}>
+                <JournalContext.Provider value={journal}>
+                  <WatchlistContext.Provider value={watchlistGameIds}>
+                    <FollowAlertsContext.Provider value={followAlerts}>
+                      <AuraStoreContext.Provider value={auraStore}>
+                        <HomeNavFilterContext.Provider value={homeNavFilter}>
+                          <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+                        </HomeNavFilterContext.Provider>
+                      </AuraStoreContext.Provider>
+                    </FollowAlertsContext.Provider>
+                  </WatchlistContext.Provider>
+                </JournalContext.Provider>
+              </OverlayStateContext.Provider>
+            </SocialStateContext.Provider>
+          </ParlayStateContext.Provider>
         </ParlayIdStoreContext.Provider>
       </PlatformCoreContext.Provider>
     </PlatformActionsContext.Provider>
@@ -2639,8 +2765,8 @@ export function usePlatform(): PlatformContextValue {
 }
 
 /**
- * Agrega partidos a los datos de una página concreta (p. ej. los terminados en Resultados).
- * El layout solo manda los partidos por jugar; cada pantalla pide lo que le falta.
+ * Agrega o enriquece partidos puntuales (p. ej. terminados en Resultados o `preGame` completo
+ * en la ficha de partido) sobre los datos recortados del shell compartido.
  */
 export function PlatformGamesSupplement({
   games,
@@ -2655,26 +2781,60 @@ export function PlatformGamesSupplement({
   const merge = useCallback(
     (base: PlatformDataset, applyTz: boolean): PlatformDataset => {
       if (games.length === 0) return base;
-      const known = new Set(base.games.map((g) => g.id));
-      const extraRaw = games.filter((g) => !known.has(g.id));
-      if (extraRaw.length === 0) return base;
-      const extra =
-        applyTz && core.userTimezone && core.userTimezone !== DEFAULT_STORED_PREFS_V1.timezone
-          ? extraRaw.map((g) => {
-              const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
-              return ko === g.kickoffLocal
-                ? g
-                : {
-                    ...g,
-                    kickoffLocal: ko,
-                    picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
-                    ...(g.parlayCandidates
-                      ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
-                      : {}),
-                  };
-            })
-          : extraRaw;
-      return { ...base, games: [...base.games, ...extra] };
+      const incomingById = new Map<string, PlatformGame>();
+      for (const g of games) {
+        const localized =
+          applyTz && core.userTimezone && core.userTimezone !== DEFAULT_STORED_PREFS_V1.timezone
+            ? (() => {
+                const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
+                return ko === g.kickoffLocal
+                  ? g
+                  : {
+                      ...g,
+                      kickoffLocal: ko,
+                      picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
+                      ...(g.parlayCandidates
+                        ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
+                        : {}),
+                    };
+              })()
+            : g;
+        incomingById.set(g.id, localized);
+      }
+
+      let changed = false;
+      const seen = new Set<string>();
+      const mergedGames = base.games.map((existing) => {
+        seen.add(existing.id);
+        const incoming = incomingById.get(existing.id);
+        if (!incoming) return existing;
+        // Reemplaza la copia ligera del shell si el suplemento trae `preGame` enriquecido
+        // (bajas, síntesis, alineaciones o contexto completo para la ficha individual).
+        const hasRicherPreGame = Boolean(
+          (incoming.spacetime && !existing.spacetime) ||
+            (incoming.confidenceDetail && !existing.confidenceDetail) ||
+            (incoming.picks.length > existing.picks.length) ||
+            (incoming.picks.some((p) => p.rationale) && !existing.picks.some((p) => p.rationale)) ||
+            (incoming.preGame &&
+              ((incoming.preGame.absences?.length ?? 0) > (existing.preGame?.absences?.length ?? 0) ||
+                (incoming.preGame.cortexSynthesis && !existing.preGame?.cortexSynthesis) ||
+                (incoming.preGame.tacticalKeys?.length ?? 0) > (existing.preGame?.tacticalKeys?.length ?? 0) ||
+                (incoming.preGame.probableLineups && !existing.preGame?.probableLineups) ||
+                (incoming.preGame.matchContext?.weather && !existing.preGame?.matchContext?.weather))),
+        );
+        if (!hasRicherPreGame) return existing;
+        changed = true;
+        return incoming;
+      });
+
+      const extras: PlatformGame[] = [];
+      for (const [id, g] of incomingById) {
+        if (!seen.has(id)) {
+          extras.push(g);
+          changed = true;
+        }
+      }
+      return changed ? { ...base, games: extras.length > 0 ? [...mergedGames, ...extras] : mergedGames } : base;
     },
     [core.userTimezone, games],
   );

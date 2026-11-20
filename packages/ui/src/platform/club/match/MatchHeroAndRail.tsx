@@ -17,7 +17,10 @@ import { CrestPedestal, MaestroIcon } from "../../components/MaestroPrimitives";
 import { shareMatchStoryCard } from "../../components/share-story-card";
 import { FollowControl, LivePhaseBadge } from "../../live/LiveMatchCenter";
 import { MomentumChart } from "../../live/live-charts";
-import { usePlatform } from "../../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../../platform-provider";
 import type {
   MatchTabKey,
   OddsFormat,
@@ -270,7 +273,8 @@ export function MatchHeroScoreboard({
   readonly liveDetail: LiveMatchDetail | null;
   readonly onNavigate: (href: string) => void;
 }): React.JSX.Element {
-  const { oddsFormat, pushToast } = usePlatform();
+  const { oddsFormat } = usePlatformCore();
+  const { pushToast } = usePlatformActions();
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
   const isFinished = game.status === "FT" && game.score !== undefined;

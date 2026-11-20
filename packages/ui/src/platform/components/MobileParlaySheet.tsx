@@ -3,7 +3,11 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { formatOddsValue } from "../access-guard";
 import { computeParlaySummary } from "../parlay-engine";
-import { usePlatform } from "../platform-provider";
+import {
+  useParlayState,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { MaestroIcon } from "./MaestroPrimitives";
 import { SgpCopulaAuditCard } from "./SgpCopulaAuditCard";
 
@@ -33,14 +37,9 @@ function supportsTopLayerExit(): boolean {
  * para revisar, editar o guardar tu Parlay con una mano desde cualquier pantalla del Club.
  */
 export function MobileParlaySheet(): React.JSX.Element | null {
-  const {
-    parlayLegs,
-    oddsFormat,
-    removePickFromParlay,
-    clearParlay,
-    sealParlayToJournal,
-    navigateTo,
-  } = usePlatform();
+  const { oddsFormat } = usePlatformCore();
+  const { removePickFromParlay, clearParlay, sealParlayToJournal, navigateTo } = usePlatformActions();
+  const { parlayLegs } = useParlayState();
 
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -204,7 +203,7 @@ export function MobileParlaySheet(): React.JSX.Element | null {
           <footer className="pl-bottom-sheet-actions">
             <button
               type="button"
-              className="pl-btn-primary flex-1 min-h-11 text-sm"
+              className="pl-btn-primary pl-bottom-sheet-primary min-h-11 text-sm"
               disabled={parlayLegs.length < 2}
               onClick={() => {
                 sealParlayToJournal();

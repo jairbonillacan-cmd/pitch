@@ -69,6 +69,7 @@ export function BadgeGlyph({
       height={size}
       alt=""
       aria-hidden="true"
+      loading="lazy"
       decoding="async"
       draggable={false}
       className="pl-maestro-icon inline-block shrink-0"

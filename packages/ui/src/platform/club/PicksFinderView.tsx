@@ -10,7 +10,11 @@ import {
 } from "../bookmakers";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { useIsPickInParlay, usePlatform, usePlatformActions } from "../platform-provider";
+import {
+  useIsPickInParlay,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import {
   MAX_SAVED_SCREENER_VIEWS,
   sliderStepToOdds,
@@ -129,18 +133,8 @@ function ParlayToggle({ pick }: { pick: MatchPick }): React.JSX.Element {
  * rápidos de 1 toque, mejor cuota en tus casas y comparador manual en fila (ADR-048).
  */
 export function PicksFinderClubView(): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    oddsFormat,
-    preferredBooks,
-    userTimezone,
-    savedScreenerViews,
-    setSavedScreenerViews,
-    pushToast,
-    openComposer,
-    navigateTo,
-  } = usePlatform();
+  const { dataset, viewerRole, oddsFormat, preferredBooks, userTimezone, savedScreenerViews } = usePlatformCore();
+  const { setSavedScreenerViews, pushToast, openComposer, navigateTo } = usePlatformActions();
   const minSliderId = useId();
   const maxSliderId = useId();
   const minSliderRef = useRef<HTMLInputElement | null>(null);
@@ -580,7 +574,7 @@ export function PicksFinderClubView(): React.JSX.Element {
         {/* Tira de filtros de 1 toque + botón colapsable de filtros en móvil */}
         <div className="flex items-center gap-2">
           <div
-            className="flex flex-1 min-w-0 items-center gap-2 overflow-x-auto pb-1"
+            className="pl-scroll-strip-clean flex flex-1 min-w-0 items-center gap-2 overflow-x-auto pb-1"
             role="group"
             aria-label="Atajos de exploración"
             data-finder-quick-chips=""

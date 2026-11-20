@@ -1,3 +1,6 @@
+import "../../../../live.css";
+import "../../../../pre-match.css";
+import "../../../../sport-outlook.css";
 import { notFound, permanentRedirect } from "next/navigation";
 import { canonicalGameHref, resolveGameBySlugOrId } from "@pitchlab/contracts";
 import {

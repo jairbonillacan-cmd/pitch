@@ -1,3 +1,4 @@
+import "../login-motion.css";
 import React from "react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";

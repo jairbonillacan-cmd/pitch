@@ -11,7 +11,11 @@ import {
 } from "../bookmakers";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import {
+  useParlayState,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { todayId } from "./home/home-model";
 
 const signedAmerican = (dec: number) => {
@@ -114,17 +118,9 @@ function Converter(): React.JSX.Element {
  * que el momio justo del modelo, con filtro solo de ligas activas (ventana 30d) y acceso a parlay.
  */
 export function OddsCompareClubView(): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    oddsFormat,
-    preferredBooks,
-    userTimezone,
-    navigateTo,
-    addPickToParlay,
-    removePickFromParlay,
-    parlayLegs,
-  } = usePlatform();
+  const { dataset, viewerRole, oddsFormat, preferredBooks, userTimezone } = usePlatformCore();
+  const { navigateTo, addPickToParlay, removePickFromParlay } = usePlatformActions();
+  const { parlayLegs } = useParlayState();
   const [league, setLeague] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBookTag, setSelectedBookTag] = useState<string>("all");

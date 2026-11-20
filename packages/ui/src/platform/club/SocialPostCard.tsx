@@ -210,7 +210,7 @@ export function copyPostPickToParlay(
   if (deps.addPickToParlay(pick)) deps.pushToast(`Agregamos «${pick.label}» a tu parlay.`, "success");
 }
 
-export function SocialPostCard({
+export const SocialPostCard = React.memo(function SocialPostCard({
   post,
   author,
   own,
@@ -980,4 +980,4 @@ export function SocialPostCard({
       </div>
     </article>
   );
-}
+});
