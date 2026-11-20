@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-20T05:41:51Z",
+  "updatedAtUtc": "2026-11-20T09:03:07Z",
   "openIncidents": {
     "stale::calendario::nfl": {
       "incidentKey": "stale::calendario::nfl",
@@ -9,11 +9,11 @@
       "targetLabel": "NFL · Calendario y resultados",
       "league": "nfl",
       "dataType": "calendario",
-      "message": "Partidos ya jugados siguen sin marcador final tras 28 h (umbral jornada: 12 h).",
+      "message": "Partidos ya jugados siguen sin marcador final tras 31.3 h (umbral jornada: 12 h).",
       "failingSinceUtc": "2026-11-20T05:41:51Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 1
+      "occurrences": 2
     },
     "stale::bajas::nfl": {
       "incidentKey": "stale::bajas::nfl",
@@ -22,11 +22,11 @@
       "targetLabel": "NFL · Bajas y lesiones",
       "league": "nfl",
       "dataType": "bajas",
-      "message": "Reporte de bajas con 106.9 h de antigüedad (máximo 36 h).",
+      "message": "Reporte de bajas con 110.3 h de antigüedad (máximo 36 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::calendario::premier-league": {
       "incidentKey": "stale::calendario::premier-league",
@@ -35,11 +35,11 @@
       "targetLabel": "Premier League · Calendario y resultados",
       "league": "premier-league",
       "dataType": "calendario",
-      "message": "Última actualización hace 108.1 h (supera el máximo de 30 h).",
+      "message": "Última actualización hace 111.5 h (supera el máximo de 30 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::bajas::premier-league": {
       "incidentKey": "stale::bajas::premier-league",
@@ -48,11 +48,11 @@
       "targetLabel": "Premier League · Bajas y lesiones",
       "league": "premier-league",
       "dataType": "bajas",
-      "message": "Reporte de bajas con 108.1 h de antigüedad (máximo 36 h).",
+      "message": "Reporte de bajas con 111.5 h de antigüedad (máximo 36 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::calendario::laliga": {
       "incidentKey": "stale::calendario::laliga",
@@ -61,11 +61,11 @@
       "targetLabel": "LaLiga · Calendario y resultados",
       "league": "laliga",
       "dataType": "calendario",
-      "message": "Última actualización hace 108.1 h (supera el máximo de 30 h).",
+      "message": "Última actualización hace 111.5 h (supera el máximo de 30 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::bajas::laliga": {
       "incidentKey": "stale::bajas::laliga",
@@ -74,11 +74,11 @@
       "targetLabel": "LaLiga · Bajas y lesiones",
       "league": "laliga",
       "dataType": "bajas",
-      "message": "Reporte de bajas con 108.1 h de antigüedad (máximo 36 h).",
+      "message": "Reporte de bajas con 111.5 h de antigüedad (máximo 36 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::calendario::bundesliga": {
       "incidentKey": "stale::calendario::bundesliga",
@@ -87,11 +87,11 @@
       "targetLabel": "Bundesliga · Calendario y resultados",
       "league": "bundesliga",
       "dataType": "calendario",
-      "message": "Última actualización hace 108.1 h (supera el máximo de 30 h).",
+      "message": "Última actualización hace 111.5 h (supera el máximo de 30 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::bajas::bundesliga": {
       "incidentKey": "stale::bajas::bundesliga",
@@ -100,11 +100,11 @@
       "targetLabel": "Bundesliga · Bajas y lesiones",
       "league": "bundesliga",
       "dataType": "bajas",
-      "message": "Reporte de bajas con 108.1 h de antigüedad (máximo 36 h).",
+      "message": "Reporte de bajas con 111.5 h de antigüedad (máximo 36 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::calendario::serie-a": {
       "incidentKey": "stale::calendario::serie-a",
@@ -113,11 +113,11 @@
       "targetLabel": "Serie A · Calendario y resultados",
       "league": "serie-a",
       "dataType": "calendario",
-      "message": "Última actualización hace 108.1 h (supera el máximo de 30 h).",
+      "message": "Última actualización hace 111.5 h (supera el máximo de 30 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::bajas::serie-a": {
       "incidentKey": "stale::bajas::serie-a",
@@ -126,11 +126,11 @@
       "targetLabel": "Serie A · Bajas y lesiones",
       "league": "serie-a",
       "dataType": "bajas",
-      "message": "Reporte de bajas con 108.1 h de antigüedad (máximo 36 h).",
+      "message": "Reporte de bajas con 111.5 h de antigüedad (máximo 36 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::calendario::ligue-1": {
       "incidentKey": "stale::calendario::ligue-1",
@@ -139,11 +139,11 @@
       "targetLabel": "Ligue 1 · Calendario y resultados",
       "league": "ligue-1",
       "dataType": "calendario",
-      "message": "Última actualización hace 108.1 h (supera el máximo de 30 h).",
+      "message": "Última actualización hace 111.5 h (supera el máximo de 30 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::bajas::ligue-1": {
       "incidentKey": "stale::bajas::ligue-1",
@@ -152,11 +152,11 @@
       "targetLabel": "Ligue 1 · Bajas y lesiones",
       "league": "ligue-1",
       "dataType": "bajas",
-      "message": "Reporte de bajas con 108.1 h de antigüedad (máximo 36 h).",
+      "message": "Reporte de bajas con 111.5 h de antigüedad (máximo 36 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::calendario::liga-mx": {
       "incidentKey": "stale::calendario::liga-mx",
@@ -165,11 +165,11 @@
       "targetLabel": "Liga MX · Calendario y resultados",
       "league": "liga-mx",
       "dataType": "calendario",
-      "message": "Última actualización hace 106.9 h (supera el máximo de 30 h).",
+      "message": "Última actualización hace 110.3 h (supera el máximo de 30 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     "stale::bajas::liga-mx": {
       "incidentKey": "stale::bajas::liga-mx",
@@ -178,11 +178,11 @@
       "targetLabel": "Liga MX · Bajas y lesiones",
       "league": "liga-mx",
       "dataType": "bajas",
-      "message": "Reporte de bajas con 106.9 h de antigüedad (máximo 36 h).",
+      "message": "Reporte de bajas con 110.3 h de antigüedad (máximo 36 h).",
       "failingSinceUtc": "2026-11-20T03:38:25Z",
-      "lastSeenAtUtc": "2026-11-20T05:41:51Z",
+      "lastSeenAtUtc": "2026-11-20T09:03:07Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     }
   }
 }
