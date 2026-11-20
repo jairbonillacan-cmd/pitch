@@ -253,6 +253,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/95/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Sven Jablonski",
       "neutralSite": false,
       "result": {
         "home": 3,
@@ -286,6 +287,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/90/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Daniel Schlager",
       "neutralSite": false,
       "result": {
         "home": 5,
@@ -319,6 +321,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1833/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Harm Osmers",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -352,6 +355,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/79/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Robert Schröder",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -385,6 +389,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/87/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Bastian Dankert",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -418,6 +423,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/88/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Sören Storks",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -451,6 +457,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/85/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Felix Zwayer",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -484,6 +491,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/83/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Sascha Stegemann",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -517,6 +525,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1290/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Martin Petersen",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -550,6 +559,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/94/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Robin Braun",
       "neutralSite": false
     },
     {
@@ -577,6 +587,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1293/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Tobias Reichel",
       "neutralSite": false
     },
     {
@@ -604,6 +615,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/80/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Christian Dingert",
       "neutralSite": false
     },
     {
@@ -631,6 +643,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/89/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Richard Hempel",
       "neutralSite": false
     },
     {
@@ -658,6 +671,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/92/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Robert Hartmann",
       "neutralSite": false
     },
     {
@@ -685,6 +699,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/86/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Max Burda",
       "neutralSite": false
     },
     {
@@ -712,6 +727,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/84/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Daniel Siebert",
       "neutralSite": false
     },
     {
@@ -739,6 +755,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/93/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Martin Petersen",
       "neutralSite": false
     },
     {
@@ -766,6 +783,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/96/?bg=transparent"
       },
       "venue": "Alemania",
+      "referee": "Florian Badstubner",
       "neutralSite": false
     }
   ],
@@ -5939,11 +5957,11 @@
         "referee": "Robin Braun",
         "refereeStats": {
           "country": "Germany",
-          "matches": 33,
-          "avgYellow": 2.03,
+          "matches": 34,
+          "avgYellow": 2.06,
           "avgRed": 0.15,
-          "avgFouls": 22.1,
-          "avgGoals": 2.88
+          "avgFouls": 21.5,
+          "avgGoals": 2.85
         }
       }
     },
@@ -12104,8 +12122,8 @@
       "goalsAgainst": 20,
       "points": 12,
       "form": [
+        "D",
         "L",
-        "W",
         "L",
         "W",
         "D"
@@ -12212,7 +12230,7 @@
         "W",
         "L",
         "D",
-        "D",
+        "L",
         "L"
       ]
     },
@@ -12230,8 +12248,8 @@
       "goalsAgainst": 21,
       "points": 7,
       "form": [
+        "L",
         "W",
-        "D",
         "D",
         "D",
         "L"
@@ -12251,9 +12269,9 @@
       "goalsAgainst": 11,
       "points": 6,
       "form": [
-        "L",
-        "L",
         "D",
+        "L",
+        "L",
         "L",
         "L"
       ]

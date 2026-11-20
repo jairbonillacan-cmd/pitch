@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "carabao-cup",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-20T18:57:51.976Z",
+  "observedAt": "2026-11-20T23:19:05.023Z",
   "teams": [
     {
       "teamId": "carabao-cup.liverpool",
@@ -24,7 +24,7 @@
           "winPct": 48
         }
       },
-      "updatedAt": "2026-11-20T18:57:51.976Z",
+      "updatedAt": "2026-11-20T23:19:05.023Z",
       "players": [
         {
           "id": "carabao-cup.liverpool.alexander-isak",
@@ -1158,7 +1158,7 @@
           "winPct": 35.4
         }
       },
-      "updatedAt": "2026-11-20T18:57:51.976Z",
+      "updatedAt": "2026-11-20T23:19:05.023Z",
       "players": [
         {
           "id": "carabao-cup.tottenham-hotspur.andy-robertson",
@@ -2175,8 +2175,8 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:384",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Knock Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -2292,7 +2292,7 @@
           "winPct": 41.7
         }
       },
-      "updatedAt": "2026-11-20T18:57:51.976Z",
+      "updatedAt": "2026-11-20T23:19:05.023Z",
       "players": [
         {
           "id": "carabao-cup.reading.andy-rinomhota",
@@ -3500,7 +3500,7 @@
           "winPct": 40.5
         }
       },
-      "updatedAt": "2026-11-20T18:57:51.976Z",
+      "updatedAt": "2026-11-20T23:19:05.023Z",
       "players": [
         {
           "id": "carabao-cup.brentford.aaron-hickey",
@@ -4597,7 +4597,7 @@
           "winPct": 37.2
         }
       },
-      "updatedAt": "2026-11-20T18:57:51.976Z",
+      "updatedAt": "2026-11-20T23:19:05.023Z",
       "players": [
         {
           "id": "carabao-cup.ipswich-town.abdoul-ouattara",
@@ -4623,7 +4623,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4632,7 +4632,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4852,9 +4852,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 1,
+            "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4965,7 +4965,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5187,7 +5187,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5363,7 +5363,7 @@
             "subIns": 0,
             "goals": 1,
             "assists": 0,
-            "shots": 4,
+            "shots": 5,
             "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5372,7 +5372,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5483,7 +5483,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5657,7 +5657,7 @@
           "winPct": 65.6
         }
       },
-      "updatedAt": "2026-11-20T18:57:51.976Z",
+      "updatedAt": "2026-11-20T23:19:05.023Z",
       "players": [
         {
           "id": "carabao-cup.arsenal.ben-white",
@@ -6754,7 +6754,7 @@
           "winPct": 38.2
         }
       },
-      "updatedAt": "2026-11-20T18:57:51.976Z",
+      "updatedAt": "2026-11-20T23:19:05.023Z",
       "players": [
         {
           "id": "carabao-cup.everton.ainsley-maitland-niles",
@@ -7592,7 +7592,7 @@
           "winPct": 44.8
         }
       },
-      "updatedAt": "2026-11-20T18:57:51.976Z",
+      "updatedAt": "2026-11-20T23:19:05.023Z",
       "players": [
         {
           "id": "carabao-cup.wolverhampton.adam-armstrong",
@@ -8202,8 +8202,8 @@
           "nationality": "Zimbabwe",
           "nationalityCode": null,
           "photoKey": "pl-p:537",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "doubtful",
+          "injuryDetail": "Physical Discomfort",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -8276,8 +8276,8 @@
           "nationality": "Burkina Faso",
           "nationalityCode": null,
           "photoKey": "pl-p:3012",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "doubtful",
+          "injuryDetail": "Physical Discomfort",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -8498,8 +8498,8 @@
           "nationality": "Zimbabwe",
           "nationalityCode": null,
           "photoKey": "pl-p:541",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "doubtful",
+          "injuryDetail": "Physical Discomfort",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,

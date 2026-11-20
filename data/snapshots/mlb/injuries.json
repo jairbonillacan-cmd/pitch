@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "mlb",
-  "observedAt": "2026-11-20T18:57:48.091Z",
+  "observedAt": "2026-11-20T23:19:02.133Z",
   "source": "espn-public-mlb",
   "coverageStatus": "ok",
   "entries": [
@@ -533,7 +533,7 @@
       "detail": "Muñeca",
       "injuryType": "Wrist",
       "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-03T14:33:00.000Z"
+      "reportedAt": "2026-11-20T22:34:00.000Z"
     },
     {
       "teamId": "mlb.cleveland-guardians",
@@ -867,6 +867,16 @@
     },
     {
       "teamId": "mlb.milwaukee-brewers",
+      "player": "Angel Zerpa",
+      "position": "RP",
+      "status": "Baja",
+      "detail": "Elbow",
+      "injuryType": "Elbow",
+      "returnDate": "2027-07-01",
+      "reportedAt": "2026-11-20T22:53:00.000Z"
+    },
+    {
+      "teamId": "mlb.milwaukee-brewers",
       "player": "Brian Fitzpatrick",
       "position": "RP",
       "status": "Baja",
@@ -886,16 +896,6 @@
       "reportedAt": "2026-11-03T15:01:00.000Z"
     },
     {
-      "teamId": "mlb.milwaukee-brewers",
-      "player": "Angel Zerpa",
-      "position": "RP",
-      "status": "Baja",
-      "detail": "Elbow",
-      "injuryType": "Elbow",
-      "returnDate": "2027-07-01",
-      "reportedAt": "2026-11-03T15:01:00.000Z"
-    },
-    {
       "teamId": "mlb.minnesota-twins",
       "player": "Pablo Lopez",
       "position": "SP",
@@ -904,16 +904,6 @@
       "injuryType": "Elbow",
       "returnDate": "2027-03-01",
       "reportedAt": "2026-11-18T03:43:00.000Z"
-    },
-    {
-      "teamId": "mlb.minnesota-twins",
-      "player": "Trevor Larnach",
-      "position": "LF",
-      "status": "Baja",
-      "detail": "Muñeca",
-      "injuryType": "Wrist",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-14T23:09:00.000Z"
     },
     {
       "teamId": "mlb.minnesota-twins",
@@ -1044,16 +1034,6 @@
       "injuryType": "Elbow",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-03T05:16:00.000Z"
-    },
-    {
-      "teamId": "mlb.new-york-yankees",
-      "player": "Fernando Cruz",
-      "position": "RP",
-      "status": "Baja",
-      "detail": "Elbow",
-      "injuryType": "Elbow",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-03T04:50:00.000Z"
     },
     {
       "teamId": "mlb.philadelphia-phillies",
@@ -1374,16 +1354,6 @@
       "injuryType": "Elbow",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-03T05:08:00.000Z"
-    },
-    {
-      "teamId": "mlb.texas-rangers",
-      "player": "Jose Butto",
-      "position": "RP",
-      "status": "Baja",
-      "detail": "Arm",
-      "injuryType": "Arm",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-02T21:57:00.000Z"
     },
     {
       "teamId": "mlb.texas-rangers",

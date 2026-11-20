@@ -5,7 +5,7 @@
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "19 nov – 22 nov",
-  "updatedAt": "2026-11-20T18:57:48.091Z",
+  "updatedAt": "2026-11-20T23:19:02.133Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -398,7 +398,7 @@
       "result": {
         "home": 126,
         "away": 98,
-        "observedAt": "2026-11-20T18:57:35.875Z",
+        "observedAt": "2026-11-20T23:18:49.661Z",
         "source": "bzzoiro"
       }
     },
@@ -428,7 +428,7 @@
       "result": {
         "home": 99,
         "away": 102,
-        "observedAt": "2026-11-20T18:57:35.875Z",
+        "observedAt": "2026-11-20T23:18:49.661Z",
         "source": "bzzoiro"
       }
     },
@@ -458,7 +458,7 @@
       "result": {
         "home": 124,
         "away": 112,
-        "observedAt": "2026-11-20T18:57:35.875Z",
+        "observedAt": "2026-11-20T23:18:49.661Z",
         "source": "bzzoiro"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 114,
         "away": 124,
-        "observedAt": "2026-11-20T18:57:35.875Z",
+        "observedAt": "2026-11-20T23:18:49.661Z",
         "source": "bzzoiro"
       }
     },
@@ -514,6 +514,7 @@
         "code": "CHA",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/27/?bg=transparent"
       },
+      "referee": "Josh Tiven",
       "neutralSite": false
     },
     {
@@ -562,6 +563,7 @@
         "code": "TOR",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/12/?bg=transparent"
       },
+      "referee": "James Williams",
       "neutralSite": false
     },
     {
@@ -1273,6 +1275,9 @@
           "Hawks gana en 65 % de los escenarios, por 5.0 puntos en promedio.",
           "Se esperan 222.4 pts: 113.7 de Hawks y 108.7 de Hornets."
         ]
+      },
+      "matchContext": {
+        "referee": "Josh Tiven"
       }
     },
     "nba-2026-11-21-ind-cle": {
@@ -1780,6 +1785,9 @@
           "Pistons gana en 70 % de los escenarios, por 6.8 puntos en promedio.",
           "Se esperan 221.1 pts: 113.9 de Pistons y 107.1 de Raptors."
         ]
+      },
+      "matchContext": {
+        "referee": "James Williams"
       }
     },
     "nba-2026-11-21-orl-bkn": {

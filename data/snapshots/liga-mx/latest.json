@@ -1730,6 +1730,84 @@
     },
     "mx-2026-j17-fc-juarez-atlas-401877053": {
       "game": "mx-2026-j17-fc-juarez-atlas-401877053",
+      "cortex": {
+        "headline": "Atlas llega con más peso ofensivo y mejor posición",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Atlas es el favorito con 46 % frente al 29 % de Juárez, y sostiene esa ventaja con el quinto lugar y 27 puntos contra el decimoctavo y 11 del local. El descanso es idéntico para ambos, 14 días, así que la diferencia se explica por forma y plantel, no por frescura.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.43 y Atlas aporta 2.13 contra 1.30 de Juárez. El 65 % de más de 2.5 y el 66 % de ambos anotan apuntan a un partido con goles de los dos lados, con el visitante como principal generador.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.3,
+                "away": 2.13
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "66 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "65 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina suman 10.8, con Juárez al frente 5.8 a 5.1: el local empuja desde los costados. Las faltas llegan a 25.1 y las amarillas a 4.1, así que el juego se corta seguido y pierde continuidad.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.8,
+                "away": 5.1
+              },
+              {
+                "label": "Faltas",
+                "home": 12.4,
+                "away": 12.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 2,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Juárez es decimoctavo con 11 puntos y diferencia de -21 en 16 partidos. Atlas es quinto con 27 puntos y -3. Ambos llegan con 14 días de descanso, sin ventaja física de un lado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 11,
+                "away": 27
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas pueden ajustar el peso ofensivo de Atlas. El criterio del árbitro importa con 25.1 faltas proyectadas. El primer gol define el guion: si Juárez anota temprano, el partido se abre distinto.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "3fb61e0c0a580043",
+        "generatedAt": "2026-11-20T23:27:42.590Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.76,
@@ -4406,6 +4484,84 @@
     },
     "mx-2026-j17-pumas-unam-monterrey-401877049": {
       "game": "mx-2026-j17-pumas-unam-monterrey-401877049",
+      "cortex": {
+        "headline": "Pumas y Monterrey llegan parejos, con la localía como única ventaja",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Partido de margen corto: Pumas gana en 38 % de los escenarios, Monterrey en 36 % y el empate queda en 26 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es de 3.53 goles, con 68 % de que se superen los 2.5 y 70 % de que ambos anoten. El reparto es casi idéntico, 1.74 para Pumas y 1.79 para Monterrey, así que ninguno carga el peso del gol.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.74,
+                "away": 1.79
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "70 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "68 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Impulso parejo por las bandas: 5.1 tiros de esquina de Pumas y 5.0 de Monterrey, 10.0 en total. Las faltas suman 21.7, con 11.3 del local, y 3.7 amarillas. Partido con contacto, pero sin un equipo que arrincone al otro.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.1,
+                "away": 5
+              },
+              {
+                "label": "Faltas",
+                "home": 11.3,
+                "away": 10.4
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Pumas es undécimo con 21 puntos en 16 jornadas y diferencia de -2. Monterrey es séptimo con 24 unidades y +2. Ambos llegan con 14 días de descanso, así que el desgaste no separa a ninguno de los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 21,
+                "away": 24
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con 21.7 faltas en el pronóstico. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "c9f18f478428270c",
+        "generatedAt": "2026-11-20T23:27:46.349Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.1,

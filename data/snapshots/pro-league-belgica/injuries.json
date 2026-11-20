@@ -1,46 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "pro-league-belgica",
-  "observedAt": "2026-11-20T18:57:51.976Z",
+  "observedAt": "2026-11-20T23:19:05.023Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "pro-league-belgica.beveren",
-      "player": "Christophe Janssens",
-      "position": "D",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "pro-league-belgica.beveren",
-      "player": "Jearl Margaritha",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "pro-league-belgica.royale-union-saint-gilloise",
-      "player": "Kevin Mac Allister",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "pro-league-belgica.royale-union-saint-gilloise",
-      "player": "Mateo Biondic",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
     {
       "teamId": "pro-league-belgica.rsc-anderlecht",
       "player": "Giulian Biancone",
@@ -48,7 +12,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "pro-league-belgica.rsc-anderlecht",
@@ -57,7 +21,7 @@
       "status": "Baja",
       "detail": "Broken Leg",
       "injuryType": "Broken Leg",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "pro-league-belgica.kvc-westerlo",
@@ -66,7 +30,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "pro-league-belgica.kvc-westerlo",
@@ -75,7 +39,7 @@
       "status": "Baja",
       "detail": "fa_charge_of_improper_conduct",
       "injuryType": "fa_charge_of_improper_conduct",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "pro-league-belgica.cercle-brugge",
@@ -84,7 +48,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "pro-league-belgica.cercle-brugge",
@@ -93,7 +57,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
@@ -102,7 +66,16 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "pro-league-belgica.kaa-gent",
+      "player": "Mouhamed El Ngom",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     }
   ]
 }

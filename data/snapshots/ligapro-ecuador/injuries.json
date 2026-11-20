@@ -1,8 +1,17 @@
 {
   "schemaVersion": 1,
   "league": "ligapro-ecuador",
-  "observedAt": "2026-11-20T18:57:51.976Z",
+  "observedAt": "2026-11-20T23:19:05.023Z",
   "source": "pitchlab-availability",
-  "coverageStatus": "partial",
-  "entries": []
+  "coverageStatus": "ok",
+  "entries": [
+    {
+      "teamId": "ligapro-ecuador.ldu",
+      "player": "José Quintero",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Lesión reportada",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    }
+  ]
 }

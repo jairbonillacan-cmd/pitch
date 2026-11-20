@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-f",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "lines": [
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -10,10 +10,47 @@
       "market": "btts",
       "outcome": "yes",
       "line": null,
+      "book": "interwetten",
+      "decimal": 1.65,
+      "openingDecimal": 1.65,
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "homeName": "FC Badalona Women",
+      "awayName": "Real Club Deportivo de A Coruña",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
       "book": "unibet",
-      "decimal": 1.67,
+      "decimal": 1.65,
       "openingDecimal": 1.67,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "homeName": "FC Badalona Women",
+      "awayName": "Real Club Deportivo de A Coruña",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bwin",
+      "decimal": 1.68,
+      "openingDecimal": 1.68,
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "homeName": "FC Badalona Women",
+      "awayName": "Real Club Deportivo de A Coruña",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 1.68,
+      "openingDecimal": 1.68,
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -25,7 +62,7 @@
       "book": "betway",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -37,7 +74,7 @@
       "book": "888sport",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -49,7 +86,7 @@
       "book": "william-hill",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -61,7 +98,7 @@
       "book": "betsson",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -73,7 +110,19 @@
       "book": "fonbet",
       "decimal": 1.67,
       "openingDecimal": 1.67,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "homeName": "FC Badalona Women",
+      "awayName": "Real Club Deportivo de A Coruña",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 1.68,
+      "openingDecimal": 1.68,
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -85,7 +134,7 @@
       "book": "betano",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -95,9 +144,10 @@
       "outcome": "HOME",
       "line": null,
       "book": "unibet",
-      "decimal": 1.52,
+      "decimal": 1.62,
       "openingDecimal": 1.52,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -109,7 +159,7 @@
       "book": "novibet",
       "decimal": 1.66,
       "openingDecimal": 1.66,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -121,7 +171,7 @@
       "book": "betway",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -133,7 +183,7 @@
       "book": "888sport",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -145,7 +195,7 @@
       "book": "william-hill",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -157,7 +207,7 @@
       "book": "betsson",
       "decimal": 1.64,
       "openingDecimal": 1.64,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -169,7 +219,7 @@
       "book": "betano",
       "decimal": 2.02,
       "openingDecimal": 2.02,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -179,9 +229,10 @@
       "outcome": "AWAY",
       "line": null,
       "book": "unibet",
-      "decimal": 2.35,
+      "decimal": 2.1,
       "openingDecimal": 2.35,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -193,7 +244,7 @@
       "book": "novibet",
       "decimal": 2.09,
       "openingDecimal": 2.09,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -205,7 +256,7 @@
       "book": "betway",
       "decimal": 2.15,
       "openingDecimal": 2.15,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -217,7 +268,7 @@
       "book": "888sport",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -229,7 +280,7 @@
       "book": "william-hill",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -241,7 +292,19 @@
       "book": "betsson",
       "decimal": 2.12,
       "openingDecimal": 2.12,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "homeName": "FC Badalona Women",
+      "awayName": "Real Club Deportivo de A Coruña",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -251,9 +314,34 @@
       "outcome": "no",
       "line": null,
       "book": "unibet",
+      "decimal": 2.1,
+      "openingDecimal": 2.05,
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "homeName": "FC Badalona Women",
+      "awayName": "Real Club Deportivo de A Coruña",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bwin",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "homeName": "FC Badalona Women",
+      "awayName": "Real Club Deportivo de A Coruña",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -265,7 +353,7 @@
       "book": "betway",
       "decimal": 2.15,
       "openingDecimal": 2.15,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -277,7 +365,7 @@
       "book": "888sport",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -289,7 +377,7 @@
       "book": "william-hill",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -301,7 +389,7 @@
       "book": "betsson",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -313,7 +401,19 @@
       "book": "fonbet",
       "decimal": 2.08,
       "openingDecimal": 2.08,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "homeName": "FC Badalona Women",
+      "awayName": "Real Club Deportivo de A Coruña",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -325,7 +425,7 @@
       "book": "1xbet",
       "decimal": 1.88,
       "openingDecimal": 1.88,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -337,7 +437,7 @@
       "book": "1xbet",
       "decimal": 1.75,
       "openingDecimal": 1.75,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -349,7 +449,7 @@
       "book": "1xbet",
       "decimal": 4.8,
       "openingDecimal": 4.8,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -361,7 +461,7 @@
       "book": "1xbet",
       "decimal": 1.14,
       "openingDecimal": 1.14,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -373,7 +473,7 @@
       "book": "1xbet",
       "decimal": 3.84,
       "openingDecimal": 3.84,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -385,7 +485,7 @@
       "book": "1xbet",
       "decimal": 1.183,
       "openingDecimal": 1.183,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -397,7 +497,7 @@
       "book": "1xbet",
       "decimal": 2.56,
       "openingDecimal": 2.56,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -409,7 +509,7 @@
       "book": "1xbet",
       "decimal": 1.4,
       "openingDecimal": 1.4,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -421,7 +521,7 @@
       "book": "1xbet",
       "decimal": 1.444,
       "openingDecimal": 1.444,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -433,7 +533,7 @@
       "book": "1xbet",
       "decimal": 2.42,
       "openingDecimal": 2.42,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -445,7 +545,7 @@
       "book": "1xbet",
       "decimal": 1.23,
       "openingDecimal": 1.23,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -457,7 +557,7 @@
       "book": "1xbet",
       "decimal": 3.42,
       "openingDecimal": 3.42,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -469,7 +569,7 @@
       "book": "1xbet",
       "decimal": 4.25,
       "openingDecimal": 4.25,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -481,7 +581,7 @@
       "book": "fonbet",
       "decimal": 4.3,
       "openingDecimal": 4.3,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -493,7 +593,7 @@
       "book": "1xbet",
       "decimal": 1.149,
       "openingDecimal": 1.149,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -505,7 +605,7 @@
       "book": "fonbet",
       "decimal": 1.16,
       "openingDecimal": 1.16,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -517,7 +617,7 @@
       "book": "1xbet",
       "decimal": 9.1,
       "openingDecimal": 9.1,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -529,7 +629,7 @@
       "book": "1xbet",
       "decimal": 1.065,
       "openingDecimal": 1.065,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -541,7 +641,7 @@
       "book": "fonbet",
       "decimal": 1.11,
       "openingDecimal": 1.11,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -553,7 +653,7 @@
       "book": "1xbet",
       "decimal": 6,
       "openingDecimal": 6,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -565,7 +665,7 @@
       "book": "fonbet",
       "decimal": 5.2,
       "openingDecimal": 5.2,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -575,9 +675,10 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "unibet",
-      "decimal": 2,
+      "decimal": 2.2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -589,7 +690,7 @@
       "book": "888sport",
       "decimal": 2.3,
       "openingDecimal": 2.3,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -599,9 +700,10 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "unibet",
-      "decimal": 1.7,
+      "decimal": 1.6,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -613,7 +715,7 @@
       "book": "888sport",
       "decimal": 1.533,
       "openingDecimal": 1.533,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -625,7 +727,7 @@
       "book": "1xbet",
       "decimal": 1.62,
       "openingDecimal": 1.62,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -637,7 +739,7 @@
       "book": "fonbet",
       "decimal": 1.67,
       "openingDecimal": 1.67,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -649,7 +751,7 @@
       "book": "1xbet",
       "decimal": 2.1,
       "openingDecimal": 2.1,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -661,7 +763,7 @@
       "book": "fonbet",
       "decimal": 2.08,
       "openingDecimal": 2.08,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -673,7 +775,7 @@
       "book": "1xbet",
       "decimal": 8.4,
       "openingDecimal": 8.4,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -685,7 +787,7 @@
       "book": "1xbet",
       "decimal": 1.014,
       "openingDecimal": 1.014,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -697,7 +799,7 @@
       "book": "1xbet",
       "decimal": 3.34,
       "openingDecimal": 3.34,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -709,7 +811,7 @@
       "book": "fonbet",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -721,7 +823,7 @@
       "book": "1xbet",
       "decimal": 1.24,
       "openingDecimal": 1.24,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -733,7 +835,7 @@
       "book": "fonbet",
       "decimal": 1.25,
       "openingDecimal": 1.25,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -745,7 +847,7 @@
       "book": "1xbet",
       "decimal": 1.102,
       "openingDecimal": 1.102,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -757,7 +859,7 @@
       "book": "fonbet",
       "decimal": 1.15,
       "openingDecimal": 1.15,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -769,7 +871,7 @@
       "book": "1xbet",
       "decimal": 5.05,
       "openingDecimal": 5.05,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -781,7 +883,19 @@
       "book": "fonbet",
       "decimal": 4.5,
       "openingDecimal": 4.5,
-      "capturedAtUtc": "2026-11-20T17:21:46Z"
+      "capturedAtUtc": "2026-11-20T23:21:00Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
+      "homeName": "SD Eibar",
+      "awayName": "Club Atlético de Madrid",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -793,7 +907,7 @@
       "book": "unibet",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -805,7 +919,7 @@
       "book": "betway",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -817,7 +931,7 @@
       "book": "888sport",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -829,7 +943,7 @@
       "book": "william-hill",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -841,7 +955,7 @@
       "book": "betsson",
       "decimal": 2.15,
       "openingDecimal": 2.15,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -853,7 +967,7 @@
       "book": "fonbet",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -865,7 +979,7 @@
       "book": "betano",
       "decimal": 5.3,
       "openingDecimal": 5.3,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -877,7 +991,7 @@
       "book": "unibet",
       "decimal": 5.75,
       "openingDecimal": 5.75,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -889,7 +1003,7 @@
       "book": "novibet",
       "decimal": 5.6,
       "openingDecimal": 5.6,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -901,7 +1015,7 @@
       "book": "betway",
       "decimal": 7,
       "openingDecimal": 7,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -913,7 +1027,7 @@
       "book": "888sport",
       "decimal": 7,
       "openingDecimal": 7,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -925,7 +1039,7 @@
       "book": "william-hill",
       "decimal": 7,
       "openingDecimal": 7,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -937,7 +1051,7 @@
       "book": "betsson",
       "decimal": 6,
       "openingDecimal": 6,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -949,7 +1063,7 @@
       "book": "betano",
       "decimal": 1.1,
       "openingDecimal": 1.1,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -961,7 +1075,7 @@
       "book": "unibet",
       "decimal": 1.1,
       "openingDecimal": 1.1,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -973,7 +1087,7 @@
       "book": "novibet",
       "decimal": 1.1,
       "openingDecimal": 1.1,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -985,7 +1099,7 @@
       "book": "betway",
       "decimal": 1.091,
       "openingDecimal": 1.091,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -997,7 +1111,7 @@
       "book": "888sport",
       "decimal": 1.083,
       "openingDecimal": 1.083,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1009,7 +1123,7 @@
       "book": "william-hill",
       "decimal": 1.083,
       "openingDecimal": 1.083,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1021,7 +1135,19 @@
       "book": "betsson",
       "decimal": 1.1,
       "openingDecimal": 1.1,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
+      "homeName": "SD Eibar",
+      "awayName": "Club Atlético de Madrid",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 1.6,
+      "openingDecimal": 1.6,
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1033,7 +1159,7 @@
       "book": "unibet",
       "decimal": 1.6,
       "openingDecimal": 1.6,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1045,7 +1171,7 @@
       "book": "betway",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1057,7 +1183,7 @@
       "book": "888sport",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1069,7 +1195,7 @@
       "book": "william-hill",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1081,7 +1207,7 @@
       "book": "betsson",
       "decimal": 1.6,
       "openingDecimal": 1.6,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1093,7 +1219,7 @@
       "book": "fonbet",
       "decimal": 1.6,
       "openingDecimal": 1.6,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1105,7 +1231,7 @@
       "book": "1xbet",
       "decimal": 3.98,
       "openingDecimal": 3.98,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1117,7 +1243,7 @@
       "book": "1xbet",
       "decimal": 1.171,
       "openingDecimal": 1.171,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1129,7 +1255,7 @@
       "book": "1xbet",
       "decimal": 2.69,
       "openingDecimal": 2.69,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1141,7 +1267,7 @@
       "book": "1xbet",
       "decimal": 1.363,
       "openingDecimal": 1.363,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1153,7 +1279,7 @@
       "book": "1xbet",
       "decimal": 1.909,
       "openingDecimal": 1.909,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1165,7 +1291,7 @@
       "book": "1xbet",
       "decimal": 1.72,
       "openingDecimal": 1.72,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1177,7 +1303,7 @@
       "book": "1xbet",
       "decimal": 1.52,
       "openingDecimal": 1.52,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1189,7 +1315,7 @@
       "book": "1xbet",
       "decimal": 2.24,
       "openingDecimal": 2.24,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1201,7 +1327,7 @@
       "book": "1xbet",
       "decimal": 1.28,
       "openingDecimal": 1.28,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1213,7 +1339,7 @@
       "book": "1xbet",
       "decimal": 3.08,
       "openingDecimal": 3.08,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1225,7 +1351,7 @@
       "book": "1xbet",
       "decimal": 1.2,
       "openingDecimal": 1.2,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1237,7 +1363,7 @@
       "book": "1xbet",
       "decimal": 4,
       "openingDecimal": 4,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1249,7 +1375,7 @@
       "book": "1xbet",
       "decimal": 1.24,
       "openingDecimal": 1.24,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1261,7 +1387,7 @@
       "book": "fonbet",
       "decimal": 1.25,
       "openingDecimal": 1.25,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1273,7 +1399,7 @@
       "book": "1xbet",
       "decimal": 3.34,
       "openingDecimal": 3.34,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1285,7 +1411,7 @@
       "book": "fonbet",
       "decimal": 3.4,
       "openingDecimal": 3.4,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1297,7 +1423,7 @@
       "book": "1xbet",
       "decimal": 1.71,
       "openingDecimal": 1.71,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1307,9 +1433,10 @@
       "outcome": "HOME",
       "line": 1.5,
       "book": "unibet",
-      "decimal": 1.73,
+      "decimal": 1.75,
       "openingDecimal": 1.73,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "movement": "drifting",
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1321,7 +1448,7 @@
       "book": "888sport",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1333,7 +1460,7 @@
       "book": "fonbet",
       "decimal": 1.73,
       "openingDecimal": 1.73,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1345,7 +1472,7 @@
       "book": "1xbet",
       "decimal": 1.96,
       "openingDecimal": 1.96,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1355,9 +1482,10 @@
       "outcome": "AWAY",
       "line": 1.5,
       "book": "unibet",
-      "decimal": 1.98,
+      "decimal": 1.95,
       "openingDecimal": 1.98,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "movement": "shortening",
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1369,7 +1497,7 @@
       "book": "888sport",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1381,7 +1509,7 @@
       "book": "fonbet",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1393,7 +1521,7 @@
       "book": "1xbet",
       "decimal": 1.049,
       "openingDecimal": 1.049,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1405,7 +1533,7 @@
       "book": "fonbet",
       "decimal": 1.06,
       "openingDecimal": 1.06,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1417,7 +1545,7 @@
       "book": "1xbet",
       "decimal": 6.55,
       "openingDecimal": 6.55,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1429,7 +1557,7 @@
       "book": "fonbet",
       "decimal": 6.6,
       "openingDecimal": 6.6,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1441,7 +1569,7 @@
       "book": "1xbet",
       "decimal": 6.35,
       "openingDecimal": 6.35,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1453,7 +1581,7 @@
       "book": "fonbet",
       "decimal": 6.4,
       "openingDecimal": 6.4,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1465,7 +1593,7 @@
       "book": "1xbet",
       "decimal": 1.055,
       "openingDecimal": 1.055,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1477,7 +1605,7 @@
       "book": "fonbet",
       "decimal": 1.07,
       "openingDecimal": 1.07,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1489,7 +1617,7 @@
       "book": "1xbet",
       "decimal": 1.35,
       "openingDecimal": 1.35,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1501,7 +1629,7 @@
       "book": "fonbet",
       "decimal": 1.38,
       "openingDecimal": 1.38,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1513,7 +1641,7 @@
       "book": "1xbet",
       "decimal": 2.74,
       "openingDecimal": 2.74,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1525,7 +1653,7 @@
       "book": "fonbet",
       "decimal": 2.8,
       "openingDecimal": 2.8,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1537,7 +1665,7 @@
       "book": "1xbet",
       "decimal": 1.069,
       "openingDecimal": 1.069,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1549,7 +1677,7 @@
       "book": "fonbet",
       "decimal": 1.09,
       "openingDecimal": 1.09,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1561,7 +1689,7 @@
       "book": "1xbet",
       "decimal": 5.9,
       "openingDecimal": 5.9,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1573,7 +1701,7 @@
       "book": "fonbet",
       "decimal": 5.8,
       "openingDecimal": 5.8,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1585,7 +1713,7 @@
       "book": "1xbet",
       "decimal": 2.33,
       "openingDecimal": 2.33,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1597,7 +1725,7 @@
       "book": "fonbet",
       "decimal": 2.35,
       "openingDecimal": 2.35,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1609,7 +1737,7 @@
       "book": "1xbet",
       "decimal": 1.48,
       "openingDecimal": 1.48,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1621,43 +1749,871 @@
       "book": "fonbet",
       "decimal": 1.52,
       "openingDecimal": 1.52,
-      "capturedAtUtc": "2026-11-20T17:24:32Z"
+      "capturedAtUtc": "2026-11-20T23:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
       "homeName": "Logroño United",
       "awayName": "Deportivo Alavés",
-      "market": "1x2",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 1.65,
+      "openingDecimal": 1.65,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "unibet",
+      "decimal": 1.67,
+      "openingDecimal": 1.67,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.615,
+      "openingDecimal": 1.615,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.615,
+      "openingDecimal": 1.615,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.68,
+      "openingDecimal": 1.68,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
       "outcome": "HOME",
       "line": null,
-      "book": "bet365",
-      "decimal": 1.95,
-      "openingDecimal": 1.95,
-      "capturedAtUtc": "2026-11-18T18:51:43Z"
+      "book": "betano",
+      "decimal": 1.47,
+      "openingDecimal": 1.47,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
       "homeName": "Logroño United",
       "awayName": "Deportivo Alavés",
-      "market": "1x2",
-      "outcome": "DRAW",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
       "line": null,
-      "book": "bet365",
-      "decimal": 3.4,
-      "openingDecimal": 3.4,
-      "capturedAtUtc": "2026-11-18T18:51:43Z"
+      "book": "unibet",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
       "homeName": "Logroño United",
       "awayName": "Deportivo Alavés",
-      "market": "1x2",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "novibet",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.444,
+      "openingDecimal": 1.444,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.444,
+      "openingDecimal": 1.444,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
       "outcome": "AWAY",
       "line": null,
-      "book": "bet365",
-      "decimal": 3.25,
-      "openingDecimal": 3.25,
-      "capturedAtUtc": "2026-11-18T18:51:43Z"
+      "book": "betano",
+      "decimal": 2.37,
+      "openingDecimal": 2.37,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2.38,
+      "openingDecimal": 2.38,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "novibet",
+      "decimal": 2.4,
+      "openingDecimal": 2.4,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betway",
+      "decimal": 2.4,
+      "openingDecimal": 2.4,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.5,
+      "openingDecimal": 2.5,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.5,
+      "openingDecimal": 2.5,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betsson",
+      "decimal": 2.41,
+      "openingDecimal": 2.41,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betway",
+      "decimal": 2.05,
+      "openingDecimal": 2.05,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betsson",
+      "decimal": 2.02,
+      "openingDecimal": 2.02,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 2.02,
+      "openingDecimal": 2.02,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "1xbet",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "1xbet",
+      "decimal": 1.94,
+      "openingDecimal": 1.94,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 4.5,
+      "openingDecimal": 4.5,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 1.17,
+      "openingDecimal": 1.17,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 3.28,
+      "openingDecimal": 3.28,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 1.25,
+      "openingDecimal": 1.25,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 2.26,
+      "openingDecimal": 2.26,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 1.51,
+      "openingDecimal": 1.51,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "1xbet",
+      "decimal": 1.34,
+      "openingDecimal": 1.34,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.25,
+      "book": "1xbet",
+      "decimal": 2.78,
+      "openingDecimal": 2.78,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.75,
+      "book": "1xbet",
+      "decimal": 1.161,
+      "openingDecimal": 1.161,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.75,
+      "book": "1xbet",
+      "decimal": 4.1,
+      "openingDecimal": 4.1,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "1xbet",
+      "decimal": 3.68,
+      "openingDecimal": 3.68,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "fonbet",
+      "decimal": 3.6,
+      "openingDecimal": 3.6,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "1xbet",
+      "decimal": 1.2,
+      "openingDecimal": 1.2,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "fonbet",
+      "decimal": 1.23,
+      "openingDecimal": 1.23,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "1xbet",
+      "decimal": 7.8,
+      "openingDecimal": 7.8,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "fonbet",
+      "decimal": 7.3,
+      "openingDecimal": 7.3,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "1xbet",
+      "decimal": 1.023,
+      "openingDecimal": 1.023,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "fonbet",
+      "decimal": 1.05,
+      "openingDecimal": 1.05,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1.5,
+      "book": "1xbet",
+      "decimal": 1.034,
+      "openingDecimal": 1.034,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1.5,
+      "book": "fonbet",
+      "decimal": 1.07,
+      "openingDecimal": 1.07,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1.5,
+      "book": "1xbet",
+      "decimal": 7.2,
+      "openingDecimal": 7.2,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1.5,
+      "book": "fonbet",
+      "decimal": 6.4,
+      "openingDecimal": 6.4,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.5,
+      "book": "unibet",
+      "decimal": 2,
+      "openingDecimal": 2,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.5,
+      "book": "888sport",
+      "decimal": 1.95,
+      "openingDecimal": 1.95,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.5,
+      "book": "unibet",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.5,
+      "book": "888sport",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0,
+      "book": "1xbet",
+      "decimal": 1.47,
+      "openingDecimal": 1.47,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0,
+      "book": "fonbet",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "1xbet",
+      "decimal": 2.41,
+      "openingDecimal": 2.41,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "fonbet",
+      "decimal": 2.4,
+      "openingDecimal": 2.4,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2,
+      "book": "1xbet",
+      "decimal": 7,
+      "openingDecimal": 7,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2,
+      "book": "fonbet",
+      "decimal": 6.3,
+      "openingDecimal": 6.3,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2,
+      "book": "1xbet",
+      "decimal": 1.039,
+      "openingDecimal": 1.039,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2,
+      "book": "fonbet",
+      "decimal": 1.07,
+      "openingDecimal": 1.07,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1,
+      "book": "1xbet",
+      "decimal": 2.875,
+      "openingDecimal": 2.875,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1,
+      "book": "fonbet",
+      "decimal": 2.95,
+      "openingDecimal": 2.95,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1,
+      "book": "1xbet",
+      "decimal": 1.32,
+      "openingDecimal": 1.32,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1,
+      "book": "fonbet",
+      "decimal": 1.35,
+      "openingDecimal": 1.35,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1,
+      "book": "1xbet",
+      "decimal": 1.058,
+      "openingDecimal": 1.058,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1,
+      "book": "fonbet",
+      "decimal": 1.09,
+      "openingDecimal": 1.09,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1,
+      "book": "1xbet",
+      "decimal": 6.25,
+      "openingDecimal": 6.25,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "homeName": "Logroño United",
+      "awayName": "Deportivo Alavés",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1,
+      "book": "fonbet",
+      "decimal": 5.6,
+      "openingDecimal": 5.6,
+      "capturedAtUtc": "2026-11-20T23:23:22Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",

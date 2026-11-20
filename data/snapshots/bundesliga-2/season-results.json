@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "bundesliga-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "matches": [
     {
       "id": "bundesliga-2-2026-08-07-bochum-hertha-bsc-1qv1vj",
@@ -1090,6 +1090,28 @@
       "homeTeam": "bundesliga-2.heidenheim",
       "awayTeam": "bundesliga-2.hannover",
       "homeScore": 2,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-20-darmstadt-heidenheim-13j0pc",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T17:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.darmstadt",
+      "awayTeam": "bundesliga-2.heidenheim",
+      "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-20-arminia-bielef-magdeburg-qq20aw",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T17:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.arminia-bielefeld",
+      "awayTeam": "bundesliga-2.magdeburg",
+      "homeScore": 1,
       "awayScore": 2,
       "neutralSite": false
     }

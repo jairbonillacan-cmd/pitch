@@ -1,118 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga-2",
-  "observedAt": "2026-11-20T18:57:51.976Z",
+  "observedAt": "2026-11-20T23:19:05.023Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "bundesliga-2.wolfsburg",
-      "player": "Aster Vranckx",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.wolfsburg",
-      "player": "Cleiton",
-      "position": "D",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.wolfsburg",
-      "player": "Rogério",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.darmstadt",
-      "player": "Carlo Sickinger",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Calf Injury",
-      "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.darmstadt",
-      "player": "Fabian Nürnberger",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.darmstadt",
-      "player": "Luca Marseiler",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.darmstadt",
-      "player": "Marcel Schuhen",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.darmstadt",
-      "player": "Nicolas Verkooijen",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.darmstadt",
-      "player": "Patric Pfeiffer",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.magdeburg",
-      "player": "Anselmo Garcia McNulty",
-      "position": "D",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.magdeburg",
-      "player": "Lubambo Musonda",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Achilles Tendon Injury",
-      "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "bundesliga-2.magdeburg",
-      "player": "Moritz Kwarteng",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
     {
       "teamId": "bundesliga-2.karlsruher",
       "player": "Marcel Franke",
@@ -120,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "bundesliga-2.karlsruher",
@@ -129,7 +21,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "bundesliga-2.karlsruher",
@@ -138,7 +30,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "bundesliga-2.heidenheim",
@@ -147,7 +39,7 @@
       "status": "Baja",
       "detail": "Shin Injury",
       "injuryType": "Shin Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "bundesliga-2.heidenheim",
@@ -156,7 +48,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "bundesliga-2.heidenheim",
@@ -165,7 +57,70 @@
       "status": "Baja",
       "detail": "Abdominal Injury",
       "injuryType": "Abdominal Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "bundesliga-2.greuther-furth",
+      "player": "Maxim Dal",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "bundesliga-2.holstein-kiel",
+      "player": "Lasse Rosenboom",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Ligament Injury",
+      "injuryType": "Ligament Injury",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "bundesliga-2.hannover",
+      "player": "Benedikt Pichler",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "bundesliga-2.hannover",
+      "player": "Karl Steinmann",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "bundesliga-2.hannover",
+      "player": "Lars Timo Gindorf",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "bundesliga-2.hannover",
+      "player": "Stefán Teitur Þórðarson",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "bundesliga-2.sg-dynamo-dresden",
+      "player": "Kenneth Schmidt",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-b",
   "season": "2026/27",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "matches": [
     {
       "id": "serie-b-2026-08-21-l-r-vicenza-catanzaro-j05jn1",
@@ -1212,6 +1212,17 @@
       "awayTeam": "serie-b.cremonese",
       "homeScore": 1,
       "awayScore": 4,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-20-hellas-verona-cesena-w7ot0l",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T19:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "serie-b.hellas-verona",
+      "awayTeam": "serie-b.cesena",
+      "homeScore": 0,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

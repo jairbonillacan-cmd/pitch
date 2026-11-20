@@ -253,6 +253,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/112/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Mathieu Vernice",
       "neutralSite": false,
       "result": {
         "home": 3,
@@ -286,6 +287,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/108/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Marc Bollengier",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -319,6 +321,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1303/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Ruddy Buquet",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -352,6 +355,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/106/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -385,6 +389,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/101/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Bastien Dechepy",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -418,6 +423,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/100/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -451,6 +457,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/110/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Aurelien Petit",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -484,6 +491,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/103/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Geoffrey Kubler",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -517,6 +525,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/98/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Willy Delajod",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -550,6 +559,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/102/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Jeremie Pignard",
       "neutralSite": false
     },
     {
@@ -577,6 +587,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/114/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Jérôme Brisard",
       "neutralSite": false
     },
     {
@@ -604,6 +615,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/109/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Jeremy Stinat",
       "neutralSite": false
     },
     {
@@ -631,6 +643,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/104/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Bastien Dechepy",
       "neutralSite": false
     },
     {
@@ -658,6 +671,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/100/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "François Letexier",
       "neutralSite": false
     },
     {
@@ -685,6 +699,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/105/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Azzedine Souifi",
       "neutralSite": false
     },
     {
@@ -712,6 +727,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/107/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Aurelien Petit",
       "neutralSite": false
     },
     {
@@ -739,6 +755,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/97/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Marc Bollengier",
       "neutralSite": false
     },
     {
@@ -766,6 +783,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1619/?bg=transparent"
       },
       "venue": "Francia",
+      "referee": "Eric Wattellier",
       "neutralSite": false
     }
   ],
@@ -5723,11 +5741,11 @@
         "referee": "Jeremie Pignard",
         "refereeStats": {
           "country": "France",
-          "matches": 53,
-          "avgYellow": 4.13,
-          "avgRed": 0.25,
-          "avgFouls": 21.9,
-          "avgGoals": 2.98
+          "matches": 54,
+          "avgYellow": 4.15,
+          "avgRed": 0.26,
+          "avgFouls": 22.5,
+          "avgGoals": 3
         }
       }
     },
@@ -6483,6 +6501,84 @@
     },
     "ligue-1-2026-27-md11-monaco-aj-auxerre": {
       "game": "ligue-1-2026-27-md11-monaco-aj-auxerre",
+      "cortex": {
+        "headline": "Monaco empuja en casa ante un Auxerre que concede mucho",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Monaco llega mejor: séptimo con 16 puntos y diferencia de 2, mientras el Auxerre es decimocuarto con 10 puntos y diferencia de -11. La probabilidad de 66 % para el local se apoya en esa distancia y en el peso ofensivo que sostiene su proyección de 2.35 goles.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.48, con 68 % de más de 2.5 y 61 % de ambos anotan. El Monaco aporta 2.35 y el Auxerre 1.13, así que el grueso del peligro se concentra en el área visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.35,
+                "away": 1.13
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "61 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "68 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Monaco empuja con 5.8 tiros de esquina por 3.9 del Auxerre, 9.7 en total. Las faltas suman 26.5, con el visitante arriba en 14.3, y 3.7 amarillas anticipan un partido cortado y con pocas pausas limpias.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.8,
+                "away": 3.9
+              },
+              {
+                "label": "Faltas",
+                "home": 12.2,
+                "away": 14.3
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 1.9
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Monaco es séptimo con 16 puntos en 10 jornadas y diferencia de 2. El Auxerre es decimocuarto con 10 puntos y diferencia de -11. No hay datos de descanso para ninguno de los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 16,
+                "away": 10
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Monaco si falta su referencia. El criterio del árbitro define cuánto aguanta el Auxerre cortando el juego. Un gol temprano del local obliga al visitante a abrirse y alarga el partido.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "8840fcae7c036d93",
+        "generatedAt": "2026-11-20T23:28:12.559Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.76,
@@ -9406,6 +9502,84 @@
     },
     "ligue-1-2026-27-md11-paris-angers-sco": {
       "game": "ligue-1-2026-27-md11-paris-angers-sco",
+      "cortex": {
+        "headline": "Paris FC empuja en casa ante un Angers que concede",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Paris FC llega tercero con 20 puntos y diferencia de 7, sostenido por un ataque que produce 2.01 goles esperados. El Angers SCO es decimosexto con 8 puntos y diferencia de -10, y su 17 % de probabilidad resume lo cuesta arriba que se le plantea la visita.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.02 y el más de 2.5 llega al 58 %, con ambos anotan en 55 %. El Paris FC aporta 2.01 y el Angers 1.01, así que el peso anotador cae del lado local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.01,
+                "away": 1.01
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "55 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "58 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Paris FC empuja con 5.1 tiros de esquina por 4.0 del Angers, 9.1 en total. Las faltas suman 23.3, con 12.1 del local y 11.2 del visitante: partido con contacto y pocas pausas largas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.1,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 12.1,
+                "away": 11.2
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 1.7
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Paris FC es tercero con 20 puntos en 10 jornadas y diferencia de 7. El Angers es decimosexto con 8 puntos y diferencia de -10. No hay dato de descanso para ninguno de los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 20,
+                "away": 8
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Paris FC. El criterio del árbitro define cuánto se corta el ritmo con faltas. Un primer gol temprano del Angers obliga al local a estirarse y abre espacios.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "a1f1bd995ee2d5eb",
+        "generatedAt": "2026-11-20T23:28:16.026Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.09,
@@ -11783,10 +11957,10 @@
       "points": 8,
       "form": [
         "L",
-        "L",
         "D",
         "W",
-        "L"
+        "L",
+        "W"
       ]
     },
     {

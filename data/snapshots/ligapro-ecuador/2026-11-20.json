@@ -5,7 +5,7 @@
   "season": "ligapro-ecuador-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 5",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.05,
       "gamesPlayed": 20,
-      "adjustedFor": 1.4421986163385478,
-      "adjustedAgainst": 0.9569746924861009
+      "adjustedFor": 1.4474467058445064,
+      "adjustedAgainst": 0.9618661674308582
     },
     "ligapro-ecuador.mushuc-runa": {
       "teamId": "ligapro-ecuador.mushuc-runa",
@@ -29,19 +29,19 @@
       "forPerGame": 1.2,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1022297663286542,
-      "adjustedAgainst": 1.4079000276647218
+      "adjustedFor": 1.0989624652164245,
+      "adjustedAgainst": 1.4098872421309736
     },
     "ligapro-ecuador.macara": {
       "teamId": "ligapro-ecuador.macara",
       "name": "Macará",
       "shortName": "Macará",
       "code": "MAC",
-      "forPerGame": 1.85,
-      "againstPerGame": 0.95,
-      "gamesPlayed": 20,
-      "adjustedFor": 1.7305650182639947,
-      "adjustedAgainst": 0.9089086532297772
+      "forPerGame": 1.8095238095238095,
+      "againstPerGame": 0.9047619047619048,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.708381286712203,
+      "adjustedAgainst": 0.840430774699553
     },
     "ligapro-ecuador.ldu": {
       "teamId": "ligapro-ecuador.ldu",
@@ -51,8 +51,8 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 0.9047619047619048,
       "gamesPlayed": 21,
-      "adjustedFor": 1.0646695724839663,
-      "adjustedAgainst": 0.8661256745072854
+      "adjustedFor": 1.0655867326308477,
+      "adjustedAgainst": 0.8693757290811961
     },
     "ligapro-ecuador.orense": {
       "teamId": "ligapro-ecuador.orense",
@@ -62,19 +62,19 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 1.619047619047619,
       "gamesPlayed": 21,
-      "adjustedFor": 1.0167952066289894,
-      "adjustedAgainst": 1.5237742853907432
+      "adjustedFor": 1.0143348892834287,
+      "adjustedAgainst": 1.525731291033684
     },
     "ligapro-ecuador.independiente-valle": {
       "teamId": "ligapro-ecuador.independiente-valle",
       "name": "Independiente del Valle",
       "shortName": "Independiente del Vall",
       "code": "IND",
-      "forPerGame": 2.5789473684210527,
+      "forPerGame": 2.45,
       "againstPerGame": 1,
-      "gamesPlayed": 19,
-      "adjustedFor": 2.269304794410825,
-      "adjustedAgainst": 1.0015514602954136
+      "gamesPlayed": 20,
+      "adjustedFor": 2.1768882871662494,
+      "adjustedAgainst": 0.9774644338869592
     },
     "ligapro-ecuador.manta": {
       "teamId": "ligapro-ecuador.manta",
@@ -84,8 +84,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.65,
       "gamesPlayed": 20,
-      "adjustedFor": 0.9767393993433409,
-      "adjustedAgainst": 1.568841688231466
+      "adjustedFor": 0.9737069206956694,
+      "adjustedAgainst": 1.5708115635380473
     },
     "ligapro-ecuador.libertad": {
       "teamId": "ligapro-ecuador.libertad",
@@ -95,8 +95,8 @@
       "forPerGame": 1.35,
       "againstPerGame": 0.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2621291531068628,
-      "adjustedAgainst": 0.9142682588590987
+      "adjustedFor": 1.26035459282825,
+      "adjustedAgainst": 0.9157082207309369
     },
     "ligapro-ecuador.leones-norte": {
       "teamId": "ligapro-ecuador.leones-norte",
@@ -106,8 +106,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.15,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1943911505081075,
-      "adjustedAgainst": 1.1418311728942496
+      "adjustedFor": 1.1890279948544527,
+      "adjustedAgainst": 1.1425341060843697
     },
     "ligapro-ecuador.barcelona-guayaquil": {
       "teamId": "ligapro-ecuador.barcelona-guayaquil",
@@ -117,8 +117,8 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1,
       "gamesPlayed": 19,
-      "adjustedFor": 1.1460587027465001,
-      "adjustedAgainst": 0.9649304275508538
+      "adjustedFor": 1.1464903962315023,
+      "adjustedAgainst": 0.9660528288899068
     },
     "ligapro-ecuador.deportivo-cuenca": {
       "teamId": "ligapro-ecuador.deportivo-cuenca",
@@ -128,8 +128,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.25,
       "gamesPlayed": 20,
-      "adjustedFor": 0.766836913033086,
-      "adjustedAgainst": 1.1849288477533804
+      "adjustedFor": 0.7643229386477322,
+      "adjustedAgainst": 1.186320795199781
     },
     "ligapro-ecuador.delfin": {
       "teamId": "ligapro-ecuador.delfin",
@@ -139,8 +139,8 @@
       "forPerGame": 1.15,
       "againstPerGame": 1.4,
       "gamesPlayed": 20,
-      "adjustedFor": 1.0795886542945141,
-      "adjustedAgainst": 1.3548433777677344
+      "adjustedFor": 1.0766776304279582,
+      "adjustedAgainst": 1.3565987849140158
     },
     "ligapro-ecuador.emelec": {
       "teamId": "ligapro-ecuador.emelec",
@@ -150,8 +150,8 @@
       "forPerGame": 0.95,
       "againstPerGame": 1.35,
       "gamesPlayed": 20,
-      "adjustedFor": 0.9750722239384357,
-      "adjustedAgainst": 1.2396935151167794
+      "adjustedFor": 0.9726355178485007,
+      "adjustedAgainst": 1.241591574108225
     },
     "ligapro-ecuador.tecnico-universitario": {
       "teamId": "ligapro-ecuador.tecnico-universitario",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9,
       "againstPerGame": 1.65,
       "gamesPlayed": 20,
-      "adjustedFor": 0.8816648138445605,
-      "adjustedAgainst": 1.5291059101317428
+      "adjustedFor": 0.8792343042840608,
+      "adjustedAgainst": 1.5312319293572643
     },
     "ligapro-ecuador.aucas": {
       "teamId": "ligapro-ecuador.aucas",
@@ -172,8 +172,8 @@
       "forPerGame": 1.05,
       "againstPerGame": 1.3,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1043662600880513,
-      "adjustedAgainst": 1.1229120288812076
+      "adjustedFor": 1.10773673792868,
+      "adjustedAgainst": 1.1305857911981612
     },
     "ligapro-ecuador.guayaquil-city": {
       "teamId": "ligapro-ecuador.guayaquil-city",
@@ -183,46 +183,11 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2130207729786084,
-      "adjustedAgainst": 1.2437933681863969
+      "adjustedFor": 1.2084332160532578,
+      "adjustedAgainst": 1.2417124317997663
     }
   },
   "games": [
-    {
-      "id": "ligapro-ecuador-2026-10-31-delfin-deportivo-cuen-pwpi5d",
-      "league": "ligapro-ecuador",
-      "season": "ligapro-ecuador-2026",
-      "week": 5,
-      "round": "Regular season · Matchday 5",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T16:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligapro-ecuador.delfin",
-        "league": "ligapro-ecuador",
-        "name": "Delfín",
-        "shortName": "Delfín",
-        "code": "DEL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/5269/?bg=transparent"
-      },
-      "away": {
-        "id": "ligapro-ecuador.deportivo-cuenca",
-        "league": "ligapro-ecuador",
-        "name": "Deportivo Cuenca",
-        "shortName": "Cuenca",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/740/?bg=transparent"
-      },
-      "venue": "Estadio Jocay, Manta",
-      "referee": "Alex Fabricio Cajas Torres",
-      "neutralSite": false,
-      "result": {
-        "home": 3,
-        "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "ligapro-ecuador-2026-10-31-emelec-leones-norte-0dtxe7",
       "league": "ligapro-ecuador",
@@ -254,7 +219,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +324,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +359,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +394,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +429,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +464,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +499,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +534,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +569,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +604,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +639,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +674,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +709,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -756,7 +721,7 @@
       "round": "Regular season · Matchday 7",
       "phase": "Regular season",
       "startTime": "2026-11-20T17:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligapro-ecuador.independiente-valle",
         "league": "ligapro-ecuador",
@@ -775,7 +740,13 @@
       },
       "venue": "Estadio Banco Guayaquil, Sangolqui",
       "referee": "Gorky Stalin Araujo Zambrano",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-20T23:19:05.023Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligapro-ecuador-2026-11-21-tecnico-univer-deportivo-cuen-hdjwp2",
@@ -1423,451 +1394,6 @@
     }
   ],
   "analyses": {
-    "ligapro-ecuador-2026-10-31-delfin-deportivo-cuen-pwpi5d": {
-      "game": "ligapro-ecuador-2026-10-31-delfin-deportivo-cuen-pwpi5d",
-      "model": {
-        "id": "pitchlab-statistical-ligapro-ecuador",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.3999201715591485,
-        "away": 0.8949071945992522,
-        "total": 2.2948273661584007,
-        "margin": 0.5050129769598963
-      },
-      "x12": [
-        0.48083673376347164,
-        0.28516091240206054,
-        0.23400235383446774
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Delfín gana",
-          "p": 0.48083673376347164,
-          "fairOdds": 2.07970799604489
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.28516091240206054,
-          "fairOdds": 3.5067919778221825
-        },
-        {
-          "market": "h2h",
-          "selection": "Cuenca gana",
-          "p": 0.23400235383446774,
-          "fairOdds": 4.273461286237299
-        },
-        {
-          "market": "double_chance",
-          "selection": "Delfín o empate",
-          "p": 0.7659976461655322,
-          "fairOdds": 1.3054870403399383
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cuenca o empate",
-          "p": 0.5191632662365283,
-          "fairOdds": 1.926176339957775
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7148390875979393,
-          "fairOdds": 1.3989162279307943
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6742639694589605,
-          "fairOdds": 1.483098675437774
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.40258883965931114,
-          "fairOdds": 2.483923798896773
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5974111603406889,
-          "fairOdds": 1.6738890505991295
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.1996019109355296,
-          "fairOdds": 5.009972075482759
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8003980890644704,
-          "fairOdds": 1.2493782952041157
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4518293540935981,
-          "fairOdds": 2.2132249508358557
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.548170645906402,
-          "fairOdds": 1.8242494512753356
-        },
-        {
-          "market": "team_totals",
-          "selection": "Delfín más de 1.5",
-          "line": 1.5,
-          "p": 0.40813955927968715,
-          "fairOdds": 2.4501423036886427
-        },
-        {
-          "market": "team_totals",
-          "selection": "Delfín menos de 1.5",
-          "line": 1.5,
-          "p": 0.5918604407203129,
-          "fairOdds": 1.6895874959694357
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cuenca más de 1.5",
-          "line": 1.5,
-          "p": 0.2256546589483861,
-          "fairOdds": 4.4315504260372025
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cuenca menos de 1.5",
-          "line": 1.5,
-          "p": 0.7743453410516139,
-          "fairOdds": 1.2914134650076563
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.1347695224647379,
-          "fairOdds": 7.420075264135832
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.13256834428348976,
-          "fairOdds": 7.543278943437339
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.10709159671342562,
-          "fairOdds": 9.337800823681567
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Delfín gana",
-              "p": 0.48083673376347164,
-              "fairOdds": 2.07970799604489
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.28516091240206054,
-              "fairOdds": 3.5067919778221825
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Cuenca gana",
-              "p": 0.23400235383446774,
-              "fairOdds": 4.273461286237299
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Delfín o empate",
-              "p": 0.7659976461655322,
-              "fairOdds": 1.3054870403399383
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Cuenca o empate",
-              "p": 0.5191632662365283,
-              "fairOdds": 1.926176339957775
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7148390875979393,
-              "fairOdds": 1.3989162279307943
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6742639694589605,
-              "fairOdds": 1.483098675437774
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.40258883965931114,
-              "fairOdds": 2.483923798896773
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5974111603406889,
-              "fairOdds": 1.6738890505991295
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.1996019109355296,
-              "fairOdds": 5.009972075482759
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8003980890644704,
-              "fairOdds": 1.2493782952041157
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4518293540935981,
-              "fairOdds": 2.2132249508358557
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.548170645906402,
-              "fairOdds": 1.8242494512753356
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Delfín más de 1.5",
-              "line": 1.5,
-              "p": 0.40813955927968715,
-              "fairOdds": 2.4501423036886427
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Delfín menos de 1.5",
-              "line": 1.5,
-              "p": 0.5918604407203129,
-              "fairOdds": 1.6895874959694357
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Cuenca más de 1.5",
-              "line": 1.5,
-              "p": 0.2256546589483861,
-              "fairOdds": 4.4315504260372025
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Cuenca menos de 1.5",
-              "line": 1.5,
-              "p": 0.7743453410516139,
-              "fairOdds": 1.2914134650076563
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.1347695224647379,
-              "fairOdds": 7.420075264135832
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13256834428348976,
-              "fairOdds": 7.543278943437339
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.10709159671342562,
-              "fairOdds": 9.337800823681567
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.1347695224647379
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.10 goles/partido",
-          "detail": "7 % menos que la media · 20 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.18 concedidos/partido",
-          "detail": "en la media de la liga · 20 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.89 goles/partido",
-          "detail": "34 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.35 concedidos/partido",
-          "detail": "17 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.27",
-          "detail": "estimada de 160 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.7–3.3",
-          "detail": "local 28%–71% · 160 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "12.º · 22 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "14.º · 20 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-E-G-G-P · 8 pts",
-          "detail": "9 goles a favor · 10 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-E-G-G · 9 pts",
-          "detail": "6 goles a favor · 3 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando LigaPro Serie A · corte 31 oct 2026, 09:30",
-        "Fuerza ajustada por rival · DEL 0.93 / 1.17 · DEP 0.66 / 1.02",
-        "Ponderando 137.3 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.40 – 0.89 · total 2.29",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-10-31T15:30:00.000Z",
-      "publishedAt": "2026-10-31T15:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.1347695224647379
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.3 goles: 1.4 de Delfín y 0.9 de Cuenca.",
-          "Cuenca anota 34 % menos que la media.",
-          "Delfín concede 17 % más que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Alex Fabricio Cajas Torres",
-        "refereeStats": {
-          "country": "Ecuador",
-          "matches": 24,
-          "avgYellow": 4.96,
-          "avgRed": 0.54,
-          "avgFouls": 22.9,
-          "avgGoals": 2.75
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Manta",
-        "venueCountry": "Ecuador",
-        "venueCapacity": 15000
-      }
-    },
     "ligapro-ecuador-2026-10-31-emelec-leones-norte-0dtxe7": {
       "game": "ligapro-ecuador-2026-10-31-emelec-leones-norte-0dtxe7",
       "model": {
@@ -9227,13 +8753,14 @@
         "referee": "Gorky Stalin Araujo Zambrano",
         "refereeStats": {
           "country": "Ecuador",
-          "matches": 20,
-          "avgYellow": 4.8,
-          "avgRed": 0.3,
-          "avgFouls": 22.1,
-          "avgGoals": 2.2
+          "matches": 21,
+          "avgYellow": 4.76,
+          "avgRed": 0.29,
+          "avgFouls": 21.9,
+          "avgGoals": 2.14
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 17,
           "windSpeedKmh": 41
         },
@@ -20388,43 +19915,43 @@
   },
   "standings": [
     {
-      "teamId": "ligapro-ecuador.independiente-valle",
-      "name": "Independiente del Valle",
-      "shortName": "Independiente del Vall",
-      "code": "IND",
-      "played": 19,
-      "won": 15,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 49,
-      "goalsAgainst": 19,
-      "points": 47,
-      "form": [
-        "W",
-        "L",
-        "D",
-        "W",
-        "W"
-      ]
-    },
-    {
       "teamId": "ligapro-ecuador.macara",
       "name": "Macará",
       "shortName": "Macará",
       "code": "MAC",
-      "played": 20,
-      "won": 15,
+      "played": 21,
+      "won": 16,
       "drawn": 2,
       "lost": 3,
-      "goalsFor": 37,
+      "goalsFor": 38,
       "goalsAgainst": 19,
-      "points": 47,
+      "points": 50,
       "form": [
         "W",
         "W",
         "W",
+        "D",
+        "W"
+      ]
+    },
+    {
+      "teamId": "ligapro-ecuador.independiente-valle",
+      "name": "Independiente del Valle",
+      "shortName": "Independiente del Vall",
+      "code": "IND",
+      "played": 20,
+      "won": 15,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 49,
+      "goalsAgainst": 20,
+      "points": 47,
+      "form": [
+        "L",
+        "D",
         "W",
-        "D"
+        "W",
+        "L"
       ]
     },
     {

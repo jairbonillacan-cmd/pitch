@@ -5,7 +5,7 @@
   "season": "primera-chile-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 26",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9123503100997052,
-      "adjustedAgainst": 1.145045554591425
+      "adjustedFor": 0.9159269019331238,
+      "adjustedAgainst": 1.1484263597919113
     },
     "primera-chile.everton-vina-mar": {
       "teamId": "primera-chile.everton-vina-mar",
@@ -29,8 +29,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7659544501172972,
-      "adjustedAgainst": 1.4947655487673261
+      "adjustedFor": 1.7653810371103018,
+      "adjustedAgainst": 1.4965948925365817
     },
     "primera-chile.colo-colo": {
       "teamId": "primera-chile.colo-colo",
@@ -40,8 +40,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 2.1764070077291167,
-      "adjustedAgainst": 1.4525834366185217
+      "adjustedFor": 2.1816761743906206,
+      "adjustedAgainst": 1.4604965436319515
     },
     "primera-chile.deportes-limache": {
       "teamId": "primera-chile.deportes-limache",
@@ -51,8 +51,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.342283344508827,
-      "adjustedAgainst": 1.2929679745520959
+      "adjustedFor": 1.341630841932428,
+      "adjustedAgainst": 1.2949693523517323
     },
     "primera-chile.coquimbo-unido": {
       "teamId": "primera-chile.coquimbo-unido",
@@ -62,8 +62,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3543106675385999,
-      "adjustedAgainst": 1.3601252930740122
+      "adjustedFor": 1.3559756370792644,
+      "adjustedAgainst": 1.3613117392463863
     },
     "primera-chile.universidad-concepcion": {
       "teamId": "primera-chile.universidad-concepcion",
@@ -73,8 +73,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.9166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 0.8789224331987224,
-      "adjustedAgainst": 1.6036878814117743
+      "adjustedFor": 0.8811312465304731,
+      "adjustedAgainst": 1.6066392973064083
     },
     "primera-chile.huachipato": {
       "teamId": "primera-chile.huachipato",
@@ -84,19 +84,19 @@
       "forPerGame": 1,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9945452946092225,
-      "adjustedAgainst": 1.3433132374657586
+      "adjustedFor": 0.9970268914752729,
+      "adjustedAgainst": 1.3458985217921153
     },
     "primera-chile.cobresal": {
       "teamId": "primera-chile.cobresal",
       "name": "Cobresal",
       "shortName": "Cobresal",
       "code": "COB",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.5174260000731157,
-      "adjustedAgainst": 1.543381503248951
+      "forPerGame": 1.7692307692307692,
+      "againstPerGame": 1.7692307692307692,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.6094247561064603,
+      "adjustedAgainst": 1.6109209737922288
     },
     "primera-chile.universidad-catolica": {
       "teamId": "primera-chile.universidad-catolica",
@@ -106,8 +106,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5598557650208584,
-      "adjustedAgainst": 1.2930117888388961
+      "adjustedFor": 1.5590103711505217,
+      "adjustedAgainst": 1.2951954017301195
     },
     "primera-chile.deportes-la-serena": {
       "teamId": "primera-chile.deportes-la-serena",
@@ -117,8 +117,8 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.44300298227295,
-      "adjustedAgainst": 1.3087520243801356
+      "adjustedFor": 1.450914235813206,
+      "adjustedAgainst": 1.3155323168172375
     },
     "primera-chile.nublense": {
       "teamId": "primera-chile.nublense",
@@ -128,8 +128,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1111964830168106,
-      "adjustedAgainst": 1.5403642759763172
+      "adjustedFor": 1.1173162088984614,
+      "adjustedAgainst": 1.5496546956897514
     },
     "primera-chile.palestino": {
       "teamId": "primera-chile.palestino",
@@ -139,19 +139,19 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2587232828263424,
-      "adjustedAgainst": 1.259788161786008
+      "adjustedFor": 1.2669560804976567,
+      "adjustedAgainst": 1.2666930825710685
     },
     "primera-chile.audax-italiano": {
       "teamId": "primera-chile.audax-italiano",
       "name": "Audax Italiano",
       "shortName": "Audax Italiano",
       "code": "AUD",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 12,
-      "adjustedFor": 0.8969268402610984,
-      "adjustedAgainst": 1.1700549912818552
+      "forPerGame": 0.9230769230769231,
+      "againstPerGame": 1.3846153846153846,
+      "gamesPlayed": 13,
+      "adjustedFor": 0.9702489468101977,
+      "adjustedAgainst": 1.2753591644143358
     },
     "primera-chile.universidad-chile": {
       "teamId": "primera-chile.universidad-chile",
@@ -161,8 +161,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 1.9759063901801102,
-      "adjustedAgainst": 0.9913759545364133
+      "adjustedFor": 1.9778338609906796,
+      "adjustedAgainst": 0.9938321975487594
     },
     "primera-chile.deportes-concepcion": {
       "teamId": "primera-chile.deportes-concepcion",
@@ -172,8 +172,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 0.5833333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.194852270815714,
-      "adjustedAgainst": 0.7340143489893539
+      "adjustedFor": 1.19684585736994,
+      "adjustedAgainst": 0.7367493927675857
     },
     "primera-chile.o-higgins": {
       "teamId": "primera-chile.o-higgins",
@@ -183,46 +183,11 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1054935608405314,
-      "adjustedAgainst": 1.5331650830471433
+      "adjustedFor": 1.1064960066245548,
+      "adjustedAgainst": 1.5337113416548256
     }
   },
   "games": [
-    {
-      "id": "primera-chile-2026-10-30-coquimbo-unido-union-la-caler-f5jogd",
-      "league": "primera-chile",
-      "season": "primera-chile-2026",
-      "week": 26,
-      "round": "Regular season · Matchday 26",
-      "phase": "Regular season",
-      "startTime": "2026-10-30T22:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-chile.coquimbo-unido",
-        "league": "primera-chile",
-        "name": "Coquimbo Unido",
-        "shortName": "Coquimbo Unido",
-        "code": "COQ",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/783/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-chile.union-la-calera",
-        "league": "primera-chile",
-        "name": "Unión La Calera",
-        "shortName": "Unión La Calera",
-        "code": "UNI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/5267/?bg=transparent"
-      },
-      "venue": "Francisco Sánchez Rumoroso, Coquimbo",
-      "referee": "Franco Esteban Jimenez Lazo",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "primera-chile-2026-10-30-colo-colo-universidad-co-jx529r",
       "league": "primera-chile",
@@ -254,7 +219,7 @@
       "result": {
         "home": 6,
         "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +289,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +324,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +359,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +394,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +429,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +464,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +499,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +534,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +569,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +604,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +639,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +674,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +709,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -756,7 +721,7 @@
       "round": "Regular season · Matchday 28",
       "phase": "Regular season",
       "startTime": "2026-11-20T21:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-chile.cobresal",
         "league": "primera-chile",
@@ -775,7 +740,13 @@
       },
       "venue": "El Cobre, El Salvador, El Salvador",
       "referee": "Gaston Philippe",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 2,
+        "observedAt": "2026-11-20T23:19:05.023Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
@@ -803,6 +774,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/5267/?bg=transparent"
       },
       "venue": "Municipal de La Cisterna, La Cisterna",
+      "referee": "Hector Jona",
       "neutralSite": false
     },
     {
@@ -1423,451 +1395,6 @@
     }
   ],
   "analyses": {
-    "primera-chile-2026-10-30-coquimbo-unido-union-la-caler-f5jogd": {
-      "game": "primera-chile-2026-10-30-coquimbo-unido-union-la-caler-f5jogd",
-      "model": {
-        "id": "pitchlab-statistical-primera-chile",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6137299006919583,
-        "away": 0.9583349594364241,
-        "total": 2.5720648601283824,
-        "margin": 0.6553949412555342
-      },
-      "x12": [
-        0.5329648327874358,
-        0.2370053603522436,
-        0.23002980686032024
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Coquimbo Unido gana",
-          "p": 0.5329648327874358,
-          "fairOdds": 1.8762964054681512
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2370053603522436,
-          "fairOdds": 4.219313852284918
-        },
-        {
-          "market": "h2h",
-          "selection": "Unión La Calera gana",
-          "p": 0.23002980686032024,
-          "fairOdds": 4.347262703251429
-        },
-        {
-          "market": "double_chance",
-          "selection": "Coquimbo Unido o empate",
-          "p": 0.7699701931396794,
-          "fairOdds": 1.2987515736451256
-        },
-        {
-          "market": "double_chance",
-          "selection": "Unión La Calera o empate",
-          "p": 0.46703516721256383,
-          "fairOdds": 2.1411663836116768
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.762994639647756,
-          "fairOdds": 1.3106251971333112
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7212678055955131,
-          "fairOdds": 1.3864475750090528
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.47453448683752597,
-          "fairOdds": 2.107328398119958
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.525465513162474,
-          "fairOdds": 1.903074464357473
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2579330128488587,
-          "fairOdds": 3.876975610663576
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7420669871511413,
-          "fairOdds": 1.3475872358088394
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4877972572726027,
-          "fairOdds": 2.0500320268122287
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5122027427273973,
-          "fairOdds": 1.9523519040041852
-        },
-        {
-          "market": "team_totals",
-          "selection": "Coquimbo Unido más de 1.5",
-          "line": 1.5,
-          "p": 0.4794922527567833,
-          "fairOdds": 2.0855394310348494
-        },
-        {
-          "market": "team_totals",
-          "selection": "Coquimbo Unido menos de 1.5",
-          "line": 1.5,
-          "p": 0.5205077472432167,
-          "fairOdds": 1.9212009913326646
-        },
-        {
-          "market": "team_totals",
-          "selection": "Unión La Calera más de 1.5",
-          "line": 1.5,
-          "p": 0.24891792921832356,
-          "fairOdds": 4.017388394400909
-        },
-        {
-          "market": "team_totals",
-          "selection": "Unión La Calera menos de 1.5",
-          "line": 1.5,
-          "p": 0.7510820707816764,
-          "fairOdds": 1.3314124233577647
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.12915895940654684,
-          "fairOdds": 7.742397465841706
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11221184225285387,
-          "fairOdds": 8.91171537623131
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.09944858460369228,
-          "fairOdds": 10.055447284494308
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Coquimbo Unido gana",
-              "p": 0.5329648327874358,
-              "fairOdds": 1.8762964054681512
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2370053603522436,
-              "fairOdds": 4.219313852284918
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Unión La Calera gana",
-              "p": 0.23002980686032024,
-              "fairOdds": 4.347262703251429
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Coquimbo Unido o empate",
-              "p": 0.7699701931396794,
-              "fairOdds": 1.2987515736451256
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Unión La Calera o empate",
-              "p": 0.46703516721256383,
-              "fairOdds": 2.1411663836116768
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.762994639647756,
-              "fairOdds": 1.3106251971333112
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7212678055955131,
-              "fairOdds": 1.3864475750090528
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.47453448683752597,
-              "fairOdds": 2.107328398119958
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.525465513162474,
-              "fairOdds": 1.903074464357473
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2579330128488587,
-              "fairOdds": 3.876975610663576
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7420669871511413,
-              "fairOdds": 1.3475872358088394
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4877972572726027,
-              "fairOdds": 2.0500320268122287
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5122027427273973,
-              "fairOdds": 1.9523519040041852
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Coquimbo Unido más de 1.5",
-              "line": 1.5,
-              "p": 0.4794922527567833,
-              "fairOdds": 2.0855394310348494
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Coquimbo Unido menos de 1.5",
-              "line": 1.5,
-              "p": 0.5205077472432167,
-              "fairOdds": 1.9212009913326646
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Unión La Calera más de 1.5",
-              "line": 1.5,
-              "p": 0.24891792921832356,
-              "fairOdds": 4.017388394400909
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Unión La Calera menos de 1.5",
-              "line": 1.5,
-              "p": 0.7510820707816764,
-              "fairOdds": 1.3314124233577647
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.12915895940654684,
-              "fairOdds": 7.742397465841706
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11221184225285387,
-              "fairOdds": 8.91171537623131
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.09944858460369228,
-              "fairOdds": 10.055447284494308
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.12915895940654684
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.20 goles/partido",
-          "detail": "5 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.14 concedidos/partido",
-          "detail": "12 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.96 goles/partido",
-          "detail": "30 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.36 concedidos/partido",
-          "detail": "5 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.35",
-          "detail": "estimada de 96 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.8–3.9",
-          "detail": "local 29%–78% · 96 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "9.º · 14 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "14.º · 12 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-P-G-P · 3 pts",
-          "detail": "10 goles a favor · 12 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-P-G-E-G · 7 pts",
-          "detail": "6 goles a favor · 5 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga de Primera · corte 30 oct 2026, 15:00",
-        "Fuerza ajustada por rival · COQ 1.05 / 1.05 · UNI 0.70 / 0.88",
-        "Ponderando 84.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.61 – 0.96 · total 2.57",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-10-30T21:00:00.000Z",
-      "publishedAt": "2026-10-30T21:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.12915895940654684
-      },
-      "insights": {
-        "why": [
-          "Coquimbo Unido gana en 53% de los escenarios; el empate, en 24%.",
-          "Unión La Calera anota 30 % menos que la media.",
-          "Unión La Calera concede 12 % menos que la media."
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Franco Esteban Jimenez Lazo",
-        "refereeStats": {
-          "country": "Chile",
-          "matches": 12,
-          "avgYellow": 4.67,
-          "avgRed": 0.33,
-          "avgFouls": 21.2,
-          "avgGoals": 3
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Coquimbo",
-        "venueCountry": "Chile",
-        "venueCapacity": 18750
-      }
-    },
     "primera-chile-2026-10-30-colo-colo-universidad-co-jx529r": {
       "game": "primera-chile-2026-10-30-colo-colo-universidad-co-jx529r",
       "model": {
@@ -2297,11 +1824,11 @@
         "referee": "Gaston Philippe",
         "refereeStats": {
           "country": "Chile",
-          "matches": 12,
-          "avgYellow": 4.5,
-          "avgRed": 0.5,
-          "avgFouls": 17.5,
-          "avgGoals": 2.75
+          "matches": 13,
+          "avgYellow": 4.54,
+          "avgRed": 0.69,
+          "avgFouls": 17.8,
+          "avgGoals": 2.92
         },
         "halfTimeScore": {
           "home": 5,
@@ -9005,18 +8532,22 @@
         "referee": "Gaston Philippe",
         "refereeStats": {
           "country": "Chile",
-          "matches": 12,
-          "avgYellow": 4.5,
-          "avgRed": 0.5,
-          "avgFouls": 17.5,
-          "avgGoals": 2.75
+          "matches": 13,
+          "avgYellow": 4.54,
+          "avgRed": 0.69,
+          "avgFouls": 17.8,
+          "avgGoals": 2.92
         },
         "weather": {
-          "description": "unknown",
+          "description": "clear",
           "temperatureC": 22,
           "windSpeedKmh": 51
         },
         "travelDistanceKm": 817,
+        "halfTimeScore": {
+          "home": 2,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "El Salvador",
         "venueCountry": "Chile",
@@ -9486,6 +9017,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Hector Jona",
+        "refereeStats": {
+          "country": "Chile",
+          "matches": 15,
+          "avgYellow": 5.13,
+          "avgRed": 0.53,
+          "avgFouls": 20.2,
+          "avgGoals": 2.8
+        },
         "weather": {
           "description": "rain",
           "temperatureC": 18,
@@ -20000,19 +19540,19 @@
       "name": "Cobresal",
       "shortName": "Cobresal",
       "code": "COB",
-      "played": 12,
-      "won": 3,
+      "played": 13,
+      "won": 4,
       "drawn": 5,
       "lost": 4,
-      "goalsFor": 20,
-      "goalsAgainst": 21,
-      "points": 14,
+      "goalsFor": 23,
+      "goalsAgainst": 23,
+      "points": 17,
       "form": [
-        "W",
         "D",
         "D",
         "D",
-        "L"
+        "L",
+        "W"
       ]
     },
     {
@@ -20060,17 +19600,17 @@
       "name": "Audax Italiano",
       "shortName": "Audax Italiano",
       "code": "AUD",
-      "played": 12,
+      "played": 13,
       "won": 3,
       "drawn": 5,
-      "lost": 4,
-      "goalsFor": 10,
-      "goalsAgainst": 15,
+      "lost": 5,
+      "goalsFor": 12,
+      "goalsAgainst": 18,
       "points": 14,
       "form": [
-        "W",
         "D",
         "D",
+        "L",
         "L",
         "L"
       ]

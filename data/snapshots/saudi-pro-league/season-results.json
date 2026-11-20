@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "saudi-pro-league",
   "season": "2026/27",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "matches": [
     {
       "id": "saudi-pro-league-2026-08-13-abha-al-hazem-k0kswu",
@@ -1146,6 +1146,17 @@
       "awayTeam": "saudi-pro-league.al-fateh",
       "homeScore": 2,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "saudi-pro-league-2026-11-20-al-ahli-al-nassr-mrshqm",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T17:30:00.000Z",
+      "round": "Regular season · Matchday 9",
+      "homeTeam": "saudi-pro-league.al-ahli",
+      "awayTeam": "saudi-pro-league.al-nassr",
+      "homeScore": 3,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

@@ -5,7 +5,7 @@
   "season": "ligue-2-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3298481793202894,
-      "adjustedAgainst": 1.2860438407865011
+      "adjustedFor": 1.3247200968750357,
+      "adjustedAgainst": 1.2822768746112572
     },
     "ligue-2.grenoble-foot": {
       "teamId": "ligue-2.grenoble-foot",
@@ -29,30 +29,30 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1149237056757866,
-      "adjustedAgainst": 1.5940556765643623
+      "adjustedFor": 1.1121615406049676,
+      "adjustedAgainst": 1.5889781773480265
     },
     "ligue-2.boulogne-cote-d-opale": {
       "teamId": "ligue-2.boulogne-cote-d-opale",
       "name": "US Boulogne Côte-d'Opale",
       "shortName": "US Boulogne Côte-d'Opa",
       "code": "BOU",
-      "forPerGame": 0.8333333333333334,
-      "againstPerGame": 0.6666666666666666,
-      "gamesPlayed": 12,
-      "adjustedFor": 0.9265481266604951,
-      "adjustedAgainst": 0.8197536141923942
+      "forPerGame": 0.8461538461538461,
+      "againstPerGame": 0.7692307692307693,
+      "gamesPlayed": 13,
+      "adjustedFor": 0.9257357679483534,
+      "adjustedAgainst": 0.8859862030387755
     },
     "ligue-2.nancy": {
       "teamId": "ligue-2.nancy",
       "name": "Nancy",
       "shortName": "Nancy",
       "code": "NAN",
-      "forPerGame": 1.4166666666666667,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.3511857139425067,
-      "adjustedAgainst": 0.886842319361681
+      "forPerGame": 1.3846153846153846,
+      "againstPerGame": 0.6923076923076923,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.3162751114259499,
+      "adjustedAgainst": 0.8198764268632144
     },
     "ligue-2.sochaux": {
       "teamId": "ligue-2.sochaux",
@@ -62,8 +62,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 0.8282724602410945,
-      "adjustedAgainst": 1.2365191554815709
+      "adjustedFor": 0.8241677938905074,
+      "adjustedAgainst": 1.235423571884602
     },
     "ligue-2.saint-etienne": {
       "teamId": "ligue-2.saint-etienne",
@@ -73,19 +73,19 @@
       "forPerGame": 2.0833333333333335,
       "againstPerGame": 0.9166666666666666,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6761578557031809,
-      "adjustedAgainst": 1.0064440487505149
+      "adjustedFor": 1.6827900244704959,
+      "adjustedAgainst": 1.011369554448493
     },
     "ligue-2.rodez-af": {
       "teamId": "ligue-2.rodez-af",
       "name": "Rodez AF",
       "shortName": "Rodez AF",
       "code": "ROD",
-      "forPerGame": 1.4166666666666667,
-      "againstPerGame": 1.9166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.3188505334478595,
-      "adjustedAgainst": 1.662885138624082
+      "forPerGame": 1.5384615384615385,
+      "againstPerGame": 1.8461538461538463,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.4154945940333155,
+      "adjustedAgainst": 1.624480340969784
     },
     "ligue-2.stade-lavallois": {
       "teamId": "ligue-2.stade-lavallois",
@@ -95,30 +95,30 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.9166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1801804593624645,
-      "adjustedAgainst": 1.739244372936777
+      "adjustedFor": 1.1844207513158824,
+      "adjustedAgainst": 1.745985748340276
     },
     "ligue-2.pau": {
       "teamId": "ligue-2.pau",
       "name": "Pau FC",
       "shortName": "Pau",
       "code": "PAU",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 1.0833333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.2364941024566043,
-      "adjustedAgainst": 1.1205129883665668
+      "forPerGame": 1.3076923076923077,
+      "againstPerGame": 1.1538461538461537,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.2335363962378092,
+      "adjustedAgainst": 1.1807566115858443
     },
     "ligue-2.annecy": {
       "teamId": "ligue-2.annecy",
       "name": "Annecy FC",
       "shortName": "Annecy",
       "code": "ANN",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.1865128559038294,
-      "adjustedAgainst": 1.4096966144467784
+      "forPerGame": 1.3846153846153846,
+      "againstPerGame": 1.5384615384615385,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.366489658000247,
+      "adjustedAgainst": 1.48186550730359
     },
     "ligue-2.nantes": {
       "teamId": "ligue-2.nantes",
@@ -128,19 +128,19 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1906949050522515,
-      "adjustedAgainst": 1.3968123054730686
+      "adjustedFor": 1.187582632673298,
+      "adjustedAgainst": 1.4057853120436696
     },
     "ligue-2.red-star": {
       "teamId": "ligue-2.red-star",
       "name": "Red Star FC",
       "shortName": "Red Star",
       "code": "RED",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.4166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.206657353146618,
-      "adjustedAgainst": 1.3408477045320213
+      "forPerGame": 1.2307692307692308,
+      "againstPerGame": 1.3846153846153846,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.2634527816840069,
+      "adjustedAgainst": 1.3389707950698342
     },
     "ligue-2.montpellier": {
       "teamId": "ligue-2.montpellier",
@@ -150,52 +150,52 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.75,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4283979043181525,
-      "adjustedAgainst": 0.846281283031408
+      "adjustedFor": 1.4420343487016534,
+      "adjustedAgainst": 0.8448236688709607
     },
     "ligue-2.dijon": {
       "teamId": "ligue-2.dijon",
       "name": "Dijon",
       "shortName": "Dijon",
       "code": "DIJ",
-      "forPerGame": 1.75,
-      "againstPerGame": 1.5833333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.5769042182352964,
-      "adjustedAgainst": 1.458623076408056
+      "forPerGame": 1.6153846153846154,
+      "againstPerGame": 1.5384615384615385,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.5104632466060701,
+      "adjustedAgainst": 1.413231621589873
     },
     "ligue-2.metz": {
       "teamId": "ligue-2.metz",
       "name": "Metz",
       "shortName": "Metz",
       "code": "MET",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.5833333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.4941547223305076,
-      "adjustedAgainst": 1.490233865263173
+      "forPerGame": 1.6923076923076923,
+      "againstPerGame": 1.5384615384615385,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.5593669035804618,
+      "adjustedAgainst": 1.48792098024991
     },
     "ligue-2.guingamp": {
       "teamId": "ligue-2.guingamp",
       "name": "Guingamp",
       "shortName": "Guingamp",
       "code": "GUI",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.3463951324392365,
-      "adjustedAgainst": 1.4151168429518732
+      "forPerGame": 1.3076923076923077,
+      "againstPerGame": 1.6153846153846154,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.2901511980319056,
+      "adjustedAgainst": 1.5005575356084944
     },
     "ligue-2.clermont-foot": {
       "teamId": "ligue-2.clermont-foot",
       "name": "Clermont Foot",
       "shortName": "Clermont Foot",
       "code": "CLE",
-      "forPerGame": 0.9166666666666666,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 12,
-      "adjustedFor": 0.9542342065646059,
-      "adjustedAgainst": 1.233896110522234
+      "forPerGame": 1,
+      "againstPerGame": 1.4615384615384615,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.0166935657492044,
+      "adjustedAgainst": 1.4141576200209391
     },
     "ligue-2.stade-reims": {
       "teamId": "ligue-2.stade-reims",
@@ -205,186 +205,11 @@
       "forPerGame": 2,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.797093395054152,
-      "adjustedAgainst": 1.2888846059996975
+      "adjustedFor": 1.7953930404227507,
+      "adjustedAgainst": 1.296778862126507
     }
   },
   "games": [
-    {
-      "id": "ligue-2-2026-10-30-nantes-clermont-foot-4r73gx",
-      "league": "ligue-2",
-      "season": "ligue-2-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-30T19:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligue-2.nantes",
-        "league": "ligue-2",
-        "name": "Nantes",
-        "shortName": "Nantes",
-        "code": "NAN",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/113/?bg=transparent"
-      },
-      "away": {
-        "id": "ligue-2.clermont-foot",
-        "league": "ligue-2",
-        "name": "Clermont Foot",
-        "shortName": "Clermont Foot",
-        "code": "CLE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1309/?bg=transparent"
-      },
-      "venue": "Stade de la Beaujoire, Nantes",
-      "referee": "Mickael Leleu",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 1,
-        "observedAt": "2026-11-20T18:57:51.976Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "ligue-2-2026-10-30-metz-pau-i5gi4y",
-      "league": "ligue-2",
-      "season": "ligue-2-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-30T19:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligue-2.metz",
-        "league": "ligue-2",
-        "name": "Metz",
-        "shortName": "Metz",
-        "code": "MET",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/111/?bg=transparent"
-      },
-      "away": {
-        "id": "ligue-2.pau",
-        "league": "ligue-2",
-        "name": "Pau FC",
-        "shortName": "Pau",
-        "code": "PAU",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1659/?bg=transparent"
-      },
-      "venue": "Stade Saint Symphorien, Metz",
-      "referee": "Bastien Dechepy",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 3,
-        "observedAt": "2026-11-20T18:57:51.976Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "ligue-2-2026-10-30-grenoble-foot-dijon-1vsc3n",
-      "league": "ligue-2",
-      "season": "ligue-2-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-30T19:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligue-2.grenoble-foot",
-        "league": "ligue-2",
-        "name": "Grenoble Foot 38",
-        "shortName": "Grenoble Foot 38",
-        "code": "GRE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1635/?bg=transparent"
-      },
-      "away": {
-        "id": "ligue-2.dijon",
-        "league": "ligue-2",
-        "name": "Dijon",
-        "shortName": "Dijon",
-        "code": "DIJ",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1305/?bg=transparent"
-      },
-      "venue": "Stade des Alpes, Grenoble",
-      "referee": "Soulaimane Chamel",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 3,
-        "observedAt": "2026-11-20T18:57:51.976Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "ligue-2-2026-10-31-annecy-montpellier-nbpo4o",
-      "league": "ligue-2",
-      "season": "ligue-2-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T13:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligue-2.annecy",
-        "league": "ligue-2",
-        "name": "Annecy FC",
-        "shortName": "Annecy",
-        "code": "ANN",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1690/?bg=transparent"
-      },
-      "away": {
-        "id": "ligue-2.montpellier",
-        "league": "ligue-2",
-        "name": "Montpellier",
-        "shortName": "Montpellier",
-        "code": "MON",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1301/?bg=transparent"
-      },
-      "venue": "Parc des Sports, Annecy",
-      "referee": "Antoine Valnet",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 3,
-        "observedAt": "2026-11-20T18:57:51.976Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "ligue-2-2026-10-31-guingamp-saint-etienne-hkrgmj",
-      "league": "ligue-2",
-      "season": "ligue-2-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T19:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligue-2.guingamp",
-        "league": "ligue-2",
-        "name": "Guingamp",
-        "shortName": "Guingamp",
-        "code": "GUI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1299/?bg=transparent"
-      },
-      "away": {
-        "id": "ligue-2.saint-etienne",
-        "league": "ligue-2",
-        "name": "Saint-Étienne",
-        "shortName": "Saint-Étienne",
-        "code": "SAI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1300/?bg=transparent"
-      },
-      "venue": "Stade du Roudourou, Guingamp",
-      "referee": "Benoît Millot",
-      "neutralSite": false,
-      "result": {
-        "home": 3,
-        "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "ligue-2-2026-11-02-stade-reims-sochaux-w9inlp",
       "league": "ligue-2",
@@ -416,7 +241,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +276,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +311,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +346,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +381,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +416,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +451,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +486,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +521,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +556,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +591,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T18:57:51.976Z",
+        "observedAt": "2026-11-20T23:19:05.023Z",
         "source": "pitchlab-feed"
       }
     },
@@ -778,7 +603,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-20T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligue-2.red-star",
         "league": "ligue-2",
@@ -797,7 +622,13 @@
       },
       "venue": "Stade de Paris, Saint-Ouen",
       "referee": "Soulaimane Chamel",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-20T23:19:05.023Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligue-2-2026-11-20-nancy-dijon-jh758b",
@@ -807,7 +638,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-20T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligue-2.nancy",
         "league": "ligue-2",
@@ -826,7 +657,13 @@
       },
       "venue": "Stade Marcel Picot, Nancy",
       "referee": "Mickael Leleu",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-20T23:19:05.023Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligue-2-2026-11-20-metz-boulogne-cote--c7x6s4",
@@ -836,7 +673,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-20T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligue-2.metz",
         "league": "ligue-2",
@@ -855,7 +692,13 @@
       },
       "venue": "Stade Saint Symphorien, Metz",
       "referee": "Gael Angoula",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-20T23:19:05.023Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligue-2-2026-11-20-guingamp-rodez-af-eztk56",
@@ -865,7 +708,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-20T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligue-2.guingamp",
         "league": "ligue-2",
@@ -884,7 +727,13 @@
       },
       "venue": "Stade du Roudourou, Guingamp",
       "referee": "Remi Landry",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 3,
+        "observedAt": "2026-11-20T23:19:05.023Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligue-2-2026-11-20-annecy-clermont-foot-lt694d",
@@ -894,7 +743,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-20T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligue-2.annecy",
         "league": "ligue-2",
@@ -913,7 +762,13 @@
       },
       "venue": "Parc des Sports, Annecy",
       "referee": "Faouzi Benchabane",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 2,
+        "observedAt": "2026-11-20T23:19:05.023Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligue-2-2026-11-21-stade-lavalloi-montpellier-dw2osp",
@@ -1535,2260 +1390,6 @@
     }
   ],
   "analyses": {
-    "ligue-2-2026-10-30-nantes-clermont-foot-4r73gx": {
-      "game": "ligue-2-2026-10-30-nantes-clermont-foot-4r73gx",
-      "model": {
-        "id": "pitchlab-statistical-ligue-2",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.2444658052105426,
-        "away": 1.056246723833024,
-        "total": 2.3007125290435666,
-        "margin": 0.18821908137751864
-      },
-      "x12": [
-        0.410665817819433,
-        0.2714891426007034,
-        0.3178450395798634
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Nantes gana",
-          "p": 0.410665817819433,
-          "fairOdds": 2.4350699683500157
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2714891426007034,
-          "fairOdds": 3.6833885525608827
-        },
-        {
-          "market": "h2h",
-          "selection": "Clermont Foot gana",
-          "p": 0.3178450395798634,
-          "fairOdds": 3.1461872153859267
-        },
-        {
-          "market": "double_chance",
-          "selection": "Nantes o empate",
-          "p": 0.6821549604201365,
-          "fairOdds": 1.4659425761327076
-        },
-        {
-          "market": "double_chance",
-          "selection": "Clermont Foot o empate",
-          "p": 0.5893341821805668,
-          "fairOdds": 1.6968301351534516
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7285108573992964,
-          "fairOdds": 1.372663138569945
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6640423460831513,
-          "fairOdds": 1.5059280569959015
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.40415005351314937,
-          "fairOdds": 2.4743285106789283
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5958499464868506,
-          "fairOdds": 1.6782748842993616
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.20079774231368774,
-          "fairOdds": 4.980135675219856
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7992022576863123,
-          "fairOdds": 1.251247716560507
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4590663398350735,
-          "fairOdds": 2.1783344001201765
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5409336601649265,
-          "fairOdds": 1.8486555258829849
-        },
-        {
-          "market": "team_totals",
-          "selection": "Nantes más de 1.5",
-          "line": 1.5,
-          "p": 0.3533810919320054,
-          "fairOdds": 2.8298061861001083
-        },
-        {
-          "market": "team_totals",
-          "selection": "Nantes menos de 1.5",
-          "line": 1.5,
-          "p": 0.6466189080679946,
-          "fairOdds": 1.5465059674605834
-        },
-        {
-          "market": "team_totals",
-          "selection": "Clermont Foot más de 1.5",
-          "line": 1.5,
-          "p": 0.28492250972041333,
-          "fairOdds": 3.5097262093517028
-        },
-        {
-          "market": "team_totals",
-          "selection": "Clermont Foot menos de 1.5",
-          "line": 1.5,
-          "p": 0.7150774902795867,
-          "fairOdds": 1.398449837386172
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.12994755348441434,
-          "fairOdds": 7.695412288927303
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12642497203173983,
-          "fairOdds": 7.90982971108701
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.11109036508943265,
-          "fairOdds": 9.001680741574265
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Nantes gana",
-              "p": 0.410665817819433,
-              "fairOdds": 2.4350699683500157
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2714891426007034,
-              "fairOdds": 3.6833885525608827
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Clermont Foot gana",
-              "p": 0.3178450395798634,
-              "fairOdds": 3.1461872153859267
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Nantes o empate",
-              "p": 0.6821549604201365,
-              "fairOdds": 1.4659425761327076
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Clermont Foot o empate",
-              "p": 0.5893341821805668,
-              "fairOdds": 1.6968301351534516
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7285108573992964,
-              "fairOdds": 1.372663138569945
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6640423460831513,
-              "fairOdds": 1.5059280569959015
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.40415005351314937,
-              "fairOdds": 2.4743285106789283
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5958499464868506,
-              "fairOdds": 1.6782748842993616
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.20079774231368774,
-              "fairOdds": 4.980135675219856
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7992022576863123,
-              "fairOdds": 1.251247716560507
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4590663398350735,
-              "fairOdds": 2.1783344001201765
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5409336601649265,
-              "fairOdds": 1.8486555258829849
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Nantes más de 1.5",
-              "line": 1.5,
-              "p": 0.3533810919320054,
-              "fairOdds": 2.8298061861001083
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Nantes menos de 1.5",
-              "line": 1.5,
-              "p": 0.6466189080679946,
-              "fairOdds": 1.5465059674605834
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Clermont Foot más de 1.5",
-              "line": 1.5,
-              "p": 0.28492250972041333,
-              "fairOdds": 3.5097262093517028
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Clermont Foot menos de 1.5",
-              "line": 1.5,
-              "p": 0.7150774902795867,
-              "fairOdds": 1.398449837386172
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.12994755348441434,
-              "fairOdds": 7.695412288927303
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12642497203173983,
-              "fairOdds": 7.90982971108701
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.11109036508943265,
-              "fairOdds": 9.001680741574265
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.12994755348441434
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.16 goles/partido",
-          "detail": "6 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.23 concedidos/partido",
-          "detail": "en la media de la liga · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.06 goles/partido",
-          "detail": "24 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.40 concedidos/partido",
-          "detail": "11 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.07",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.6–3.5",
-          "detail": "local 20%–65% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "14.º · 12 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "15.º · 11 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-E-P-P · 4 pts",
-          "detail": "4 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-P-E-P · 3 pts",
-          "detail": "6 goles a favor · 9 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Ligue 2 · corte 30 oct 2026, 12:00",
-        "Fuerza ajustada por rival · NAN 0.94 / 1.11 · CLE 0.76 / 0.98",
-        "Ponderando 96.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.24 – 1.06 · total 2.30",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-10-30T18:00:00.000Z",
-      "publishedAt": "2026-10-30T18:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.12994755348441434
-      },
-      "insights": {
-        "why": [
-          "Nantes gana en 41% de los escenarios; el empate, en 27%.",
-          "Clermont Foot anota 24 % menos que la media.",
-          "Nantes concede 11 % más que la media."
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Mickael Leleu",
-        "refereeStats": {
-          "country": "France",
-          "matches": 38,
-          "avgYellow": 3.71,
-          "avgRed": 0.08,
-          "avgFouls": 32,
-          "avgGoals": 2.53
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 10,
-          "windSpeedKmh": 37
-        },
-        "travelDistanceKm": 391,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Nantes",
-        "venueCountry": "France",
-        "venueCapacity": 37473
-      }
-    },
-    "ligue-2-2026-10-30-metz-pau-i5gi4y": {
-      "game": "ligue-2-2026-10-30-metz-pau-i5gi4y",
-      "model": {
-        "id": "pitchlab-statistical-ligue-2",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.4181817966640424,
-        "away": 1.4604648049584934,
-        "total": 2.8786466016225356,
-        "margin": -0.042283008294450974
-      },
-      "x12": [
-        0.37081288173862814,
-        0.23943274234540535,
-        0.38975437591596657
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Metz gana",
-          "p": 0.37081288173862814,
-          "fairOdds": 2.69677794177836
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.23943274234540535,
-          "fairOdds": 4.176538221983865
-        },
-        {
-          "market": "h2h",
-          "selection": "Pau gana",
-          "p": 0.38975437591596657,
-          "fairOdds": 2.565718467303639
-        },
-        {
-          "market": "double_chance",
-          "selection": "Metz o empate",
-          "p": 0.6102456240840335,
-          "fairOdds": 1.6386844256375948
-        },
-        {
-          "market": "double_chance",
-          "selection": "Pau o empate",
-          "p": 0.629187118261372,
-          "fairOdds": 1.5893523102686724
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7605672576545948,
-          "fairOdds": 1.3148081118871167
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7773210942096155,
-          "fairOdds": 1.286469655138853
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5490795558593715,
-          "fairOdds": 1.8212297094815104
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.4509204441406285,
-          "fairOdds": 2.2176860973908963
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3256020606972787,
-          "fairOdds": 3.0712336336523616
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6743979393027213,
-          "fairOdds": 1.4828040563616307
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5772714300975146,
-          "fairOdds": 1.7322873571468393
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4227285699024854,
-          "fairOdds": 2.365584138849851
-        },
-        {
-          "market": "team_totals",
-          "selection": "Metz más de 1.5",
-          "line": 1.5,
-          "p": 0.4144276546514343,
-          "fairOdds": 2.412966385752122
-        },
-        {
-          "market": "team_totals",
-          "selection": "Metz menos de 1.5",
-          "line": 1.5,
-          "p": 0.5855723453485657,
-          "fairOdds": 1.7077309199168953
-        },
-        {
-          "market": "team_totals",
-          "selection": "Pau más de 1.5",
-          "line": 1.5,
-          "p": 0.42885610821752596,
-          "fairOdds": 2.3317844396721905
-        },
-        {
-          "market": "team_totals",
-          "selection": "Pau menos de 1.5",
-          "line": 1.5,
-          "p": 0.571143891782474,
-          "fairOdds": 1.7508722659698166
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.1117671624521863,
-          "fairOdds": 8.947171763690408
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.08675090244379213,
-          "fairOdds": 11.527257605739866
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.0850166703705711,
-          "fairOdds": 11.76239901705389
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Metz gana",
-              "p": 0.37081288173862814,
-              "fairOdds": 2.69677794177836
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.23943274234540535,
-              "fairOdds": 4.176538221983865
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Pau gana",
-              "p": 0.38975437591596657,
-              "fairOdds": 2.565718467303639
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Metz o empate",
-              "p": 0.6102456240840335,
-              "fairOdds": 1.6386844256375948
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Pau o empate",
-              "p": 0.629187118261372,
-              "fairOdds": 1.5893523102686724
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7605672576545948,
-              "fairOdds": 1.3148081118871167
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7773210942096155,
-              "fairOdds": 1.286469655138853
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5490795558593715,
-              "fairOdds": 1.8212297094815104
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.4509204441406285,
-              "fairOdds": 2.2176860973908963
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3256020606972787,
-              "fairOdds": 3.0712336336523616
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6743979393027213,
-              "fairOdds": 1.4828040563616307
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5772714300975146,
-              "fairOdds": 1.7322873571468393
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4227285699024854,
-              "fairOdds": 2.365584138849851
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Metz más de 1.5",
-              "line": 1.5,
-              "p": 0.4144276546514343,
-              "fairOdds": 2.412966385752122
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Metz menos de 1.5",
-              "line": 1.5,
-              "p": 0.5855723453485657,
-              "fairOdds": 1.7077309199168953
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Pau más de 1.5",
-              "line": 1.5,
-              "p": 0.42885610821752596,
-              "fairOdds": 2.3317844396721905
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Pau menos de 1.5",
-              "line": 1.5,
-              "p": 0.571143891782474,
-              "fairOdds": 1.7508722659698166
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.1117671624521863,
-              "fairOdds": 8.947171763690408
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.08675090244379213,
-              "fairOdds": 11.527257605739866
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.0850166703705711,
-              "fairOdds": 11.76239901705389
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1117671624521863
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.33 goles/partido",
-          "detail": "18 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.12 concedidos/partido",
-          "detail": "11 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.46 goles/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.49 concedidos/partido",
-          "detail": "18 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.07",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.1–4.4",
-          "detail": "local 18%–62% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "7.º · 17 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "5.º · 20 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-E-P-G-E · 5 pts",
-          "detail": "8 goles a favor · 10 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-G-G-G · 12 pts",
-          "detail": "9 goles a favor · 5 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Ligue 2 · corte 30 oct 2026, 12:00",
-        "Fuerza ajustada por rival · MET 1.18 / 1.18 · PAU 0.98 / 0.89",
-        "Ponderando 96.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.42 – 1.46 · total 2.88",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-10-30T18:00:00.000Z",
-      "publishedAt": "2026-10-30T18:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.0850166703705711
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.9 goles: 1.4 de Metz y 1.5 de Pau.",
-          "Metz anota 18 % más que la media.",
-          "Metz concede 18 % más que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Bastien Dechepy",
-        "refereeStats": {
-          "country": "France",
-          "matches": 43,
-          "avgYellow": 4.42,
-          "avgRed": 0.28,
-          "avgFouls": 25,
-          "avgGoals": 3.02
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 12,
-          "windSpeedKmh": 41
-        },
-        "travelDistanceKm": 817,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Metz",
-        "venueCountry": "France",
-        "venueCapacity": 28786
-      }
-    },
-    "ligue-2-2026-10-30-grenoble-foot-dijon-1vsc3n": {
-      "game": "ligue-2-2026-10-30-grenoble-foot-dijon-1vsc3n",
-      "model": {
-        "id": "pitchlab-statistical-ligue-2",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.3775517676466027,
-        "away": 1.9925652113293555,
-        "total": 3.3701169789759584,
-        "margin": -0.6150134436827528
-      },
-      "x12": [
-        0.2686403145995986,
-        0.20953193144063217,
-        0.5218277539597702
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Grenoble Foot 38 gana",
-          "p": 0.2686403145995986,
-          "fairOdds": 3.722449482276977
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.20953193144063217,
-          "fairOdds": 4.7725422713594154
-        },
-        {
-          "market": "h2h",
-          "selection": "Dijon gana",
-          "p": 0.5218277539597702,
-          "fairOdds": 1.9163411535927888
-        },
-        {
-          "market": "double_chance",
-          "selection": "Grenoble Foot 38 o empate",
-          "p": 0.4781722460402308,
-          "fairOdds": 2.0912966159810655
-        },
-        {
-          "market": "double_chance",
-          "selection": "Dijon o empate",
-          "p": 0.7313596854004024,
-          "fairOdds": 1.367316274006166
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7904680685593688,
-          "fairOdds": 1.2650732392296427
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8459542170128538,
-          "fairOdds": 1.1820970684809595
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6544574340480652,
-          "fairOdds": 1.52798325448704
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.3455425659519348,
-          "fairOdds": 2.8939994621070815
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.43509408834490226,
-          "fairOdds": 2.2983534522475346
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5649059116550977,
-          "fairOdds": 1.7702062934164302
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6420689094109551,
-          "fairOdds": 1.5574652273965688
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.35793109058904493,
-          "fairOdds": 2.7938338587863556
-        },
-        {
-          "market": "team_totals",
-          "selection": "Grenoble Foot 38 más de 1.5",
-          "line": 1.5,
-          "p": 0.40039263930122937,
-          "fairOdds": 2.4975484108429504
-        },
-        {
-          "market": "team_totals",
-          "selection": "Grenoble Foot 38 menos de 1.5",
-          "line": 1.5,
-          "p": 0.5996073606987706,
-          "fairOdds": 1.6677580455893999
-        },
-        {
-          "market": "team_totals",
-          "selection": "Dijon más de 1.5",
-          "line": 1.5,
-          "p": 0.591974755622615,
-          "fairOdds": 1.6892612235605227
-        },
-        {
-          "market": "team_totals",
-          "selection": "Dijon menos de 1.5",
-          "line": 1.5,
-          "p": 0.40802524437738497,
-          "fairOdds": 2.4508287508679096
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.09403367388113325,
-          "fairOdds": 10.634488250071852
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.09060915689244824,
-          "fairOdds": 11.03641214967915
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.07229152782392655,
-          "fairOdds": 13.832879593243662
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Grenoble Foot 38 gana",
-              "p": 0.2686403145995986,
-              "fairOdds": 3.722449482276977
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.20953193144063217,
-              "fairOdds": 4.7725422713594154
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Dijon gana",
-              "p": 0.5218277539597702,
-              "fairOdds": 1.9163411535927888
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Grenoble Foot 38 o empate",
-              "p": 0.4781722460402308,
-              "fairOdds": 2.0912966159810655
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Dijon o empate",
-              "p": 0.7313596854004024,
-              "fairOdds": 1.367316274006166
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7904680685593688,
-              "fairOdds": 1.2650732392296427
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8459542170128538,
-              "fairOdds": 1.1820970684809595
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6544574340480652,
-              "fairOdds": 1.52798325448704
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.3455425659519348,
-              "fairOdds": 2.8939994621070815
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.43509408834490226,
-              "fairOdds": 2.2983534522475346
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5649059116550977,
-              "fairOdds": 1.7702062934164302
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6420689094109551,
-              "fairOdds": 1.5574652273965688
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.35793109058904493,
-              "fairOdds": 2.7938338587863556
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Grenoble Foot 38 más de 1.5",
-              "line": 1.5,
-              "p": 0.40039263930122937,
-              "fairOdds": 2.4975484108429504
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Grenoble Foot 38 menos de 1.5",
-              "line": 1.5,
-              "p": 0.5996073606987706,
-              "fairOdds": 1.6677580455893999
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Dijon más de 1.5",
-              "line": 1.5,
-              "p": 0.591974755622615,
-              "fairOdds": 1.6892612235605227
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Dijon menos de 1.5",
-              "line": 1.5,
-              "p": 0.40802524437738497,
-              "fairOdds": 2.4508287508679096
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.09403367388113325,
-              "fairOdds": 10.634488250071852
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.09060915689244824,
-              "fairOdds": 11.03641214967915
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.07229152782392655,
-              "fairOdds": 13.832879593243662
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.09403367388113325
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.29 goles/partido",
-          "detail": "12 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.46 concedidos/partido",
-          "detail": "16 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.99 goles/partido",
-          "detail": "25 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.59 concedidos/partido",
-          "detail": "26 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.07",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.5–5.1",
-          "detail": "local 9%–53% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "17.º · 11 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "6.º · 18 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-P-P-P · 4 pts",
-          "detail": "3 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-G-P-P · 9 pts",
-          "detail": "12 goles a favor · 11 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Ligue 2 · corte 30 oct 2026, 12:00",
-        "Fuerza ajustada por rival · GRE 0.88 / 1.26 · DIJ 1.25 / 1.16",
-        "Ponderando 96.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.38 – 1.99 · total 3.37",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-10-30T18:00:00.000Z",
-      "publishedAt": "2026-10-30T18:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.09403367388113325
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.4 goles: 1.4 de Grenoble Foot 38 y 2.0 de Dijon.",
-          "Grenoble Foot 38 concede 26 % más que la media.",
-          "Dijon anota 25 % más que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Soulaimane Chamel",
-        "refereeStats": {
-          "country": "France",
-          "matches": 5,
-          "avgYellow": 3.6,
-          "avgRed": 0.2,
-          "avgFouls": 30.6,
-          "avgGoals": 3.2
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 14,
-          "windSpeedKmh": 4
-        },
-        "travelDistanceKm": 244,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Grenoble",
-        "venueCountry": "France",
-        "venueCapacity": 20068
-      }
-    },
-    "ligue-2-2026-10-31-annecy-montpellier-nbpo4o": {
-      "game": "ligue-2-2026-10-31-annecy-montpellier-nbpo4o",
-      "model": {
-        "id": "pitchlab-statistical-ligue-2",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 0.8503263450018678,
-        "away": 1.5960468112241044,
-        "total": 2.446373156225972,
-        "margin": -0.7457204662222366
-      },
-      "x12": [
-        0.20435198363999915,
-        0.2411766764821447,
-        0.5544713398778559
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Annecy gana",
-          "p": 0.20435198363999915,
-          "fairOdds": 4.893517460352479
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2411766764821447,
-          "fairOdds": 4.14633792365919
-        },
-        {
-          "market": "h2h",
-          "selection": "Montpellier gana",
-          "p": 0.5544713398778559,
-          "fairOdds": 1.803519727855166
-        },
-        {
-          "market": "double_chance",
-          "selection": "Annecy o empate",
-          "p": 0.44552866012214387,
-          "fairOdds": 2.244524515495468
-        },
-        {
-          "market": "double_chance",
-          "selection": "Montpellier o empate",
-          "p": 0.7956480163600006,
-          "fairOdds": 1.2568371684942878
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7588233235178551,
-          "fairOdds": 1.3178298149351362
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6968176230724272,
-          "fairOdds": 1.4350957365153494
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4423583172975353,
-          "fairOdds": 2.2606108236174265
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5576416827024647,
-          "fairOdds": 1.79326623353147
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.23102355940985242,
-          "fairOdds": 4.328562864127325
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7689764405901476,
-          "fairOdds": 1.3004299575583282
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4519337123701379,
-          "fairOdds": 2.212713883979938
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5480662876298621,
-          "fairOdds": 1.824596809857702
-        },
-        {
-          "market": "team_totals",
-          "selection": "Annecy más de 1.5",
-          "line": 1.5,
-          "p": 0.2094009397938117,
-          "fairOdds": 4.775527755437287
-        },
-        {
-          "market": "team_totals",
-          "selection": "Annecy menos de 1.5",
-          "line": 1.5,
-          "p": 0.7905990602061883,
-          "fairOdds": 1.264863633583374
-        },
-        {
-          "market": "team_totals",
-          "selection": "Montpellier más de 1.5",
-          "line": 1.5,
-          "p": 0.4737905646937217,
-          "fairOdds": 2.110637219309005
-        },
-        {
-          "market": "team_totals",
-          "selection": "Montpellier menos de 1.5",
-          "line": 1.5,
-          "p": 0.5262094353062783,
-          "fairOdds": 1.900384016143598
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.14293076542885405,
-          "fairOdds": 6.996394352185605
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11283830809719986,
-          "fairOdds": 8.862238515120163
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.11031011240630359,
-          "fairOdds": 9.065352017018304
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Annecy gana",
-              "p": 0.20435198363999915,
-              "fairOdds": 4.893517460352479
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2411766764821447,
-              "fairOdds": 4.14633792365919
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Montpellier gana",
-              "p": 0.5544713398778559,
-              "fairOdds": 1.803519727855166
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Annecy o empate",
-              "p": 0.44552866012214387,
-              "fairOdds": 2.244524515495468
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Montpellier o empate",
-              "p": 0.7956480163600006,
-              "fairOdds": 1.2568371684942878
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7588233235178551,
-              "fairOdds": 1.3178298149351362
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6968176230724272,
-              "fairOdds": 1.4350957365153494
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4423583172975353,
-              "fairOdds": 2.2606108236174265
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5576416827024647,
-              "fairOdds": 1.79326623353147
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.23102355940985242,
-              "fairOdds": 4.328562864127325
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7689764405901476,
-              "fairOdds": 1.3004299575583282
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4519337123701379,
-              "fairOdds": 2.212713883979938
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5480662876298621,
-              "fairOdds": 1.824596809857702
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Annecy más de 1.5",
-              "line": 1.5,
-              "p": 0.2094009397938117,
-              "fairOdds": 4.775527755437287
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Annecy menos de 1.5",
-              "line": 1.5,
-              "p": 0.7905990602061883,
-              "fairOdds": 1.264863633583374
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Montpellier más de 1.5",
-              "line": 1.5,
-              "p": 0.4737905646937217,
-              "fairOdds": 2.110637219309005
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Montpellier menos de 1.5",
-              "line": 1.5,
-              "p": 0.5262094353062783,
-              "fairOdds": 1.900384016143598
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.14293076542885405,
-              "fairOdds": 6.996394352185605
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11283830809719986,
-              "fairOdds": 8.862238515120163
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.11031011240630359,
-              "fairOdds": 9.065352017018304
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.14293076542885405
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.80 goles/partido",
-          "detail": "6 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.85 concedidos/partido",
-          "detail": "33 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.60 goles/partido",
-          "detail": "13 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.41 concedidos/partido",
-          "detail": "12 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.07",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.7–3.7",
-          "detail": "local 7%–40% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "9.º · 16 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "3.º · 24 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-G-P-G · 6 pts",
-          "detail": "7 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-E-G-G-G · 13 pts",
-          "detail": "9 goles a favor · 2 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Ligue 2 · corte 31 oct 2026, 06:00",
-        "Fuerza ajustada por rival · ANN 0.94 / 1.12 · MON 1.13 / 0.67",
-        "Ponderando 96.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.85 – 1.60 · total 2.45",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-10-31T12:00:00.000Z",
-      "publishedAt": "2026-10-31T12:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.14293076542885405
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.4 goles: 0.9 de Annecy y 1.6 de Montpellier.",
-          "Montpellier concede 33 % menos que la media.",
-          "Montpellier anota 13 % más que la media."
-        ],
-        "restDays": {
-          "home": 8,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Antoine Valnet",
-        "refereeStats": {
-          "country": "France",
-          "matches": 40,
-          "avgYellow": 3.98,
-          "avgRed": 0.2,
-          "avgFouls": 29.1,
-          "avgGoals": 2.48
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 14,
-          "windSpeedKmh": 15
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 2
-        },
-        "stageName": "Regular season",
-        "venueCity": "Annecy",
-        "venueCountry": "France",
-        "venueCapacity": 15660
-      }
-    },
-    "ligue-2-2026-10-31-guingamp-saint-etienne-hkrgmj": {
-      "game": "ligue-2-2026-10-31-guingamp-saint-etienne-hkrgmj",
-      "model": {
-        "id": "pitchlab-statistical-ligue-2",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.1477633881766816,
-        "away": 1.880173033479905,
-        "total": 3.0279364216565865,
-        "margin": -0.7324096453032234
-      },
-      "x12": [
-        0.2346850630700906,
-        0.21641080401379234,
-        0.5489041329161167
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Guingamp gana",
-          "p": 0.2346850630700906,
-          "fairOdds": 4.2610295982124
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.21641080401379234,
-          "fairOdds": 4.620841388012531
-        },
-        {
-          "market": "h2h",
-          "selection": "Saint-Étienne gana",
-          "p": 0.5489041329161167,
-          "fairOdds": 1.8218117518762051
-        },
-        {
-          "market": "double_chance",
-          "selection": "Guingamp o empate",
-          "p": 0.45109586708388294,
-          "fairOdds": 2.216823679774584
-        },
-        {
-          "market": "double_chance",
-          "selection": "Saint-Étienne o empate",
-          "p": 0.765314936929909,
-          "fairOdds": 1.3066516171911386
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7835891959862074,
-          "fairOdds": 1.2761789023155468
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8008055173078995,
-          "fairOdds": 1.248742645232691
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5830376415007925,
-          "fairOdds": 1.7151551269072578
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.4169623584992075,
-          "fairOdds": 2.3982980228703323
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.35902373420398814,
-          "fairOdds": 2.785331176550644
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6409762657960119,
-          "fairOdds": 1.5601201688148716
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5743262555271675,
-          "fairOdds": 1.7411706157889497
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.42567374447283246,
-          "fairOdds": 2.3492170071199268
-        },
-        {
-          "market": "team_totals",
-          "selection": "Guingamp más de 1.5",
-          "line": 1.5,
-          "p": 0.3184163777046788,
-          "fairOdds": 3.140541975913904
-        },
-        {
-          "market": "team_totals",
-          "selection": "Guingamp menos de 1.5",
-          "line": 1.5,
-          "p": 0.6815836222953212,
-          "fairOdds": 1.4671714039025328
-        },
-        {
-          "market": "team_totals",
-          "selection": "Saint-Étienne más de 1.5",
-          "line": 1.5,
-          "p": 0.5605880695524258,
-          "fairOdds": 1.7838410310772421
-        },
-        {
-          "market": "team_totals",
-          "selection": "Saint-Étienne menos de 1.5",
-          "line": 1.5,
-          "p": 0.4394119304475742,
-          "fairOdds": 2.2757688872521613
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.10030149254213715,
-          "fairOdds": 9.96994137031306
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.0982209174455792,
-          "fairOdds": 10.181130720491032
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.09520907217932364,
-          "fairOdds": 10.503200767638274
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Guingamp gana",
-              "p": 0.2346850630700906,
-              "fairOdds": 4.2610295982124
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.21641080401379234,
-              "fairOdds": 4.620841388012531
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Saint-Étienne gana",
-              "p": 0.5489041329161167,
-              "fairOdds": 1.8218117518762051
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Guingamp o empate",
-              "p": 0.45109586708388294,
-              "fairOdds": 2.216823679774584
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Saint-Étienne o empate",
-              "p": 0.765314936929909,
-              "fairOdds": 1.3066516171911386
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7835891959862074,
-              "fairOdds": 1.2761789023155468
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8008055173078995,
-              "fairOdds": 1.248742645232691
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5830376415007925,
-              "fairOdds": 1.7151551269072578
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.4169623584992075,
-              "fairOdds": 2.3982980228703323
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.35902373420398814,
-              "fairOdds": 2.785331176550644
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6409762657960119,
-              "fairOdds": 1.5601201688148716
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5743262555271675,
-              "fairOdds": 1.7411706157889497
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.42567374447283246,
-              "fairOdds": 2.3492170071199268
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Guingamp más de 1.5",
-              "line": 1.5,
-              "p": 0.3184163777046788,
-              "fairOdds": 3.140541975913904
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Guingamp menos de 1.5",
-              "line": 1.5,
-              "p": 0.6815836222953212,
-              "fairOdds": 1.4671714039025328
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Saint-Étienne más de 1.5",
-              "line": 1.5,
-              "p": 0.5605880695524258,
-              "fairOdds": 1.7838410310772421
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Saint-Étienne menos de 1.5",
-              "line": 1.5,
-              "p": 0.4394119304475742,
-              "fairOdds": 2.2757688872521613
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.10030149254213715,
-              "fairOdds": 9.96994137031306
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.0982209174455792,
-              "fairOdds": 10.181130720491032
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.09520907217932364,
-              "fairOdds": 10.503200767638274
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.10030149254213715
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.07 goles/partido",
-          "detail": "7 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.01 concedidos/partido",
-          "detail": "20 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.88 goles/partido",
-          "detail": "33 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.42 concedidos/partido",
-          "detail": "12 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.07",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.0–4.3",
-          "detail": "local 9%–44% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "11.º · 14 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "1.º · 28 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-P-P-G · 6 pts",
-          "detail": "6 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-E-G-G-G · 10 pts",
-          "detail": "7 goles a favor · 4 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Ligue 2 · corte 31 oct 2026, 12:00",
-        "Fuerza ajustada por rival · GUI 1.07 / 1.12 · SAI 1.33 / 0.80",
-        "Ponderando 96.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.15 – 1.88 · total 3.03",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-10-31T18:00:00.000Z",
-      "publishedAt": "2026-10-31T18:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.0982209174455792
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.0 goles: 1.1 de Guingamp y 1.9 de Saint-Étienne.",
-          "Saint-Étienne anota 33 % más que la media.",
-          "Saint-Étienne concede 20 % menos que la media."
-        ],
-        "restDays": {
-          "home": 8,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Benoît Millot",
-        "refereeStats": {
-          "country": "France",
-          "matches": 41,
-          "avgYellow": 4.17,
-          "avgRed": 0.29,
-          "avgFouls": 27.1,
-          "avgGoals": 2.8
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 7,
-          "windSpeedKmh": 75
-        },
-        "travelDistanceKm": 670,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Guingamp",
-        "venueCountry": "France",
-        "venueCapacity": 19002
-      }
-    },
     "ligue-2-2026-11-02-stade-reims-sochaux-w9inlp": {
       "game": "ligue-2-2026-11-02-stade-reims-sochaux-w9inlp",
       "model": {
@@ -4218,11 +1819,11 @@
         "referee": "Remi Landry",
         "refereeStats": {
           "country": "France",
-          "matches": 35,
-          "avgYellow": 4.23,
+          "matches": 36,
+          "avgYellow": 4.25,
           "avgRed": 0.14,
-          "avgFouls": 30.8,
-          "avgGoals": 2.26
+          "avgFouls": 31,
+          "avgGoals": 2.31
         },
         "weather": {
           "description": "cloudy",
@@ -7372,11 +4973,11 @@
         "referee": "Gael Angoula",
         "refereeStats": {
           "country": "France",
-          "matches": 34,
-          "avgYellow": 3.65,
-          "avgRed": 0.12,
-          "avgFouls": 22.9,
-          "avgGoals": 3.24
+          "matches": 35,
+          "avgYellow": 3.63,
+          "avgRed": 0.14,
+          "avgFouls": 23.2,
+          "avgGoals": 3.23
         },
         "weather": {
           "description": "cloudy",
@@ -9212,20 +6813,20 @@
         "referee": "Soulaimane Chamel",
         "refereeStats": {
           "country": "France",
-          "matches": 5,
-          "avgYellow": 3.6,
-          "avgRed": 0.2,
-          "avgFouls": 30.6,
-          "avgGoals": 3.2
+          "matches": 6,
+          "avgYellow": 4,
+          "avgRed": 0.17,
+          "avgFouls": 31,
+          "avgGoals": 3.17
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 8,
           "windSpeedKmh": 38
         },
         "travelDistanceKm": 657,
         "halfTimeScore": {
-          "home": 0,
+          "home": 1,
           "away": 0
         },
         "stageName": "Regular season",
@@ -9699,14 +7300,14 @@
         "referee": "Mickael Leleu",
         "refereeStats": {
           "country": "France",
-          "matches": 38,
-          "avgYellow": 3.71,
+          "matches": 39,
+          "avgYellow": 3.69,
           "avgRed": 0.08,
-          "avgFouls": 32,
-          "avgGoals": 2.53
+          "avgFouls": 31.8,
+          "avgGoals": 2.49
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 8,
           "windSpeedKmh": 8
         },
@@ -10187,21 +7788,21 @@
         "referee": "Gael Angoula",
         "refereeStats": {
           "country": "France",
-          "matches": 34,
-          "avgYellow": 3.65,
-          "avgRed": 0.12,
-          "avgFouls": 22.9,
-          "avgGoals": 3.24
+          "matches": 35,
+          "avgYellow": 3.63,
+          "avgRed": 0.14,
+          "avgFouls": 23.2,
+          "avgGoals": 3.23
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 7,
           "windSpeedKmh": 8
         },
         "travelDistanceKm": 372,
         "halfTimeScore": {
-          "home": 0,
-          "away": 0
+          "home": 1,
+          "away": 1
         },
         "stageName": "Regular season",
         "venueCity": "Metz",
@@ -10674,21 +8275,21 @@
         "referee": "Remi Landry",
         "refereeStats": {
           "country": "France",
-          "matches": 35,
-          "avgYellow": 4.23,
+          "matches": 36,
+          "avgYellow": 4.25,
           "avgRed": 0.14,
-          "avgFouls": 30.8,
-          "avgGoals": 2.26
+          "avgFouls": 31,
+          "avgGoals": 2.31
         },
         "weather": {
-          "description": "clear",
+          "description": "cloudy",
           "temperatureC": 7,
           "windSpeedKmh": 10
         },
         "travelDistanceKm": 643,
         "halfTimeScore": {
-          "home": 0,
-          "away": 0
+          "home": 1,
+          "away": 1
         },
         "stageName": "Regular season",
         "venueCity": "Guingamp",
@@ -11162,11 +8763,11 @@
         "referee": "Faouzi Benchabane",
         "refereeStats": {
           "country": "France",
-          "matches": 37,
-          "avgYellow": 3.78,
+          "matches": 38,
+          "avgYellow": 3.79,
           "avgRed": 0.16,
-          "avgFouls": 29.8,
-          "avgGoals": 2.22
+          "avgFouls": 29.6,
+          "avgGoals": 2.32
         },
         "weather": {
           "description": "cloudy",
@@ -11174,7 +8775,7 @@
           "windSpeedKmh": 20
         },
         "halfTimeScore": {
-          "home": 0,
+          "home": 2,
           "away": 0
         },
         "stageName": "Regular season",
@@ -15923,6 +13524,10 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 4,
+          "windSpeedKmh": 41
+        },
         "stageName": "Regular season",
         "venueCity": "Dunkerque",
         "venueCountry": "France",
@@ -16866,6 +14471,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 3,
+          "windSpeedKmh": 22
+        },
         "stageName": "Regular season",
         "venueCity": "Saint Etienne",
         "venueCountry": "France",
@@ -21550,13 +19160,13 @@
       "name": "Nancy",
       "shortName": "Nancy",
       "code": "NAN",
-      "played": 12,
-      "won": 8,
+      "played": 13,
+      "won": 9,
       "drawn": 1,
       "lost": 3,
-      "goalsFor": 17,
+      "goalsFor": 18,
       "goalsAgainst": 9,
-      "points": 25,
+      "points": 28,
       "form": [
         "W",
         "W",
@@ -21606,63 +19216,43 @@
       ]
     },
     {
+      "teamId": "ligue-2.metz",
+      "name": "Metz",
+      "shortName": "Metz",
+      "code": "MET",
+      "played": 13,
+      "won": 5,
+      "drawn": 5,
+      "lost": 3,
+      "goalsFor": 22,
+      "goalsAgainst": 20,
+      "points": 20,
+      "form": [
+        "W",
+        "D",
+        "L",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "ligue-2.pau",
       "name": "Pau FC",
       "shortName": "Pau",
       "code": "PAU",
-      "played": 12,
+      "played": 13,
       "won": 6,
       "drawn": 2,
-      "lost": 4,
-      "goalsFor": 16,
-      "goalsAgainst": 13,
+      "lost": 5,
+      "goalsFor": 17,
+      "goalsAgainst": 15,
       "points": 20,
       "form": [
         "W",
         "W",
         "W",
-        "W",
+        "L",
         "L"
-      ]
-    },
-    {
-      "teamId": "ligue-2.dijon",
-      "name": "Dijon",
-      "shortName": "Dijon",
-      "code": "DIJ",
-      "played": 12,
-      "won": 5,
-      "drawn": 3,
-      "lost": 4,
-      "goalsFor": 21,
-      "goalsAgainst": 19,
-      "points": 18,
-      "form": [
-        "W",
-        "L",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "ligue-2.metz",
-      "name": "Metz",
-      "shortName": "Metz",
-      "code": "MET",
-      "played": 12,
-      "won": 4,
-      "drawn": 5,
-      "lost": 3,
-      "goalsFor": 20,
-      "goalsAgainst": 19,
-      "points": 17,
-      "form": [
-        "L",
-        "W",
-        "D",
-        "L",
-        "W"
       ]
     },
     {
@@ -21670,19 +19260,19 @@
       "name": "Red Star FC",
       "shortName": "Red Star",
       "code": "RED",
-      "played": 12,
-      "won": 5,
+      "played": 13,
+      "won": 6,
       "drawn": 2,
       "lost": 5,
-      "goalsFor": 14,
-      "goalsAgainst": 17,
-      "points": 17,
+      "goalsFor": 16,
+      "goalsAgainst": 18,
+      "points": 20,
       "form": [
-        "W",
         "L",
         "L",
         "L",
-        "L"
+        "L",
+        "W"
       ]
     },
     {
@@ -21690,19 +19280,59 @@
       "name": "Annecy FC",
       "shortName": "Annecy",
       "code": "ANN",
-      "played": 12,
-      "won": 5,
+      "played": 13,
+      "won": 6,
       "drawn": 1,
       "lost": 6,
-      "goalsFor": 14,
-      "goalsAgainst": 18,
+      "goalsFor": 18,
+      "goalsAgainst": 20,
+      "points": 19,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "ligue-2.dijon",
+      "name": "Dijon",
+      "shortName": "Dijon",
+      "code": "DIJ",
+      "played": 13,
+      "won": 5,
+      "drawn": 3,
+      "lost": 5,
+      "goalsFor": 21,
+      "goalsAgainst": 20,
+      "points": 18,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "ligue-2.rodez-af",
+      "name": "Rodez AF",
+      "shortName": "Rodez AF",
+      "code": "ROD",
+      "played": 13,
+      "won": 5,
+      "drawn": 1,
+      "lost": 7,
+      "goalsFor": 20,
+      "goalsAgainst": 24,
       "points": 16,
       "form": [
-        "W",
         "L",
         "W",
+        "W",
         "L",
-        "L"
+        "W"
       ]
     },
     {
@@ -21730,18 +19360,18 @@
       "name": "Guingamp",
       "shortName": "Guingamp",
       "code": "GUI",
-      "played": 12,
+      "played": 13,
       "won": 4,
       "drawn": 2,
-      "lost": 6,
-      "goalsFor": 16,
-      "goalsAgainst": 18,
+      "lost": 7,
+      "goalsFor": 17,
+      "goalsAgainst": 21,
       "points": 14,
       "form": [
         "L",
+        "W",
+        "W",
         "L",
-        "W",
-        "W",
         "L"
       ]
     },
@@ -21750,37 +19380,17 @@
       "name": "US Boulogne Côte-d'Opale",
       "shortName": "US Boulogne Côte-d'Opa",
       "code": "BOU",
-      "played": 12,
+      "played": 13,
       "won": 2,
       "drawn": 7,
-      "lost": 3,
-      "goalsFor": 10,
-      "goalsAgainst": 8,
+      "lost": 4,
+      "goalsFor": 11,
+      "goalsAgainst": 10,
       "points": 13,
       "form": [
-        "D",
         "W",
         "D",
         "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "ligue-2.rodez-af",
-      "name": "Rodez AF",
-      "shortName": "Rodez AF",
-      "code": "ROD",
-      "played": 12,
-      "won": 4,
-      "drawn": 1,
-      "lost": 7,
-      "goalsFor": 17,
-      "goalsAgainst": 23,
-      "points": 13,
-      "form": [
-        "L",
-        "L",
-        "W",
         "W",
         "L"
       ]
@@ -21810,19 +19420,19 @@
       "name": "Clermont Foot",
       "shortName": "Clermont Foot",
       "code": "CLE",
-      "played": 12,
+      "played": 13,
       "won": 1,
       "drawn": 8,
-      "lost": 3,
-      "goalsFor": 11,
-      "goalsAgainst": 15,
+      "lost": 4,
+      "goalsFor": 13,
+      "goalsAgainst": 19,
       "points": 11,
       "form": [
-        "L",
         "D",
         "L",
         "D",
-        "W"
+        "W",
+        "L"
       ]
     },
     {

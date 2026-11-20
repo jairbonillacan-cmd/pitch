@@ -5,7 +5,7 @@
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-20T19:06:37.907Z",
+  "updatedAt": "2026-11-20T23:27:09.374Z",
   "source": "football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -7104,6 +7104,84 @@
     },
     "pl-2026-27-md11-aston-villa-sunderland": {
       "game": "pl-2026-27-md11-aston-villa-sunderland",
+      "cortex": {
+        "headline": "Villa con más peso ofensivo ante un Sunderland que concede",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Aston Villa parte adelante: gana en 59 % de los escenarios, contra 20 % de Sunderland; el empate se queda en 21 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.36 goles esperados en total, con 85 % de más de 1.5 y 65 % de más de 2.5. El Aston Villa aporta la mayor parte con 2.08 esperados, y el 63 % de ambos anotan deja al Sunderland con margen para responder.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.08,
+                "away": 1.27
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "63 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "65 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los corners se inclinan al Aston Villa, 5.2 contra 4.0, con 9.1 en total: el local empuja y el visitante se repliega. Las faltas suman 25.8, con el Sunderland en 13.8, así que el juego se corta sobre todo del lado visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.2,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 12.1,
+                "away": 13.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2.7
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Aston Villa es décimo con 13 puntos y diferencia de -3; el Sunderland es penúltimo con 8 puntos y -9. Ambos llegan con 13 días de descanso, así que el desgaste no separa a ninguno de los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 13,
+                "away": 8
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del Aston Villa; el criterio del árbitro influye en un partido con 4.5 amarillas proyectadas, y el primer gol define si el Sunderland se estira o se encierra.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "0a88cde190ba2c65",
+        "generatedAt": "2026-11-20T23:27:52.474Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.18,

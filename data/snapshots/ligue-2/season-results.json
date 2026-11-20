@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligue-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "matches": [
     {
       "id": "ligue-2-2026-08-08-usl-dunkerque-grenoble-foot-mzlpsj",
@@ -1189,6 +1189,61 @@
       "homeTeam": "ligue-2.pau",
       "awayTeam": "ligue-2.nantes",
       "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-20-red-star-pau-giqbo8",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.red-star",
+      "awayTeam": "ligue-2.pau",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-20-nancy-dijon-jh758b",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.nancy",
+      "awayTeam": "ligue-2.dijon",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-20-metz-boulogne-cote--c7x6s4",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.metz",
+      "awayTeam": "ligue-2.boulogne-cote-d-opale",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-20-guingamp-rodez-af-eztk56",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.guingamp",
+      "awayTeam": "ligue-2.rodez-af",
+      "homeScore": 1,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-20-annecy-clermont-foot-lt694d",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.annecy",
+      "awayTeam": "ligue-2.clermont-foot",
+      "homeScore": 4,
       "awayScore": 2,
       "neutralSite": false
     }

@@ -277,6 +277,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/45/?bg=transparent"
       },
       "venue": "Ramón Sánchez-Pizjuán",
+      "referee": "Luis Bestard Servera",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -310,6 +311,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1400/?bg=transparent"
       },
       "venue": "La Rosaleda",
+      "referee": "Isidro Diaz de Mera Escuderos",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -343,6 +345,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1260/?bg=transparent"
       },
       "venue": "RCDE Stadium",
+      "referee": "Alejandro Quintero Gonzalez",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -376,6 +379,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/51/?bg=transparent"
       },
       "venue": "El Sadar",
+      "referee": "Miguel Sesma Espinosa",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -409,6 +413,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/57/?bg=transparent"
       },
       "venue": "Mestalla",
+      "referee": "Francisco Hernandez Maeso",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -442,6 +447,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/56/?bg=transparent"
       },
       "venue": "Martínez Valero",
+      "referee": "César Soto Grado",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -475,6 +481,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/40/?bg=transparent"
       },
       "venue": "Reale Arena",
+      "referee": "Juan Martinez Munuera",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -508,6 +515,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/46/?bg=transparent"
       },
       "venue": "Balaídos",
+      "referee": "Miguel Angel Ortiz Arias",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -541,6 +549,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/50/?bg=transparent"
       },
       "venue": "Estadio de la Cerámica",
+      "referee": "Carlos Muniz Munoz",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -574,6 +583,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/44/?bg=transparent"
       },
       "venue": "Riyadh Air Metropolitano",
+      "referee": "Javier Alberola Rojas",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -607,6 +617,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/53/?bg=transparent"
       },
       "venue": "San Mamés",
+      "referee": "Mateo Busquets Ferrer",
       "neutralSite": false
     },
     {
@@ -6516,11 +6527,11 @@
         "referee": "Mateo Busquets Ferrer",
         "refereeStats": {
           "country": "Spain",
-          "matches": 47,
-          "avgYellow": 5.45,
-          "avgRed": 0.3,
-          "avgFouls": 24.3,
-          "avgGoals": 2.85
+          "matches": 48,
+          "avgYellow": 5.42,
+          "avgRed": 0.29,
+          "avgFouls": 24.4,
+          "avgGoals": 2.81
         }
       }
     },
@@ -7999,6 +8010,84 @@
     },
     "laliga-2026-27-md13-sevilla-real-betis": {
       "game": "laliga-2026-27-md13-sevilla-real-betis",
+      "cortex": {
+        "headline": "El Betis llega mejor y el Sevilla se aferra a su campo",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Betis se presenta cuarto con 26 puntos y diferencia de más cinco; el Sevilla es sexto con 18 y diferencia de menos dos. La probabilidad de 43 por ciento para el visitante frente al 31 por ciento del local confirma esa diferencia de momento.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es de 2.71, con 75 por ciento de superar 1.5 goles y 51 por ciento de pasar 2.5. El Betis aporta más con 1.42 esperados frente a 1.28 del Sevilla, y ambos anotan aparece en 55 por ciento.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.28,
+                "away": 1.42
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "55 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "51 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Sevilla empuja más por las bandas con 5.4 tiros de esquina por 4.0 del Betis, 9.4 en total. Las faltas suman 24.7, con 13.7 del local, así que el partido se corta y pierde continuidad.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.4,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 13.7,
+                "away": 11
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.5,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Betis es cuarto con 26 puntos en 12 jornadas y diferencia de más cinco. El Sevilla es sexto con 18 puntos y diferencia de menos dos. El local llega con 15 días de descanso y el visitante con 13.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 18,
+                "away": 26
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con 24.7 faltas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "4efaa5975d4c1f38",
+        "generatedAt": "2026-11-20T23:27:55.066Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.38,
@@ -13213,11 +13302,11 @@
       "goalsAgainst": 11,
       "points": 16,
       "form": [
-        "D",
         "L",
         "W",
         "W",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -13339,11 +13428,11 @@
       "goalsAgainst": 14,
       "points": 12,
       "form": [
-        "D",
         "L",
         "L",
         "W",
-        "D"
+        "D",
+        "W"
       ]
     },
     {

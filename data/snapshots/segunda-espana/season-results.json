@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "segunda-espana",
   "season": "2026/27",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "matches": [
     {
       "id": "segunda-espana-2026-08-14-real-sociedad--castellon-ifica8",
@@ -1663,6 +1663,17 @@
       "awayTeam": "segunda-espana.celta-fortuna",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-20-andorra-leganes-tfuy76",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T19:30:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.andorra",
+      "awayTeam": "segunda-espana.leganes",
+      "homeScore": 1,
+      "awayScore": 3,
       "neutralSite": false
     }
   ]

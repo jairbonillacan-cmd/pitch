@@ -1,64 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "serie-b",
-  "observedAt": "2026-11-20T18:57:51.976Z",
+  "observedAt": "2026-11-20T23:19:05.023Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "serie-b.sampdoria",
-      "player": "Alessandro Di Pardo",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "serie-b.sampdoria",
-      "player": "Fabio Depaoli",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Shoulder Injury",
-      "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "serie-b.sampdoria",
-      "player": "Lorenzo Insigne",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "serie-b.sampdoria",
-      "player": "Salvatore Esposito",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "serie-b.virtus-entella",
-      "player": "Andrea Tiritiello",
-      "position": "D",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
-    {
-      "teamId": "serie-b.virtus-entella",
-      "player": "Mattia Alborghetti",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
-    },
     {
       "teamId": "serie-b.avellino",
       "player": "Andrea Favilli",
@@ -66,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "serie-b.avellino",
@@ -75,7 +21,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "serie-b.avellino",
@@ -84,7 +30,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "serie-b.avellino",
@@ -93,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "serie-b.arezzo",
@@ -102,7 +48,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     },
     {
       "teamId": "serie-b.arezzo",
@@ -111,7 +57,16 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T18:57:51.976Z"
+      "reportedAt": "2026-11-20T23:19:05.023Z"
+    },
+    {
+      "teamId": "serie-b.hellas-verona",
+      "player": "Davide De Battisti",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-20T23:19:05.023Z"
     }
   ]
 }

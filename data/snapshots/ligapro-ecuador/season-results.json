@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligapro-ecuador",
   "season": "2026",
-  "updatedAt": "2026-11-20T18:57:51.976Z",
+  "updatedAt": "2026-11-20T23:19:05.023Z",
   "matches": [
     {
       "id": "ligapro-ecuador-2026-07-01-ldu-orense-hsz276",
@@ -1762,6 +1762,17 @@
       "awayTeam": "ligapro-ecuador.manta",
       "homeScore": 1,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "ligapro-ecuador-2026-11-20-independiente--macara-z5afuk",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T17:00:00.000Z",
+      "round": "Regular season · Matchday 7",
+      "homeTeam": "ligapro-ecuador.independiente-valle",
+      "awayTeam": "ligapro-ecuador.macara",
+      "homeScore": 0,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]
