@@ -5,7 +5,7 @@
   "season": "bundesliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 10",
-  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "updatedAt": "2026-11-20T19:06:37.907Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -257,7 +257,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T13:29:32.416Z",
+        "observedAt": "2026-11-20T19:06:41.070Z",
         "source": "football-data"
       }
     },
@@ -4232,6 +4232,17 @@
         "restDays": {
           "home": 7,
           "away": 8
+        }
+      },
+      "matchContext": {
+        "referee": "Felix Zwayer",
+        "refereeStats": {
+          "country": "Germany",
+          "matches": 85,
+          "avgYellow": 4.76,
+          "avgRed": 0.22,
+          "avgFouls": 22.1,
+          "avgGoals": 3.18
         }
       }
     },
@@ -12093,8 +12104,8 @@
       "goalsAgainst": 20,
       "points": 12,
       "form": [
-        "D",
         "L",
+        "W",
         "L",
         "W",
         "D"
@@ -12201,7 +12212,7 @@
         "W",
         "L",
         "D",
-        "L",
+        "D",
         "L"
       ]
     },
@@ -12219,8 +12230,8 @@
       "goalsAgainst": 21,
       "points": 7,
       "form": [
-        "L",
         "W",
+        "D",
         "D",
         "D",
         "L"
@@ -12240,9 +12251,9 @@
       "goalsAgainst": 11,
       "points": 6,
       "form": [
+        "L",
+        "L",
         "D",
-        "L",
-        "L",
         "L",
         "L"
       ]

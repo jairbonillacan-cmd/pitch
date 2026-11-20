@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga-2",
-  "observedAt": "2026-11-20T13:22:46.169Z",
+  "observedAt": "2026-11-20T18:57:51.976Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.wolfsburg",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.wolfsburg",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -39,7 +39,7 @@
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -48,7 +48,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.darmstadt",
@@ -57,7 +57,43 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
+    },
+    {
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Marcel Schuhen",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-20T18:57:51.976Z"
+    },
+    {
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Nicolas Verkooijen",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-20T18:57:51.976Z"
+    },
+    {
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Patric Pfeiffer",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-20T18:57:51.976Z"
+    },
+    {
+      "teamId": "bundesliga-2.magdeburg",
+      "player": "Anselmo Garcia McNulty",
+      "position": "D",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.magdeburg",
@@ -66,7 +102,7 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.magdeburg",
@@ -75,7 +111,7 @@
       "status": "Baja",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.karlsruher",
@@ -84,7 +120,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.karlsruher",
@@ -93,7 +129,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.karlsruher",
@@ -102,7 +138,16 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
+    },
+    {
+      "teamId": "bundesliga-2.heidenheim",
+      "player": "Jonas Föhrenbach",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Shin Injury",
+      "injuryType": "Shin Injury",
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     },
     {
       "teamId": "bundesliga-2.heidenheim",
@@ -111,7 +156,16 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T13:22:46.169Z"
+      "reportedAt": "2026-11-20T18:57:51.976Z"
+    },
+    {
+      "teamId": "bundesliga-2.heidenheim",
+      "player": "Thomas Dähne",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Abdominal Injury",
+      "injuryType": "Abdominal Injury",
+      "reportedAt": "2026-11-20T18:57:51.976Z"
     }
   ]
 }

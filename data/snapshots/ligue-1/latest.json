@@ -5,7 +5,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "updatedAt": "2026-11-20T19:06:37.907Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -257,7 +257,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -356,7 +356,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -389,7 +389,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -455,7 +455,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:34.021Z",
+        "observedAt": "2026-11-20T19:06:42.503Z",
         "source": "football-data"
       }
     },
@@ -5733,6 +5733,84 @@
     },
     "ligue-1-2026-27-md11-ogc-nice-paris-saint-germain": {
       "game": "ligue-1-2026-27-md11-ogc-nice-paris-saint-germain",
+      "cortex": {
+        "headline": "El PSG llega como favorito con 62 % y más peso ofensivo",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El PSG llega mejor: lidera con 23 puntos y una diferencia de 12, mientras el Nice es sexto con 17. La probabilidad de 62 % se apoya en esa diferencia sostenida y en una proyección de 2.10 goles a favor por 1.09 del local.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.19, con 62 % de más de 2.5 y 58 % de ambos anotan. El PSG aporta más (2.10) que el Nice (1.09), así que el peso ofensivo se inclina al visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.09,
+                "away": 2.1
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "58 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "62 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Córners parejos, 4.3 del Nice y 4.9 del PSG para 9.3 en total: nadie empuja de forma clara por las bandas. Las faltas suman 17.5, con el Nice cortando más (9.9) que el PSG (7.7).",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.3,
+                "away": 4.9
+              },
+              {
+                "label": "Faltas",
+                "home": 9.9,
+                "away": 7.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 1.5
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El PSG es primero con 23 puntos en 10 partidos y diferencia de 12. El Nice es sexto con 17 puntos y diferencia de 3. No hay dato de descanso para ninguno de los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 17,
+                "away": 23
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo si el PSG reserva piezas. El criterio del árbitro define cuánto aguanta el corte del Nice. Un gol temprano del local obliga al PSG a estirarse y abre el partido.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "1465e85c9016aa71",
+        "generatedAt": "2026-11-20T19:08:40.575Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.34,
@@ -7078,6 +7156,84 @@
     },
     "ligue-1-2026-27-md11-racing-lens-toulouse": {
       "game": "ligue-1-2026-27-md11-racing-lens-toulouse",
+      "cortex": {
+        "headline": "Lens empuja en casa ante un Toulouse que compite parejo",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Lens llega con 60 % de probabilidad y una proyección de 2.22 a 1.28, sostenida por su empuje como local. Toulouse queda en 20 %, con un equipo que compite cerca en la tabla pero con menos peso ofensivo esperado.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 3.51, con 68 % de más de 2.5 y 64 % de ambos anotan. Lens aporta 2.22 y Toulouse 1.28: el abierto se explica por el local, pero el visitante también deja marca.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.22,
+                "away": 1.28
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "64 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "68 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Lens genera 5.6 tiros de esquina por 3.7 de Toulouse, con 9.3 en total: el local empuja. Las faltas suman 26.7, con 14.2 del visitante, así que el juego se corta sobre todo del lado de Toulouse.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.6,
+                "away": 3.7
+              },
+              {
+                "label": "Faltas",
+                "home": 12.5,
+                "away": 14.2
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Lens es 11 con 13 puntos en 10 partidos y diferencia de 2. Toulouse es 12 con 13 puntos en 10 y diferencia de 1: llegan igualados en puntos, sin datos de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 13,
+                "away": 13
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones, el criterio del árbitro y quién anota primero pueden mover la lectura. Un gol temprano de Toulouse obligaría a Lens a sostener más el ataque.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "23c3d7bdddf178ed",
+        "generatedAt": "2026-11-20T19:08:48.386Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.62,
@@ -7751,6 +7907,84 @@
     },
     "ligue-1-2026-27-md11-lille-osc-olympique-lyonnais": {
       "game": "ligue-1-2026-27-md11-lille-osc-olympique-lyonnais",
+      "cortex": {
+        "headline": "Lille en casa con más peso, pero el Lyon no cede terreno",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Lille llega mejor: segundo con 21 puntos y 44 % de probabilidad, contra un Lyon quinto con 17. La diferencia es corta, así que el local manda por posición y por jugar en casa, no por una ventaja amplia.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido con goles: 2.79 en total, 76 % de pasar de 1.5 y 52 % de superar 2.5. El Lille aporta 1.47 y el Lyon 1.32, con 56 % de que ambos anoten.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.47,
+                "away": 1.32
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "56 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "52 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Lille empuja más desde las bandas con 5.4 tiros de esquina por 4.2 del Lyon, 9.6 en total. Las faltas suman 25.6, con el Lyon algo más cortado (13.5) y 3.6 amarillas: juego trabado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.4,
+                "away": 4.2
+              },
+              {
+                "label": "Faltas",
+                "home": 12.1,
+                "away": 13.5
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 1.7
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Lille es segundo con 21 puntos en 10 partidos y diferencia de 7. El Lyon es quinto con 17 unidades en 10 jornadas y diferencia de 6.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 21,
+                "away": 17
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define qué tan cortado se vuelve con tantas faltas. El primer gol ordena el partido: si cae temprano, se abre.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "7a96ba0f9ea70641",
+        "generatedAt": "2026-11-20T19:08:51.807Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.42,

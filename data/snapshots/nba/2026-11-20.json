@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent",
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
-  "periodLabel": "18 nov – 22 nov",
-  "updatedAt": "2026-11-20T13:22:42.740Z",
+  "periodLabel": "19 nov – 22 nov",
+  "updatedAt": "2026-11-20T18:57:48.091Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -130,11 +130,11 @@
       "adjustedFor": 117.73333333333333,
       "adjustedAgainst": 115.8
     },
-    "nba.vice-city-heat": {
-      "teamId": "nba.vice-city-heat",
-      "name": "Vice City Heat",
+    "nba.miami-heat": {
+      "teamId": "nba.miami-heat",
+      "name": "Miami Heat",
       "shortName": "Heat",
-      "code": "VIC",
+      "code": "MIA",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/26/?bg=transparent",
       "forPerGame": 120.53333333333333,
       "againstPerGame": 119.86666666666666,
@@ -373,96 +373,6 @@
   },
   "games": [
     {
-      "id": "nba-2026-11-19-bos-den",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-19T02:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.denver-nuggets",
-        "league": "nba",
-        "name": "Denver Nuggets",
-        "shortName": "Nuggets",
-        "code": "DEN",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/1/?bg=transparent"
-      },
-      "away": {
-        "id": "nba.boston-celtics",
-        "league": "nba",
-        "name": "Boston Celtics",
-        "shortName": "Celtics",
-        "code": "BOS",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/3/?bg=transparent"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 105,
-        "away": 101,
-        "observedAt": "2026-11-20T13:22:29.300Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-19-uta-lal",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-19T03:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.los-angeles-lakers",
-        "league": "nba",
-        "name": "Los Angeles Lakers",
-        "shortName": "Lakers",
-        "code": "LAL",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/13/?bg=transparent"
-      },
-      "away": {
-        "id": "nba.utah-jazz",
-        "league": "nba",
-        "name": "Utah Jazz",
-        "shortName": "Jazz",
-        "code": "UTA",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/18/?bg=transparent"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 97,
-        "away": 109,
-        "observedAt": "2026-11-20T13:22:29.300Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-19-phx-sac",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-19T03:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.sacramento-kings",
-        "league": "nba",
-        "name": "Sacramento Kings",
-        "shortName": "Kings",
-        "code": "SAC",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/21/?bg=transparent"
-      },
-      "away": {
-        "id": "nba.phoenix-suns",
-        "league": "nba",
-        "name": "Phoenix Suns",
-        "shortName": "Suns",
-        "code": "PHX",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/16/?bg=transparent"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 107,
-        "away": 128,
-        "observedAt": "2026-11-20T13:22:29.300Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
       "id": "nba-2026-11-20-gsw-mem",
       "league": "nba",
       "season": "nba-2026-27",
@@ -488,7 +398,7 @@
       "result": {
         "home": 126,
         "away": 98,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -518,7 +428,7 @@
       "result": {
         "home": 99,
         "away": 102,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -548,7 +458,7 @@
       "result": {
         "home": 124,
         "away": 112,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -574,12 +484,11 @@
         "code": "POR",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/8/?bg=transparent"
       },
-      "referee": "Mitchell Ervin",
       "neutralSite": false,
       "result": {
         "home": 114,
         "away": 124,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -968,17 +877,17 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-22-okc-vic",
+      "id": "nba-2026-11-22-okc-mia",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-22T23:00:00.000Z",
       "status": "scheduled",
       "home": {
-        "id": "nba.vice-city-heat",
+        "id": "nba.miami-heat",
         "league": "nba",
-        "name": "Vice City Heat",
+        "name": "Miami Heat",
         "shortName": "Heat",
-        "code": "VIC",
+        "code": "MIA",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/26/?bg=transparent"
       },
       "away": {
@@ -5187,8 +5096,8 @@
         ]
       }
     },
-    "nba-2026-11-22-okc-vic": {
-      "game": "nba-2026-11-22-okc-vic",
+    "nba-2026-11-22-okc-mia": {
+      "game": "nba-2026-11-22-okc-mia",
       "model": {
         "id": "pitchlab-ratings-nba",
         "version": "1.0.0",
@@ -5196,84 +5105,84 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 113.36193638793029,
-        "away": 116.89287448795584,
-        "total": 230.2548108758861,
-        "margin": -3.5309381000255513
+        "home": 115.96115340349995,
+        "away": 118.99199075028208,
+        "total": 234.95314415378203,
+        "margin": -3.0308373467821355
       },
       "x12": [
-        0.39296077421019643,
+        0.4078258725684371,
         0,
-        0.6070392257898036
+        0.5921741274315628
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Heat gana",
-          "p": 0.39296077421019643,
-          "fairOdds": 2.5447832598810374
+          "p": 0.4078258725684371,
+          "fairOdds": 2.4520268753478613
         },
         {
           "market": "h2h",
           "selection": "Thunder gana",
-          "p": 0.6070392257898036,
-          "fairOdds": 1.6473400029444965
+          "p": 0.5921741274315628,
+          "fairOdds": 1.6886924870177975
         },
         {
           "market": "spreads",
-          "selection": "VIC cubre",
-          "line": 3.5,
-          "p": 0.4990505701173348,
-          "fairOdds": 2.003804944586846
+          "selection": "MIA cubre",
+          "line": 2.5,
+          "p": 0.4837141962859726,
+          "fairOdds": 2.067336471987269
         },
         {
           "market": "spreads",
           "selection": "OKC cubre",
-          "line": -3.5,
-          "p": 0.5009494298826652,
-          "fairOdds": 1.996209478138791
+          "line": -2.5,
+          "p": 0.5162858037140274,
+          "fairOdds": 1.9369116733527378
         },
         {
           "market": "totals",
           "selection": "Más",
-          "line": 230.5,
-          "p": 0.49471275720798125,
-          "fairOdds": 2.0213750008059566
+          "line": 235.5,
+          "p": 0.48820901957165797,
+          "fairOdds": 2.0483030011968526
         },
         {
           "market": "totals",
           "selection": "Menos",
-          "line": 230.5,
-          "p": 0.5052872427920188,
-          "fairOdds": 1.9790723281957268
+          "line": 235.5,
+          "p": 0.511790980428342,
+          "fairOdds": 1.9539226720311733
         },
         {
           "market": "team_totals",
-          "selection": "VIC más de 113.5",
-          "line": 113.5,
-          "p": 0.4957895644662711,
-          "fairOdds": 2.0169847686820983
+          "selection": "MIA más de 116.5",
+          "line": 116.5,
+          "p": 0.48357152091533373,
+          "fairOdds": 2.067946429324744
         },
         {
           "market": "team_totals",
-          "selection": "VIC menos de 113.5",
-          "line": 113.5,
-          "p": 0.5042104355337289,
-          "fairOdds": 1.9832988957109863
+          "selection": "MIA menos de 116.5",
+          "line": 116.5,
+          "p": 0.5164284790846663,
+          "fairOdds": 1.936376556483544
         },
         {
           "market": "team_totals",
-          "selection": "OKC más de 117.5",
-          "line": 117.5,
-          "p": 0.4814912328200712,
-          "fairOdds": 2.076881014308501
+          "selection": "OKC más de 119.5",
+          "line": 119.5,
+          "p": 0.484511208207542,
+          "fairOdds": 2.063935741960476
         },
         {
           "market": "team_totals",
-          "selection": "OKC menos de 117.5",
-          "line": 117.5,
-          "p": 0.5185087671799288,
-          "fairOdds": 1.9286076982628684
+          "selection": "OKC menos de 119.5",
+          "line": 119.5,
+          "p": 0.515488791792458,
+          "fairOdds": 1.9399063877272662
         }
       ],
       "marketGroups": [
@@ -5284,57 +5193,57 @@
               "market": "h2h",
               "selection": "home",
               "label": "Heat gana",
-              "p": 0.39296077421019643,
-              "fairOdds": 2.5447832598810374
+              "p": 0.4078258725684371,
+              "fairOdds": 2.4520268753478613
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Thunder gana",
-              "p": 0.6070392257898036,
-              "fairOdds": 1.6473400029444965
+              "p": 0.5921741274315628,
+              "fairOdds": 1.6886924870177975
             }
           ]
         },
         {
-          "group": "Spread VIC +3.5",
+          "group": "Spread MIA +2.5",
           "rows": [
             {
               "market": "spreads",
               "selection": "home",
-              "label": "VIC cubre",
-              "line": 3.5,
-              "p": 0.4990505701173348,
-              "fairOdds": 2.003804944586846
+              "label": "MIA cubre",
+              "line": 2.5,
+              "p": 0.4837141962859726,
+              "fairOdds": 2.067336471987269
             },
             {
               "market": "spreads",
               "selection": "away",
               "label": "OKC cubre",
-              "line": -3.5,
-              "p": 0.5009494298826652,
-              "fairOdds": 1.996209478138791
+              "line": -2.5,
+              "p": 0.5162858037140274,
+              "fairOdds": 1.9369116733527378
             }
           ]
         },
         {
-          "group": "Total 230.5",
+          "group": "Total 235.5",
           "rows": [
             {
               "market": "totals",
               "selection": "over",
               "label": "Más",
-              "line": 230.5,
-              "p": 0.49471275720798125,
-              "fairOdds": 2.0213750008059566
+              "line": 235.5,
+              "p": 0.48820901957165797,
+              "fairOdds": 2.0483030011968526
             },
             {
               "market": "totals",
               "selection": "under",
               "label": "Menos",
-              "line": 230.5,
-              "p": 0.5052872427920188,
-              "fairOdds": 1.9790723281957268
+              "line": 235.5,
+              "p": 0.511790980428342,
+              "fairOdds": 1.9539226720311733
             }
           ]
         },
@@ -5344,34 +5253,34 @@
             {
               "market": "team_totals",
               "selection": "home_over",
-              "label": "VIC más de 113.5",
-              "line": 113.5,
-              "p": 0.4957895644662711,
-              "fairOdds": 2.0169847686820983
+              "label": "MIA más de 116.5",
+              "line": 116.5,
+              "p": 0.48357152091533373,
+              "fairOdds": 2.067946429324744
             },
             {
               "market": "team_totals",
               "selection": "home_under",
-              "label": "VIC menos de 113.5",
-              "line": 113.5,
-              "p": 0.5042104355337289,
-              "fairOdds": 1.9832988957109863
+              "label": "MIA menos de 116.5",
+              "line": 116.5,
+              "p": 0.5164284790846663,
+              "fairOdds": 1.936376556483544
             },
             {
               "market": "team_totals",
               "selection": "away_over",
-              "label": "OKC más de 117.5",
-              "line": 117.5,
-              "p": 0.4814912328200712,
-              "fairOdds": 2.076881014308501
+              "label": "OKC más de 119.5",
+              "line": 119.5,
+              "p": 0.484511208207542,
+              "fairOdds": 2.063935741960476
             },
             {
               "market": "team_totals",
               "selection": "away_under",
-              "label": "OKC menos de 117.5",
-              "line": 117.5,
-              "p": 0.5185087671799288,
-              "fairOdds": 1.9286076982628684
+              "label": "OKC menos de 119.5",
+              "line": 119.5,
+              "p": 0.515488791792458,
+              "fairOdds": 1.9399063877272662
             }
           ]
         }
@@ -5380,32 +5289,32 @@
         {
           "key": "home_projection",
           "label": "Local",
-          "value": "113.4 pts proyectados",
+          "value": "116.0 pts proyectados",
           "detail": "15 partidos esta temporada"
         },
         {
           "key": "away_projection",
           "label": "Visitante",
-          "value": "116.9 pts proyectados",
+          "value": "119.0 pts proyectados",
           "detail": "15 partidos esta temporada"
         },
         {
           "key": "rest",
           "label": "Descanso",
-          "value": "VIC: 2 días de descanso",
+          "value": "MIA: 2 días de descanso",
           "detail": "OKC: 2 días de descanso"
         }
       ],
       "steps": [
-        "Sincronizando NBA · corte 20 nov 2026, 13:22",
+        "Sincronizando NBA · corte 20 nov 2026, 18:57",
         "Ataque y defensa actualizados partido a partido (2868 partidos)",
         "Localía y altitud incluidas",
-        "Proyección 113.4 – 116.9 · margen -3.5",
+        "Proyección 116.0 – 119.0 · margen -3.0",
         "Simulando escenarios de margen y total",
         "10 mercados listos"
       ],
-      "inputsAsOf": "2026-11-20T13:22:29.300Z",
-      "publishedAt": "2026-11-20T13:22:29.300Z",
+      "inputsAsOf": "2026-11-20T18:57:35.875Z",
+      "publishedAt": "2026-11-20T18:57:35.875Z",
       "source": "bzzoiro",
       "picks": [
         {
@@ -5413,21 +5322,21 @@
           "market": "h2h",
           "selection": "away",
           "label": "Thunder gana",
-          "p": 0.6070392257898036,
-          "fairOdds": 1.6473400029444965
+          "p": 0.5921741274315628,
+          "fairOdds": 1.6886924870177975
         },
         {
           "profile": "arriesgada",
           "market": "team_totals",
-          "selection": "away_under",
-          "label": "OKC menos de 117.5",
-          "line": 117.5,
-          "p": 0.5185087671799288,
-          "fairOdds": 1.9286076982628684
+          "selection": "home_under",
+          "label": "MIA menos de 116.5",
+          "line": 116.5,
+          "p": 0.5164284790846663,
+          "fairOdds": 1.936376556483544
         }
       ],
       "confidence": {
-        "score": 50,
+        "score": 47,
         "level": "media",
         "reasons": [
           "Muestra suficiente"
@@ -5435,8 +5344,8 @@
       },
       "insights": {
         "why": [
-          "Thunder gana en 61 % de los escenarios, por 3.5 puntos en promedio.",
-          "Se esperan 230.3 pts: 113.4 de Heat y 116.9 de Thunder."
+          "Thunder gana en 59 % de los escenarios, por 3.0 puntos en promedio.",
+          "Se esperan 235.0 pts: 116.0 de Heat y 119.0 de Thunder."
         ]
       }
     },
@@ -7049,10 +6958,10 @@
       ]
     },
     {
-      "teamId": "nba.vice-city-heat",
-      "name": "Vice City Heat",
+      "teamId": "nba.miami-heat",
+      "name": "Miami Heat",
       "shortName": "Heat",
-      "code": "VIC",
+      "code": "MIA",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/26/?bg=transparent",
       "played": 15,
       "won": 9,
@@ -7062,6 +6971,7 @@
       "goalsAgainst": 1798,
       "points": 18,
       "conference": "Este",
+      "division": "Sureste",
       "winPct": 0.6,
       "gamesBehind": "3.5",
       "seed": 4,

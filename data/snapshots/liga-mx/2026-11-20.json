@@ -2316,6 +2316,61 @@
     },
     "mx-2026-j17-tijuana-atlante-401877052": {
       "game": "mx-2026-j17-tijuana-atlante-401877052",
+      "cortex": {
+        "headline": "Tijuana con más peso ofensivo y mejor posición que Atlante",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Tijuana llega con 54 % de probabilidad y una posición de tabla superior: décimo con 22 puntos frente al decimosexto con 14. Atlante visita con diferencia de -10 y una proyección de 1.01 goles, así que su margen ofensivo es corto.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 2.84, con 78 % de más de 1.5 y 54 % de ambos anotan. Tijuana aporta 1.83 de los goles esperados y concentra el mayor peso ofensivo del partido.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.83,
+                "away": 1.01
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "54 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "54 %"
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Tijuana es décimo con 22 puntos en 16 jugados y diferencia de 3. Atlante es decimosexto con 14 puntos y diferencia de -10. Ambos llegan con 14 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 22,
+                "away": 14
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas, el criterio del árbitro y quién anota primero pueden ajustar el ritmo y el peso ofensivo de cada lado.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "06852ee28312757e",
+        "generatedAt": "2026-11-20T13:30:00.985Z",
+        "version": "2"
+      },
       "model": {
         "id": "pitchlab-statistical-liga-mx",
         "version": "2.0.0",
@@ -3452,6 +3507,84 @@
     },
     "mx-2026-j17-santos-laguna-leon-401877051": {
       "game": "mx-2026-j17-santos-laguna-leon-401877051",
+      "cortex": {
+        "headline": "León llega con la probabilidad más alta y Santos responde en casa",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "León es el favorito con 38 % frente al 35 % de Santos Laguna, aunque la diferencia es mínima y el empate se queda con 27 %. Santos está sexto con 25 puntos y León octavo con 23, así que el orden en la tabla no separa a ninguno de los dos.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es de 2.67 goles, con 75 % de pasar de 1.5 y 50 % de superar 2.5. Santos aporta 1.41 y León 1.26, y ambos anotan aparece con 55 %: el partido se inclina a abierto pero sin exceso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.41,
+                "away": 1.26
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "55 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "50 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Santos empuja más por las bandas con 6.8 tiros de esquina por 4.5 de León, para un total de 11.3. Las faltas están parejas, 12.5 y 12.2, con 24.7 en conjunto: juego cortado en la media cancha y con pausas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.8,
+                "away": 4.5
+              },
+              {
+                "label": "Faltas",
+                "home": 12.5,
+                "away": 12.2
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Santos Laguna es sexto con 25 puntos en 16 partidos y diferencia de 3; León es octavo con 23 unidades y diferencia de 2. El descanso favorece apenas al local, con 14 días por 12 del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 25,
+                "away": 23
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol cambia el guion: si Santos anota temprano, León tendrá que abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "d4f310a059464cb3",
+        "generatedAt": "2026-11-20T13:30:09.915Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.78,
@@ -4780,6 +4913,84 @@
     },
     "mx-2026-j17-tigres-uanl-america-401877048": {
       "game": "mx-2026-j17-tigres-uanl-america-401877048",
+      "cortex": {
+        "headline": "América llega con más peso ofensivo y mejor posición",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El América llega mejor: segundo con 30 puntos y diferencia de 15, frente a un Tigres decimoquinto con 15 unidades y diferencia de 8 negativa. La probabilidad de 51 por ciento a favor del visitante se apoya en esa distancia en la tabla y en su producción ofensiva proyectada.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.34 y el 63 por ciento apunta a más de 2.5 goles, con ambos anotando en ese mismo 63 por ciento. El América aporta más con 2.16 esperados por 1.18 del Tigres.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.18,
+                "away": 2.16
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "63 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "63 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Tigres empuja desde los costados con 6.3 tiros de esquina por 4.5 del América, para 10.8 en total. Las faltas suman 25.9, con 13.7 del visitante y 12.3 del local: partido cortado y con pausas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.3,
+                "away": 4.5
+              },
+              {
+                "label": "Faltas",
+                "home": 12.3,
+                "away": 13.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.2,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Tigres es decimoquinto con 15 puntos en 16 partidos y diferencia de 8 negativa. El América es segundo con 30 puntos y diferencia de 15. Ambos llegan con 14 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 15,
+                "away": 30
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "e40e492ba528cc03",
+        "generatedAt": "2026-11-20T13:30:19.598Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.26,
@@ -5445,6 +5656,84 @@
     },
     "mx-2026-j17-chivas-cruz-azul-401877047": {
       "game": "mx-2026-j17-chivas-cruz-azul-401877047",
+      "cortex": {
+        "headline": "Cruz Azul llega como líder, pero Chivas aprieta en casa",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Cruz Azul llega un punto arriba en la tabla, con 32 contra 30 de Chivas, y ambos con la misma diferencia de goles. La ventaja es mínima y el descanso casi idéntico, así que el peso real lo pone la localía de Chivas.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: el total esperado es 3.21, con 62 % de más de 2.5 y 65 % de ambos anotan. Chivas aporta más en la proyección, con 1.74 por 1.47 de Cruz Azul.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.74,
+                "away": 1.47
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "65 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "62 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Chivas empuja más al ataque: 6.7 tiros de esquina por 4.4 de Cruz Azul, 11.1 en total. Las faltas están parejas, 11.8 por lado, así que el partido se corta sin que un equipo imponga el freno.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.7,
+                "away": 4.4
+              },
+              {
+                "label": "Faltas",
+                "home": 11.8,
+                "away": 11.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Cruz Azul es primero con 32 puntos en 16 partidos y diferencia de 11. Chivas es tercero con 30 y la misma diferencia. El descanso es casi igual: 13 días para Chivas y 14 para Cruz Azul.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 30,
+                "away": 32
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden inclinar el peso ofensivo hacia un lado. El criterio del árbitro define cuánto se corta el juego con faltas parejas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "d107aa9ecb2901ec",
+        "generatedAt": "2026-11-20T13:30:21.559Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.68,

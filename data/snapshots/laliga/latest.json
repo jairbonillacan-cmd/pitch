@@ -5,7 +5,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 13",
-  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "updatedAt": "2026-11-20T19:06:37.907Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -281,7 +281,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -314,7 +314,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -347,7 +347,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -380,7 +380,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -446,7 +446,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -479,7 +479,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -512,7 +512,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -545,7 +545,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:29:31.700Z",
+        "observedAt": "2026-11-20T19:06:40.343Z",
         "source": "football-data"
       }
     },
@@ -2400,6 +2400,17 @@
         "restDays": {
           "home": 8,
           "away": 5
+        }
+      },
+      "matchContext": {
+        "referee": "Alejandro Quintero Gonzalez",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 45,
+          "avgYellow": 4.8,
+          "avgRed": 0.56,
+          "avgFouls": 27.2,
+          "avgGoals": 2.87
         }
       }
     },

@@ -5,7 +5,7 @@
   "season": "segunda-espana-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 13",
-  "updatedAt": "2026-11-20T13:22:46.169Z",
+  "updatedAt": "2026-11-20T18:57:51.976Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -285,7 +285,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -320,7 +320,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -355,7 +355,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -390,7 +390,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -425,7 +425,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -460,7 +460,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -495,7 +495,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -530,7 +530,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -565,7 +565,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -600,7 +600,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -635,7 +635,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -670,7 +670,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -705,7 +705,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -740,7 +740,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -775,7 +775,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -810,7 +810,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -19823,6 +19823,11 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "description": "cloudy",
+          "temperatureC": 15,
+          "windSpeedKmh": 13
+        },
         "stageName": "Regular season",
         "venueCity": "San Sebastian",
         "venueCountry": "Spain"

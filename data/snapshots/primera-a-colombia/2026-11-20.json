@@ -5,7 +5,7 @@
   "season": "primera-a-colombia-2026",
   "seasonLabel": "2026",
   "periodLabel": "Group B · Matchday 18",
-  "updatedAt": "2026-11-20T13:22:46.169Z",
+  "updatedAt": "2026-11-20T18:57:51.976Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -263,7 +263,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +333,7 @@
       "result": {
         "home": 0,
         "away": 4,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +368,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +403,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +438,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +473,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +508,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -542,7 +542,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -577,7 +577,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -612,7 +612,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -647,7 +647,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -682,7 +682,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -717,7 +717,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -752,7 +752,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -787,7 +787,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:46.169Z",
+        "observedAt": "2026-11-20T18:57:51.976Z",
         "source": "pitchlab-feed"
       }
     },
@@ -12831,6 +12831,10 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 23,
+          "windSpeedKmh": 14
+        },
         "stageName": "League phase",
         "venueCity": "Palmira",
         "venueCountry": "Colombia",
@@ -13308,6 +13312,11 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 14,
+          "windSpeedKmh": 8
+        },
         "stageName": "League phase",
         "venueCity": "Bogota",
         "venueCountry": "Colombia",
@@ -13787,6 +13796,10 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 15,
+          "windSpeedKmh": 19
+        },
         "stageName": "League phase",
         "venueCity": "Bogota",
         "venueCountry": "Colombia",
@@ -14266,6 +14279,10 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 20,
+          "windSpeedKmh": 6
+        },
         "stageName": "League phase",
         "venueCity": "Medellin",
         "venueCountry": "Colombia",
@@ -14745,6 +14762,10 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 23,
+          "windSpeedKmh": 9
+        },
         "stageName": "League phase",
         "venueCity": "Bucaramanga",
         "venueCountry": "Colombia",
@@ -15223,6 +15244,11 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 22,
+          "windSpeedKmh": 17
+        },
         "stageName": "League phase",
         "venueCity": "Santiago de Cali",
         "venueCountry": "Colombia",
@@ -15702,6 +15728,11 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "description": "rain",
+          "temperatureC": 17,
+          "windSpeedKmh": 4
+        },
         "stageName": "League phase",
         "venueCity": "Manizales",
         "venueCountry": "Colombia",
@@ -16180,6 +16211,10 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 20,
+          "windSpeedKmh": 1
+        },
         "stageName": "League phase",
         "venueCity": "Medellin",
         "venueCountry": "Colombia",

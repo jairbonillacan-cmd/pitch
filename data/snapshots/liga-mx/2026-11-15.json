@@ -987,6 +987,84 @@
     },
     "mx-2026-j17-puebla-atletico-san-luis-401877054": {
       "game": "mx-2026-j17-puebla-atletico-san-luis-401877054",
+      "cortex": {
+        "headline": "Puebla favorito leve en casa; San Luis llega con más descanso",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Puebla parte adelante: gana en 40 % de los escenarios, contra 32 % de Atl. San Luis; el empate se queda en 28 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es de 2.42, con 70 % de pasar de 1.5 y apenas 44 % de superar 2.5. Puebla aporta 1.25 y San Luis 1.17: reparto parejo y ambos anotan en la mitad de los escenarios.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.25,
+                "away": 1.17
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "50 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "44 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Puebla empuja más al arco rival con 5.4 tiros de esquina por 4.7 del visitante, en un total de 10.1. Las faltas también se cargan del lado local, 11.6 contra 9.0, con 20.6 en conjunto: partido cortado.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.4,
+                "away": 4.7
+              },
+              {
+                "label": "Faltas",
+                "home": 11.6,
+                "away": 9
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 1.6
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Puebla es 13º con 19 puntos y diferencia de -4 en 16 jornadas; San Luis es 14º con 19 puntos y -5. El descanso favorece al visitante: 14 días por 12 del local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 19,
+                "away": 19
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones confirmadas, el criterio del árbitro y quién anota primero pueden mover la lectura. Un gol temprano de Puebla abriría el ritmo; uno de San Luis obligaría al local a estirarse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "b9a22b802deafa6e",
+        "generatedAt": "2026-11-20T19:07:26.480Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.43,
@@ -2841,6 +2919,84 @@
     },
     "mx-2026-j17-pachuca-toluca-401877050": {
       "game": "mx-2026-j17-pachuca-toluca-401877050",
+      "cortex": {
+        "headline": "Toluca llega mejor, pero Pachuca en casa equilibra la balanza",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Toluca se presenta cuarto con 27 puntos y una diferencia de 14, mientras el Pachuca es noveno con 22 y 9. La probabilidad más alta es la del visitante con 38 por ciento, apenas dos puntos arriba del 36 del local, así que la ventaja es mínima y el estadio la atenúa.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se proyecta un partido abierto: 3.60 goles esperados en total, con 88 por ciento de superar 1.5 y 71 por ciento de que ambos anoten. El reparto es casi idéntico, 1.79 para el Pachuca y 1.81 para el Toluca, sin un atacante claramente por encima.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.79,
+                "away": 1.81
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "71 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "69 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina suman 10.3, con 5.4 del Pachuca y 5.0 del Toluca, así que ambos empujan parecido. Las faltas llegan a 25.5, con 14.3 del local frente a 11.2 del visitante: el Pachuca corta más y el juego tiende a trabarse.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.4,
+                "away": 5
+              },
+              {
+                "label": "Faltas",
+                "home": 14.3,
+                "away": 11.2
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.2,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Toluca está cuarto con 27 puntos en 16 partidos y diferencia de 14; el Pachuca es noveno con 22 y 9. El descanso es casi el mismo, 14 días para el local y 13 para el visitante, sin ventaja física clara.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 22,
+                "away": 27
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden inclinar la balanza si alguna reserva titulares. El criterio del árbitro importa con un partido de muchas faltas, y el primer gol definiría si el Pachuca se suelta o el Toluca administra.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "55d33787ff6011ae",
+        "generatedAt": "2026-11-20T19:07:33.810Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.36,
@@ -6400,6 +6556,84 @@
     },
     "mx-2026-j17-queretaro-necaxa-401877046": {
       "game": "mx-2026-j17-queretaro-necaxa-401877046",
+      "cortex": {
+        "headline": "Querétaro con más peso en casa ante un Necaxa necesitado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Querétaro llega mejor: 45 % de probabilidad y 20 puntos en 16 jornadas, con diferencia de -6. Necaxa está abajo, 28 % y 13 puntos con -11, y necesita cerrar su arco para no quedar expuesto fuera de casa.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 2.70 goles esperados en total, con 76 % de pasar de 1.5 y 51 % de superar 2.5. Querétaro aporta más con 1.53 por 1.17 de Necaxa, y el 55 % de ambos anotan invita a un ida y vuelta.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.53,
+                "away": 1.17
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "55 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "51 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Querétaro empuja con 6.2 tiros de esquina por 5.0 de Necaxa, 11.2 en total. Las faltas van parejas, 11.7 contra 11.0 y 22.8 en conjunto, así que el juego se corta seguido sin que un lado domine el roce.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.2,
+                "away": 5
+              },
+              {
+                "label": "Faltas",
+                "home": 11.7,
+                "away": 11
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.1,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Querétaro es 12º con 20 puntos y llega con 14 días de descanso. Necaxa es 17º con 13 puntos y tuvo 16 días, así que ambos llegan frescos pero con urgencias distintas.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 20,
+                "away": 13
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas, y el primer gol cambia quién empuja y quién se repliega.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "880a7fbc514e7564",
+        "generatedAt": "2026-11-20T19:07:42.329Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.23,

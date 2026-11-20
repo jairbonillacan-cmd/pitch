@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "mlb",
-  "observedAt": "2026-11-20T13:22:42.740Z",
+  "observedAt": "2026-11-20T18:57:48.091Z",
   "source": "espn-public-mlb",
   "coverageStatus": "ok",
   "entries": [
@@ -267,6 +267,16 @@
     },
     {
       "teamId": "mlb.boston-red-sox",
+      "player": "Eli White",
+      "position": "CF",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
+      "returnDate": "2027-02-01",
+      "reportedAt": "2026-11-20T18:45:00.000Z"
+    },
+    {
+      "teamId": "mlb.boston-red-sox",
       "player": "Roman Anthony",
       "position": "LF",
       "status": "Baja",
@@ -284,26 +294,6 @@
       "injuryType": "Wrist",
       "returnDate": "2027-02-01",
       "reportedAt": "2026-11-10T00:31:00.000Z"
-    },
-    {
-      "teamId": "mlb.boston-red-sox",
-      "player": "Romy Gonzalez",
-      "position": "DH",
-      "status": "Baja",
-      "detail": "Elbow",
-      "injuryType": "Elbow",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-03T21:44:00.000Z"
-    },
-    {
-      "teamId": "mlb.boston-red-sox",
-      "player": "Eli White",
-      "position": "CF",
-      "status": "Baja",
-      "detail": "Pie",
-      "injuryType": "Foot",
-      "returnDate": "2027-02-01",
-      "reportedAt": "2026-11-03T01:41:00.000Z"
     },
     {
       "teamId": "mlb.boston-red-sox",

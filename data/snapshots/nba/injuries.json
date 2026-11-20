@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nba",
-  "observedAt": "2026-11-20T13:22:42.740Z",
+  "observedAt": "2026-11-20T18:57:48.091Z",
   "source": "espn-public-nba",
   "coverageStatus": "ok",
   "entries": [
@@ -114,6 +114,16 @@
       "injuryType": "Hamstring",
       "returnDate": "2026-11-25",
       "reportedAt": "2026-11-08T22:26:00.000Z"
+    },
+    {
+      "teamId": "nba.chicago-bulls",
+      "player": "Jalen Smith",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-20",
+      "reportedAt": "2026-11-20T17:41:00.000Z"
     },
     {
       "teamId": "nba.chicago-bulls",
@@ -237,6 +247,16 @@
     },
     {
       "teamId": "nba.detroit-pistons",
+      "player": "Ronald Holland II",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-11-20",
+      "reportedAt": "2026-11-20T17:46:00.000Z"
+    },
+    {
+      "teamId": "nba.detroit-pistons",
       "player": "Taurean Prince",
       "position": "F",
       "status": "Baja",
@@ -254,16 +274,6 @@
       "injuryType": "Oblique",
       "returnDate": "2026-11-22",
       "reportedAt": "2026-11-19T21:43:00.000Z"
-    },
-    {
-      "teamId": "nba.detroit-pistons",
-      "player": "Ronald Holland II",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-19T21:41:00.000Z"
     },
     {
       "teamId": "nba.detroit-pistons",
@@ -677,6 +687,16 @@
     },
     {
       "teamId": "nba.oklahoma-city-thunder",
+      "player": "Nikola Topic",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-20T17:02:00.000Z"
+    },
+    {
+      "teamId": "nba.oklahoma-city-thunder",
       "player": "Alex Caruso",
       "position": "G",
       "status": "Duda",
@@ -767,13 +787,13 @@
     },
     {
       "teamId": "nba.philadelphia-76ers",
-      "player": "Dean Wade",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Isquiotibiales",
-      "injuryType": "Hamstring",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-19T14:47:00.000Z"
+      "player": "Adem Bona",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Espalda",
+      "injuryType": "Back",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-20T17:33:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",
@@ -783,7 +803,7 @@
       "detail": "Pie",
       "injuryType": "Foot",
       "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-19T14:46:00.000Z"
+      "reportedAt": "2026-11-20T17:28:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",
@@ -793,7 +813,7 @@
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-18T22:21:00.000Z"
+      "reportedAt": "2026-11-20T17:26:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",
@@ -803,17 +823,7 @@
       "detail": "Espalda",
       "injuryType": "Back",
       "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-17T22:12:00.000Z"
-    },
-    {
-      "teamId": "nba.philadelphia-76ers",
-      "player": "Adem Bona",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Espalda",
-      "injuryType": "Back",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-12T16:36:00.000Z"
+      "reportedAt": "2026-11-20T17:20:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",

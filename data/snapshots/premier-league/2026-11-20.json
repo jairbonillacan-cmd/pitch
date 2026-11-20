@@ -5,7 +5,7 @@
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-20T13:29:28.978Z",
+  "updatedAt": "2026-11-20T19:06:37.907Z",
   "source": "football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -5599,6 +5599,84 @@
     },
     "pl-2026-27-md11-manchester-city-fulham": {
       "game": "pl-2026-27-md11-manchester-city-fulham",
+      "cortex": {
+        "headline": "City manda en la proyección y el Fulham llega a sostenerse",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Manchester City llega mejor: tercero con 21 puntos y una diferencia de más ocho, frente al Fulham, decimoquinto con 10 puntos y diferencia de menos dos. La probabilidad de 69 % a favor del local ordena la lectura: el partido se juega donde el City quiere.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: la proyección suma 3.11 goles, con 2.16 del City y 0.96 del Fulham. El 61 % de más de 2.5 y el 54 % de ambos anotan dicen que el aporte ofensivo se concentra en el local, pero el visitante también encuentra su gol.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.16,
+                "away": 0.96
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "54 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "61 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El City empuja con 6.2 tiros de esquina por 4.0 del Fulham, 10.2 en total. Las faltas van al revés: 12.7 del Fulham y 9.1 del City, 21.8 en conjunto. Partido con volumen ofensivo local y cortes frecuentes del visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.2,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 9.1,
+                "away": 12.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.5,
+                "away": 2.4
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El City es tercero con 21 puntos en 10 jornadas y diferencia de más ocho. El Fulham es decimoquinto con 10 puntos y diferencia de menos dos. Ambos llegan con 14 días de descanso, así que el desgaste no separa a ninguno.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 21,
+                "away": 10
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo del City o la contención del Fulham. El criterio del árbitro importa con 21.8 faltas proyectadas. El primer gol define el guion: si el City anota temprano, el Fulham se estira.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "f8b251890f6ab7e9",
+        "generatedAt": "2026-11-20T19:07:46.101Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.2,
@@ -7702,6 +7780,84 @@
     },
     "pl-2026-27-md11-afc-bournemouth-nottingham-forest": {
       "game": "pl-2026-27-md11-afc-bournemouth-nottingham-forest",
+      "cortex": {
+        "headline": "Bournemouth en casa con más peso ofensivo que el Forest",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Bournemouth llega mejor: séptimo con 15 puntos y una diferencia de más dos, frente al Forest, decimosexto con 9 puntos y menos cuatro. La probabilidad de 54 % a favor del local responde a esa diferencia de producción en casa.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.07 goles esperados en total, con 59 % de más de 2.5 y 59 % de ambos anotan. El Bournemouth aporta 1.84 y el Forest 1.23, así que el peso ofensivo se carga del lado local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.84,
+                "away": 1.23
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "59 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "59 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Bournemouth empuja con 5.5 tiros de esquina por 4.4 del Forest, 9.9 en total. Las faltas están parejas, 12.4 y 12.8 para 25.1, un partido cortado pero sin un lado que reparta más golpes.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.5,
+                "away": 4.4
+              },
+              {
+                "label": "Faltas",
+                "home": 12.4,
+                "away": 12.8
+              },
+              {
+                "label": "Amarillas",
+                "home": 2,
+                "away": 2.2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Bournemouth es séptimo con 15 puntos y llega con 13 días de descanso. El Forest es decimosexto con 9 puntos y 14 días de descanso, con menos margen en la tabla.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 15,
+                "away": 9
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo local, el criterio del árbitro define cuánto se corta el juego con faltas parejas, y el primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "0cda09f2e5e30940",
+        "generatedAt": "2026-11-20T19:07:52.999Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.48,
@@ -8373,6 +8529,84 @@
     },
     "pl-2026-27-md11-tottenham-hotspur-ipswich-town": {
       "game": "pl-2026-27-md11-tottenham-hotspur-ipswich-town",
+      "cortex": {
+        "headline": "Tottenham favorito en casa ante un Ipswich que concede",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Tottenham parte adelante: gana en 53 % de los escenarios, contra 25 % de Ipswich Town; el empate se queda en 22 %.",
+            "origin": "plantilla"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 3.34, con 1.90 para Tottenham y 1.44 para Ipswich. El 65 % de más de 2.5 y el 65 % de ambos anotan describen un partido con espacios y dos equipos que dejan la portería expuesta.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.9,
+                "away": 1.44
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "65 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "65 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Tottenham empuja con 6.4 tiros de esquina frente a 3.6 de Ipswich, 10.0 en total. Las faltas están parejas, 12.4 y 12.2, con 4.2 amarillas: juego de contacto constante pero sin un equipo que corte más que el otro.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 6.4,
+                "away": 3.6
+              },
+              {
+                "label": "Faltas",
+                "home": 12.4,
+                "away": 12.2
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 2.3
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Tottenham es 11º con 12 puntos en 10 partidos y diferencia de -1. Ipswich es 14º con 11 puntos y -5. El descanso es casi idéntico: 14 días para el local y 13 para el visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 11
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol ordena el partido: si Ipswich anota antes, Tottenham deberá abrirse más.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "eb9ffa3e829fbc39",
+        "generatedAt": "2026-11-20T19:07:56.156Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 6.42,
@@ -9027,6 +9261,84 @@
     },
     "pl-2026-27-md11-coventry-city-crystal-palace": {
       "game": "pl-2026-27-md11-coventry-city-crystal-palace",
+      "cortex": {
+        "headline": "Coventry, favorito en casa ante un Palace último y con menos descanso",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Coventry llega mejor: 43 % de probabilidad y 17º con 9 puntos, por delante de un Palace que es 20º con 7 y diferencia de -14. El descanso también favorece al local, con 15 días por 13 del visitante.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve un partido abierto: 2.96 goles esperados, 79 % de superar 1.5 y 59 % de que ambos anoten. Coventry aporta algo más en ataque con 1.55 por 1.41 del Palace, y el 56 % apunta a más de 2.5.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.55,
+                "away": 1.41
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "59 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "56 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Coventry empuja desde los costados con 5.4 tiros de esquina por 4.0 del Palace, 9.4 en total. Las faltas se reparten parejo, 10.2 y 10.7 para 20.9, con un juego cortado y 3.7 amarillas probables.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.4,
+                "away": 4
+              },
+              {
+                "label": "Faltas",
+                "home": 10.2,
+                "away": 10.7
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.6,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Coventry es 17º con 9 puntos en 10 jornadas y diferencia de -9. El Palace cierra la tabla en 20º con 7 puntos y -14. El local acumula 15 días de descanso y el visitante 13.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 9,
+                "away": 7
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol cambia quién empuja y quién espera.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "83498157b96b07a1",
+        "generatedAt": "2026-11-20T19:07:59.423Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.39,
@@ -9664,6 +9976,84 @@
     },
     "pl-2026-27-md11-newcastle-united-arsenal": {
       "game": "pl-2026-27-md11-newcastle-united-arsenal",
+      "cortex": {
+        "headline": "Arsenal favorito ante un Newcastle que corta el ritmo",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Arsenal llega mejor: es líder con 27 puntos y diferencia de más 10, mientras el Newcastle es duodécimo con 12 puntos y menos 3. La probabilidad de 54 por ciento para el visitante respalda esa diferencia, aunque ambos llegan con 14 días de descanso.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se espera un partido de 2.68 goles, con 74 por ciento de superar 1.5 y 50 por ciento de pasar 2.5. El Arsenal aporta más con 1.65 esperados frente a 1.03 del Newcastle, y el 51 por ciento de ambos anotan deja la puerta abierta al local.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.03,
+                "away": 1.65
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "51 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "50 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los córners se reparten parejo: 4.5 del Newcastle y 5.0 del Arsenal, 9.5 en total. En faltas el local empuja más el corte con 13.2 contra 11.1, para 24.3 en conjunto; el juego se traba más del lado del Newcastle.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.5,
+                "away": 5
+              },
+              {
+                "label": "Faltas",
+                "home": 13.2,
+                "away": 11.1
+              },
+              {
+                "label": "Amarillas",
+                "home": 2.2,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "El Arsenal es primero con 27 puntos y diferencia de más 10 tras 10 partidos. El Newcastle es duodécimo con 12 puntos y menos 3 en los mismos 10 juegos. Los dos llegan con 14 días de descanso.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 12,
+                "away": 27
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se sostiene el corte del Newcastle. Un primer gol temprano cambia el guion: si el Arsenal anota, el local debe abrirse.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "a040e0fcc9f5e36b",
+        "generatedAt": "2026-11-20T19:08:02.758Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.55,
@@ -10336,6 +10726,84 @@
     },
     "pl-2026-27-md11-hull-city-brighton-hove-albion": {
       "game": "pl-2026-27-md11-hull-city-brighton-hove-albion",
+      "cortex": {
+        "headline": "Brighton llega segundo y con más peso en el marcador esperado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "Brighton es el favorito con 45 % y sostiene esa etiqueta con 22 puntos y una diferencia de 19 en 10 jornadas, frente a los 11 puntos y la diferencia de 0 de Hull City. El local juega en casa, pero su 30 % lo deja por debajo del empate en peso ofensivo esperado.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "El total esperado es 2.77, con 52 % de más de 2.5 y 56 % de ambos anotan: se ve un partido con goles repartidos. Brighton aporta más con 1.51 esperados por 1.27 de Hull City, así que la carga ofensiva se inclina al visitante.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 1.27,
+                "away": 1.51
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "56 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "52 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "Los tiros de esquina están casi parejos, 4.9 de Hull City y 5.0 de Brighton, con 9.9 de total: ninguno empuja de forma clara. Las faltas suman 20.6 y las amarillas 4.0, señales de un juego cortado y con poco espacio para correr.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 4.9,
+                "away": 5
+              },
+              {
+                "label": "Faltas",
+                "home": 10.2,
+                "away": 10.4
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.9,
+                "away": 2.1
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Brighton está segundo con 22 puntos en 10 partidos y llega con 14 días de descanso. Hull City es decimotercero con 11 puntos y tuvo 15 días sin jugar, así que el descanso no separa a ninguno de los dos.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 11,
+                "away": 22
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones pueden ajustar cuánto pesa el ataque de Brighton. El criterio del árbitro define si las 20.6 faltas se cortan o se multiplican en amarillas. El primer gol cambia el guion: Hull City tendría que abrirse y dejar espacios.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "c8812d7f91b6e228",
+        "generatedAt": "2026-11-20T19:08:06.619Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 4.87,

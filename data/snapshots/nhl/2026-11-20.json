@@ -4,8 +4,8 @@
   "logoUrl": "/brand/official/nhl/nhl.png",
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
-  "periodLabel": "18 nov – 22 nov",
-  "updatedAt": "2026-11-20T13:22:42.740Z",
+  "periodLabel": "19 nov – 22 nov",
+  "updatedAt": "2026-11-20T18:57:48.091Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -365,34 +365,6 @@
   },
   "games": [
     {
-      "id": "nhl-2026-11-19-col-uta",
-      "league": "nhl",
-      "season": "nhl-2026-27",
-      "startTime": "2026-11-19T03:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nhl.utah-mammoth",
-        "league": "nhl",
-        "name": "Utah Mammoth",
-        "shortName": "Mammoth",
-        "code": "UTA"
-      },
-      "away": {
-        "id": "nhl.colorado-avalanche",
-        "league": "nhl",
-        "name": "Colorado Avalanche",
-        "shortName": "Avalanche",
-        "code": "COL"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 1,
-        "observedAt": "2026-11-20T13:22:29.300Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
       "id": "nhl-2026-11-20-mtl-car",
       "league": "nhl",
       "season": "nhl-2026-27",
@@ -412,12 +384,11 @@
         "shortName": "Canadiens",
         "code": "MTL"
       },
-      "referee": "Wes McCauley",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -445,7 +416,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -469,12 +440,11 @@
         "shortName": "Sabres",
         "code": "BUF"
       },
-      "referee": "Kendrick Nicholson",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 6,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -498,12 +468,11 @@
         "shortName": "Blues",
         "code": "STL"
       },
-      "referee": "Jordan Samuels-Thomas",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -527,12 +496,11 @@
         "shortName": "Flyers",
         "code": "PHI"
       },
-      "referee": "Gord Dwyer",
       "neutralSite": false,
       "result": {
         "home": 5,
         "away": 6,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -556,12 +524,11 @@
         "shortName": "Islanders",
         "code": "NYI"
       },
-      "referee": "Frederick L'Ecuyer",
       "neutralSite": false,
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -589,7 +556,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -613,12 +580,11 @@
         "shortName": "Wild",
         "code": "MIN"
       },
-      "referee": "Alex Lepkowski",
       "neutralSite": false,
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -642,12 +608,11 @@
         "shortName": "Blue Jackets",
         "code": "CBJ"
       },
-      "referee": "Peter MacDougall",
       "neutralSite": false,
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -671,12 +636,11 @@
         "shortName": "Ducks",
         "code": "ANA"
       },
-      "referee": "Kyle Rehman",
       "neutralSite": false,
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -700,12 +664,11 @@
         "shortName": "Canucks",
         "code": "VAN"
       },
-      "referee": "Trevor Hanson",
       "neutralSite": false,
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },
@@ -729,12 +692,11 @@
         "shortName": "Stars",
         "code": "DAL"
       },
-      "referee": "Kelly Sutherland",
       "neutralSite": false,
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-20T13:22:29.300Z",
+        "observedAt": "2026-11-20T18:57:35.875Z",
         "source": "bzzoiro"
       }
     },

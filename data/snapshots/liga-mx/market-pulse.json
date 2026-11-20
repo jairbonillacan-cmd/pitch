@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
-  "observedAt": "2026-11-20T13:33:49.418Z",
+  "observedAt": "2026-11-20T19:08:59.610Z",
   "entries": [
     {
       "gameId": "mx-2026-j16-queretaro-monterrey-401876988",
@@ -30,7 +30,7 @@
       "gameId": "mx-2026-j17-chivas-cruz-azul-401877047",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
@@ -44,7 +44,7 @@
         },
         {
           "side": "away",
-          "volume": 970.2918370000001,
+          "volume": 1826.581837,
           "price": 0.35
         }
       ]
@@ -53,12 +53,12 @@
       "gameId": "mx-2026-j17-fc-juarez-atlas-401877053",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 160.40124600000001,
-          "price": 0.255
+          "volume": 263.06791000000004,
+          "price": 0.245
         },
         {
           "side": "draw",
@@ -67,7 +67,7 @@
         },
         {
           "side": "away",
-          "volume": 386.602387,
+          "volume": 5412.365454999999,
           "price": 0.485
         }
       ]
@@ -76,12 +76,12 @@
       "gameId": "mx-2026-j17-pachuca-toluca-401877050",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 1790.0795409999998,
-          "price": 0.365
+          "price": 0.36
         },
         {
           "side": "draw",
@@ -99,17 +99,17 @@
       "gameId": "mx-2026-j17-puebla-atletico-san-luis-401877054",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 751.388954,
-          "price": 0.375
+          "price": 0.385
         },
         {
           "side": "draw",
-          "volume": 12.739723999999999,
-          "price": 0.275
+          "volume": 288.71401000000003,
+          "price": 0.255
         },
         {
           "side": "away",
@@ -122,7 +122,7 @@
       "gameId": "mx-2026-j17-pumas-unam-monterrey-401877049",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
@@ -145,7 +145,7 @@
       "gameId": "mx-2026-j17-queretaro-necaxa-401877046",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
@@ -168,7 +168,7 @@
       "gameId": "mx-2026-j17-santos-laguna-leon-401877051",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
@@ -191,7 +191,7 @@
       "gameId": "mx-2026-j17-tigres-uanl-america-401877048",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
@@ -201,7 +201,7 @@
         {
           "side": "draw",
           "volume": 0,
-          "price": 0.265
+          "price": 0.26
         },
         {
           "side": "away",
@@ -214,22 +214,22 @@
       "gameId": "mx-2026-j17-tijuana-atlante-401877052",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T13:33:49.418Z",
+      "observedAt": "2026-11-20T19:08:59.610Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 825.058854,
-          "price": 0.595
+          "volume": 1210.7015010000002,
+          "price": 0.615
         },
         {
           "side": "draw",
-          "volume": 239.555706,
+          "volume": 307.73570600000005,
           "price": 0.225
         },
         {
           "side": "away",
-          "volume": 321.32201100000003,
-          "price": 0.175
+          "volume": 331.58128700000003,
+          "price": 0.165
         }
       ]
     }
