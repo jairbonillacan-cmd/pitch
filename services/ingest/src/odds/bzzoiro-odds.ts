@@ -573,6 +573,7 @@ export function parseBzzoiroOddsComparison(
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
     capturedAtUtc?: string;
     priorityBooksOnly?: boolean;
+    requireSpacetimeAnchor?: boolean;
   } = {},
 ): SelectionOddsComparison[] {
   const flatRows = flattenComparisonRows(raw);
@@ -708,6 +709,7 @@ export function parseBzzoiroOddsComparison(
     });
 
     const modelProb = lookupModelProb(options.modelProbsByKey, bucket.market, bucket.line, bucket.selection);
+    if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, bestDecimal);
 
     out.push({
@@ -744,6 +746,7 @@ export function parseBzzoiroBestOdds(
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
     priorityBooksOnly?: boolean;
+    requireSpacetimeAnchor?: boolean;
   } = {},
 ): BestOddsComparisonEntry[] {
   const flatRows = flattenComparisonRows(raw);
@@ -773,6 +776,7 @@ export function parseBzzoiroBestOdds(
       ? row.event_date.trim()
       : undefined;
     const modelProb = lookupModelProb(options.modelProbsByKey, quote.market, quote.line, quote.selection);
+    if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, currentDecimal);
 
     out.push({
@@ -961,6 +965,7 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     options: {
       modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
       priorityBooksOnly?: boolean;
+      requireSpacetimeAnchor?: boolean;
     } = {},
   ): Promise<BestOddsComparisonEntry[]> {
     assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
@@ -974,6 +979,7 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     options: {
       modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
       priorityBooksOnly?: boolean;
+      requireSpacetimeAnchor?: boolean;
     } = {},
   ): Promise<BestOddsComparisonEntry[]> {
     assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
@@ -999,6 +1005,7 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
       modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
       capturedAtUtc?: string;
       priorityBooksOnly?: boolean;
+      requireSpacetimeAnchor?: boolean;
     } = {},
   ): Promise<SelectionOddsComparison[]> {
     assertSourceLegallyAllowed(this.metadata.sourceId, this.env);

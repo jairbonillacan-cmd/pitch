@@ -377,7 +377,7 @@ describe("Guardia recursiva FD-16 · detección exhaustiva de fugas", () => {
       ],
     };
     const oddsComparison = parseBzzoiroOddsComparison(poisonedOdds, { modelProbsByKey: { "1x2|null|home": 0.55 } });
-    const bestOdds = parseBzzoiroBestOdds({
+    const poisonedBestOddsPayload = {
       results: [
         {
           event_id: RAW_EVENT_ID,
@@ -390,8 +390,17 @@ describe("Guardia recursiva FD-16 · detección exhaustiva de fugas", () => {
           },
         },
       ],
+    };
+    const bestOdds = parseBzzoiroBestOdds(poisonedBestOddsPayload, {
+      modelProbsByKey: { "1x2|null|home": 0.55 },
     });
+    expect(oddsComparison).toHaveLength(1);
+    expect(bestOdds).toHaveLength(1);
     expect(bestOdds[0]?.matchLabel).toBe("América vs Guadalajara");
+    expect(bestOdds[0]?.fairOdds).toBeCloseTo(1 / 0.55, 2);
+    // Licencia Bzzoiro v4.0: sin probabilidad Spacetime válida las cuotas se descartan.
+    expect(parseBzzoiroOddsComparison(poisonedOdds)).toEqual([]);
+    expect(parseBzzoiroBestOdds(poisonedBestOddsPayload)).toEqual([]);
     assertFd16Strict({ oddsComparison, bestOdds });
 
     const poisonedReferee = withRawNoise(

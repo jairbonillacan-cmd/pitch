@@ -489,6 +489,74 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
       classifyQuoteMovement({ openingDecimal: 2.1, currentDecimal: 1.9 }).signal,
     ).toBe("STEAM");
   });
+
+  it("Licencia Bzzoiro v4.0: descarta cualquier cuota sin probabilidad Spacetime en comparison y best-odds", () => {
+    const rawMixedComparison = {
+      comparisons: [
+        {
+          market: "1x2",
+          outcome: "home",
+          line: null,
+          bookmaker_slug: "pinnacle",
+          decimal_odds: 1.96,
+          opening_odds: 2.04,
+        },
+        {
+          market: "1x2",
+          outcome: "away",
+          line: null,
+          bookmaker_slug: "bet365",
+          decimal_odds: 3.85,
+          opening_odds: 3.7,
+        },
+      ],
+    };
+
+    // Sin mapa Spacetime ni siquiera se emite una sola cuota «pelona».
+    expect(parseBzzoiroComparisonPayload(rawMixedComparison)).toEqual([]);
+    // Con probabilidad fuera de rango (0.001, 0.999) también se descarta.
+    expect(
+      parseBzzoiroComparisonPayload(rawMixedComparison, {
+        modelProbsByKey: { "1x2|null|home": 1, "1x2|null|away": 0 },
+      }),
+    ).toEqual([]);
+    // Cuando solo una selección tiene probabilidad Spacetime, solo esa se emite y viene anclada.
+    const partialComp = parseBzzoiroComparisonPayload(rawMixedComparison, {
+      modelProbsByKey: { "1x2|null|home": 0.54 },
+    });
+    expect(partialComp).toHaveLength(1);
+    expect(partialComp[0]!.selection).toBe("home");
+    expect(partialComp[0]!.modelProb).toBe(0.54);
+    expect(partialComp[0]!.fairDecimal).toBeCloseTo(1 / 0.54, 2);
+    expect(partialComp[0]!.edgePts).not.toBeNull();
+    expect(partialComp[0]!.evPct).not.toBeNull();
+
+    const rawMixedBest = {
+      results: [
+        {
+          home_team: "América",
+          away_team: "Chivas",
+          event_date: "2026-11-22T03:00:00Z",
+          market: "1x2",
+          best_odds: {
+            home: { bookmaker_slug: "pinnacle", decimal_odds: 1.92, opening_odds: 2.0 },
+            draw: { bookmaker_slug: "betcris", decimal_odds: 3.55, opening_odds: 3.5 },
+          },
+        },
+      ],
+    };
+
+    expect(parseBzzoiroBestOddsPayload(rawMixedBest)).toEqual([]);
+    const partialBest = parseBzzoiroBestOddsPayload(rawMixedBest, {
+      modelProbsByKey: { "1x2|null|home": 0.56 },
+    });
+    expect(partialBest).toHaveLength(1);
+    expect(partialBest[0]!.selection).toBe("home");
+    expect(partialBest[0]!.modelProb).toBe(0.56);
+    expect(partialBest[0]!.fairDecimal).toBeCloseTo(1 / 0.56, 2);
+    expect(partialBest[0]!.edgePts).not.toBeNull();
+    expect(partialBest[0]!.evPct).not.toBeNull();
+  });
 });
 
 describe("Licencia Bzzoiro v4.0 y FD-16 · player-live-stats.ts (puente NBA y perfiles sin fugas)", () => {

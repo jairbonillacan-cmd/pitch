@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSocialPost, getSocialPostById, listSocialFeed } from "@pitchlab/db";
 import { withAuthorBadges } from "../../../../src/server/badges";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { parseNewPost, reasonResponse, requireSocialMember } from "../../../../src/server/social";
 
 export const runtime = "nodejs";
@@ -28,6 +29,8 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: true });
+  if (originErr) return originErr;
   const member = await requireSocialMember(request);
   if ("error" in member) return member.error;
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;

@@ -1041,6 +1041,7 @@ export function parseBzzoiroComparisonPayload(
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
     relevantBooksOnly?: boolean;
+    requireSpacetimeAnchor?: boolean;
   } = {},
 ): SelectionBookComparison[] {
   const flat = flattenBzzoiroOddsPayload(raw);
@@ -1167,6 +1168,7 @@ export function parseBzzoiroComparisonPayload(
     });
 
     const modelProb = lookupSpacetimeProb(options.modelProbsByKey, lookupKey);
+    if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
     const analytics = computeAnalyticsForPrice(modelProb, bestDecimal);
 
     out.push({
@@ -1198,6 +1200,7 @@ export function parseBzzoiroBestOddsPayload(
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
     relevantBooksOnly?: boolean;
+    requireSpacetimeAnchor?: boolean;
   } = {},
 ): BestMarketQuoteSummary[] {
   const flat = flattenBzzoiroOddsPayload(raw);
@@ -1233,6 +1236,7 @@ export function parseBzzoiroBestOddsPayload(
         ? row.event_date.trim()
         : undefined;
     const modelProb = lookupSpacetimeProb(options.modelProbsByKey, lookupKey);
+    if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
     const analytics = computeAnalyticsForPrice(modelProb, currentDecimal);
 
     out.push({

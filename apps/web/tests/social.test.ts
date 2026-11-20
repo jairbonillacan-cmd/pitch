@@ -138,7 +138,7 @@ describe("comunidad: rutas de avisos sociales", () => {
     const readIdsRes = await postReadNotifications(
       new Request("http://localhost:9990/api/me/notifications/read", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
         body: JSON.stringify({ ids: ["n1", "n2"] }),
       }),
     );
@@ -148,7 +148,7 @@ describe("comunidad: rutas de avisos sociales", () => {
     await postReadNotifications(
       new Request("http://localhost:9990/api/me/notifications/read", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
         body: "{}",
       }),
     );
@@ -176,7 +176,7 @@ describe("comunidad: reportes y panel de moderación", () => {
       const postRes = await postModeration(
         new Request("http://localhost:9990/api/admin/moderation", {
           method: "POST",
-          headers: { "content-type": "application/json" },
+          headers: { "content-type": "application/json", origin: "http://localhost:9990" },
           body: JSON.stringify({ action: "hide", targetType: "post", targetId: "p1" }),
         }),
       );
@@ -198,7 +198,7 @@ describe("comunidad: reportes y panel de moderación", () => {
       const adminRes = await postModeration(
         new Request("http://localhost:9990/api/admin/moderation", {
           method: "POST",
-          headers: { "content-type": "application/json" },
+          headers: { "content-type": "application/json", origin: "http://localhost:9990" },
           body: JSON.stringify({ action: "hide", targetType: "post", targetId: "p1" }),
         }),
       );
@@ -222,7 +222,7 @@ describe("comunidad: reportes y panel de moderación", () => {
     const createdRes = await postSocialReport(
       new Request("http://localhost:9990/api/social/reports", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
         body: JSON.stringify({ postId: "post-uuid", reason: "spam_enlaces" }),
       }),
     );
@@ -233,7 +233,7 @@ describe("comunidad: reportes y panel de moderación", () => {
     const dupRes = await postSocialReport(
       new Request("http://localhost:9990/api/social/reports", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
         body: JSON.stringify({ postId: "post-uuid", reason: "spam_enlaces" }),
       }),
     );
@@ -284,7 +284,7 @@ describe("comunidad: reportes y panel de moderación", () => {
     const postRes = await postSocialRoute(
       new Request("http://localhost:9990/api/social/posts", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
         body: JSON.stringify({
           body: "Lectura directa de ficha con pick sellado.",
           gameId: "g-lmx-1",
@@ -320,7 +320,7 @@ describe("comunidad: reportes y panel de moderación", () => {
     const replyRes = await postCommentRoute(
       new Request(`http://localhost:9990/api/social/posts/${postId}/comments`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
         body: JSON.stringify({ body: "De acuerdo contigo.", parentCommentId: parentId }),
       }),
       { params: Promise.resolve({ id: postId }) },
@@ -332,7 +332,7 @@ describe("comunidad: reportes y panel de moderación", () => {
     const badHelpful = await putCommentHelpfulRoute(
       new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}/like`, {
         method: "PUT",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
         body: JSON.stringify({}),
       }),
       { params: Promise.resolve({ id: postId, commentId }) },
@@ -342,7 +342,7 @@ describe("comunidad: reportes y panel de moderación", () => {
     const goodHelpful = await putCommentHelpfulRoute(
       new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}/like`, {
         method: "PUT",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
         body: JSON.stringify({ helpful: true }),
       }),
       { params: Promise.resolve({ id: postId, commentId }) },
@@ -352,22 +352,83 @@ describe("comunidad: reportes y panel de moderación", () => {
 
     mocks.deleteSocialComment.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
     const delOk = await deleteCommentRoute(
-      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}`, { method: "DELETE" }),
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}`, {
+        method: "DELETE",
+        headers: { origin: "http://localhost:9990" },
+      }),
       { params: Promise.resolve({ id: postId, commentId }) },
     );
     expect(delOk.status).toBe(200);
     const delFail = await deleteCommentRoute(
-      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}`, { method: "DELETE" }),
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}`, {
+        method: "DELETE",
+        headers: { origin: "http://localhost:9990" },
+      }),
       { params: Promise.resolve({ id: postId, commentId }) },
     );
     expect(delFail.status).toBe(404);
 
     mocks.recordSocialPostPickCopy.mockResolvedValue({ ok: true, copiesCount: 4 });
     const copyRes = await postCopyRoute(
-      new Request(`http://localhost:9990/api/social/posts/${postId}/copy`, { method: "POST" }),
+      new Request(`http://localhost:9990/api/social/posts/${postId}/copy`, {
+        method: "POST",
+        headers: { origin: "http://localhost:9990" },
+      }),
       { params: Promise.resolve({ id: postId }) },
     );
     expect(copyRes.status).toBe(200);
     expect(await copyRes.json()).toEqual({ copiesCount: 4 });
+  });
+
+  it("rechaza mutaciones cross-site o sin Origin válido con 403 (CSRF)", async () => {
+    const postId = "22222222-2222-4222-8222-222222222222";
+    const commentId = "33333333-3333-4333-8333-333333333333";
+
+    const noOriginMod = await postModeration(
+      new Request("http://localhost:9990/api/admin/moderation", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ action: "hide", targetType: "post", targetId: "p1" }),
+      }),
+    );
+    expect(noOriginMod.status).toBe(403);
+    expect(await noOriginMod.json()).toEqual({ error: "origen_invalido" });
+
+    const crossOriginPost = await postSocialRoute(
+      new Request("http://localhost:9990/api/social/posts", {
+        method: "POST",
+        headers: { "content-type": "application/json", origin: "https://evil.example" },
+        body: JSON.stringify({ body: "Intento CSRF externo." }),
+      }),
+    );
+    expect(crossOriginPost.status).toBe(403);
+
+    const noOriginRead = await postReadNotifications(
+      new Request("http://localhost:9990/api/me/notifications/read", {
+        method: "POST",
+      }),
+    );
+    expect(noOriginRead.status).toBe(403);
+
+    const crossOriginDel = await deleteCommentRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/comments/${commentId}`, {
+        method: "DELETE",
+        headers: { origin: "https://evil.example" },
+      }),
+      { params: Promise.resolve({ id: postId, commentId }) },
+    );
+    expect(crossOriginDel.status).toBe(403);
+
+    const crossOriginCopy = await postCopyRoute(
+      new Request(`http://localhost:9990/api/social/posts/${postId}/copy`, {
+        method: "POST",
+        headers: { origin: "https://evil.example" },
+      }),
+      { params: Promise.resolve({ id: postId }) },
+    );
+    expect(crossOriginCopy.status).toBe(403);
+    expect(mocks.applyModerationAction).not.toHaveBeenCalled();
+    expect(mocks.createSocialPost).not.toHaveBeenCalled();
+    expect(mocks.deleteSocialComment).not.toHaveBeenCalled();
   });
 });

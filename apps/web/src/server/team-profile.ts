@@ -1043,7 +1043,6 @@ export function loadTeamProfile(
       let projectedTeamScore: number | null = null;
       let projectedOpponentScore: number | null = null;
       let winProbability: number | null = null;
-      let confidenceLabel: string | null = null;
 
       if (options.fullAccess && hasForecast && analysis) {
         if (analysis.projection) {
@@ -1052,9 +1051,6 @@ export function loadTeamProfile(
         }
         if (analysis.x12) {
           winProbability = isHome ? analysis.x12[0] : analysis.x12[2];
-        }
-        if (analysis.confidence) {
-          confidenceLabel = `Confianza ${analysis.confidence.level}`;
         }
       }
 
@@ -1078,7 +1074,7 @@ export function loadTeamProfile(
         projectedTeamScore,
         projectedOpponentScore,
         winProbability,
-        confidenceLabel,
+        confidenceLabel: null,
       };
     });
 

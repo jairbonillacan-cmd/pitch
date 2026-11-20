@@ -6,6 +6,7 @@ import {
 } from "@pitchlab/db";
 import { sendContentRemovedEmail } from "../../../../src/server/lifecycle-emails";
 import { getMailer } from "../../../../src/server/mailer";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { requireAdmin } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
@@ -26,6 +27,8 @@ export async function GET(request: Request): Promise<NextResponse> {
 
 /** POST { action, targetType?, targetId?, targetUserId? } — ejecuta acción de moderación. */
 export async function POST(request: Request): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: true });
+  if (originErr) return originErr;
   const admin = await requireAdmin(request);
   if ("error" in admin) return admin.error;
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;

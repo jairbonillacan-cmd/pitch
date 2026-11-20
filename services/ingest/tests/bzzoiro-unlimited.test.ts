@@ -797,7 +797,11 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
     };
 
     const bestParsed = parseBzzoiroBestOdds(nestedBest, {
-      modelProbsByKey: { "1x2|null|home": 0.58 },
+      modelProbsByKey: {
+        "1x2|null|home": 0.58,
+        "1x2|null|draw": 0.24,
+        "1x2|null|away": 0.18,
+      },
     });
     expect(bestParsed).toHaveLength(3);
     expect(bestParsed.find((b) => b.selection === "home")).toMatchObject({
@@ -808,6 +812,14 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
       evPct: expect.any(Number),
     });
     assertFd16Clean(bestParsed, ["987654321"]);
+
+    // Licencia Bzzoiro v4.0: las selecciones sin probabilidad Spacetime válida se descartan por defecto.
+    const partialBestParsed = parseBzzoiroBestOdds(nestedBest, {
+      modelProbsByKey: { "1x2|null|home": 0.58 },
+    });
+    expect(partialBestParsed).toHaveLength(1);
+    expect(partialBestParsed[0]?.selection).toBe("home");
+    expect(parseBzzoiroBestOdds(nestedBest)).toEqual([]);
 
     const calledPaths: string[] = [];
     const requester: HttpRequesterFn = async ({ url }) => {
@@ -982,27 +994,44 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
 
     const allBooks = parseBzzoiroOddsComparison(nestedMarketsPayload, {
       priorityBooksOnly: false,
-      modelProbsByKey: { "1x2|null|home": 1.2 }, // fuera de rango (0.001, 0.999) -> ignorado
+      modelProbsByKey: { "1x2|null|home": 0.52 },
     });
     expect(allBooks[0]?.books).toHaveLength(9);
     expect(allBooks[0]?.books.some((b) => b.book === "1xbet")).toBe(false);
-    expect(allBooks[0]?.modelProb).toBeNull();
-    expect(allBooks[0]?.fairOdds).toBeNull();
-    expect(allBooks[0]?.evPct).toBeNull();
+    expect(allBooks[0]?.modelProb).toBe(0.52);
+    expect(allBooks[0]?.fairOdds).toBe(1.923);
+    expect(allBooks[0]?.evPct).toBe(5.04);
 
-    const bestMxOnly = parseBzzoiroBestOdds(
-      {
-        odds: [
-          { market: "1x2", outcome: "home", bookmaker_slug: "caliente_mx", decimal_odds: 2.1, opening_odds: 2.2 },
-          { market: "1x2", outcome: "home", bookmaker_slug: "bwin", decimal_odds: 2.15, opening_odds: 2.15 },
-          { market: "1x2", outcome: "home", bookmaker_slug: "codere", decimal_odds: 2.12, is_live: true },
-        ],
-      },
-      { priorityBooksOnly: true },
-    );
+    // Licencia Bzzoiro v4.0: sin probabilidad Spacetime válida (fuera de rango o ausente) se descarta la fila.
+    expect(
+      parseBzzoiroOddsComparison(nestedMarketsPayload, {
+        priorityBooksOnly: false,
+        modelProbsByKey: { "1x2|null|home": 1.2 },
+      }),
+    ).toEqual([]);
+    expect(parseBzzoiroOddsComparison(nestedMarketsPayload, { priorityBooksOnly: false })).toEqual([]);
+
+    const bestMxPayload = {
+      odds: [
+        { market: "1x2", outcome: "home", bookmaker_slug: "caliente_mx", decimal_odds: 2.1, opening_odds: 2.2 },
+        { market: "1x2", outcome: "home", bookmaker_slug: "bwin", decimal_odds: 2.15, opening_odds: 2.15 },
+        { market: "1x2", outcome: "home", bookmaker_slug: "codere", decimal_odds: 2.12, is_live: true },
+      ],
+    };
+    const bestMxOnly = parseBzzoiroBestOdds(bestMxPayload, {
+      priorityBooksOnly: true,
+      modelProbsByKey: { "1x2|null|home": 0.51 },
+    });
     expect(bestMxOnly).toHaveLength(1);
-    expect(bestMxOnly[0]).toMatchObject({ book: "caliente_mx", bookLabel: "Caliente", signal: "SHORTENING" });
+    expect(bestMxOnly[0]).toMatchObject({
+      book: "caliente_mx",
+      bookLabel: "Caliente",
+      signal: "SHORTENING",
+      modelProb: 0.51,
+      fairOdds: 1.961,
+    });
     assertFd16Clean(bestMxOnly);
+    expect(parseBzzoiroBestOdds(bestMxPayload, { priorityBooksOnly: true })).toEqual([]);
 
     // En snapshots canónicos (parseBzzoiroOdds), casas MX legales api_only (codere/betcris/bet365) pasan y caliente/1xbet se descartan
     const capturedAtIso = "2026-11-18T18:00:00Z";
@@ -1500,6 +1529,26 @@ describe("Bzzoiro Unlimited · 3. Árbitros, alineaciones, disponibilidad, H2H y
     expect(partialProj.projection).toBeNull();
     expect(partialProj.unavailableHome).toHaveLength(1);
     expect(partialProj.unavailableHome[0]?.player).toBe("Igor Lichnovsky");
+
+    // FD-16: parseBzzoiroLineupsToProjection usa copy editorial propio (jamás nombre del proveedor).
+    const fullProj = parseBzzoiroLineupsToProjection({
+      raw: {
+        event_id: 987654321,
+        lineup_status: "predicted",
+        confidence: 82,
+        lineups: {
+          home: { formation: "4-3-3", players: makePlayers(11) },
+          away: { formation: "4-4-2", players: makePlayers(11) },
+        },
+      },
+      homeTeamId: "liga-mx.america",
+      awayTeamId: "liga-mx.chivas",
+      gameId: "mx-ame-chi",
+      updatedAtIso: "2026-11-20T18:00:00Z",
+    });
+    expect(fullProj.projection?.sourceLabel).toBe("Modelo editorial PitchLab");
+    expect(fullProj.projection?.sourceLabel.toLowerCase()).not.toContain("bzzoiro");
+    assertFd16Clean(fullProj.projection, ["987654321", "660000"]);
   });
 
   it("parsea availability (unavailable_players y plano), H2H con acentos/limit y broadcastsMx con tope de 8 canales", () => {

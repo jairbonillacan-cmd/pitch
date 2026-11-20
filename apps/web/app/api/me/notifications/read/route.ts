@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import { markSocialNotificationsRead } from "@pitchlab/db";
+import { verifySameOriginMutation } from "../../../../../src/server/request-security";
 import { requireMember } from "../../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: false });
+  if (originErr) return originErr;
   const member = await requireMember(request);
   if ("error" in member) return member.error;
   const raw = (await request.json().catch(() => null)) as Record<string, unknown> | null;

@@ -280,7 +280,7 @@ export function parseBzzoiroLineupsToProjection(params: {
   return {
     projection: {
       status,
-      sourceLabel: "Bzzoiro Sports Data",
+      sourceLabel: "Modelo editorial PitchLab",
       updatedAtUtc: params.updatedAtIso,
       ...(conf !== null ? { confidence: conf } : {}),
       home: {
