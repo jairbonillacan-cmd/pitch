@@ -320,7 +320,7 @@ export function AtomicShotmapPitch({
               const isSelected = selectedIdx === idx;
               const isPost = shot.outcome === "post";
               const teamName = shot.side === "home" ? homeLabel : awayLabel;
-              const shotLabel = `${shot.player ?? teamName} · ${shot.minute}' · xG ${shot.xg.toFixed(2)}`;
+              const shotLabel = `${shot.player ?? teamName} · ${shot.minute}'${shot.xg != null ? ` · xG ${shot.xg.toFixed(2)}` : ""}`;
               return (
                 <g
                   key={shot.id ?? `${shot.side}-${shot.minute}-${idx}`}
@@ -386,7 +386,7 @@ export function AtomicShotmapPitch({
               const isSelected = selectedIdx === idx;
               const isPost = shot.outcome === "post";
               const teamName = shot.side === "home" ? homeLabel : awayLabel;
-              const shotLabel = `${shot.player ?? teamName} · ${shot.minute}' · xG ${shot.xg.toFixed(2)}`;
+              const shotLabel = `${shot.player ?? teamName} · ${shot.minute}'${shot.xg != null ? ` · xG ${shot.xg.toFixed(2)}` : ""}`;
               return (
                 <g
                   key={shot.id ?? `${shot.side}-${shot.minute}-${idx}`}

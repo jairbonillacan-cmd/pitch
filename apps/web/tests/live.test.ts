@@ -262,18 +262,33 @@ describe("caché compartida en Neon (dos instancias)", () => {
     db = drizzle(client) as unknown as Db;
   }, 120_000);
 
-  it("la segunda instancia lee lo que trajo la primera, y el gol queda para los avisos", async () => {
+  it("la segunda instancia lee lo que trajo la primera, no spamea goles en frío y sí registra un gol real posterior", async () => {
     const p = fakeProvider();
-    const a = deps("2026-11-14T23:34:00Z", p.fetch, { store: dbLiveStore(db) });
-    const b = deps("2026-11-14T23:34:05Z", p.fetch, { store: dbLiveStore(db) });
+    const store = dbLiveStore(db);
+    const a = deps("2026-11-14T23:34:00Z", p.fetch, { store });
+    const b = deps("2026-11-14T23:34:05Z", p.fetch, { store });
     await getLiveScoreboard(a);
     const fromB = await getLiveScoreboard(b);
     expect(p.calls).toEqual(["/events/live/"]);
     expect(fromB.entries[0]?.score).toEqual({ home: 0, away: 1 });
+    // Arranque en frío sobre partido ya iniciado (34', 0-1) no debe emitir goles retroactivos falsos.
+    const coldRows = (await db.execute(
+      "SELECT kind, home_score, away_score FROM live_match_events ORDER BY kind" as never,
+    )) as unknown as { rows: { kind: string }[] };
+    expect(coldRows.rows).toEqual([]);
+
+    // Al ocurrir un gol real posterior (0-1 -> 1-1 tras vencer el caché), sí se registra el evento `goal`.
+    const liveNext = structuredClone(fixture("live.json")) as { results: Array<{ home_score: number; away_score: number; current_minute: number }> };
+    liveNext.results[0]!.home_score = 1;
+    liveNext.results[0]!.away_score = 1;
+    liveNext.results[0]!.current_minute = 41;
+    const p2 = fakeProvider({ "/events/live/": liveNext });
+    const c = deps("2026-11-14T23:35:00Z", p2.fetch, { store });
+    await getLiveScoreboard(c);
     const rows = (await db.execute(
       "SELECT kind, home_score, away_score FROM live_match_events ORDER BY kind" as never,
     )) as unknown as { rows: { kind: string }[] };
-    expect(rows.rows.map((r) => r.kind)).toEqual(["goal", "kickoff"]);
+    expect(rows.rows.map((r) => r.kind)).toEqual(["goal"]);
     const link = (await db.execute("SELECT game_id, provider_event_id FROM provider_match_links" as never)) as unknown as {
       rows: { game_id: string; provider_event_id: string }[];
     };

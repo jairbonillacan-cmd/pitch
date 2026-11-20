@@ -49,7 +49,7 @@ import type { PlatformGame } from "../src/platform/types";
 
 function buildSportGame(params: {
   readonly id: string;
-  readonly league: string;
+  readonly league: Parameters<typeof asLeagueId>[0];
   readonly leagueLabel: string;
   readonly sport: PlatformSport;
   readonly homeName: string;
