@@ -686,6 +686,7 @@ export function PublicFooterV4(): React.JSX.Element {
 interface RailNavItem {
   href: string;
   label: string;
+  navLabel?: string;
   shortLabel?: string;
   icon: MaestroIconName;
   badge?: string;
@@ -790,6 +791,19 @@ function ClubWorkspaceShellImpl({
   const homeNav = useOptionalHomeNavFilter();
   const normalizedPath = (activePath.split(/[?#]/, 1)[0] ?? "/").replace(/\/+$/, "") || "/";
   const isHomeRoute = normalizedPath === "/app";
+  const isDetailRoute =
+    normalizedPath.includes("/g/") ||
+    normalizedPath.includes("/games/") ||
+    normalizedPath.includes("/t/") ||
+    normalizedPath.includes("/team/") ||
+    normalizedPath.includes("/p/") ||
+    normalizedPath.includes("/player/") ||
+    normalizedPath.startsWith("/app/u/");
+  const shellContext: "home" | "detail" | "section" = isHomeRoute
+    ? "home"
+    : isDetailRoute
+      ? "detail"
+      : "section";
   const homeToday = homeNav?.todayOverride ?? initialHomeToday ?? todayId(userTimezone || "America/Mexico_City");
   const homeChosenDay = homeNav?.chosenDay ?? initialHomeDay ?? null;
   const homeActiveDay = isHomeRoute
@@ -1003,13 +1017,16 @@ function ClubWorkspaceShellImpl({
   };
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
   const [leagueHubSheetOpen, setLeagueHubSheetOpen] = useState<boolean>(false);
+  const moreSheetScrollRef = useRef<HTMLDivElement>(null);
   const profileSheetSwipe = useSheetSwipeDismiss({
     onDismiss: closeProfileMenu,
     disabled: !profileMenuOpen,
+    scrollContainerRef: profileMenuRef,
   });
   const moreSheetSwipe = useSheetSwipeDismiss({
     onDismiss: () => setMobileMoreOpen(false),
     disabled: !mobileMoreOpen,
+    scrollContainerRef: moreSheetScrollRef,
   });
 
   // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
@@ -1121,7 +1138,10 @@ function ClubWorkspaceShellImpl({
           handle={viewerIdentity ? `@${viewerIdentity.handle}` : null}
         />
       )}
-      <header className="panel-header sticky top-0 z-40 glass-nav-surface">
+      <header
+        className="panel-header sticky top-0 z-40 glass-nav-surface"
+        data-shell-context={shellContext}
+      >
         <div className="pl-header-top">
         <div className="pl-header-grid max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-7 h-14 sm:h-16">
           <div className="pl-header-bar flex items-center justify-between gap-3 h-full min-w-0">
@@ -1161,6 +1181,7 @@ function ClubWorkspaceShellImpl({
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         aria-label={item.label}
+                        data-nav-group="primary"
                         onPointerEnter={() => prefetchRoute(item.href)}
                         onTouchStart={() => prefetchRoute(item.href)}
                         onClick={(e) => {
@@ -1182,7 +1203,7 @@ function ClubWorkspaceShellImpl({
                           ) : null}
                         </span>
                         <span className="pl-header-nav-label-wrap" aria-hidden="true">
-                          <span className="pl-header-nav-label">{item.label}</span>
+                          <span className="pl-header-nav-label">{item.navLabel ?? item.label}</span>
                         </span>
                       </a>
                     );
@@ -1193,6 +1214,7 @@ function ClubWorkspaceShellImpl({
                   <button
                     type="button"
                     aria-label="Ligas y selecciones"
+                    data-nav-group="primary"
                     data-active={activeLeaguePage ? "true" : undefined}
                     className="pl-header-nav-icon pl-header-nav-ligas"
                     onClick={handleNavTriggerClick}
@@ -1215,6 +1237,7 @@ function ClubWorkspaceShellImpl({
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         aria-label={item.label}
+                        data-nav-group="explore"
                         onPointerEnter={() => prefetchRoute(item.href)}
                         onTouchStart={() => prefetchRoute(item.href)}
                         onClick={(e) => {
@@ -1228,7 +1251,7 @@ function ClubWorkspaceShellImpl({
                           <MaestroIcon name={item.icon} size={16} />
                         </span>
                         <span className="pl-header-nav-label-wrap" aria-hidden="true">
-                          <span className="pl-header-nav-label">{item.label}</span>
+                          <span className="pl-header-nav-label">{item.shortLabel ?? item.label}</span>
                         </span>
                       </a>
                     );
@@ -1258,11 +1281,11 @@ function ClubWorkspaceShellImpl({
                   className="pl-header-nav-overlay"
                 >
                   <div className="pl-header-nav-overlay-inner">
-                    {/* Columna 1: Club */}
+                    {/* Columna 1: Navegación principal */}
                     <section aria-labelledby="pl-nav-col-club" className="pl-header-overlay-col">
                       <div className="pl-header-overlay-head">
                         <h2 id="pl-nav-col-club" className="pl-header-overlay-title">
-                          Club
+                          Principal
                         </h2>
                       </div>
                       <div className="space-y-1">
@@ -1273,6 +1296,8 @@ function ClubWorkspaceShellImpl({
                               key={item.href}
                               href={item.href}
                               aria-current={active ? "page" : undefined}
+                              onPointerEnter={() => prefetchRoute(item.href)}
+                              onTouchStart={() => prefetchRoute(item.href)}
                               onClick={(e) => {
                                 e.preventDefault();
                                 closeHeaderNav();
@@ -1316,6 +1341,8 @@ function ClubWorkspaceShellImpl({
                               data-league={lg.league}
                               data-active={active ? "true" : undefined}
                               aria-current={active ? "page" : undefined}
+                              onPointerEnter={() => prefetchRoute(href)}
+                              onTouchStart={() => prefetchRoute(href)}
                               onClick={(e) => {
                                 e.preventDefault();
                                 closeHeaderNav();
@@ -1408,6 +1435,8 @@ function ClubWorkspaceShellImpl({
                               key={item.href}
                               href={item.href}
                               aria-current={active ? "page" : undefined}
+                              onPointerEnter={() => prefetchRoute(item.href)}
+                              onTouchStart={() => prefetchRoute(item.href)}
                               onClick={(e) => {
                                 e.preventDefault();
                                 closeHeaderNav();
@@ -1787,7 +1816,7 @@ function ClubWorkspaceShellImpl({
         ) : null}
       </header>
 
-      <div className="app-frame">
+      <div className="app-frame" data-shell-context={shellContext}>
         <main id="main" className="min-w-0 space-y-6">
           <div key={activePath} className="pl-page-enter space-y-6">
             {children}
@@ -1850,6 +1879,7 @@ function ClubWorkspaceShellImpl({
         dialogClassName="pl-more-sheet-dialog"
       >
         <div
+          ref={moreSheetScrollRef}
           className="pl-more-sheet-inner glass-lens glass-ring w-full space-y-4 overflow-y-auto"
           style={moreSheetSwipe.sheetStyle}
         >
@@ -1900,7 +1930,7 @@ function ClubWorkspaceShellImpl({
               {clubLeagues.length > 10 ? (
                 <button
                   type="button"
-                  className="text-xs font-semibold"
+                  className="text-xs font-semibold min-h-11 px-2 inline-flex items-center"
                   style={{ color: "var(--pl-brand)" }}
                   onClick={() => {
                     setMobileMoreOpen(false);
@@ -1967,8 +1997,8 @@ function ClubWorkspaceShellImpl({
             </div>
           ) : null}
 
-          <div className="pt-2 flex items-center justify-between text-xs">
-            <a href="/legal/juego-responsable" className="underline">
+          <div className="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <a href="/legal/juego-responsable" className="underline min-h-11 inline-flex items-center">
               Ayuda y juego responsable +18
             </a>
             <OddsFormatSegment />
@@ -2016,19 +2046,21 @@ interface PrimaryNavItem extends RailNavItem {
 /** Los 4 destinos principales, iguales en el riel y en el dock móvil. */
 function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavItem[] {
   return [
-    { href: "/app", label: "Hoy", icon: "calendar" },
+    { href: "/app", label: "Hoy", navLabel: "Hoy", icon: "calendar" },
     {
       href: "/app/parlays",
       label: "Armar parlay",
+      navLabel: "Parlays",
       shortLabel: parlayCount > 0 ? `Parlay (${parlayCount})` : "Parlay",
       icon: "layers",
       badge: parlayCount > 0 ? `${parlayCount}` : undefined,
       badgeBrand: parlayCount > 0,
     },
-    { href: "/app/social", label: "Comunidad", icon: "users" },
+    { href: "/app/social", label: "Comunidad", navLabel: "Comunidad", icon: "users" },
     {
       href: "/app/lab",
       label: "Mi récord",
+      navLabel: "Mi récord",
       shortLabel: "Récord",
       icon: "ticket",
       badge: journalCount > 0 ? `${journalCount}` : undefined,

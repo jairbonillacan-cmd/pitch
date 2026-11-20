@@ -5,7 +5,6 @@ import { OddsCompareClubView } from "./OddsCompareView";
 import { ALL, SPORTS, shortDateLabel, sportOf, type SportFilter } from "./home/home-model";
 import type { LeagueId } from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
-import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports";
 import {
   decimalToAmericanInt,
@@ -21,13 +20,8 @@ import {
   type ParlayTargetPresetId,
   type PersonalParlayScope,
 } from "../daily-parlay";
-import {
-  CrestPedestal,
-  LensGlowOrbs,
-  MaestroIcon,
-} from "../components/MaestroPrimitives";
+import { MaestroIcon } from "../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../components/PlatformOverlays";
-import { PlLeagueSelect } from "../components/PlSelect";
 import {
   PlayerPropStreakCard,
   type PlayerPropStreakCardProps,
@@ -77,7 +71,7 @@ function getCompactBlockReason(
     return "Línea cerrada para parlay";
   }
   if ((compat.code === "same_game_disabled" || sameGameExists) && !allowSgp) {
-    return "Mismo partido: actívalo en el paso 4";
+    return "Mismo partido: activa el interruptor";
   }
   if (compat.code === "sgp_limit") {
     return "Máx. 2 selecciones por partido";
@@ -97,7 +91,7 @@ function getCompactBlockReason(
   }
   const lower = rawReason.toLowerCase();
   if (lower.includes("mismo partido") && !allowSgp) {
-    return "Mismo partido: actívalo en el paso 4";
+    return "Mismo partido: activa el interruptor";
   }
   if (lower.includes("contradic") || lower.includes("opuest") || lower.includes("choca")) {
     return "Mercado contradictorio";
@@ -321,14 +315,18 @@ export function ParlayBuilderClubView(): React.JSX.Element {
             role="tablist"
             aria-label="Modo del armador de parlays"
             data-parlay-mode-tabs=""
+            {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
           >
             <button
               type="button"
               role="tab"
               aria-selected={builderMode === "auto"}
-              className="seg-btn text-xs min-h-10 px-4 inline-flex items-center gap-1.5"
+              className="seg-btn text-xs min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5"
               data-parlay-tab="auto"
               onClick={() => setBuilderMode("auto")}
+              {...(builderMode === "auto"
+                ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                : {})}
             >
               <MaestroIcon name="bolt" size={13} />
               <span>Automático</span>
@@ -337,9 +335,12 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               type="button"
               role="tab"
               aria-selected={builderMode === "manual"}
-              className="seg-btn text-xs min-h-10 px-4 inline-flex items-center gap-1.5"
+              className="seg-btn text-xs min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5"
               data-parlay-tab="manual"
               onClick={() => setBuilderMode("manual")}
+              {...(builderMode === "manual"
+                ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                : {})}
             >
               <MaestroIcon name="layers" size={13} />
               <span>Armar a mano</span>
@@ -347,20 +348,20 @@ export function ParlayBuilderClubView(): React.JSX.Element {
           </div>
         </section>
 
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+        <div className="pl-parlay-grid grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
           {/* Columna izquierda: Un solo flujo limpio (Automático o Armar a mano) */}
-          <div className="xl:col-span-7 space-y-4">
+          <div className="lg:col-span-7 space-y-4 min-w-0">
             {/* Filtro compacto Deporte + Liga activa (cero muro de 57 ligas) */}
             <section
               className="glass-card glass-ring rounded-2xl p-4 space-y-3"
               aria-label="Filtrar deporte y liga"
               data-parlay-scope-bar=""
             >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Elegir deporte">
+              <div className="flex flex-wrap items-center justify-between gap-2.5">
+                <div className="flex flex-wrap items-center gap-1.5 min-w-0" role="group" aria-label="Elegir deporte">
                   <button
                     type="button"
-                    className="seg-btn text-xs min-h-9 px-3 num"
+                    className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
                     aria-pressed={sportFilter === ALL}
                     onClick={() => {
                       setSportFilter(ALL);
@@ -374,7 +375,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     <button
                       key={sp.id}
                       type="button"
-                      className="seg-btn text-xs min-h-9 px-3 num"
+                      className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
                       aria-pressed={sportFilter === sp.id}
                       onClick={() => {
                         setSportFilter(sp.id);
@@ -387,7 +388,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   ))}
                 </div>
 
-                <div className="flex items-center gap-2 min-w-0">
+                <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
                   <label htmlFor={leagueSelectId} className="sr-only">
                     Liga activa
                   </label>
@@ -398,8 +399,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       setLeagueFilter(e.target.value as LeagueId | typeof ALL);
                       setCatalogLimit(12);
                     }}
-                    className="glass-input text-xs font-semibold min-h-10 px-3 rounded-xl"
-                    style={{ maxWidth: 240 }}
+                    className="glass-input text-base sm:text-xs font-semibold min-h-11 sm:min-h-10 px-3 rounded-xl w-full sm:w-auto sm:max-w-[240px]"
                   >
                     <option value={ALL}>
                       Todas las ligas ({activeLeagues.length})
@@ -416,13 +416,13 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
             {builderMode === "auto" ? (
               <section
-                className="glass-card glass-ring rounded-3xl p-5 sm:p-6 space-y-5"
+                className="glass-card glass-ring rounded-2xl p-4 sm:p-6 space-y-5"
                 role="tabpanel"
                 aria-label="Generador automático de parlay"
                 data-parlay-auto-panel=""
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div>
+                  <div className="min-w-0">
                     <h2 className="m-0 text-lg font-extrabold">
                       Generador automático
                     </h2>
@@ -451,7 +451,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       <button
                         key={preset.id}
                         type="button"
-                        className="seg-btn flex-1 justify-center num text-xs min-h-10"
+                        className="seg-btn flex-1 justify-center num text-xs min-h-11 sm:min-h-10"
                         aria-pressed={targetPreset === preset.id}
                         data-quick-target={preset.id}
                         onClick={() => setTargetPreset(preset.id)}
@@ -473,7 +473,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         <button
                           key={r}
                           type="button"
-                          className="seg-btn flex-1 justify-center text-xs min-h-10"
+                          className="seg-btn flex-1 justify-center text-xs min-h-11 sm:min-h-10"
                           aria-pressed={autoRisk === r}
                           onClick={() => setAutoRisk(r)}
                         >
@@ -498,7 +498,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                             key={cnt}
                             type="button"
                             disabled={cnt > maxAutoLegs}
-                            className="seg-btn num text-xs px-2.5 min-h-10"
+                            className="seg-btn num text-xs px-2.5 min-h-11 sm:min-h-10"
                             aria-pressed={effectiveAutoLegCount === cnt}
                             onClick={() => setAutoLegCount(cnt)}
                           >
@@ -530,10 +530,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 </div>
 
                 {/* Mismo partido (SGP) */}
-                <div
-                  className="rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3"
-                  style={{ background: "var(--pl-surface)" }}
-                >
+                <div className="pl-parlay-surface-tile rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
                   <div className="space-y-0.5 min-w-0 flex-1">
                     <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text)" }}>
                       Mismo partido (SGP)
@@ -577,10 +574,14 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 data-parlay-manual-panel=""
               >
                 <div className="glass-card glass-ring rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 flex-1 min-w-[200px]">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
                     <MaestroIcon name="search" size={15} style={{ color: "var(--pl-text-muted)" }} />
                     <input
                       type="search"
+                      inputMode="search"
+                      enterKeyHint="search"
+                      autoCorrect="off"
+                      spellCheck={false}
                       value={manualQuery}
                       onChange={(e) => {
                         setManualQuery(e.target.value);
@@ -588,7 +589,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       }}
                       placeholder="Buscar equipo o liga…"
                       aria-label="Buscar equipo o liga para armar parlay"
-                      className="glass-input text-xs min-h-10 px-3 rounded-xl flex-1"
+                      className="glass-input text-base sm:text-xs min-h-11 sm:min-h-10 px-3 rounded-xl flex-1 min-w-0"
                     />
                   </div>
                   <Switch isSelected={allowSgp} onChange={setAllowSgp}>
@@ -755,10 +756,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
           </div>
 
           {/* Columna derecha: Boleto Combinado PitchLab (plano, sin brillos decorativos) */}
-          <aside className="xl:col-span-5 glass-card glass-ring rounded-3xl p-5 sm:p-6 space-y-4 xl:sticky xl:top-20 xl:max-h-[calc(100dvh-6rem)] xl:overflow-y-auto overflow-x-hidden">
+          <aside className="lg:col-span-5 glass-card glass-ring rounded-2xl p-4 sm:p-6 space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)] lg:overflow-y-auto overflow-x-hidden min-w-0">
             <div className="space-y-4">
               <div className="flex items-center justify-between gap-2">
-                <div>
+                <div className="min-w-0">
                   <span
                     className="text-xs font-extrabold inline-flex items-center gap-1.5"
                     style={{ color: "var(--pl-brand)" }}
@@ -773,7 +774,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 {parlaySummary.legs.length > 0 ? (
                   <button
                     type="button"
-                    className="pl-btn-glass text-xs min-h-10 px-3 inline-flex items-center gap-1"
+                    className="pl-btn-glass text-xs min-h-11 sm:min-h-10 px-3 inline-flex items-center gap-1 shrink-0"
                     onClick={() => {
                       if (parlaySummary.legs.length >= 2) {
                         setConfirmClearOpen(true);
@@ -800,14 +801,13 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   </p>
                 </div>
               ) : (
-                <div className="space-y-2.5">
+                <div className="space-y-2">
                   {parlaySummary.legs.map(({ pick }) => {
                     const gm = dataset.games.find((g) => g.id === pick.gameId);
                     return (
                     <div
                       key={pick.id}
-                      className="rounded-2xl p-3 flex items-start justify-between gap-2"
-                      style={{ background: "var(--pl-surface)" }}
+                      className="pl-parlay-surface-tile rounded-xl p-3 flex items-start justify-between gap-2"
                     >
                       <div className="min-w-0">
                         <span
@@ -830,7 +830,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         type="button"
                         aria-label={`Quitar ${pick.label}`}
                         onClick={() => removePickFromParlay(pick.id)}
-                        className="pl-btn-glass px-2.5 min-h-10 text-xs inline-flex items-center justify-center shrink-0"
+                        className="pl-btn-glass px-2.5 min-h-11 min-w-11 sm:min-h-10 sm:min-w-10 text-xs inline-flex items-center justify-center shrink-0"
                       >
                         <MaestroIcon name="x" size={12} />
                       </button>
@@ -841,7 +841,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               )}
 
               <div
-                className="rounded-2xl p-3.5 space-y-2"
+                className="rounded-xl p-3.5 space-y-2"
                 style={{
                   background: "var(--pl-surface)",
                   border: `1px solid color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
@@ -932,7 +932,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 </div>
 
                 {/* Calculadora de momio total de casa */}
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <label
                     htmlFor="parlay-book-odds-input"
                     className="text-xs font-bold"
@@ -942,10 +942,13 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   <input
                     id="parlay-book-odds-input"
                     type="text"
+                    inputMode="decimal"
+                    autoCorrect="off"
+                    spellCheck={false}
                     value={bookParlayOddsRaw}
                     onChange={(e) => setBookParlayOddsRaw(e.target.value)}
                     placeholder="Opcional (+340 / 4.40)"
-                    className="glass-input px-2.5 py-1 text-xs font-bold num w-40 text-right"
+                    className="glass-input px-2.5 py-1 text-base sm:text-xs font-bold num min-h-11 sm:min-h-9 w-full sm:w-40 text-right"
                   />
                 </div>
 
@@ -959,10 +962,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 ) : null}
 
                 <div className="grid grid-cols-2 gap-2.5 num">
-                  <div
-                    className="rounded-xl p-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
+                  <div className="pl-parlay-surface-tile rounded-xl p-3">
                     <span
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
@@ -975,10 +975,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         : `${(effectiveSlipProb * 100).toFixed(1)} %`}
                     </strong>
                   </div>
-                  <div
-                    className="rounded-xl p-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
+                  <div className="pl-parlay-surface-tile rounded-xl p-3">
                     <span
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
@@ -989,10 +986,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       {formatOddsValue(effectiveSlipBookDec, oddsFormat)}
                     </strong>
                   </div>
-                  <div
-                    className="rounded-xl p-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
+                  <div className="pl-parlay-surface-tile rounded-xl p-3">
                     <span
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
@@ -1003,10 +997,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       {formatOddsValue(effectiveSlipFairDec, oddsFormat)}
                     </strong>
                   </div>
-                  <div
-                    className="rounded-xl p-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
+                  <div className="pl-parlay-surface-tile rounded-xl p-3">
                     <span
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
@@ -1068,8 +1059,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               </div>
 
               <details
-                className="rounded-2xl p-3.5"
-                style={{ background: "var(--pl-surface)" }}
+                className="pl-parlay-surface-tile rounded-xl p-3.5"
                 data-parlay-rules=""
               >
                 <summary className="text-xs font-extrabold cursor-pointer" style={{ color: "var(--pl-text)" }}>
@@ -1288,37 +1278,34 @@ export function PropsLabClubView({
         ) : null}
 
         {viewerRole === "visitor" ? (
-          <div className="glass-lens glass-ring glass-ring--featured rounded-3xl p-6 space-y-3 relative overflow-hidden">
-            <LensGlowOrbs subtle />
-            <div className="relative z-10 space-y-3">
-              <h2 className="m-0 text-xl font-extrabold inline-flex items-center gap-2">
-                <MaestroIcon name="lock" size={18} style={{ color: "var(--pl-brand)" }} />
-                <span>Props de jugadores para Pase PitchLab Ultra</span>
-              </h2>
-              <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                {hasAccountSession
-                  ? "Activa tu Pase PitchLab Ultra para explorar proyecciones individuales de NFL y fútbol."
-                  : "Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol."}
-              </p>
-              <a
-                href={upgradeHref}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo(upgradeHref);
-                }}
-                className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
-              >
-                <span>{hasAccountSession ? "Activar Pase Ultra" : "Activar prueba gratis"}</span>
-                <MaestroIcon name="arrowRight" size={13} />
-              </a>
-            </div>
+          <div className="glass-card glass-ring rounded-2xl p-6 space-y-3">
+            <h2 className="m-0 text-xl font-extrabold inline-flex items-center gap-2">
+              <MaestroIcon name="lock" size={18} style={{ color: "var(--pl-brand)" }} />
+              <span>Props de jugadores para Pase PitchLab Ultra</span>
+            </h2>
+            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+              {hasAccountSession
+                ? "Activa tu Pase PitchLab Ultra para explorar proyecciones individuales de NFL y fútbol."
+                : "Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol."}
+            </p>
+            <a
+              href={upgradeHref}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo(upgradeHref);
+              }}
+              className="pl-btn-primary text-xs min-h-11 px-4 inline-flex items-center gap-1.5"
+            >
+              <span>{hasAccountSession ? "Activar Pase Ultra" : "Activar prueba gratis"}</span>
+              <MaestroIcon name="arrowRight" size={13} />
+            </a>
           </div>
         ) : catalog.length === 0 && streakCards.length === 0 ? (
-          <div className="glass-lens glass-ring rounded-3xl p-6 space-y-2" data-props-empty="">
+          <div className="glass-card glass-ring rounded-2xl p-6 space-y-2" data-props-empty="">
             <h2 className="m-0 text-xl font-extrabold">Props de jugadores: próximamente</h2>
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Spacetime Suite v3.0 todavía no proyecta estadísticas individuales. Cuando el motor
-              de jugadores pase su validación, aquí verás líneas, proyección y ventaja contra tu casa.
+              Spacetime Suite v5.1 todavía no proyecta estadísticas individuales para este filtro. Cuando el motor
+              de jugadores publique líneas validadas, aquí verás proyección y ventaja contra tu casa.
             </p>
           </div>
         ) : (
@@ -1341,10 +1328,6 @@ export function PropsLabClubView({
                 .filter((v) => v > activeLine).length;
               const maxVal = Math.max(...prop.last10, activeLine * 1.2, 1);
 
-              const teamColor =
-                getTeamColors(prop.league, prop.teamSlug)?.[0] ??
-                "var(--pl-aura-default-home)";
-
               const rawOddsText = propOddsInputs[prop.id] ?? "";
               const parsedCustomDec = rawOddsText.trim()
                 ? parseUserOdds(rawOddsText)
@@ -1361,22 +1344,26 @@ export function PropsLabClubView({
               return (
                 <article
                   key={prop.id}
-                  className="glass-lens glass-ring rounded-3xl p-5 space-y-4 relative overflow-hidden"
+                  className="glass-card glass-ring rounded-2xl p-5 space-y-4"
                   data-prop-card={prop.id}
                 >
-                  <LensGlowOrbs primaryColor={teamColor} subtle />
-
-                  <div className="space-y-4 relative z-10">
+                  <div className="space-y-4">
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-3 min-w-0">
-                        <CrestPedestal size="md" glowColor={teamColor}>
+                        <span
+                          className="inline-flex items-center justify-center rounded-xl size-10 shrink-0"
+                          style={{
+                            background: "var(--pl-surface)",
+                            border: "1px solid var(--pl-border)",
+                          }}
+                        >
                           <TeamBadge
                             league={prop.league}
                             slug={prop.teamSlug}
                             name={prop.teamName}
-                            size={30}
+                            size={28}
                           />
-                        </CrestPedestal>
+                        </span>
                         <div className="min-w-0">
                           <span
                             className="text-xs font-bold block truncate"
@@ -1393,10 +1380,7 @@ export function PropsLabClubView({
                     </div>
 
                     {/* Scrubber interactivo − / + con botón Base */}
-                    <div
-                      className="rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3"
-                      style={{ background: "var(--pl-surface)" }}
-                    >
+                    <div className="pl-parlay-surface-tile rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
                       <div>
                         <span
                           className="block text-xs"
@@ -1430,7 +1414,7 @@ export function PropsLabClubView({
                               [prop.id]: 0,
                             }))
                           }
-                          className="pl-btn-glass text-xs min-h-8 px-2.5 num"
+                          className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-2.5 num"
                         >
                           Base ({prop.baseLine.toFixed(1)})
                         </button>
@@ -1493,7 +1477,7 @@ export function PropsLabClubView({
                                 className="flex flex-col items-center gap-1 h-full justify-end"
                               >
                                 <div
-                                  className="w-full rounded-t-md transition-all"
+                                  className="w-full rounded-t-md transition-[background-color]"
                                   style={{
                                     height: `${pct}%`,
                                     background: hit
@@ -1584,6 +1568,9 @@ export function PropsLabClubView({
                         <input
                           id={`prop-odds-${prop.id}`}
                           type="text"
+                          inputMode="decimal"
+                          autoCorrect="off"
+                          spellCheck={false}
                           value={rawOddsText}
                           onChange={(e) =>
                             setPropOddsInputs((prev) => ({
@@ -1595,7 +1582,7 @@ export function PropsLabClubView({
                             prop.marketOverDecimal,
                             oddsFormat,
                           )}
-                          className="glass-input px-2.5 py-1 text-xs font-bold num w-28"
+                          className="glass-input px-2.5 py-1 text-base sm:text-xs font-bold num min-h-11 sm:min-h-9 w-28"
                         />
                       </div>
 
@@ -1631,7 +1618,7 @@ export function PropsLabClubView({
                       </span>
                       <button
                         type="button"
-                        className="pl-btn-primary text-xs min-h-9 px-3.5 inline-flex items-center gap-1.5"
+                        className="pl-btn-primary text-xs min-h-11 sm:min-h-9 px-3.5 inline-flex items-center gap-1.5"
                         onClick={() =>
                           handleSealProp(
                             prop,
