@@ -145,7 +145,7 @@ export default async function ComparePage({
     teamA && teamB ? loadTeamComparison(activeLeague, teamA, teamB, opts) : null;
 
   const initialAttackDefense =
-    rawTeamComparison && teamA && teamB && teamA !== teamB
+    access.fullAccess && rawTeamComparison && teamA && teamB && teamA !== teamB
       ? toCompareAttackDefensePayload(
           getTeamAttackDefenseComparison(
             activeLeague,

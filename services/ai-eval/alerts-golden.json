@@ -235,7 +235,7 @@
     {
       "id": "alert-12-recurring-team-corners-ligamx",
       "category": "recurring_team",
-      "promptEs": "Activa una alerta recurrente cada jornada de Liga MX cuando abran los córners por equipo de Monterrey.",
+      "promptEs": "Activa una alerta recurrente cada jornada de Liga MX cuando abran los córners por equipo de Monterrey en Caliente.mx.",
       "expectedOutcome": "accept",
       "expectedRule": {
         "trigger": "market_opened",
@@ -248,7 +248,7 @@
         "line": null,
         "minEvPct": null,
         "minDeltaNoVigPp": null,
-        "preferredBook": null,
+        "preferredBook": "caliente",
         "recurring": true
       }
     },

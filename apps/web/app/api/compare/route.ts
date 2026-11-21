@@ -136,7 +136,7 @@ export const GET = withSessionRead(
 
     const rawTeamComparison = a && b ? loadTeamComparison(league, a, b, opts) : null;
     const attackDefense =
-      rawTeamComparison && a !== b
+      access.fullAccess && rawTeamComparison && a !== b
         ? toCompareAttackDefensePayload(
             getTeamAttackDefenseComparison(
               league,

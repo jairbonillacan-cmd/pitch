@@ -222,6 +222,7 @@ interface SealedPickSnapshot {
 interface SealedPicksModel {
   rows: Map<string, SealedPickSnapshot>;
   rejectedPostKickoffCount: number;
+  rejectedPreSettledInsertCount: number;
   rejectedDeleteCount: number;
   rejectedSealedMutationCount: number;
   rejectedSettledMutationCount: number;
@@ -377,6 +378,87 @@ class AttemptPostKickoffInsert implements fc.AsyncCommand<SealedPicksModel, Seal
 
   toString(): string {
     return `AttemptPostKickoffInsert(-${this.minutesAgo}m)`;
+  }
+}
+
+type PreSettledAttackVariant =
+  | "status_won"
+  | "status_lost"
+  | "status_void"
+  | "settled_at"
+  | "closing_decimal"
+  | "clv_pct"
+  | "parlay_leg_results";
+
+class AttemptPreSettledInsert implements fc.AsyncCommand<SealedPicksModel, SealedPicksReal> {
+  constructor(
+    private readonly hoursAhead: number,
+    private readonly variant: PreSettledAttackVariant,
+  ) {}
+
+  check(): boolean {
+    return true;
+  }
+
+  async run(m: SealedPicksModel, r: SealedPicksReal): Promise<void> {
+    r.nextSeq += 1;
+    const seq = r.nextSeq;
+    const futureKickoff = new Date(Date.now() + this.hoursAhead * 3_600_000);
+    const now = new Date();
+    const base = {
+      userId: r.userId,
+      pickId: `fsm-presettled-${seq}`,
+      gameId: `fsm-presettled-game-${seq}`,
+      leagueLabel: "Liga MX",
+      matchLabel: `Club A ${seq} vs Club B ${seq}`,
+      pickLabel: `Local gana ${seq}`,
+      origin: "Spacetime v5.1",
+      units: "1.00",
+      userDecimal: "2.100",
+      fairDecimal: "1.950",
+      sealHash: seq.toString(16).padStart(64, "c"),
+      sealedAt: now,
+      kickoffAt: futureKickoff,
+    };
+
+    const payload =
+      this.variant === "status_won"
+        ? { ...base, status: "won" as const }
+        : this.variant === "status_lost"
+          ? { ...base, status: "lost" as const }
+          : this.variant === "status_void"
+            ? { ...base, status: "void" as const }
+            : this.variant === "settled_at"
+              ? { ...base, settledAt: now }
+              : this.variant === "closing_decimal"
+                ? { ...base, closingDecimal: "1.950" }
+                : this.variant === "clv_pct"
+                  ? { ...base, clvPct: "4.20" }
+                  : {
+                      ...base,
+                      parlayLegResults: [
+                        {
+                          pickId: `leg-${seq}`,
+                          gameId: `g-${seq}`,
+                          status: "won" as const,
+                          homeScore: 2,
+                          awayScore: 0,
+                          settledAt: now.toISOString(),
+                        },
+                      ],
+                    };
+
+    await expectImmutableTriggerError(
+      r.db.insert(sealedPicks).values(payload),
+      /PRE_SETTLED_INSERT_FORBIDDEN/,
+    );
+
+    m.rejectedPreSettledInsertCount += 1;
+    await assertSealedDbMatchesModel(m, r);
+  }
+
+  toString(): string {
+    return `AttemptPreSettledInsert(+${this.hoursAhead}h, ${this.variant})`;
   }
 }
 
@@ -1157,6 +1239,20 @@ describe("Máquinas de estado fast-check (fc.commands) · Invariantes críticas"
       fc
         .integer({ min: 5, max: 1440 })
         .map((minutesAgo) => new AttemptPostKickoffInsert(minutesAgo)),
+      fc
+        .tuple(
+          fc.integer({ min: 1, max: 48 }),
+          fc.constantFrom<PreSettledAttackVariant>(
+            "status_won",
+            "status_lost",
+            "status_void",
+            "settled_at",
+            "closing_decimal",
+            "clv_pct",
+            "parlay_leg_results",
+          ),
+        )
+        .map(([hoursAhead, variant]) => new AttemptPreSettledInsert(hoursAhead, variant)),
       fc.integer({ min: 0, max: 31 }).map((seed) => new AttemptDirectDelete(seed)),
       fc
         .tuple(
@@ -1212,6 +1308,7 @@ describe("Máquinas de estado fast-check (fc.commands) · Invariantes críticas"
           model: {
             rows: new Map<string, SealedPickSnapshot>(),
             rejectedPostKickoffCount: 0,
+            rejectedPreSettledInsertCount: 0,
             rejectedDeleteCount: 0,
             rejectedSealedMutationCount: 0,
             rejectedSettledMutationCount: 0,

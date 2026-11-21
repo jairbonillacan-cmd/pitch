@@ -127,6 +127,10 @@ export interface LiveTrackerPlayerStatLike extends Partial<LivePlayerStatRow> {
   readonly starter?: boolean | null;
   readonly substitute?: boolean | null;
   readonly onBench?: boolean | null;
+  readonly points?: number;
+  readonly rebounds?: number;
+  readonly threes?: number;
+  readonly threePointersMade?: number;
 }
 
 export interface DetectStarterOnBenchInput {
@@ -134,6 +138,8 @@ export interface DetectStarterOnBenchInput {
   readonly lineups?: LiveTrackerLineupsInput;
   readonly playerStats?: readonly LiveTrackerPlayerStatLike[] | null;
   readonly matchMinute?: number | null;
+  readonly teamSide?: "home" | "away" | null;
+  readonly sport?: string | null;
 }
 
 export interface DetectStarterOnBenchResult {
@@ -220,6 +226,7 @@ export interface UserLiveTrackedPicksPayload {
 
 export interface LoadLiveTrackedPicksOptions {
   readonly limit?: number;
+  readonly fullAccess?: boolean;
   readonly now?: Date;
   readonly liveDeps?: LiveDeps;
   readonly scoreboard?: LiveScoreboard;
@@ -320,7 +327,9 @@ export function computeResidualProjection(
   const remainingNeeded =
     input.direction === "handicap"
       ? round2(Math.max(0, -targetLine - actualValue))
-      : round2(Math.max(0, targetLine - actualValue));
+      : input.direction === "under"
+        ? round2(Math.max(0, actualValue - targetLine))
+        : round2(Math.max(0, targetLine - actualValue));
 
   const fallbackPrior = targetLine > 0 ? targetLine : Math.max(0, actualValue);
   const priorTotal =
@@ -347,7 +356,11 @@ export function computeResidualProjection(
   const projectedFinal = round2(rawProjectedFinal);
 
   let rawPaceRatio = 0;
-  if (targetLine > EPSILON) {
+  if (input.direction === "handicap") {
+    const projectedCoverMargin = projectedFinal + targetLine;
+    const scale = Math.max(1, Math.abs(targetLine));
+    rawPaceRatio = Math.max(0, 1 + projectedCoverMargin / scale);
+  } else if (targetLine > EPSILON) {
     rawPaceRatio = projectedFinal / targetLine;
   } else if (priorTotal > EPSILON) {
     rawPaceRatio = projectedFinal / priorTotal;
@@ -377,16 +390,32 @@ function splitNameTokens(normalized: string): string[] {
   return normalized.split(" ").filter((token) => token.length > 0);
 }
 
+function normalizeGenerationalSuffix(token: string): "jr" | "sr" | "ii" | "iii" | "iv" | null {
+  if (token === "jr" || token === "junior") return "jr";
+  if (token === "sr" || token === "senior") return "sr";
+  if (token === "ii") return "ii";
+  if (token === "iii") return "iii";
+  if (token === "iv") return "iv";
+  return null;
+}
+
 function isGenerationalSuffix(token: string): boolean {
-  return (
-    token === "jr" ||
-    token === "junior" ||
-    token === "sr" ||
-    token === "senior" ||
-    token === "ii" ||
-    token === "iii" ||
-    token === "iv"
-  );
+  return normalizeGenerationalSuffix(token) !== null;
+}
+
+function extractGenerationalSuffix(tokens: readonly string[]): "jr" | "sr" | "ii" | "iii" | "iv" | null {
+  if (tokens.length <= 1) return null;
+  const last = tokens[tokens.length - 1];
+  return last ? normalizeGenerationalSuffix(last) : null;
+}
+
+function hasConflictingGenerationalSuffix(
+  rawTokensA: readonly string[],
+  rawTokensB: readonly string[],
+): boolean {
+  const suffixA = extractGenerationalSuffix(rawTokensA);
+  const suffixB = extractGenerationalSuffix(rawTokensB);
+  return suffixA !== null && suffixB !== null && suffixA !== suffixB;
 }
 
 function stripGenerationalSuffixes(tokens: readonly string[]): string[] {
@@ -402,8 +431,11 @@ function playersMatchExact(queryName: string, candidateName: string): boolean {
   const normB = normalizePlayerToken(candidateName);
   if (!normA || !normB) return false;
   if (normA === normB) return true;
-  const coreA = stripGenerationalSuffixes(splitNameTokens(normA)).join(" ");
-  const coreB = stripGenerationalSuffixes(splitNameTokens(normB)).join(" ");
+  const rawTokensA = splitNameTokens(normA);
+  const rawTokensB = splitNameTokens(normB);
+  if (hasConflictingGenerationalSuffix(rawTokensA, rawTokensB)) return false;
+  const coreA = stripGenerationalSuffixes(rawTokensA).join(" ");
+  const coreB = stripGenerationalSuffixes(rawTokensB).join(" ");
   return coreA.length > 0 && coreA === coreB;
 }
 
@@ -413,8 +445,12 @@ function playersMatch(queryName: string, candidateName: string): boolean {
   if (!normA || !normB) return false;
   if (normA === normB) return true;
 
-  const tokensA = stripGenerationalSuffixes(splitNameTokens(normA));
-  const tokensB = stripGenerationalSuffixes(splitNameTokens(normB));
+  const rawTokensA = splitNameTokens(normA);
+  const rawTokensB = splitNameTokens(normB);
+  if (hasConflictingGenerationalSuffix(rawTokensA, rawTokensB)) return false;
+
+  const tokensA = stripGenerationalSuffixes(rawTokensA);
+  const tokensB = stripGenerationalSuffixes(rawTokensB);
   if (tokensA.length === 0 || tokensB.length === 0) return false;
 
   if (tokensA.join(" ") === tokensB.join(" ")) return true;
@@ -487,6 +523,10 @@ export function detectStarterOnBench(
     return { alert: null, detail: null };
   }
   const safePlayerName = sanitizeDisplayText(rawName, "El jugador");
+  const isBasketball = input.sport === "basketball";
+  const minStartersPerTeam = isBasketball ? 5 : 11;
+  const starterUnitLabel = isBasketball ? "quinteto titular confirmado" : "XI titular confirmado";
+  const teamSide = input.teamSide === "home" || input.teamSide === "away" ? input.teamSide : null;
 
   const lineups = input.lineups;
   if (lineups && typeof lineups === "object") {
@@ -495,32 +535,51 @@ export function detectStarterOnBench(
     if (isPredicted) {
       return { alert: null, detail: null };
     }
-    const starters = [
+    const homeStarters = [
       ...extractPlayerNames(generic.homeStarters),
-      ...extractPlayerNames(generic.awayStarters),
-      ...extractPlayerNames(generic.starters),
       ...extractPlayerNames(generic.home?.starters),
+    ];
+    const awayStarters = [
+      ...extractPlayerNames(generic.awayStarters),
       ...extractPlayerNames(generic.away?.starters),
     ];
-    const bench = [
+    const sharedStarters = extractPlayerNames(generic.starters);
+    const homeBench = [
       ...extractPlayerNames(generic.homeBench),
-      ...extractPlayerNames(generic.awayBench),
-      ...extractPlayerNames(generic.bench),
-      ...extractPlayerNames(generic.substitutes),
       ...extractPlayerNames(generic.home?.bench),
       ...extractPlayerNames(generic.home?.substitutes),
+    ];
+    const awayBench = [
+      ...extractPlayerNames(generic.awayBench),
       ...extractPlayerNames(generic.away?.bench),
       ...extractPlayerNames(generic.away?.substitutes),
     ];
+    const sharedBench = [
+      ...extractPlayerNames(generic.bench),
+      ...extractPlayerNames(generic.substitutes),
+    ];
+
+    const starters =
+      teamSide === "home"
+        ? [...homeStarters, ...sharedStarters]
+        : teamSide === "away"
+          ? [...awayStarters, ...sharedStarters]
+          : [...homeStarters, ...awayStarters, ...sharedStarters];
+    const bench =
+      teamSide === "home"
+        ? [...homeBench, ...sharedBench]
+        : teamSide === "away"
+          ? [...awayBench, ...sharedBench]
+          : [...homeBench, ...awayBench, ...sharedBench];
 
     if (starters.some((candidate) => playersMatchExact(rawName, candidate))) {
       return { alert: null, detail: null };
     }
 
-    if (bench.some((candidate) => playersMatch(rawName, candidate))) {
+    if (bench.some((candidate) => playersMatchExact(rawName, candidate))) {
       return {
         alert: "titular_en_banca",
-        detail: `${safePlayerName} figura en la banca del XI confirmado.`,
+        detail: `${safePlayerName} figura en la banca del ${starterUnitLabel}.`,
       };
     }
 
@@ -528,15 +587,37 @@ export function detectStarterOnBench(
       return { alert: null, detail: null };
     }
 
-    if (starters.length >= 11) {
+    if (bench.some((candidate) => playersMatch(rawName, candidate))) {
       return {
         alert: "titular_en_banca",
-        detail: `${safePlayerName} no figura en el XI titular confirmado.`,
+        detail: `${safePlayerName} figura en la banca del ${starterUnitLabel}.`,
+      };
+    }
+
+    const hasCompleteStarters =
+      teamSide === "home"
+        ? homeStarters.length >= minStartersPerTeam || sharedStarters.length >= minStartersPerTeam
+        : teamSide === "away"
+          ? awayStarters.length >= minStartersPerTeam || sharedStarters.length >= minStartersPerTeam
+          : (homeStarters.length >= minStartersPerTeam &&
+              awayStarters.length >= minStartersPerTeam) ||
+            (homeStarters.length >= minStartersPerTeam && awayStarters.length === 0) ||
+            (awayStarters.length >= minStartersPerTeam && homeStarters.length === 0) ||
+            sharedStarters.length >= minStartersPerTeam;
+
+    if (hasCompleteStarters) {
+      return {
+        alert: "titular_en_banca",
+        detail: `${safePlayerName} no figura en el ${starterUnitLabel}.`,
       };
     }
   }
 
-  const stats = input.playerStats ?? [];
+  const allStats = input.playerStats ?? [];
+  const stats =
+    teamSide !== null
+      ? allStats.filter((row) => !row.side || row.side === teamSide)
+      : allStats;
   if (stats.length > 0) {
     const matched =
       stats.find((row) => {
@@ -577,10 +658,10 @@ export function detectStarterOnBench(
       const activePlayers = stats.filter(
         (row) => typeof row.minutes === "number" && Number.isFinite(row.minutes) && row.minutes > 0,
       );
-      if (activePlayers.length >= 11) {
+      if (activePlayers.length >= minStartersPerTeam) {
         return {
           alert: "titular_en_banca",
-          detail: `${safePlayerName} no registra participación en el XI activo en vivo.`,
+          detail: `${safePlayerName} no registra participación en el ${starterUnitLabel} en vivo.`,
         };
       }
     }
@@ -993,7 +1074,7 @@ function parsePickSpec(input: {
   }
 
   if (market === "btts" || labelNorm.includes("ambos anotan")) {
-    const isNo = selection === "no" || labelNorm.includes(" no");
+    const isNo = selection === "no" || /\bno\b/.test(labelNorm);
     return {
       category: "btts",
       side: "total",
@@ -1075,7 +1156,9 @@ function readPlayerStatValue(
   detail: LiveMatchDetail | null,
 ): number {
   if (!playerName || !detail) return 0;
-  const statsRow = (detail.playerStats ?? []).find((row) => playersMatch(playerName, row.player));
+  const statsRow: LiveTrackerPlayerStatLike | undefined = (detail.playerStats ?? []).find(
+    (row) => playersMatch(playerName, row.player),
+  );
   if (statsRow) {
     switch (statKind) {
       case "assists":
@@ -1088,6 +1171,12 @@ function readPlayerStatValue(
         return statsRow.tackles ?? 0;
       case "saves":
         return statsRow.saves ?? 0;
+      case "points":
+        return statsRow.points ?? 0;
+      case "rebounds":
+        return statsRow.rebounds ?? 0;
+      case "threes":
+        return statsRow.threes ?? statsRow.threePointersMade ?? 0;
       case "goals":
         return statsRow.goals ?? 0;
       default:
@@ -1241,6 +1330,7 @@ function evaluateLiveLeg(input: {
   entry: LiveScoreboardEntry | null;
   detail: LiveMatchDetail | null;
   game: PlatformGame | null;
+  fullAccess: boolean;
   settledResult?: SealedParlayLegResult | null;
 }): LiveTrackedPickLeg {
   const league = input.entry?.league ?? (input.game ? String(input.game.league) : null);
@@ -1314,14 +1404,12 @@ function evaluateLiveLeg(input: {
     }
   }
 
-  const rawExpectedMargin = input.game?.spacetime?.expectedMargin ?? 0;
+  const rawExpectedMargin = input.fullAccess ? (input.game?.spacetime?.expectedMargin ?? 0) : 0;
   const orientedExpectedMargin =
     spec.side === "away" ? -rawExpectedMargin : rawExpectedMargin;
   const preMatchExpected =
     spec.category === "totals"
-      ? (input.detail?.inPlayWinProb?.expectedFinalTotal ??
-        input.game?.spacetime?.expectedTotal ??
-        spec.targetLine)
+      ? ((input.fullAccess ? input.game?.spacetime?.expectedTotal : null) ?? spec.targetLine)
       : spec.category === "asian_handicap" ||
           spec.category === "dnb" ||
           (spec.category === "h2h" && spec.side !== "draw")
@@ -1337,8 +1425,7 @@ function evaluateLiveLeg(input: {
     direction: spec.direction,
   });
 
-  const lineups =
-    input.game?.preGame?.confirmedLineups ?? input.game?.preGame?.probableLineups ?? null;
+  const lineups = input.game?.preGame?.confirmedLineups ?? null;
   const benchCheck =
     spec.playerName !== null
       ? detectStarterOnBench({
@@ -1346,6 +1433,8 @@ function evaluateLiveLeg(input: {
           lineups,
           playerStats: input.detail?.playerStats ?? null,
           matchMinute: clockState.elapsedMinutes,
+          teamSide: spec.side === "home" || spec.side === "away" ? spec.side : null,
+          sport: input.game?.sport ?? (league === "nba" ? "basketball" : null),
         })
       : { alert: null, detail: null };
 
@@ -1365,7 +1454,10 @@ function evaluateLiveLeg(input: {
   } else if (spec.category === "btts" && spec.direction === "over") {
     hitLocked = actualValue >= 2;
   } else if (isMonotonicOver) {
-    hitLocked = asianEval ? asianEval.state === "won_full" : actualValue > spec.targetLine;
+    hitLocked = asianEval
+      ? asianEval.state === "won_full" ||
+        (clockState.phase === "final" && asianEval.state === "won_half")
+      : actualValue > spec.targetLine;
   } else if (clockState.phase === "final") {
     if (asianEval) {
       hitLocked = asianEval.state === "won_full" || asianEval.state === "won_half";
@@ -1513,6 +1605,7 @@ export async function loadUserLiveTrackedPicks(
 ): Promise<UserLiveTrackedPicksPayload> {
   const now = opts.now ?? new Date();
   const limit = clampBoundedLimit(opts.limit, MAX_LIVE_TRACKED_PICKS);
+  const fullAccess = opts.fullAccess !== false;
 
   const pendingRows = await db
     .select({
@@ -1638,6 +1731,9 @@ export async function loadUserLiveTrackedPicks(
       const evaluatedLegs: LiveTrackedPickLeg[] = specs.map((leg) => {
         const legEntry = entryByGameId.get(leg.gameId) ?? null;
         if (legEntry) trackedEntries.push(legEntry);
+        const rawLegDetail = detailsByGameId.get(leg.gameId) ?? null;
+        const safeLegDetail =
+          rawLegDetail && !fullAccess ? { ...rawLegDetail, inPlayWinProb: null } : rawLegDetail;
         return evaluateLiveLeg({
           pickId: leg.pickId,
           gameId: leg.gameId,
@@ -1648,8 +1744,9 @@ export async function loadUserLiveTrackedPicks(
           selection: leg.selection,
           line: leg.line ?? null,
           entry: legEntry,
-          detail: detailsByGameId.get(leg.gameId) ?? null,
+          detail: safeLegDetail,
           game: gameById.get(leg.gameId) ?? null,
+          fullAccess,
           settledResult: settledByPickId.get(leg.pickId) ?? null,
         });
       });
@@ -1659,21 +1756,43 @@ export async function loadUserLiveTrackedPicks(
       const projectedHitLegs = evaluatedLegs.filter(isLegProjectedHit).length;
       const activeLegsCount = evaluatedLegs.filter((leg) => isLivePhaseActive(leg.phase)).length;
       const allFinal = evaluatedLegs.every((leg) => leg.phase === "final");
-      const anyLostFinal = evaluatedLegs.some(
+      const anyLostFullFinal = evaluatedLegs.some(
         (leg) =>
           leg.phase === "final" &&
           !leg.hitLocked &&
-          leg.asianState !== "push",
+          leg.asianState !== "push" &&
+          leg.asianState !== "won_half" &&
+          leg.asianState !== "lost_half",
       );
+      const anyLostHalfFinal = evaluatedLegs.some(
+        (leg) => leg.phase === "final" && leg.asianState === "lost_half",
+      );
+      const anyWonHalfFinal = evaluatedLegs.some(
+        (leg) => leg.phase === "final" && leg.asianState === "won_half",
+      );
+      const allPushFinal =
+        allFinal &&
+        totalLegs > 0 &&
+        evaluatedLegs.every((leg) => leg.asianState === "push");
+      const allNonLosingFinal =
+        allFinal &&
+        totalLegs > 0 &&
+        evaluatedLegs.every((leg) => leg.hitLocked || leg.asianState === "push");
       const benchLeg = evaluatedLegs.find((leg) => leg.starterAlert !== null) ?? null;
       const primaryLeg = evaluatedLegs[0]!;
       const parlayPhase: LivePhase =
         activeLegsCount > 0 ? "live" : allFinal ? "final" : primaryLeg.phase;
-      const parlayAsianState: LiveAsianPickState | null = anyLostFinal
+      const parlayAsianState: LiveAsianPickState | null = anyLostFullFinal
         ? "lost_full"
-        : allFinal && hitLegs === totalLegs
-          ? "won_full"
-          : null;
+        : anyLostHalfFinal
+          ? "lost_half"
+          : allPushFinal
+            ? "push"
+            : allNonLosingFinal && anyWonHalfFinal
+              ? "won_half"
+              : allNonLosingFinal && hitLegs > 0
+                ? "won_full"
+                : null;
       const parlayHitLocked = hitLegs === totalLegs && totalLegs > 0;
       const parlayClock =
         activeLegsCount > 0
@@ -1721,9 +1840,15 @@ export async function loadUserLiveTrackedPicks(
         payoutMultiplier:
           parlayAsianState === "won_full"
             ? 1
-            : parlayAsianState === "lost_full"
-              ? -1
-              : null,
+            : parlayAsianState === "won_half"
+              ? 0.5
+              : parlayAsianState === "push"
+                ? 0
+                : parlayAsianState === "lost_half"
+                  ? -0.5
+                  : parlayAsianState === "lost_full"
+                    ? -1
+                    : null,
         starterAlert: benchLeg?.starterAlert ?? null,
         starterAlertDetail: benchLeg?.starterAlertDetail ?? null,
         hitLocked: parlayHitLocked,
@@ -1735,6 +1860,9 @@ export async function loadUserLiveTrackedPicks(
 
     const entry = entryByGameId.get(row.gameId) ?? null;
     if (entry) trackedEntries.push(entry);
+    const rawDetail = detailsByGameId.get(row.gameId) ?? null;
+    const safeDetail =
+      rawDetail && !fullAccess ? { ...rawDetail, inPlayWinProb: null } : rawDetail;
     const evaluated = evaluateLiveLeg({
       pickId: row.pickId,
       gameId: row.gameId,
@@ -1745,8 +1873,9 @@ export async function loadUserLiveTrackedPicks(
       selection: row.pickSelection,
       line: parseStrictFiniteNumber(row.pickLine),
       entry,
-      detail: detailsByGameId.get(row.gameId) ?? null,
+      detail: safeDetail,
       game: gameById.get(row.gameId) ?? null,
+      fullAccess,
     });
 
     items.push({

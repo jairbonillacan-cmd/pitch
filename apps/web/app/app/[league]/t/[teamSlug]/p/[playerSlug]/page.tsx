@@ -76,10 +76,12 @@ export default async function CanonicalPlayerProfilePage({
   }
 
   const enrichedProfile = await hydratePlayerLivePerformance(profile);
-  const nextRivalDefense = resolveNextRivalDefense(
-    enrichedProfile.league,
-    enrichedProfile.nextFixture?.opponent.slug,
-  );
+  const nextRivalDefense = access.fullAccess
+    ? resolveNextRivalDefense(
+        enrichedProfile.league,
+        enrichedProfile.nextFixture?.opponent.slug,
+      )
+    : null;
 
   return (
     <PlayerProfileClubView

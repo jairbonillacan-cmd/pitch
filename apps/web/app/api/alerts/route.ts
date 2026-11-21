@@ -26,6 +26,7 @@ import {
   AlertLeagueSchema,
   AlertMarketFamilySchema,
   AlertTriggerSchema,
+  canonicalizeAlertBookmaker,
 } from "../../../src/server/market-alerts-engine";
 
 export const runtime = "nodejs";
@@ -36,7 +37,8 @@ const SafeBookmakerSchema = z
   .string()
   .trim()
   .toLowerCase()
-  .regex(/^[a-z0-9][a-z0-9_-]{1,39}$/);
+  .regex(/^[a-z0-9][a-z0-9_-]{1,39}$/)
+  .transform((value) => canonicalizeAlertBookmaker(value) ?? value);
 
 const CreateAlertBodySchema = z
   .object({

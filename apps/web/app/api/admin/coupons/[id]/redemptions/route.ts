@@ -36,7 +36,7 @@ export const GET = withAdminMutation(
     }
 
     const limit = parseBoundedLimit(request, MAX_ADMIN_LIST_LIMIT);
-    const rows = await listCouponRedemptionsAdmin(user.db, parsedId.data);
+    const rows = await listCouponRedemptionsAdmin(user.db, parsedId.data, limit);
     const boundedRows = rows.slice(0, limit);
 
     return NextResponse.json({

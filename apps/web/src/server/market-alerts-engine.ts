@@ -11,6 +11,7 @@ import {
   NBA_MARKET_FAMILY_IDS,
   NFL_MARKET_FAMILY_IDS,
   NHL_MARKET_FAMILY_IDS,
+  parseStrictFiniteNumber,
   type MarketFamilyId,
   type PlatformSport,
   type ProductLeagueKey,
@@ -347,7 +348,7 @@ interface BookAlias {
 const BOOK_ALIASES: readonly BookAlias[] = [
   { key: "pinnacle", pattern: /\bpinnacle\b/i },
   { key: "bet365", pattern: /\bbet\s*365\b/i },
-  { key: "caliente", pattern: /\bcaliente(?:\.mx|\s+mx)?\b/i },
+  { key: "caliente", pattern: /\bcaliente(?:(?:\.|[-_\s]+)mx)?\b/i },
   { key: "codere", pattern: /\bcodere\b/i },
   { key: "betano", pattern: /\bbetano\b/i },
   { key: "draftkings", pattern: /\bdraft\s*kings\b/i },
@@ -364,7 +365,22 @@ const BOOK_ALIASES: readonly BookAlias[] = [
   { key: "bwin", pattern: /\bbwin\b/i },
   { key: "unibet", pattern: /\bunibet\b/i },
   { key: "betsson", pattern: /\bbetsson\b/i },
+  { key: "betonline", pattern: /\bbet\s*online(?:(?:\.|[-_\s]+)?ag)?\b/i },
 ];
+
+const BOOK_CANONICAL_ALIASES: Readonly<Record<string, string>> = {
+  calientemx: "caliente",
+  caliente: "caliente",
+  betonlineag: "betonline",
+  betonline: "betonline",
+};
+
+export function canonicalizeAlertBookmaker(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  const folded = foldText(raw).replace(/[^a-z0-9]+/g, "");
+  if (folded.length === 0) return null;
+  return BOOK_CANONICAL_ALIASES[folded] ?? folded;
+}
 
 interface LeagueAlias {
   readonly league: ProductLeagueKey;
@@ -461,8 +477,7 @@ const LEAGUE_ALIASES = buildLeagueAliases();
 function parseNumberLiteral(raw: string | undefined): number | null {
   if (!raw) return null;
   const normalized = raw.trim().replace(",", ".");
-  const parsed = Number.parseFloat(normalized);
-  return Number.isFinite(parsed) ? parsed : null;
+  return parseStrictFiniteNumber(normalized);
 }
 
 function detectLeague(promptEs: string): {
@@ -1104,7 +1119,7 @@ export function alertRuleToDbCreateInput(
     maxDecimal:
       overrides.maxDecimal !== undefined ? overrides.maxDecimal : (rule.maxDecimal ?? null),
     direction: rule.direction,
-    bookmaker: rule.preferredBook,
+    bookmaker: canonicalizeAlertBookmaker(rule.preferredBook),
     cooldownMinutes: overrides.cooldownMinutes ?? rule.cooldownMinutes ?? 60,
     channel: overrides.channel ?? rule.channel ?? "push",
     active: overrides.active ?? true,
@@ -1120,6 +1135,7 @@ export function dbRowToEvaluatableRule(row: MarketAlertRow): MarketAlertEvaluata
   const direction: MarketAlertDirection | null = row.direction
     ? (ALERT_DIRECTIONS.find((item) => item === row.direction) ?? parsedSelection.direction)
     : parsedSelection.direction;
+  const canonicalBook = canonicalizeAlertBookmaker(row.bookmaker);
 
   return {
     id: row.id,
@@ -1136,8 +1152,8 @@ export function dbRowToEvaluatableRule(row: MarketAlertRow): MarketAlertEvaluata
     thresholdEvPct: row.thresholdEvPct,
     minEvPct: trigger === "sharp_steam" ? null : row.thresholdEvPct,
     minDeltaNoVigPp: trigger === "sharp_steam" ? row.thresholdEvPct : null,
-    bookmaker: row.bookmaker,
-    preferredBook: row.bookmaker,
+    bookmaker: canonicalBook,
+    preferredBook: canonicalBook,
     minDecimal: row.minDecimal,
     maxDecimal: row.maxDecimal,
     cooldownMinutes: row.cooldownMinutes,
@@ -1148,9 +1164,7 @@ export function dbRowToEvaluatableRule(row: MarketAlertRow): MarketAlertEvaluata
 }
 
 function normalizeBookKey(raw: string | null | undefined): string | null {
-  if (!raw) return null;
-  const folded = foldText(raw).replace(/[^a-z0-9]+/g, "");
-  return folded.length > 0 ? folded : null;
+  return canonicalizeAlertBookmaker(raw);
 }
 
 export function computeMarketAlertDedupeHash(event: MarketAlertCandidateEvent): string {
@@ -1228,7 +1242,13 @@ export function evaluateMarketAlertTrigger(
   }
   if (rule.lastFiredAtIso) {
     const lastFiredMs = Date.parse(rule.lastFiredAtIso);
-    const cooldownMs = (rule.cooldownMinutes ?? 60) * 60_000;
+    const safeCooldownMin =
+      typeof rule.cooldownMinutes === "number" &&
+      Number.isFinite(rule.cooldownMinutes) &&
+      rule.cooldownMinutes > 0
+        ? rule.cooldownMinutes
+        : 60;
+    const cooldownMs = safeCooldownMin * 60_000;
     if (Number.isFinite(lastFiredMs) && nowMs - lastFiredMs < cooldownMs) {
       return { matched: false, reason: "cooldown_active", dedupeHash };
     }
@@ -1276,6 +1296,9 @@ export function evaluateMarketAlertTrigger(
   }
 
   if (rule.line !== undefined && rule.line !== null) {
+    if (!Number.isFinite(rule.line)) {
+      return { matched: false, reason: "invalid_rule_threshold", dedupeHash };
+    }
     if (event.line === undefined || event.line === null || !Number.isFinite(event.line)) {
       return { matched: false, reason: "line_missing", dedupeHash };
     }
@@ -1288,6 +1311,12 @@ export function evaluateMarketAlertTrigger(
     (rule.minDecimal !== undefined && rule.minDecimal !== null) ||
     (rule.maxDecimal !== undefined && rule.maxDecimal !== null)
   ) {
+    if (
+      (rule.minDecimal !== undefined && rule.minDecimal !== null && !Number.isFinite(rule.minDecimal)) ||
+      (rule.maxDecimal !== undefined && rule.maxDecimal !== null && !Number.isFinite(rule.maxDecimal))
+    ) {
+      return { matched: false, reason: "invalid_rule_threshold", dedupeHash };
+    }
     if (typeof event.bookDecimal !== "number" || !Number.isFinite(event.bookDecimal)) {
       return { matched: false, reason: "decimal_odds_missing", dedupeHash };
     }
@@ -1297,6 +1326,18 @@ export function evaluateMarketAlertTrigger(
     if (rule.maxDecimal !== undefined && rule.maxDecimal !== null && event.bookDecimal > rule.maxDecimal) {
       return { matched: false, reason: "decimal_odds_out_of_range", dedupeHash };
     }
+  }
+
+  if (
+    (rule.minEvPct !== undefined && rule.minEvPct !== null && !Number.isFinite(rule.minEvPct)) ||
+    (rule.thresholdEvPct !== undefined &&
+      rule.thresholdEvPct !== null &&
+      !Number.isFinite(rule.thresholdEvPct)) ||
+    (rule.minDeltaNoVigPp !== undefined &&
+      rule.minDeltaNoVigPp !== null &&
+      !Number.isFinite(rule.minDeltaNoVigPp))
+  ) {
+    return { matched: false, reason: "invalid_rule_threshold", dedupeHash };
   }
 
   const evPct = resolveEventEvPct(event);
@@ -1310,6 +1351,9 @@ export function evaluateMarketAlertTrigger(
       return { matched: false, reason: "market_not_opened", dedupeHash };
     }
     if (minEvThreshold !== null) {
+      if (!Number.isFinite(minEvThreshold)) {
+        return { matched: false, reason: "invalid_rule_threshold", dedupeHash };
+      }
       if (fairDecimal === null || evPct === null || evPct < minEvThreshold) {
         return { matched: false, reason: "ev_below_threshold", dedupeHash };
       }
@@ -1317,11 +1361,17 @@ export function evaluateMarketAlertTrigger(
   } else if (event.trigger === "sharp_steam") {
     const delta = event.deltaNoVigPp;
     const threshold = minSteamThreshold ?? 3.0;
+    if (!Number.isFinite(threshold)) {
+      return { matched: false, reason: "invalid_rule_threshold", dedupeHash };
+    }
     if (typeof delta !== "number" || !Number.isFinite(delta) || Math.abs(delta) < threshold) {
       return { matched: false, reason: "steam_below_threshold", dedupeHash };
     }
   } else if (event.trigger === "stale_line_ev") {
     const threshold = minEvThreshold ?? 3.0;
+    if (!Number.isFinite(threshold)) {
+      return { matched: false, reason: "invalid_rule_threshold", dedupeHash };
+    }
     if (event.isStaleBook === false) {
       return { matched: false, reason: "book_not_stale", dedupeHash };
     }
@@ -1338,7 +1388,11 @@ export function evaluateMarketAlertTrigger(
       return { matched: false, reason: "book_not_stale", dedupeHash };
     }
   } else if (event.trigger === "lineup_confirmed") {
-    if (event.lineupStatus !== "confirmed" || event.isStarter === false) {
+    if (
+      event.lineupStatus !== "confirmed" ||
+      event.isStarter === false ||
+      (Boolean(rule.playerQuery) && event.isStarter !== true)
+    ) {
       return { matched: false, reason: "lineup_not_confirmed", dedupeHash };
     }
   } else if (event.trigger === "schedule_change") {

@@ -16,15 +16,15 @@ const SECRET_PREFIX_RE =
   /\b(?:(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9_-]{8,}|(?:whsec|ghp|gho|glpat)_[A-Za-z0-9_-]{8,}|re_[A-Za-z0-9]{12,})\b/g;
 const GOOGLE_TOKEN_RE = /\bya29\.[A-Za-z0-9._-]{10,}\b/g;
 const INLINE_SECRET_RE =
-  /\b(password|passwd|secret|token|api[_-]?key|access[_-]?token|refresh[_-]?token|private[_-]?key|authorization)\s*([=:])\s*([^\s&,;"'}\]]+)/gi;
+  /\b(password|passwd|secret|token|api[_-]?key|access[_-]?token|refresh[_-]?token|private[_-]?key|authorization|clabe|spei[_-]?reference)\s*([=:])\s*([^\s&,;"'}\]]+)/gi;
 const URL_CREDENTIALS_RE = /\b([a-z][a-z0-9+.-]*:\/\/)([^:@\s/]+):([^@\s/]+)@/gi;
 const EMAIL_RE = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
 const STACK_FRAME_RE = /\r?\n\s+at\s+[^\r\n]+/g;
 
 const EXACT_SENSITIVE_KEY_RE =
-  /^(?:password|passwd|secret|token|accessToken|refreshToken|idToken|apiKey|api_key|authorization|cookie|set-cookie|setCookie|sessionToken|session_token|privateKey|private_key|email|userEmail|billingEmail|rfc|birthDate|birth_date|ip|clientIp|remoteAddress)$/i;
+  /^(?:password|passwd|secret|token|accessToken|refreshToken|idToken|apiKey|api_key|authorization|cookie|set-cookie|setCookie|sessionToken|session_token|privateKey|private_key|email|userEmail|billingEmail|rfc|birthDate|birth_date|ip|clientIp|remoteAddress|clabe|speiReference|spei_reference)$/i;
 const PARTIAL_SENSITIVE_KEY_RE =
-  /(?:password|passwd|secret|cookie|authorization|apikey|api_key|access_token|refresh_token|id_token|private_key|jwt|bearer|stacktrace)/i;
+  /(?:password|passwd|secret|cookie|authorization|apikey|api_key|access_token|refresh_token|id_token|private_key|jwt|bearer|stacktrace|clabe|speireference|spei_reference)/i;
 const STACK_KEY_RE = /^stack$/i;
 
 function auditIpSalt(): string {

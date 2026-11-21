@@ -23,10 +23,13 @@ export const GET = withSessionRead(
     watermark: true,
     cacheControl: "private, no-store",
   },
-  async ({ request, user }) => {
+  async ({ request, user, access }) => {
     const url = new URL(request.url);
     const limit = parseBoundedLimit(url.searchParams.get("limit"));
-    const payload = await loadUserLiveTrackedPicks(user.db, user.userId, { limit });
+    const payload = await loadUserLiveTrackedPicks(user.db, user.userId, {
+      limit,
+      fullAccess: access.fullAccess,
+    });
     return NextResponse.json(payload);
   },
 );

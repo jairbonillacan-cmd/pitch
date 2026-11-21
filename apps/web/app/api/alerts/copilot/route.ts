@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createSanitizedErrorPayload, isSafePublicLabel } from "@pitchlab/contracts";
+import {
+  createSanitizedErrorPayload,
+  getLeagueCapability,
+  isSafePublicLabel,
+} from "@pitchlab/contracts";
 import {
   createMarketAlert,
   MAX_MARKET_ALERTS_PER_USER,
   MAX_TOTAL_MARKET_ALERTS_PER_USER,
   type MarketAlertRow,
+  type MarketAlertTrigger,
 } from "@pitchlab/db/market-alerts";
 import { withActivePaseMutation } from "../../../../src/server/api-guards";
 import { parseMarketAlertWithCopilot } from "../../../../src/server/market-alerts-copilot";
@@ -60,6 +65,17 @@ function serializeAlert(row: MarketAlertRow) {
     createdAtIso: row.createdAt.toISOString(),
     updatedAtIso: row.updatedAt.toISOString(),
   };
+}
+
+function isValidMergedLeagueMarketPair(merged: {
+  readonly trigger: MarketAlertTrigger;
+  readonly league: string | null;
+  readonly marketFamily: string | null;
+}): boolean {
+  if (!merged.league || !merged.marketFamily) return true;
+  const cap = getLeagueCapability(merged.league);
+  if (!cap) return false;
+  return cap.supportedMarketFamilies.some((fam) => fam === merged.marketFamily);
 }
 
 export const POST = withActivePaseMutation(
@@ -151,7 +167,9 @@ export const POST = withActivePaseMutation(
     }
 
     if (parsed.data.save === true) {
-      const created = await createMarketAlert(user.db, user.userId, draft);
+      const created = await createMarketAlert(user.db, user.userId, draft, new Date(), {
+        validateMerged: isValidMergedLeagueMarketPair,
+      });
       if (!created.ok) {
         if (created.reason === "limit_exceeded") {
           return errorJson(

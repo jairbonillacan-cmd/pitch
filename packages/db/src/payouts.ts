@@ -263,7 +263,17 @@ export async function listTipsterCommissionsForAdmin(
     .innerJoin(tipsterProfiles, eq(tipsterProfiles.userId, tipsterCommissionLedger.tipsterUserId))
     .innerJoin(users, eq(users.id, tipsterProfiles.userId))
     .orderBy(desc(tipsterCommissionLedger.createdAt))
-    .limit(opts?.limit ?? 100);
+    .limit(
+      Math.min(
+        40,
+        Math.max(
+          1,
+          typeof opts?.limit === "number" && Number.isFinite(opts.limit)
+            ? Math.trunc(opts.limit)
+            : 40,
+        ),
+      ),
+    );
 
   const byTipster = new Map<string, AdminTipsterSummaryRow>();
   for (const r of rows) {

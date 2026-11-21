@@ -55,7 +55,7 @@ export interface SealInput {
   parlayLegs?: readonly SealedParlayLegSpec[] | null;
 }
 
-export function sealHashOf(userId: string, input: SealInput, sealedAt: Date): string {
+export function canonicalSealPayload(userId: string, input: SealInput, sealedAt: Date): string {
   const baseFields: unknown[] = [
     userId,
     input.gameId,
@@ -84,12 +84,21 @@ export function sealHashOf(userId: string, input: SealInput, sealedAt: Date): st
       ]),
     );
   }
-  const canonicalPayload = JSON.stringify(baseFields);
-  const serverSecret = process.env.BETTER_AUTH_SECRET?.trim();
-  if (serverSecret && serverSecret.length >= 16) {
-    return createHmac("sha256", serverSecret).update(canonicalPayload).digest("hex");
-  }
+  return JSON.stringify(baseFields);
+}
+
+export function sealHashOf(userId: string, input: SealInput, sealedAt: Date): string {
+  const canonicalPayload = canonicalSealPayload(userId, input, sealedAt);
   return createHash("sha256").update(canonicalPayload).digest("hex");
+}
+
+export function sealSignatureOf(userId: string, input: SealInput, sealedAt: Date): string | null {
+  const serverSecret = process.env.BETTER_AUTH_SECRET?.trim();
+  if (!serverSecret || serverSecret.length < 16) {
+    return null;
+  }
+  const canonicalPayload = canonicalSealPayload(userId, input, sealedAt);
+  return createHmac("sha256", serverSecret).update(canonicalPayload).digest("hex");
 }
 
 export type SealResult =
@@ -115,7 +124,8 @@ export async function sealPick(db: Db, userId: string, input: SealInput, now: Da
   ) {
     return { ok: false, reason: "momio_invalido" };
   }
-  const sealHash = sealHashOf(userId, input, now);
+  const sealTimestamp = new Date(now.getTime());
+  const sealHash = sealHashOf(userId, input, sealTimestamp);
   const rows = await db
     .insert(sealedPicks)
     .values({
@@ -136,12 +146,12 @@ export async function sealPick(db: Db, userId: string, input: SealInput, now: Da
       fairDecimal: input.fairDecimal.toFixed(3),
       note: input.note?.slice(0, 280),
       sealHash,
-      sealedAt: now,
+      sealedAt: sealTimestamp,
       kickoffAt: input.kickoffAt,
     })
     .onConflictDoNothing()
-    .returning({ id: sealedPicks.id });
-  return rows[0] ? { ok: true, id: rows[0].id, sealHash } : { ok: false, reason: "ya_sellado" };
+    .returning({ id: sealedPicks.id, sealHash: sealedPicks.sealHash });
+  return rows[0] ? { ok: true, id: rows[0].id, sealHash: rows[0].sealHash } : { ok: false, reason: "ya_sellado" };
 }
 
 export interface ListJournalOptions {

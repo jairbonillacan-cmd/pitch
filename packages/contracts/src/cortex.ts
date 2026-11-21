@@ -24,17 +24,69 @@ export interface CortexFacts {
   extras?: Record<string, unknown>;
 }
 
+const DIACRITIC_MARK_RE = /[\u0300-\u036f]/;
 const INJECTION_PATTERNS =
-  /\b(?:ignore\s+(?:all\s+)?previous(?:\s+instructions)?|disregard\s+instructions|ignora\s+(?:todas\s+)?las\s+instrucciones|olvida\s+las\s+reglas)\b|\b(?:system|assistant|developer)\s*:/gi;
+  /\b(?:ignore\s+(?:all\s+)?previous(?:\s+instructions)?|disregard\s+(?:all\s+)?instructions|ignora\s+(?:todas?\s+)?las\s+instrucciones|olvida\s+(?:todas?\s+)?las\s+reglas)\b|\b(?:system|assistant|developer)\s*:/gi;
+
+function foldWithIndexMap(text: string): {
+  readonly folded: string;
+  readonly origStart: number[];
+  readonly origEnd: number[];
+} {
+  const foldedChars: string[] = [];
+  const origStart: number[] = [];
+  const origEnd: number[] = [];
+  let i = 0;
+  while (i < text.length) {
+    const cp = text.codePointAt(i)!;
+    const ch = String.fromCodePoint(cp);
+    const nextIdx = i + ch.length;
+    const nfd = ch.normalize("NFD");
+    for (const part of nfd) {
+      if (!DIACRITIC_MARK_RE.test(part)) {
+        foldedChars.push(part);
+        origStart.push(i);
+        origEnd.push(nextIdx);
+      }
+    }
+    i = nextIdx;
+  }
+  return { folded: foldedChars.join(""), origStart, origEnd };
+}
+
+function stripInjectionsOnce(text: string): string {
+  const { folded, origStart, origEnd } = foldWithIndexMap(text);
+  const ranges: Array<[number, number]> = [];
+  INJECTION_PATTERNS.lastIndex = 0;
+  let match: RegExpExecArray | null = INJECTION_PATTERNS.exec(folded);
+  while (match !== null) {
+    const startIdx = match.index;
+    const endIdx = startIdx + match[0].length - 1;
+    if (startIdx >= 0 && endIdx >= startIdx && endIdx < origEnd.length) {
+      ranges.push([origStart[startIdx]!, origEnd[endIdx]!]);
+    }
+    match = INJECTION_PATTERNS.exec(folded);
+  }
+  if (ranges.length === 0) return text;
+  let out = "";
+  let cursor = 0;
+  for (const [start, end] of ranges) {
+    if (start > cursor) out += text.slice(cursor, start);
+    cursor = Math.max(cursor, end);
+  }
+  if (cursor < text.length) out += text.slice(cursor);
+  return out;
+}
 
 export function sanitizeCortexField(raw: string | null | undefined, maxLen: number = 80): string {
   if (!raw) return "";
-  return raw
-    .replace(/[\u0000-\u001F\u007F<>`]/g, " ")
-    .replace(INJECTION_PATTERNS, "")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, maxLen);
+  let current = raw.replace(/[\u0000-\u001F\u007F<>`]/g, " ");
+  for (let pass = 0; pass < 8; pass += 1) {
+    const next = stripInjectionsOnce(current).replace(/\s+/g, " ");
+    if (next === current) break;
+    current = next;
+  }
+  return current.replace(/\s+/g, " ").trim().slice(0, maxLen);
 }
 
 export function allowedNumbers(facts: CortexFacts): Set<string> {

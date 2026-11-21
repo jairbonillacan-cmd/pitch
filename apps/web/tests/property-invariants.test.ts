@@ -1,6 +1,7 @@
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 import { asLeagueId } from "@pitchlab/contracts";
+import { evaluatePlayerLinkedSgpV5 } from "@pitchlab/spacetime/v5";
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import {
   bivariateNormalJointProb,
@@ -810,6 +811,12 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
             };
             const redactedDataset = redactDatasetForVisitor(dataset);
             const redactedGame = redactedDataset.games[0]!;
+            if (!includePromo) {
+              expect(redactedGame.x12).toEqual([0, 0, 0]);
+              expect(redactedGame.projection).toEqual({ home: 0, away: 0, total: 0 });
+              expect(redactedGame.goalLine).toBeNull();
+              expect(redactedGame.spacetime).toBeNull();
+            }
             for (const p of redactedGame.picks) {
               if (!p.isDailyOpenPromo && !p.isTipsterWeeklyOpen) {
                 expect(p.isRedacted).toBe(true);
@@ -895,20 +902,101 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
       const forbiddenProviderRe =
         /(?:sportmonks|api-sports|api-football|bzzoiro|sofascore|flagcdn|understat|polymarket|kalshi|espn|nflverse|openfootball)/i;
       const numericIdRe = /(?:^|\/|[-_])\d{5,}(?=\/|\.|$)/;
+      const privatePrefixRe = /^\/(?:app|api|i|p|login|signup|onboarding|baja|canjear|offline)(?:\/|$)/i;
+
+      const encodeHex = (ch: string): string =>
+        `%${ch.charCodeAt(0).toString(16).padStart(2, "0")}`;
+
+      const arbStructuredPath = fc.oneof(
+        fc.tuple(arbCleanSlug, arbCleanSlug).map(([a, b]) => `/${a}/${b}`),
+        fc.tuple(fc.constantFrom(...providerTokens), arbCleanSlug).map(([p, s]) => `/${encodeHex(p[0]!)}${p.slice(1)}/${s}`),
+        fc.tuple(fc.constantFrom(...providerTokens), arbCleanSlug).map(([p, s]) => `/%25${p.charCodeAt(0).toString(16)}${p.slice(1)}/${s}`),
+        fc.tuple(arbCleanSlug, fc.constantFrom("app", "api", "login")).map(([s, priv]) => `/${s}/../${priv}/picks`),
+        fc.tuple(arbCleanSlug, fc.constantFrom("app", "api", "login")).map(([s, priv]) => `/${s}/%2e%2e/${priv}/picks`),
+        fc.tuple(fc.constantFrom("app", "api", "login"), arbCleanSlug).map(([priv, s]) => `/${encodeHex(priv[0]!)}${priv.slice(1)}/${s}`),
+        fc.tuple(arbCleanSlug, fc.integer({ min: 10_000, max: 999_999 })).map(
+          ([s, id]) => `/${s}/team-${String(id).split("").map(encodeHex).join("")}`,
+        ),
+        arbCleanSlug.map((s) => `//evil.com/${s}`),
+        arbCleanSlug.map((s) => `/\\evil.com/${s}`),
+        arbCleanSlug.map((s) => `/%2f/evil.com/${s}`),
+        fc.string({ minLength: 0, maxLength: 140 }),
+      );
 
       fc.assert(
-        fc.property(fc.string({ minLength: 0, maxLength: 140 }), (rawInput) => {
+        fc.property(arbStructuredPath, (rawInput) => {
           const out = sanitizeCanonicalPublicUrl(rawInput, SITE_ORIGIN);
           if (out === null) return;
           expect(out.startsWith(`${SITE_ORIGIN}/`)).toBe(true);
           expect(out.includes("?")).toBe(false);
           expect(out.includes("#")).toBe(false);
-          expect(forbiddenProviderRe.test(out)).toBe(false);
+          expect(out.includes("\\")).toBe(false);
           const pathname = out.slice(SITE_ORIGIN.length);
+          expect(pathname.startsWith("//")).toBe(false);
+          expect(isCleanPublicCanonicalPath(pathname)).toBe(true);
+          const decodedPath = decodeURIComponent(pathname);
+          expect(forbiddenProviderRe.test(pathname)).toBe(false);
+          expect(forbiddenProviderRe.test(decodedPath)).toBe(false);
           expect(numericIdRe.test(pathname)).toBe(false);
-          expect(pathname.startsWith("/app/")).toBe(false);
-          expect(pathname.startsWith("/api/")).toBe(false);
+          expect(numericIdRe.test(decodedPath)).toBe(false);
+          expect(privatePrefixRe.test(pathname)).toBe(false);
+          expect(privatePrefixRe.test(decodedPath)).toBe(false);
         }),
+        { numRuns: NUM_RUNS },
+      );
+
+      expect(sanitizeCanonicalPublicUrl("//evil.com/x", SITE_ORIGIN)).toBeNull();
+      expect(sanitizeCanonicalPublicUrl("/\\evil.com/x", SITE_ORIGIN)).toBeNull();
+      expect(sanitizeCanonicalPublicUrl("/%62zzoiro", SITE_ORIGIN)).toBeNull();
+      expect(sanitizeCanonicalPublicUrl("/%2562zzoiro", SITE_ORIGIN)).toBeNull();
+      expect(sanitizeCanonicalPublicUrl("/%61pp/picks", SITE_ORIGIN)).toBeNull();
+      expect(sanitizeCanonicalPublicUrl("/partidos/../app/picks", SITE_ORIGIN)).toBeNull();
+      expect(sanitizeCanonicalPublicUrl("/partidos/%2e%2e/app/picks", SITE_ORIGIN)).toBeNull();
+      expect(sanitizeCanonicalPublicUrl("/partidos/team-%31%32%33%34%35", SITE_ORIGIN)).toBeNull();
+    });
+  });
+
+  describe("Cópula SGP Jugador+Partido · evaluatePlayerLinkedSgpV5 (Fréchet-Hoeffding estricto)", () => {
+    it("respeta cotas superior e inferior de Fréchet-Hoeffding incluso en líneas extremas (Over 6.5 / 8.5)", () => {
+      fc.assert(
+        fc.property(
+          fc.double({ min: 0.002, max: 0.95, noNaN: true, noDefaultInfinity: true }),
+          fc.double({ min: 0.15, max: 5.5, noNaN: true, noDefaultInfinity: true }),
+          fc.double({ min: 0.15, max: 5.5, noNaN: true, noDefaultInfinity: true }),
+          fc.constantFrom<"team_win" | "team_win_or_draw" | "any">(
+            "team_win",
+            "team_win_or_draw",
+            "any",
+          ),
+          fc.constantFrom<number | null>(null, 0.5, 1.5, 2.5, 4.5, 6.5, 8.5),
+          fc.double({ min: -0.18, max: 0.14, noNaN: true, noDefaultInfinity: true }),
+          (pPlayerAnytimeGoal, teamExpectedGoals, opponentExpectedGoals, teamOutcome, totalLine, dcRho) => {
+            const res = evaluatePlayerLinkedSgpV5({
+              pPlayerAnytimeGoal,
+              teamExpectedGoals,
+              opponentExpectedGoals,
+              teamOutcome,
+              matchTotalOverLine: totalLine,
+              dixonColesRho: dcRho,
+            });
+            const marginals: number[] = [res.pPlayerScores];
+            if (teamOutcome !== "any") marginals.push(res.pTeamOutcomeMarginal);
+            if (res.pTotalOutcomeMarginal !== null) marginals.push(res.pTotalOutcomeMarginal);
+
+            const frechetLo = Math.max(
+              0,
+              marginals.reduce((acc, p) => acc + p, 0) - (marginals.length - 1),
+            );
+            const frechetHi = Math.min(...marginals);
+
+            expect(Number.isFinite(res.jointProbability)).toBe(true);
+            expect(res.jointProbability).toBeGreaterThanOrEqual(0);
+            expect(res.jointProbability).toBeGreaterThanOrEqual(frechetLo - 1e-9);
+            expect(res.jointProbability).toBeLessThanOrEqual(frechetHi + 1e-9);
+            expect(Number.isFinite(res.fairCombinedOdds.decimal)).toBe(true);
+            expect(res.fairCombinedOdds.decimal).toBeGreaterThan(1);
+          },
+        ),
         { numRuns: NUM_RUNS },
       );
     });

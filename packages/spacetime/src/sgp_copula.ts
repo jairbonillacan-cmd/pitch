@@ -711,12 +711,16 @@ export function evaluatePlayerLinkedSgpV5(params: {
     pPlayer *
     (params.teamOutcome === "any" ? 1.0 : pTeamMarg) *
     (hasTot ? pTotMarg : 1.0);
-  const upperBound = Math.min(
-    pPlayer,
-    params.teamOutcome === "any" ? 1.0 : pTeamMarg,
-    hasTot ? pTotMarg : 1.0,
+  const legMarginals: number[] = [pPlayer];
+  if (params.teamOutcome !== "any") legMarginals.push(pTeamMarg);
+  if (hasTot) legMarginals.push(pTotMarg);
+  const upperBound = Math.max(0.0, Math.min(...legMarginals));
+  const frechetLo = Math.max(
+    0.0,
+    legMarginals.reduce((acc, prob) => acc + prob, 0.0) - (legMarginals.length - 1),
   );
-  const jointProb = clamp(jointProbRaw, 0.0005, Math.max(0.001, upperBound));
+  const lowerBound = Math.min(upperBound, frechetLo);
+  const jointProb = clamp(jointProbRaw, lowerBound, upperBound);
   const liftMult = jointProb / Math.max(indepProb, 1e-9);
 
   const audit =

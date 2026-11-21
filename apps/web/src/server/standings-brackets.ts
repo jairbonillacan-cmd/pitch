@@ -51,6 +51,7 @@ export interface StandingsSplitRow {
   readonly won: number;
   readonly drawn: number;
   readonly lost: number;
+  readonly overtimeLosses?: number;
   readonly goalsFor: number;
   readonly goalsAgainst: number;
   readonly goalDiff: number;
@@ -244,6 +245,9 @@ const RawSeasonResultRowSchema = z.object({
   homeScore: z.number().int().nonnegative(),
   awayScore: z.number().int().nonnegative(),
   neutralSite: z.boolean().optional(),
+  overtime: z.boolean().optional(),
+  shootout: z.boolean().optional(),
+  extraTime: z.boolean().optional(),
 });
 
 const RawSeasonResultsSchema = z.object({
@@ -279,6 +283,7 @@ interface UnifiedMatchRecord {
   readonly awayScore: number | null;
   readonly extraTimeScore: { readonly home: number; readonly away: number } | null;
   readonly penaltyShootout: { readonly home: number; readonly away: number } | null;
+  readonly overtime: boolean;
 }
 
 interface SplitAccumulator {
@@ -286,6 +291,7 @@ interface SplitAccumulator {
   won: number;
   drawn: number;
   lost: number;
+  overtimeLosses: number;
   goalsFor: number;
   goalsAgainst: number;
   points: number;
@@ -397,6 +403,7 @@ function emptyAccumulator(): SplitAccumulator {
     won: 0,
     drawn: 0,
     lost: 0,
+    overtimeLosses: 0,
     goalsFor: 0,
     goalsAgainst: 0,
     points: 0,
@@ -574,6 +581,7 @@ function loadUnifiedMatches(
             awayScore: row.awayScore,
             extraTimeScore: null,
             penaltyShootout: null,
+            overtime: Boolean(row.overtime || row.shootout || row.extraTime),
           });
         }
       }
@@ -624,6 +632,7 @@ function loadUnifiedMatches(
         awayScore: game.result?.away ?? existing?.awayScore ?? null,
         extraTimeScore: mc?.extraTimeScore ?? existing?.extraTimeScore ?? null,
         penaltyShootout: mc?.penaltyShootout ?? existing?.penaltyShootout ?? null,
+        overtime: Boolean(mc?.extraTimeScore || mc?.penaltyShootout || existing?.overtime),
       });
     }
   }
@@ -678,16 +687,27 @@ function recordMatchIntoSplit(
   scored: number,
   conceded: number,
   sport: PlatformSport,
+  overtimeLoss = false,
 ): void {
   const outcome: StandingFormToken =
     scored > conceded ? "W" : scored < conceded ? "L" : "D";
   acc.played += 1;
-  if (outcome === "W") acc.won += 1;
-  else if (outcome === "D") acc.drawn += 1;
-  else acc.lost += 1;
+  if (outcome === "W") {
+    acc.won += 1;
+    acc.points += pointsForResult(sport, "W");
+  } else if (outcome === "D") {
+    acc.drawn += 1;
+    acc.points += pointsForResult(sport, "D");
+  } else if (sport === "ice-hockey" && overtimeLoss) {
+    acc.drawn += 1;
+    acc.overtimeLosses += 1;
+    acc.points += 1;
+  } else {
+    acc.lost += 1;
+    acc.points += pointsForResult(sport, "L");
+  }
   acc.goalsFor += scored;
   acc.goalsAgainst += conceded;
-  acc.points += pointsForResult(sport, outcome);
   if (conceded === 0) acc.cleanSheets += 1;
   acc.form.push(outcome);
   if (acc.form.length > 5) acc.form.shift();
@@ -925,8 +945,10 @@ function compareSplitRows(
 }
 
 function formatGamesBehind(gb: number): string {
-  if (gb <= 0.001) return "-";
-  return Number.isInteger(gb) ? String(gb) : round1(gb).toFixed(1);
+  if (!Number.isFinite(gb) || Math.abs(gb) <= 0.001) return "-";
+  const absVal = Math.abs(gb);
+  const formatted = Number.isInteger(absVal) ? String(absVal) : round1(absVal).toFixed(1);
+  return gb < 0 ? `+${formatted}` : formatted;
 }
 
 function materializeSplitRows(
@@ -976,7 +998,10 @@ function materializeSplitRows(
     ),
   );
 
-  const conferenceLeaders = new Map<string, { readonly won: number; readonly lost: number }>();
+  const conferenceLeaders = new Map<
+    string,
+    { readonly won: number; readonly lost: number; readonly drawn: number }
+  >();
   const conferenceCounters = new Map<string, number>();
 
   return draft.map((entry, idx) => {
@@ -991,10 +1016,18 @@ function materializeSplitRows(
       seed = nextSeed;
       const leader = conferenceLeaders.get(conf);
       if (!leader) {
-        conferenceLeaders.set(conf, { won: entry.acc.won, lost: entry.acc.lost });
+        conferenceLeaders.set(conf, {
+          won: entry.acc.won,
+          lost: entry.acc.lost,
+          drawn: entry.acc.drawn,
+        });
         gamesBehind = "-";
       } else {
-        const gb = (leader.won - entry.acc.won + (entry.acc.lost - leader.lost)) / 2;
+        const leaderAdjWon = leader.won + leader.drawn * 0.5;
+        const leaderAdjLost = leader.lost + leader.drawn * 0.5;
+        const entryAdjWon = entry.acc.won + entry.acc.drawn * 0.5;
+        const entryAdjLost = entry.acc.lost + entry.acc.drawn * 0.5;
+        const gb = (leaderAdjWon - entryAdjWon + (entryAdjLost - leaderAdjLost)) / 2;
         gamesBehind = formatGamesBehind(gb);
       }
     }
@@ -1024,6 +1057,7 @@ function materializeSplitRows(
       won: entry.acc.won,
       drawn: entry.acc.drawn,
       lost: entry.acc.lost,
+      ...(sport === "ice-hockey" ? { overtimeLosses: entry.acc.overtimeLosses } : {}),
       goalsFor: entry.acc.goalsFor,
       goalsAgainst: entry.acc.goalsAgainst,
       goalDiff: entry.goalDiff,
@@ -1087,10 +1121,11 @@ export function buildLeagueStandingsSplits(league: string): LeagueStandingsSplit
     if (hs === null || as === null) continue;
     const homeCanon = ensureTeam(match.homeTeamId);
     const awayCanon = ensureTeam(match.awayTeamId);
-    recordMatchIntoSplit(homeAccByCanon.get(homeCanon)!, hs, as, sport);
-    recordMatchIntoSplit(awayAccByCanon.get(awayCanon)!, as, hs, sport);
-    recordMatchIntoSplit(totalAccByCanon.get(homeCanon)!, hs, as, sport);
-    recordMatchIntoSplit(totalAccByCanon.get(awayCanon)!, as, hs, sport);
+    const isOt = match.overtime;
+    recordMatchIntoSplit(homeAccByCanon.get(homeCanon)!, hs, as, sport, isOt && hs < as);
+    recordMatchIntoSplit(awayAccByCanon.get(awayCanon)!, as, hs, sport, isOt && as < hs);
+    recordMatchIntoSplit(totalAccByCanon.get(homeCanon)!, hs, as, sport, isOt && hs < as);
+    recordMatchIntoSplit(totalAccByCanon.get(awayCanon)!, as, hs, sport, isOt && as < hs);
   }
 
   const teamMetas = Array.from(participatingCanon)
@@ -1882,9 +1917,11 @@ function classifyKnockoutStageKey(
     return FOOTBALL_KNOCKOUT_ROUNDS.semifinals!;
   }
   if (parts.some((part) => FINAL_STAGE_RE.test(part)) || FINAL_STAGE_RE.test(combined)) {
+    const isTwoLegged = league === "liga-mx";
     return {
       ...FOOTBALL_KNOCKOUT_ROUNDS.final!,
-      twoLegged: league === "liga-mx",
+      twoLegged: isTwoLegged,
+      bestOf: isTwoLegged ? null : FOOTBALL_KNOCKOUT_ROUNDS.final!.bestOf,
     };
   }
   if (
@@ -2149,6 +2186,14 @@ function buildActiveFootballBracket(
     teamsInNextRoundByKey.set(currentKey, nextTeams);
   }
 
+  const regularSeasonRankByCanon = new Map<string, number>();
+  if (league === "liga-mx") {
+    const regularSplits = buildLeagueStandingsSplits("liga-mx");
+    for (const row of regularSplits?.total ?? []) {
+      regularSeasonRankByCanon.set(canonicalSlug(row.teamSlug), row.rank);
+    }
+  }
+
   const rounds: BracketRound[] = sortedRounds.map((bucket) => {
     const grouped = new Map<string, UnifiedMatchRecord[]>();
     for (const m of bucket.matches) {
@@ -2230,6 +2275,7 @@ function buildActiveFootballBracket(
         (allKnownLegsFinished && penaltiesA !== null && penaltiesB !== null);
 
       let winnerSide: "A" | "B" | null = null;
+      let tiebreakBySeed = false;
       if (isDecided) {
         if (aggregateA > aggregateB) {
           winnerSide = "A";
@@ -2241,13 +2287,26 @@ function buildActiveFootballBracket(
           winnerSide = "A";
         } else if (nextRoundTeams.has(canonB) && !nextRoundTeams.has(canonA)) {
           winnerSide = "B";
+        } else if (
+          league === "liga-mx" &&
+          bucket.meta.key !== "final" &&
+          bucket.meta.twoLegged &&
+          legs.length >= expectedLegs
+        ) {
+          const rankA = regularSeasonRankByCanon.get(canonA) ?? null;
+          const rankB = regularSeasonRankByCanon.get(canonB) ?? null;
+          if (rankA !== null && rankB !== null && rankA !== rankB) {
+            winnerSide = rankA < rankB ? "A" : "B";
+            tiebreakBySeed = true;
+          }
         }
       }
 
+      const resolvedDecided = isDecided && winnerSide !== null;
       const status: BracketTie["status"] =
         inProgressLegs > 0
           ? "in_progress"
-          : isDecided
+          : resolvedDecided
             ? "decided"
             : finishedLegs > 0
               ? "in_progress"
@@ -2256,11 +2315,13 @@ function buildActiveFootballBracket(
       const note =
         penaltiesA !== null && penaltiesB !== null
           ? `Definida en penales (${penaltiesA}-${penaltiesB})`
-          : legs.length === 2
-            ? "Serie a ida y vuelta"
-            : legs.length === 1 && !bucket.meta.twoLegged
-              ? "Partido único"
-              : null;
+          : tiebreakBySeed
+            ? "Avanza por mejor posición en tabla general"
+            : legs.length === 2
+              ? "Serie a ida y vuelta"
+              : legs.length === 1 && !bucket.meta.twoLegged
+                ? "Partido único"
+                : null;
 
       return {
         id: `${league}:${bucket.meta.key}:${slotIdx + 1}`,
@@ -2444,21 +2505,28 @@ function buildActiveUsSeriesBracket(
 
       let winnerSide: "A" | "B" | null = null;
       if (isDecided) {
-        if (seriesWinsA > seriesWinsB) {
-          winnerSide = "A";
-        } else if (seriesWinsB > seriesWinsA) {
-          winnerSide = "B";
+        if (hasClinched) {
+          if (seriesWinsA > seriesWinsB) {
+            winnerSide = "A";
+          } else if (seriesWinsB > seriesWinsA) {
+            winnerSide = "B";
+          }
         } else if (nextRoundTeams.has(canonA) && !nextRoundTeams.has(canonB)) {
           winnerSide = "A";
         } else if (nextRoundTeams.has(canonB) && !nextRoundTeams.has(canonA)) {
           winnerSide = "B";
+        } else if (seriesWinsA > seriesWinsB) {
+          winnerSide = "A";
+        } else if (seriesWinsB > seriesWinsA) {
+          winnerSide = "B";
         }
       }
 
+      const resolvedDecided = isDecided && winnerSide !== null;
       const status: BracketTie["status"] =
         inProgressGames > 0 && !hasClinched
           ? "in_progress"
-          : isDecided
+          : resolvedDecided
             ? "decided"
             : finishedGames > 0
               ? "in_progress"
@@ -2467,7 +2535,7 @@ function buildActiveUsSeriesBracket(
       const note =
         bestOf === 1
           ? "Partido único"
-          : isDecided && finishedGames > 0
+          : resolvedDecided && finishedGames > 0
             ? `Serie al mejor de ${bestOf} (${seriesWinsA}-${seriesWinsB})`
             : `Al mejor de ${bestOf} partidos`;
 

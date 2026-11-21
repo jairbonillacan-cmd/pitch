@@ -452,7 +452,7 @@ export async function listUserTransferRequests(
     )
     .where(eq(transferPaymentRequests.userId, userId))
     .orderBy(desc(transferPaymentRequests.createdAt))
-    .limit(limit);
+    .limit(Math.min(40, Math.max(1, Number.isFinite(limit) ? Math.trunc(limit) : 20)));
 
   return rows.map((r) => ({
     ...r.request,
@@ -517,7 +517,17 @@ export async function listAdminTransferRequests(
       sql`CASE WHEN ${transferPaymentRequests.status} = 'pending_review' THEN 0 ELSE 1 END`,
       asc(transferPaymentRequests.createdAt),
     )
-    .limit(opts?.limit ?? 60);
+    .limit(
+      Math.min(
+        40,
+        Math.max(
+          1,
+          typeof opts?.limit === "number" && Number.isFinite(opts.limit)
+            ? Math.trunc(opts.limit)
+            : 40,
+        ),
+      ),
+    );
 
   return rows.map((r) => ({
     ...r.request,
