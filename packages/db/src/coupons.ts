@@ -8,6 +8,7 @@ import {
   type InvoicePaidResult,
 } from "./billing";
 import { recordAdminAudit } from "./admin";
+import { withDbTransaction } from "./client";
 import {
   accessCoupons,
   couponRedemptions,
@@ -73,19 +74,17 @@ export async function createAccessCoupon(
   const cleanNote = input.note?.trim().slice(0, 280) || null;
   const now = input.now ?? new Date();
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
-
+  return withDbTransaction(db, async (tx) => {
     const [[existingCoupon], [existingReferral], [existingPromo], [existingSpeiRef]] =
       await Promise.all([
-        t.select({ id: accessCoupons.id }).from(accessCoupons).where(eq(accessCoupons.code, code)).limit(1),
-        t.select({ id: users.id }).from(users).where(sql`upper(${users.referralCode}) = ${code}`).limit(1),
-        t
+        tx.select({ id: accessCoupons.id }).from(accessCoupons).where(eq(accessCoupons.code, code)).limit(1),
+        tx.select({ id: users.id }).from(users).where(sql`upper(${users.referralCode}) = ${code}`).limit(1),
+        tx
           .select({ id: tipsterProfiles.userId })
           .from(tipsterProfiles)
           .where(sql`upper(${tipsterProfiles.promoCode}) = ${code}`)
           .limit(1),
-        t
+        tx
           .select({ id: users.id })
           .from(users)
           .where(eq(users.speiReferenceCode, code))
@@ -96,7 +95,7 @@ export async function createAccessCoupon(
       return { ok: false, reason: "duplicado" } as const;
     }
 
-    const [created] = await t
+    const [created] = await tx
       .insert(accessCoupons)
       .values({
         code,
@@ -111,7 +110,7 @@ export async function createAccessCoupon(
       })
       .returning();
 
-    await recordAdminAudit(t, {
+    await recordAdminAudit(tx, {
       actorUserId: input.adminUserId,
       actorEmail: input.adminEmail,
       action: "coupon_create",
@@ -136,16 +135,15 @@ export async function toggleCouponActive(
   },
 ): Promise<AccessCouponRow | null> {
   const now = input.now ?? new Date();
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
-    const [updated] = await t
+  return withDbTransaction(db, async (tx) => {
+    const [updated] = await tx
       .update(accessCoupons)
       .set({ active: input.active, updatedAt: now })
       .where(eq(accessCoupons.id, input.couponId))
       .returning();
     if (!updated) return null;
 
-    await recordAdminAudit(t, {
+    await recordAdminAudit(tx, {
       actorUserId: input.adminUserId,
       actorEmail: input.adminEmail,
       action: "coupon_toggle",
@@ -291,9 +289,8 @@ export async function redeemAccessCoupon(
   if (!/^[A-Z0-9_-]{3,32}$/.test(code)) return { ok: false, reason: "no_existe" };
   const now = input.now ?? new Date();
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
-    const [coupon] = await t
+  return withDbTransaction(db, async (tx) => {
+    const [coupon] = await tx
       .select()
       .from(accessCoupons)
       .where(eq(accessCoupons.code, code))
@@ -302,7 +299,7 @@ export async function redeemAccessCoupon(
     if (!coupon) return { ok: false, reason: "no_existe" } as const;
     if (!coupon.active) return { ok: false, reason: "inactivo" } as const;
 
-    const [already] = await t
+    const [already] = await tx
       .select({ id: couponRedemptions.id })
       .from(couponRedemptions)
       .where(and(eq(couponRedemptions.couponId, coupon.id), eq(couponRedemptions.userId, input.userId)))
@@ -325,7 +322,7 @@ export async function redeemAccessCoupon(
     let transferActivated: ActivatedTransferPayment | null = null;
 
     if (coupon.transferRequestId) {
-      const [transferRow] = await t
+      const [transferRow] = await tx
         .select()
         .from(transferPaymentRequests)
         .where(eq(transferPaymentRequests.id, coupon.transferRequestId))
@@ -336,7 +333,7 @@ export async function redeemAccessCoupon(
       }
 
       const idempotencyKey = `transfer:${transferRow.id}`;
-      grantId = await grantDays(t, {
+      grantId = await grantDays(tx, {
         userId: input.userId,
         sourceKind: "transfer_payment",
         days: coupon.days,
@@ -346,7 +343,7 @@ export async function redeemAccessCoupon(
       });
 
       const vat = computeIncludedVatBreakdown(transferRow.amountCentavosMxn);
-      const paidEffects = await applyInvoicePaidEffects(t, {
+      const paidEffects = await applyInvoicePaidEffects(tx, {
         userId: input.userId,
         stripeInvoiceId: idempotencyKey,
         grossCentavos: vat.grossCentavos,
@@ -355,7 +352,7 @@ export async function redeemAccessCoupon(
         paidAt: now,
       });
 
-      const [updatedTransfer] = await t
+      const [updatedTransfer] = await tx
         .update(transferPaymentRequests)
         .set({
           entitlementGrantId: grantId,
@@ -364,12 +361,12 @@ export async function redeemAccessCoupon(
         .where(eq(transferPaymentRequests.id, transferRow.id))
         .returning();
 
-      const [member] = await t
+      const [member] = await tx
         .select({ id: users.id, email: users.email, displayName: users.displayName, handle: users.handle })
         .from(users)
         .where(eq(users.id, input.userId));
 
-      await t.insert(couponRedemptions).values({
+      await tx.insert(couponRedemptions).values({
         couponId: coupon.id,
         userId: input.userId,
         entitlementGrantId: grantId,
@@ -383,7 +380,7 @@ export async function redeemAccessCoupon(
         user: member!,
       };
     } else {
-      grantId = await grantDays(t, {
+      grantId = await grantDays(tx, {
         userId: input.userId,
         sourceKind: "coupon",
         days: coupon.days,
@@ -392,7 +389,7 @@ export async function redeemAccessCoupon(
         note: `Cupón ${coupon.code}`,
       });
 
-      await t.insert(couponRedemptions).values({
+      await tx.insert(couponRedemptions).values({
         couponId: coupon.id,
         userId: input.userId,
         entitlementGrantId: grantId,
@@ -401,7 +398,7 @@ export async function redeemAccessCoupon(
       });
     }
 
-    const [updatedCoupon] = await t
+    const [updatedCoupon] = await tx
       .update(accessCoupons)
       .set({
         redeemedCount: sql`${accessCoupons.redeemedCount} + 1`,
@@ -410,7 +407,7 @@ export async function redeemAccessCoupon(
       .where(eq(accessCoupons.id, coupon.id))
       .returning();
 
-    const newAccessUntil = await accessUntil(t, input.userId, now);
+    const newAccessUntil = await accessUntil(tx, input.userId, now);
     return {
       ok: true,
       coupon: toSummary(updatedCoupon ?? coupon),
@@ -468,8 +465,7 @@ export async function createAccessCouponBatch(
     return `${cleanPrefix}-${part(4)}-${part(4)}`;
   };
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
+  return withDbTransaction(db, async (tx) => {
     const generated = new Set<string>();
     const createdRows: AccessCouponRow[] = [];
 
@@ -478,14 +474,14 @@ export async function createAccessCouponBatch(
       if (generated.has(candidate)) continue;
       generated.add(candidate);
 
-      const [existing] = await t
+      const [existing] = await tx
         .select({ id: accessCoupons.id })
         .from(accessCoupons)
         .where(eq(accessCoupons.code, candidate))
         .limit(1);
       if (existing) continue;
 
-      const [row] = await t
+      const [row] = await tx
         .insert(accessCoupons)
         .values({
           code: candidate,
@@ -502,7 +498,7 @@ export async function createAccessCouponBatch(
       if (row) createdRows.push(row);
     }
 
-    await recordAdminAudit(t, {
+    await recordAdminAudit(tx, {
       actorUserId: input.adminUserId,
       actorEmail: input.adminEmail,
       action: "coupon_batch_create",

@@ -67,15 +67,16 @@ import { resetRateLimitsForTests, setRateLimitDbForTests } from "../src/server/r
 const ENV_BACKUP = { ...process.env };
 const VELOCITY_MEMBER_ID = "33333333-3333-4333-8333-333333333333";
 const VELOCITY_ADMIN_ID = "44444444-4444-4444-8444-444444444444";
-const fakeDb = {} as unknown as Db;
 
-const VELOCITY_MEMBER: AuthenticatedMember = {
-  db: fakeDb,
-  userId: VELOCITY_MEMBER_ID,
-  email: "fsm.velocity@pitchlab.mx",
-  emailVerified: true,
-  authUserId: "auth_fsm_velocity_1",
-};
+function buildVelocityMember(db: Db): AuthenticatedMember {
+  return {
+    db,
+    userId: VELOCITY_MEMBER_ID,
+    email: "fsm.velocity@pitchlab.mx",
+    emailVerified: true,
+    authUserId: "auth_fsm_velocity_1",
+  };
+}
 
 const ACCOUNT_FULL_ACCESS: ViewerAccess = {
   via: "account",
@@ -122,7 +123,7 @@ beforeAll(async () => {
   pgClient = new PGlite();
   await applyMigrations((sqlText) => pgClient.exec(sqlText));
   await pgClient.exec("SET pitchlab.allow_historical_seed = 'off'");
-  sharedDb = drizzle(pgClient) as unknown as Db;
+  sharedDb = drizzle(pgClient);
 });
 
 beforeEach(async () => {
@@ -145,13 +146,14 @@ beforeEach(async () => {
   mocks.isAdminEmail.mockReturnValue(false);
   mocks.recordSecurityAbuseEvent.mockResolvedValue(undefined);
   mocks.revokeUserActiveSessions.mockResolvedValue(1);
-  mocks.serverDb.mockReturnValue(fakeDb);
+  const velocityMember = buildVelocityMember(sharedDb);
+  mocks.serverDb.mockReturnValue(sharedDb);
   mocks.signupCompleted.mockResolvedValue(true);
-  mocks.requireMember.mockResolvedValue(VELOCITY_MEMBER);
-  mocks.requireStep1Member.mockResolvedValue(VELOCITY_MEMBER);
-  mocks.requireSocialMember.mockResolvedValue(VELOCITY_MEMBER);
+  mocks.requireMember.mockResolvedValue(velocityMember);
+  mocks.requireStep1Member.mockResolvedValue(velocityMember);
+  mocks.requireSocialMember.mockResolvedValue(velocityMember);
   mocks.requireAdmin.mockResolvedValue({
-    db: fakeDb,
+    db: sharedDb,
     userId: VELOCITY_ADMIN_ID,
     email: "founder@pitchlab.mx",
   });
@@ -1054,7 +1056,7 @@ function assertVelocityResponseState(
     expect(bodyJson).toEqual({ ok: false, error: "sesion_revocada" });
     expect(headers.get("cache-control")).toBe("private, no-store");
     expect(mocks.revokeUserActiveSessions).toHaveBeenCalledTimes(1);
-    expect(mocks.revokeUserActiveSessions).toHaveBeenCalledWith(fakeDb, VELOCITY_MEMBER_ID);
+    expect(mocks.revokeUserActiveSessions).toHaveBeenCalledWith(sharedDb, VELOCITY_MEMBER_ID);
   } else if (distinct >= 50) {
     expect(status).toBe(429);
     expect(headers.get("retry-after")).toBeTruthy();

@@ -1,9 +1,18 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import * as schema from "./schema";
+import type { Db } from "./billing";
 
-/** Cliente para Neon/Postgres a partir de DATABASE_URL. Una conexión por proceso. */
-export function createDb(url: string) {
+export type DbTransaction = Parameters<Parameters<Db["transaction"]>[0]>[0];
+export type DbExecutor = Db | DbTransaction;
+
+export function createDb(url: string): Db {
   const sql = postgres(url, { max: 5, prepare: false });
-  return drizzle(sql, { schema });
+  return drizzle(sql);
+}
+
+export function withDbTransaction<T>(
+  db: Db,
+  fn: (tx: Db) => Promise<T>,
+): Promise<T> {
+  return db.transaction((tx) => fn(tx));
 }

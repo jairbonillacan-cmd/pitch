@@ -2,12 +2,15 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
+  adminAuditLogs,
   adminOverview,
   applyMigrations,
   createTipsterCode,
   FLAG_MONTH1_NO_CARD,
   getBoolFlag,
   handleInvoicePaid,
+  listAdminAuditLogs,
+  listAdminInbox,
   listTipsterCodes,
   myReferrals,
   referralGrants,
@@ -59,5 +62,116 @@ describe("consola del fundador", () => {
       { code: "TIP5", handle: "tip", name: "Tip", freeDays: 5, commissionPct: 25, activeReferrals: 1, pendingCommissionCentavos: 6069 },
     ]);
     expect(await myReferrals(db, host!.id)).toEqual({ referralCode: "SOCIO-1", paidFriends: 1, pendingFriends: 0 });
+  });
+
+  it("acota listAdminInbox y listAdminAuditLogs a <= 40 y selecciona la resolución más reciente por target_key en SQL", async () => {
+    const [member] = await db
+      .insert(users)
+      .values({ email: "socio-inbox@example.com", handle: "socio_inbox", displayName: "Socio Inbox" })
+      .returning();
+    const [admin] = await db
+      .insert(users)
+      .values({ email: "admin-inbox@pitchlab.mx", handle: "admin_inbox", displayName: "Admin" })
+      .returning();
+
+    const baseMs = new Date("2026-11-11T10:00:00Z").getTime();
+    const totalInboxItems = 55;
+    const insertedItems = await db
+      .insert(adminAuditLogs)
+      .values(
+        Array.from({ length: totalInboxItems }, (_, i) => ({
+          actorUserId: member!.id,
+          actorEmail: member!.email,
+          action: i % 2 === 0 ? "member_feedback" : "member_support_contact",
+          targetKey: member!.id,
+          payloadJson: {
+            handle: member!.handle,
+            displayName: member!.displayName,
+            category: "soporte",
+            subject: `Asunto ${i}`,
+            message: `Mensaje inbox ${i}`,
+          },
+          createdAt: new Date(baseMs + i * 1_000),
+        })),
+      )
+      .returning({ id: adminAuditLogs.id, createdAt: adminAuditLogs.createdAt });
+
+    const sortedByNewest = [...insertedItems].sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+    );
+    const latestItem = sortedByNewest[0]!;
+    const secondItem = sortedByNewest[1]!;
+
+    const latestResolutionAt = new Date(baseMs + 300_000);
+    await db.insert(adminAuditLogs).values([
+      {
+        actorUserId: admin!.id,
+        actorEmail: "primer-admin@pitchlab.mx",
+        action: "admin_inbox_resolved",
+        targetKey: latestItem.id,
+        payloadJson: { note: "Primera resolución vieja" },
+        createdAt: new Date(baseMs + 100_000),
+      },
+      {
+        actorUserId: admin!.id,
+        actorEmail: "segundo-admin@pitchlab.mx",
+        action: "admin_inbox_resolved",
+        targetKey: latestItem.id,
+        payloadJson: { note: "Segunda resolución intermedia" },
+        createdAt: new Date(baseMs + 200_000),
+      },
+      {
+        actorUserId: admin!.id,
+        actorEmail: "ultimo-admin@pitchlab.mx",
+        action: "admin_inbox_resolved",
+        targetKey: latestItem.id,
+        payloadJson: { note: "Resolución final más reciente" },
+        createdAt: latestResolutionAt,
+      },
+      {
+        actorUserId: admin!.id,
+        actorEmail: "soporte-1@pitchlab.mx",
+        action: "admin_inbox_resolved",
+        targetKey: secondItem.id,
+        payloadJson: { note: "Nota inicial" },
+        createdAt: new Date(baseMs + 150_000),
+      },
+      {
+        actorUserId: admin!.id,
+        actorEmail: "soporte-2@pitchlab.mx",
+        action: "admin_inbox_resolved",
+        targetKey: secondItem.id,
+        payloadJson: { note: "Nota definitiva" },
+        createdAt: new Date(baseMs + 250_000),
+      },
+    ]);
+
+    const inboxDefault = await listAdminInbox(db);
+    expect(inboxDefault).toHaveLength(40);
+
+    const inboxCapped = await listAdminInbox(db, 200);
+    expect(inboxCapped).toHaveLength(40);
+    expect(inboxCapped[0]?.id).toBe(latestItem.id);
+    expect(inboxCapped[0]?.resolved).toBe(true);
+    expect(inboxCapped[0]?.resolvedByEmail).toBe("ultimo-admin@pitchlab.mx");
+    expect(inboxCapped[0]?.resolutionNote).toBe("Resolución final más reciente");
+    expect(inboxCapped[0]?.resolvedAtIso).toBe(latestResolutionAt.toISOString());
+
+    expect(inboxCapped[1]?.id).toBe(secondItem.id);
+    expect(inboxCapped[1]?.resolved).toBe(true);
+    expect(inboxCapped[1]?.resolvedByEmail).toBe("soporte-2@pitchlab.mx");
+    expect(inboxCapped[1]?.resolutionNote).toBe("Nota definitiva");
+
+    expect(inboxCapped[2]?.resolved).toBe(false);
+    expect(inboxCapped[2]?.resolvedAtIso).toBeNull();
+
+    const auditDefault = await listAdminAuditLogs(db);
+    expect(auditDefault).toHaveLength(40);
+
+    const auditCapped = await listAdminAuditLogs(db, 200);
+    expect(auditCapped).toHaveLength(40);
+
+    const auditSmall = await listAdminAuditLogs(db, 10);
+    expect(auditSmall).toHaveLength(10);
   });
 });
