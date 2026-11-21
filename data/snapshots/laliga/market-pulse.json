@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
   "league": "laliga",
-  "observedAt": "2026-11-20T23:28:21.602Z",
+  "observedAt": "2026-11-21T04:21:39.228Z",
   "entries": [
     {
       "gameId": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 8165.514772000001,
+          "volume": 8262.028899,
           "price": 0.415
         },
         {
           "side": "draw",
-          "volume": 238.132397,
-          "price": 0.295
+          "volume": 3066.453432,
+          "price": 0.285
         },
         {
           "side": "away",
@@ -53,11 +53,11 @@
       "gameId": "laliga-2026-27-md13-barcelona-villarreal",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 52572.94240599999,
+          "volume": 52590.210693999994,
           "price": 0.815
         },
         {
@@ -67,7 +67,7 @@
         },
         {
           "side": "away",
-          "volume": 14013.382666000001,
+          "volume": 14144.592666,
           "price": 0.075
         }
       ]
@@ -76,7 +76,7 @@
       "gameId": "laliga-2026-27-md13-getafe-atletico-madrid",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -99,7 +99,7 @@
       "gameId": "laliga-2026-27-md13-levante-elche",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -122,7 +122,7 @@
       "gameId": "laliga-2026-27-md13-osasuna-malaga",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -145,16 +145,16 @@
       "gameId": "laliga-2026-27-md13-rayo-vallecano-valencia",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 6842.6761719999995,
-          "price": 0.515
+          "volume": 32938.799664000006,
+          "price": 0.505
         },
         {
           "side": "draw",
-          "volume": 265.05963,
+          "volume": 979.345345,
           "price": 0.275
         },
         {
@@ -168,11 +168,11 @@
       "gameId": "laliga-2026-27-md13-real-madrid-celta-vigo",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 95585.413493,
+          "volume": 104880.77165800001,
           "price": 0.845
         },
         {
@@ -182,8 +182,8 @@
         },
         {
           "side": "away",
-          "volume": 6145.443579999999,
-          "price": 0.055
+          "volume": 9288.593755,
+          "price": 0.045
         }
       ]
     },
@@ -191,7 +191,7 @@
       "gameId": "laliga-2026-27-md13-sevilla-real-betis",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -200,13 +200,13 @@
         },
         {
           "side": "draw",
-          "volume": 220.706618,
+          "volume": 559.03995,
           "price": 0.285
         },
         {
           "side": "away",
-          "volume": 5664.163502,
-          "price": 0.405
+          "volume": 5690.986674,
+          "price": 0.395
         }
       ]
     }

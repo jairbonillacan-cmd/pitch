@@ -645,6 +645,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1260/?bg=transparent"
       },
       "venue": "Mendizorroza",
+      "referee": "Victor Garcia Verdura",
       "neutralSite": false
     },
     {
@@ -672,6 +673,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/47/?bg=transparent"
       },
       "venue": "Estadio de Vallecas",
+      "referee": "José Luis Munuera Montero",
       "neutralSite": false
     },
     {
@@ -699,6 +701,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/56/?bg=transparent"
       },
       "venue": "Ramón Sánchez-Pizjuán",
+      "referee": "José María Sánchez Martínez",
       "neutralSite": false
     },
     {
@@ -726,6 +729,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/49/?bg=transparent"
       },
       "venue": "Santiago Bernabéu",
+      "referee": "Adrian Cordero Vega",
       "neutralSite": false
     },
     {
@@ -3377,8 +3381,8 @@
         "referee": "Francisco Hernandez Maeso",
         "refereeStats": {
           "country": "Spain",
-          "matches": 44,
-          "avgYellow": 4,
+          "matches": 45,
+          "avgYellow": 4.09,
           "avgRed": 0.18,
           "avgFouls": 24.7,
           "avgGoals": 2.93
@@ -3858,11 +3862,11 @@
         "referee": "César Soto Grado",
         "refereeStats": {
           "country": "Spain",
-          "matches": 46,
-          "avgYellow": 4.65,
-          "avgRed": 0.35,
+          "matches": 47,
+          "avgYellow": 4.62,
+          "avgRed": 0.34,
           "avgFouls": 23,
-          "avgGoals": 2.76
+          "avgGoals": 2.72
         }
       }
     },
@@ -4817,11 +4821,11 @@
         "referee": "Miguel Angel Ortiz Arias",
         "refereeStats": {
           "country": "Spain",
-          "matches": 48,
-          "avgYellow": 3.65,
-          "avgRed": 0.25,
+          "matches": 49,
+          "avgYellow": 3.61,
+          "avgRed": 0.24,
           "avgFouls": 22.1,
-          "avgGoals": 2.88
+          "avgGoals": 2.86
         }
       }
     },
@@ -5777,11 +5781,11 @@
         "referee": "Javier Alberola Rojas",
         "refereeStats": {
           "country": "Spain",
-          "matches": 66,
-          "avgYellow": 3.91,
+          "matches": 67,
+          "avgYellow": 3.88,
           "avgRed": 0.27,
           "avgFouls": 26.5,
-          "avgGoals": 3.18
+          "avgGoals": 3.15
         }
       }
     },
@@ -7265,7 +7269,18 @@
           "home": 16
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Victor Garcia Verdura",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 48,
+          "avgYellow": 4.21,
+          "avgRed": 0.17,
+          "avgFouls": 25,
+          "avgGoals": 2.17
+        }
+      }
     },
     "laliga-2026-27-md13-rayo-vallecano-valencia": {
       "game": "laliga-2026-27-md13-rayo-vallecano-valencia",
@@ -8006,7 +8021,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "José Luis Munuera Montero",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 59,
+          "avgYellow": 4.24,
+          "avgRed": 0.22,
+          "avgFouls": 25.6,
+          "avgGoals": 2.95
+        }
+      }
     },
     "laliga-2026-27-md13-sevilla-real-betis": {
       "game": "laliga-2026-27-md13-sevilla-real-betis",
@@ -8747,7 +8773,18 @@
           "away": 13
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "José María Sánchez Martínez",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 72,
+          "avgYellow": 4.44,
+          "avgRed": 0.18,
+          "avgFouls": 26.3,
+          "avgGoals": 2.56
+        }
+      }
     },
     "laliga-2026-27-md13-real-madrid-celta-vigo": {
       "game": "laliga-2026-27-md13-real-madrid-celta-vigo",
@@ -9488,7 +9525,18 @@
           "away": 13
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Adrian Cordero Vega",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 43,
+          "avgYellow": 4.63,
+          "avgRed": 0.12,
+          "avgFouls": 24.3,
+          "avgGoals": 2.77
+        }
+      }
     },
     "laliga-2026-27-md13-barcelona-villarreal": {
       "game": "laliga-2026-27-md13-barcelona-villarreal",

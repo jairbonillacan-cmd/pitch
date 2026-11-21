@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-f",
-  "updatedAt": "2026-11-20T23:19:05.023Z",
+  "updatedAt": "2026-11-21T04:14:45.246Z",
   "lines": [
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -13,7 +13,10 @@
       "book": "interwetten",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -25,8 +28,10 @@
       "book": "unibet",
       "decimal": 1.65,
       "openingDecimal": 1.67,
+      "deltaPct": -1.2,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -38,7 +43,10 @@
       "book": "bwin",
       "decimal": 1.68,
       "openingDecimal": 1.68,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -50,7 +58,10 @@
       "book": "sportingbet",
       "decimal": 1.68,
       "openingDecimal": 1.68,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -62,7 +73,10 @@
       "book": "betway",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -74,7 +88,10 @@
       "book": "888sport",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -86,7 +103,10 @@
       "book": "william-hill",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -98,7 +118,10 @@
       "book": "betsson",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -108,9 +131,12 @@
       "outcome": "yes",
       "line": null,
       "book": "fonbet",
-      "decimal": 1.67,
+      "decimal": 1.65,
       "openingDecimal": 1.67,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": -1.2,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -122,7 +148,10 @@
       "book": "vistabet",
       "decimal": 1.68,
       "openingDecimal": 1.68,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -134,7 +163,10 @@
       "book": "betano",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -146,8 +178,10 @@
       "book": "unibet",
       "decimal": 1.62,
       "openingDecimal": 1.52,
+      "deltaPct": 6.58,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -159,7 +193,10 @@
       "book": "novibet",
       "decimal": 1.66,
       "openingDecimal": 1.66,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -171,7 +208,10 @@
       "book": "betway",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -183,7 +223,10 @@
       "book": "888sport",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -195,7 +238,10 @@
       "book": "william-hill",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -207,7 +253,10 @@
       "book": "betsson",
       "decimal": 1.64,
       "openingDecimal": 1.64,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -219,7 +268,10 @@
       "book": "betano",
       "decimal": 2.02,
       "openingDecimal": 2.02,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -231,8 +283,10 @@
       "book": "unibet",
       "decimal": 2.1,
       "openingDecimal": 2.35,
+      "deltaPct": -10.64,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -244,7 +298,10 @@
       "book": "novibet",
       "decimal": 2.09,
       "openingDecimal": 2.09,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -256,7 +313,10 @@
       "book": "betway",
       "decimal": 2.15,
       "openingDecimal": 2.15,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -268,7 +328,10 @@
       "book": "888sport",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -280,7 +343,10 @@
       "book": "william-hill",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -292,7 +358,10 @@
       "book": "betsson",
       "decimal": 2.12,
       "openingDecimal": 2.12,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -304,7 +373,10 @@
       "book": "interwetten",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -316,8 +388,10 @@
       "book": "unibet",
       "decimal": 2.1,
       "openingDecimal": 2.05,
+      "deltaPct": 2.44,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -329,7 +403,10 @@
       "book": "bwin",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -341,7 +418,10 @@
       "book": "sportingbet",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -353,7 +433,10 @@
       "book": "betway",
       "decimal": 2.15,
       "openingDecimal": 2.15,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -365,7 +448,10 @@
       "book": "888sport",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -377,7 +463,10 @@
       "book": "william-hill",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -389,7 +478,10 @@
       "book": "betsson",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -399,9 +491,12 @@
       "outcome": "no",
       "line": null,
       "book": "fonbet",
-      "decimal": 2.08,
+      "decimal": 2.1,
       "openingDecimal": 2.08,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0.96,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -413,7 +508,10 @@
       "book": "vistabet",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -425,7 +523,10 @@
       "book": "1xbet",
       "decimal": 1.88,
       "openingDecimal": 1.88,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -437,7 +538,10 @@
       "book": "1xbet",
       "decimal": 1.75,
       "openingDecimal": 1.75,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -449,7 +553,10 @@
       "book": "1xbet",
       "decimal": 4.8,
       "openingDecimal": 4.8,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -461,7 +568,10 @@
       "book": "1xbet",
       "decimal": 1.14,
       "openingDecimal": 1.14,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -473,7 +583,10 @@
       "book": "1xbet",
       "decimal": 3.84,
       "openingDecimal": 3.84,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -485,7 +598,10 @@
       "book": "1xbet",
       "decimal": 1.183,
       "openingDecimal": 1.183,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -497,7 +613,10 @@
       "book": "1xbet",
       "decimal": 2.56,
       "openingDecimal": 2.56,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -509,7 +628,10 @@
       "book": "1xbet",
       "decimal": 1.4,
       "openingDecimal": 1.4,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -521,7 +643,10 @@
       "book": "1xbet",
       "decimal": 1.444,
       "openingDecimal": 1.444,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -533,7 +658,10 @@
       "book": "1xbet",
       "decimal": 2.42,
       "openingDecimal": 2.42,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -545,7 +673,10 @@
       "book": "1xbet",
       "decimal": 1.23,
       "openingDecimal": 1.23,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -557,7 +688,10 @@
       "book": "1xbet",
       "decimal": 3.42,
       "openingDecimal": 3.42,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -569,7 +703,10 @@
       "book": "1xbet",
       "decimal": 4.25,
       "openingDecimal": 4.25,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -581,7 +718,10 @@
       "book": "fonbet",
       "decimal": 4.3,
       "openingDecimal": 4.3,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -593,7 +733,10 @@
       "book": "1xbet",
       "decimal": 1.149,
       "openingDecimal": 1.149,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -605,7 +748,10 @@
       "book": "fonbet",
       "decimal": 1.16,
       "openingDecimal": 1.16,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -617,7 +763,10 @@
       "book": "1xbet",
       "decimal": 9.1,
       "openingDecimal": 9.1,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -629,7 +778,10 @@
       "book": "1xbet",
       "decimal": 1.065,
       "openingDecimal": 1.065,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -641,7 +793,10 @@
       "book": "fonbet",
       "decimal": 1.11,
       "openingDecimal": 1.11,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -653,7 +808,10 @@
       "book": "1xbet",
       "decimal": 6,
       "openingDecimal": 6,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -663,9 +821,12 @@
       "outcome": "AWAY",
       "line": 1.5,
       "book": "fonbet",
-      "decimal": 5.2,
+      "decimal": 5.1,
       "openingDecimal": 5.2,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": -1.92,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -677,8 +838,10 @@
       "book": "unibet",
       "decimal": 2.2,
       "openingDecimal": 2,
+      "deltaPct": 10,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -690,7 +853,10 @@
       "book": "888sport",
       "decimal": 2.3,
       "openingDecimal": 2.3,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -702,8 +868,10 @@
       "book": "unibet",
       "decimal": 1.6,
       "openingDecimal": 1.7,
+      "deltaPct": -5.88,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -715,7 +883,10 @@
       "book": "888sport",
       "decimal": 1.533,
       "openingDecimal": 1.533,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -727,7 +898,10 @@
       "book": "1xbet",
       "decimal": 1.62,
       "openingDecimal": 1.62,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -739,7 +913,10 @@
       "book": "fonbet",
       "decimal": 1.67,
       "openingDecimal": 1.67,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -751,7 +928,10 @@
       "book": "1xbet",
       "decimal": 2.1,
       "openingDecimal": 2.1,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -763,7 +943,10 @@
       "book": "fonbet",
       "decimal": 2.08,
       "openingDecimal": 2.08,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -775,7 +958,10 @@
       "book": "1xbet",
       "decimal": 8.4,
       "openingDecimal": 8.4,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -787,7 +973,10 @@
       "book": "1xbet",
       "decimal": 1.014,
       "openingDecimal": 1.014,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -799,7 +988,10 @@
       "book": "1xbet",
       "decimal": 3.34,
       "openingDecimal": 3.34,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -811,7 +1003,10 @@
       "book": "fonbet",
       "decimal": 3.5,
       "openingDecimal": 3.5,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -823,7 +1018,10 @@
       "book": "1xbet",
       "decimal": 1.24,
       "openingDecimal": 1.24,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -835,7 +1033,10 @@
       "book": "fonbet",
       "decimal": 1.25,
       "openingDecimal": 1.25,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -847,7 +1048,10 @@
       "book": "1xbet",
       "decimal": 1.102,
       "openingDecimal": 1.102,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -859,7 +1063,10 @@
       "book": "fonbet",
       "decimal": 1.15,
       "openingDecimal": 1.15,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -871,7 +1078,10 @@
       "book": "1xbet",
       "decimal": 5.05,
       "openingDecimal": 5.05,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
@@ -883,7 +1093,10 @@
       "book": "fonbet",
       "decimal": 4.5,
       "openingDecimal": 4.5,
-      "capturedAtUtc": "2026-11-20T23:21:00Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:21:02Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -895,7 +1108,10 @@
       "book": "interwetten",
       "decimal": 2.1,
       "openingDecimal": 2.1,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -907,7 +1123,10 @@
       "book": "unibet",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -919,7 +1138,10 @@
       "book": "betway",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -931,7 +1153,10 @@
       "book": "888sport",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -943,7 +1168,10 @@
       "book": "william-hill",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -955,7 +1183,10 @@
       "book": "betsson",
       "decimal": 2.15,
       "openingDecimal": 2.15,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -967,7 +1198,10 @@
       "book": "fonbet",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -979,7 +1213,10 @@
       "book": "betano",
       "decimal": 5.3,
       "openingDecimal": 5.3,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -991,7 +1228,10 @@
       "book": "unibet",
       "decimal": 5.75,
       "openingDecimal": 5.75,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1003,7 +1243,10 @@
       "book": "novibet",
       "decimal": 5.6,
       "openingDecimal": 5.6,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1015,7 +1258,10 @@
       "book": "betway",
       "decimal": 7,
       "openingDecimal": 7,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1027,7 +1273,10 @@
       "book": "888sport",
       "decimal": 7,
       "openingDecimal": 7,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1039,7 +1288,10 @@
       "book": "william-hill",
       "decimal": 7,
       "openingDecimal": 7,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1051,7 +1303,10 @@
       "book": "betsson",
       "decimal": 6,
       "openingDecimal": 6,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1063,7 +1318,10 @@
       "book": "betano",
       "decimal": 1.1,
       "openingDecimal": 1.1,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1075,7 +1333,10 @@
       "book": "unibet",
       "decimal": 1.1,
       "openingDecimal": 1.1,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1087,7 +1348,10 @@
       "book": "novibet",
       "decimal": 1.1,
       "openingDecimal": 1.1,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1099,7 +1363,10 @@
       "book": "betway",
       "decimal": 1.091,
       "openingDecimal": 1.091,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1111,7 +1378,10 @@
       "book": "888sport",
       "decimal": 1.083,
       "openingDecimal": 1.083,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1123,7 +1393,10 @@
       "book": "william-hill",
       "decimal": 1.083,
       "openingDecimal": 1.083,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1135,7 +1408,10 @@
       "book": "betsson",
       "decimal": 1.1,
       "openingDecimal": 1.1,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1147,7 +1423,10 @@
       "book": "interwetten",
       "decimal": 1.6,
       "openingDecimal": 1.6,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1159,7 +1438,10 @@
       "book": "unibet",
       "decimal": 1.6,
       "openingDecimal": 1.6,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1171,7 +1453,10 @@
       "book": "betway",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1183,7 +1468,10 @@
       "book": "888sport",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1195,7 +1483,10 @@
       "book": "william-hill",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1207,7 +1498,10 @@
       "book": "betsson",
       "decimal": 1.6,
       "openingDecimal": 1.6,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1219,7 +1513,10 @@
       "book": "fonbet",
       "decimal": 1.6,
       "openingDecimal": 1.6,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1231,7 +1528,10 @@
       "book": "1xbet",
       "decimal": 3.98,
       "openingDecimal": 3.98,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1243,7 +1543,10 @@
       "book": "1xbet",
       "decimal": 1.171,
       "openingDecimal": 1.171,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1255,7 +1558,10 @@
       "book": "1xbet",
       "decimal": 2.69,
       "openingDecimal": 2.69,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1267,7 +1573,10 @@
       "book": "1xbet",
       "decimal": 1.363,
       "openingDecimal": 1.363,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1279,7 +1588,10 @@
       "book": "1xbet",
       "decimal": 1.909,
       "openingDecimal": 1.909,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1291,7 +1603,10 @@
       "book": "1xbet",
       "decimal": 1.72,
       "openingDecimal": 1.72,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1303,7 +1618,10 @@
       "book": "1xbet",
       "decimal": 1.52,
       "openingDecimal": 1.52,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1315,7 +1633,10 @@
       "book": "1xbet",
       "decimal": 2.24,
       "openingDecimal": 2.24,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1327,7 +1648,10 @@
       "book": "1xbet",
       "decimal": 1.28,
       "openingDecimal": 1.28,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1339,7 +1663,10 @@
       "book": "1xbet",
       "decimal": 3.08,
       "openingDecimal": 3.08,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1351,7 +1678,10 @@
       "book": "1xbet",
       "decimal": 1.2,
       "openingDecimal": 1.2,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1363,7 +1693,10 @@
       "book": "1xbet",
       "decimal": 4,
       "openingDecimal": 4,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1375,7 +1708,10 @@
       "book": "1xbet",
       "decimal": 1.24,
       "openingDecimal": 1.24,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1387,7 +1723,10 @@
       "book": "fonbet",
       "decimal": 1.25,
       "openingDecimal": 1.25,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1399,7 +1738,10 @@
       "book": "1xbet",
       "decimal": 3.34,
       "openingDecimal": 3.34,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1411,7 +1753,10 @@
       "book": "fonbet",
       "decimal": 3.4,
       "openingDecimal": 3.4,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1423,7 +1768,10 @@
       "book": "1xbet",
       "decimal": 1.71,
       "openingDecimal": 1.71,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1435,8 +1783,10 @@
       "book": "unibet",
       "decimal": 1.75,
       "openingDecimal": 1.73,
+      "deltaPct": 1.16,
       "movement": "drifting",
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1448,7 +1798,10 @@
       "book": "888sport",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1460,7 +1813,10 @@
       "book": "fonbet",
       "decimal": 1.73,
       "openingDecimal": 1.73,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1472,7 +1828,10 @@
       "book": "1xbet",
       "decimal": 1.96,
       "openingDecimal": 1.96,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1484,8 +1843,10 @@
       "book": "unibet",
       "decimal": 1.95,
       "openingDecimal": 1.98,
+      "deltaPct": -1.52,
       "movement": "shortening",
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1497,7 +1858,10 @@
       "book": "888sport",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1509,7 +1873,10 @@
       "book": "fonbet",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1521,7 +1888,10 @@
       "book": "1xbet",
       "decimal": 1.049,
       "openingDecimal": 1.049,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1533,7 +1903,10 @@
       "book": "fonbet",
       "decimal": 1.06,
       "openingDecimal": 1.06,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1545,7 +1918,10 @@
       "book": "1xbet",
       "decimal": 6.55,
       "openingDecimal": 6.55,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1557,7 +1933,10 @@
       "book": "fonbet",
       "decimal": 6.6,
       "openingDecimal": 6.6,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1569,7 +1948,10 @@
       "book": "1xbet",
       "decimal": 6.35,
       "openingDecimal": 6.35,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1581,7 +1963,10 @@
       "book": "fonbet",
       "decimal": 6.4,
       "openingDecimal": 6.4,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1593,7 +1978,10 @@
       "book": "1xbet",
       "decimal": 1.055,
       "openingDecimal": 1.055,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1605,7 +1993,10 @@
       "book": "fonbet",
       "decimal": 1.07,
       "openingDecimal": 1.07,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1617,7 +2008,10 @@
       "book": "1xbet",
       "decimal": 1.35,
       "openingDecimal": 1.35,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1629,7 +2023,10 @@
       "book": "fonbet",
       "decimal": 1.38,
       "openingDecimal": 1.38,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1641,7 +2038,10 @@
       "book": "1xbet",
       "decimal": 2.74,
       "openingDecimal": 2.74,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1653,7 +2053,10 @@
       "book": "fonbet",
       "decimal": 2.8,
       "openingDecimal": 2.8,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1665,7 +2068,10 @@
       "book": "1xbet",
       "decimal": 1.069,
       "openingDecimal": 1.069,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1677,7 +2083,10 @@
       "book": "fonbet",
       "decimal": 1.09,
       "openingDecimal": 1.09,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1689,7 +2098,10 @@
       "book": "1xbet",
       "decimal": 5.9,
       "openingDecimal": 5.9,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1701,7 +2113,10 @@
       "book": "fonbet",
       "decimal": 5.8,
       "openingDecimal": 5.8,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1713,7 +2128,10 @@
       "book": "1xbet",
       "decimal": 2.33,
       "openingDecimal": 2.33,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1725,7 +2143,10 @@
       "book": "fonbet",
       "decimal": 2.35,
       "openingDecimal": 2.35,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1737,7 +2158,10 @@
       "book": "1xbet",
       "decimal": 1.48,
       "openingDecimal": 1.48,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -1749,7 +2173,10 @@
       "book": "fonbet",
       "decimal": 1.52,
       "openingDecimal": 1.52,
-      "capturedAtUtc": "2026-11-20T23:22:54Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:22:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1761,7 +2188,10 @@
       "book": "interwetten",
       "decimal": 1.65,
       "openingDecimal": 1.65,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1773,7 +2203,10 @@
       "book": "unibet",
       "decimal": 1.67,
       "openingDecimal": 1.67,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1785,7 +2218,10 @@
       "book": "betway",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1797,7 +2233,10 @@
       "book": "888sport",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1809,7 +2248,10 @@
       "book": "william-hill",
       "decimal": 1.615,
       "openingDecimal": 1.615,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1821,7 +2263,10 @@
       "book": "betsson",
       "decimal": 1.68,
       "openingDecimal": 1.68,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1833,7 +2278,10 @@
       "book": "fonbet",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1845,7 +2293,10 @@
       "book": "betano",
       "decimal": 1.47,
       "openingDecimal": 1.47,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1857,7 +2308,10 @@
       "book": "unibet",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1869,7 +2323,10 @@
       "book": "novibet",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1881,7 +2338,10 @@
       "book": "betway",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1893,7 +2353,10 @@
       "book": "888sport",
       "decimal": 1.444,
       "openingDecimal": 1.444,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1905,7 +2368,10 @@
       "book": "william-hill",
       "decimal": 1.444,
       "openingDecimal": 1.444,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1917,7 +2383,10 @@
       "book": "betsson",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1929,7 +2398,10 @@
       "book": "betano",
       "decimal": 2.37,
       "openingDecimal": 2.37,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1941,7 +2413,10 @@
       "book": "unibet",
       "decimal": 2.38,
       "openingDecimal": 2.38,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1953,7 +2428,10 @@
       "book": "novibet",
       "decimal": 2.4,
       "openingDecimal": 2.4,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1965,7 +2443,10 @@
       "book": "betway",
       "decimal": 2.4,
       "openingDecimal": 2.4,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1977,7 +2458,10 @@
       "book": "888sport",
       "decimal": 2.5,
       "openingDecimal": 2.5,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1989,7 +2473,10 @@
       "book": "william-hill",
       "decimal": 2.5,
       "openingDecimal": 2.5,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2001,7 +2488,10 @@
       "book": "betsson",
       "decimal": 2.41,
       "openingDecimal": 2.41,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2013,7 +2503,10 @@
       "book": "interwetten",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2025,7 +2518,10 @@
       "book": "unibet",
       "decimal": 2.1,
       "openingDecimal": 2.1,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2037,7 +2533,10 @@
       "book": "betway",
       "decimal": 2.05,
       "openingDecimal": 2.05,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2049,7 +2548,10 @@
       "book": "888sport",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2061,7 +2563,10 @@
       "book": "william-hill",
       "decimal": 2.2,
       "openingDecimal": 2.2,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2073,7 +2578,10 @@
       "book": "betsson",
       "decimal": 2.02,
       "openingDecimal": 2.02,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2085,7 +2593,10 @@
       "book": "fonbet",
       "decimal": 2.02,
       "openingDecimal": 2.02,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2097,7 +2608,10 @@
       "book": "1xbet",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2109,7 +2623,10 @@
       "book": "1xbet",
       "decimal": 1.94,
       "openingDecimal": 1.94,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2121,7 +2638,10 @@
       "book": "1xbet",
       "decimal": 4.5,
       "openingDecimal": 4.5,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2133,7 +2653,10 @@
       "book": "1xbet",
       "decimal": 1.17,
       "openingDecimal": 1.17,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2145,7 +2668,10 @@
       "book": "1xbet",
       "decimal": 3.28,
       "openingDecimal": 3.28,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2157,7 +2683,10 @@
       "book": "1xbet",
       "decimal": 1.25,
       "openingDecimal": 1.25,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2169,7 +2698,10 @@
       "book": "1xbet",
       "decimal": 2.26,
       "openingDecimal": 2.26,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2181,7 +2713,10 @@
       "book": "1xbet",
       "decimal": 1.51,
       "openingDecimal": 1.51,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2193,7 +2728,10 @@
       "book": "1xbet",
       "decimal": 1.34,
       "openingDecimal": 1.34,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2205,7 +2743,10 @@
       "book": "1xbet",
       "decimal": 2.78,
       "openingDecimal": 2.78,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2217,7 +2758,10 @@
       "book": "1xbet",
       "decimal": 1.161,
       "openingDecimal": 1.161,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2229,7 +2773,10 @@
       "book": "1xbet",
       "decimal": 4.1,
       "openingDecimal": 4.1,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2241,7 +2788,10 @@
       "book": "1xbet",
       "decimal": 3.68,
       "openingDecimal": 3.68,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2253,7 +2803,10 @@
       "book": "fonbet",
       "decimal": 3.6,
       "openingDecimal": 3.6,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2265,7 +2818,10 @@
       "book": "1xbet",
       "decimal": 1.2,
       "openingDecimal": 1.2,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2277,7 +2833,10 @@
       "book": "fonbet",
       "decimal": 1.23,
       "openingDecimal": 1.23,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2289,7 +2848,10 @@
       "book": "1xbet",
       "decimal": 7.8,
       "openingDecimal": 7.8,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2301,7 +2863,10 @@
       "book": "fonbet",
       "decimal": 7.3,
       "openingDecimal": 7.3,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2313,7 +2878,10 @@
       "book": "1xbet",
       "decimal": 1.023,
       "openingDecimal": 1.023,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2325,7 +2893,10 @@
       "book": "fonbet",
       "decimal": 1.05,
       "openingDecimal": 1.05,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2337,7 +2908,10 @@
       "book": "1xbet",
       "decimal": 1.034,
       "openingDecimal": 1.034,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2349,7 +2923,10 @@
       "book": "fonbet",
       "decimal": 1.07,
       "openingDecimal": 1.07,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2361,7 +2938,10 @@
       "book": "1xbet",
       "decimal": 7.2,
       "openingDecimal": 7.2,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2373,7 +2953,10 @@
       "book": "fonbet",
       "decimal": 6.4,
       "openingDecimal": 6.4,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2385,7 +2968,10 @@
       "book": "unibet",
       "decimal": 2,
       "openingDecimal": 2,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2397,7 +2983,10 @@
       "book": "888sport",
       "decimal": 1.95,
       "openingDecimal": 1.95,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2409,7 +2998,10 @@
       "book": "unibet",
       "decimal": 1.73,
       "openingDecimal": 1.73,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2421,7 +3013,10 @@
       "book": "888sport",
       "decimal": 1.7,
       "openingDecimal": 1.7,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2433,7 +3028,10 @@
       "book": "1xbet",
       "decimal": 1.47,
       "openingDecimal": 1.47,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2445,7 +3043,10 @@
       "book": "fonbet",
       "decimal": 1.5,
       "openingDecimal": 1.5,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2457,7 +3058,10 @@
       "book": "1xbet",
       "decimal": 2.41,
       "openingDecimal": 2.41,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2469,7 +3073,10 @@
       "book": "fonbet",
       "decimal": 2.4,
       "openingDecimal": 2.4,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2481,7 +3088,10 @@
       "book": "1xbet",
       "decimal": 7,
       "openingDecimal": 7,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2493,7 +3103,10 @@
       "book": "fonbet",
       "decimal": 6.3,
       "openingDecimal": 6.3,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2505,7 +3118,10 @@
       "book": "1xbet",
       "decimal": 1.039,
       "openingDecimal": 1.039,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2517,7 +3133,10 @@
       "book": "fonbet",
       "decimal": 1.07,
       "openingDecimal": 1.07,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2529,7 +3148,10 @@
       "book": "1xbet",
       "decimal": 2.875,
       "openingDecimal": 2.875,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2541,7 +3163,10 @@
       "book": "fonbet",
       "decimal": 2.95,
       "openingDecimal": 2.95,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2553,7 +3178,10 @@
       "book": "1xbet",
       "decimal": 1.32,
       "openingDecimal": 1.32,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2565,7 +3193,10 @@
       "book": "fonbet",
       "decimal": 1.35,
       "openingDecimal": 1.35,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2577,7 +3208,10 @@
       "book": "1xbet",
       "decimal": 1.058,
       "openingDecimal": 1.058,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2589,7 +3223,10 @@
       "book": "fonbet",
       "decimal": 1.09,
       "openingDecimal": 1.09,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2601,7 +3238,10 @@
       "book": "1xbet",
       "decimal": 6.25,
       "openingDecimal": 6.25,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2613,7 +3253,10 @@
       "book": "fonbet",
       "decimal": 5.6,
       "openingDecimal": 5.6,
-      "capturedAtUtc": "2026-11-20T23:23:22Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T02:23:27Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2625,6 +3268,9 @@
       "book": "bet365",
       "decimal": 1.571,
       "openingDecimal": 1.571,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T12:51:26Z"
     },
     {
@@ -2637,6 +3283,9 @@
       "book": "bet365",
       "decimal": 3.8,
       "openingDecimal": 3.8,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T12:51:26Z"
     },
     {
@@ -2649,6 +3298,9 @@
       "book": "bet365",
       "decimal": 4.75,
       "openingDecimal": 4.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T12:51:26Z"
     },
     {
@@ -2661,6 +3313,9 @@
       "book": "bet365",
       "decimal": 9,
       "openingDecimal": 9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T12:51:23Z"
     },
     {
@@ -2673,6 +3328,9 @@
       "book": "bet365",
       "decimal": 5.25,
       "openingDecimal": 5.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T12:51:23Z"
     },
     {
@@ -2685,6 +3343,9 @@
       "book": "bet365",
       "decimal": 1.25,
       "openingDecimal": 1.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T12:51:23Z"
     },
     {
@@ -2697,6 +3358,9 @@
       "book": "bet365",
       "decimal": 1.615,
       "openingDecimal": 1.615,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T18:51:30Z"
     },
     {
@@ -2709,6 +3373,9 @@
       "book": "bet365",
       "decimal": 3.8,
       "openingDecimal": 3.8,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T18:51:30Z"
     },
     {
@@ -2721,6 +3388,9 @@
       "book": "bet365",
       "decimal": 4.2,
       "openingDecimal": 4.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T18:51:30Z"
     },
     {
@@ -2733,6 +3403,9 @@
       "book": "bet365",
       "decimal": 1.04,
       "openingDecimal": 1.04,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T18:51:38Z"
     },
     {
@@ -2745,6 +3418,9 @@
       "book": "bet365",
       "decimal": 13,
       "openingDecimal": 13,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T18:51:38Z"
     },
     {
@@ -2757,6 +3433,9 @@
       "book": "bet365",
       "decimal": 51,
       "openingDecimal": 51,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-19T18:51:38Z"
     }
   ]

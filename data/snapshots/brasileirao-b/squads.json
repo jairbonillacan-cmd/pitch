@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao-b",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "teams": [
     {
       "teamId": "brasileirao-b.vila-nova",
@@ -24,7 +24,7 @@
           "winPct": 37.3
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "brasileirao-b.vila-nova.alex-ramiro",
@@ -124,8 +124,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -133,7 +133,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -281,7 +281,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -309,8 +309,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -318,7 +318,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1010,10 +1010,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1021,7 +1021,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1232,7 +1232,7 @@
           "winPct": 38.5
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "brasileirao-b.criciuma.airton",
@@ -1472,43 +1472,6 @@
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:17280",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "brasileirao-b.criciuma.eliel",
-          "slug": "eliel",
-          "name": "Eliel",
-          "shortName": "Eliel",
-          "jersey": "31",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 23,
-          "birthDate": "2003-03-24",
-          "heightCm": 170,
-          "weightKg": null,
-          "preferredFoot": "L",
-          "nationality": "Brazil",
-          "nationalityCode": null,
-          "photoKey": "pl-p:35860",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -2035,8 +1998,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2044,7 +2007,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2417,6 +2380,43 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
+        },
+        {
+          "id": "brasileirao-b.criciuma.thales-lourenco-rodrigues",
+          "slug": "thales-lourenco-rodrigues",
+          "name": "Thales Lourenco Rodrigues",
+          "shortName": "Thales",
+          "jersey": "39",
+          "positionGroup": "MID",
+          "positionLabel": "F",
+          "age": 20,
+          "birthDate": "2006-11-04",
+          "heightCm": 184,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:53510",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -2440,7 +2440,7 @@
           "winPct": 30.8
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "brasileirao-b.cuiaba.alan-empereur",
@@ -2623,7 +2623,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2809,43 +2809,6 @@
             "saves": 0,
             "shotsFaced": 0,
             "goalsConceded": 2
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "brasileirao-b.cuiaba.jean-carlos-batista",
-          "slug": "jean-carlos-batista",
-          "name": "Jean Carlos Batista",
-          "shortName": "J. C. Batista",
-          "jersey": "34",
-          "positionGroup": "MID",
-          "positionLabel": "G",
-          "age": 26,
-          "birthDate": "2000-07-24",
-          "heightCm": 196,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Brazil",
-          "nationalityCode": null,
-          "photoKey": "pl-p:42226",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3625,6 +3588,43 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
+        },
+        {
+          "id": "brasileirao-b.cuiaba.ramon",
+          "slug": "ramon",
+          "name": "Ramon",
+          "shortName": "Ramon",
+          "jersey": "7",
+          "positionGroup": "MID",
+          "positionLabel": "M",
+          "age": 26,
+          "birthDate": "2000-07-12",
+          "heightCm": 176,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:20271",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -3648,7 +3648,7 @@
           "winPct": 39.1
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "brasileirao-b.juventude.aderlan",
@@ -3675,7 +3675,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3683,7 +3683,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3947,43 +3947,6 @@
           "candidatePicks": []
         },
         {
-          "id": "brasileirao-b.juventude.emerson-galego",
-          "slug": "emerson-galego",
-          "name": "Emerson Galego",
-          "shortName": "E. Galego",
-          "jersey": "18",
-          "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 27,
-          "birthDate": "1999-08-10",
-          "heightCm": 180,
-          "weightKg": null,
-          "preferredFoot": "L",
-          "nationality": "Brazil",
-          "nationalityCode": null,
-          "photoKey": "pl-p:5103",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "brasileirao-b.juventude.fabio-lima",
           "slug": "fabio-lima",
           "name": "Fábio Lima",
@@ -4162,9 +4125,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 5,
+            "saves": 10,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4377,8 +4340,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4451,8 +4414,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4489,7 +4452,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4833,6 +4796,43 @@
             "goalsConceded": 1
           },
           "candidatePicks": []
+        },
+        {
+          "id": "brasileirao-b.juventude.ruan-carneiro",
+          "slug": "ruan-carneiro",
+          "name": "Ruan Carneiro",
+          "shortName": "R. Carneiro",
+          "jersey": "21",
+          "positionGroup": "MID",
+          "positionLabel": "G",
+          "age": 36,
+          "birthDate": "1990-03-26",
+          "heightCm": 195,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:198",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -4856,7 +4856,7 @@
           "winPct": 30.8
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "brasileirao-b.nautico.arnaldo",
@@ -5104,7 +5104,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5207,43 +5207,6 @@
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:216748",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "brasileirao-b.nautico.felipe-cardoso",
-          "slug": "felipe-cardoso",
-          "name": "Felipe Cardoso",
-          "shortName": "F. Cardoso",
-          "jersey": "30",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 23,
-          "birthDate": "2003-03-04",
-          "heightCm": 178,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Brazil",
-          "nationalityCode": null,
-          "photoKey": "pl-p:4443",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -5881,7 +5844,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6041,6 +6004,43 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
+        },
+        {
+          "id": "brasileirao-b.nautico.matheus-antonio-uchoa-da-silva",
+          "slug": "matheus-antonio-uchoa-da-silva",
+          "name": "Matheus Antonio Uchoa da Silva",
+          "shortName": "M. A. U. d. Silva",
+          "jersey": "37",
+          "positionGroup": "MID",
+          "positionLabel": "F",
+          "age": null,
+          "birthDate": null,
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:76989",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -6064,7 +6064,7 @@
           "winPct": 38.1
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "brasileirao-b.crb.bressan",
@@ -6127,8 +6127,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6136,7 +6136,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6230,43 +6230,6 @@
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:35843",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "brasileirao-b.crb.davi-gomes-pimentel-lima",
-          "slug": "davi-gomes-pimentel-lima",
-          "name": "Davi Gomes Pimentel Lima",
-          "shortName": "D. G. P. Lima",
-          "jersey": "13",
-          "positionGroup": "MID",
-          "positionLabel": "D",
-          "age": 22,
-          "birthDate": "2004-01-07",
-          "heightCm": 172,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Brazil",
-          "nationalityCode": null,
-          "photoKey": "pl-p:59080",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -6961,7 +6924,7 @@
           "shortName": "M. P. Santos",
           "jersey": "2",
           "positionGroup": "MID",
-          "positionLabel": "M",
+          "positionLabel": "D",
           "age": 22,
           "birthDate": "2004-03-03",
           "heightCm": 174,
@@ -7112,9 +7075,9 @@
           "positionLabel": "G",
           "age": 22,
           "birthDate": "2004-05-23",
-          "heightCm": null,
+          "heightCm": 189,
           "weightKg": null,
-          "preferredFoot": null,
+          "preferredFoot": "R",
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:35847",
@@ -7249,6 +7212,43 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
+        },
+        {
+          "id": "brasileirao-b.crb.rodrigo-jesse-dos-santos-viana",
+          "slug": "rodrigo-jesse-dos-santos-viana",
+          "name": "Rodrigo Jesse dos Santos Viana",
+          "shortName": "R. J. d. S. Viana",
+          "jersey": "33",
+          "positionGroup": "MID",
+          "positionLabel": "M",
+          "age": 21,
+          "birthDate": "2004-12-22",
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:35839",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -7272,7 +7272,7 @@
           "winPct": 31.3
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "brasileirao-b.athletic.alexandre-pena",
@@ -7410,7 +7410,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7418,7 +7418,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7705,7 +7705,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7714,7 +7714,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7904,43 +7904,6 @@
           "candidatePicks": []
         },
         {
-          "id": "brasileirao-b.athletic.gustavo-morais-melo",
-          "slug": "gustavo-morais-melo",
-          "name": "Gustavo Morais Melo",
-          "shortName": "G. M. Melo",
-          "jersey": "4",
-          "positionGroup": "MID",
-          "positionLabel": "D",
-          "age": 20,
-          "birthDate": "2006-03-06",
-          "heightCm": 192,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Brazil",
-          "nationalityCode": null,
-          "photoKey": "pl-p:46835",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "brasileirao-b.athletic.gustavo-silva",
           "slug": "gustavo-silva",
           "name": "Gustavo Silva",
@@ -7999,10 +7962,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8010,7 +7973,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8075,7 +8038,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8084,7 +8047,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8149,7 +8112,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8304,9 +8267,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8343,7 +8306,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8457,6 +8420,43 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
+        },
+        {
+          "id": "brasileirao-b.athletic.matheus-pimenta",
+          "slug": "matheus-pimenta",
+          "name": "Matheus Pimenta",
+          "shortName": "M. Pimenta",
+          "jersey": "19",
+          "positionGroup": "MID",
+          "positionLabel": "Mediocampista",
+          "age": null,
+          "birthDate": null,
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "",
+          "nationalityCode": null,
+          "photoKey": "pl-p:46836",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -8480,7 +8480,7 @@
           "winPct": 34.6
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "brasileirao-b.atletico-goianiense.adriano-martins",
@@ -8598,43 +8598,6 @@
           "slug": "cristiano",
           "name": "Cristiano",
           "shortName": "Cristiano",
-          "jersey": "20",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 26,
-          "birthDate": "2000-02-22",
-          "heightCm": 175,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Brazil",
-          "nationalityCode": null,
-          "photoKey": "pl-p:35311",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "brasileirao-b.atletico-goianiense.cristiano-21",
-          "slug": "cristiano-21",
-          "name": "Cristiano",
-          "shortName": "Cristiano",
           "jersey": "5",
           "positionGroup": "MID",
           "positionLabel": "M",
@@ -8654,7 +8617,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8668,21 +8631,21 @@
           "candidatePicks": []
         },
         {
-          "id": "brasileirao-b.atletico-goianiense.daniel-alves",
-          "slug": "daniel-alves",
-          "name": "Daniel Alves",
-          "shortName": "Daniel Alves",
+          "id": "brasileirao-b.atletico-goianiense.cristiano-3",
+          "slug": "cristiano-3",
+          "name": "Cristiano",
+          "shortName": "Cristiano",
           "jersey": "20",
           "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 21,
-          "birthDate": "2004-12-06",
-          "heightCm": 186,
+          "positionLabel": "M",
+          "age": 26,
+          "birthDate": "2000-02-22",
+          "heightCm": 175,
           "weightKg": null,
           "preferredFoot": "R",
           "nationality": "Brazil",
           "nationalityCode": null,
-          "photoKey": "pl-p:31110",
+          "photoKey": "pl-p:35311",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -8876,8 +8839,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8885,7 +8848,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -9022,10 +8985,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 2,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 4,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -9033,7 +8996,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -9244,10 +9207,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -9255,7 +9218,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -9645,6 +9608,43 @@
           "nationality": "Brazil",
           "nationalityCode": null,
           "photoKey": "pl-p:21347",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "brasileirao-b.atletico-goianiense.paulo-henrique",
+          "slug": "paulo-henrique",
+          "name": "Paulo Henrique",
+          "shortName": "P. Henrique",
+          "jersey": "12",
+          "positionGroup": "MID",
+          "positionLabel": "G",
+          "age": 32,
+          "birthDate": "1994-05-12",
+          "heightCm": 185,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:18283",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,

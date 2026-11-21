@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent",
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
-  "periodLabel": "19 nov – 22 nov",
-  "updatedAt": "2026-11-20T23:19:02.133Z",
+  "periodLabel": "19 nov – 23 nov",
+  "updatedAt": "2026-11-21T04:14:41.646Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -16,11 +16,11 @@
       "shortName": "Pistons",
       "code": "DET",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/9/?bg=transparent",
-      "forPerGame": 115.35714285714286,
-      "againstPerGame": 108.92857142857143,
-      "gamesPlayed": 14,
-      "adjustedFor": 115.35714285714286,
-      "adjustedAgainst": 108.92857142857143
+      "forPerGame": 114.46666666666667,
+      "againstPerGame": 108.66666666666667,
+      "gamesPlayed": 15,
+      "adjustedFor": 114.46666666666667,
+      "adjustedAgainst": 108.66666666666667
     },
     "nba.boston-celtics": {
       "teamId": "nba.boston-celtics",
@@ -112,11 +112,11 @@
       "shortName": "Magic",
       "code": "ORL",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/10/?bg=transparent",
-      "forPerGame": 109.35714285714286,
-      "againstPerGame": 112.78571428571429,
-      "gamesPlayed": 14,
-      "adjustedFor": 109.35714285714286,
-      "adjustedAgainst": 112.78571428571429
+      "forPerGame": 109.6,
+      "againstPerGame": 112.66666666666667,
+      "gamesPlayed": 15,
+      "adjustedFor": 109.6,
+      "adjustedAgainst": 112.66666666666667
     },
     "nba.atlanta-hawks": {
       "teamId": "nba.atlanta-hawks",
@@ -124,11 +124,11 @@
       "shortName": "Hawks",
       "code": "ATL",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/6/?bg=transparent",
-      "forPerGame": 117.73333333333333,
-      "againstPerGame": 115.8,
-      "gamesPlayed": 15,
-      "adjustedFor": 117.73333333333333,
-      "adjustedAgainst": 115.8
+      "forPerGame": 117.3125,
+      "againstPerGame": 114.625,
+      "gamesPlayed": 16,
+      "adjustedFor": 117.3125,
+      "adjustedAgainst": 114.625
     },
     "nba.miami-heat": {
       "teamId": "nba.miami-heat",
@@ -160,11 +160,11 @@
       "shortName": "Raptors",
       "code": "TOR",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/12/?bg=transparent",
-      "forPerGame": 112,
-      "againstPerGame": 112,
-      "gamesPlayed": 15,
-      "adjustedFor": 112,
-      "adjustedAgainst": 112
+      "forPerGame": 111.5625,
+      "againstPerGame": 111.375,
+      "gamesPlayed": 16,
+      "adjustedFor": 111.5625,
+      "adjustedAgainst": 111.375
     },
     "nba.chicago-bulls": {
       "teamId": "nba.chicago-bulls",
@@ -184,11 +184,11 @@
       "shortName": "Nets",
       "code": "BKN",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/23/?bg=transparent",
-      "forPerGame": 110.85714285714286,
-      "againstPerGame": 119.21428571428571,
-      "gamesPlayed": 14,
-      "adjustedFor": 110.85714285714286,
-      "adjustedAgainst": 119.21428571428571
+      "forPerGame": 110.86666666666666,
+      "againstPerGame": 118.8,
+      "gamesPlayed": 15,
+      "adjustedFor": 110.86666666666666,
+      "adjustedAgainst": 118.8
     },
     "nba.charlotte-hornets": {
       "teamId": "nba.charlotte-hornets",
@@ -196,11 +196,11 @@
       "shortName": "Hornets",
       "code": "CHA",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/27/?bg=transparent",
-      "forPerGame": 100.14285714285714,
-      "againstPerGame": 110.42857142857143,
-      "gamesPlayed": 14,
-      "adjustedFor": 100.14285714285714,
-      "adjustedAgainst": 110.42857142857143
+      "forPerGame": 99.93333333333334,
+      "againstPerGame": 110.46666666666667,
+      "gamesPlayed": 15,
+      "adjustedFor": 99.93333333333334,
+      "adjustedAgainst": 110.46666666666667
     },
     "nba.memphis-grizzlies": {
       "teamId": "nba.memphis-grizzlies",
@@ -244,11 +244,11 @@
       "shortName": "Pacers",
       "code": "IND",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/25/?bg=transparent",
-      "forPerGame": 111.53333333333333,
-      "againstPerGame": 114.8,
-      "gamesPlayed": 15,
-      "adjustedFor": 111.53333333333333,
-      "adjustedAgainst": 114.8
+      "forPerGame": 112,
+      "againstPerGame": 115.625,
+      "gamesPlayed": 16,
+      "adjustedFor": 112,
+      "adjustedAgainst": 115.625
     },
     "nba.houston-rockets": {
       "teamId": "nba.houston-rockets",
@@ -352,11 +352,11 @@
       "shortName": "Cavaliers",
       "code": "CLE",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/11/?bg=transparent",
-      "forPerGame": 118.25,
-      "againstPerGame": 116.3125,
-      "gamesPlayed": 16,
-      "adjustedFor": 118.25,
-      "adjustedAgainst": 116.3125
+      "forPerGame": 118.82352941176471,
+      "againstPerGame": 116.47058823529412,
+      "gamesPlayed": 17,
+      "adjustedFor": 118.82352941176471,
+      "adjustedAgainst": 116.47058823529412
     },
     "nba.denver-nuggets": {
       "teamId": "nba.denver-nuggets",
@@ -398,7 +398,7 @@
       "result": {
         "home": 126,
         "away": 98,
-        "observedAt": "2026-11-20T23:18:49.661Z",
+        "observedAt": "2026-11-21T04:14:29.405Z",
         "source": "bzzoiro"
       }
     },
@@ -428,7 +428,7 @@
       "result": {
         "home": 99,
         "away": 102,
-        "observedAt": "2026-11-20T23:18:49.661Z",
+        "observedAt": "2026-11-21T04:14:29.405Z",
         "source": "bzzoiro"
       }
     },
@@ -458,7 +458,7 @@
       "result": {
         "home": 124,
         "away": 112,
-        "observedAt": "2026-11-20T23:18:49.661Z",
+        "observedAt": "2026-11-21T04:14:29.405Z",
         "source": "bzzoiro"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 114,
         "away": 124,
-        "observedAt": "2026-11-20T23:18:49.661Z",
+        "observedAt": "2026-11-21T04:14:29.405Z",
         "source": "bzzoiro"
       }
     },
@@ -497,7 +497,7 @@
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nba.atlanta-hawks",
         "league": "nba",
@@ -515,14 +515,20 @@
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/27/?bg=transparent"
       },
       "referee": "Josh Tiven",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 111,
+        "away": 97,
+        "observedAt": "2026-11-21T04:14:29.405Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-ind-cle",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T00:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nba.cleveland-cavaliers",
         "league": "nba",
@@ -539,14 +545,21 @@
         "code": "IND",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/25/?bg=transparent"
       },
-      "neutralSite": false
+      "referee": "Sean Wright",
+      "neutralSite": false,
+      "result": {
+        "home": 128,
+        "away": 119,
+        "observedAt": "2026-11-21T04:14:29.405Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-tor-det",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T00:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nba.detroit-pistons",
         "league": "nba",
@@ -564,14 +577,20 @@
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/12/?bg=transparent"
       },
       "referee": "James Williams",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 102,
+        "away": 105,
+        "observedAt": "2026-11-21T04:14:29.405Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-orl-bkn",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T00:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nba.brooklyn-nets",
         "league": "nba",
@@ -588,14 +607,21 @@
         "code": "ORL",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/10/?bg=transparent"
       },
-      "neutralSite": false
+      "referee": "Bill Kennedy",
+      "neutralSite": false,
+      "result": {
+        "home": 111,
+        "away": 113,
+        "observedAt": "2026-11-21T04:14:29.405Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-nop-okc",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T01:00:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nba.oklahoma-city-thunder",
         "league": "nba",
@@ -619,7 +645,7 @@
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T01:00:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nba.chicago-bulls",
         "league": "nba",
@@ -643,7 +669,7 @@
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T02:30:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nba.utah-jazz",
         "league": "nba",
@@ -667,7 +693,7 @@
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T03:00:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nba.los-angeles-lakers",
         "league": "nba",
@@ -684,6 +710,7 @@
         "code": "SAC",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/21/?bg=transparent"
       },
+      "referee": "John Goble",
       "neutralSite": false
     },
     {
@@ -691,7 +718,7 @@
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T03:00:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nba.denver-nuggets",
         "league": "nba",
@@ -708,6 +735,7 @@
         "code": "HOU",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/14/?bg=transparent"
       },
+      "referee": "Zach Zarba",
       "neutralSite": false
     },
     {
@@ -1019,6 +1047,246 @@
         "shortName": "Celtics",
         "code": "BOS",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/3/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-mem-cha",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T00:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.charlotte-hornets",
+        "league": "nba",
+        "name": "Charlotte Hornets",
+        "shortName": "Hornets",
+        "code": "CHA",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/27/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.memphis-grizzlies",
+        "league": "nba",
+        "name": "Memphis Grizzlies",
+        "shortName": "Grizzlies",
+        "code": "MEM",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/19/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-por-phi",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T00:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.philadelphia-76ers",
+        "league": "nba",
+        "name": "Philadelphia 76ers",
+        "shortName": "76ers",
+        "code": "PHI",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/4/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.portland-trail-blazers",
+        "league": "nba",
+        "name": "Portland Trail Blazers",
+        "shortName": "Trail Blazers",
+        "code": "POR",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/8/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-okc-ind",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T00:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.indiana-pacers",
+        "league": "nba",
+        "name": "Indiana Pacers",
+        "shortName": "Pacers",
+        "code": "IND",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/25/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.oklahoma-city-thunder",
+        "league": "nba",
+        "name": "Oklahoma City Thunder",
+        "shortName": "Thunder",
+        "code": "OKC",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/15/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-mil-tor",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T00:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.toronto-raptors",
+        "league": "nba",
+        "name": "Toronto Raptors",
+        "shortName": "Raptors",
+        "code": "TOR",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/12/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.milwaukee-bucks",
+        "league": "nba",
+        "name": "Milwaukee Bucks",
+        "shortName": "Bucks",
+        "code": "MIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/28/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-bkn-min",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T00:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.minnesota-timberwolves",
+        "league": "nba",
+        "name": "Minnesota Timberwolves",
+        "shortName": "Timberwolves",
+        "code": "MIN",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/2/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.brooklyn-nets",
+        "league": "nba",
+        "name": "Brooklyn Nets",
+        "shortName": "Nets",
+        "code": "BKN",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/23/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-cle-chi",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T01:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.chicago-bulls",
+        "league": "nba",
+        "name": "Chicago Bulls",
+        "shortName": "Bulls",
+        "code": "CHI",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/30/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.cleveland-cavaliers",
+        "league": "nba",
+        "name": "Cleveland Cavaliers",
+        "shortName": "Cavaliers",
+        "code": "CLE",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/11/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-phx-nop",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T01:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.new-orleans-pelicans",
+        "league": "nba",
+        "name": "New Orleans Pelicans",
+        "shortName": "Pelicans",
+        "code": "NOP",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/29/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.phoenix-suns",
+        "league": "nba",
+        "name": "Phoenix Suns",
+        "shortName": "Suns",
+        "code": "PHX",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/16/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-lac-hou",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T01:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.houston-rockets",
+        "league": "nba",
+        "name": "Houston Rockets",
+        "shortName": "Rockets",
+        "code": "HOU",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/14/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.los-angeles-clippers",
+        "league": "nba",
+        "name": "Los Angeles Clippers",
+        "shortName": "Clippers",
+        "code": "LAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/20/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-uta-lal",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T03:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.los-angeles-lakers",
+        "league": "nba",
+        "name": "Los Angeles Lakers",
+        "shortName": "Lakers",
+        "code": "LAL",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/13/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.utah-jazz",
+        "league": "nba",
+        "name": "Utah Jazz",
+        "shortName": "Jazz",
+        "code": "UTA",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/18/?bg=transparent"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-24-sas-sac",
+      "league": "nba",
+      "season": "nba-2026-27",
+      "startTime": "2026-11-24T03:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nba.sacramento-kings",
+        "league": "nba",
+        "name": "Sacramento Kings",
+        "shortName": "Kings",
+        "code": "SAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/21/?bg=transparent"
+      },
+      "away": {
+        "id": "nba.san-antonio-spurs",
+        "league": "nba",
+        "name": "San Antonio Spurs",
+        "shortName": "Spurs",
+        "code": "SAS",
+        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/7/?bg=transparent"
       },
       "neutralSite": false
     }
@@ -1532,6 +1800,9 @@
           "Cavaliers gana en 73 % de los escenarios, por 8.1 puntos en promedio.",
           "Se esperan 233.9 pts: 121.0 de Cavaliers y 112.9 de Pacers."
         ]
+      },
+      "matchContext": {
+        "referee": "Sean Wright"
       }
     },
     "nba-2026-11-21-tor-det": {
@@ -2041,6 +2312,9 @@
           "Magic gana en 71 % de los escenarios, por 7.0 puntos en promedio.",
           "Se esperan 222.4 pts: 107.7 de Nets y 114.7 de Magic."
         ]
+      },
+      "matchContext": {
+        "referee": "Bill Kennedy"
       }
     },
     "nba-2026-11-21-nop-okc": {
@@ -3064,6 +3338,9 @@
           "Lakers gana en 87 % de los escenarios, por 14.6 puntos en promedio.",
           "Se esperan 232.2 pts: 123.4 de Lakers y 108.8 de Kings."
         ]
+      },
+      "matchContext": {
+        "referee": "John Goble"
       }
     },
     "nba-2026-11-21-hou-den": {
@@ -3318,6 +3595,9 @@
           "Rockets gana en 55 % de los escenarios, por 1.7 puntos en promedio.",
           "Se esperan 225.0 pts: 111.7 de Nuggets y 113.3 de Rockets."
         ]
+      },
+      "matchContext": {
+        "referee": "Zach Zarba"
       }
     },
     "nba-2026-11-21-mil-phi": {
@@ -6624,6 +6904,2561 @@
           "Se esperan 217.0 pts: 104.4 de Warriors y 112.6 de Celtics."
         ]
       }
+    },
+    "nba-2026-11-24-mem-cha": {
+      "game": "nba-2026-11-24-mem-cha",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 110.21308003265176,
+        "away": 112.87278616749698,
+        "total": 223.08586620014876,
+        "margin": -2.659706134845223
+      },
+      "x12": [
+        0.41894517357019073,
+        0,
+        0.5810548264298092
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Hornets gana",
+          "p": 0.41894517357019073,
+          "fairOdds": 2.3869471785010514
+        },
+        {
+          "market": "h2h",
+          "selection": "Grizzlies gana",
+          "p": 0.5810548264298092,
+          "fairOdds": 1.7210079918694194
+        },
+        {
+          "market": "spreads",
+          "selection": "CHA cubre",
+          "line": 2.5,
+          "p": 0.4950990547783234,
+          "fairOdds": 2.019797837117144
+        },
+        {
+          "market": "spreads",
+          "selection": "MEM cubre",
+          "line": -2.5,
+          "p": 0.5049009452216766,
+          "fairOdds": 1.9805865080346607
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 223.5,
+          "p": 0.4910701348498069,
+          "fairOdds": 2.036369001152653
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 223.5,
+          "p": 0.5089298651501931,
+          "fairOdds": 1.9649072858101666
+        },
+        {
+          "market": "team_totals",
+          "selection": "CHA más de 110.5",
+          "line": 110.5,
+          "p": 0.4912505358196193,
+          "fairOdds": 2.0356211893622986
+        },
+        {
+          "market": "team_totals",
+          "selection": "CHA menos de 110.5",
+          "line": 110.5,
+          "p": 0.5087494641803807,
+          "fairOdds": 1.9656040357920515
+        },
+        {
+          "market": "team_totals",
+          "selection": "MEM más de 113.5",
+          "line": 113.5,
+          "p": 0.4808792854111186,
+          "fairOdds": 2.0795239685674316
+        },
+        {
+          "market": "team_totals",
+          "selection": "MEM menos de 113.5",
+          "line": 113.5,
+          "p": 0.5191207145888814,
+          "fairOdds": 1.9263342261191634
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Hornets gana",
+              "p": 0.41894517357019073,
+              "fairOdds": 2.3869471785010514
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Grizzlies gana",
+              "p": 0.5810548264298092,
+              "fairOdds": 1.7210079918694194
+            }
+          ]
+        },
+        {
+          "group": "Spread CHA +2.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "CHA cubre",
+              "line": 2.5,
+              "p": 0.4950990547783234,
+              "fairOdds": 2.019797837117144
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "MEM cubre",
+              "line": -2.5,
+              "p": 0.5049009452216766,
+              "fairOdds": 1.9805865080346607
+            }
+          ]
+        },
+        {
+          "group": "Total 223.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 223.5,
+              "p": 0.4910701348498069,
+              "fairOdds": 2.036369001152653
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 223.5,
+              "p": 0.5089298651501931,
+              "fairOdds": 1.9649072858101666
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "CHA más de 110.5",
+              "line": 110.5,
+              "p": 0.4912505358196193,
+              "fairOdds": 2.0356211893622986
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "CHA menos de 110.5",
+              "line": 110.5,
+              "p": 0.5087494641803807,
+              "fairOdds": 1.9656040357920515
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "MEM más de 113.5",
+              "line": 113.5,
+              "p": 0.4808792854111186,
+              "fairOdds": 2.0795239685674316
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "MEM menos de 113.5",
+              "line": 113.5,
+              "p": 0.5191207145888814,
+              "fairOdds": 1.9263342261191634
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "110.2 pts proyectados",
+          "detail": "15 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "112.9 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "CHA: 2 días de descanso",
+          "detail": "MEM: 3 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 110.2 – 112.9 · margen -2.7",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "intermedia",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Grizzlies gana",
+          "p": 0.5810548264298092,
+          "fairOdds": 1.7210079918694194
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "MEM menos de 113.5",
+          "line": 113.5,
+          "p": 0.5191207145888814,
+          "fairOdds": 1.9263342261191634
+        }
+      ],
+      "confidence": {
+        "score": 45,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Grizzlies gana en 58 % de los escenarios, por 2.7 puntos en promedio.",
+          "Se esperan 223.1 pts: 110.2 de Hornets y 112.9 de Grizzlies."
+        ]
+      }
+    },
+    "nba-2026-11-24-por-phi": {
+      "game": "nba-2026-11-24-por-phi",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 113.27680202024705,
+        "away": 114.09203618273135,
+        "total": 227.3688382029784,
+        "margin": -0.8152341624843018
+      },
+      "x12": [
+        0.47499851875025595,
+        0,
+        0.5250014812497441
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "76ers gana",
+          "p": 0.47499851875025595,
+          "fairOdds": 2.105269723011028
+        },
+        {
+          "market": "h2h",
+          "selection": "Trail Blazers gana",
+          "p": 0.5250014812497441,
+          "fairOdds": 1.904756530628336
+        },
+        {
+          "market": "spreads",
+          "selection": "PHI cubre",
+          "line": 0.5,
+          "p": 0.4903270367887274,
+          "fairOdds": 2.039455149259658
+        },
+        {
+          "market": "spreads",
+          "selection": "POR cubre",
+          "line": -0.5,
+          "p": 0.5096729632112726,
+          "fairOdds": 1.9620424707234747
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 227.5,
+          "p": 0.497171574749079,
+          "fairOdds": 2.0113780650164825
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 227.5,
+          "p": 0.502828425250921,
+          "fairOdds": 1.9887499389100387
+        },
+        {
+          "market": "team_totals",
+          "selection": "PHI más de 113.5",
+          "line": 113.5,
+          "p": 0.4931934845656061,
+          "fairOdds": 2.0276018059743386
+        },
+        {
+          "market": "team_totals",
+          "selection": "PHI menos de 113.5",
+          "line": 113.5,
+          "p": 0.5068065154343939,
+          "fairOdds": 1.9731395898548783
+        },
+        {
+          "market": "team_totals",
+          "selection": "POR más de 114.5",
+          "line": 114.5,
+          "p": 0.4875603972728254,
+          "fairOdds": 2.0510279456525002
+        },
+        {
+          "market": "team_totals",
+          "selection": "POR menos de 114.5",
+          "line": 114.5,
+          "p": 0.5124396027271746,
+          "fairOdds": 1.9514494872723664
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "76ers gana",
+              "p": 0.47499851875025595,
+              "fairOdds": 2.105269723011028
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Trail Blazers gana",
+              "p": 0.5250014812497441,
+              "fairOdds": 1.904756530628336
+            }
+          ]
+        },
+        {
+          "group": "Spread PHI +0.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "PHI cubre",
+              "line": 0.5,
+              "p": 0.4903270367887274,
+              "fairOdds": 2.039455149259658
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "POR cubre",
+              "line": -0.5,
+              "p": 0.5096729632112726,
+              "fairOdds": 1.9620424707234747
+            }
+          ]
+        },
+        {
+          "group": "Total 227.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 227.5,
+              "p": 0.497171574749079,
+              "fairOdds": 2.0113780650164825
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 227.5,
+              "p": 0.502828425250921,
+              "fairOdds": 1.9887499389100387
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "PHI más de 113.5",
+              "line": 113.5,
+              "p": 0.4931934845656061,
+              "fairOdds": 2.0276018059743386
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "PHI menos de 113.5",
+              "line": 113.5,
+              "p": 0.5068065154343939,
+              "fairOdds": 1.9731395898548783
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "POR más de 114.5",
+              "line": 114.5,
+              "p": 0.4875603972728254,
+              "fairOdds": 2.0510279456525002
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "POR menos de 114.5",
+              "line": 114.5,
+              "p": 0.5124396027271746,
+              "fairOdds": 1.9514494872723664
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "113.3 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "114.1 pts proyectados",
+          "detail": "15 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "PHI: 4 días de descanso",
+          "detail": "POR: 3 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 113.3 – 114.1 · margen -0.8",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "intermedia",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Trail Blazers gana",
+          "p": 0.5250014812497441,
+          "fairOdds": 1.904756530628336
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "POR menos de 114.5",
+          "line": 114.5,
+          "p": 0.5124396027271746,
+          "fairOdds": 1.9514494872723664
+        }
+      ],
+      "confidence": {
+        "score": 34,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Trail Blazers gana en 53 % de los escenarios, por 0.8 puntos en promedio.",
+          "Se esperan 227.4 pts: 113.3 de 76ers y 114.1 de Trail Blazers."
+        ]
+      }
+    },
+    "nba-2026-11-24-okc-ind": {
+      "game": "nba-2026-11-24-okc-ind",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 108.06963984244902,
+        "away": 116.89464699698654,
+        "total": 224.96428683943554,
+        "margin": -8.825007154537516
+      },
+      "x12": [
+        0.24861742662371775,
+        0,
+        0.7513825733762822
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Pacers gana",
+          "p": 0.24861742662371775,
+          "fairOdds": 4.022244190925116
+        },
+        {
+          "market": "h2h",
+          "selection": "Thunder gana",
+          "p": 0.7513825733762822,
+          "fairOdds": 1.3308799477562725
+        },
+        {
+          "market": "spreads",
+          "selection": "IND cubre",
+          "line": 8.5,
+          "p": 0.4900272144401199,
+          "fairOdds": 2.040702986552592
+        },
+        {
+          "market": "spreads",
+          "selection": "OKC cubre",
+          "line": -8.5,
+          "p": 0.5099727855598801,
+          "fairOdds": 1.960888949990022
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 225.5,
+          "p": 0.4884492032719725,
+          "fairOdds": 2.0472957951437007
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 225.5,
+          "p": 0.5115507967280275,
+          "fairOdds": 1.9548400792182965
+        },
+        {
+          "market": "team_totals",
+          "selection": "IND más de 108.5",
+          "line": 108.5,
+          "p": 0.4868777309403428,
+          "fairOdds": 2.053903755402052
+        },
+        {
+          "market": "team_totals",
+          "selection": "IND menos de 108.5",
+          "line": 108.5,
+          "p": 0.5131222690596572,
+          "fairOdds": 1.9488532466785942
+        },
+        {
+          "market": "team_totals",
+          "selection": "OKC más de 117.5",
+          "line": 117.5,
+          "p": 0.48154523060794885,
+          "fairOdds": 2.0766481244918658
+        },
+        {
+          "market": "team_totals",
+          "selection": "OKC menos de 117.5",
+          "line": 117.5,
+          "p": 0.5184547693920512,
+          "fairOdds": 1.9288085654465421
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Pacers gana",
+              "p": 0.24861742662371775,
+              "fairOdds": 4.022244190925116
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Thunder gana",
+              "p": 0.7513825733762822,
+              "fairOdds": 1.3308799477562725
+            }
+          ]
+        },
+        {
+          "group": "Spread IND +8.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "IND cubre",
+              "line": 8.5,
+              "p": 0.4900272144401199,
+              "fairOdds": 2.040702986552592
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "OKC cubre",
+              "line": -8.5,
+              "p": 0.5099727855598801,
+              "fairOdds": 1.960888949990022
+            }
+          ]
+        },
+        {
+          "group": "Total 225.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 225.5,
+              "p": 0.4884492032719725,
+              "fairOdds": 2.0472957951437007
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 225.5,
+              "p": 0.5115507967280275,
+              "fairOdds": 1.9548400792182965
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "IND más de 108.5",
+              "line": 108.5,
+              "p": 0.4868777309403428,
+              "fairOdds": 2.053903755402052
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "IND menos de 108.5",
+              "line": 108.5,
+              "p": 0.5131222690596572,
+              "fairOdds": 1.9488532466785942
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "OKC más de 117.5",
+              "line": 117.5,
+              "p": 0.48154523060794885,
+              "fairOdds": 2.0766481244918658
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "OKC menos de 117.5",
+              "line": 117.5,
+              "p": 0.5184547693920512,
+              "fairOdds": 1.9288085654465421
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "108.1 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "116.9 pts proyectados",
+          "detail": "15 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "IND: 2 días de descanso",
+          "detail": "OKC: 4 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 108.1 – 116.9 · margen -8.8",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Thunder gana",
+          "p": 0.7513825733762822,
+          "fairOdds": 1.3308799477562725
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "OKC menos de 117.5",
+          "line": 117.5,
+          "p": 0.5184547693920512,
+          "fairOdds": 1.9288085654465421
+        }
+      ],
+      "confidence": {
+        "score": 80,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Thunder gana en 75 % de los escenarios, por 8.8 puntos en promedio.",
+          "Se esperan 225.0 pts: 108.1 de Pacers y 116.9 de Thunder."
+        ]
+      }
+    },
+    "nba-2026-11-24-mil-tor": {
+      "game": "nba-2026-11-24-mil-tor",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 117.821529388899,
+        "away": 106.52138895393392,
+        "total": 224.34291834283292,
+        "margin": 11.300140434965073
+      },
+      "x12": [
+        0.8076425382459453,
+        0,
+        0.19235746175405466
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Raptors gana",
+          "p": 0.8076425382459453,
+          "fairOdds": 1.2381715333764125
+        },
+        {
+          "market": "h2h",
+          "selection": "Bucks gana",
+          "p": 0.19235746175405466,
+          "fairOdds": 5.198654582365954
+        },
+        {
+          "market": "spreads",
+          "selection": "TOR cubre",
+          "line": -11.5,
+          "p": 0.49386694434914064,
+          "fairOdds": 2.024836874470074
+        },
+        {
+          "market": "spreads",
+          "selection": "MIL cubre",
+          "line": 11.5,
+          "p": 0.5061330556508594,
+          "fairOdds": 1.975765046039237
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 224.5,
+          "p": 0.4966126413155372,
+          "fairOdds": 2.013641854446112
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 224.5,
+          "p": 0.5033873586844628,
+          "fairOdds": 1.9865417411620536
+        },
+        {
+          "market": "team_totals",
+          "selection": "TOR más de 118.5",
+          "line": 118.5,
+          "p": 0.4793180659127254,
+          "fairOdds": 2.086297327633131
+        },
+        {
+          "market": "team_totals",
+          "selection": "TOR menos de 118.5",
+          "line": 118.5,
+          "p": 0.5206819340872746,
+          "fairOdds": 1.9205582804652948
+        },
+        {
+          "market": "team_totals",
+          "selection": "MIL más de 106.5",
+          "line": 106.5,
+          "p": 0.500652297589663,
+          "fairOdds": 1.9973942091435377
+        },
+        {
+          "market": "team_totals",
+          "selection": "MIL menos de 106.5",
+          "line": 106.5,
+          "p": 0.499347702410337,
+          "fairOdds": 2.002612598742377
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Raptors gana",
+              "p": 0.8076425382459453,
+              "fairOdds": 1.2381715333764125
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Bucks gana",
+              "p": 0.19235746175405466,
+              "fairOdds": 5.198654582365954
+            }
+          ]
+        },
+        {
+          "group": "Spread TOR -11.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "TOR cubre",
+              "line": -11.5,
+              "p": 0.49386694434914064,
+              "fairOdds": 2.024836874470074
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "MIL cubre",
+              "line": 11.5,
+              "p": 0.5061330556508594,
+              "fairOdds": 1.975765046039237
+            }
+          ]
+        },
+        {
+          "group": "Total 224.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 224.5,
+              "p": 0.4966126413155372,
+              "fairOdds": 2.013641854446112
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 224.5,
+              "p": 0.5033873586844628,
+              "fairOdds": 1.9865417411620536
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "TOR más de 118.5",
+              "line": 118.5,
+              "p": 0.4793180659127254,
+              "fairOdds": 2.086297327633131
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "TOR menos de 118.5",
+              "line": 118.5,
+              "p": 0.5206819340872746,
+              "fairOdds": 1.9205582804652948
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "MIL más de 106.5",
+              "line": 106.5,
+              "p": 0.500652297589663,
+              "fairOdds": 1.9973942091435377
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "MIL menos de 106.5",
+              "line": 106.5,
+              "p": 0.499347702410337,
+              "fairOdds": 2.002612598742377
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "117.8 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "106.5 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "TOR: 2 días de descanso",
+          "detail": "MIL: 3 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 117.8 – 106.5 · margen +11.3",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Raptors gana",
+          "p": 0.8076425382459453,
+          "fairOdds": 1.2381715333764125
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "TOR menos de 118.5",
+          "line": 118.5,
+          "p": 0.5206819340872746,
+          "fairOdds": 1.9205582804652948
+        },
+        {
+          "profile": "arriesgada",
+          "market": "spreads",
+          "selection": "away",
+          "label": "MIL cubre",
+          "line": 11.5,
+          "p": 0.5061330556508594,
+          "fairOdds": 1.975765046039237
+        }
+      ],
+      "confidence": {
+        "score": 91,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Raptors gana en 81 % de los escenarios, por 11.3 puntos en promedio.",
+          "Se esperan 224.3 pts: 117.8 de Raptors y 106.5 de Bucks."
+        ]
+      }
+    },
+    "nba-2026-11-24-bkn-min": {
+      "game": "nba-2026-11-24-bkn-min",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 118.72361245360511,
+        "away": 102.68331278657804,
+        "total": 221.40692524018317,
+        "margin": 16.04029966702707
+      },
+      "x12": [
+        0.8913741123537171,
+        0,
+        0.10862588764628289
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Timberwolves gana",
+          "p": 0.8913741123537171,
+          "fairOdds": 1.121863408574264
+        },
+        {
+          "market": "h2h",
+          "selection": "Nets gana",
+          "p": 0.10862588764628289,
+          "fairOdds": 9.205908661996737
+        },
+        {
+          "market": "spreads",
+          "selection": "MIN cubre",
+          "line": -16.5,
+          "p": 0.4858956574093271,
+          "fairOdds": 2.0580550263234443
+        },
+        {
+          "market": "spreads",
+          "selection": "BKN cubre",
+          "line": 16.5,
+          "p": 0.5141043425906728,
+          "fairOdds": 1.9451304281166026
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 221.5,
+          "p": 0.49799289000312874,
+          "fairOdds": 2.008060797803192
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 221.5,
+          "p": 0.5020071099968713,
+          "fairOdds": 1.9920036590840964
+        },
+        {
+          "market": "team_totals",
+          "selection": "MIN más de 118.5",
+          "line": 118.5,
+          "p": 0.506819153742499,
+          "fairOdds": 1.9730903866116962
+        },
+        {
+          "market": "team_totals",
+          "selection": "MIN menos de 118.5",
+          "line": 118.5,
+          "p": 0.493180846257501,
+          "fairOdds": 2.027653765527376
+        },
+        {
+          "market": "team_totals",
+          "selection": "BKN más de 102.5",
+          "line": 102.5,
+          "p": 0.5055902893228379,
+          "fairOdds": 1.9778860890294185
+        },
+        {
+          "market": "team_totals",
+          "selection": "BKN menos de 102.5",
+          "line": 102.5,
+          "p": 0.4944097106771621,
+          "fairOdds": 2.0226139948391437
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Timberwolves gana",
+              "p": 0.8913741123537171,
+              "fairOdds": 1.121863408574264
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Nets gana",
+              "p": 0.10862588764628289,
+              "fairOdds": 9.205908661996737
+            }
+          ]
+        },
+        {
+          "group": "Spread MIN -16.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "MIN cubre",
+              "line": -16.5,
+              "p": 0.4858956574093271,
+              "fairOdds": 2.0580550263234443
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "BKN cubre",
+              "line": 16.5,
+              "p": 0.5141043425906728,
+              "fairOdds": 1.9451304281166026
+            }
+          ]
+        },
+        {
+          "group": "Total 221.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 221.5,
+              "p": 0.49799289000312874,
+              "fairOdds": 2.008060797803192
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 221.5,
+              "p": 0.5020071099968713,
+              "fairOdds": 1.9920036590840964
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "MIN más de 118.5",
+              "line": 118.5,
+              "p": 0.506819153742499,
+              "fairOdds": 1.9730903866116962
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "MIN menos de 118.5",
+              "line": 118.5,
+              "p": 0.493180846257501,
+              "fairOdds": 2.027653765527376
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "BKN más de 102.5",
+              "line": 102.5,
+              "p": 0.5055902893228379,
+              "fairOdds": 1.9778860890294185
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "BKN menos de 102.5",
+              "line": 102.5,
+              "p": 0.4944097106771621,
+              "fairOdds": 2.0226139948391437
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "118.7 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "102.7 pts proyectados",
+          "detail": "15 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "MIN: 3 días de descanso",
+          "detail": "BKN: 2 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 118.7 – 102.7 · margen +16.0",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Timberwolves gana",
+          "p": 0.8913741123537171,
+          "fairOdds": 1.121863408574264
+        },
+        {
+          "profile": "arriesgada",
+          "market": "spreads",
+          "selection": "away",
+          "label": "BKN cubre",
+          "line": 16.5,
+          "p": 0.5141043425906728,
+          "fairOdds": 1.9451304281166026
+        }
+      ],
+      "confidence": {
+        "score": 100,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Timberwolves gana en 89 % de los escenarios, por 16.0 puntos en promedio.",
+          "Se esperan 221.4 pts: 118.7 de Timberwolves y 102.7 de Nets."
+        ]
+      }
+    },
+    "nba-2026-11-24-cle-chi": {
+      "game": "nba-2026-11-24-cle-chi",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 119.39396961771388,
+        "away": 124.40200174081951,
+        "total": 243.7959713585334,
+        "margin": -5.008032123105636
+      },
+      "x12": [
+        0.35003235939682403,
+        0,
+        0.649967640603176
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Bulls gana",
+          "p": 0.35003235939682403,
+          "fairOdds": 2.856878723222049
+        },
+        {
+          "market": "h2h",
+          "selection": "Cavaliers gana",
+          "p": 0.649967640603176,
+          "fairOdds": 1.538538132563016
+        },
+        {
+          "market": "spreads",
+          "selection": "CHI cubre",
+          "line": 4.5,
+          "p": 0.48441348269839885,
+          "fairOdds": 2.064352120072205
+        },
+        {
+          "market": "spreads",
+          "selection": "CLE cubre",
+          "line": -4.5,
+          "p": 0.5155865173016012,
+          "fairOdds": 1.939538693202547
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 244.5,
+          "p": 0.4848216136627911,
+          "fairOdds": 2.062614313840249
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 244.5,
+          "p": 0.5151783863372089,
+          "fairOdds": 1.9410752207788704
+        },
+        {
+          "market": "team_totals",
+          "selection": "CHI más de 119.5",
+          "line": 119.5,
+          "p": 0.49676643560006395,
+          "fairOdds": 2.0130184495900174
+        },
+        {
+          "market": "team_totals",
+          "selection": "CHI menos de 119.5",
+          "line": 119.5,
+          "p": 0.503233564399936,
+          "fairOdds": 1.9871488524268377
+        },
+        {
+          "market": "team_totals",
+          "selection": "CLE más de 124.5",
+          "line": 124.5,
+          "p": 0.4970113829750036,
+          "fairOdds": 2.0120263524231867
+        },
+        {
+          "market": "team_totals",
+          "selection": "CLE menos de 124.5",
+          "line": 124.5,
+          "p": 0.5029886170249964,
+          "fairOdds": 1.9881165619903167
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Bulls gana",
+              "p": 0.35003235939682403,
+              "fairOdds": 2.856878723222049
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Cavaliers gana",
+              "p": 0.649967640603176,
+              "fairOdds": 1.538538132563016
+            }
+          ]
+        },
+        {
+          "group": "Spread CHI +4.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "CHI cubre",
+              "line": 4.5,
+              "p": 0.48441348269839885,
+              "fairOdds": 2.064352120072205
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "CLE cubre",
+              "line": -4.5,
+              "p": 0.5155865173016012,
+              "fairOdds": 1.939538693202547
+            }
+          ]
+        },
+        {
+          "group": "Total 244.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 244.5,
+              "p": 0.4848216136627911,
+              "fairOdds": 2.062614313840249
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 244.5,
+              "p": 0.5151783863372089,
+              "fairOdds": 1.9410752207788704
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "CHI más de 119.5",
+              "line": 119.5,
+              "p": 0.49676643560006395,
+              "fairOdds": 2.0130184495900174
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "CHI menos de 119.5",
+              "line": 119.5,
+              "p": 0.503233564399936,
+              "fairOdds": 1.9871488524268377
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "CLE más de 124.5",
+              "line": 124.5,
+              "p": 0.4970113829750036,
+              "fairOdds": 2.0120263524231867
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "CLE menos de 124.5",
+              "line": 124.5,
+              "p": 0.5029886170249964,
+              "fairOdds": 1.9881165619903167
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "119.4 pts proyectados",
+          "detail": "14 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "124.4 pts proyectados",
+          "detail": "17 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "CHI: 4 días de descanso",
+          "detail": "CLE: 2 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 119.4 – 124.4 · margen -5.0",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "intermedia",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Cavaliers gana",
+          "p": 0.649967640603176,
+          "fairOdds": 1.538538132563016
+        },
+        {
+          "profile": "arriesgada",
+          "market": "spreads",
+          "selection": "away",
+          "label": "CLE cubre",
+          "line": -4.5,
+          "p": 0.5155865173016012,
+          "fairOdds": 1.939538693202547
+        }
+      ],
+      "confidence": {
+        "score": 59,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Cavaliers gana en 65 % de los escenarios, por 5.0 puntos en promedio.",
+          "Se esperan 243.8 pts: 119.4 de Bulls y 124.4 de Cavaliers."
+        ]
+      }
+    },
+    "nba-2026-11-24-phx-nop": {
+      "game": "nba-2026-11-24-phx-nop",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 114.38906897731161,
+        "away": 120.1746018301444,
+        "total": 234.563670807456,
+        "margin": -5.785532852832787
+      },
+      "x12": [
+        0.32814508965234784,
+        0,
+        0.6718549103476521
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Pelicans gana",
+          "p": 0.32814508965234784,
+          "fairOdds": 3.047432466716008
+        },
+        {
+          "market": "h2h",
+          "selection": "Suns gana",
+          "p": 0.6718549103476521,
+          "fairOdds": 1.488416597986236
+        },
+        {
+          "market": "spreads",
+          "selection": "NOP cubre",
+          "line": 5.5,
+          "p": 0.49123826630714795,
+          "fairOdds": 2.03567203246896
+        },
+        {
+          "market": "spreads",
+          "selection": "PHX cubre",
+          "line": -5.5,
+          "p": 0.508761733692852,
+          "fairOdds": 1.965556632456396
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 234.5,
+          "p": 0.5013730320788918,
+          "fairOdds": 1.9945229121191512
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 234.5,
+          "p": 0.49862696792110817,
+          "fairOdds": 2.005507251581744
+        },
+        {
+          "market": "team_totals",
+          "selection": "NOP más de 114.5",
+          "line": 114.5,
+          "p": 0.4966169864264922,
+          "fairOdds": 2.013624236246331
+        },
+        {
+          "market": "team_totals",
+          "selection": "NOP menos de 114.5",
+          "line": 114.5,
+          "p": 0.5033830135735078,
+          "fairOdds": 1.9865588886303818
+        },
+        {
+          "market": "team_totals",
+          "selection": "PHX más de 120.5",
+          "line": 120.5,
+          "p": 0.4900773940550798,
+          "fairOdds": 2.040494036514588
+        },
+        {
+          "market": "team_totals",
+          "selection": "PHX menos de 120.5",
+          "line": 120.5,
+          "p": 0.5099226059449202,
+          "fairOdds": 1.9610819138856064
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Pelicans gana",
+              "p": 0.32814508965234784,
+              "fairOdds": 3.047432466716008
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Suns gana",
+              "p": 0.6718549103476521,
+              "fairOdds": 1.488416597986236
+            }
+          ]
+        },
+        {
+          "group": "Spread NOP +5.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "NOP cubre",
+              "line": 5.5,
+              "p": 0.49123826630714795,
+              "fairOdds": 2.03567203246896
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "PHX cubre",
+              "line": -5.5,
+              "p": 0.508761733692852,
+              "fairOdds": 1.965556632456396
+            }
+          ]
+        },
+        {
+          "group": "Total 234.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 234.5,
+              "p": 0.5013730320788918,
+              "fairOdds": 1.9945229121191512
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 234.5,
+              "p": 0.49862696792110817,
+              "fairOdds": 2.005507251581744
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "NOP más de 114.5",
+              "line": 114.5,
+              "p": 0.4966169864264922,
+              "fairOdds": 2.013624236246331
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "NOP menos de 114.5",
+              "line": 114.5,
+              "p": 0.5033830135735078,
+              "fairOdds": 1.9865588886303818
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "PHX más de 120.5",
+              "line": 120.5,
+              "p": 0.4900773940550798,
+              "fairOdds": 2.040494036514588
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "PHX menos de 120.5",
+              "line": 120.5,
+              "p": 0.5099226059449202,
+              "fairOdds": 1.9610819138856064
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "114.4 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "120.2 pts proyectados",
+          "detail": "14 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "NOP: 4 días de descanso",
+          "detail": "PHX: 4 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 114.4 – 120.2 · margen -5.8",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "intermedia",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Suns gana",
+          "p": 0.6718549103476521,
+          "fairOdds": 1.488416597986236
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "PHX menos de 120.5",
+          "line": 120.5,
+          "p": 0.5099226059449202,
+          "fairOdds": 1.9610819138856064
+        }
+      ],
+      "confidence": {
+        "score": 64,
+        "level": "alta",
+        "reasons": [
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Suns gana en 67 % de los escenarios, por 5.8 puntos en promedio.",
+          "Se esperan 234.6 pts: 114.4 de Pelicans y 120.2 de Suns."
+        ]
+      }
+    },
+    "nba-2026-11-24-lac-hou": {
+      "game": "nba-2026-11-24-lac-hou",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 117.89661285842489,
+        "away": 107.97341279541808,
+        "total": 225.87002565384296,
+        "margin": 9.923200063006803
+      },
+      "x12": [
+        0.7773647015128187,
+        0,
+        0.22263529848718133
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Rockets gana",
+          "p": 0.7773647015128187,
+          "fairOdds": 1.2863974889185397
+        },
+        {
+          "market": "h2h",
+          "selection": "Clippers gana",
+          "p": 0.22263529848718133,
+          "fairOdds": 4.491650725626408
+        },
+        {
+          "market": "spreads",
+          "selection": "HOU cubre",
+          "line": -10.5,
+          "p": 0.48230498028909374,
+          "fairOdds": 2.0733768898687295
+        },
+        {
+          "market": "spreads",
+          "selection": "LAC cubre",
+          "line": 10.5,
+          "p": 0.5176950197109063,
+          "fairOdds": 1.9316392121338637
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 226.5,
+          "p": 0.4864175183867815,
+          "fairOdds": 2.0558470083818743
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 226.5,
+          "p": 0.5135824816132185,
+          "fairOdds": 1.9471069123286509
+        },
+        {
+          "market": "team_totals",
+          "selection": "HOU más de 118.5",
+          "line": 118.5,
+          "p": 0.4816051190881423,
+          "fairOdds": 2.076389889487413
+        },
+        {
+          "market": "team_totals",
+          "selection": "HOU menos de 118.5",
+          "line": 118.5,
+          "p": 0.5183948809118577,
+          "fairOdds": 1.929031394447796
+        },
+        {
+          "market": "team_totals",
+          "selection": "LAC más de 108.5",
+          "line": 108.5,
+          "p": 0.4839450830831211,
+          "fairOdds": 2.0663501602892462
+        },
+        {
+          "market": "team_totals",
+          "selection": "LAC menos de 108.5",
+          "line": 108.5,
+          "p": 0.5160549169168789,
+          "fairOdds": 1.9377782620004962
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Rockets gana",
+              "p": 0.7773647015128187,
+              "fairOdds": 1.2863974889185397
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Clippers gana",
+              "p": 0.22263529848718133,
+              "fairOdds": 4.491650725626408
+            }
+          ]
+        },
+        {
+          "group": "Spread HOU -10.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "HOU cubre",
+              "line": -10.5,
+              "p": 0.48230498028909374,
+              "fairOdds": 2.0733768898687295
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "LAC cubre",
+              "line": 10.5,
+              "p": 0.5176950197109063,
+              "fairOdds": 1.9316392121338637
+            }
+          ]
+        },
+        {
+          "group": "Total 226.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 226.5,
+              "p": 0.4864175183867815,
+              "fairOdds": 2.0558470083818743
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 226.5,
+              "p": 0.5135824816132185,
+              "fairOdds": 1.9471069123286509
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "HOU más de 118.5",
+              "line": 118.5,
+              "p": 0.4816051190881423,
+              "fairOdds": 2.076389889487413
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "HOU menos de 118.5",
+              "line": 118.5,
+              "p": 0.5183948809118577,
+              "fairOdds": 1.929031394447796
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "LAC más de 108.5",
+              "line": 108.5,
+              "p": 0.4839450830831211,
+              "fairOdds": 2.0663501602892462
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "LAC menos de 108.5",
+              "line": 108.5,
+              "p": 0.5160549169168789,
+              "fairOdds": 1.9377782620004962
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "117.9 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "108.0 pts proyectados",
+          "detail": "14 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "HOU: 4 días de descanso",
+          "detail": "LAC: 3 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 117.9 – 108.0 · margen +9.9",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Rockets gana",
+          "p": 0.7773647015128187,
+          "fairOdds": 1.2863974889185397
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "HOU menos de 118.5",
+          "line": 118.5,
+          "p": 0.5183948809118577,
+          "fairOdds": 1.929031394447796
+        }
+      ],
+      "confidence": {
+        "score": 85,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Rockets gana en 78 % de los escenarios, por 9.9 puntos en promedio.",
+          "Se esperan 225.9 pts: 117.9 de Rockets y 108.0 de Clippers."
+        ]
+      }
+    },
+    "nba-2026-11-24-uta-lal": {
+      "game": "nba-2026-11-24-uta-lal",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 120.81765513315958,
+        "away": 111.04398516868278,
+        "total": 231.86164030184236,
+        "margin": 9.773669964476795
+      },
+      "x12": [
+        0.7739206468305365,
+        0,
+        0.22607935316946348
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Lakers gana",
+          "p": 0.7739206468305365,
+          "fairOdds": 1.2921221369339788
+        },
+        {
+          "market": "h2h",
+          "selection": "Jazz gana",
+          "p": 0.22607935316946348,
+          "fairOdds": 4.423225677094116
+        },
+        {
+          "market": "spreads",
+          "selection": "LAL cubre",
+          "line": -10.5,
+          "p": 0.47772200114124974,
+          "fairOdds": 2.0932676276392104
+        },
+        {
+          "market": "spreads",
+          "selection": "UTA cubre",
+          "line": 10.5,
+          "p": 0.5222779988587503,
+          "fairOdds": 1.9146891161127568
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 232.5,
+          "p": 0.4862367986984495,
+          "fairOdds": 2.056611105282001
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 232.5,
+          "p": 0.5137632013015505,
+          "fairOdds": 1.946422004274797
+        },
+        {
+          "market": "team_totals",
+          "selection": "LAL más de 121.5",
+          "line": 121.5,
+          "p": 0.4792000733821207,
+          "fairOdds": 2.086811032690695
+        },
+        {
+          "market": "team_totals",
+          "selection": "LAL menos de 121.5",
+          "line": 121.5,
+          "p": 0.5207999266178793,
+          "fairOdds": 1.9201231584153404
+        },
+        {
+          "market": "team_totals",
+          "selection": "UTA más de 111.5",
+          "line": 111.5,
+          "p": 0.48609579434289707,
+          "fairOdds": 2.0572076772476446
+        },
+        {
+          "market": "team_totals",
+          "selection": "UTA menos de 111.5",
+          "line": 111.5,
+          "p": 0.5139042056571029,
+          "fairOdds": 1.9458879475822761
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Lakers gana",
+              "p": 0.7739206468305365,
+              "fairOdds": 1.2921221369339788
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Jazz gana",
+              "p": 0.22607935316946348,
+              "fairOdds": 4.423225677094116
+            }
+          ]
+        },
+        {
+          "group": "Spread LAL -10.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "LAL cubre",
+              "line": -10.5,
+              "p": 0.47772200114124974,
+              "fairOdds": 2.0932676276392104
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "UTA cubre",
+              "line": 10.5,
+              "p": 0.5222779988587503,
+              "fairOdds": 1.9146891161127568
+            }
+          ]
+        },
+        {
+          "group": "Total 232.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 232.5,
+              "p": 0.4862367986984495,
+              "fairOdds": 2.056611105282001
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 232.5,
+              "p": 0.5137632013015505,
+              "fairOdds": 1.946422004274797
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "LAL más de 121.5",
+              "line": 121.5,
+              "p": 0.4792000733821207,
+              "fairOdds": 2.086811032690695
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "LAL menos de 121.5",
+              "line": 121.5,
+              "p": 0.5207999266178793,
+              "fairOdds": 1.9201231584153404
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "UTA más de 111.5",
+              "line": 111.5,
+              "p": 0.48609579434289707,
+              "fairOdds": 2.0572076772476446
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "UTA menos de 111.5",
+              "line": 111.5,
+              "p": 0.5139042056571029,
+              "fairOdds": 1.9458879475822761
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "120.8 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "111.0 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "LAL: 4 días de descanso",
+          "detail": "UTA: 4 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 120.8 – 111.0 · margen +9.8",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "h2h",
+          "selection": "home",
+          "label": "Lakers gana",
+          "p": 0.7739206468305365,
+          "fairOdds": 1.2921221369339788
+        },
+        {
+          "profile": "intermedia",
+          "market": "spreads",
+          "selection": "away",
+          "label": "UTA cubre",
+          "line": 10.5,
+          "p": 0.5222779988587503,
+          "fairOdds": 1.9146891161127568
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "UTA menos de 111.5",
+          "line": 111.5,
+          "p": 0.5139042056571029,
+          "fairOdds": 1.9458879475822761
+        }
+      ],
+      "confidence": {
+        "score": 84,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Lakers gana en 77 % de los escenarios, por 9.8 puntos en promedio.",
+          "Se esperan 231.9 pts: 120.8 de Lakers y 111.0 de Jazz."
+        ]
+      }
+    },
+    "nba-2026-11-24-sas-sac": {
+      "game": "nba-2026-11-24-sas-sac",
+      "model": {
+        "id": "pitchlab-ratings-nba",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 103.38790133509295,
+        "away": 121.05534229661146,
+        "total": 224.4432436317044,
+        "margin": -17.66744096151851
+      },
+      "x12": [
+        0.08706797910291154,
+        0,
+        0.9129320208970885
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Kings gana",
+          "p": 0.08706797910291154,
+          "fairOdds": 11.48527863289479
+        },
+        {
+          "market": "h2h",
+          "selection": "Spurs gana",
+          "p": 0.9129320208970885,
+          "fairOdds": 1.0953718098499323
+        },
+        {
+          "market": "spreads",
+          "selection": "SAC cubre",
+          "line": 17.5,
+          "p": 0.4948617071188665,
+          "fairOdds": 2.02076658107595
+        },
+        {
+          "market": "spreads",
+          "selection": "SAS cubre",
+          "line": -17.5,
+          "p": 0.5051382928811334,
+          "fairOdds": 1.9796558964008593
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 224.5,
+          "p": 0.49877607407857827,
+          "fairOdds": 2.0049077170499117
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 224.5,
+          "p": 0.5012239259214217,
+          "fairOdds": 1.9951162510082825
+        },
+        {
+          "market": "team_totals",
+          "selection": "SAC más de 103.5",
+          "line": 103.5,
+          "p": 0.4965813782599071,
+          "fairOdds": 2.013768626411535
+        },
+        {
+          "market": "team_totals",
+          "selection": "SAC menos de 103.5",
+          "line": 103.5,
+          "p": 0.5034186217400929,
+          "fairOdds": 1.9864183739239671
+        },
+        {
+          "market": "team_totals",
+          "selection": "SAS más de 121.5",
+          "line": 121.5,
+          "p": 0.48644194526222573,
+          "fairOdds": 2.055743773207985
+        },
+        {
+          "market": "team_totals",
+          "selection": "SAS menos de 121.5",
+          "line": 121.5,
+          "p": 0.5135580547377743,
+          "fairOdds": 1.9471995245223168
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Kings gana",
+              "p": 0.08706797910291154,
+              "fairOdds": 11.48527863289479
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Spurs gana",
+              "p": 0.9129320208970885,
+              "fairOdds": 1.0953718098499323
+            }
+          ]
+        },
+        {
+          "group": "Spread SAC +17.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "SAC cubre",
+              "line": 17.5,
+              "p": 0.4948617071188665,
+              "fairOdds": 2.02076658107595
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "SAS cubre",
+              "line": -17.5,
+              "p": 0.5051382928811334,
+              "fairOdds": 1.9796558964008593
+            }
+          ]
+        },
+        {
+          "group": "Total 224.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 224.5,
+              "p": 0.49877607407857827,
+              "fairOdds": 2.0049077170499117
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 224.5,
+              "p": 0.5012239259214217,
+              "fairOdds": 1.9951162510082825
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "SAC más de 103.5",
+              "line": 103.5,
+              "p": 0.4965813782599071,
+              "fairOdds": 2.013768626411535
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "SAC menos de 103.5",
+              "line": 103.5,
+              "p": 0.5034186217400929,
+              "fairOdds": 1.9864183739239671
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "SAS más de 121.5",
+              "line": 121.5,
+              "p": 0.48644194526222573,
+              "fairOdds": 2.055743773207985
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "SAS menos de 121.5",
+              "line": 121.5,
+              "p": 0.5135580547377743,
+              "fairOdds": 1.9471995245223168
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "103.4 pts proyectados",
+          "detail": "14 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "121.1 pts proyectados",
+          "detail": "16 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "SAC: 4 días de descanso",
+          "detail": "SAS: 3 días de descanso"
+        }
+      ],
+      "steps": [
+        "Sincronizando NBA · corte 21 nov 2026, 04:14",
+        "Ataque y defensa actualizados partido a partido (2872 partidos)",
+        "Localía y altitud incluidas",
+        "Proyección 103.4 – 121.1 · margen -17.7",
+        "Simulando escenarios de margen y total",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-21T04:14:29.405Z",
+      "publishedAt": "2026-11-21T04:14:29.405Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Spurs gana",
+          "p": 0.9129320208970885,
+          "fairOdds": 1.0953718098499323
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "SAS menos de 121.5",
+          "line": 121.5,
+          "p": 0.5135580547377743,
+          "fairOdds": 1.9471995245223168
+        }
+      ],
+      "confidence": {
+        "score": 100,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Spurs gana en 91 % de los escenarios, por 17.7 puntos en promedio.",
+          "Se esperan 224.4 pts: 103.4 de Kings y 121.1 de Spurs."
+        ]
+      }
     }
   },
   "standings": [
@@ -6784,32 +9619,6 @@
       ]
     },
     {
-      "teamId": "nba.detroit-pistons",
-      "name": "Detroit Pistons",
-      "shortName": "Pistons",
-      "code": "DET",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/9/?bg=transparent",
-      "played": 14,
-      "won": 10,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 1615,
-      "goalsAgainst": 1525,
-      "points": 20,
-      "conference": "Este",
-      "division": "Central",
-      "winPct": 0.714,
-      "gamesBehind": "2",
-      "seed": 3,
-      "form": [
-        "W",
-        "W",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
       "teamId": "nba.minnesota-timberwolves",
       "name": "Minnesota Timberwolves",
       "shortName": "Timberwolves",
@@ -6862,6 +9671,84 @@
       ]
     },
     {
+      "teamId": "nba.detroit-pistons",
+      "name": "Detroit Pistons",
+      "shortName": "Pistons",
+      "code": "DET",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/9/?bg=transparent",
+      "played": 15,
+      "won": 10,
+      "drawn": 0,
+      "lost": 5,
+      "goalsFor": 1717,
+      "goalsAgainst": 1630,
+      "points": 20,
+      "conference": "Este",
+      "division": "Central",
+      "winPct": 0.667,
+      "gamesBehind": "2.5",
+      "seed": 3,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "nba.oklahoma-city-thunder",
+      "name": "Oklahoma City Thunder",
+      "shortName": "Thunder",
+      "code": "OKC",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/15/?bg=transparent",
+      "played": 16,
+      "won": 10,
+      "drawn": 0,
+      "lost": 6,
+      "goalsFor": 1808,
+      "goalsAgainst": 1736,
+      "points": 20,
+      "conference": "Oeste",
+      "division": "Noroeste",
+      "winPct": 0.625,
+      "gamesBehind": "3",
+      "seed": 7,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "nba.atlanta-hawks",
+      "name": "Atlanta Hawks",
+      "shortName": "Hawks",
+      "code": "ATL",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/6/?bg=transparent",
+      "played": 16,
+      "won": 10,
+      "drawn": 0,
+      "lost": 6,
+      "goalsFor": 1877,
+      "goalsAgainst": 1834,
+      "points": 20,
+      "conference": "Este",
+      "division": "Sureste",
+      "winPct": 0.625,
+      "gamesBehind": "3",
+      "seed": 4,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "nba.denver-nuggets",
       "name": "Denver Nuggets",
       "shortName": "Nuggets",
@@ -6878,7 +9765,7 @@
       "division": "Noroeste",
       "winPct": 0.615,
       "gamesBehind": "3.5",
-      "seed": 7,
+      "seed": 8,
       "form": [
         "L",
         "W",
@@ -6914,58 +9801,6 @@
       ]
     },
     {
-      "teamId": "nba.oklahoma-city-thunder",
-      "name": "Oklahoma City Thunder",
-      "shortName": "Thunder",
-      "code": "OKC",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/15/?bg=transparent",
-      "played": 15,
-      "won": 9,
-      "drawn": 0,
-      "lost": 6,
-      "goalsFor": 1682,
-      "goalsAgainst": 1616,
-      "points": 18,
-      "conference": "Oeste",
-      "division": "Noroeste",
-      "winPct": 0.6,
-      "gamesBehind": "3.5",
-      "seed": 8,
-      "form": [
-        "L",
-        "L",
-        "L",
-        "W",
-        "L"
-      ]
-    },
-    {
-      "teamId": "nba.atlanta-hawks",
-      "name": "Atlanta Hawks",
-      "shortName": "Hawks",
-      "code": "ATL",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/6/?bg=transparent",
-      "played": 15,
-      "won": 9,
-      "drawn": 0,
-      "lost": 6,
-      "goalsFor": 1766,
-      "goalsAgainst": 1737,
-      "points": 18,
-      "conference": "Este",
-      "division": "Sureste",
-      "winPct": 0.6,
-      "gamesBehind": "3.5",
-      "seed": 5,
-      "form": [
-        "W",
-        "L",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
       "teamId": "nba.miami-heat",
       "name": "Miami Heat",
       "shortName": "Heat",
@@ -6982,7 +9817,7 @@
       "division": "Sureste",
       "winPct": 0.6,
       "gamesBehind": "3.5",
-      "seed": 4,
+      "seed": 5,
       "form": [
         "W",
         "W",
@@ -7023,24 +9858,24 @@
       "shortName": "Cavaliers",
       "code": "CLE",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/11/?bg=transparent",
-      "played": 16,
-      "won": 8,
+      "played": 17,
+      "won": 9,
       "drawn": 0,
       "lost": 8,
-      "goalsFor": 1892,
-      "goalsAgainst": 1861,
-      "points": 16,
+      "goalsFor": 2020,
+      "goalsAgainst": 1980,
+      "points": 18,
       "conference": "Este",
       "division": "Central",
-      "winPct": 0.5,
-      "gamesBehind": "5",
+      "winPct": 0.529,
+      "gamesBehind": "4.5",
       "seed": 7,
       "form": [
-        "W",
         "L",
         "W",
         "W",
-        "L"
+        "L",
+        "W"
       ]
     },
     {
@@ -7101,24 +9936,24 @@
       "shortName": "Magic",
       "code": "ORL",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/10/?bg=transparent",
-      "played": 14,
-      "won": 6,
+      "played": 15,
+      "won": 7,
       "drawn": 0,
       "lost": 8,
-      "goalsFor": 1531,
-      "goalsAgainst": 1579,
-      "points": 12,
+      "goalsFor": 1644,
+      "goalsAgainst": 1690,
+      "points": 14,
       "conference": "Este",
       "division": "Sureste",
-      "winPct": 0.429,
-      "gamesBehind": "6",
+      "winPct": 0.467,
+      "gamesBehind": "5.5",
       "seed": 8,
       "form": [
         "W",
         "W",
         "W",
-        "W",
-        "L"
+        "L",
+        "W"
       ]
     },
     {
@@ -7127,70 +9962,18 @@
       "shortName": "Raptors",
       "code": "TOR",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/12/?bg=transparent",
-      "played": 15,
-      "won": 5,
+      "played": 16,
+      "won": 6,
       "drawn": 0,
       "lost": 10,
-      "goalsFor": 1680,
-      "goalsAgainst": 1680,
-      "points": 10,
+      "goalsFor": 1785,
+      "goalsAgainst": 1782,
+      "points": 12,
       "conference": "Este",
       "division": "Atlántico",
-      "winPct": 0.333,
-      "gamesBehind": "7.5",
+      "winPct": 0.375,
+      "gamesBehind": "7",
       "seed": 9,
-      "form": [
-        "L",
-        "L",
-        "L",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "name": "Indiana Pacers",
-      "shortName": "Pacers",
-      "code": "IND",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/25/?bg=transparent",
-      "played": 15,
-      "won": 5,
-      "drawn": 0,
-      "lost": 10,
-      "goalsFor": 1673,
-      "goalsAgainst": 1722,
-      "points": 10,
-      "conference": "Este",
-      "division": "Central",
-      "winPct": 0.333,
-      "gamesBehind": "7.5",
-      "seed": 10,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "nba.washington-wizards",
-      "name": "Washington Wizards",
-      "shortName": "Wizards",
-      "code": "WAS",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/24/?bg=transparent",
-      "played": 16,
-      "won": 5,
-      "drawn": 0,
-      "lost": 11,
-      "goalsFor": 1772,
-      "goalsAgainst": 1887,
-      "points": 10,
-      "conference": "Este",
-      "division": "Sureste",
-      "winPct": 0.313,
-      "gamesBehind": "8",
-      "seed": 11,
       "form": [
         "L",
         "L",
@@ -7200,28 +9983,80 @@
       ]
     },
     {
-      "teamId": "nba.new-orleans-pelicans",
-      "name": "New Orleans Pelicans",
-      "shortName": "Pelicans",
-      "code": "NOP",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/29/?bg=transparent",
-      "played": 16,
-      "won": 5,
+      "teamId": "nba.washington-wizards",
+      "name": "Washington Wizards",
+      "shortName": "Wizards",
+      "code": "WAS",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/24/?bg=transparent",
+      "played": 17,
+      "won": 6,
       "drawn": 0,
       "lost": 11,
-      "goalsFor": 1846,
-      "goalsAgainst": 1965,
-      "points": 10,
-      "conference": "Oeste",
-      "division": "Suroeste",
-      "winPct": 0.313,
-      "gamesBehind": "8",
-      "seed": 12,
+      "goalsFor": 1870,
+      "goalsAgainst": 1981,
+      "points": 12,
+      "conference": "Este",
+      "division": "Sureste",
+      "winPct": 0.353,
+      "gamesBehind": "7.5",
+      "seed": 10,
       "form": [
         "L",
         "L",
         "L",
         "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "nba.indiana-pacers",
+      "name": "Indiana Pacers",
+      "shortName": "Pacers",
+      "code": "IND",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/25/?bg=transparent",
+      "played": 16,
+      "won": 5,
+      "drawn": 0,
+      "lost": 11,
+      "goalsFor": 1792,
+      "goalsAgainst": 1850,
+      "points": 10,
+      "conference": "Este",
+      "division": "Central",
+      "winPct": 0.313,
+      "gamesBehind": "8",
+      "seed": 11,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "teamId": "nba.new-orleans-pelicans",
+      "name": "New Orleans Pelicans",
+      "shortName": "Pelicans",
+      "code": "NOP",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/29/?bg=transparent",
+      "played": 17,
+      "won": 5,
+      "drawn": 0,
+      "lost": 12,
+      "goalsFor": 1966,
+      "goalsAgainst": 2091,
+      "points": 10,
+      "conference": "Oeste",
+      "division": "Suroeste",
+      "winPct": 0.294,
+      "gamesBehind": "8.5",
+      "seed": 12,
+      "form": [
+        "L",
+        "L",
+        "W",
+        "L",
         "L"
       ]
     },
@@ -7257,24 +10092,24 @@
       "shortName": "Bulls",
       "code": "CHI",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/30/?bg=transparent",
-      "played": 14,
+      "played": 15,
       "won": 4,
       "drawn": 0,
-      "lost": 10,
-      "goalsFor": 1627,
-      "goalsAgainst": 1744,
+      "lost": 11,
+      "goalsFor": 1721,
+      "goalsAgainst": 1842,
       "points": 8,
       "conference": "Este",
       "division": "Central",
-      "winPct": 0.286,
-      "gamesBehind": "8",
+      "winPct": 0.267,
+      "gamesBehind": "8.5",
       "seed": 13,
       "form": [
-        "L",
         "W",
         "W",
         "L",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -7283,21 +10118,21 @@
       "shortName": "Hornets",
       "code": "CHA",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/27/?bg=transparent",
-      "played": 14,
+      "played": 15,
       "won": 4,
       "drawn": 0,
-      "lost": 10,
-      "goalsFor": 1402,
-      "goalsAgainst": 1546,
+      "lost": 11,
+      "goalsFor": 1499,
+      "goalsAgainst": 1657,
       "points": 8,
       "conference": "Este",
       "division": "Sureste",
-      "winPct": 0.286,
-      "gamesBehind": "8",
+      "winPct": 0.267,
+      "gamesBehind": "8.5",
       "seed": 12,
       "form": [
-        "L",
         "W",
+        "L",
         "L",
         "L",
         "L"
@@ -7309,21 +10144,21 @@
       "shortName": "Nets",
       "code": "BKN",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/23/?bg=transparent",
-      "played": 14,
+      "played": 15,
       "won": 3,
       "drawn": 0,
-      "lost": 11,
-      "goalsFor": 1552,
-      "goalsAgainst": 1669,
+      "lost": 12,
+      "goalsFor": 1663,
+      "goalsAgainst": 1782,
       "points": 6,
       "conference": "Este",
       "division": "Atlántico",
-      "winPct": 0.214,
-      "gamesBehind": "9",
+      "winPct": 0.2,
+      "gamesBehind": "9.5",
       "seed": 14,
       "form": [
-        "L",
         "W",
+        "L",
         "L",
         "L",
         "L"

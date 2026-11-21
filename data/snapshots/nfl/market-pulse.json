@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
   "league": "nfl",
-  "observedAt": "2026-11-20T23:28:21.602Z",
+  "observedAt": "2026-11-21T04:21:39.228Z",
   "entries": [
     {
       "gameId": "nfl-2026-w11-arizona-cardinals-kansas-city-chiefs",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 101695.9,
+          "volume": 106453.97,
           "price": 0.92
         },
         {
           "side": "away",
-          "volume": 189457.63,
+          "volume": 206938.88,
           "price": 0.09
         }
       ]
@@ -25,17 +25,17 @@
       "gameId": "nfl-2026-w11-baltimore-ravens-carolina-panthers",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 508056.5,
+          "volume": 514848.7,
           "price": 0.59
         },
         {
           "side": "away",
-          "volume": 115364.36,
-          "price": 0.42
+          "volume": 124863.17,
+          "price": 0.41
         }
       ]
     },
@@ -43,16 +43,16 @@
       "gameId": "nfl-2026-w11-cincinnati-bengals-washington-commanders",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 38763.13,
+          "volume": 40379.07,
           "price": 0.28
         },
         {
           "side": "away",
-          "volume": 69127.96,
+          "volume": 71619.94,
           "price": 0.73
         }
       ]
@@ -61,16 +61,16 @@
       "gameId": "nfl-2026-w11-jacksonville-jaguars-new-york-giants",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 94109.29,
+          "volume": 114058.8,
           "price": 0.3
         },
         {
           "side": "away",
-          "volume": 74384.14,
+          "volume": 77988.3,
           "price": 0.71
         }
       ]
@@ -79,16 +79,16 @@
       "gameId": "nfl-2026-w11-las-vegas-raiders-denver-broncos",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 152888.27,
+          "volume": 156318.43,
           "price": 0.83
         },
         {
           "side": "away",
-          "volume": 219837,
+          "volume": 241124.81,
           "price": 0.18
         }
       ]
@@ -97,17 +97,17 @@
       "gameId": "nfl-2026-w11-miami-dolphins-buffalo-bills",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 181748.48,
+          "volume": 206273.76,
           "price": 0.92
         },
         {
           "side": "away",
-          "volume": 323365.26,
-          "price": 0.08
+          "volume": 349378.03,
+          "price": 0.09
         }
       ]
     },
@@ -115,16 +115,16 @@
       "gameId": "nfl-2026-w11-minnesota-vikings-san-francisco-49ers",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 445138.23,
+          "volume": 467061.79,
           "price": 0.62
         },
         {
           "side": "away",
-          "volume": 1035952.24,
+          "volume": 1071578.23,
           "price": 0.39
         }
       ]
@@ -133,16 +133,16 @@
       "gameId": "nfl-2026-w11-new-orleans-saints-chicago-bears",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 178552.62,
-          "price": 0.85
+          "volume": 188836.6,
+          "price": 0.84
         },
         {
           "side": "away",
-          "volume": 106645.81,
+          "volume": 111921.74,
           "price": 0.16
         }
       ]
@@ -151,16 +151,16 @@
       "gameId": "nfl-2026-w11-new-york-jets-los-angeles-chargers",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 42838.26,
+          "volume": 51873.42,
           "price": 0.61
         },
         {
           "side": "away",
-          "volume": 70150.7,
+          "volume": 84807.3,
           "price": 0.4
         }
       ]
@@ -169,16 +169,16 @@
       "gameId": "nfl-2026-w11-pittsburgh-steelers-philadelphia-eagles",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 45480.13,
+          "volume": 47741.22,
           "price": 0.35
         },
         {
           "side": "away",
-          "volume": 113416.86,
+          "volume": 120192.78,
           "price": 0.66
         }
       ]
@@ -187,17 +187,17 @@
       "gameId": "nfl-2026-w11-tampa-bay-buccaneers-detroit-lions",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 440766.57,
+          "volume": 449723.83,
           "price": 0.7
         },
         {
           "side": "away",
-          "volume": 465747.71,
-          "price": 0.3
+          "volume": 470063.43,
+          "price": 0.31
         }
       ]
     },
@@ -205,16 +205,16 @@
       "gameId": "nfl-2026-w11-tennessee-titans-dallas-cowboys",
       "source": "kalshi",
       "unit": "contracts",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 77018.94,
-          "price": 0.76
+          "volume": 80870.04,
+          "price": 0.77
         },
         {
           "side": "away",
-          "volume": 91858.71,
+          "volume": 96830.36,
           "price": 0.24
         }
       ]

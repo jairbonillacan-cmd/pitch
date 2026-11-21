@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "primera-chile",
   "season": "2026",
-  "updatedAt": "2026-11-20T23:19:05.023Z",
+  "updatedAt": "2026-11-21T04:14:45.246Z",
   "matches": [
     {
       "id": "primera-chile-2026-07-25-colo-colo-deportes-limac-rsqzqv",
@@ -1069,6 +1069,17 @@
       "awayTeam": "primera-chile.audax-italiano",
       "homeScore": 3,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-chile-2026-11-20-palestino-union-la-caler-iqupq9",
+      "date": "2026-11-20",
+      "startTime": "2026-11-20T23:30:00.000Z",
+      "round": "Regular season · Matchday 28",
+      "homeTeam": "primera-chile.palestino",
+      "awayTeam": "primera-chile.union-la-calera",
+      "homeScore": 0,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

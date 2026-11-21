@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "j1-league",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "teams": [
     {
       "teamId": "j1-league.v-varen-nagasaki",
@@ -24,7 +24,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "j1-league.v-varen-nagasaki.asahi-masuyama",
@@ -190,6 +190,43 @@
           "nationality": "Japan",
           "nationalityCode": null,
           "photoKey": "pl-p:45428",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "j1-league.v-varen-nagasaki.hae-seok-choi",
+          "slug": "hae-seok-choi",
+          "name": "Hae-seok Choi",
+          "shortName": "H. Choi",
+          "jersey": "46",
+          "positionGroup": "MID",
+          "positionLabel": "M",
+          "age": 18,
+          "birthDate": "2008-07-04",
+          "heightCm": 183,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "South Korea",
+          "nationalityCode": null,
+          "photoKey": "pl-p:215060",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -531,7 +568,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -540,7 +577,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -686,9 +723,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 1,
+            "saves": 4,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1172,43 +1209,6 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
-        },
-        {
-          "id": "j1-league.v-varen-nagasaki.takashi-sawada",
-          "slug": "takashi-sawada",
-          "name": "Takashi Sawada",
-          "shortName": "S. Takashi",
-          "jersey": "19",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 35,
-          "birthDate": "1991-05-26",
-          "heightCm": 170,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Japan",
-          "nationalityCode": null,
-          "photoKey": "pl-p:45836",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
         }
       ]
     },
@@ -1232,7 +1232,7 @@
           "winPct": 46.2
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "j1-league.tokyo-verdy.gakuto-kawamura",
@@ -1702,7 +1702,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1711,7 +1711,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1737,10 +1737,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 4,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1933,7 +1933,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1998,7 +1998,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2007,7 +2007,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2079,7 +2079,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 0,
             "shotsFaced": 0,
             "goalsConceded": 1
           },
@@ -2118,7 +2118,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2146,8 +2146,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 2,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2255,10 +2255,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2331,7 +2331,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2440,7 +2440,7 @@
           "winPct": 15.4
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "j1-league.jef-united-chiba.boniface-nduka",
@@ -2652,6 +2652,43 @@
             "goals": 0,
             "assists": 0,
             "shots": 2,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "j1-league.jef-united-chiba.haru-ito",
+          "slug": "haru-ito",
+          "name": "Haru Ito",
+          "shortName": "H. Ito",
+          "jersey": "47",
+          "positionGroup": "MID",
+          "positionLabel": "M",
+          "age": 17,
+          "birthDate": "2009-03-03",
+          "heightCm": 173,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Japan",
+          "nationalityCode": null,
+          "photoKey": "pl-p:44284",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3368,6 +3405,43 @@
           "candidatePicks": []
         },
         {
+          "id": "j1-league.jef-united-chiba.shunji-saito",
+          "slug": "shunji-saito",
+          "name": "Shunji Saito",
+          "shortName": "S. Saito",
+          "jersey": "46",
+          "positionGroup": "MID",
+          "positionLabel": "D",
+          "age": 18,
+          "birthDate": "2008-04-12",
+          "heightCm": 182,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "Japan",
+          "nationalityCode": null,
+          "photoKey": "pl-p:44294",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
           "id": "j1-league.jef-united-chiba.taiki-amagasa",
           "slug": "taiki-amagasa",
           "name": "Taiki Amagasa",
@@ -3551,80 +3625,6 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
-        },
-        {
-          "id": "j1-league.jef-united-chiba.takumi-matsumura",
-          "slug": "takumi-matsumura",
-          "name": "Takumi Matsumura",
-          "shortName": "T. Matsumura",
-          "jersey": "30",
-          "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 22,
-          "birthDate": "2004-01-03",
-          "heightCm": 178,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Japan",
-          "nationalityCode": null,
-          "photoKey": "pl-p:44269",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "j1-league.jef-united-chiba.takumi-tsukui",
-          "slug": "takumi-tsukui",
-          "name": "Takumi Tsukui",
-          "shortName": "T. Tsukui",
-          "jersey": "8",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 24,
-          "birthDate": "2002-04-30",
-          "heightCm": 176,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Japan",
-          "nationalityCode": null,
-          "photoKey": "pl-p:44271",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
         }
       ]
     },
@@ -3648,7 +3648,7 @@
           "winPct": 26.3
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "j1-league.avispa-fukuoka.abdel-hanan-sani-brown",
@@ -3748,43 +3748,6 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 2
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "j1-league.avispa-fukuoka.hikaru-maeda",
-          "slug": "hikaru-maeda",
-          "name": "Hikaru Maeda",
-          "shortName": "H. Maeda",
-          "jersey": "53",
-          "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 18,
-          "birthDate": "2008-10-25",
-          "heightCm": 171,
-          "weightKg": null,
-          "preferredFoot": "L",
-          "nationality": "Japan",
-          "nationalityCode": null,
-          "photoKey": "pl-p:42989",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
             "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
@@ -3831,7 +3794,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4090,7 +4053,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4645,7 +4608,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4833,6 +4796,43 @@
             "goalsConceded": 3
           },
           "candidatePicks": []
+        },
+        {
+          "id": "j1-league.avispa-fukuoka.werik-popo",
+          "slug": "werik-popo",
+          "name": "Werik Popó",
+          "shortName": "Werik Popó",
+          "jersey": "9",
+          "positionGroup": "MID",
+          "positionLabel": "F",
+          "age": 25,
+          "birthDate": "2001-10-17",
+          "heightCm": 190,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Brazil",
+          "nationalityCode": null,
+          "photoKey": "pl-p:43404",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 1,
+            "assists": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 2
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -4856,7 +4856,7 @@
           "winPct": 52.4
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "j1-league.machida-zelvia.aki-koch",
@@ -5548,7 +5548,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5990,7 +5990,7 @@
           "winPct": 44.4
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "j1-league.gamba-osaka.aolin-zhang",
@@ -6038,7 +6038,7 @@
           "positionGroup": "MID",
           "positionLabel": "M",
           "age": 16,
-          "birthDate": "2009-12-15",
+          "birthDate": "2009-12-16",
           "heightCm": 173,
           "weightKg": null,
           "preferredFoot": "R",
@@ -6578,9 +6578,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 5,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6682,8 +6682,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6691,7 +6691,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6756,8 +6756,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6765,7 +6765,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6830,8 +6830,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6839,7 +6839,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6904,8 +6904,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6913,7 +6913,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6950,7 +6950,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6987,7 +6987,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -7052,7 +7052,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7061,7 +7061,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7089,8 +7089,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7161,10 +7161,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7172,7 +7172,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         }
@@ -7198,7 +7198,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "j1-league.shimizu-s-pulse.capixaba",
@@ -7640,7 +7640,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7816,8 +7816,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7825,7 +7825,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8084,7 +8084,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8269,7 +8269,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8372,7 +8372,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8380,7 +8380,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         }
@@ -8406,7 +8406,7 @@
           "winPct": 37.9
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "j1-league.yokohama-f-marinos.daiya-tono",
@@ -8520,43 +8520,6 @@
           "candidatePicks": []
         },
         {
-          "id": "j1-league.yokohama-f-marinos.hikaru-takahashi",
-          "slug": "hikaru-takahashi",
-          "name": "Hikaru Takahashi",
-          "shortName": "H. Takahashi",
-          "jersey": "39",
-          "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 22,
-          "birthDate": "2004-06-26",
-          "heightCm": 176,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Japan",
-          "nationalityCode": null,
-          "photoKey": "pl-p:45926",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "j1-league.yokohama-f-marinos.hiroki-ilkura",
           "slug": "hiroki-ilkura",
           "name": "Hiroki Ilkura",
@@ -8615,10 +8578,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8626,7 +8589,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8885,7 +8848,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8913,8 +8876,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 3,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8922,7 +8885,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -9394,7 +9357,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -9403,7 +9366,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -9571,6 +9534,43 @@
           "nationality": "Japan",
           "nationalityCode": null,
           "photoKey": "pl-p:46250",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "j1-league.yokohama-f-marinos.yuya-tsuboi",
+          "slug": "yuya-tsuboi",
+          "name": "Yuya Tsuboi",
+          "shortName": "Y. Tsuboi",
+          "jersey": "20",
+          "positionGroup": "MID",
+          "positionLabel": "G",
+          "age": 27,
+          "birthDate": "1999-08-23",
+          "heightCm": 183,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Japan",
+          "nationalityCode": null,
+          "photoKey": "pl-p:46255",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,

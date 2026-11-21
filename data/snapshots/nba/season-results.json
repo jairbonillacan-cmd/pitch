@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nba",
   "season": "nba-2026-27",
-  "updatedAt": "2026-11-20T23:19:02.133Z",
+  "updatedAt": "2026-11-21T04:14:41.646Z",
   "matches": [
     {
       "id": "nba-2026-10-20-boston-celtics-detroit-pistons",
@@ -60,17 +60,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-21-chicago-bulls-toronto-raptors",
-      "date": "2026-10-21",
-      "startTime": "2026-10-21T23:30:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.toronto-raptors",
-      "awayTeam": "nba.chicago-bulls",
-      "homeScore": 135,
-      "awayScore": 92,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-10-21-charlotte-hornets-brooklyn-nets",
       "date": "2026-10-21",
       "startTime": "2026-10-21T23:30:00.000Z",
@@ -79,6 +68,17 @@
       "awayTeam": "nba.charlotte-hornets",
       "homeScore": 103,
       "awayScore": 110,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-10-21-chicago-bulls-toronto-raptors",
+      "date": "2026-10-21",
+      "startTime": "2026-10-21T23:30:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.toronto-raptors",
+      "awayTeam": "nba.chicago-bulls",
+      "homeScore": 135,
+      "awayScore": 92,
       "neutralSite": false
     },
     {
@@ -192,17 +192,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-23-new-york-knicks-boston-celtics",
-      "date": "2026-10-23",
-      "startTime": "2026-10-23T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.boston-celtics",
-      "awayTeam": "nba.new-york-knicks",
-      "homeScore": 107,
-      "awayScore": 103,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-10-23-atlanta-hawks-charlotte-hornets",
       "date": "2026-10-23",
       "startTime": "2026-10-23T23:00:00.000Z",
@@ -211,6 +200,17 @@
       "awayTeam": "nba.atlanta-hawks",
       "homeScore": 81,
       "awayScore": 128,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-10-23-new-york-knicks-boston-celtics",
+      "date": "2026-10-23",
+      "startTime": "2026-10-23T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.boston-celtics",
+      "awayTeam": "nba.new-york-knicks",
+      "homeScore": 107,
+      "awayScore": 103,
       "neutralSite": false
     },
     {
@@ -346,17 +346,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-25-washington-wizards-chicago-bulls",
-      "date": "2026-10-25",
-      "startTime": "2026-10-25T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.chicago-bulls",
-      "awayTeam": "nba.washington-wizards",
-      "homeScore": 120,
-      "awayScore": 124,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-10-25-san-antonio-spurs-dallas-mavericks",
       "date": "2026-10-25",
       "startTime": "2026-10-25T00:00:00.000Z",
@@ -365,6 +354,17 @@
       "awayTeam": "nba.san-antonio-spurs",
       "homeScore": 106,
       "awayScore": 122,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-10-25-washington-wizards-chicago-bulls",
+      "date": "2026-10-25",
+      "startTime": "2026-10-25T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.chicago-bulls",
+      "awayTeam": "nba.washington-wizards",
+      "homeScore": 120,
+      "awayScore": 124,
       "neutralSite": false
     },
     {
@@ -434,17 +434,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-25-toronto-raptors-minnesota-timberwolves",
-      "date": "2026-10-25",
-      "startTime": "2026-10-25T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.minnesota-timberwolves",
-      "awayTeam": "nba.toronto-raptors",
-      "homeScore": 117,
-      "awayScore": 94,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-10-25-orlando-magic-new-york-knicks",
       "date": "2026-10-25",
       "startTime": "2026-10-25T23:00:00.000Z",
@@ -453,6 +442,17 @@
       "awayTeam": "nba.orlando-magic",
       "homeScore": 102,
       "awayScore": 111,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-10-25-toronto-raptors-minnesota-timberwolves",
+      "date": "2026-10-25",
+      "startTime": "2026-10-25T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.minnesota-timberwolves",
+      "awayTeam": "nba.toronto-raptors",
+      "homeScore": 117,
+      "awayScore": 94,
       "neutralSite": false
     },
     {
@@ -478,17 +478,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-26-minnesota-timberwolves-cleveland-cavaliers",
-      "date": "2026-10-26",
-      "startTime": "2026-10-26T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.cleveland-cavaliers",
-      "awayTeam": "nba.minnesota-timberwolves",
-      "homeScore": 127,
-      "awayScore": 125,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-10-26-washington-wizards-charlotte-hornets",
       "date": "2026-10-26",
       "startTime": "2026-10-26T23:00:00.000Z",
@@ -497,6 +486,17 @@
       "awayTeam": "nba.washington-wizards",
       "homeScore": 110,
       "awayScore": 103,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-10-26-minnesota-timberwolves-cleveland-cavaliers",
+      "date": "2026-10-26",
+      "startTime": "2026-10-26T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.cleveland-cavaliers",
+      "awayTeam": "nba.minnesota-timberwolves",
+      "homeScore": 127,
+      "awayScore": 125,
       "neutralSite": false
     },
     {
@@ -621,14 +621,14 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-28-washington-wizards-cleveland-cavaliers",
+      "id": "nba-2026-10-28-miami-heat-atlanta-hawks",
       "date": "2026-10-28",
       "startTime": "2026-10-28T23:00:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nba.cleveland-cavaliers",
-      "awayTeam": "nba.washington-wizards",
-      "homeScore": 121,
-      "awayScore": 111,
+      "homeTeam": "nba.atlanta-hawks",
+      "awayTeam": "nba.miami-heat",
+      "homeScore": 117,
+      "awayScore": 129,
       "neutralSite": false
     },
     {
@@ -643,14 +643,14 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-28-miami-heat-atlanta-hawks",
+      "id": "nba-2026-10-28-washington-wizards-cleveland-cavaliers",
       "date": "2026-10-28",
       "startTime": "2026-10-28T23:00:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nba.atlanta-hawks",
-      "awayTeam": "nba.miami-heat",
-      "homeScore": 117,
-      "awayScore": 129,
+      "homeTeam": "nba.cleveland-cavaliers",
+      "awayTeam": "nba.washington-wizards",
+      "homeScore": 121,
+      "awayScore": 111,
       "neutralSite": false
     },
     {
@@ -676,6 +676,17 @@
       "neutralSite": false
     },
     {
+      "id": "nba-2026-10-29-denver-nuggets-new-orleans-pelicans",
+      "date": "2026-10-29",
+      "startTime": "2026-10-29T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.new-orleans-pelicans",
+      "awayTeam": "nba.denver-nuggets",
+      "homeScore": 91,
+      "awayScore": 104,
+      "neutralSite": false
+    },
+    {
       "id": "nba-2026-10-29-new-york-knicks-chicago-bulls",
       "date": "2026-10-29",
       "startTime": "2026-10-29T00:00:00.000Z",
@@ -684,17 +695,6 @@
       "awayTeam": "nba.new-york-knicks",
       "homeScore": 127,
       "awayScore": 133,
-      "neutralSite": false
-    },
-    {
-      "id": "nba-2026-10-29-houston-rockets-milwaukee-bucks",
-      "date": "2026-10-29",
-      "startTime": "2026-10-29T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.milwaukee-bucks",
-      "awayTeam": "nba.houston-rockets",
-      "homeScore": 100,
-      "awayScore": 132,
       "neutralSite": false
     },
     {
@@ -709,14 +709,14 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-29-denver-nuggets-new-orleans-pelicans",
+      "id": "nba-2026-10-29-houston-rockets-milwaukee-bucks",
       "date": "2026-10-29",
       "startTime": "2026-10-29T00:00:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nba.new-orleans-pelicans",
-      "awayTeam": "nba.denver-nuggets",
-      "homeScore": 91,
-      "awayScore": 104,
+      "homeTeam": "nba.milwaukee-bucks",
+      "awayTeam": "nba.houston-rockets",
+      "homeScore": 100,
+      "awayScore": 132,
       "neutralSite": false
     },
     {
@@ -874,17 +874,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-10-31-los-angeles-lakers-golden-state-warriors",
-      "date": "2026-10-31",
-      "startTime": "2026-10-31T02:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.golden-state-warriors",
-      "awayTeam": "nba.los-angeles-lakers",
-      "homeScore": 112,
-      "awayScore": 95,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-10-31-denver-nuggets-phoenix-suns",
       "date": "2026-10-31",
       "startTime": "2026-10-31T02:00:00.000Z",
@@ -893,6 +882,17 @@
       "awayTeam": "nba.denver-nuggets",
       "homeScore": 120,
       "awayScore": 127,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-10-31-los-angeles-lakers-golden-state-warriors",
+      "date": "2026-10-31",
+      "startTime": "2026-10-31T02:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.golden-state-warriors",
+      "awayTeam": "nba.los-angeles-lakers",
+      "homeScore": 112,
+      "awayScore": 95,
       "neutralSite": false
     },
     {
@@ -940,17 +940,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-01-minnesota-timberwolves-san-antonio-spurs",
-      "date": "2026-11-01",
-      "startTime": "2026-11-01T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.san-antonio-spurs",
-      "awayTeam": "nba.minnesota-timberwolves",
-      "homeScore": 121,
-      "awayScore": 111,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-01-sacramento-kings-memphis-grizzlies",
       "date": "2026-11-01",
       "startTime": "2026-11-01T00:00:00.000Z",
@@ -959,6 +948,17 @@
       "awayTeam": "nba.sacramento-kings",
       "homeScore": 136,
       "awayScore": 105,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-01-minnesota-timberwolves-san-antonio-spurs",
+      "date": "2026-11-01",
+      "startTime": "2026-11-01T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.san-antonio-spurs",
+      "awayTeam": "nba.minnesota-timberwolves",
+      "homeScore": 121,
+      "awayScore": 111,
       "neutralSite": false
     },
     {
@@ -1028,14 +1028,14 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-03-chicago-bulls-philadelphia-76ers",
+      "id": "nba-2026-11-03-atlanta-hawks-indiana-pacers",
       "date": "2026-11-03",
       "startTime": "2026-11-03T00:30:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nba.philadelphia-76ers",
-      "awayTeam": "nba.chicago-bulls",
-      "homeScore": 126,
-      "awayScore": 107,
+      "homeTeam": "nba.indiana-pacers",
+      "awayTeam": "nba.atlanta-hawks",
+      "homeScore": 104,
+      "awayScore": 108,
       "neutralSite": false
     },
     {
@@ -1050,17 +1050,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-03-atlanta-hawks-indiana-pacers",
-      "date": "2026-11-03",
-      "startTime": "2026-11-03T00:30:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.indiana-pacers",
-      "awayTeam": "nba.atlanta-hawks",
-      "homeScore": 104,
-      "awayScore": 108,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-03-brooklyn-nets-new-york-knicks",
       "date": "2026-11-03",
       "startTime": "2026-11-03T00:30:00.000Z",
@@ -1069,6 +1058,17 @@
       "awayTeam": "nba.brooklyn-nets",
       "homeScore": 103,
       "awayScore": 90,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-03-chicago-bulls-philadelphia-76ers",
+      "date": "2026-11-03",
+      "startTime": "2026-11-03T00:30:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.philadelphia-76ers",
+      "awayTeam": "nba.chicago-bulls",
+      "homeScore": 126,
+      "awayScore": 107,
       "neutralSite": false
     },
     {
@@ -1204,14 +1204,14 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-05-chicago-bulls-new-york-knicks",
+      "id": "nba-2026-11-05-charlotte-hornets-brooklyn-nets",
       "date": "2026-11-05",
       "startTime": "2026-11-05T00:30:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nba.new-york-knicks",
-      "awayTeam": "nba.chicago-bulls",
-      "homeScore": 135,
-      "awayScore": 105,
+      "homeTeam": "nba.brooklyn-nets",
+      "awayTeam": "nba.charlotte-hornets",
+      "homeScore": 114,
+      "awayScore": 104,
       "neutralSite": false
     },
     {
@@ -1226,14 +1226,14 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-05-charlotte-hornets-brooklyn-nets",
+      "id": "nba-2026-11-05-chicago-bulls-new-york-knicks",
       "date": "2026-11-05",
       "startTime": "2026-11-05T00:30:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nba.brooklyn-nets",
-      "awayTeam": "nba.charlotte-hornets",
-      "homeScore": 114,
-      "awayScore": 104,
+      "homeTeam": "nba.new-york-knicks",
+      "awayTeam": "nba.chicago-bulls",
+      "homeScore": 135,
+      "awayScore": 105,
       "neutralSite": false
     },
     {
@@ -1358,17 +1358,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-07-boston-celtics-charlotte-hornets",
-      "date": "2026-11-07",
-      "startTime": "2026-11-07T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.charlotte-hornets",
-      "awayTeam": "nba.boston-celtics",
-      "homeScore": 80,
-      "awayScore": 119,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-07-washington-wizards-atlanta-hawks",
       "date": "2026-11-07",
       "startTime": "2026-11-07T00:00:00.000Z",
@@ -1377,6 +1366,17 @@
       "awayTeam": "nba.washington-wizards",
       "homeScore": 139,
       "awayScore": 132,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-07-boston-celtics-charlotte-hornets",
+      "date": "2026-11-07",
+      "startTime": "2026-11-07T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.charlotte-hornets",
+      "awayTeam": "nba.boston-celtics",
+      "homeScore": 80,
+      "awayScore": 119,
       "neutralSite": false
     },
     {
@@ -1413,17 +1413,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-07-minnesota-timberwolves-new-orleans-pelicans",
-      "date": "2026-11-07",
-      "startTime": "2026-11-07T01:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.new-orleans-pelicans",
-      "awayTeam": "nba.minnesota-timberwolves",
-      "homeScore": 109,
-      "awayScore": 115,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-07-oklahoma-city-thunder-memphis-grizzlies",
       "date": "2026-11-07",
       "startTime": "2026-11-07T01:00:00.000Z",
@@ -1432,6 +1421,17 @@
       "awayTeam": "nba.oklahoma-city-thunder",
       "homeScore": 97,
       "awayScore": 128,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-07-minnesota-timberwolves-new-orleans-pelicans",
+      "date": "2026-11-07",
+      "startTime": "2026-11-07T01:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.new-orleans-pelicans",
+      "awayTeam": "nba.minnesota-timberwolves",
+      "homeScore": 109,
+      "awayScore": 115,
       "neutralSite": false
     },
     {
@@ -1611,17 +1611,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-10-cleveland-cavaliers-charlotte-hornets",
-      "date": "2026-11-10",
-      "startTime": "2026-11-10T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.charlotte-hornets",
-      "awayTeam": "nba.cleveland-cavaliers",
-      "homeScore": 124,
-      "awayScore": 112,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-10-los-angeles-lakers-atlanta-hawks",
       "date": "2026-11-10",
       "startTime": "2026-11-10T00:00:00.000Z",
@@ -1630,6 +1619,17 @@
       "awayTeam": "nba.los-angeles-lakers",
       "homeScore": 114,
       "awayScore": 124,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-10-cleveland-cavaliers-charlotte-hornets",
+      "date": "2026-11-10",
+      "startTime": "2026-11-10T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.charlotte-hornets",
+      "awayTeam": "nba.cleveland-cavaliers",
+      "homeScore": 124,
+      "awayScore": 112,
       "neutralSite": false
     },
     {
@@ -1765,17 +1765,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-12-cleveland-cavaliers-new-york-knicks",
-      "date": "2026-11-12",
-      "startTime": "2026-11-12T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.new-york-knicks",
-      "awayTeam": "nba.cleveland-cavaliers",
-      "homeScore": 107,
-      "awayScore": 115,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-12-boston-celtics-toronto-raptors",
       "date": "2026-11-12",
       "startTime": "2026-11-12T00:00:00.000Z",
@@ -1784,6 +1773,17 @@
       "awayTeam": "nba.boston-celtics",
       "homeScore": 93,
       "awayScore": 98,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-12-cleveland-cavaliers-new-york-knicks",
+      "date": "2026-11-12",
+      "startTime": "2026-11-12T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.new-york-knicks",
+      "awayTeam": "nba.cleveland-cavaliers",
+      "homeScore": 107,
+      "awayScore": 115,
       "neutralSite": false
     },
     {
@@ -1798,17 +1798,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-12-san-antonio-spurs-chicago-bulls",
-      "date": "2026-11-12",
-      "startTime": "2026-11-12T01:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.chicago-bulls",
-      "awayTeam": "nba.san-antonio-spurs",
-      "homeScore": 119,
-      "awayScore": 124,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-12-brooklyn-nets-new-orleans-pelicans",
       "date": "2026-11-12",
       "startTime": "2026-11-12T01:00:00.000Z",
@@ -1820,17 +1809,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-12-los-angeles-lakers-milwaukee-bucks",
-      "date": "2026-11-12",
-      "startTime": "2026-11-12T01:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.milwaukee-bucks",
-      "awayTeam": "nba.los-angeles-lakers",
-      "homeScore": 112,
-      "awayScore": 123,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-12-denver-nuggets-memphis-grizzlies",
       "date": "2026-11-12",
       "startTime": "2026-11-12T01:00:00.000Z",
@@ -1838,6 +1816,28 @@
       "homeTeam": "nba.memphis-grizzlies",
       "awayTeam": "nba.denver-nuggets",
       "homeScore": 118,
+      "awayScore": 123,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-12-san-antonio-spurs-chicago-bulls",
+      "date": "2026-11-12",
+      "startTime": "2026-11-12T01:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.chicago-bulls",
+      "awayTeam": "nba.san-antonio-spurs",
+      "homeScore": 119,
+      "awayScore": 124,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-12-los-angeles-lakers-milwaukee-bucks",
+      "date": "2026-11-12",
+      "startTime": "2026-11-12T01:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.milwaukee-bucks",
+      "awayTeam": "nba.los-angeles-lakers",
+      "homeScore": 112,
       "awayScore": 123,
       "neutralSite": false
     },
@@ -2040,17 +2040,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-15-chicago-bulls-minnesota-timberwolves",
-      "date": "2026-11-15",
-      "startTime": "2026-11-15T01:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.minnesota-timberwolves",
-      "awayTeam": "nba.chicago-bulls",
-      "homeScore": 106,
-      "awayScore": 117,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-15-brooklyn-nets-memphis-grizzlies",
       "date": "2026-11-15",
       "startTime": "2026-11-15T01:00:00.000Z",
@@ -2069,6 +2058,17 @@
       "homeTeam": "nba.miami-heat",
       "awayTeam": "nba.detroit-pistons",
       "homeScore": 137,
+      "awayScore": 117,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-15-chicago-bulls-minnesota-timberwolves",
+      "date": "2026-11-15",
+      "startTime": "2026-11-15T01:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.minnesota-timberwolves",
+      "awayTeam": "nba.chicago-bulls",
+      "homeScore": 106,
       "awayScore": 117,
       "neutralSite": false
     },
@@ -2172,17 +2172,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-17-chicago-bulls-cleveland-cavaliers",
-      "date": "2026-11-17",
-      "startTime": "2026-11-17T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.cleveland-cavaliers",
-      "awayTeam": "nba.chicago-bulls",
-      "homeScore": 126,
-      "awayScore": 115,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-17-orlando-magic-boston-celtics",
       "date": "2026-11-17",
       "startTime": "2026-11-17T00:00:00.000Z",
@@ -2190,6 +2179,17 @@
       "homeTeam": "nba.boston-celtics",
       "awayTeam": "nba.orlando-magic",
       "homeScore": 105,
+      "awayScore": 115,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-17-chicago-bulls-cleveland-cavaliers",
+      "date": "2026-11-17",
+      "startTime": "2026-11-17T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.cleveland-cavaliers",
+      "awayTeam": "nba.chicago-bulls",
+      "homeScore": 126,
       "awayScore": 115,
       "neutralSite": false
     },
@@ -2381,17 +2381,6 @@
       "neutralSite": false
     },
     {
-      "id": "nba-2026-11-19-golden-state-warriors-dallas-mavericks",
-      "date": "2026-11-19",
-      "startTime": "2026-11-19T01:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nba.dallas-mavericks",
-      "awayTeam": "nba.golden-state-warriors",
-      "homeScore": 116,
-      "awayScore": 94,
-      "neutralSite": false
-    },
-    {
       "id": "nba-2026-11-19-atlanta-hawks-oklahoma-city-thunder",
       "date": "2026-11-19",
       "startTime": "2026-11-19T01:00:00.000Z",
@@ -2400,6 +2389,17 @@
       "awayTeam": "nba.atlanta-hawks",
       "homeScore": 112,
       "awayScore": 117,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-19-golden-state-warriors-dallas-mavericks",
+      "date": "2026-11-19",
+      "startTime": "2026-11-19T01:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.dallas-mavericks",
+      "awayTeam": "nba.golden-state-warriors",
+      "homeScore": 116,
+      "awayScore": 94,
       "neutralSite": false
     },
     {
@@ -2488,6 +2488,72 @@
       "awayTeam": "nba.new-york-knicks",
       "homeScore": 99,
       "awayScore": 102,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-21-charlotte-hornets-atlanta-hawks",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.atlanta-hawks",
+      "awayTeam": "nba.charlotte-hornets",
+      "homeScore": 111,
+      "awayScore": 97,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-21-orlando-magic-brooklyn-nets",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T00:30:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.brooklyn-nets",
+      "awayTeam": "nba.orlando-magic",
+      "homeScore": 111,
+      "awayScore": 113,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-21-indiana-pacers-cleveland-cavaliers",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T00:30:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.cleveland-cavaliers",
+      "awayTeam": "nba.indiana-pacers",
+      "homeScore": 128,
+      "awayScore": 119,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-21-toronto-raptors-detroit-pistons",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T00:30:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.detroit-pistons",
+      "awayTeam": "nba.toronto-raptors",
+      "homeScore": 102,
+      "awayScore": 105,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-21-washington-wizards-chicago-bulls",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T01:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.chicago-bulls",
+      "awayTeam": "nba.washington-wizards",
+      "homeScore": 94,
+      "awayScore": 98,
+      "neutralSite": false
+    },
+    {
+      "id": "nba-2026-11-21-new-orleans-pelicans-oklahoma-city-thunder",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T01:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nba.oklahoma-city-thunder",
+      "awayTeam": "nba.new-orleans-pelicans",
+      "homeScore": 126,
+      "awayScore": 120,
       "neutralSite": false
     }
   ]

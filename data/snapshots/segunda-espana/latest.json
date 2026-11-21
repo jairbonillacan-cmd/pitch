@@ -5,7 +5,7 @@
   "season": "segunda-espana-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 13",
-  "updatedAt": "2026-11-20T23:19:05.023Z",
+  "updatedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.2142857142857142,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 14,
-      "adjustedFor": 1.2117662140197258,
-      "adjustedAgainst": 1.5770507170669483
+      "adjustedFor": 1.2117270848330963,
+      "adjustedAgainst": 1.5768458577086546
     },
     "segunda-espana.castellon": {
       "teamId": "segunda-espana.castellon",
@@ -29,8 +29,8 @@
       "forPerGame": 1.8461538461538463,
       "againstPerGame": 0.38461538461538464,
       "gamesPlayed": 13,
-      "adjustedFor": 1.540081572083158,
-      "adjustedAgainst": 0.5915194966305108
+      "adjustedFor": 1.5399733601288188,
+      "adjustedAgainst": 0.5917894518524713
     },
     "segunda-espana.andorra": {
       "teamId": "segunda-espana.andorra",
@@ -40,8 +40,8 @@
       "forPerGame": 1.3571428571428572,
       "againstPerGame": 1.9285714285714286,
       "gamesPlayed": 14,
-      "adjustedFor": 1.2794520968588328,
-      "adjustedAgainst": 1.7060878586847552
+      "adjustedFor": 1.2793987320925686,
+      "adjustedAgainst": 1.7058465638186266
     },
     "segunda-espana.ad-ceuta": {
       "teamId": "segunda-espana.ad-ceuta",
@@ -51,8 +51,8 @@
       "forPerGame": 0.7142857142857143,
       "againstPerGame": 2.2857142857142856,
       "gamesPlayed": 14,
-      "adjustedFor": 0.7708325986669066,
-      "adjustedAgainst": 1.9542252303723524
+      "adjustedFor": 0.7710162043648041,
+      "adjustedAgainst": 1.953883133381695
     },
     "segunda-espana.real-oviedo": {
       "teamId": "segunda-espana.real-oviedo",
@@ -62,8 +62,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.2857142857142858,
       "gamesPlayed": 14,
-      "adjustedFor": 1.3528057599258547,
-      "adjustedAgainst": 1.284639342712049
+      "adjustedFor": 1.3527234594634632,
+      "adjustedAgainst": 1.2845676826446109
     },
     "segunda-espana.granada": {
       "teamId": "segunda-espana.granada",
@@ -73,8 +73,8 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 1.0769230769230769,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3873078389609959,
-      "adjustedAgainst": 1.052079052771041
+      "adjustedFor": 1.3872505184617427,
+      "adjustedAgainst": 1.0521389874814948
     },
     "segunda-espana.cadiz": {
       "teamId": "segunda-espana.cadiz",
@@ -84,8 +84,8 @@
       "forPerGame": 1.2142857142857142,
       "againstPerGame": 1.3571428571428572,
       "gamesPlayed": 14,
-      "adjustedFor": 1.1272686305177666,
-      "adjustedAgainst": 1.2751988681079152
+      "adjustedFor": 1.1273005286329598,
+      "adjustedAgainst": 1.275152293328224
     },
     "segunda-espana.celta-fortuna": {
       "teamId": "segunda-espana.celta-fortuna",
@@ -95,8 +95,8 @@
       "forPerGame": 1.3571428571428572,
       "againstPerGame": 1.8571428571428572,
       "gamesPlayed": 14,
-      "adjustedFor": 1.2603280764037188,
-      "adjustedAgainst": 1.673292478585128
+      "adjustedFor": 1.2602971647011016,
+      "adjustedAgainst": 1.6730609458918708
     },
     "segunda-espana.mallorca": {
       "teamId": "segunda-espana.mallorca",
@@ -106,8 +106,8 @@
       "forPerGame": 1.3846153846153846,
       "againstPerGame": 0.7692307692307693,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2495504029098874,
-      "adjustedAgainst": 0.8554769203200672
+      "adjustedFor": 1.2495373253393751,
+      "adjustedAgainst": 0.855624741840369
     },
     "segunda-espana.real-valladolid": {
       "teamId": "segunda-espana.real-valladolid",
@@ -117,8 +117,8 @@
       "forPerGame": 1.5714285714285714,
       "againstPerGame": 1.5,
       "gamesPlayed": 14,
-      "adjustedFor": 1.4062223011857165,
-      "adjustedAgainst": 1.4020851396253649
+      "adjustedFor": 1.4061427826964812,
+      "adjustedAgainst": 1.4019775094833098
     },
     "segunda-espana.eibar": {
       "teamId": "segunda-espana.eibar",
@@ -128,8 +128,8 @@
       "forPerGame": 1.6923076923076923,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 1.4622563543713614,
-      "adjustedAgainst": 1.1069258647642282
+      "adjustedFor": 1.462142739663799,
+      "adjustedAgainst": 1.1069635214244218
     },
     "segunda-espana.tenerife": {
       "teamId": "segunda-espana.tenerife",
@@ -139,8 +139,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.3076923076923077,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1804776089001277,
-      "adjustedAgainst": 1.2384620135226616
+      "adjustedFor": 1.180497225894688,
+      "adjustedAgainst": 1.238428841358782
     },
     "segunda-espana.girona": {
       "teamId": "segunda-espana.girona",
@@ -150,8 +150,8 @@
       "forPerGame": 1.7142857142857142,
       "againstPerGame": 0.9285714285714286,
       "gamesPlayed": 14,
-      "adjustedFor": 1.4672215562383406,
-      "adjustedAgainst": 0.9340535003923051
+      "adjustedFor": 1.4671172483133665,
+      "adjustedAgainst": 0.9341620022300933
     },
     "segunda-espana.leganes": {
       "teamId": "segunda-espana.leganes",
@@ -161,8 +161,8 @@
       "forPerGame": 1.1333333333333333,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.170262540080682,
-      "adjustedAgainst": 1.4812641581562809
+      "adjustedFor": 1.1702479911173236,
+      "adjustedAgainst": 1.481159163849669
     },
     "segunda-espana.burgos": {
       "teamId": "segunda-espana.burgos",
@@ -172,8 +172,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.2142857142857142,
       "gamesPlayed": 14,
-      "adjustedFor": 1.2447717813511538,
-      "adjustedAgainst": 1.1818552599246026
+      "adjustedFor": 1.2447682538600284,
+      "adjustedAgainst": 1.1818484807146474
     },
     "segunda-espana.cordoba": {
       "teamId": "segunda-espana.cordoba",
@@ -183,8 +183,8 @@
       "forPerGame": 1.7857142857142858,
       "againstPerGame": 1.7857142857142858,
       "gamesPlayed": 14,
-      "adjustedFor": 1.6416224804161992,
-      "adjustedAgainst": 1.6184478706596295
+      "adjustedFor": 1.6414053282863035,
+      "adjustedAgainst": 1.618224092009929
     },
     "segunda-espana.las-palmas": {
       "teamId": "segunda-espana.las-palmas",
@@ -194,8 +194,8 @@
       "forPerGame": 1.3571428571428572,
       "againstPerGame": 1.5714285714285714,
       "gamesPlayed": 14,
-      "adjustedFor": 1.2770394078183915,
-      "adjustedAgainst": 1.4388170602975312
+      "adjustedFor": 1.2769892888784917,
+      "adjustedAgainst": 1.4386931817262458
     },
     "segunda-espana.albacete-balompie": {
       "teamId": "segunda-espana.albacete-balompie",
@@ -205,8 +205,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 14,
-      "adjustedFor": 1.0129170977198751,
-      "adjustedAgainst": 1.4985207725942722
+      "adjustedFor": 1.0129947026384516,
+      "adjustedAgainst": 1.4983934328229798
     },
     "segunda-espana.sporting-gijon": {
       "teamId": "segunda-espana.sporting-gijon",
@@ -216,8 +216,8 @@
       "forPerGame": 1.1428571428571428,
       "againstPerGame": 1.2142857142857142,
       "gamesPlayed": 14,
-      "adjustedFor": 1.0830607836828958,
-      "adjustedAgainst": 1.2347948010375684
+      "adjustedFor": 1.0831173610520577,
+      "adjustedAgainst": 1.234744001135173
     },
     "segunda-espana.ce-sabadell": {
       "teamId": "segunda-espana.ce-sabadell",
@@ -227,8 +227,8 @@
       "forPerGame": 0.8571428571428571,
       "againstPerGame": 0.9285714285714286,
       "gamesPlayed": 14,
-      "adjustedFor": 0.8635102437108143,
-      "adjustedAgainst": 0.9764824266053215
+      "adjustedFor": 0.8636598356530001,
+      "adjustedAgainst": 0.9765633586557667
     },
     "segunda-espana.almeria": {
       "teamId": "segunda-espana.almeria",
@@ -238,8 +238,8 @@
       "forPerGame": 1.8571428571428572,
       "againstPerGame": 0.7857142857142857,
       "gamesPlayed": 14,
-      "adjustedFor": 1.5918778329366179,
-      "adjustedAgainst": 0.8527265133444462
+      "adjustedFor": 1.591728372404852,
+      "adjustedAgainst": 0.8528677369444871
     },
     "segunda-espana.eldense": {
       "teamId": "segunda-espana.eldense",
@@ -249,8 +249,8 @@
       "forPerGame": 1.0714285714285714,
       "againstPerGame": 1.3571428571428572,
       "gamesPlayed": 14,
-      "adjustedFor": 1.0871526864869197,
-      "adjustedAgainst": 1.2636803269049146
+      "adjustedFor": 1.0871838594895502,
+      "adjustedAgainst": 1.2636417540014209
     }
   },
   "games": [
@@ -285,7 +285,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -320,7 +320,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -355,7 +355,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -390,7 +390,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -425,7 +425,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -460,7 +460,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -495,7 +495,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -530,7 +530,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -565,7 +565,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -600,7 +600,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -635,7 +635,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -670,7 +670,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -705,7 +705,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -740,7 +740,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -775,7 +775,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -810,7 +810,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -11322,6 +11322,7 @@
           "temperatureC": 16,
           "windSpeedKmh": 24
         },
+        "travelDistanceKm": 619,
         "stageName": "Regular season",
         "venueCity": "Cordoba",
         "venueCountry": "Spain",
@@ -11795,6 +11796,7 @@
           "temperatureC": 18,
           "windSpeedKmh": 18
         },
+        "travelDistanceKm": 1932,
         "stageName": "Regular season",
         "venueCity": "Gijon",
         "venueCountry": "Spain",
@@ -12269,6 +12271,7 @@
           "temperatureC": 20,
           "windSpeedKmh": 71
         },
+        "travelDistanceKm": 456,
         "stageName": "Regular season",
         "venueCity": "Girona",
         "venueCountry": "Spain",
@@ -13218,6 +13221,7 @@
           "temperatureC": 12,
           "windSpeedKmh": 25
         },
+        "travelDistanceKm": 405,
         "stageName": "Regular season",
         "venueCity": "Burgos",
         "venueCountry": "Spain",

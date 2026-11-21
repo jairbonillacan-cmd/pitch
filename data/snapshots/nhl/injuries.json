@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-20T23:19:02.133Z",
+  "observedAt": "2026-11-21T04:14:41.646Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
@@ -557,6 +557,16 @@
     },
     {
       "teamId": "nhl.new-york-rangers",
+      "player": "Oliver Bjorkstrand",
+      "position": "RW",
+      "status": "Baja",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-21T00:13:00.000Z"
+    },
+    {
+      "teamId": "nhl.new-york-rangers",
       "player": "Sean Durzi",
       "position": "D",
       "status": "Baja",
@@ -574,16 +584,6 @@
       "injuryType": "Lower Body",
       "returnDate": "2026-12-27",
       "reportedAt": "2026-11-20T16:23:00.000Z"
-    },
-    {
-      "teamId": "nhl.new-york-rangers",
-      "player": "Oliver Bjorkstrand",
-      "position": "RW",
-      "status": "Duda",
-      "detail": "Upper Body",
-      "injuryType": "Upper Body",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-20T16:21:00.000Z"
     },
     {
       "teamId": "nhl.new-york-rangers",
@@ -794,16 +794,6 @@
       "injuryType": "Lower Body",
       "returnDate": "2026-12-10",
       "reportedAt": "2026-11-19T20:30:00.000Z"
-    },
-    {
-      "teamId": "nhl.seattle-kraken",
-      "player": "Nikke Kokko",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Not Injury Related",
-      "injuryType": "Not Injury Related",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-07T20:12:00.000Z"
     },
     {
       "teamId": "nhl.seattle-kraken",

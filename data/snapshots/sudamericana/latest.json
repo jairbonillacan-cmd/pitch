@@ -5,7 +5,7 @@
   "season": "sudamericana-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-20T23:19:05.023Z",
+  "updatedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9880885912165963,
-      "adjustedAgainst": 1.24730065601939
+      "adjustedFor": 0.9882422757420755,
+      "adjustedAgainst": 1.2470781946362002
     },
     "sudamericana.tigre": {
       "teamId": "sudamericana.tigre",
@@ -29,8 +29,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.0710038401168935,
-      "adjustedAgainst": 1.09371525345239
+      "adjustedFor": 1.0710248861484701,
+      "adjustedAgainst": 1.0936905051320538
     },
     "sudamericana.universidad-central": {
       "teamId": "sudamericana.universidad-central",
@@ -40,8 +40,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 4,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1181612426282426,
-      "adjustedAgainst": 1.6074850285842792
+      "adjustedFor": 1.1181293667626424,
+      "adjustedAgainst": 1.6070019430997453
     },
     "sudamericana.santos": {
       "teamId": "sudamericana.santos",
@@ -51,8 +51,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.5394518284287264,
-      "adjustedAgainst": 1.1288992658308021
+      "adjustedFor": 1.539164812524359,
+      "adjustedAgainst": 1.128920096379489
     },
     "sudamericana.independiente-medellin": {
       "teamId": "sudamericana.independiente-medellin",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0759046125792309,
-      "adjustedAgainst": 1.053155269034521
+      "adjustedFor": 1.0758572279254264,
+      "adjustedAgainst": 1.0532622428525407
     },
     "sudamericana.vasco-gama": {
       "teamId": "sudamericana.vasco-gama",
@@ -73,8 +73,8 @@
       "forPerGame": 1.375,
       "againstPerGame": 0.75,
       "gamesPlayed": 8,
-      "adjustedFor": 1.2627904943350186,
-      "adjustedAgainst": 0.8161071912778555
+      "adjustedFor": 1.2625534048024007,
+      "adjustedAgainst": 0.8163230155730258
     },
     "sudamericana.sporting-cristal": {
       "teamId": "sudamericana.sporting-cristal",
@@ -84,8 +84,8 @@
       "forPerGame": 0,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7530550402803794,
-      "adjustedAgainst": 0.8705315881428072
+      "adjustedFor": 0.7534858625388455,
+      "adjustedAgainst": 0.8707843955109915
     },
     "sudamericana.red-bull-bragantino": {
       "teamId": "sudamericana.red-bull-bragantino",
@@ -95,8 +95,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8933236750944891,
-      "adjustedAgainst": 0.8614421702675179
+      "adjustedFor": 0.8934720950576015,
+      "adjustedAgainst": 0.8616765619659013
     },
     "sudamericana.lanus": {
       "teamId": "sudamericana.lanus",
@@ -106,8 +106,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9854777055052023,
-      "adjustedAgainst": 1.1489274506892777
+      "adjustedFor": 0.9856362947579542,
+      "adjustedAgainst": 1.148916375017886
     },
     "sudamericana.cienciano": {
       "teamId": "sudamericana.cienciano",
@@ -117,8 +117,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 6,
-      "adjustedFor": 1.4062657621485275,
-      "adjustedAgainst": 1.0892002459380241
+      "adjustedFor": 1.4060599415947093,
+      "adjustedAgainst": 1.089170756481883
     },
     "sudamericana.bolivar": {
       "teamId": "sudamericana.bolivar",
@@ -128,8 +128,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1890215113234517,
-      "adjustedAgainst": 1.2112088705980906
+      "adjustedFor": 1.1888932223719364,
+      "adjustedAgainst": 1.2110546312420045
     },
     "sudamericana.gremio": {
       "teamId": "sudamericana.gremio",
@@ -139,8 +139,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9490179577433799,
-      "adjustedAgainst": 1.2092453660250526
+      "adjustedFor": 0.9492529844557986,
+      "adjustedAgainst": 1.209129698776803
     },
     "sudamericana.independiente-santa-fe": {
       "teamId": "sudamericana.independiente-santa-fe",
@@ -150,8 +150,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.5,
       "gamesPlayed": 6,
-      "adjustedFor": 0.9470554130321944,
-      "adjustedAgainst": 0.7302846149768933
+      "adjustedFor": 0.9471899165724453,
+      "adjustedAgainst": 0.7305721588066124
     },
     "sudamericana.caracas-f-c": {
       "teamId": "sudamericana.caracas-f-c",
@@ -161,8 +161,8 @@
       "forPerGame": 0,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7864032214805451,
-      "adjustedAgainst": 1.4408551201695419
+      "adjustedFor": 0.7867853087101386,
+      "adjustedAgainst": 1.440310945859643
     },
     "sudamericana.boca-juniors": {
       "teamId": "sudamericana.boca-juniors",
@@ -172,8 +172,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.625,
       "gamesPlayed": 8,
-      "adjustedFor": 1.3575667806649692,
-      "adjustedAgainst": 0.7418366943733712
+      "adjustedFor": 1.357306757882936,
+      "adjustedAgainst": 0.7421029168749083
     },
     "sudamericana.o-higgins": {
       "teamId": "sudamericana.o-higgins",
@@ -183,8 +183,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.94522268166779,
-      "adjustedAgainst": 0.766592127571606
+      "adjustedFor": 0.9453596619094897,
+      "adjustedAgainst": 0.7670332377444364
     },
     "sudamericana.recoleta": {
       "teamId": "sudamericana.recoleta",
@@ -194,8 +194,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9402515783050502,
-      "adjustedAgainst": 1.5662163045053843
+      "adjustedFor": 0.94039233565461,
+      "adjustedAgainst": 1.5657527725196858
     },
     "sudamericana.sao-paulo": {
       "teamId": "sudamericana.sao-paulo",
@@ -205,8 +205,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1176781253389654,
-      "adjustedAgainst": 0.8886853781871064
+      "adjustedFor": 1.117631649449341,
+      "adjustedAgainst": 0.8889567927769212
     },
     "sudamericana.atletico-mineiro": {
       "teamId": "sudamericana.atletico-mineiro",
@@ -216,8 +216,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.395277191379934,
-      "adjustedAgainst": 1.0896431007877372
+      "adjustedFor": 1.3949007048710664,
+      "adjustedAgainst": 1.089707547071726
     },
     "sudamericana.montevideo-city-torque": {
       "teamId": "sudamericana.montevideo-city-torque",
@@ -227,8 +227,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 6,
-      "adjustedFor": 1.1042898083934378,
-      "adjustedAgainst": 0.8703822858697375
+      "adjustedFor": 1.1042958762933608,
+      "adjustedAgainst": 0.8706500112780771
     },
     "sudamericana.river-plate": {
       "teamId": "sudamericana.river-plate",
@@ -238,8 +238,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9449615418805222,
-      "adjustedAgainst": 0.852962365371235
+      "adjustedFor": 0.945086121803447,
+      "adjustedAgainst": 0.8532359407595778
     },
     "sudamericana.olimpia": {
       "teamId": "sudamericana.olimpia",
@@ -249,8 +249,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9178888826909828,
-      "adjustedAgainst": 1.1975545582803757
+      "adjustedFor": 0.9180761975274363,
+      "adjustedAgainst": 1.1974961862893845
     },
     "sudamericana.macara": {
       "teamId": "sudamericana.macara",
@@ -260,8 +260,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8261979079223715,
-      "adjustedAgainst": 0.8544451735122813
+      "adjustedFor": 0.8265436019251197,
+      "adjustedAgainst": 0.8547783902120162
     },
     "sudamericana.botafogo": {
       "teamId": "sudamericana.botafogo",
@@ -271,8 +271,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 0.984757119068946,
-      "adjustedAgainst": 1.4101459363375815
+      "adjustedFor": 0.984915240991789,
+      "adjustedAgainst": 1.4098454618601641
     }
   },
   "games": [
@@ -307,7 +307,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -342,7 +342,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -377,7 +377,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -412,7 +412,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -447,7 +447,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -482,7 +482,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -517,7 +517,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -552,7 +552,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -587,7 +587,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -622,7 +622,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -657,7 +657,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -692,7 +692,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -727,7 +727,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -762,7 +762,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -797,7 +797,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -832,7 +832,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -4489,11 +4489,11 @@
         "referee": "Wilton Pereira Sampaio",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 81,
-          "avgYellow": 4.78,
-          "avgRed": 0.21,
+          "matches": 82,
+          "avgYellow": 4.77,
+          "avgRed": 0.22,
           "avgFouls": 26.7,
-          "avgGoals": 2.43
+          "avgGoals": 2.41
         },
         "weather": {
           "description": "cloudy",
@@ -5407,11 +5407,11 @@
         "referee": "Gustavo Tejera",
         "refereeStats": {
           "country": "Uruguay",
-          "matches": 25,
-          "avgYellow": 4.16,
+          "matches": 26,
+          "avgYellow": 4.15,
           "avgRed": 0.12,
           "avgFouls": 25.2,
-          "avgGoals": 1.96
+          "avgGoals": 2.04
         },
         "weather": {
           "description": "cloudy",
@@ -6330,11 +6330,11 @@
         "referee": "Nicolas Ramirez",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 71,
-          "avgYellow": 5.96,
-          "avgRed": 0.25,
+          "matches": 73,
+          "avgYellow": 5.9,
+          "avgRed": 0.29,
           "avgFouls": 24.4,
-          "avgGoals": 2.11
+          "avgGoals": 2.07
         },
         "weather": {
           "description": "clear",
@@ -7689,11 +7689,11 @@
         "referee": "Jesús Valenzuela",
         "refereeStats": {
           "country": "Venezuela",
-          "matches": 35,
-          "avgYellow": 4.17,
+          "matches": 37,
+          "avgYellow": 4.19,
           "avgRed": 0.14,
           "avgFouls": 25,
-          "avgGoals": 2.43
+          "avgGoals": 2.46
         },
         "weather": {
           "description": "cloudy",
@@ -8632,11 +8632,11 @@
         "referee": "Andres Matonte",
         "refereeStats": {
           "country": "Uruguay",
-          "matches": 30,
-          "avgYellow": 4.6,
-          "avgRed": 0.47,
+          "matches": 31,
+          "avgYellow": 4.58,
+          "avgRed": 0.45,
           "avgFouls": 21.1,
-          "avgGoals": 2.07
+          "avgGoals": 2.06
         },
         "weather": {
           "temperatureC": 29,

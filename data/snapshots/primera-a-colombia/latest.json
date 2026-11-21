@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/80/?bg=transparent",
   "season": "primera-a-colombia-2026",
   "seasonLabel": "2026",
-  "periodLabel": "Group B · Matchday 18",
-  "updatedAt": "2026-11-20T23:19:05.023Z",
+  "periodLabel": "League phase · Matchday 18",
+  "updatedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.263157894736842,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0591115575541539,
-      "adjustedAgainst": 1.1879664557897993
+      "adjustedFor": 1.057594141354379,
+      "adjustedAgainst": 1.1873161258238019
     },
     "primera-a-colombia.deportivo-pereira": {
       "teamId": "primera-a-colombia.deportivo-pereira",
@@ -29,19 +29,19 @@
       "forPerGame": 0.8421052631578947,
       "againstPerGame": 1.4736842105263157,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8762396271291748,
-      "adjustedAgainst": 1.35292266939295
+      "adjustedFor": 0.8747945120195264,
+      "adjustedAgainst": 1.3517811237032502
     },
     "primera-a-colombia.deportivo-cali": {
       "teamId": "primera-a-colombia.deportivo-cali",
       "name": "Deportivo Cali",
       "shortName": "Cali",
       "code": "DEP",
-      "forPerGame": 1.4736842105263157,
-      "againstPerGame": 0.631578947368421,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.3284855907505861,
-      "adjustedAgainst": 0.6897915835960532
+      "forPerGame": 1.4,
+      "againstPerGame": 0.6,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.2748302225003714,
+      "adjustedAgainst": 0.6530293862478592
     },
     "primera-a-colombia.jaguares-cordoba": {
       "teamId": "primera-a-colombia.jaguares-cordoba",
@@ -51,8 +51,8 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 1.9473684210526316,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9148797458782334,
-      "adjustedAgainst": 1.7302015160732802
+      "adjustedFor": 0.9122895977226971,
+      "adjustedAgainst": 1.7291099934342715
     },
     "primera-a-colombia.boyaca-chico": {
       "teamId": "primera-a-colombia.boyaca-chico",
@@ -62,8 +62,8 @@
       "forPerGame": 0.7894736842105263,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8111538356989227,
-      "adjustedAgainst": 1.3532030556326904
+      "adjustedFor": 0.8094773636637851,
+      "adjustedAgainst": 1.3522455632917207
     },
     "primera-a-colombia.atletico-nacional": {
       "teamId": "primera-a-colombia.atletico-nacional",
@@ -73,19 +73,19 @@
       "forPerGame": 2,
       "againstPerGame": 0.9473684210526315,
       "gamesPlayed": 19,
-      "adjustedFor": 1.756128811715363,
-      "adjustedAgainst": 0.9650195734637169
+      "adjustedFor": 1.7561509595593967,
+      "adjustedAgainst": 0.9643798141314744
     },
     "primera-a-colombia.independiente-medellin": {
       "teamId": "primera-a-colombia.independiente-medellin",
       "name": "Independiente Medellín",
       "shortName": "Independiente Medellín",
       "code": "IND",
-      "forPerGame": 1.5263157894736843,
-      "againstPerGame": 1.3157894736842106,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.3974298949732864,
-      "adjustedAgainst": 1.2368601749356813
+      "forPerGame": 1.5,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.3785515066698115,
+      "adjustedAgainst": 1.1691206889826278
     },
     "primera-a-colombia.deportivo-pasto": {
       "teamId": "primera-a-colombia.deportivo-pasto",
@@ -95,30 +95,30 @@
       "forPerGame": 0.6842105263157895,
       "againstPerGame": 1.5789473684210527,
       "gamesPlayed": 19,
-      "adjustedFor": 0.7259226015710711,
-      "adjustedAgainst": 1.4090735585407286
+      "adjustedFor": 0.7240709137019126,
+      "adjustedAgainst": 1.4077987443617037
     },
     "primera-a-colombia.millonarios": {
       "teamId": "primera-a-colombia.millonarios",
       "name": "Millonarios",
       "shortName": "Millonarios",
       "code": "MIL",
-      "forPerGame": 1.4210526315789473,
-      "againstPerGame": 0.8421052631578947,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.3096768916379722,
-      "adjustedAgainst": 0.8655267832694776
+      "forPerGame": 1.35,
+      "againstPerGame": 0.8,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.2745980557286243,
+      "adjustedAgainst": 0.8200095487494286
     },
     "primera-a-colombia.atletico-bucaramanga": {
       "teamId": "primera-a-colombia.atletico-bucaramanga",
       "name": "Atlético Bucaramanga",
       "shortName": "Bucaramanga",
       "code": "ATL",
-      "forPerGame": 1.631578947368421,
-      "againstPerGame": 0.8947368421052632,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.456987589176687,
-      "adjustedAgainst": 0.9060780506239103
+      "forPerGame": 1.65,
+      "againstPerGame": 0.95,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.4873860840527446,
+      "adjustedAgainst": 0.9423057539497399
     },
     "primera-a-colombia.deportes-tolima": {
       "teamId": "primera-a-colombia.deportes-tolima",
@@ -128,8 +128,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2420437390616539,
-      "adjustedAgainst": 1.1561182939597197
+      "adjustedFor": 1.2405881624774615,
+      "adjustedAgainst": 1.1556005655483248
     },
     "primera-a-colombia.junior-barranquilla": {
       "teamId": "primera-a-colombia.junior-barranquilla",
@@ -139,8 +139,8 @@
       "forPerGame": 1.368421052631579,
       "againstPerGame": 1.4210526315789473,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2841949523030405,
-      "adjustedAgainst": 1.3065258991149575
+      "adjustedFor": 1.283419079154022,
+      "adjustedAgainst": 1.3056203545764284
     },
     "primera-a-colombia.internacional-bogota": {
       "teamId": "primera-a-colombia.internacional-bogota",
@@ -150,19 +150,19 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.3157894736842106,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2151521216552588,
-      "adjustedAgainst": 1.244880929882841
+      "adjustedFor": 1.2136252520529753,
+      "adjustedAgainst": 1.244374360122593
     },
     "primera-a-colombia.america-cali": {
       "teamId": "primera-a-colombia.america-cali",
       "name": "América de Cali",
       "shortName": "América de Cali",
       "code": "AME",
-      "forPerGame": 1.631578947368421,
-      "againstPerGame": 0.7894736842105263,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.430791448215399,
-      "adjustedAgainst": 0.8144259041745484
+      "forPerGame": 1.65,
+      "againstPerGame": 0.85,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.4733168606448708,
+      "adjustedAgainst": 0.8561808367941768
     },
     "primera-a-colombia.rionegro-aguilas-doradas": {
       "teamId": "primera-a-colombia.rionegro-aguilas-doradas",
@@ -172,19 +172,19 @@
       "forPerGame": 1.1578947368421053,
       "againstPerGame": 1.1578947368421053,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0846238573471607,
-      "adjustedAgainst": 1.091444483985838
+      "adjustedFor": 1.0838946589223735,
+      "adjustedAgainst": 1.09026709166792
     },
     "primera-a-colombia.independiente-santa-fe": {
       "teamId": "primera-a-colombia.independiente-santa-fe",
       "name": "Independiente Santa Fe",
       "shortName": "Independiente Santa Fe",
       "code": "IND",
-      "forPerGame": 1.5789473684210527,
-      "againstPerGame": 0.9473684210526315,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.4279048369309186,
-      "adjustedAgainst": 0.9371259342098506
+      "forPerGame": 1.5,
+      "againstPerGame": 0.95,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.3674153690528597,
+      "adjustedAgainst": 0.9280584863936634
     },
     "primera-a-colombia.alianza-valledupar": {
       "teamId": "primera-a-colombia.alianza-valledupar",
@@ -194,8 +194,8 @@
       "forPerGame": 0.9473684210526315,
       "againstPerGame": 1.736842105263158,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9463494544002024,
-      "adjustedAgainst": 1.542511824797585
+      "adjustedFor": 0.9446524329342697,
+      "adjustedAgainst": 1.5421291583726118
     },
     "primera-a-colombia.fortaleza": {
       "teamId": "primera-a-colombia.fortaleza",
@@ -205,8 +205,8 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9090113893795212,
-      "adjustedAgainst": 1.385954931743781
+      "adjustedFor": 0.9088771698573287,
+      "adjustedAgainst": 1.3849412539071493
     },
     "primera-a-colombia.once-caldas": {
       "teamId": "primera-a-colombia.once-caldas",
@@ -216,8 +216,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1,
       "gamesPlayed": 19,
-      "adjustedFor": 1.1357125603210454,
-      "adjustedAgainst": 0.9636094212882378
+      "adjustedFor": 1.1335783046591137,
+      "adjustedAgainst": 0.9626822977917868
     },
     "primera-a-colombia.cucuta-deportivo": {
       "teamId": "primera-a-colombia.cucuta-deportivo",
@@ -227,116 +227,11 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.368421052631579,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0537423969980215,
-      "adjustedAgainst": 1.244781867571834
+      "adjustedFor": 1.0519054624793522,
+      "adjustedAgainst": 1.2440008769848738
     }
   },
   "games": [
-    {
-      "id": "primera-a-colombia-2026-11-08-america-cali-deportivo-cali-k8pt3x",
-      "league": "primera-a-colombia",
-      "season": "primera-a-colombia-2026",
-      "week": 18,
-      "round": "Group B · Matchday 18",
-      "phase": "Group stage",
-      "startTime": "2026-11-08T01:45:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-a-colombia.america-cali",
-        "league": "primera-a-colombia",
-        "name": "América de Cali",
-        "shortName": "América de Cali",
-        "code": "AME",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/753/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-a-colombia.deportivo-cali",
-        "league": "primera-a-colombia",
-        "name": "Deportivo Cali",
-        "shortName": "Cali",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/3733/?bg=transparent"
-      },
-      "venue": "Olimpico Pascual Guerrero, Santiago de Cali",
-      "referee": "Carlos Betancur",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "primera-a-colombia-2026-11-08-independiente--deportivo-past-w9vqrk",
-      "league": "primera-a-colombia",
-      "season": "primera-a-colombia-2026",
-      "week": 18,
-      "round": "League phase · Matchday 18",
-      "phase": "League phase",
-      "startTime": "2026-11-08T19:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-a-colombia.independiente-santa-fe",
-        "league": "primera-a-colombia",
-        "name": "Independiente Santa Fe",
-        "shortName": "Independiente Santa Fe",
-        "code": "IND",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/797/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-a-colombia.deportivo-pasto",
-        "league": "primera-a-colombia",
-        "name": "Deportivo Pasto",
-        "shortName": "Pasto",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/3419/?bg=transparent"
-      },
-      "venue": "Estadio Nemesio Camacho El Campin, Bogota",
-      "referee": "Ferney Ossa Orozco",
-      "neutralSite": false,
-      "result": {
-        "home": 5,
-        "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "primera-a-colombia-2026-11-08-jaguares-cordo-atletico-bucar-hxdqqu",
-      "league": "primera-a-colombia",
-      "season": "primera-a-colombia-2026",
-      "week": 18,
-      "round": "League phase · Matchday 18",
-      "phase": "League phase",
-      "startTime": "2026-11-08T21:05:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-a-colombia.jaguares-cordoba",
-        "league": "primera-a-colombia",
-        "name": "Jaguares de Córdoba",
-        "shortName": "Jaguares de Córdoba",
-        "code": "JAG",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/4785/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-a-colombia.atletico-bucaramanga",
-        "league": "primera-a-colombia",
-        "name": "Atlético Bucaramanga",
-        "shortName": "Bucaramanga",
-        "code": "ATL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/771/?bg=transparent"
-      },
-      "venue": "Estadio Jaraguay, Monteria",
-      "referee": "Andres Rojas",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 4,
-        "observedAt": "2026-11-20T23:19:05.023Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "primera-a-colombia-2026-11-08-deportes-tolim-millonarios-0cg7y8",
       "league": "primera-a-colombia",
@@ -368,7 +263,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +298,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -438,7 +333,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -473,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +403,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -542,7 +437,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -577,7 +472,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -612,7 +507,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -647,7 +542,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -682,7 +577,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -717,7 +612,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -752,7 +647,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -787,7 +682,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -799,7 +694,7 @@
       "round": "Group A · Matchday 1",
       "phase": "Group stage",
       "startTime": "2026-11-20T21:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-a-colombia.independiente-medellin",
         "league": "primera-a-colombia",
@@ -818,7 +713,13 @@
       },
       "venue": "Estadio Atanasio Girardot, Medellin",
       "referee": "Jose Alexander Ortiz Novoa",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-21T04:14:45.246Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-a-colombia-2026-11-20-atletico-bucar-america-cali-78io2p",
@@ -828,7 +729,7 @@
       "round": "Group B · Matchday 1",
       "phase": "Group stage",
       "startTime": "2026-11-20T23:35:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-a-colombia.atletico-bucaramanga",
         "league": "primera-a-colombia",
@@ -847,7 +748,13 @@
       },
       "venue": "Estadio Américo Montanini, Bucaramanga",
       "referee": "Carlos Andrés Márquez Ortega",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 2,
+        "observedAt": "2026-11-21T04:14:45.246Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-a-colombia-2026-11-21-deportivo-cali-millonarios-qbkex7",
@@ -857,7 +764,7 @@
       "round": "Group B · Matchday 1",
       "phase": "Group stage",
       "startTime": "2026-11-21T01:40:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-a-colombia.deportivo-cali",
         "league": "primera-a-colombia",
@@ -876,7 +783,13 @@
       },
       "venue": "Estadio Deportivo Cali, Palmira",
       "referee": "Bismark Elias Santiago Pitalua",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 0,
+        "observedAt": "2026-11-21T04:14:45.246Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-a-colombia-2026-11-22-once-caldas-atletico-nacio-jli07k",
@@ -1024,8 +937,8 @@
       "league": "primera-a-colombia",
       "season": "primera-a-colombia-2026",
       "week": 3,
-      "round": "League phase · Matchday 3",
-      "phase": "League phase",
+      "round": "Group B · Matchday 3",
+      "phase": "Group stage",
       "startTime": "2026-11-27T23:35:00.000Z",
       "status": "scheduled",
       "home": {
@@ -1052,8 +965,8 @@
       "league": "primera-a-colombia",
       "season": "primera-a-colombia-2026",
       "week": 3,
-      "round": "League phase · Matchday 3",
-      "phase": "League phase",
+      "round": "Group B · Matchday 3",
+      "phase": "Group stage",
       "startTime": "2026-11-28T01:40:00.000Z",
       "status": "scheduled",
       "home": {
@@ -1080,8 +993,8 @@
       "league": "primera-a-colombia",
       "season": "primera-a-colombia-2026",
       "week": 3,
-      "round": "League phase · Matchday 3",
-      "phase": "League phase",
+      "round": "Group A · Matchday 3",
+      "phase": "Group stage",
       "startTime": "2026-11-29T00:30:00.000Z",
       "status": "scheduled",
       "home": {
@@ -1108,8 +1021,8 @@
       "league": "primera-a-colombia",
       "season": "primera-a-colombia-2026",
       "week": 3,
-      "round": "League phase · Matchday 3",
-      "phase": "League phase",
+      "round": "Group A · Matchday 3",
+      "phase": "Group stage",
       "startTime": "2026-11-29T23:30:00.000Z",
       "status": "scheduled",
       "home": {
@@ -1136,8 +1049,8 @@
       "league": "primera-a-colombia",
       "season": "primera-a-colombia-2026",
       "week": 4,
-      "round": "League phase · Matchday 4",
-      "phase": "League phase",
+      "round": "Group B · Matchday 4",
+      "phase": "Group stage",
       "startTime": "2026-12-01T23:20:00.000Z",
       "status": "scheduled",
       "home": {
@@ -1164,8 +1077,8 @@
       "league": "primera-a-colombia",
       "season": "primera-a-colombia-2026",
       "week": 4,
-      "round": "League phase · Matchday 4",
-      "phase": "League phase",
+      "round": "Group B · Matchday 4",
+      "phase": "Group stage",
       "startTime": "2026-12-02T01:30:00.000Z",
       "status": "scheduled",
       "home": {
@@ -1192,8 +1105,8 @@
       "league": "primera-a-colombia",
       "season": "primera-a-colombia-2026",
       "week": 4,
-      "round": "League phase · Matchday 4",
-      "phase": "League phase",
+      "round": "Group A · Matchday 4",
+      "phase": "Group stage",
       "startTime": "2026-12-02T23:20:00.000Z",
       "status": "scheduled",
       "home": {
@@ -1220,8 +1133,8 @@
       "league": "primera-a-colombia",
       "season": "primera-a-colombia-2026",
       "week": 4,
-      "round": "League phase · Matchday 4",
-      "phase": "League phase",
+      "round": "Group A · Matchday 4",
+      "phase": "Group stage",
       "startTime": "2026-12-03T01:30:00.000Z",
       "status": "scheduled",
       "home": {
@@ -1245,1360 +1158,6 @@
     }
   ],
   "analyses": {
-    "primera-a-colombia-2026-11-08-america-cali-deportivo-cali-k8pt3x": {
-      "game": "primera-a-colombia-2026-11-08-america-cali-deportivo-cali-k8pt3x",
-      "model": {
-        "id": "pitchlab-statistical-primera-a-colombia",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.1230095076718818,
-        "away": 0.9489958955986109,
-        "total": 2.0720054032704924,
-        "margin": 0.17401361207327093
-      },
-      "x12": [
-        0.3939594977876344,
-        0.3017726967038333,
-        0.30426780550853244
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "América de Cali gana",
-          "p": 0.3939594977876344,
-          "fairOdds": 2.538332000156662
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.3017726967038333,
-          "fairOdds": 3.3137524067706603
-        },
-        {
-          "market": "h2h",
-          "selection": "Cali gana",
-          "p": 0.30426780550853244,
-          "fairOdds": 3.286578408545946
-        },
-        {
-          "market": "double_chance",
-          "selection": "América de Cali o empate",
-          "p": 0.6957321944914676,
-          "fairOdds": 1.4373346639951472
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cali o empate",
-          "p": 0.6060405022123657,
-          "fairOdds": 1.650054734542453
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.6982273032961668,
-          "fairOdds": 1.4321983618790548
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6138042381324347,
-          "fairOdds": 1.6291839284828131
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.34280503276997343,
-          "fairOdds": 2.9171100316692633
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6571949672300266,
-          "fairOdds": 1.5216184691962003
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.15609790246942523,
-          "fairOdds": 6.406235985111134
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.8439020975305748,
-          "fairOdds": 1.184971577776852
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4141751516084152,
-          "fairOdds": 2.414437457478031
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5858248483915848,
-          "fairOdds": 1.7069948513545585
-        },
-        {
-          "market": "team_totals",
-          "selection": "América de Cali más de 1.5",
-          "line": 1.5,
-          "p": 0.3093864090893753,
-          "fairOdds": 3.232204035540297
-        },
-        {
-          "market": "team_totals",
-          "selection": "América de Cali menos de 1.5",
-          "line": 1.5,
-          "p": 0.6906135909106247,
-          "fairOdds": 1.4479877215874462
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cali más de 1.5",
-          "line": 1.5,
-          "p": 0.24548609766974083,
-          "fairOdds": 4.073550435207649
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cali menos de 1.5",
-          "line": 1.5,
-          "p": 0.7545139023302592,
-          "fairOdds": 1.3253566261822023
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.14075288768481675,
-          "fairOdds": 7.104649975205245
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.13488179361272332,
-          "fairOdds": 7.413899038674042
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–0",
-          "p": 0.12660404039134315,
-          "fairOdds": 7.898642072629913
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "América de Cali gana",
-              "p": 0.3939594977876344,
-              "fairOdds": 2.538332000156662
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.3017726967038333,
-              "fairOdds": 3.3137524067706603
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Cali gana",
-              "p": 0.30426780550853244,
-              "fairOdds": 3.286578408545946
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "América de Cali o empate",
-              "p": 0.6957321944914676,
-              "fairOdds": 1.4373346639951472
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Cali o empate",
-              "p": 0.6060405022123657,
-              "fairOdds": 1.650054734542453
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.6982273032961668,
-              "fairOdds": 1.4321983618790548
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6138042381324347,
-              "fairOdds": 1.6291839284828131
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.34280503276997343,
-              "fairOdds": 2.9171100316692633
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.6571949672300266,
-              "fairOdds": 1.5216184691962003
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.15609790246942523,
-              "fairOdds": 6.406235985111134
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.8439020975305748,
-              "fairOdds": 1.184971577776852
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4141751516084152,
-              "fairOdds": 2.414437457478031
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5858248483915848,
-              "fairOdds": 1.7069948513545585
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "América de Cali más de 1.5",
-              "line": 1.5,
-              "p": 0.3093864090893753,
-              "fairOdds": 3.232204035540297
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "América de Cali menos de 1.5",
-              "line": 1.5,
-              "p": 0.6906135909106247,
-              "fairOdds": 1.4479877215874462
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Cali más de 1.5",
-              "line": 1.5,
-              "p": 0.24548609766974083,
-              "fairOdds": 4.073550435207649
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Cali menos de 1.5",
-              "line": 1.5,
-              "p": 0.7545139023302592,
-              "fairOdds": 1.3253566261822023
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.14075288768481675,
-              "fairOdds": 7.104649975205245
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.13488179361272332,
-              "fairOdds": 7.413899038674042
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-0",
-              "label": "0–0",
-              "p": 0.12660404039134315,
-              "fairOdds": 7.898642072629913
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.14075288768481675
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.87 goles/partido",
-          "detail": "26 % más que la media · 19 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.69 concedidos/partido",
-          "detail": "40 % menos que la media · 19 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.95 goles/partido",
-          "detail": "17 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.81 concedidos/partido",
-          "detail": "29 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.30",
-          "detail": "estimada de 190 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.4–3.0",
-          "detail": "local 22%–62% · 190 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "2.º · 36 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "3.º · 35 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-E-G-G-E · 8 pts",
-          "detail": "7 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-G-E-G · 9 pts",
-          "detail": "6 goles a favor · 1 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Categoría Primera A · corte 7 nov 2026, 18:45",
-        "Fuerza ajustada por rival · AME 1.26 / 0.71 · DEP 1.17 / 0.60",
-        "Ponderando 170.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.12 – 0.95 · total 2.07",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-08T00:45:00.000Z",
-      "publishedAt": "2026-11-08T00:45:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.14075288768481675
-      },
-      "insights": {
-        "why": [
-          "América de Cali gana en 39% de los escenarios; el empate, en 30%.",
-          "Cali concede 40 % menos que la media.",
-          "América de Cali concede 29 % menos que la media."
-        ],
-        "restDays": {
-          "home": 3,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Carlos Betancur",
-        "refereeStats": {
-          "country": "Colombia",
-          "matches": 48,
-          "avgYellow": 4.81,
-          "avgRed": 0.38,
-          "avgFouls": 21.2,
-          "avgGoals": 2.73
-        },
-        "weather": {
-          "description": "rain",
-          "temperatureC": 21,
-          "windSpeedKmh": 8
-        },
-        "travelDistanceKm": 17,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "groupName": "Group B",
-        "stageName": "Group stage",
-        "venueCity": "Santiago de Cali",
-        "venueCountry": "Colombia",
-        "venueCapacity": 38000
-      }
-    },
-    "primera-a-colombia-2026-11-08-independiente--deportivo-past-w9vqrk": {
-      "game": "primera-a-colombia-2026-11-08-independiente--deportivo-past-w9vqrk",
-      "model": {
-        "id": "pitchlab-statistical-primera-a-colombia",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.290016380256009,
-        "away": 0.5965856374798753,
-        "total": 2.886602017735884,
-        "margin": 1.6934307427761337
-      },
-      "x12": [
-        0.7570631033450838,
-        0.16304565074789673,
-        0.07989124590701976
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Independiente Santa Fe gana",
-          "p": 0.7570631033450838,
-          "fairOdds": 1.3208938536054649
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.16304565074789673,
-          "fairOdds": 6.133251610288046
-        },
-        {
-          "market": "h2h",
-          "selection": "Pasto gana",
-          "p": 0.07989124590701976,
-          "fairOdds": 12.517015958967958
-        },
-        {
-          "market": "double_chance",
-          "selection": "Independiente Santa Fe o empate",
-          "p": 0.9201087540929804,
-          "fairOdds": 1.0868280467408162
-        },
-        {
-          "market": "double_chance",
-          "selection": "Pasto o empate",
-          "p": 0.2429368966549165,
-          "fairOdds": 4.1162952757253075
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8369543492521035,
-          "fairOdds": 1.1948082961676378
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7836369523745981,
-          "fairOdds": 1.2761011294449205
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.55091770583391,
-          "fairOdds": 1.815153133418222
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.44908229416609,
-          "fairOdds": 2.226763363843859
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3273616325338402,
-          "fairOdds": 3.054725724147369
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6726383674661598,
-          "fairOdds": 1.4866829612574988
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.40419154810027585,
-          "fairOdds": 2.4740744943828217
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5958084518997242,
-          "fairOdds": 1.6783917663663859
-        },
-        {
-          "market": "team_totals",
-          "selection": "Independiente Santa Fe más de 1.5",
-          "line": 1.5,
-          "p": 0.6668276891317718,
-          "fairOdds": 1.4996377869401731
-        },
-        {
-          "market": "team_totals",
-          "selection": "Independiente Santa Fe menos de 1.5",
-          "line": 1.5,
-          "p": 0.3331723108682282,
-          "fairOdds": 3.001449902586612
-        },
-        {
-          "market": "team_totals",
-          "selection": "Pasto más de 1.5",
-          "line": 1.5,
-          "p": 0.1207783617772753,
-          "fairOdds": 8.279628778572754
-        },
-        {
-          "market": "team_totals",
-          "selection": "Pasto menos de 1.5",
-          "line": 1.5,
-          "p": 0.8792216382227247,
-          "fairOdds": 1.1373696421091488
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.1462258560475357,
-          "fairOdds": 6.838735822992316
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.12732631615805873,
-          "fairOdds": 7.853835956100643
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–0",
-          "p": 0.11161986852193798,
-          "fairOdds": 8.958978479744923
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Independiente Santa Fe gana",
-              "p": 0.7570631033450838,
-              "fairOdds": 1.3208938536054649
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.16304565074789673,
-              "fairOdds": 6.133251610288046
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Pasto gana",
-              "p": 0.07989124590701976,
-              "fairOdds": 12.517015958967958
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Independiente Santa Fe o empate",
-              "p": 0.9201087540929804,
-              "fairOdds": 1.0868280467408162
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Pasto o empate",
-              "p": 0.2429368966549165,
-              "fairOdds": 4.1162952757253075
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8369543492521035,
-              "fairOdds": 1.1948082961676378
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7836369523745981,
-              "fairOdds": 1.2761011294449205
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.55091770583391,
-              "fairOdds": 1.815153133418222
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.44908229416609,
-              "fairOdds": 2.226763363843859
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3273616325338402,
-              "fairOdds": 3.054725724147369
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6726383674661598,
-              "fairOdds": 1.4866829612574988
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.40419154810027585,
-              "fairOdds": 2.4740744943828217
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5958084518997242,
-              "fairOdds": 1.6783917663663859
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Independiente Santa Fe más de 1.5",
-              "line": 1.5,
-              "p": 0.6668276891317718,
-              "fairOdds": 1.4996377869401731
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Independiente Santa Fe menos de 1.5",
-              "line": 1.5,
-              "p": 0.3331723108682282,
-              "fairOdds": 3.001449902586612
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Pasto más de 1.5",
-              "line": 1.5,
-              "p": 0.1207783617772753,
-              "fairOdds": 8.279628778572754
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Pasto menos de 1.5",
-              "line": 1.5,
-              "p": 0.8792216382227247,
-              "fairOdds": 1.1373696421091488
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.1462258560475357,
-              "fairOdds": 6.838735822992316
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.12732631615805873,
-              "fairOdds": 7.853835956100643
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-0",
-              "label": "3–0",
-              "p": 0.11161986852193798,
-              "fairOdds": 8.958978479744923
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 0,
-        "p": 0.1462258560475357
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.77 goles/partido",
-          "detail": "25 % más que la media · 19 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.41 concedidos/partido",
-          "detail": "24 % más que la media · 19 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.60 goles/partido",
-          "detail": "36 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.94 concedidos/partido",
-          "detail": "18 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.30",
-          "detail": "estimada de 190 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.0–4.0",
-          "detail": "local 55%–90% · 190 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "5.º · 34 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "18.º · 15 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-G-P-P · 6 pts",
-          "detail": "4 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-P-G-P-G · 6 pts",
-          "detail": "4 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Categoría Primera A · corte 8 nov 2026, 12:00",
-        "Fuerza ajustada por rival · IND 1.25 / 0.82 · DEP 0.64 / 1.24",
-        "Ponderando 170.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.29 – 0.60 · total 2.89",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 3–0"
-      ],
-      "inputsAsOf": "2026-11-08T18:00:00.000Z",
-      "publishedAt": "2026-11-08T18:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 3,
-        "away": 0,
-        "p": 0.11161986852193798
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.9 goles: 2.3 de Independiente Santa Fe y 0.6 de Pasto.",
-          "Pasto anota 36 % menos que la media.",
-          "Independiente Santa Fe anota 25 % más que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Ferney Ossa Orozco",
-        "refereeStats": {
-          "country": "Colombia",
-          "matches": 6,
-          "avgYellow": 4.5,
-          "avgRed": 0.33,
-          "avgFouls": 26.5,
-          "avgGoals": 4
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 13,
-          "windSpeedKmh": 27
-        },
-        "travelDistanceKm": 524,
-        "halfTimeScore": {
-          "home": 2,
-          "away": 0
-        },
-        "stageName": "League phase",
-        "venueCity": "Bogota",
-        "venueCountry": "Colombia",
-        "venueCapacity": 36343
-      }
-    },
-    "primera-a-colombia-2026-11-08-jaguares-cordo-atletico-bucar-hxdqqu": {
-      "game": "primera-a-colombia-2026-11-08-jaguares-cordo-atletico-bucar-hxdqqu",
-      "model": {
-        "id": "pitchlab-statistical-primera-a-colombia",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 0.943227248462099,
-        "away": 2.2116810662680284,
-        "total": 3.1549083147301276,
-        "margin": -1.2684538178059293
-      },
-      "x12": [
-        0.14760771630365274,
-        0.19116614788815597,
-        0.661226135808192
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Jaguares de Córdoba gana",
-          "p": 0.14760771630365274,
-          "fairOdds": 6.774713578948946
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.19116614788815597,
-          "fairOdds": 5.231051684867667
-        },
-        {
-          "market": "h2h",
-          "selection": "Bucaramanga gana",
-          "p": 0.661226135808192,
-          "fairOdds": 1.5123419142798058
-        },
-        {
-          "market": "double_chance",
-          "selection": "Jaguares de Córdoba o empate",
-          "p": 0.3387738641918087,
-          "fairOdds": 2.9518215709633813
-        },
-        {
-          "market": "double_chance",
-          "selection": "Bucaramanga o empate",
-          "p": 0.852392283696348,
-          "fairOdds": 1.1731687617625537
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8088338521118448,
-          "fairOdds": 1.2363478573368625
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8232662246986044,
-          "fairOdds": 1.2146739049887505
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6105980473966073,
-          "fairOdds": 1.6377386142384123
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.3894019526033927,
-          "fairOdds": 2.568040538354731
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.38741627485186436,
-          "fairOdds": 2.5812028686259194
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6125837251481356,
-          "fairOdds": 1.6324299176544055
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5442001104384848,
-          "fairOdds": 1.837559347781569
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4557998895615152,
-          "fairOdds": 2.193945244177246
-        },
-        {
-          "market": "team_totals",
-          "selection": "Jaguares de Córdoba más de 1.5",
-          "line": 1.5,
-          "p": 0.2433671288286987,
-          "fairOdds": 4.109018357626597
-        },
-        {
-          "market": "team_totals",
-          "selection": "Jaguares de Córdoba menos de 1.5",
-          "line": 1.5,
-          "p": 0.7566328711713013,
-          "fairOdds": 1.3216449325707402
-        },
-        {
-          "market": "team_totals",
-          "selection": "Bucaramanga más de 1.5",
-          "line": 1.5,
-          "p": 0.648260984978855,
-          "fairOdds": 1.5425885918965463
-        },
-        {
-          "market": "team_totals",
-          "selection": "Bucaramanga menos de 1.5",
-          "line": 1.5,
-          "p": 0.351739015021145,
-          "fairOdds": 2.8430170020800345
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.10429530279885432,
-          "fairOdds": 9.588159515952668
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.0983741714864848,
-          "fairOdds": 10.16526985579122
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.09386835518430232,
-          "fairOdds": 10.653217455835753
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Jaguares de Córdoba gana",
-              "p": 0.14760771630365274,
-              "fairOdds": 6.774713578948946
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.19116614788815597,
-              "fairOdds": 5.231051684867667
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Bucaramanga gana",
-              "p": 0.661226135808192,
-              "fairOdds": 1.5123419142798058
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Jaguares de Córdoba o empate",
-              "p": 0.3387738641918087,
-              "fairOdds": 2.9518215709633813
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Bucaramanga o empate",
-              "p": 0.852392283696348,
-              "fairOdds": 1.1731687617625537
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8088338521118448,
-              "fairOdds": 1.2363478573368625
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8232662246986044,
-              "fairOdds": 1.2146739049887505
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6105980473966073,
-              "fairOdds": 1.6377386142384123
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.3894019526033927,
-              "fairOdds": 2.568040538354731
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.38741627485186436,
-              "fairOdds": 2.5812028686259194
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6125837251481356,
-              "fairOdds": 1.6324299176544055
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5442001104384848,
-              "fairOdds": 1.837559347781569
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4557998895615152,
-              "fairOdds": 2.193945244177246
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Jaguares de Córdoba más de 1.5",
-              "line": 1.5,
-              "p": 0.2433671288286987,
-              "fairOdds": 4.109018357626597
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Jaguares de Córdoba menos de 1.5",
-              "line": 1.5,
-              "p": 0.7566328711713013,
-              "fairOdds": 1.3216449325707402
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Bucaramanga más de 1.5",
-              "line": 1.5,
-              "p": 0.648260984978855,
-              "fairOdds": 1.5425885918965463
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Bucaramanga menos de 1.5",
-              "line": 1.5,
-              "p": 0.351739015021145,
-              "fairOdds": 2.8430170020800345
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.10429530279885432,
-              "fairOdds": 9.588159515952668
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.0983741714864848,
-              "fairOdds": 10.16526985579122
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.09386835518430232,
-              "fairOdds": 10.653217455835753
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 0,
-        "away": 2,
-        "p": 0.10429530279885432
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.73 goles/partido",
-          "detail": "20 % menos que la media · 19 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.91 concedidos/partido",
-          "detail": "21 % menos que la media · 19 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.21 goles/partido",
-          "detail": "28 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.73 concedidos/partido",
-          "detail": "52 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.30",
-          "detail": "estimada de 190 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.4–4.5",
-          "detail": "local 6%–29% · 190 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "19.º · 13 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "4.º · 35 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-G-P-P · 3 pts",
-          "detail": "3 goles a favor · 9 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-P-P-G-E · 5 pts",
-          "detail": "5 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Categoría Primera A · corte 8 nov 2026, 14:05",
-        "Fuerza ajustada por rival · JAG 0.80 / 1.52 · ATL 1.28 / 0.79",
-        "Ponderando 170.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.94 – 2.21 · total 3.15",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-08T20:05:00.000Z",
-      "publishedAt": "2026-11-08T20:05:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.0983741714864848
-      },
-      "insights": {
-        "why": [
-          "Bucaramanga gana en 66% de los escenarios; el empate, en 19%.",
-          "Jaguares de Córdoba concede 52 % más que la media.",
-          "Bucaramanga anota 28 % más que la media."
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Andres Rojas",
-        "refereeStats": {
-          "country": "Colombia",
-          "matches": 58,
-          "avgYellow": 5.74,
-          "avgRed": 0.6,
-          "avgFouls": 24.6,
-          "avgGoals": 2.24
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 28,
-          "windSpeedKmh": 49
-        },
-        "travelDistanceKm": 354,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 2
-        },
-        "stageName": "League phase",
-        "venueCity": "Monteria",
-        "venueCountry": "Colombia",
-        "venueCapacity": 12000
-      }
-    },
     "primera-a-colombia-2026-11-08-deportes-tolim-millonarios-0cg7y8": {
       "game": "primera-a-colombia-2026-11-08-deportes-tolim-millonarios-0cg7y8",
       "model": {
@@ -3479,11 +2038,11 @@
         "referee": "Bismark Elias Santiago Pitalua",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 29,
-          "avgYellow": 5.66,
-          "avgRed": 0.34,
-          "avgFouls": 24,
-          "avgGoals": 2.1
+          "matches": 30,
+          "avgYellow": 5.67,
+          "avgRed": 0.33,
+          "avgFouls": 24.6,
+          "avgGoals": 2.03
         },
         "weather": {
           "description": "clear",
@@ -4831,11 +3390,11 @@
         "referee": "Carlos Andrés Márquez Ortega",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 5,
-          "avgYellow": 4.8,
-          "avgRed": 0.4,
-          "avgFouls": 19.2,
-          "avgGoals": 1.8
+          "matches": 6,
+          "avgYellow": 5.67,
+          "avgRed": 0.5,
+          "avgFouls": 18.2,
+          "avgGoals": 2.17
         },
         "weather": {
           "temperatureC": 24,
@@ -5726,11 +4285,11 @@
         "referee": "Bismark Elias Santiago Pitalua",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 29,
-          "avgYellow": 5.66,
-          "avgRed": 0.34,
-          "avgFouls": 24,
-          "avgGoals": 2.1
+          "matches": 30,
+          "avgYellow": 5.67,
+          "avgRed": 0.33,
+          "avgFouls": 24.6,
+          "avgGoals": 2.03
         },
         "weather": {
           "description": "clear",
@@ -7530,11 +6089,11 @@
         "referee": "Andres Rojas",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 58,
-          "avgYellow": 5.74,
-          "avgRed": 0.6,
+          "matches": 59,
+          "avgYellow": 5.73,
+          "avgRed": 0.59,
           "avgFouls": 24.6,
-          "avgGoals": 2.24
+          "avgGoals": 2.29
         },
         "weather": {
           "description": "clear",
@@ -8931,13 +7490,14 @@
         "referee": "Jose Alexander Ortiz Novoa",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 32,
-          "avgYellow": 6.31,
-          "avgRed": 0.75,
-          "avgFouls": 23.2,
-          "avgGoals": 2.34
+          "matches": 33,
+          "avgYellow": 6.27,
+          "avgRed": 0.73,
+          "avgFouls": 23,
+          "avgGoals": 2.3
         },
         "weather": {
+          "description": "rain",
           "temperatureC": 22,
           "windSpeedKmh": 3
         },
@@ -9428,17 +7988,22 @@
         "referee": "Carlos Andrés Márquez Ortega",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 5,
-          "avgYellow": 4.8,
-          "avgRed": 0.4,
-          "avgFouls": 19.2,
-          "avgGoals": 1.8
+          "matches": 6,
+          "avgYellow": 5.67,
+          "avgRed": 0.5,
+          "avgFouls": 18.2,
+          "avgGoals": 2.17
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 23,
           "windSpeedKmh": 8
         },
         "travelDistanceKm": 561,
+        "halfTimeScore": {
+          "home": 2,
+          "away": 2
+        },
         "groupName": "Group B",
         "stageName": "Group stage",
         "venueCity": "Bucaramanga",
@@ -9921,17 +8486,22 @@
         "referee": "Bismark Elias Santiago Pitalua",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 29,
-          "avgYellow": 5.66,
-          "avgRed": 0.34,
-          "avgFouls": 24,
-          "avgGoals": 2.1
+          "matches": 30,
+          "avgYellow": 5.67,
+          "avgRed": 0.33,
+          "avgFouls": 24.6,
+          "avgGoals": 2.03
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 22,
           "windSpeedKmh": 13
         },
         "travelDistanceKm": 289,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "groupName": "Group B",
         "stageName": "Group stage",
         "venueCity": "Palmira",
@@ -10423,6 +8993,7 @@
           "temperatureC": 17,
           "windSpeedKmh": 2
         },
+        "travelDistanceKm": 134,
         "groupName": "Group A",
         "stageName": "Group stage",
         "venueCity": "Manizales",
@@ -12839,7 +11410,8 @@
           "temperatureC": 23,
           "windSpeedKmh": 14
         },
-        "stageName": "League phase",
+        "groupName": "Group B",
+        "stageName": "Group stage",
         "venueCity": "Palmira",
         "venueCountry": "Colombia",
         "venueCapacity": 52000
@@ -13321,7 +11893,8 @@
           "temperatureC": 14,
           "windSpeedKmh": 8
         },
-        "stageName": "League phase",
+        "groupName": "Group B",
+        "stageName": "Group stage",
         "venueCity": "Bogota",
         "venueCountry": "Colombia",
         "venueCapacity": 36343
@@ -13804,7 +12377,8 @@
           "temperatureC": 15,
           "windSpeedKmh": 19
         },
-        "stageName": "League phase",
+        "groupName": "Group A",
+        "stageName": "Group stage",
         "venueCity": "Bogota",
         "venueCountry": "Colombia",
         "venueCapacity": 36343
@@ -14287,7 +12861,8 @@
           "temperatureC": 20,
           "windSpeedKmh": 6
         },
-        "stageName": "League phase",
+        "groupName": "Group A",
+        "stageName": "Group stage",
         "venueCity": "Medellin",
         "venueCountry": "Colombia",
         "venueCapacity": 44739
@@ -14770,7 +13345,8 @@
           "temperatureC": 23,
           "windSpeedKmh": 9
         },
-        "stageName": "League phase",
+        "groupName": "Group B",
+        "stageName": "Group stage",
         "venueCity": "Bucaramanga",
         "venueCountry": "Colombia",
         "venueCapacity": 28000
@@ -15253,7 +13829,8 @@
           "temperatureC": 22,
           "windSpeedKmh": 17
         },
-        "stageName": "League phase",
+        "groupName": "Group B",
+        "stageName": "Group stage",
         "venueCity": "Santiago de Cali",
         "venueCountry": "Colombia",
         "venueCapacity": 38000
@@ -15737,7 +14314,8 @@
           "temperatureC": 17,
           "windSpeedKmh": 4
         },
-        "stageName": "League phase",
+        "groupName": "Group A",
+        "stageName": "Group stage",
         "venueCity": "Manizales",
         "venueCountry": "Colombia",
         "venueCapacity": 36553
@@ -16219,7 +14797,8 @@
           "temperatureC": 20,
           "windSpeedKmh": 1
         },
-        "stageName": "League phase",
+        "groupName": "Group A",
+        "stageName": "Group stage",
         "venueCity": "Medellin",
         "venueCountry": "Colombia",
         "venueCapacity": 44739
@@ -16252,19 +14831,19 @@
       "name": "América de Cali",
       "shortName": "América de Cali",
       "code": "AME",
-      "played": 19,
+      "played": 20,
       "won": 10,
-      "drawn": 6,
+      "drawn": 7,
       "lost": 3,
-      "goalsFor": 31,
-      "goalsAgainst": 15,
-      "points": 36,
+      "goalsFor": 33,
+      "goalsAgainst": 17,
+      "points": 37,
       "form": [
         "W",
+        "D",
+        "D",
         "W",
-        "D",
-        "D",
-        "W"
+        "D"
       ]
     },
     {
@@ -16272,17 +14851,17 @@
       "name": "Deportivo Cali",
       "shortName": "Cali",
       "code": "DEP",
-      "played": 19,
+      "played": 20,
       "won": 9,
-      "drawn": 8,
+      "drawn": 9,
       "lost": 2,
       "goalsFor": 28,
       "goalsAgainst": 12,
-      "points": 35,
+      "points": 36,
       "form": [
-        "W",
         "D",
         "W",
+        "D",
         "D",
         "D"
       ]
@@ -16292,17 +14871,37 @@
       "name": "Atlético Bucaramanga",
       "shortName": "Bucaramanga",
       "code": "ATL",
-      "played": 19,
+      "played": 20,
       "won": 9,
-      "drawn": 8,
+      "drawn": 9,
       "lost": 2,
-      "goalsFor": 31,
-      "goalsAgainst": 17,
+      "goalsFor": 33,
+      "goalsAgainst": 19,
+      "points": 36,
+      "form": [
+        "W",
+        "D",
+        "W",
+        "W",
+        "D"
+      ]
+    },
+    {
+      "teamId": "primera-a-colombia.independiente-medellin",
+      "name": "Independiente Medellín",
+      "shortName": "Independiente Medellín",
+      "code": "IND",
+      "played": 20,
+      "won": 11,
+      "drawn": 2,
+      "lost": 7,
+      "goalsFor": 30,
+      "goalsAgainst": 25,
       "points": 35,
       "form": [
         "L",
         "W",
-        "D",
+        "W",
         "W",
         "W"
       ]
@@ -16312,39 +14911,19 @@
       "name": "Independiente Santa Fe",
       "shortName": "Independiente Santa Fe",
       "code": "IND",
-      "played": 19,
+      "played": 20,
       "won": 10,
       "drawn": 4,
-      "lost": 5,
+      "lost": 6,
       "goalsFor": 30,
-      "goalsAgainst": 18,
+      "goalsAgainst": 19,
       "points": 34,
       "form": [
-        "W",
-        "L",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "primera-a-colombia.independiente-medellin",
-      "name": "Independiente Medellín",
-      "shortName": "Independiente Medellín",
-      "code": "IND",
-      "played": 19,
-      "won": 10,
-      "drawn": 2,
-      "lost": 7,
-      "goalsFor": 29,
-      "goalsAgainst": 25,
-      "points": 32,
-      "form": [
         "L",
         "L",
         "W",
         "W",
-        "W"
+        "L"
       ]
     },
     {
@@ -16352,19 +14931,19 @@
       "name": "Millonarios",
       "shortName": "Millonarios",
       "code": "MIL",
-      "played": 19,
+      "played": 20,
       "won": 7,
-      "drawn": 9,
+      "drawn": 10,
       "lost": 3,
       "goalsFor": 27,
       "goalsAgainst": 16,
-      "points": 30,
+      "points": 31,
       "form": [
-        "W",
         "D",
         "D",
         "L",
-        "W"
+        "W",
+        "D"
       ]
     },
     {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nba",
-  "observedAt": "2026-11-20T23:19:02.133Z",
+  "observedAt": "2026-11-21T04:14:41.646Z",
   "source": "espn-public-nba",
   "coverageStatus": "ok",
   "entries": [
@@ -66,6 +66,36 @@
       "reportedAt": "2026-09-21T19:50:00.000Z"
     },
     {
+      "teamId": "nba.boston-celtics",
+      "player": "Jayson Tatum",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Rest",
+      "injuryType": "Rest",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-21T01:07:00.000Z"
+    },
+    {
+      "teamId": "nba.boston-celtics",
+      "player": "Derrick White",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-21T01:00:00.000Z"
+    },
+    {
+      "teamId": "nba.brooklyn-nets",
+      "player": "Nolan Traore",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2026-11-20",
+      "reportedAt": "2026-11-21T02:25:00.000Z"
+    },
+    {
       "teamId": "nba.brooklyn-nets",
       "player": "Grant Nelson",
       "position": "F",
@@ -119,21 +149,11 @@
       "teamId": "nba.chicago-bulls",
       "player": "Jalen Smith",
       "position": "F",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Enfermedad",
       "injuryType": "Illness",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-20T17:41:00.000Z"
-    },
-    {
-      "teamId": "nba.chicago-bulls",
-      "player": "Noa Essengue",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Muñeca",
-      "injuryType": "Wrist",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T22:12:00.000Z"
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-20T23:19:00.000Z"
     },
     {
       "teamId": "nba.chicago-bulls",
@@ -164,16 +184,6 @@
       "injuryType": "Ankle",
       "returnDate": "2026-11-23",
       "reportedAt": "2026-11-19T21:55:00.000Z"
-    },
-    {
-      "teamId": "nba.cleveland-cavaliers",
-      "player": "Peyton Watson",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Espalda",
-      "injuryType": "Back",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T21:50:00.000Z"
     },
     {
       "teamId": "nba.cleveland-cavaliers",
@@ -267,6 +277,16 @@
     },
     {
       "teamId": "nba.detroit-pistons",
+      "player": "Ronald Holland II",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T00:34:00.000Z"
+    },
+    {
+      "teamId": "nba.detroit-pistons",
       "player": "Taurean Prince",
       "position": "F",
       "status": "Baja",
@@ -277,16 +297,6 @@
     },
     {
       "teamId": "nba.detroit-pistons",
-      "player": "Ronald Holland II",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-20T17:46:00.000Z"
-    },
-    {
-      "teamId": "nba.detroit-pistons",
       "player": "Ebuka Okorie",
       "position": "G",
       "status": "Baja",
@@ -294,16 +304,6 @@
       "injuryType": "Oblique",
       "returnDate": "2026-11-22",
       "reportedAt": "2026-11-19T21:43:00.000Z"
-    },
-    {
-      "teamId": "nba.detroit-pistons",
-      "player": "Cade Cunningham",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T21:36:00.000Z"
     },
     {
       "teamId": "nba.detroit-pistons",
@@ -397,16 +397,6 @@
     },
     {
       "teamId": "nba.houston-rockets",
-      "player": "Steven Adams",
-      "position": "C",
-      "status": "Duda",
-      "detail": "Quadriceps",
-      "injuryType": "Quadriceps",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T23:22:00.000Z"
-    },
-    {
-      "teamId": "nba.houston-rockets",
       "player": "Clint Capela",
       "position": "C",
       "status": "Baja",
@@ -414,16 +404,6 @@
       "injuryType": "Ankle",
       "returnDate": "2026-11-23",
       "reportedAt": "2026-11-19T23:19:00.000Z"
-    },
-    {
-      "teamId": "nba.houston-rockets",
-      "player": "Alperen Sengun",
-      "position": "C",
-      "status": "Duda",
-      "detail": "Eye",
-      "injuryType": "Eye",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T23:17:00.000Z"
     },
     {
       "teamId": "nba.indiana-pacers",
@@ -434,35 +414,6 @@
       "injuryType": "Hamstring",
       "returnDate": "2026-12-13",
       "reportedAt": "2026-11-20T20:41:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "player": "T.J. McConnell",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Isquiotibiales",
-      "injuryType": "Hamstring",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T22:14:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "player": "Andrew Nembhard",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Nembhard (hip) is questionable for Friday's game in Cleveland.",
-      "injuryType": "Nembhard (hip) is questionable for Friday's game in Cleveland.",
-      "reportedAt": "2026-11-19T22:07:00.000Z"
-    },
-    {
-      "teamId": "nba.indiana-pacers",
-      "player": "Braden Smith",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Tobillo",
-      "injuryType": "Ankle",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T22:05:00.000Z"
     },
     {
       "teamId": "nba.indiana-pacers",
@@ -522,7 +473,7 @@
       "detail": "Heel",
       "injuryType": "Heel",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-20T01:05:00.000Z"
+      "reportedAt": "2026-11-21T01:26:00.000Z"
     },
     {
       "teamId": "nba.memphis-grizzlies",
@@ -676,16 +627,6 @@
     },
     {
       "teamId": "nba.new-orleans-pelicans",
-      "player": "Trey Murphy III",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T21:05:00.000Z"
-    },
-    {
-      "teamId": "nba.new-orleans-pelicans",
       "player": "Dejounte Murray",
       "position": "G",
       "status": "Baja",
@@ -716,6 +657,16 @@
     },
     {
       "teamId": "nba.oklahoma-city-thunder",
+      "player": "Alex Caruso",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Cadera",
+      "injuryType": "Hip",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-20T23:24:00.000Z"
+    },
+    {
+      "teamId": "nba.oklahoma-city-thunder",
       "player": "Nikola Topic",
       "position": "G",
       "status": "Baja",
@@ -723,16 +674,6 @@
       "injuryType": "Hip",
       "returnDate": "2026-11-22",
       "reportedAt": "2026-11-20T17:02:00.000Z"
-    },
-    {
-      "teamId": "nba.oklahoma-city-thunder",
-      "player": "Alex Caruso",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Cadera",
-      "injuryType": "Hip",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-19T23:21:00.000Z"
     },
     {
       "teamId": "nba.oklahoma-city-thunder",
@@ -876,6 +817,16 @@
     },
     {
       "teamId": "nba.phoenix-suns",
+      "player": "Ryan Dunn",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Quadriceps",
+      "injuryType": "Quadriceps",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-21T04:06:00.000Z"
+    },
+    {
+      "teamId": "nba.phoenix-suns",
       "player": "Mark Williams",
       "position": "C",
       "status": "Baja",
@@ -943,16 +894,6 @@
       "injuryType": "Lower Leg",
       "returnDate": "2026-11-21",
       "reportedAt": "2026-11-20T21:21:00.000Z"
-    },
-    {
-      "teamId": "nba.sacramento-kings",
-      "player": "De'Andre Hunter",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Cadera",
-      "injuryType": "Hip",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-20T01:21:00.000Z"
     },
     {
       "teamId": "nba.sacramento-kings",
@@ -1078,11 +1019,11 @@
       "teamId": "nba.washington-wizards",
       "player": "Felix Okpara",
       "position": "F",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Espalda",
       "injuryType": "Back",
-      "returnDate": "2026-11-20",
-      "reportedAt": "2026-11-17T16:38:00.000Z"
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T00:43:00.000Z"
     },
     {
       "teamId": "nba.washington-wizards",

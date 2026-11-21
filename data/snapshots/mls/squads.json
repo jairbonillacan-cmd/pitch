@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "mls",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "teams": [
     {
       "teamId": "mls.orlando-city",
@@ -24,7 +24,7 @@
           "winPct": 37.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "mls.orlando-city.adrian-marin",
@@ -531,7 +531,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -540,7 +540,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -967,8 +967,8 @@
           "nationality": "Trinidad and Tobago",
           "nationalityCode": null,
           "photoKey": "pl-p:9574",
-          "availability": "injured",
-          "injuryDetail": "Foot Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -1058,7 +1058,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -1121,7 +1121,7 @@
           "winPct": 39.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "mls.new-england-revolution.alhassan-yusuf",
@@ -1221,7 +1221,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1258,8 +1258,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1406,7 +1406,7 @@
             "subIns": 0,
             "goals": 1,
             "assists": 0,
-            "shots": 1,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1515,10 +1515,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 2,
+            "goals": 0,
             "assists": 0,
-            "shots": 5,
-            "shotsOnTarget": 2,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1711,7 +1711,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1887,7 +1887,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1896,7 +1896,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2042,7 +2042,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 8,
+            "saves": 3,
             "shotsFaced": 0,
             "goalsConceded": 2
           },
@@ -2255,7 +2255,7 @@
           "winPct": 45.8
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "mls.chicago-fire.andreas-hanche-olsen",
@@ -2392,8 +2392,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2429,7 +2429,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2438,7 +2438,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3021,7 +3021,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3093,10 +3093,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 6,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3104,7 +3104,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3161,8 +3161,8 @@
           "nationality": "Finland",
           "nationalityCode": null,
           "photoKey": "pl-p:9114",
-          "availability": "injured",
-          "injuryDetail": "Knock Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -3198,8 +3198,8 @@
           "nationality": "USA",
           "nationalityCode": null,
           "photoKey": "pl-p:9364",
-          "availability": "injured",
-          "injuryDetail": "Muscle Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -3278,7 +3278,7 @@
           "winPct": 37.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "mls.columbus-crew.amar-sejdic",
@@ -3339,10 +3339,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 4,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3600,8 +3600,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3709,10 +3709,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3785,7 +3785,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3970,7 +3970,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4073,8 +4073,8 @@
           "nationality": "France",
           "nationalityCode": null,
           "photoKey": "pl-p:9223",
-          "availability": "injured",
-          "injuryDetail": "Knock Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -4153,10 +4153,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4449,7 +4449,7 @@
           "winPct": 17.6
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "mls.montreal.alexis-sanchez",
@@ -4475,8 +4475,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4484,7 +4484,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4504,8 +4504,8 @@
           "nationality": "USA",
           "nationalityCode": null,
           "photoKey": "pl-p:9586",
-          "availability": "injured",
-          "injuryDetail": "Knock Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -4558,7 +4558,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4632,7 +4632,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4695,10 +4695,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4706,7 +4706,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4743,7 +4743,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -4780,7 +4780,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4808,7 +4808,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4817,7 +4817,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4891,7 +4891,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5113,7 +5113,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5141,7 +5141,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5150,7 +5150,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5187,7 +5187,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5296,9 +5296,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 2,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5335,7 +5335,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5474,7 +5474,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5483,7 +5483,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5511,7 +5511,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5520,7 +5520,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 1
           },
           "candidatePicks": []
         }
@@ -5546,7 +5546,7 @@
           "winPct": 52.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "mls.vancouver-whitecaps.adrian-zendejas",
@@ -5718,10 +5718,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 2,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 3,
+            "shots": 5,
+            "shotsOnTarget": 4,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5860,8 +5860,8 @@
           "nationality": "USA",
           "nationalityCode": null,
           "photoKey": "pl-p:9109",
-          "availability": "injured",
-          "injuryDetail": "Knock Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -6247,7 +6247,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6284,7 +6284,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6312,8 +6312,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 5,
-            "shotsOnTarget": 3,
+            "shots": 4,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6321,7 +6321,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6543,7 +6543,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6580,7 +6580,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6652,7 +6652,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 5,
             "shotsFaced": 0,
             "goalsConceded": 1
           },
@@ -6680,7 +6680,7 @@
           "winPct": 36.6
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "mls.new-york-red-bulls.adri-mehmeti",
@@ -6815,7 +6815,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 2,
             "shotsOnTarget": 1,
@@ -6826,7 +6826,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6900,7 +6900,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6937,7 +6937,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7002,7 +7002,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7011,7 +7011,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -7085,7 +7085,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7157,9 +7157,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 6,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -7185,10 +7185,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7196,7 +7196,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -7520,7 +7520,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7529,7 +7529,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7740,10 +7740,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7751,7 +7751,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7888,7 +7888,7 @@
           "winPct": 20.6
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "mls.atlanta-united.adrian-gill",
@@ -8039,43 +8039,6 @@
           "candidatePicks": []
         },
         {
-          "id": "mls.atlanta-united.arif-kovac",
-          "slug": "arif-kovac",
-          "name": "Arif Kovac",
-          "shortName": "A. Kovac",
-          "jersey": "39",
-          "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 20,
-          "birthDate": "2006-09-08",
-          "heightCm": 198,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Bosnia & Herzegovina",
-          "nationalityCode": null,
-          "photoKey": "pl-p:76990",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "mls.atlanta-united.breel-embolo",
           "slug": "breel-embolo",
           "name": "Breel Embolo",
@@ -8097,9 +8060,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 7,
+            "shots": 2,
             "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8108,44 +8071,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "mls.atlanta-united.cameron-dunbar",
-          "slug": "cameron-dunbar",
-          "name": "Cameron Dunbar",
-          "shortName": "C. Dunbar",
-          "jersey": "70",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 24,
-          "birthDate": "2002-10-22",
-          "heightCm": 168,
-          "weightKg": null,
-          "preferredFoot": "B",
-          "nationality": "USA",
-          "nationalityCode": null,
-          "photoKey": "pl-p:96137",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8202,43 +8128,6 @@
           "nationality": "USA",
           "nationalityCode": null,
           "photoKey": "pl-p:9656",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "mls.atlanta-united.daniel-chica",
-          "slug": "daniel-chica",
-          "name": "Daniel Chica",
-          "shortName": "D. Chica",
-          "jersey": "44",
-          "positionGroup": "MID",
-          "positionLabel": "D",
-          "age": 24,
-          "birthDate": "2002-02-18",
-          "heightCm": 188,
-          "weightKg": null,
-          "preferredFoot": null,
-          "nationality": "USA",
-          "nationalityCode": null,
-          "photoKey": "pl-p:123821",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -8372,43 +8261,6 @@
           "candidatePicks": []
         },
         {
-          "id": "mls.atlanta-united.enzo-dovlo",
-          "slug": "enzo-dovlo",
-          "name": "Enzo Dovlo",
-          "shortName": "E. Dovlo",
-          "jersey": "67",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 23,
-          "birthDate": "2003-07-23",
-          "heightCm": null,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Togo",
-          "nationalityCode": null,
-          "photoKey": "pl-p:141270",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "mls.atlanta-united.fafa-picault",
           "slug": "fafa-picault",
           "name": "Fafà Picault",
@@ -8483,43 +8335,6 @@
           "candidatePicks": []
         },
         {
-          "id": "mls.atlanta-united.ignacio-suarez-couri",
-          "slug": "ignacio-suarez-couri",
-          "name": "Ignacio Suarez-Couri",
-          "shortName": "I. Suarez-Couri",
-          "jersey": "56",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 17,
-          "birthDate": "2009-04-03",
-          "heightCm": 180,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "USA",
-          "nationalityCode": null,
-          "photoKey": "pl-p:71586",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "mls.atlanta-united.jayden-hibbert",
           "slug": "jayden-hibbert",
           "name": "Jayden Hibbert",
@@ -8580,7 +8395,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8589,7 +8404,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8624,9 +8439,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 2,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8691,7 +8506,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8700,7 +8515,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8737,7 +8552,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8763,7 +8578,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 3,
             "shotsOnTarget": 1,
@@ -8774,7 +8589,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8811,7 +8626,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8959,7 +8774,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -9016,8 +8831,8 @@
           "nationality": "USA",
           "nationalityCode": null,
           "photoKey": "pl-p:9773",
-          "availability": "injured",
-          "injuryDetail": "Ankle Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,

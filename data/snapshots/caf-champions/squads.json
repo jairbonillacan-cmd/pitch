@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "caf-champions",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "teams": [
     {
       "teamId": "caf-champions.young-africans",
@@ -24,7 +24,7 @@
           "winPct": 53.8
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "caf-champions.young-africans.abdul-nasir-asaa-mohammed",
@@ -253,7 +253,7 @@
           "slug": "albert-kangwanda",
           "name": "Albert Kangwanda",
           "shortName": "A. Kangwanda",
-          "jersey": "11",
+          "jersey": "22",
           "positionGroup": "MID",
           "positionLabel": "M",
           "age": 27,
@@ -420,7 +420,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -438,17 +438,17 @@
           "slug": "buba-jammeh",
           "name": "Buba Jammeh",
           "shortName": "B. Jammeh",
-          "jersey": null,
+          "jersey": "13",
           "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 25,
-          "birthDate": "2001-06-15",
+          "positionLabel": "D",
+          "age": 34,
+          "birthDate": "1992-03-14",
           "heightCm": null,
           "weightKg": null,
-          "preferredFoot": "R",
+          "preferredFoot": null,
           "nationality": "Gambia",
           "nationalityCode": null,
-          "photoKey": "pl-p:49514",
+          "photoKey": "pl-p:15042",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -471,21 +471,21 @@
           "candidatePicks": []
         },
         {
-          "id": "caf-champions.young-africans.buba-jammeh-7",
-          "slug": "buba-jammeh-7",
+          "id": "caf-champions.young-africans.buba-jammeh-44",
+          "slug": "buba-jammeh-44",
           "name": "Buba Jammeh",
           "shortName": "B. Jammeh",
-          "jersey": "13",
+          "jersey": null,
           "positionGroup": "MID",
-          "positionLabel": "D",
-          "age": 34,
-          "birthDate": "1992-03-14",
+          "positionLabel": "F",
+          "age": 25,
+          "birthDate": "2001-06-15",
           "heightCm": null,
           "weightKg": null,
-          "preferredFoot": null,
+          "preferredFoot": "R",
           "nationality": "Gambia",
           "nationalityCode": null,
-          "photoKey": "pl-p:15042",
+          "photoKey": "pl-p:49514",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -642,7 +642,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1084,10 +1084,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1218,7 +1218,7 @@
       "teamName": "CFFA",
       "coachName": null,
       "coach": null,
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": []
     },
     {
@@ -1241,7 +1241,7 @@
           "winPct": 58.6
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "caf-champions.atletico-petroleos-luanda.antonio-hossi",
@@ -1267,7 +1267,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1296,6 +1296,43 @@
           "nationality": "Angola",
           "nationalityCode": null,
           "photoKey": "pl-p:21887",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "caf-champions.atletico-petroleos-luanda.berna",
+          "slug": "berna",
+          "name": "Berna",
+          "shortName": "Berna",
+          "jersey": "20",
+          "positionGroup": "MID",
+          "positionLabel": "M",
+          "age": 23,
+          "birthDate": "2003-09-15",
+          "heightCm": 169,
+          "weightKg": null,
+          "preferredFoot": "L",
+          "nationality": "Angola",
+          "nationalityCode": null,
+          "photoKey": "pl-p:63663",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -1415,7 +1452,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1570,9 +1607,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1711,7 +1748,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1748,8 +1785,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1822,7 +1859,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2229,8 +2266,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 6,
-            "shotsOnTarget": 2,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2338,7 +2375,7 @@
           "winPct": 40
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "caf-champions.scottland.abubakar-moffat",
@@ -3118,43 +3155,6 @@
           "candidatePicks": []
         },
         {
-          "id": "caf-champions.scottland.seth-patrick",
-          "slug": "seth-patrick",
-          "name": "Seth Patrick",
-          "shortName": "S. Patrick",
-          "jersey": null,
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 26,
-          "birthDate": "2000-05-02",
-          "heightCm": 187,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Zimbabwe",
-          "nationalityCode": null,
-          "photoKey": "pl-p:151467",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "caf-champions.scottland.stoffel-witbeen",
           "slug": "stoffel-witbeen",
           "name": "Stoffel Witbeen",
@@ -3435,7 +3435,7 @@
           "winPct": 52.6
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "caf-champions.orlando-pirates.andre-de-jong",
@@ -3925,7 +3925,7 @@
           "shortName": "K. Kgositsile",
           "jersey": "49",
           "positionGroup": "MID",
-          "positionLabel": "D",
+          "positionLabel": "F",
           "age": 21,
           "birthDate": "2005-02-23",
           "heightCm": 168,
@@ -4629,7 +4629,7 @@
       "teamName": "African Stars FC",
       "coachName": null,
       "coach": null,
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "caf-champions.african-stars.awillo-stephanus",
@@ -4690,7 +4690,7 @@
           "winPct": 38.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "caf-champions.mamelodi-sundowns.antonio-van-wyk",
@@ -5898,7 +5898,7 @@
           "winPct": 64.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "caf-champions.wiliete.antonio-mule-chitongo",

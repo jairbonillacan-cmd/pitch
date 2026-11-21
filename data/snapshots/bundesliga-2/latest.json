@@ -5,7 +5,7 @@
   "season": "bundesliga-2-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-20T23:19:05.023Z",
+  "updatedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.1818181818181819,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0185633161422023,
-      "adjustedAgainst": 1.1519533587307895
+      "adjustedFor": 1.0186778876037956,
+      "adjustedAgainst": 1.1519984898023852
     },
     "bundesliga-2.hertha-bsc": {
       "teamId": "bundesliga-2.hertha-bsc",
@@ -29,8 +29,8 @@
       "forPerGame": 2.272727272727273,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.9322646566197097,
-      "adjustedAgainst": 0.8859025176117934
+      "adjustedFor": 1.9318891205943247,
+      "adjustedAgainst": 0.8860847378143976
     },
     "bundesliga-2.karlsruher": {
       "teamId": "bundesliga-2.karlsruher",
@@ -40,8 +40,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 2.1818181818181817,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2741079524385994,
-      "adjustedAgainst": 1.8259696612609386
+      "adjustedFor": 1.274096986692496,
+      "adjustedAgainst": 1.8256744383877717
     },
     "bundesliga-2.arminia-bielefeld": {
       "teamId": "bundesliga-2.arminia-bielefeld",
@@ -51,8 +51,8 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.406831743920267,
-      "adjustedAgainst": 1.336334932648586
+      "adjustedFor": 1.406763616628441,
+      "adjustedAgainst": 1.3363021347586967
     },
     "bundesliga-2.darmstadt": {
       "teamId": "bundesliga-2.darmstadt",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 0.987411360203366,
-      "adjustedAgainst": 1.5523255071447306
+      "adjustedFor": 0.9875359977451184,
+      "adjustedAgainst": 1.552197080528446
     },
     "bundesliga-2.holstein-kiel": {
       "teamId": "bundesliga-2.holstein-kiel",
@@ -73,8 +73,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9975770479197817,
-      "adjustedAgainst": 1.1425563969660786
+      "adjustedFor": 0.9977034687063863,
+      "adjustedAgainst": 1.1426288693651414
     },
     "bundesliga-2.magdeburg": {
       "teamId": "bundesliga-2.magdeburg",
@@ -84,8 +84,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.9407417372025293,
-      "adjustedAgainst": 1.2605723028220506
+      "adjustedFor": 1.9403731178156038,
+      "adjustedAgainst": 1.2605149008292462
     },
     "bundesliga-2.eintracht-braunschweig": {
       "teamId": "bundesliga-2.eintracht-braunschweig",
@@ -95,8 +95,8 @@
       "forPerGame": 1.4545454545454546,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3523208418924269,
-      "adjustedAgainst": 1.4866803146640617
+      "adjustedFor": 1.3522274062419835,
+      "adjustedAgainst": 1.4865187969437967
     },
     "bundesliga-2.heidenheim": {
       "teamId": "bundesliga-2.heidenheim",
@@ -106,8 +106,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.9166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4718393384554396,
-      "adjustedAgainst": 1.7131522076279555
+      "adjustedFor": 1.471707163856418,
+      "adjustedAgainst": 1.7128857008147642
     },
     "bundesliga-2.osnabruck": {
       "teamId": "bundesliga-2.osnabruck",
@@ -117,8 +117,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.248344532235129,
-      "adjustedAgainst": 1.403029055159068
+      "adjustedFor": 1.248313464875522,
+      "adjustedAgainst": 1.4029625364216953
     },
     "bundesliga-2.wolfsburg": {
       "teamId": "bundesliga-2.wolfsburg",
@@ -128,8 +128,8 @@
       "forPerGame": 2.3636363636363638,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 2.005329511676708,
-      "adjustedAgainst": 1.3709699172350205
+      "adjustedFor": 2.0049174099551976,
+      "adjustedAgainst": 1.3708807172199016
     },
     "bundesliga-2.kaiserslautern": {
       "teamId": "bundesliga-2.kaiserslautern",
@@ -139,8 +139,8 @@
       "forPerGame": 0.9090909090909091,
       "againstPerGame": 0.6363636363636364,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9662582127093533,
-      "adjustedAgainst": 0.7274040031087611
+      "adjustedFor": 0.9664071800739884,
+      "adjustedAgainst": 0.7276764264985837
     },
     "bundesliga-2.st-pauli": {
       "teamId": "bundesliga-2.st-pauli",
@@ -150,8 +150,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.162344724885498,
-      "adjustedAgainst": 1.332886436345044
+      "adjustedFor": 1.1623813178194569,
+      "adjustedAgainst": 1.3328365408110814
     },
     "bundesliga-2.greuther-furth": {
       "teamId": "bundesliga-2.greuther-furth",
@@ -161,8 +161,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1572726095698505,
-      "adjustedAgainst": 1.4650155817252921
+      "adjustedFor": 1.1573185413154514,
+      "adjustedAgainst": 1.4649280123652735
     },
     "bundesliga-2.energie-cottbus": {
       "teamId": "bundesliga-2.energie-cottbus",
@@ -172,8 +172,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 1.8181818181818181,
       "gamesPlayed": 11,
-      "adjustedFor": 1.41185411077681,
-      "adjustedAgainst": 1.5802951944804213
+      "adjustedFor": 1.411781951043617,
+      "adjustedAgainst": 1.5801049125782225
     },
     "bundesliga-2.hannover": {
       "teamId": "bundesliga-2.hannover",
@@ -183,8 +183,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0496979010708152,
-      "adjustedAgainst": 1.405409933811909
+      "adjustedFor": 1.049820652862247,
+      "adjustedAgainst": 1.4053532811818705
     },
     "bundesliga-2.nurnberg": {
       "teamId": "bundesliga-2.nurnberg",
@@ -194,8 +194,8 @@
       "forPerGame": 2.3636363636363638,
       "againstPerGame": 1.1818181818181819,
       "gamesPlayed": 11,
-      "adjustedFor": 1.9111354430628367,
-      "adjustedAgainst": 1.2184227301164454
+      "adjustedFor": 1.910787484299707,
+      "adjustedAgainst": 1.218388515111854
     },
     "bundesliga-2.sg-dynamo-dresden": {
       "teamId": "bundesliga-2.sg-dynamo-dresden",
@@ -205,8 +205,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.8181818181818181,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3276537877259142,
-      "adjustedAgainst": 1.566583773182815
+      "adjustedFor": 1.3275914201488905,
+      "adjustedAgainst": 1.5664135682846119
     }
   },
   "games": [
@@ -241,7 +241,7 @@
       "result": {
         "home": 0,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -276,7 +276,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +311,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +346,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +381,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +451,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +486,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +591,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +626,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +661,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +731,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +766,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3908,11 +3908,11 @@
         "referee": "Robert Hartmann",
         "refereeStats": {
           "country": "Germany",
-          "matches": 40,
-          "avgYellow": 2.7,
-          "avgRed": 0.1,
+          "matches": 41,
+          "avgYellow": 2.8,
+          "avgRed": 0.15,
           "avgFouls": 24.5,
-          "avgGoals": 3.42
+          "avgGoals": 3.41
         },
         "weather": {
           "description": "cloudy",
@@ -4359,11 +4359,11 @@
         "referee": "Michael Bacher",
         "refereeStats": {
           "country": "Germany",
-          "matches": 30,
-          "avgYellow": 0.97,
+          "matches": 31,
+          "avgYellow": 0.94,
           "avgRed": 0.13,
           "avgFouls": 25.1,
-          "avgGoals": 2.53
+          "avgGoals": 2.48
         },
         "weather": {
           "temperatureC": 10,
@@ -5711,11 +5711,11 @@
         "referee": "Wolfgang Haslberger",
         "refereeStats": {
           "country": "Germany",
-          "matches": 31,
-          "avgYellow": 1.39,
-          "avgRed": 0,
+          "matches": 32,
+          "avgYellow": 1.5,
+          "avgRed": 0.03,
           "avgFouls": 23.2,
-          "avgGoals": 2.77
+          "avgGoals": 2.78
         },
         "weather": {
           "description": "cloudy",
@@ -7966,11 +7966,11 @@
         "referee": "Robin Braun",
         "refereeStats": {
           "country": "Germany",
-          "matches": 34,
-          "avgYellow": 2.06,
-          "avgRed": 0.15,
+          "matches": 35,
+          "avgYellow": 2,
+          "avgRed": 0.14,
           "avgFouls": 21.5,
-          "avgGoals": 2.85
+          "avgGoals": 3.09
         },
         "weather": {
           "description": "cloudy",
@@ -8943,11 +8943,11 @@
         "referee": "Florian Lechner",
         "refereeStats": {
           "country": "Germany",
-          "matches": 26,
-          "avgYellow": 1,
+          "matches": 27,
+          "avgYellow": 0.96,
           "avgRed": 0.04,
           "avgFouls": 24.4,
-          "avgGoals": 2.69
+          "avgGoals": 2.7
         },
         "weather": {
           "description": "cloudy",
@@ -10884,11 +10884,11 @@
         "referee": "Daniel Schlager",
         "refereeStats": {
           "country": "Germany",
-          "matches": 57,
-          "avgYellow": 3.37,
-          "avgRed": 0.18,
+          "matches": 58,
+          "avgYellow": 3.34,
+          "avgRed": 0.19,
           "avgFouls": 21.5,
-          "avgGoals": 3.07
+          "avgGoals": 3.12
         },
         "weather": {
           "description": "rain",
@@ -11378,6 +11378,7 @@
           "temperatureC": 8,
           "windSpeedKmh": 23
         },
+        "travelDistanceKm": 364,
         "stageName": "Regular season",
         "venueCity": "Karlsruhe",
         "venueCountry": "Germany",
@@ -11852,17 +11853,18 @@
         "referee": "Florian Exner",
         "refereeStats": {
           "country": "Germany",
-          "matches": 43,
-          "avgYellow": 3.79,
-          "avgRed": 0.21,
+          "matches": 44,
+          "avgYellow": 3.7,
+          "avgRed": 0.2,
           "avgFouls": 23.8,
-          "avgGoals": 3.51
+          "avgGoals": 3.52
         },
         "weather": {
           "description": "cloudy",
           "temperatureC": 5,
           "windSpeedKmh": 65
         },
+        "travelDistanceKm": 114,
         "stageName": "Regular season",
         "venueCity": "Cottbus",
         "venueCountry": "Germany",
@@ -12347,6 +12349,7 @@
           "temperatureC": 6,
           "windSpeedKmh": 18
         },
+        "travelDistanceKm": 462,
         "stageName": "Regular season",
         "venueCity": "Kaiserslautern",
         "venueCountry": "Germany",

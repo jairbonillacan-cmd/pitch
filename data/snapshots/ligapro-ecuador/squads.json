@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligapro-ecuador",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "teams": [
     {
       "teamId": "ligapro-ecuador.emelec",
@@ -24,7 +24,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "ligapro-ecuador.emelec.alexander-arboleda",
@@ -161,7 +161,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -170,7 +170,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -207,7 +207,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -717,7 +717,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -725,7 +725,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -753,7 +753,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -762,7 +762,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -790,8 +790,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -882,7 +882,7 @@
           "slug": "mathias-carabali",
           "name": "Mathias Carabalí",
           "shortName": "M. Carabali",
-          "jersey": "18",
+          "jersey": null,
           "positionGroup": "MID",
           "positionLabel": "D",
           "age": 20,
@@ -893,43 +893,6 @@
           "nationality": "Ecuador",
           "nationalityCode": null,
           "photoKey": "pl-p:144420",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "ligapro-ecuador.emelec.milton-jahir-cagua-valencia",
-          "slug": "milton-jahir-cagua-valencia",
-          "name": "Milton Jahir Cagua Valencia",
-          "shortName": "M. Cagua",
-          "jersey": "6",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 24,
-          "birthDate": "2002-04-23",
-          "heightCm": 192,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Ecuador",
-          "nationalityCode": null,
-          "photoKey": "pl-p:216584",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -975,7 +938,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -984,7 +947,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1019,9 +982,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 2,
+            "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1209,6 +1172,43 @@
             "goalsConceded": 1
           },
           "candidatePicks": []
+        },
+        {
+          "id": "ligapro-ecuador.emelec.tobar-bolivar",
+          "slug": "tobar-bolivar",
+          "name": "Tobar Bolivar",
+          "shortName": "T. Bolivar",
+          "jersey": "28",
+          "positionGroup": "MID",
+          "positionLabel": "M",
+          "age": 18,
+          "birthDate": "2008-08-27",
+          "heightCm": 175,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "Ecuador",
+          "nationalityCode": null,
+          "photoKey": "pl-p:144418",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -1232,7 +1232,7 @@
           "winPct": 32.4
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "ligapro-ecuador.leones-norte.agustin-mansilla",
@@ -2440,7 +2440,7 @@
           "winPct": 50
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "ligapro-ecuador.macara.agustin-campana",
@@ -3648,7 +3648,7 @@
           "winPct": 37.5
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "ligapro-ecuador.barcelona-guayaquil.alex-rangel",
@@ -4164,7 +4164,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -4386,7 +4386,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4756,7 +4756,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4767,7 +4767,7 @@
           "shortName": "R. Perlaza",
           "jersey": "25",
           "positionGroup": "MID",
-          "positionLabel": "M",
+          "positionLabel": "F",
           "age": 21,
           "birthDate": "2005-05-11",
           "heightCm": 175,
@@ -4856,7 +4856,7 @@
           "winPct": 40.4
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "ligapro-ecuador.universidad-catolica-ecuador.alex-rodriguez",
@@ -4891,7 +4891,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5007,43 +5007,6 @@
           "candidatePicks": []
         },
         {
-          "id": "ligapro-ecuador.universidad-catolica-ecuador.cristopher-benalcazar",
-          "slug": "cristopher-benalcazar",
-          "name": "Cristopher Benalcazar",
-          "shortName": "C. E. B. Samaniego",
-          "jersey": "27",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 21,
-          "birthDate": "2005-04-14",
-          "heightCm": 176,
-          "weightKg": null,
-          "preferredFoot": null,
-          "nationality": "Ecuador",
-          "nationalityCode": null,
-          "photoKey": "pl-p:21166",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "ligapro-ecuador.universidad-catolica-ecuador.darwin-nazareno",
           "slug": "darwin-nazareno",
           "name": "Darwin Nazareno",
@@ -5076,7 +5039,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5289,44 +5252,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "ligapro-ecuador.universidad-catolica-ecuador.jackson-mina",
-          "slug": "jackson-mina",
-          "name": "Jackson Mina",
-          "shortName": "J. Mina",
-          "jersey": "51",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 20,
-          "birthDate": "2006-06-11",
-          "heightCm": null,
-          "weightKg": null,
-          "preferredFoot": null,
-          "nationality": "Ecuador",
-          "nationalityCode": null,
-          "photoKey": "pl-p:26095",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
+            "shots": 3,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5518,7 +5444,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 4,
             "shotsFaced": 0,
             "goalsConceded": 0
           },
@@ -5631,7 +5557,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5666,9 +5592,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 2,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5705,7 +5631,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5731,10 +5657,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5742,7 +5668,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6027,7 +5953,7 @@
           "winPct": 39.5
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "ligapro-ecuador.aucas.agostino-spina",
@@ -6136,7 +6062,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6370,14 +6296,14 @@
           "jersey": "20",
           "positionGroup": "MID",
           "positionLabel": "F",
-          "age": 29,
-          "birthDate": "1997-06-15",
+          "age": 23,
+          "birthDate": "2003-01-24",
           "heightCm": 183,
           "weightKg": null,
           "preferredFoot": "R",
           "nationality": "Ecuador",
           "nationalityCode": null,
-          "photoKey": "pl-p:72565",
+          "photoKey": "pl-p:79699",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -6400,21 +6326,21 @@
           "candidatePicks": []
         },
         {
-          "id": "ligapro-ecuador.aucas.diego-espinosa-62",
-          "slug": "diego-espinosa-62",
+          "id": "ligapro-ecuador.aucas.diego-espinosa-9",
+          "slug": "diego-espinosa-9",
           "name": "Diego Espinosa",
           "shortName": "D. Espinosa",
           "jersey": "20",
           "positionGroup": "MID",
           "positionLabel": "F",
-          "age": 23,
-          "birthDate": "2003-01-24",
+          "age": 29,
+          "birthDate": "1997-06-15",
           "heightCm": 183,
           "weightKg": null,
           "preferredFoot": "R",
           "nationality": "Ecuador",
           "nationalityCode": null,
-          "photoKey": "pl-p:79699",
+          "photoKey": "pl-p:72565",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -6460,8 +6386,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 5,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6504,9 +6430,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 5,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7024,7 +6950,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         }
@@ -7050,7 +6976,7 @@
           "winPct": 63.3
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "ligapro-ecuador.independiente-valle.aldair-quintana",
@@ -7320,7 +7246,7 @@
           "positionGroup": "MID",
           "positionLabel": "F",
           "age": 17,
-          "birthDate": "2009-08-11",
+          "birthDate": "2009-08-15",
           "heightCm": 173,
           "weightKg": null,
           "preferredFoot": "L",
@@ -7579,7 +7505,7 @@
           "positionGroup": "MID",
           "positionLabel": "M",
           "age": 17,
-          "birthDate": "2009-08-12",
+          "birthDate": "2009-08-15",
           "heightCm": 172,
           "weightKg": null,
           "preferredFoot": "R",
@@ -8258,7 +8184,7 @@
           "winPct": 40.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "ligapro-ecuador.ldu.alejandro-tobar",
@@ -8646,43 +8572,6 @@
           "nationality": "Ecuador",
           "nationalityCode": null,
           "photoKey": "pl-p:19295",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "ligapro-ecuador.ldu.jandry-calle",
-          "slug": "jandry-calle",
-          "name": "Jandry Calle",
-          "shortName": "J. Calle",
-          "jersey": "24",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 17,
-          "birthDate": "2009-06-17",
-          "heightCm": 173,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Ecuador",
-          "nationalityCode": null,
-          "photoKey": "pl-p:49602",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -9098,8 +8987,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -9155,7 +9044,7 @@
           "shortName": "P. Ortiz",
           "jersey": "25",
           "positionGroup": "MID",
-          "positionLabel": "M",
+          "positionLabel": "D",
           "age": 21,
           "birthDate": "2005-04-17",
           "heightCm": 189,

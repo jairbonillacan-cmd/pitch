@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "conference-league",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "teams": [
     {
       "teamId": "conference-league.mjallby-aif",
@@ -24,7 +24,7 @@
           "winPct": 26.3
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "conference-league.mjallby-aif.abdullah-iqbal",
@@ -679,7 +679,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -967,8 +967,8 @@
           "nationality": "Finland",
           "nationalityCode": null,
           "photoKey": "pl-p:16081",
-          "availability": "injured",
-          "injuryDetail": "Back Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -1012,8 +1012,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1049,7 +1049,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1086,7 +1086,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1152,8 +1152,8 @@
           "nationality": "Denmark",
           "nationalityCode": null,
           "photoKey": "pl-p:66099",
-          "availability": "injured",
-          "injuryDetail": "Unknown",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -1195,7 +1195,7 @@
           "winPct": 42.9
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "conference-league.borac-banja-luka.abel-pascual",
@@ -1657,6 +1657,43 @@
           "nationality": "Croatia",
           "nationalityCode": null,
           "photoKey": "pl-p:64680",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
+        },
+        {
+          "id": "conference-league.borac-banja-luka.filip-ivanovic",
+          "slug": "filip-ivanovic",
+          "name": "Filip Ivanović",
+          "shortName": "F. Ivanović",
+          "jersey": null,
+          "positionGroup": "MID",
+          "positionLabel": "F",
+          "age": 18,
+          "birthDate": "2008-11-02",
+          "heightCm": null,
+          "weightKg": null,
+          "preferredFoot": null,
+          "nationality": "Bosnia & Herzegovina",
+          "nationalityCode": null,
+          "photoKey": "pl-p:231448",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -2343,43 +2380,6 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
-        },
-        {
-          "id": "conference-league.borac-banja-luka.sr-an-grahovac",
-          "slug": "sr-an-grahovac",
-          "name": "Srđan Grahovac",
-          "shortName": "S. Grahovac",
-          "jersey": "15",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 34,
-          "birthDate": "1992-09-19",
-          "heightCm": 182,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Bosnia & Herzegovina",
-          "nationalityCode": null,
-          "photoKey": "pl-p:97349",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
         }
       ]
     },
@@ -2403,7 +2403,7 @@
           "winPct": 25
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "conference-league.lincoln-red-imps.alex-mula",
@@ -2466,8 +2466,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2475,7 +2475,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -2808,7 +2808,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2917,9 +2917,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 7,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2939,43 +2939,6 @@
           "nationality": "Spain",
           "nationalityCode": null,
           "photoKey": "pl-p:12960",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "conference-league.lincoln-red-imps.jonathan-sciortino",
-          "slug": "jonathan-sciortino",
-          "name": "Jonathan Sciortino",
-          "shortName": "J. Sciortino",
-          "jersey": "31",
-          "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 20,
-          "birthDate": "2005-12-29",
-          "heightCm": 178,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Gibraltar",
-          "nationalityCode": null,
-          "photoKey": "pl-p:24164",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -3030,7 +2993,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3056,43 +3019,6 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
-            "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 1
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "conference-league.lincoln-red-imps.kyle-clinton",
-          "slug": "kyle-clinton",
-          "name": "Kyle Clinton",
-          "shortName": "K. Clinton",
-          "jersey": "19",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 22,
-          "birthDate": "2004-03-18",
-          "heightCm": 178,
-          "weightKg": null,
-          "preferredFoot": "L",
-          "nationality": "Gibraltar",
-          "nationalityCode": null,
-          "photoKey": "pl-p:12368",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
             "goals": 0,
             "assists": 0,
             "shots": 0,
@@ -3104,7 +3030,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3206,7 +3132,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3215,7 +3141,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -3400,7 +3326,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3500,7 +3426,7 @@
           "winPct": 69.6
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "conference-league.hnk-hajduk-split.abdoulie-sanyang-bamba",
@@ -3572,7 +3498,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3674,7 +3600,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4539,43 +4465,6 @@
           "candidatePicks": []
         },
         {
-          "id": "conference-league.hnk-hajduk-split.mateo-juricic",
-          "slug": "mateo-juricic",
-          "name": "Mateo Juricic",
-          "shortName": "M. Juricic",
-          "jersey": "49",
-          "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 18,
-          "birthDate": "2008-08-10",
-          "heightCm": 179,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Croatia",
-          "nationalityCode": null,
-          "photoKey": "pl-p:215605",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "conference-league.hnk-hajduk-split.mathieu-acapandie",
           "slug": "mathieu-acapandie",
           "name": "Mathieu Acapandié",
@@ -4636,8 +4525,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4685,6 +4574,43 @@
             "goalsConceded": 0
           },
           "candidatePicks": []
+        },
+        {
+          "id": "conference-league.hnk-hajduk-split.niko-sablic",
+          "slug": "niko-sablic",
+          "name": "Niko Sablić",
+          "shortName": "N. Sablić",
+          "jersey": "2",
+          "positionGroup": "MID",
+          "positionLabel": "D",
+          "age": 18,
+          "birthDate": "2008-03-18",
+          "heightCm": 165,
+          "weightKg": null,
+          "preferredFoot": "R",
+          "nationality": "Croatia",
+          "nationalityCode": null,
+          "photoKey": "pl-p:230241",
+          "availability": "available",
+          "injuryDetail": null,
+          "expectedReturn": null,
+          "stats": {
+            "appearances": 0,
+            "subIns": 0,
+            "goals": 0,
+            "assists": 0,
+            "shots": 0,
+            "shotsOnTarget": 0,
+            "foulsCommitted": 0,
+            "foulsSuffered": 0,
+            "yellowCards": 0,
+            "redCards": 0,
+            "offsides": 0,
+            "saves": 0,
+            "shotsFaced": 0,
+            "goalsConceded": 0
+          },
+          "candidatePicks": []
         }
       ]
     },
@@ -4708,7 +4634,7 @@
           "winPct": 34.4
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "conference-league.crvena-zvezda.adem-avdic",
@@ -5039,7 +4965,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5141,7 +5067,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5150,7 +5076,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5261,7 +5187,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5326,8 +5252,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5335,7 +5261,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5879,7 +5805,7 @@
           "winPct": 15.4
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "conference-league.inter-d-escaldes.adrian-da-cunha",
@@ -5988,7 +5914,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6201,7 +6127,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6210,7 +6136,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -6356,9 +6282,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -7024,7 +6950,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -7087,7 +7013,7 @@
           "winPct": 35.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "conference-league.thun.adam-ilic",
@@ -7185,10 +7111,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 2,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 4,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7196,7 +7122,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -7372,8 +7298,8 @@
             "subIns": 0,
             "goals": 1,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7381,7 +7307,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -7779,8 +7705,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7788,7 +7714,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7927,8 +7853,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 7,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7936,7 +7862,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7964,7 +7890,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7973,7 +7899,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8047,7 +7973,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -8221,7 +8147,7 @@
           "winPct": 51.7
         }
       },
-      "updatedAt": "2026-11-20T23:19:05.023Z",
+      "updatedAt": "2026-11-21T04:14:45.246Z",
       "players": [
         {
           "id": "conference-league.heart-of-midlothian.ageu",
@@ -8365,9 +8291,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 6,
+            "saves": 4,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8387,8 +8313,8 @@
           "nationality": "Scotland",
           "nationalityCode": null,
           "photoKey": "pl-p:5782",
-          "availability": "injured",
-          "injuryDetail": "Shin Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -8430,10 +8356,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8441,7 +8367,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8461,8 +8387,8 @@
           "nationality": "Norway",
           "nationalityCode": null,
           "photoKey": "pl-p:5781",
-          "availability": "injured",
-          "injuryDetail": "Hamstring Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -8876,8 +8802,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 0,
+            "shots": 4,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8885,7 +8811,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -9053,8 +8979,8 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:46271",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Muscle Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -9357,7 +9283,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -9366,7 +9292,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },

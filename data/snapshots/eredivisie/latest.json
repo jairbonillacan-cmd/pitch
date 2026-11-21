@@ -5,7 +5,7 @@
   "season": "eredivisie-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-20T23:19:05.023Z",
+  "updatedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2.0833333333333335,
       "againstPerGame": 2.25,
       "gamesPlayed": 12,
-      "adjustedFor": 2.063665720512214,
-      "adjustedAgainst": 2.1307859864880125
+      "adjustedFor": 2.063614730893807,
+      "adjustedAgainst": 2.1306897348733966
     },
     "eredivisie.excelsior": {
       "teamId": "eredivisie.excelsior",
@@ -29,8 +29,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.4166666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3954240176641586,
-      "adjustedAgainst": 2.195956330709966
+      "adjustedFor": 1.3957367982354307,
+      "adjustedAgainst": 2.195911420136135
     },
     "eredivisie.nec-nijmegen": {
       "teamId": "eredivisie.nec-nijmegen",
@@ -40,8 +40,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.75,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6082830539049997,
-      "adjustedAgainst": 1.765617671144417
+      "adjustedFor": 1.608516721728569,
+      "adjustedAgainst": 1.7657344235478538
     },
     "eredivisie.telstar": {
       "teamId": "eredivisie.telstar",
@@ -51,8 +51,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.660301689051942,
-      "adjustedAgainst": 1.9399210507502196
+      "adjustedFor": 1.6604463832986909,
+      "adjustedAgainst": 1.9399859799973884
     },
     "eredivisie.go-ahead-eagles": {
       "teamId": "eredivisie.go-ahead-eagles",
@@ -62,8 +62,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7792391108013796,
-      "adjustedAgainst": 2.2339681606204156
+      "adjustedFor": 1.7794055937440032,
+      "adjustedAgainst": 2.2337824239161104
     },
     "eredivisie.willem-ii-tilburg": {
       "teamId": "eredivisie.willem-ii-tilburg",
@@ -73,8 +73,8 @@
       "forPerGame": 0.9166666666666666,
       "againstPerGame": 3.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1669296947593777,
-      "adjustedAgainst": 2.903493173731943
+      "adjustedFor": 1.1673395715362855,
+      "adjustedAgainst": 2.903035567428222
     },
     "eredivisie.psv-eindhoven": {
       "teamId": "eredivisie.psv-eindhoven",
@@ -84,8 +84,8 @@
       "forPerGame": 3.3333333333333335,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 2.8123840439064316,
-      "adjustedAgainst": 1.3685930979480403
+      "adjustedFor": 2.8120413998202043,
+      "adjustedAgainst": 1.3689216141136376
     },
     "eredivisie.fortuna-sittard": {
       "teamId": "eredivisie.fortuna-sittard",
@@ -95,8 +95,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7066385414763994,
-      "adjustedAgainst": 1.6152929713010198
+      "adjustedFor": 1.7067740865594054,
+      "adjustedAgainst": 1.6155163525022758
     },
     "eredivisie.az-alkmaar": {
       "teamId": "eredivisie.az-alkmaar",
@@ -106,8 +106,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.8788555032163274,
-      "adjustedAgainst": 1.4290334517885512
+      "adjustedFor": 1.8789374216848649,
+      "adjustedAgainst": 1.4293429052355147
     },
     "eredivisie.ado-den-haag": {
       "teamId": "eredivisie.ado-den-haag",
@@ -117,8 +117,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5358181781986353,
-      "adjustedAgainst": 1.8729922611721856
+      "adjustedFor": 1.536023619829117,
+      "adjustedAgainst": 1.8731055135452135
     },
     "eredivisie.sparta-rotterdam": {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -128,8 +128,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2.4166666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6989805936307503,
-      "adjustedAgainst": 2.2238536185232256
+      "adjustedFor": 1.6991610817494052,
+      "adjustedAgainst": 2.2237581593417235
     },
     "eredivisie.feyenoord": {
       "teamId": "eredivisie.feyenoord",
@@ -139,8 +139,8 @@
       "forPerGame": 3,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 2.645164930845225,
-      "adjustedAgainst": 1.5713707695838461
+      "adjustedFor": 2.644838752698584,
+      "adjustedAgainst": 1.5715653897537287
     },
     "eredivisie.pec-zwolle": {
       "teamId": "eredivisie.pec-zwolle",
@@ -150,8 +150,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.232995510099609,
-      "adjustedAgainst": 1.862832231113992
+      "adjustedFor": 1.2333956373495227,
+      "adjustedAgainst": 1.8629270224330197
     },
     "eredivisie.ajax": {
       "teamId": "eredivisie.ajax",
@@ -161,8 +161,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 2.4245525074197656,
-      "adjustedAgainst": 1.4259935702681799
+      "adjustedFor": 2.424322188676068,
+      "adjustedAgainst": 1.4262674991672653
     },
     "eredivisie.groningen": {
       "teamId": "eredivisie.groningen",
@@ -172,8 +172,8 @@
       "forPerGame": 2.4166666666666665,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 2.295627871868567,
-      "adjustedAgainst": 2.2154842667739363
+      "adjustedFor": 2.2954421160694487,
+      "adjustedAgainst": 2.215355858730912
     },
     "eredivisie.utrecht": {
       "teamId": "eredivisie.utrecht",
@@ -183,8 +183,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2.8333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7374800855970425,
-      "adjustedAgainst": 2.51520219023854
+      "adjustedFor": 1.7376222229487255,
+      "adjustedAgainst": 2.5149391240194006
     },
     "eredivisie.heerenveen": {
       "teamId": "eredivisie.heerenveen",
@@ -194,8 +194,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 2.014035635993557,
-      "adjustedAgainst": 1.460398533110557
+      "adjustedFor": 2.0139953491246425,
+      "adjustedAgainst": 1.460663631050631
     },
     "eredivisie.twente": {
       "teamId": "eredivisie.twente",
@@ -205,8 +205,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 2.3516672027576426,
-      "adjustedAgainst": 1.2077771242732587
+      "adjustedFor": 2.3514673772468915,
+      "adjustedAgainst": 1.2081739200043446
     }
   },
   "games": [
@@ -241,7 +241,7 @@
       "result": {
         "home": 7,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -276,7 +276,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +311,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +346,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +381,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +416,7 @@
       "result": {
         "home": 0,
         "away": 9,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +451,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +486,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +556,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +591,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +626,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +661,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +696,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +731,7 @@
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +766,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -2106,11 +2106,11 @@
         "referee": "Danny Makkelie",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 87,
-          "avgYellow": 3.15,
-          "avgRed": 0.15,
+          "matches": 89,
+          "avgYellow": 3.17,
+          "avgRed": 0.16,
           "avgFouls": 22.5,
-          "avgGoals": 3.85
+          "avgGoals": 3.83
         },
         "weather": {
           "description": "cloudy",
@@ -2558,11 +2558,11 @@
         "referee": "Serdar Gozubuyuk",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 88,
-          "avgYellow": 3.94,
-          "avgRed": 0.14,
+          "matches": 90,
+          "avgYellow": 3.98,
+          "avgRed": 0.13,
           "avgFouls": 23.3,
-          "avgGoals": 3.25
+          "avgGoals": 3.2
         },
         "weather": {
           "description": "cloudy",
@@ -3009,11 +3009,11 @@
         "referee": "Allard Lindhout",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 68,
-          "avgYellow": 3.4,
-          "avgRed": 0.15,
+          "matches": 70,
+          "avgYellow": 3.31,
+          "avgRed": 0.16,
           "avgFouls": 21.1,
-          "avgGoals": 3.12
+          "avgGoals": 3.09
         },
         "weather": {
           "description": "cloudy",
@@ -3461,8 +3461,8 @@
         "referee": "Jeroen Manschot",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 50,
-          "avgYellow": 3.62,
+          "matches": 51,
+          "avgYellow": 3.61,
           "avgRed": 0.16,
           "avgFouls": 19.9,
           "avgGoals": 3.16
@@ -5261,11 +5261,11 @@
         "referee": "Allard Lindhout",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 68,
-          "avgYellow": 3.4,
-          "avgRed": 0.15,
+          "matches": 70,
+          "avgYellow": 3.31,
+          "avgRed": 0.16,
           "avgFouls": 21.1,
-          "avgGoals": 3.12
+          "avgGoals": 3.09
         },
         "weather": {
           "description": "clear",
@@ -5712,11 +5712,11 @@
         "referee": "Dennis Higler",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 37,
-          "avgYellow": 2.73,
-          "avgRed": 0.16,
+          "matches": 38,
+          "avgYellow": 2.82,
+          "avgRed": 0.18,
           "avgFouls": 23.8,
-          "avgGoals": 3.16
+          "avgGoals": 3.18
         },
         "weather": {
           "description": "clear",
@@ -6163,11 +6163,11 @@
         "referee": "Alex Bos",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 38,
-          "avgYellow": 2.95,
-          "avgRed": 0.24,
+          "matches": 39,
+          "avgYellow": 2.92,
+          "avgRed": 0.23,
           "avgFouls": 22.2,
-          "avgGoals": 3.55
+          "avgGoals": 3.49
         },
         "weather": {
           "description": "cloudy",
@@ -6615,8 +6615,8 @@
         "referee": "Jeroen Manschot",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 50,
-          "avgYellow": 3.62,
+          "matches": 51,
+          "avgYellow": 3.61,
           "avgRed": 0.16,
           "avgFouls": 19.9,
           "avgGoals": 3.16
@@ -7066,11 +7066,11 @@
         "referee": "Danny Makkelie",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 87,
-          "avgYellow": 3.15,
-          "avgRed": 0.15,
+          "matches": 89,
+          "avgYellow": 3.17,
+          "avgRed": 0.16,
           "avgFouls": 22.5,
-          "avgGoals": 3.85
+          "avgGoals": 3.83
         },
         "weather": {
           "description": "cloudy",
@@ -9353,8 +9353,8 @@
         "referee": "Jeroen Manschot",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 50,
-          "avgYellow": 3.62,
+          "matches": 51,
+          "avgYellow": 3.61,
           "avgRed": 0.16,
           "avgFouls": 19.9,
           "avgGoals": 3.16
@@ -10325,11 +10325,11 @@
         "referee": "Allard Lindhout",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 68,
-          "avgYellow": 3.4,
-          "avgRed": 0.15,
+          "matches": 70,
+          "avgYellow": 3.31,
+          "avgRed": 0.16,
           "avgFouls": 21.1,
-          "avgGoals": 3.12
+          "avgGoals": 3.09
         },
         "weather": {
           "description": "unknown",
@@ -11294,11 +11294,11 @@
         "referee": "Alex Bos",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 38,
-          "avgYellow": 2.95,
-          "avgRed": 0.24,
+          "matches": 39,
+          "avgYellow": 2.92,
+          "avgRed": 0.23,
           "avgFouls": 22.2,
-          "avgGoals": 3.55
+          "avgGoals": 3.49
         },
         "weather": {
           "description": "clear",
@@ -11777,11 +11777,11 @@
         "referee": "Serdar Gozubuyuk",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 88,
-          "avgYellow": 3.94,
-          "avgRed": 0.14,
+          "matches": 90,
+          "avgYellow": 3.98,
+          "avgRed": 0.13,
           "avgFouls": 23.3,
-          "avgGoals": 3.25
+          "avgGoals": 3.2
         },
         "stageName": "Regular season",
         "venueCity": "Enschede",
@@ -12266,6 +12266,7 @@
           "temperatureC": 4,
           "windSpeedKmh": 11
         },
+        "travelDistanceKm": 80,
         "stageName": "Regular season",
         "venueCity": "Rotterdam",
         "venueCountry": "Netherlands",
@@ -12750,6 +12751,8 @@
           "temperatureC": 4,
           "windSpeedKmh": 20
         },
+        "travelDistanceKm": 47,
+        "isLocalDerby": true,
         "stageName": "Regular season",
         "venueCity": "Amsterdam",
         "venueCountry": "Netherlands",
@@ -13232,6 +13235,7 @@
           "temperatureC": 5,
           "windSpeedKmh": 49
         },
+        "travelDistanceKm": 143,
         "stageName": "Regular season",
         "venueCity": "Deventer",
         "venueCountry": "Netherlands",

@@ -2672,11 +2672,11 @@
         "referee": "Jeremy Stinat",
         "refereeStats": {
           "country": "France",
-          "matches": 45,
+          "matches": 46,
           "avgYellow": 3.76,
-          "avgRed": 0.27,
+          "avgRed": 0.26,
           "avgFouls": 23.3,
-          "avgGoals": 3.18
+          "avgGoals": 3.24
         }
       }
     },
@@ -3115,11 +3115,11 @@
         "referee": "Bastien Dechepy",
         "refereeStats": {
           "country": "France",
-          "matches": 43,
-          "avgYellow": 4.42,
-          "avgRed": 0.28,
+          "matches": 44,
+          "avgYellow": 4.41,
+          "avgRed": 0.27,
           "avgFouls": 25,
-          "avgGoals": 3.02
+          "avgGoals": 3
         }
       }
     },
@@ -3595,11 +3595,11 @@
         "referee": "Jeremy Stinat",
         "refereeStats": {
           "country": "France",
-          "matches": 45,
+          "matches": 46,
           "avgYellow": 3.76,
-          "avgRed": 0.27,
+          "avgRed": 0.26,
           "avgFouls": 23.3,
-          "avgGoals": 3.18
+          "avgGoals": 3.24
         }
       }
     },
@@ -4068,11 +4068,11 @@
         "referee": "Aurelien Petit",
         "refereeStats": {
           "country": "France",
-          "matches": 41,
+          "matches": 42,
           "avgYellow": 3.93,
-          "avgRed": 0.24,
+          "avgRed": 0.26,
           "avgFouls": 27.2,
-          "avgGoals": 2.44
+          "avgGoals": 2.4
         }
       }
     },
@@ -4548,11 +4548,11 @@
         "referee": "Geoffrey Kubler",
         "refereeStats": {
           "country": "French Guiana",
-          "matches": 40,
+          "matches": 41,
           "avgYellow": 4.05,
           "avgRed": 0.17,
           "avgFouls": 26.7,
-          "avgGoals": 2.4
+          "avgGoals": 2.41
         }
       }
     },
@@ -5028,11 +5028,11 @@
         "referee": "Willy Delajod",
         "refereeStats": {
           "country": "France",
-          "matches": 60,
-          "avgYellow": 3.28,
-          "avgRed": 0.17,
+          "matches": 62,
+          "avgYellow": 3.39,
+          "avgRed": 0.16,
           "avgFouls": 22.8,
-          "avgGoals": 2.8
+          "avgGoals": 2.77
         }
       }
     },
@@ -7242,11 +7242,11 @@
         "referee": "Jeremy Stinat",
         "refereeStats": {
           "country": "France",
-          "matches": 45,
+          "matches": 46,
           "avgYellow": 3.76,
-          "avgRed": 0.27,
+          "avgRed": 0.26,
           "avgFouls": 23.3,
-          "avgGoals": 3.18
+          "avgGoals": 3.24
         }
       }
     },
@@ -7993,11 +7993,11 @@
         "referee": "Bastien Dechepy",
         "refereeStats": {
           "country": "France",
-          "matches": 43,
-          "avgYellow": 4.42,
-          "avgRed": 0.28,
+          "matches": 44,
+          "avgYellow": 4.41,
+          "avgRed": 0.27,
           "avgFouls": 25,
-          "avgGoals": 3.02
+          "avgGoals": 3
         }
       }
     },
@@ -10213,11 +10213,11 @@
         "referee": "Aurelien Petit",
         "refereeStats": {
           "country": "France",
-          "matches": 41,
+          "matches": 42,
           "avgYellow": 3.93,
-          "avgRed": 0.24,
+          "avgRed": 0.26,
           "avgFouls": 27.2,
-          "avgGoals": 2.44
+          "avgGoals": 2.4
         }
       }
     },
@@ -10973,6 +10973,84 @@
     },
     "ligue-1-2026-27-md11-olympique-marseille-le-mans": {
       "game": "ligue-1-2026-27-md11-olympique-marseille-le-mans",
+      "cortex": {
+        "headline": "Marsella manda en casa ante un Le Mans necesitado",
+        "headlineOrigin": "ia",
+        "sections": [
+          {
+            "key": "lectura",
+            "title": "La lectura",
+            "text": "El Olympique de Marseille llega cuarto con 18 puntos y diferencia de 8, mientras el Le Mans es decimoquinto con 8 unidades y diferencia de -7. La probabilidad de 56 % para el local confirma esa distancia en la cancha.",
+            "origin": "ia"
+          },
+          {
+            "key": "goles",
+            "title": "Goles",
+            "text": "Se ve abierto: 3.64 goles esperados y 70 % de más de 2.5. El Marsella aporta 2.16 y el Le Mans 1.48, con 68 % de que ambos anoten.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Goles esperados",
+                "home": 2.16,
+                "away": 1.48
+              },
+              {
+                "label": "Ambos anotan",
+                "value": "68 %"
+              },
+              {
+                "label": "Más de 2.5 goles",
+                "value": "70 %"
+              }
+            ]
+          },
+          {
+            "key": "ritmo",
+            "title": "Ritmo del partido",
+            "text": "El Marsella empuja con 5.6 tiros de esquina por 3.5 del Le Mans, 9.1 en total. Las faltas suman 24.6, con un visitante más cortado (13.0) que el local (11.6).",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Tiros de esquina",
+                "home": 5.6,
+                "away": 3.5
+              },
+              {
+                "label": "Faltas",
+                "home": 11.6,
+                "away": 13
+              },
+              {
+                "label": "Amarillas",
+                "home": 1.8,
+                "away": 2
+              }
+            ]
+          },
+          {
+            "key": "tabla",
+            "title": "Tabla y descanso",
+            "text": "Marsella cuarto con 18 puntos en 10 partidos y diferencia de 8. Le Mans decimoquinto con 8 puntos y diferencia de -7. Ambos con 10 jugados.",
+            "origin": "ia",
+            "stats": [
+              {
+                "label": "Puntos",
+                "home": 18,
+                "away": 8
+              }
+            ]
+          },
+          {
+            "key": "cambia",
+            "title": "Qué podría cambiarlo",
+            "text": "Las alineaciones, el criterio del árbitro y quién anota primero pueden ajustar el peso del local y la apertura del marcador.",
+            "origin": "ia"
+          }
+        ],
+        "fingerprint": "8a796b2397c97519",
+        "generatedAt": "2026-11-21T04:21:38.733Z",
+        "version": "2"
+      },
       "counts": {
         "corners": {
           "home": 5.59,

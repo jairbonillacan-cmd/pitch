@@ -1,10 +1,11 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
+  "logoUrl": "https://sports.bzzoiro.com/img/league/19/?bg=transparent",
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 17",
-  "updatedAt": "2026-11-15T18:45:23.950Z",
+  "updatedAt": "2026-11-21T04:21:09.888Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -14,233 +15,219 @@
       "name": "Club América",
       "shortName": "América",
       "code": "AME",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent",
       "forPerGame": 2.375,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 2.128750483891517,
-      "adjustedAgainst": 1.3610483265152602
+      "adjustedFor": 2.1403642458567913,
+      "adjustedAgainst": 1.3723288043488755
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
       "name": "Atlante",
       "shortName": "Atlante",
       "code": "ATE",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/3840/?bg=transparent",
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.072872376591997,
-      "adjustedAgainst": 1.527754028648527
+      "adjustedFor": 1.073780564027035,
+      "adjustedAgainst": 1.5274425514989425
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
       "name": "Atlas",
       "shortName": "Atlas",
       "code": "ATS",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent",
       "forPerGame": 1.6875,
       "againstPerGame": 1.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.6597744723329584,
-      "adjustedAgainst": 1.7300875718652358
+      "adjustedFor": 1.6413249247530712,
+      "adjustedAgainst": 1.7212568516442859
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
       "name": "Atlético de San Luis",
       "shortName": "Atl. San Luis",
       "code": "ASL",
-      "forPerGame": 1.1875,
-      "againstPerGame": 1.5,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.2025220080684695,
-      "adjustedAgainst": 1.38437958901064
+      "logoUrl": "https://sports.bzzoiro.com/img/team/319/?bg=transparent",
+      "forPerGame": 1.1764705882352942,
+      "againstPerGame": 1.4705882352941178,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.2019328086453303,
+      "adjustedAgainst": 1.384304784148405
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
       "name": "Chivas Guadalajara",
       "shortName": "Chivas",
       "code": "GDL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent",
       "forPerGame": 1.625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4968582833417827,
-      "adjustedAgainst": 1.0199192201616394
+      "adjustedFor": 1.509363099178372,
+      "adjustedAgainst": 1.0327952369473814
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
       "name": "Cruz Azul",
       "shortName": "Cruz Azul",
       "code": "CAZ",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent",
       "forPerGame": 2.3125,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 2.076386917433843,
-      "adjustedAgainst": 1.4995492028792707
+      "adjustedFor": 2.086127910659397,
+      "adjustedAgainst": 1.5057437310298887
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
       "name": "FC Juárez",
       "shortName": "Juárez",
       "code": "JUA",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/306/?bg=transparent",
       "forPerGame": 0.8125,
       "againstPerGame": 2.125,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9587701319180972,
-      "adjustedAgainst": 1.8214244346578568
+      "adjustedFor": 0.9672345244309742,
+      "adjustedAgainst": 1.8243351016889549
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
       "name": "Club León",
       "shortName": "León",
       "code": "LEO",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent",
       "forPerGame": 1.4375,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3788428706824531,
-      "adjustedAgainst": 1.2980780372517462
+      "adjustedFor": 1.3810367813769804,
+      "adjustedAgainst": 1.293408890489487
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
       "name": "Rayados de Monterrey",
       "shortName": "Monterrey",
       "code": "MTY",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent",
       "forPerGame": 1.6875,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.6168032559617065,
-      "adjustedAgainst": 1.4492198787381598
+      "adjustedFor": 1.622392453459798,
+      "adjustedAgainst": 1.456942905425447
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
       "name": "Necaxa",
       "shortName": "Necaxa",
       "code": "NEC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/311/?bg=transparent",
       "forPerGame": 1.0625,
       "againstPerGame": 1.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1559372988474519,
-      "adjustedAgainst": 1.5988041286182741
+      "adjustedFor": 1.1500812867862409,
+      "adjustedAgainst": 1.579951289706276
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
       "name": "Pachuca",
       "shortName": "Pachuca",
       "code": "PAC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/316/?bg=transparent",
       "forPerGame": 1.8125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.7311624191207475,
-      "adjustedAgainst": 1.2761316854300078
+      "adjustedFor": 1.7381259637765638,
+      "adjustedAgainst": 1.2777264915820568
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
       "name": "Club Puebla",
       "shortName": "Puebla",
       "code": "PUE",
-      "forPerGame": 1.1875,
-      "againstPerGame": 1.4375,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.1653666171807187,
-      "adjustedAgainst": 1.380548159061458
+      "logoUrl": "https://sports.bzzoiro.com/img/team/304/?bg=transparent",
+      "forPerGame": 1.1764705882352942,
+      "againstPerGame": 1.411764705882353,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.1582947036305231,
+      "adjustedAgainst": 1.3619498663693888
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
       "name": "Pumas UNAM",
       "shortName": "Pumas",
       "code": "PUM",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/313/?bg=transparent",
       "forPerGame": 1.5,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4753511013546954,
-      "adjustedAgainst": 1.5321829140817464
+      "adjustedFor": 1.464679967836113,
+      "adjustedAgainst": 1.5335887390385041
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
       "name": "Querétaro",
       "shortName": "Querétaro",
       "code": "QRO",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/309/?bg=transparent",
       "forPerGame": 1.125,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1457573267099541,
-      "adjustedAgainst": 1.4167736084573914
+      "adjustedFor": 1.1546507448149101,
+      "adjustedAgainst": 1.4181108993133034
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
       "name": "Santos Laguna",
       "shortName": "Santos Laguna",
       "code": "SAN",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/312/?bg=transparent",
       "forPerGame": 1.4375,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3978275278046592,
-      "adjustedAgainst": 1.27694138705322
+      "adjustedFor": 1.394409346421901,
+      "adjustedAgainst": 1.2794726941964218
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
       "name": "Tigres UANL",
       "shortName": "Tigres",
       "code": "TIG",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/321/?bg=transparent",
       "forPerGame": 1.0625,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.122260656050353,
-      "adjustedAgainst": 1.4401753455866528
+      "adjustedFor": 1.1258519515251992,
+      "adjustedAgainst": 1.4492361787380574
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
       "name": "Xolos de Tijuana",
       "shortName": "Tijuana",
       "code": "TIJ",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/308/?bg=transparent",
       "forPerGame": 1.5625,
       "againstPerGame": 1.375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.5438255280364914,
-      "adjustedAgainst": 1.3440356152782118
+      "adjustedFor": 1.5366998164329537,
+      "adjustedAgainst": 1.32748298544446
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
       "name": "Deportivo Toluca",
       "shortName": "Toluca",
       "code": "TOL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent",
       "forPerGame": 2.1875,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 2.0180482345497333,
-      "adjustedAgainst": 1.3249137178965187
+      "adjustedFor": 1.9995310713280856,
+      "adjustedAgainst": 1.31839634491678
     }
   },
   "games": [
-    {
-      "id": "mx-2026-j16-queretaro-monterrey-401876988",
-      "league": "liga-mx",
-      "season": "liga-mx-2026-apertura",
-      "week": 16,
-      "round": "Jornada 16",
-      "startTime": "2026-11-14T23:00Z",
-      "status": "final",
-      "home": {
-        "id": "liga-mx.queretaro",
-        "league": "liga-mx",
-        "name": "Querétaro",
-        "shortName": "Querétaro",
-        "code": "QRO"
-      },
-      "away": {
-        "id": "liga-mx.monterrey",
-        "league": "liga-mx",
-        "name": "Rayados de Monterrey",
-        "shortName": "Monterrey",
-        "code": "MTY"
-      },
-      "venue": "Estadio Corregidora",
-      "referee": "Luis Santander",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 1,
-        "observedAt": "2026-11-15T12:00:00.000Z",
-        "source": "espn"
-      }
-    },
     {
       "id": "mx-2026-j17-puebla-atletico-san-luis-401877054",
       "league": "liga-mx",
@@ -248,23 +235,31 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-21T01:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.puebla",
         "league": "liga-mx",
         "name": "Club Puebla",
         "shortName": "Puebla",
-        "code": "PUE"
+        "code": "PUE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/304/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.atletico-san-luis",
         "league": "liga-mx",
         "name": "Atlético de San Luis",
         "shortName": "Atl. San Luis",
-        "code": "ASL"
+        "code": "ASL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/319/?bg=transparent"
       },
       "venue": "Estadio Cuauhtémoc",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 1,
+        "observedAt": "2026-11-21T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-fc-juarez-atlas-401877053",
@@ -279,14 +274,16 @@
         "league": "liga-mx",
         "name": "FC Juárez",
         "shortName": "Juárez",
-        "code": "JUA"
+        "code": "JUA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/306/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.atlas",
         "league": "liga-mx",
         "name": "Atlas",
         "shortName": "Atlas",
-        "code": "ATS"
+        "code": "ATS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent"
       },
       "venue": "Estadio Olímpico Benito Juárez",
       "neutralSite": false
@@ -297,21 +294,23 @@
       "season": "liga-mx-2026-apertura",
       "week": 17,
       "round": "Jornada 17",
-      "startTime": "2026-11-21T03:00Z",
+      "startTime": "2026-11-21T03:10Z",
       "status": "scheduled",
       "home": {
         "id": "liga-mx.tijuana",
         "league": "liga-mx",
         "name": "Xolos de Tijuana",
         "shortName": "Tijuana",
-        "code": "TIJ"
+        "code": "TIJ",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/308/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.atlante",
         "league": "liga-mx",
         "name": "Atlante",
         "shortName": "Atlante",
-        "code": "ATE"
+        "code": "ATE",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/3840/?bg=transparent"
       },
       "venue": "Estadio Caliente",
       "neutralSite": false
@@ -329,14 +328,16 @@
         "league": "liga-mx",
         "name": "Pachuca",
         "shortName": "Pachuca",
-        "code": "PAC"
+        "code": "PAC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/316/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.toluca",
         "league": "liga-mx",
         "name": "Deportivo Toluca",
         "shortName": "Toluca",
-        "code": "TOL"
+        "code": "TOL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent"
       },
       "venue": "Estadio Hidalgo",
       "neutralSite": false
@@ -354,14 +355,16 @@
         "league": "liga-mx",
         "name": "Santos Laguna",
         "shortName": "Santos Laguna",
-        "code": "SAN"
+        "code": "SAN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/312/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.leon",
         "league": "liga-mx",
         "name": "Club León",
         "shortName": "León",
-        "code": "LEO"
+        "code": "LEO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent"
       },
       "venue": "Estadio Corona",
       "neutralSite": false
@@ -379,14 +382,16 @@
         "league": "liga-mx",
         "name": "Pumas UNAM",
         "shortName": "Pumas",
-        "code": "PUM"
+        "code": "PUM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/313/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.monterrey",
         "league": "liga-mx",
         "name": "Rayados de Monterrey",
         "shortName": "Monterrey",
-        "code": "MTY"
+        "code": "MTY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent"
       },
       "venue": "Estadio Olímpico Universitario",
       "neutralSite": false
@@ -404,14 +409,16 @@
         "league": "liga-mx",
         "name": "Tigres UANL",
         "shortName": "Tigres",
-        "code": "TIG"
+        "code": "TIG",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/321/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.america",
         "league": "liga-mx",
         "name": "Club América",
         "shortName": "América",
-        "code": "AME"
+        "code": "AME",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent"
       },
       "venue": "Estadio Universitario",
       "neutralSite": false
@@ -429,14 +436,16 @@
         "league": "liga-mx",
         "name": "Chivas Guadalajara",
         "shortName": "Chivas",
-        "code": "GDL"
+        "code": "GDL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.cruz-azul",
         "league": "liga-mx",
         "name": "Cruz Azul",
         "shortName": "Cruz Azul",
-        "code": "CAZ"
+        "code": "CAZ",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent"
       },
       "venue": "Estadio Akron",
       "neutralSite": false
@@ -447,544 +456,29 @@
       "season": "liga-mx-2026-apertura",
       "week": 17,
       "round": "Jornada 17",
-      "startTime": "2026-11-23T01:00Z",
+      "startTime": "2026-11-23T01:10Z",
       "status": "scheduled",
       "home": {
         "id": "liga-mx.queretaro",
         "league": "liga-mx",
         "name": "Querétaro",
         "shortName": "Querétaro",
-        "code": "QRO"
+        "code": "QRO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/309/?bg=transparent"
       },
       "away": {
         "id": "liga-mx.necaxa",
         "league": "liga-mx",
         "name": "Necaxa",
         "shortName": "Necaxa",
-        "code": "NEC"
+        "code": "NEC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/311/?bg=transparent"
       },
       "venue": "Estadio Corregidora",
       "neutralSite": false
     }
   ],
   "analyses": {
-    "mx-2026-j16-queretaro-monterrey-401876988": {
-      "game": "mx-2026-j16-queretaro-monterrey-401876988",
-      "model": {
-        "id": "pitchlab-statistical-liga-mx",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.4452504142137956,
-        "away": 1.6957739975207933,
-        "total": 3.141024411734589,
-        "margin": -0.25052358330699764
-      },
-      "x12": [
-        0.3069756491161209,
-        0.25944267364953155,
-        0.4335816772343476
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Querétaro gana",
-          "p": 0.3069756491161209,
-          "fairOdds": 3.2575873782800473
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.25944267364953155,
-          "fairOdds": 3.8544160293030716
-        },
-        {
-          "market": "h2h",
-          "selection": "Monterrey gana",
-          "p": 0.4335816772343476,
-          "fairOdds": 2.30637052372374
-        },
-        {
-          "market": "double_chance",
-          "selection": "Querétaro o empate",
-          "p": 0.5664183227656525,
-          "fairOdds": 1.7654796107535802
-        },
-        {
-          "market": "double_chance",
-          "selection": "Monterrey o empate",
-          "p": 0.6930243508838791,
-          "fairOdds": 1.4429507400780448
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7405573263504686,
-          "fairOdds": 1.3503343555158487
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8254773284301751,
-          "fairOdds": 1.211420308661557
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6026660066051834,
-          "fairOdds": 1.659293852714538
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.39733399339481656,
-          "fairOdds": 2.516774342552503
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.38395083084763804,
-          "fairOdds": 2.604500159023817
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.616049169152362,
-          "fairOdds": 1.623247055711358
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6321757055545844,
-          "fairOdds": 1.581838705938149
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.36782429444541564,
-          "fairOdds": 2.7186893718038463
-        },
-        {
-          "market": "team_totals",
-          "selection": "Querétaro más de 1.5",
-          "line": 1.5,
-          "p": 0.41531305408375974,
-          "fairOdds": 2.4078222202914947
-        },
-        {
-          "market": "team_totals",
-          "selection": "Querétaro menos de 1.5",
-          "line": 1.5,
-          "p": 0.5846869459162403,
-          "fairOdds": 1.7103169601861705
-        },
-        {
-          "market": "team_totals",
-          "selection": "Monterrey más de 1.5",
-          "line": 1.5,
-          "p": 0.5093610495089271,
-          "fairOdds": 1.9632439523283058
-        },
-        {
-          "market": "team_totals",
-          "selection": "Monterrey menos de 1.5",
-          "line": 1.5,
-          "p": 0.49063895049107287,
-          "fairOdds": 2.0381586072591986
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11757963960981717,
-          "fairOdds": 8.504873831204584
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.0902491408368002,
-          "fairOdds": 11.080437893678402
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.07255598143663818,
-          "fairOdds": 13.782461214080357
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Querétaro gana",
-              "p": 0.3069756491161209,
-              "fairOdds": 3.2575873782800473
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.25944267364953155,
-              "fairOdds": 3.8544160293030716
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Monterrey gana",
-              "p": 0.4335816772343476,
-              "fairOdds": 2.30637052372374
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Querétaro o empate",
-              "p": 0.5664183227656525,
-              "fairOdds": 1.7654796107535802
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Monterrey o empate",
-              "p": 0.6930243508838791,
-              "fairOdds": 1.4429507400780448
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7405573263504686,
-              "fairOdds": 1.3503343555158487
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8254773284301751,
-              "fairOdds": 1.211420308661557
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6026660066051834,
-              "fairOdds": 1.659293852714538
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.39733399339481656,
-              "fairOdds": 2.516774342552503
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.38395083084763804,
-              "fairOdds": 2.604500159023817
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.616049169152362,
-              "fairOdds": 1.623247055711358
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6321757055545844,
-              "fairOdds": 1.581838705938149
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.36782429444541564,
-              "fairOdds": 2.7186893718038463
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Querétaro más de 1.5",
-              "line": 1.5,
-              "p": 0.41531305408375974,
-              "fairOdds": 2.4078222202914947
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Querétaro menos de 1.5",
-              "line": 1.5,
-              "p": 0.5846869459162403,
-              "fairOdds": 1.7103169601861705
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Monterrey más de 1.5",
-              "line": 1.5,
-              "p": 0.5093610495089271,
-              "fairOdds": 1.9632439523283058
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Monterrey menos de 1.5",
-              "line": 1.5,
-              "p": 0.49063895049107287,
-              "fairOdds": 2.0381586072591986
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11757963960981717,
-              "fairOdds": 8.504873831204584
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.0902491408368002,
-              "fairOdds": 11.080437893678402
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.07255598143663818,
-              "fairOdds": 13.782461214080357
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11757963960981717
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.30 goles/partido",
-          "detail": "14 % menos que la media · 15 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.52 concedidos/partido",
-          "detail": "7 % más que la media · 15 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.70 goles/partido",
-          "detail": "17 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.45 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.11",
-          "detail": "estimada de 214 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.4–4.1",
-          "detail": "local 14%–52% · 214 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "12.º · 20 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "10.º · 21 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-P-P-P · 0 pts",
-          "detail": "3 goles a favor · 15 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-P-E-P · 7 pts",
-          "detail": "9 goles a favor · 10 en contra"
-        },
-        {
-          "key": "long_memory",
-          "label": "Memoria larga",
-          "value": "coincide con la temporada",
-          "detail": "historia 29% / 27% / 44% · temporada 32% / 24% / 43%"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga MX · corte 10 nov 2026, 20:38",
-        "Fuerza ajustada por rival · QRO 0.86 / 1.02 · MTY 1.17 / 1.07",
-        "Ponderando 139.4 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.45 – 1.70 · total 3.14",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-11T02:38:42.517Z",
-      "publishedAt": "2026-11-11T02:38:42.517Z",
-      "source": "espn",
-      "picks": [
-        {
-          "profile": "conservadora",
-          "market": "totals",
-          "selection": "over_1.5",
-          "label": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8254773284301751,
-          "fairOdds": 1.211420308661557
-        },
-        {
-          "profile": "intermedia",
-          "market": "double_chance",
-          "selection": "x2",
-          "label": "Monterrey o empate",
-          "p": 0.6930243508838791,
-          "fairOdds": 1.4429507400780448
-        },
-        {
-          "profile": "arriesgada",
-          "market": "team_totals",
-          "selection": "away_over",
-          "label": "Monterrey más de 1.5",
-          "line": 1.5,
-          "p": 0.5093610495089271,
-          "fairOdds": 1.9632439523283058
-        }
-      ],
-      "confidence": {
-        "score": 49,
-        "level": "media",
-        "reasons": [
-          "Muestra suficiente",
-          "Temporada e historia coinciden"
-        ]
-      },
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.0902491408368002
-      },
-      "insights": {
-        "why": [
-          "Monterrey gana en 43% de los escenarios; el empate, en 26%.",
-          "Monterrey anota 17 % más que la media.",
-          "Querétaro anota 14 % menos que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2025-02-16",
-            "homeTeamId": "liga-mx.queretaro",
-            "awayTeamId": "liga-mx.monterrey",
-            "homeGoals": 2,
-            "awayGoals": 4
-          },
-          {
-            "date": "2024-07-20",
-            "homeTeamId": "liga-mx.monterrey",
-            "awayTeamId": "liga-mx.queretaro",
-            "homeGoals": 2,
-            "awayGoals": 1
-          },
-          {
-            "date": "2021-03-06",
-            "homeTeamId": "liga-mx.monterrey",
-            "awayTeamId": "liga-mx.queretaro",
-            "homeGoals": 2,
-            "awayGoals": 1
-          },
-          {
-            "date": "2020-10-04",
-            "homeTeamId": "liga-mx.queretaro",
-            "awayTeamId": "liga-mx.monterrey",
-            "homeGoals": 1,
-            "awayGoals": 2
-          },
-          {
-            "date": "2020-02-01",
-            "homeTeamId": "liga-mx.monterrey",
-            "awayTeamId": "liga-mx.queretaro",
-            "homeGoals": 1,
-            "awayGoals": 2
-          }
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 6
-        }
-      },
-      "picksAt": "2026-11-11T02:38:42.517Z",
-      "matchContext": {
-        "referee": "Luis Santander",
-        "refereeStats": {
-          "country": "Mexico",
-          "matches": 38,
-          "avgYellow": 4.55,
-          "avgRed": 0.42,
-          "avgFouls": 26.6,
-          "avgGoals": 3.18
-        }
-      }
-    },
     "mx-2026-j17-puebla-atletico-san-luis-401877054": {
       "game": "mx-2026-j17-puebla-atletico-san-luis-401877054",
       "cortex": {
@@ -1726,7 +1220,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Karen Hernandez Andrade",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 16,
+          "avgYellow": 3.81,
+          "avgRed": 0.19,
+          "avgFouls": 23.1,
+          "avgGoals": 2.31
+        }
+      }
     },
     "mx-2026-j17-fc-juarez-atlas-401877053": {
       "game": "mx-2026-j17-fc-juarez-atlas-401877053",
@@ -2468,7 +1973,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Adonai Escobedo Gonzalez",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 47,
+          "avgYellow": 3.85,
+          "avgRed": 0.47,
+          "avgFouls": 21.6,
+          "avgGoals": 2.87
+        }
+      }
     },
     "mx-2026-j17-tijuana-atlante-401877052": {
       "game": "mx-2026-j17-tijuana-atlante-401877052",
@@ -2993,7 +2509,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Jesus Rafael Lopez Valle",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 33,
+          "avgYellow": 4.79,
+          "avgRed": 0.45,
+          "avgFouls": 24.4,
+          "avgGoals": 2.76
+        }
+      }
     },
     "mx-2026-j17-pachuca-toluca-401877050": {
       "game": "mx-2026-j17-pachuca-toluca-401877050",
@@ -6713,19 +6240,19 @@
     "mx-2026-j17-queretaro-necaxa-401877046": {
       "game": "mx-2026-j17-queretaro-necaxa-401877046",
       "cortex": {
-        "headline": "Querétaro con más peso en casa ante un Necaxa necesitado",
+        "headline": "Querétaro llega con la localía y el gol esperado de su lado",
         "headlineOrigin": "ia",
         "sections": [
           {
             "key": "lectura",
             "title": "La lectura",
-            "text": "Querétaro llega mejor: 45 % de probabilidad y 20 puntos en 16 jornadas, con diferencia de -6. Necaxa está abajo, 28 % y 13 puntos con -11, y necesita cerrar su arco para no quedar expuesto fuera de casa.",
+            "text": "Querétaro llega mejor: suma 20 puntos por 13 de Necaxa y su diferencia de goles es -6 frente a -11. La probabilidad de 45 % a favor en casa confirma esa ventaja, aunque el descanso es casi parejo: 14 días contra 16.",
             "origin": "ia"
           },
           {
             "key": "goles",
             "title": "Goles",
-            "text": "Se ve abierto: 2.70 goles esperados en total, con 76 % de pasar de 1.5 y 51 % de superar 2.5. Querétaro aporta más con 1.53 por 1.17 de Necaxa, y el 55 % de ambos anotan invita a un ida y vuelta.",
+            "text": "Se espera un partido con 2.70 goles en total, y Querétaro aporta la mayor parte con 1.53 por 1.17 de Necaxa. El 76 % de más de 1.5 y el 55 % de ambos anotan hablan de un marcador que se abre.",
             "origin": "ia",
             "stats": [
               {
@@ -6746,7 +6273,7 @@
           {
             "key": "ritmo",
             "title": "Ritmo del partido",
-            "text": "Querétaro empuja con 6.2 tiros de esquina por 5.0 de Necaxa, 11.2 en total. Las faltas van parejas, 11.7 contra 11.0 y 22.8 en conjunto, así que el juego se corta seguido sin que un lado domine el roce.",
+            "text": "Querétaro empuja más: 6.2 tiros de esquina por 5.0 de Necaxa, con 11.2 en total. Las faltas van parejas, 11.7 contra 11.0 para un total de 22.8, así que el juego se corta sin que un solo lado lo domine.",
             "origin": "ia",
             "stats": [
               {
@@ -6769,7 +6296,7 @@
           {
             "key": "tabla",
             "title": "Tabla y descanso",
-            "text": "Querétaro es 12º con 20 puntos y llega con 14 días de descanso. Necaxa es 17º con 13 puntos y tuvo 16 días, así que ambos llegan frescos pero con urgencias distintas.",
+            "text": "Querétaro está en el lugar 14 con 20 puntos en 16 partidos y diferencia de -6. Necaxa es 17 con 13 puntos y -11. El descanso favorece apenas al visitante: 16 días contra 14.",
             "origin": "ia",
             "stats": [
               {
@@ -6782,12 +6309,12 @@
           {
             "key": "cambia",
             "title": "Qué podría cambiarlo",
-            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas, y el primer gol cambia quién empuja y quién se repliega.",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas tan parejas. El primer gol cambia el guion: si Necaxa anota temprano, Querétaro deberá abrirse.",
             "origin": "ia"
           }
         ],
-        "fingerprint": "880a7fbc514e7564",
-        "generatedAt": "2026-11-20T19:07:42.329Z",
+        "fingerprint": "fb577a55885c7e17",
+        "generatedAt": "2026-11-21T04:21:37.575Z",
         "version": "2"
       },
       "counts": {
@@ -7461,6 +6988,7 @@
       "name": "Cruz Azul",
       "shortName": "Cruz Azul",
       "code": "CAZ",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/314/?bg=transparent",
       "played": 16,
       "won": 10,
       "drawn": 2,
@@ -7481,6 +7009,7 @@
       "name": "Club América",
       "shortName": "América",
       "code": "AME",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent",
       "played": 16,
       "won": 8,
       "drawn": 6,
@@ -7501,6 +7030,7 @@
       "name": "Chivas Guadalajara",
       "shortName": "Chivas",
       "code": "GDL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/320/?bg=transparent",
       "played": 16,
       "won": 8,
       "drawn": 6,
@@ -7521,6 +7051,7 @@
       "name": "Deportivo Toluca",
       "shortName": "Toluca",
       "code": "TOL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent",
       "played": 16,
       "won": 7,
       "drawn": 6,
@@ -7541,6 +7072,7 @@
       "name": "Atlas",
       "shortName": "Atlas",
       "code": "ATS",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent",
       "played": 16,
       "won": 8,
       "drawn": 3,
@@ -7561,6 +7093,7 @@
       "name": "Santos Laguna",
       "shortName": "Santos Laguna",
       "code": "SAN",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/312/?bg=transparent",
       "played": 16,
       "won": 8,
       "drawn": 1,
@@ -7581,6 +7114,7 @@
       "name": "Rayados de Monterrey",
       "shortName": "Monterrey",
       "code": "MTY",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent",
       "played": 16,
       "won": 7,
       "drawn": 3,
@@ -7601,6 +7135,7 @@
       "name": "Club León",
       "shortName": "León",
       "code": "LEO",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent",
       "played": 16,
       "won": 6,
       "drawn": 5,
@@ -7621,6 +7156,7 @@
       "name": "Pachuca",
       "shortName": "Pachuca",
       "code": "PAC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/316/?bg=transparent",
       "played": 16,
       "won": 6,
       "drawn": 4,
@@ -7641,6 +7177,7 @@
       "name": "Xolos de Tijuana",
       "shortName": "Tijuana",
       "code": "TIJ",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/308/?bg=transparent",
       "played": 16,
       "won": 5,
       "drawn": 7,
@@ -7661,6 +7198,7 @@
       "name": "Pumas UNAM",
       "shortName": "Pumas",
       "code": "PUM",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/313/?bg=transparent",
       "played": 16,
       "won": 5,
       "drawn": 6,
@@ -7677,10 +7215,53 @@
       ]
     },
     {
+      "teamId": "liga-mx.puebla",
+      "name": "Club Puebla",
+      "shortName": "Puebla",
+      "code": "PUE",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/304/?bg=transparent",
+      "played": 17,
+      "won": 5,
+      "drawn": 5,
+      "lost": 7,
+      "goalsFor": 20,
+      "goalsAgainst": 24,
+      "points": 20,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "D"
+      ]
+    },
+    {
+      "teamId": "liga-mx.atletico-san-luis",
+      "name": "Atlético de San Luis",
+      "shortName": "Atl. San Luis",
+      "code": "ASL",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/319/?bg=transparent",
+      "played": 17,
+      "won": 5,
+      "drawn": 5,
+      "lost": 7,
+      "goalsFor": 20,
+      "goalsAgainst": 25,
+      "points": 20,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "liga-mx.queretaro",
       "name": "Querétaro",
       "shortName": "Querétaro",
       "code": "QRO",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/309/?bg=transparent",
       "played": 16,
       "won": 6,
       "drawn": 2,
@@ -7697,50 +7278,11 @@
       ]
     },
     {
-      "teamId": "liga-mx.puebla",
-      "name": "Club Puebla",
-      "shortName": "Puebla",
-      "code": "PUE",
-      "played": 16,
-      "won": 5,
-      "drawn": 4,
-      "lost": 7,
-      "goalsFor": 19,
-      "goalsAgainst": 23,
-      "points": 19,
-      "form": [
-        "D",
-        "L",
-        "L",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "liga-mx.atletico-san-luis",
-      "name": "Atlético de San Luis",
-      "shortName": "Atl. San Luis",
-      "code": "ASL",
-      "played": 16,
-      "won": 5,
-      "drawn": 4,
-      "lost": 7,
-      "goalsFor": 19,
-      "goalsAgainst": 24,
-      "points": 19,
-      "form": [
-        "D",
-        "W",
-        "W",
-        "L",
-        "L"
-      ]
-    },
-    {
       "teamId": "liga-mx.tigres-uanl",
       "name": "Tigres UANL",
       "shortName": "Tigres",
       "code": "TIG",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/321/?bg=transparent",
       "played": 16,
       "won": 3,
       "drawn": 6,
@@ -7761,6 +7303,7 @@
       "name": "Atlante",
       "shortName": "Atlante",
       "code": "ATE",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/3840/?bg=transparent",
       "played": 16,
       "won": 3,
       "drawn": 5,
@@ -7781,6 +7324,7 @@
       "name": "Necaxa",
       "shortName": "Necaxa",
       "code": "NEC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/311/?bg=transparent",
       "played": 16,
       "won": 3,
       "drawn": 4,
@@ -7801,6 +7345,7 @@
       "name": "FC Juárez",
       "shortName": "Juárez",
       "code": "JUA",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/306/?bg=transparent",
       "played": 16,
       "won": 3,
       "drawn": 2,

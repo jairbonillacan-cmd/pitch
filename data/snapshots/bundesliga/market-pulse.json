@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga",
-  "observedAt": "2026-11-20T23:28:21.602Z",
+  "observedAt": "2026-11-21T04:21:39.228Z",
   "entries": [
     {
       "gameId": "bundesliga-2026-27-md10-augsburg-mainz",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -30,11 +30,11 @@
       "gameId": "bundesliga-2026-27-md10-bayer-leverkusen-paderborn",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 2305.438267,
+          "volume": 2528.691847,
           "price": 0.775
         },
         {
@@ -44,7 +44,7 @@
         },
         {
           "side": "away",
-          "volume": 8023.991523,
+          "volume": 8034.991523,
           "price": 0.095
         }
       ]
@@ -76,7 +76,7 @@
       "gameId": "bundesliga-2026-27-md10-borussia-monchengladbach-borussia-dortmund",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -90,8 +90,8 @@
         },
         {
           "side": "away",
-          "volume": 10557.309862999999,
-          "price": 0.605
+          "volume": 13582.649824,
+          "price": 0.615
         }
       ]
     },
@@ -99,11 +99,11 @@
       "gameId": "bundesliga-2026-27-md10-eintracht-frankfurt-hoffenheim",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 1597.0712529999998,
+          "volume": 1609.071253,
           "price": 0.395
         },
         {
@@ -122,7 +122,7 @@
       "gameId": "bundesliga-2026-27-md10-elversberg-freiburg",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -136,7 +136,7 @@
         },
         {
           "side": "away",
-          "volume": 9920.627246,
+          "volume": 10141.539335000001,
           "price": 0.485
         }
       ]
@@ -145,7 +145,7 @@
       "gameId": "bundesliga-2026-27-md10-schalke-stuttgart",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -159,7 +159,7 @@
         },
         {
           "side": "away",
-          "volume": 1401.761865,
+          "volume": 2120.007149,
           "price": 0.525
         }
       ]
@@ -168,7 +168,7 @@
       "gameId": "bundesliga-2026-27-md10-union-berlin-rb-leipzig",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
@@ -182,7 +182,7 @@
         },
         {
           "side": "away",
-          "volume": 843.3108649999999,
+          "volume": 921.57147,
           "price": 0.655
         }
       ]
@@ -191,21 +191,21 @@
       "gameId": "bundesliga-2026-27-md10-werder-bremen-hamburger",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-20T23:28:21.602Z",
+      "observedAt": "2026-11-21T04:21:39.228Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 219.973899,
+          "volume": 918.188185,
           "price": 0.585
         },
         {
           "side": "draw",
-          "volume": 36.259754,
+          "volume": 41.259754,
           "price": 0.225
         },
         {
           "side": "away",
-          "volume": 60.09,
+          "volume": 62.59,
           "price": 0.205
         }
       ]

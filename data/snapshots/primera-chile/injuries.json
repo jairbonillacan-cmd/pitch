@@ -1,28 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "primera-chile",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "primera-chile.colo-colo",
-      "player": "Claudio Aquino",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Appendicitis",
-      "injuryType": "Appendicitis",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-chile.universidad-concepcion",
-      "player": "Harol Salgado",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
     {
       "teamId": "primera-chile.o-higgins",
       "player": "Nicolás Garrido",
@@ -30,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-chile.deportes-la-serena",
@@ -39,7 +21,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-chile.deportes-la-serena",
@@ -48,7 +30,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-chile.deportes-la-serena",
@@ -57,7 +39,7 @@
       "status": "Baja",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
@@ -66,7 +48,7 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
@@ -75,7 +57,7 @@
       "status": "Baja",
       "detail": "Ligament Injury",
       "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
@@ -84,16 +66,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-chile.universidad-catolica",
-      "player": "Francisco Valdés",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Wrist Injury",
-      "injuryType": "Wrist Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
@@ -102,7 +75,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     }
   ]
 }

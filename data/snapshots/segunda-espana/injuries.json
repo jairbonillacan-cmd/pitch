@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "segunda-espana",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.girona",
@@ -21,7 +21,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.girona",
@@ -30,7 +30,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.almeria",
@@ -39,16 +39,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "segunda-espana.almeria",
-      "player": "Rodrigo Ely",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -57,7 +48,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -66,7 +57,7 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -75,7 +66,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -84,7 +75,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -93,16 +84,7 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "segunda-espana.sporting-gijon",
-      "player": "Konrad de la Fuente",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -111,7 +93,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.real-valladolid",
@@ -120,7 +102,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.las-palmas",
@@ -129,7 +111,16 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
+    },
+    {
+      "teamId": "segunda-espana.las-palmas",
+      "player": "Nicholas Opoku",
+      "position": "D",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.eldense",
@@ -138,7 +129,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.ce-sabadell",
@@ -147,7 +138,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.ce-sabadell",
@@ -156,7 +147,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.ce-sabadell",
@@ -165,7 +156,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "segunda-espana.real-sociedad-b",
@@ -174,7 +165,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     }
   ]
 }

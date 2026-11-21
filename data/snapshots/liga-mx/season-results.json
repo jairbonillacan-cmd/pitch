@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-mx",
   "season": "liga-mx-2026-apertura",
-  "updatedAt": "2026-11-15T18:45:23.950Z",
+  "updatedAt": "2026-11-21T04:21:09.888Z",
   "matches": [
     {
       "id": "mx-2026-j1-necaxa-atlante-401877045",
@@ -1585,6 +1585,17 @@
       "homeTeam": "liga-mx.queretaro",
       "awayTeam": "liga-mx.monterrey",
       "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-puebla-atletico-san-luis-401877054",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T01:00Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.puebla",
+      "awayTeam": "liga-mx.atletico-san-luis",
+      "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
     }

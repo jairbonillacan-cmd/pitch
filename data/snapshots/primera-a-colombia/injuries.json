@@ -1,145 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "primera-a-colombia",
-  "observedAt": "2026-11-20T23:19:05.023Z",
+  "observedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "primera-a-colombia.america-cali",
-      "player": "Daniel Valencia",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.america-cali",
-      "player": "Dany Rosero",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Virus",
-      "injuryType": "Virus",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.america-cali",
-      "player": "Jan Lucumí",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.america-cali",
-      "player": "Jhon Murillo",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.america-cali",
-      "player": "Rafael Carrascal",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Virus",
-      "injuryType": "Virus",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.deportivo-cali",
-      "player": "Kalazan Suárez",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.independiente-santa-fe",
-      "player": "Christian Mafla",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.independiente-santa-fe",
-      "player": "Jeison Angulo",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.independiente-santa-fe",
-      "player": "Jhojan Torres",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.independiente-santa-fe",
-      "player": "Kevin Balanta",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.jaguares-cordoba",
-      "player": "Andrés Rentería",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Strain Injury",
-      "injuryType": "Strain Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.jaguares-cordoba",
-      "player": "Johan Hinestroza",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.atletico-bucaramanga",
-      "player": "Fabry Castro",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.atletico-bucaramanga",
-      "player": "Nilson Castrillón",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Sprained Ankle",
-      "injuryType": "Sprained Ankle",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.atletico-bucaramanga",
-      "player": "Nilzo Ramírez",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
     {
       "teamId": "primera-a-colombia.deportes-tolima",
       "player": "Cristian Arrieta",
@@ -147,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-a-colombia.deportes-tolima",
@@ -156,16 +21,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
-    },
-    {
-      "teamId": "primera-a-colombia.deportes-tolima",
-      "player": "Sebastián Guzmán",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     },
     {
       "teamId": "primera-a-colombia.millonarios",
@@ -174,7 +30,34 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-20T23:19:05.023Z"
+      "reportedAt": "2026-11-21T04:14:45.246Z"
+    },
+    {
+      "teamId": "primera-a-colombia.alianza-valledupar",
+      "player": "Johan Wallens",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T04:14:45.246Z"
+    },
+    {
+      "teamId": "primera-a-colombia.cucuta-deportivo",
+      "player": "Kevin Londoño",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-21T04:14:45.246Z"
+    },
+    {
+      "teamId": "primera-a-colombia.cucuta-deportivo",
+      "player": "Lucas Ríos",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-21T04:14:45.246Z"
     }
   ]
 }

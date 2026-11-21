@@ -5,7 +5,7 @@
   "season": "mls-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase",
-  "updatedAt": "2026-11-20T23:19:05.023Z",
+  "updatedAt": "2026-11-21T04:14:45.246Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 0.8832003353564024,
-      "adjustedAgainst": 1.665352695357224
+      "adjustedFor": 0.8833764452302028,
+      "adjustedAgainst": 1.6653330508717985
     },
     "mls.toronto": {
       "teamId": "mls.toronto",
@@ -29,8 +29,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.5751936614274489,
-      "adjustedAgainst": 1.7628251036114528
+      "adjustedFor": 1.5750892531751508,
+      "adjustedAgainst": 1.7627440117240811
     },
     "mls.st-louis-city": {
       "teamId": "mls.st-louis-city",
@@ -40,8 +40,8 @@
       "forPerGame": 2.15,
       "againstPerGame": 1.4,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8812980539716782,
-      "adjustedAgainst": 1.4147322562560796
+      "adjustedFor": 1.881197949332702,
+      "adjustedAgainst": 1.4147142864425444
     },
     "mls.sporting-kansas-city": {
       "teamId": "mls.sporting-kansas-city",
@@ -51,8 +51,8 @@
       "forPerGame": 1.3,
       "againstPerGame": 2.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.3626451517701232,
-      "adjustedAgainst": 2.0293962120851914
+      "adjustedFor": 1.3626676722440272,
+      "adjustedAgainst": 2.0291744637205396
     },
     "mls.chicago-fire": {
       "teamId": "mls.chicago-fire",
@@ -62,8 +62,8 @@
       "forPerGame": 1.85,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8674150862973544,
-      "adjustedAgainst": 1.6465770256535677
+      "adjustedFor": 1.8672086026363728,
+      "adjustedAgainst": 1.6465622954772654
     },
     "mls.vancouver-whitecaps": {
       "teamId": "mls.vancouver-whitecaps",
@@ -73,8 +73,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.1,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8270571221752876,
-      "adjustedAgainst": 1.2073494836758902
+      "adjustedFor": 1.8269575297729332,
+      "adjustedAgainst": 1.2073942571099001
     },
     "mls.seattle-sounders": {
       "teamId": "mls.seattle-sounders",
@@ -84,8 +84,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 22,
-      "adjustedFor": 1.2608667968007556,
-      "adjustedAgainst": 1.5733368996401873
+      "adjustedFor": 1.2609301796706214,
+      "adjustedAgainst": 1.5732762481376792
     },
     "mls.portland-timbers": {
       "teamId": "mls.portland-timbers",
@@ -95,8 +95,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.65,
       "gamesPlayed": 20,
-      "adjustedFor": 1.7832535659911537,
-      "adjustedAgainst": 1.619798225426589
+      "adjustedFor": 1.7831717868705754,
+      "adjustedAgainst": 1.6197031594303042
     },
     "mls.nashville": {
       "teamId": "mls.nashville",
@@ -106,8 +106,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.7,
       "gamesPlayed": 20,
-      "adjustedFor": 1.793581221561074,
-      "adjustedAgainst": 0.8130409674207485
+      "adjustedFor": 1.7934626721369826,
+      "adjustedAgainst": 0.8132635223571739
     },
     "mls.atlanta-united": {
       "teamId": "mls.atlanta-united",
@@ -117,8 +117,8 @@
       "forPerGame": 1.45,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.4341034698133934,
-      "adjustedAgainst": 1.6510251367982238
+      "adjustedFor": 1.4340853254370949,
+      "adjustedAgainst": 1.6509998931192673
     },
     "mls.la-galaxy": {
       "teamId": "mls.la-galaxy",
@@ -128,8 +128,8 @@
       "forPerGame": 1.4736842105263157,
       "againstPerGame": 1.8421052631578947,
       "gamesPlayed": 19,
-      "adjustedFor": 1.455667449746017,
-      "adjustedAgainst": 1.8176574681166464
+      "adjustedFor": 1.4556822412198112,
+      "adjustedAgainst": 1.8174592709510784
     },
     "mls.los-angeles": {
       "teamId": "mls.los-angeles",
@@ -139,8 +139,8 @@
       "forPerGame": 1.4736842105263157,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3585770438588938,
-      "adjustedAgainst": 1.3229806239448028
+      "adjustedFor": 1.3586406688295758,
+      "adjustedAgainst": 1.3229857388843376
     },
     "mls.new-england-revolution": {
       "teamId": "mls.new-england-revolution",
@@ -150,8 +150,8 @@
       "forPerGame": 1.65,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.5733928299967679,
-      "adjustedAgainst": 1.4075562988223396
+      "adjustedFor": 1.5733275305010326,
+      "adjustedAgainst": 1.4075869333042579
     },
     "mls.philadelphia-union": {
       "teamId": "mls.philadelphia-union",
@@ -161,8 +161,8 @@
       "forPerGame": 2.526315789473684,
       "againstPerGame": 1.1578947368421053,
       "gamesPlayed": 19,
-      "adjustedFor": 2.189456933985389,
-      "adjustedAgainst": 1.1797412074991296
+      "adjustedFor": 2.1891899565188644,
+      "adjustedAgainst": 1.1798441831864606
     },
     "mls.new-york-red-bulls": {
       "teamId": "mls.new-york-red-bulls",
@@ -172,8 +172,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.5789473684210527,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3048344173398163,
-      "adjustedAgainst": 1.4063758205969334
+      "adjustedFor": 1.3048506984859403,
+      "adjustedAgainst": 1.406423487315064
     },
     "mls.columbus-crew": {
       "teamId": "mls.columbus-crew",
@@ -183,8 +183,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 1.8823294580709453,
-      "adjustedAgainst": 1.4482742566454656
+      "adjustedFor": 1.8821431291143567,
+      "adjustedAgainst": 1.448289977540652
     },
     "mls.new-york-city": {
       "teamId": "mls.new-york-city",
@@ -194,8 +194,8 @@
       "forPerGame": 1.263157894736842,
       "againstPerGame": 1.263157894736842,
       "gamesPlayed": 19,
-      "adjustedFor": 1.274379396698578,
-      "adjustedAgainst": 1.2277863207544215
+      "adjustedFor": 1.274414894450624,
+      "adjustedAgainst": 1.2278825486336908
     },
     "mls.cincinnati": {
       "teamId": "mls.cincinnati",
@@ -205,19 +205,19 @@
       "forPerGame": 1.7,
       "againstPerGame": 1.95,
       "gamesPlayed": 20,
-      "adjustedFor": 1.724040946807959,
-      "adjustedAgainst": 1.720665142679387
+      "adjustedFor": 1.7238799056549616,
+      "adjustedAgainst": 1.7206047528717616
     },
-    "mls.inter-vice-city": {
-      "teamId": "mls.inter-vice-city",
-      "name": "Inter Vice City",
-      "shortName": "Inter Vice City",
+    "mls.inter-miami": {
+      "teamId": "mls.inter-miami",
+      "name": "Inter Miami CF",
+      "shortName": "Inter Miami",
       "code": "INT",
       "forPerGame": 2.1578947368421053,
       "againstPerGame": 1.631578947368421,
       "gamesPlayed": 19,
-      "adjustedFor": 2.0050467646733443,
-      "adjustedAgainst": 1.5216368938649851
+      "adjustedFor": 2.004795669623145,
+      "adjustedAgainst": 1.5216342659156676
     },
     "mls.charlotte": {
       "teamId": "mls.charlotte",
@@ -227,8 +227,8 @@
       "forPerGame": 2.210526315789474,
       "againstPerGame": 1.4736842105263157,
       "gamesPlayed": 19,
-      "adjustedFor": 2.033275424594604,
-      "adjustedAgainst": 1.4270664393063845
+      "adjustedFor": 2.033042645902006,
+      "adjustedAgainst": 1.4270877603730987
     },
     "mls.houston-dynamo": {
       "teamId": "mls.houston-dynamo",
@@ -238,8 +238,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 1,
       "gamesPlayed": 20,
-      "adjustedFor": 1.123221560580136,
-      "adjustedAgainst": 1.0666092788805686
+      "adjustedFor": 1.1233557991180085,
+      "adjustedAgainst": 1.0667285910537176
     },
     "mls.dc-united": {
       "teamId": "mls.dc-united",
@@ -249,8 +249,8 @@
       "forPerGame": 0.9473684210526315,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0402032536911083,
-      "adjustedAgainst": 1.6965588532281803
+      "adjustedFor": 1.0403227957668841,
+      "adjustedAgainst": 1.696517035992312
     },
     "mls.minnesota-united": {
       "teamId": "mls.minnesota-united",
@@ -260,8 +260,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.8319746579356844,
-      "adjustedAgainst": 1.8412446222135501
+      "adjustedFor": 1.831867838533542,
+      "adjustedAgainst": 1.841044108732921
     },
     "mls.colorado-rapids": {
       "teamId": "mls.colorado-rapids",
@@ -271,8 +271,8 @@
       "forPerGame": 1.1578947368421053,
       "againstPerGame": 1.368421052631579,
       "gamesPlayed": 19,
-      "adjustedFor": 1.1128606017515068,
-      "adjustedAgainst": 1.413446237261286
+      "adjustedFor": 1.1129984554119994,
+      "adjustedAgainst": 1.4134306370135599
     },
     "mls.san-diego": {
       "teamId": "mls.san-diego",
@@ -282,8 +282,8 @@
       "forPerGame": 1.4210526315789473,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.4072723450289515,
-      "adjustedAgainst": 1.7974010768516868
+      "adjustedFor": 1.4073018936323662,
+      "adjustedAgainst": 1.7972557930034123
     },
     "mls.austin": {
       "teamId": "mls.austin",
@@ -293,8 +293,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.7894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2545142741504716,
-      "adjustedAgainst": 1.7342268337928992
+      "adjustedFor": 1.2545849137640004,
+      "adjustedAgainst": 1.734087610312915
     },
     "mls.dallas": {
       "teamId": "mls.dallas",
@@ -304,8 +304,8 @@
       "forPerGame": 1.6842105263157894,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 1.5666608971867542,
-      "adjustedAgainst": 1.4843352884138947
+      "adjustedFor": 1.5666546010536921,
+      "adjustedAgainst": 1.4842950735600497
     },
     "mls.san-jose-earthquakes": {
       "teamId": "mls.san-jose-earthquakes",
@@ -315,8 +315,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2425791722177453,
-      "adjustedAgainst": 1.7886556048407432
+      "adjustedFor": 1.2426608092313702,
+      "adjustedAgainst": 1.788494315535261
     },
     "mls.orlando-city": {
       "teamId": "mls.orlando-city",
@@ -326,8 +326,8 @@
       "forPerGame": 2.05,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8582318939932296,
-      "adjustedAgainst": 1.6817324938460636
+      "adjustedFor": 1.8580766947985694,
+      "adjustedAgainst": 1.6816969582213521
     },
     "mls.real-salt-lake": {
       "teamId": "mls.real-salt-lake",
@@ -337,8 +337,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.619047619047619,
       "gamesPlayed": 21,
-      "adjustedFor": 1.3550683841572273,
-      "adjustedAgainst": 1.5509924817049305
+      "adjustedFor": 1.3551075763029308,
+      "adjustedAgainst": 1.5509315287449725
     }
   },
   "games": [
@@ -372,7 +372,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -406,7 +406,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -440,7 +440,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -474,7 +474,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +508,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -542,12 +542,12 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
     {
-      "id": "mls-2026-11-07-inter-vice-cit-charlotte-xcfyx4",
+      "id": "mls-2026-11-07-inter-miami-charlotte-nf5pga",
       "league": "mls",
       "season": "mls-2026",
       "round": "League phase",
@@ -555,10 +555,10 @@
       "startTime": "2026-11-07T21:00:00.000Z",
       "status": "final",
       "home": {
-        "id": "mls.inter-vice-city",
+        "id": "mls.inter-miami",
         "league": "mls",
-        "name": "Inter Vice City",
-        "shortName": "Inter Vice City",
+        "name": "Inter Miami CF",
+        "shortName": "Inter Miami",
         "code": "INT",
         "logoUrl": "https://sports.bzzoiro.com/img/team/293/?bg=transparent"
       },
@@ -576,7 +576,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -610,7 +610,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -644,7 +644,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -678,7 +678,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -712,7 +712,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -746,7 +746,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -780,7 +780,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -814,7 +814,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -849,7 +849,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -884,7 +884,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-20T23:19:05.023Z",
+        "observedAt": "2026-11-21T04:14:45.246Z",
         "source": "pitchlab-feed"
       }
     },
@@ -913,6 +913,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/283/?bg=transparent"
       },
       "venue": "Gillette Stadium, Foxborough",
+      "referee": "Lorenzo Hernandez",
       "neutralSite": false
     },
     {
@@ -940,10 +941,11 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/294/?bg=transparent"
       },
       "venue": "Toyota Stadium, Frisco",
+      "referee": "Alexis Da Silva",
       "neutralSite": false
     },
     {
-      "id": "mls-2026-11-21-inter-vice-cit-columbus-crew-s2phsa",
+      "id": "mls-2026-11-21-inter-miami-columbus-crew-2poqfc",
       "league": "mls",
       "season": "mls-2026",
       "round": "League phase",
@@ -951,10 +953,10 @@
       "startTime": "2026-11-21T23:00:00.000Z",
       "status": "scheduled",
       "home": {
-        "id": "mls.inter-vice-city",
+        "id": "mls.inter-miami",
         "league": "mls",
-        "name": "Inter Vice City",
-        "shortName": "Inter Vice City",
+        "name": "Inter Miami CF",
+        "shortName": "Inter Miami",
         "code": "INT",
         "logoUrl": "https://sports.bzzoiro.com/img/team/293/?bg=transparent"
       },
@@ -967,6 +969,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/295/?bg=transparent"
       },
       "venue": "Nu Stadium, Miami",
+      "referee": "Allen Chapman",
       "neutralSite": false
     },
     {
@@ -994,6 +997,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/276/?bg=transparent"
       },
       "venue": "Geodis Park, Nashville",
+      "referee": "Fotis Bazakos",
       "neutralSite": false
     },
     {
@@ -1021,6 +1025,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/275/?bg=transparent"
       },
       "venue": "SeatGeek Stadium, Bridgeview",
+      "referee": "Filip Dujic",
       "neutralSite": false
     },
     {
@@ -1048,6 +1053,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/279/?bg=transparent"
       },
       "venue": "BC Place, Vancouver",
+      "referee": "Chris Penso",
       "neutralSite": false
     },
     {
@@ -1105,7 +1111,7 @@
       "neutralSite": false
     },
     {
-      "id": "mls-2026-11-28-columbus-crew-inter-vice-cit-5z1f4b",
+      "id": "mls-2026-11-28-columbus-crew-inter-miami-8iiytl",
       "league": "mls",
       "season": "mls-2026",
       "round": "League phase",
@@ -1121,10 +1127,10 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/295/?bg=transparent"
       },
       "away": {
-        "id": "mls.inter-vice-city",
+        "id": "mls.inter-miami",
         "league": "mls",
-        "name": "Inter Vice City",
-        "shortName": "Inter Vice City",
+        "name": "Inter Miami CF",
+        "shortName": "Inter Miami",
         "code": "INT",
         "logoUrl": "https://sports.bzzoiro.com/img/team/293/?bg=transparent"
       },
@@ -1601,11 +1607,11 @@
         "referee": "Guido Gonzales Jr",
         "refereeStats": {
           "country": "USA",
-          "matches": 48,
-          "avgYellow": 4.31,
+          "matches": 49,
+          "avgYellow": 4.33,
           "avgRed": 0.27,
           "avgFouls": 24.2,
-          "avgGoals": 2.77
+          "avgGoals": 2.82
         },
         "weather": {
           "description": "clear",
@@ -1902,11 +1908,11 @@
         "referee": "Rosendo Mendoza",
         "refereeStats": {
           "country": "USA",
-          "matches": 56,
-          "avgYellow": 4.98,
+          "matches": 57,
+          "avgYellow": 4.95,
           "avgRed": 0.23,
           "avgFouls": 27.1,
-          "avgGoals": 3.27
+          "avgGoals": 3.26
         },
         "weather": {
           "description": "clear",
@@ -2503,12 +2509,12 @@
       "matchContext": {
         "referee": "Pierre-Luc Lauziere",
         "refereeStats": {
-          "country": "USA",
-          "matches": 48,
+          "country": "Canada",
+          "matches": 49,
           "avgYellow": 3.65,
           "avgRed": 0.08,
           "avgFouls": 24.3,
-          "avgGoals": 2.83
+          "avgGoals": 2.86
         },
         "weather": {
           "description": "clear",
@@ -3106,11 +3112,11 @@
         "referee": "Tori Penso",
         "refereeStats": {
           "country": "USA",
-          "matches": 41,
-          "avgYellow": 4.15,
+          "matches": 42,
+          "avgYellow": 4.05,
           "avgRed": 0.1,
           "avgFouls": 21.2,
-          "avgGoals": 2.76
+          "avgGoals": 2.88
         },
         "weather": {
           "description": "cloudy",
@@ -3128,107 +3134,154 @@
         "venueCapacity": 26000
       }
     },
-    "mls-2026-11-07-inter-vice-cit-charlotte-xcfyx4": {
-      "game": "mls-2026-11-07-inter-vice-cit-charlotte-xcfyx4",
+    "mls-2026-11-07-inter-miami-charlotte-nf5pga": {
+      "game": "mls-2026-11-07-inter-miami-charlotte-nf5pga",
       "model": {
         "id": "pitchlab-statistical-mls",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.111056102514733,
-        "away": 2.117508219694329,
-        "total": 4.228564322209062
+        "home": 2.333544686233984,
+        "away": 2.053762771809919,
+        "total": 4.387307458043903,
+        "margin": 0.2797819144240652
       },
       "x12": [
-        0.39315720900153867,
-        0.21125998172698152,
-        0.3955826944484289
+        0.4503133131500228,
+        0.20249683520745151,
+        0.3471898516425255
       ],
       "probabilities": [
         {
           "market": "h2h",
-          "selection": "Inter Vice City gana",
-          "p": 0.39315720900153867,
-          "fairOdds": 2.5435117991085505
+          "selection": "Inter Miami gana",
+          "p": 0.4503133131500228,
+          "fairOdds": 2.2206760732984323
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.21125998172698152,
-          "fairOdds": 4.733504148894295
+          "p": 0.20249683520745151,
+          "fairOdds": 4.938348784441653
         },
         {
           "market": "h2h",
           "selection": "Charlotte gana",
-          "p": 0.3955826944484289,
-          "fairOdds": 2.5279164484036025
+          "p": 0.3471898516425255,
+          "fairOdds": 2.8802685195695825
         },
         {
           "market": "double_chance",
-          "selection": "Inter Vice City o empate",
-          "p": 0.6044171907285202,
-          "fairOdds": 1.654486363623565
+          "selection": "Inter Miami o empate",
+          "p": 0.6528101483574743,
+          "fairOdds": 1.5318389312973837
         },
         {
           "market": "double_chance",
           "selection": "Charlotte o empate",
-          "p": 0.6068426761754104,
-          "fairOdds": 1.6478735581064272
+          "p": 0.549686686849977,
+          "fairOdds": 1.8192181544919326
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7887399034499676,
-          "fairOdds": 1.2678450724072354
+          "p": 0.7975031647925483,
+          "fairOdds": 1.2539135192775397
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.9238025735131506,
-          "fairOdds": 1.0824823708783105
+          "p": 0.9365860167786373,
+          "fairOdds": 1.0677075912786669
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.7935117781648598,
-          "fairOdds": 1.260220739650118
+          "p": 0.813335803825653,
+          "fairOdds": 1.2295044621131181
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.20648822183514015,
-          "fairOdds": 4.842891236665297
+          "p": 0.18666419617434704,
+          "fairOdds": 5.357213758689887
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.6098641085908516,
-          "fairOdds": 1.639709544984692
+          "p": 0.6383194170411794,
+          "fairOdds": 1.5666137881804207
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.3901358914091484,
-          "fairOdds": 2.563209440659401
+          "p": 0.36168058295882055,
+          "fairOdds": 2.7648705712074566
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.773132209891624,
-          "fairOdds": 1.2934398375928198
+          "p": 0.7908028492962846,
+          "fairOdds": 1.2645376795112393
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.226867790108376,
-          "fairOdds": 4.40785357640366
+          "p": 0.20919715070371536,
+          "fairOdds": 4.780179828626317
+        },
+        {
+          "market": "team_totals",
+          "selection": "Inter Miami más de 1.5",
+          "line": 1.5,
+          "p": 0.676797083453989,
+          "fairOdds": 1.477547738380559
+        },
+        {
+          "market": "team_totals",
+          "selection": "Inter Miami menos de 1.5",
+          "line": 1.5,
+          "p": 0.32320291654601097,
+          "fairOdds": 3.0940314855037534
+        },
+        {
+          "market": "team_totals",
+          "selection": "Charlotte más de 1.5",
+          "line": 1.5,
+          "p": 0.6083464573655234,
+          "fairOdds": 1.6438001535022544
+        },
+        {
+          "market": "team_totals",
+          "selection": "Charlotte menos de 1.5",
+          "line": 1.5,
+          "p": 0.3916535426344766,
+          "fairOdds": 2.553277044996073
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07140170124330766,
+          "fairOdds": 14.00526853824408
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.06953256941198083,
+          "fairOdds": 14.381749566523206
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.06316958403367753,
+          "fairOdds": 15.830403433824593
         }
       ],
       "marketGroups": [
@@ -3238,23 +3291,23 @@
             {
               "market": "h2h",
               "selection": "home",
-              "label": "Inter Vice City gana",
-              "p": 0.39315720900153867,
-              "fairOdds": 2.5435117991085505
+              "label": "Inter Miami gana",
+              "p": 0.4503133131500228,
+              "fairOdds": 2.2206760732984323
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.21125998172698152,
-              "fairOdds": 4.733504148894295
+              "p": 0.20249683520745151,
+              "fairOdds": 4.938348784441653
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Charlotte gana",
-              "p": 0.3955826944484289,
-              "fairOdds": 2.5279164484036025
+              "p": 0.3471898516425255,
+              "fairOdds": 2.8802685195695825
             }
           ]
         },
@@ -3264,23 +3317,23 @@
             {
               "market": "double_chance",
               "selection": "1x",
-              "label": "Inter Vice City o empate",
-              "p": 0.6044171907285202,
-              "fairOdds": 1.654486363623565
+              "label": "Inter Miami o empate",
+              "p": 0.6528101483574743,
+              "fairOdds": 1.5318389312973837
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Charlotte o empate",
-              "p": 0.6068426761754104,
-              "fairOdds": 1.6478735581064272
+              "p": 0.549686686849977,
+              "fairOdds": 1.8192181544919326
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7887399034499676,
-              "fairOdds": 1.2678450724072354
+              "p": 0.7975031647925483,
+              "fairOdds": 1.2539135192775397
             }
           ]
         },
@@ -3292,40 +3345,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.9238025735131506,
-              "fairOdds": 1.0824823708783105
+              "p": 0.9365860167786373,
+              "fairOdds": 1.0677075912786669
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.7935117781648598,
-              "fairOdds": 1.260220739650118
+              "p": 0.813335803825653,
+              "fairOdds": 1.2295044621131181
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.20648822183514015,
-              "fairOdds": 4.842891236665297
+              "p": 0.18666419617434704,
+              "fairOdds": 5.357213758689887
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.6098641085908516,
-              "fairOdds": 1.639709544984692
+              "p": 0.6383194170411794,
+              "fairOdds": 1.5666137881804207
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.3901358914091484,
-              "fairOdds": 2.563209440659401
+              "p": 0.36168058295882055,
+              "fairOdds": 2.7648705712074566
             }
           ]
         },
@@ -3336,15 +3389,78 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.773132209891624,
-              "fairOdds": 1.2934398375928198
+              "p": 0.7908028492962846,
+              "fairOdds": 1.2645376795112393
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.226867790108376,
-              "fairOdds": 4.40785357640366
+              "p": 0.20919715070371536,
+              "fairOdds": 4.780179828626317
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Inter Miami más de 1.5",
+              "line": 1.5,
+              "p": 0.676797083453989,
+              "fairOdds": 1.477547738380559
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Inter Miami menos de 1.5",
+              "line": 1.5,
+              "p": 0.32320291654601097,
+              "fairOdds": 3.0940314855037534
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Charlotte más de 1.5",
+              "line": 1.5,
+              "p": 0.6083464573655234,
+              "fairOdds": 1.6438001535022544
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Charlotte menos de 1.5",
+              "line": 1.5,
+              "p": 0.3916535426344766,
+              "fairOdds": 2.553277044996073
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07140170124330766,
+              "fairOdds": 14.00526853824408
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.06953256941198083,
+              "fairOdds": 14.381749566523206
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.06316958403367753,
+              "fairOdds": 15.830403433824593
             }
           ]
         }
@@ -3352,66 +3468,106 @@
       "mostLikelyScore": {
         "home": 2,
         "away": 2,
-        "p": 0.07280272194691871
+        "p": 0.07140170124330766
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "2.16 goles/partido",
-          "detail": "19 partidos · ajustado a 1.99"
+          "value": "1.90 goles/partido",
+          "detail": "33 % más que la media · 19 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.47 recibidos/partido",
-          "detail": "ajustado a 1.47"
+          "value": "1.43 concedidos/partido",
+          "detail": "5 % menos que la media · 19 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "2.21 goles/partido",
-          "detail": "ajustado a 2.03"
+          "value": "2.05 goles/partido",
+          "detail": "35 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.63 recibidos/partido",
-          "detail": "ajustado a 1.59"
+          "value": "1.52 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "×1.23",
+          "detail": "estimada de 294 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "19 y 19 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.4–5.9",
+          "detail": "local 21%–68% · 294 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "11.º · 29 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "4.º · 33 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-P-E-G · 10 pts",
+          "detail": "9 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-E-P-G-G · 7 pts",
+          "detail": "13 goles a favor · 8 en contra"
         }
       ],
       "steps": [
-        "Sincronizando MLS · corte 7 nov 2026, 14:00",
-        "Fuerza de ataque y defensa · INT 2.16 / 1.63 · CHA 2.21 / 1.47",
-        "Ajuste por localía y tamaño de muestra (19 partidos)",
-        "Proyección de goles 2.11 – 2.12",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 2–2"
+        "Sincronizando MLS · corte 7 nov 2026, 20:00",
+        "Fuerza ajustada por rival · INT 1.33 / 1.01 · CHA 1.35 / 0.95",
+        "Ponderando 259.8 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.33 – 2.05 · total 4.39",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
       ],
       "inputsAsOf": "2026-11-07T20:00:00.000Z",
       "publishedAt": "2026-11-07T20:00:00.000Z",
-      "source": "pitchlab-football-v1",
+      "source": "pitchlab-football-v2",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.06953256941198083
+      },
+      "insights": {
+        "why": [
+          "Se esperan 4.4 goles: 2.3 de Inter Miami y 2.1 de Charlotte.",
+          "Charlotte anota 35 % más que la media.",
+          "Inter Miami anota 33 % más que la media."
+        ],
+        "restDays": {
+          "home": 5,
+          "away": 7
+        }
+      },
       "matchContext": {
         "referee": "Rubiel Vazquez",
         "refereeStats": {
           "country": "USA",
-          "matches": 58,
-          "avgYellow": 3.66,
-          "avgRed": 0.16,
+          "matches": 60,
+          "avgYellow": 3.63,
+          "avgRed": 0.15,
           "avgFouls": 23.2,
-          "avgGoals": 3.12
+          "avgGoals": 3.15
         },
         "weather": {
           "description": "clear",
@@ -3708,11 +3864,11 @@
         "referee": "Allen Chapman",
         "refereeStats": {
           "country": "USA",
-          "matches": 52,
-          "avgYellow": 3.35,
+          "matches": 54,
+          "avgYellow": 3.33,
           "avgRed": 0.13,
           "avgFouls": 19.6,
-          "avgGoals": 3.19
+          "avgGoals": 3.17
         },
         "weather": {
           "description": "cloudy",
@@ -5211,11 +5367,11 @@
         "referee": "Joseph Dickerson",
         "refereeStats": {
           "country": "USA",
-          "matches": 39,
-          "avgYellow": 4.46,
-          "avgRed": 0.28,
+          "matches": 41,
+          "avgYellow": 4.44,
+          "avgRed": 0.27,
           "avgFouls": 25.9,
-          "avgGoals": 3.85
+          "avgGoals": 3.83
         },
         "weather": {
           "description": "clear",
@@ -5812,11 +5968,11 @@
         "referee": "Rubiel Vazquez",
         "refereeStats": {
           "country": "USA",
-          "matches": 58,
-          "avgYellow": 3.66,
-          "avgRed": 0.16,
+          "matches": 60,
+          "avgYellow": 3.63,
+          "avgRed": 0.15,
           "avgFouls": 23.2,
-          "avgGoals": 3.12
+          "avgGoals": 3.15
         },
         "weather": {
           "description": "cloudy",
@@ -6113,8 +6269,8 @@
         "referee": "Jon Freemon",
         "refereeStats": {
           "country": "USA",
-          "matches": 50,
-          "avgYellow": 4.46,
+          "matches": 51,
+          "avgYellow": 4.45,
           "avgRed": 0.14,
           "avgFouls": 24.9,
           "avgGoals": 2.94
@@ -6128,6 +6284,10 @@
         "halfTimeScore": {
           "home": 1,
           "away": 0
+        },
+        "penaltyShootout": {
+          "home": 2,
+          "away": 4
         },
         "stageName": "Wild Card Round",
         "venueCity": "Seattle",
@@ -6472,6 +6632,15 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "referee": "Lorenzo Hernandez",
+        "refereeStats": {
+          "country": "USA",
+          "matches": 31,
+          "avgYellow": 4.16,
+          "avgRed": 0.19,
+          "avgFouls": 23.1,
+          "avgGoals": 3.1
+        },
         "weather": {
           "description": "rain",
           "temperatureC": 14,
@@ -6828,6 +6997,15 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "referee": "Alexis Da Silva",
+        "refereeStats": {
+          "country": "USA",
+          "matches": 41,
+          "avgYellow": 4.68,
+          "avgRed": 0.1,
+          "avgFouls": 25.7,
+          "avgGoals": 3.12
+        },
         "weather": {
           "description": "unknown",
           "temperatureC": 14,
@@ -6840,107 +7018,154 @@
         "venueCapacity": 20500
       }
     },
-    "mls-2026-11-21-inter-vice-cit-columbus-crew-s2phsa": {
-      "game": "mls-2026-11-21-inter-vice-cit-columbus-crew-s2phsa",
+    "mls-2026-11-21-inter-miami-columbus-crew-2poqfc": {
+      "game": "mls-2026-11-21-inter-miami-columbus-crew-2poqfc",
       "model": {
         "id": "pitchlab-statistical-mls",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.1373368165547126,
-        "away": 1.9789559186303907,
-        "total": 4.1162927351851035
+        "home": 2.368214117632364,
+        "away": 1.901325335001956,
+        "total": 4.26953945263432,
+        "margin": 0.4668887826304078
       },
       "x12": [
-        0.4229755138295302,
-        0.2142902643119203,
-        0.3627341306835674
+        0.48530086625980773,
+        0.2029428806342024,
+        0.31175625310598903
       ],
       "probabilities": [
         {
           "market": "h2h",
-          "selection": "Inter Vice City gana",
-          "p": 0.4229755138295302,
-          "fairOdds": 2.3642030503047637
+          "selection": "Inter Miami gana",
+          "p": 0.48530086625980773,
+          "fairOdds": 2.06057740573792
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2142902643119203,
-          "fairOdds": 4.666567579311036
+          "p": 0.2029428806342024,
+          "fairOdds": 4.927494854093777
         },
         {
           "market": "h2h",
           "selection": "Columbus Crew gana",
-          "p": 0.3627341306835674,
-          "fairOdds": 2.7568401079752656
+          "p": 0.31175625310598903,
+          "fairOdds": 3.2076341373657256
         },
         {
           "market": "double_chance",
-          "selection": "Inter Vice City o empate",
-          "p": 0.6372657781414505,
-          "fairOdds": 1.5692039872538635
+          "selection": "Inter Miami o empate",
+          "p": 0.6882437468940101,
+          "fairOdds": 1.452973607843037
         },
         {
           "market": "double_chance",
           "selection": "Columbus Crew o empate",
-          "p": 0.5770243949954877,
-          "fairOdds": 1.7330289822630807
+          "p": 0.5146991337401914,
+          "fairOdds": 1.9428826171383797
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7857096445130975,
-          "fairOdds": 1.2727347907504658
+          "p": 0.7970571193657967,
+          "fairOdds": 1.2546152285744354
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.9165796198832689,
-          "fairOdds": 1.0910126936134092
+          "p": 0.9300645882149483,
+          "fairOdds": 1.0751941453004648
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.7784460331573786,
-          "fairOdds": 1.2846105669573498
+          "p": 0.7987843222509141,
+          "fairOdds": 1.251902387345404
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.2215539668426214,
-          "fairOdds": 4.513572987435335
+          "p": 0.20121567774908589,
+          "fairOdds": 4.96979167422029
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.588913273315764,
-          "fairOdds": 1.698042895806526
+          "p": 0.6173275050469247,
+          "fairOdds": 1.6198857038193808
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.41108672668423596,
-          "fairOdds": 2.43257671700045
+          "p": 0.3826724949530753,
+          "fairOdds": 2.613200617208257
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.7601227837582945,
-          "fairOdds": 1.3155769322630675
+          "p": 0.7747454183188688,
+          "fairOdds": 1.290746581205881
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.23987721624170555,
-          "fairOdds": 4.168799420251642
+          "p": 0.22525458168113122,
+          "fairOdds": 4.439421353993114
+        },
+        {
+          "market": "team_totals",
+          "selection": "Inter Miami más de 1.5",
+          "line": 1.5,
+          "p": 0.6845620232866712,
+          "fairOdds": 1.4607880162543492
+        },
+        {
+          "market": "team_totals",
+          "selection": "Inter Miami menos de 1.5",
+          "line": 1.5,
+          "p": 0.31543797671332885,
+          "fairOdds": 3.170195327840324
+        },
+        {
+          "market": "team_totals",
+          "selection": "Columbus Crew más de 1.5",
+          "line": 1.5,
+          "p": 0.5666252639539103,
+          "fairOdds": 1.7648348275578136
+        },
+        {
+          "market": "team_totals",
+          "selection": "Columbus Crew menos de 1.5",
+          "line": 1.5,
+          "p": 0.43337473604608967,
+          "fairOdds": 2.30747184093733
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.0745847120448034,
+          "fairOdds": 13.407573383125689
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07090490130730513,
+          "fairOdds": 14.103397389497147
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.06676743811199987,
+          "fairOdds": 14.977360645806682
         }
       ],
       "marketGroups": [
@@ -6950,23 +7175,23 @@
             {
               "market": "h2h",
               "selection": "home",
-              "label": "Inter Vice City gana",
-              "p": 0.4229755138295302,
-              "fairOdds": 2.3642030503047637
+              "label": "Inter Miami gana",
+              "p": 0.48530086625980773,
+              "fairOdds": 2.06057740573792
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2142902643119203,
-              "fairOdds": 4.666567579311036
+              "p": 0.2029428806342024,
+              "fairOdds": 4.927494854093777
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Columbus Crew gana",
-              "p": 0.3627341306835674,
-              "fairOdds": 2.7568401079752656
+              "p": 0.31175625310598903,
+              "fairOdds": 3.2076341373657256
             }
           ]
         },
@@ -6976,23 +7201,23 @@
             {
               "market": "double_chance",
               "selection": "1x",
-              "label": "Inter Vice City o empate",
-              "p": 0.6372657781414505,
-              "fairOdds": 1.5692039872538635
+              "label": "Inter Miami o empate",
+              "p": 0.6882437468940101,
+              "fairOdds": 1.452973607843037
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Columbus Crew o empate",
-              "p": 0.5770243949954877,
-              "fairOdds": 1.7330289822630807
+              "p": 0.5146991337401914,
+              "fairOdds": 1.9428826171383797
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7857096445130975,
-              "fairOdds": 1.2727347907504658
+              "p": 0.7970571193657967,
+              "fairOdds": 1.2546152285744354
             }
           ]
         },
@@ -7004,40 +7229,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.9165796198832689,
-              "fairOdds": 1.0910126936134092
+              "p": 0.9300645882149483,
+              "fairOdds": 1.0751941453004648
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.7784460331573786,
-              "fairOdds": 1.2846105669573498
+              "p": 0.7987843222509141,
+              "fairOdds": 1.251902387345404
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.2215539668426214,
-              "fairOdds": 4.513572987435335
+              "p": 0.20121567774908589,
+              "fairOdds": 4.96979167422029
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.588913273315764,
-              "fairOdds": 1.698042895806526
+              "p": 0.6173275050469247,
+              "fairOdds": 1.6198857038193808
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.41108672668423596,
-              "fairOdds": 2.43257671700045
+              "p": 0.3826724949530753,
+              "fairOdds": 2.613200617208257
             }
           ]
         },
@@ -7048,73 +7273,160 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.7601227837582945,
-              "fairOdds": 1.3155769322630675
+              "p": 0.7747454183188688,
+              "fairOdds": 1.290746581205881
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.23987721624170555,
-              "fairOdds": 4.168799420251642
+              "p": 0.22525458168113122,
+              "fairOdds": 4.439421353993114
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Inter Miami más de 1.5",
+              "line": 1.5,
+              "p": 0.6845620232866712,
+              "fairOdds": 1.4607880162543492
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Inter Miami menos de 1.5",
+              "line": 1.5,
+              "p": 0.31543797671332885,
+              "fairOdds": 3.170195327840324
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Columbus Crew más de 1.5",
+              "line": 1.5,
+              "p": 0.5666252639539103,
+              "fairOdds": 1.7648348275578136
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Columbus Crew menos de 1.5",
+              "line": 1.5,
+              "p": 0.43337473604608967,
+              "fairOdds": 2.30747184093733
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.0745847120448034,
+              "fairOdds": 13.407573383125689
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07090490130730513,
+              "fairOdds": 14.103397389497147
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.06676743811199987,
+              "fairOdds": 14.977360645806682
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 1,
+        "home": 2,
         "away": 1,
-        "p": 0.07448170706773038
+        "p": 0.0745847120448034
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "2.16 goles/partido",
-          "detail": "19 partidos · ajustado a 1.99"
+          "value": "1.93 goles/partido",
+          "detail": "33 % más que la media · 19 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.53 recibidos/partido",
-          "detail": "ajustado a 1.51"
+          "value": "1.45 concedidos/partido",
+          "detail": "4 % menos que la media · 19 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "2.00 goles/partido",
-          "detail": "ajustado a 1.87"
+          "value": "1.90 goles/partido",
+          "detail": "25 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.63 recibidos/partido",
-          "detail": "ajustado a 1.59"
+          "value": "1.52 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "×1.23",
+          "detail": "estimada de 294 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "19 y 19 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.4–5.7",
+          "detail": "local 30%–74% · 294 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "11.º · 29 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "10.º · 31 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-E-G-E · 8 pts",
+          "detail": "10 goles a favor · 9 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-G-G · 15 pts",
+          "detail": "15 goles a favor · 5 en contra"
         }
       ],
       "steps": [
-        "Sincronizando MLS · corte 19 nov 2026, 10:13",
-        "Fuerza de ataque y defensa · INT 2.16 / 1.63 · COL 2.00 / 1.53",
-        "Ajuste por localía y tamaño de muestra (19 partidos)",
-        "Proyección de goles 2.14 – 1.98",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
+        "Sincronizando MLS · corte 21 nov 2026, 04:14",
+        "Fuerza ajustada por rival · INT 1.33 / 1.01 · COL 1.25 / 0.96",
+        "Ponderando 259.8 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.37 – 1.90 · total 4.27",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:13:44.585Z",
-      "publishedAt": "2026-11-19T16:13:44.585Z",
-      "source": "pitchlab-football-v1",
+      "inputsAsOf": "2026-11-21T04:14:45.246Z",
+      "publishedAt": "2026-11-21T04:14:45.246Z",
+      "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
@@ -7122,55 +7434,56 @@
           "selection": "over_1.5",
           "label": "Más de 1.5",
           "line": 1.5,
-          "p": 0.9165796198832689,
-          "fairOdds": 1.0910126936134092
+          "p": 0.9300645882149483,
+          "fairOdds": 1.0751941453004648
         },
         {
           "profile": "intermedia",
           "market": "double_chance",
           "selection": "1x",
-          "label": "Inter Vice City o empate",
-          "p": 0.6372657781414505,
-          "fairOdds": 1.5692039872538635
+          "label": "Inter Miami o empate",
+          "p": 0.6882437468940101,
+          "fairOdds": 1.452973607843037
         },
         {
           "profile": "arriesgada",
-          "market": "h2h",
-          "selection": "home",
-          "label": "Inter Vice City gana",
-          "p": 0.4229755138295302,
-          "fairOdds": 2.3642030503047637
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Columbus Crew o empate",
+          "p": 0.5146991337401914,
+          "fairOdds": 1.9428826171383797
         }
       ],
       "confidence": {
-        "score": 43,
-        "level": "baja",
+        "score": 47,
+        "level": "media",
         "reasons": [
-          "Muestra suficiente"
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
         ]
       },
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.0733552672666022
+        "p": 0.0745847120448034
       },
       "insights": {
         "why": [
-          "Inter Vice City gana en 42 % de los escenarios; el empate, en 21 %.",
-          "Inter Vice City anota 33 % más que la media.",
+          "Inter Miami gana en 49% de los escenarios; el empate, en 20%.",
+          "Inter Miami anota 33 % más que la media.",
           "Columbus Crew anota 25 % más que la media."
         ],
         "headToHead": [
           {
             "date": "2026-09-27",
             "homeTeamId": "mls.columbus-crew",
-            "awayTeamId": "mls.inter-vice-city",
+            "awayTeamId": "mls.inter-miami",
             "homeGoals": 2,
             "awayGoals": 1
           },
           {
             "date": "2026-08-02",
-            "homeTeamId": "mls.inter-vice-city",
+            "homeTeamId": "mls.inter-miami",
             "awayTeamId": "mls.columbus-crew",
             "homeGoals": 2,
             "awayGoals": 2
@@ -7181,13 +7494,23 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-20T13:22:46.169Z",
+      "picksAt": "2026-11-21T04:14:45.246Z",
       "matchContext": {
+        "referee": "Allen Chapman",
+        "refereeStats": {
+          "country": "USA",
+          "matches": 54,
+          "avgYellow": 3.33,
+          "avgRed": 0.13,
+          "avgFouls": 19.6,
+          "avgGoals": 3.17
+        },
         "weather": {
           "description": "rain",
           "temperatureC": 26,
           "windSpeedKmh": 92
         },
+        "travelDistanceKm": 1558,
         "stageName": "League phase",
         "venueCity": "Miami",
         "venueCountry": "USA",
@@ -7673,11 +7996,21 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "referee": "Fotis Bazakos",
+        "refereeStats": {
+          "country": "USA",
+          "matches": 34,
+          "avgYellow": 4.35,
+          "avgRed": 0.12,
+          "avgFouls": 24.6,
+          "avgGoals": 3.21
+        },
         "weather": {
           "description": "rain",
           "temperatureC": 19,
           "windSpeedKmh": 5
         },
+        "travelDistanceKm": 387,
         "stageName": "League phase",
         "venueCity": "Nashville",
         "venueCountry": "USA",
@@ -8027,11 +8360,21 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "referee": "Filip Dujic",
+        "refereeStats": {
+          "country": "Canada",
+          "matches": 51,
+          "avgYellow": 4.12,
+          "avgRed": 0.22,
+          "avgFouls": 25.7,
+          "avgGoals": 3.31
+        },
         "weather": {
           "description": "clear",
           "temperatureC": 6,
           "windSpeedKmh": 30
         },
+        "travelDistanceKm": 945,
         "stageName": "League phase",
         "venueCity": "Bridgeview",
         "venueCountry": "USA",
@@ -8511,6 +8854,15 @@
       },
       "picksAt": "2026-11-20T13:22:46.169Z",
       "matchContext": {
+        "referee": "Chris Penso",
+        "refereeStats": {
+          "country": "USA",
+          "matches": 41,
+          "avgYellow": 4.68,
+          "avgRed": 0.17,
+          "avgFouls": 22.6,
+          "avgGoals": 2.71
+        },
         "weather": {
           "description": "rain",
           "temperatureC": 8,
@@ -9215,107 +9567,154 @@
         "venueCapacity": 18000
       }
     },
-    "mls-2026-11-28-columbus-crew-inter-vice-cit-5z1f4b": {
-      "game": "mls-2026-11-28-columbus-crew-inter-vice-cit-5z1f4b",
+    "mls-2026-11-28-columbus-crew-inter-miami-8iiytl": {
+      "game": "mls-2026-11-28-columbus-crew-inter-miami-8iiytl",
       "model": {
         "id": "pitchlab-statistical-mls",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.1207785439736666,
-        "away": 1.9944068913968158,
-        "total": 4.115185435370482
+        "home": 2.33592153871069,
+        "away": 1.9276099072441462,
+        "total": 4.263531445954836,
+        "margin": 0.40831163146654403
       },
       "x12": [
-        0.41677919696758153,
-        0.21452767930239716,
-        0.3686930358416461
+        0.47397129560905643,
+        0.2041650807320448,
+        0.3218636236588981
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Columbus Crew gana",
-          "p": 0.41677919696758153,
-          "fairOdds": 2.3993520004737263
+          "p": 0.47397129560905643,
+          "fairOdds": 2.1098324081313677
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.21452767930239716,
-          "fairOdds": 4.661403149709203
+          "p": 0.2041650807320448,
+          "fairOdds": 4.897997230547195
         },
         {
           "market": "h2h",
-          "selection": "Inter Vice City gana",
-          "p": 0.3686930358416461,
-          "fairOdds": 2.7122833978060292
+          "selection": "Inter Miami gana",
+          "p": 0.3218636236588981,
+          "fairOdds": 3.1069059269020456
         },
         {
           "market": "double_chance",
           "selection": "Columbus Crew o empate",
-          "p": 0.6313068762699787,
-          "fairOdds": 1.5840156944090522
+          "p": 0.6781363763411012,
+          "fairOdds": 1.4746296392408862
         },
         {
           "market": "double_chance",
-          "selection": "Inter Vice City o empate",
-          "p": 0.5832207151440433,
-          "fairOdds": 1.7146167377697155
+          "selection": "Inter Miami o empate",
+          "p": 0.5260287043909428,
+          "fairOdds": 1.9010369427612133
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7854722328092276,
-          "fairOdds": 1.27311947925074
+          "p": 0.7958349192679546,
+          "fairOdds": 1.2565419985841357
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.9165052717103999,
-          "fairOdds": 1.091101198069249
+          "p": 0.9297279614073329,
+          "fairOdds": 1.0755834410812986
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.778293034319756,
-          "fairOdds": 1.2848630989920402
+          "p": 0.7980178156399383,
+          "fairOdds": 1.2531048560589968
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.22170696568024395,
-          "fairOdds": 4.510458193912799
+          "p": 0.20198218436006166,
+          "fairOdds": 4.9509317030523805
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.5887033722197745,
-          "fairOdds": 1.6986483298530866
+          "p": 0.6162377517868818,
+          "fairOdds": 1.622750305544146
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.41129662778022547,
-          "fairOdds": 2.431335275946745
+          "p": 0.3837622482131182,
+          "fairOdds": 2.605780023064334
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.7602903493415802,
-          "fairOdds": 1.3152869832768639
+          "p": 0.7756541522304289,
+          "fairOdds": 1.2892343799416974
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.23970965065841976,
-          "fairOdds": 4.171713559521953
+          "p": 0.22434584776957112,
+          "fairOdds": 4.457403646833324
+        },
+        {
+          "market": "team_totals",
+          "selection": "Columbus Crew más de 1.5",
+          "line": 1.5,
+          "p": 0.6773343783820974,
+          "fairOdds": 1.4763756748751362
+        },
+        {
+          "market": "team_totals",
+          "selection": "Columbus Crew menos de 1.5",
+          "line": 1.5,
+          "p": 0.3226656216179026,
+          "fairOdds": 3.0991835913160592
+        },
+        {
+          "market": "team_totals",
+          "selection": "Inter Miami más de 1.5",
+          "line": 1.5,
+          "p": 0.5740433232001194,
+          "fairOdds": 1.7420287974526032
+        },
+        {
+          "market": "team_totals",
+          "selection": "Inter Miami menos de 1.5",
+          "line": 1.5,
+          "p": 0.4259566767998806,
+          "fairOdds": 2.3476565915406735
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.07401074006883843,
+          "fairOdds": 13.51155249994644
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07133191789958213,
+          "fairOdds": 14.018969760602191
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.06716953730926248,
+          "fairOdds": 14.88770118209677
         }
       ],
       "marketGroups": [
@@ -9326,22 +9725,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Columbus Crew gana",
-              "p": 0.41677919696758153,
-              "fairOdds": 2.3993520004737263
+              "p": 0.47397129560905643,
+              "fairOdds": 2.1098324081313677
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.21452767930239716,
-              "fairOdds": 4.661403149709203
+              "p": 0.2041650807320448,
+              "fairOdds": 4.897997230547195
             },
             {
               "market": "h2h",
               "selection": "away",
-              "label": "Inter Vice City gana",
-              "p": 0.3686930358416461,
-              "fairOdds": 2.7122833978060292
+              "label": "Inter Miami gana",
+              "p": 0.3218636236588981,
+              "fairOdds": 3.1069059269020456
             }
           ]
         },
@@ -9352,22 +9751,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Columbus Crew o empate",
-              "p": 0.6313068762699787,
-              "fairOdds": 1.5840156944090522
+              "p": 0.6781363763411012,
+              "fairOdds": 1.4746296392408862
             },
             {
               "market": "double_chance",
               "selection": "x2",
-              "label": "Inter Vice City o empate",
-              "p": 0.5832207151440433,
-              "fairOdds": 1.7146167377697155
+              "label": "Inter Miami o empate",
+              "p": 0.5260287043909428,
+              "fairOdds": 1.9010369427612133
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7854722328092276,
-              "fairOdds": 1.27311947925074
+              "p": 0.7958349192679546,
+              "fairOdds": 1.2565419985841357
             }
           ]
         },
@@ -9379,40 +9778,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.9165052717103999,
-              "fairOdds": 1.091101198069249
+              "p": 0.9297279614073329,
+              "fairOdds": 1.0755834410812986
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.778293034319756,
-              "fairOdds": 1.2848630989920402
+              "p": 0.7980178156399383,
+              "fairOdds": 1.2531048560589968
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.22170696568024395,
-              "fairOdds": 4.510458193912799
+              "p": 0.20198218436006166,
+              "fairOdds": 4.9509317030523805
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.5887033722197745,
-              "fairOdds": 1.6986483298530866
+              "p": 0.6162377517868818,
+              "fairOdds": 1.622750305544146
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.41129662778022547,
-              "fairOdds": 2.431335275946745
+              "p": 0.3837622482131182,
+              "fairOdds": 2.605780023064334
             }
           ]
         },
@@ -9423,73 +9822,160 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.7602903493415802,
-              "fairOdds": 1.3152869832768639
+              "p": 0.7756541522304289,
+              "fairOdds": 1.2892343799416974
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.23970965065841976,
-              "fairOdds": 4.171713559521953
+              "p": 0.22434584776957112,
+              "fairOdds": 4.457403646833324
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Columbus Crew más de 1.5",
+              "line": 1.5,
+              "p": 0.6773343783820974,
+              "fairOdds": 1.4763756748751362
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Columbus Crew menos de 1.5",
+              "line": 1.5,
+              "p": 0.3226656216179026,
+              "fairOdds": 3.0991835913160592
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Inter Miami más de 1.5",
+              "line": 1.5,
+              "p": 0.5740433232001194,
+              "fairOdds": 1.7420287974526032
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Inter Miami menos de 1.5",
+              "line": 1.5,
+              "p": 0.4259566767998806,
+              "fairOdds": 2.3476565915406735
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.07401074006883843,
+              "fairOdds": 13.51155249994644
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07133191789958213,
+              "fairOdds": 14.018969760602191
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.06716953730926248,
+              "fairOdds": 14.88770118209677
             }
           ]
         }
       ],
       "mostLikelyScore": {
-        "home": 1,
+        "home": 2,
         "away": 1,
-        "p": 0.07456422632650761
+        "p": 0.07401074006883843
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "2.00 goles/partido",
-          "detail": "19 partidos · ajustado a 1.87"
+          "value": "1.90 goles/partido",
+          "detail": "25 % más que la media · 19 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.63 recibidos/partido",
-          "detail": "ajustado a 1.59"
+          "value": "1.52 concedidos/partido",
+          "detail": "en la media de la liga · 19 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "2.16 goles/partido",
-          "detail": "ajustado a 1.99"
+          "value": "1.93 goles/partido",
+          "detail": "33 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.53 recibidos/partido",
-          "detail": "ajustado a 1.51"
+          "value": "1.45 concedidos/partido",
+          "detail": "4 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "×1.23",
+          "detail": "estimada de 294 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "19 y 19 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.2–5.8",
+          "detail": "local 26%–71% · 294 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "10.º · 31 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "11.º · 29 pts",
+          "detail": "de 30 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-G-G · 15 pts",
+          "detail": "15 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-E-G-E · 8 pts",
+          "detail": "10 goles a favor · 9 en contra"
         }
       ],
       "steps": [
-        "Sincronizando MLS · corte 19 nov 2026, 10:13",
-        "Fuerza de ataque y defensa · COL 2.00 / 1.53 · INT 2.16 / 1.63",
-        "Ajuste por localía y tamaño de muestra (19 partidos)",
-        "Proyección de goles 2.12 – 1.99",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
+        "Sincronizando MLS · corte 21 nov 2026, 04:14",
+        "Fuerza ajustada por rival · COL 1.25 / 0.96 · INT 1.33 / 1.01",
+        "Ponderando 259.8 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.34 – 1.93 · total 4.26",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-19T16:13:44.585Z",
-      "publishedAt": "2026-11-19T16:13:44.585Z",
-      "source": "pitchlab-football-v1",
+      "inputsAsOf": "2026-11-21T04:14:45.246Z",
+      "publishedAt": "2026-11-21T04:14:45.246Z",
+      "source": "pitchlab-football-v2",
       "picks": [
         {
           "profile": "conservadora",
@@ -9497,56 +9983,56 @@
           "selection": "over_1.5",
           "label": "Más de 1.5",
           "line": 1.5,
-          "p": 0.9165052717103999,
-          "fairOdds": 1.091101198069249
+          "p": 0.9297279614073329,
+          "fairOdds": 1.0755834410812986
         },
         {
           "profile": "intermedia",
           "market": "double_chance",
           "selection": "1x",
           "label": "Columbus Crew o empate",
-          "p": 0.6313068762699787,
-          "fairOdds": 1.5840156944090522
+          "p": 0.6781363763411012,
+          "fairOdds": 1.4746296392408862
         },
         {
           "profile": "arriesgada",
           "market": "h2h",
           "selection": "home",
           "label": "Columbus Crew gana",
-          "p": 0.41677919696758153,
-          "fairOdds": 2.3993520004737263
+          "p": 0.47397129560905643,
+          "fairOdds": 2.1098324081313677
         }
       ],
       "confidence": {
-        "score": 42,
-        "level": "baja",
+        "score": 45,
+        "level": "media",
         "reasons": [
-          "Partido parejo",
-          "Muestra suficiente"
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
         ]
       },
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.07286129749654677
+        "p": 0.07401074006883843
       },
       "insights": {
         "why": [
-          "Columbus Crew gana en 42 % de los escenarios; el empate, en 21 %.",
-          "Inter Vice City anota 33 % más que la media.",
+          "Columbus Crew gana en 47% de los escenarios; el empate, en 20%.",
+          "Inter Miami anota 33 % más que la media.",
           "Columbus Crew anota 25 % más que la media."
         ],
         "headToHead": [
           {
             "date": "2026-09-27",
             "homeTeamId": "mls.columbus-crew",
-            "awayTeamId": "mls.inter-vice-city",
+            "awayTeamId": "mls.inter-miami",
             "homeGoals": 2,
             "awayGoals": 1
           },
           {
             "date": "2026-08-02",
-            "homeTeamId": "mls.inter-vice-city",
+            "homeTeamId": "mls.inter-miami",
             "awayTeamId": "mls.columbus-crew",
             "homeGoals": 2,
             "awayGoals": 2
@@ -9557,7 +10043,7 @@
           "away": 21
         }
       },
-      "picksAt": "2026-11-20T13:22:46.169Z",
+      "picksAt": "2026-11-21T04:14:45.246Z",
       "matchContext": {
         "weather": {
           "description": "clear",
@@ -12493,9 +12979,9 @@
       ]
     },
     {
-      "teamId": "mls.inter-vice-city",
-      "name": "Inter Vice City",
-      "shortName": "Inter Vice City",
+      "teamId": "mls.inter-miami",
+      "name": "Inter Miami CF",
+      "shortName": "Inter Miami",
       "code": "INT",
       "played": 19,
       "won": 7,
