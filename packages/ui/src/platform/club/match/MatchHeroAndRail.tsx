@@ -11,13 +11,17 @@ import {
   type PlatformSport,
 } from "@pitchlab/contracts";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../../sports";
-import { formatOddsValue } from "../../access-guard";
-import { ConfidenceChip } from "../../components/ConfidenceChip";
+import { AtomicFormStrip } from "../../atomic/AtomicFormStrip";
+import { ContextualBackButton } from "../../components/ContextualBackButton";
 import { CrestPedestal, MaestroIcon } from "../../components/MaestroPrimitives";
+import { SportEventIcon } from "../../components/SportEventIcons";
 import { shareMatchStoryCard } from "../../components/share-story-card";
 import { FollowControl, LivePhaseBadge } from "../../live/LiveMatchCenter";
 import { MomentumChart } from "../../live/live-charts";
-import { usePlatform } from "../../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../../platform-provider";
 import type {
   MatchTabKey,
   OddsFormat,
@@ -34,23 +38,10 @@ const SPORT_CRUMB_LABEL: Record<PlatformSport, string> = {
   baseball: "Béisbol",
 };
 
-function resolveSelectionOdds(
-  markets: readonly PlatformMarketRow[],
-  selection: "home" | "draw" | "away",
-  prob: number,
-): { decimal: number; isCapturedQuote: boolean } {
-  const row = markets.find((m) => m.market === "h2h" && m.selection === selection);
-  if (row?.currentDecimal && row.currentDecimal > 1) {
-    return { decimal: row.currentDecimal, isCapturedQuote: true };
-  }
-  const safeP = Math.max(0.01, Math.min(0.99, prob));
-  return { decimal: row?.fairDecimal ?? 1 / safeP, isCapturedQuote: false };
-}
-
 function summarizeGoalScorers(
   incidents: readonly LiveIncident[],
   side: "home" | "away",
-): string[] {
+): Array<{ text: string; kind: LiveIncident["kind"] }> {
   return incidents
     .filter(
       (i) =>
@@ -61,7 +52,10 @@ function summarizeGoalScorers(
       const min = i.minute !== null ? `${i.minute}${i.addedTime ? `+${i.addedTime}` : ""}'` : "";
       const tag = i.kind === "own_goal" ? " (a.g.)" : i.kind === "penalty_goal" ? " (p.)" : "";
       const who = i.player ?? "Gol";
-      return [who, min ? `${min}${tag}` : tag.trim()].filter(Boolean).join(" ");
+      return {
+        text: [who, min ? `${min}${tag}` : tag.trim()].filter(Boolean).join(" "),
+        kind: i.kind,
+      };
     });
 }
 
@@ -96,22 +90,7 @@ function incidentPrimaryText(inc: LiveIncident): { primary: string; secondary: s
 }
 
 function renderIncidentGlyph(kind: LiveIncident["kind"]): React.JSX.Element {
-  if (kind === "yellow") {
-    return <span className="pl-rail-card-mark pl-rail-card-mark--yellow" aria-hidden="true" />;
-  }
-  if (kind === "red" || kind === "second_yellow") {
-    return <span className="pl-rail-card-mark pl-rail-card-mark--red" aria-hidden="true" />;
-  }
-  if (kind === "var") {
-    return <span className="pl-rail-var-badge" aria-hidden="true">VAR</span>;
-  }
-  if (kind === "sub") {
-    return <span className="pl-rail-sub-mark" aria-hidden="true">⇄</span>;
-  }
-  if (kind === "penalty_missed") {
-    return <span className="pl-rail-miss-mark" aria-hidden="true">✕</span>;
-  }
-  return <span className="pl-rail-ball-mark" aria-hidden="true" />;
+  return <SportEventIcon kind={kind} size={15} />;
 }
 
 interface PeriodGroup {
@@ -201,15 +180,24 @@ export function MatchBreadcrumb({
   readonly game: PlatformGame;
   readonly onNavigate: (href: string) => void;
 }): React.JSX.Element {
+  const { prefetchRoute } = usePlatformActions();
+  const leagueHref = `/app/${game.league}`;
   const go = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     onNavigate(href);
   };
   return (
     <nav aria-label="Ruta del partido" className="pl-match-crumb">
+      <ContextualBackButton fallbackHref={leagueHref} />
       <ol className="pl-match-crumb-list">
         <li>
-          <a href="/app" onClick={go("/app")} className="pl-match-crumb-link">
+          <a
+            href="/app"
+            onPointerEnter={() => prefetchRoute("/app")}
+            onTouchStart={() => prefetchRoute("/app")}
+            onClick={go("/app")}
+            className="pl-match-crumb-link"
+          >
             <MaestroIcon name="arrowLeft" size={13} />
             <span>Inicio</span>
           </a>
@@ -223,8 +211,10 @@ export function MatchBreadcrumb({
         </li>
         <li>
           <a
-            href={`/app/${game.league}`}
-            onClick={go(`/app/${game.league}`)}
+            href={leagueHref}
+            onPointerEnter={() => prefetchRoute(leagueHref)}
+            onTouchStart={() => prefetchRoute(leagueHref)}
+            onClick={go(leagueHref)}
             className="pl-match-crumb-link pl-match-crumb-link--league"
           >
             <LeagueBadge
@@ -270,7 +260,8 @@ export function MatchHeroScoreboard({
   readonly liveDetail: LiveMatchDetail | null;
   readonly onNavigate: (href: string) => void;
 }): React.JSX.Element {
-  const { oddsFormat, pushToast } = usePlatform();
+  const { oddsFormat } = usePlatformCore();
+  const { pushToast, prefetchRoute } = usePlatformActions();
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
   const isFinished = game.status === "FT" && game.score !== undefined;
@@ -305,6 +296,7 @@ export function MatchHeroScoreboard({
       className="pl-match-hero"
       data-match-studio={game.id}
       aria-label={`${game.home.name} contra ${game.away.name}`}
+      style={{ viewTransitionName: "pl-match-hero" }}
     >
       <div className="pl-match-hero-top">
         <a
@@ -329,7 +321,7 @@ export function MatchHeroScoreboard({
         <div className="pl-match-hero-actions">
           <button
             type="button"
-            className="pl-btn-glass text-xs min-h-9 px-2.5 inline-flex items-center gap-1.5"
+            className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 sm:px-2.5 inline-flex items-center gap-1.5"
             aria-label="Compartir tarjeta 9:16 del partido"
             data-share-match-story=""
             onClick={() => {
@@ -346,7 +338,6 @@ export function MatchHeroScoreboard({
             <MaestroIcon name="share" size={13} />
             <span className="hidden sm:inline">9:16</span>
           </button>
-          {isFinished ? null : <ConfidenceChip game={game} size="lg" />}
           {isFinished ? (
             <span className="pl-pill pl-pill--brand num text-xs">Finalizado · FT</span>
           ) : (
@@ -361,6 +352,8 @@ export function MatchHeroScoreboard({
             <h1 className="pl-match-hero-name">
               <a
                 href={canonicalTeamHref(game.league, game.home.slug)}
+                onPointerEnter={() => prefetchRoute(canonicalTeamHref(game.league, game.home.slug))}
+                onTouchStart={() => prefetchRoute(canonicalTeamHref(game.league, game.home.slug))}
                 onClick={goTeam(game.home.slug)}
                 className="pl-team-link"
                 title={`Ver perfil de ${game.home.name}`}
@@ -420,7 +413,7 @@ export function MatchHeroScoreboard({
               >
                 Sin pronóstico
               </strong>
-              <span className="pl-match-hero-sub">Sin pronóstico ni confianza publicados</span>
+              <span className="pl-match-hero-sub">Aún sin pronóstico publicado</span>
             </>
           ) : intelUnlocked ? (
             <>
@@ -471,6 +464,8 @@ export function MatchHeroScoreboard({
             <h2 className="pl-match-hero-name">
               <a
                 href={canonicalTeamHref(game.league, game.away.slug)}
+                onPointerEnter={() => prefetchRoute(canonicalTeamHref(game.league, game.away.slug))}
+                onTouchStart={() => prefetchRoute(canonicalTeamHref(game.league, game.away.slug))}
                 onClick={goTeam(game.away.slug)}
                 className="pl-team-link"
                 title={`Ver perfil de ${game.away.name}`}
@@ -489,7 +484,10 @@ export function MatchHeroScoreboard({
         <div className="pl-match-hero-scorers num" aria-label="Anotadores del partido">
           <div className="pl-match-hero-scorers-side pl-match-hero-scorers-side--home">
             {homeGoalsList.map((entry, idx) => (
-              <span key={`h-${idx}`}>{entry}</span>
+              <span key={`h-${idx}`} className="pl-match-hero-scorer pl-match-hero-scorer--home">
+                <span>{entry.text}</span>
+                <SportEventIcon kind={entry.kind} size={13} />
+              </span>
             ))}
           </div>
           <span className="pl-match-hero-scorers-dot" aria-hidden="true">
@@ -497,7 +495,10 @@ export function MatchHeroScoreboard({
           </span>
           <div className="pl-match-hero-scorers-side pl-match-hero-scorers-side--away">
             {awayGoalsList.map((entry, idx) => (
-              <span key={`a-${idx}`}>{entry}</span>
+              <span key={`a-${idx}`} className="pl-match-hero-scorer pl-match-hero-scorer--away">
+                <SportEventIcon kind={entry.kind} size={13} />
+                <span>{entry.text}</span>
+              </span>
             ))}
           </div>
         </div>
@@ -523,7 +524,7 @@ export function MatchHeroScoreboard({
             }}
             data-empty-forecast=""
           >
-            Este snapshot aún no incluye pronóstico ni confianza publicados para este partido.
+            Este partido aún no tiene pronóstico publicado.
           </div>
         )}
       </div>
@@ -534,15 +535,6 @@ export function MatchHeroScoreboard({
           <span className="num">
             {game.dayLabel} · {game.kickoffLocal}
           </span>
-        </span>
-        <span className="pl-match-hero-meta-item">
-          <LeagueBadge
-            league={game.league}
-            label={game.leagueLabel}
-            logoUrl={game.leagueLogoUrl}
-            size={15}
-          />
-          <span>{game.leagueLabel}</span>
         </span>
         {resolvedVenue ? (
           <span className="pl-match-hero-meta-item">
@@ -582,49 +574,21 @@ export function MatchLeftRail({
   readonly onSelectTab: (tab: MatchTabKey) => void;
 }): React.JSX.Element {
   const [showSubsInRail, setShowSubsInRail] = useState(false);
-  const hasDraw = sportHasDraw(game.sport);
   const isFinished = game.status === "FT" && game.score !== undefined;
-  const hasForecast = game.hasForecast !== false && Boolean(game.x12 && game.projection);
-  const canReadIntel = intelUnlocked || isFinished;
   const flow = game.preGame.moneyFlow;
+  void markets;
+  void oddsFormat;
+  void intelUnlocked;
+  void mainEngineName;
+  void cortexSummaryText;
 
-  const outcomeTiles = (() => {
-    if (!hasForecast || !game.x12) return [];
-    const list: Array<{
-      code: string;
-      label: string;
-      prob: number;
-      decimal: number;
-      isCapturedQuote: boolean;
-    }> = [
-      {
-        code: hasDraw ? "1" : game.home.code,
-        label: game.home.shortName,
-        prob: game.x12[0],
-        ...resolveSelectionOdds(markets, "home", game.x12[0]),
-      },
-      ...(hasDraw
-        ? [
-            {
-              code: "X",
-              label: "Empate",
-              prob: game.x12[1],
-              ...resolveSelectionOdds(markets, "draw", game.x12[1]),
-            },
-          ]
-        : []),
-      {
-        code: hasDraw ? "2" : game.away.code,
-        label: game.away.shortName,
-        prob: game.x12[2],
-        ...resolveSelectionOdds(markets, "away", game.x12[2]),
-      },
-    ];
-    return list;
-  })();
-
-  const maxProb = outcomeTiles.reduce((m, t) => Math.max(m, t.prob), 0);
   const hasMomentumCurve = Boolean(liveDetail && liveDetail.momentum.length > 0);
+  const liveActive = Boolean(liveDetail && isLivePhaseActive(liveDetail.entry.phase));
+  const liveMinute = liveActive && liveDetail
+    ? (Number.parseInt(liveDetail.entry.clock?.replace(/[^0-9]/g, "") ?? "", 10) ||
+        liveDetail.momentum[liveDetail.momentum.length - 1]?.minute ||
+        null)
+    : null;
   const liveGoals = liveDetail
     ? liveDetail.incidents.filter(
         (i) => i.kind === "goal" || i.kind === "own_goal" || i.kind === "penalty_goal",
@@ -668,6 +632,27 @@ export function MatchLeftRail({
             goals={liveGoals}
             homeLabel={game.home.shortName}
             awayLabel={game.away.shortName}
+            homeCrest={
+              <TeamBadge
+                league={game.league}
+                slug={game.home.slug}
+                name={game.home.name}
+                logoUrl={game.home.logoUrl}
+                size={18}
+                decorative
+              />
+            }
+            awayCrest={
+              <TeamBadge
+                league={game.league}
+                slug={game.away.slug}
+                name={game.away.name}
+                logoUrl={game.away.logoUrl}
+                size={18}
+                decorative
+              />
+            }
+            liveMinute={liveMinute}
           />
         ) : (
           <div className="pl-rail-empty-box">
@@ -694,15 +679,15 @@ export function MatchLeftRail({
           {totalSubs > 0 ? (
             <button
               type="button"
-              className="pl-pill text-[11px] cursor-pointer"
+              className="pl-pill text-[11px] cursor-pointer num min-h-11 sm:min-h-7 px-3 sm:px-2.5"
               aria-pressed={showSubsInRail}
               onClick={() => setShowSubsInRail((prev) => !prev)}
             >
-              {showSubsInRail ? "Ocultar cambios" : `${totalSubs} cambios`}
+              {showSubsInRail
+                ? "Ocultar cambios"
+                : `${totalSubs} ${totalSubs === 1 ? "cambio" : "cambios"}`}
             </button>
-          ) : (
-            <span className="pl-pill text-[11px]">Minuto a minuto</span>
-          )}
+          ) : null}
         </div>
 
         {firstLeg ? (
@@ -809,124 +794,7 @@ export function MatchLeftRail({
         )}
       </section>
 
-      {/* 3. Picks y Cortex IA */}
-      <section className="pl-match-rail-card" aria-labelledby="rail-cortex-heading" data-rail-picks="">
-        <div className="pl-match-rail-head">
-          <h2 id="rail-cortex-heading" className="pl-match-rail-title inline-flex items-center gap-1.5">
-            <MaestroIcon name="sparkles" size={14} style={{ color: "var(--pl-brand)" }} />
-            <span>Picks y Cortex IA</span>
-          </h2>
-          <span className="pl-pill pl-pill--brand text-[11px]">{mainEngineName}</span>
-        </div>
-
-        <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-          {!hasForecast && cortexSummaryText.trim().length === 0
-            ? "Sin lectura publicada para este encuentro."
-            : !canReadIntel
-              ? "Consulta los picks seleccionados, la proyección exacta de Cortex IA y claves tácticas con Pase PitchLab Ultra."
-              : cortexSummaryText}
-        </p>
-
-        {!hasForecast ? (
-          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Aún no hay picks publicados para este encuentro.
-          </p>
-        ) : !canReadIntel ? (
-          <div className="pl-match-rail-locked">
-            <MaestroIcon name="lock" size={14} />
-            <span>Picks y probabilidades reservadas para Pase PitchLab Ultra.</span>
-          </div>
-        ) : game.picks.length > 0 ? (
-          <div className="pl-match-rail-picks-list">
-            {game.picks.slice(0, 3).map((pk) => (
-              <div key={pk.id} className="pl-match-rail-pick">
-                <div className="pl-match-rail-pick-meta">
-                  <span className="pl-match-rail-pick-cat">{pk.categoryLabel}</span>
-                  <span className="pl-match-rail-pick-label">{pk.label}</span>
-                </div>
-                <span className="pl-match-rail-pick-val num">
-                  {(pk.p * 100).toFixed(1)} % · {formatOddsValue(pk.fairDecimal, oddsFormat)}
-                </span>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Aún no hay picks publicados para este encuentro.
-          </p>
-        )}
-
-        <button
-          type="button"
-          className="pl-match-rail-link"
-          onClick={() => onSelectTab("ia")}
-        >
-          <span>Abrir Análisis IA completo</span>
-          <MaestroIcon name="arrowRight" size={13} />
-        </button>
-      </section>
-
-      {/* 4. Tiempo reglamentario / Ganador (1 · X · 2) */}
-      <section className="pl-match-rail-card" aria-labelledby="rail-odds-heading">
-        <div className="pl-match-rail-head">
-          <h2 id="rail-odds-heading" className="pl-match-rail-title">
-            {hasDraw ? "Tiempo reglamentario" : "Ganador del partido"}
-          </h2>
-          <span className="pl-pill text-[11px]">{game.updatedAtLabel}</span>
-        </div>
-
-        {!hasForecast || outcomeTiles.length === 0 ? (
-          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Aún no hay línea ni probabilidades publicadas para este encuentro.
-          </p>
-        ) : !canReadIntel ? (
-          <div className="pl-match-rail-locked">
-            <MaestroIcon name="lock" size={14} />
-            <span>Cuotas justas y probabilidades de mercado reservadas para Pase PitchLab Ultra.</span>
-          </div>
-        ) : (
-          <>
-            <div
-              className="pl-match-rail-odds"
-              data-cols={outcomeTiles.length}
-            >
-              {outcomeTiles.map((tile) => {
-                const isFav = tile.prob === maxProb && maxProb > 0;
-                return (
-                  <div
-                    key={tile.code}
-                    className={`pl-match-rail-odd${isFav ? " is-fav" : ""}`}
-                    title={tile.label}
-                  >
-                    <div className="pl-match-rail-odd-top">
-                      <span className="pl-match-rail-odd-code">{tile.code}</span>
-                      <span className="pl-match-rail-odd-prob num">
-                        {(tile.prob * 100).toFixed(1)} %
-                      </span>
-                    </div>
-                    <strong className="pl-match-rail-odd-val num">
-                      {formatOddsValue(tile.decimal, oddsFormat)}
-                    </strong>
-                    <span className="pl-match-rail-odd-kind">
-                      {tile.isCapturedQuote ? "Cuota casa" : "Cuota justa"}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-            <button
-              type="button"
-              className="pl-match-rail-link"
-              onClick={() => onSelectTab("dinero")}
-            >
-              <span>Comparar cuotas en ¿Dónde está el dinero?</span>
-              <MaestroIcon name="arrowRight" size={13} />
-            </button>
-          </>
-        )}
-      </section>
-
-      {/* 5. Forma reciente, pulso y accesos rápidos */}
+      {/* 3. Forma reciente, TV MX y accesos directos (sin repetir Picks ni 1·X·2 del Hero/workspace) */}
       <section className="pl-match-rail-card" aria-labelledby="rail-context-heading">
         <div className="pl-match-rail-head">
           <h2 id="rail-context-heading" className="pl-match-rail-title inline-flex items-center gap-1.5">
@@ -934,9 +802,15 @@ export function MatchLeftRail({
             <span>Forma y pulso</span>
           </h2>
           <span className="pl-pill text-[11px] num">
-            {flow ? `${flow.homeShare} % / ${flow.awayShare} %` : "Snapshot"}
+            {flow ? `${flow.homeShare} % / ${flow.awayShare} %` : game.updatedAtLabel}
           </span>
         </div>
+
+        {liveDetail?.broadcastsMx && liveDetail.broadcastsMx.length > 0 ? (
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+            <strong>TV México:</strong> {liveDetail.broadcastsMx.join(" · ")}
+          </p>
+        ) : null}
 
         {homeForm.length > 0 || awayForm.length > 0 ? (
           <div className="pl-match-rail-forms">
@@ -949,16 +823,16 @@ export function MatchLeftRail({
                     name={game.home.shortName}
                     logoUrl={game.home.logoUrl}
                     size={18}
+                    decorative
                   />
                   <span className="text-xs font-semibold truncate">{game.home.shortName}</span>
                 </span>
-                <span className="pl-form" aria-label={`Forma ${game.home.shortName}`}>
-                  {homeForm.map((r, i) => (
-                    <span key={i} className={`pl-form-dot is-${r}`}>
-                      {r}
-                    </span>
-                  ))}
-                </span>
+                <AtomicFormStrip
+                  form={homeForm}
+                  sport={game.sport}
+                  teamName={game.home.shortName}
+                  size="sm"
+                />
               </div>
             ) : null}
             {awayForm.length > 0 ? (
@@ -970,16 +844,16 @@ export function MatchLeftRail({
                     name={game.away.shortName}
                     logoUrl={game.away.logoUrl}
                     size={18}
+                    decorative
                   />
                   <span className="text-xs font-semibold truncate">{game.away.shortName}</span>
                 </span>
-                <span className="pl-form" aria-label={`Forma ${game.away.shortName}`}>
-                  {awayForm.map((r, i) => (
-                    <span key={i} className={`pl-form-dot is-${r}`}>
-                      {r}
-                    </span>
-                  ))}
-                </span>
+                <AtomicFormStrip
+                  form={awayForm}
+                  sport={game.sport}
+                  teamName={game.away.shortName}
+                  size="sm"
+                />
               </div>
             ) : null}
           </div>
@@ -992,6 +866,14 @@ export function MatchLeftRail({
         )}
 
         <div className="pl-match-rail-actions">
+          <button
+            type="button"
+            className="pl-match-rail-link"
+            onClick={() => onSelectTab("ia")}
+          >
+            <span>Análisis IA</span>
+            <MaestroIcon name="arrowRight" size={12} />
+          </button>
           <button
             type="button"
             className="pl-match-rail-link"

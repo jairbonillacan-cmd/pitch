@@ -1,7 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { normalizeReferralCode, PublicTipsterPickSurface, TIPSTER_CREATORS } from "@pitchlab/ui";
+import { normalizeReferralCode } from "@pitchlab/ui/account-helpers";
+import { PublicSharedPickSurface as PublicTipsterPickSurface } from "@pitchlab/ui/auth";
+import { TIPSTER_CREATORS } from "@pitchlab/ui/spacetime-catalog";
 import { PlatformClientBridge } from "../../../src/client/platform-client-bridge";
 import { buildServerRawPlatformDataset, loadPublicPlatformState } from "../../../src/server/platform-data";
 import { hasPublicSessionCookie } from "../../../src/server/public-session";

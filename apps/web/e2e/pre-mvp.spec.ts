@@ -574,9 +574,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await firstCard.locator("a", { hasText: "Ver partido" }).click();
     await page.waitForURL(/\/app\/premier-league\/g\/[a-z0-9-]+-vs-[a-z0-9-]+-[a-z0-9]{6}/);
 
-    await expect(page.locator("body")).toContainText("Cortex IA");
     await expect(page.locator("[data-picks]")).toBeVisible();
-    // Socio con Pase PitchLab Ultra ve los 5 picks desbloqueados (cero candados)
+    // Socio con Pase PitchLab Ultra ve los picks desbloqueados (cero candados)
     expect(await page.locator("[data-locked-pick]").count()).toBe(0);
     await expect(page.locator("[data-summary-factors]")).toBeVisible();
 
@@ -588,6 +587,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await page.keyboard.press("Enter");
     await expect(page.locator("[data-section-tab='ia']")).toHaveAttribute("aria-selected", "true");
     await expect(page).toHaveURL(/\?tab=ia$/);
+    await expect(page.locator("body")).toContainText("Cortex IA");
 
     await page.locator("[data-section-tab='numeros']").click();
     await expect(page.locator("[data-section-tab='numeros']")).toHaveAttribute("aria-selected", "true");

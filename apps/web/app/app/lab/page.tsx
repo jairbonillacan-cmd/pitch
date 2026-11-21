@@ -1,3 +1,6 @@
+import "../../record-v2.css";
+import "../../account-v2.css";
+import "../../live.css";
 import React from "react";
 import { BitacoraClubView } from "@pitchlab/ui/record";
 

@@ -1,0 +1,9 @@
+/* ==========================================================================
+   Componentes de HeroUI v3 usados únicamente en Storybook (Card, Chip, Tabs).
+   Aislados del bundle de producción de apps/web (ADR-051).
+   ========================================================================== */
+@reference "../../../apps/web/app/globals.css";
+
+@import "@heroui/styles/components/card.css" layer(components);
+@import "@heroui/styles/components/chip.css" layer(components);
+@import "@heroui/styles/components/tabs.css" layer(components);

@@ -484,15 +484,14 @@ export function ProbSplit({
   return (
     <div className="psplit-wrap">
       {bar}
-      <div className="psplit-legend" aria-hidden="true">
+      <div className="psplit-legend" data-cols={ps.length} aria-hidden="true">
         {ps.map((p, i) => (
           <span
             key={`${lbs[i] ?? i}-legend-${i}`}
             className={i === li ? "lead" : ""}
-            style={{ flex: p }}
           >
             <span className="psplit-legend-label">{lbs[i]}</span>
-            <strong className="psplit-legend-value">{formatPercent(p, 0)}</strong>
+            <strong className="psplit-legend-value num">{formatPercent(p, 0)}</strong>
           </span>
         ))}
       </div>

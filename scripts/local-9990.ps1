@@ -81,10 +81,10 @@ $ErrorActionPreference = 'Continue'
 if ($Prod) {
   $env:PITCHLAB_DIST_DIR = '.next-9990'
   Write-Host 'PitchLab (build de produccion) en http://localhost:9990 con cuentas de prueba.'
-  pnpm --filter '@pitchlab/web' exec next start --port 9990 2>&1 | Write-Log
+  pnpm --filter '@pitchlab/web' exec next start -H 127.0.0.1 --port 9990 2>&1 | Write-Log
 } else {
   # Carpeta propia: otro servidor de desarrollo en este repo usa .next y se pisarian.
   $env:PITCHLAB_DIST_DIR = '.next-9990-dev'
   Write-Host 'PitchLab (desarrollo, recarga al guardar) en http://localhost:9990 con cuentas de prueba.'
-  pnpm --filter '@pitchlab/web' exec next dev --port 9990 2>&1 | Write-Log
+  pnpm --filter '@pitchlab/web' exec next dev -H 127.0.0.1 --port 9990 2>&1 | Write-Log
 }

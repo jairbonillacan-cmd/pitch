@@ -8,8 +8,8 @@ import { MaestroIcon } from "./MaestroPrimitives";
 type OddsFormat = Parameters<typeof formatOddsValue>[1];
 
 const QUALITY_COPY: Record<MatchOutlookSummary["quality"]["flag"], string> = {
-  ok: "Datos completos",
-  low_coverage: "Datos parciales",
+  ok: "Modelo calibrado",
+  low_coverage: "Cobertura en progreso",
   fallback_base_rate: "Base histórica de la liga",
 };
 

@@ -57,17 +57,35 @@ function isJournalEntry(v: unknown): v is JournalEntry {
   const e = v as Partial<JournalEntry> | null;
   return (
     !!e &&
+    typeof e === "object" &&
     typeof e.id === "string" &&
     typeof e.pickId === "string" &&
+    typeof e.gameId === "string" &&
+    typeof e.leagueLabel === "string" &&
+    typeof e.matchLabel === "string" &&
+    typeof e.pickLabel === "string" &&
     typeof e.units === "number" &&
+    Number.isFinite(e.units) &&
     typeof e.userDecimal === "number" &&
+    Number.isFinite(e.userDecimal) &&
+    (e.fairDecimal === undefined ||
+      (typeof e.fairDecimal === "number" && Number.isFinite(e.fairDecimal))) &&
     (e.status === "pending" || e.status === "won" || e.status === "lost" || e.status === "void")
   );
 }
 
 function isOwnSocialPost(v: unknown): v is SocialPost {
   const p = v as Partial<SocialPost> | null;
-  return !!p && typeof p.id === "string" && typeof p.body === "string" && !p.isExample && Array.isArray(p.comments);
+  return (
+    !!p &&
+    typeof p === "object" &&
+    typeof p.id === "string" &&
+    typeof p.body === "string" &&
+    typeof p.authorHandle === "string" &&
+    typeof p.authorName === "string" &&
+    !p.isExample &&
+    Array.isArray(p.comments)
+  );
 }
 
 interface ServerJournalRow {
@@ -234,6 +252,7 @@ import {
   writeSavedScreenerViews,
   type SavedScreenerView,
 } from "./screener-views";
+import { triggerHaptic } from "./navigation-helpers";
 import type {
   JournalEntry,
   MatchPick,
@@ -283,6 +302,14 @@ export interface ToastMessage {
   id: string;
   tone: "default" | "success" | "warning" | "danger";
   text: string;
+  actionLabel?: string;
+  onAction?: () => void;
+}
+
+export interface ToastOptions {
+  actionLabel?: string;
+  onAction?: () => void;
+  durationMs?: number;
 }
 
 export interface PinUnlockResult {
@@ -493,8 +520,14 @@ export interface PlatformContextValue {
   logoutSession: () => Promise<void>;
 
   toasts: ToastMessage[];
-  pushToast: (text: string, tone?: ToastMessage["tone"]) => void;
+  pushToast: (text: string, tone?: ToastMessage["tone"], options?: ToastOptions) => void;
+  dismissToast: (id: string) => void;
+  setToastPaused: (id: string, paused: boolean) => void;
   navigateTo: (href: string) => void;
+  /** Precarga bajo demanda (touch/hover) deduplicada en memoria (ADR-053). */
+  prefetchRoute: (href: string) => void;
+  /** Solicita el resto del horizonte diferido del shell si aún no llegó (`/api/shell/extend`). */
+  requestFullShell: () => void;
 }
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);
@@ -528,6 +561,14 @@ export interface PlatformCoreValue {
   preferredBooks: string[];
   savedScreenerViews: SavedScreenerView[];
   month1NoCardMode: boolean;
+  referralPaidFriends: number;
+  memberReferralsSnapshot: (ServerProfileSummary & {
+    referralCode: string | null;
+    paidFriends: number;
+    pendingFriends: number;
+  }) | null;
+  tipsterWeeklyPickOrigin: "spacetime" | "bitacora";
+  selectedTipsterPickId: string;
 }
 
 type AnyFn = (...args: never[]) => unknown;
@@ -589,20 +630,72 @@ const ACTION_KEYS = [
   "submitBetaPin",
   "logoutSession",
   "pushToast",
+  "dismissToast",
+  "setToastPaused",
   "navigateTo",
+  "prefetchRoute",
+  "requestFullShell",
 ] as const satisfies readonly ActionKey[];
 // Si falta alguna acción en la lista, esto no compila.
 type MissingActionKey = Exclude<ActionKey, (typeof ACTION_KEYS)[number]>;
 const ACTION_KEYS_COMPLETE: [MissingActionKey] extends [never] ? true : MissingActionKey = true;
 void ACTION_KEYS_COMPLETE;
 
-const PlatformCoreContext = createContext<PlatformCoreValue | null>(null);
-const PlatformActionsContext = createContext<PlatformActions | null>(null);
-const AuraContext = createContext<readonly [string, string]>([
+const DEFAULT_AURA_COLORS: readonly [string, string] = [
   "var(--pl-aura-default-home)",
   "var(--pl-aura-default-away)",
-]);
+];
+
+function createAuraStore(initial: readonly [string, string] = DEFAULT_AURA_COLORS) {
+  let colors = initial;
+  const listeners = new Set<() => void>();
+  return {
+    get: () => colors,
+    set(next: readonly [string, string]) {
+      if (colors[0] === next[0] && colors[1] === next[1]) return;
+      colors = next;
+      for (const l of listeners) l();
+    },
+    subscribe(listener: () => void) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  };
+}
+type AuraStore = ReturnType<typeof createAuraStore>;
+const defaultAuraStore = createAuraStore();
+
+const PlatformCoreContext = createContext<PlatformCoreValue | null>(null);
+const PlatformActionsContext = createContext<PlatformActions | null>(null);
+const AuraStoreContext = createContext<AuraStore>(defaultAuraStore);
 const JournalContext = createContext<JournalEntry[]>([]);
+const WatchlistContext = createContext<string[]>([]);
+
+export interface ParlayStateValue {
+  parlayLegs: ParlayLeg[];
+  allowSgp: boolean;
+  parlayStakeUnits: number;
+  parlaySummary: ParlaySummary;
+}
+export interface SocialStateValue {
+  socialPosts: SocialPost[];
+  socialFeedPages: Readonly<Record<string, SocialFeedPageState>>;
+  socialOnServer: boolean;
+  blockedSpamAttempts: number;
+}
+export interface OverlayStateValue {
+  composerPick: MatchPick | null;
+  shareTicket: ShareTicketPayload | null;
+  cmdkOpen: boolean;
+  betaPinOpen: boolean;
+  betaPinNextPath: string;
+  toasts: ToastMessage[];
+}
+
+const ParlayStateContext = createContext<ParlayStateValue | null>(null);
+const SocialStateContext = createContext<SocialStateValue | null>(null);
+const OverlayStateContext = createContext<OverlayStateValue | null>(null);
+const FollowAlertsContext = createContext<Record<string, FollowAlerts>>({});
 
 export interface HomeNavFilterValue {
   sport: SportFilter;
@@ -655,10 +748,26 @@ export function useOptionalPlatformActions(): PlatformActions | null {
   return useContext(PlatformActionsContext);
 }
 export function useAuraColors(): readonly [string, string] {
-  return useContext(AuraContext);
+  const store = useContext(AuraStoreContext);
+  return useSyncExternalStore(store.subscribe, store.get, store.get);
 }
 export function useJournalEntries(): JournalEntry[] {
   return useContext(JournalContext);
+}
+export function useWatchlistGameIds(): string[] {
+  return useContext(WatchlistContext);
+}
+export function useFollowAlerts(): Record<string, FollowAlerts> {
+  return useContext(FollowAlertsContext);
+}
+export function useParlayState(): ParlayStateValue {
+  return required(useContext(ParlayStateContext), "useParlayState");
+}
+export function useSocialState(): SocialStateValue {
+  return required(useContext(SocialStateContext), "useSocialState");
+}
+export function useOverlayState(): OverlayStateValue {
+  return required(useContext(OverlayStateContext), "useOverlayState");
 }
 export function useHomeNavFilter(): HomeNavFilterValue {
   return required(useContext(HomeNavFilterContext), "useHomeNavFilter");
@@ -689,6 +798,8 @@ export function PlatformProvider({
   initialShareTicket = null,
   initialCmdkOpen = false,
   onNavigate,
+  onPrefetchRoute,
+  onRequestFullShell,
   onSubmitPinOverride,
   onLogoutOverride,
   children,
@@ -709,6 +820,8 @@ export function PlatformProvider({
   /** Estado inicial de CommandPaletteModal (pruebas y Storybook). */
   initialCmdkOpen?: boolean;
   onNavigate?: (href: string) => void;
+  onPrefetchRoute?: (href: string) => void;
+  onRequestFullShell?: () => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
   children: React.ReactNode;
@@ -851,15 +964,13 @@ export function PlatformProvider({
     [],
   );
 
-  const [auraColors, setAuraColors] = useState<readonly [string, string]>(() =>
-    resolveColorsForGame(defaultGame),
-  );
+  const [auraStore] = useState(() => createAuraStore(resolveColorsForGame(defaultGame)));
 
   const setAuraFromGame = useCallback(
     (game: PlatformGame | undefined) => {
-      setAuraColors(resolveColorsForGame(game));
+      auraStore.set(resolveColorsForGame(game));
     },
-    [resolveColorsForGame],
+    [auraStore, resolveColorsForGame],
   );
 
   // Hidratar preferencias persistidas en cliente
@@ -879,26 +990,30 @@ export function PlatformProvider({
       }
       const rawFavLeagues = window.localStorage.getItem("pl-fav-leagues");
       if (rawFavLeagues) {
-        const knownLeagueIds = new Set<string>([
-          "liga-mx",
-          "nfl",
-          "nba",
-          "nhl",
-          "premier-league",
-          "laliga",
-          "bundesliga",
-          "serie-a",
-          "ligue-1",
-          ...rawDataset.leagues.map((l) => l.league),
-        ]);
-        const parsedLeagues: unknown = JSON.parse(rawFavLeagues);
-        if (Array.isArray(parsedLeagues)) {
-          const validLeagues = parsedLeagues.filter(
-            (id): id is LeagueId => typeof id === "string" && knownLeagueIds.has(id),
-          );
-          if (validLeagues.length > 0) {
-            setFavoriteLeaguesState(Array.from(new Set(validLeagues)));
+        try {
+          const knownLeagueIds = new Set<string>([
+            "liga-mx",
+            "nfl",
+            "nba",
+            "nhl",
+            "premier-league",
+            "laliga",
+            "bundesliga",
+            "serie-a",
+            "ligue-1",
+            ...rawDataset.leagues.map((l) => l.league),
+          ]);
+          const parsedLeagues: unknown = JSON.parse(rawFavLeagues);
+          if (Array.isArray(parsedLeagues)) {
+            const validLeagues = parsedLeagues.filter(
+              (id): id is LeagueId => typeof id === "string" && knownLeagueIds.has(id),
+            );
+            if (validLeagues.length > 0) {
+              setFavoriteLeaguesState(Array.from(new Set(validLeagues)));
+            }
           }
+        } catch (err) {
+          void err;
         }
       }
       const storedPrefs = readStoredPrefs();
@@ -1058,10 +1173,45 @@ export function PlatformProvider({
     at: 0,
   });
 
+  const toastTimersRef = useRef<
+    Map<string, { timerId: number | null; remainingMs: number; startedAt: number }>
+  >(new Map());
+
+  const dismissToast = useCallback((id: string) => {
+    const entry = toastTimersRef.current.get(id);
+    if (entry?.timerId !== null && entry?.timerId !== undefined) {
+      window.clearTimeout(entry.timerId);
+    }
+    toastTimersRef.current.delete(id);
+    setToasts((prev) => prev.filter((item) => item.id !== id));
+  }, []);
+
+  const setToastPaused = useCallback((id: string, paused: boolean) => {
+    const entry = toastTimersRef.current.get(id);
+    if (!entry) return;
+    if (paused) {
+      if (entry.timerId !== null) {
+        window.clearTimeout(entry.timerId);
+        const elapsed = Date.now() - entry.startedAt;
+        entry.remainingMs = Math.max(800, entry.remainingMs - elapsed);
+        entry.timerId = null;
+      }
+      return;
+    }
+    if (entry.timerId === null) {
+      entry.startedAt = Date.now();
+      entry.timerId = window.setTimeout(() => {
+        toastTimersRef.current.delete(id);
+        setToasts((prev) => prev.filter((item) => item.id !== id));
+      }, entry.remainingMs);
+    }
+  }, []);
+
   const pushToast = useCallback(
-    (text: string, tone: ToastMessage["tone"] = "default") => {
+    (text: string, tone: ToastMessage["tone"] = "default", options?: ToastOptions) => {
       const now = Date.now();
       if (
+        !options?.actionLabel &&
         lastToastRef.current.text === text &&
         lastToastRef.current.tone === tone &&
         now - lastToastRef.current.at < 200
@@ -1070,10 +1220,22 @@ export function PlatformProvider({
       }
       lastToastRef.current = { text, tone, at: now };
       const id = `${now}-${Math.random().toString(36).slice(2, 7)}`;
-      setToasts((prev) => [...prev.slice(-3), { id, tone, text }]);
-      window.setTimeout(() => {
+      const durationMs = options?.durationMs ?? (options?.actionLabel ? 5000 : 3600);
+      setToasts((prev) => [
+        ...prev.slice(-3),
+        {
+          id,
+          tone,
+          text,
+          ...(options?.actionLabel ? { actionLabel: options.actionLabel } : {}),
+          ...(options?.onAction ? { onAction: options.onAction } : {}),
+        },
+      ]);
+      const timerId = window.setTimeout(() => {
+        toastTimersRef.current.delete(id);
         setToasts((prev) => prev.filter((item) => item.id !== id));
-      }, 3600);
+      }, durationMs);
+      toastTimersRef.current.set(id, { timerId, remainingMs: durationMs, startedAt: now });
     },
     [],
   );
@@ -1100,14 +1262,31 @@ export function PlatformProvider({
     }
   }, []);
 
-  const setFavoriteLeagues = useCallback((leagues: LeagueId[]) => {
-    setFavoriteLeaguesState(leagues);
-    try {
-      window.localStorage.setItem("pl-fav-leagues", JSON.stringify(leagues));
-    } catch (err) {
-      void err;
-    }
-  }, []);
+  const setFavoriteLeagues = useCallback(
+    (leagues: LeagueId[]) => {
+      const prevLeagues = favoriteLeagues;
+      setFavoriteLeaguesState(leagues);
+      try {
+        window.localStorage.setItem("pl-fav-leagues", JSON.stringify(leagues));
+      } catch (err) {
+        void err;
+      }
+      if (leagues.length < prevLeagues.length) {
+        pushToast("Liga quitada de tus favoritas.", "default", {
+          actionLabel: "Deshacer",
+          onAction: () => {
+            setFavoriteLeaguesState(prevLeagues);
+            try {
+              window.localStorage.setItem("pl-fav-leagues", JSON.stringify(prevLeagues));
+            } catch (err) {
+              void err;
+            }
+          },
+        });
+      }
+    },
+    [favoriteLeagues, pushToast],
+  );
 
   const setRiskPreference = useCallback((risk: RiskBand) => {
     setRiskPreferenceState(risk);
@@ -1229,19 +1408,51 @@ export function PlatformProvider({
         return false;
       }
       setParlayLegs((prev) => [...prev, { pick }]);
+      triggerHaptic(8);
       pushToast(`Agregado al Parlay: ${pick.label}`, "success");
       return true;
     },
     [parlayLegs, allowSgp, pushToast],
   );
 
-  const removePickFromParlay = useCallback((pickId: string) => {
-    setParlayLegs((prev) => prev.filter((l) => l.pick.id !== pickId));
-  }, []);
+  const removePickFromParlay = useCallback(
+    (pickId: string) => {
+      const idx = parlayLegs.findIndex((l) => l.pick.id === pickId);
+      if (idx === -1) return;
+      const removed = parlayLegs[idx]!;
+      setParlayLegs((prev) => prev.filter((l) => l.pick.id !== pickId));
+      triggerHaptic(6);
+      pushToast(`Quitaste «${removed.pick.label}» del parlay.`, "default", {
+        actionLabel: "Deshacer",
+        onAction: () => {
+          setParlayLegs((prev) => {
+            if (prev.some((l) => l.pick.id === removed.pick.id)) return prev;
+            const copy = [...prev];
+            copy.splice(Math.min(idx, copy.length), 0, removed);
+            return copy;
+          });
+        },
+      });
+    },
+    [parlayLegs, pushToast],
+  );
 
   const clearParlay = useCallback(() => {
+    if (parlayLegs.length === 0) return;
+    const snapshot = [...parlayLegs];
     setParlayLegs([]);
-  }, []);
+    triggerHaptic(8);
+    pushToast(
+      `Boleto vaciado (${snapshot.length} ${snapshot.length === 1 ? "selección" : "selecciones"}).`,
+      "default",
+      {
+        actionLabel: "Deshacer",
+        onAction: () => {
+          setParlayLegs(snapshot);
+        },
+      },
+    );
+  }, [parlayLegs, pushToast]);
 
   const generateAutoParlay = useCallback(
     (opts: {
@@ -1337,6 +1548,7 @@ export function PlatformProvider({
       };
       setJournal((prev) => [entry, ...prev]);
       setComposerPick(null);
+      triggerHaptic(10);
       pushToast(`Pick registrado en tu bitácora (${entry.units}u).`, "success");
       // Con cuenta: el servidor sella con la hora de inicio oficial y una huella SHA-256.
       if (hasAccountSessionAuth && entry.status === "pending") {
@@ -1403,6 +1615,7 @@ export function PlatformProvider({
         note: note ?? "Armador Inteligente Geodesic v2.0",
       };
       setJournal((prev) => [entry, ...prev]);
+      triggerHaptic(10);
       pushToast(
         `Boleto combinado de ${parlaySummary.legs.length} selecciones sellado en Bitácora.`,
         "success",
@@ -1920,6 +2133,7 @@ export function PlatformProvider({
       const target = socialPosts.find((p) => p.id === postId);
       if (!target || isPendingPost(target)) return;
       const liked = !target.likedByMe;
+      triggerHaptic(6);
       setSocialPosts((prev) =>
         prev.map((p) =>
           p.id === postId ? { ...p, likedByMe: liked, likes: liked ? p.likes + 1 : Math.max(0, p.likes - 1) } : p,
@@ -2203,16 +2417,37 @@ export function PlatformProvider({
   const toggleWatchlistGame = useCallback(
     (gameId: string) => {
       const exists = watchlistGameIds.includes(gameId);
+      triggerHaptic(8);
       setWatchlistGameIds((prev) =>
         prev.includes(gameId) ? prev.filter((id) => id !== gameId) : [...prev, gameId],
       );
-      pushToast(
-        exists
-          ? "Dejaste de seguir este partido."
-          : "Siguiendo: te avisamos del inicio, los goles y el final.",
-        "default",
-      );
-      if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
+      if (exists) {
+        pushToast("Dejaste de seguir este partido.", "default", {
+          actionLabel: "Deshacer",
+          onAction: () => {
+            setWatchlistGameIds((prev) => (prev.includes(gameId) ? prev : [...prev, gameId]));
+            if (hasAccountSessionAuth) {
+              void postJson("/api/me/watchlist", { gameId, watched: true });
+            }
+          },
+        });
+      } else {
+        pushToast("Siguiendo: te avisamos del inicio, los goles y el final.", "default");
+      }
+      if (hasAccountSessionAuth) {
+        void postJson("/api/me/watchlist", { gameId, watched: !exists }).then((res) => {
+          if (!res || !res.ok) {
+            // Rollback silencioso ante error de red (ADR-053 UI optimista)
+            setWatchlistGameIds((prev) =>
+              exists
+                ? prev.includes(gameId)
+                  ? prev
+                  : [...prev, gameId]
+                : prev.filter((id) => id !== gameId),
+            );
+          }
+        });
+      }
     },
     [watchlistGameIds, pushToast, hasAccountSessionAuth],
   );
@@ -2251,6 +2486,21 @@ export function PlatformProvider({
     },
     [onNavigate],
   );
+
+  const prefetchRoute = useCallback(
+    (href: string) => {
+      if (onPrefetchRoute) {
+        onPrefetchRoute(href);
+      }
+    },
+    [onPrefetchRoute],
+  );
+
+  const requestFullShell = useCallback(() => {
+    if (onRequestFullShell) {
+      onRequestFullShell();
+    }
+  }, [onRequestFullShell]);
 
   const openBetaPin = useCallback((nextPath: string = "/app") => {
     setBetaPinNextPath(nextPath);
@@ -2341,7 +2591,7 @@ export function PlatformProvider({
       updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
-      auraColors,
+      auraColors: auraStore.get(),
       setAuraFromGame,
       parlayLegs,
       allowSgp,
@@ -2421,7 +2671,11 @@ export function PlatformProvider({
       logoutSession,
       toasts,
       pushToast,
+      dismissToast,
+      setToastPaused,
       navigateTo,
+      prefetchRoute,
+      requestFullShell,
     }),
     [
       rawDataset,
@@ -2439,7 +2693,7 @@ export function PlatformProvider({
       updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
-      auraColors,
+      auraStore,
       setAuraFromGame,
       parlayLegs,
       allowSgp,
@@ -2510,7 +2764,11 @@ export function PlatformProvider({
       logoutSession,
       toasts,
       pushToast,
+      dismissToast,
+      setToastPaused,
       navigateTo,
+      prefetchRoute,
+      requestFullShell,
     ],
   );
 
@@ -2548,6 +2806,10 @@ export function PlatformProvider({
       preferredBooks,
       savedScreenerViews,
       month1NoCardMode,
+      referralPaidFriends,
+      memberReferralsSnapshot,
+      tipsterWeeklyPickOrigin,
+      selectedTipsterPickId,
     }),
     [
       rawDataset,
@@ -2570,6 +2832,10 @@ export function PlatformProvider({
       preferredBooks,
       savedScreenerViews,
       month1NoCardMode,
+      referralPaidFriends,
+      memberReferralsSnapshot,
+      tipsterWeeklyPickOrigin,
+      selectedTipsterPickId,
     ],
   );
 
@@ -2608,6 +2874,38 @@ export function PlatformProvider({
     ],
   );
 
+  const parlayState = useMemo<ParlayStateValue>(
+    () => ({
+      parlayLegs,
+      allowSgp,
+      parlayStakeUnits,
+      parlaySummary,
+    }),
+    [parlayLegs, allowSgp, parlayStakeUnits, parlaySummary],
+  );
+
+  const socialState = useMemo<SocialStateValue>(
+    () => ({
+      socialPosts,
+      socialFeedPages,
+      socialOnServer,
+      blockedSpamAttempts,
+    }),
+    [socialPosts, socialFeedPages, socialOnServer, blockedSpamAttempts],
+  );
+
+  const overlayState = useMemo<OverlayStateValue>(
+    () => ({
+      composerPick,
+      shareTicket,
+      cmdkOpen,
+      betaPinOpen,
+      betaPinNextPath,
+      toasts,
+    }),
+    [composerPick, shareTicket, cmdkOpen, betaPinOpen, betaPinNextPath, toasts],
+  );
+
   const [parlayIdStore] = useState(createParlayIdStore);
   useLayoutEffect(() => {
     parlayIdStore.set(new Set(parlayLegs.map((l) => l.pick.id)));
@@ -2617,13 +2915,23 @@ export function PlatformProvider({
     <PlatformActionsContext.Provider value={actions}>
       <PlatformCoreContext.Provider value={core}>
         <ParlayIdStoreContext.Provider value={parlayIdStore}>
-          <JournalContext.Provider value={journal}>
-            <AuraContext.Provider value={auraColors}>
-              <HomeNavFilterContext.Provider value={homeNavFilter}>
-                <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
-              </HomeNavFilterContext.Provider>
-            </AuraContext.Provider>
-          </JournalContext.Provider>
+          <ParlayStateContext.Provider value={parlayState}>
+            <SocialStateContext.Provider value={socialState}>
+              <OverlayStateContext.Provider value={overlayState}>
+                <JournalContext.Provider value={journal}>
+                  <WatchlistContext.Provider value={watchlistGameIds}>
+                    <FollowAlertsContext.Provider value={followAlerts}>
+                      <AuraStoreContext.Provider value={auraStore}>
+                        <HomeNavFilterContext.Provider value={homeNavFilter}>
+                          <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+                        </HomeNavFilterContext.Provider>
+                      </AuraStoreContext.Provider>
+                    </FollowAlertsContext.Provider>
+                  </WatchlistContext.Provider>
+                </JournalContext.Provider>
+              </OverlayStateContext.Provider>
+            </SocialStateContext.Provider>
+          </ParlayStateContext.Provider>
         </ParlayIdStoreContext.Provider>
       </PlatformCoreContext.Provider>
     </PlatformActionsContext.Provider>
@@ -2639,8 +2947,8 @@ export function usePlatform(): PlatformContextValue {
 }
 
 /**
- * Agrega partidos a los datos de una página concreta (p. ej. los terminados en Resultados).
- * El layout solo manda los partidos por jugar; cada pantalla pide lo que le falta.
+ * Agrega o enriquece partidos puntuales (p. ej. terminados en Resultados o `preGame` completo
+ * en la ficha de partido) sobre los datos recortados del shell compartido.
  */
 export function PlatformGamesSupplement({
   games,
@@ -2655,26 +2963,60 @@ export function PlatformGamesSupplement({
   const merge = useCallback(
     (base: PlatformDataset, applyTz: boolean): PlatformDataset => {
       if (games.length === 0) return base;
-      const known = new Set(base.games.map((g) => g.id));
-      const extraRaw = games.filter((g) => !known.has(g.id));
-      if (extraRaw.length === 0) return base;
-      const extra =
-        applyTz && core.userTimezone && core.userTimezone !== DEFAULT_STORED_PREFS_V1.timezone
-          ? extraRaw.map((g) => {
-              const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
-              return ko === g.kickoffLocal
-                ? g
-                : {
-                    ...g,
-                    kickoffLocal: ko,
-                    picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
-                    ...(g.parlayCandidates
-                      ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
-                      : {}),
-                  };
-            })
-          : extraRaw;
-      return { ...base, games: [...base.games, ...extra] };
+      const incomingById = new Map<string, PlatformGame>();
+      for (const g of games) {
+        const localized =
+          applyTz && core.userTimezone && core.userTimezone !== DEFAULT_STORED_PREFS_V1.timezone
+            ? (() => {
+                const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
+                return ko === g.kickoffLocal
+                  ? g
+                  : {
+                      ...g,
+                      kickoffLocal: ko,
+                      picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
+                      ...(g.parlayCandidates
+                        ? { parlayCandidates: g.parlayCandidates.map((p) => ({ ...p, kickoffLocal: ko })) }
+                        : {}),
+                    };
+              })()
+            : g;
+        incomingById.set(g.id, localized);
+      }
+
+      let changed = false;
+      const seen = new Set<string>();
+      const mergedGames = base.games.map((existing) => {
+        seen.add(existing.id);
+        const incoming = incomingById.get(existing.id);
+        if (!incoming) return existing;
+        // Reemplaza la copia ligera del shell si el suplemento trae `preGame` enriquecido
+        // (bajas, síntesis, alineaciones o contexto completo para la ficha individual).
+        const hasRicherPreGame = Boolean(
+          (incoming.spacetime && !existing.spacetime) ||
+            (incoming.confidenceDetail && !existing.confidenceDetail) ||
+            (incoming.picks.length > existing.picks.length) ||
+            (incoming.picks.some((p) => p.rationale) && !existing.picks.some((p) => p.rationale)) ||
+            (incoming.preGame &&
+              ((incoming.preGame.absences?.length ?? 0) > (existing.preGame?.absences?.length ?? 0) ||
+                (incoming.preGame.cortexSynthesis && !existing.preGame?.cortexSynthesis) ||
+                (incoming.preGame.tacticalKeys?.length ?? 0) > (existing.preGame?.tacticalKeys?.length ?? 0) ||
+                (incoming.preGame.probableLineups && !existing.preGame?.probableLineups) ||
+                (incoming.preGame.matchContext?.weather && !existing.preGame?.matchContext?.weather))),
+        );
+        if (!hasRicherPreGame) return existing;
+        changed = true;
+        return incoming;
+      });
+
+      const extras: PlatformGame[] = [];
+      for (const [id, g] of incomingById) {
+        if (!seen.has(id)) {
+          extras.push(g);
+          changed = true;
+        }
+      }
+      return changed ? { ...base, games: extras.length > 0 ? [...mergedGames, ...extras] : mergedGames } : base;
     },
     [core.userTimezone, games],
   );

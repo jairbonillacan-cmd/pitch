@@ -1,9 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { LegalDocumentSurface } from "@pitchlab/ui/legal";
-import { hasPublicSessionCookie } from "../../../src/server/public-session";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 const DESCRIPTION =
   "Aviso de Privacidad Integral para México conforme a la LFPDPPP: datos tratados, cobro SPEI y cupones, perfil público, correos, cookies, analítica y derechos ARCO.";
@@ -14,9 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/legal/privacidad" },
 };
 
-export default async function PrivacidadPage(): Promise<React.JSX.Element> {
-  const hasSession = await hasPublicSessionCookie();
-
+export default function PrivacidadPage(): React.JSX.Element {
   return (
     <LegalDocumentSurface
       slug="privacidad"
@@ -24,7 +21,6 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
       title="Aviso de privacidad"
       lede={DESCRIPTION}
       lastUpdated="Última actualización: noviembre de 2026"
-      hasSession={hasSession}
       intro={
         <p>
           <strong>Marco legal:</strong> Este Aviso de Privacidad Integral se emite en cumplimiento

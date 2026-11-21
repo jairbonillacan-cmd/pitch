@@ -178,7 +178,7 @@ function OddsMovementSparkline({
               type="button"
               aria-pressed={r.id === active.id}
               onClick={() => setSelectedId(r.id)}
-              className={`pl-pill text-[11px] min-h-8 px-2.5 cursor-pointer ${r.id === active.id ? "pl-pill--brand" : ""}`.trim()}
+              className={`pl-pill text-[11px] min-h-11 sm:min-h-8 px-2.5 cursor-pointer ${r.id === active.id ? "pl-pill--brand" : ""}`.trim()}
             >
               {r.label}
             </button>
@@ -345,7 +345,7 @@ export function MatchMoneyPanel({
             ? Math.round((m.p - 1 / houseDecimal) * 1000) / 10
             : m.edgePts;
         out.push({
-          id: `${m.market}-${m.selection}`,
+          id: `${m.market}-${m.selection}-${m.line ?? out.length}`,
           label: m.label,
           group: m.group,
           p: m.p,
@@ -570,19 +570,19 @@ export function MatchMoneyPanel({
               showFairReference={canReadDetails}
             />
             <div
-              className="pl-table-region pl-dinero-table-wrap"
+              className="pl-table-region pl-dinero-table-wrap overflow-x-auto min-w-0"
               tabIndex={0}
               role="region"
-              aria-label="Tabla comparativa de probabilidades y momios"
+              aria-labelledby="dinero-lines-heading"
             >
             <table className="pl-dinero-table w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="hairline-b" style={{ color: "var(--pl-text-muted)" }}>
-                  <th scope="col" className="py-2 pr-3">Selección</th>
-                  <th scope="col" className="py-2 px-2 text-right">Modelo</th>
-                  <th scope="col" className="py-2 px-2 text-right">Justo</th>
-                  <th scope="col" className="py-2 px-2 text-right">Casa</th>
-                  <th scope="col" className="py-2 pl-2 text-right">Ventaja</th>
+                  <th scope="col" className="py-2 pr-2">Selección</th>
+                  <th scope="col" className="py-2 px-1.5 text-right whitespace-nowrap">Modelo</th>
+                  <th scope="col" className="py-2 px-1.5 text-right whitespace-nowrap">Justo</th>
+                  <th scope="col" className="py-2 px-1.5 text-right whitespace-nowrap">Casa</th>
+                  <th scope="col" className="py-2 pl-1.5 text-right whitespace-nowrap">Ventaja</th>
                 </tr>
               </thead>
               <tbody>
@@ -597,10 +597,10 @@ export function MatchMoneyPanel({
                       : r.edgePts;
                   return (
                     <tr key={r.id} className="hairline-b">
-                      <td className="py-2.5 pr-3">
-                        <div className="flex items-center justify-between gap-2 min-w-0">
+                      <td className="py-2.5 pr-2 align-top">
+                        <div className="flex flex-wrap items-center justify-between gap-1.5 min-w-0">
                           <div className="min-w-0">
-                            <strong className="block text-[13px] font-bold truncate" style={{ color: "var(--pl-text)" }}>
+                            <strong className="block text-[13px] font-bold leading-snug" style={{ color: "var(--pl-text)" }}>
                               {r.label}
                             </strong>
                             <span className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
@@ -632,13 +632,13 @@ export function MatchMoneyPanel({
                           ) : null}
                         </div>
                       </td>
-                      <td className="py-2.5 px-2 text-right num font-bold" style={{ color: "var(--pl-text)" }}>
+                      <td className="py-2.5 px-1.5 text-right num font-bold whitespace-nowrap" style={{ color: "var(--pl-text)" }}>
                         {(r.p * 100).toFixed(1)} %
                       </td>
-                      <td className="py-2.5 px-2 text-right num font-bold" style={{ color: "var(--pl-brand)" }}>
+                      <td className="py-2.5 px-1.5 text-right num font-bold whitespace-nowrap" style={{ color: "var(--pl-brand)" }}>
                         {formatOddsValue(r.fairDecimal, oddsFormat)}
                       </td>
-                      <td className="py-2.5 px-2 text-right num" style={{ color: "var(--pl-text-secondary)" }}>
+                      <td className="py-2.5 px-1.5 text-right num whitespace-nowrap" style={{ color: "var(--pl-text-secondary)" }}>
                         {isFinished ? (
                           r.houseDecimal !== null
                             ? formatOddsValue(r.houseDecimal, oddsFormat)
@@ -685,11 +685,11 @@ export function MatchMoneyPanel({
                                 [r.id]: e.target.value,
                               }))
                             }
-                            className="glass-input num text-base sm:text-xs text-right px-2 py-1 min-h-11 sm:min-h-8 w-20 sm:w-16 rounded-md"
+                            className="glass-input num text-base sm:text-xs text-right px-1.5 py-1 min-h-11 sm:min-h-8 w-[74px] sm:w-[62px] rounded-md"
                           />
                         )}
                       </td>
-                      <td className="py-2.5 pl-2 text-right num">
+                      <td className="py-2.5 pl-1.5 text-right num whitespace-nowrap">
                         {effectiveEdgePts !== null ? (
                           <span
                             className={`pl-pill text-[11px] ${effectiveEdgePts > 0 ? "pl-pill--success" : ""}`.trim()}

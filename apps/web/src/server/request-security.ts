@@ -28,19 +28,85 @@ function sanitizeIpCandidate(raw: string | null | undefined): string {
   return candidate;
 }
 
+function parseRfc7239ForwardedFor(header: string | null): string {
+  if (!header) return "";
+  const firstEntry = header.split(",")[0] ?? "";
+  const match = /(?:^|;)\s*for=(?:"([^"]+)"|([^;\s]+))/i.exec(firstEntry);
+  if (!match) return "";
+  let raw = (match[1] ?? match[2] ?? "").trim();
+  if (!raw || raw.startsWith("_")) return "";
+  // IPv6 entre corchetes opcionalmente con puerto: "[2001:db8::1]:4711" -> "2001:db8::1"
+  if (raw.startsWith("[")) {
+    const endBracket = raw.indexOf("]");
+    if (endBracket <= 1) return "";
+    raw = raw.slice(1, endBracket);
+  } else if (/^\d{1,3}(?:\.\d{1,3}){3}:\d+$/.test(raw)) {
+    raw = raw.slice(0, raw.lastIndexOf(":"));
+  }
+  return sanitizeIpCandidate(raw);
+}
+
+export type TrustedProxyMode = "cloudflare" | "fly" | "vercel" | "xff-last" | "auto";
+
+function parseXForwardedForLast(header: string | null): string {
+  if (!header) return "";
+  const parts = header.split(",");
+  for (let i = parts.length - 1; i >= 0; i -= 1) {
+    const ip = sanitizeIpCandidate(parts[i]);
+    if (ip) return ip;
+  }
+  return "";
+}
+
 /**
- * Prioriza cabeceras inyectadas y sobrescritas por el borde (Cloudflare / Vercel / Nginx)
- * antes de caer en `X-Forwarded-For`, evitando que un cliente falsifique su IP para saltar cuotas.
+ * Extrae la IP real del cliente detrás de cualquier borde o proxy reverso (Nginx, Caddy,
+ * Traefik, AWS ALB, Fly.io, Fastly, Cloudflare, Vercel, Cloud Run) evitando que un cliente
+ * falsifique su IP para saltar cuotas (ADR-050).
+ *
+ * Cuando `PITCHLAB_TRUSTED_PROXY` está configurado (`cloudflare` | `fly` | `vercel` | `xff-last`),
+ * SOLO confía en la cabecera correspondiente a ese proxy para impedir suplantación (p. ej.
+ * `CF-Connecting-IP` inyectado por el cliente en Cloud Run / OCI). Sin configurar o en `auto`,
+ * mantiene la cascada compatible de autodetección.
  */
-export function trustedClientIp(headers: Headers): string {
+export function trustedClientIp(
+  headers: Headers,
+  proxyMode: string | undefined = process.env.PITCHLAB_TRUSTED_PROXY,
+): string {
+  const mode = proxyMode?.trim().toLowerCase() || "auto";
+
+  if (mode === "cloudflare") {
+    return sanitizeIpCandidate(headers.get("cf-connecting-ip"));
+  }
+  if (mode === "fly") {
+    return sanitizeIpCandidate(headers.get("fly-client-ip"));
+  }
+  if (mode === "vercel") {
+    return sanitizeIpCandidate(headers.get("x-vercel-forwarded-for")?.split(",")[0]);
+  }
+  if (mode === "xff-last") {
+    return parseXForwardedForLast(headers.get("x-forwarded-for"));
+  }
+  if (mode !== "auto") {
+    return "";
+  }
+
   const cfIp = sanitizeIpCandidate(headers.get("cf-connecting-ip"));
   if (cfIp) return cfIp;
+
+  const flyIp = sanitizeIpCandidate(headers.get("fly-client-ip"));
+  if (flyIp) return flyIp;
+
+  const trueClientIp = sanitizeIpCandidate(headers.get("true-client-ip"));
+  if (trueClientIp) return trueClientIp;
 
   const vercelIp = sanitizeIpCandidate(headers.get("x-vercel-forwarded-for")?.split(",")[0]);
   if (vercelIp) return vercelIp;
 
   const realIp = sanitizeIpCandidate(headers.get("x-real-ip"));
   if (realIp) return realIp;
+
+  const forwardedRfc = parseRfc7239ForwardedFor(headers.get("forwarded"));
+  if (forwardedRfc) return forwardedRfc;
 
   const forwardedFirst = sanitizeIpCandidate(headers.get("x-forwarded-for")?.split(",")[0]);
   return forwardedFirst;

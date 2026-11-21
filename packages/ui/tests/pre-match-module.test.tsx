@@ -340,7 +340,9 @@ describe("PreMatchModule («Antes del partido»): estados de componente", () => 
 
     expect(html).toContain("Lesión muscular");
     expect(html).toContain("Regreso est. 2030-11-28");
-    expect(html).toContain("Once estimado · Confianza 85 %");
+    expect(html).toContain("Once estimado");
+    expect(html).toContain("Sujeto a confirmación");
+    expect(html).not.toContain("Confianza");
     expect(html).toContain('data-lineup-slot="estimated"');
     expect(html).toContain("4-3-3");
     expect(html).toContain("Local Titular 1");

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { listFollowing, setSocialFollow } from "@pitchlab/db";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { reasonResponse, requireSocialMember } from "../../../../src/server/social";
 
 export const runtime = "nodejs";
@@ -14,6 +15,8 @@ export async function GET(request: Request): Promise<NextResponse> {
 
 /** `{ handle, follow }`: seguir o dejar de seguir. */
 export async function POST(request: Request): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: true });
+  if (originErr) return originErr;
   const member = await requireSocialMember(request);
   if ("error" in member) return member.error;
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;

@@ -3,9 +3,14 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { formatOddsValue } from "../access-guard";
 import { computeParlaySummary } from "../parlay-engine";
-import { usePlatform } from "../platform-provider";
+import {
+  useParlayState,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { MaestroIcon } from "./MaestroPrimitives";
 import { SgpCopulaAuditCard } from "./SgpCopulaAuditCard";
+import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
 let cachedCanTransitionDisplay: boolean | undefined;
 
@@ -33,21 +38,19 @@ function supportsTopLayerExit(): boolean {
  * para revisar, editar o guardar tu Parlay con una mano desde cualquier pantalla del Club.
  */
 export function MobileParlaySheet(): React.JSX.Element | null {
-  const {
-    parlayLegs,
-    oddsFormat,
-    removePickFromParlay,
-    clearParlay,
-    sealParlayToJournal,
-    navigateTo,
-  } = usePlatform();
+  const { oddsFormat } = usePlatformCore();
+  const { removePickFromParlay, clearParlay, sealParlayToJournal, navigateTo } = usePlatformActions();
+  const { parlayLegs } = useParlayState();
 
   const [open, setOpen] = useState(false);
+  const [confirmClear, setConfirmClear] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const listRef = useRef<HTMLUListElement | null>(null);
   const titleId = useId();
   const summary = useMemo(() => computeParlaySummary(parlayLegs), [parlayLegs]);
 
   const closeSheet = useCallback(async () => {
+    setConfirmClear(false);
     const dialog = dialogRef.current;
     if (!dialog || !dialog.open) {
       setOpen(false);
@@ -68,6 +71,14 @@ export function MobileParlaySheet(): React.JSX.Element | null {
     dialog.close();
     setOpen(false);
   }, []);
+
+  const sheetSwipe = useSheetSwipeDismiss({
+    onDismiss: () => {
+      void closeSheet();
+    },
+    disabled: !open,
+    scrollContainerRef: listRef,
+  });
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -151,28 +162,30 @@ export function MobileParlaySheet(): React.JSX.Element | null {
         {...({ closedby: "any" } as Record<string, string>)}
         data-mobile-parlay-sheet=""
       >
-        <div className="pl-bottom-sheet-inner">
-          <div className="pl-bottom-sheet-handle" aria-hidden="true" />
-          <header className="pl-bottom-sheet-head">
-            <div>
-              <h2 id={titleId} className="m-0 text-base font-extrabold">
-                Tu parlay ({parlayLegs.length})
-              </h2>
-              <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                Probabilidad {(summary.combinedProbability * 100).toFixed(1)} % · Momio justo {oddsText}
-              </p>
-            </div>
-            <button
-              type="button"
-              className="pl-icon-btn"
-              aria-label="Cerrar boleto de parlay"
-              onClick={() => void closeSheet()}
-            >
-              <MaestroIcon name="x" size={18} />
-            </button>
-          </header>
+        <div className="pl-bottom-sheet-inner" style={sheetSwipe.sheetStyle}>
+          <div className="pl-sheet-drag-zone" {...sheetSwipe.handleProps}>
+            <div className="pl-bottom-sheet-handle" aria-hidden="true" />
+            <header className="pl-bottom-sheet-head">
+              <div>
+                <h2 id={titleId} className="m-0 text-base font-extrabold">
+                  Tu parlay ({parlayLegs.length})
+                </h2>
+                <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+                  Probabilidad {(summary.combinedProbability * 100).toFixed(1)} % · Momio justo {oddsText}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="pl-icon-btn"
+                aria-label="Cerrar boleto de parlay"
+                onClick={() => void closeSheet()}
+              >
+                <MaestroIcon name="x" size={18} />
+              </button>
+            </header>
+          </div>
 
-          <ul className="pl-bottom-sheet-legs" role="list">
+          <ul ref={listRef} className="pl-bottom-sheet-legs" role="list">
             {parlayLegs.map((leg) => (
               <li key={leg.pick.id} className="pl-bottom-sheet-leg">
                 <div className="min-w-0 flex-1">
@@ -201,39 +214,80 @@ export function MobileParlaySheet(): React.JSX.Element | null {
             />
           ) : null}
 
-          <footer className="pl-bottom-sheet-actions">
-            <button
-              type="button"
-              className="pl-btn-primary flex-1 min-h-11 text-sm"
-              disabled={parlayLegs.length < 2}
-              onClick={() => {
-                sealParlayToJournal();
-                void closeSheet();
+          {confirmClear ? (
+            <div
+              className="rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2"
+              role="alertdialog"
+              aria-label="Confirmar vaciado de parlay"
+              style={{
+                background: "var(--pl-surface-hover)",
+                border: "1px solid var(--pl-border)",
               }}
             >
-              Guardar en Mi récord
-            </button>
-            <button
-              type="button"
-              className="pl-btn-glass min-h-11 px-3 text-sm"
-              onClick={() => {
-                void closeSheet();
-                navigateTo("/app/parlays");
-              }}
-            >
-              Abrir Parlays
-            </button>
-            <button
-              type="button"
-              className="pl-btn-glass min-h-11 px-3 text-xs"
-              onClick={() => {
-                clearParlay();
-                void closeSheet();
-              }}
-            >
-              Limpiar
-            </button>
-          </footer>
+              <span className="text-xs font-bold">
+                ¿Vaciar las {parlayLegs.length} selecciones del boleto?
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  autoFocus
+                  className="pl-btn-glass min-h-11 px-3 text-xs font-bold"
+                  onClick={() => setConfirmClear(false)}
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  className="pl-btn-danger min-h-11 px-3 text-xs font-bold"
+                  onClick={() => {
+                    setConfirmClear(false);
+                    clearParlay();
+                    void closeSheet();
+                  }}
+                >
+                  Sí, vaciar
+                </button>
+              </div>
+            </div>
+          ) : (
+            <footer className="pl-bottom-sheet-actions">
+              <button
+                type="button"
+                className="pl-btn-primary pl-bottom-sheet-primary min-h-11 text-sm"
+                disabled={parlayLegs.length < 2}
+                onClick={() => {
+                  sealParlayToJournal();
+                  void closeSheet();
+                }}
+              >
+                Guardar en Mi récord
+              </button>
+              <button
+                type="button"
+                className="pl-btn-glass min-h-11 px-3 text-sm"
+                onClick={() => {
+                  void closeSheet();
+                  navigateTo("/app/parlays");
+                }}
+              >
+                Abrir Parlays
+              </button>
+              <button
+                type="button"
+                className="pl-btn-glass min-h-11 px-3 text-xs"
+                onClick={() => {
+                  if (parlayLegs.length >= 2) {
+                    setConfirmClear(true);
+                  } else {
+                    clearParlay();
+                    void closeSheet();
+                  }
+                }}
+              >
+                Limpiar
+              </button>
+            </footer>
+          )}
         </div>
       </dialog>
     </>

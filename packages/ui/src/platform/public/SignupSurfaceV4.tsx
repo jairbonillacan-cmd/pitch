@@ -11,7 +11,10 @@ import {
   sendConsentGatedFunnelStage,
   syncLocalAnalyticsConsent,
 } from "../funnel-consent";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import { requestLoginMagicLink, startLoginSocialSignIn } from "./LoginSurfaceV4";
 
@@ -341,7 +344,8 @@ export function SignupSurfaceV4({
   initialHandle = "",
   nextPath = "/app",
 }: SignupSurfaceV4Props): React.JSX.Element {
-  const { accountsEnabled, openBetaPin, navigateTo } = usePlatform();
+  const { accountsEnabled } = usePlatformCore();
+  const { openBetaPin, navigateTo } = usePlatformActions();
   const narrow = useNarrowViewport();
   const uid = useId();
   const ids = {

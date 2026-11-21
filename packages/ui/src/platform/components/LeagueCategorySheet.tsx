@@ -9,6 +9,7 @@ import {
 } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../sports";
 import { MaestroIcon } from "./MaestroPrimitives";
+import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
 export interface LeaguePickerEntry {
   league: LeagueId;
@@ -51,8 +52,17 @@ export function LeagueCategorySheet({
 }: LeagueCategorySheetProps): React.JSX.Element | null {
   const titleId = useId();
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
+
+  const sheetSwipe = useSheetSwipeDismiss({
+    onDismiss: () => {
+      dialogRef.current?.close();
+    },
+    disabled: !open,
+    scrollContainerRef: bodyRef,
+  });
 
   const [query, setQuery] = useState("");
   const [showInactive, setShowInactive] = useState(false);
@@ -179,26 +189,29 @@ export function LeagueCategorySheet({
       aria-labelledby={titleId}
       className="pl-native-modal pl-sheet-modal"
       data-league-category-sheet=""
+      style={sheetSwipe.sheetStyle}
       {...({ closedby: "any" } as Record<string, string>)}
     >
-      <div className="pl-sheet-grab" aria-hidden="true" />
-      <div className="pl-native-modal-head">
-        <div>
-          <h2 id={titleId} className="pl-native-modal-title">
-            {title}
-          </h2>
-          <p className="pl-native-modal-sub">
-            Organizadas por región y torneo · solo competencias activas en los próximos 30 días.
-          </p>
+      <div className="pl-sheet-drag-zone" {...sheetSwipe.handleProps}>
+        <div className="pl-sheet-grab" aria-hidden="true" />
+        <div className="pl-native-modal-head">
+          <div>
+            <h2 id={titleId} className="pl-native-modal-title">
+              {title}
+            </h2>
+            <p className="pl-native-modal-sub">
+              Organizadas por región y torneo · solo competencias activas en los próximos 30 días.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="pl-native-modal-close"
+            aria-label="Cerrar selector de ligas"
+            onClick={() => dialogRef.current?.close()}
+          >
+            <MaestroIcon name="x" size={16} />
+          </button>
         </div>
-        <button
-          type="button"
-          className="pl-native-modal-close"
-          aria-label="Cerrar selector de ligas"
-          onClick={() => dialogRef.current?.close()}
-        >
-          <MaestroIcon name="x" size={16} />
-        </button>
       </div>
 
       <div className="pl-sheet-search-row">
@@ -225,7 +238,7 @@ export function LeagueCategorySheet({
         ) : null}
       </div>
 
-      <div className="pl-native-modal-body pl-sheet-body">
+      <div ref={bodyRef} className="pl-native-modal-body pl-sheet-body">
         {includeAllOption && !query.trim() ? (
           <button
             type="button"

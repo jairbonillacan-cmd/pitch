@@ -8,7 +8,13 @@ import {
   usePackIconBase,
 } from "../../../pack-icon-theme";
 import { resolveCircularCountryFlag } from "../../country-flags";
+import { useOptionalPlatformActions } from "../../platform-provider";
 import { PersonAvatar } from "./PersonAvatar";
+import {
+  normalizePlayerMatchName,
+  parseNbaMetricValue,
+  type ResolvedLineupSignal,
+} from "./props-context-helpers";
 import type { TeamInjuryItem, TeamProfileData, TeamSquadPlayer } from "./types";
 
 export interface TeamSquadSectionProps {
@@ -19,6 +25,8 @@ export interface TeamSquadSectionProps {
   seasonLabel: string;
   squad: NonNullable<TeamProfileData["squad"]>;
   injuries?: readonly TeamInjuryItem[];
+  lineupByPlayer?: ReadonlyMap<string, ResolvedLineupSignal>;
+  lineupBannerLabel?: string | null;
   isVisitorRestricted: boolean;
   upgradeHref: string;
   onNavigate: (href: string) => void;
@@ -189,6 +197,8 @@ export function TeamSquadSection({
   teamName,
   squad,
   injuries = [],
+  lineupByPlayer,
+  lineupBannerLabel,
   onNavigate,
 }: TeamSquadSectionProps): React.JSX.Element {
   const iconBase = usePackIconBase();
@@ -207,6 +217,19 @@ export function TeamSquadSection({
     [sport, squad.players],
   );
 
+  const hasNbaSeasonStats = useMemo(
+    () =>
+      sport === "basketball" &&
+      squad.players.some(
+        (p) =>
+          parseNbaMetricValue(p, ["pts", "puntos"]) !== null ||
+          parseNbaMetricValue(p, ["min", "minutos"]) !== null,
+      ),
+    [sport, squad.players],
+  );
+
+  const showThreeStatCols = hasSeasonStats || hasNbaSeasonStats;
+
   const hasBirthDates = useMemo(
     () => squad.players.some((p) => Boolean(p.birthDate)),
     [squad.players],
@@ -222,6 +245,7 @@ export function TeamSquadSection({
       .filter((sec) => sec.players.length > 0);
   }, [sport, squad.players]);
 
+  const platformActions = useOptionalPlatformActions();
   const navigateOnPlainClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
@@ -237,7 +261,7 @@ export function TeamSquadSection({
   }
 
   const trailingColCount =
-    3 + (hasBirthDates ? 1 : 0) + (hasSeasonStats ? 3 : 1);
+    3 + (hasBirthDates ? 1 : 0) + (showThreeStatCols ? 3 : 1);
 
   return (
     <section
@@ -246,6 +270,27 @@ export function TeamSquadSection({
       data-team-squad-sheet=""
       data-team-squad-section=""
     >
+      {lineupBannerLabel ? (
+        <div
+          className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 text-xs hairline-b"
+          style={{ background: "var(--pl-surface-elevated)" }}
+          data-squad-lineup-banner=""
+        >
+          <span className="font-bold" style={{ color: "var(--pl-text)" }}>
+            Alineación del próximo partido
+          </span>
+          <span
+            className={`pl-pill text-[11px] font-bold ${
+              lineupBannerLabel.toLowerCase().includes("confirmad")
+                ? "pl-pill--success"
+                : "pl-pill--info"
+            }`}
+          >
+            {lineupBannerLabel}
+          </span>
+        </div>
+      ) : null}
+
       <div
         tabIndex={0}
         role="region"
@@ -253,13 +298,14 @@ export function TeamSquadSection({
         className="pl-sq-region"
       >
         <table className="pl-sq-table">
+          <caption className="sr-only">Plantilla de {teamName}</caption>
           <colgroup>
             <col className="pl-sq-col-player" />
             <col className="pl-sq-col-nat" />
             <col className="pl-sq-col-height" />
             {hasBirthDates ? <col className="pl-sq-col-dob" /> : null}
             <col className="pl-sq-col-age" />
-            {hasSeasonStats ? (
+            {showThreeStatCols ? (
               <>
                 <col className="pl-sq-col-pj" />
                 <col className="pl-sq-col-stat1" />
@@ -309,6 +355,18 @@ export function TeamSquadSection({
                             {sec.isGoalkeeper ? "Recibidos" : "Tiros (TaP)"}
                           </th>
                         </>
+                      ) : hasNbaSeasonStats ? (
+                        <>
+                          <th scope="col" className="pl-sq-colhead is-num">
+                            MIN
+                          </th>
+                          <th scope="col" className="pl-sq-colhead is-num">
+                            PTS
+                          </th>
+                          <th scope="col" className="pl-sq-colhead is-num">
+                            REB / AST
+                          </th>
+                        </>
                       ) : (
                         <th scope="col" className="pl-sq-colhead is-num">
                           Peso
@@ -350,9 +408,36 @@ export function TeamSquadSection({
                     player.nationalityCode,
                   );
                   const injury = findPlayerInjury(player, injuries);
+                  const lineupSignal =
+                    lineupByPlayer?.get(normalizePlayerMatchName(player.name)) ??
+                    (player.lineupStatus === "confirmed"
+                      ? {
+                          status: "confirmed" as const,
+                          label: sport === "football" ? "XI confirmado" : "Titular confirmado",
+                          tone: "success" as const,
+                        }
+                      : player.lineupStatus === "probable"
+                        ? {
+                            status: "probable" as const,
+                            label: sport === "football" ? "XI probable" : "Titular probable",
+                            tone: "info" as const,
+                          }
+                        : null);
                   const dobLabel = formatBirthDateSlash(player.birthDate);
                   const stat1Label = sec.isGoalkeeper ? "Atajadas" : "G / A";
                   const stat2Label = sec.isGoalkeeper ? "Recibidos" : "Tiros (TaP)";
+                  const nbaMin = hasNbaSeasonStats
+                    ? parseNbaMetricValue(player, ["min", "minutos"])
+                    : null;
+                  const nbaPts = hasNbaSeasonStats
+                    ? parseNbaMetricValue(player, ["pts", "puntos"])
+                    : null;
+                  const nbaReb = hasNbaSeasonStats
+                    ? parseNbaMetricValue(player, ["reb", "rebotes"])
+                    : null;
+                  const nbaAst = hasNbaSeasonStats
+                    ? parseNbaMetricValue(player, ["ast", "asistencias"])
+                    : null;
 
                   return (
                     <tr key={player.id} className="pl-sq-row">
@@ -376,12 +461,29 @@ export function TeamSquadSection({
                           <div className="pl-sq-identity">
                             <a
                               href={href}
+                              onPointerEnter={() => platformActions?.prefetchRoute(href)}
+                              onTouchStart={() => platformActions?.prefetchRoute(href)}
                               onClick={(e) => navigateOnPlainClick(e, href)}
                               className="pl-team-link pl-sq-name"
                             >
                               {player.name}
                             </a>
                             <span className="pl-sq-pos">{posCode}</span>
+                            {!injury &&
+                            lineupSignal &&
+                            (lineupSignal.status === "confirmed" ||
+                              lineupSignal.status === "probable") ? (
+                              <span
+                                className={`pl-pill text-[10px] font-bold ${
+                                  lineupSignal.status === "confirmed"
+                                    ? "pl-pill--success"
+                                    : "pl-pill--info"
+                                }`}
+                                data-squad-lineup-status={lineupSignal.status}
+                              >
+                                {lineupSignal.label}
+                              </span>
+                            ) : null}
                             {injury ? (
                               <span className="pl-sq-injury">
                                 <MedicalCrossIcon />
@@ -449,6 +551,20 @@ export function TeamSquadSection({
                             {sec.isGoalkeeper
                               ? player.stats.goalsConceded
                               : `${player.stats.shots} (${player.stats.shotsOnTarget})`}
+                          </td>
+                        </>
+                      ) : hasNbaSeasonStats ? (
+                        <>
+                          <td data-label="MIN" className="pl-sq-cell is-num num">
+                            {nbaMin ?? "—"}
+                          </td>
+
+                          <td data-label="PTS" className="pl-sq-cell is-num num pl-sq-strong">
+                            {nbaPts ?? "—"}
+                          </td>
+
+                          <td data-label="REB / AST" className="pl-sq-cell is-num num">
+                            {nbaReb || nbaAst ? `${nbaReb ?? "—"} / ${nbaAst ?? "—"}` : "—"}
                           </td>
                         </>
                       ) : (

@@ -1,16 +1,30 @@
 "use client";
 
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import type { LiveMatchDetail } from "@pitchlab/contracts";
 import { PBar, TeamBadge } from "../../../sports";
 import {
   formatOddsValue,
   isPickUnlocked,
   isPreGameIntelUnlocked,
 } from "../../access-guard";
+import {
+  AtomicAveragePositionsPitch,
+  type AtomicAveragePositionPlayer,
+} from "../../atomic/AtomicAveragePositionsPitch";
+import { AtomicFormStrip, parseAtomicForm } from "../../atomic/AtomicFormStrip";
+import { AtomicLineupPitch } from "../../atomic/AtomicLineupPitch";
+import { AtomicShotmapPitch, type AtomicShotItem } from "../../atomic/AtomicShotmapPitch";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
-import { TacticalPitchSvg } from "../../components/TacticalPitchSvg";
+import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
+import { useLiveMatch } from "../../live/live-store";
 import { formatPctEs } from "../../notifications";
-import { usePlatform } from "../../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+  useWatchlistGameIds,
+} from "../../platform-provider";
+import { resolveMatchRefereeAnalytics } from "../../referee-stats";
 import type {
   FrozenMainPickSnapshot,
   PlatformGame,
@@ -32,10 +46,49 @@ import {
 export interface PreMatchModuleProps {
   game: PlatformGame;
   detail?: PlatformGameDetail | null;
+  /** Detalle en vivo opcional para incidencias, calificaciones en cancha y canales MX. */
+  liveDetail?: LiveMatchDetail | null;
+  /** Posiciones medias opcionales para vista táctica progresiva. */
+  averagePositions?: readonly AtomicAveragePositionPlayer[];
+  /** Mapa de tiros opcional para vista táctica progresiva. */
+  shots?: readonly AtomicShotItem[];
   /** Reloj inyectable para pruebas deterministas y Storybook. */
   now?: Date | number;
   /** Zona horaria opcional (por defecto la preferencia del socio o `America/Mexico_City`). */
   timeZone?: string;
+}
+
+function mergeUniqueChannels(
+  primary?: readonly string[],
+  secondary?: readonly string[],
+): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const list of [primary, secondary]) {
+    if (!list) continue;
+    for (const raw of list) {
+      const clean = raw.trim();
+      if (!clean || seen.has(clean)) continue;
+      seen.add(clean);
+      out.push(clean);
+    }
+  }
+  return out;
+}
+
+function buildPlayerRatingsMap(
+  playerStats?: LiveMatchDetail["playerStats"],
+): Readonly<Record<string, number>> | undefined {
+  if (!playerStats || playerStats.length === 0) return undefined;
+  const map: Record<string, number> = {};
+  let count = 0;
+  for (const row of playerStats) {
+    if (row.rating != null && Number.isFinite(row.rating) && row.rating > 0) {
+      map[row.player] = row.rating;
+      count += 1;
+    }
+  }
+  return count > 0 ? map : undefined;
 }
 
 function formatWindowSummary(
@@ -63,26 +116,27 @@ function formatWindowSummary(
 /**
  * Módulo «Antes del partido» en la ficha del encuentro:
  * 1) Pick principal congelado determinísticamente 60 min antes del saque inicial (solo probabilidad y momio justo).
- * 2) Bajas y lesiones reportadas (con honestidad explícita cuando no hay reporte).
- * 3) Ranura «Alineación confirmada» preparada y APAGADA mientras no exista fuente verificada real.
- * 4) Votos de la comunidad (`MatchCommunityPoll`) integrados sin duplicarse fuera del módulo.
- * 5) Aviso opcional en la campana («Avísame 60 min antes») conectado a `toggleWatchlistGame`.
+ * 2) Contexto previo (árbitro y rigor, clima/estadio, TV México y rachas `AtomicFormStrip`) cuando existen datos reales.
+ * 3) Bajas y lesiones reportadas (con honestidad explícita cuando no hay reporte).
+ * 4) Cancha táctica `AtomicLineupPitch` cuando existe alineación verificada o estimada, más vistas tácticas progresivas.
+ * 5) Votos de la comunidad (`MatchCommunityPoll`) y aviso opcional en la campana («Avísame 60 min antes»).
  */
 export function PreMatchModule({
   game,
   detail,
+  liveDetail: liveDetailProp,
+  averagePositions,
+  shots: shotsProp,
   now: nowProp,
   timeZone: timeZoneProp,
 }: PreMatchModuleProps): React.JSX.Element {
-  const {
-    viewerRole,
-    watchlistGameIds,
-    oddsFormat,
-    userTimezone,
-    toggleWatchlistGame,
-    upgradeHref,
-    navigateTo,
-  } = usePlatform();
+  const { dataset, viewerRole, oddsFormat, userTimezone, upgradeHref } = usePlatformCore();
+  const { toggleWatchlistGame, navigateTo } = usePlatformActions();
+  const watchlistGameIds = useWatchlistGameIds();
+
+  const liveSupported = game.sport !== "american-football" && game.league !== "nfl";
+  const liveSnap = useLiveMatch(game.id, liveSupported && liveDetailProp === undefined);
+  const effectiveLiveDetail = liveDetailProp !== undefined ? liveDetailProp : liveSnap.data;
 
   const headingId = useId();
   // Ancla determinista en SSR para evitar discrepancias de hidratación si el minuto cambia entre servidor y cliente.
@@ -182,6 +236,89 @@ export function PreMatchModule({
     () => resolveProbableLineupSlotState(game.preGame, intelUnlocked),
     [game.preGame, intelUnlocked],
   );
+
+  const preContext = game.preGame.matchContext;
+  const stadium = game.spacetime?.stadium;
+  const effectiveReferee =
+    (game.referee ?? preContext?.referee ?? effectiveLiveDetail?.entry.referee ?? "").trim() || null;
+
+  const refereeAnalytics = useMemo(() => {
+    if (!effectiveReferee) return null;
+    const refGame =
+      game.referee || preContext?.referee ? game : { ...game, referee: effectiveReferee };
+    return resolveMatchRefereeAnalytics(refGame, dataset.games);
+  }, [effectiveReferee, game, preContext?.referee, dataset.games]);
+
+  const refereeV5 = intelUnlocked ? (detail?.v5?.microCounts?.refereeProfile ?? null) : null;
+
+  const broadcastsMx = useMemo(
+    () => mergeUniqueChannels(preContext?.broadcastsMx, effectiveLiveDetail?.broadcastsMx),
+    [preContext?.broadcastsMx, effectiveLiveDetail?.broadcastsMx],
+  );
+
+  const playerRatings = useMemo(
+    () => buildPlayerRatingsMap(effectiveLiveDetail?.playerStats),
+    [effectiveLiveDetail?.playerStats],
+  );
+
+  const weatherSummary = useMemo(() => {
+    const w = preContext?.weather;
+    if (!w) return null;
+    const parts = [
+      w.description?.trim() || null,
+      w.temperatureC != null && Number.isFinite(w.temperatureC)
+        ? `${Math.round(w.temperatureC)} °C`
+        : null,
+      w.windSpeedKmh != null && Number.isFinite(w.windSpeedKmh)
+        ? `Viento ${Math.round(w.windSpeedKmh)} km/h`
+        : null,
+    ].filter((part): part is string => Boolean(part));
+    return parts.length > 0 ? parts.join(" · ") : null;
+  }, [preContext?.weather]);
+
+  const stadiumName = (stadium?.name ?? game.venue ?? "").trim() || null;
+  const stadiumLocation = [preContext?.venueCity, preContext?.venueCountry]
+    .filter((v): v is string => Boolean(v && v.trim()))
+    .join(", ");
+
+  const homeFactor = game.factors.find((f) => /local/i.test(f.label));
+  const awayFactor = game.factors.find((f) => /visit/i.test(f.label));
+  const canShowForm = intelUnlocked && !game.preGame.isRedacted;
+  const homeFormRaw = canShowForm ? homeFactor?.value : undefined;
+  const awayFormRaw = canShowForm ? awayFactor?.value : undefined;
+  const hasHomeForm = useMemo(
+    () => (homeFormRaw ? parseAtomicForm(homeFormRaw, { sport: game.sport }).length > 0 : false),
+    [homeFormRaw, game.sport],
+  );
+  const hasAwayForm = useMemo(
+    () => (awayFormRaw ? parseAtomicForm(awayFormRaw, { sport: game.sport }).length > 0 : false),
+    [awayFormRaw, game.sport],
+  );
+  const hasFormStrip = hasHomeForm || hasAwayForm;
+  const hasClimateOrTerrain = Boolean(
+    weatherSummary || preContext?.pitchCondition || stadium?.elevationM,
+  );
+  const hasContextStrip = Boolean(
+    effectiveReferee || hasClimateOrTerrain || broadcastsMx.length > 0 || hasFormStrip,
+  );
+
+  const activeLineups = lineupSlot.enabled
+    ? lineupSlot.lineups
+    : probableSlot?.available
+      ? probableSlot.lineups
+      : null;
+  const hasActiveLineup = Boolean(activeLineups);
+
+  const explicitShots = useMemo<readonly AtomicShotItem[]>(() => {
+    if (shotsProp && shotsProp.length > 0) return shotsProp;
+    if (liveDetailProp?.shots && liveDetailProp.shots.length > 0) return liveDetailProp.shots;
+    return [];
+  }, [shotsProp, liveDetailProp?.shots]);
+
+  const showShotmap = game.sport === "football" && explicitShots.length > 0;
+  const showAvgPositions =
+    game.sport === "football" && Boolean(averagePositions && averagePositions.length > 0);
+  const hasProgressiveTactics = showShotmap || showAvgPositions;
 
   const watched = watchlistGameIds.includes(game.id);
   const windowSummary = formatWindowSummary(
@@ -323,7 +460,7 @@ export function PreMatchModule({
                   e.preventDefault();
                   navigateTo(upgradeHref);
                 }}
-                className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
+                className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 inline-flex items-center gap-1.5 touch-manipulation"
               >
                 <MaestroIcon name="lock" size={13} />
                 <span>Activar Pase PitchLab Ultra</span>
@@ -346,6 +483,172 @@ export function PreMatchModule({
             nowOverride={nowProp}
           />
         </div>
+
+        {/* 2.5) Contexto previo (árbitro y rigor, sede/clima, TV México y rachas recientes) */}
+        {hasContextStrip ? (
+          <article
+            className="pl-prematch-card"
+            style={{ gridColumn: "1 / -1" }}
+            data-pre-match-context=""
+          >
+            <div className="pl-prematch-card-head">
+              <h3 className="pl-prematch-card-title">Ficha previa y rachas</h3>
+              {stadiumName ? (
+                <span
+                  className="inline-flex items-center gap-1 text-xs font-semibold truncate max-w-full"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  <MaestroIcon name="pin" size={13} />
+                  <span className="truncate">
+                    {stadiumName}
+                    {stadiumLocation ? ` · ${stadiumLocation}` : ""}
+                  </span>
+                </span>
+              ) : null}
+            </div>
+
+            {effectiveReferee || hasClimateOrTerrain || broadcastsMx.length > 0 ? (
+              <dl className="pl-ctx-stats pl-ctx-facts-grid">
+                {effectiveReferee ? (
+                  <div>
+                    <dt>Árbitro</dt>
+                    <dd className="text-sm font-bold flex flex-col gap-1">
+                      <span className="inline-flex items-center gap-1.5 min-w-0">
+                        <MaestroIcon name="whistle" size={13} />
+                        <span className="truncate">{effectiveReferee}</span>
+                      </span>
+                      {preContext?.refereeStats &&
+                      (preContext.refereeStats.avgYellow != null ||
+                        preContext.refereeStats.avgFouls != null) ? (
+                        <span className="pl-ctx-referee-stats num">
+                          {[
+                            preContext.refereeStats.avgYellow != null
+                              ? `${preContext.refereeStats.avgYellow.toFixed(1)} amar./p`
+                              : null,
+                            preContext.refereeStats.avgFouls != null
+                              ? `${preContext.refereeStats.avgFouls.toFixed(1)} faltas/p`
+                              : null,
+                          ]
+                            .filter(Boolean)
+                            .join(" · ")}
+                        </span>
+                      ) : null}
+                      {refereeAnalytics && refereeAnalytics.ebYellow !== null ? (
+                        <RefereeRigorBadge referee={refereeAnalytics} variant="compact" />
+                      ) : null}
+                      {refereeV5 ? (() => {
+                        const cardDelta = Math.round((refereeV5.cardsMultiplier - 1) * 100);
+                        const foulDelta = Math.round((refereeV5.foulsMultiplier - 1) * 100);
+                        return (
+                          <span
+                            className="text-[11px] font-semibold num"
+                            style={{ color: "var(--pl-text-secondary)" }}
+                          >
+                            {cardDelta >= 0 ? `+${cardDelta}` : `${cardDelta}`} % tarjetas ·{" "}
+                            {foulDelta >= 0 ? `+${foulDelta}` : `${foulDelta}`} % faltas vs liga
+                          </span>
+                        );
+                      })() : null}
+                    </dd>
+                  </div>
+                ) : null}
+
+                {hasClimateOrTerrain ? (
+                  <div>
+                    <dt>Clima y cancha</dt>
+                    <dd className="text-sm font-bold flex flex-col gap-0.5">
+                      {weatherSummary ? <span>{weatherSummary}</span> : null}
+                      {preContext?.pitchCondition || stadium?.elevationM ? (
+                        <span
+                          className="text-xs font-semibold num"
+                          style={{ color: "var(--pl-text-muted)" }}
+                        >
+                          {[
+                            preContext?.pitchCondition ?? null,
+                            stadium?.elevationM
+                              ? `Altitud ${Math.round(stadium.elevationM).toLocaleString("es-MX")} m`
+                              : null,
+                          ]
+                            .filter(Boolean)
+                            .join(" · ")}
+                        </span>
+                      ) : null}
+                    </dd>
+                  </div>
+                ) : null}
+
+                {broadcastsMx.length > 0 ? (
+                  <div data-pre-match-broadcasts-mx="">
+                    <dt>TV México</dt>
+                    <dd className="text-sm font-bold">{broadcastsMx.join(" · ")}</dd>
+                  </div>
+                ) : null}
+              </dl>
+            ) : null}
+
+            {hasFormStrip ? (
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1"
+                data-pre-match-form=""
+              >
+                {hasHomeForm ? (
+                  <div
+                    className="flex items-center justify-between gap-2 rounded-xl px-3 py-2 min-w-0"
+                    style={{
+                      background: "var(--pl-surface)",
+                      border: "1px solid var(--pl-border)",
+                    }}
+                  >
+                    <span className="inline-flex items-center gap-2 min-w-0">
+                      <TeamBadge
+                        league={game.league}
+                        slug={game.home.slug}
+                        name={game.home.shortName}
+                        logoUrl={game.home.logoUrl}
+                        size={18}
+                        decorative
+                      />
+                      <span className="text-xs font-bold truncate">{game.home.shortName}</span>
+                    </span>
+                    <AtomicFormStrip
+                      form={homeFormRaw}
+                      sport={game.sport}
+                      teamName={game.home.shortName}
+                      size="xs"
+                    />
+                  </div>
+                ) : null}
+                {hasAwayForm ? (
+                  <div
+                    className="flex items-center justify-between gap-2 rounded-xl px-3 py-2 min-w-0"
+                    style={{
+                      background: "var(--pl-surface)",
+                      border: "1px solid var(--pl-border)",
+                    }}
+                  >
+                    <span className="inline-flex items-center gap-2 min-w-0">
+                      <TeamBadge
+                        league={game.league}
+                        slug={game.away.slug}
+                        name={game.away.shortName}
+                        logoUrl={game.away.logoUrl}
+                        size={18}
+                        decorative
+                      />
+                      <span className="text-xs font-bold truncate">{game.away.shortName}</span>
+                    </span>
+                    <AtomicFormStrip
+                      form={awayFormRaw}
+                      sport={game.sport}
+                      teamName={game.away.shortName}
+                      size="xs"
+                    />
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+          </article>
+        ) : null}
 
         {/* 3) Bajas y lesiones (en rejilla multi-columna si supera 2 reportes para aprovechar todo el ancho) */}
         <article
@@ -421,9 +724,9 @@ export function PreMatchModule({
           )}
         </article>
 
-        {/* 4) Ranura «Alineación confirmada» / «Once estimado» — franja compacta horizontal */}
+        {/* 4) Ranura «Alineación confirmada» / «Once estimado» con AtomicLineupPitch */}
         <article
-          className={`pl-prematch-card pl-prematch-lineup ${lineupSlot.enabled || probableSlot?.available ? "is-enabled" : "is-off"} ${hasManyAbsences ? "is-wide" : ""}`.trim()}
+          className={`pl-prematch-card pl-prematch-lineup ${hasActiveLineup ? "is-enabled" : "is-off"} ${hasManyAbsences || hasActiveLineup ? "is-wide" : ""}`.trim()}
           data-lineup-slot={lineupSlot.enabled ? "on" : probableSlot?.available ? "estimated" : "off"}
         >
           <div className="pl-prematch-card-head">
@@ -431,38 +734,42 @@ export function PreMatchModule({
               {lineupSlot.enabled || !probableSlot?.available ? "Alineación confirmada" : "Once estimado"}
             </h3>
             <span
-              className={`pl-prematch-slot-chip ${lineupSlot.enabled || probableSlot?.available ? "is-on" : "is-off"}`.trim()}
+              className={`pl-prematch-slot-chip ${hasActiveLineup ? "is-on" : "is-off"}`.trim()}
               data-lineup-status={lineupSlot.enabled ? "on" : probableSlot?.available ? "estimated" : "off"}
             >
               {lineupSlot.enabled ? lineupSlot.statusBadge : probableSlot?.available ? probableSlot.statusBadge : lineupSlot.statusBadge}
             </span>
           </div>
 
-          {(lineupSlot.enabled && lineupSlot.lineups) || (probableSlot?.available && probableSlot.lineups) ? (
+          {activeLineups ? (
             (() => {
-              const active = lineupSlot.enabled ? lineupSlot.lineups! : probableSlot!.lineups!;
               const helper = lineupSlot.enabled ? lineupSlot.helperText : probableSlot!.helperText;
               const canRenderPitch =
                 game.sport === "football" &&
-                (active.homeStarters.length >= 7 || active.awayStarters.length >= 7);
+                (activeLineups.homeStarters.length >= 7 || activeLineups.awayStarters.length >= 7);
               return (
                 <div className="space-y-3">
                   {canRenderPitch ? (
-                    <TacticalPitchSvg
+                    <AtomicLineupPitch
                       homeName={game.home.shortName}
                       awayName={game.away.shortName}
-                      lineups={active}
-                      mode={lineupSlot.enabled ? "confirmed" : "estimated"}
+                      homeFormation={activeLineups.homeFormation}
+                      awayFormation={activeLineups.awayFormation}
+                      homeStarters={activeLineups.homeStarters}
+                      awayStarters={activeLineups.awayStarters}
+                      status={lineupSlot.enabled ? "confirmed" : "probable"}
+                      incidents={effectiveLiveDetail?.incidents}
+                      playerRatings={playerRatings}
                     />
                   ) : (
                     <div className="pl-prematch-lineup-grid">
                       <div className="pl-prematch-lineup-col">
                         <strong className="pl-prematch-lineup-team">
                           {game.home.shortName}
-                          {active.homeFormation ? ` · ${active.homeFormation}` : ""}
+                          {activeLineups.homeFormation ? ` · ${activeLineups.homeFormation}` : ""}
                         </strong>
                         <ul role="list" className="pl-prematch-starters">
-                          {active.homeStarters.map((p, idx) => (
+                          {activeLineups.homeStarters.map((p, idx) => (
                             <li key={`h-${p.name}-${idx}`}>
                               {p.number !== undefined ? <span className="num">{p.number}</span> : null}
                               <span>{p.name}</span>
@@ -473,10 +780,10 @@ export function PreMatchModule({
                       <div className="pl-prematch-lineup-col">
                         <strong className="pl-prematch-lineup-team">
                           {game.away.shortName}
-                          {active.awayFormation ? ` · ${active.awayFormation}` : ""}
+                          {activeLineups.awayFormation ? ` · ${activeLineups.awayFormation}` : ""}
                         </strong>
                         <ul role="list" className="pl-prematch-starters">
-                          {active.awayStarters.map((p, idx) => (
+                          {activeLineups.awayStarters.map((p, idx) => (
                             <li key={`a-${p.name}-${idx}`}>
                               {p.number !== undefined ? <span className="num">{p.number}</span> : null}
                               <span>{p.name}</span>
@@ -496,6 +803,32 @@ export function PreMatchModule({
             <p className="pl-prematch-note">{lineupSlot.helperText}</p>
           )}
         </article>
+
+        {/* 5) Vistas tácticas progresivas (mapa de tiros xG y posiciones medias si existen) */}
+        {hasProgressiveTactics ? (
+          <div
+            className={showShotmap && showAvgPositions ? "pl-ctx-split" : "space-y-3"}
+            style={{ gridColumn: "1 / -1" }}
+            data-pre-match-tactics=""
+          >
+            {showShotmap ? (
+              <AtomicShotmapPitch
+                shots={explicitShots}
+                homeLabel={game.home.shortName}
+                awayLabel={game.away.shortName}
+              />
+            ) : null}
+            {showAvgPositions && averagePositions ? (
+              <AtomicAveragePositionsPitch
+                players={averagePositions}
+                homeLabel={game.home.shortName}
+                awayLabel={game.away.shortName}
+                homeFormation={activeLineups?.homeFormation}
+                awayFormation={activeLineups?.awayFormation}
+              />
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </section>
   );

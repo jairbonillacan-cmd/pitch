@@ -23,6 +23,7 @@ function buildUploadRequest(file: File): Request {
   form.append("file", file);
   return new Request("http://localhost:9990/api/me/avatar", {
     method: "POST",
+    headers: { origin: "http://localhost:9990" },
     body: form,
   });
 }
@@ -136,10 +137,37 @@ describe("foto de perfil (/api/me/avatar)", () => {
       avatarUrl: null,
     });
 
-    const res = await DELETE(new Request("http://localhost:9990/api/me/avatar", { method: "DELETE" }));
+    const res = await DELETE(
+      new Request("http://localhost:9990/api/me/avatar", {
+        method: "DELETE",
+        headers: { origin: "http://localhost:9990" },
+      }),
+    );
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ avatarUrl: null });
     expect(mocks.setMemberAvatarUrl).toHaveBeenCalledWith({}, "u-ana", null);
     expect(removedUrls).toEqual(["https://ejemplo.blob.vercel-storage.com/avatars/u-ana-actual.webp"]);
+  });
+
+  it("rechaza POST y DELETE sin cabecera Origin válida con 403 (CSRF)", async () => {
+    const form = new FormData();
+    const postRes = await POST(
+      new Request("http://localhost:9990/api/me/avatar", {
+        method: "POST",
+        body: form,
+      }),
+    );
+    expect(postRes.status).toBe(403);
+    expect(await postRes.json()).toEqual({ error: "origen_invalido" });
+
+    const delRes = await DELETE(
+      new Request("http://localhost:9990/api/me/avatar", {
+        method: "DELETE",
+        headers: { origin: "https://evil.example" },
+      }),
+    );
+    expect(delRes.status).toBe(403);
+    expect(await delRes.json()).toEqual({ error: "origen_invalido" });
+    expect(mocks.requireMember).not.toHaveBeenCalled();
   });
 });

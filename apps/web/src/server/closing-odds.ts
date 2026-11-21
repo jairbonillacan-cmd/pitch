@@ -2,7 +2,7 @@
  * Captura y consulta de cuotas de cierre pre-kickoff para el cálculo real de CLV.
  */
 import { listClosingOddsForGames, upsertClosingOdds, type ClosingOddsInput, type ClosingOddsRow, type Db } from "@pitchlab/db";
-import type { PlatformDataset } from "@pitchlab/ui/platform";
+import type { PlatformDataset } from "@pitchlab/ui/types";
 import { buildServerRawPlatformDataset } from "./platform-data";
 import { findGameKickoff } from "./game-kickoff";
 

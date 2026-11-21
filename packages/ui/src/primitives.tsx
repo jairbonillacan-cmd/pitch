@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { getLogoPath, getMascotPath } from "@pitchlab/sports-assets";
+import { LIGHT_THEME_TOKENS, STAGE_DARK_TOKENS } from "@pitchlab/tokens";
+import { getMascotPath } from "@pitchlab/sports-assets/brand";
+export { BrandLogo } from "./brand-logo";
 import { Icon } from "./icons";
 import { Badge } from "./components/ui/badge";
 import { Button } from "./components/ui/button";
@@ -112,39 +114,9 @@ export function Mascot({
         width={size}
         height={size}
         loading={lazy ? "lazy" : undefined}
+        decoding="async"
       />
     </div>
-  );
-}
-
-export function BrandLogo({
-  variant = "horizontal",
-  width = 133,
-  height = 26,
-  alt = "",
-}: {
-  variant?: "horizontal" | "compact" | "isologo" | "isotype" | "stacked" | "wordmark";
-  width?: number;
-  height?: number;
-  alt?: string;
-}): React.JSX.Element {
-  return (
-    <>
-      <img
-        className="only-dark"
-        src={getLogoPath(variant, "dark")}
-        alt={alt}
-        width={width}
-        height={height}
-      />
-      <img
-        className="only-light"
-        src={getLogoPath(variant, "light")}
-        alt={alt}
-        width={width}
-        height={height}
-      />
-    </>
   );
 }
 
@@ -156,6 +128,14 @@ export function ThemeToggle({ shape }: { shape?: "pill" } = {}): React.JSX.Eleme
     const next = current === "light" ? "dark" : "light";
     root.dataset.themeSwitching = "true";
     root.dataset.theme = next;
+    root.style.colorScheme = next;
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])');
+    if (meta) {
+      meta.content =
+        next === "light"
+          ? LIGHT_THEME_TOKENS["--background-elevated"]
+          : STAGE_DARK_TOKENS["--pl-glass-nav"];
+    }
     void root.offsetHeight;
     delete root.dataset.themeSwitching;
     try {
@@ -212,7 +192,7 @@ export function EmptyState({
 }): React.JSX.Element {
   return (
     <div className="empty">
-      <img src={getMascotPath("radar")} alt="" width={160} height={160} />
+      <img src={getMascotPath("radar")} alt="" width={160} height={160} loading="lazy" decoding="async" />
       <p>{message}</p>
       {onAction ? (
         <Button variant="secondary" appearance="d1" type="button" onClick={onAction}>
@@ -234,7 +214,7 @@ export function ErrorState({
 }): React.JSX.Element {
   return (
     <div className="empty" role="alert">
-      <img src={getMascotPath("radar")} alt="" width={160} height={160} />
+      <img src={getMascotPath("radar")} alt="" width={160} height={160} loading="lazy" decoding="async" />
       <p>{message}</p>
       <span className="caption muted">Código: {code}</span>
       {onRetry ? (

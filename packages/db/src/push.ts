@@ -32,6 +32,17 @@ export interface StoredPushSubscription {
   updatedAt: Date;
 }
 
+export const MAX_PUSH_SUBSCRIPTIONS_PER_USER = 5;
+
+export class PushEndpointConflictError extends Error {
+  readonly code = "push_endpoint_conflict" as const;
+
+  constructor(message = "El endpoint de notificación ya pertenece a otra cuenta.") {
+    super(message);
+    this.name = "PushEndpointConflictError";
+  }
+}
+
 export async function upsertPushSubscription(
   db: Db,
   input: PushSubscriptionInput,
@@ -54,7 +65,6 @@ export async function upsertPushSubscription(
     .onConflictDoUpdate({
       target: pushSubscriptions.endpoint,
       set: {
-        userId: input.userId,
         p256dh: input.p256dh,
         auth: input.auth,
         topicPicks: input.topicPicks ?? true,
@@ -63,19 +73,41 @@ export async function upsertPushSubscription(
         userAgent: input.userAgent?.slice(0, 240) ?? null,
         updatedAt: now,
       },
+      setWhere: eq(pushSubscriptions.userId, input.userId),
     })
     .returning();
+
+  if (!row) {
+    throw new PushEndpointConflictError();
+  }
+
+  const owned = await db
+    .select({ id: pushSubscriptions.id })
+    .from(pushSubscriptions)
+    .where(eq(pushSubscriptions.userId, input.userId))
+    .orderBy(desc(pushSubscriptions.updatedAt), desc(pushSubscriptions.createdAt));
+
+  if (owned.length > MAX_PUSH_SUBSCRIPTIONS_PER_USER) {
+    const others = owned.filter((item) => item.id !== row.id);
+    const staleIds = others.slice(MAX_PUSH_SUBSCRIPTIONS_PER_USER - 1).map((item) => item.id);
+    if (staleIds.length > 0) {
+      await db
+        .delete(pushSubscriptions)
+        .where(and(eq(pushSubscriptions.userId, input.userId), inArray(pushSubscriptions.id, staleIds)));
+    }
+  }
+
   return {
-    id: row!.id,
-    userId: row!.userId,
-    endpoint: row!.endpoint,
-    p256dh: row!.p256dh,
-    auth: row!.auth,
-    topicPicks: row!.topicPicks,
-    topicLive: row!.topicLive,
-    topicSocial: row!.topicSocial,
-    createdAt: row!.createdAt,
-    updatedAt: row!.updatedAt,
+    id: row.id,
+    userId: row.userId,
+    endpoint: row.endpoint,
+    p256dh: row.p256dh,
+    auth: row.auth,
+    topicPicks: row.topicPicks,
+    topicLive: row.topicLive,
+    topicSocial: row.topicSocial,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
   };
 }
 

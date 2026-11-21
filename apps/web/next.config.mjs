@@ -1,21 +1,62 @@
 import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
 
+function extractHttpsOrigins(rawValues) {
+  const origins = new Set();
+  for (const raw of rawValues) {
+    if (!raw) continue;
+    for (const part of String(raw).split(",")) {
+      const trimmed = part.trim();
+      if (!trimmed) continue;
+      try {
+        const parsed = new URL(trimmed);
+        if (parsed.protocol === "https:") origins.add(parsed.origin);
+      } catch (err) {
+        void err;
+      }
+    }
+  }
+  return [...origins];
+}
+
 function buildSecurityHeaders(isDev) {
+  const captchaDisabled = process.env.PITCHLAB_CAPTCHA_PROVIDER?.trim().toLowerCase() === "none";
+  const turnstileOrigin = captchaDisabled ? "" : " https://challenges.cloudflare.com";
+
   const scriptSrc = isDev
-    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com"
-    : "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com";
+    ? `script-src 'self' 'unsafe-inline' 'unsafe-eval'${turnstileOrigin}`
+    : `script-src 'self' 'unsafe-inline'${turnstileOrigin}`;
   const connectSrc = isDev
-    ? "connect-src 'self' ws: wss: https://challenges.cloudflare.com"
-    : "connect-src 'self' https://challenges.cloudflare.com";
+    ? `connect-src 'self' ws: wss:${turnstileOrigin}`
+    : `connect-src 'self'${turnstileOrigin}`;
+
+  const extraMediaOrigins = extractHttpsOrigins([
+    process.env.PITCHLAB_MEDIA_ORIGINS,
+    process.env.AVATAR_PUBLIC_BASE_URL,
+    process.env.S3_AVATAR_PUBLIC_BASE_URL,
+    process.env.S3_AVATAR_ENDPOINT,
+    process.env.GCS_AVATAR_PUBLIC_BASE_URL,
+  ]);
+  const baseImgSources = [
+    "'self'",
+    "data:",
+    "blob:",
+    "https://sports.bzzoiro.com",
+    "https://a.espncdn.com",
+    "https://*.blob.vercel-storage.com",
+    "https://storage.googleapis.com",
+    ...extraMediaOrigins,
+  ];
+  const imgSrc = `img-src ${[...new Set(baseImgSources)].join(" ")}`;
+  const frameSrc = captchaDisabled ? "frame-src 'none'" : "frame-src https://challenges.cloudflare.com";
 
   const csp = [
     "default-src 'self'",
     scriptSrc,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https://sports.bzzoiro.com https://a.espncdn.com https://*.blob.vercel-storage.com https://storage.googleapis.com",
+    imgSrc,
     "font-src 'self' data:",
     connectSrc,
-    "frame-src https://challenges.cloudflare.com",
+    frameSrc,
     "worker-src 'self'",
     "manifest-src 'self'",
     "frame-ancestors 'none'",
@@ -81,12 +122,12 @@ const baseConfig = {
     "/blog/rss.xml": ["./content/blog/**/*"],
     "/sitemap.xml": ["./content/blog/**/*"],
   },
-  // Empaquetado autónomo para Docker / Google Cloud Run (activado solo con PITCHLAB_STANDALONE=1
-  // para no alterar `next start` local, E2E ni Vercel).
+  // Empaquetado autónomo estándar para cualquier contenedor OCI / Node / VPS (Docker, Fly.io, Railway,
+  // Render, AWS ECS, Coolify, Cloud Run; activado con PITCHLAB_STANDALONE=1 sin alterar `next start` ni E2E).
   ...(process.env.PITCHLAB_STANDALONE === "1" ? { output: "standalone" } : {}),
   // Cada página importa solo lo que usa de estos paquetes (no el barril completo).
   experimental: {
-    optimizePackageImports: ["@pitchlab/ui", "@heroui/react", "@base-ui/react", "@astryxdesign/core"],
+    optimizePackageImports: ["@pitchlab/ui", "@heroui/react"],
   },
   webpack: (config) => {
     config.resolve.extensionAlias = {
@@ -137,6 +178,60 @@ export default function config(phase) {
             { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
           ],
         },
+        // Caché HTTP estándar independiente de proveedor (ADR-050/ADR-053) para rutas públicas
+        // sin datos de sesión ni cookies personalizadas. Nunca aplica a `/precio`, `/app/*` ni `/api/*`.
+        ...(!isDev
+          ? [
+              {
+                source: "/",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/resultados",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/blog",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/blog/categoria/:categoria",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/blog/:slug",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+                ],
+              },
+              {
+                source: "/motores",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+                ],
+              },
+              {
+                source: "/legal/:path*",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+                ],
+              },
+              {
+                source: "/offline",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+                ],
+              },
+            ]
+          : []),
       ];
     },
   };

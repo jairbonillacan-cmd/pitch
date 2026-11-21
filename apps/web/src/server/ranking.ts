@@ -11,7 +11,7 @@ import {
   topTenHistory,
   type RankingRowPayload,
 } from "@pitchlab/ui/ranking";
-import type { PlatformGame } from "@pitchlab/ui";
+import type { PlatformGame } from "@pitchlab/ui/types";
 import { buildServerRawPlatformDataset } from "./platform-data";
 
 const DAY_MS = 86_400_000;

@@ -60,9 +60,12 @@
 
 En producción: Core Web Vitals en p75 (LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1) vía Vercel Speed Insights o PostHog web vitals, separados de las métricas de laboratorio.
 
-## Plan de hosting
+## Plan de hosting y portabilidad (`ADR-050`)
 
-Decisión del fundador (2026-11-11): el pre-MVP sin cobros puede seguir en Vercel Hobby, pero **antes de activar cobros reales se pasa a Vercel Pro** (Hobby es solo para uso no comercial). Ver `docs/product/DECISIONES_FUNDADOR_F4.md`.
+Decisión del fundador (2026-11-20): **PitchLab no depende de Vercel, Google Cloud ni Cloudflare**. Toda la aplicación se empaqueta sobre estándares abiertos (contenedor OCI en `Dockerfile` + Node.js 22 `standalone`, PostgreSQL 15+ estándar vía `postgres.js`, almacenamiento de objetos S3-compatible con SigV4, crons HTTP con `Authorization: Bearer $CRON_SECRET`, proxy TLS estándar con `Host` + `x-forwarded-proto` y anti-abuso desacoplable vía `PITCHLAB_CAPTCHA_PROVIDER`).
+
+- Los adaptadores de Vercel (`apps/web/vercel.json`, `BLOB_READ_WRITE_TOKEN`), Google Cloud (`deploy-cloud-run.yml`, `scripts/setup-google-cloud.sh`, `GCS_AVATAR_BUCKET`) o Cloudflare (`Turnstile`) son **opcionales y desactivables por entorno**; la migración a Google Cloud Run queda pausada para después mientras continúa el desarrollo del producto.
+- La matriz completa de migración entre proveedores (VPS/Docker/Coolify, Fly.io, Railway, Render, AWS ECS, Azure, Cloud Run o Vercel) está documentada en `docs/architecture/adr/ADR-050-arquitectura-agnostica-de-proveedor-y-portabilidad.md`.
 
 ## 6. Acciones del fundador para F4 (no las puede hacer un agente)
 

@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import AxeBuilder from "@axe-core/playwright";
@@ -5,6 +7,11 @@ import { AdminDataHealthSection } from "@pitchlab/ui/data-health";
 import { buildPlatformDataset } from "@pitchlab/ui/picks-engine";
 import { loadServerDataHealthReport } from "../src/server/data-health";
 import { expect, test } from "./fixtures";
+
+const DATA_HEALTH_CSS_PATH = existsSync(resolve(process.cwd(), "app/data-health.css"))
+  ? resolve(process.cwd(), "app/data-health.css")
+  : resolve(process.cwd(), "apps/web/app/data-health.css");
+const DATA_HEALTH_CSS = readFileSync(DATA_HEALTH_CSS_PATH, "utf8");
 
 async function toggleClubTheme(page: import("@playwright/test").Page): Promise<void> {
   await page.locator("[data-profile-menu-trigger]:visible").first().click();
@@ -57,8 +64,9 @@ test("Salud de datos y bajas reales: resguardo 403/404 en prod, bajas NFL en fic
   }
 
   // 3) Verificación visual, container queries (@container < 680 px) y Axe WCAG 2A/2AA en oscuro y claro
-  //    del panel «Salud de datos» sobre los estilos compilados reales de /app (globals.css + data-health.css + tokens.css)
+  //    del panel «Salud de datos» sobre los estilos compilados reales de /app + la hoja modular data-health.css (ADR-051)
   await page.goto("/app");
+  await page.addStyleTag({ content: DATA_HEALTH_CSS });
   const serverReport = loadServerDataHealthReport();
   const ssrPanelHtml = renderToStaticMarkup(
     React.createElement(AdminDataHealthSection, {

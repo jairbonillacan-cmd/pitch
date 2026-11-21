@@ -3,9 +3,10 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { CouponRedeemBox } from "../../components/CanjearCouponView";
 import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
-import { TopLayerModalDialog } from "../../components/PlatformOverlays";
+import { triggerHaptic } from "../../navigation-helpers";
+import { ConfirmActionDialog, TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { ACCOUNT_TAB_EVENT } from "../../components/ShellChrome";
-import { usePlatform } from "../../platform-provider";
+import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import {
   PREVIEW_SPEI_EVENT,
   readPreviewSpeiState,
@@ -173,9 +174,9 @@ export function PlanTab({
     hasAccountSessionAuth,
     allowRoleSimulation,
     paymentMode: ctxPaymentMode,
-    pushToast,
     referralPaidFriends,
-  } = usePlatform();
+  } = usePlatformCore();
+  const { pushToast } = usePlatformActions();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const [simPlanState, setSimPlanState] = useState<PlanStateOverride | null>(null);
@@ -211,6 +212,7 @@ export function PlanTab({
     return null;
   });
   const [activeDialog, setActiveDialog] = useState<PlanDialogKind>(null);
+  const [confirmCancelTransferOpen, setConfirmCancelTransferOpen] = useState(false);
   const [portalNotice, setPortalNotice] = useState<string>("");
   const [checkoutBusy, setCheckoutBusy] = useState(false);
   const bannerRef = useRef<HTMLDivElement | null>(null);
@@ -725,6 +727,7 @@ export function PlanTab({
     async (value: string, key: "clabe" | "ref", label: string) => {
       try {
         await navigator.clipboard.writeText(value);
+        triggerHaptic(8);
         setCopiedKey(key);
         pushToast(`${label} copiado`, "success");
         window.setTimeout(() => setCopiedKey(null), 2000);
@@ -1099,7 +1102,7 @@ export function PlanTab({
           </span>
           <button
             type="button"
-            className="pl-acct-btn pl-acct-btn--primary pl-acct-btn--sm"
+            className="pl-acct-btn pl-acct-btn--primary pl-acct-btn--sm min-h-11 sm:min-h-9"
             data-reactivate-plan=""
             onClick={() => setActiveDialog("reactivate")}
           >
@@ -1520,11 +1523,11 @@ export function PlanTab({
                     </strong>
                   </div>
 
-                  <div className="space-y-1">
+                  <div className="space-y-1 min-w-0">
                     <span style={{ color: "var(--pl-text-muted)" }}>Concepto / Referencia única</span>
                     <div className="flex flex-wrap items-center gap-2">
                       <strong
-                        className="text-base font-extrabold tracking-wider num"
+                        className="text-base font-extrabold tracking-wider num break-all"
                         style={{ color: "var(--pl-brand)" }}
                         data-transfer-ref=""
                       >
@@ -1532,7 +1535,7 @@ export function PlanTab({
                       </strong>
                       <button
                         type="button"
-                        className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs"
+                        className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs min-h-11 sm:min-h-9"
                         onClick={() =>
                           void handleCopyText(activePending.referenceCode, "ref", "Concepto SPEI")
                         }
@@ -1549,25 +1552,27 @@ export function PlanTab({
 
                 {transferBank.configured && transferBank.clabe ? (
                   <dl className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2 hairline-t m-0">
-                    <div>
+                    <div className="min-w-0">
                       <dt style={{ color: "var(--pl-text-muted)" }}>Banco</dt>
-                      <dd className="m-0 font-bold" style={{ color: "var(--pl-text)" }}>
+                      <dd className="m-0 font-bold break-words" style={{ color: "var(--pl-text)" }}>
                         {transferBank.bank}
                       </dd>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <dt style={{ color: "var(--pl-text-muted)" }}>Beneficiario</dt>
-                      <dd className="m-0 font-bold" style={{ color: "var(--pl-text)" }}>
+                      <dd className="m-0 font-bold break-words" style={{ color: "var(--pl-text)" }}>
                         {transferBank.beneficiary}
                       </dd>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <dt style={{ color: "var(--pl-text-muted)" }}>CLABE interbancaria</dt>
                       <dd className="m-0 flex flex-wrap items-center gap-2 font-extrabold num">
-                        <span style={{ color: "var(--pl-text)" }}>{transferBank.clabe}</span>
+                        <span className="break-all" style={{ color: "var(--pl-text)" }}>
+                          {transferBank.clabe}
+                        </span>
                         <button
                           type="button"
-                          className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs"
+                          className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs min-h-11 sm:min-h-9"
                           onClick={() =>
                             void handleCopyText(transferBank.clabe!, "clabe", "CLABE")
                           }
@@ -1703,7 +1708,7 @@ export function PlanTab({
                   <button
                     type="button"
                     disabled={transferBusy}
-                    onClick={() => void handleCancelTransfer()}
+                    onClick={() => setConfirmCancelTransferOpen(true)}
                     className="pl-acct-btn pl-acct-btn--ghost"
                   >
                     Cancelar solicitud
@@ -1868,7 +1873,7 @@ export function PlanTab({
                   {payment.hasInvoice && onOpenBilling ? (
                     <button
                       type="button"
-                      className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs"
+                      className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs min-h-11 sm:min-h-9"
                       onClick={handleGoBilling}
                     >
                       Factura
@@ -1886,7 +1891,7 @@ export function PlanTab({
           {onOpenBilling ? (
             <button
               type="button"
-              className="pl-acct-text-link"
+              className="pl-acct-text-link min-h-11 sm:min-h-9"
               onClick={handleGoBilling}
             >
               Datos de facturación
@@ -2038,6 +2043,19 @@ export function PlanTab({
         ) : null}
       </TopLayerModalDialog>
 
+      <ConfirmActionDialog
+        open={confirmCancelTransferOpen}
+        title="¿Cancelar solicitud SPEI?"
+        description="Se anulará tu referencia pendiente actual. Podrás generar una nueva referencia cuando quieras."
+        cancelLabel="Conservar solicitud"
+        confirmLabel="Cancelar solicitud"
+        tone="danger"
+        onConfirm={() => {
+          void handleCancelTransfer();
+        }}
+        onCancel={() => setConfirmCancelTransferOpen(false)}
+      />
+
       {allowRoleSimulation ? (
         <aside
           className="pl-acct-simulator glass-card glass-ring"
@@ -2058,6 +2076,7 @@ export function PlanTab({
               <button
                 key={opt.value}
                 type="button"
+                className="min-h-11 md:min-h-9"
                 data-sim-plan-state={opt.value}
                 aria-pressed={baseState === opt.value}
                 onClick={() => {

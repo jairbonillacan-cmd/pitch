@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useState } from "react";
 import { OddsCompareClubView } from "./OddsCompareView";
-import { PersonalParlayQuickBar } from "./PersonalParlayQuickBar";
-import { shortDateLabel } from "./home/home-model";
-import type { LeagueId } from "@pitchlab/contracts";
+import { ALL, SPORTS, shortDateLabel, sportOf, type SportFilter } from "./home/home-model";
+import { sportForLeague, type LeagueId, type PlatformSport } from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
-import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports";
 import {
   decimalToAmericanInt,
@@ -16,11 +14,14 @@ import {
   pickReferenceDecimal,
 } from "../access-guard";
 import {
-  CrestPedestal,
-  LensGlowOrbs,
-  MaestroIcon,
-} from "../components/MaestroPrimitives";
-import { PlLeagueSelect } from "../components/PlSelect";
+  buildPersonalQuickParlay,
+  DAILY_PARLAY_STYLE_SPECS,
+  PARLAY_TARGET_PRESETS,
+  type ParlayTargetPresetId,
+  type PersonalParlayScope,
+} from "../daily-parlay";
+import { MaestroIcon } from "../components/MaestroPrimitives";
+import { ConfirmActionDialog } from "../components/PlatformOverlays";
 import {
   PlayerPropStreakCard,
   type PlayerPropStreakCardProps,
@@ -30,6 +31,7 @@ import {
   AtmosphereStage,
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
+import { SportEventIcon } from "../components/SportEventIcons";
 import {
   buildPlayerPropsCatalog,
   evaluatePropLineProbability,
@@ -40,8 +42,21 @@ import {
   PARLAY_NON_COMBINABLE_RULES,
   type ParlayCompatibilityResult,
 } from "../parlay-engine";
-import { usePlatform } from "../platform-provider";
+import {
+  useJournalEntries,
+  useParlayState,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
+import { resolveMatchRefereeAnalytics } from "../referee-stats";
 import type { MatchPick, PlayerPropItem, RiskBand, SgpCopulaAuditView } from "../types";
+import {
+  MIN_SAMPLE_GUARD_LABEL,
+  NBA_STAT_CODE_ORDER,
+  resolveNbaPropStatCode,
+  resolvePlayerLineupSignal,
+  type NbaStructuredStatCode,
+} from "./team/props-context-helpers";
 
 function riskToneCss(tone: "success" | "info" | "warning" | "danger"): string {
   if (tone === "success") return "var(--pl-success)";
@@ -65,7 +80,7 @@ function getCompactBlockReason(
     return "Línea cerrada para parlay";
   }
   if ((compat.code === "same_game_disabled" || sameGameExists) && !allowSgp) {
-    return "Mismo partido: actívalo en el paso 4";
+    return "Mismo partido: activa el interruptor";
   }
   if (compat.code === "sgp_limit") {
     return "Máx. 2 selecciones por partido";
@@ -85,7 +100,7 @@ function getCompactBlockReason(
   }
   const lower = rawReason.toLowerCase();
   if (lower.includes("mismo partido") && !allowSgp) {
-    return "Mismo partido: actívalo en el paso 4";
+    return "Mismo partido: activa el interruptor";
   }
   if (lower.includes("contradic") || lower.includes("opuest") || lower.includes("choca")) {
     return "Mercado contradictorio";
@@ -97,62 +112,101 @@ function getCompactBlockReason(
 }
 
 export function ParlayBuilderClubView(): React.JSX.Element {
+  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat, riskPreference } =
+    usePlatformCore();
   const {
-    dataset,
-    viewerRole,
-    hasAccountSession,
-    upgradeHref,
-    oddsFormat,
-    parlayLegs,
-    allowSgp,
     setAllowSgp,
-    parlayStakeUnits,
     setParlayStakeUnits,
-    parlaySummary,
     addPickToParlay,
     removePickFromParlay,
     clearParlay,
     generateAutoParlay,
+    loadParlayPicks,
     sealParlayToJournal,
     openShareTicket,
     navigateTo,
-  } = usePlatform();
+    requestFullShell,
+  } = usePlatformActions();
+  const { parlayLegs, allowSgp, parlayStakeUnits, parlaySummary } = useParlayState();
 
-  const [selectedLeagues, setSelectedLeagues] = useState<LeagueId[]>(() =>
-    dataset.leagues.map((l) => l.league),
-  );
-  const [autoRisk, setAutoRisk] = useState<RiskBand>("medio");
+  useEffect(() => {
+    void requestFullShell();
+  }, [requestFullShell]);
+
+  const leagueSelectId = useId();
+  const [builderMode, setBuilderMode] = useState<"auto" | "manual">("auto");
+  const [sportFilter, setSportFilter] = useState<SportFilter>(ALL);
+  const [leagueFilter, setLeagueFilter] = useState<LeagueId | typeof ALL>(ALL);
+  const [manualQuery, setManualQuery] = useState<string>("");
+  const [autoRisk, setAutoRisk] = useState<RiskBand>(riskPreference);
+  const [targetPreset, setTargetPreset] = useState<ParlayTargetPresetId>("libre");
   const [autoLegCount, setAutoLegCount] = useState<number>(3);
   const [catalogLimit, setCatalogLimit] = useState<number>(12);
   const [bookParlayOddsRaw, setBookParlayOddsRaw] = useState<string>("");
   const [resolvedSgpAudit, setResolvedSgpAudit] = useState<SgpCopulaAuditView | null>(null);
+  const [confirmClearOpen, setConfirmClearOpen] = useState<boolean>(false);
 
   const parsedBookParlayDec = useMemo(
     () => (bookParlayOddsRaw.trim() ? parseUserOdds(bookParlayOddsRaw) : null),
     [bookParlayOddsRaw],
   );
 
-  const toggleAutoLeague = (lg: LeagueId) => {
-    setSelectedLeagues((prev) =>
-      prev.includes(lg)
-        ? prev.length > 1
-          ? prev.filter((x) => x !== lg)
-          : prev
-        : [...prev, lg],
-    );
-  };
-
-  const selectAllLeagues = () => {
-    setSelectedLeagues(dataset.leagues.map((l) => l.league));
-  };
-
-  const allOpenGames = useMemo(
-    () =>
-      dataset.games.filter(
-        (g) => g.status !== "FT" && g.status !== "LIVE" && selectedLeagues.includes(g.league),
-      ),
-    [dataset.games, selectedLeagues],
+  // Solo partidos abiertos (excluye FT y LIVE)
+  const openGamesAll = useMemo(
+    () => dataset.games.filter((g) => g.status !== "FT" && g.status !== "LIVE"),
+    [dataset.games],
   );
+
+  const sportCounts = useMemo(() => {
+    const counts: Record<string, number> = { [ALL]: openGamesAll.length };
+    for (const g of openGamesAll) {
+      const sp = sportOf(g);
+      counts[sp] = (counts[sp] ?? 0) + 1;
+    }
+    return counts;
+  }, [openGamesAll]);
+
+  // Solo ligas con partidos abiertos para el deporte seleccionado (evita muro de 57 ligas)
+  const activeLeagues = useMemo(() => {
+    const countsByLeague = new Map<LeagueId, number>();
+    for (const g of openGamesAll) {
+      if (sportFilter !== ALL && sportOf(g) !== sportFilter) continue;
+      countsByLeague.set(g.league, (countsByLeague.get(g.league) ?? 0) + 1);
+    }
+    return dataset.leagues
+      .filter((l) => countsByLeague.has(l.league))
+      .map((l) => ({ ...l, openCount: countsByLeague.get(l.league) ?? 0 }))
+      .sort((a, b) => b.openCount - a.openCount || a.label.localeCompare(b.label, "es-MX"));
+  }, [dataset.leagues, openGamesAll, sportFilter]);
+
+  const effectiveLeague: LeagueId | typeof ALL = useMemo(() => {
+    if (leagueFilter === ALL) return ALL;
+    return activeLeagues.some((l) => l.league === leagueFilter) ? leagueFilter : ALL;
+  }, [activeLeagues, leagueFilter]);
+
+  const scopedLeagueIds = useMemo<LeagueId[]>(() => {
+    if (effectiveLeague !== ALL) return [effectiveLeague];
+    return activeLeagues.map((l) => l.league);
+  }, [activeLeagues, effectiveLeague]);
+
+  const scope = useMemo<PersonalParlayScope>(() => {
+    if (effectiveLeague !== ALL) return { kind: "league", league: effectiveLeague };
+    if (sportFilter !== ALL) return { kind: "sport", sport: sportFilter };
+    return { kind: "all" };
+  }, [effectiveLeague, sportFilter]);
+
+  const allOpenGames = useMemo(() => {
+    const q = manualQuery.trim().toLowerCase();
+    return openGamesAll.filter((g) => {
+      if (sportFilter !== ALL && sportOf(g) !== sportFilter) return false;
+      if (effectiveLeague !== ALL && g.league !== effectiveLeague) return false;
+      if (q) {
+        const hay = `${g.home.name} ${g.away.name} ${g.home.shortName} ${g.away.shortName} ${g.leagueLabel}`.toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
+  }, [effectiveLeague, manualQuery, openGamesAll, sportFilter]);
 
   const candidateGames = useMemo(
     () => allOpenGames.slice(0, catalogLimit),
@@ -161,6 +215,44 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
   const maxAutoLegs = Math.max(2, allowSgp ? allOpenGames.length * 2 : allOpenGames.length);
   const effectiveAutoLegCount = Math.min(maxAutoLegs, Math.max(2, autoLegCount));
+
+  const autoPreview = useMemo(
+    () =>
+      buildPersonalQuickParlay({
+        games: dataset.games,
+        legCount: effectiveAutoLegCount,
+        risk: autoRisk,
+        targetPreset,
+        scope,
+        viewerRole,
+        allowSgp,
+      }),
+    [allowSgp, autoRisk, dataset.games, effectiveAutoLegCount, scope, targetPreset, viewerRole],
+  );
+
+  const activePresetSpec =
+    PARLAY_TARGET_PRESETS.find((p) => p.id === targetPreset) ?? PARLAY_TARGET_PRESETS[0]!;
+
+  const handleGenerateAuto = () => {
+    if (targetPreset !== "libre" && autoPreview.legs.length > 0) {
+      const styleLabel = DAILY_PARLAY_STYLE_SPECS[autoRisk].label;
+      loadParlayPicks(
+        autoPreview.legs.map((l) => l.pick),
+        {
+          allowSgp,
+          label: `Parlay automático (${activePresetSpec.label} · ${styleLabel})`,
+        },
+      );
+      return;
+    }
+    generateAutoParlay({
+      leagues: scopedLeagueIds.length > 0 ? scopedLeagueIds : dataset.leagues.map((l) => l.league),
+      risk: autoRisk,
+      legCount: effectiveAutoLegCount,
+      allowSgp,
+      games: allOpenGames,
+    });
+  };
 
   // Cuando la Cópula Student-t v5.1 (/api/parlays/sgp) responde, alinea el resumen del boleto
   // para que Prob. Conjunta Real, Momio justo y Nivel de riesgo coincidan exactamente.
@@ -217,96 +309,180 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   return (
     <AtmosphereStage activePath="/app/parlays">
       <ClubWorkspaceShell activePath="/app/parlays">
-        <section className="space-y-2">
-          <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
-            <MaestroIcon name="layers" size={12} />
-            <span>Automático o a mano</span>
-          </span>
-          <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Armar parlay
-          </h1>
-          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Configura los 4 pasos del motor cuantitativo para construir tu combinada óptima, o
-            elige selecciones manualmente con bloqueo en vivo de mercados contradictorios.
-          </p>
+        <section className="flex flex-wrap items-end justify-between gap-3">
+          <div className="space-y-1.5 min-w-0">
+            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
+              Armar parlay
+            </h1>
+            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+              Genera una combinada calibrada al instante o elige piernas manualmente con bloqueo en vivo de mercados contradictorios.
+            </p>
+          </div>
+
+          <div
+            className="seg-well"
+            role="tablist"
+            aria-label="Modo del armador de parlays"
+            data-parlay-mode-tabs=""
+            {...({ focusgroup: "tablist nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={builderMode === "auto"}
+              className="seg-btn text-xs min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5"
+              data-parlay-tab="auto"
+              onClick={() => setBuilderMode("auto")}
+              {...(builderMode === "auto"
+                ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                : {})}
+            >
+              <MaestroIcon name="bolt" size={13} />
+              <span>Automático</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={builderMode === "manual"}
+              className="seg-btn text-xs min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5"
+              data-parlay-tab="manual"
+              onClick={() => setBuilderMode("manual")}
+              {...(builderMode === "manual"
+                ? ({ focusgroupstart: "" } as React.ButtonHTMLAttributes<HTMLButtonElement>)
+                : {})}
+            >
+              <MaestroIcon name="layers" size={13} />
+              <span>Armar a mano</span>
+            </button>
+          </div>
         </section>
 
-        <PersonalParlayQuickBar />
-
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-          {/* Columna izquierda: 4 Pasos Numerados + Catálogo Manual */}
-          <div className="xl:col-span-7 space-y-5">
-            <section className="glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-5 relative overflow-hidden">
-              <LensGlowOrbs subtle />
-
-              <div className="space-y-5 relative z-10">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="m-0 text-lg font-extrabold">
-                    Auto-Armador Cuantitativo en 4 Pasos
-                  </h2>
-                  <span className="pl-pill pl-pill--info text-xs">
-                    Sin contradicciones
-                  </span>
-                </div>
-
-                {/* Paso 1: Ligas */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-extrabold" style={{ color: "var(--pl-brand)" }}>
-                      1. Ligas ({selectedLeagues.length}/{dataset.leagues.length})
-                    </span>
-                    <button
-                      type="button"
-                      onClick={selectAllLeagues}
-                      className="pl-btn-glass text-[11px] min-h-9 px-3"
-                    >
-                      Seleccionar las {dataset.leagues.length} ligas
-                    </button>
-                  </div>
-                  <div
-                    className="flex flex-wrap gap-1.5"
-                    role="group"
-                    aria-label="1. Ligas para el parlay"
+        <div className="pl-parlay-grid grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
+          {/* Columna izquierda: Un solo flujo limpio (Automático o Armar a mano) */}
+          <div className="lg:col-span-7 space-y-4 min-w-0">
+            {/* Filtro compacto Deporte + Liga activa (cero muro de 57 ligas) */}
+            <section
+              className="glass-card glass-ring rounded-2xl p-4 space-y-3"
+              aria-label="Filtrar deporte y liga"
+              data-parlay-scope-bar=""
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2.5">
+                <div className="flex flex-wrap items-center gap-1.5 min-w-0" role="group" aria-label="Elegir deporte">
+                  <button
+                    type="button"
+                    className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
+                    aria-pressed={sportFilter === ALL}
+                    onClick={() => {
+                      setSportFilter(ALL);
+                      setLeagueFilter(ALL);
+                      setCatalogLimit(12);
+                    }}
                   >
-                    {dataset.leagues.map((lg) => {
-                      const active = selectedLeagues.includes(lg.league);
-                      return (
-                        <button
-                          key={lg.league}
-                          type="button"
-                          aria-pressed={active}
-                          data-active={active ? "true" : undefined}
-                          onClick={() => toggleAutoLeague(lg.league)}
-                          className="seg-btn text-xs glass-ring"
-                        >
-                          <LeagueBadge league={lg.league} label={lg.label} logoUrl={lg.logoUrl} size={15} />
-                          <span>{lg.label}</span>
-                        </button>
-                      );
-                    })}
+                    Todos ({sportCounts[ALL] ?? 0})
+                  </button>
+                  {SPORTS.filter((sp) => (sportCounts[sp.id] ?? 0) > 0).map((sp) => (
+                    <button
+                      key={sp.id}
+                      type="button"
+                      className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
+                      aria-pressed={sportFilter === sp.id}
+                      onClick={() => {
+                        setSportFilter(sp.id);
+                        setLeagueFilter(ALL);
+                        setCatalogLimit(12);
+                      }}
+                    >
+                      {sp.label} ({sportCounts[sp.id] ?? 0})
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
+                  <label htmlFor={leagueSelectId} className="sr-only">
+                    Liga activa
+                  </label>
+                  <select
+                    id={leagueSelectId}
+                    value={effectiveLeague}
+                    onChange={(e) => {
+                      setLeagueFilter(e.target.value as LeagueId | typeof ALL);
+                      setCatalogLimit(12);
+                    }}
+                    className="glass-input text-base sm:text-xs font-semibold min-h-11 sm:min-h-10 px-3 rounded-xl w-full sm:w-auto sm:max-w-[240px]"
+                  >
+                    <option value={ALL}>
+                      Todas las ligas ({activeLeagues.length})
+                    </option>
+                    {activeLeagues.map((lg) => (
+                      <option key={lg.league} value={lg.league}>
+                        {lg.label} ({lg.openCount})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            {builderMode === "auto" ? (
+              <section
+                className="glass-card glass-ring rounded-2xl p-4 sm:p-6 space-y-5"
+                role="tabpanel"
+                aria-label="Generador automático de parlay"
+                data-parlay-auto-panel=""
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <h2 className="m-0 text-lg font-extrabold">
+                      Generador automático
+                    </h2>
+                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Elige cuota meta, nivel de riesgo y número de selecciones sin contradicciones.
+                    </p>
+                  </div>
+                  {autoPreview.status !== "insufficient" && autoPreview.legs.length > 0 ? (
+                    <span className="pl-pill pl-pill--info num text-xs">
+                      Vista previa: {autoPreview.legs.length} picks ·{" "}
+                      {autoPreview.combinedProbability * 100 < 0.1
+                        ? "< 0.1 %"
+                        : `${(autoPreview.combinedProbability * 100).toFixed(1)} %`}{" "}
+                      · {formatOddsValue(autoPreview.fairDecimal, oddsFormat)}
+                    </span>
+                  ) : null}
+                </div>
+
+                {/* Cuota meta */}
+                <div className="space-y-2">
+                  <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text-secondary)" }}>
+                    Cuota meta
+                  </span>
+                  <div className="seg-well w-full flex-wrap" role="group" aria-label="Cuota meta">
+                    {PARLAY_TARGET_PRESETS.map((preset) => (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        className="seg-btn flex-1 justify-center num text-xs min-h-11 sm:min-h-10"
+                        aria-pressed={targetPreset === preset.id}
+                        data-quick-target={preset.id}
+                        onClick={() => setTargetPreset(preset.id)}
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                {/* Paso 2 y Paso 3 en rejilla */}
+                {/* Riesgo + Selecciones */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Paso 2: Riesgo */}
                   <div className="space-y-2">
-                    <span
-                      className="text-xs font-extrabold block"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      2. Riesgo
+                    <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text-secondary)" }}>
+                      Estilo de riesgo
                     </span>
-                    <div
-                      className="seg-well w-full"
-                      role="group"
-                      aria-label="2. Riesgo del parlay"
-                    >
+                    <div className="seg-well w-full" role="group" aria-label="Estilo de riesgo">
                       {(["conservador", "medio", "arriesgado"] as const).map((r) => (
                         <button
                           key={r}
                           type="button"
-                          className="seg-btn flex-1 justify-center capitalize text-xs"
+                          className="seg-btn flex-1 justify-center text-xs min-h-11 sm:min-h-10"
                           aria-pressed={autoRisk === r}
                           onClick={() => setAutoRisk(r)}
                         >
@@ -320,26 +496,18 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     </div>
                   </div>
 
-                  {/* Paso 3: Selecciones libres (mín. 2) */}
                   <div className="space-y-2">
-                    <span
-                      className="text-xs font-extrabold block"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      3. Selecciones ({effectiveAutoLegCount} de {maxAutoLegs} disp.)
+                    <span className="text-xs font-extrabold block num" style={{ color: "var(--pl-text-secondary)" }}>
+                      Selecciones ({effectiveAutoLegCount} de {maxAutoLegs} disp.)
                     </span>
                     <div className="flex flex-wrap items-center gap-2">
-                      <div
-                        className="seg-well"
-                        role="group"
-                        aria-label="3. Selecciones"
-                      >
+                      <div className="seg-well flex-wrap" role="group" aria-label="Número de selecciones">
                         {[2, 3, 4, 5, 6, 8, 10].map((cnt) => (
                           <button
                             key={cnt}
                             type="button"
                             disabled={cnt > maxAutoLegs}
-                            className="seg-btn num text-xs px-2.5"
+                            className="seg-btn num text-xs justify-center px-2 min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                             aria-pressed={effectiveAutoLegCount === cnt}
                             onClick={() => setAutoLegCount(cnt)}
                           >
@@ -347,13 +515,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           </button>
                         ))}
                       </div>
-                      <div
-                        className="sl-stepper"
-                        role="group"
-                        aria-label="Ajustar número de selecciones"
-                      >
+                      <div className="sl-stepper" role="group" aria-label="Ajustar número de selecciones">
                         <button
                           type="button"
+                          className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                           aria-label="Menos selecciones"
                           disabled={effectiveAutoLegCount <= 2}
                           onClick={() => setAutoLegCount(Math.max(2, effectiveAutoLegCount - 1))}
@@ -363,6 +528,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         <span className="num">{effectiveAutoLegCount}</span>
                         <button
                           type="button"
+                          className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                           aria-label="Más selecciones"
                           disabled={effectiveAutoLegCount >= maxAutoLegs}
                           onClick={() => setAutoLegCount(Math.min(maxAutoLegs, effectiveAutoLegCount + 1))}
@@ -374,20 +540,14 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   </div>
                 </div>
 
-                {/* Paso 4: SGP */}
-                <div
-                  className="rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3"
-                  style={{ background: "var(--pl-surface)" }}
-                >
-                  <div className="space-y-0.5">
-                    <span
-                      className="text-xs font-extrabold block"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      4. Mismo partido
+                {/* Mismo partido (SGP) */}
+                <div className="pl-parlay-surface-tile rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+                  <div className="space-y-0.5 min-w-0 flex-1">
+                    <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text)" }}>
+                      Mismo partido (SGP)
                     </span>
                     <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                      Permite hasta 2 selecciones de distinto eje del mismo partido (ej. Ganador + Totales). Bloquea líneas redundantes, marcador exacto y contradicciones.
+                      Permite hasta 2 selecciones de distinto eje del mismo partido con ajuste de correlación Student-t.
                     </span>
                   </div>
 
@@ -397,7 +557,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     </Switch.Control>
                     <Switch.Content>
                       <span className="text-xs font-bold">
-                        {allowSgp ? "Mismo partido activado" : "Permitir mismo partido"}
+                        {allowSgp ? "Activado" : "Desactivado"}
                       </span>
                     </Switch.Content>
                   </Switch>
@@ -407,200 +567,232 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   type="button"
                   className="pl-btn-primary pl-btn-wrap w-full min-h-11 text-sm inline-flex items-center justify-center gap-2"
                   data-generate-parlay=""
-                  onClick={() =>
-                    generateAutoParlay({
-                      leagues: selectedLeagues,
-                      risk: autoRisk,
-                      legCount: effectiveAutoLegCount,
-                      allowSgp,
-                    })
-                  }
+                  onClick={handleGenerateAuto}
                 >
                   <MaestroIcon name="sparkles" size={15} />
                   <span>
-                    Generar Mejor Parlay ({effectiveAutoLegCount} selecciones · {autoRisk})
+                    Generar parlay ({effectiveAutoLegCount} selecciones · {autoRisk}
+                    {targetPreset !== "libre" ? ` · ${activePresetSpec.label}` : ""})
                   </span>
                 </button>
-              </div>
-            </section>
-
-            {/* Catálogo Manual con explicación explícita de incompatibilidad */}
-            <section className="space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="m-0 text-lg font-extrabold">
-                  Catálogo Manual · Protección Anti-Contradicción
-                </h2>
-                <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  Haz clic para agregar o quitar del boleto
-                </span>
-              </div>
-
-              {candidateGames.map((g) => (
-                <div
-                  key={g.id}
-                  className="glass-card glass-ring rounded-2xl p-4 space-y-3"
-                >
-                  <div className="flex items-center justify-between gap-2 text-xs">
-                    <span className="inline-flex items-center gap-2 font-bold">
-                      <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={16} />
-                      <span>
-                        {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName}
-                      </span>
-                    </span>
-                    <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                      {shortDateLabel(g.dayId)} · {g.kickoffLocal}
-                    </span>
+              </section>
+            ) : (
+              /* Panel: Armar a mano con protección anti-contradicción */
+              <section
+                className="space-y-3"
+                role="tabpanel"
+                aria-label="Armar parlay a mano"
+                data-parlay-manual-panel=""
+              >
+                <div className="glass-card glass-ring rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <MaestroIcon name="search" size={15} style={{ color: "var(--pl-text-muted)" }} />
+                    <input
+                      type="search"
+                      inputMode="search"
+                      enterKeyHint="search"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      value={manualQuery}
+                      onChange={(e) => {
+                        setManualQuery(e.target.value);
+                        setCatalogLimit(12);
+                      }}
+                      placeholder="Buscar equipo o liga…"
+                      aria-label="Buscar equipo o liga para armar parlay"
+                      className="glass-input text-base sm:text-xs min-h-11 sm:min-h-10 px-3 rounded-xl flex-1 min-w-0"
+                    />
                   </div>
+                  <Switch isSelected={allowSgp} onChange={setAllowSgp}>
+                    <Switch.Control>
+                      <Switch.Thumb />
+                    </Switch.Control>
+                    <Switch.Content>
+                      <span className="text-xs font-bold">Mismo partido</span>
+                    </Switch.Content>
+                  </Switch>
+                </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {g.picks.slice(0, 4).map((pk) => {
-                      const unlocked = isPickUnlocked(pk, g.status, viewerRole);
-                      const inSlip = parlayLegs.some((l) => l.pick.id === pk.id);
-                      const sameGameExists = parlayLegs.some(
-                        (l) => l.pick.gameId === pk.gameId && l.pick.id !== pk.id,
-                      );
-                      const compat = checkParlayCompatibility(
-                        parlayLegs,
-                        pk,
-                        allowSgp,
-                      );
+                {candidateGames.length === 0 ? (
+                  <div className="glass-card glass-ring rounded-2xl p-6 text-center space-y-2">
+                    <p className="m-0 text-sm font-bold">Sin partidos abiertos con ese filtro</p>
+                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Prueba con otro deporte, liga o limpia la búsqueda.
+                    </p>
+                  </div>
+                ) : (
+                  candidateGames.map((g) => (
+                    <div
+                      key={g.id}
+                      className="glass-card glass-ring rounded-2xl p-4 space-y-3"
+                    >
+                      <div className="flex items-center justify-between gap-2 text-xs">
+                        <span className="inline-flex items-center gap-2 font-bold min-w-0">
+                          <LeagueBadge league={g.league} label={g.leagueLabel} logoUrl={g.leagueLogoUrl} size={16} />
+                          <span className="truncate">
+                            {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName}
+                          </span>
+                        </span>
+                        <span className="num shrink-0" style={{ color: "var(--pl-text-muted)" }}>
+                          {shortDateLabel(g.dayId)} · {g.kickoffLocal}
+                        </span>
+                      </div>
 
-                      if (!unlocked) {
-                        return (
-                          <a
-                            key={pk.id}
-                            href={upgradeHref}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              navigateTo(upgradeHref);
-                            }}
-                            className="rounded-xl p-2.5 text-xs flex items-center justify-between gap-2 no-underline"
-                            style={{
-                              background: "var(--pl-surface)",
-                              color: "var(--pl-text-secondary)",
-                            }}
-                          >
-                            <span className="inline-flex items-center gap-1.5 font-semibold truncate">
-                              <MaestroIcon name="lock" size={12} />
-                              <span className="truncate">{pk.categoryLabel}</span>
-                            </span>
-                            <span className="pl-pill text-[11px] shrink-0">
-                              {hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}
-                            </span>
-                          </a>
-                        );
-                      }
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {g.picks.slice(0, 4).map((pk) => {
+                          const unlocked = isPickUnlocked(pk, g.status, viewerRole);
+                          const inSlip = parlayLegs.some((l) => l.pick.id === pk.id);
+                          const sameGameExists = parlayLegs.some(
+                            (l) => l.pick.gameId === pk.gameId && l.pick.id !== pk.id,
+                          );
+                          const compat = checkParlayCompatibility(
+                            parlayLegs,
+                            pk,
+                            allowSgp,
+                          );
 
-                      const blockedReason =
-                        !inSlip && !compat.allowed
-                          ? getCompactBlockReason(
-                              sameGameExists,
-                              allowSgp,
-                              compat,
-                            )
-                          : null;
-
-                      return (
-                        <button
-                          key={pk.id}
-                          type="button"
-                          onClick={() =>
-                            inSlip
-                              ? removePickFromParlay(pk.id)
-                              : addPickToParlay(pk)
+                          if (!unlocked) {
+                            return (
+                              <a
+                                key={pk.id}
+                                href={upgradeHref}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  navigateTo(upgradeHref);
+                                }}
+                                className="rounded-xl p-2.5 text-xs flex items-center justify-between gap-2 no-underline"
+                                style={{
+                                  background: "var(--pl-surface)",
+                                  color: "var(--pl-text-secondary)",
+                                }}
+                              >
+                                <span className="inline-flex items-center gap-1.5 font-semibold truncate">
+                                  <MaestroIcon name="lock" size={12} />
+                                  <span className="truncate">{pk.categoryLabel}</span>
+                                </span>
+                                <span className="pl-pill text-[11px] shrink-0">
+                                  {hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}
+                                </span>
+                              </a>
+                            );
                           }
-                          disabled={!inSlip && !compat.allowed}
-                          title={blockedReason ?? undefined}
-                          className="rounded-xl p-3 text-left text-xs cursor-pointer transition-opacity disabled:opacity-60 disabled:cursor-not-allowed space-y-1"
-                          style={{
-                            background: inSlip
-                              ? "var(--pl-surface-active)"
-                              : "var(--pl-surface)",
-                            boxShadow: inSlip
-                              ? "inset 0 0 0 1.5px var(--pl-brand)"
-                              : "inset 0 0 0 1px var(--pl-border)",
-                          }}
-                        >
-                          <div className="flex items-center justify-between gap-1.5 font-bold">
-                            <span className="truncate">{pk.label}</span>
-                            <span className="num shrink-0">
-                              {formatOddsValue(pickReferenceDecimal(pk), oddsFormat)}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between gap-1.5 num">
-                            <span style={{ color: "var(--pl-text-muted)" }}>
-                              {(pk.p * 100).toFixed(0)} % · {pk.categoryLabel}
-                            </span>
-                            {inSlip ? (
-                              <span
-                                className="inline-flex items-center gap-1 font-extrabold shrink-0"
-                                style={{ color: "var(--pl-brand)" }}
-                              >
-                                <MaestroIcon name="check" size={11} />
-                                <span>En boleto</span>
-                              </span>
-                            ) : compat.allowed ? (
-                              <span
-                                className="inline-flex items-center gap-1 font-bold shrink-0"
-                                style={{ color: "var(--pl-success)" }}
-                              >
-                                <MaestroIcon name="plus" size={11} />
-                                <span>Agregar</span>
-                              </span>
-                            ) : (
-                              <span
-                                className="inline-flex items-center gap-1 font-bold shrink-0"
-                                style={{ color: "var(--pl-warning)" }}
-                              >
-                                <MaestroIcon name="x" size={11} />
-                                <span>{blockedReason}</span>
-                              </span>
-                            )}
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
 
-              {allOpenGames.length > catalogLimit ? (
-                <div className="flex justify-center pt-1">
-                  <button
-                    type="button"
-                    className="pl-btn-glass text-xs min-h-11 px-4"
-                    onClick={() => setCatalogLimit((c) => c + 12)}
-                  >
-                    Ver más partidos ({allOpenGames.length - catalogLimit} restantes)
-                  </button>
-                </div>
-              ) : null}
-            </section>
+                          const blockedReason =
+                            !inSlip && !compat.allowed
+                              ? getCompactBlockReason(
+                                  sameGameExists,
+                                  allowSgp,
+                                  compat,
+                                )
+                              : null;
+
+                          return (
+                            <button
+                              key={pk.id}
+                              type="button"
+                              onClick={() =>
+                                inSlip
+                                  ? removePickFromParlay(pk.id)
+                                  : addPickToParlay(pk)
+                              }
+                              disabled={!inSlip && !compat.allowed}
+                              title={blockedReason ?? undefined}
+                              className="rounded-xl p-3 text-left text-xs cursor-pointer transition-opacity disabled:opacity-60 disabled:cursor-not-allowed space-y-1 min-h-11"
+                              style={{
+                                background: inSlip
+                                  ? "var(--pl-surface-active)"
+                                  : "var(--pl-surface)",
+                                border: inSlip
+                                  ? "1.5px solid var(--pl-brand)"
+                                  : "1px solid var(--pl-border)",
+                              }}
+                            >
+                              <div className="flex items-center justify-between gap-1.5 font-bold">
+                                <span className="truncate">{pk.label}</span>
+                                <span className="num shrink-0">
+                                  {formatOddsValue(pickReferenceDecimal(pk), oddsFormat)}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between gap-1.5 num">
+                                <span style={{ color: "var(--pl-text-muted)" }}>
+                                  {(pk.p * 100).toFixed(0)} % · {pk.categoryLabel}
+                                </span>
+                                {inSlip ? (
+                                  <span
+                                    className="inline-flex items-center gap-1 font-extrabold shrink-0"
+                                    style={{ color: "var(--pl-brand)" }}
+                                  >
+                                    <MaestroIcon name="check" size={11} />
+                                    <span>En boleto</span>
+                                  </span>
+                                ) : compat.allowed ? (
+                                  <span
+                                    className="inline-flex items-center gap-1 font-bold shrink-0"
+                                    style={{ color: "var(--pl-success)" }}
+                                  >
+                                    <MaestroIcon name="plus" size={11} />
+                                    <span>Agregar</span>
+                                  </span>
+                                ) : (
+                                  <span
+                                    className="inline-flex items-center gap-1 font-bold shrink-0"
+                                    style={{ color: "var(--pl-warning)" }}
+                                  >
+                                    <MaestroIcon name="x" size={11} />
+                                    <span>{blockedReason}</span>
+                                  </span>
+                                )}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))
+                )}
+
+                {allOpenGames.length > catalogLimit ? (
+                  <div className="flex justify-center pt-1">
+                    <button
+                      type="button"
+                      className="pl-btn-glass text-xs min-h-11 px-4 num"
+                      onClick={() => setCatalogLimit((c) => c + 12)}
+                    >
+                      Ver más partidos ({allOpenGames.length - catalogLimit} restantes)
+                    </button>
+                  </div>
+                ) : null}
+              </section>
+            )}
           </div>
 
-          {/* Columna derecha: Boleto Combinado PitchLab Perforado */}
-          <aside className="xl:col-span-5 glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-4 xl:sticky xl:top-20 xl:max-h-[calc(100dvh-6rem)] xl:overflow-y-auto relative overflow-x-hidden">
-            <LensGlowOrbs subtle />
-
-            <div className="space-y-4 relative z-10">
+          {/* Columna derecha: Boleto Combinado PitchLab (plano, sin brillos decorativos) */}
+          <aside className="lg:col-span-5 glass-card glass-ring rounded-2xl p-4 sm:p-6 space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)] lg:overflow-y-auto overflow-x-hidden min-w-0">
+            <div className="space-y-4">
               <div className="flex items-center justify-between gap-2">
-                <div>
+                <div className="min-w-0">
                   <span
                     className="text-xs font-extrabold inline-flex items-center gap-1.5"
                     style={{ color: "var(--pl-brand)" }}
                   >
                     <MaestroIcon name="ticket" size={13} />
-                    <span>Boleto Combinado PitchLab</span>
+                    <span>Boleto combinado</span>
                   </span>
-                  <h2 className="m-0 text-xl font-extrabold">
-                    {parlaySummary.legs.length} Selecciones Activas
+                  <h2 className="m-0 text-xl font-extrabold num">
+                    {parlaySummary.legs.length} {parlaySummary.legs.length === 1 ? "selección activa" : "selecciones activas"}
                   </h2>
                 </div>
                 {parlaySummary.legs.length > 0 ? (
                   <button
                     type="button"
-                    className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
-                    onClick={clearParlay}
+                    className="pl-btn-glass text-xs min-h-11 sm:min-h-10 px-3 inline-flex items-center gap-1 shrink-0"
+                    onClick={() => {
+                      if (parlaySummary.legs.length >= 2) {
+                        setConfirmClearOpen(true);
+                      } else {
+                        clearParlay();
+                      }
+                    }}
                   >
                     <MaestroIcon name="x" size={12} />
                     <span>Limpiar</span>
@@ -616,18 +808,17 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     Tu boleto combinado está vacío
                   </p>
                   <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    Pulsa «Generar Mejor Parlay» o selecciona todas las jugadas compatibles que quieras del catálogo (mínimo 2 para sellar).
+                    Usa el generador automático o cambia a «Armar a mano» para elegir piernas compatibles (mínimo 2 para sellar).
                   </p>
                 </div>
               ) : (
-                <div className="space-y-2.5">
+                <div className="space-y-2">
                   {parlaySummary.legs.map(({ pick }) => {
                     const gm = dataset.games.find((g) => g.id === pick.gameId);
                     return (
                     <div
                       key={pick.id}
-                      className="rounded-2xl p-3 flex items-start justify-between gap-2"
-                      style={{ background: "var(--pl-surface)" }}
+                      className="pl-parlay-surface-tile rounded-xl p-3 flex items-start justify-between gap-2"
                     >
                       <div className="min-w-0">
                         <span
@@ -650,7 +841,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         type="button"
                         aria-label={`Quitar ${pick.label}`}
                         onClick={() => removePickFromParlay(pick.id)}
-                        className="pl-btn-glass px-2.5 min-h-9 text-xs inline-flex items-center justify-center shrink-0"
+                        className="pl-btn-glass px-2.5 min-h-11 min-w-11 sm:min-h-10 sm:min-w-10 text-xs inline-flex items-center justify-center shrink-0"
                       >
                         <MaestroIcon name="x" size={12} />
                       </button>
@@ -661,10 +852,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               )}
 
               <div
-                className="rounded-2xl p-3.5 space-y-2"
+                className="rounded-xl p-3.5 space-y-2"
                 style={{
                   background: "var(--pl-surface)",
-                  boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
+                  border: `1px solid color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
                 }}
                 data-parlay-risk-meter={slipRisk.level}
               >
@@ -681,12 +872,12 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 </div>
                 {parlaySummary.legs.length > 0 ? (
                   <div
-                    className="h-2 rounded-full overflow-hidden"
+                    className="h-1.5 rounded-full overflow-hidden"
                     style={{ background: "var(--pl-surface-hover)" }}
                     aria-hidden="true"
                   >
                     <div
-                      className="h-full rounded-full transition-all"
+                      className="h-full rounded-full"
                       style={{
                         width: `${slipRisk.meterPct}%`,
                         background: riskToneCss(slipRisk.tone),
@@ -721,6 +912,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   >
                     <button
                       type="button"
+                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                       aria-label="Restar unidades al parlay"
                       onClick={() =>
                         setParlayStakeUnits(
@@ -736,6 +928,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     <span className="num">{parlayStakeUnits.toFixed(2)}u</span>
                     <button
                       type="button"
+                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
                       aria-label="Sumar unidades al parlay"
                       onClick={() =>
                         setParlayStakeUnits(
@@ -752,7 +945,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 </div>
 
                 {/* Calculadora de momio total de casa */}
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <label
                     htmlFor="parlay-book-odds-input"
                     className="text-xs font-bold"
@@ -762,10 +955,13 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   <input
                     id="parlay-book-odds-input"
                     type="text"
+                    inputMode="decimal"
+                    autoCorrect="off"
+                    spellCheck={false}
                     value={bookParlayOddsRaw}
                     onChange={(e) => setBookParlayOddsRaw(e.target.value)}
                     placeholder="Opcional (+340 / 4.40)"
-                    className="glass-input px-2.5 py-1 text-xs font-bold num w-40 text-right"
+                    className="glass-input px-2.5 py-1 text-base sm:text-xs font-bold num min-h-11 sm:min-h-9 w-full sm:w-40 text-right"
                   />
                 </div>
 
@@ -779,10 +975,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 ) : null}
 
                 <div className="grid grid-cols-2 gap-2.5 num">
-                  <div
-                    className="rounded-xl p-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
+                  <div className="pl-parlay-surface-tile rounded-xl p-3">
                     <span
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
@@ -795,10 +988,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         : `${(effectiveSlipProb * 100).toFixed(1)} %`}
                     </strong>
                   </div>
-                  <div
-                    className="rounded-xl p-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
+                  <div className="pl-parlay-surface-tile rounded-xl p-3">
                     <span
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
@@ -809,10 +999,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       {formatOddsValue(effectiveSlipBookDec, oddsFormat)}
                     </strong>
                   </div>
-                  <div
-                    className="rounded-xl p-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
+                  <div className="pl-parlay-surface-tile rounded-xl p-3">
                     <span
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
@@ -823,10 +1010,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       {formatOddsValue(effectiveSlipFairDec, oddsFormat)}
                     </strong>
                   </div>
-                  <div
-                    className="rounded-xl p-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
+                  <div className="pl-parlay-surface-tile rounded-xl p-3">
                     <span
                       className="block text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
@@ -847,12 +1031,12 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 <button
                   type="button"
                   disabled={parlaySummary.legs.length < 2}
-                  className="pl-btn-glass text-xs inline-flex items-center justify-center gap-1.5"
+                  className="pl-btn-glass min-h-11 text-xs inline-flex items-center justify-center gap-1.5"
                   onClick={() =>
                     openShareTicket({
                       kind: "parlay",
                       title: `Parlay PitchLab (${parlaySummary.legs.length} picks)`,
-                      subtitle: "Armador Inteligente · Spacetime Suite v3.0",
+                      subtitle: "Armador Inteligente · Spacetime Suite v5.1",
                       leagueLabel: "Multi-Liga",
                       pickLabel: parlaySummary.legs
                         .map((l) => l.pick.label)
@@ -879,74 +1063,287 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 <button
                   type="button"
                   disabled={parlaySummary.legs.length < 2}
-                  className="pl-btn-primary text-xs inline-flex items-center justify-center gap-1.5"
+                  className="pl-btn-primary min-h-11 text-xs inline-flex items-center justify-center gap-1.5"
                   onClick={() => sealParlayToJournal()}
                 >
                   <MaestroIcon name="ticket" size={13} />
-                  <span>Sellar Parlay ({parlaySummary.stakeUnits.toFixed(1)}u)</span>
+                  <span>Sellar en Mi récord ({parlaySummary.stakeUnits.toFixed(1)}u)</span>
                 </button>
               </div>
 
-              <div
-                className="rounded-2xl p-3.5 space-y-2"
-                style={{ background: "var(--pl-surface)" }}
+              <details
+                className="pl-parlay-surface-tile rounded-xl p-3.5"
                 data-parlay-rules=""
               >
-                <span className="text-xs font-extrabold block" style={{ color: "var(--pl-text)" }}>
+                <summary className="text-xs font-extrabold cursor-pointer" style={{ color: "var(--pl-text)" }}>
                   Qué no se puede combinar en parlay
-                </span>
-                <ul className="m-0 pl-4 space-y-1 text-[11px] leading-snug" style={{ color: "var(--pl-text-muted)" }}>
+                </summary>
+                <ul className="m-0 mt-2 pl-4 space-y-1 text-[11px] leading-snug" style={{ color: "var(--pl-text-muted)" }}>
                   {PARLAY_NON_COMBINABLE_RULES.map((rule) => (
                     <li key={rule.title}>
                       <strong style={{ color: "var(--pl-text-secondary)" }}>{rule.title}:</strong> {rule.detail}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </details>
             </div>
           </aside>
         </div>
+
+        <ConfirmActionDialog
+          open={confirmClearOpen}
+          title={`¿Vaciar parlay de ${parlaySummary.legs.length} selecciones?`}
+          description="Se quitarán todas las selecciones del boleto actual. Podrás deshacerlo durante unos segundos desde el aviso inferior."
+          confirmLabel="Vaciar boleto"
+          onConfirm={clearParlay}
+          onCancel={() => setConfirmClearOpen(false)}
+        />
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );
 }
 
+export type NbaPropStatCode = NbaStructuredStatCode;
+
 export interface PropsStreakExplorerItem extends PlayerPropStreakCardProps {
   readonly id: string;
   readonly sport: string;
   readonly leagueLabel: string;
+  readonly avgMinutes?: number | null;
+  readonly minMinutesGuard?: boolean;
+  readonly availabilityStatus?: "available" | "doubtful";
+}
+
+export interface PropsLabRefereeSummary {
+  readonly name: string;
+  readonly avgYellow: number | null;
+  readonly avgFouls: number | null;
+  readonly rigorLabel?: string | null;
+}
+
+export interface PropsLabPlayerPropItem extends PlayerPropItem {
+  readonly sport?: PlatformSport;
+  readonly statCode?: NbaPropStatCode | string | null;
+  readonly avgMinutes?: number | null;
+  readonly sampleGames?: number | null;
+  readonly minMinutesGuard?: boolean;
+  readonly lineupStatus?: "confirmed" | "probable" | null;
+  readonly availabilityStatus?: "available" | "doubtful";
+  readonly injuryNote?: string | null;
+  readonly playerHref?: string | null;
+  readonly hasVerifiedMarketQuote?: boolean;
+  readonly refereeSummary?: PropsLabRefereeSummary | null;
 }
 
 export interface PropsLabClubViewProps {
   streakCards?: readonly PropsStreakExplorerItem[];
+  playerProps?: readonly PropsLabPlayerPropItem[];
 }
 
-export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {}): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    hasAccountSession,
-    upgradeHref,
-    oddsFormat,
-    journal,
-    sealPickToJournal,
-    navigateTo,
-  } = usePlatform();
-  const catalog = useMemo(
-    () => buildPlayerPropsCatalog(dataset.games, dataset.playerProps),
-    [dataset.games, dataset.playerProps],
+const INITIAL_STREAK_PAGE_SIZE = 8;
+const INITIAL_CATALOG_PAGE_SIZE = 10;
+
+const PROPS_SPORT_LABELS: Readonly<Record<string, string>> = {
+  basketball: "NBA",
+  football: "Fútbol",
+  "american-football": "NFL",
+  "ice-hockey": "NHL",
+  baseball: "MLB",
+};
+
+const PROPS_SPORT_ORDER: readonly string[] = [
+  "basketball",
+  "football",
+  "american-football",
+  "ice-hockey",
+  "baseball",
+];
+
+export function PropsLabClubView({
+  streakCards = [],
+  playerProps,
+}: PropsLabClubViewProps = {}): React.JSX.Element {
+  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat } = usePlatformCore();
+  const { sealPickToJournal, navigateTo } = usePlatformActions();
+  const journal = useJournalEntries();
+  const effectivePlayerProps = (playerProps ?? dataset.playerProps) as
+    | readonly PropsLabPlayerPropItem[]
+    | undefined;
+  const rawCatalog = useMemo(
+    () => buildPlayerPropsCatalog(dataset.games, effectivePlayerProps) as PropsLabPlayerPropItem[],
+    [dataset.games, effectivePlayerProps],
   );
   const [lineOffsets, setLineOffsets] = useState<Record<string, number>>({});
   const [propOddsInputs, setPropOddsInputs] = useState<Record<string, string>>(
     {},
   );
-  const [streakSport, setStreakSport] = useState<string>("all");
-  const [streakQuery, setStreakQuery] = useState<string>("");
+  const [activeSport, setActiveSport] = useState<string>("all");
+  const [nbaStatFilter, setNbaStatFilter] = useState<NbaPropStatCode | "all">("all");
+  const [onlyMinMinutesGuard, setOnlyMinMinutesGuard] = useState<boolean>(false);
+  const [onlyLineupSignal, setOnlyLineupSignal] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [streakVisibleCount, setStreakVisibleCount] = useState<number>(INITIAL_STREAK_PAGE_SIZE);
+  const [catalogVisibleCount, setCatalogVisibleCount] = useState<number>(INITIAL_CATALOG_PAGE_SIZE);
+
+  const gamesById = useMemo(() => {
+    const map = new Map<string, (typeof dataset.games)[number]>();
+    for (const g of dataset.games) {
+      map.set(g.id, g);
+    }
+    return map;
+  }, [dataset.games]);
+
+  const enrichedCatalog = useMemo(() => {
+    return rawCatalog
+      .map((prop) => {
+        const sport: PlatformSport = prop.sport ?? sportForLeague(prop.league);
+        const statCode =
+          prop.statCode ?? (sport === "basketball" ? resolveNbaPropStatCode(prop.statLabel) : null);
+        const lineupSignal = resolvePlayerLineupSignal(dataset.games, {
+          league: prop.league,
+          teamSlug: prop.teamSlug,
+          playerName: prop.player,
+          gameId: prop.gameId,
+          sport,
+          explicitStatus: prop.lineupStatus ?? null,
+        });
+        if (lineupSignal?.status === "ruled_out") return null;
+
+        let refereeSummary: PropsLabRefereeSummary | null = prop.refereeSummary ?? null;
+        if (!refereeSummary && sport === "football") {
+          const matchedGame = gamesById.get(prop.gameId);
+          if (matchedGame) {
+            const refAnalytics = resolveMatchRefereeAnalytics(matchedGame, dataset.games);
+            if (
+              refAnalytics &&
+              (refAnalytics.avgYellow !== null || refAnalytics.avgFouls !== null)
+            ) {
+              refereeSummary = {
+                name: refAnalytics.name,
+                avgYellow: refAnalytics.avgYellow,
+                avgFouls: refAnalytics.avgFouls,
+                rigorLabel: refAnalytics.rigorLabel,
+              };
+            }
+          }
+        }
+
+        const minMinutesMet =
+          prop.minMinutesGuard === true ||
+          (prop.minMinutesGuard !== false &&
+            (sport === "basketball"
+              ? (prop.avgMinutes == null || prop.avgMinutes >= 18) &&
+                (prop.sampleGames == null || prop.sampleGames >= 3)
+              : true));
+
+        return {
+          prop,
+          sport,
+          statCode,
+          lineupSignal,
+          refereeSummary,
+          minMinutesMet,
+        };
+      })
+      .filter((item): item is NonNullable<typeof item> => item !== null);
+  }, [dataset.games, gamesById, rawCatalog]);
+
+  const availableSports = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const item of enrichedCatalog) {
+      counts.set(item.sport, (counts.get(item.sport) ?? 0) + 1);
+    }
+    for (const card of streakCards) {
+      if (!counts.has(card.sport)) {
+        counts.set(card.sport, 0);
+      }
+    }
+    const keys = Array.from(counts.keys()).sort((a, b) => {
+      const ia = PROPS_SPORT_ORDER.indexOf(a);
+      const ib = PROPS_SPORT_ORDER.indexOf(b);
+      return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+    });
+    return keys.map((id) => ({
+      id,
+      label: PROPS_SPORT_LABELS[id] ?? id,
+      propCount: counts.get(id) ?? 0,
+      streakCount: streakCards.filter((c) => c.sport === id).length,
+    }));
+  }, [enrichedCatalog, streakCards]);
+
+  const nbaStatCounts = useMemo(() => {
+    const counts: Record<NbaPropStatCode, number> = { PTS: 0, REB: 0, AST: 0, "3PM": 0 };
+    for (const item of enrichedCatalog) {
+      if (item.sport !== "basketball") continue;
+      if (
+        item.statCode === "PTS" ||
+        item.statCode === "REB" ||
+        item.statCode === "AST" ||
+        item.statCode === "3PM"
+      ) {
+        counts[item.statCode] += 1;
+      }
+    }
+    return counts;
+  }, [enrichedCatalog]);
+
+  const totalNbaProps =
+    nbaStatCounts.PTS + nbaStatCounts.REB + nbaStatCounts.AST + nbaStatCounts["3PM"];
+
+  const hasAnyLineupSignal = useMemo(
+    () =>
+      enrichedCatalog.some(
+        (item) =>
+          item.lineupSignal?.status === "confirmed" || item.lineupSignal?.status === "probable",
+      ),
+    [enrichedCatalog],
+  );
+
+  const hasAnyMinGuardDiff = useMemo(
+    () =>
+      enrichedCatalog.some((item) => item.minMinutesMet) ||
+      streakCards.some((c) => c.minMinutesGuard),
+    [enrichedCatalog, streakCards],
+  );
+
+  const filteredCatalog = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return enrichedCatalog.filter((item) => {
+      if (activeSport !== "all" && item.sport !== activeSport) return false;
+      if (nbaStatFilter !== "all") {
+        if (item.sport !== "basketball" || item.statCode !== nbaStatFilter) return false;
+      }
+      if (onlyMinMinutesGuard && !item.minMinutesMet) return false;
+      if (
+        onlyLineupSignal &&
+        item.lineupSignal?.status !== "confirmed" &&
+        item.lineupSignal?.status !== "probable"
+      ) {
+        return false;
+      }
+      if (!q) return true;
+      return (
+        item.prop.player.toLowerCase().includes(q) ||
+        item.prop.teamName.toLowerCase().includes(q) ||
+        item.prop.leagueLabel.toLowerCase().includes(q) ||
+        item.prop.statLabel.toLowerCase().includes(q) ||
+        (item.statCode ? item.statCode.toLowerCase().includes(q) : false)
+      );
+    });
+  }, [
+    activeSport,
+    enrichedCatalog,
+    nbaStatFilter,
+    onlyLineupSignal,
+    onlyMinMinutesGuard,
+    searchQuery,
+  ]);
 
   const filteredStreaks = useMemo(() => {
-    const q = streakQuery.trim().toLowerCase();
+    const q = searchQuery.trim().toLowerCase();
     return streakCards.filter((card) => {
-      if (streakSport !== "all" && card.sport !== streakSport) return false;
+      if (activeSport !== "all" && card.sport !== activeSport) return false;
+      if (onlyMinMinutesGuard && card.minMinutesGuard === false) return false;
       if (!q) return true;
       return (
         card.playerName.toLowerCase().includes(q) ||
@@ -954,22 +1351,10 @@ export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {
         card.leagueLabel.toLowerCase().includes(q)
       );
     });
-  }, [streakCards, streakSport, streakQuery]);
-
-  const availableStreakSports = useMemo(() => {
-    const set = new Set(streakCards.map((c) => c.sport));
-    const labels: Record<string, string> = {
-      football: "Fútbol",
-      basketball: "NBA",
-      "american-football": "NFL",
-      "ice-hockey": "NHL",
-      baseball: "MLB",
-    };
-    return Array.from(set).map((id) => ({ id, label: labels[id] ?? id }));
-  }, [streakCards]);
+  }, [activeSport, onlyMinMinutesGuard, searchQuery, streakCards]);
 
   const handleSealProp = (
-    prop: PlayerPropItem,
+    prop: PropsLabPlayerPropItem,
     activeLine: number,
     pOver: number,
     fairOverDecimal: number,
@@ -1016,442 +1401,777 @@ export function PropsLabClubView({ streakCards = [] }: PropsLabClubViewProps = {
   return (
     <AtmosphereStage activePath="/app/props">
       <ClubWorkspaceShell activePath="/app/props">
-        <section className="space-y-2">
-          <span className="pl-pill pl-pill--brand pl-pill--wrap inline-flex items-center gap-1.5">
-            <MaestroIcon name="sliders" size={12} />
-            <span>Líneas alternativas</span>
-          </span>
-          <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Tendencias y props de jugadores
-          </h1>
-          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Explora rachas reales en los últimos 5, 10 o 20 partidos contra una línea deslizable y compara el momio de tu casa contra la proyección.
-          </p>
+        <section className="flex flex-wrap items-end justify-between gap-3">
+          <div className="space-y-1.5 min-w-0">
+            <span className="pl-pill pl-pill--brand pl-pill--wrap inline-flex items-center gap-1.5">
+              <MaestroIcon name="sliders" size={12} />
+              <span>Líneas alternativas · Spacetime</span>
+            </span>
+            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
+              Tendencias y props de jugadores
+            </h1>
+            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+              Props NBA (PTS, REB, AST, 3PM) y fútbol ligados a proyección Spacetime, momio justo y guardia de muestra mínima.
+            </p>
+          </div>
+
+          {viewerRole !== "visitor" && (enrichedCatalog.length > 0 || streakCards.length > 0) ? (
+            <div className="flex flex-wrap items-center gap-1.5 num shrink-0">
+              {enrichedCatalog.length > 0 ? (
+                <span className="pl-pill text-xs font-semibold">
+                  {enrichedCatalog.length} props activos
+                </span>
+              ) : null}
+              {totalNbaProps > 0 ? (
+                <span className="pl-pill pl-pill--info text-xs font-semibold">
+                  NBA {totalNbaProps}
+                </span>
+              ) : null}
+              {hasAnyMinGuardDiff ? (
+                <span className="pl-pill pl-pill--success text-xs font-semibold">
+                  {MIN_SAMPLE_GUARD_LABEL}
+                </span>
+              ) : null}
+            </div>
+          ) : null}
         </section>
 
-        {viewerRole !== "visitor" && streakCards.length > 0 ? (
-          <section className="space-y-4" aria-label="Tendencias de jugadores contra línea">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filtrar tendencias por deporte">
-                <button
-                  type="button"
-                  className={`pl-prop-metric-pill ${streakSport === "all" ? "is-on" : ""}`.trim()}
-                  aria-pressed={streakSport === "all"}
-                  onClick={() => setStreakSport("all")}
-                >
-                  Todos ({streakCards.length})
-                </button>
-                {availableStreakSports.map((sp) => (
-                  <button
-                    key={sp.id}
-                    type="button"
-                    className={`pl-prop-metric-pill ${streakSport === sp.id ? "is-on" : ""}`.trim()}
-                    aria-pressed={streakSport === sp.id}
-                    onClick={() => setStreakSport(sp.id)}
-                  >
-                    {sp.label}
-                  </button>
-                ))}
-              </div>
-              <input
-                type="search"
-                value={streakQuery}
-                onChange={(e) => setStreakQuery(e.target.value)}
-                placeholder="Buscar jugador, equipo o liga…"
-                aria-label="Buscar jugador en tendencias"
-                className="glass-input text-base sm:text-xs min-h-11 sm:min-h-9 px-3 w-full sm:w-64"
-              />
-            </div>
-
-            {filteredStreaks.length > 0 ? (
-              <div className="pl-props-grid">
-                {filteredStreaks.map((card) => (
-                  <PlayerPropStreakCard
-                    key={card.id}
-                    {...card}
-                    oddsFormat={oddsFormat}
-                    onNavigate={navigateTo}
-                  />
-                ))}
-              </div>
-            ) : (
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Ningún jugador coincide con «{streakQuery}». Prueba con otro nombre o deporte.
-              </p>
-            )}
-          </section>
-        ) : null}
-
         {viewerRole === "visitor" ? (
-          <div className="glass-lens glass-ring glass-ring--featured rounded-3xl p-6 space-y-3 relative overflow-hidden">
-            <LensGlowOrbs subtle />
-            <div className="relative z-10 space-y-3">
-              <h2 className="m-0 text-xl font-extrabold inline-flex items-center gap-2">
-                <MaestroIcon name="lock" size={18} style={{ color: "var(--pl-brand)" }} />
-                <span>Props de jugadores para Pase PitchLab Ultra</span>
-              </h2>
-              <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                {hasAccountSession
-                  ? "Activa tu Pase PitchLab Ultra para explorar proyecciones individuales de NFL y fútbol."
-                  : "Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol."}
-              </p>
-              <a
-                href={upgradeHref}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo(upgradeHref);
-                }}
-                className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
-              >
-                <span>{hasAccountSession ? "Activar Pase Ultra" : "Activar prueba gratis"}</span>
-                <MaestroIcon name="arrowRight" size={13} />
-              </a>
-            </div>
+          <div
+            className="glass-card glass-ring rounded-2xl p-6 space-y-3"
+            data-cero-fuga-lock="props-lab"
+          >
+            <h2 className="m-0 text-xl font-extrabold inline-flex items-center gap-2">
+              <MaestroIcon name="lock" size={18} style={{ color: "var(--pl-brand)" }} />
+              <span>Props de jugadores para Pase PitchLab Ultra</span>
+            </h2>
+            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+              {hasAccountSession
+                ? "Activa tu Pase PitchLab Ultra para explorar proyecciones individuales calibradas de NBA, fútbol y ligas principales."
+                : "Activa tus 7 días gratis para explorar proyecciones individuales calibradas de NBA, fútbol y ligas principales."}
+            </p>
+            <a
+              href={upgradeHref}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo(upgradeHref);
+              }}
+              className="pl-btn-primary text-xs min-h-11 sm:min-h-9 px-4 inline-flex items-center gap-1.5 no-underline"
+            >
+              <span>{hasAccountSession ? "Activar Pase Ultra" : "Activar prueba gratis"}</span>
+              <MaestroIcon name="arrowRight" size={13} />
+            </a>
           </div>
-        ) : catalog.length === 0 && streakCards.length === 0 ? (
-          <div className="glass-lens glass-ring rounded-3xl p-6 space-y-2" data-props-empty="">
+        ) : enrichedCatalog.length === 0 && streakCards.length === 0 ? (
+          <div className="glass-card glass-ring rounded-2xl p-6 space-y-2" data-props-empty="">
             <h2 className="m-0 text-xl font-extrabold">Props de jugadores: próximamente</h2>
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Spacetime Suite v3.0 todavía no proyecta estadísticas individuales. Cuando el motor
-              de jugadores pase su validación, aquí verás líneas, proyección y ventaja contra tu casa.
+              Spacetime Suite v5.1 todavía no proyecta estadísticas individuales para este filtro. Cuando el motor
+              de jugadores publique líneas validadas, aquí verás proyección y ventaja contra tu casa.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            {catalog.map((prop) => {
-              const offset = lineOffsets[prop.id] ?? 0;
-              const activeLine = Math.min(
-                prop.maxLine,
-                Math.max(prop.minLine, prop.baseLine + offset * prop.step),
-              );
-              const evalRes = evaluatePropLineProbability(
-                prop.projectionMean,
-                prop.projectionSd,
-                activeLine,
-              );
-              const l10Hits = prop.last10.filter((v) => v > activeLine).length;
-              const l5Hits = prop.last10
-                .slice(-5)
-                .filter((v) => v > activeLine).length;
-              const maxVal = Math.max(...prop.last10, activeLine * 1.2, 1);
-
-              const teamColor =
-                getTeamColors(prop.league, prop.teamSlug)?.[0] ??
-                "var(--pl-aura-default-home)";
-
-              const rawOddsText = propOddsInputs[prop.id] ?? "";
-              const parsedCustomDec = rawOddsText.trim()
-                ? parseUserOdds(rawOddsText)
-                : null;
-              const activeBookOverDec =
-                parsedCustomDec && parsedCustomDec > 1
-                  ? parsedCustomDec
-                  : prop.marketOverDecimal;
-              const liveEdgePts = (evalRes.pOver - 1 / activeBookOverDec) * 100;
-
-              const propPickId = `${prop.id}-over-${activeLine.toFixed(1)}`;
-              const alreadySealed = journal.some((j) => j.pickId === propPickId);
-
-              return (
-                <article
-                  key={prop.id}
-                  className="glass-lens glass-ring rounded-3xl p-5 space-y-4 relative overflow-hidden"
-                  data-prop-card={prop.id}
+          <>
+            {/* Barra unificada de filtros planos (Deporte · Mercados NBA · Muestra ≥ 45 min · Búsqueda) */}
+            <section
+              className="glass-card glass-ring rounded-2xl p-4 space-y-3"
+              aria-label="Filtrar props y tendencias de jugadores"
+              data-props-filter-bar=""
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2.5">
+                <div
+                  className="flex flex-wrap items-center gap-1.5 min-w-0"
+                  role="group"
+                  aria-label="Filtrar por deporte"
                 >
-                  <LensGlowOrbs primaryColor={teamColor} subtle />
+                  <button
+                    type="button"
+                    className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
+                    aria-pressed={activeSport === "all"}
+                    onClick={() => {
+                      setActiveSport("all");
+                      setNbaStatFilter("all");
+                      setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+                      setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
+                    }}
+                  >
+                    Todos ({enrichedCatalog.length + streakCards.length})
+                  </button>
+                  {availableSports.map((sp) => (
+                    <button
+                      key={sp.id}
+                      type="button"
+                      className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 num"
+                      aria-pressed={activeSport === sp.id}
+                      onClick={() => {
+                        setActiveSport(sp.id);
+                        if (sp.id !== "basketball") setNbaStatFilter("all");
+                        setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+                        setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
+                      }}
+                    >
+                      {sp.label} ({sp.propCount > 0 ? sp.propCount : sp.streakCount})
+                    </button>
+                  ))}
+                </div>
 
-                  <div className="space-y-4 relative z-10">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <CrestPedestal size="md" glowColor={teamColor}>
-                          <TeamBadge
-                            league={prop.league}
-                            slug={prop.teamSlug}
-                            name={prop.teamName}
-                            size={30}
-                          />
-                        </CrestPedestal>
-                        <div className="min-w-0">
-                          <span
-                            className="text-xs font-bold block truncate"
-                            style={{ color: "var(--pl-brand)" }}
-                          >
-                            {prop.leagueLabel} · {prop.matchLabel}
-                          </span>
-                          <h2 className="m-0 text-lg font-extrabold truncate">
-                            {prop.player} · {prop.statLabel}
-                          </h2>
-                        </div>
-                      </div>
-                      <span className="pl-pill shrink-0">{prop.position}</span>
-                    </div>
+                <div className="flex items-center gap-2 w-full sm:w-auto min-w-0">
+                  <input
+                    type="search"
+                    inputMode="search"
+                    enterKeyHint="search"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+                      setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
+                    }}
+                    placeholder="Buscar jugador, equipo o liga…"
+                    aria-label="Buscar jugador, equipo o liga en props"
+                    className="glass-input text-base sm:text-xs min-h-11 sm:min-h-9 px-3 rounded-xl w-full sm:w-64"
+                  />
+                </div>
+              </div>
 
-                    {/* Scrubber interactivo − / + con botón Base */}
+              {totalNbaProps > 0 || hasAnyMinGuardDiff || hasAnyLineupSignal ? (
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-1 hairline-t">
+                  {totalNbaProps > 0 && (activeSport === "all" || activeSport === "basketball") ? (
                     <div
-                      className="rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3"
-                      style={{ background: "var(--pl-surface)" }}
+                      className="flex flex-wrap items-center gap-1.5"
+                      role="group"
+                      aria-label="Filtrar mercado NBA"
+                      data-nba-stat-filter=""
                     >
-                      <div>
-                        <span
-                          className="block text-xs"
-                          style={{ color: "var(--pl-text-muted)" }}
-                        >
-                          Línea evaluada ({prop.engineName})
-                        </span>
-                        <div className="flex items-baseline gap-2">
-                          <strong
-                            className="num text-xl font-extrabold"
-                            data-prop-line={prop.id}
-                          >
-                            {activeLine.toFixed(1)}
-                          </strong>
-                          <span
-                            className="text-xs num font-bold"
-                            style={{ color: "var(--pl-success)" }}
-                          >
-                            Media proy.: {prop.projectionMean.toFixed(1)}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          disabled={offset === 0}
-                          onClick={() =>
-                            setLineOffsets((prev) => ({
-                              ...prev,
-                              [prop.id]: 0,
-                            }))
-                          }
-                          className="pl-btn-glass text-xs min-h-8 px-2.5 num"
-                        >
-                          Base ({prop.baseLine.toFixed(1)})
-                        </button>
-
-                        <div
-                          className="sl-stepper"
-                          role="group"
-                          aria-label={`Ajustar línea de ${prop.player}`}
-                        >
-                          <button
-                            type="button"
-                            aria-label={`Bajar línea de ${prop.player}`}
-                            onClick={() =>
-                              setLineOffsets((prev) => ({
-                                ...prev,
-                                [prop.id]: (prev[prop.id] ?? 0) - 1,
-                              }))
-                            }
-                          >
-                            −
-                          </button>
-                          <span className="num">Línea</span>
-                          <button
-                            type="button"
-                            aria-label={`Subir línea de ${prop.player}`}
-                            onClick={() =>
-                              setLineOffsets((prev) => ({
-                                ...prev,
-                                [prop.id]: (prev[prop.id] ?? 0) + 1,
-                              }))
-                            }
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Barras L10 o muestra agregada de temporada */}
-                    {prop.last10.length > 0 ? (
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between text-xs num">
-                          <span style={{ color: "var(--pl-text-muted)" }}>
-                            Últimos 10 juegos vs línea {activeLine.toFixed(1)}
-                          </span>
-                          <strong>
-                            L5: {l5Hits}/5 · L10: {l10Hits}/10
-                          </strong>
-                        </div>
-                        <div className="grid grid-cols-10 gap-1.5 items-end h-20 pt-2">
-                          {prop.last10.map((val, idx) => {
-                            const hit = val > activeLine;
-                            const pct = Math.max(
-                              16,
-                              Math.round((val / maxVal) * 100),
-                            );
-                            return (
-                              <div
-                                key={idx}
-                                className="flex flex-col items-center gap-1 h-full justify-end"
-                              >
-                                <div
-                                  className="w-full rounded-t-md transition-all"
-                                  style={{
-                                    height: `${pct}%`,
-                                    background: hit
-                                      ? "var(--pl-success)"
-                                      : "var(--pl-surface-hover)",
-                                  }}
-                                />
-                                <span
-                                  className="text-[10px] num"
-                                  style={{ color: "var(--pl-text-muted)" }}
-                                >
-                                  {val}
-                                </span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        className="rounded-xl px-3 py-2 text-xs num flex items-center justify-between"
-                        style={{
-                          background: "var(--pl-surface-soft)",
-                          border: "1px solid var(--pl-border-subtle)",
-                          color: "var(--pl-text-muted)",
-                        }}
-                      >
-                        <span>Media proyectada por aparición</span>
-                        <strong style={{ color: "var(--pl-text-primary)" }}>
-                          {prop.projectionMean.toFixed(2)} ± {prop.projectionSd.toFixed(2)}
-                        </strong>
-                      </div>
-                    )}
-
-                    <div className="grid grid-cols-2 gap-2.5 text-xs num">
-                      <div
-                        className="rounded-xl p-3"
-                        style={{ background: "var(--pl-surface)" }}
-                      >
-                        <span
-                          className="block"
-                          style={{ color: "var(--pl-text-muted)" }}
-                        >
-                          Más de {activeLine.toFixed(1)}
-                        </span>
-                        <strong
-                          className="text-base font-extrabold"
-                          style={{ color: "var(--pl-brand)" }}
-                        >
-                          {(evalRes.pOver * 100).toFixed(1)} % · Justa{" "}
-                          {formatOddsValue(evalRes.fairOverDecimal, oddsFormat)}
-                        </strong>
-                      </div>
-                      <div
-                        className="rounded-xl p-3"
-                        style={{ background: "var(--pl-surface)" }}
-                      >
-                        <span
-                          className="block"
-                          style={{ color: "var(--pl-text-muted)" }}
-                        >
-                          Menos de {activeLine.toFixed(1)}
-                        </span>
-                        <strong className="text-base font-extrabold">
-                          {(evalRes.pUnder * 100).toFixed(1)} % · Justa{" "}
-                          {formatOddsValue(evalRes.fairUnderDecimal, oddsFormat)}
-                        </strong>
-                      </div>
-                    </div>
-
-                    {/* Calculadora en vivo Geodesic por tarjeta */}
-                    <div
-                      className="rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2 text-xs"
-                      style={{ background: "var(--pl-surface)" }}
-                    >
-                      <div className="flex flex-wrap items-center gap-2">
-                        <label
-                          htmlFor={`prop-odds-${prop.id}`}
-                          className="font-bold inline-flex items-center gap-1"
-                        >
-                          <MaestroIcon
-                            name="activity"
-                            size={13}
-                            style={{ color: "var(--pl-brand)" }}
-                          />
-                          <span>Tu momio Over:</span>
-                        </label>
-                        <input
-                          id={`prop-odds-${prop.id}`}
-                          type="text"
-                          value={rawOddsText}
-                          onChange={(e) =>
-                            setPropOddsInputs((prev) => ({
-                              ...prev,
-                              [prop.id]: e.target.value,
-                            }))
-                          }
-                          placeholder={formatOddsValue(
-                            prop.marketOverDecimal,
-                            oddsFormat,
-                          )}
-                          className="glass-input px-2.5 py-1 text-xs font-bold num w-28"
-                        />
-                      </div>
-
                       <span
-                        className={`pl-pill num ${
-                          liveEdgePts >= 0
-                            ? "pl-pill--success"
-                            : "pl-pill--warning"
-                        }`}
-                      >
-                        Ventaja:{" "}
-                        {liveEdgePts >= 0
-                          ? `+${liveEdgePts.toFixed(1)}`
-                          : liveEdgePts.toFixed(1)}{" "}
-                        pts
-                      </span>
-                    </div>
-
-                    <p
-                      className="m-0 text-xs leading-relaxed"
-                      style={{ color: "var(--pl-text-secondary)" }}
-                    >
-                      {prop.contextNote}
-                    </p>
-
-                    <div className="flex items-center justify-between gap-2 pt-1 hairline-t">
-                      <span
-                        className="text-xs num"
+                        className="text-[11px] font-bold uppercase tracking-wide pr-1"
                         style={{ color: "var(--pl-text-muted)" }}
                       >
-                        1.00u · Casa{" "}
-                        {formatOddsValue(activeBookOverDec, oddsFormat)}
+                        NBA:
                       </span>
                       <button
                         type="button"
-                        className="pl-btn-primary text-xs min-h-9 px-3.5 inline-flex items-center gap-1.5"
-                        onClick={() =>
-                          handleSealProp(
-                            prop,
-                            activeLine,
-                            evalRes.pOver,
-                            evalRes.fairOverDecimal,
-                            activeBookOverDec,
-                          )
-                        }
+                        className="seg-btn text-xs min-h-11 sm:min-h-9 px-2.5 num"
+                        aria-pressed={nbaStatFilter === "all"}
+                        onClick={() => {
+                          setNbaStatFilter("all");
+                          setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+                        }}
                       >
-                        <MaestroIcon
-                          name={alreadySealed ? "check" : "ticket"}
-                          size={13}
-                        />
-                        <span>
-                          {alreadySealed
-                            ? "Prop sellado en Bitácora"
-                            : "Sellar Prop en mi Bitácora"}
-                        </span>
+                        Todos
                       </button>
+                      {NBA_STAT_CODE_ORDER.map((code) => {
+                        const count = nbaStatCounts[code];
+                        if (count === 0) return null;
+                        return (
+                          <button
+                            key={code}
+                            type="button"
+                            className="seg-btn text-xs min-h-11 sm:min-h-9 px-2.5 num font-bold"
+                            aria-pressed={nbaStatFilter === code}
+                            onClick={() => {
+                              setActiveSport("basketball");
+                              setNbaStatFilter(code);
+                              setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+                            }}
+                          >
+                            {code} ({count})
+                          </button>
+                        );
+                      })}
                     </div>
+                  ) : (
+                    <span />
+                  )}
+
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {hasAnyMinGuardDiff ? (
+                      <button
+                        type="button"
+                        className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 font-semibold"
+                        aria-pressed={onlyMinMinutesGuard}
+                        data-props-min-minutes-toggle=""
+                        onClick={() => {
+                          setOnlyMinMinutesGuard((v) => !v);
+                          setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+                        }}
+                      >
+                        {MIN_SAMPLE_GUARD_LABEL}
+                      </button>
+                    ) : null}
+
+                    {hasAnyLineupSignal ? (
+                      <button
+                        type="button"
+                        className="seg-btn text-xs min-h-11 sm:min-h-9 px-3 font-semibold"
+                        aria-pressed={onlyLineupSignal}
+                        data-props-lineup-toggle=""
+                        onClick={() => {
+                          setOnlyLineupSignal((v) => !v);
+                          setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+                        }}
+                      >
+                        Titular confirmado / probable
+                      </button>
+                    ) : null}
                   </div>
-                </article>
-              );
-            })}
-          </div>
+                </div>
+              ) : null}
+            </section>
+
+            {/* Catálogo principal de Props calibrados con Spacetime + Momio justo */}
+            {enrichedCatalog.length > 0 ? (
+              <section className="space-y-4" aria-label="Props calibrados por partido">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h2 className="m-0 text-base sm:text-lg font-extrabold">
+                    Proyecciones individuales calibradas
+                  </h2>
+                  <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+                    {filteredCatalog.length}{" "}
+                    {filteredCatalog.length === 1 ? "prop disponible" : "props disponibles"}
+                  </span>
+                </div>
+
+                {filteredCatalog.length === 0 ? (
+                  <div className="glass-card glass-ring rounded-2xl p-5 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    No hay proyecciones individuales que coincidan con este filtro. Prueba quitando algún criterio o cambiando de deporte.
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                      {filteredCatalog.slice(0, catalogVisibleCount).map((entry) => {
+                        const { prop, statCode, lineupSignal, refereeSummary, minMinutesMet } = entry;
+                        const offset = lineOffsets[prop.id] ?? 0;
+                        const activeLine = Math.min(
+                          prop.maxLine,
+                          Math.max(prop.minLine, prop.baseLine + offset * prop.step),
+                        );
+                        const evalRes = evaluatePropLineProbability(
+                          prop.projectionMean,
+                          prop.projectionSd,
+                          activeLine,
+                        );
+                        const l10Hits = prop.last10.filter((v) => v > activeLine).length;
+                        const l5Sample = prop.last10.slice(-5);
+                        const l5Hits = l5Sample.filter((v) => v > activeLine).length;
+                        const maxVal = Math.max(...prop.last10, activeLine * 1.2, 1);
+
+                        const rawOddsText = propOddsInputs[prop.id] ?? "";
+                        const parsedCustomDec = rawOddsText.trim()
+                          ? parseUserOdds(rawOddsText)
+                          : null;
+                        const hasUserOdds = Boolean(parsedCustomDec && parsedCustomDec > 1.01);
+                        const hasComparableMarketOdds =
+                          hasUserOdds || prop.hasVerifiedMarketQuote === true;
+                        const activeBookOverDec =
+                          hasUserOdds && parsedCustomDec
+                            ? parsedCustomDec
+                            : prop.hasVerifiedMarketQuote
+                              ? prop.marketOverDecimal
+                              : evalRes.fairOverDecimal;
+                        const liveEdgePts = (evalRes.pOver - 1 / activeBookOverDec) * 100;
+
+                        const propPickId = `${prop.id}-over-${activeLine.toFixed(1)}`;
+                        const alreadySealed = journal.some((j) => j.pickId === propPickId);
+                        const isDoubtful =
+                          prop.availabilityStatus === "doubtful" ||
+                          lineupSignal?.status === "doubtful";
+
+                        return (
+                          <article
+                            key={prop.id}
+                            className="glass-card glass-ring rounded-2xl p-5 space-y-4"
+                            data-prop-card={prop.id}
+                          >
+                            <div className="space-y-4">
+                              <div className="flex flex-wrap items-start justify-between gap-2">
+                                <div className="flex items-center gap-3 min-w-0 flex-1">
+                                  <span
+                                    className="inline-flex items-center justify-center rounded-xl size-10 shrink-0"
+                                    style={{
+                                      background: "var(--pl-surface)",
+                                      border: "1px solid var(--pl-border)",
+                                    }}
+                                  >
+                                    <TeamBadge
+                                      league={prop.league}
+                                      slug={prop.teamSlug}
+                                      name={prop.teamName}
+                                      size={28}
+                                    />
+                                  </span>
+                                  <div className="min-w-0">
+                                    <span
+                                      className="text-xs font-bold block truncate num"
+                                      style={{ color: "var(--pl-brand)" }}
+                                    >
+                                      {prop.leagueLabel} · {prop.matchLabel}
+                                      {prop.kickoffLocal ? ` · ${prop.kickoffLocal}` : ""}
+                                    </span>
+                                    <h3 className="m-0 text-base sm:text-lg font-extrabold truncate">
+                                      {prop.playerHref ? (
+                                        <a
+                                          href={prop.playerHref}
+                                          onClick={(e) => {
+                                            if (
+                                              e.metaKey ||
+                                              e.ctrlKey ||
+                                              e.shiftKey ||
+                                              e.altKey ||
+                                              e.button !== 0
+                                            ) {
+                                              return;
+                                            }
+                                            e.preventDefault();
+                                            navigateTo(prop.playerHref!);
+                                          }}
+                                          className="pl-team-link"
+                                        >
+                                          {prop.player}
+                                        </a>
+                                      ) : (
+                                        prop.player
+                                      )}{" "}
+                                      · {prop.statLabel}
+                                    </h3>
+                                  </div>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+                                  {statCode ? (
+                                    <span className="pl-pill pl-pill--info text-[11px] font-extrabold num">
+                                      {statCode}
+                                    </span>
+                                  ) : null}
+                                  <span className="pl-pill text-[11px]">{prop.position}</span>
+                                </div>
+                              </div>
+
+                              {/* Señales limpias de muestra mínima, alineación y disponibilidad */}
+                              {minMinutesMet || lineupSignal || isDoubtful ? (
+                                <div className="flex flex-wrap items-center gap-1.5 text-[11px] num">
+                                  {minMinutesMet ? (
+                                    <span
+                                      className="pl-pill pl-pill--success font-semibold"
+                                      data-prop-sample-guard="met"
+                                    >
+                                      {MIN_SAMPLE_GUARD_LABEL}
+                                      {prop.avgMinutes != null
+                                        ? ` · ${prop.avgMinutes.toFixed(1)} min/p`
+                                        : ""}
+                                    </span>
+                                  ) : null}
+                                  {lineupSignal &&
+                                  (lineupSignal.status === "confirmed" ||
+                                    lineupSignal.status === "probable") ? (
+                                    <span
+                                      className={`pl-pill font-semibold ${
+                                        lineupSignal.status === "confirmed"
+                                          ? "pl-pill--success"
+                                          : "pl-pill--info"
+                                      }`}
+                                      data-prop-lineup-signal={lineupSignal.status}
+                                    >
+                                      {lineupSignal.label}
+                                    </span>
+                                  ) : null}
+                                  {isDoubtful ? (
+                                    <span className="pl-pill pl-pill--warning font-semibold">
+                                      En duda
+                                    </span>
+                                  ) : null}
+                                </div>
+                              ) : null}
+
+                              {/* Scrubber interactivo − / + con botón Base */}
+                              <div className="pl-parlay-surface-tile rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+                                <div>
+                                  <span
+                                    className="block text-xs"
+                                    style={{ color: "var(--pl-text-muted)" }}
+                                  >
+                                    Línea evaluada ({prop.engineName})
+                                  </span>
+                                  <div className="flex flex-wrap items-baseline gap-2">
+                                    <strong
+                                      className="num text-xl font-extrabold"
+                                      data-prop-line={prop.id}
+                                    >
+                                      {activeLine.toFixed(1)}
+                                    </strong>
+                                    <span
+                                      className="text-xs num font-bold"
+                                      style={{ color: "var(--pl-success)" }}
+                                    >
+                                      Proy. Spacetime: {prop.projectionMean.toFixed(1)}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    type="button"
+                                    disabled={offset === 0}
+                                    onClick={() =>
+                                      setLineOffsets((prev) => ({
+                                        ...prev,
+                                        [prop.id]: 0,
+                                      }))
+                                    }
+                                    className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-2.5 num"
+                                  >
+                                    Base ({prop.baseLine.toFixed(1)})
+                                  </button>
+
+                                  <div
+                                    className="sl-stepper"
+                                    role="group"
+                                    aria-label={`Ajustar línea de ${prop.player}`}
+                                  >
+                                    <button
+                                      type="button"
+                                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+                                      aria-label={`Bajar línea de ${prop.player}`}
+                                      onClick={() =>
+                                        setLineOffsets((prev) => ({
+                                          ...prev,
+                                          [prop.id]: (prev[prop.id] ?? 0) - 1,
+                                        }))
+                                      }
+                                    >
+                                      −
+                                    </button>
+                                    <span className="num">Línea</span>
+                                    <button
+                                      type="button"
+                                      className="min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+                                      aria-label={`Subir línea de ${prop.player}`}
+                                      onClick={() =>
+                                        setLineOffsets((prev) => ({
+                                          ...prev,
+                                          [prop.id]: (prev[prop.id] ?? 0) + 1,
+                                        }))
+                                      }
+                                    >
+                                      +
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Barras L10 planas o resumen de proyección */}
+                              {prop.last10.length > 0 ? (
+                                <div className="space-y-1.5">
+                                  <div className="flex items-center justify-between text-xs num">
+                                    <span style={{ color: "var(--pl-text-muted)" }}>
+                                      Últimos {prop.last10.length} juegos vs línea {activeLine.toFixed(1)}
+                                    </span>
+                                    <strong>
+                                      {l5Sample.length > 0 ? `L${l5Sample.length}: ${l5Hits}/${l5Sample.length} · ` : ""}
+                                      L{prop.last10.length}: {l10Hits}/{prop.last10.length}
+                                    </strong>
+                                  </div>
+                                  <div
+                                    className="grid gap-1.5 items-end h-20 pt-2"
+                                    style={{
+                                      gridTemplateColumns: `repeat(${Math.max(1, prop.last10.length)}, minmax(0, 1fr))`,
+                                    }}
+                                  >
+                                    {prop.last10.map((val, idx) => {
+                                      const hit = val > activeLine;
+                                      const pct = Math.max(
+                                        16,
+                                        Math.round((val / maxVal) * 100),
+                                      );
+                                      return (
+                                        <div
+                                          key={idx}
+                                          className="flex flex-col items-center gap-1 h-full justify-end"
+                                        >
+                                          <div
+                                            className="w-full rounded-t-md transition-[background-color]"
+                                            style={{
+                                              height: `${pct}%`,
+                                              background: hit
+                                                ? "var(--pl-success)"
+                                                : "var(--pl-surface-hover)",
+                                            }}
+                                          />
+                                          <span
+                                            className="text-[10px] num"
+                                            style={{ color: "var(--pl-text-muted)" }}
+                                          >
+                                            {val}
+                                          </span>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              ) : (
+                                <div
+                                  className="rounded-xl px-3 py-2 text-xs num flex items-center justify-between gap-2"
+                                  style={{
+                                    background: "var(--pl-surface-soft)",
+                                    border: "1px solid var(--pl-border-subtle)",
+                                    color: "var(--pl-text-muted)",
+                                  }}
+                                >
+                                  <span>Distribución Spacetime por aparición</span>
+                                  <strong style={{ color: "var(--pl-text)" }}>
+                                    {prop.projectionMean.toFixed(2)} ± {prop.projectionSd.toFixed(2)}
+                                  </strong>
+                                </div>
+                              )}
+
+                              <div className="grid grid-cols-2 gap-2.5 text-xs num">
+                                <div
+                                  className="rounded-xl p-3"
+                                  style={{ background: "var(--pl-surface)" }}
+                                >
+                                  <span
+                                    className="block"
+                                    style={{ color: "var(--pl-text-muted)" }}
+                                  >
+                                    Más de {activeLine.toFixed(1)}
+                                  </span>
+                                  <strong
+                                    className="text-sm sm:text-base font-extrabold"
+                                    style={{ color: "var(--pl-brand)" }}
+                                  >
+                                    {(evalRes.pOver * 100).toFixed(1)} % · Justo{" "}
+                                    {formatOddsValue(evalRes.fairOverDecimal, oddsFormat)}
+                                  </strong>
+                                </div>
+                                <div
+                                  className="rounded-xl p-3"
+                                  style={{ background: "var(--pl-surface)" }}
+                                >
+                                  <span
+                                    className="block"
+                                    style={{ color: "var(--pl-text-muted)" }}
+                                  >
+                                    Menos de {activeLine.toFixed(1)}
+                                  </span>
+                                  <strong className="text-sm sm:text-base font-extrabold">
+                                    {(evalRes.pUnder * 100).toFixed(1)} % · Justo{" "}
+                                    {formatOddsValue(evalRes.fairUnderDecimal, oddsFormat)}
+                                  </strong>
+                                </div>
+                              </div>
+
+                              {/* Contexto arbitral cuando el partido tiene datos del silbante */}
+                              {refereeSummary ? (
+                                <div
+                                  className="rounded-xl px-3 py-2 flex flex-wrap items-center justify-between gap-2 text-xs num"
+                                  style={{
+                                    background: "var(--pl-surface)",
+                                    border: "1px solid var(--pl-row-rule)",
+                                  }}
+                                  data-prop-referee-context=""
+                                >
+                                  <span className="inline-flex items-center gap-1.5 min-w-0 font-semibold">
+                                    <MaestroIcon name="whistle" size={12} />
+                                    <span className="truncate">{refereeSummary.name}</span>
+                                  </span>
+                                  <span
+                                    className="inline-flex flex-wrap items-center gap-2"
+                                    style={{ color: "var(--pl-text-secondary)" }}
+                                  >
+                                    {refereeSummary.avgYellow !== null ? (
+                                      <span className="inline-flex items-center gap-1">
+                                        <SportEventIcon kind="yellow" size={11} />
+                                        <span>{refereeSummary.avgYellow.toFixed(1)} amar./p</span>
+                                      </span>
+                                    ) : null}
+                                    {refereeSummary.avgFouls !== null ? (
+                                      <span>{refereeSummary.avgFouls.toFixed(1)} faltas/p</span>
+                                    ) : null}
+                                    {refereeSummary.rigorLabel ? (
+                                      <span className="pl-pill text-[10px] font-bold">
+                                        {refereeSummary.rigorLabel}
+                                      </span>
+                                    ) : null}
+                                  </span>
+                                </div>
+                              ) : null}
+
+                              {/* Comparador Geodesic contra el momio del usuario */}
+                              <div
+                                className="rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2 text-xs"
+                                style={{ background: "var(--pl-surface)" }}
+                              >
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <label
+                                    htmlFor={`prop-odds-${prop.id}`}
+                                    className="font-bold inline-flex items-center gap-1"
+                                  >
+                                    <MaestroIcon
+                                      name="activity"
+                                      size={13}
+                                      style={{ color: "var(--pl-brand)" }}
+                                    />
+                                    <span>Tu momio Over:</span>
+                                  </label>
+                                  <input
+                                    id={`prop-odds-${prop.id}`}
+                                    type="text"
+                                    inputMode="decimal"
+                                    autoCorrect="off"
+                                    spellCheck={false}
+                                    value={rawOddsText}
+                                    onChange={(e) =>
+                                      setPropOddsInputs((prev) => ({
+                                        ...prev,
+                                        [prop.id]: e.target.value,
+                                      }))
+                                    }
+                                    placeholder={formatOddsValue(
+                                      evalRes.fairOverDecimal,
+                                      oddsFormat,
+                                    )}
+                                    className="glass-input px-2.5 py-1 text-base sm:text-xs font-bold num min-h-11 sm:min-h-9 w-28"
+                                  />
+                                </div>
+
+                                {hasComparableMarketOdds ? (
+                                  <span
+                                    className={`pl-pill num ${
+                                      liveEdgePts >= 0
+                                        ? "pl-pill--success"
+                                        : "pl-pill--warning"
+                                    }`}
+                                  >
+                                    Ventaja:{" "}
+                                    {liveEdgePts >= 0
+                                      ? `+${liveEdgePts.toFixed(1)}`
+                                      : liveEdgePts.toFixed(1)}{" "}
+                                    pts
+                                  </span>
+                                ) : (
+                                  <span className="pl-pill num">
+                                    Momio justo {formatOddsValue(evalRes.fairOverDecimal, oddsFormat)}
+                                  </span>
+                                )}
+                              </div>
+
+                              <p
+                                className="m-0 text-xs leading-relaxed"
+                                style={{ color: "var(--pl-text-secondary)" }}
+                              >
+                                {prop.contextNote}
+                                {prop.injuryNote ? ` · Nota médica: ${prop.injuryNote}` : ""}
+                              </p>
+
+                              <div className="flex flex-wrap items-center justify-between gap-2 pt-1 hairline-t">
+                                <span
+                                  className="text-xs num"
+                                  style={{ color: "var(--pl-text-muted)" }}
+                                >
+                                  1.00u ·{" "}
+                                  {hasComparableMarketOdds
+                                    ? `Casa ${formatOddsValue(activeBookOverDec, oddsFormat)}`
+                                    : `Justo ${formatOddsValue(evalRes.fairOverDecimal, oddsFormat)}`}
+                                </span>
+                                <button
+                                  type="button"
+                                  className="pl-btn-primary text-xs min-h-11 sm:min-h-9 px-3.5 inline-flex items-center gap-1.5"
+                                  onClick={() =>
+                                    handleSealProp(
+                                      prop,
+                                      activeLine,
+                                      evalRes.pOver,
+                                      evalRes.fairOverDecimal,
+                                      activeBookOverDec,
+                                    )
+                                  }
+                                >
+                                  <MaestroIcon
+                                    name={alreadySealed ? "check" : "ticket"}
+                                    size={13}
+                                  />
+                                  <span>
+                                    {alreadySealed
+                                      ? "Prop sellado en Bitácora"
+                                      : "Sellar Prop en mi Bitácora"}
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+
+                    {filteredCatalog.length > catalogVisibleCount ? (
+                      <div className="flex justify-center pt-2">
+                        <button
+                          type="button"
+                          className="pl-btn-glass min-h-11 sm:min-h-9 px-5 text-xs font-bold num"
+                          onClick={() =>
+                            setCatalogVisibleCount((c) => c + INITIAL_CATALOG_PAGE_SIZE)
+                          }
+                        >
+                          Mostrar más props ({filteredCatalog.length - catalogVisibleCount} restantes)
+                        </button>
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </section>
+            ) : null}
+
+            {/* Explorador de tendencias contra línea deslizable */}
+            {streakCards.length > 0 ? (
+              <section className="space-y-4" aria-label="Tendencias de jugadores contra línea">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <h2 className="m-0 text-base sm:text-lg font-extrabold">
+                      Rachas verificadas contra línea deslizable
+                    </h2>
+                    <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Últimos 5, 10 o 20 juegos reales con probabilidad ajustada y momio justo calibrado.
+                    </p>
+                  </div>
+                  <span className="pl-pill text-xs num">
+                    {filteredStreaks.length} jugadores
+                  </span>
+                </div>
+
+                {filteredStreaks.length > 0 ? (
+                  <>
+                    <div className="pl-props-grid">
+                      {filteredStreaks.slice(0, streakVisibleCount).map((card) => (
+                        <PlayerPropStreakCard
+                          key={card.id}
+                          {...card}
+                          oddsFormat={oddsFormat}
+                          onNavigate={navigateTo}
+                        />
+                      ))}
+                    </div>
+                    {filteredStreaks.length > streakVisibleCount ? (
+                      <div className="flex justify-center pt-2">
+                        <button
+                          type="button"
+                          className="pl-btn-glass min-h-11 sm:min-h-9 px-5 text-xs font-bold num"
+                          onClick={() =>
+                            setStreakVisibleCount((c) => c + INITIAL_STREAK_PAGE_SIZE)
+                          }
+                        >
+                          Mostrar más tendencias ({filteredStreaks.length - streakVisibleCount} restantes)
+                        </button>
+                      </div>
+                    ) : null}
+                  </>
+                ) : (
+                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    Ningún jugador en tendencias coincide con el filtro actual.
+                  </p>
+                )}
+              </section>
+            ) : null}
+          </>
         )}
       </ClubWorkspaceShell>
     </AtmosphereStage>

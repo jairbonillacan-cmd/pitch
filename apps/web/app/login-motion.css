@@ -1,3 +1,4 @@
+@layer components {
 /*
   Movimiento de /login (LoginSurfaceV4 + LoginPreviewPanel).
   Todo va acotado a .pl-auth--login: /signup comparte las clases .pl-auth-* y no cambia.
@@ -208,7 +209,6 @@
   overflow: hidden;
   isolation: isolate;
   transition:
-    box-shadow 200ms ease,
     background-color 200ms ease,
     border-color 200ms ease,
     transform 160ms var(--pl-login-ease),
@@ -297,7 +297,6 @@
 .pl-auth--login .pl-auth-input {
   transition:
     border-color 200ms ease,
-    box-shadow 240ms var(--pl-login-ease),
     background-color 200ms ease;
 }
 
@@ -411,4 +410,5 @@
   .pl-auth-spinner {
     animation: pl-login-fade 900ms ease-in-out infinite alternate;
   }
+}
 }

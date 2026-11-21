@@ -41,9 +41,10 @@
   caret-color: var(--pl-brand);
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: clip;
   /* Espacio para la barra inferior móvil; en escritorio no hace falta. */
-  padding-bottom: 132px;
+  padding-bottom: calc(108px + env(safe-area-inset-bottom, 0px));
 }
 @media (min-width: 1024px) {
   .pl-stage {
@@ -203,8 +204,7 @@ html[data-theme="light"] .glass-card {
   color: var(--pl-text);
   border-radius: 10px;
   transition:
-    border-color var(--time-fast) ease,
-    box-shadow var(--time-fast) ease;
+    border-color var(--time-fast) ease;
 }
 .glass-input::placeholder {
   color: var(--pl-text-muted);
@@ -333,8 +333,6 @@ html:has(.panel-header) {
 dialog.pl-native-dialog[open],
 dialog.pl-native-drawer[open],
 dialog.pl-native-dialog .glass-lens {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
   background: var(--pl-glass-modal);
   border-color: var(--pl-border-strong);
 }
@@ -355,8 +353,6 @@ dialog.pl-native-dialog .glass-lens {
   border-color: var(--pl-border-strong);
 }
 .select__popover.pl-select-popover {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
   background: var(--pl-glass-menu);
   box-shadow: var(--pl-lens-shadow), var(--shadow-overlay);
 }
@@ -470,8 +466,8 @@ dialog.pl-native-dialog .glass-lens {
 }
 .sl-stepper > button,
 .sl-stepper > span {
-  height: 31px;
-  min-width: 34px;
+  min-height: 44px;
+  min-width: 44px;
   padding: 0 10px;
   display: inline-flex;
   align-items: center;
@@ -482,6 +478,13 @@ dialog.pl-native-dialog .glass-lens {
   font-weight: 700;
   border: 0;
   user-select: none;
+}
+@media (min-width: 640px) {
+  .sl-stepper > button,
+  .sl-stepper > span {
+    min-height: 36px;
+    min-width: 36px;
+  }
 }
 .sl-stepper > button {
   cursor: pointer;
@@ -696,59 +699,44 @@ dialog.pl-native-dialog .glass-lens {
 }
 
 /* ---------- Barras de Probabilidad dentro de .pl-stage ---------- */
-/* Segmentos con corte diagonal (como el PitchLab original). El favorito va en verde:
-   de un vistazo se ve quién tiene más probabilidad. */
+/* Barras de probabilidad planas editoriales con tokens PitchLab (ADR-054). */
 .pl-stage .psplit {
-  --cut: 7px;
   display: flex;
-  gap: 2px;
-  height: 10px;
+  gap: 3px;
+  height: 6px;
   width: 100%;
 }
 .pl-stage .psplit > span {
   display: block;
-  min-width: 10px;
-  background: color-mix(in srgb, var(--pl-text-muted) 34%, transparent);
-  clip-path: polygon(var(--cut) 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
+  min-width: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pl-text-muted) 26%, transparent);
   transform-origin: left center;
   transition:
-    flex 360ms var(--ease-out),
+    flex 300ms var(--ease-out),
     background-color 180ms ease;
-  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-    animation: pl-bar-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
-  }
-}
-.pl-stage .psplit > span:first-child {
-  clip-path: polygon(0 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
-  border-radius: 3px 0 0 3px;
-}
-.pl-stage .psplit > span:last-child {
-  clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%);
-  border-radius: 0 3px 3px 0;
-}
-.pl-stage .psplit > span:nth-child(2) {
-  animation-delay: 60ms;
-}
-.pl-stage .psplit > span:nth-child(3) {
-  animation-delay: 120ms;
 }
 .pl-stage .psplit > span.lead {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--pl-success) 70%, transparent), var(--pl-success));
+  background: var(--pl-success);
 }
 .pl-stage .psplit-wrap {
   display: grid;
   gap: 6px;
 }
 .pl-stage .psplit-legend {
-  display: flex;
-  gap: 2px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 8px;
   font-size: 0.75rem;
-  line-height: 1.2;
+  line-height: 1.25;
+}
+.pl-stage .psplit-legend[data-cols="2"] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 .pl-stage .psplit-legend > span {
   display: flex;
   flex-direction: column;
-  min-width: 56px;
+  min-width: 0;
   color: var(--pl-text-muted);
 }
 .pl-stage .psplit-legend > span:last-child:not(:first-child) {
@@ -787,8 +775,8 @@ dialog.pl-native-dialog .glass-lens {
 
 .pl-stage .pbar {
   position: relative;
-  height: 8px;
-  border-radius: 3px;
+  height: 6px;
+  border-radius: 999px;
   overflow: hidden;
   background: var(--pl-surface-hover);
 }
@@ -796,20 +784,16 @@ dialog.pl-native-dialog .glass-lens {
   position: absolute;
   inset: 0 auto 0 0;
   width: var(--w, 0%);
-  border-radius: 3px 0 0 3px;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
-  background: color-mix(in srgb, var(--pl-text-muted) 60%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pl-text-muted) 56%, transparent);
   transform-origin: left center;
   transition:
-    width 340ms var(--ease-out),
-    transform 320ms var(--ease-out),
-    opacity 220ms var(--ease-out);
-  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-    animation: pl-bar-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
-  }
+    width 300ms var(--ease-out),
+    transform 280ms var(--ease-out),
+    opacity 200ms var(--ease-out);
 }
 .pl-stage .pbar.lead > span {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--pl-success) 70%, transparent), var(--pl-success));
+  background: var(--pl-success);
 }
 .pl-stage .pbar.pos > span {
   background: var(--pl-success);
@@ -1117,9 +1101,16 @@ dialog.pl-native-dialog .glass-lens {
   min-width: 0;
   flex: 1 1 auto;
   border-radius: 11px;
+  overflow: hidden;
 }
 .pl-header-kbd-group {
+  display: none;
   gap: 4px;
+}
+@media (min-width: 768px) {
+  .pl-header-kbd-group {
+    display: inline-flex;
+  }
 }
 .pl-header-kbd {
   display: inline-flex;
@@ -1155,22 +1146,28 @@ dialog.pl-native-dialog .glass-lens {
 @media (min-width: 640px) {
   .pl-header-search {
     flex: 0 1 360px;
-    min-width: 220px;
+    min-width: 0;
     max-width: 400px;
   }
 }
 @media (min-width: 1024px) {
   .pl-header-search {
-    flex: 1 1 240px;
-    min-width: 110px;
-    max-width: 340px;
+    flex: 1 1 0%;
+    min-width: 0;
+    max-width: 320px;
+    container: header-search / inline-size;
   }
 }
 @media (min-width: 1280px) {
   .pl-header-search {
-    flex: 1 1 280px;
-    min-width: 110px;
-    max-width: 380px;
+    flex: 1 1 0%;
+    min-width: 0;
+    max-width: 360px;
+  }
+}
+@container header-search (max-width: 165px) {
+  .pl-header-kbd-group {
+    display: none;
   }
 }
 
@@ -1179,7 +1176,7 @@ dialog.pl-native-dialog .glass-lens {
   z-index: 2;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 12px 16px calc(92px + env(safe-area-inset-bottom, 0px));
+  padding: 12px 16px calc(100px + env(safe-area-inset-bottom, 0px));
 }
 @media (max-width: 1023px) {
   html:has(.mobile-dock) {
@@ -1257,14 +1254,12 @@ dialog.pl-native-dialog .glass-lens {
     transition:
       grid-template-columns 220ms var(--pl-ease-rail),
       background-color var(--time-fast) ease,
-      color var(--time-fast) ease,
-      box-shadow var(--time-fast) ease;
+      color var(--time-fast) ease;
   }
   .pl-header-nav-toggle {
     transition:
       background-color var(--time-fast) ease,
-      color var(--time-fast) ease,
-      box-shadow var(--time-fast) ease;
+      color var(--time-fast) ease;
   }
 }
 .pl-header-nav-glyph {
@@ -1660,9 +1655,17 @@ dialog.pl-native-dialog .glass-lens {
 /* Simulador de Rol (Visitante / Suscriptor / Tipster / Admin) en dev/preview */
 .role-sim-pill {
   position: fixed;
+  top: auto;
+  left: auto;
   right: 14px;
   bottom: 14px;
   z-index: 48;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  max-height: fit-content;
+  align-self: flex-end;
+  flex-direction: row;
   border-radius: 999px;
   padding: 4px 6px;
   display: inline-flex;
@@ -1768,8 +1771,6 @@ dialog.pl-native-dialog[open] {
   background: var(--pl-glass-modal, var(--pl-surface-elevated));
   border: 1px solid var(--pl-border-strong);
   box-shadow: var(--pl-shadow-overlay, 0 24px 64px -24px rgb(0 0 0 / 0.55));
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
 }
 
 dialog.pl-native-drawer[open] {
@@ -2474,305 +2475,7 @@ html[data-theme="light"] .pl-tipster-badge {
   color: oklch(0.5 0.12 70);
 }
 
-/* ---------- Comunidad: timeline estilo feed ---------- */
-.pl-feed-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--pl-border);
-}
-.pl-feed-tabs button {
-  position: relative;
-  min-height: 48px;
-  border: 0;
-  background: transparent;
-  color: var(--pl-text-muted);
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color var(--time-fast) ease, color var(--time-fast) ease;
-}
-.pl-feed-tabs button:hover {
-  background: var(--pl-surface-hover);
-}
-.pl-feed-tabs button[aria-pressed="true"] {
-  color: var(--pl-text);
-}
-.pl-feed-tabs button[aria-pressed="true"]::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 56px;
-  height: 3px;
-  translate: -50% 0;
-  border-radius: 3px;
-  background: var(--pl-brand);
-}
-.pl-feed-composer,
-.pl-feed-post {
-  display: flex;
-  gap: 12px;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--pl-border);
-}
-.pl-feed-post {
-  transition: background-color var(--time-fast) ease;
-}
-.pl-feed-post:hover {
-  background: color-mix(in srgb, var(--pl-surface-hover) 55%, transparent);
-}
-.pl-feed-post:last-child {
-  border-bottom: 0;
-}
-.pl-feed-avatar {
-  display: inline-grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 800;
-}
-.pl-feed-textarea {
-  width: 100%;
-  min-height: 52px;
-  border: 0;
-  background: transparent;
-  color: var(--pl-text);
-  font-family: inherit;
-  font-size: 1.05rem;
-  line-height: 1.45;
-  resize: none;
-  field-sizing: content;
-}
-.pl-feed-textarea:focus {
-  outline: none;
-}
-.pl-feed-textarea::placeholder {
-  color: var(--pl-text-muted);
-}
-.pl-feed-attach {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  max-width: 100%;
-  min-height: 32px;
-  padding: 0 10px;
-  border-radius: 999px;
-  color: var(--pl-brand);
-  background: color-mix(in srgb, var(--pl-brand) 12%, transparent);
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-.pl-feed-attach select {
-  min-width: 0;
-  max-width: 220px;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-.pl-feed-quote {
-  display: grid;
-  gap: 4px;
-  padding: 10px 12px;
-  border: 1px solid var(--pl-border);
-  border-radius: 14px;
-  background: var(--pl-surface);
-}
-.pl-feed-actions {
-  display: flex;
-  justify-content: space-between;
-  max-width: 380px;
-  margin-left: -8px;
-}
-.pl-feed-actions button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 34px;
-  padding: 0 8px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--pl-text-muted);
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: background-color var(--time-fast) ease, color var(--time-fast) ease;
-}
-.pl-feed-actions button:hover {
-  color: var(--pl-brand);
-  background: color-mix(in srgb, var(--pl-brand) 12%, transparent);
-}
-.pl-feed-actions button.is-liked,
-.pl-feed-actions button.is-liked:hover {
-  color: oklch(0.68 0.21 10);
-}
-.pl-feed-actions button.is-liked svg {
-  fill: currentColor;
-}
-.pl-feed-follow {
-  flex-shrink: 0;
-  min-height: 30px;
-  padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background: var(--pl-text);
-  color: var(--background-primary);
-  font-size: 0.8rem;
-  font-weight: 800;
-  cursor: pointer;
-}
-.pl-feed-follow.is-following {
-  background: transparent;
-  color: var(--pl-text);
-  border-color: var(--pl-border);
-}
-.pl-feed-thread {
-  display: grid;
-  gap: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--pl-border);
-}
-
-/* ---------- Perfil ---------- */
-.pl-profile-cover {
-  position: relative;
-  height: 148px;
-  overflow: hidden;
-  opacity: 0.9;
-}
-.pl-profile-cover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 40%, color-mix(in srgb, black 45%, transparent));
-}
-.pl-profile-avatar {
-  position: relative;
-  z-index: 1;
-  display: inline-grid;
-  place-items: center;
-  width: 104px;
-  height: 104px;
-  margin-top: -56px;
-  border-radius: 999px;
-  border: 4px solid var(--pl-surface-elevated);
-  font-size: 1.9rem;
-  font-weight: 800;
-  box-shadow: 0 10px 30px -10px color-mix(in srgb, black 60%, transparent);
-}
-.pl-profile-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 0;
-  border: 1px solid var(--pl-border);
-  border-radius: 16px;
-  overflow: hidden;
-}
-.pl-profile-stats > div {
-  padding: 14px 16px;
-}
-.pl-profile-stats > div + div {
-  border-left: 1px solid var(--pl-border);
-}
-.pl-profile-stats dt {
-  font-size: 0.75rem;
-  color: var(--pl-text-muted);
-}
-.pl-profile-stats dd {
-  margin: 2px 0 0;
-  white-space: nowrap;
-  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
-  font-weight: 800;
-}
-.pl-profile-cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 16px;
-  border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--pl-brand) 35%, transparent);
-  background: color-mix(in srgb, var(--pl-brand) 10%, transparent);
-  color: var(--pl-text);
-  text-decoration: none;
-  transition: background-color var(--time-fast) ease;
-}
-.pl-profile-cta:hover {
-  background: color-mix(in srgb, var(--pl-brand) 16%, transparent);
-}
-
-/* ---------- Referidos: enlace y tarjeta de regalo ---------- */
-.pl-ref-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 6px 6px 14px;
-  border-radius: 14px;
-  border: 1px solid var(--pl-border);
-  background: var(--pl-surface);
-}
-.pl-ref-link-url {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-.pl-gift-card {
-  --pl-ultra-angle: 0deg;
-  position: relative;
-  aspect-ratio: 1.586;
-  padding: 1.5px;
-  border-radius: 22px;
-  background: conic-gradient(
-    from var(--pl-ultra-angle),
-    oklch(0.72 0.21 25),
-    oklch(0.84 0.17 85),
-    oklch(0.8 0.2 150),
-    oklch(0.74 0.15 230),
-    oklch(0.66 0.23 300),
-    oklch(0.72 0.21 25)
-  );
-  box-shadow: 0 12px 28px -18px color-mix(in srgb, oklch(0.66 0.23 300) 60%, transparent);
-  rotate: -3deg;
-  transition: rotate 400ms var(--ease-out);
-  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-    animation: pl-ultra-spin 6s linear 1;
-  }
-}
-.pl-gift-card:hover {
-  rotate: 0deg;
-}
-.pl-gift-card-inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 20px;
-  border-radius: 20.5px;
-  color: white;
-  /* La tarjeta siempre es oscura: textos claros en ambos temas. */
-  --pl-text-muted: color-mix(in srgb, white 62%, transparent);
-  --pl-text-secondary: color-mix(in srgb, white 82%, transparent);
-  background:
-    radial-gradient(120% 80% at 100% 0%, color-mix(in srgb, oklch(0.66 0.23 300) 35%, transparent), transparent 60%),
-    radial-gradient(90% 70% at 0% 100%, color-mix(in srgb, oklch(0.74 0.15 230) 28%, transparent), transparent 60%),
-    linear-gradient(160deg, oklch(0.2 0.02 280), oklch(0.12 0.01 280));
-}
-.pl-gift-card-code {
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  background: color-mix(in srgb, white 12%, transparent);
-}
+/* Bloque legado .pl-feed-* / .pl-profile-cover / .pl-gift-card retirado por ADR-051 */
 
 /* ---------- Barra: campana y chip de perfil (geometría cuadrada coherente con buscador y chips) ---------- */
 .pl-maestro-icon {
@@ -3796,8 +3499,6 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
     padding: 0;
     border-radius: 0;
     background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     box-shadow: none;
     gap: 8px;
   }
@@ -4075,7 +3776,6 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
   cursor: pointer;
   transition:
     transform 0.15s ease,
-    box-shadow 0.15s ease,
     background-color 0.15s ease;
 }
 
@@ -6486,7 +6186,7 @@ details.pl-lp-faq > p {
   color: var(--pl-text-muted);
 }
 
-/* ---------- Rediseño editorial estilo ScoutPicks (sobre tokens PitchLab) ---------- */
+/* ---------- Rediseño editorial de portada (sobre tokens PitchLab) ---------- */
 .pl-lp-hero--scout {
   padding-top: 36px;
 }
@@ -6935,7 +6635,7 @@ html[data-theme="light"] .pl-lp-hero-sweep {
   }
 }
 
-/* Sección 2: Showcase interactivo 4 pilares estilo ScoutPicks */
+/* Sección 2: Showcase interactivo editorial de 4 pilares */
 .pl-lp-showcase-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
@@ -8127,7 +7827,6 @@ html[data-theme="light"] .pl-stage.pl-auth,
   font-weight: 500;
   transition:
     border-color 200ms ease,
-    box-shadow 200ms ease,
     background-color 200ms ease;
 }
 
@@ -8214,7 +7913,6 @@ html[data-theme="light"] .pl-stage.pl-auth,
   letter-spacing: -0.005em;
   cursor: pointer;
   transition:
-    box-shadow 200ms ease,
     background-color 200ms ease,
     transform 200ms ease,
     opacity 200ms ease;
@@ -10244,7 +9942,7 @@ html[data-theme="light"] .pl-stage.pl-auth,
   scroll-margin-top: 84px;
 }
 
-/* ---------- Inicio estilo Astranalisis + identidad PitchLab (.pl-astro-*) ---------- */
+/* ---------- Inicio editorial + identidad PitchLab (.pl-astro-*) ---------- */
 .pl-astro-topbar {
   display: flex;
   flex-direction: column;
@@ -12326,8 +12024,7 @@ dialog::backdrop {
   gap: 14px;
   border: 1px solid var(--pl-card-border);
   transition:
-    border-color var(--time-fast) var(--ease-out),
-    box-shadow var(--time-fast) var(--ease-out);
+    border-color var(--time-fast) var(--ease-out);
 }
 .pl-home-card.glass-ring {
   border: 0;
@@ -14710,7 +14407,6 @@ dialog::backdrop {
   transition:
     background-color 150ms ease,
     border-color 150ms ease,
-    box-shadow 180ms ease,
     color 150ms ease;
 }
 
@@ -14874,8 +14570,6 @@ dialog::backdrop {
   border-radius: var(--radius-overlay);
   background: var(--pl-glass-menu);
   color: var(--pl-text);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
   box-shadow: var(--pl-lens-shadow), var(--shadow-overlay);
   max-height: min(320px, 52dvh);
   overflow-y: auto;
@@ -14926,7 +14620,6 @@ dialog::backdrop {
   transition:
     background-color 120ms ease,
     color 120ms ease,
-    box-shadow 120ms ease,
     transform 120ms ease;
 }
 
@@ -15218,20 +14911,28 @@ dialog::backdrop {
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: start;
   gap: 12px;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: 600;
   color: var(--pl-text-secondary);
 }
 .pl-match-hero-scorers-side {
   display: grid;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
 }
 .pl-match-hero-scorers-side--home {
+  justify-items: end;
   text-align: right;
 }
 .pl-match-hero-scorers-side--away {
+  justify-items: start;
   text-align: left;
+}
+.pl-match-hero-scorer {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
 }
 .pl-match-hero-scorers-dot {
   color: var(--pl-text-muted);
@@ -15503,7 +15204,7 @@ dialog::backdrop {
 }
 .pl-rail-periods {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 .pl-rail-period {
   display: grid;
@@ -15514,8 +15215,8 @@ dialog::backdrop {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 10px 0;
-  font-size: 0.7rem;
+  padding: 5px 10px 2px;
+  font-size: 0.72rem;
   font-weight: 800;
   color: var(--pl-text-secondary);
 }
@@ -15537,24 +15238,29 @@ dialog::backdrop {
 }
 .pl-rail-events {
   display: grid;
-  gap: 6px;
+  gap: 2px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
+/* Eventos por tiempo planos editoriales (ADR-054): sin tarjetas individuales apiladas */
 .pl-rail-event {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 5px 8px;
-  border-radius: 10px;
-  background: var(--pl-surface-elevated);
-  border: 1px solid var(--pl-border);
-  font-size: 0.74rem;
+  gap: 8px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  background: transparent;
+  border: 0;
+  font-size: 0.78rem;
   min-width: 0;
+  transition: background-color 150ms ease;
+}
+.pl-rail-event:hover {
+  background: var(--pl-surface-elevated);
 }
 .pl-rail-event.is-goal {
-  border-color: color-mix(in srgb, var(--pl-brand) 44%, var(--pl-border));
+  padding-block: 7px;
 }
 .pl-rail-event.is-away {
   flex-direction: row-reverse;
@@ -15562,25 +15268,27 @@ dialog::backdrop {
 }
 .pl-rail-event-min {
   flex-shrink: 0;
-  font-size: 0.7rem;
+  min-width: 3.4ch;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--pl-text-muted);
 }
 .pl-rail-event-score {
   flex-shrink: 0;
-  padding: 2px 7px;
+  padding: 2px 9px;
   border-radius: 999px;
-  background: var(--pl-surface-active);
+  background: color-mix(in srgb, var(--pl-brand) 10%, var(--pl-surface));
   border: 1px solid color-mix(in srgb, var(--pl-brand) 52%, var(--pl-border));
   color: var(--pl-text);
-  font-size: 0.71rem;
+  font-size: 0.74rem;
   font-weight: 800;
+  line-height: 1.2;
 }
 .pl-rail-event-text {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 2px 5px;
+  gap: 2px 6px;
   min-width: 0;
   flex: 1 1 auto;
 }
@@ -15593,7 +15301,7 @@ dialog::backdrop {
 }
 .pl-rail-event-text small {
   color: var(--pl-text-muted);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
 }
 .pl-rail-card-mark {
   display: inline-block;
@@ -15839,7 +15547,7 @@ dialog::backdrop {
 }
 @media (min-width: 1024px) {
   .pl-dinero-grid {
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
   }
 }
 .pl-dinero-sides {
@@ -15860,7 +15568,19 @@ dialog::backdrop {
   border-radius: 14px;
   border: 1px solid var(--pl-border);
   background: var(--pl-surface);
-  padding: 4px 12px;
+  padding: 4px 10px;
+  overflow-x: auto;
+  min-width: 0;
+  max-block-size: none;
+}
+.pl-table-region.pl-dinero-table-wrap > table.pl-dinero-table {
+  width: 100%;
+  min-width: 440px;
+}
+.pl-table-region.pl-dinero-table-wrap :is(thead th:first-child, tbody th:first-child, tbody td:first-child) {
+  position: static;
+  box-shadow: none;
+  background: transparent;
 }
 .pl-dinero-table th {
   font-size: 0.7rem;
@@ -17862,7 +17582,6 @@ html[data-theme="light"] .pl-stage.pl-lp.pl-lp--clean {
 .pl-lp--clean .pl-lp-header {
   background: transparent;
   border: 0;
-  backdrop-filter: none;
 }
 
 .pl-lp--clean .pl-lp-bar {
@@ -17872,9 +17591,8 @@ html[data-theme="light"] .pl-stage.pl-lp.pl-lp--clean {
   border: 1px solid transparent;
   border-radius: 22px;
   background: transparent;
-  backdrop-filter: none;
   box-shadow: none;
-  transition: background-color 200ms ease, border-color 200ms ease, border-radius 200ms ease, box-shadow 200ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease, border-radius 200ms ease;
 }
 
 .pl-lp--clean .pl-lp-logo {
@@ -17890,8 +17608,6 @@ html[data-theme="light"] .pl-stage.pl-lp.pl-lp--clean {
   border-radius: 999px;
   background: var(--pl-glass-nav);
   box-shadow: var(--pl-overlay-shadow);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 
 .pl-lp--clean .pl-lp-mobile-menu {
@@ -18864,7 +18580,7 @@ html[data-theme="light"] .pl-clean-hero-light img {
   .pl-lp--clean .pl-lp-btn {
     touch-action: manipulation;
     transition: transform 180ms var(--pl-landing-ease), background-color 180ms ease,
-      color 180ms ease, box-shadow 180ms ease;
+      color 180ms ease;
   }
 
   .pl-lp--clean .pl-lp-btn:active {
@@ -19854,6 +19570,7 @@ html[data-theme="light"] .pl-clean-hero-light img {
 
 /* ---------- Animación de entrada y salida en Toasts (ToastViewport) ---------- */
 .pl-toast-item {
+  pointer-events: auto;
   opacity: 1;
   translate: 0 0;
   scale: 1;
@@ -19873,6 +19590,7 @@ html[data-theme="light"] .pl-clean-hero-light img {
 }
 
 .pl-toast-item[data-closing] {
+  pointer-events: none;
   opacity: 0;
   translate: 14px -6px;
   scale: 0.96;
@@ -21964,7 +21682,8 @@ dialog::backdrop {
 
   appearance: none;
   inline-size: 100%;
-  block-size: 2.5rem;
+  block-size: 2.75rem;
+  min-block-size: 44px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -22037,8 +21756,12 @@ dialog::backdrop {
 }
 
 .pl-prop-win-btn {
-  min-height: 30px;
-  padding: 0 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 10px;
   border-radius: 7px;
   border: 0;
   background: transparent;
@@ -22047,6 +21770,14 @@ dialog::backdrop {
   font-size: 0.74rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .pl-prop-win-btn {
+    min-height: 32px;
+    min-width: 0;
+    padding: 0 9px;
+  }
 }
 
 .pl-prop-win-btn.is-on {
@@ -22438,9 +22169,15 @@ dialog::backdrop {
 }
 
 .pl-bottom-sheet-actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px;
+}
+
+.pl-bottom-sheet-primary {
+  grid-column: 1 / -1;
+  width: 100%;
+  justify-content: center;
 }
 
 /* 5) MLB Probable Pitchers + Star Favorite Button + Props Explorer */
@@ -22702,12 +22439,8 @@ dialog::backdrop {
   inline-size: 100%;
   block-size: 6px;
   border-radius: 999px;
-  background: linear-gradient(
-    to right,
-    color-mix(in srgb, var(--pl-success) 55%, var(--pl-surface-elevated)),
-    color-mix(in srgb, var(--pl-brand) 45%, var(--pl-surface-elevated)),
-    color-mix(in srgb, var(--pl-danger) 62%, var(--pl-surface-elevated))
-  );
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
 }
 
 .pl-ref-thermo-marker {
@@ -22949,5 +22682,1394 @@ dialog::backdrop {
 .pl-honesty-guarantees li {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   Responsive Multi-Device, Mobile Native App Feel & Rendering Performance
+   (100 % tokens --pl-*, cero hex, cero backdrop-filter: blur)
+   ========================================================================== */
+
+/* 1) Barra superior de transición entre rutas (feedback inmediato tipo app) */
+.pl-route-progress {
+  position: fixed;
+  inset-block-start: env(safe-area-inset-top, 0px);
+  inset-inline: 0;
+  height: 2.5px;
+  z-index: 95;
+  pointer-events: none;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pl-brand) 18%, transparent);
+}
+
+.pl-route-progress::after {
+  content: "";
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--pl-brand);
+  transform: translateX(-100%);
+  animation: pl-route-progress-slide 1.05s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+}
+
+@keyframes pl-route-progress-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(340%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-route-progress::after {
+    width: 100%;
+    transform: none;
+    animation: none;
+    opacity: 0.75;
+  }
+}
+
+/* 2) Toasts con safe-area en móvil (sin invadir notch ni dock) */
+.pl-toast-viewport {
+  position: fixed;
+  top: calc(64px + env(safe-area-inset-top, 0px));
+  left: max(12px, env(safe-area-inset-left, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .pl-toast-viewport {
+    top: calc(16px + env(safe-area-inset-top, 0px));
+    left: auto;
+    right: max(16px, env(safe-area-inset-right, 0px));
+    width: 100%;
+    max-width: 24rem;
+  }
+}
+
+/* 3) Header safe-area + cero colisiones en móvil compacto (320px–400px) */
+.panel-header {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-bell-btn {
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .pl-profile-chip {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@media (max-width: 400px) {
+  .pl-header-grid {
+    padding-inline: 10px;
+  }
+
+  .pl-header-bar {
+    gap: 8px;
+  }
+
+  .pl-header-left {
+    gap: 8px;
+  }
+
+  .pl-header-logo img {
+    width: 102px;
+    height: auto;
+  }
+
+  .pl-header-search-short {
+    display: none;
+  }
+
+  .pl-header-search {
+    flex: 0 0 44px;
+    width: 44px;
+    min-width: 44px;
+    padding-inline: 0;
+    justify-content: center;
+  }
+}
+
+/* 4) Hojas inferiores nativas en móvil («Menú de tu cuenta» y «Más del Club») */
+.pl-profile-menu-sheet-top {
+  display: none;
+}
+
+.pl-profile-menu-setting--mobile-only {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .pl-profile-menu {
+    inset: auto 0 0 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-inline: 0;
+    border-bottom: 0;
+    padding: 8px 12px calc(18px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pl-profile-menu-sheet-top {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    align-items: center;
+    padding: 2px 0 4px;
+  }
+
+  .pl-profile-menu-sheet-top .pl-profile-menu-grab {
+    grid-column: 2;
+    justify-self: center;
+    margin: 0;
+  }
+
+  .pl-profile-menu-close {
+    grid-column: 3;
+    justify-self: end;
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface-elevated);
+    color: var(--pl-text-secondary);
+    cursor: pointer;
+  }
+
+  .pl-profile-menu-close:hover {
+    color: var(--pl-text);
+    background: var(--pl-surface-hover);
+  }
+
+  .pl-profile-menu-setting--mobile-only {
+    display: grid;
+  }
+}
+
+dialog.pl-native-dialog.pl-more-sheet-dialog[open] {
+  overflow: hidden;
+}
+
+.pl-more-sheet-inner {
+  border-radius: 24px;
+  padding: 20px;
+  max-height: 85dvh;
+}
+
+@media (max-width: 767px) {
+  dialog.pl-native-dialog.pl-more-sheet-dialog[open] {
+    margin: auto 0 0 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: 85dvh;
+    border-radius: 22px 22px 0 0;
+    border-inline: 0;
+    border-bottom: 0;
+  }
+
+  dialog.pl-native-dialog.pl-more-sheet-dialog .pl-more-sheet-inner {
+    border-radius: 22px 22px 0 0;
+    padding: 12px 16px calc(22px + env(safe-area-inset-bottom, 0px));
+    max-height: 85dvh;
+  }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  dialog.pl-native-dialog.pl-more-sheet-dialog {
+    transition-property: opacity, transform, display, overlay;
+    transition-duration: 240ms;
+    transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+    transition-behavior: allow-discrete;
+    transform: translateY(28px);
+    opacity: 0;
+  }
+
+  dialog.pl-native-dialog.pl-more-sheet-dialog[open] {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @starting-style {
+    dialog.pl-native-dialog.pl-more-sheet-dialog[open] {
+      transform: translateY(28px);
+      opacity: 0;
+    }
+  }
+}
+
+/* 5) Dock móvil con safe-area, centrado tipo iPadOS en tableta y cero colisiones con barras de preview */
+.mobile-dock {
+  left: max(12px, env(safe-area-inset-left, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .mobile-dock {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: min(520px, calc(100% - 32px));
+    padding: 5px;
+    border-radius: 18px;
+  }
+
+  .mobile-dock .seg-btn {
+    font-size: 11.5px;
+    gap: 3px;
+  }
+}
+
+@media (max-width: 1023px) {
+  /* En móvil/tableta el dock inferior + «Más del Club» + Menú de cuenta reemplazan los flotantes de preview. */
+  .role-sim-pill,
+  .pl-quick-jump-bar,
+  .proto-switcher {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pl-quick-jump-bar,
+  .proto-switcher {
+    left: 16px;
+    transform: none;
+    bottom: 12px;
+    max-width: calc(100vw - 360px);
+  }
+
+  .role-sim-pill {
+    top: auto;
+    left: auto;
+    right: 16px;
+    bottom: 12px;
+    height: auto;
+    align-self: flex-end;
+    flex-direction: row;
+  }
+}
+
+/* 6) Barra de filtros en /app: sin recorte en 320px–375px */
+@media (max-width: 639px) {
+  .pl-home-board-sub {
+    padding: 10px 12px;
+    gap: 8px 6px;
+  }
+
+  .pl-home-board-pills {
+    display: contents;
+  }
+
+  .pl-home-status-pill,
+  .pl-home-filter-btn {
+    min-height: 44px;
+    padding: 0 10px;
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .pl-home-odds-toggle {
+    min-height: 44px;
+    padding-inline: 2px;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 374px) {
+  .pl-home-status-pill,
+  .pl-home-filter-btn {
+    padding: 0 8px;
+    font-size: 11.5px;
+    gap: 4px;
+  }
+}
+
+/* 7) Pestañas de partido y liga visibles sin recorte en 320px–480px */
+@media (max-width: 479px) {
+  .pl-match-tabs {
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .pl-match-tab {
+    padding: 10px 2px;
+    gap: 5px;
+    font-size: 0.82rem;
+    min-height: 46px;
+  }
+
+  .pl-match-tab-count {
+    min-width: 20px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 0.68rem;
+  }
+
+  .pl-team-main-tabs.pl-league-tabs {
+    gap: 2px;
+    padding-inline: 6px;
+  }
+
+  .pl-team-main-tabs.pl-league-tabs .pl-team-main-tab {
+    padding: 0 8px;
+    font-size: 12px;
+    gap: 4px;
+    min-height: 46px;
+  }
+}
+
+/* 8) Carruseles horizontales táctiles sin scrollbar nativo */
+.pl-scroll-strip-clean {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pl-scroll-strip-clean::-webkit-scrollbar {
+  display: none;
+}
+
+.pl-scroll-strip-clean > * {
+  scroll-snap-align: start;
+}
+
+/* 9) Ergonomía táctil WCAG (>= 44px), feedback háptico visual (:active) y tablas sin recorte */
+.pl-header-nav-bar,
+.mobile-dock,
+.seg-well,
+.pl-match-tabs,
+.pl-team-main-tabs,
+.pl-home-board-pills {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pl-table-region {
+  padding-inline-end: 10px;
+}
+
+.pl-table-region > table {
+  min-width: max-content;
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-prop-metric-pill {
+    min-height: 44px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .pl-fav-star-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 12px;
+  }
+
+  .pl-team-compare-btn {
+    min-height: 44px;
+    padding: 0 12px;
+  }
+
+  .pl-astro-fav-btn,
+  .pl-astro-collapse-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pl-lp-navlink,
+  .pl-clean-footer-links a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pl-finder-actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-dock .seg-btn,
+  .pl-parlay-fab,
+  .pl-btn-primary,
+  .pl-btn-glass,
+  .pl-home-status-pill,
+  .pl-home-filter-btn {
+    transition:
+      transform 120ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+
+  .mobile-dock .seg-btn:active,
+  .pl-parlay-fab:active,
+  .pl-btn-primary:active,
+  .pl-btn-glass:active,
+  .pl-home-status-pill:active,
+  .pl-home-filter-btn:active {
+    transform: scale(0.97);
+  }
+}
+
+/* 10) Rendimiento de renderizado: diferir layout/paint solo en bloques fuera del primer pliegue */
+.pl-astro-league-block:nth-of-type(n + 3) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 360px;
+}
+
+.pl-props-grid > .pl-prop-card:nth-of-type(n + 5) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 320px;
+}
+
+.pl-finder-list > .pl-finder-row:nth-of-type(n + 9) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 116px;
+}
+
+.pl-mkt-section:nth-of-type(n + 3) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 420px;
+}
+
+.pl-num-grid > .pl-num-card:nth-of-type(n + 4) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 280px;
+}
+
+.pl-rec-card:nth-of-type(n + 3) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 320px;
+}
+
+@supports not (content-visibility: auto) {
+  .pl-astro-league-block:nth-of-type(n + 3),
+  .pl-props-grid > .pl-prop-card:nth-of-type(n + 5),
+  .pl-finder-list > .pl-finder-row:nth-of-type(n + 9),
+  .pl-mkt-section:nth-of-type(n + 3),
+  .pl-num-grid > .pl-num-card:nth-of-type(n + 4),
+  .pl-rec-card:nth-of-type(n + 3) {
+    contain: layout style paint;
+  }
+}
+
+/* 11) Primitivas compartidas entre rutas tras dividir CSS modular por ruta (ADR-051) */
+.pl-utabs {
+  display: flex;
+  gap: 28px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--pl-border);
+}
+
+.pl-utabs::-webkit-scrollbar {
+  display: none;
+}
+
+.pl-utab {
+  flex: none;
+  min-height: 48px;
+  padding: 0 2px;
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--pl-text-muted);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.pl-utab:hover {
+  color: var(--pl-text);
+}
+
+.pl-utab[aria-selected="true"] {
+  color: var(--pl-text);
+  border-bottom-color: var(--pl-text);
+}
+
+.pl-utab:focus-visible,
+.pl-tabpanel:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.pl-utab-short {
+  display: none;
+}
+
+.pl-tabpanel {
+  min-width: 0;
+}
+
+.pl-acct-text-link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pl-brand);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pl-acct-text-link:hover {
+  color: var(--pl-brand-hover);
+  text-decoration: underline;
+}
+
+.pl-com-char-count {
+  font-size: 12px;
+  color: var(--pl-text-muted);
+  white-space: nowrap;
+}
+
+/* Pantallas 404 y error (disponibles en todo el sitio sin cargar community-social.css) */
+.pl-notfound {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: clip;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--pl-stage-bg);
+  color: var(--pl-text);
+}
+
+.pl-stage:has(.pl-notfound) {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: clip;
+  background: var(--pl-stage-bg);
+}
+
+.pl-stage:has(.pl-notfound) .pl-atmo {
+  display: none;
+}
+
+.pl-stage:has(.pl-notfound) > div:has(.pl-notfound) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 0 !important;
+}
+
+.pl-stage:has(.pl-notfound) .app-frame,
+.pl-stage:has(.pl-notfound) #main,
+.pl-stage:has(.pl-notfound) #main > .pl-page-enter {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+}
+
+.pl-stage:has(.pl-notfound) #main > footer {
+  display: none;
+}
+
+.pl-stage:has(.pl-notfound) .pl-notfound {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+.pl-notfound-card {
+  width: 100%;
+  max-width: 440px;
+  border-radius: 28px;
+  padding: 32px 28px;
+  text-align: center;
+}
+
+.pl-notfound-logo {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+.pl-notfound-code {
+  margin: 20px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--pl-text-muted);
+}
+
+.pl-notfound-title {
+  margin: 6px 0 0;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.pl-notfound-copy {
+  margin: 10px 0 0;
+  font-size: 15px;
+  color: var(--pl-text-secondary);
+}
+
+.pl-notfound-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pl-prof-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.pl-prof-btn--primary {
+  background: var(--pl-btn-primary-bg);
+  color: var(--pl-btn-primary-fg);
+}
+
+.pl-prof-btn--primary:hover {
+  box-shadow: 0 0 0 6px var(--pl-glow);
+}
+
+.pl-prof-btn--ghost {
+  background: color-mix(in srgb, var(--pl-text) 4%, transparent);
+  color: var(--pl-text);
+  border-color: var(--pl-border-strong);
+}
+
+.pl-prof-btn--ghost:hover {
+  background: color-mix(in srgb, var(--pl-text) 8%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-prof-btn {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   ADR-053 · Sensación 100 % App Nativa: Skeletons, ← Atrás, Swipe, Anti-Zoom,
+   View Transitions progresivas, Dynamic Island standalone y banners de red/SW
+   ========================================================================== */
+
+html,
+body {
+  overscroll-behavior-x: none;
+}
+
+/* Contención de overscroll dentro de hojas y diálogos nativos */
+.pl-native-dialog,
+.pl-bottom-sheet-dialog,
+.pl-more-sheet-inner,
+.pl-profile-menu,
+.pl-bottom-sheet-inner {
+  overscroll-behavior-y: contain;
+}
+
+.pl-sheet-drag-zone {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.pl-sheet-drag-zone:active {
+  cursor: grabbing;
+}
+
+/* Cero selección accidental en cromos y controles de app; prosa y códigos siguen seleccionables */
+.mobile-dock,
+.pl-header,
+.seg-btn,
+.pl-btn-primary,
+.pl-btn-glass,
+.pl-prof-btn,
+.pl-back-btn,
+.day-chip,
+.pl-astro-sport-tab,
+.pl-bottom-sheet-handle {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Anti-zoom automático en iOS Safari (< 768 px): todos los controles >= 16px */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  textarea,
+  select {
+    font-size: max(1rem, 1em);
+  }
+}
+
+/* Scroll magnético suave en carruseles táctiles */
+.day-chips,
+.pl-astro-league-strip,
+.pl-home-sport-strip,
+.pl-props-streaks-rail {
+  scroll-snap-type: x proximity;
+}
+
+.day-chips > *,
+.pl-astro-league-strip > *,
+.pl-home-sport-strip > *,
+.pl-props-streaks-rail > * {
+  scroll-snap-align: start;
+}
+
+/* Botón contextual ← Atrás (>= 44×44 px WCAG 2.5.5) */
+.pl-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-card-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    transform 120ms ease;
+}
+
+.pl-back-btn:hover {
+  background: var(--pl-surface-2);
+  border-color: var(--pl-border-strong);
+}
+
+.pl-back-btn:active {
+  transform: scale(0.97);
+}
+
+.pl-match-crumb,
+.pl-team-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+
+/* Skeletons contextuales ultraligeros (100 % tokens, 0 backdrop-filter) */
+.pl-route-skel {
+  width: 100%;
+  padding-block: 4px 16px;
+}
+
+.pl-skel-card {
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-card-border);
+}
+
+@keyframes pl-skel-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.pl-skel-bar {
+  background: var(--pl-surface-2);
+  animation: pl-skel-pulse 1.35s ease-in-out infinite;
+}
+
+/* View Transitions API nativa progresiva (sutil cross-fade) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 140ms;
+  animation-timing-function: ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-skel-bar {
+    animation: none;
+    opacity: 0.65;
+  }
+  .pl-back-btn:active {
+    transform: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Dynamic Island / Notch en PWA instalada (`display-mode: standalone`) */
+@media (display-mode: standalone) {
+  .pl-header,
+  .pl-public-header {
+    padding-top: max(8px, env(safe-area-inset-top, 0px));
+  }
+}
+
+/* Pills no bloqueantes de red («Sin conexión») y actualización PWA */
+.pl-status-banners {
+  position: fixed;
+  top: calc(var(--pl-header-h, 64px) + env(safe-area-inset-top, 0px) + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 65;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  max-width: calc(100vw - 24px);
+}
+
+.pl-offline-pill,
+.pl-sw-update-pill {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  min-height: 36px;
+  border-radius: 999px;
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  border: 1px solid var(--pl-card-border);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pl-offline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--pl-warning);
+  flex-shrink: 0;
+}
+
+.pl-sw-update-btn {
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--pl-btn-primary-bg);
+  color: var(--pl-btn-primary-fg);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   ADR-054 · Pulido Nativo iOS/Android + Acabado Plano Editorial (PitchLab)
+   ========================================================================== */
+
+/* Iconos deportivos vectoriales planos (contraste >= 3:1, no se encogen ni atrapan clics) */
+.pl-sport-evt-ico {
+  display: inline-block;
+  flex: none;
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+/* Regla 9 (10/10): Blur placeholder sobre la propia <img> (0 backdrop-filter, CLS = 0) */
+.pl-prog-img {
+  background: var(--pl-surface-elevated);
+  transition:
+    opacity 260ms ease-out,
+    filter 280ms ease-out;
+}
+.pl-prog-img[data-loaded="false"] {
+  opacity: 0.35;
+  filter: blur(8px);
+}
+.pl-prog-img[data-loaded="true"] {
+  opacity: 1;
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pl-prog-img {
+    transition: none;
+  }
+  .pl-prog-img[data-loaded="false"] {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+/* Regla 8 (9/10): Cortes de línea equilibrados (selectivo, nunca global `*`) */
+.pl-stage :is(h1, h2, h3, h4, .pl-notfound-title, .pl-native-modal-title, .pl-sheet-title) {
+  text-wrap: balance;
+}
+.pl-stage :is(p, .pl-notfound-copy, .pl-bm-crit, .pl-clean-lede) {
+  text-wrap: pretty;
+}
+
+/* Regla 4 (4/10): Squircle corners progresivo respetando radios oficiales y excluyendo pills 999px */
+@supports (corner-shape: squircle) {
+  .pl-stage :is(
+      .glass-card,
+      .glass-lens,
+      .pl-astro-league-block,
+      .pl-match-hero,
+      .pl-match-rail-card,
+      .pl-rec-card,
+      .pl-bm-card,
+      .pl-btn-primary,
+      .pl-btn-glass,
+      .pl-home-parlay-btn,
+      .pl-back-btn,
+      .pl-native-modal,
+      .pl-bottom-sheet-panel
+    ) {
+    corner-shape: squircle;
+  }
+}
+
+/* Regla 6 (6/10): Shared Element Transitions suaves (desactivadas en reduced-motion) */
+::view-transition-old(pl-match-hero),
+::view-transition-new(pl-match-hero),
+::view-transition-old(pl-team-hero),
+::view-transition-new(pl-team-hero) {
+  animation-duration: 210ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  height: 100%;
+}
+
+/* Regla 7 (8/10): Acción «Deshacer» táctil >= 44px dentro de toasts */
+.pl-toast-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  min-width: 44px;
+  padding: 0 12px;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--pl-brand) 48%, var(--pl-border));
+  background: color-mix(in srgb, var(--pl-brand) 14%, transparent);
+  color: var(--pl-brand);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 150ms ease, transform 120ms ease;
+}
+.pl-toast-action-btn:hover {
+  background: color-mix(in srgb, var(--pl-brand) 22%, transparent);
+}
+.pl-toast-action-btn:active {
+  transform: scale(0.96);
+}
+@media (max-width: 767px) {
+  .pl-toast-action-btn {
+    min-height: 44px;
+  }
+}
+
+/* Botón destructivo explícito para diálogos de confirmación (Regla 7 · ADR-054) */
+.pl-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--pl-danger) 55%, var(--pl-border));
+  background: var(--pl-danger);
+  color: var(--pl-on-brand, var(--pl-bg));
+  font-weight: 800;
+  cursor: pointer;
+  transition: opacity 140ms ease, transform 120ms ease;
+}
+.pl-btn-danger:hover {
+  opacity: 0.92;
+}
+.pl-btn-danger:active {
+  transform: scale(0.97);
+}
+.pl-btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Diálogo nativo <dialog>: prevención de scroll chaining en fondo y cuerpo (modern-web-guidance) */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Insignias destacadas con animación fluida de entrada y salida (ADR-054) */
+.pl-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pl-badge-row-item {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition:
+    grid-template-columns 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 180ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pl-badge-row-item > .pl-badge-row-inner {
+  overflow: hidden;
+  display: inline-flex;
+}
+@starting-style {
+  .pl-badge-row-item {
+    grid-template-columns: 0fr;
+    opacity: 0;
+    transform: scale(0.88) translateY(2px);
+  }
+}
+.pl-badge-row-item[data-closing="true"] {
+  grid-template-columns: 0fr;
+  opacity: 0;
+  transform: scale(0.86) translateY(-2px);
+  pointer-events: none;
+}
+.pl-bm-card {
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pl-bm-toggle {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 140ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pl-bm-toggle:active:not(:disabled) {
+  transform: scale(0.96);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pl-badge-row-item,
+  .pl-bm-card,
+  .pl-bm-toggle {
+    transition-duration: 80ms;
+    transform: none;
+  }
+  @starting-style {
+    .pl-badge-row-item {
+      transform: none;
+    }
+  }
+}
+
+/* Tablero de Picks con Evidencia real (ADR-054) */
+.pl-ev-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  padding-bottom: 2px;
+}
+.pl-ev-filters::-webkit-scrollbar {
+  display: none;
+}
+.pl-ev-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.pl-ev-filter-pill:hover {
+  background: var(--pl-surface-hover);
+  color: var(--pl-text);
+}
+.pl-ev-filter-pill.is-on {
+  border-color: color-mix(in srgb, var(--pl-brand) 58%, var(--pl-border));
+  background: color-mix(in srgb, var(--pl-brand) 14%, var(--pl-surface));
+  color: var(--pl-text);
+}
+.pl-ev-filter-count {
+  font-size: 0.7rem;
+  color: var(--pl-text-muted);
+}
+.pl-ev-filter-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--pl-border);
+  flex-shrink: 0;
+  margin-inline: 2px;
+}
+.pl-ev-sort-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.pl-ev-sort-select {
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  .pl-ev-filter-pill,
+  .pl-ev-sort-select {
+    min-height: 44px;
+  }
+}
+.pl-ev-group {
+  border-radius: 16px;
+  overflow: hidden;
+}
+.pl-ev-group-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  min-height: 44px;
+  border: 0;
+  border-bottom: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  color: var(--pl-text);
+  cursor: pointer;
+  text-align: left;
+}
+.pl-ev-group-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.88rem;
+}
+.pl-ev-group-count {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--pl-text-muted);
+}
+.pl-ev-group-chev {
+  color: var(--pl-text-muted);
+  transition: transform 180ms ease;
+}
+.pl-ev-group-chev.is-collapsed {
+  transform: rotate(-90deg);
+}
+.pl-ev-rows {
+  display: grid;
+}
+.pl-ev-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+}
+.pl-ev-row:last-child {
+  border-bottom: 0;
+}
+@media (min-width: 768px) {
+  .pl-ev-row {
+    grid-template-columns: minmax(180px, 1.15fr) minmax(200px, 1.45fr) minmax(175px, 0.95fr);
+    align-items: center;
+    gap: 16px;
+  }
+}
+.pl-ev-col-pick {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.pl-ev-cat {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+.pl-ev-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--pl-text);
+  line-height: 1.3;
+}
+.pl-ev-prob-inline {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+}
+.pl-ev-col-evidence {
+  min-width: 0;
+}
+.pl-ev-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 5px;
+}
+.pl-ev-bullet {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.76rem;
+  color: var(--pl-text-secondary);
+  min-width: 0;
+}
+.pl-ev-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: var(--pl-text-muted);
+}
+.pl-ev-dot.is-high { background: var(--pl-success); }
+.pl-ev-dot.is-mid { background: var(--pl-warning); }
+.pl-ev-dot.is-low { background: var(--pl-danger); }
+.pl-ev-bullet-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.pl-ev-bullet-pct {
+  flex-shrink: 0;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+.pl-ev-bullet-pct.is-high { color: var(--pl-success); }
+.pl-ev-bullet-pct.is-mid { color: var(--pl-warning); }
+.pl-ev-bullet-pct.is-low { color: var(--pl-danger); }
+.pl-ev-col-odds {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+@media (min-width: 768px) {
+  .pl-ev-col-odds {
+    align-items: flex-end;
+  }
+}
+.pl-ev-odds-box {
+  display: grid;
+  gap: 2px;
+  padding: 7px 11px;
+  border-radius: 10px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  min-width: 132px;
+}
+.pl-ev-odds-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.pl-ev-odds-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--pl-text-muted);
+}
+.pl-ev-odds-val {
+  font-size: 0.94rem;
+  font-weight: 850;
+  color: var(--pl-text);
+}
+.pl-ev-odds-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 0.68rem;
+  color: var(--pl-text-muted);
+}
+.pl-ev-val-badge {
+  font-weight: 800;
+  color: var(--pl-success);
+}
+.pl-ev-actions {
+  display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }

@@ -1,3 +1,5 @@
+import "../../precio-motion.css";
+import "../../account-v2.css";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import {

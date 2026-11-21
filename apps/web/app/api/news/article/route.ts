@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { resolveVerifiedNewsArticleSummary } from "../../../../src/server/espn-news";
 import { PRODUCT_LEAGUES, type ProductLeague } from "../../../../src/server/snapshots";
+import { getViewerAccess } from "../../../../src/server/viewer-access";
 
 function isProductLeague(value: string): value is ProductLeague {
   return (PRODUCT_LEAGUES as readonly string[]).includes(value);
@@ -11,6 +12,11 @@ function isProductLeague(value: string): value is ProductLeague {
  * para mostrarlo dentro del lector de PitchLab, sin redirigir fuera de la plataforma.
  */
 export async function GET(request: NextRequest): Promise<NextResponse> {
+  const access = await getViewerAccess();
+  if (access.via === "none") {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = request.nextUrl;
   const leagueRaw = (searchParams.get("league") ?? "").trim();
   const idRaw = (searchParams.get("id") ?? "").trim();

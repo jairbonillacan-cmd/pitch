@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import { usePackIconBase } from "../../../pack-icon-theme";
+import { ProgressiveImage } from "../../components/ProgressiveImage";
 
 export interface PersonAvatarProps {
   photoKey?: string | null;
@@ -61,7 +62,7 @@ export function PersonAvatar({
       aria-hidden="true"
     >
       {activeUrl ? (
-        <img
+        <ProgressiveImage
           src={activeUrl}
           alt=""
           width={size}

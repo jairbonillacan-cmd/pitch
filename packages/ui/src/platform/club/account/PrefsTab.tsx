@@ -21,12 +21,20 @@ import { PlSelect } from "../../components/PlSelect";
 import { SettingsGroup, SettingsRow } from "../../components/SettingsGroup";
 import { BOOKMAKER_OPTIONS, sanitizePreferredBooks } from "../../bookmakers";
 import { todayId } from "../home/home-model";
-import { usePlatform } from "../../platform-provider";
+import {
+  useJournalEntries,
+  usePlatformActions,
+  usePlatformCore,
+} from "../../platform-provider";
 import { formatUnits, profileRecord } from "../../profile-stats";
 import { normalizeRecordPrivacy } from "../../record-stats";
 import type { OddsFormat, RiskBand } from "../../types";
 import {
   DEFAULT_STORED_PREFS_V1,
+  PRIORITY_MX_BOOKMAKER_IDS,
+  formatPreferredBooksSummary,
+  getOddsFormatPreview,
+  partitionPriorityBookmakers,
   readStoredPrefs,
   toggleLeagueSelection,
   writeStoredPrefs,
@@ -212,6 +220,7 @@ function PrefsSegment<T extends string>({
         <button
           key={opt.value}
           type="button"
+          className="min-h-11 md:min-h-9"
           data-seg-value={opt.value}
           {...(dataAttr ? { [dataAttr]: opt.value } : {})}
           aria-pressed={value === opt.value}
@@ -253,26 +262,9 @@ export function PrefsTab({
   onSaved?: () => void;
   storyOverride?: PrefsTabStoryOverride;
 }): React.JSX.Element {
-  const {
-    dataset,
-    hasAccountSessionAuth,
-    favoriteLeagues,
-    setFavoriteLeagues,
-    oddsFormat,
-    setOddsFormat,
-    riskPreference,
-    setRiskPreference,
-    userTimezone,
-    setUserTimezone,
-    setShowMxnBalance,
-    setUnitMxn,
-    preferredBooks,
-    setPreferredBooks,
-    journal,
-    pushToast,
-    navigateTo,
-    logoutSession,
-  } = usePlatform();
+  const { dataset, hasAccountSessionAuth, favoriteLeagues, oddsFormat, riskPreference, userTimezone, preferredBooks } = usePlatformCore();
+  const { setFavoriteLeagues, setOddsFormat, setRiskPreference, setUserTimezone, setShowMxnBalance, setUnitMxn, setPreferredBooks, pushToast, navigateTo, logoutSession } = usePlatformActions();
+  const journal = useJournalEntries();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const canPersistServer = Boolean(
@@ -779,6 +771,50 @@ export function PrefsTab({
   const telegramUrl =
     typeof process !== "undefined" ? process.env.NEXT_PUBLIC_TELEGRAM_URL?.trim() || "" : "";
   const activeAlertsCount = Object.values(prefs.alerts).filter(Boolean).length;
+  const bookmakerGroups = useMemo(() => partitionPriorityBookmakers(BOOKMAKER_OPTIONS), []);
+  const oddsPreview = getOddsFormatPreview(oddsFormat);
+  const allPriorityMxSelected = PRIORITY_MX_BOOKMAKER_IDS.every((id) =>
+    preferredBooks.includes(id),
+  );
+
+  const applyPreferredBooks = useCallback(
+    (nextBooks: string[], prevBooks: string[]) => {
+      setPreferredBooks(nextBooks);
+      updatePrefs((prev) => ({ ...prev, preferredBooks: nextBooks }));
+      void persistServerPrefs({ preferredBooks: nextBooks }, () => {
+        setPreferredBooks(prevBooks);
+        setPrefs((curr) => {
+          const reverted = { ...curr, preferredBooks: prevBooks };
+          writeStoredPrefs(reverted);
+          return reverted;
+        });
+      });
+    },
+    [persistServerPrefs, setPreferredBooks, updatePrefs],
+  );
+
+  const handleToggleBook = (bookId: string) => {
+    const prevBooks = preferredBooks;
+    const exists = prevBooks.includes(bookId);
+    if (exists && prevBooks.length <= 1) {
+      pushToast("Deja al menos una casa de referencia activa.", "default");
+      return;
+    }
+    const nextBooks = exists
+      ? prevBooks.filter((id) => id !== bookId)
+      : sanitizePreferredBooks([...prevBooks, bookId]);
+    applyPreferredBooks(nextBooks, prevBooks);
+  };
+
+  const handleSelectPriorityMxBooks = () => {
+    const prevBooks = preferredBooks;
+    const nextBooks = sanitizePreferredBooks([...PRIORITY_MX_BOOKMAKER_IDS]);
+    applyPreferredBooks(nextBooks, prevBooks);
+    pushToast("Casas prioritarias MX activadas.", "default", {
+      actionLabel: "Deshacer",
+      onAction: () => applyPreferredBooks(prevBooks, nextBooks),
+    });
+  };
 
   const scrollToSection = (groupId: PrefGroupId) => {
     setActiveGroup(groupId);
@@ -816,7 +852,7 @@ export function PrefsTab({
                 href={`#${group.id}`}
                 data-pref-nav={group.id}
                 aria-current={isActive ? "true" : undefined}
-                className={`pl-acct-prefs-nav-link${isActive ? " is-active" : ""}`}
+                className={`pl-acct-prefs-nav-link min-h-11 md:min-h-9${isActive ? " is-active" : ""}`}
                 onClick={(e) => handleJumpToGroup(e, group.id)}
               >
                 {group.label}
@@ -839,14 +875,14 @@ export function PrefsTab({
               icon="activity"
               title="Formato de cuotas"
               subtitle="Americano (−110) o Decimal (1.91)"
-              value={oddsFormat === "decimal" ? "Decimal" : "Americano"}
+              value={`${oddsPreview.label} (${oddsFormat === "decimal" ? "1.91" : "−110"})`}
               onClick={() => scrollToSection("pl-prefs-datos")}
             />
             <SettingsRow
               icon="ticket"
               title="Casas de apuestas"
-              subtitle="Tus casas habituales de referencia"
-              value={`${preferredBooks.length} selec.`}
+              subtitle="Prioritarias MX y referencia sharp"
+              value={formatPreferredBooksSummary(preferredBooks)}
               onClick={() => scrollToSection("pl-prefs-datos")}
             />
             <SettingsRow
@@ -901,6 +937,11 @@ export function PrefsTab({
               <MaestroIcon name="search" size={14} />
               <input
                 type="search"
+                enterKeyHint="search"
+                autoCorrect="off"
+                autoCapitalize="none"
+                spellCheck={false}
+                className="text-base sm:text-sm min-h-11 sm:min-h-10"
                 value={leagueSearch}
                 onChange={(e) => setLeagueSearch(e.target.value)}
                 placeholder="Buscar liga o copa (Liga MX, Champions, MLS, MLB…)"
@@ -924,7 +965,7 @@ export function PrefsTab({
                         <button
                           key={league.id}
                           type="button"
-                          className="pl-acct-league-pill"
+                          className="pl-acct-league-pill min-h-11 sm:min-h-10"
                           data-league-toggle={league.id}
                           aria-pressed={isSelected}
                           onClick={() => handleToggleLeague(league.id)}
@@ -969,15 +1010,23 @@ export function PrefsTab({
                   Formato de momio
                 </b>
                 <span className="pl-acct-prefs-row-detail num">
-                  {oddsFormat === "american"
-                    ? "Así: −130 · +131. Lo común en México."
-                    : "Así: 1.77 · 2.31."}
+                  {oddsPreview.detail}
+                </span>
+                <span
+                  className="inline-flex items-center gap-1.5 mt-1.5 text-[11px] font-semibold num"
+                  style={{ color: "var(--pl-text-secondary)" }}
+                  data-odds-format-preview=""
+                >
+                  <span className="pl-pill pl-pill--brand text-[11px] num">
+                    Ej. justo {oddsPreview.sampleFair}
+                  </span>
                 </span>
               </div>
               <PrefsSegment
                 labelledBy={oddsLabelId}
                 value={oddsFormat}
                 onChange={handleOddsChange}
+                dataAttr="data-odds-format-opt"
                 options={[
                   { value: "american", label: "Americano" },
                   { value: "decimal", label: "Decimal" },
@@ -1026,6 +1075,7 @@ export function PrefsTab({
                 size="md"
                 fullWidth={false}
                 popoverWidth="min-trigger"
+                triggerClassName="text-base sm:text-sm min-h-11"
                 value={prefs.timezone}
                 onChange={(nextTz) => {
                   const prevTz = prefs.timezone;
@@ -1042,6 +1092,120 @@ export function PrefsTab({
                 }}
                 options={timezoneOptions}
               />
+            </div>
+
+            <div
+              className="pl-acct-pesos-divider space-y-3 py-4 min-w-0"
+              data-preferred-books-section=""
+            >
+              <div className="flex flex-wrap items-start justify-between gap-2.5 min-w-0">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <b className="pl-acct-prefs-row-title">Tus casas de referencia</b>
+                    <span className="pl-pill pl-pill--brand text-[11px] num">
+                      Prioridad MX · {preferredBooks.length}
+                    </span>
+                  </div>
+                  <span className="pl-acct-prefs-row-detail block mt-0.5">
+                    Mostramos primero el mejor momio capturado entre tus casas frente al momio justo
+                    de Spacetime v5.1 (corte menor a 72 h, sin enlaces de afiliado).
+                  </span>
+                </div>
+                {!allPriorityMxSelected ? (
+                  <button
+                    type="button"
+                    className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 shrink-0"
+                    data-select-priority-mx-books=""
+                    onClick={handleSelectPriorityMxBooks}
+                  >
+                    Activar Top 5 MX
+                  </button>
+                ) : null}
+              </div>
+
+              <div className="space-y-2 min-w-0" data-priority-mx-books="">
+                <p
+                  className="m-0 text-[11px] font-bold uppercase tracking-wider"
+                  style={{ color: "var(--pl-brand)" }}
+                >
+                  Prioritarias en México y línea sharp
+                </p>
+                <div
+                  className="flex flex-wrap gap-2"
+                  role="group"
+                  aria-label="Casas prioritarias en México"
+                >
+                  {bookmakerGroups.priorityMx.map((book) => {
+                    const active = preferredBooks.includes(book.id);
+                    const hint = book.id === "pinnacle" ? "Sharp · Ref." : book.regionHint;
+                    return (
+                      <button
+                        key={book.id}
+                        type="button"
+                        className="pl-acct-league-pill min-h-11 px-3.5 text-xs"
+                        data-book-toggle={book.id}
+                        data-book-priority="mx"
+                        aria-pressed={active}
+                        onClick={() => handleToggleBook(book.id)}
+                      >
+                        {active ? (
+                          <MaestroIcon
+                            name="check"
+                            size={12}
+                            style={{ color: "var(--pl-brand)" }}
+                          />
+                        ) : null}
+                        <span className="font-bold">{book.label}</span>
+                        <span
+                          className="text-[11px]"
+                          style={{
+                            color: active ? "var(--pl-brand)" : "var(--pl-text-muted)",
+                          }}
+                        >
+                          {hint}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="space-y-2 min-w-0 pt-1" data-other-books="">
+                <p
+                  className="m-0 text-[11px] font-bold uppercase tracking-wider"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  Otras casas disponibles
+                </p>
+                <div
+                  className="flex flex-wrap gap-2"
+                  role="group"
+                  aria-label="Otras casas de referencia"
+                >
+                  {bookmakerGroups.others.map((book) => {
+                    const active = preferredBooks.includes(book.id);
+                    return (
+                      <button
+                        key={book.id}
+                        type="button"
+                        className="pl-acct-league-pill min-h-11 px-3 text-xs"
+                        data-book-toggle={book.id}
+                        aria-pressed={active}
+                        onClick={() => handleToggleBook(book.id)}
+                      >
+                        {active ? <MaestroIcon name="check" size={12} /> : null}
+                        <span className="font-bold">{book.label}</span>
+                        <span
+                          className="text-[11px]"
+                          style={{ color: "var(--pl-text-muted)" }}
+                        >
+                          {book.regionHint}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </section>
 
@@ -1066,7 +1230,7 @@ export function PrefsTab({
                 <button
                   key={opt.value}
                   type="button"
-                  className="pl-acct-risk-card"
+                  className="pl-acct-risk-card min-h-11"
                   aria-pressed={riskPreference === opt.value}
                   onClick={() => {
                     if (riskPreference === opt.value) return;
@@ -1082,53 +1246,6 @@ export function PrefsTab({
                   <span className="pl-acct-risk-detail num">{opt.detail}</span>
                 </button>
               ))}
-            </div>
-
-            <div className="pl-acct-pesos-divider space-y-2.5" data-preferred-books-section="">
-              <div>
-                <b className="pl-acct-prefs-row-title">Tus casas de referencia</b>
-                <span className="pl-acct-prefs-row-detail block mt-0.5">
-                  Mostramos primero el mejor momio capturado entre las casas que usas (corte vigente
-                  menor a 72 h). Informativo, sin enlaces de afiliado.
-                </span>
-              </div>
-              <div
-                className="flex flex-wrap gap-2"
-                role="group"
-                aria-label="Tus casas de referencia"
-              >
-                {BOOKMAKER_OPTIONS.map((book) => {
-                  const active = preferredBooks.includes(book.id);
-                  return (
-                    <button
-                      key={book.id}
-                      type="button"
-                      className="pl-acct-league-pill min-h-11 px-3 text-xs"
-                      data-book-toggle={book.id}
-                      aria-pressed={active}
-                      onClick={() => {
-                        const prevBooks = preferredBooks;
-                        const exists = prevBooks.includes(book.id);
-                        if (exists && prevBooks.length <= 1) {
-                          pushToast("Deja al menos una casa de referencia activa.", "default");
-                          return;
-                        }
-                        const nextBooks = exists
-                          ? prevBooks.filter((id) => id !== book.id)
-                          : sanitizePreferredBooks([...prevBooks, book.id]);
-                        setPreferredBooks(nextBooks);
-                        updatePrefs((prev) => ({ ...prev, preferredBooks: nextBooks }));
-                        void persistServerPrefs({ preferredBooks: nextBooks }, () => {
-                          setPreferredBooks(prevBooks);
-                        });
-                      }}
-                    >
-                      <span className="font-bold">{book.label}</span>
-                      <span className="text-[11px] opacity-70">{book.regionHint}</span>
-                    </button>
-                  );
-                })}
-              </div>
             </div>
 
             <div className="pl-acct-pesos-divider">
@@ -1175,13 +1292,15 @@ export function PrefsTab({
                     <span>$</span>
                     <input
                       id={unitInputId}
-                      className="pl-acct-unit-input num"
+                      type="text"
+                      inputMode="numeric"
+                      enterKeyHint="done"
+                      className="pl-acct-unit-input num text-base sm:text-sm min-h-11 sm:min-h-10"
                       value={unitDraft}
                       onChange={(e) => handleUnitInputChange(e.target.value)}
                       onBlur={handleUnitBlur}
                       aria-invalid={unitError ? "true" : "false"}
                       aria-describedby={unitError ? unitErrorId : undefined}
-                      inputMode="numeric"
                       autoComplete="off"
                     />
                     <span>MXN</span>
@@ -1437,7 +1556,7 @@ export function PrefsTab({
                 </span>
                 <button
                   type="button"
-                  className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm"
+                  className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm min-h-11 sm:min-h-9"
                   onClick={() => {
                     const prevChoice = prefs.pauseChoice;
                     const prevChosenAt = prefs.pauseChosenAtIso;
@@ -1464,7 +1583,7 @@ export function PrefsTab({
               </div>
             )}
 
-            <a href="/legal/juego-responsable" className="pl-acct-help-link">
+            <a href="/legal/juego-responsable" className="pl-acct-help-link min-h-11 sm:min-h-9">
               Recursos de ayuda y juego responsable
             </a>
           </section>
@@ -1614,12 +1733,24 @@ export function PrefsTab({
                 const nextBreak = pendingBreak;
                 const prevChoice = prefs.pauseChoice;
                 const prevChosenAt = prefs.pauseChosenAtIso;
+                const revertPause = () => {
+                  updatePrefs((curr) => ({
+                    ...curr,
+                    pauseChoice: prevChoice,
+                    pauseChosenAtIso: prevChosenAt,
+                  }));
+                  void persistServerPrefs({ responsiblePauseKind: prevChoice });
+                };
                 updatePrefs((prev) => ({
                   ...prev,
                   pauseChoice: nextBreak,
                   pauseChosenAtIso: new Date().toISOString(),
                 }));
                 setActiveDialog(null);
+                pushToast(`Descanso de ${selectedBreakLabel} activado.`, "default", {
+                  actionLabel: "Deshacer",
+                  onAction: revertPause,
+                });
                 void persistServerPrefs({ responsiblePauseKind: nextBreak }, () => {
                   setPrefs((curr) => {
                     const reverted = {

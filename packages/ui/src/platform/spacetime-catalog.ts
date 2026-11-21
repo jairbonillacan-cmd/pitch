@@ -146,7 +146,7 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   {
     id: "shield",
     shortLabel: "Muy probable",
-    label: "Confianza máxima · muy probable",
+    label: "Muy probable (≥ 65 %)",
     rangeLabel: "Dobles oportunidades y líneas base",
     promisedMeanP: 0.82,
     actualHitRate: null,
@@ -156,7 +156,7 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   {
     id: "core",
     shortLabel: "Probable",
-    label: "Confianza alta · principal",
+    label: "Probable (55–64 %)",
     rangeLabel: "Picks principales de cada partido",
     promisedMeanP: 0.62,
     actualHitRate: null,
@@ -166,7 +166,7 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   {
     id: "balanced",
     shortLabel: "Parejo",
-    label: "Confianza media · balanceado",
+    label: "Escenario balanceado (45–54 %)",
     rangeLabel: "Totales, ambos anotan y líneas por equipo",
     promisedMeanP: 0.58,
     actualHitRate: null,

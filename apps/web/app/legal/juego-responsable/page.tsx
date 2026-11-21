@@ -1,9 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { LegalDocumentSurface } from "@pitchlab/ui/legal";
-import { hasPublicSessionCookie } from "../../../src/server/public-session";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 const DESCRIPTION =
   "Compromiso +18 en México, diferencia entre análisis estadístico y apuesta, controles de pausa voluntaria en tu cuenta y líneas gratuitas de ayuda.";
@@ -14,9 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/legal/juego-responsable" },
 };
 
-export default async function JuegoResponsablePage(): Promise<React.JSX.Element> {
-  const hasSession = await hasPublicSessionCookie();
-
+export default function JuegoResponsablePage(): React.JSX.Element {
   return (
     <LegalDocumentSurface
       slug="juego-responsable"
@@ -24,7 +21,6 @@ export default async function JuegoResponsablePage(): Promise<React.JSX.Element>
       title="Juego responsable y uso informativo"
       lede={DESCRIPTION}
       lastUpdated="Última actualización: noviembre de 2026"
-      hasSession={hasSession}
       intro={
         <p>
           PitchLab está dirigido exclusivamente a personas <strong>mayores de 18 años</strong> con

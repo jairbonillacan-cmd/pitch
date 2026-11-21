@@ -4,7 +4,6 @@ import { serializeTransferRequest } from "../../../../../src/server/member-plan"
 import {
   checkEndpointRateLimit,
   rateLimitResponse,
-  trustedClientIp,
   verifySameOriginMutation,
 } from "../../../../../src/server/request-security";
 import { requireMember } from "../../../../../src/server/session-user";
@@ -33,7 +32,7 @@ export async function PATCH(
 
   const rl = await checkEndpointRateLimit({
     bucket: "me-transfers-receipt",
-    key: `${member.userId}:${trustedClientIp(request.headers) || "local"}`,
+    key: member.userId,
     limit: 20,
     windowMs: 3_600_000,
   });

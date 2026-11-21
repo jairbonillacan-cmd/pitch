@@ -7,14 +7,19 @@
  */
 import { canonicalGameHref } from "@pitchlab/contracts";
 import {
+  authUser,
+  eq,
+  hasActivePaseTotal,
   listLiveGameWatchers,
   listPushAlertRecipients,
   readLiveCache,
+  users,
   writeLiveCache,
   type Db,
 } from "@pitchlab/db";
-import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/platform";
+import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
 import { buildServerRawPlatformDataset } from "./platform-data";
+import { isAdminEmail } from "./session-user";
 import { isWebPushConfigured, sendPushToUsers } from "./web-push";
 
 const PREMATCH_MIN_MS = 45 * 60_000;
@@ -128,6 +133,43 @@ async function claimAlertOnce(db: Db, cacheKey: string, now: Date): Promise<bool
   }
 }
 
+async function hasActivePushAlertAccess(
+  db: Db,
+  userId: string,
+  now: Date,
+  cache: Map<string, boolean>,
+): Promise<boolean> {
+  const cached = cache.get(userId);
+  if (cached !== undefined) return cached;
+  let allowed = await hasActivePaseTotal(db, userId, now);
+  if (!allowed) {
+    const [row] = await db
+      .select({ email: users.email, emailVerified: authUser.emailVerified })
+      .from(users)
+      .innerJoin(authUser, eq(authUser.id, users.authUserId))
+      .where(eq(users.id, userId));
+    allowed = Boolean(row?.emailVerified && isAdminEmail(row.email));
+  }
+  cache.set(userId, allowed);
+  return allowed;
+}
+
+async function filterActivePaseUserIds(
+  db: Db,
+  userIds: readonly string[],
+  now: Date,
+  cache: Map<string, boolean>,
+): Promise<string[]> {
+  const unique = Array.from(new Set(userIds.filter(Boolean)));
+  const allowed: string[] = [];
+  for (const userId of unique) {
+    if (await hasActivePushAlertAccess(db, userId, now, cache)) {
+      allowed.push(userId);
+    }
+  }
+  return allowed;
+}
+
 export async function runScheduledPushAlerts(
   db: Db,
   options: {
@@ -157,17 +199,19 @@ export async function runScheduledPushAlerts(
   let prematchPushesSent = 0;
   let lineMovePushesSent = 0;
   let prunedSubscriptions = 0;
+  const paseAccessCache = new Map<string, boolean>();
 
-  // 1) Alertas 60 min antes para usuarios que vigilan el partido
+  // 1) Alertas 60 min antes para usuarios con Pase Total vigente que vigilan el partido
   if (prematchGames.length > 0) {
     const watchers = await listLiveGameWatchers(
       db,
       prematchGames.map((g) => g.id),
     );
     for (const game of prematchGames) {
-      const userIds = watchers
+      const candidateUserIds = watchers
         .filter((w) => w.gameId === game.id && w.kickoff)
         .map((w) => w.userId);
+      const userIds = await filterActivePaseUserIds(db, candidateUserIds, now, paseAccessCache);
       if (userIds.length === 0) continue;
       const shouldSend = await claimAlertOnce(db, `push:prematch60:${game.id}`, now);
       if (!shouldSend) continue;
@@ -193,9 +237,18 @@ export async function runScheduledPushAlerts(
     }
   }
 
-  // 2) Alertas de movimiento de línea ≥ 5 % a favor del modelo
+  // 2) Alertas de movimiento de línea ≥ 5 % a favor del modelo (solo socios con Pase Total vigente)
   if (lineMoves.length > 0) {
-    const recipients = await listPushAlertRecipients(db, "picks");
+    const allRecipients = await listPushAlertRecipients(db, "picks");
+    const activeRecipientIds = new Set(
+      await filterActivePaseUserIds(
+        db,
+        allRecipients.map((r) => r.userId),
+        now,
+        paseAccessCache,
+      ),
+    );
+    const recipients = allRecipients.filter((r) => activeRecipientIds.has(r.userId));
     for (const move of lineMoves) {
       const homeKey = `${move.game.league}:${move.game.home.slug}`;
       const awayKey = `${move.game.league}:${move.game.away.slug}`;

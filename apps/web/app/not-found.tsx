@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { BrandLogo } from "@pitchlab/ui";
+import { BrandLogo } from "@pitchlab/ui/brand-logo";
 
 export const metadata: Metadata = {
   title: "Página no encontrada · PitchLab",

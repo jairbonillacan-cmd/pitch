@@ -5,6 +5,7 @@ import {
   isAvatarStorageEnabled,
   prepareAvatarImage,
 } from "../../../../src/server/avatar-storage";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
@@ -13,6 +14,9 @@ export const dynamic = "force-dynamic";
 const noStore = { headers: { "Cache-Control": "no-store" } };
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: false });
+  if (originErr) return originErr;
+
   const member = await requireMember(request);
   if ("error" in member) return member.error;
 
@@ -58,6 +62,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 }
 
 export async function DELETE(request: Request): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: false });
+  if (originErr) return originErr;
+
   const member = await requireMember(request);
   if ("error" in member) return member.error;
 

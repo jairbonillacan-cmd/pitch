@@ -40,7 +40,8 @@ export * from "./club/CoreMatchViews";
 export * from "./club/match/MatchMarketsGrid";
 export * from "./club/match/PreMatchModule";
 export * from "./club/match/pre-match-logic";
-export { HomeClubView } from "./club/home/HomeClubView";
+export { HomeClubView, HomeClubView as JornadaClubView } from "./club/home/HomeClubView";
+export { PicksFinderClubView, PicksFinderClubView as MultiPicksClubView } from "./club/PicksFinderView";
 export {
   groupMatchesByDayAndLeague,
   type DayLeagueMatchGroup,

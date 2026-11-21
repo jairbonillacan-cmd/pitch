@@ -2,17 +2,22 @@ import { NextResponse } from "next/server";
 import {
   deletePushSubscription,
   listUserPushSubscriptions,
+  PushEndpointConflictError,
   upsertPushSubscription,
   upsertUserPreferences,
+  type StoredPushSubscription,
 } from "@pitchlab/db";
 import {
   checkEndpointRateLimit,
   rateLimitResponse,
-  trustedClientIp,
   verifySameOriginMutation,
 } from "../../../../src/server/request-security";
 import { requireActivePaseMember } from "../../../../src/server/session-user";
-import { isWebPushConfigured, vapidConfigFromEnv } from "../../../../src/server/web-push";
+import {
+  isWebPushConfigured,
+  parseAllowedWebPushEndpoint,
+  vapidConfigFromEnv,
+} from "../../../../src/server/web-push";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,15 +25,7 @@ export const dynamic = "force-dynamic";
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
 function parseEndpointUrl(raw: unknown): string | null {
-  if (typeof raw !== "string") return null;
-  const trimmed = raw.trim();
-  if (!trimmed || trimmed.length > 2048) return null;
-  try {
-    const parsed = new URL(trimmed);
-    return parsed.protocol === "https:" ? parsed.toString() : null;
-  } catch {
-    return null;
-  }
+  return parseAllowedWebPushEndpoint(raw);
 }
 
 function serializeSub(sub: {
@@ -74,7 +71,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const rl = await checkEndpointRateLimit({
     bucket: "me-push-subscribe",
-    key: `${member.userId}:${trustedClientIp(request.headers) || "local"}`,
+    key: member.userId,
     limit: 20,
     windowMs: 3_600_000,
   });
@@ -103,16 +100,27 @@ export async function POST(request: Request): Promise<NextResponse> {
       ? (body.topics as Record<string, unknown>)
       : {};
 
-  const saved = await upsertPushSubscription(member.db, {
-    userId: member.userId,
-    endpoint,
-    p256dh,
-    auth,
-    topicPicks: typeof topics.picks === "boolean" ? topics.picks : true,
-    topicLive: typeof topics.live === "boolean" ? topics.live : true,
-    topicSocial: typeof topics.social === "boolean" ? topics.social : true,
-    userAgent: request.headers.get("user-agent"),
-  });
+  let saved: StoredPushSubscription;
+  try {
+    saved = await upsertPushSubscription(member.db, {
+      userId: member.userId,
+      endpoint,
+      p256dh,
+      auth,
+      topicPicks: typeof topics.picks === "boolean" ? topics.picks : true,
+      topicLive: typeof topics.live === "boolean" ? topics.live : true,
+      topicSocial: typeof topics.social === "boolean" ? topics.social : true,
+      userAgent: request.headers.get("user-agent"),
+    });
+  } catch (err) {
+    if (err instanceof PushEndpointConflictError) {
+      return NextResponse.json(
+        { ok: false, error: "Este endpoint de notificación ya pertenece a otra cuenta." },
+        { status: 409, headers: NO_STORE },
+      );
+    }
+    throw err;
+  }
   await upsertUserPreferences(member.db, member.userId, { pushEnabled: true });
 
   return NextResponse.json(

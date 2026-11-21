@@ -396,7 +396,7 @@ export function PinPad({
       }}
     >
       <DialogPortal>
-        <DialogOverlay className="bg-[var(--backdrop-pin)] backdrop-blur-[6px]" />
+        <DialogOverlay className="bg-[var(--backdrop-pin)]" />
         <DialogPopup
           className={dlgClasses}
           id="pin-dialog"

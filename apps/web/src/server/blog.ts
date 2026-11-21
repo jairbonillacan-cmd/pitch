@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { Marked } from "marked";
-import type { BlogCategoryLink, BlogPostSummaryView, BlogPostView } from "@pitchlab/ui";
+import type { BlogCategoryLink, BlogPostSummaryView, BlogPostView } from "@pitchlab/ui/blog";
 
 /**
  * Blog público de PitchLab (`/blog`).

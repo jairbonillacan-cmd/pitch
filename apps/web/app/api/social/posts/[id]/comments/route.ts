@@ -1,5 +1,6 @@
 import { NextResponse, after } from "next/server";
 import { addSocialComment, listPostComments } from "@pitchlab/db";
+import { verifySameOriginMutation } from "../../../../../../src/server/request-security";
 import { checkSocialText, reasonResponse, requireSocialMember } from "../../../../../../src/server/social";
 import { isWebPushConfigured, sendPushToUsers } from "../../../../../../src/server/web-push";
 
@@ -19,6 +20,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 }
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: true });
+  if (originErr) return originErr;
   const member = await requireSocialMember(request);
   if ("error" in member) return member.error;
   const { id } = await params;

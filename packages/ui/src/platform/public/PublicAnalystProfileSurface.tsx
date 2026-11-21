@@ -21,7 +21,10 @@ import {
   TipsterVerifiedBadge,
   VerifiedSeal,
 } from "../components/MaestroPrimitives";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { PublicSiteShell } from "./PublicSiteSections";
 
 export interface PublicAnalystProfileSurfaceProps {
@@ -46,8 +49,8 @@ export function PublicAnalystProfileSurface({
   signupHref = "/signup",
   oddsFormat: oddsFormatProp,
 }: PublicAnalystProfileSurfaceProps): React.JSX.Element {
-  const { oddsFormat: platformOddsFormat, hasAccountSession, navigateTo, pushToast } =
-    usePlatform();
+  const { oddsFormat: platformOddsFormat, hasAccountSession } = usePlatformCore();
+  const { navigateTo, pushToast } = usePlatformActions();
   const oddsFormat = oddsFormatProp ?? platformOddsFormat;
   const sessionActive = hasSession || hasAccountSession;
   const joined = shortDate(profile.joinedAt);
@@ -110,7 +113,7 @@ export function PublicAnalystProfileSurface({
                     navigateTo(sessionActive ? `/app/u/${profile.handle}` : signupHref);
                   }}
                 >
-                  {sessionActive ? "Ver dentro del club" : "7 días gratis"}
+                  {sessionActive ? "Ver en PitchLab" : "7 días gratis"}
                 </a>
               </div>
             </div>

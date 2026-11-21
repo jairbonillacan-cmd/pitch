@@ -16,7 +16,6 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { MatchPick, PlatformGame } from "../types";
-import { ConfidenceChip } from "./ConfidenceChip";
 import { MaestroIcon } from "./MaestroPrimitives";
 
 const DEFAULT_LIST_PAGE = 24;
@@ -99,7 +98,7 @@ export const MatchListRow = React.memo(function MatchListRow({
   readonly game: PlatformGame;
 }): React.JSX.Element {
   const { viewerRole, hasAccountSession, upgradeHref } = usePlatformCore();
-  const { setAuraFromGame, navigateTo } = usePlatformActions();
+  const { setAuraFromGame, navigateTo, prefetchRoute } = usePlatformActions();
 
   const isNfl = !sportHasDraw(game.sport);
   const isFinished = game.status === "FT" && game.score !== undefined;
@@ -135,11 +134,13 @@ export const MatchListRow = React.memo(function MatchListRow({
             {shortDateLabel(game.dayId)} · {isFinished ? "Final" : game.kickoffLocal}
           </span>
           <span className="pl-mlist-round">{game.round}</span>
-          {!isFinished ? <ConfidenceChip game={game} /> : null}
+          {/* Sin chip numérico de confianza (ADR-054): manda la probabilidad real del pick */}
         </div>
 
         <a
           href={studioHref}
+          onPointerEnter={() => prefetchRoute(studioHref)}
+          onTouchStart={() => prefetchRoute(studioHref)}
           onClick={openStudio}
           aria-label={`Abrir ficha de ${matchLabel}`}
           className="pl-mlist-matchup"

@@ -12,7 +12,7 @@ import {
   type ScheduledEmailKind,
 } from "@pitchlab/db";
 import { renderEmail, siteUrl } from "@pitchlab/emails";
-import { MEMBERSHIP_SPEC } from "@pitchlab/ui";
+import { MEMBERSHIP_SPEC } from "@pitchlab/ui/spacetime-catalog";
 import { firstName, formatLongDate } from "./email-format";
 import type { Mailer } from "./mailer";
 

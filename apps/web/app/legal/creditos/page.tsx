@@ -1,9 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { LegalDocumentSurface } from "@pitchlab/ui/legal";
-import { hasPublicSessionCookie } from "../../../src/server/public-session";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Créditos de datos · PitchLab",
@@ -12,9 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/legal/creditos" },
 };
 
-export default async function CreditosPage(): Promise<React.JSX.Element> {
-  const hasSession = await hasPublicSessionCookie();
-
+export default function CreditosPage(): React.JSX.Element {
   return (
     <LegalDocumentSurface
       slug="creditos"
@@ -22,7 +19,6 @@ export default async function CreditosPage(): Promise<React.JSX.Element> {
       title="Créditos de datos"
       lede="Atribución de las fuentes abiertas, licencias y alcance editorial de nombres y emblemas."
       lastUpdated="Última actualización: noviembre de 2026"
-      hasSession={hasSession}
       intro={
         <p>
           PitchLab reconoce y atribuye los conjuntos de datos deportivos abiertos y servicios de

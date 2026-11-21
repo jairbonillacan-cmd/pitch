@@ -1,6 +1,7 @@
+import "../login-motion.css";
 import React from "react";
 import type { Metadata } from "next";
-import { OnboardingSurfaceV4 } from "@pitchlab/ui";
+import { OnboardingSurfaceV4 } from "@pitchlab/ui/auth";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { loadPublicPlatformState } from "../../src/server/platform-data";
 import { hasPublicSessionCookie } from "../../src/server/public-session";

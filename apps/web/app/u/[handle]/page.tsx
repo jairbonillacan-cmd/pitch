@@ -1,3 +1,6 @@
+import "../../community-v2.css";
+import "../../community-social.css";
+import "../../record-v2.css";
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";

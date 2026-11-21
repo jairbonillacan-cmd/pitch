@@ -2,10 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { BrandLogo, ThemeToggle } from "../../primitives";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import type { PaymentMode } from "../types";
 import { CouponRedeemBox } from "./CanjearCouponView";
-import { LensGlowOrbs, MaestroIcon } from "./MaestroPrimitives";
+import { MaestroIcon } from "./MaestroPrimitives";
 import { AtmosphereStage } from "./ShellChrome";
 
 export interface ExpiredPassGateProps {
@@ -47,13 +50,8 @@ export function ExpiredPassGate({
   paymentMode,
   storyOverride,
 }: ExpiredPassGateProps): React.JSX.Element {
-  const {
-    paymentMode: ctxPaymentMode,
-    hasAccountSessionAuth,
-    viewerIdentity,
-    navigateTo,
-    logoutSession,
-  } = usePlatform();
+  const { paymentMode: ctxPaymentMode, hasAccountSessionAuth, viewerIdentity } = usePlatformCore();
+  const { navigateTo, logoutSession } = usePlatformActions();
 
   const [fetchedEndedIso, setFetchedEndedIso] = useState<string | null>(null);
   const [redeemedPayload, setRedeemedPayload] = useState<{
@@ -155,8 +153,6 @@ export function ExpiredPassGate({
           className="max-w-2xl mx-auto glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-7 space-y-6"
           data-expired-pass-gate=""
         >
-          <LensGlowOrbs />
-
           <div className="relative z-10 space-y-2.5">
             <div className="flex flex-wrap items-center gap-2">
               <span className="pl-pill pl-pill--warning">

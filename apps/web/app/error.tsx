@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { BrandLogo } from "@pitchlab/ui";
+import { BrandLogo } from "@pitchlab/ui/brand-logo";
 
 export default function PublicErrorPage({
   error,

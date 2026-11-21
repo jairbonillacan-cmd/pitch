@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    Match Center en vivo (EN-VIVO-1): marcador del día, ficha en vivo, «Siguiendo»
    100 % tokens @pitchlab/tokens · Cero hex · Cero backdrop-filter · Container queries
@@ -45,7 +46,12 @@
   border-radius: 999px;
   background: var(--pl-danger);
   flex-shrink: 0;
-  animation: pl-live-pulse 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-live-pulse {
+    animation: pl-live-pulse 1.6s ease-in-out infinite;
+  }
 }
 
 .pl-live-phase--halftime .pl-live-pulse {
@@ -68,10 +74,6 @@
   content: "";
   inline-size: 40px;
   flex: 0 0 40px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pl-live-pulse { animation: none; }
 }
 
 /* ---------- «Siguiendo» ---------- */
@@ -555,12 +557,41 @@
 .pl-live-key--home { background: var(--pl-live-home); }
 .pl-live-key--away { background: var(--pl-live-away); }
 
+.pl-live-momentum-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+
+.pl-live-momentum-shell.has-crests {
+  grid-template-columns: 24px minmax(0, 1fr);
+}
+
+.pl-live-momentum-crests {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-block-end: 18px;
+}
+
+.pl-live-momentum-crest {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pl-live-plot {
   position: relative;
   block-size: 168px;
-  border-radius: 12px;
+  border-radius: 10px;
   touch-action: pan-y;
   cursor: crosshair;
+}
+
+.pl-live-plot--momentum {
+  block-size: 176px;
 }
 
 .pl-live-plot--short { block-size: 120px; cursor: default; }
@@ -572,6 +603,9 @@
   overflow: visible;
 }
 
+.pl-live-band--home { fill: var(--pl-live-home); opacity: 0.08; }
+.pl-live-band--away { fill: var(--pl-live-away); opacity: 0.08; }
+
 .pl-live-grid,
 .pl-live-zero {
   stroke: var(--pl-border);
@@ -581,12 +615,36 @@
 
 .pl-live-zero { stroke: var(--pl-border-strong); }
 
-.pl-live-area--home { fill: var(--pl-live-home); opacity: 0.16; }
-.pl-live-area--away { fill: var(--pl-live-away); opacity: 0.16; }
+.pl-live-ht-split {
+  stroke: var(--pl-surface);
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.pl-live-now-line {
+  stroke: var(--pl-danger);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.pl-live-now-dot {
+  position: absolute;
+  top: 2px;
+  inline-size: 9px;
+  block-size: 9px;
+  margin-inline-start: -4.5px;
+  border-radius: 999px;
+  background: var(--pl-surface);
+  border: 2px solid var(--pl-danger);
+  pointer-events: none;
+}
+
+.pl-live-area--home { fill: var(--pl-live-home); opacity: 0.78; }
+.pl-live-area--away { fill: var(--pl-live-away); opacity: 0.78; }
 
 .pl-live-line {
   fill: none;
-  stroke-width: 2;
+  stroke-width: 1.5;
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
@@ -601,19 +659,23 @@
   vector-effect: non-scaling-stroke;
 }
 
-/* Gol: marca de 8 px con anillo de superficie de 2 px; local arriba, visita abajo. */
+/* Gol en Momentum: balón vectorial plano sobre/bajo el eje; local arriba, visita abajo. */
 .pl-live-goal {
   position: absolute;
-  inline-size: 12px;
-  block-size: 12px;
-  margin-inline-start: -6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 18px;
+  block-size: 18px;
+  margin-inline-start: -9px;
   border-radius: 999px;
-  border: 2px solid var(--background-primary);
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
   pointer-events: none;
 }
 
-.pl-live-goal--home { top: 0; background: var(--pl-live-home); }
-.pl-live-goal--away { top: calc(100% - 18px - 12px); background: var(--pl-live-away); }
+.pl-live-goal--home { top: -2px; color: var(--pl-live-home); }
+.pl-live-goal--away { top: calc(100% - 18px - 16px); color: var(--pl-live-away); }
 
 .pl-live-tooltip {
   position: absolute;
@@ -651,9 +713,23 @@
   font-size: 12px;
   color: var(--pl-text-muted);
   cursor: pointer;
-  min-block-size: 32px;
+  min-block-size: 36px;
   display: inline-flex;
   align-items: center;
+}
+
+.pl-live-table-scroll {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  margin-block-start: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--pl-border);
+}
+
+.pl-live-table-scroll:focus-visible,
+.pl-live-table summary:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
 }
 
 .pl-live-table table {
@@ -664,8 +740,12 @@
 
 .pl-live-table :is(th, td) {
   text-align: start;
-  padding: 4px 6px;
+  padding: 5px 8px;
   border-block-end: 1px solid var(--pl-border);
+}
+
+.pl-live-table :is(th, td).num {
+  text-align: end;
 }
 
 /* ---------- Barras pareadas ---------- */
@@ -720,24 +800,40 @@
 
 .pl-live-stat-track {
   display: flex;
-  block-size: 8px;
-  border-radius: 4px;
+  block-size: 6px;
+  border-radius: 999px;
   background: var(--pl-surface-hover);
   overflow: hidden;
 }
 
-.pl-live-stat-track--home { justify-content: flex-end; margin-inline-end: 1px; }
-.pl-live-stat-track--away { justify-content: flex-start; margin-inline-start: 1px; }
+.pl-live-stat-track--home { justify-content: flex-end; margin-inline-end: 2px; }
+.pl-live-stat-track--away { justify-content: flex-start; margin-inline-start: 2px; }
 
 .pl-live-stat-track span {
   display: block;
   block-size: 100%;
   min-inline-size: 0;
-  transition: inline-size 400ms ease;
+  border-radius: 999px;
+  opacity: 0.45;
+  transition: inline-size 320ms ease, opacity 200ms ease;
 }
 
-.pl-live-stat-track--home span { background: var(--pl-live-home); border-radius: 4px 0 0 4px; }
-.pl-live-stat-track--away span { background: var(--pl-live-away); border-radius: 0 4px 4px 0; }
+.pl-live-stat-track span[data-lead="true"] {
+  opacity: 1;
+}
+
+.pl-live-stat-track--home span { background: var(--pl-live-home); }
+.pl-live-stat-track--away span { background: var(--pl-live-away); }
+
+/* Métricas negativas (p. ej. Goles evitados -0.54 vs -0.44): nunca quedan vacías */
+.pl-live-stat-track span[data-negative="true"] {
+  background: color-mix(in srgb, var(--pl-danger) 72%, var(--pl-warning));
+  opacity: 0.65;
+}
+.pl-live-stat-track span[data-negative="true"][data-lead="true"] {
+  background: var(--pl-warning);
+  opacity: 0.9;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .pl-live-stat-track span { transition: none; }
@@ -806,39 +902,12 @@
   justify-content: center;
   inline-size: 22px;
   block-size: 22px;
-  font-size: 10px;
-  font-weight: 800;
-  color: var(--pl-text-muted);
+  color: var(--pl-text);
+  flex: none;
 }
 
-/* Goles: el punto lleva el color del equipo; tarjetas: rectángulo del color de la tarjeta. */
-.pl-live-event.is-goal .pl-live-event-icon::before {
-  content: "";
-  inline-size: 12px;
-  block-size: 12px;
-  border-radius: 999px;
-  background: var(--pl-text);
-}
-
-.pl-live-event.is-goal.is-home .pl-live-event-icon::before { background: var(--pl-live-home); }
-.pl-live-event.is-goal.is-away .pl-live-event-icon::before { background: var(--pl-live-away); }
-
-.pl-live-event-icon--yellow::before,
-.pl-live-event-icon--second_yellow::before,
-.pl-live-event-icon--red::before {
-  content: "";
-  inline-size: 10px;
-  block-size: 14px;
-  border-radius: 2px;
-}
-
-/* Colores de tarjeta reales (mismos en ambos temas) con borde para que se lean sobre blanco. */
-.pl-live-event-icon--yellow::before { background: var(--pl-google-yellow); }
-.pl-live-event-icon--second_yellow::before { background: linear-gradient(135deg, var(--pl-google-yellow) 50%, var(--pl-google-red) 50%); }
-.pl-live-event-icon--red::before { background: var(--pl-google-red); }
-.pl-live-event-icon--yellow::before,
-.pl-live-event-icon--second_yellow::before,
-.pl-live-event-icon--red::before { box-shadow: inset 0 0 0 1px var(--pl-border-strong); }
+.pl-live-event.is-goal.is-home .pl-live-event-icon { color: var(--pl-live-home); }
+.pl-live-event.is-goal.is-away .pl-live-event-icon { color: var(--pl-live-away); }
 
 .pl-live-event.is-goal { font-weight: 700; }
 .pl-live-event.is-goal .pl-live-event-body > span {
@@ -1001,6 +1070,14 @@
     padding: 8px 10px;
     border-block-end: 1px solid var(--pl-border);
   }
+  .pl-live-players-table tbody th {
+    grid-column: 1 / -1;
+    padding: 2px 0;
+    border: 0;
+    font-weight: 700;
+    color: var(--pl-text);
+    white-space: normal;
+  }
   .pl-live-players-table td {
     display: flex;
     justify-content: space-between;
@@ -1014,11 +1091,17 @@
     color: var(--pl-text-muted);
     font-weight: 600;
   }
-  .pl-live-players-table td:first-child {
-    grid-column: 1 / -1;
-    font-weight: 700;
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-live-follow-btn,
+  .pl-live-chip,
+  .pl-live-tab,
+  .pl-live-table summary {
+    min-block-size: 44px;
   }
-  .pl-live-players-table td:first-child::before {
-    display: none;
+  .pl-live-follow-btn {
+    min-inline-size: 44px;
   }
+}
 }

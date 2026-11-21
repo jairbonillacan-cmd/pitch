@@ -188,7 +188,7 @@ export function CortexAnalysisCard({
             </div>
           </header>
           <p className="pl-cortex-sec-text m-0" style={{ color: "var(--pl-text-muted)" }}>
-            Este snapshot aún no incluye pronóstico ni lectura previa publicados para este partido.
+            Aún sin pronóstico ni lectura previa publicados para este partido.
           </p>
         </article>
       </div>
@@ -209,17 +209,6 @@ export function CortexAnalysisCard({
               <h2 id="cortex-title" className="m-0 text-base sm:text-lg font-extrabold">
                 Pronóstico de Cortex IA
               </h2>
-              <div className="flex flex-wrap items-center gap-1.5">
-                <span className="pl-pill pl-pill--brand text-[11px]">
-                  <MaestroIcon name="cpu" size={11} />
-                  <span>Cortex IA</span>
-                </span>
-                {!forecast?.isFinished && game.confidenceScore !== null ? (
-                  <span className="pl-pill text-[11px] num">
-                    Conf. {game.confidenceScore}/100
-                  </span>
-                ) : null}
-              </div>
             </div>
             <p className="m-0 text-xs mt-0.5 num" style={{ color: "var(--pl-text-muted)" }}>
               Generado antes del comienzo del partido · {shortDateLabel(game.dayId)} ·{" "}

@@ -54,8 +54,29 @@ const consoleSender: SendEmail = async (to, subject, html) => {
   console.info(localEmailLogLine(to, subject, html));
 };
 
-function isHostedRemote(): boolean {
-  return Boolean(process.env.VERCEL || process.env.K_SERVICE);
+/**
+ * Detecta si la app corre en cualquier despliegue remoto (independiente de proveedor, ADR-050).
+ * Acepta bandera neutra `PITCHLAB_HOSTED=1` y marcadores estándar de plataformas comunes.
+ */
+export function isHostedRemote(): boolean {
+  const explicit = process.env.PITCHLAB_HOSTED?.trim().toLowerCase();
+  if (explicit === "1" || explicit === "true") return true;
+  if (explicit === "0" || explicit === "false") return false;
+  return Boolean(
+    process.env.VERCEL ||
+      process.env.K_SERVICE ||
+      process.env.FLY_APP_NAME ||
+      process.env.RAILWAY_ENVIRONMENT ||
+      process.env.RAILWAY_PROJECT_ID ||
+      process.env.RENDER ||
+      process.env.AWS_EXECUTION_ENV ||
+      process.env.ECS_CONTAINER_METADATA_URI ||
+      process.env.ECS_CONTAINER_METADATA_URI_V4 ||
+      process.env.CONTAINER_APP_NAME ||
+      process.env.WEBSITE_SITE_NAME ||
+      process.env.DO_APP_PLATFORM ||
+      process.env.COOLIFY_APP_ID,
+  );
 }
 
 const local9990Sender: SendEmail = async (to, subject, html) => {
@@ -301,16 +322,19 @@ export function getAuth(): PitchLabAuth | null {
         ? resendSender(resendKey, from)
         : consoleSender;
 
-  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+  const captchaProvider = process.env.PITCHLAB_CAPTCHA_PROVIDER?.trim().toLowerCase();
+  const captchaDisabled =
+    captchaProvider === "none" || process.env.PITCHLAB_ALLOW_NO_TURNSTILE_IN_PROD === "1";
+  const turnstileSecret = captchaDisabled ? undefined : process.env.TURNSTILE_SECRET_KEY?.trim();
+  const turnstileSiteKey = captchaDisabled ? undefined : process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
   if (
     isProd &&
     !allowLocalSender &&
-    process.env.PITCHLAB_ALLOW_NO_TURNSTILE_IN_PROD !== "1" &&
+    !captchaDisabled &&
     (!turnstileSecret || !turnstileSiteKey)
   ) {
     throw new Error(
-      "TURNSTILE_SECRET_KEY y NEXT_PUBLIC_TURNSTILE_SITE_KEY son obligatorias en producción.",
+      "TURNSTILE_SECRET_KEY y NEXT_PUBLIC_TURNSTILE_SITE_KEY son obligatorias en producción (o define PITCHLAB_CAPTCHA_PROVIDER=none para operar sin captcha externo).",
     );
   }
 

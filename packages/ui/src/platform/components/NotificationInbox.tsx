@@ -22,7 +22,13 @@ import {
   type ServerSocialNotification,
 } from "../notifications";
 import { useLiveScoreboard } from "../live/live-store";
-import { usePlatform } from "../platform-provider";
+import {
+  useFollowAlerts,
+  useJournalEntries,
+  usePlatformActions,
+  usePlatformCore,
+  useWatchlistGameIds,
+} from "../platform-provider";
 import { MaestroIcon, type MaestroIconName } from "./MaestroPrimitives";
 
 /* ---------- Leídas locales: almacén compartido (conviven dos encabezados durante la carga) ---------- */
@@ -54,6 +60,22 @@ function markRead(ids: readonly string[]): void {
       next.add(id);
       changed = true;
     }
+  }
+  if (!changed) return;
+  readSnapshot = next;
+  try {
+    window.localStorage.setItem(READ_KEY, JSON.stringify([...next].slice(-READ_CAP)));
+  } catch (err) {
+    void err;
+  }
+  for (const fn of readListeners) fn();
+}
+
+function unmarkRead(ids: readonly string[]): void {
+  const next = new Set(loadRead());
+  let changed = false;
+  for (const id of ids) {
+    if (next.delete(id)) changed = true;
   }
   if (!changed) return;
   readSnapshot = next;
@@ -405,17 +427,11 @@ export function NotificationInboxPanel({
 /* ---------- Campana + popover (contenedor) ---------- */
 
 export function NotificationBell(): React.JSX.Element {
-  const {
-    dataset,
-    watchlistGameIds,
-    journal,
-    oddsFormat,
-    favoriteLeagues,
-    hasAccountSessionAuth,
-    viewerIdentity,
-    navigateTo,
-    followAlerts,
-  } = usePlatform();
+  const { dataset, oddsFormat, favoriteLeagues, hasAccountSessionAuth, viewerIdentity } = usePlatformCore();
+  const { navigateTo, pushToast } = usePlatformActions();
+  const journal = useJournalEntries();
+  const watchlistGameIds = useWatchlistGameIds();
+  const followAlerts = useFollowAlerts();
   const socialEnabled = Boolean(hasAccountSessionAuth && viewerIdentity);
   const now = useMinuteClock();
   const localReadIds = useReadIds();
@@ -496,6 +512,24 @@ export function NotificationBell(): React.JSX.Element {
 
   const count = unreadCount(items, effectiveReadIds);
 
+  // Sincroniza el contador de avisos sin leer con el ícono de la PWA (App Badging API, ADR-053).
+  useEffect(() => {
+    if (typeof navigator === "undefined") return;
+    const nav = navigator as Navigator & {
+      setAppBadge?: (contents?: number) => Promise<void>;
+      clearAppBadge?: () => Promise<void>;
+    };
+    try {
+      if (count > 0 && typeof nav.setAppBadge === "function") {
+        void nav.setAppBadge(count).catch(() => undefined);
+      } else if (count === 0 && typeof nav.clearAppBadge === "function") {
+        void nav.clearAppBadge().catch(() => undefined);
+      }
+    } catch (err) {
+      void err;
+    }
+  }, [count]);
+
   const close = () => {
     try {
       menuRef.current?.hidePopover();
@@ -558,8 +592,23 @@ export function NotificationBell(): React.JSX.Element {
               navigateTo(n.href);
             }}
             onMarkAllRead={() => {
+              const newlyReadLocal = items
+                .filter((n) => !n.serverId && !effectiveReadIds.has(n.id))
+                .map((n) => n.id);
               markRead(items.map((n) => n.id));
               if (socialEnabled) markSocialServerRead();
+              if (newlyReadLocal.length > 0) {
+                pushToast(
+                  "Notificaciones marcadas como leídas.",
+                  "default",
+                  {
+                    actionLabel: "Deshacer",
+                    onAction: () => {
+                      unmarkRead(newlyReadLocal);
+                    },
+                  },
+                );
+              }
             }}
             onBrowse={() => {
               close();

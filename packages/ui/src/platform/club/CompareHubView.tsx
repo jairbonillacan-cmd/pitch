@@ -8,12 +8,13 @@ import {
   type PlatformSport,
 } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports";
+import { computeStatBarWidths } from "../atomic/AtomicStatComparisonBar";
 import { FormSquares } from "../components/FormSquares";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { PlSelect } from "../components/PlSelect";
 import { shareH2hStoryCard } from "../components/share-story-card";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import { usePlatformActions } from "../platform-provider";
 import { PersonAvatar } from "./team/PersonAvatar";
 
 export type CompareMode = "equipos" | "jugadores";
@@ -137,58 +138,98 @@ export interface CompareHubViewProps {
   disableLiveFetch?: boolean;
 }
 
-function CompareBarRow({ row, nameA, nameB }: { row: CompareMetricRow; nameA: string; nameB: string }) {
-  const a = row.numA;
-  const b = row.numB;
-  const bothNum = a !== null && b !== null && Number.isFinite(a) && Number.isFinite(b);
+/**
+ * Barra comparativa plana editorial (ADR-054):
+ * - Cero gradientes, 100 % tokens `--pl-*`.
+ * - Apoyada en `computeStatBarWidths` para manejar porcentajes, conteos y valores negativos.
+ */
+function CompareBarRow({
+  row,
+  nameA,
+  nameB,
+}: {
+  row: CompareMetricRow;
+  nameA: string;
+  nameB: string;
+}): React.JSX.Element {
+  const a = typeof row.numA === "number" && Number.isFinite(row.numA) ? row.numA : null;
+  const b = typeof row.numB === "number" && Number.isFinite(row.numB) ? row.numB : null;
 
-  let pctA = 50;
-  let pctB = 50;
+  const isPct = row.valueA.includes("%") || row.valueB.includes("%");
+  const widths =
+    a !== null && b !== null
+      ? computeStatBarWidths(a, b, { pct: isPct, signed: a < 0 || b < 0 })
+      : { homePct: 0, awayPct: 0, homeNegative: false, awayNegative: false, lead: "tie" as const };
+
   let leader: "A" | "B" | "tie" = "tie";
-
-  if (bothNum) {
-    const absA = Math.abs(a);
-    const absB = Math.abs(b);
-    const total = absA + absB;
-    if (total > 0) {
-      pctA = Math.max(8, Math.min(92, Math.round((absA / total) * 100)));
-      pctB = 100 - pctA;
-    }
-    if (Math.abs(a - b) > 1e-4) {
-      if (row.lowerIsBetter) {
-        leader = a < b ? "A" : "B";
-      } else {
-        leader = a > b ? "A" : "B";
-      }
+  if (a !== null && b !== null && Math.abs(a - b) > 1e-4) {
+    if (row.lowerIsBetter) {
+      leader = a < b ? "A" : "B";
+    } else {
+      leader = a > b ? "A" : "B";
     }
   }
 
+  const neutralBarColor = "color-mix(in oklab, var(--pl-text-muted) 32%, transparent)";
+  const barColorA = widths.homeNegative
+    ? "var(--pl-danger)"
+    : leader === "A"
+      ? "var(--pl-brand)"
+      : neutralBarColor;
+  const barColorB = widths.awayNegative
+    ? "var(--pl-danger)"
+    : leader === "B"
+      ? "var(--pl-success)"
+      : neutralBarColor;
+
   return (
-    <div className="pl-cmp-row" data-compare-metric={row.id}>
-      <div className="pl-cmp-row-head num">
+    <div className="pl-cmp-row min-w-0" data-compare-metric={row.id}>
+      <div className="pl-cmp-row-head num min-w-0">
         <span
-          className={`pl-cmp-val ${leader === "A" ? "is-lead" : ""}`.trim()}
+          className={`pl-cmp-val truncate ${leader === "A" ? "is-lead" : ""}`.trim()}
           aria-label={`${nameA}: ${row.valueA}`}
         >
           {row.valueA}
         </span>
-        <span className="pl-cmp-label">{row.label}</span>
+        <span className="pl-cmp-label min-w-0 break-words">{row.label}</span>
         <span
-          className={`pl-cmp-val text-right ${leader === "B" ? "is-lead" : ""}`.trim()}
+          className={`pl-cmp-val text-right truncate ${leader === "B" ? "is-lead" : ""}`.trim()}
           aria-label={`${nameB}: ${row.valueB}`}
         >
           {row.valueB}
         </span>
       </div>
-      <div className="pl-cmp-track" aria-hidden="true">
-        <span
-          className={`pl-cmp-bar-a ${leader === "A" ? "is-lead" : ""}`.trim()}
-          style={{ width: `${pctA}%` }}
-        />
-        <span
-          className={`pl-cmp-bar-b ${leader === "B" ? "is-lead" : ""}`.trim()}
-          style={{ width: `${pctB}%` }}
-        />
+      <div className="grid grid-cols-2 gap-1.5" aria-hidden="true">
+        <div
+          className="flex justify-end h-[7px] rounded-full overflow-hidden"
+          style={{ background: "var(--pl-surface-soft)" }}
+        >
+          <span
+            className="block h-full rounded-full"
+            data-lead={leader === "A" ? "true" : undefined}
+            data-negative={widths.homeNegative ? "true" : undefined}
+            style={{
+              width: `${widths.homePct}%`,
+              background: barColorA,
+              transition: "width 220ms ease",
+            }}
+          />
+        </div>
+        <div
+          className="flex justify-start h-[7px] rounded-full overflow-hidden"
+          style={{ background: "var(--pl-surface-soft)" }}
+        >
+          <span
+            className="block h-full rounded-full"
+            data-lead={leader === "B" ? "true" : undefined}
+            data-negative={widths.awayNegative ? "true" : undefined}
+            style={{
+              width: `${widths.awayPct}%`,
+              background: barColorB,
+              transition: "width 220ms ease",
+            }}
+          />
+        </div>
       </div>
     </div>
   );
@@ -196,7 +237,7 @@ function CompareBarRow({ row, nameA, nameB }: { row: CompareMetricRow; nameA: st
 
 /**
  * Comparador rápido H2H (`/app/comparar`):
- * - Pestaña «Equipos»: comparación lado a lado + historial directo (H2H) real.
+ * - Pestaña «Equipos»: comparación lado a lado con barras planas + historial directo (H2H) real.
  * - Pestaña «Jugadores»: bio y métricas de temporada proporcionales lado a lado.
  */
 export function CompareHubView({
@@ -208,7 +249,7 @@ export function CompareHubView({
   initialPlayerComparison,
   disableLiveFetch = false,
 }: CompareHubViewProps): React.JSX.Element {
-  const { navigateTo } = usePlatform();
+  const { navigateTo } = usePlatformActions();
   const tabIdBase = useId();
   const [mode, setMode] = useState<CompareMode>(initialMode);
   const [league, setLeague] = useState<LeagueId>(initialLeague);
@@ -335,28 +376,40 @@ export function CompareHubView({
     }
   };
 
+  const handleTabKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    const nextMode: CompareMode = mode === "equipos" ? "jugadores" : "equipos";
+    setMode(nextMode);
+    const nextTabEl = document.getElementById(`${tabIdBase}-tab-${nextMode}`);
+    nextTabEl?.focus();
+  };
+
   const teamsForLeague = activeCatalog?.teams ?? [];
 
   return (
     <AtmosphereStage activePath="/app/comparar">
       <ClubWorkspaceShell activePath="/app/comparar">
-        <div className="space-y-4" data-compare-hub="">
+        <div className="space-y-4 min-w-0" data-compare-hub="">
           {/* Cabecera + pestañas WAI-ARIA + selectores */}
-          <section className="glass-card glass-ring rounded-3xl p-5 sm:p-6 space-y-4">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
+          <section className="glass-card glass-ring rounded-3xl p-4 sm:p-6 space-y-4 min-w-0">
+            <div className="flex flex-wrap items-start justify-between gap-3 min-w-0">
+              <div className="min-w-0">
                 <h1 className="m-0 text-xl sm:text-2xl font-black tracking-tight">
                   Comparador H2H
                 </h1>
-                <p className="m-0 text-xs sm:text-sm mt-1" style={{ color: "var(--pl-text-muted)" }}>
+                <p
+                  className="m-0 text-xs sm:text-sm mt-1"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
                   Compara equipos cara a cara con historial real o contrasta jugadores por temporada.
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 max-w-full">
                 <button
                   type="button"
-                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5"
+                  className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 inline-flex items-center gap-1.5"
                   aria-label="Compartir comparativa H2H en formato 9:16"
                   data-share-h2h-story=""
                   disabled={mode === "equipos" ? !teamComparison : !playerComparison}
@@ -392,41 +445,42 @@ export function CompareHubView({
                   }}
                 >
                   <MaestroIcon name="share" size={13} />
-                  <span>9:16</span>
+                  <span className="num">9:16</span>
                 </button>
 
                 <div
-                  className="seg-well"
+                  className="seg-well max-w-full"
                   role="tablist"
                   aria-label="Modo de comparación"
+                  onKeyDown={handleTabKeyDown}
                 >
-                <button
-                  id={`${tabIdBase}-tab-equipos`}
-                  type="button"
-                  role="tab"
-                  aria-selected={mode === "equipos"}
-                  aria-controls={`${tabIdBase}-panel-equipos`}
-                  className={`seg-btn ${mode === "equipos" ? "is-active" : ""}`.trim()}
-                  onClick={() => setMode("equipos")}
-                >
-                  Equipos H2H
-                </button>
-                <button
-                  id={`${tabIdBase}-tab-jugadores`}
-                  type="button"
-                  role="tab"
-                  aria-selected={mode === "jugadores"}
-                  aria-controls={`${tabIdBase}-panel-jugadores`}
-                  className={`seg-btn ${mode === "jugadores" ? "is-active" : ""}`.trim()}
-                  onClick={() => setMode("jugadores")}
-                >
-                  Jugadores
-                </button>
-              </div>
+                  <button
+                    id={`${tabIdBase}-tab-equipos`}
+                    type="button"
+                    role="tab"
+                    aria-selected={mode === "equipos"}
+                    aria-controls={`${tabIdBase}-panel-equipos`}
+                    className={`seg-btn min-h-11 sm:min-h-9 px-3 ${mode === "equipos" ? "is-active" : ""}`.trim()}
+                    onClick={() => setMode("equipos")}
+                  >
+                    Equipos H2H
+                  </button>
+                  <button
+                    id={`${tabIdBase}-tab-jugadores`}
+                    type="button"
+                    role="tab"
+                    aria-selected={mode === "jugadores"}
+                    aria-controls={`${tabIdBase}-panel-jugadores`}
+                    className={`seg-btn min-h-11 sm:min-h-9 px-3 ${mode === "jugadores" ? "is-active" : ""}`.trim()}
+                    onClick={() => setMode("jugadores")}
+                  >
+                    Jugadores
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="pl-cmp-controls">
+            <div className="pl-cmp-controls min-w-0">
               <div className="min-w-0">
                 <label
                   htmlFor={`${tabIdBase}-league`}
@@ -438,10 +492,17 @@ export function CompareHubView({
                 <PlSelect
                   id={`${tabIdBase}-league`}
                   ariaLabel="Seleccionar liga para comparar"
+                  variant="field"
+                  size="md"
+                  fullWidth
+                  popoverWidth="trigger"
+                  triggerClassName="text-base sm:text-sm min-h-11"
                   value={league}
                   onChange={handleLeagueChange}
                   options={catalog.map((c) => {
-                    const reg = c.region ? LEAGUE_REGIONS.find((r) => r.key === c.region) : undefined;
+                    const reg = c.region
+                      ? LEAGUE_REGIONS.find((r) => r.key === c.region)
+                      : undefined;
                     return {
                       value: c.league,
                       label: reg && catalog.length > 10 ? `${c.label} · ${reg.shortLabel}` : c.label,
@@ -463,6 +524,11 @@ export function CompareHubView({
                     <PlSelect
                       id={`${tabIdBase}-team-a`}
                       ariaLabel="Seleccionar primer equipo"
+                      variant="field"
+                      size="md"
+                      fullWidth
+                      popoverWidth="trigger"
+                      triggerClassName="text-base sm:text-sm min-h-11"
                       value={teamASlug}
                       onChange={setTeamASlug}
                       options={teamsForLeague.map((t) => ({
@@ -474,11 +540,12 @@ export function CompareHubView({
                   <div className="flex items-end justify-center">
                     <button
                       type="button"
-                      className="pl-btn-glass min-h-10 px-3 text-xs font-bold"
+                      className="pl-btn-glass min-h-11 min-w-11 lg:min-h-10 w-full md:w-auto px-3 text-xs font-bold inline-flex items-center justify-center gap-1.5"
                       aria-label="Intercambiar lado A y lado B"
                       onClick={handleSwap}
                     >
-                      ⇄
+                      <span aria-hidden="true">⇄</span>
+                      <span className="md:hidden">Intercambiar</span>
                     </button>
                   </div>
                   <div className="min-w-0">
@@ -492,6 +559,11 @@ export function CompareHubView({
                     <PlSelect
                       id={`${tabIdBase}-team-b`}
                       ariaLabel="Seleccionar segundo equipo"
+                      variant="field"
+                      size="md"
+                      fullWidth
+                      popoverWidth="trigger"
+                      triggerClassName="text-base sm:text-sm min-h-11"
                       value={teamBSlug}
                       onChange={setTeamBSlug}
                       options={teamsForLeague.map((t) => ({
@@ -514,6 +586,11 @@ export function CompareHubView({
                     <PlSelect
                       id={`${tabIdBase}-player-a`}
                       ariaLabel="Seleccionar primer jugador"
+                      variant="field"
+                      size="md"
+                      fullWidth
+                      popoverWidth="trigger"
+                      triggerClassName="text-base sm:text-sm min-h-11"
                       value={playerARef}
                       onChange={setPlayerARef}
                       options={playerOptions.map((p) => ({
@@ -525,11 +602,12 @@ export function CompareHubView({
                   <div className="flex items-end justify-center">
                     <button
                       type="button"
-                      className="pl-btn-glass min-h-10 px-3 text-xs font-bold"
+                      className="pl-btn-glass min-h-11 min-w-11 lg:min-h-10 w-full md:w-auto px-3 text-xs font-bold inline-flex items-center justify-center gap-1.5"
                       aria-label="Intercambiar jugador A y jugador B"
                       onClick={handleSwap}
                     >
-                      ⇄
+                      <span aria-hidden="true">⇄</span>
+                      <span className="md:hidden">Intercambiar</span>
                     </button>
                   </div>
                   <div className="min-w-0">
@@ -543,6 +621,11 @@ export function CompareHubView({
                     <PlSelect
                       id={`${tabIdBase}-player-b`}
                       ariaLabel="Seleccionar segundo jugador"
+                      variant="field"
+                      size="md"
+                      fullWidth
+                      popoverWidth="trigger"
+                      triggerClassName="text-base sm:text-sm min-h-11"
                       value={playerBRef}
                       onChange={setPlayerBRef}
                       options={playerOptions.map((p) => ({
@@ -562,11 +645,11 @@ export function CompareHubView({
               id={`${tabIdBase}-panel-equipos`}
               role="tabpanel"
               aria-labelledby={`${tabIdBase}-tab-equipos`}
-              className="space-y-4"
+              className="space-y-4 min-w-0"
             >
               {teamComparison ? (
                 <>
-                  <section className="glass-card glass-ring rounded-2xl p-5 space-y-5">
+                  <section className="glass-card glass-ring rounded-2xl p-4 sm:p-5 space-y-5 min-w-0">
                     <div className="pl-cmp-duel-head">
                       {[teamComparison.teamA, teamComparison.teamB].map((side, idx) => (
                         <div
@@ -576,20 +659,25 @@ export function CompareHubView({
                           <a
                             href={side.href}
                             onClick={(e) => navigateOnPlainClick(e, side.href)}
-                            className="inline-flex items-center gap-3 no-underline min-w-0"
+                            className="flex items-center gap-3 no-underline min-w-0 w-full min-h-11"
                             style={{ color: "var(--pl-text)" }}
                           >
-                            <TeamBadge
-                              league={teamComparison.league}
-                              slug={side.slug}
-                              name={side.name}
-                              size={44}
-                            />
-                            <div className="min-w-0">
+                            <span className="shrink-0">
+                              <TeamBadge
+                                league={teamComparison.league}
+                                slug={side.slug}
+                                name={side.name}
+                                size={44}
+                              />
+                            </span>
+                            <div className="min-w-0 flex-1">
                               <strong className="block text-base sm:text-lg font-extrabold truncate">
                                 {side.name}
                               </strong>
-                              <span className="block text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+                              <span
+                                className="block text-xs num truncate"
+                                style={{ color: "var(--pl-text-muted)" }}
+                              >
                                 {side.rank ? `#${side.rank} · ` : ""}
                                 {side.recordLabel} · {side.pointsLabel}
                               </span>
@@ -604,7 +692,7 @@ export function CompareHubView({
                       ))}
                     </div>
 
-                    <div className="space-y-3" aria-busy={loading ? "true" : undefined}>
+                    <div className="space-y-3 min-w-0" aria-busy={loading ? "true" : undefined}>
                       {teamComparison.metrics.map((row) => (
                         <CompareBarRow
                           key={row.id}
@@ -617,19 +705,22 @@ export function CompareHubView({
                   </section>
 
                   {/* Historial directo H2H */}
-                  <section className="glass-card glass-ring rounded-2xl p-5 space-y-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div>
+                  <section className="glass-card glass-ring rounded-2xl p-4 sm:p-5 space-y-3 min-w-0">
+                    <div className="flex flex-wrap items-center justify-between gap-2 min-w-0">
+                      <div className="min-w-0">
                         <h2 className="m-0 text-base font-extrabold">
                           Historial directo (H2H)
                         </h2>
-                        <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                        <p
+                          className="m-0 text-xs mt-0.5"
+                          style={{ color: "var(--pl-text-muted)" }}
+                        >
                           Enfrentamientos registrados entre {teamComparison.teamA.shortName} y{" "}
                           {teamComparison.teamB.shortName} en nuestros snapshots y corpus verificados.
                         </p>
                       </div>
                       {teamComparison.h2hSummary.played > 0 ? (
-                        <span className="pl-pill pl-pill--brand text-xs num">
+                        <span className="pl-pill pl-pill--brand pl-pill--wrap text-xs num">
                           {teamComparison.teamA.shortName} {teamComparison.h2hSummary.winsA} · Empates{" "}
                           {teamComparison.h2hSummary.draws} · {teamComparison.teamB.shortName}{" "}
                           {teamComparison.h2hSummary.winsB}
@@ -637,49 +728,122 @@ export function CompareHubView({
                       ) : null}
                     </div>
 
+                    {teamComparison.h2hSummary.played > 0 ? (
+                      <div
+                        className="flex h-[7px] w-full overflow-hidden rounded-full gap-1"
+                        aria-hidden="true"
+                      >
+                        {teamComparison.h2hSummary.winsA > 0 ? (
+                          <span
+                            className="block h-full rounded-full"
+                            style={{
+                              flexGrow: teamComparison.h2hSummary.winsA,
+                              background: "var(--pl-brand)",
+                            }}
+                          />
+                        ) : null}
+                        {teamComparison.h2hSummary.draws > 0 ? (
+                          <span
+                            className="block h-full rounded-full"
+                            style={{
+                              flexGrow: teamComparison.h2hSummary.draws,
+                              background:
+                                "color-mix(in oklab, var(--pl-text-muted) 38%, transparent)",
+                            }}
+                          />
+                        ) : null}
+                        {teamComparison.h2hSummary.winsB > 0 ? (
+                          <span
+                            className="block h-full rounded-full"
+                            style={{
+                              flexGrow: teamComparison.h2hSummary.winsB,
+                              background: "var(--pl-success)",
+                            }}
+                          />
+                        ) : null}
+                      </div>
+                    ) : null}
+
                     {teamComparison.h2hMatches.length === 0 ? (
                       <div className="pl-prematch-empty">
                         No hay enfrentamientos directos recientes registrados en la ventana actual entre ambos clubes.
                       </div>
                     ) : (
                       <div className="space-y-2">
-                        {teamComparison.h2hMatches.map((m) => (
-                          <div
-                            key={m.id}
-                            className="rounded-xl px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs"
-                            style={{
-                              background: "var(--pl-surface-elevated)",
-                              border: "1px solid var(--pl-row-rule)",
-                            }}
-                          >
-                            <div className="flex items-center gap-2 min-w-0">
-                              <LeagueBadge
-                                league={teamComparison.league}
-                                label={teamComparison.leagueLabel}
-                                size={16}
-                              />
-                              <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                                {m.dateLabel}
-                              </span>
-                              {m.round ? (
-                                <span style={{ color: "var(--pl-text-muted)" }}>· {m.round}</span>
-                              ) : null}
+                        {teamComparison.h2hMatches.map((m) => {
+                          const rowBody = (
+                            <>
+                              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 min-w-0">
+                                <span className="shrink-0">
+                                  <LeagueBadge
+                                    league={teamComparison.league}
+                                    label={teamComparison.leagueLabel}
+                                    size={16}
+                                  />
+                                </span>
+                                <span className="num" style={{ color: "var(--pl-text-muted)" }}>
+                                  {m.dateLabel}
+                                </span>
+                                {m.round ? (
+                                  <span
+                                    className="truncate"
+                                    style={{ color: "var(--pl-text-muted)" }}
+                                  >
+                                    · {m.round}
+                                  </span>
+                                ) : null}
+                              </div>
+                              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-bold num min-w-0">
+                                <span className="min-w-0 break-words">{m.homeName}</span>
+                                <span className="pl-pill text-xs shrink-0 num">
+                                  {m.homeScore} – {m.awayScore}
+                                </span>
+                                <span className="min-w-0 break-words">{m.awayName}</span>
+                              </div>
+                            </>
+                          );
+
+                          if (m.gameHref) {
+                            const gameHref = m.gameHref;
+                            return (
+                              <a
+                                key={m.id}
+                                href={gameHref}
+                                onClick={(e) => navigateOnPlainClick(e, gameHref)}
+                                className="rounded-xl px-3.5 py-2.5 min-h-11 sm:min-h-9 flex flex-wrap items-center justify-between gap-2 text-xs no-underline min-w-0"
+                                style={{
+                                  background: "var(--pl-surface-elevated)",
+                                  border: "1px solid var(--pl-row-rule)",
+                                  color: "var(--pl-text)",
+                                }}
+                              >
+                                {rowBody}
+                              </a>
+                            );
+                          }
+
+                          return (
+                            <div
+                              key={m.id}
+                              className="rounded-xl px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs min-w-0"
+                              style={{
+                                background: "var(--pl-surface-elevated)",
+                                border: "1px solid var(--pl-row-rule)",
+                              }}
+                            >
+                              {rowBody}
                             </div>
-                            <div className="flex items-center gap-2 font-bold num">
-                              <span>{m.homeName}</span>
-                              <span className="pl-pill text-xs">
-                                {m.homeScore} – {m.awayScore}
-                              </span>
-                              <span>{m.awayName}</span>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </section>
                 </>
               ) : (
-                <div className="glass-card glass-ring rounded-2xl p-6 text-sm" style={{ color: "var(--pl-text-muted)" }}>
+                <div
+                  className="glass-card glass-ring rounded-2xl p-6 text-sm"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
                   Selecciona dos equipos distintos para generar la comparativa H2H.
                 </div>
               )}
@@ -690,10 +854,10 @@ export function CompareHubView({
               id={`${tabIdBase}-panel-jugadores`}
               role="tabpanel"
               aria-labelledby={`${tabIdBase}-tab-jugadores`}
-              className="space-y-4"
+              className="space-y-4 min-w-0"
             >
               {playerComparison ? (
-                <section className="glass-card glass-ring rounded-2xl p-5 space-y-5">
+                <section className="glass-card glass-ring rounded-2xl p-4 sm:p-5 space-y-5 min-w-0">
                   <div className="pl-cmp-duel-head">
                     {[playerComparison.playerA, playerComparison.playerB].map((p, idx) => (
                       <div
@@ -703,24 +867,32 @@ export function CompareHubView({
                         <a
                           href={p.href}
                           onClick={(e) => navigateOnPlainClick(e, p.href)}
-                          className="inline-flex items-center gap-3 no-underline min-w-0"
+                          className="flex items-center gap-3 no-underline min-w-0 w-full min-h-11"
                           style={{ color: "var(--pl-text)" }}
                         >
-                          <PersonAvatar
-                            photoKey={p.photoKey}
-                            fallbackPhotoKey={p.fallbackPhotoKey}
-                            role="player"
-                            size={56}
-                          />
-                          <div className="min-w-0">
+                          <span className="shrink-0">
+                            <PersonAvatar
+                              photoKey={p.photoKey}
+                              fallbackPhotoKey={p.fallbackPhotoKey}
+                              role="player"
+                              size={56}
+                            />
+                          </span>
+                          <div className="min-w-0 flex-1">
                             <strong className="block text-base sm:text-lg font-extrabold truncate">
                               {p.name}
                             </strong>
-                            <span className="block text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
+                            <span
+                              className="block text-xs truncate num"
+                              style={{ color: "var(--pl-text-muted)" }}
+                            >
                               {p.teamName} · {p.positionLabel}
                               {p.jersey ? ` · #${p.jersey}` : ""}
                             </span>
-                            <span className="block text-[11px] num mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
+                            <span
+                              className="block text-[11px] num mt-0.5 truncate"
+                              style={{ color: "var(--pl-text-muted)" }}
+                            >
                               {[
                                 p.age ? `${p.age} años` : null,
                                 p.heightCm ? `${p.heightCm} cm` : null,
@@ -736,7 +908,7 @@ export function CompareHubView({
                   </div>
 
                   {playerComparison.metrics.length > 0 ? (
-                    <div className="space-y-3" aria-busy={loading ? "true" : undefined}>
+                    <div className="space-y-3 min-w-0" aria-busy={loading ? "true" : undefined}>
                       {playerComparison.metrics.map((row) => (
                         <CompareBarRow
                           key={row.id}
@@ -753,7 +925,10 @@ export function CompareHubView({
                   )}
                 </section>
               ) : (
-                <div className="glass-card glass-ring rounded-2xl p-6 text-sm" style={{ color: "var(--pl-text-muted)" }}>
+                <div
+                  className="glass-card glass-ring rounded-2xl p-6 text-sm"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
                   {loading
                     ? "Cargando nóminas de la liga..."
                     : "Selecciona dos jugadores para comparar su rendimiento de temporada."}

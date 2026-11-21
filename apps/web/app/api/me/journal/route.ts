@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { asMarketKey } from "@pitchlab/contracts";
 import type { SealedParlayLegSpec } from "@pitchlab/db";
 import { checkParlayCompatibility, computeParlaySummary } from "@pitchlab/ui/parlay";
-import type { MatchPick, ParlayLeg, PickConflictGroup, PlatformGame, PlatformMarketRow } from "@pitchlab/ui/platform";
+import type { MatchPick, ParlayLeg, PickConflictGroup, PlatformGame, PlatformMarketRow } from "@pitchlab/ui/types";
 import { normalizeClosingSelectionAndLine } from "../../../../src/server/closing-odds";
 import { findGameKickoff } from "../../../../src/server/game-kickoff";
 import { recordMemberFunnelIfConsented } from "../../../../src/server/funnel";

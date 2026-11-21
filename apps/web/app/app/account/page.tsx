@@ -1,3 +1,4 @@
+import "../../account-v2.css";
 import React from "react";
 import { headers } from "next/headers";
 import { createDb, eq, myReferrals, tipsterProfiles, users, type Db } from "@pitchlab/db";

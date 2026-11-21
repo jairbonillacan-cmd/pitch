@@ -1,10 +1,9 @@
 /**
- * Badge · shadcn/ui (Mira, Base UI) con las variantes de etiqueta de PitchLab:
- * `fav` (favorito / pick, en Pulso), `info` (hoy), `live` (en juego), `success` y `danger`
- * (pick acertado o fallado). Los estados siempre llevan texto, nunca solo color.
+ * Badge · PitchLab (HTML nativo `<span>`, sin dependencias headless · ADR-053).
+ * Variantes: `fav` (favorito / pick, en Pulso), `info` (hoy), `live` (en juego),
+ * `success` y `danger` (pick acertado o fallado). Los estados siempre llevan texto, nunca solo color.
  */
-import { mergeProps } from "@base-ui/react/merge-props";
-import { useRender } from "@base-ui/react/use-render";
+import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 
@@ -38,15 +37,16 @@ const badgeVariants = cva(
 function Badge({
   className,
   variant = "default",
-  render,
   ...props
-}: useRender.ComponentProps<"span"> & VariantProps<typeof badgeVariants>): React.ReactElement {
-  return useRender({
-    defaultTagName: "span",
-    props: mergeProps<"span">({ className: cn(badgeVariants({ variant }), className) }, props),
-    render,
-    state: { slot: "badge", variant },
-  });
+}: React.ComponentPropsWithoutRef<"span"> & VariantProps<typeof badgeVariants>): React.ReactElement {
+  return (
+    <span
+      data-slot="badge"
+      data-variant={variant}
+      className={cn(badgeVariants({ variant }), className)}
+      {...props}
+    />
+  );
 }
 
 export { Badge, badgeVariants };

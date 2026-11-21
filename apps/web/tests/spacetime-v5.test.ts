@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { asLeagueId } from "@pitchlab/contracts";
 import type { PlatformGame } from "@pitchlab/ui/platform";
 import {
@@ -10,6 +10,11 @@ import {
   resolveRefereePriorV5,
 } from "../src/server/spacetime-v5";
 import { POST as sgpPost } from "../app/api/parlays/sgp/route";
+
+const sgpViewerAccessMock = vi.fn().mockResolvedValue({ via: "beta", fullAccess: true });
+vi.mock("../src/server/viewer-access", () => ({
+  getViewerAccess: () => sgpViewerAccessMock(),
+}));
 
 function makeGame(overrides: Partial<PlatformGame> = {}): PlatformGame {
   return {
@@ -198,7 +203,10 @@ describe("spacetime-v5 · Puente servidor Spacetime Suite v5.1 → UI", () => {
 
     const req = new Request("http://localhost:9990/api/parlays/sgp", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        origin: "http://localhost:9990",
+      },
       body: JSON.stringify({
         sport: "soccer",
         legs: [
@@ -216,10 +224,35 @@ describe("spacetime-v5 · Puente servidor Spacetime Suite v5.1 → UI", () => {
 
     const badReq = new Request("http://localhost:9990/api/parlays/sgp", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        origin: "http://localhost:9990",
+      },
       body: JSON.stringify({ sport: "soccer", legs: [{ legId: "only1", factor: "total_goals", marginalProbability: 0.5, direction: 1 }] }),
     });
     expect((await sgpPost(badReq)).status).toBe(400);
+
+    // CSRF / mismo origen obligatorio
+    const crossOriginReq = new Request("http://localhost:9990/api/parlays/sgp", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ sport: "soccer", legs: [] }),
+    });
+    expect((await sgpPost(crossOriginReq)).status).toBe(403);
+
+    // Sesión + pase vigente obligatorios
+    sgpViewerAccessMock.mockResolvedValueOnce({ via: "none", fullAccess: false });
+    expect(
+      (
+        await sgpPost(
+          new Request("http://localhost:9990/api/parlays/sgp", {
+            method: "POST",
+            headers: { "content-type": "application/json", origin: "http://localhost:9990" },
+            body: JSON.stringify({ sport: "soccer", legs: [] }),
+          }),
+        )
+      ).status,
+    ).toBe(401);
   });
 
   it("detecta promesas prohibidas y genera síntesis determinista verificada para Cortex IA", () => {

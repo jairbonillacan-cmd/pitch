@@ -5,7 +5,6 @@ import { getMailer } from "../../../../src/server/mailer";
 import {
   checkEndpointRateLimit,
   rateLimitResponse,
-  trustedClientIp,
   verifySameOriginMutation,
 } from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
@@ -25,7 +24,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const rl = await checkEndpointRateLimit({
     bucket: "me-coupons-redeem",
-    key: `${member.userId}:${trustedClientIp(request.headers) || "local"}`,
+    key: member.userId,
     limit: 10,
     windowMs: 3_600_000,
   });

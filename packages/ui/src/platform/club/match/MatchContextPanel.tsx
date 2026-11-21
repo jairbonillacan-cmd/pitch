@@ -1,22 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import {
   canonicalTeamHref,
   isNationalCompetition,
   sportHasDraw,
   sportScoringUnit,
+  type LiveMatchDetail,
   type StandingRow,
 } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
 import { PersonAvatar } from "../team/PersonAvatar";
-import { FormSquares } from "../../components/FormSquares";
+import {
+  AtomicAveragePositionsPitch,
+  type AtomicAveragePositionPlayer,
+} from "../../atomic/AtomicAveragePositionsPitch";
+import { AtomicFormStrip } from "../../atomic/AtomicFormStrip";
+import { AtomicLineupPitch } from "../../atomic/AtomicLineupPitch";
+import { AtomicShotmapPitch, type AtomicShotItem } from "../../atomic/AtomicShotmapPitch";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
+import { useLiveMatch } from "../../live/live-store";
 import { useOptionalPlatformActions, useOptionalPlatformCore } from "../../platform-provider";
 import { resolveMatchRefereeAnalytics } from "../../referee-stats";
 import type { MatchIntelligenceV5View, PlatformGame } from "../../types";
-import { HONEST_NO_ABSENCES_COPY, localizeInjuryLabelEs } from "./pre-match-logic";
+import {
+  HONEST_NO_ABSENCES_COPY,
+  localizeInjuryLabelEs,
+  resolveConfirmedLineupSlotState,
+  resolveProbableLineupSlotState,
+} from "./pre-match-logic";
 
 type Result = "G" | "E" | "P";
 
@@ -24,24 +37,6 @@ type Result = "G" | "E" | "P";
 export function parseForm(value: string): Result[] {
   const head = value.split("·")[0] ?? "";
   return (head.match(/[GEPWDL]/g) ?? []).map((c) => (c === "W" ? "G" : c === "D" ? "E" : c === "L" ? "P" : (c as Result)));
-}
-
-const RESULT_COPY: Record<Result, string> = { G: "Ganó", E: "Empató", P: "Perdió" };
-
-function FormDots({ form }: { form: Result[] }): React.JSX.Element {
-  return (
-    <span
-      className="pl-form"
-      role="img"
-      aria-label={`Últimos ${form.length}: ${form.map((r) => RESULT_COPY[r]).join(", ")}`}
-    >
-      {form.map((r, i) => (
-        <span key={i} className={`pl-form-dot is-${r}`} aria-hidden="true">
-          {r}
-        </span>
-      ))}
-    </span>
-  );
 }
 
 /** «129 pts a favor · 94 en contra» con 5 partidos → por partido. */
@@ -93,25 +88,72 @@ function restComparisonLabel(game: PlatformGame): string | null {
   return `${restedTeam} llega con +${diff} ${diff === 1 ? "día" : "días"} extra de descanso`;
 }
 
+function mergeUniqueBroadcasts(
+  primary?: readonly string[],
+  secondary?: readonly string[],
+): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const list of [primary, secondary]) {
+    if (!list) continue;
+    for (const raw of list) {
+      const clean = raw.trim();
+      if (!clean || seen.has(clean)) continue;
+      seen.add(clean);
+      out.push(clean);
+    }
+  }
+  return out;
+}
+
+function buildLivePlayerRatings(
+  playerStats?: LiveMatchDetail["playerStats"],
+): Readonly<Record<string, number>> | undefined {
+  if (!playerStats || playerStats.length === 0) return undefined;
+  const map: Record<string, number> = {};
+  let count = 0;
+  for (const row of playerStats) {
+    if (row.rating != null && Number.isFinite(row.rating) && row.rating > 0) {
+      map[row.player] = row.rating;
+      count += 1;
+    }
+  }
+  return count > 0 ? map : undefined;
+}
+
+export interface MatchContextPanelProps {
+  readonly game: PlatformGame;
+  readonly standings?: readonly StandingRow[];
+  readonly unlocked?: boolean;
+  readonly v5?: MatchIntelligenceV5View | null;
+  readonly liveDetail?: LiveMatchDetail | null;
+  readonly averagePositions?: readonly AtomicAveragePositionPlayer[];
+  readonly shots?: readonly AtomicShotItem[];
+  readonly opinionsSlot?: React.ReactNode;
+}
+
 /**
- * Contexto del partido: tabla de posiciones, cómo llega cada equipo (forma, producción,
- * descanso y bajas), la sede y el historial directo. Todo sale de datos reales del snapshot.
+ * Contexto del partido: cómo llegan los equipos (forma con `AtomicFormStrip`, producción,
+ * descanso y bajas), lectura táctica en cancha (`AtomicLineupPitch`, `AtomicShotmapPitch`,
+ * `AtomicAveragePositionsPitch`), sede/clima/árbitro/TV MX, historial directo y tabla.
+ * Todo sale de datos reales del partido sin inventar valores.
  */
 export function MatchContextPanel({
   game,
   standings = [],
   unlocked = true,
   v5 = null,
+  liveDetail: liveDetailProp,
+  averagePositions,
+  shots: shotsProp,
   opinionsSlot,
-}: {
-  readonly game: PlatformGame;
-  readonly standings?: readonly StandingRow[];
-  readonly unlocked?: boolean;
-  readonly v5?: MatchIntelligenceV5View | null;
-  readonly opinionsSlot?: React.ReactNode;
-}): React.JSX.Element {
+}: MatchContextPanelProps): React.JSX.Element {
   const platformActions = useOptionalPlatformActions();
   const platformCore = useOptionalPlatformCore();
+  const liveSupported = game.sport !== "american-football" && game.league !== "nfl";
+  const liveSnap = useLiveMatch(game.id, liveSupported && liveDetailProp === undefined);
+  const effectiveLiveDetail = liveDetailProp !== undefined ? liveDetailProp : liveSnap.data;
+
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport).short;
   const isFinished = game.status === "FT";
@@ -165,10 +207,70 @@ export function MatchContextPanel({
   }
 
   const preContext = game.preGame?.matchContext;
-  const effectiveReferee = game.referee ?? preContext?.referee;
-  const refereeAnalytics = effectiveReferee
-    ? resolveMatchRefereeAnalytics(game, platformCore?.dataset.games ?? [game])
-    : null;
+  const effectiveReferee =
+    (game.referee ?? preContext?.referee ?? effectiveLiveDetail?.entry.referee ?? "").trim() || null;
+
+  const refereeAnalytics = useMemo(() => {
+    if (!effectiveReferee) return null;
+    const refGame =
+      game.referee || preContext?.referee ? game : { ...game, referee: effectiveReferee };
+    return resolveMatchRefereeAnalytics(refGame, platformCore?.dataset.games ?? [refGame]);
+  }, [effectiveReferee, game, preContext?.referee, platformCore?.dataset.games]);
+
+  const broadcastsMx = useMemo(
+    () => mergeUniqueBroadcasts(preContext?.broadcastsMx, effectiveLiveDetail?.broadcastsMx),
+    [preContext?.broadcastsMx, effectiveLiveDetail?.broadcastsMx],
+  );
+
+  const playerRatings = useMemo(
+    () => buildLivePlayerRatings(effectiveLiveDetail?.playerStats),
+    [effectiveLiveDetail?.playerStats],
+  );
+
+  const confirmedLineupSlot = useMemo(
+    () => resolveConfirmedLineupSlotState(game.preGame, canReadContext),
+    [game.preGame, canReadContext],
+  );
+  const probableLineupSlot = useMemo(
+    () => resolveProbableLineupSlotState(game.preGame, canReadContext),
+    [game.preGame, canReadContext],
+  );
+  const activeLineups = confirmedLineupSlot.enabled
+    ? confirmedLineupSlot.lineups
+    : probableLineupSlot?.available
+      ? probableLineupSlot.lineups
+      : null;
+
+  const showLineupPitch =
+    game.sport === "football" &&
+    activeLineups !== null &&
+    (activeLineups.homeStarters.length >= 7 || activeLineups.awayStarters.length >= 7);
+
+  const effectiveShots = useMemo<readonly AtomicShotItem[]>(() => {
+    if (shotsProp && shotsProp.length > 0) return shotsProp;
+    if (effectiveLiveDetail?.shots && effectiveLiveDetail.shots.length > 0) {
+      return effectiveLiveDetail.shots;
+    }
+    return [];
+  }, [shotsProp, effectiveLiveDetail?.shots]);
+
+  const showShotmap = game.sport === "football" && effectiveShots.length > 0;
+  const showAvgPositions =
+    game.sport === "football" && Boolean(averagePositions && averagePositions.length > 0);
+  const hasTacticalBoard = showLineupPitch || showShotmap || showAvgPositions;
+
+  const stadiumLocation = [preContext?.venueCity, preContext?.venueCountry]
+    .filter((v): v is string => Boolean(v && v.trim()))
+    .join(", ");
+
+  const hasRefRawStats = Boolean(
+    preContext?.refereeStats &&
+      (preContext.refereeStats.avgYellow != null ||
+        preContext.refereeStats.avgFouls != null ||
+        preContext.refereeStats.avgRed != null),
+  );
+  const hasRefRigorBadge = Boolean(refereeAnalytics && refereeAnalytics.ebYellow !== null);
+  const hasRefV5Prior = Boolean(canReadContext && v5?.microCounts?.refereeProfile);
 
   return (
     <div className="pl-ctx">
@@ -176,7 +278,7 @@ export function MatchContextPanel({
         <div>
           <h2 className="m-0 text-lg font-extrabold">Contexto del partido</h2>
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Tabla de posiciones, forma reciente, bajas reportadas, descanso e historial directo.
+            Forma reciente, alineaciones, sede, arbitraje, bajas e historial directo.
           </p>
         </div>
         {restBadge ? (
@@ -185,6 +287,7 @@ export function MatchContextPanel({
           </span>
         ) : null}
       </div>
+
       <section className="pl-ctx-teams" aria-label="Cómo llegan los equipos">
         {sides.map((s) => {
           const form = s.factor ? parseForm(s.factor.value) : [];
@@ -208,7 +311,7 @@ export function MatchContextPanel({
                         e.preventDefault();
                         platformActions.navigateTo(canonicalTeamHref(game.league, s.team.slug));
                       }}
-                      className="pl-team-link"
+                      className="pl-team-link inline-flex items-center min-h-11 sm:min-h-0"
                       title={`Ver perfil de ${s.team.name}`}
                     >
                       {s.team.name}
@@ -223,7 +326,12 @@ export function MatchContextPanel({
               {form.length > 0 ? (
                 <div className="pl-ctx-row">
                   <span>Últimos {form.length}</span>
-                  <FormSquares form={form} size="sm" />
+                  <AtomicFormStrip
+                    form={form}
+                    sport={game.sport}
+                    teamName={s.team.name}
+                    size="sm"
+                  />
                 </div>
               ) : null}
               <dl className="pl-ctx-stats">
@@ -271,14 +379,73 @@ export function MatchContextPanel({
         })}
       </section>
 
+      {hasTacticalBoard ? (
+        <section
+          className="space-y-3"
+          aria-labelledby="ctx-tactics"
+          data-ctx-tactics=""
+        >
+          <h3 id="ctx-tactics" className="pl-cortex-label m-0">
+            Lectura táctica en cancha
+          </h3>
+
+          {showLineupPitch && activeLineups ? (
+            <div className="space-y-2">
+              <AtomicLineupPitch
+                homeName={game.home.shortName}
+                awayName={game.away.shortName}
+                homeFormation={activeLineups.homeFormation}
+                awayFormation={activeLineups.awayFormation}
+                homeStarters={activeLineups.homeStarters}
+                awayStarters={activeLineups.awayStarters}
+                status={confirmedLineupSlot.enabled ? "confirmed" : "probable"}
+                incidents={effectiveLiveDetail?.incidents}
+                playerRatings={playerRatings}
+              />
+              {probableLineupSlot?.available && !confirmedLineupSlot.enabled ? (
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  {probableLineupSlot.helperText}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+
+          {showShotmap || showAvgPositions ? (
+            <div className={showShotmap && showAvgPositions ? "pl-ctx-split" : "space-y-3"}>
+              {showShotmap ? (
+                <AtomicShotmapPitch
+                  shots={effectiveShots}
+                  homeLabel={game.home.shortName}
+                  awayLabel={game.away.shortName}
+                />
+              ) : null}
+              {showAvgPositions && averagePositions ? (
+                <AtomicAveragePositionsPitch
+                  players={averagePositions}
+                  homeLabel={game.home.shortName}
+                  awayLabel={game.away.shortName}
+                  homeFormation={activeLineups?.homeFormation}
+                  awayFormation={activeLineups?.awayFormation}
+                />
+              ) : null}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
       <div className="pl-ctx-split">
         <section className="pl-ctx-card glass-card glass-ring" aria-labelledby="ctx-venue">
           <h3 id="ctx-venue" className="pl-cortex-label">
             Sede y ficha del encuentro
           </h3>
-          <p className="m-0 flex items-center gap-2 text-sm font-bold">
+          <p className="m-0 flex flex-wrap items-center gap-2 text-sm font-bold">
             <MaestroIcon name="pin" size={15} />
             <span>{stadium?.name ?? game.venue}</span>
+            {stadiumLocation ? (
+              <span className="text-xs font-normal" style={{ color: "var(--pl-text-muted)" }}>
+                · {stadiumLocation}
+              </span>
+            ) : null}
           </p>
           <dl className="pl-ctx-stats pl-ctx-facts-grid">
             <div>
@@ -308,26 +475,27 @@ export function MatchContextPanel({
                       </span>
                     ) : null}
                   </span>
-                  {preContext?.refereeStats &&
-                  (preContext.refereeStats.avgYellow != null ||
-                    preContext.refereeStats.avgFouls != null ||
-                    preContext.refereeStats.avgRed != null) ? (
+                  {hasRefRawStats && preContext?.refereeStats ? (
                     <span className="pl-ctx-referee-stats num">
-                      {preContext.refereeStats.avgYellow != null
-                        ? `${preContext.refereeStats.avgYellow.toFixed(1)} amar./p`
-                        : null}
-                      {preContext.refereeStats.avgRed != null
-                        ? ` · ${preContext.refereeStats.avgRed.toFixed(2)} roj./p`
-                        : null}
-                      {preContext.refereeStats.avgFouls != null
-                        ? ` · ${preContext.refereeStats.avgFouls.toFixed(1)} faltas/p`
-                        : null}
+                      {[
+                        preContext.refereeStats.avgYellow != null
+                          ? `${preContext.refereeStats.avgYellow.toFixed(1)} amar./p`
+                          : null,
+                        preContext.refereeStats.avgRed != null
+                          ? `${preContext.refereeStats.avgRed.toFixed(2)} roj./p`
+                          : null,
+                        preContext.refereeStats.avgFouls != null
+                          ? `${preContext.refereeStats.avgFouls.toFixed(1)} faltas/p`
+                          : null,
+                      ]
+                        .filter(Boolean)
+                        .join(" · ")}
                     </span>
                   ) : null}
-                  {refereeAnalytics && refereeAnalytics.ebYellow !== null ? (
+                  {hasRefRigorBadge && refereeAnalytics ? (
                     <RefereeRigorBadge referee={refereeAnalytics} variant="compact" />
                   ) : null}
-                  {v5?.microCounts?.refereeProfile ? (() => {
+                  {hasRefV5Prior && v5?.microCounts?.refereeProfile ? (() => {
                     const rp = v5.microCounts.refereeProfile;
                     const cardDeltaPct = Math.round((rp.cardsMultiplier - 1) * 100);
                     const foulDeltaPct = Math.round((rp.foulsMultiplier - 1) * 100);
@@ -349,14 +517,34 @@ export function MatchContextPanel({
                       </span>
                     );
                   })() : null}
+                  {!hasRefRawStats && !hasRefRigorBadge && !hasRefV5Prior ? (
+                    <span className="text-[11px] font-normal" style={{ color: "var(--pl-text-muted)" }}>
+                      Sin historial suficiente de tarjetas y faltas en liga.
+                    </span>
+                  ) : null}
                 </dd>
               </div>
-            ) : null}
+            ) : (
+              <div>
+                <dt>Árbitro</dt>
+                <dd className="text-sm font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                  {isFinished ? "No reportado" : "Por confirmar"}
+                </dd>
+              </div>
+            )}
             {preContext?.venueCapacity ? (
               <div>
                 <dt>Capacidad</dt>
                 <dd className="text-sm font-bold num">
                   {preContext.venueCapacity.toLocaleString("es-MX")} esp.
+                </dd>
+              </div>
+            ) : null}
+            {preContext?.attendance != null && preContext.attendance > 0 ? (
+              <div>
+                <dt>Asistencia</dt>
+                <dd className="text-sm font-bold num">
+                  {preContext.attendance.toLocaleString("es-MX")} esp.
                 </dd>
               </div>
             ) : null}
@@ -431,10 +619,10 @@ export function MatchContextPanel({
                 <dd className="text-sm font-bold">Clásico local</dd>
               </div>
             ) : null}
-            {preContext?.broadcastsMx && preContext.broadcastsMx.length > 0 ? (
-              <div>
+            {broadcastsMx.length > 0 ? (
+              <div data-ctx-broadcasts-mx="">
                 <dt>TV México</dt>
-                <dd className="text-sm font-bold">{preContext.broadcastsMx.join(" · ")}</dd>
+                <dd className="text-sm font-bold">{broadcastsMx.join(" · ")}</dd>
               </div>
             ) : null}
           </dl>

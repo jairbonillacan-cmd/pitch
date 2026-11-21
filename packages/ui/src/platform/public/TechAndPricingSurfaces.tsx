@@ -2,16 +2,16 @@
 
 import React, { useState } from "react";
 import { PBar } from "../../sports";
-import {
-  LensGlowOrbs,
-  MaestroIcon,
-} from "../components/MaestroPrimitives";
+import { MaestroIcon } from "../components/MaestroPrimitives";
 import {
   AtmosphereStage,
   PublicFooterV4,
   PublicHeaderV4,
 } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import {
   MEMBERSHIP_SPEC,
   PRECISION_BUCKETS,
@@ -28,7 +28,8 @@ export function TechPrecisionSection({
   inClub?: boolean;
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const { viewerRole, upgradeHref, navigateTo } = usePlatform();
+  const { viewerRole, upgradeHref } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
   const hasFullAccess = viewerRole !== "visitor";
   const isPrimaryHeading = isStandalone || inClub;
   const PrimaryHeadingTag = isPrimaryHeading ? "h1" : "h2";
@@ -37,11 +38,6 @@ export function TechPrecisionSection({
   return (
     <section id="motores" className="space-y-6">
       <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-2xl p-6 sm:p-8 space-y-6">
-        <LensGlowOrbs
-          primaryColor="var(--pl-orb-violet)"
-          secondaryColor="var(--pl-orb-emerald)"
-        />
-
         <div className="relative z-10 space-y-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="space-y-2 max-w-2xl">
@@ -382,15 +378,8 @@ export function PlansAndReferralsSection({
 }: {
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const {
-    month1NoCardMode,
-    navigateTo,
-    accountsEnabled,
-    hasAccountSession,
-    paymentMode,
-    upgradeHref,
-    pushToast,
-  } = usePlatform();
+  const { month1NoCardMode, accountsEnabled, hasAccountSession, paymentMode, upgradeHref } = usePlatformCore();
+  const { navigateTo, pushToast } = usePlatformActions();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const [checkoutBusy, setCheckoutBusy] = useState<boolean>(false);
 
@@ -479,12 +468,6 @@ export function PlansAndReferralsSection({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
         {/* Columna izquierda: Pase PitchLab Ultra */}
         <div className="lg:col-span-7 glass-ring glass-lens glass-ring--featured relative overflow-hidden rounded-2xl p-6 flex flex-col justify-between gap-5">
-          <LensGlowOrbs
-            primaryColor="var(--pl-orb-violet)"
-            secondaryColor="var(--pl-orb-emerald)"
-            subtle
-          />
-
           <div className="relative z-10 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="font-extrabold text-lg">

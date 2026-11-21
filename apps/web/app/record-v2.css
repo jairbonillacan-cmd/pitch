@@ -1,3 +1,4 @@
+@layer components {
 /* ==========================================================================
    MI RÉCORD (/app/lab) y Récord público compartido (/app/u/[handle])
    Solo tokens --pl-*; cero literales hexadecimales, cero backdrop-filter.
@@ -690,18 +691,34 @@
   }
 }
 
+@media (max-width: 767px), (pointer: coarse) {
+  .pl-rec-chip {
+    min-height: 44px;
+    padding: 0 14px;
+  }
+
+  .pl-rec-tabs .seg-btn {
+    min-height: 44px;
+  }
+}
+
 @media (max-width: 560px) {
   .pl-rec-hero {
-    padding: 18px 16px;
+    padding: 18px 14px;
     border-radius: 20px;
   }
 
   .pl-rec-card {
-    padding: 16px;
+    padding: 14px;
   }
 
   .pl-rec-input-row {
     flex-direction: column;
+  }
+
+  .pl-rec-card .pl-table-region {
+    margin-inline: -4px;
+    padding-inline: 4px 12px;
   }
 }
 
@@ -1003,8 +1020,79 @@ progress.pl-live-progress::-moz-progress-bar {
   transition: inline-size 180ms ease;
 }
 
+/* ---------- Parlays pierna por pierna en Mi récord (ADR-054) ---------- */
+
+.pl-rec-leg-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 30px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text-secondary);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.pl-rec-leg-toggle:hover {
+  background: var(--pl-surface-hover);
+  border-color: var(--pl-border-strong);
+  color: var(--pl-text);
+}
+
+.pl-rec-parlay-progress {
+  width: 100%;
+  max-width: 240px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--pl-surface-hover);
+  overflow: hidden;
+}
+
+.pl-rec-parlay-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--pl-success);
+  transition: width 220ms ease;
+}
+
+.pl-rec-parlay-progress-fill.is-lost {
+  background: var(--pl-danger);
+}
+
+.pl-rec-parlay-legs-row {
+  background: color-mix(in srgb, var(--pl-surface) 72%, transparent);
+}
+
+.pl-rec-parlay-legs {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  display: grid;
+  gap: 6px;
+}
+
+.pl-rec-parlay-leg {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .pl-cal-cell {
+  .pl-cal-cell,
+  .pl-rec-leg-toggle,
+  .pl-rec-parlay-progress-fill {
     transition: none;
   }
 
@@ -1015,4 +1103,5 @@ progress.pl-live-progress::-moz-progress-bar {
   progress.pl-live-progress::-moz-progress-bar {
     transition: none;
   }
+}
 }

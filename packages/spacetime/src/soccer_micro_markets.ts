@@ -4,8 +4,8 @@
  * descomposición coherente por mitades (`1H` / `2H` Dixon-Coles) y ajuste Empirical Bayes por árbitro.
  *
  * Supera:
- *  1. El conteo crudo `k/n` multi-ventana de Scout Picks (`-21.68%` ROI, `0` ajuste rival/árbitro).
- *  2. La Binomial Negativa estática de Astra AI (`+1.84%` MAE en córners) al acoplar las tasas esperadas
+ *  1. El conteo crudo `k/n` multi-ventana sin ajuste de rival ni árbitro.
+ *  2. La Binomial Negativa estática en córners al acoplar las tasas esperadas
  *     al guion de partido `(lamHome, lamAway)` (`goal_sup_side`, `tempo_excess`, `match_tightness`) y
  *     al prior Empirical Bayes del árbitro designado (`official_priors_v3_6.json`).
  *

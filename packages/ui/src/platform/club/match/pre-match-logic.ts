@@ -318,6 +318,17 @@ export function resolvePreMatchAbsencesState(
   };
 }
 
+const VENDOR_SOURCE_LABEL_RE =
+  /(bzzoiro|espn|api|sofascore|sportmonks|betfair|the[_\s-]?odds|opta|nflverse)/i;
+
+function sanitizeLineupSourceLabel(rawLabel: string, fallback: string): string {
+  const trimmed = rawLabel.trim();
+  if (!trimmed || VENDOR_SOURCE_LABEL_RE.test(trimmed)) {
+    return fallback;
+  }
+  return trimmed;
+}
+
 /**
  * Ranura «Alineación confirmada»: permanece APAGADA salvo que exista una fuente
  * real y verificada con once titular completo para ambos equipos.
@@ -347,9 +358,10 @@ export function resolveConfirmedLineupSlotState(
     };
   }
 
+  const cleanSource = sanitizeLineupSourceLabel(verified.sourceLabel, "Fuente oficial");
   return {
     enabled: true,
-    statusBadge: `Verificada · ${verified.sourceLabel.trim()}`,
+    statusBadge: `Verificada · ${cleanSource}`,
     helperText: "Once titular oficial verificado antes del saque inicial.",
     lineups: verified,
   };
@@ -382,12 +394,11 @@ export function resolveProbableLineupSlotState(
     probable.awayStarters.length >= 11;
 
   if (!hasProbable || !probable) return null;
-  const confText =
-    probable.confidence != null ? ` · Confianza ${Math.round(probable.confidence)} %` : "";
+  const cleanSource = sanitizeLineupSourceLabel(probable.sourceLabel, "Alineación proyectada");
   return {
     available: true,
-    statusBadge: `Once estimado${confText}`,
-    helperText: `${probable.sourceLabel.trim()} · Sujeto a confirmación oficial 60 min antes.`,
+    statusBadge: "Sujeto a confirmación",
+    helperText: `${cleanSource} · Sujeto a confirmación oficial 60 min antes.`,
     lineups: probable,
   };
 }
@@ -479,13 +490,20 @@ export function localizeInjuryLabelEs(raw: string | null | undefined): string {
   if (!raw) return "";
   const trimmed = raw.trim();
   if (!trimmed) return "";
-  const exact = INJURY_ES_MAP[trimmed.toLowerCase()];
+  const normalized = trimmed.toLowerCase().replace(/[_-]+/g, " ").replace(/\s+/g, " ");
+  const exact = INJURY_ES_MAP[normalized];
   if (exact) return exact;
   return trimmed
+    .replace(/[_]+/g, " ")
+    .replace(/\bRed\s+Card\s+Suspension\b/gi, "Suspensión por roja")
+    .replace(/\bYellow\s+Card\s+Suspension\b/gi, "Acumulación de amarillas")
+    .replace(/\bSuspension\b/gi, "Suspensión")
     .replace(/\bSprained\s+Knee\b/gi, "Esguince de rodilla")
     .replace(/\bSprained\s+Ankle\b/gi, "Esguince de tobillo")
     .replace(/\bKnee\s+Injury\b/gi, "Lesión de rodilla")
     .replace(/\bAnkle\s+Injury\b/gi, "Lesión de tobillo")
+    .replace(/\bHamstring\s+Injury\b/gi, "Lesión de isquiotibiales")
+    .replace(/\bMuscle\s+Injury\b/gi, "Lesión muscular")
     .replace(/\bInjury\b/gi, "lesión")
     .replace(/\bSuspended\b/gi, "Suspendido")
     .replace(/\bIllness\b/gi, "Enfermedad");

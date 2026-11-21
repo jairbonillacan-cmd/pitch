@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogIndexSurface } from "@pitchlab/ui";
+import { BlogIndexSurface } from "@pitchlab/ui/blog";
 import {
   blogCategoryLinks,
   blogCategoryPath,
@@ -11,10 +11,9 @@ import {
   toPostSummaryView,
 } from "../../../../src/server/blog";
 import { JsonLd } from "../../../../src/server/json-ld";
-import { hasPublicSessionCookie } from "../../../../src/server/public-session";
 import { getSiteUrl } from "../../../../src/server/site-url";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 type Params = Promise<{ categoria: string }>;
 
@@ -29,7 +28,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title,
     description: category.description,
-    alternates: { canonical: path },
+    alternates: {
+      canonical: path,
+      types: { "application/rss+xml": [{ url: "/blog/rss.xml", title: "Blog de PitchLab" }] },
+    },
     // Una categoría sin artículos no aporta nada al buscador: se muestra, pero no se indexa.
     robots: posts.length === 0 ? { index: false, follow: true } : undefined,
     openGraph: {
@@ -49,7 +51,7 @@ export default async function BlogCategoryPage({ params }: { params: Params }): 
   const category = getBlogCategory(categoria);
   if (!category) notFound();
 
-  const [posts, hasSession] = await Promise.all([getPublishedPosts(), hasPublicSessionCookie()]);
+  const posts = await getPublishedPosts();
   const inCategory = posts.filter((p) => p.category.slug === category.slug);
   const path = blogCategoryPath(category.slug);
 
@@ -58,6 +60,7 @@ export default async function BlogCategoryPage({ params }: { params: Params }): 
       <JsonLd
         data={buildBreadcrumbJsonLd(
           [
+            { name: "Inicio", path: "/" },
             { name: "Blog", path: "/blog" },
             { name: category.label, path },
           ],
@@ -68,7 +71,6 @@ export default async function BlogCategoryPage({ params }: { params: Params }): 
         posts={inCategory.map(toPostSummaryView)}
         categories={blogCategoryLinks()}
         activeCategory={{ slug: category.slug, label: category.label, href: path, description: category.description }}
-        hasSession={hasSession}
       />
     </>
   );

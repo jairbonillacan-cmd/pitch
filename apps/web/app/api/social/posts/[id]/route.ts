@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { deleteSocialPost, getSocialPostById } from "@pitchlab/db";
 import { withAuthorBadges } from "../../../../../src/server/badges";
+import { verifySameOriginMutation } from "../../../../../src/server/request-security";
 import { requireMember } from "../../../../../src/server/session-user";
 import { requireSocialMember } from "../../../../../src/server/social";
 
@@ -21,6 +22,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
 /** Borra una publicación propia. */
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: false });
+  if (originErr) return originErr;
   const member = await requireMember(request);
   if ("error" in member) return member.error;
   const { id } = await params;

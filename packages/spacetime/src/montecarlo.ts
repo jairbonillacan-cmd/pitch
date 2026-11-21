@@ -5,7 +5,7 @@
  * using 1X2 match probabilities, Dixon-Coles/Poisson score distributions, or Elo ratings.
  *
  * Produces:
- * 1. Projected Standings Summary (Statiskicks Proyección tab equivalent):
+ * 1. Projected Standings Summary:
  *    - xPts (exact analytical expected points)
  *    - simulatedMeanPoints (empirical Monte Carlo average points)
  *    - projectedRank (expected finishing position)

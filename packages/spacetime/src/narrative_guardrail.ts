@@ -2,7 +2,7 @@
  * PitchLab Deterministic Anti-Hallucination & Governance Guardrail (`v4.0` · `EXP_V49`) —
  * Compilador de hoja de hechos verificados (`VerifiedMatchFactSheet`) y validador determinista
  * (`validateNarrativeAgainstFactSheet`) que erradica por construcción:
- *  1. El `20.7%` de inversiones de favorito detectado en los resúmenes LLM de Astra AI.
+ *  1. Inversiones de favorito en resúmenes generados por LLM.
  *  2. Promesas de certeza prohibidas (`"100% seguro"`, `"garantizado"`, `"lock"`, `"sin riesgo"`).
  *  3. Recomendaciones de dimensionamiento o apuesta (`stake`, `kelly`, `unidades`, `bankroll`).
  *  4. Porcentajes numéricos alucinados que se desvíen `> 1.0 pp` de la probabilidad publicada.
@@ -189,7 +189,7 @@ export function validateNarrativeAgainstFactSheet(
     }
   }
 
-  // Detección determinista de inversión de favorito (falla del 20.7% en Astra AI)
+  // Detección determinista de inversión de favorito en narrativas LLM
   if (facts.favoriteSide !== "balanced" && facts.underdogTeam) {
     const uEsc = escapeRegExp(facts.underdogTeam);
     const invPatterns = [

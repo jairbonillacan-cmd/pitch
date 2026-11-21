@@ -1,6 +1,7 @@
+import "../../picks-screener.css";
 import React from "react";
-import { MultiPicksClubView } from "@pitchlab/ui";
+import { PicksFinderClubView } from "@pitchlab/ui/picks";
 
 export default function ClubPicksPage(): React.JSX.Element {
-  return <MultiPicksClubView />;
+  return <PicksFinderClubView />;
 }

@@ -18,7 +18,7 @@ import {
   type UserTransferRequestItem,
 } from "@pitchlab/db";
 import { supportEmail } from "@pitchlab/emails";
-import { referralEarnedDays } from "@pitchlab/ui";
+import { referralEarnedDays } from "@pitchlab/ui/spacetime-catalog";
 import { getTransferBankConfig, paymentMode, type PaymentMode } from "./billing/payment-mode";
 
 const DAY_MS = 86_400_000;

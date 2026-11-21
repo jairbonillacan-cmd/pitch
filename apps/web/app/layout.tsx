@@ -1,8 +1,22 @@
 import React from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { LIGHT_THEME_TOKENS, STAGE_DARK_TOKENS } from "@pitchlab/tokens";
 import { DashboardEntryProvider } from "../src/client/dashboard-entry";
 import { PwaRuntimeMount } from "../src/client/pwa-runtime";
 import "./globals.css";
+
+const DARK_THEME_COLOR = STAGE_DARK_TOKENS["--pl-glass-nav"];
+const LIGHT_THEME_COLOR = LIGHT_THEME_TOKENS["--background-elevated"];
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: DARK_THEME_COLOR },
+    { media: "(prefers-color-scheme: light)", color: LIGHT_THEME_COLOR },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.BETTER_AUTH_URL ?? "https://pitchlab.mx"),
@@ -25,7 +39,7 @@ export const metadata: Metadata = {
   },
 };
 
-const THEME_INIT_SCRIPT = `(function(){var d=document.documentElement;d.dataset.style="solid";try{var t=localStorage.getItem("pl-theme");d.dataset.theme=(t==="light"||t==="dark")?t:"dark";}catch(e){d.dataset.theme="dark";}})();`;
+const THEME_INIT_SCRIPT = `(function(){var d=document.documentElement;d.dataset.style="solid";var theme="dark";try{var t=localStorage.getItem("pl-theme");theme=(t==="light"||t==="dark")?t:"dark";}catch(e){theme="dark";}d.dataset.theme=theme;d.style.colorScheme=theme;var c=theme==="light"?${JSON.stringify(LIGHT_THEME_COLOR)}:${JSON.stringify(DARK_THEME_COLOR)};var m=document.querySelector('meta[name="theme-color"]:not([media])');if(m){m.content=c;}})();`;
 
 export default function RootLayout({
   children,
@@ -36,6 +50,7 @@ export default function RootLayout({
     <html lang="es-MX" data-theme="dark" data-style="solid" suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="dark light" />
+        <meta name="theme-color" content={DARK_THEME_COLOR} suppressHydrationWarning />
         <link
           rel="preload"
           href="/fonts/InterVariable.woff2"

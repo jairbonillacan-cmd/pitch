@@ -1,11 +1,122 @@
-/* Service Worker mínimo de PitchLab · Web Push + apertura en primer plano */
+/* Service Worker de PitchLab · Web Push + caché acotado CacheFirst para estáticos + respaldo /offline (solo fuera de desarrollo local) */
+
+const STATIC_CACHE_NAME = "pitchlab-static-v2";
+const OFFLINE_CACHE_NAME = "pitchlab-offline-v1";
+const OFFLINE_URL = "/offline";
+const STATIC_CACHE_MAX_ENTRIES = 150;
+const STATIC_PATH_PREFIXES = ["/_next/static/", "/fonts/", "/brand/", "/icons/", "/icons-dark/"];
+
+function isLocalDevHost() {
+  const host = (self.location && self.location.hostname) || "";
+  return (
+    host === "localhost" ||
+    host === "127.0.0.1" ||
+    host === "::1" ||
+    host === "[::1]" ||
+    host.endsWith(".localhost")
+  );
+}
+
+function isCacheableStaticAsset(request) {
+  if (isLocalDevHost()) return false;
+  if (request.method !== "GET") return false;
+  let parsed;
+  try {
+    parsed = new URL(request.url);
+  } catch {
+    return false;
+  }
+  if (parsed.origin !== self.location.origin) return false;
+  return STATIC_PATH_PREFIXES.some((prefix) => parsed.pathname.startsWith(prefix));
+}
+
+async function trimStaticCache(cache) {
+  try {
+    const keys = await cache.keys();
+    if (keys.length <= STATIC_CACHE_MAX_ENTRIES) return;
+    const excess = keys.length - STATIC_CACHE_MAX_ENTRIES;
+    await Promise.all(keys.slice(0, excess).map((key) => cache.delete(key)));
+  } catch {
+    // Ignorar errores de cuota del navegador
+  }
+}
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(self.skipWaiting());
+  if (isLocalDevHost()) {
+    event.waitUntil(self.skipWaiting());
+    return;
+  }
+  event.waitUntil(
+    caches
+      .open(OFFLINE_CACHE_NAME)
+      .then((cache) => cache.add(new Request(OFFLINE_URL, { cache: "reload" })))
+      .catch(() => undefined),
+  );
+});
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(self.clients.claim());
+  const purgeAllLocal = isLocalDevHost();
+  event.waitUntil(
+    caches
+      .keys()
+      .then((names) =>
+        Promise.all(
+          names
+            .filter((name) => {
+              if (!name.startsWith("pitchlab-")) return false;
+              if (purgeAllLocal) return true;
+              return name !== STATIC_CACHE_NAME && name !== OFFLINE_CACHE_NAME;
+            })
+            .map((name) => caches.delete(name)),
+        ),
+      )
+      .then(() => {
+        if (purgeAllLocal && self.registration && typeof self.registration.unregister === "function") {
+          return self.registration.unregister();
+        }
+        return self.clients.claim();
+      }),
+  );
+});
+
+self.addEventListener("fetch", (event) => {
+  if (isLocalDevHost()) return;
+
+  // Navegaciones: siempre red primero; jamás cachear HTML privado (/app) ni violar Cero-Fuga.
+  // Si falla la red por completo, devolver la página pública `/offline` precacheada.
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(async () => {
+        const offlineCache = await caches.open(OFFLINE_CACHE_NAME);
+        const fallback = await offlineCache.match(OFFLINE_URL);
+        if (fallback) return fallback;
+        return new Response("Sin conexión a internet.", {
+          status: 503,
+          headers: { "Content-Type": "text/plain; charset=utf-8" },
+        });
+      }),
+    );
+    return;
+  }
+
+  if (!isCacheableStaticAsset(event.request)) return;
+  event.respondWith(
+    caches.open(STATIC_CACHE_NAME).then(async (cache) => {
+      const cached = await cache.match(event.request);
+      if (cached) return cached;
+      const network = await fetch(event.request);
+      if (network && network.ok && network.type === "basic") {
+        cache.put(event.request, network.clone()).then(() => trimStaticCache(cache)).catch(() => undefined);
+      }
+      return network;
+    }),
+  );
 });
 
 function sanitizeTargetUrl(raw) {
@@ -18,7 +129,7 @@ function sanitizeTargetUrl(raw) {
 self.addEventListener("push", (event) => {
   let payload = {
     title: "PitchLab",
-    body: "Tienes una actualización en tu cuenta del club.",
+    body: "Tienes una actualización en tu cuenta de PitchLab.",
     url: "/app",
     tag: "pitchlab-general",
   };

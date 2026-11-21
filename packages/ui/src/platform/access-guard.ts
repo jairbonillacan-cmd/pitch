@@ -140,7 +140,7 @@ export function redactDatasetForVisitor(
       home: game.home,
       away: game.away,
       hasForecast: game.hasForecast,
-      x12: game.x12,
+      x12: !game.x12 ? null : keepHeroProjection ? game.x12 : [0, 0, 0],
       projection: !game.projection
         ? null
         : keepHeroProjection

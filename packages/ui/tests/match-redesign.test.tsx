@@ -1,6 +1,31 @@
+import { Writable } from "node:stream";
 import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToPipeableStream, renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+
+async function renderHtmlAsync(element: React.ReactElement): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const writable = new Writable({
+      write(chunk, _enc, cb) {
+        chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+        cb();
+      },
+    });
+    const { pipe } = renderToPipeableStream(element, {
+      onAllReady() {
+        pipe(writable);
+      },
+      onError(err) {
+        reject(err);
+      },
+    });
+    writable.on("finish", () =>
+      resolve(Buffer.concat(chunks).toString("utf8").replace(/<!--\s*-->/g, "")),
+    );
+    writable.on("error", reject);
+  });
+}
 import {
   asLeagueId,
   asMarketKey,
@@ -308,8 +333,8 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
     expect(normalizeMatchTab("contexto")).toBe("contexto");
   });
 
-  it("renderiza role=tablist con 5 pestañas sin aria-controls y hidden en los paneles inactivos", () => {
-    const html = renderToStaticMarkup(
+  it("renderiza role=tablist con 5 pestañas sin aria-controls y carga diferida de paneles inactivos (ADR-051)", async () => {
+    const numerosHtml = await renderHtmlAsync(
       <PlatformProvider dataset={DATASET} initialRole="member">
         <MatchStudioClubView
           leagueId={asLeagueId("liga-mx")}
@@ -318,42 +343,69 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
         />
       </PlatformProvider>,
     );
-    const tablistHtml = html.match(/<div class="pl-match-tabs"[^>]*>[\s\S]*?<\/div>/)?.[0] ?? "";
+    const tablistHtml = numerosHtml.match(/<div class="pl-match-tabs"[^>]*>[\s\S]*?<\/div>/)?.[0] ?? "";
     expect(tablistHtml).toContain('role="tablist"');
     expect(tablistHtml).not.toContain("aria-controls=");
-    expect(html).toContain('id="pl-match-tab-resumen"');
-    expect(html).toContain('id="pl-match-tab-ia"');
-    expect(html).toContain('id="pl-match-tab-numeros"');
-    expect(html).toContain('id="pl-match-tab-dinero"');
-    expect(html).toContain('id="pl-match-tab-contexto"');
-    expect(html).toContain('id="pl-match-panel-ia"');
-    expect(html).toContain('id="pl-match-panel-numeros"');
-    expect(html).toContain('id="pl-match-panel-dinero"');
-    expect(html).toContain('aria-selected="true"');
+    expect(numerosHtml).toContain('id="pl-match-tab-resumen"');
+    expect(numerosHtml).toContain('id="pl-match-tab-ia"');
+    expect(numerosHtml).toContain('id="pl-match-tab-numeros"');
+    expect(numerosHtml).toContain('id="pl-match-tab-dinero"');
+    expect(numerosHtml).toContain('id="pl-match-tab-contexto"');
+    expect(numerosHtml).toContain('id="pl-match-panel-ia"');
+    expect(numerosHtml).toContain('id="pl-match-panel-numeros"');
+    expect(numerosHtml).toContain('id="pl-match-panel-dinero"');
+    expect(numerosHtml).toContain('aria-selected="true"');
 
     // Paneles resumen, ia, dinero y contexto deben estar hidden cuando initialTab="numeros"
-    expect(html).toMatch(/id="pl-match-panel-resumen"[^>]*hidden=""/);
-    expect(html).toMatch(/id="pl-match-panel-ia"[^>]*hidden=""/);
-    expect(html).toMatch(/id="pl-match-panel-dinero"[^>]*hidden=""/);
-    expect(html).toMatch(/id="pl-match-panel-contexto"[^>]*hidden=""/);
+    expect(numerosHtml).toMatch(/id="pl-match-panel-resumen"[^>]*hidden=""/);
+    expect(numerosHtml).toMatch(/id="pl-match-panel-ia"[^>]*hidden=""/);
+    expect(numerosHtml).toMatch(/id="pl-match-panel-dinero"[^>]*hidden=""/);
+    expect(numerosHtml).toMatch(/id="pl-match-panel-contexto"[^>]*hidden=""/);
 
-    // Contenido de las 5 pestañas presente en el árbol inicial
-    expect(html).toContain("Pronóstico del partido");
-    expect(html).toContain("Análisis IA");
-    expect(html).toContain("Cortex IA");
-    expect(html).toContain("Factores del partido");
-    expect(html).toContain("Goles esperados");
-    expect(html).toContain("¿Dónde está el dinero?");
-    expect(html).toContain("Comparativa de cuotas y valor");
-    expect(html).toContain("Córners esperados");
-    expect(html).toContain("Faltas esperadas");
-    expect(html).toContain("Amarillas esperadas");
-    expect(html).toContain("Tiros de esquina 10.5");
-    expect(html).toContain("Tabla de posiciones");
-    expect(html).toContain("Bajas y disponibilidad");
-    expect(html).toContain("J. Gómez");
-    expect(html).toContain("Monterrey llega con +1 día extra de descanso");
-    expect(html).not.toMatch(/Poisson|Dixon-Coles|sigma|matriz|tipstar/i);
+    // Paneles diferidos permanecen sin montar mientras no son visitados (ADR-051)
+    expect(numerosHtml).not.toContain("Comparativa de cuotas y valor");
+    expect(numerosHtml).toContain("Goles esperados");
+    expect(numerosHtml).toContain("Córners esperados");
+    expect(numerosHtml).toContain("Faltas esperadas");
+    expect(numerosHtml).toContain("Amarillas esperadas");
+    expect(numerosHtml).toContain("Tiros de esquina 10.5");
+
+    // Cada pestaña resuelve su contenido diferido al abrirse
+    const [resumenHtml, iaHtml, dineroHtml, contextoHtml] = await Promise.all([
+      renderHtmlAsync(
+        <PlatformProvider dataset={DATASET} initialRole="member">
+          <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId={MATCH.id} initialTab="resumen" />
+        </PlatformProvider>,
+      ),
+      renderHtmlAsync(
+        <PlatformProvider dataset={DATASET} initialRole="member">
+          <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId={MATCH.id} initialTab="ia" />
+        </PlatformProvider>,
+      ),
+      renderHtmlAsync(
+        <PlatformProvider dataset={DATASET} initialRole="member">
+          <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId={MATCH.id} initialTab="dinero" />
+        </PlatformProvider>,
+      ),
+      renderHtmlAsync(
+        <PlatformProvider dataset={DATASET} initialRole="member">
+          <MatchStudioClubView leagueId={asLeagueId("liga-mx")} gameId={MATCH.id} initialTab="contexto" />
+        </PlatformProvider>,
+      ),
+    ]);
+    expect(resumenHtml).toContain("Picks y evidencia del modelo");
+    expect(resumenHtml).toContain("Factores del partido");
+    expect(iaHtml).toContain("Análisis IA");
+    expect(iaHtml).toContain("Cortex IA");
+    expect(dineroHtml).toContain("¿Dónde está el dinero?");
+    expect(dineroHtml).toContain("Comparativa de cuotas y valor");
+    expect(contextoHtml).toContain("Tabla de posiciones");
+    expect(contextoHtml).toContain("Bajas y disponibilidad");
+    expect(contextoHtml).toContain("J. Gómez");
+    expect(contextoHtml).toContain("Monterrey llega con +1 día extra de descanso");
+    for (const h of [resumenHtml, iaHtml, numerosHtml, dineroHtml, contextoHtml]) {
+      expect(h).not.toMatch(/Poisson|Dixon-Coles|sigma|matriz|tipstar/i);
+    }
   });
 
   it("respeta fullAccess para visitantes bloqueados sin filtrar conteos ni bajas", () => {
@@ -396,12 +448,13 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
     expect(html).not.toContain("J. Gómez");
   });
 
-  it("renderiza Pronóstico de Cortex IA y Análisis de IA editorial con probabilidades, momios justos y resultado FT sin fugas", () => {
-    const preMatchHtml = renderToStaticMarkup(
+  it("renderiza Pronóstico de Cortex IA y Análisis de IA editorial con probabilidades, momios justos y resultado FT sin fugas", async () => {
+    const preMatchHtml = await renderHtmlAsync(
       <PlatformProvider dataset={DATASET} initialRole="member">
         <MatchStudioClubView
           leagueId={asLeagueId("liga-mx")}
           gameId={MATCH.id}
+          initialTab="ia"
         />
       </PlatformProvider>,
     );
@@ -449,11 +502,12 @@ describe("Ficha rediseñada en 5 pestañas accesibles", () => {
         standings: [],
       },
     ]);
-    const ftHtml = renderToStaticMarkup(
+    const ftHtml = await renderHtmlAsync(
       <PlatformProvider dataset={ftDataset} initialRole="member">
         <MatchStudioClubView
           leagueId={asLeagueId("liga-mx")}
           gameId="ft-check-mty"
+          initialTab="ia"
         />
       </PlatformProvider>,
     );
@@ -505,8 +559,8 @@ describe("Lista de partidos agrupada por día y liga", () => {
   });
 });
 
-describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", () => {
-  it("muestra ruta del encuentro, estadio, árbitro asignado y ordena el riel lateral (momento -> eventos -> picks -> cuotas)", () => {
+describe("Rediseño de ficha de partido: breadcrumb, árbitro, tablero de evidencia y riel sin redundancias (ADR-054)", () => {
+  it("muestra ruta del encuentro, estadio, árbitro asignado, tablero de picks con evidencia y riel depurado (momento -> eventos -> pulso)", () => {
     const withRef = buildRichMatch({ id: "mx-con-ref", referee: "Hector Martinez" });
     const ds = buildPlatformDataset([
       {
@@ -536,24 +590,22 @@ describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", (
     expect(html).toContain("Hector Martinez");
     expect(html).toContain("pl-match-layout");
     expect(html).toContain("pl-match-rail");
-    expect(html).toContain("Tiempo reglamentario");
     expect(html).toContain("pl-match-workspace");
+    expect(html).toContain("data-evidence-board");
+    expect(html).toContain("Ambos anotan: Sí");
 
+    // Riel izquierdo depurado: momento -> eventos -> forma y pulso (sin bloques duplicados)
     const idxMomentum = html.indexOf("data-rail-momentum");
     const idxEvents = html.indexOf("data-rail-events");
-    const idxPicks = html.indexOf("data-rail-picks");
-    const idxOdds = html.indexOf('id="rail-odds-heading"');
+    const idxPulse = html.indexOf('id="rail-context-heading"');
     expect(idxMomentum).toBeGreaterThan(-1);
     expect(idxEvents).toBeGreaterThan(idxMomentum);
-    expect(idxPicks).toBeGreaterThan(idxEvents);
-    expect(idxOdds).toBeGreaterThan(idxPicks);
-
-    const picksSlice = html.slice(idxPicks, idxOdds);
-    expect(picksSlice).toContain("Ambos anotan: Sí");
-    expect(picksSlice).not.toContain("pl-match-rail-pick-label truncate");
+    expect(idxPulse).toBeGreaterThan(idxEvents);
+    expect(html).not.toContain("data-rail-picks");
+    expect(html).not.toContain('id="rail-odds-heading"');
   });
 
-  it("muestra periodos en eventos del riel en vivo sin duplicar timeline en Resumen", async () => {
+  it("muestra periodos e iconos deportivos en eventos del riel en vivo sin duplicar timeline en Resumen", async () => {
     const { STORY_INCIDENTS, STORY_STATS } = await import(
       "../src/platform/live/live-story-data"
     );
@@ -607,11 +659,11 @@ describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", (
     expect(html).toContain("2.º tiempo");
     expect(html).toContain("pl-rail-event-score");
     expect(html).toContain("Jugador 9");
-    expect(html).toContain("pl-rail-card-mark--yellow");
+    expect(html).toContain("pl-sport-evt-ico");
     expect(html).not.toContain("pl-live-timeline");
   });
 
-  it("muestra estado honesto cuando no hay árbitro confirmado y respeta candado de visitante en el riel", () => {
+  it("muestra estado honesto cuando no hay árbitro confirmado y respeta candado de visitante", () => {
     const lockedMatch = buildRichMatch({ id: "test-ficha-locked-3" });
     const threeGames = buildPlatformDataset([
       {
@@ -635,7 +687,7 @@ describe("Rediseño de ficha de partido: breadcrumb, árbitro y riel rápido", (
       </PlatformProvider>,
     );
     expect(html).toContain("Árbitro por confirmar");
-    expect(html).toContain("Cuotas justas y probabilidades de mercado reservadas para Pase PitchLab Ultra.");
+    expect(html).toContain("Pase PitchLab Ultra");
   });
 
   it("muestra estado finalizado (FT) con Árbitro no reportado y cruce Ida/Agregado en eliminatoria real", () => {

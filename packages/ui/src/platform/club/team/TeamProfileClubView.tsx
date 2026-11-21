@@ -3,6 +3,7 @@
 import React, { useMemo, useRef, useState } from "react";
 import {
   canonicalGameHref,
+  canonicalPlayerHref,
   canonicalTeamHref,
   isLivePhaseActive,
   sportHasDraw,
@@ -18,18 +19,33 @@ import {
   usePackIconBase,
 } from "../../../pack-icon-theme";
 import { LeagueBadge, TeamBadge } from "../../../sports";
+import { ContextualBackButton } from "../../components/ContextualBackButton";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { PlSelect, type PlSelectOption } from "../../components/PlSelect";
+import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
+import { SportEventIcon } from "../../components/SportEventIcons";
 import { useLiveScoreboard } from "../../live/live-store";
 import { resolveCircularCountryFlag } from "../../country-flags";
-import { usePlatform } from "../../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+  useWatchlistGameIds,
+} from "../../platform-provider";
 import { teamTopicKey, useFollowedTopics } from "../community-ui";
+import { localizeInjuryLabelEs } from "../match/pre-match-logic";
 import { PersonAvatar } from "./PersonAvatar";
+import {
+  computeTeamDisciplinaryProfile,
+  resolveTeamNextLineupMap,
+  resolveTeamNextMatchReferee,
+  type TeamRefereeMatchSummary,
+} from "./props-context-helpers";
 import { resolveTeamVenueGeo, type TeamVenueGeo } from "./team-venues";
 import { TeamSquadSection } from "./TeamSquadSection";
 import type {
   TeamCoachInfo,
+  TeamDisciplinaryProfile,
   TeamModelMetric,
   TeamProfileData,
   TeamRecentAverages,
@@ -585,7 +601,7 @@ function TeamContextCard({
                 e.preventDefault();
                 onNavigate(backHref);
               }}
-              className="pl-team-link text-xs font-semibold inline-flex items-center gap-1 min-h-8"
+              className="pl-team-link text-xs font-semibold inline-flex items-center gap-1 min-h-11 sm:min-h-9"
               style={{ color: "var(--pl-brand)" }}
             >
               <span>Ver tabla</span>
@@ -665,7 +681,7 @@ function TeamContextCard({
                   ) : null}
                   {inj.detail ? (
                     <span className="block text-[11px]" style={{ color: "var(--pl-text-secondary)" }}>
-                      {inj.detail}
+                      {localizeInjuryLabelEs(inj.detail)}
                     </span>
                   ) : null}
                 </div>
@@ -674,6 +690,233 @@ function TeamContextCard({
             ))}
           </ul>
         )}
+      </div>
+    </section>
+  );
+}
+
+function TeamRefereeDisciplineCard({
+  league,
+  teamSlug,
+  refereeInfo,
+  disciplinary,
+  isVisitorRestricted,
+  onNavigate,
+}: {
+  league: LeagueId;
+  teamSlug: string;
+  refereeInfo: TeamRefereeMatchSummary | null;
+  disciplinary: TeamDisciplinaryProfile | null;
+  isVisitorRestricted: boolean;
+  onNavigate: (href: string) => void;
+}): React.JSX.Element | null {
+  if (!refereeInfo && !disciplinary) return null;
+
+  const headingText =
+    refereeInfo && disciplinary
+      ? "Contexto arbitral y disciplina"
+      : refereeInfo
+        ? "Contexto arbitral"
+        : "Perfil disciplinario";
+
+  const ref = refereeInfo?.analytics ?? null;
+  const topBookedHref = disciplinary?.topBookedPlayer
+    ? canonicalPlayerHref(league, teamSlug, disciplinary.topBookedPlayer.slug)
+    : null;
+
+  return (
+    <section
+      className="glass-card glass-ring rounded-2xl p-5 space-y-4"
+      data-team-referee-discipline=""
+      aria-labelledby="team-ref-discipline-heading"
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 id="team-ref-discipline-heading" className="m-0 text-base sm:text-lg font-extrabold">
+          {headingText}
+        </h2>
+        {disciplinary && disciplinary.sampleGames > 0 ? (
+          <span className="text-xs num font-medium" style={{ color: "var(--pl-text-muted)" }}>
+            Corte de {disciplinary.sampleGames} PJ
+          </span>
+        ) : null}
+      </div>
+
+      <div
+        className={`grid grid-cols-1 ${refereeInfo && disciplinary ? "lg:grid-cols-2" : ""} gap-4`}
+      >
+        {refereeInfo && ref ? (
+          <div
+            className="rounded-2xl p-4 space-y-3"
+            style={{ background: "var(--pl-surface-elevated)" }}
+            data-team-referee-context=""
+          >
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div className="min-w-0 space-y-0.5">
+                <span
+                  className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  <MaestroIcon name="whistle" size={13} />
+                  <span>
+                    {refereeInfo.isUpcoming ? "Árbitro designado" : "Último árbitro registrado"}
+                  </span>
+                </span>
+                <strong className="block text-sm font-extrabold truncate">{ref.name}</strong>
+                <span className="block text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+                  {[
+                    ref.country ?? null,
+                    ref.matches > 0 ? `${ref.matches} partidos` : null,
+                    refereeInfo.matchLabel,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </span>
+              </div>
+
+              {refereeInfo.gameHref ? (
+                <a
+                  href={refereeInfo.gameHref}
+                  onClick={(e) => {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                    e.preventDefault();
+                    onNavigate(refereeInfo.gameHref);
+                  }}
+                  className="pl-team-link text-xs font-semibold inline-flex items-center gap-1 min-h-11 sm:min-h-9 shrink-0"
+                  style={{ color: "var(--pl-brand)" }}
+                >
+                  <span>Ver partido</span>
+                  <MaestroIcon name="chevronRight" size={12} />
+                </a>
+              ) : null}
+            </div>
+
+            {ref.ebYellow !== null || ref.avgYellow !== null ? (
+              <RefereeRigorBadge referee={ref} variant="compact" />
+            ) : null}
+
+            {ref.avgYellow !== null || ref.avgRed !== null || ref.avgFouls !== null ? (
+              <div className="flex flex-wrap items-center gap-2 text-xs num">
+                {ref.avgYellow !== null ? (
+                  <span className="pl-pill inline-flex items-center gap-1.5">
+                    <SportEventIcon kind="yellow" size={12} />
+                    <span>{ref.avgYellow.toFixed(1)} amar./p</span>
+                  </span>
+                ) : null}
+                {ref.avgRed !== null ? (
+                  <span className="pl-pill inline-flex items-center gap-1.5">
+                    <SportEventIcon kind="red" size={12} />
+                    <span>{ref.avgRed.toFixed(2)} roj./p</span>
+                  </span>
+                ) : null}
+                {ref.avgFouls !== null ? (
+                  <span className="pl-pill">{ref.avgFouls.toFixed(1)} faltas/p</span>
+                ) : null}
+              </div>
+            ) : null}
+
+            {!isVisitorRestricted &&
+            refereeInfo.isUpcoming &&
+            (refereeInfo.projectedYellowTotal !== null ||
+              refereeInfo.projectedFoulsTotal !== null) ? (
+              <p className="m-0 text-xs num" style={{ color: "var(--pl-text-secondary)" }}>
+                Proyección Spacetime del encuentro:{" "}
+                {[
+                  refereeInfo.projectedYellowTotal !== null
+                    ? `${refereeInfo.projectedYellowTotal.toFixed(1)} amarillas`
+                    : null,
+                  refereeInfo.projectedFoulsTotal !== null
+                    ? `${refereeInfo.projectedFoulsTotal.toFixed(1)} faltas`
+                    : null,
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+
+        {disciplinary ? (
+          <div
+            className="rounded-2xl p-4 space-y-3"
+            style={{ background: "var(--pl-surface-elevated)" }}
+            data-team-disciplinary-profile=""
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span
+                className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                <SportEventIcon kind="yellow" size={13} />
+                <span>Perfil disciplinario del plantel</span>
+              </span>
+              <span className="text-xs num font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
+                {disciplinary.yellowCards} TA · {disciplinary.redCards} TR
+              </span>
+            </div>
+
+            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-2 m-0 num">
+              <div className="rounded-xl p-2.5" style={{ background: "var(--pl-surface)" }}>
+                <dt className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                  Amarillas / p
+                </dt>
+                <dd className="m-0 text-base font-extrabold">
+                  {disciplinary.yellowPerGame !== null
+                    ? disciplinary.yellowPerGame.toFixed(2)
+                    : disciplinary.yellowCards}
+                </dd>
+              </div>
+              <div className="rounded-xl p-2.5" style={{ background: "var(--pl-surface)" }}>
+                <dt className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                  Rojas totales
+                </dt>
+                <dd className="m-0 text-base font-extrabold">{disciplinary.redCards}</dd>
+              </div>
+              <div className="rounded-xl p-2.5" style={{ background: "var(--pl-surface)" }}>
+                <dt className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                  Faltas com. / p
+                </dt>
+                <dd className="m-0 text-base font-extrabold">
+                  {disciplinary.foulsCommittedPerGame !== null
+                    ? disciplinary.foulsCommittedPerGame.toFixed(1)
+                    : "—"}
+                </dd>
+              </div>
+              <div className="rounded-xl p-2.5" style={{ background: "var(--pl-surface)" }}>
+                <dt className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                  Faltas suf. / p
+                </dt>
+                <dd className="m-0 text-base font-extrabold">
+                  {disciplinary.foulsSufferedPerGame !== null
+                    ? disciplinary.foulsSufferedPerGame.toFixed(1)
+                    : "—"}
+                </dd>
+              </div>
+            </dl>
+
+            {disciplinary.topBookedPlayer && topBookedHref ? (
+              <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-0.5">
+                <span style={{ color: "var(--pl-text-muted)" }}>Jugador con más tarjetas</span>
+                <a
+                  href={topBookedHref}
+                  onClick={(e) => {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                    e.preventDefault();
+                    onNavigate(topBookedHref);
+                  }}
+                  className="pl-team-link font-bold inline-flex items-center gap-1.5 min-h-11 sm:min-h-9 num"
+                >
+                  <span>{disciplinary.topBookedPlayer.shortName}</span>
+                  <span className="pl-pill pl-pill--warning text-[11px]">
+                    {disciplinary.topBookedPlayer.yellowCards} TA
+                    {disciplinary.topBookedPlayer.redCards > 0
+                      ? ` · ${disciplinary.topBookedPlayer.redCards} TR`
+                      : ""}
+                  </span>
+                </a>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </section>
   );
@@ -1168,7 +1411,7 @@ function TeamMatchesRail({
             {filteredFinished.length > 0 ? (
               <button
                 type="button"
-                className="pl-btn-glass text-xs min-h-9 px-3"
+                className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3"
                 onClick={() => {
                   setStatusMode("finished");
                   setPage(0);
@@ -1320,15 +1563,9 @@ export function TeamProfileClubView({
   initialTab = "resumen",
   liveBoardOverride,
 }: TeamProfileClubViewProps): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    hasAccountSession,
-    upgradeHref,
-    watchlistGameIds,
-    toggleWatchlistGame,
-    navigateTo,
-  } = usePlatform();
+  const { dataset, viewerRole, hasAccountSession, upgradeHref } = usePlatformCore();
+  const { toggleWatchlistGame, navigateTo } = usePlatformActions();
+  const watchlistGameIds = useWatchlistGameIds();
   const { topics, toggleTeam } = useFollowedTopics();
   const teamKey = teamTopicKey(profile.league, profile.team.slug);
   const isFollowingTeam = topics.teams.includes(teamKey);
@@ -1468,6 +1705,36 @@ export function TeamProfileClubView({
   const lastMatch = profile.recentMatches[0] ?? null;
   const nextUpcoming =
     profile.upcomingFixtures.find((f) => f.id !== liveMatchInfo?.id) ?? null;
+
+  const teamRefereeInfo = useMemo(
+    () =>
+      resolveTeamNextMatchReferee(
+        dataset.games,
+        profile.league,
+        profile.team.slug,
+        nextUpcoming?.id ?? null,
+        profile.refereeContext ?? null,
+      ),
+    [dataset.games, nextUpcoming?.id, profile.league, profile.refereeContext, profile.team.slug],
+  );
+
+  const disciplinaryProfile = useMemo(
+    () =>
+      profile.disciplinaryProfile ??
+      computeTeamDisciplinaryProfile(profile.squad, profile.standing, profile.recentAverages),
+    [profile.disciplinaryProfile, profile.recentAverages, profile.squad, profile.standing],
+  );
+
+  const teamLineupMap = useMemo(
+    () =>
+      resolveTeamNextLineupMap(
+        dataset.games,
+        profile.league,
+        profile.team.slug,
+        profile.sport,
+      ),
+    [dataset.games, profile.league, profile.sport, profile.team.slug],
+  );
   const venueGeo = resolveTeamVenueGeo(
     profile.league,
     profile.team.slug,
@@ -1568,6 +1835,7 @@ export function TeamProfileClubView({
       <ClubWorkspaceShell activePath={canonicalTeamHref(profile.league, profile.team.slug)}>
         {/* Ruta superior estilo editorial deportivo */}
         <nav aria-label="Ruta del equipo" className="pl-team-crumb">
+          <ContextualBackButton fallbackHref={leagueHref} />
           <ol className="pl-team-crumb-list">
             <li>
               <a
@@ -1617,6 +1885,7 @@ export function TeamProfileClubView({
         <section
           className="pl-team-hero glass-card glass-ring rounded-3xl p-5 sm:p-6"
           data-team-hero={profile.team.slug}
+          style={{ viewTransitionName: "pl-team-hero" }}
         >
           <div className="pl-team-hero-grid">
             {/* Izquierda: escudo limpio, nombre, país, entrenador/código, racha y sede/liga */}
@@ -1786,7 +2055,7 @@ export function TeamProfileClubView({
                       `/app/comparar?modo=equipos&liga=${profile.league}&a=${profile.team.slug}`,
                     );
                   }}
-                  className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+                  className="pl-btn-glass text-xs min-h-11 lg:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
                 >
                   <MaestroIcon name="chart" size={13} />
                   <span>Comparar</span>
@@ -2206,6 +2475,15 @@ export function TeamProfileClubView({
                     />
                   </div>
 
+                  <TeamRefereeDisciplineCard
+                    league={profile.league}
+                    teamSlug={profile.team.slug}
+                    refereeInfo={teamRefereeInfo}
+                    disciplinary={disciplinaryProfile}
+                    isVisitorRestricted={isVisitorRestricted}
+                    onNavigate={navigateTo}
+                  />
+
                   {profile.relatedTeams.length > 0 ? (
                     <section className="glass-card glass-ring rounded-2xl p-5 space-y-3">
                       <div className="flex items-center justify-between gap-2">
@@ -2279,6 +2557,8 @@ export function TeamProfileClubView({
                     seasonLabel={profile.seasonLabel}
                     squad={profile.squad}
                     injuries={profile.injuries}
+                    lineupByPlayer={teamLineupMap.byPlayerKey}
+                    lineupBannerLabel={teamLineupMap.statusLabel}
                     isVisitorRestricted={isVisitorRestricted}
                     upgradeHref={upgradeHref}
                     onNavigate={navigateTo}

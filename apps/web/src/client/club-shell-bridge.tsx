@@ -2,10 +2,23 @@
 
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { ClubLayoutShell } from "@pitchlab/ui";
+import { ClubLayoutShell } from "@pitchlab/ui/club-shell";
+import { ExpiredPassGate } from "@pitchlab/ui/expired-pass";
+import { clearRouteScroll, readRouteScroll } from "@pitchlab/ui/navigation-helpers";
+import type { PaymentMode } from "@pitchlab/ui/types";
 
 /** Las 4 páginas del menú principal: se precargan para que el clic sea inmediato. */
 const PRIMARY_ROUTES = ["/app", "/app/parlays", "/app/social", "/app/lab"] as const;
+
+function isAllowedRecoveryPath(rawPath: string): boolean {
+  const pathOnly = (rawPath.split(/[?#]/, 1)[0] ?? "/").replace(/\/+$/, "") || "/";
+  return (
+    pathOnly === "/app/account" ||
+    pathOnly.startsWith("/app/account/") ||
+    pathOnly === "/app/canjear" ||
+    pathOnly.startsWith("/app/canjear/")
+  );
+}
 
 function resetWindowScrollToTop(): void {
   if (typeof window === "undefined") return;
@@ -17,16 +30,48 @@ function resetWindowScrollToTop(): void {
 
 /**
  * Monta el encabezado y la barra lateral una sola vez en el layout de /app.
- * Cada página solo aporta su contenido y al cambiar de ruta sube siempre al inicio.
+ * Al avanzar entre pantallas sube al inicio; al volver atrás (`popstate` / botón Atrás)
+ * restaura la posición de scroll guardada (ADR-053).
+ * Si el pase venció (`expiredPassGate`), reevalúa la ruta en cada transición cliente para
+ * impedir saltarse `ExpiredPassGate` desde `/app/account` o `/app/canjear`.
  */
-export function ClubShellBridge({ children }: { children: React.ReactNode }): React.JSX.Element {
+export function ClubShellBridge({
+  children,
+  expiredPassGate = null,
+}: {
+  children: React.ReactNode;
+  expiredPassGate?: {
+    memberHandle: string | null;
+    paymentMode: PaymentMode;
+  } | null;
+}): React.JSX.Element {
   const pathname = usePathname() ?? "/app";
   const router = useRouter();
   const prevPathnameRef = useRef<string>(pathname);
+  const isBackNavigationRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    const onPopState = () => {
+      isBackNavigationRef.current = true;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   useLayoutEffect(() => {
     if (prevPathnameRef.current !== pathname) {
       prevPathnameRef.current = pathname;
+      if (isBackNavigationRef.current) {
+        isBackNavigationRef.current = false;
+        const savedY = readRouteScroll(pathname);
+        if (savedY !== null && savedY > 0) {
+          clearRouteScroll(pathname);
+          const restore = () => window.scrollTo({ top: savedY, left: 0, behavior: "instant" });
+          restore();
+          const raf = window.requestAnimationFrame(restore);
+          return () => window.cancelAnimationFrame(raf);
+        }
+      }
       resetWindowScrollToTop();
       const raf = window.requestAnimationFrame(resetWindowScrollToTop);
       return () => window.cancelAnimationFrame(raf);
@@ -35,20 +80,33 @@ export function ClubShellBridge({ children }: { children: React.ReactNode }): Re
   }, [pathname]);
 
   useEffect(() => {
-    // Precarga completa (datos incluidos): las páginas son dinámicas, así que la precarga
-    // parcial por defecto solo traería el esqueleto de carga.
-    const idle =
-      typeof window.requestIdleCallback === "function"
-        ? window.requestIdleCallback
-        : (cb: () => void) => window.setTimeout(cb, 400);
-    idle(() => {
+    if (expiredPassGate) return undefined;
+    const prefetchPrimaryRoutes = () => {
       for (const href of PRIMARY_ROUTES) {
-        if (href !== pathname) router.prefetch(href, { kind: "full" } as never);
+        if (href !== pathname) router.prefetch(href);
       }
-    });
+    };
+    if (
+      typeof window.requestIdleCallback === "function" &&
+      typeof window.cancelIdleCallback === "function"
+    ) {
+      const idleHandle = window.requestIdleCallback(prefetchPrimaryRoutes);
+      return () => window.cancelIdleCallback(idleHandle);
+    }
+    const timerId = window.setTimeout(prefetchPrimaryRoutes, 400);
+    return () => window.clearTimeout(timerId);
     // Solo al montar el layout: las rutas precargadas quedan en la caché del router.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (expiredPassGate && !isAllowedRecoveryPath(pathname)) {
+    return (
+      <ExpiredPassGate
+        memberHandle={expiredPassGate.memberHandle}
+        paymentMode={expiredPassGate.paymentMode}
+      />
+    );
+  }
 
   return <ClubLayoutShell activePath={pathname}>{children}</ClubLayoutShell>;
 }

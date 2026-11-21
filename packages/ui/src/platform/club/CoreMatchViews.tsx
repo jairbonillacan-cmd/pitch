@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { Suspense, lazy, useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   COMPETITION_BY_ID,
   canonicalGameHref,
@@ -40,39 +40,74 @@ import {
 import { resolveCircularCountryFlag } from "../country-flags";
 import {
   CrestPedestal,
-  LensGlowOrbs,
   MaestroIcon,
   StackedAvatars,
 } from "../components/MaestroPrimitives";
 import { MatchList } from "../components/MatchList";
 import { PlLeagueSelect } from "../components/PlSelect";
-import { MultiPickRow } from "../components/MatchTicketCard";
 import { groupMatchesByDayAndLeague } from "./home/home-model";
-import { CortexAnalysisCard, type CortexSectionView } from "./match/CortexAnalysisCard";
-import { MatchContextPanel } from "./match/MatchContextPanel";
+import type { CortexSectionView } from "./match/CortexAnalysisCard";
 import {
   MatchBreadcrumb,
   MatchHeroScoreboard,
   MatchLeftRail,
 } from "./match/MatchHeroAndRail";
-import { MatchMoneyPanel } from "./match/MatchMoneyPanel";
-import { MatchNumbersPanel } from "./match/MatchNumbersPanel";
+import { MatchPicksEvidenceBoard } from "./match/MatchPicksEvidenceBoard";
 import { MatchTabPanel, MatchTabs, useMatchUrlTab } from "./match/MatchTabs";
 import { PreMatchModule } from "./match/PreMatchModule";
 import {
   SportOutlookCard,
   platformGameToSportOutlook,
 } from "./match/sport-outlook";
-import { LiveMatchPanelView } from "../live/LiveMatchCenter";
 import { useLiveMatch, useLiveScoreboard } from "../live/live-store";
-import { PicksFinderClubView } from "./PicksFinderView";
+
+const LazyLiveMatchPanelView = lazy(() =>
+  import("../live/LiveMatchCenter").then((m) => ({ default: m.LiveMatchPanelView })),
+);
+const LazyCortexAnalysisCard = lazy(() =>
+  import("./match/CortexAnalysisCard").then((m) => ({ default: m.CortexAnalysisCard })),
+);
+const LazyMatchNumbersPanel = lazy(() =>
+  import("./match/MatchNumbersPanel").then((m) => ({ default: m.MatchNumbersPanel })),
+);
+const LazyMatchMoneyPanel = lazy(() =>
+  import("./match/MatchMoneyPanel").then((m) => ({ default: m.MatchMoneyPanel })),
+);
+const LazyMatchContextPanel = lazy(() =>
+  import("./match/MatchContextPanel").then((m) => ({ default: m.MatchContextPanel })),
+);
+
+function MatchTabFallback(): React.JSX.Element {
+  return (
+    <div
+      className="pl-skel-card rounded-2xl p-5 space-y-3"
+      role="status"
+      aria-busy="true"
+      aria-label="Cargando análisis del partido"
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div className="pl-skel-bar h-5 w-44 rounded-lg" />
+        <div className="pl-skel-bar h-6 w-20 rounded-full" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="pl-skel-bar h-24 rounded-xl" />
+        <div className="pl-skel-bar h-24 rounded-xl" />
+      </div>
+      <div className="pl-skel-bar h-16 rounded-xl" />
+    </div>
+  );
+}
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
 import {
-  usePlatform,
+  useJournalEntries,
+  useParlayState,
+  usePlatformActions,
+  usePlatformCore,
+  useSocialState,
 } from "../platform-provider";
 import {
   SocialReportDialog,
@@ -230,7 +265,7 @@ function buildFallbackLeagueNews(
         title: `${g.home.name} vs ${g.away.name} (${shortDateLabel(g.dayId)} · ${g.kickoffLocal})`,
         summary: g.preGame.cortexSynthesis,
         publishedAtLabel: `${shortDateLabel(g.dayId)} · ${g.kickoffLocal}`,
-        badge: g.confidenceScore ? `Conf. ${g.confidenceScore}` : g.round,
+        badge: g.round,
         team: {
           slug: g.home.slug,
           name: g.home.name,
@@ -260,15 +295,6 @@ function buildFallbackLeagueNews(
   }
 
   return items;
-}
-
-/** El Inicio del Club vive en `home/HomeClubView`; se conserva el nombre anterior.
- */
-export { HomeClubView as JornadaClubView } from "./home/HomeClubView";
-
-/** /app/picks: buscador de todas las selecciones (ver PicksFinderView). */
-export function MultiPicksClubView(): React.JSX.Element {
-  return <PicksFinderClubView />;
 }
 
 export interface LeagueStandingsSplitMeta {
@@ -584,15 +610,8 @@ export function LeagueHubClubView({
   standingsMeta?: LeagueStandingsMeta | null;
   initialStandings?: readonly StandingRow[];
 }): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    oddsFormat,
-    favoriteLeagues,
-    setFavoriteLeagues,
-    pushToast,
-    navigateTo,
-  } = usePlatform();
+  const { dataset, viewerRole, oddsFormat, favoriteLeagues } = usePlatformCore();
+  const { setFavoriteLeagues, pushToast, navigateTo } = usePlatformActions();
   const { topics, toggleLeague: toggleFollowedLeague } = useFollowedTopics();
   const iconBase = usePackIconBase();
   const liveSnap = useLiveScoreboard(true);
@@ -2348,32 +2367,11 @@ export function MatchStudioClubView({
   /** Pestaña inicial resuelta en servidor desde `?tab=` para compartir enlaces. */
   initialTab?: MatchTabKey;
 }): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    viewerIdentity,
-    hasAccountSessionAuth,
-    oddsFormat,
-    setSelectedTipsterPickId,
-    socialPosts,
-    publishSocialPost,
-    addSocialComment,
-    deleteSocialComment,
-    toggleSocialCommentHelpful,
-    loadAllPostComments,
-    deleteSocialPost,
-    toggleSocialLike,
-    loadMatchSocialPosts,
-    sealPickToJournal,
-    recordSocialPostCopy,
-    addPickToParlay,
-    parlaySummary,
-    upgradeHref,
-    journal,
-    openComposer,
-    navigateTo,
-    pushToast,
-  } = usePlatform();
+  const { dataset, viewerRole, viewerIdentity, hasAccountSessionAuth, oddsFormat, upgradeHref } = usePlatformCore();
+  const { setSelectedTipsterPickId, publishSocialPost, addSocialComment, deleteSocialComment, toggleSocialCommentHelpful, loadAllPostComments, deleteSocialPost, toggleSocialLike, loadMatchSocialPosts, sealPickToJournal, recordSocialPostCopy, addPickToParlay, openComposer, navigateTo, pushToast } = usePlatformActions();
+  const { parlaySummary } = useParlayState();
+  const { socialPosts } = useSocialState();
+  const journal = useJournalEntries();
 
   const follows = useFollowing();
   const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
@@ -2387,6 +2385,13 @@ export function MatchStudioClubView({
   );
 
   const [activeTab, setActiveTab] = useMatchUrlTab(initialTab);
+  const [visitedTabs, setVisitedTabs] = useState<ReadonlySet<MatchTabKey>>(
+    () => new Set([activeTab]),
+  );
+  useEffect(() => {
+    setVisitedTabs((prev) => (prev.has(activeTab) ? prev : new Set([...prev, activeTab])));
+  }, [activeTab]);
+  const isTabMounted = (key: MatchTabKey) => activeTab === key || visitedTabs.has(key);
   const workspaceRef = useRef<HTMLElement | null>(null);
   const handleSelectTabFromRail = (nextTab: MatchTabKey) => {
     setActiveTab(nextTab);
@@ -2597,75 +2602,28 @@ export function MatchStudioClubView({
               ]}
             />
 
-            {/* Pestaña 1: Resumen (En vivo, picks, Pre-Match, panorama y factores) */}
+            {/* Pestaña 1: Picks y Evidencia (tablero editorial + En vivo + Pre-Match) */}
             <MatchTabPanel idPrefix="pl-match" tabKey="resumen" active={activeTab}>
               {liveSupported || liveDetailOverride ? (
-                <LiveMatchPanelView
-                  game={game}
-                  detail={liveDetail}
-                  loading={liveDetailOverride ? false : liveSnap.loading}
-                  error={liveDetailOverride ? false : liveSnap.error}
-                  showFollow={false}
-                  hideMomentum={hasLiveMomentum}
-                  hideTimeline={hasLiveIncidents}
-                  hideScoreboard
-                />
+                <Suspense fallback={<MatchTabFallback />}>
+                  <LazyLiveMatchPanelView
+                    game={game}
+                    detail={liveDetail}
+                    loading={liveDetailOverride ? false : liveSnap.loading}
+                    error={liveDetailOverride ? false : liveSnap.error}
+                    showFollow={false}
+                    hideMomentum={hasLiveMomentum}
+                    hideTimeline={hasLiveIncidents}
+                    hideScoreboard
+                  />
+                </Suspense>
               ) : null}
 
-              <section className="pl-resumen-picks-col space-y-3.5 min-w-0" data-picks="">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="m-0 text-lg font-extrabold">Pronóstico del partido</h2>
-                  {viewerRole === "tipster" || viewerRole === "admin" ? (
-                    <span
-                      className="text-xs font-semibold inline-flex items-center gap-1"
-                      style={{ color: "var(--pl-brand)" }}
-                    >
-                      <MaestroIcon name="crown" size={13} />
-                      <span>Elige cualquiera como tu Pick abierto semanal</span>
-                    </span>
-                  ) : null}
-                </div>
-
-                {game.picks.length === 0 ? (
-                  <div
-                    className="glass-card glass-ring rounded-2xl p-4 text-sm"
-                    style={{ color: "var(--pl-text-muted)" }}
-                    data-empty-forecast=""
-                  >
-                    Aún no hay picks publicados para este partido porque el snapshot no incluye pronóstico ni probabilidades.
-                  </div>
-                ) : (
-                  <div
-                    className="pl-resumen-picks-grid"
-                    data-odd-picks={game.picks.length > 1 && game.picks.length % 2 === 1 ? "true" : undefined}
-                  >
-                    {game.picks.map((pk) => (
-                      <div key={pk.id} className="pl-resumen-pick-cell space-y-1.5 min-w-0">
-                        <MultiPickRow pick={pk} gameStatus={game.status} />
-                        {(viewerRole === "tipster" || viewerRole === "admin") &&
-                        game.status !== "FT" ? (
-                          <div className="flex justify-end">
-                            <button
-                              type="button"
-                              className="pl-btn-glass text-xs min-h-9 px-3 inline-flex items-center gap-1"
-                              onClick={() => {
-                                setSelectedTipsterPickId(pk.id);
-                                pushToast(
-                                  `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
-                                  "success",
-                                );
-                              }}
-                            >
-                              <MaestroIcon name="crown" size={12} />
-                              <span>Usar como mi Pick abierto semanal</span>
-                            </button>
-                          </div>
-                        ) : null}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </section>
+              <MatchPicksEvidenceBoard
+                game={game}
+                markets={activeMarkets}
+                v5={detail?.v5 ?? null}
+              />
 
               {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
               {sportOutlook ? (
@@ -2684,18 +2642,9 @@ export function MatchStudioClubView({
                       Factores del partido
                     </h2>
                     <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
-                      Señales cuantitativas que explican la probabilidad y confianza del modelo.
+                      Señales cuantitativas que explican las probabilidades del modelo.
                     </p>
                   </div>
-                  {intelUnlocked && game.confidenceDetail?.reasons.length ? (
-                    <div className="flex flex-wrap gap-1.5">
-                      {game.confidenceDetail.reasons.map((reason) => (
-                        <span key={reason} className="pl-pill text-[11px]">
-                          {reason}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
 
                 {!intelUnlocked && !isFinished ? (
@@ -2724,7 +2673,9 @@ export function MatchStudioClubView({
 
         {/* Pestaña 2: Análisis IA (Pronóstico estructurado de Cortex IA + Análisis editorial + Señales) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="ia" active={activeTab}>
-          <CortexAnalysisCard
+          {isTabMounted("ia") ? (
+            <Suspense fallback={<MatchTabFallback />}>
+              <LazyCortexAnalysisCard
             game={game}
             synthesis={
               cortexSections?.find((sec) => sec.key === "lectura")?.text ??
@@ -2746,8 +2697,7 @@ export function MatchStudioClubView({
               intelUnlocked &&
               hasForecast &&
               ((game.spacetime?.drivers.length ?? 0) > 0 ||
-                game.preGame.tacticalKeys.length > 0 ||
-                (game.confidenceDetail?.reasons.length ?? 0) > 0) ? (
+                game.preGame.tacticalKeys.length > 0) ? (
                 <div
                   className="glass-card glass-ring rounded-2xl p-4 space-y-3 min-w-0"
                   data-cortex-signals=""
@@ -2803,26 +2753,19 @@ export function MatchStudioClubView({
                       </ul>
                     </div>
                   ) : null}
-
-                  {(game.confidenceDetail?.reasons.length ?? 0) > 0 ? (
-                    <div className="space-y-1.5 pt-2 hairline-t">
-                      <h3 className="pl-cortex-label">Qué tan firme es</h3>
-                      <ul className="pl-cortex-list text-xs">
-                        {game.confidenceDetail!.reasons.map((r) => (
-                          <li key={r}>{r}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
                 </div>
               ) : null
             }
           />
+            </Suspense>
+          ) : null}
         </MatchTabPanel>
 
         {/* Pestaña 3: Números esperados, mercados y simulador */}
         <MatchTabPanel idPrefix="pl-match" tabKey="numeros" active={activeTab}>
-          <MatchNumbersPanel
+          {isTabMounted("numeros") ? (
+            <Suspense fallback={<MatchTabFallback />}>
+              <LazyMatchNumbersPanel
             game={game}
             markets={activeMarkets}
             oddsFormat={oddsFormat}
@@ -2848,11 +2791,15 @@ export function MatchStudioClubView({
               handleSealMarketRow(row, sealedMarketKeys.size, houseOddsByKey[rowKey]);
             }}
           />
+            </Suspense>
+          ) : null}
         </MatchTabPanel>
 
         {/* Pestaña 4: ¿Dónde está el dinero? (flujo de mercado vs. modelo + comparativa de cuotas) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="dinero" active={activeTab}>
-          <MatchMoneyPanel
+          {isTabMounted("dinero") ? (
+            <Suspense fallback={<MatchTabFallback />}>
+              <LazyMatchMoneyPanel
             game={game}
             markets={activeMarkets}
             oddsFormat={oddsFormat}
@@ -2869,11 +2816,15 @@ export function MatchStudioClubView({
             }
             inParlayPickIds={parlayPickIds}
           />
+            </Suspense>
+          ) : null}
         </MatchTabPanel>
 
         {/* Pestaña 5: Contexto (equipos, sede/H2H, bajas + opiniones lado a lado y tabla) */}
         <MatchTabPanel idPrefix="pl-match" tabKey="contexto" active={activeTab}>
-          <MatchContextPanel
+          {isTabMounted("contexto") ? (
+            <Suspense fallback={<MatchTabFallback />}>
+              <LazyMatchContextPanel
             game={game}
             standings={
               leagueStandings && leagueStandings.length > 0
@@ -3014,6 +2965,8 @@ export function MatchStudioClubView({
               </aside>
             }
           />
+            </Suspense>
+          ) : null}
         </MatchTabPanel>
           </section>
         </div>

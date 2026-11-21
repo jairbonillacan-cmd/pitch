@@ -6,9 +6,9 @@ import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../sports";
 import { formatOddsValue, isPickUnlocked, isPreGameIntelUnlocked } from "../access-guard";
 import { alternativePick, mostLikelyOutcome, shortDateLabel } from "../club/home/home-model";
+import { setActiveSharedTransition } from "../navigation-helpers";
 import { usePlatformActions, usePlatformCore } from "../platform-provider";
 import type { PlatformGame } from "../types";
-import { ConfidenceChip } from "./ConfidenceChip";
 import { CrestPedestal, MaestroIcon } from "./MaestroPrimitives";
 import { ParlayPickButton, formatCountsHint, formatGoalLineHint } from "./MatchList";
 
@@ -25,7 +25,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
   liveEntry?: LiveScoreboardEntry;
 }): React.JSX.Element {
   const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
-  const { setAuraFromGame, navigateTo } = usePlatformActions();
+  const { setAuraFromGame, navigateTo, prefetchRoute } = usePlatformActions();
 
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
@@ -52,6 +52,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
 
   const openStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    setActiveSharedTransition(e.currentTarget.closest("article"), "pl-match-hero");
     setAuraFromGame(game);
     navigateTo(studioHref);
   };
@@ -88,7 +89,9 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
           </span>
         )}
         <span className="pl-home-card-round">{game.round}</span>
-        {isFinished ? null : <ConfidenceChip game={game} />}
+        {isFinished ? (
+          <span className="pl-pill pl-pill--brand num text-xs">Final</span>
+        ) : null}
       </header>
 
       <div className="pl-home-teams">
@@ -112,8 +115,14 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
                 <p className={`m-0 truncate text-[15px] ${favored ? "font-extrabold" : "font-bold"}`}>
                   <a
                     href={teamHref}
+                    onPointerEnter={() => prefetchRoute(teamHref)}
+                    onTouchStart={() => prefetchRoute(teamHref)}
                     onClick={(e) => {
                       e.preventDefault();
+                      setActiveSharedTransition(
+                        e.currentTarget.closest(".pl-home-team") as HTMLElement | null,
+                        "pl-team-hero",
+                      );
                       navigateTo(teamHref);
                     }}
                     className="pl-team-link"
@@ -196,7 +205,7 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
             <span className="pl-home-eyebrow">Pronóstico</span>
             <strong className="block text-sm">Sin pronóstico publicado</strong>
             <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              El snapshot de este partido no trae probabilidades ni confianza.
+              Pronóstico pendiente para este partido.
             </span>
           </div>
         </div>
@@ -264,6 +273,8 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
         ) : null}
         <a
           href={studioHref}
+          onPointerEnter={() => prefetchRoute(studioHref)}
+          onTouchStart={() => prefetchRoute(studioHref)}
           onClick={openStudio}
           data-card-open=""
           className="pl-btn-glass text-xs min-h-11 px-3 inline-flex flex-1 items-center justify-center gap-1.5"

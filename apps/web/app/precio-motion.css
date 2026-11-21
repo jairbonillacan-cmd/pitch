@@ -1,3 +1,4 @@
+@layer components {
 /*
   Superficie y movimiento de /precio (PrecioPageSurface → .pl-lp--precio).
   - Tarjeta 3D de titanio (ReferralCard3D) como protagonista visual junto a una tarjeta
@@ -265,7 +266,6 @@ html[data-theme="light"] .pl-lp-ultra-word {
   .pl-lp--precio .pl-lp-billing-toggle .pl-lp-tab {
     transition:
       transform 140ms var(--pl-precio-ease),
-      box-shadow 160ms ease,
       background-color 150ms ease,
       color 150ms ease,
       border-color 150ms ease;
@@ -290,4 +290,5 @@ html[data-theme="light"] .pl-lp-ultra-word {
       animation-range: entry 0% entry 85%;
     }
   }
+}
 }

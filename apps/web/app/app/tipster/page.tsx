@@ -1,6 +1,6 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { TipsterPortalClubView } from "@pitchlab/ui";
+import { TipsterPortalClubView } from "@pitchlab/ui/tipster";
 import { accountsEnabled } from "../../../src/server/platform-data";
 import { getViewerAccess } from "../../../src/server/viewer-access";
 

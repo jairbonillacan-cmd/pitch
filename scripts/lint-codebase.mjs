@@ -45,6 +45,12 @@ const DIRS_TO_CHECK = [
 
 const HEX_COLOR_RE = /#[0-9a-fA-F]{3,8}\b/g;
 const EMPTY_CATCH_RE = /catch\s*(?:\([^)]*\))?\s*\{\s*\}/g;
+// ADR-050: Prohibido acoplar lógica de producto a SDKs de proveedores cloud específicos fuera de adaptadores aislados.
+const VENDOR_SDK_IMPORT_RE =
+  /(?:from\s+|import\s*\(\s*|require\s*\(\s*)["'](@vercel\/[^"']+|@google-cloud\/[^"']+|@cloudflare\/[^"']+|@neondatabase\/[^"']+|@aws-sdk\/[^"']+|aws-sdk)["']/g;
+const VENDOR_ADAPTER_ALLOWLIST = new Set([
+  "apps/web/src/server/avatar-storage.ts",
+]);
 
 const errors = [];
 
@@ -73,6 +79,17 @@ for (const dir of DIRS_TO_CHECK) {
     if (EMPTY_CATCH_RE.test(content)) {
       errors.push(`${rel}: Bloque catch vacío prohibido.`);
     }
+
+    // 3. ADR-050: No vendor cloud SDK imports outside isolated adapters
+    if (!VENDOR_ADAPTER_ALLOWLIST.has(rel)) {
+      VENDOR_SDK_IMPORT_RE.lastIndex = 0;
+      const sdkMatches = [...content.matchAll(VENDOR_SDK_IMPORT_RE)].map((m) => m[1]);
+      if (sdkMatches.length > 0) {
+        errors.push(
+          `${rel}: SDK de proveedor cloud prohibido fuera de adaptadores aislados (ADR-050): ${sdkMatches.join(", ")}`,
+        );
+      }
+    }
   }
 }
 
@@ -84,4 +101,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log("OK [lint-codebase]: Cero colores hex fuera de packages/tokens y cero catch vacíos.");
+console.log("OK [lint-codebase]: Cero colores hex fuera de packages/tokens, cero catch vacíos y cero lock-in de SDK cloud (ADR-050).");

@@ -360,13 +360,41 @@ export async function renderTicketPng(
   });
 }
 
-/** Genera el PNG y lo descarga en el navegador. */
+/**
+ * Genera el PNG del boleto y lo comparte vía hoja nativa del sistema (`navigator.share({ files })`)
+ * cuando el dispositivo lo soporta, con respaldo automático a descarga PNG en escritorio (ADR-053).
+ */
 export async function downloadTicketPng(
   content: TicketRasterContent,
   colorSource: Element,
   fileName: string,
-): Promise<void> {
+): Promise<"shared" | "downloaded"> {
   const blob = await renderTicketPng(content, colorSource);
+
+  if (typeof navigator !== "undefined" && typeof File !== "undefined") {
+    try {
+      const file = new File([blob], fileName, { type: "image/png" });
+      const shareData: ShareData = {
+        files: [file],
+        title: `${content.title} · PitchLab`,
+        text: `${content.mainLine} · ${content.footerLine}`,
+      };
+      if (
+        typeof navigator.canShare === "function" &&
+        typeof navigator.share === "function" &&
+        navigator.canShare(shareData)
+      ) {
+        await navigator.share(shareData);
+        return "shared";
+      }
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") {
+        return "shared";
+      }
+      // Continúa con descarga PNG si Web Share no completó
+    }
+  }
+
   const url = URL.createObjectURL(blob);
   try {
     const a = document.createElement("a");
@@ -378,4 +406,5 @@ export async function downloadTicketPng(
   } finally {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
+  return "downloaded";
 }

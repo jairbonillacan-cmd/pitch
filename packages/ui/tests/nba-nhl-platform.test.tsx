@@ -1,8 +1,33 @@
 import fs from "node:fs";
 import path from "node:path";
+import { Writable } from "node:stream";
 import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToPipeableStream, renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+
+async function renderHtmlAsync(element: React.ReactElement): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const writable = new Writable({
+      write(chunk, _enc, cb) {
+        chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+        cb();
+      },
+    });
+    const { pipe } = renderToPipeableStream(element, {
+      onAllReady() {
+        pipe(writable);
+      },
+      onError(err) {
+        reject(err);
+      },
+    });
+    writable.on("finish", () =>
+      resolve(Buffer.concat(chunks).toString("utf8").replace(/<!--\s*-->/g, "")),
+    );
+    writable.on("error", reject);
+  });
+}
 import { asLeagueId, snapshotToMatchAnalyses, type LeagueSnapshot } from "@pitchlab/contracts";
 import { redactDatasetForVisitor } from "../src/platform/access-guard";
 import {
@@ -124,7 +149,7 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(redactedEmpty.confidenceScore).toBeNull();
   });
 
-  it("renderiza Inicio, Hub, Ficha NBA, Ficha NHL y estado vacío honesto sin errores", () => {
+  it("renderiza Inicio, Hub, Ficha NBA, Ficha NHL y estado vacío honesto sin errores", async () => {
     const homeHtml = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member">
         <HomeClubView />
@@ -167,9 +192,9 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(chip14).toBeGreaterThan(-1);
     expect(chip15).toBeGreaterThan(chip14);
 
-    const nbaStudioHtml = renderToStaticMarkup(
+    const nbaStudioHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member">
-        <MatchStudioClubView leagueId={nbaScheduled.league} gameId={nbaScheduled.id} />
+        <MatchStudioClubView leagueId={nbaScheduled.league} gameId={nbaScheduled.id} initialTab="ia" />
       </PlatformProvider>,
     );
     expect(nbaStudioHtml).toContain(nbaScheduled.home.name);
@@ -184,9 +209,9 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(iaTabIdx).toBeGreaterThan(resumenTabIdx);
     expect(aiIdx).toBeGreaterThan(iaTabIdx);
 
-    const nhlStudioHtml = renderToStaticMarkup(
+    const nhlStudioHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member">
-        <MatchStudioClubView leagueId={nhlScheduled.league} gameId={nhlScheduled.id} />
+        <MatchStudioClubView leagueId={nhlScheduled.league} gameId={nhlScheduled.id} initialTab="ia" />
       </PlatformProvider>,
     );
     expect(nhlStudioHtml).toContain(nhlScheduled.home.name);
@@ -223,14 +248,22 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
     expect(emptyCardHtml).not.toContain("Activar Pase");
     expect(emptyCardHtml).not.toContain("Pase PitchLab Ultra");
 
-    const emptyStudioHtml = renderToStaticMarkup(
+    const emptyResumenHtml = await renderHtmlAsync(
       <PlatformProvider dataset={emptyDs} initialRole="member">
         <MatchStudioClubView leagueId={noForecastScheduled.league} gameId={noForecastScheduled.id} />
       </PlatformProvider>,
     );
+    expect(emptyResumenHtml).toContain("Sin pronóstico");
+    expect(emptyResumenHtml).toContain("Aún no hay selecciones publicadas");
+    expect(emptyResumenHtml).not.toContain("Simulador del partido");
+
+    const emptyStudioHtml = await renderHtmlAsync(
+      <PlatformProvider dataset={emptyDs} initialRole="member">
+        <MatchStudioClubView leagueId={noForecastScheduled.league} gameId={noForecastScheduled.id} initialTab="ia" />
+      </PlatformProvider>,
+    );
     expect(emptyStudioHtml).toContain("Sin pronóstico");
     expect(emptyStudioHtml).toContain("Sin lectura publicada");
-    expect(emptyStudioHtml).toContain("Aún no hay picks publicados");
     expect(emptyStudioHtml).not.toContain("Simulador del partido");
 
     const finishedEmpty = {
@@ -243,16 +276,25 @@ describe("Dataset, estado vacío y vistas NBA y NHL con snapshots reales", () =>
       ...dataset,
       games: [finishedEmpty],
     };
-    const finishedEmptyStudioHtml = renderToStaticMarkup(
+    const finishedEmptyResumenHtml = await renderHtmlAsync(
       <PlatformProvider dataset={finishedEmptyDs} initialRole="visitor">
         <MatchStudioClubView leagueId={finishedEmpty.league} gameId={finishedEmpty.id} />
+      </PlatformProvider>,
+    );
+    expect(finishedEmptyResumenHtml).toContain("108");
+    expect(finishedEmptyResumenHtml).toContain("116");
+    expect(finishedEmptyResumenHtml).toContain("Aún no hay selecciones publicadas");
+    expect(finishedEmptyResumenHtml).not.toContain("Simulador del partido");
+
+    const finishedEmptyStudioHtml = await renderHtmlAsync(
+      <PlatformProvider dataset={finishedEmptyDs} initialRole="visitor">
+        <MatchStudioClubView leagueId={finishedEmpty.league} gameId={finishedEmpty.id} initialTab="ia" />
       </PlatformProvider>,
     );
     expect(finishedEmptyStudioHtml).toContain("108");
     expect(finishedEmptyStudioHtml).toContain("116");
     expect(finishedEmptyStudioHtml).toContain("Sin pronóstico");
     expect(finishedEmptyStudioHtml).toContain("Sin lectura publicada");
-    expect(finishedEmptyStudioHtml).toContain("Aún no hay picks publicados");
     expect(finishedEmptyStudioHtml).not.toContain("Simulador del partido");
   });
 });

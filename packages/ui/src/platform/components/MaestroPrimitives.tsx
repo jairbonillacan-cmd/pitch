@@ -2,7 +2,10 @@
 
 import React from "react";
 import { usePackIconBase } from "../../pack-icon-theme";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import type { ViewerRole } from "../types";
 
 export type MaestroIconName =
@@ -501,8 +504,8 @@ export function RoleSwitcherPill({
   compact?: boolean;
   className?: string;
 }): React.JSX.Element | null {
-  const { viewerRole, setViewerRole, rawDataset, openBetaPin, pushToast, allowRoleSimulation } =
-    usePlatform();
+  const { viewerRole, rawDataset, allowRoleSimulation } = usePlatformCore();
+  const { setViewerRole, openBetaPin, pushToast } = usePlatformActions();
 
   const handleSelectRole = (role: ViewerRole) => {
     try {
@@ -632,6 +635,7 @@ export function VerifiedBadge({
       height={size}
       alt="Verificado"
       title="Verificado"
+      loading="lazy"
       decoding="async"
       draggable={false}
     />
@@ -669,6 +673,7 @@ export function VerifiedSeal({
       height={size}
       alt={decorative ? "" : "Verificado"}
       aria-hidden={decorative ? "true" : undefined}
+      loading="lazy"
       decoding="async"
       draggable={false}
     />

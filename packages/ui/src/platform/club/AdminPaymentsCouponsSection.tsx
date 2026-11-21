@@ -3,7 +3,10 @@
 import React, { useCallback, useEffect, useId, useState } from "react";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import {
   approvePreviewTransfer,
   PREVIEW_SPEI_EVENT,
@@ -228,12 +231,8 @@ export function AdminPaymentsCouponsSection({
 }: {
   storyOverride?: AdminPaymentsStoryOverride;
 } = {}): React.JSX.Element {
-  const {
-    accountsEnabled: ctxAccountsEnabled,
-    hasAccountSessionAuth,
-    paymentMode,
-    pushToast,
-  } = usePlatform();
+  const { accountsEnabled: ctxAccountsEnabled, hasAccountSessionAuth, paymentMode } = usePlatformCore();
+  const { pushToast } = usePlatformActions();
   const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
   const isStoryMock = Boolean(storyOverride);
   const canFetchAdmin = Boolean(

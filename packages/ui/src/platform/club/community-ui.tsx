@@ -9,8 +9,15 @@ import {
   OWN_PROFILE_ALIASES,
 } from "../community-examples";
 import { MaestroIcon } from "../components/MaestroPrimitives";
+import { ProgressiveImage } from "../components/ProgressiveImage";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
-import { useOptionalPlatformCore, usePlatform, type ViewerIdentity } from "../platform-provider";
+import {
+  type ViewerIdentity,
+  useJournalEntries,
+  useOptionalPlatformCore,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
 import type { JournalEntry, PlatformDataset, SocialPost, SocialReportReason, ViewerRole } from "../types";
 
@@ -122,7 +129,8 @@ export function useLeaderboardRows(): {
   /** Tu récord local (para decirte cuántos picks te faltan aunque no aparezcas). */
   ownJournal: readonly JournalEntry[];
 } {
-  const { journal, viewerRole, viewerIdentity, hasAccountSessionAuth } = usePlatform();
+  const { viewerRole, viewerIdentity, hasAccountSessionAuth } = usePlatformCore();
+  const journal = useJournalEntries();
   const today = useMemo(() => new Date(), []);
   const own = useMemo(() => ownIdentityFor(viewerRole, viewerIdentity), [viewerRole, viewerIdentity]);
   const [serverRows, setServerRows] = useState<ServerRankingRow[] | null>(null);
@@ -264,7 +272,7 @@ export function Avatar({
       aria-hidden="true"
     >
       {showImage ? (
-        <img
+        <ProgressiveImage
           src={avatarUrl!}
           alt=""
           width={size}
@@ -406,6 +414,22 @@ export function UnderlineTabs<K extends string>({
   className?: string;
 }): React.JSX.Element {
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const didMountRef = useRef(false);
+
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
+    const activeIndex = tabs.findIndex((t) => t.key === active);
+    if (activeIndex >= 0) {
+      refs.current[activeIndex]?.scrollIntoView?.({
+        block: "nearest",
+        inline: "nearest",
+      });
+    }
+  }, [active, tabs]);
+
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, index: number): void => {
     let next = -1;
     if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
@@ -550,7 +574,8 @@ export function useFollowing(): {
   isFollowing: (handle: string) => boolean;
   toggle: (handle: string) => boolean;
 } {
-  const { hasAccountSessionAuth, viewerIdentity, pushToast } = usePlatform();
+  const { hasAccountSessionAuth, viewerIdentity } = usePlatformCore();
+  const { pushToast } = usePlatformActions();
   const owner = viewerIdentity?.handle ?? null;
   const [following, setFollowing] = useState<string[]>([]);
   useEffect(() => {
@@ -723,7 +748,11 @@ export function SocialReportMenu({
         ref={triggerRef}
         type="button"
         popoverTarget={menuId}
-        className={`pl-com-more-btn ${compact ? "pl-com-more-btn--sm" : ""}`}
+        className={`pl-com-more-btn ${
+          compact
+            ? "pl-com-more-btn--sm min-h-11 min-w-11 sm:min-h-7 sm:min-w-7"
+            : "min-h-11 min-w-11 sm:min-h-8 sm:min-w-8"
+        }`}
         aria-expanded={open}
         aria-label={triggerLabel}
         onClick={() => {
@@ -739,12 +768,12 @@ export function SocialReportMenu({
         id={menuId}
         popover="auto"
         data-fallback-open={open ? "true" : undefined}
-        className="pl-com-menu glass-lens glass-ring"
+        className="pl-com-menu glass-card glass-ring"
         {...({ focusgroup: "menu nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
       >
         <button
           type="button"
-          className="pl-com-menu-item"
+          className="pl-com-menu-item min-h-11 sm:min-h-9"
           onClick={() => {
             openingDialogRef.current = true;
             if (typeof menuRef.current?.hidePopover === "function" && menuRef.current.matches(":popover-open")) {
@@ -771,7 +800,7 @@ export function SocialReportDialog({
   onClose: () => void;
 }): React.JSX.Element | null {
   const uid = useId();
-  const { reportSocialContent } = usePlatform();
+  const { reportSocialContent } = usePlatformActions();
   const [reason, setReason] = useState<SocialReportReason>("spam_enlaces");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -806,12 +835,17 @@ export function SocialReportDialog({
 
   return (
     <TopLayerModalDialog open onClose={onClose} ariaLabelledBy={`${uid}-title`} maxWidth="26rem">
-      <form className="pl-com-report-dialog glass-lens glass-ring" onSubmit={handleSubmit} noValidate>
+      <form className="pl-com-report-dialog" onSubmit={handleSubmit} noValidate>
         <div className="pl-com-sheet-head">
           <h2 id={`${uid}-title`} className="pl-com-sheet-title">
             {target.kind === "post" ? "Reportar publicación" : "Reportar comentario"}
           </h2>
-          <button type="button" className="pl-com-icon-btn" aria-label="Cerrar" onClick={onClose}>
+          <button
+            type="button"
+            className="pl-com-icon-btn min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+            aria-label="Cerrar"
+            onClick={onClose}
+          >
             <MaestroIcon name="x" size={16} />
           </button>
         </div>
@@ -846,12 +880,16 @@ export function SocialReportDialog({
           ) : null}
         </div>
         <div className="pl-com-report-actions">
-          <button type="button" className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm" onClick={onClose}>
+          <button
+            type="button"
+            className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm min-h-11 sm:min-h-9"
+            onClick={onClose}
+          >
             Cancelar
           </button>
           <button
             type="submit"
-            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm"
+            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm min-h-11 sm:min-h-9"
             disabled={submitting}
           >
             {submitting ? "Enviando…" : "Enviar reporte"}

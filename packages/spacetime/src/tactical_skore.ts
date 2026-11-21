@@ -1,10 +1,10 @@
 /**
  * Tactical 7-Axis Radar, Goalkeeper Goalmouth Prevention & SKORE Rating Engine.
  *
- * Implements the core analytics capabilities reverse-engineered from REA-stats (Opta / Statiskicks):
+ * Implements the core PitchLab tactical analytics capabilities:
  * 1. Exact `RankBands` Peer-Group Percentile & Quintile Engine
- * 2. 7-Axis Team Tactical Radar (`OptaTeamAttributeService`) with PPDA inverted polarity
- * 3. Goalkeeper Shot-Stopping & 6-Zone Goalmouth Analyzer (`OptaKeeperGoalmouthService`)
+ * 2. 7-Axis Team Tactical Radar with PPDA inverted polarity
+ * 3. Goalkeeper Shot-Stopping & 6-Zone Goalmouth Analyzer
  * 4. Player & Lineup `SKORE` Rating + Pre-Match 1X2 Probability Adjustment (`applyLineupTacticalAdjustment`)
  *
  * Zero external runtime dependencies. Strict TypeScript types and numerical guarantees.
@@ -18,7 +18,7 @@ export type QuintileBand = 1 | 2 | 3 | 4 | 5;
 export type RankGrade = "low" | "mid" | "high";
 
 /**
- * Computes exact percentile rank within a cohort using the validated Statiskicks formula:
+ * Computes exact percentile rank within a cohort using the standard rank-band formula:
  *   percentile = round((count_strictly_worse / (N - 1)) * 100, 2)
  *
  * @param countStrictlyWorse Number of peer entities strictly worse than the evaluated entity.
@@ -92,7 +92,7 @@ export function getQuintileBand(percentile: number): QuintileBand {
 }
 
 /**
- * Maps a 0-100 percentile to the standard tripartite rank grade (skore.js / OptaTeamAttributeService):
+ * Maps a 0-100 percentile to the standard tripartite rank grade:
  * - "high": >= 70.0
  * - "mid":  >= 40.0 and < 70.0
  * - "low":  < 40.0
@@ -169,7 +169,7 @@ export function rankAttributeInCohort(
 }
 
 // ============================================================================
-// 2. 7-Axis Team Tactical Radar (`OptaTeamAttributeService`)
+// 2. 7-Axis Team Tactical Radar
 // ============================================================================
 
 export const TACTICAL_AXES = [
@@ -330,7 +330,6 @@ export function createTacticalRadarFromPercentiles(
 
 // ============================================================================
 // 3. Goalkeeper Shot-Stopping & 6-Zone Goalmouth Analyzer
-//    (`OptaKeeperGoalmouthService`)
 // ============================================================================
 
 export interface GoalmouthShot {
@@ -514,7 +513,6 @@ export function analyzeGoalkeeperGoalmouth(
 
 // ============================================================================
 // 4. Player & Lineup `SKORE` Rating + Pre-Match Probability Adjustment
-//    (`OptaMatchRatingService`)
 // ============================================================================
 
 export const SKORE_HIGH_THRESHOLD = 7.0;
@@ -543,10 +541,10 @@ export interface PlayerSkoreCalculation {
 }
 
 /**
- * Computes player SKORE rating matching OptaMatchRatingService:
+ * Computes player SKORE rating:
  *   skore = clamp(base (6.0) + sum(contributions), 3.0, 10.0) rounded to 2 decimals.
  *
- * Thresholds (skore.js):
+ * Thresholds:
  * - >= 7.0 -> "high"
  * - >= 6.5 -> "mid"
  * - < 6.5  -> "low"

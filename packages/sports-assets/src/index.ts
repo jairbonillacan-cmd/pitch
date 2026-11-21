@@ -95,18 +95,4 @@ export function getLeagueEmblemPath(league: string): string {
   return `/brand/sports/${league}/${rev}/svg/${league}.svg`;
 }
 
-export function getMascotPath(edition: string): string {
-  const resolved = MASCOT_ALIASES[edition] ?? edition;
-  return `/brand/mascot/r1/${resolved}.webp`;
-}
-
-export function getLogoPath(
-  variant: "horizontal" | "compact" | "isologo" | "isotype" | "stacked" | "wordmark",
-  theme: "dark" | "light" = "dark",
-): string {
-  return `/brand/logos/r1/pitchlab-${variant}-${theme}.svg`;
-}
-
-export function getFaviconPath(): string {
-  return "/brand/app-icons/favicon.svg";
-}
+export { getFaviconPath, getLogoPath, getMascotPath } from "./brand";

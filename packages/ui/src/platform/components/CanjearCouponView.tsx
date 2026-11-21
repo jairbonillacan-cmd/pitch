@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useCallback, useEffect, useId, useState } from "react";
-import { usePlatform } from "../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import { lookupPreviewCoupon, redeemPreviewCoupon } from "../preview-spei-store";
-import { ExampleNotice, LensGlowOrbs, MaestroIcon } from "./MaestroPrimitives";
+import { ExampleNotice, MaestroIcon } from "./MaestroPrimitives";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
@@ -76,7 +79,8 @@ export function CouponRedeemBox({
     newAccessUntilIso?: string | null;
   };
 }): React.JSX.Element {
-  const { accountsEnabled, hasAccountSessionAuth, pushToast } = usePlatform();
+  const { accountsEnabled, hasAccountSessionAuth } = usePlatformCore();
+  const { pushToast } = usePlatformActions();
   const effectiveAccountSession = hasAccountSessionOverride ?? hasAccountSessionAuth;
   const [code, setCode] = useState<string>(() => normalizeInputCode(initialCode));
   const [busy, setBusy] = useState<boolean>(false);
@@ -302,11 +306,8 @@ export function CanjearCouponView({
   initialPreview = null,
   storyOverride,
 }: CanjearCouponViewProps): React.JSX.Element {
-  const {
-    accountsEnabled: ctxAccountsEnabled,
-    hasAccountSessionAuth: ctxHasAccountSessionAuth,
-    navigateTo,
-  } = usePlatform();
+  const { accountsEnabled: ctxAccountsEnabled, hasAccountSessionAuth: ctxHasAccountSessionAuth } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
   const hasAccountSession = storyOverride?.hasAccountSession ?? ctxHasAccountSessionAuth;
@@ -399,8 +400,6 @@ export function CanjearCouponView({
       ) : null}
 
       <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-7 space-y-5">
-        <LensGlowOrbs />
-
         <div className="relative z-10 space-y-2">
           <span className="pl-pill pl-pill--brand">
             <MaestroIcon name="gift" size={14} />

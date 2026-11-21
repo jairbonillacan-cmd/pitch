@@ -6,7 +6,7 @@ import {
 } from "@pitchlab/contracts";
 import type { MatchOutlook, MarketOutlook } from "@pitchlab/spacetime";
 import liveSnapshotJson from "@pitchlab/spacetime/data/live_matchday_v3_snapshot.json";
-import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui/platform";
+import type { MatchOutlookSummary, PlatformMarketRow, SpacetimeSignal } from "@pitchlab/ui/types";
 import {
   bookLabelWithDate,
   formatBookLabel,
@@ -342,9 +342,9 @@ export function outlookConfidence(
   const reasons: string[] = [];
   if (fav >= 0.6) reasons.push("Favorito claro");
   else if (fav <= 0.2) reasons.push("Partido parejo");
-  if (o.dataQuality.flag === "fallback_base_rate") reasons.push("Sin datos del partido: base histórica de la liga");
-  else if (coverage < 0.5) reasons.push(`Datos parciales (${pct(coverage)} del modelo)`);
-  else reasons.push("Datos casi completos");
+  if (o.dataQuality.flag === "fallback_base_rate") reasons.push("Base histórica de la liga");
+  else if (coverage < 0.5) reasons.push(`Cobertura en progreso (${pct(coverage)} del modelo)`);
+  else reasons.push("Cobertura calibrada");
   if (sample < 0.5) reasons.push("Poca muestra esta temporada");
 
   return {

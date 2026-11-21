@@ -1,7 +1,7 @@
 /**
  * EN-VIVO-1 · Lector en vivo único del servidor (Match Center).
  *
- * Lo que Astra hace mal y aquí no se repite:
+ * Principios de aislamiento y eficiencia del lector en vivo:
  * - Ningún navegador habla con el proveedor. Los navegadores leen `/api/live/*`; esa ruta sale de
  *   la caché del CDN (`s-maxage`), luego de la caché compartida en Neon, y solo una instancia a la
  *   vez (arriendo en `live_feed_cache`) consulta a Bzzoiro.

@@ -4,6 +4,7 @@ import React, { useEffect, useId, useRef } from "react";
 import { BADGE_FAMILY_LABELS, BADGE_RULES, type BadgeView } from "../badges";
 import { BadgeGlyph, type OwnBadgesState } from "../club/badges/ProfileBadges";
 import { MaestroIcon } from "./MaestroPrimitives";
+import { useSheetSwipeDismiss } from "./use-sheet-swipe-dismiss";
 
 export interface BadgePickerDialogProps {
   open: boolean;
@@ -13,6 +14,8 @@ export interface BadgePickerDialogProps {
   publicBadges: readonly BadgeView[];
   own?: OwnBadgesState | null;
   onToggleFeatured?: (id: string) => void;
+  /** IDs redundantes que ya se muestran de forma fija junto al nombre (p. ej. `tipster-verificado`). */
+  excludeBadgeIds?: readonly string[];
 }
 
 /**
@@ -29,11 +32,21 @@ export function BadgePickerDialog({
   publicBadges,
   own,
   onToggleFeatured,
+  excludeBadgeIds,
 }: BadgePickerDialogProps): React.JSX.Element | null {
   const titleId = useId();
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
+
+  const sheetSwipe = useSheetSwipeDismiss({
+    onDismiss: () => {
+      dialogRef.current?.close();
+    },
+    disabled: !open,
+    scrollContainerRef: bodyRef,
+  });
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -91,13 +104,16 @@ export function BadgePickerDialog({
 
   if (!open) return null;
 
-  const earned = isOwn && own ? own.all.filter((b) => b.earned) : [];
-  const pending = isOwn && own ? own.all.filter((b) => !b.earned && b.measured) : [];
-  const soon = isOwn && own ? own.all.filter((b) => !b.earned && !b.measured) : [];
-  const featuredSet = new Set(own?.featuredIds ?? []);
+  const excludedSet = new Set(excludeBadgeIds ?? []);
+  const visiblePublicBadges = publicBadges.filter((b) => !excludedSet.has(b.id));
+  const earned = isOwn && own ? own.all.filter((b) => b.earned && !excludedSet.has(b.id)) : [];
+  const pending = isOwn && own ? own.all.filter((b) => !b.earned && b.measured && !excludedSet.has(b.id)) : [];
+  const soon = isOwn && own ? own.all.filter((b) => !b.earned && !b.measured && !excludedSet.has(b.id)) : [];
+  const featuredIdsClean = (own?.featuredIds ?? []).filter((id) => !excludedSet.has(id));
+  const featuredSet = new Set(featuredIdsClean);
   const publicSet = new Set(own?.publicIds ?? []);
   const maxFeatured = BADGE_RULES.maxFeatured;
-  const full = (own?.featuredIds.length ?? 0) >= maxFeatured;
+  const full = featuredIdsClean.length >= maxFeatured;
 
   return (
     <dialog
@@ -105,30 +121,34 @@ export function BadgePickerDialog({
       aria-labelledby={titleId}
       className="pl-native-modal pl-badge-modal"
       data-badge-picker-dialog=""
+      style={sheetSwipe.sheetStyle}
       {...({ closedby: "any" } as Record<string, string>)}
     >
-      <div className="pl-native-modal-head">
-        <div>
-          <h2 id={titleId} className="pl-native-modal-title">
-            {isOwn ? "Tus insignias" : `Insignias de ${memberName}`}
-          </h2>
-          <p className="pl-native-modal-sub">
-            {isOwn
-              ? `Elige hasta ${maxFeatured} para mostrarlas junto a tu nombre (${own?.featuredIds.length ?? 0}/${maxFeatured}).`
-              : `${publicBadges.length} ${publicBadges.length === 1 ? "insignia desbloqueada" : "insignias desbloqueadas"}`}
-          </p>
+      <div className="pl-sheet-drag-zone" {...sheetSwipe.handleProps}>
+        <div className="pl-sheet-grab sm:hidden" aria-hidden="true" />
+        <div className="pl-native-modal-head">
+          <div>
+            <h2 id={titleId} className="pl-native-modal-title">
+              {isOwn ? "Tus insignias" : `Insignias de ${memberName}`}
+            </h2>
+            <p className="pl-native-modal-sub num">
+              {isOwn
+                ? `Elige hasta ${maxFeatured} para mostrarlas junto a tu nombre (${featuredIdsClean.length}/${maxFeatured}).`
+                : `${visiblePublicBadges.length} ${visiblePublicBadges.length === 1 ? "insignia desbloqueada" : "insignias desbloqueadas"}`}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="pl-native-modal-close"
+            aria-label="Cerrar insignias"
+            onClick={() => dialogRef.current?.close()}
+          >
+            <MaestroIcon name="x" size={16} />
+          </button>
         </div>
-        <button
-          type="button"
-          className="pl-native-modal-close"
-          aria-label="Cerrar insignias"
-          onClick={() => dialogRef.current?.close()}
-        >
-          <MaestroIcon name="x" size={16} />
-        </button>
       </div>
 
-      <div className="pl-native-modal-body">
+      <div ref={bodyRef} className="pl-native-modal-body">
         {isOwn && own ? (
           <>
             <div className="pl-bm-section">
@@ -165,7 +185,7 @@ export function BadgePickerDialog({
                             type="button"
                             className={`pl-bm-toggle ${isFeatured ? "is-on" : ""}`.trim()}
                             aria-pressed={isFeatured}
-                            disabled={own.saving || blocked}
+                            disabled={blocked}
                             onClick={() => onToggleFeatured(b.id)}
                           >
                             <MaestroIcon name={isFeatured ? "check" : "star"} size={13} />
@@ -237,9 +257,9 @@ export function BadgePickerDialog({
               Nunca damos insignias por volumen de apuesta ni por rachas de conexión.
             </p>
           </>
-        ) : publicBadges.length > 0 ? (
+        ) : visiblePublicBadges.length > 0 ? (
           <ul className="pl-bm-grid">
-            {publicBadges.map((b) => (
+            {visiblePublicBadges.map((b) => (
               <li key={b.id} className="pl-bm-card">
                 <div className="pl-bm-card-top">
                   <span className="pl-bm-glyph">

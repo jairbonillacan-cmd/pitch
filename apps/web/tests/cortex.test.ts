@@ -56,7 +56,7 @@ describe("Cortex IA", () => {
     });
   });
 
-  describe("coherencia equipo ↔ dato (fallas medidas en Astra)", () => {
+  describe("coherencia equipo ↔ dato (guardias contra inversiones narrativas)", () => {
     const ok = (text: string) => expect(validateCortexText(text, facts)).toMatchObject({ ok: true });
     const bad = (text: string, reason: string) =>
       expect(validateCortexText(text, facts)).toMatchObject({ ok: false, reason });

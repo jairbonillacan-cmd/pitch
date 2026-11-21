@@ -7,7 +7,7 @@ import type {
   MarketCardCategory,
   MatchOutlookSummary,
   PlatformMarketRow,
-} from "@pitchlab/ui";
+} from "@pitchlab/ui/types";
 
 interface GameProjectionLike {
   readonly home?: number;

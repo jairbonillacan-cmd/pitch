@@ -18,10 +18,8 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { MatchPick, PlatformGame } from "../types";
-import { ConfidenceChip } from "./ConfidenceChip";
 import {
   CrestPedestal,
-  LensGlowOrbs,
   MaestroIcon,
 } from "./MaestroPrimitives";
 
@@ -299,12 +297,12 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   const shortEngineLabel = mainPick
     ? mainPick.engineName.replace("PitchLab ", "")
     : game.sport === "american-football"
-      ? "Minkowski v3.0"
+      ? "Minkowski v5.1"
       : game.sport === "basketball"
         ? "Motor NBA"
         : game.sport === "ice-hockey"
           ? "Motor NHL"
-          : "Tachyon v3.0";
+          : "Tachyon v5.1";
 
   const handleOpenStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -324,14 +322,6 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
       data-game-card={game.id}
       onMouseEnter={() => setAuraFromGame(game)}
     >
-      {featured ? (
-        <LensGlowOrbs
-          primaryColor={homePrimary}
-          secondaryColor={awayPrimary}
-          subtle
-        />
-      ) : null}
-
       <div className="space-y-3 relative z-10">
         {/* Meta de liga, motor y nivel de confianza */}
         <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
@@ -366,9 +356,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                 <MaestroIcon name={mainPick.result === "hit" ? "check" : "x"} size={11} />
                 <span>{mainPick.result === "hit" ? "Ganado" : "Perdido"}</span>
               </span>
-            ) : (
-              <ConfidenceChip game={game} />
-            )}
+            ) : null}
           </div>
         </div>
 
@@ -478,7 +466,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
             style={{ background: "var(--pl-surface-elevated)", color: "var(--pl-text-muted)" }}
             data-empty-forecast=""
           >
-            Sin pronóstico ni confianza publicados en este snapshot.
+            Sin pronóstico publicado para este partido.
           </div>
         ) : null}
 

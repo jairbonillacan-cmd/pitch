@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createDb, sql, users, type Db } from "@pitchlab/db";
-import { MEMBERSHIP_SPEC, normalizeReferralCode } from "@pitchlab/ui";
+import { normalizeReferralCode } from "@pitchlab/ui/account-helpers";
+import { MEMBERSHIP_SPEC } from "@pitchlab/ui/spacetime-catalog";
 
 let cachedDb: Db | null = null;
 

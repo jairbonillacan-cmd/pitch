@@ -95,10 +95,10 @@ test.describe("Integración web y fluidez móvil multi-breakpoint", () => {
       const moreTrigger = page.locator("[data-mobile-more-trigger]:visible");
       await expect(moreTrigger).toBeVisible();
       await moreTrigger.click();
-      await expect(page.getByRole("dialog", { name: "Más del Club" })).toBeVisible();
-      await assertNoHorizontalOverflow(page, "Hoja Más móvil @ 375px");
+      await expect(page.getByRole("dialog", { name: "Explorar" })).toBeVisible();
+      await assertNoHorizontalOverflow(page, "Hoja Explorar móvil @ 375px");
       await page.keyboard.press("Escape");
-      await expect(page.getByRole("dialog", { name: "Más del Club" })).toHaveCount(0);
+      await expect(page.getByRole("dialog", { name: "Explorar" })).toHaveCount(0);
     }
 
     // 2) Hub de Liga (/app/bundesliga): 2 columnas, Clasificaciones con zonas y leyenda desplegable

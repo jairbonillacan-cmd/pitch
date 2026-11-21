@@ -12,7 +12,7 @@ import {
   type LandingHeroLeagueCard,
   type LandingParlayDemoData,
 } from "@pitchlab/ui/public-sections";
-import { buildServerRawPlatformDataset, loadFinishedGames } from "./platform-data";
+import { buildServerRawPlatformDataset, withoutGameDetail } from "./platform-data";
 
 export type { LandingFeaturedCommunityPick };
 
@@ -50,6 +50,14 @@ export function selectHeroMainCards(
   return picked;
 }
 
+function loadPublicFinishedGames() {
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
+  return withoutGameDetail({
+    ...dataset,
+    games: dataset.games.filter((g) => g.status === "FT"),
+  }).games;
+}
+
 export async function loadLandingViewProps(): Promise<{
   heroCards: LandingHeroLeagueCard[];
   recentResults: LandingFinishedResultItem[];
@@ -62,7 +70,7 @@ export async function loadLandingViewProps(): Promise<{
   // (panorama v3.2) en vez de aproximarlos desde x12. Lo demás sigue redactado.
   const allHeroCards = buildHeroLeagueCards(raw.games, raw.leagues);
   const heroCards = selectHeroMainCards(allHeroCards);
-  const finished = await loadFinishedGames();
+  const finished = loadPublicFinishedGames();
   const recentResults = buildFinishedResultItems(finished, 4).slice(0, 4);
   const parlayDemo = buildParlayDemoData(dataset.games);
   const featuredPick = buildFeaturedCommunityPick(
@@ -90,7 +98,7 @@ export async function loadComoFuncionaViewProps(): Promise<{
 export async function loadResultadosViewProps(): Promise<{
   results: LandingFinishedResultItem[];
 }> {
-  const finished = await loadFinishedGames();
+  const finished = loadPublicFinishedGames();
   return {
     results: buildFinishedResultItems(finished),
   };

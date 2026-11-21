@@ -294,30 +294,55 @@ export function computeBadges(facts: BadgeFacts, now: Date = new Date()): BadgeS
     privacy: { kind: "public" },
   });
 
-  // Top
+  // Top: muestra solo el nivel más alto ganado de la familia Top (mensual supera semanal,
+  // evitando duplicar «Top 10 semanal» + «Top 10 mensual» a la vez).
   const weeksTop = facts.topTenWeeks ?? 0;
-  out.push({
-    id: "top-10-semanal",
-    family: "top",
-    label: weeksTop > 1 ? `Top 10 semanal ×${weeksTop}` : "Top 10 semanal",
-    criterion: "Terminar una semana en el Top 10 del ranking de Comunidad.",
-    earned: weeksTop >= 1,
-    progress: null,
-    measured: facts.topTenWeeks !== null,
-    privacy: { kind: "ranking" },
-  });
-  out.push({
-    id: "top-10-mensual",
-    family: "top",
-    label: "Top 10 mensual",
-    criterion: "Terminar un mes en el Top 10 del ranking de Comunidad.",
-    earned: facts.topTenMonthly === true,
-    progress: null,
-    measured: facts.topTenMonthly !== null,
-    privacy: { kind: "ranking" },
-  });
+  const topMonthlyEarned = facts.topTenMonthly === true;
+  const topWeeklyEarned = weeksTop >= 1;
+  if (topMonthlyEarned) {
+    out.push({
+      id: "top-10-mensual",
+      family: "top",
+      label: "Top 10 mensual",
+      criterion: "Terminar un mes en el Top 10 del ranking de Comunidad.",
+      earned: true,
+      progress: null,
+      measured: facts.topTenMonthly !== null,
+      privacy: { kind: "ranking" },
+    });
+  } else if (topWeeklyEarned) {
+    out.push({
+      id: "top-10-semanal",
+      family: "top",
+      label: weeksTop > 1 ? `Top 10 semanal ×${weeksTop}` : "Top 10 semanal",
+      criterion: "Terminar una semana en el Top 10 del ranking de Comunidad.",
+      earned: true,
+      progress: null,
+      measured: facts.topTenWeeks !== null,
+      privacy: { kind: "ranking" },
+    });
+  } else {
+    out.push({
+      id: "top-10-semanal",
+      family: "top",
+      label: "Top 10 semanal",
+      criterion: "Terminar una semana en el Top 10 del ranking de Comunidad.",
+      earned: false,
+      progress: null,
+      measured: facts.topTenWeeks !== null,
+      privacy: { kind: "ranking" },
+    });
+  }
 
   return out;
+}
+
+/**
+ * IDs de insignias que resultan redundantes en un perfil porque la cabecera ya renderiza
+ * un sello fijo equivalente (p. ej. `VerifiedSeal` + `TipsterVerifiedBadge` para tipsters).
+ */
+export function redundantProfileBadgeIds(isTipster: boolean): readonly string[] {
+  return isTipster ? ["tipster-verificado"] : [];
 }
 
 export interface BadgeVisibility {

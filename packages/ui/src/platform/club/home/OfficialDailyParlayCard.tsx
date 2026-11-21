@@ -13,7 +13,10 @@ import {
   type DailyParlayMode,
   type PersonalParlayScope,
 } from "../../daily-parlay";
-import { usePlatform } from "../../platform-provider";
+import {
+  usePlatformActions,
+  usePlatformCore,
+} from "../../platform-provider";
 import type { OddsFormat, PlatformGame } from "../../types";
 import { longDayLabel, shortDateLabel } from "./home-model";
 
@@ -42,13 +45,8 @@ export function OfficialDailyParlayCard({
   embedded?: boolean;
   onLoadedToParlay?: () => void;
 }): React.JSX.Element {
-  const {
-    viewerRole,
-    oddsFormat,
-    riskPreference,
-    loadParlayPicks,
-    navigateTo,
-  } = usePlatform();
+  const { viewerRole, oddsFormat, riskPreference } = usePlatformCore();
+  const { loadParlayPicks, navigateTo } = usePlatformActions();
   const [selectedMode, setSelectedMode] = useState<DailyParlayMode>(
     initialMode ?? riskPreference,
   );

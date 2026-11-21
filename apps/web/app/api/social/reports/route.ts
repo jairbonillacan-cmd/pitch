@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { reportSocialContent } from "@pitchlab/db";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { reasonResponse, requireSocialMember } from "../../../../src/server/social";
 
 export const runtime = "nodejs";
@@ -7,6 +8,8 @@ export const dynamic = "force-dynamic";
 
 /** POST { postId?, commentId?, reason } — reporta una publicación o comentario ajeno. */
 export async function POST(request: Request): Promise<NextResponse> {
+  const originErr = verifySameOriginMutation(request, { requireJson: true });
+  if (originErr) return originErr;
   const member = await requireSocialMember(request);
   if ("error" in member) return member.error;
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;

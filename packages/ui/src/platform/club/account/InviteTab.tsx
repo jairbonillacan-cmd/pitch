@@ -2,7 +2,8 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
-import { usePlatform } from "../../platform-provider";
+import { triggerHaptic } from "../../navigation-helpers";
+import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import { MEMBERSHIP_SPEC, referralEarnedDays } from "../../spacetime-catalog";
 import {
   buildInviteShareMessage,
@@ -135,9 +136,9 @@ export function InviteTab({
     hasAccountSessionAuth,
     allowRoleSimulation,
     referralPaidFriends,
-    simulateFriendFirstPayment,
     viewerIdentity,
-  } = usePlatform();
+  } = usePlatformCore();
+  const { simulateFriendFirstPayment } = usePlatformActions();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const isLoading = storyOverride?.loading ?? referralsLoading;
@@ -226,6 +227,7 @@ export function InviteTab({
       try {
         if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(text);
+          triggerHaptic(8);
           copied = true;
         }
       } catch (err) {
@@ -331,7 +333,7 @@ export function InviteTab({
     <button
       key="more"
       type="button"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn"
+      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn min-h-11 sm:min-h-10"
       onClick={handleNativeShare}
     >
       <ShareSheetIcon />
@@ -345,7 +347,7 @@ export function InviteTab({
       href={whatsAppHref}
       target="_blank"
       rel="noopener noreferrer"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn"
+      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn min-h-11 sm:min-h-10"
     >
       <WhatsAppIcon />
       <span>WhatsApp</span>
@@ -355,7 +357,7 @@ export function InviteTab({
       href={xHref}
       target="_blank"
       rel="noopener noreferrer"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn"
+      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn min-h-11 sm:min-h-10"
     >
       <XBrandIcon />
       <span>X</span>
@@ -363,7 +365,7 @@ export function InviteTab({
     <button
       key="copy-msg"
       type="button"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn"
+      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn min-h-11 sm:min-h-10"
       onClick={() => copyText(shareMessage, "msg", "Copiado")}
     >
       <span>{copiedTarget === "msg" ? "Copiado" : "Copiar mensaje"}</span>
@@ -395,6 +397,7 @@ export function InviteTab({
             <div className="pl-acct-flip-seg" role="group" aria-label="Cara de la tarjeta">
               <button
                 type="button"
+                className="min-h-11 sm:min-h-8"
                 aria-pressed={!flipped}
                 onClick={() => setFlipped(false)}
               >
@@ -402,6 +405,7 @@ export function InviteTab({
               </button>
               <button
                 type="button"
+                className="min-h-11 sm:min-h-8"
                 aria-pressed={flipped}
                 onClick={() => setFlipped(true)}
               >
@@ -477,7 +481,7 @@ export function InviteTab({
             </ul>
           </div>
 
-          <div className="pl-acct-link-box">
+          <div className="pl-acct-link-box min-w-0">
             <label htmlFor="pl-acct-ref-link" className="pl-acct-field-label">
               Tu enlace
             </label>
@@ -487,7 +491,7 @@ export function InviteTab({
                 type="text"
                 readOnly
                 value={shortDisplay}
-                className="pl-acct-input num"
+                className="pl-acct-input num text-base sm:text-sm min-h-11"
                 onFocus={(e) => e.currentTarget.select()}
               />
               <button
@@ -505,13 +509,13 @@ export function InviteTab({
             {orderedShareButtons}
           </div>
 
-          <div className="pl-acct-code-row">
+          <div className="pl-acct-code-row min-w-0">
             <span>Tu código</span>
             <div className="pl-acct-code-actions">
               {!accountsEnabled ? <ExampleBadge /> : null}
               <button
                 type="button"
-                className="pl-acct-code-pill num"
+                className="pl-acct-code-pill num min-h-11 sm:min-h-10"
                 onClick={() => copyText(ensuredCode, "code", "Copiado")}
               >
                 {copiedTarget === "code" ? "Copiado" : ensuredCode}

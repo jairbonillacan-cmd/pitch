@@ -144,7 +144,7 @@ export function WinningTicketDialog({
 
         <div className={`pl-win-preview ${aspect === "9:16" ? "is-tall" : ""}`.trim()}>
           {url ? (
-            <img src={url} alt={`Boleto ganador: ${entry.pickLabel}`} />
+            <img src={url} alt={`Boleto ganador: ${entry.pickLabel}`} loading="lazy" decoding="async" />
           ) : error ? (
             <p className="m-0 text-sm" role="alert">
               {error}

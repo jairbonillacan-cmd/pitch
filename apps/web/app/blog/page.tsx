@@ -1,17 +1,17 @@
 import React from "react";
 import type { Metadata } from "next";
-import { BlogIndexSurface } from "@pitchlab/ui";
+import { BlogIndexSurface } from "@pitchlab/ui/blog";
 import {
   blogCategoryLinks,
   buildBlogJsonLd,
+  buildBreadcrumbJsonLd,
   getPublishedPosts,
   toPostSummaryView,
 } from "../../src/server/blog";
 import { JsonLd } from "../../src/server/json-ld";
-import { hasPublicSessionCookie } from "../../src/server/public-session";
 import { getSiteUrl } from "../../src/server/site-url";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const TITLE = "Blog · PitchLab";
 const DESCRIPTION =
@@ -36,14 +36,25 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage(): Promise<React.JSX.Element> {
-  const [posts, hasSession] = await Promise.all([getPublishedPosts(), hasPublicSessionCookie()]);
+  const posts = await getPublishedPosts();
+  const siteUrl = getSiteUrl();
   return (
     <>
-      <JsonLd data={buildBlogJsonLd(posts, getSiteUrl())} />
+      <JsonLd
+        data={[
+          buildBlogJsonLd(posts, siteUrl),
+          buildBreadcrumbJsonLd(
+            [
+              { name: "Inicio", path: "/" },
+              { name: "Blog", path: "/blog" },
+            ],
+            siteUrl,
+          ),
+        ]}
+      />
       <BlogIndexSurface
         posts={posts.map(toPostSummaryView)}
         categories={blogCategoryLinks()}
-        hasSession={hasSession}
       />
     </>
   );

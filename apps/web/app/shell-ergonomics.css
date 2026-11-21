@@ -1,0 +1,626 @@
+@layer components {
+  /* ==========================================================================
+     SHELL ERGONOMICS · Desktop Editorial + Mobile Native App
+     Hoja modular 100 % tokens `--pl-*`, cero colores hex, cero backdrop-filter,
+     cero transiciones sobre box-shadow (ADR-051 / ADR-052 / ADR-053 / ADR-054).
+     ========================================================================== */
+
+  /* ---------- 1. Tipografía editorial focalizada (nunca en `*`) ---------- */
+  .pl-astro-league-title,
+  .pl-home-fmodal-title,
+  .pl-odds-hero h1,
+  .pl-parlay-grid h2 {
+    text-wrap: balance;
+  }
+
+  .pl-home-fmodal-sub,
+  .pl-odds-hero p,
+  .pl-odds-conv li {
+    text-wrap: pretty;
+  }
+
+  /* ---------- 2. Navegación Desktop legible (sin iconos misteriosos) ---------- */
+  @media (min-width: 1024px) {
+    /* En 1024–1279 px el destino activo muestra siempre su etiqueta para orientar al usuario */
+    .pl-header-nav-icon[aria-current="page"],
+    .pl-header-nav-icon[data-active="true"] {
+      grid-template-columns: 32px 1fr;
+    }
+
+    .pl-header-nav-icon[aria-current="page"] .pl-header-nav-label,
+    .pl-header-nav-icon[data-active="true"] .pl-header-nav-label {
+      padding-inline-end: 10px;
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    /* En escritorio amplio (>= 1280 px) los 4 destinos primarios + Ligas muestran etiqueta inline */
+    .pl-header-nav-icon[data-nav-group="primary"] {
+      grid-template-columns: 28px 1fr;
+    }
+
+    .pl-header-nav-icon[data-nav-group="primary"] .pl-header-nav-label {
+      padding-inline-end: 8px;
+      opacity: 1;
+    }
+  }
+
+  /* Botón «Ver todas (N)» en hoja móvil Explorar (100 % tokens --pl-*, contraste AA/AAA) */
+  .pl-more-leagues-all-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 44px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface-elevated);
+    color: var(--pl-text);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--time-fast, 120ms) ease,
+      border-color var(--time-fast, 120ms) ease,
+      color var(--time-fast, 120ms) ease;
+  }
+
+  .pl-more-leagues-all-btn:hover {
+    background: var(--pl-surface-hover);
+    border-color: var(--pl-border-strong);
+  }
+
+  .pl-more-leagues-all-btn:focus-visible {
+    outline: 2px solid var(--pl-brand);
+    outline-offset: 2px;
+  }
+
+  @media (forced-colors: active) {
+    .pl-header-nav-icon[aria-current="page"],
+    .pl-header-nav-icon[data-active="true"],
+    .mobile-dock .seg-btn[aria-current="page"] {
+      border: 2px solid Highlight;
+    }
+
+    .pl-home-board-tab[aria-selected="true"]::after,
+    .pl-parlay-hub-tab[aria-selected="true"]::after {
+      border-block-end-color: Highlight;
+    }
+  }
+
+  /* ---------- 3. Ergonomía móvil en vistas de detalle (320–767 px) ---------- */
+  @media (max-width: 767px) {
+    .panel-header[data-shell-context="detail"] .pl-header-grid {
+      height: 52px;
+      padding-inline: 12px;
+    }
+
+    .app-frame[data-shell-context="detail"] {
+      padding-block-start: 6px;
+      padding-inline: 12px;
+      padding-block-end: calc(88px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .app-frame[data-shell-context="detail"] > main,
+    .app-frame[data-shell-context="detail"] .pl-page-enter {
+      gap: 14px;
+    }
+
+    .app-frame[data-shell-context="detail"] .pl-page-enter > * + * {
+      margin-top: 14px;
+    }
+
+    /* Hojas inferiores nativas con 100dvh + safe-area-inset-* */
+    dialog.pl-native-dialog.pl-more-sheet-dialog[open],
+    dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
+      max-block-size: min(88vh, 88dvh);
+      max-block-size: min(88dvh, calc(100dvh - env(safe-area-inset-top, 0px) - 16px));
+      overscroll-behavior: contain;
+    }
+
+    .pl-profile-menu {
+      max-block-size: min(88vh, 88dvh);
+      max-block-size: min(88dvh, calc(100dvh - env(safe-area-inset-top, 0px) - 16px));
+      overscroll-behavior-y: contain;
+    }
+  }
+
+  /* ---------- 4. Objetivos táctiles >= 44 px y anti-zoom iOS ---------- */
+  @media (max-width: 767px), (pointer: coarse) {
+    .pl-home-date-arrow,
+    .pl-home-date-center,
+    .pl-home-cal-nav,
+    .pl-home-cal-close,
+    .pl-home-cal-today-btn,
+    .pl-home-cal-next-btn,
+    .pl-home-fmodal-close,
+    .pl-home-fmodal-pill,
+    .pl-home-fmodal-clear,
+    .pl-home-fmodal-apply,
+    .pl-astro-fav-btn,
+    .pl-astro-collapse-btn,
+    .pl-home-icon-btn,
+    .pl-more-sheet-inner .seg-btn,
+    .pl-prop-win-btn,
+    .sl-stepper > button {
+      min-block-size: 44px;
+      min-inline-size: 44px;
+    }
+
+    .pl-parlay-hub-tab,
+    .pl-home-rail-card .seg-btn,
+    .pl-range-slider,
+    .sl-stepper > span {
+      min-block-size: 44px;
+    }
+
+    .pl-home-cal-day {
+      min-block-size: 44px;
+    }
+
+    .pl-home-fmodal-search input,
+    .pl-odds-search input,
+    .pl-odds-input,
+    .pl-odds-conv input {
+      font-size: max(1rem, 1em);
+    }
+  }
+
+  /* Evitar desborde horizontal del calendario en 320–560 px */
+  @media (max-width: 560px) {
+    .pl-home-board-top {
+      padding-inline: 12px;
+      gap: 6px 10px;
+    }
+
+    .pl-astro-datebar {
+      position: static;
+    }
+
+    .pl-home-cal-popover {
+      inset-inline: 8px;
+      width: auto;
+      max-inline-size: calc(100dvw - 16px);
+      transform-origin: top center;
+    }
+  }
+
+  /* ---------- 5. Rejilla editorial Desktop de Inicio (/app) ---------- */
+  @media (min-width: 1024px) {
+    .pl-astro-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 336px;
+      align-items: start;
+      gap: 20px;
+    }
+
+    .pl-astro-center {
+      width: 100%;
+      flex: initial;
+    }
+
+    .pl-home-rail {
+      width: 100%;
+      flex: initial;
+      max-width: none;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .pl-astro-workspace {
+      grid-template-columns: minmax(0, 1fr) 372px;
+      gap: 24px;
+    }
+  }
+
+  /* ---------- 6. Filas de partido planas editoriales ---------- */
+  .pl-astro-rows {
+    container: match-feed / inline-size;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+  }
+
+  .pl-astro-row {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 14px 16px;
+    gap: 10px;
+    transition: background-color 140ms ease;
+  }
+
+  .pl-astro-row + .pl-astro-row {
+    border-top: 1px solid var(--pl-row-rule);
+  }
+
+  @media (hover: hover) {
+    .pl-astro-row:hover {
+      background: color-mix(in srgb, var(--pl-surface-hover) 46%, transparent);
+    }
+  }
+
+  .pl-astro-time-badge {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    gap: 6px;
+  }
+
+  .pl-astro-outcome-strip {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 4px;
+    border-top: 1px solid var(--pl-row-rule);
+  }
+
+  .pl-astro-outcome-summary {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .pl-astro-pick-odds-inline {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .pl-astro-pick-hints {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Escritorio / columna amplia: quita cajas anidadas dentro de la fila */
+  @container match-feed (inline-size >= 620px) {
+    .pl-astro-row {
+      padding: 14px 18px;
+    }
+
+    .pl-astro-row-body {
+      grid-template-columns: minmax(0, 1.12fr) minmax(248px, 0.98fr);
+      align-items: center;
+      gap: 18px;
+    }
+
+    .pl-astro-prob-box {
+      padding: 2px 0 2px 16px;
+      border-radius: 0;
+      border: 0;
+      border-inline-start: 1px solid var(--pl-row-rule);
+      background: transparent;
+      gap: 6px;
+    }
+
+    .pl-astro-pick-card {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--pl-surface-elevated) 82%, transparent);
+      border: 1px solid var(--pl-border);
+      gap: 10px 14px;
+    }
+
+    /* En desktop el orden Local (arriba) / Visita (abajo) es estándar: evita ruido visual */
+    .pl-astro-team-sub .pl-side-tag {
+      display: none;
+    }
+  }
+
+  @container match-feed (inline-size < 620px) {
+    .pl-astro-row {
+      padding: 12px 14px;
+    }
+
+    .pl-astro-prob-box {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--pl-surface-elevated);
+      border: 1px solid var(--pl-border);
+    }
+
+    .pl-astro-pick-card {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--pl-surface-elevated);
+      border: 1px solid var(--pl-border);
+    }
+
+    .pl-astro-pick-actions {
+      width: 100%;
+    }
+
+    .pl-astro-pick-actions > * {
+      flex: 1 1 0;
+    }
+  }
+
+  /* Pestañas de tablero: indicador por borde (WCAG 1.4.1) y snap táctil */
+  .pl-home-board-tabs {
+    scroll-snap-type: inline proximity;
+    scroll-padding-inline: 12px;
+  }
+
+  .pl-home-board-tab {
+    flex: none;
+    scroll-snap-align: start;
+  }
+
+  .pl-home-board-tab[aria-selected="true"]::after {
+    border-block-end: 2.5px solid var(--pl-brand);
+    background: transparent;
+    height: 0;
+  }
+
+  /* ---------- 7. Parlays y Props: superficies planas con borde 1 px ---------- */
+  .pl-parlay-surface-tile {
+    background: var(--pl-surface);
+    border: 1px solid var(--pl-border);
+  }
+
+  /* ---------- 8. Compara tu momio (/app/momios): tabla .num + cards móviles ---------- */
+  .pl-odds-search-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .pl-odds-game {
+    overflow: hidden;
+    gap: 0;
+    padding: 0;
+  }
+
+  .pl-odds-game-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--pl-row-rule);
+    background: var(--pl-surface-elevated);
+  }
+
+  .pl-odds-game-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .pl-odds-table-wrap {
+    container: odds-table / inline-size;
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+
+  .pl-odds-table-wrap:focus-visible {
+    outline: 2px solid var(--pl-brand);
+    outline-offset: -2px;
+  }
+
+  .pl-odds-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.875rem;
+  }
+
+  .pl-odds-table thead th {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 1;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--pl-text-muted);
+    background: var(--pl-surface);
+    border-bottom: 1px solid var(--pl-row-rule);
+    white-space: nowrap;
+  }
+
+  .pl-odds-table thead th.is-num {
+    text-align: right;
+  }
+
+  .pl-odds-table thead th.is-action {
+    width: 52px;
+  }
+
+  .pl-odds-tr > th,
+  .pl-odds-tr > td {
+    padding: 10px 12px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--pl-row-rule);
+    background: transparent;
+    transition: background-color 140ms ease;
+  }
+
+  .pl-odds-tr:last-child > th,
+  .pl-odds-tr:last-child > td {
+    border-bottom: 0;
+  }
+
+  @media (hover: hover) {
+    .pl-odds-tr:hover > th,
+    .pl-odds-tr:hover > td {
+      background: color-mix(in srgb, var(--pl-surface-hover) 42%, transparent);
+    }
+  }
+
+  .pl-odds-cell-pick {
+    font-weight: 600;
+    text-align: left;
+    min-width: 0;
+    max-width: 280px;
+  }
+
+  .pl-odds-cell-sub {
+    display: none;
+  }
+
+  .pl-odds-cell-prob,
+  .pl-odds-cell-fair,
+  .pl-odds-cell-edge {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .pl-odds-cell-prob {
+    color: var(--pl-text-secondary);
+    font-weight: 650;
+  }
+
+  .pl-odds-cell-input {
+    width: 112px;
+  }
+
+  .pl-odds-cell-edge {
+    width: 92px;
+  }
+
+  .pl-odds-cell-action {
+    width: 52px;
+    text-align: right;
+  }
+
+  .pl-odds-table .pl-odds-input {
+    min-height: 36px;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    text-align: right;
+  }
+
+  .pl-odds-verdict.is-neg {
+    color: var(--pl-text-muted);
+  }
+
+  .pl-odds-parlay-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface-elevated);
+    color: var(--pl-text-secondary);
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .pl-odds-parlay-btn:hover {
+    border-color: var(--pl-border-strong);
+    background: var(--pl-surface-hover);
+    color: var(--pl-text);
+  }
+
+  .pl-odds-parlay-btn.is-on {
+    border-color: var(--pl-brand);
+    background: var(--pl-surface-active);
+    color: var(--pl-brand);
+  }
+
+  /* Contenedor angosto (< 600 px): tarjetas apiladas sin desborde horizontal */
+  @container odds-table (inline-size < 600px) {
+    .pl-odds-table,
+    .pl-odds-table tbody {
+      display: block;
+      width: 100%;
+    }
+
+    .pl-odds-table thead {
+      display: none;
+    }
+
+    .pl-odds-tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      grid-template-areas:
+        "pick pick pick"
+        "input edge action";
+      align-items: center;
+      gap: 8px 10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--pl-row-rule);
+    }
+
+    .pl-odds-tr:last-child {
+      border-bottom: 0;
+    }
+
+    .pl-odds-tr > th,
+    .pl-odds-tr > td {
+      display: block;
+      padding: 0;
+      border-bottom: 0;
+      width: auto;
+      max-width: none;
+    }
+
+    .pl-odds-cell-pick {
+      grid-area: pick;
+    }
+
+    .pl-odds-cell-sub {
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* En móvil la prob y momio justo van compactos bajo el título del pick */
+    .pl-odds-cell-prob,
+    .pl-odds-cell-fair {
+      display: none;
+    }
+
+    .pl-odds-cell-input {
+      grid-area: input;
+      min-width: 0;
+    }
+
+    .pl-odds-table .pl-odds-input {
+      min-height: 44px;
+      padding: 8px 10px;
+      font-size: max(1rem, 1em);
+      text-align: left;
+    }
+
+    .pl-odds-cell-edge {
+      grid-area: edge;
+      text-align: right;
+    }
+
+    .pl-odds-cell-action {
+      grid-area: action;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .pl-odds-hero-kpis {
+      gap: 6px;
+    }
+
+    .pl-odds-mini-kpi {
+      padding: 8px;
+    }
+  }
+}

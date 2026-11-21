@@ -1,7 +1,10 @@
+import "../../precio-motion.css";
+import "../../account-v2.css";
 import React from "react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { normalizeReferralCode, ReferralInviteSurface } from "@pitchlab/ui";
+import { normalizeReferralCode } from "@pitchlab/ui/account-helpers";
+import { ReferralInviteSurface } from "@pitchlab/ui/referral-invite";
 import {
   buildInviteShareMetadata,
   lookupReferrerHandleForInvite,

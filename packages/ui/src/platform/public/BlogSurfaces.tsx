@@ -1,5 +1,5 @@
 import React from "react";
-import { ClosingCtaSection, PublicSiteShell } from "./PublicSiteSections";
+import { ClosingCtaSection, PublicSiteShell } from "./PublicSiteShell";
 
 /**
  * Superficies del blog público (`/blog`, `/blog/categoria/[categoria]` y `/blog/[slug]`).
@@ -45,7 +45,9 @@ function Breadcrumbs({ items }: { items: ReadonlyArray<{ label: string; href?: s
         {items.map((item, index) => (
           <li key={`${item.label}-${index}`}>
             {item.href ? (
-              <a href={item.href}>{item.label}</a>
+              <a href={item.href} className="inline-flex min-h-11 items-center sm:min-h-8">
+                {item.label}
+              </a>
             ) : (
               <span aria-current="page">{item.label}</span>
             )}
@@ -68,16 +70,18 @@ function BlogPostCard({
   const Heading = headingLevel === 2 ? "h2" : "h3";
   return (
     <article className={`pl-blog-card${featured ? " pl-blog-card--featured" : ""}`}>
-      <Heading className="pl-blog-card-title">
+      <Heading className="pl-blog-card-title text-balance">
         <a className="pl-blog-card-link" href={post.href}>
           {post.title}
         </a>
       </Heading>
-      <p className="pl-blog-card-desc">{post.description}</p>
+      <p className="pl-blog-card-desc text-pretty">{post.description}</p>
       <footer className="pl-blog-meta">
         <span className="pl-blog-meta-cat">{post.category.label}</span>
-        <time dateTime={post.date}>{post.dateLabel}</time>
-        <span>{readingLabel(post.readingMinutes)}</span>
+        <time className="num" dateTime={post.date}>
+          {post.dateLabel}
+        </time>
+        <span className="num">{readingLabel(post.readingMinutes)}</span>
       </footer>
     </article>
   );
@@ -134,10 +138,10 @@ export function BlogIndexSurface({
           ) : null}
           <div className="pl-lp-section-head pl-blog-head">
             <p className="pl-lp-eyebrow">{activeCategory ? "Categoría" : "Blog"}</p>
-            <h1 className="pl-lp-h1 pl-lp-h1--page pl-blog-balance">
+            <h1 className="pl-lp-h1 pl-lp-h1--page pl-blog-balance text-balance">
               {activeCategory ? activeCategory.label : "Probabilidad deportiva, explicada en claro."}
             </h1>
-            <p className="pl-lp-lede">
+            <p className="pl-lp-lede text-pretty">
               {activeCategory
                 ? activeCategory.description
                 : "Guías cortas para leer momios, armar parlays con sentido y decidir con números. Sin promesas, con cuentas que puedes revisar."}
@@ -203,17 +207,22 @@ export function BlogPostSurface({
                 Vista previa: este artículo es un borrador o está programado y no es visible al público.
               </p>
             ) : null}
-            <h1 id="pl-blog-title" className="pl-lp-h1 pl-lp-h1--page pl-blog-title pl-blog-balance">
+            <h1 id="pl-blog-title" className="pl-lp-h1 pl-lp-h1--page pl-blog-title pl-blog-balance text-balance">
               {post.title}
             </h1>
-            <p className="pl-lp-lede pl-blog-lede">{post.description}</p>
+            <p className="pl-lp-lede pl-blog-lede text-pretty">{post.description}</p>
             <p className="pl-blog-meta pl-blog-meta--post">
               <span>{post.author}</span>
-              <time dateTime={post.date}>{post.dateLabel}</time>
-              <span>{readingLabel(post.readingMinutes)}</span>
+              <time className="num" dateTime={post.date}>
+                {post.dateLabel}
+              </time>
+              <span className="num">{readingLabel(post.readingMinutes)}</span>
               {post.updated && post.updatedLabel ? (
                 <span>
-                  Actualizado el <time dateTime={post.updated}>{post.updatedLabel}</time>
+                  Actualizado el{" "}
+                  <time className="num" dateTime={post.updated}>
+                    {post.updatedLabel}
+                  </time>
                 </span>
               ) : null}
             </p>
@@ -250,11 +259,25 @@ export function BlogPostSurface({
                   </ul>
                 </div>
               ) : null}
+              <nav
+                aria-label="Continuar en el blog"
+                className="flex flex-wrap items-center justify-between gap-3"
+              >
+                <a className="pl-lp-more" href="/blog">
+                  <span aria-hidden="true">←</span> Volver al blog
+                </a>
+                <a className="pl-lp-more" href={post.category.href}>
+                  Más en {post.category.label}{" "}
+                  <span className="pl-lp-arr" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              </nav>
               <aside className="pl-blog-note" aria-label="Aviso">
                 <p>
                   <strong>Información para decidir, no una garantía.</strong> PitchLab no acepta apuestas y es solo
                   para mayores de 18. Si el juego deja de ser un pasatiempo, llama sin costo a la Línea de la Vida:{" "}
-                  <a href="tel:8009112000">800 911 2000</a>.
+                  <a href="tel:8009112000" className="num">800 911 2000</a>.
                 </p>
               </aside>
             </footer>
@@ -267,7 +290,7 @@ export function BlogPostSurface({
           <div className="pl-lp-wrap pl-lp-stack">
             <div className="pl-lp-section-head">
               <p className="pl-lp-eyebrow">Sigue leyendo</p>
-              <h2 id="pl-blog-related-title" className="pl-lp-h2">
+              <h2 id="pl-blog-related-title" className="pl-lp-h2 text-balance">
                 Más del blog
               </h2>
             </div>

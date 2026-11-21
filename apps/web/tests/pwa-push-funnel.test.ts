@@ -161,7 +161,7 @@ describe("Web Push API y push social en respuestas de Comunidad", () => {
 
     mockSessionAs(socio);
 
-    // Endpoint no-HTTPS rechazado con 400
+    // Endpoint no-HTTPS y hosts fuera de allowlist Web Push rechazados con 400
     const badRes = await postPush(
       new Request("http://localhost:3000/api/me/push", {
         method: "POST",
@@ -174,13 +174,25 @@ describe("Web Push API y push social en respuestas de Comunidad", () => {
     );
     expect(badRes.status).toBe(400);
 
+    const ssrfRes = await postPush(
+      new Request("http://localhost:3000/api/me/push", {
+        method: "POST",
+        headers: { "content-type": "application/json", origin: "http://localhost:3000" },
+        body: JSON.stringify({
+          endpoint: "https://127.0.0.1/push",
+          keys: createPushSubscriptionMaterial(),
+        }),
+      }),
+    );
+    expect(ssrfRes.status).toBe(400);
+
     const keys = createPushSubscriptionMaterial();
     const okRes = await postPush(
       new Request("http://localhost:3000/api/me/push", {
         method: "POST",
         headers: { "content-type": "application/json", origin: "http://localhost:3000" },
         body: JSON.stringify({
-          endpoint: "https://push.example/device-1",
+          endpoint: "https://fcm.googleapis.com/fcm/send/device-1",
           keys,
           topics: { picks: true, live: true, social: true },
         }),
@@ -209,7 +221,7 @@ describe("Web Push API y push social en respuestas de Comunidad", () => {
       new Request("http://localhost:3000/api/me/push", {
         method: "DELETE",
         headers: { "content-type": "application/json", origin: "http://localhost:3000" },
-        body: JSON.stringify({ endpoint: "https://push.example/device-1" }),
+        body: JSON.stringify({ endpoint: "https://fcm.googleapis.com/fcm/send/device-1" }),
       }),
     );
     expect(delRes.status).toBe(200);
@@ -254,7 +266,7 @@ describe("Web Push API y push social en respuestas de Comunidad", () => {
         method: "POST",
         headers: { "content-type": "application/json", origin: "http://localhost:3000" },
         body: JSON.stringify({
-          endpoint: "https://push.example/autor-phone",
+          endpoint: "https://fcm.googleapis.com/fcm/send/autor-phone",
           keys: createPushSubscriptionMaterial(),
           topics: { social: true },
         }),
@@ -262,12 +274,26 @@ describe("Web Push API y push social en respuestas de Comunidad", () => {
     );
 
     mockSessionAs(lector);
+    // Otro socio no puede apropiarse de un endpoint ajeno (IDOR -> 409)
+    const hijackRes = await postPush(
+      new Request("http://localhost:3000/api/me/push", {
+        method: "POST",
+        headers: { "content-type": "application/json", origin: "http://localhost:3000" },
+        body: JSON.stringify({
+          endpoint: "https://fcm.googleapis.com/fcm/send/autor-phone",
+          keys: createPushSubscriptionMaterial(),
+          topics: { social: true },
+        }),
+      }),
+    );
+    expect(hijackRes.status).toBe(409);
+
     await postPush(
       new Request("http://localhost:3000/api/me/push", {
         method: "POST",
         headers: { "content-type": "application/json", origin: "http://localhost:3000" },
         body: JSON.stringify({
-          endpoint: "https://push.example/lector-phone",
+          endpoint: "https://fcm.googleapis.com/fcm/send/lector-phone",
           keys: createPushSubscriptionMaterial(),
           topics: { social: true },
         }),
@@ -275,9 +301,11 @@ describe("Web Push API y push social en respuestas de Comunidad", () => {
     );
 
     const sentTargets: string[] = [];
+    const sentRedirects: Array<RequestRedirect | undefined> = [];
     const origFetch = globalThis.fetch;
-    globalThis.fetch = vi.fn(async (input) => {
+    globalThis.fetch = vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
       sentTargets.push(typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url);
+      sentRedirects.push(init?.redirect);
       return new Response(null, { status: 201 });
     }) as typeof fetch;
 
@@ -293,7 +321,8 @@ describe("Web Push API y push social en respuestas de Comunidad", () => {
         { params: Promise.resolve({ id: postId }) },
       );
       expect(replyRes.status).toBe(201);
-      expect(sentTargets).toEqual(["https://push.example/autor-phone"]);
+      expect(sentTargets).toEqual(["https://fcm.googleapis.com/fcm/send/autor-phone"]);
+      expect(sentRedirects).toEqual(["error"]);
     } finally {
       globalThis.fetch = origFetch;
     }

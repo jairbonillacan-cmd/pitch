@@ -46,12 +46,15 @@ import {
   getOfficialEspnLeagueLogoUrl,
 } from "@pitchlab/sports-assets";
 import { loadRootEnvFiles } from "./env.js";
+import { classifyLineMovement, type LineMovementSignal } from "./odds/bzzoiro-odds.js";
 import {
   buildFootballSnapshot,
   loadPreviousSnapshot,
   writeSeasonResultsFile,
   writeSnapshotFiles,
 } from "./pipeline.js";
+import { parseBzzoiroH2h, parseBzzoiroRefereeProfile } from "./providers/bzzoiro-enrichment.js";
+import { parseBroadcastsMx, type BzBroadcastRaw, type BzList } from "./providers/bzzoiro-live.js";
 import { slugifyTeamName, teamCodeFromSlug } from "./team-slug.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -201,19 +204,23 @@ interface CompactMarketLine {
   book: string;
   decimal: number;
   openingDecimal?: number;
+  deltaPct?: number;
   movement?: "shortening" | "drifting" | "stable";
+  movementSignal?: LineMovementSignal;
   capturedAtUtc: string;
 }
 
 class BzzoiroClient {
   private readonly token: string;
+  readonly unlimited: boolean;
   private readonly venueCache = new Map<number, BzVenue | null>();
   private readonly refereeCache = new Map<number, BzReferee | null>();
   private readonly managerCache = new Map<number, BzManager | null>();
   private requestCount = 0;
 
-  constructor(token: string) {
+  constructor(token: string, unlimited = false) {
     this.token = token;
+    this.unlimited = unlimited;
   }
 
   async getJson<T>(pathWithQuery: string, retries = 2): Promise<T | null> {
@@ -303,10 +310,33 @@ class BzzoiroClient {
 
   async fetchEventOdds(eventId: number): Promise<BzOddsEntry[]> {
     const data = await this.getJson<{ results?: BzOddsEntry[] } | BzOddsEntry[]>(
-      `/api/v2/odds/?event_id=${eventId}&limit=100`,
+      `/api/v2/odds/?event_id=${eventId}&limit=200`,
     );
     if (!data) return [];
     return Array.isArray(data) ? data : (data.results ?? []);
+  }
+
+  async fetchEventOddsComparison(eventId: number): Promise<BzOddsEntry[]> {
+    const data = await this.getJson<{ results?: BzOddsEntry[]; comparisons?: BzOddsEntry[] } | BzOddsEntry[]>(
+      `/api/v2/events/${eventId}/odds/comparison/`,
+    );
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    return data.results ?? data.comparisons ?? [];
+  }
+
+  async fetchEventBroadcastsMx(eventId: number): Promise<string[]> {
+    const data = await this.getJson<BzList<BzBroadcastRaw>>(
+      `/api/v2/events/${eventId}/broadcasts/?country_code=MX`,
+    );
+    return parseBroadcastsMx(data);
+  }
+
+  async fetchEventH2h(eventId: number, homeTeam: string, awayTeam: string) {
+    const data = await this.getJson<BzList<{ event_date?: string; date?: string; home_team?: string; away_team?: string; home_score?: number; away_score?: number }>>(
+      `/api/v2/events/${eventId}/h2h/`,
+    );
+    return parseBzzoiroH2h(data, { homeTeamName: homeTeam, awayTeamName: awayTeam, limit: 6 });
   }
 
   get totalRequests(): number {
@@ -420,18 +450,23 @@ function buildContextFromEvent(
   ev: BzEventV2,
   venue: BzVenue | null,
   referee: BzReferee | null,
+  broadcastsMx: readonly string[] = [],
 ): MatchPreGameContext | undefined {
   const ctx: MatchPreGameContext = {};
-  if (referee?.name) {
-    ctx.referee = referee.name.slice(0, 120);
+  const parsedRef = parseBzzoiroRefereeProfile(referee);
+  if (parsedRef) {
+    ctx.referee = parsedRef.name;
     ctx.refereeStats = {
-      ...(referee.country ? { country: referee.country } : {}),
-      ...(typeof referee.matches === "number" ? { matches: referee.matches } : {}),
-      ...(typeof referee.avg_yellow_per_match === "number" ? { avgYellow: Number(referee.avg_yellow_per_match.toFixed(2)) } : {}),
-      ...(typeof referee.avg_red_per_match === "number" ? { avgRed: Number(referee.avg_red_per_match.toFixed(2)) } : {}),
-      ...(typeof referee.avg_fouls_per_match === "number" ? { avgFouls: Number(referee.avg_fouls_per_match.toFixed(1)) } : {}),
-      ...(typeof referee.avg_goals_per_match === "number" ? { avgGoals: Number(referee.avg_goals_per_match.toFixed(2)) } : {}),
+      ...(parsedRef.country ? { country: parsedRef.country } : {}),
+      ...(parsedRef.matches > 0 ? { matches: parsedRef.matches } : {}),
+      ...(parsedRef.avgYellow !== null ? { avgYellow: parsedRef.avgYellow } : {}),
+      ...(parsedRef.avgRed !== null ? { avgRed: parsedRef.avgRed } : {}),
+      ...(parsedRef.avgFouls !== null ? { avgFouls: parsedRef.avgFouls } : {}),
+      ...(parsedRef.avgGoals !== null ? { avgGoals: parsedRef.avgGoals } : {}),
     };
+  }
+  if (broadcastsMx.length > 0) {
+    ctx.broadcastsMx = [...broadcastsMx].slice(0, 8);
   }
   if (ev.weather && (ev.weather.description || ev.weather.temperature_c != null || ev.weather.wind_speed != null)) {
     ctx.weather = {
@@ -573,7 +608,11 @@ async function ingestBzzoiroCompetition(
         referee = await client.getReferee(ev.referee_id);
         if (referee?.name) refereeHits += 1;
       }
-      const ctx = buildContextFromEvent(ev, venue, referee);
+      let broadcastsMx: string[] = [];
+      if (client.unlimited && status !== "final") {
+        broadcastsMx = await client.fetchEventBroadcastsMx(ev.id);
+      }
+      const ctx = buildContextFromEvent(ev, venue, referee, broadcastsMx);
       if (ctx) contextByGameId.set(gameId, ctx);
       if (Array.isArray(ev.head_to_head) && ev.head_to_head.length > 0) {
         const parsedH2h = ev.head_to_head
@@ -587,6 +626,20 @@ async function ingestBzzoiroCompetition(
             awayGoals: Number(h.away_score),
           }));
         if (parsedH2h.length > 0) h2hByGameId.set(gameId, parsedH2h);
+      } else if (client.unlimited && status !== "final") {
+        const remoteH2h = await client.fetchEventH2h(ev.id, ev.home_team, ev.away_team);
+        if (remoteH2h.matches.length > 0) {
+          h2hByGameId.set(
+            gameId,
+            remoteH2h.matches.slice(0, 5).map((m) => ({
+              date: m.dateIso,
+              homeTeamId: `${league}.${slugifyTeamName(m.homeTeam)}`,
+              awayTeamId: `${league}.${slugifyTeamName(m.awayTeam)}`,
+              homeGoals: m.homeScore,
+              awayGoals: m.awayScore,
+            })),
+          );
+        }
       }
     }
 
@@ -1309,14 +1362,6 @@ async function hydrateOfficialsForUsLeagues(now: Date): Promise<number> {
   return totalUpdated;
 }
 
-function normalizeBzMovement(raw: string | null | undefined): "shortening" | "drifting" | "stable" | undefined {
-  const s = (raw ?? "").trim().toLowerCase();
-  if (s === "shortening" || s === "down") return "shortening";
-  if (s === "drifting" || s === "up") return "drifting";
-  if (s === "stable" || s === "flat") return "stable";
-  return undefined;
-}
-
 async function collectCompactOddsForEvents(
   client: BzzoiroClient,
   league: LeagueId,
@@ -1325,7 +1370,13 @@ async function collectCompactOddsForEvents(
 ): Promise<CompactMarketLine[]> {
   const compactOdds: CompactMarketLine[] = [];
   for (const ev of events) {
-    const list = await client.fetchEventOdds(ev.id);
+    const primary = await client.fetchEventOdds(ev.id);
+    const list =
+      primary.length > 0
+        ? primary
+        : client.unlimited
+          ? await client.fetchEventOddsComparison(ev.id)
+          : [];
     if (list.length === 0) continue;
     const homeSlug = slugifyTeamName(ev.home_team);
     const awaySlug = slugifyTeamName(ev.away_team);
@@ -1342,7 +1393,12 @@ async function collectCompactOddsForEvents(
         typeof rawOpen === "number" && Number.isFinite(rawOpen) && rawOpen > 1.01
           ? Number(rawOpen.toFixed(3))
           : undefined;
-      const movement = normalizeBzMovement(q.movement);
+      const classified = classifyLineMovement({
+        openingDecimal: openingDecimal ?? null,
+        currentDecimal: q.decimal_odds,
+        rawMovement: q.movement ?? null,
+      });
+      const hasMovement = openingDecimal !== undefined || Boolean(q.movement?.trim());
       compactOdds.push({
         gameId: gid,
         homeName: ev.home_team,
@@ -1353,11 +1409,12 @@ async function collectCompactOddsForEvents(
         book,
         decimal: Number(q.decimal_odds.toFixed(3)),
         ...(openingDecimal !== undefined ? { openingDecimal } : {}),
-        ...(movement ? { movement } : {}),
+        ...(classified.deltaPct !== null ? { deltaPct: classified.deltaPct } : {}),
+        ...(hasMovement ? { movement: classified.legacyDirection, movementSignal: classified.signal } : {}),
         capturedAtUtc: q.updated_at && !Number.isNaN(Date.parse(q.updated_at)) ? q.updated_at : fallbackCapturedAt,
       });
     }
-    await sleep(40);
+    await sleep(client.unlimited ? 20 : 40);
   }
   return compactOdds;
 }
@@ -1414,12 +1471,14 @@ async function main(): Promise<void> {
 
   const now = new Date();
   const apiKey = process.env.BZZOIRO_API_KEY?.trim() ?? "";
+  const unlimitedRaw = (process.env.BZZOIRO_UNLIMITED ?? "").trim().toLowerCase();
+  const isUnlimited = unlimitedRaw === "1" || unlimitedRaw === "true" || unlimitedRaw === "yes";
 
   if (!apiKey) {
     console.warn("[expansion] BZZOIRO_API_KEY ausente; solo se ejecutarán adaptadores públicos ESPN.");
   }
 
-  const client = apiKey ? new BzzoiroClient(apiKey) : null;
+  const client = apiKey ? new BzzoiroClient(apiKey, isUnlimited) : null;
 
   if (oddsOnly) {
     if (!client) {
@@ -1473,7 +1532,13 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch((err) => {
-  console.error("[expansion] error fatal:", err);
-  process.exit(1);
-});
+const isDirectEntry =
+  typeof process.argv[1] === "string" &&
+  resolve(process.argv[1]) === resolve(fileURLToPath(import.meta.url));
+
+if (isDirectEntry) {
+  main().catch((err) => {
+    console.error("[expansion] error fatal:", err);
+    process.exit(1);
+  });
+}
