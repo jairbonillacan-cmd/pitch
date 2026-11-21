@@ -166,7 +166,7 @@ export const GET = withAdminMutation(
           total: sql<number>`count(*)::int`,
         })
         .from(securityAbuseEvents)
-        .where(sql`${securityAbuseEvents.createdAt} >= ${since24h}`)
+        .where(sql`${securityAbuseEvents.createdAt} >= ${since24h.toISOString()}::timestamptz`)
         .groupBy(securityAbuseEvents.kind, securityAbuseEvents.severity),
     ]);
 

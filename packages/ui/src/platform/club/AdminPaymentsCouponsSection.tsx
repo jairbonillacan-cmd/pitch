@@ -289,6 +289,7 @@ type ConfirmActionState =
   | { kind: "revoke"; member: AdminMemberItem; grant: AdminMemberGrantItem; reason: string }
   | { kind: "deactivateCoupon"; coupon: AdminCouponItem }
   | { kind: "markPaid"; row: AdminTipsterLedgerItem; reference: string; note: string | null }
+  | { kind: "resolveInbox"; item: AdminInboxRow }
   | null;
 
 function isAdminOpsTabKey(value: string): value is AdminOpsTabKey {
@@ -330,8 +331,12 @@ export function AdminPaymentsCouponsSection({
   allowedTabs?: readonly AdminOpsTabKey[];
   embedded?: boolean;
 } = {}): React.JSX.Element {
-  const { accountsEnabled: ctxAccountsEnabled, hasAccountSessionAuth, paymentMode } =
-    usePlatformCore();
+  const {
+    accountsEnabled: ctxAccountsEnabled,
+    hasAccountSessionAuth,
+    viewerRole,
+    paymentMode,
+  } = usePlatformCore();
   const { pushToast } = usePlatformActions();
   const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
   const isStoryMock = Boolean(storyOverride);
@@ -339,7 +344,7 @@ export function AdminPaymentsCouponsSection({
     !isStoryMock &&
       (storyOverride?.accountsEnabled !== undefined
         ? storyOverride.accountsEnabled
-        : hasAccountSessionAuth),
+        : hasAccountSessionAuth && viewerRole === "admin"),
   );
   const isPreviewMode = !canFetchAdmin && !isStoryMock && !accountsEnabled;
 
@@ -398,7 +403,9 @@ export function AdminPaymentsCouponsSection({
     storyOverride?.inbox ?? null,
   );
 
-  const [previewTick, setPreviewTick] = useState<number>(0);
+  const [previewState, setPreviewState] = useState<ReturnType<typeof readPreviewSpeiState> | null>(
+    null,
+  );
 
   const [formDialog, setFormDialog] = useState<FormDialogState>(null);
   const [confirmAction, setConfirmAction] = useState<ConfirmActionState>(null);
@@ -409,20 +416,22 @@ export function AdminPaymentsCouponsSection({
   const [payoutRef, setPayoutRef] = useState<string>("");
 
   useSafeEffect(() => {
-    if (!isPreviewMode || typeof window === "undefined") return;
-    const handleSync = () => setPreviewTick((tick) => tick + 1);
+    if (!isPreviewMode || typeof window === "undefined") {
+      setPreviewState(null);
+      return;
+    }
+    const handleSync = () => setPreviewState(readPreviewSpeiState());
+    handleSync();
     window.addEventListener(PREVIEW_SPEI_EVENT, handleSync);
     return () => window.removeEventListener(PREVIEW_SPEI_EVENT, handleSync);
   }, [isPreviewMode]);
 
   const previewData = useMemo(() => {
-    void previewTick;
-    if (!isPreviewMode) {
+    if (!isPreviewMode || !previewState) {
       return { transfers: [] as AdminTransferRow[], coupons: [] as AdminCouponItem[] };
     }
-    const st = readPreviewSpeiState();
     const q = submittedTransferQuery.trim().toLowerCase();
-    const mappedTransfers: AdminTransferRow[] = st.requests
+    const mappedTransfers: AdminTransferRow[] = previewState.requests
       .filter((r) => (transferFilter === "all" ? true : r.status === transferFilter))
       .filter((r) => {
         if (!q) return true;
@@ -461,7 +470,7 @@ export function AdminPaymentsCouponsSection({
         createdAtIso: r.createdAtIso,
       }));
 
-    const mappedCoupons: AdminCouponItem[] = st.coupons.map((c) => ({
+    const mappedCoupons: AdminCouponItem[] = previewState.coupons.map((c) => ({
       id: c.id,
       code: c.code,
       days: c.days,
@@ -475,7 +484,7 @@ export function AdminPaymentsCouponsSection({
     }));
 
     return { transfers: mappedTransfers, coupons: mappedCoupons };
-  }, [isPreviewMode, previewTick, submittedTransferQuery, transferFilter]);
+  }, [isPreviewMode, previewState, submittedTransferQuery, transferFilter]);
 
   const transfersUrl = useMemo(() => {
     const qs = new URLSearchParams({ status: transferFilter, limit: "40" });
@@ -590,7 +599,7 @@ export function AdminPaymentsCouponsSection({
           "success",
         );
       }
-      setPreviewTick((tick) => tick + 1);
+      setPreviewState(readPreviewSpeiState());
       return;
     }
     if (!canFetchAdmin) {
@@ -639,7 +648,7 @@ export function AdminPaymentsCouponsSection({
     if (isPreviewMode) {
       rejectPreviewTransfer(row.id, reason, adminNotes);
       pushToast(`Solicitud ${row.referenceCode} rechazada.`, "default");
-      setPreviewTick((tick) => tick + 1);
+      setPreviewState(readPreviewSpeiState());
       return;
     }
     if (!canFetchAdmin) {
@@ -1343,6 +1352,23 @@ export function AdminPaymentsCouponsSection({
         },
       };
     }
+    if (confirmAction.kind === "resolveInbox") {
+      const { item } = confirmAction;
+      const isDeletion = item.kind === "deletion";
+      return {
+        title: isDeletion
+          ? `Marcar solicitud de baja como atendida (${item.actorEmail})`
+          : `Marcar mensaje de ${item.handle ? `@${item.handle}` : item.actorEmail} como atendido`,
+        description: isDeletion
+          ? "Esta acción cierra de forma irreversible la solicitud formal de eliminación de cuenta en la bandeja y queda registrada en auditoría."
+          : "Esta acción marca el mensaje como atendido de forma irreversible y queda registrada en la auditoría administrativa.",
+        confirmLabel: "Marcar atendido",
+        tone: isDeletion ? ("danger" as const) : ("brand" as const),
+        onConfirm: () => {
+          void handleResolveInboxItem(item.id);
+        },
+      };
+    }
     const { row, reference, note } = confirmAction;
     return {
       title: `Confirmar pago a @${row.tipsterHandle}`,
@@ -1819,6 +1845,7 @@ export function AdminPaymentsCouponsSection({
                         key={d}
                         variant={newCouponDays === String(d) ? "primary" : "secondary"}
                         size="sm"
+                        className="min-w-11"
                         onClick={() => setNewCouponDays(String(d))}
                       >
                         <span className="num">{d}d</span>
@@ -1911,6 +1938,7 @@ export function AdminPaymentsCouponsSection({
                         key={`batch-${d}`}
                         variant={batchDays === String(d) ? "primary" : "secondary"}
                         size="sm"
+                        className="min-w-11"
                         onClick={() => setBatchDays(String(d))}
                       >
                         <span className="num">+{d}d</span>
@@ -2109,9 +2137,10 @@ export function AdminPaymentsCouponsSection({
                           {!item.resolved ? (
                             <Button
                               variant="primary"
+                              tone={item.kind === "deletion" ? "danger" : "default"}
                               size="sm"
                               disabled={busyAction}
-                              onClick={() => void handleResolveInboxItem(item.id)}
+                              onClick={() => setConfirmAction({ kind: "resolveInbox", item })}
                             >
                               Marcar atendido
                             </Button>

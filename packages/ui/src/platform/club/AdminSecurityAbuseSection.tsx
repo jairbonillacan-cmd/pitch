@@ -140,13 +140,16 @@ export function AdminSecurityAbuseSection({
 }: AdminSecurityAbuseSectionProps): React.JSX.Element {
   const core = useOptionalPlatformCore();
   const hasAccountSessionAuth = core?.hasAccountSessionAuth ?? false;
+  const viewerRole = core?.viewerRole ?? "visitor";
   const accountsEnabled = core?.accountsEnabled ?? false;
   const severitySelectId = useId();
   const [kindFilter, setKindFilter] = useState<KindFilter>("all");
   const [severityFilter, setSeverityFilter] = useState<SeverityFilter>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const canFetchLive = Boolean(enableLiveFetch && hasAccountSessionAuth && !storyData);
+  const canFetchLive = Boolean(
+    enableLiveFetch && hasAccountSessionAuth && viewerRole === "admin" && !storyData,
+  );
   const requestUrl = canFetchLive ? buildSecurityAbuseUrl(kindFilter, severityFilter) : null;
 
   const { data: liveData, loading, error, reload } = useAbortableJson<AdminSecurityAbuseResponse>(

@@ -446,7 +446,24 @@
   .pl-ta-switch-wrap {
     display: inline-flex;
     align-items: center;
+    min-inline-size: 44px;
     min-block-size: 44px;
+  }
+
+  .pl-ta-switch-wrap .switch,
+  .pl-ta-switch-wrap label {
+    display: inline-flex;
+    align-items: center;
+    min-inline-size: 44px;
+    min-block-size: 44px;
+  }
+
+  @media (min-width: 768px) and (pointer: fine) {
+    .pl-ta-switch-wrap,
+    .pl-ta-switch-wrap .switch,
+    .pl-ta-switch-wrap label {
+      min-block-size: 36px;
+    }
   }
 
   .pl-ta-guard-grid {

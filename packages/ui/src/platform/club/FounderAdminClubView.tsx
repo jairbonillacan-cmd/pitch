@@ -252,9 +252,11 @@ export function FounderAdminClubView({
     referralPaidFriends,
     accountsEnabled,
     hasAccountSessionAuth,
+    viewerRole,
   } = usePlatformCore();
   const { setMonth1NoCardMode, pushToast } = usePlatformActions();
   const { blockedSpamAttempts } = useSocialState();
+  const isVerifiedAdminSession = hasAccountSessionAuth && viewerRole === "admin";
 
   const funnelHeadingId = useId();
   const modHeadingId = useId();
@@ -269,13 +271,13 @@ export function FounderAdminClubView({
   const [pendingConfirm, setPendingConfirm] = useState<PendingAdminConfirm | null>(null);
 
   const overviewReq = useAbortableJson<AdminOverviewResponse>("/api/admin/overview?limit=40", {
-    enabled: hasAccountSessionAuth,
+    enabled: isVerifiedAdminSession,
   });
 
   const moderationReq = useAbortableJson<ModerationPanelResponse>(
     "/api/admin/moderation?limit=40",
     {
-      enabled: hasAccountSessionAuth && !storyModeration && activeTab === "members",
+      enabled: isVerifiedAdminSession && !storyModeration && activeTab === "members",
     },
   );
 
@@ -318,8 +320,8 @@ export function FounderAdminClubView({
       },
       successMsg: string,
     ) => {
-      if (!hasAccountSessionAuth || moderationBusyKey) {
-        if (!hasAccountSessionAuth) {
+      if (!isVerifiedAdminSession || moderationBusyKey) {
+        if (!isVerifiedAdminSession) {
           pushToast(`${successMsg} (vista previa)`, "success");
         }
         return;
@@ -353,13 +355,17 @@ export function FounderAdminClubView({
         setModerationBusyKey(null);
       }
     },
-    [hasAccountSessionAuth, moderationBusyKey, pushToast],
+    [isVerifiedAdminSession, moderationBusyKey, pushToast],
   );
 
   const dataCutLabel = useMemo(() => {
     const t = Date.parse(dataset.generatedAt);
     return Number.isFinite(t)
-      ? `datos al ${new Date(t).toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}`
+      ? `datos al ${new Date(t).toLocaleString("es-MX", {
+          dateStyle: "medium",
+          timeStyle: "short",
+          timeZone: "America/Mexico_City",
+        })}`
       : "datos del último corte";
   }, [dataset.generatedAt]);
 
@@ -426,7 +432,7 @@ export function FounderAdminClubView({
     const cleanCode = newCreatorCode.trim().toUpperCase();
     const cleanHandle = newCreatorHandle.trim().replace(/^@/, "").toLowerCase() || "creador_pl";
     if (!cleanCode) return;
-    if (hasAccountSessionAuth) {
+    if (isVerifiedAdminSession) {
       void (async () => {
         const res = await fetch("/api/admin/tipsters", {
           method: "POST",
@@ -644,7 +650,7 @@ export function FounderAdminClubView({
                   dataset={dataset}
                   initialReport={initialDataHealth}
                   storyReport={storyDataHealth}
-                  enableLiveFetch={hasAccountSessionAuth && !storyDataHealth}
+                  enableLiveFetch={isVerifiedAdminSession && !storyDataHealth}
                 />
               ) : null}
 
