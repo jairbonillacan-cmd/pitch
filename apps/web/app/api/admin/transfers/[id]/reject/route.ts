@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { rejectTransferRequest } from "@pitchlab/db";
+import {
+  withAdminMutation,
+  type AdminMutationContext,
+  type GuardedRouteHandler,
+} from "../../../../../../src/server/api-guards";
 import { getMailer } from "../../../../../../src/server/mailer";
 import { serializeTransferRequest } from "../../../../../../src/server/member-plan";
-import {
-  checkEndpointRateLimit,
-  rateLimitResponse,
-  verifySameOriginMutation,
-} from "../../../../../../src/server/request-security";
-import { requireAdmin } from "../../../../../../src/server/session-user";
 import { trialHashes } from "../../../../../../src/server/signup";
 import { sendTransferRejectedEmail } from "../../../../../../src/server/transfer-emails";
 import { UUID_RE } from "../../../../../../src/server/transfer-helpers";
@@ -15,65 +16,71 @@ import { UUID_RE } from "../../../../../../src/server/transfer-helpers";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** POST /api/admin/transfers/[id]/reject — rechaza solicitud SPEI con motivo y avisa al socio. */
-export async function POST(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
+const TransferIdParamsSchema = z.object({
+  id: z.string().regex(UUID_RE),
+});
 
-  const admin = await requireAdmin(request);
-  if ("error" in admin) return admin.error;
+const RejectTransferBodySchema = z.object({
+  reason: z.string().trim().min(3).max(500),
+  adminNotes: z.string().max(500).nullable().optional(),
+});
 
-  const { id } = await params;
-  if (!UUID_RE.test(id)) {
-    return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 });
-  }
-
-  const rl = await checkEndpointRateLimit({
+export const POST: GuardedRouteHandler<{ id: string }> = withAdminMutation(
+  {
     bucket: "admin-transfer-review",
-    key: admin.userId,
     limit: 60,
     windowMs: 60_000,
-  });
-  if (!rl.allowed) return rateLimitResponse(rl.retryAfterSeconds);
+  },
+  async ({ request, params, user }: AdminMutationContext<{ id: string }>) => {
+    const parsedParams = TransferIdParamsSchema.safeParse(params);
+    if (!parsedParams.success) {
+      const payload = createSanitizedErrorPayload("INVALID_TRANSFER_ID", "Solicitud inválida.");
+      return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
+    }
 
-  const body = (await request.json().catch(() => null)) as { reason?: unknown; adminNotes?: unknown } | null;
-  const reason = typeof body?.reason === "string" ? body.reason : "";
-  const adminNotes = typeof body?.adminNotes === "string" ? body.adminNotes : null;
-  const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
+    const rawBody: unknown = await request.json().catch(() => null);
+    const parsedBody = RejectTransferBodySchema.safeParse(rawBody);
+    if (!parsedBody.success) {
+      const payload = createSanitizedErrorPayload(
+        "INVALID_REJECT_REASON",
+        "Escribe el motivo del rechazo (mínimo 3 caracteres).",
+      );
+      return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
+    }
 
-  const res = await rejectTransferRequest(admin.db, {
-    requestId: id,
-    adminUserId: admin.userId,
-    adminEmail: admin.email,
-    reason,
-    adminNotes,
-    now: new Date(),
-    ipSubnetHash,
-  });
+    const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
 
-  if (!res.ok) {
-    if (res.reason === "motivo_requerido") {
+    const res = await rejectTransferRequest(user.db, {
+      requestId: parsedParams.data.id,
+      adminUserId: user.userId,
+      adminEmail: user.email,
+      reason: parsedBody.data.reason,
+      adminNotes: parsedBody.data.adminNotes ?? null,
+      now: new Date(),
+      ipSubnetHash,
+    });
+
+    if (!res.ok) {
+      if (res.reason === "motivo_requerido") {
+        return NextResponse.json(
+          { error: "Escribe el motivo del rechazo (mínimo 3 caracteres)." },
+          { status: 400 },
+        );
+      }
+      if (res.reason === "no_encontrada") {
+        return NextResponse.json({ error: "No encontramos esa solicitud." }, { status: 404 });
+      }
       return NextResponse.json(
-        { error: "Escribe el motivo del rechazo (mínimo 3 caracteres)." },
-        { status: 400 },
+        { error: "Esta solicitud ya fue resuelta o cancelada." },
+        { status: 409 },
       );
     }
-    if (res.reason === "no_encontrada") {
-      return NextResponse.json({ error: "No encontramos esa solicitud." }, { status: 404 });
-    }
-    return NextResponse.json(
-      { error: "Esta solicitud ya fue resuelta o cancelada." },
-      { status: 409 },
-    );
-  }
 
-  await sendTransferRejectedEmail(getMailer(), res);
+    await sendTransferRejectedEmail(getMailer(), res);
 
-  return NextResponse.json({
-    ok: true,
-    request: serializeTransferRequest(res.request),
-  });
-}
+    return NextResponse.json({
+      ok: true,
+      request: serializeTransferRequest(res.request),
+    });
+  },
+);

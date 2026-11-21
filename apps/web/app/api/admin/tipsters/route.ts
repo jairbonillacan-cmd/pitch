@@ -1,13 +1,21 @@
 import { NextResponse } from "next/server";
-import { createTipsterCode, findTipsterByPromoCode, listTipsterCodes, recordAdminAudit } from "@pitchlab/db";
+import { z } from "zod";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
+import {
+  createTipsterCode,
+  findTipsterByPromoCode,
+  listTipsterCodes,
+  recordAdminAudit,
+} from "@pitchlab/db";
+import { withAdminMutation } from "../../../../src/server/api-guards";
 import { sendTipsterActivatedEmail } from "../../../../src/server/lifecycle-emails";
 import { getMailer } from "../../../../src/server/mailer";
-import { verifySameOriginMutation } from "../../../../src/server/request-security";
-import { requireAdmin } from "../../../../src/server/session-user";
 import { trialHashes } from "../../../../src/server/signup";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const MAX_TIPSTERS_RESPONSE = 40;
 
 const MESSAGES: Record<string, string> = {
   codigo_invalido: "El código debe tener de 3 a 16 letras o números.",
@@ -15,47 +23,70 @@ const MESSAGES: Record<string, string> = {
   duplicado: "Ese código o usuario ya existe.",
 };
 
-/** POST { email, handle, displayName, promoCode, specialty } — da de alta un tipster oficial y registra auditoría. */
-export async function POST(request: Request): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
+const CreateTipsterBodySchema = z.object({
+  email: z.string().trim().min(3).max(254).email(),
+  handle: z.string().trim().min(1).max(64),
+  displayName: z.string().trim().min(1).max(120),
+  promoCode: z.string().trim().min(1).max(32),
+  specialty: z.string().trim().max(120).optional().default(""),
+});
 
-  const admin = await requireAdmin(request);
-  if ("error" in admin) return admin.error;
-  const b = (await request.json().catch(() => null)) as Record<string, unknown> | null;
-  const s = (k: string) => (typeof b?.[k] === "string" ? (b[k] as string) : "");
-  if (!s("email").includes("@")) return NextResponse.json({ error: "Correo del tipster requerido" }, { status: 400 });
-  const res = await createTipsterCode(admin.db, {
-    email: s("email"),
-    handle: s("handle"),
-    displayName: s("displayName"),
-    promoCode: s("promoCode"),
-    specialty: s("specialty"),
-  });
-  if (!res.ok) return NextResponse.json({ error: MESSAGES[res.reason] }, { status: 409 });
-  const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
-  await recordAdminAudit(admin.db, {
-    actorUserId: admin.userId,
-    actorEmail: admin.email,
-    action: "tipster.create",
-    targetKey: s("promoCode").trim().toUpperCase(),
-    payloadJson: {
-      email: s("email").trim().toLowerCase(),
-      handle: s("handle").trim().replace(/^@/, "").toLowerCase(),
-      specialty: s("specialty").trim(),
-    },
-    ipSubnetHash,
-  });
-  const createdTipster = await findTipsterByPromoCode(admin.db, s("promoCode"));
-  if (createdTipster) {
-    await sendTipsterActivatedEmail(admin.db, getMailer(), {
-      userId: createdTipster.userId,
-      email: createdTipster.email,
-      displayName: createdTipster.displayName,
-      promoCode: createdTipster.promoCode,
-      trialDays: createdTipster.freeTrialDays,
-      commissionPct: createdTipster.commissionPct,
+export const POST = withAdminMutation(
+  {
+    bucket: "admin-tipsters-create",
+    limit: 30,
+    windowMs: 60_000,
+  },
+  async ({ request, user }) => {
+    const rawBody: unknown = await request.json().catch(() => null);
+    const parsed = CreateTipsterBodySchema.safeParse(rawBody);
+    if (!parsed.success) {
+      const payload = createSanitizedErrorPayload(
+        "INVALID_TIPSTER_INPUT",
+        "Correo y datos del tipster requeridos.",
+      );
+      return NextResponse.json({ ...payload, error: payload.message }, { status: 400 });
+    }
+
+    const { email, handle, displayName, promoCode, specialty } = parsed.data;
+    const res = await createTipsterCode(user.db, {
+      email,
+      handle,
+      displayName,
+      promoCode,
+      specialty,
     });
-  }
-  return NextResponse.json({ tipsters: await listTipsterCodes(admin.db) }, { status: 201 });
-}
+    if (!res.ok) {
+      return NextResponse.json({ error: MESSAGES[res.reason] }, { status: 409 });
+    }
+
+    const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
+    await recordAdminAudit(user.db, {
+      actorUserId: user.userId,
+      actorEmail: user.email,
+      action: "tipster.create",
+      targetKey: promoCode.toUpperCase(),
+      payloadJson: {
+        email: email.toLowerCase(),
+        handle: handle.replace(/^@/, "").toLowerCase(),
+        specialty,
+      },
+      ipSubnetHash,
+    });
+
+    const createdTipster = await findTipsterByPromoCode(user.db, promoCode);
+    if (createdTipster) {
+      await sendTipsterActivatedEmail(user.db, getMailer(), {
+        userId: createdTipster.userId,
+        email: createdTipster.email,
+        displayName: createdTipster.displayName,
+        promoCode: createdTipster.promoCode,
+        trialDays: createdTipster.freeTrialDays,
+        commissionPct: createdTipster.commissionPct,
+      });
+    }
+
+    const tipsters = await listTipsterCodes(user.db);
+    return NextResponse.json({ tipsters: tipsters.slice(0, MAX_TIPSTERS_RESPONSE) }, { status: 201 });
+  },
+);
