@@ -1855,9 +1855,9 @@ export function PlanTab({
 
             <div className="pt-4 border-t border-[var(--pl-border)] space-y-2.5">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <h4 className="m-0 text-sm font-extrabold text-[var(--pl-text)]">
+                <h3 className="m-0 text-sm font-extrabold text-[var(--pl-text)]">
                   ¿Tienes un cupón de acceso?
-                </h4>
+                </h3>
                 <span className="text-xs text-[var(--pl-text-muted)]">
                   Suma días directo a tu pase
                 </span>

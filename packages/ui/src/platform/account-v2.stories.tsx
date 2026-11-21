@@ -5,6 +5,7 @@ import {
 } from "./club/AccountReferralsClubView";
 import { BillingTab } from "./club/account/BillingTab";
 import { type ServerPlanPayload } from "./club/account/PlanTab";
+import { type AccountSavedView } from "./club/account/account-helpers";
 import { CanjearCouponView, type CanjearCouponViewProps } from "./components/CanjearCouponView";
 import { useSafeEffect } from "./hooks";
 import { buildPlatformDataset } from "./match-picks-engine";
@@ -12,19 +13,33 @@ import { PlatformProvider } from "./platform-provider";
 
 const EMPTY_DATASET = buildPlatformDataset([]);
 
-const SAMPLE_SAVED_VIEWS = [
+const SAMPLE_SAVED_VIEWS: AccountSavedView[] = [
   {
     id: "view-liga-mx-ev",
     name: "Liga MX · EV+ alto",
-    sport: "futbol" as const,
+    sport: "futbol",
+    league: "all",
+    band: "alta",
+    kind: "all",
+    sort: "ventaja",
     onlyPositiveEdge: true,
+    minOddsStep: 0,
+    maxOddsStep: 100,
+    window: "today",
     pinToHomeHub: true,
   },
   {
     id: "view-nba-noche",
     name: "NBA · Noche",
-    sport: "nba" as const,
+    sport: "nba",
+    league: "all",
+    band: "all",
+    kind: "all",
+    sort: "p",
     onlyPositiveEdge: true,
+    minOddsStep: 0,
+    maxOddsStep: 100,
+    window: "next48h",
     pinToHomeHub: false,
   },
 ];
@@ -150,7 +165,7 @@ function BillingStoryFrame({
         allowRoleSimulation={false}
       >
         <div className="pl-acct">
-          <BillingTab accountsEnabled={accountsEnabled} />
+          <BillingTab accountsEnabledOverride={accountsEnabled} />
         </div>
       </PlatformProvider>
     </div>
