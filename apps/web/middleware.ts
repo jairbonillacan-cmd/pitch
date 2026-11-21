@@ -1,35 +1,282 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 import { CLUB_PROFILE_HANDLE_HEADER, CLUB_REQUEST_PATH_HEADER } from "./src/profile-path";
-import {
-  getBetaCookieName,
-  isBetaPinEnabled,
-  verifyBetaCookieToken,
-} from "./src/server/beta-auth";
+
+const BETA_COOKIE_NAME = "pl_beta";
+const MUTATION_METHODS = new Set(["POST", "PUT", "PATCH", "DELETE"]);
+const DYNAMIC_CSP_PREFIXES = ["/login", "/signup", "/onboarding", "/precio", "/canjear"] as const;
+
+const FORBIDDEN_PROD_COOKIE_SECRETS: ReadonlySet<string> = new Set([
+  "reemplazar-con-secreto-aleatorio-de-32-caracteres-minimo",
+  "reemplaza-con-32-caracteres-aleatorios-minimo",
+  "dev-only-pitchlab-beta-cookie-secret-32chars",
+  "local-9990-pitchlab-beta-cookie-secret-32chars!",
+  "changeme-changeme-changeme-changeme-32",
+]);
+
+function isForbiddenProdCookieSecret(secret: string): boolean {
+  return (
+    FORBIDDEN_PROD_COOKIE_SECRETS.has(secret) ||
+    /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-|local-9990-|e2e-test-)/i.test(secret)
+  );
+}
+
+function isBetaPinEnabledEdge(): boolean {
+  const accountsOn = Boolean(process.env.DATABASE_URL && process.env.BETTER_AUTH_SECRET);
+  if (
+    process.env.NODE_ENV === "production" &&
+    accountsOn &&
+    process.env.PITCHLAB_ALLOW_BETA_PIN_IN_PROD !== "1"
+  ) {
+    return false;
+  }
+  if (process.env.NODE_ENV === "production") {
+    const code = (process.env.PITCHLAB_BETA_CODE ?? process.env.PREVIEW_ACCESS_CODE ?? "").trim();
+    const secret = (
+      process.env.PITCHLAB_COOKIE_SECRET ??
+      process.env.BETA_COOKIE_SECRET ??
+      ""
+    ).trim();
+    if (!code || secret.length < 32 || isForbiddenProdCookieSecret(secret)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function resolveBetaSigningKeyEdge(): string | null {
+  if (!isBetaPinEnabledEdge()) return null;
+  const envCode = (process.env.PITCHLAB_BETA_CODE ?? process.env.PREVIEW_ACCESS_CODE ?? "").trim();
+  const code = envCode || (process.env.NODE_ENV !== "production" ? "2026" : "");
+  if (!code) return null;
+
+  const envSecret = (
+    process.env.PITCHLAB_COOKIE_SECRET ??
+    process.env.BETA_COOKIE_SECRET ??
+    ""
+  ).trim();
+  let secret = "";
+  if (envSecret.length >= 32) {
+    if (process.env.NODE_ENV === "production" && isForbiddenProdCookieSecret(envSecret)) {
+      return null;
+    }
+    secret = envSecret;
+  } else if (process.env.NODE_ENV !== "production") {
+    secret = "dev-only-pitchlab-beta-cookie-secret-32chars";
+  } else {
+    return null;
+  }
+
+  return `${secret}|code:${code}`;
+}
+
+async function hmacSha256BytesEdge(secret: string, message: string): Promise<Uint8Array> {
+  const enc = new TextEncoder();
+  const key = await globalThis.crypto.subtle.importKey(
+    "raw",
+    enc.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const sig = await globalThis.crypto.subtle.sign("HMAC", key, enc.encode(message));
+  return new Uint8Array(sig);
+}
+
+function timingSafeEqualBytesEdge(a: Uint8Array, b: Uint8Array): boolean {
+  if (a.byteLength !== b.byteLength) return false;
+  let diff = 0;
+  for (let i = 0; i < a.byteLength; i += 1) {
+    diff |= (a[i] ?? 0) ^ (b[i] ?? 0);
+  }
+  return diff === 0;
+}
+
+async function verifyBetaCookieTokenEdge(token: string | undefined): Promise<boolean> {
+  if (!token || typeof token !== "string") return false;
+  const parts = token.split(".");
+  if (parts.length !== 3) return false;
+  const [iatStr, expStr, sigHex] = parts;
+  if (
+    !iatStr ||
+    !expStr ||
+    !sigHex ||
+    !/^\d+$/.test(iatStr) ||
+    !/^\d+$/.test(expStr) ||
+    !/^[0-9a-f]{64}$/i.test(sigHex)
+  ) {
+    return false;
+  }
+  const iat = Number.parseInt(iatStr, 10);
+  const exp = Number.parseInt(expStr, 10);
+  if (!Number.isSafeInteger(iat) || !Number.isSafeInteger(exp)) return false;
+  const nowSec = Math.floor(Date.now() / 1000);
+  if (exp <= nowSec || iat > nowSec + 300) return false;
+
+  const signingKey = resolveBetaSigningKeyEdge();
+  if (!signingKey) return false;
+
+  const expectedBytes = await hmacSha256BytesEdge(signingKey, `${iat}.${exp}`);
+  const actualBytes = new Uint8Array(32);
+  for (let i = 0; i < 32; i += 1) {
+    actualBytes[i] = Number.parseInt(sigHex.slice(i * 2, i * 2 + 2), 16);
+  }
+  return timingSafeEqualBytesEdge(expectedBytes, actualBytes);
+}
 
 async function hasValidBetaCookie(request: NextRequest): Promise<boolean> {
-  if (!isBetaPinEnabled()) return false;
+  if (!isBetaPinEnabledEdge()) return false;
   try {
-    return await verifyBetaCookieToken(request.cookies.get(getBetaCookieName())?.value);
+    return await verifyBetaCookieTokenEdge(request.cookies.get(BETA_COOKIE_NAME)?.value);
   } catch (err) {
-    // Sin PITCHLAB_BETA_CODE en producción no hay acceso por PIN; las cuentas siguen.
     void err;
     return false;
   }
 }
 
-/**
- * Filtro rápido de `/app`: deja pasar con el PIN de la beta o con la cookie de sesión de una
- * cuenta. La sesión, el registro completo y el Pase se validan en el servidor
- * (`app/app/layout.tsx` → `getViewerAccess`).
- */
+function extractHttpsOrigins(rawValues: Array<string | undefined>): string[] {
+  const origins = new Set<string>();
+  for (const raw of rawValues) {
+    if (!raw) continue;
+    for (const part of raw.split(",")) {
+      const trimmed = part.trim();
+      if (!trimmed) continue;
+      try {
+        const parsed = new URL(trimmed);
+        if (parsed.protocol === "https:") {
+          origins.add(parsed.origin);
+        }
+      } catch (err) {
+        void err;
+      }
+    }
+  }
+  return [...origins];
+}
+
+function generateCspNonce(): string {
+  const bytes = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(bytes);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 1) {
+    binary += String.fromCharCode(bytes[i] ?? 0);
+  }
+  return btoa(binary);
+}
+
+function buildDynamicCsp(nonce: string): string {
+  const isDev = process.env.NODE_ENV !== "production";
+  const captchaDisabled = process.env.PITCHLAB_CAPTCHA_PROVIDER?.trim().toLowerCase() === "none";
+  const turnstileOrigin = captchaDisabled ? "" : " https://challenges.cloudflare.com";
+
+  const scriptSrc = isDev
+    ? `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-eval'${turnstileOrigin}`
+    : `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${turnstileOrigin}`;
+  const connectSrc = isDev
+    ? `connect-src 'self' ws: wss:${turnstileOrigin}`
+    : `connect-src 'self'${turnstileOrigin}`;
+
+  const extraMediaOrigins = extractHttpsOrigins([
+    process.env.PITCHLAB_MEDIA_ORIGINS,
+    process.env.AVATAR_PUBLIC_BASE_URL,
+    process.env.S3_AVATAR_PUBLIC_BASE_URL,
+    process.env.S3_AVATAR_ENDPOINT,
+    process.env.GCS_AVATAR_PUBLIC_BASE_URL,
+  ]);
+  const baseImgSources = [
+    "'self'",
+    "data:",
+    "blob:",
+    "https://sports.bzzoiro.com",
+    "https://a.espncdn.com",
+    "https://*.blob.vercel-storage.com",
+    "https://storage.googleapis.com",
+    ...extraMediaOrigins,
+  ];
+  const imgSrc = `img-src ${[...new Set(baseImgSources)].join(" ")}`;
+  const frameSrc = captchaDisabled
+    ? "frame-src 'none'"
+    : "frame-src https://challenges.cloudflare.com";
+
+  return [
+    "default-src 'self'",
+    scriptSrc,
+    "style-src 'self' 'unsafe-inline'",
+    imgSrc,
+    "font-src 'self' data:",
+    connectSrc,
+    frameSrc,
+    "worker-src 'self'",
+    "manifest-src 'self'",
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "object-src 'none'",
+  ].join("; ");
+}
+
+function isDynamicCspRoute(pathname: string): boolean {
+  for (const prefix of DYNAMIC_CSP_PREFIXES) {
+    if (pathname === prefix || pathname.startsWith(`${prefix}/`)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function isCrossSiteExemptApiPath(pathname: string): boolean {
+  return (
+    pathname === "/api/webhooks/stripe" ||
+    pathname.startsWith("/api/webhooks/stripe/") ||
+    pathname === "/api/cron" ||
+    pathname.startsWith("/api/cron/")
+  );
+}
+
+function isPrivateNoStoreApiPath(pathname: string): boolean {
+  return (
+    pathname === "/api/me" ||
+    pathname.startsWith("/api/me/") ||
+    pathname === "/api/admin" ||
+    pathname.startsWith("/api/admin/")
+  );
+}
+
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname, search } = request.nextUrl;
 
-  // /i/* son invitaciones personales públicas: nunca piden sesión y siempre llevan noindex.
+  if (pathname === "/api" || pathname.startsWith("/api/")) {
+    const method = request.method.toUpperCase();
+    const fetchSite = request.headers.get("sec-fetch-site")?.trim().toLowerCase();
+    if (
+      MUTATION_METHODS.has(method) &&
+      fetchSite === "cross-site" &&
+      !isCrossSiteExemptApiPath(pathname)
+    ) {
+      return NextResponse.json(
+        { ok: false, error: "origen_invalido" },
+        {
+          status: 403,
+          headers: {
+            "X-Content-Type-Options": "nosniff",
+            "Cache-Control": "no-store",
+          },
+        },
+      );
+    }
+
+    const response = NextResponse.next();
+    response.headers.set("X-Content-Type-Options", "nosniff");
+    if (isPrivateNoStoreApiPath(pathname)) {
+      response.headers.set("Cache-Control", "private, no-store");
+    }
+    return response;
+  }
+
   if (pathname.startsWith("/i/")) {
     const res = NextResponse.next();
     res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    res.headers.set("X-Content-Type-Options", "nosniff");
     return res;
   }
 
@@ -43,10 +290,14 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       return NextResponse.redirect(loginUrl);
     }
 
+    const nonce = generateCspNonce();
+    const csp = buildDynamicCsp(nonce);
     const requestHeaders = new Headers(request.headers);
     requestHeaders.delete(CLUB_PROFILE_HANDLE_HEADER);
     requestHeaders.delete(CLUB_REQUEST_PATH_HEADER);
     requestHeaders.set(CLUB_REQUEST_PATH_HEADER, `${pathname}${search}`);
+    requestHeaders.set("x-nonce", nonce);
+    requestHeaders.set("Content-Security-Policy", csp);
 
     const profileHandle = /^\/app\/u\/([^/]+)\/?$/.exec(pathname)?.[1];
     if (profileHandle) {
@@ -54,7 +305,22 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     }
 
     const response = NextResponse.next({ request: { headers: requestHeaders } });
+    response.headers.set("Content-Security-Policy", csp);
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    response.headers.set("X-Content-Type-Options", "nosniff");
+    return response;
+  }
+
+  if (isDynamicCspRoute(pathname)) {
+    const nonce = generateCspNonce();
+    const csp = buildDynamicCsp(nonce);
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-nonce", nonce);
+    requestHeaders.set("Content-Security-Policy", csp);
+
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
+    response.headers.set("Content-Security-Policy", csp);
+    response.headers.set("X-Content-Type-Options", "nosniff");
     return response;
   }
 
@@ -62,5 +328,15 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ["/app", "/app/:path*", "/i/:path*", "/canjear"],
+  matcher: [
+    "/app",
+    "/app/:path*",
+    "/api/:path*",
+    "/login",
+    "/signup",
+    "/onboarding",
+    "/precio",
+    "/canjear",
+    "/i/:path*",
+  ],
 };

@@ -1,10 +1,6 @@
-/**
- * Preferencias de cuenta del socio persistidas en Postgres (`user_preferences`) con
- * sincronización bidireccional de visibilidad pública (`users.public_profile`).
- */
 import { eq } from "drizzle-orm";
 import type { Db } from "./billing";
-import { userPreferences, users } from "./schema";
+import { userPreferences, users, type SavedScreenerViewRecord } from "./schema";
 
 export type OddsFormatPref = "american" | "decimal";
 export type ThemeModePref = "dark" | "light" | "system";
@@ -12,19 +8,11 @@ export type RiskPreference = "conservador" | "medio" | "arriesgado";
 export type ResponsiblePauseKind = "24h" | "7d" | "30d";
 export type AlertCadencePref = "inmediato" | "cada_15m" | "solo_hitos";
 
-export interface SavedScreenerViewPref {
-  id: string;
-  name: string;
-  sport: string;
-  league: string;
-  band: string;
-  kind: string;
-  sort: string;
-  onlyPositiveEdge: boolean;
-  minOddsStep: number;
-  maxOddsStep: number;
-  window: string;
-}
+export type SavedScreenerViewPref = SavedScreenerViewRecord;
+
+export type SavedScreenerViewPatchInput = Omit<SavedScreenerViewPref, "pinToHomeHub"> & {
+  pinToHomeHub?: boolean;
+};
 
 export interface FollowedTopicsPref {
   leagues: string[];
@@ -38,7 +26,49 @@ export interface FollowedTopicsPref {
   savedViews?: SavedScreenerViewPref[];
 }
 
+export const MAX_PREFERRED_BOOKMAKERS = 12;
+export const MAX_SAVED_SCREENER_VIEWS = 20;
+
 const VALID_ALERT_CADENCE = new Set<AlertCadencePref>(["inmediato", "cada_15m", "solo_hitos"]);
+const VALID_SCREENER_SPORTS = new Set(["all", "futbol", "nfl", "nba", "nhl", "mlb"]);
+const VALID_SCREENER_BANDS = new Set(["all", "alta", "media", "baja"]);
+const VALID_SCREENER_KINDS = new Set([
+  "all",
+  "resultado",
+  "goles",
+  "conteos",
+  "ambos",
+  "handicap",
+]);
+const VALID_SCREENER_SORTS = new Set(["p", "hora", "momio", "ventaja", "relevancia"]);
+const VALID_SCREENER_WINDOWS = new Set(["all", "today", "next48h"]);
+const BOOKMAKER_KEY_RE = /^[a-z0-9][a-z0-9_-]{1,39}$/;
+
+function cleanSafeText(value: unknown, maxLen: number): string {
+  if (typeof value !== "string") return "";
+  let filtered = "";
+  for (const ch of value) {
+    const code = ch.charCodeAt(0);
+    if (code < 32 || code === 127 || ch === "<" || ch === ">") continue;
+    filtered += ch;
+  }
+  return filtered.trim().slice(0, maxLen);
+}
+
+export function sanitizePreferredBookmakers(raw: unknown): string[] {
+  if (!Array.isArray(raw)) return [];
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const item of raw) {
+    if (typeof item !== "string") continue;
+    const normalized = item.trim().toLowerCase().replace(/[\s-]+/g, "_");
+    if (!BOOKMAKER_KEY_RE.test(normalized) || seen.has(normalized)) continue;
+    seen.add(normalized);
+    out.push(normalized);
+    if (out.length >= MAX_PREFERRED_BOOKMAKERS) break;
+  }
+  return out;
+}
 
 export function sanitizeSavedViewsPref(raw: unknown): SavedScreenerViewPref[] {
   if (!Array.isArray(raw)) return [];
@@ -47,32 +77,50 @@ export function sanitizeSavedViewsPref(raw: unknown): SavedScreenerViewPref[] {
   for (const item of raw) {
     if (!item || typeof item !== "object" || Array.isArray(item)) continue;
     const obj = item as Record<string, unknown>;
-    const id = typeof obj.id === "string" ? obj.id.trim().slice(0, 48) : "";
-    const name = typeof obj.name === "string" ? obj.name.trim().slice(0, 40) : "";
+    const id = cleanSafeText(obj.id, 48);
+    const name = cleanSafeText(obj.name, 40);
     if (id.length < 2 || name.length < 2 || seen.has(id)) continue;
     seen.add(id);
-    const minOddsStep =
+
+    const rawSport = cleanSafeText(obj.sport, 24).toLowerCase();
+    const sport = VALID_SCREENER_SPORTS.has(rawSport) ? rawSport : "all";
+    const rawLeague = cleanSafeText(obj.league, 48);
+    const league = rawLeague.length > 0 ? rawLeague : "all";
+    const rawBand = cleanSafeText(obj.band, 24).toLowerCase();
+    const band = VALID_SCREENER_BANDS.has(rawBand) ? rawBand : "all";
+    const rawKind = cleanSafeText(obj.kind, 24).toLowerCase();
+    const kind = VALID_SCREENER_KINDS.has(rawKind) ? rawKind : "all";
+    const rawSort = cleanSafeText(obj.sort, 24).toLowerCase();
+    const sort = VALID_SCREENER_SORTS.has(rawSort) ? rawSort : "p";
+    const rawWindow = cleanSafeText(obj.window, 24);
+    const windowVal = VALID_SCREENER_WINDOWS.has(rawWindow) ? rawWindow : "all";
+
+    const rawMin =
       typeof obj.minOddsStep === "number" && Number.isFinite(obj.minOddsStep)
         ? Math.max(0, Math.min(99, Math.round(obj.minOddsStep)))
         : 0;
-    const maxOddsStep =
+    const rawMax =
       typeof obj.maxOddsStep === "number" && Number.isFinite(obj.maxOddsStep)
-        ? Math.max(minOddsStep + 1, Math.min(100, Math.round(obj.maxOddsStep)))
+        ? Math.max(1, Math.min(100, Math.round(obj.maxOddsStep)))
         : 100;
+    const minOddsStep = Math.min(rawMin, rawMax - 1);
+    const maxOddsStep = Math.max(rawMax, minOddsStep + 1);
+
     out.push({
       id,
       name,
-      sport: typeof obj.sport === "string" ? obj.sport.trim().slice(0, 24) : "all",
-      league: typeof obj.league === "string" ? obj.league.trim().slice(0, 48) : "all",
-      band: typeof obj.band === "string" ? obj.band.trim().slice(0, 24) : "all",
-      kind: typeof obj.kind === "string" ? obj.kind.trim().slice(0, 24) : "all",
-      sort: typeof obj.sort === "string" ? obj.sort.trim().slice(0, 24) : "p",
+      sport,
+      league,
+      band,
+      kind,
+      sort,
       onlyPositiveEdge: Boolean(obj.onlyPositiveEdge),
       minOddsStep,
       maxOddsStep,
-      window: typeof obj.window === "string" ? obj.window.trim().slice(0, 24) : "all",
+      window: windowVal,
+      pinToHomeHub: Boolean(obj.pinToHomeHub),
     });
-    if (out.length >= 12) break;
+    if (out.length >= MAX_SAVED_SCREENER_VIEWS) break;
   }
   return out;
 }
@@ -93,7 +141,7 @@ export function sanitizeFollowedTopics(raw: unknown): FollowedTopicsPref {
     return { leagues: [], teams: [] };
   }
   const obj = raw as Record<string, unknown>;
-  const books = cleanList(obj.books, 20);
+  const books = sanitizePreferredBookmakers(obj.books);
   const players = cleanList(obj.players, 60);
   const showInactiveLeagues =
     typeof obj.showInactiveLeagues === "boolean" ? obj.showInactiveLeagues : undefined;
@@ -142,27 +190,17 @@ export interface UserPreferencesRecord {
   pauseCommunity: boolean;
   responsiblePauseKind: ResponsiblePauseKind | null;
   responsiblePauseUntil: Date | null;
-  /** Privacidad de Mi récord por bloque y dato (la normaliza la app). */
   recordPrivacy: Record<string, unknown>;
-  /** Banca inicial en pesos (centavos); siempre privada. */
   bankrollStartMxnCentavos: number | null;
-  /** Ligas y equipos seguidos en Comunidad (+ casas informativas de referencia). */
   followedTopics: FollowedTopicsPref;
-  /** Jugadores seguidos por el socio (`<league>.<team>.<playerSlug>`). */
   followedPlayers: string[];
-  /** Casas de referencia informativas seleccionadas por el socio. */
+  preferredBookmakers: string[];
   preferredBooks: string[];
-  /** Mostrar competiciones sin partidos en los próximos 30 días. */
   showInactiveLeagues: boolean;
-  /** Recibir alertas cuando una línea se mueva ≥ 5 % a favor del modelo. */
   lineMoveAlerts: boolean;
-  /** Idioma preferido (`es-MX`). */
   language: string;
-  /** Frecuencia máxima de notificaciones push/en-app (`inmediato`, `cada_15m`, `solo_hitos`). */
   alertCadence: AlertCadencePref;
-  /** Vistas guardadas del explorador de picks (`/app/picks`). */
   savedViews: SavedScreenerViewPref[];
-  /** Insignias destacadas (máximo 3); la app las filtra contra las que el socio ya ganó. */
   featuredBadges: string[];
   updatedAt: Date | null;
 }
@@ -190,12 +228,13 @@ export interface UserPreferencesPatch {
   bankrollStartMxnCentavos?: number | null;
   followedTopics?: FollowedTopicsPref;
   followedPlayers?: string[];
+  preferredBookmakers?: string[];
   preferredBooks?: string[];
   showInactiveLeagues?: boolean;
   lineMoveAlerts?: boolean;
   language?: string;
   alertCadence?: AlertCadencePref;
-  savedViews?: SavedScreenerViewPref[];
+  savedViews?: SavedScreenerViewPatchInput[];
   featuredBadges?: string[];
 }
 
@@ -243,6 +282,7 @@ export function defaultUserPreferences(publicProfileFallback = true): UserPrefer
       savedViews: [],
     },
     followedPlayers: [],
+    preferredBookmakers: [],
     preferredBooks: [...DEFAULT_BOOKS],
     showInactiveLeagues: false,
     lineMoveAlerts: true,
@@ -262,7 +302,6 @@ export async function getUserPreferences(db: Db, userId: string): Promise<UserPr
   return toUserPreferencesRecord(pref, user?.publicProfile ?? null);
 }
 
-/** Fila de `user_preferences` (o su ausencia) a preferencias completas. */
 export function toUserPreferencesRecord(
   pref: typeof userPreferences.$inferSelect | undefined,
   publicProfile: boolean | null,
@@ -271,6 +310,12 @@ export function toUserPreferencesRecord(
   if (!pref) return defaultUserPreferences(fallbackPublic);
 
   const ft = sanitizeFollowedTopics((pref as { followedTopics?: unknown }).followedTopics);
+  const colBookmakers = sanitizePreferredBookmakers(
+    (pref as { preferredBookmakers?: unknown }).preferredBookmakers,
+  );
+  const preferredBookmakers = colBookmakers.length > 0 ? colBookmakers : (ft.books ?? []);
+  const colSavedViews = sanitizeSavedViewsPref((pref as { savedViews?: unknown }).savedViews);
+  const savedViews = colSavedViews.length > 0 ? colSavedViews : (ft.savedViews ?? []);
 
   return {
     oddsFormat: pref.oddsFormat === "decimal" ? "decimal" : "american",
@@ -301,16 +346,19 @@ export function toUserPreferencesRecord(
         : null,
     responsiblePauseUntil: pref.responsiblePauseUntil ?? null,
     recordPrivacy:
-      pref.recordPrivacy && typeof pref.recordPrivacy === "object" ? (pref.recordPrivacy as Record<string, unknown>) : {},
+      pref.recordPrivacy && typeof pref.recordPrivacy === "object"
+        ? (pref.recordPrivacy as Record<string, unknown>)
+        : {},
     bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos ?? null,
     followedTopics: ft,
     followedPlayers: ft.players ?? [],
-    preferredBooks: ft.books && ft.books.length > 0 ? ft.books : [...DEFAULT_BOOKS],
+    preferredBookmakers,
+    preferredBooks: preferredBookmakers.length > 0 ? preferredBookmakers : [...DEFAULT_BOOKS],
     showInactiveLeagues: ft.showInactiveLeagues ?? false,
     lineMoveAlerts: ft.lineMoveAlerts ?? true,
     language: ft.language ?? "es-MX",
     alertCadence: ft.alertCadence ?? "inmediato",
-    savedViews: ft.savedViews ?? [],
+    savedViews,
     featuredBadges: pref.featuredBadges ?? [],
     updatedAt: pref.updatedAt,
   };
@@ -339,9 +387,6 @@ export async function upsertUserPreferences(
         ? Math.min(10_000_000, Math.max(1_000, Math.round(patch.unitMxnCentavos)))
         : current.unitMxnCentavos;
     const showMxnBalance = patch.showMxnBalance ?? current.showMxnBalance;
-    // «Perfil público» y «Aparecer en el ranking» son independientes, con una sola regla:
-    // sin perfil público no hay ranking (el ranking muestra el récord). Salir del ranking
-    // no vuelve privado el perfil.
     const publicRecordVisible = patch.publicRecordVisible ?? current.publicRecordVisible;
     const showInRanking = publicRecordVisible ? (patch.showInRanking ?? current.showInRanking) : false;
     const emailPickResults = patch.emailPickResults ?? current.emailPickResults;
@@ -360,11 +405,17 @@ export async function upsertUserPreferences(
           ? null
           : Math.min(1_000_000_000, Math.max(0, Math.round(patch.bankrollStartMxnCentavos)));
     const baseFollowedTopics =
-      patch.followedTopics !== undefined ? sanitizeFollowedTopics(patch.followedTopics) : current.followedTopics;
-    const nextBooks =
-      patch.preferredBooks !== undefined
-        ? Array.from(new Set(patch.preferredBooks.map((b) => b.trim().toLowerCase()).filter(Boolean))).slice(0, 20)
-        : baseFollowedTopics.books ?? current.preferredBooks;
+      patch.followedTopics !== undefined
+        ? sanitizeFollowedTopics(patch.followedTopics)
+        : current.followedTopics;
+    const nextBookmakers =
+      patch.preferredBookmakers !== undefined
+        ? sanitizePreferredBookmakers(patch.preferredBookmakers)
+        : patch.preferredBooks !== undefined
+          ? sanitizePreferredBookmakers(patch.preferredBooks)
+          : patch.followedTopics?.books !== undefined
+            ? sanitizePreferredBookmakers(baseFollowedTopics.books)
+            : current.preferredBookmakers;
     const nextPlayers =
       patch.followedPlayers !== undefined
         ? Array.from(new Set(patch.followedPlayers.map((p) => p.trim()).filter(Boolean))).slice(0, 60)
@@ -388,12 +439,14 @@ export async function upsertUserPreferences(
     const nextSavedViews =
       patch.savedViews !== undefined
         ? sanitizeSavedViewsPref(patch.savedViews)
-        : baseFollowedTopics.savedViews ?? current.savedViews;
+        : patch.followedTopics?.savedViews !== undefined
+          ? sanitizeSavedViewsPref(baseFollowedTopics.savedViews)
+          : current.savedViews;
     const followedTopics: FollowedTopicsPref = {
       leagues: baseFollowedTopics.leagues,
       teams: baseFollowedTopics.teams,
       ...(nextPlayers.length > 0 ? { players: nextPlayers } : {}),
-      ...(nextBooks.length > 0 ? { books: nextBooks } : {}),
+      ...(nextBookmakers.length > 0 ? { books: nextBookmakers } : {}),
       showInactiveLeagues: nextShowInactive,
       lineMoveAlerts: nextLineMoveAlerts,
       language: nextLanguage,
@@ -444,6 +497,8 @@ export async function upsertUserPreferences(
         bankrollStartMxnCentavos,
         followedTopics,
         featuredBadges,
+        preferredBookmakers: nextBookmakers,
+        savedViews: nextSavedViews,
         updatedAt: now,
       })
       .onConflictDoUpdate({
@@ -472,6 +527,8 @@ export async function upsertUserPreferences(
           bankrollStartMxnCentavos,
           followedTopics,
           featuredBadges,
+          preferredBookmakers: nextBookmakers,
+          savedViews: nextSavedViews,
           updatedAt: now,
         },
       });
