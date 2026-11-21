@@ -1,7 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { PBar } from "../../sports";
+import {
+  Button,
+  SofascoreCard,
+  SofascoreKpiStrip,
+  SofascoreTable,
+  SofascoreTabs,
+  type SofascoreKpiItem,
+  type SofascoreTabItem,
+  type SofascoreTableColumn,
+} from "../../components/ui/primitives";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import {
   AtmosphereStage,
@@ -13,13 +22,151 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import {
+  CORTEX_SAMPLE_QUOTE,
   MEMBERSHIP_SPEC,
   PRECISION_BUCKETS,
   SPACETIME_ENGINES,
   SPACETIME_METRICS_HEADLINE,
+  SPACETIME_VS_TIPSTER_ROWS,
 } from "../spacetime-catalog";
+import type {
+  PrecisionBucket,
+  SpacetimeEngineSpec,
+  SpacetimeVsTipsterRow,
+} from "../types";
 
 export { PublicSharedPickSurface as PublicTipsterPickSurface } from "./AuthAndOnboardingSurfaces";
+
+const ENGINE_COLUMNS: readonly SofascoreTableColumn<SpacetimeEngineSpec>[] = [
+  {
+    key: "engine",
+    header: "Motor",
+    sticky: true,
+    render: (eng) => (
+      <div className="pl-ed-engine-cell">
+        <span aria-hidden="true" className="pl-ed-engine-mono num">
+          {eng.mono}
+        </span>
+        <div className="pl-ed-engine-meta">
+          <span className="pl-ed-engine-name">
+            {eng.shortName} <span className="pl-ed-engine-sub num">{eng.version}</span>
+          </span>
+          <span className="pl-ed-engine-sub">{eng.pillar}</span>
+          <span className="pl-ed-engine-sub num">{eng.domain}</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    key: "summary",
+    header: "Qué analiza",
+    render: (eng) => (
+      <div>
+        <p className="pl-ed-engine-reads">{eng.summary}</p>
+        <p className="pl-ed-engine-cadence num">{eng.retrainCadence}</p>
+      </div>
+    ),
+  },
+  {
+    key: "proof",
+    header: "Evidencia fuera de muestra",
+    numeric: true,
+    align: "end",
+    render: (eng) => (
+      <div className="pl-ed-proof-cell">
+        <span className={`pl-ed-proof-fig num${eng.proofTone === "ok" ? " is-ok" : ""}`}>
+          {eng.proofFigure}
+        </span>
+        <span className="pl-ed-proof-ctx num">{eng.inputsLabel}</span>
+      </div>
+    ),
+  },
+];
+
+const PRECISION_COLUMNS: readonly SofascoreTableColumn<PrecisionBucket>[] = [
+  {
+    key: "band",
+    header: "Banda",
+    sticky: true,
+    render: (bucket) => (
+      <div className="pl-ed-pick-cell">
+        <span className="pl-ed-pick-label">{bucket.label}</span>
+        <span className="pl-ed-pick-meta">{bucket.rangeLabel}</span>
+      </div>
+    ),
+  },
+  {
+    key: "promised",
+    header: "Prob. anunciada",
+    numeric: true,
+    align: "end",
+    render: (bucket) => (
+      <div style={{ minInlineSize: 120 }}>
+        <strong className="num">{(bucket.promisedMeanP * 100).toFixed(1)} %</strong>
+        <div className="pl-ed-flat-track" style={{ marginTop: 6 }} aria-hidden="true">
+          <span
+            className="pl-ed-flat-fill"
+            style={{ width: `${Math.round(bucket.promisedMeanP * 100)}%` }}
+          />
+        </div>
+      </div>
+    ),
+  },
+  {
+    key: "actual",
+    header: "Real auditado",
+    numeric: true,
+    align: "end",
+    render: (bucket) =>
+      bucket.actualHitRate !== null ? (
+        <div style={{ minInlineSize: 120 }}>
+          <strong className="num" style={{ color: "var(--pl-success)" }}>
+            {(bucket.actualHitRate * 100).toFixed(1)} %
+          </strong>
+          <div className="pl-ed-flat-track" style={{ marginTop: 6 }} aria-hidden="true">
+            <span
+              className="pl-ed-flat-fill pl-ed-flat-fill--actual"
+              style={{ width: `${Math.round(bucket.actualHitRate * 100)}%` }}
+            />
+          </div>
+        </div>
+      ) : (
+        <span className="pl-ed-muted">Se publica con picks auditados</span>
+      ),
+  },
+  {
+    key: "sample",
+    header: "Muestra",
+    numeric: true,
+    align: "end",
+    render: (bucket) => (
+      <span className="num pl-ed-muted">
+        {bucket.auditedPicksCount === null
+          ? "Auditoría en curso"
+          : `${bucket.auditedPicksCount.toLocaleString("es-MX")} auditados`}
+      </span>
+    ),
+  },
+];
+
+const VS_TIPSTER_COLUMNS: readonly SofascoreTableColumn<SpacetimeVsTipsterRow>[] = [
+  {
+    key: "criterion",
+    header: "Criterio",
+    sticky: true,
+    render: (row) => row.criterion,
+  },
+  {
+    key: "pitchlab",
+    header: "PitchLab",
+    render: (row) => <strong className="num">{row.pitchlab}</strong>,
+  },
+  {
+    key: "tipster",
+    header: "Tipster típico",
+    render: (row) => <span className="pl-ed-muted">{row.tipster}</span>,
+  },
+];
 
 export function TechPrecisionSection({
   inClub = false,
@@ -33,358 +180,176 @@ export function TechPrecisionSection({
   const hasFullAccess = viewerRole !== "visitor";
   const isPrimaryHeading = isStandalone || inClub;
   const PrimaryHeadingTag = isPrimaryHeading ? "h1" : "h2";
-  const SubHeadingTag = isPrimaryHeading ? "h2" : "h3";
+
+  const kpiItems: SofascoreKpiItem[] = [
+    {
+      id: "matches",
+      label: "Partidos históricos en los motores",
+      value: SPACETIME_METRICS_HEADLINE.historicalMatches,
+      delta: `${SPACETIME_METRICS_HEADLINE.holdoutTestMatches} prueba`,
+      tone: "brand",
+    },
+    {
+      id: "telemetry",
+      label: "Registros normalizados",
+      value: SPACETIME_METRICS_HEADLINE.telemetryPoints,
+      delta: `${SPACETIME_METRICS_HEADLINE.variablesPerMatch} variables`,
+    },
+    {
+      id: "clv",
+      label: "Ventaja CLV fuera de muestra",
+      value: SPACETIME_METRICS_HEADLINE.closingLineBeatPct,
+      delta: "Temporada 2024–25",
+      tone: "positive",
+    },
+    {
+      id: "ece",
+      label: "Error de calibración",
+      value: SPACETIME_METRICS_HEADLINE.calibrationError,
+      delta: "5 modelos propios",
+      tone: "positive",
+    },
+  ];
+
+  const primaryHref = hasFullAccess ? (inClub ? "/app" : "/app/parlays") : upgradeHref;
+  const primaryLabel = hasFullAccess
+    ? inClub
+      ? "Volver a partidos de hoy"
+      : "Armar un parlay"
+    : "Activar Pase PitchLab Ultra";
 
   return (
-    <section id="motores" className="space-y-6">
-      <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-2xl p-6 sm:p-8 space-y-6">
-        <div className="relative z-10 space-y-6">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="space-y-2 max-w-2xl">
-              <span className="pl-pill pl-pill--brand">
-                <MaestroIcon name="cpu" size={14} />
-                <span>
-                  Cómo calculamos
-                </span>
-              </span>
-
-              <PrimaryHeadingTag
-                className={`m-0 ${
-                  isPrimaryHeading ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl"
-                } font-extrabold tracking-tight leading-tight`}
-              >
+    <section id="motores" className="pl-ed-stack" data-tech-precision-section="">
+      <SofascoreCard>
+        <div className="pl-ed-stack">
+          <div className="pl-ed-head-row">
+            <div className="pl-ed-head-copy">
+              <p className="pl-ed-eyebrow">Cómo calculamos</p>
+              <PrimaryHeadingTag className={isPrimaryHeading ? "pl-ed-title" : "pl-ed-h2"}>
                 Modelos probados con partidos que no vieron al entrenar.
               </PrimaryHeadingTag>
-
-              <p
-                className="m-0 text-sm sm:text-base leading-relaxed"
-                style={{ color: "var(--pl-text-secondary)" }}
-              >
-                Cada versión se prueba con{" "}
+              <p className="pl-ed-lede">
+                Cada versión se evalúa con{" "}
                 <strong className="num">
                   {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos
                 </strong>{" "}
-                que el modelo no usó para aprender, y se compara con los momios del mercado antes
-                de publicarse.
+                históricos y{" "}
+                <strong className="num">
+                  {SPACETIME_METRICS_HEADLINE.holdoutTestMatches} partidos
+                </strong>{" "}
+                fuera de muestra antes de publicarse, sin datos posteriores al silbatazo.
               </p>
             </div>
-
-            <div
-              className="glass-ring rounded-xl p-4 space-y-1.5 shrink-0"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="flex items-center gap-2 text-xs font-bold"
-                style={{ color: "var(--pl-success)" }}
-              >
-                <span
-                  className="w-2 h-2 rounded-full inline-block"
-                  style={{ background: "var(--pl-success)" }}
-                  aria-hidden="true"
-                />
-                <span>Validación fuera de muestra</span>
-              </div>
-              <div
-                className="num text-xs"
-                style={{ color: "var(--pl-text-secondary)" }}
-              >
-                Temporada de prueba: <strong>2024–25</strong>
-              </div>
-              <div className="num text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Sin datos posteriores al partido
-              </div>
-            </div>
+            <span className="pl-ed-badge pl-ed-badge--ok">
+              <span className="pl-ed-badge-dot" aria-hidden="true" />
+              <span>Validación fuera de muestra · 2024–25</span>
+            </span>
           </div>
 
-          {/* 4 KPIs globales del laboratorio */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 num">
-            <div
-              className="glass-ring rounded-xl p-4"
-              style={{ background: "var(--pl-surface)" }}
+          <SofascoreKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
+
+          <div className="pl-ed-actions">
+            <Button
+              variant="primary"
+              onClick={() => navigateTo(primaryHref)}
             >
-              <div
-                className="text-2xl sm:text-3xl font-extrabold"
-                style={{ color: "var(--pl-brand)" }}
-              >
-                {SPACETIME_METRICS_HEADLINE.historicalMatches}
-              </div>
-              <div
-                className="text-xs font-medium mt-0.5"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                Partidos históricos en los motores
-              </div>
-            </div>
-
-            <div
-              className="glass-ring rounded-xl p-4"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="text-2xl sm:text-3xl font-extrabold"
-                style={{ color: "var(--pl-accent)" }}
-              >
-                {SPACETIME_METRICS_HEADLINE.telemetryPoints}
-              </div>
-              <div
-                className="text-xs font-medium mt-0.5"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                Registros del feature store (28 fuentes)
-              </div>
-            </div>
-
-            <div
-              className="glass-ring rounded-xl p-4"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div
-                className="text-2xl sm:text-3xl font-extrabold"
-                style={{ color: "var(--pl-success)" }}
-              >
-                {SPACETIME_METRICS_HEADLINE.closingLineBeatPct}
-              </div>
-              <div
-                className="text-xs font-medium mt-0.5"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                Rendimiento en la temporada de prueba
-              </div>
-            </div>
-
-            <div
-              className="glass-ring rounded-xl p-4"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div className="text-2xl sm:text-3xl font-extrabold">5 modelos</div>
-              <div
-                className="text-xs font-medium mt-0.5"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                Uno por tipo de pick
-              </div>
-            </div>
-          </div>
-
-          {/* 6-card 3x2 grid: 5 motores propietarios + 6ta tarjeta comparativa */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {SPACETIME_ENGINES.map((eng) => {
-              const pillarPillClass =
-                eng.pillar === "Inteligencia Artificial"
-                  ? "pl-pill pl-pill--cortex"
-                  : eng.pillar === "Machine Learning"
-                    ? "pl-pill pl-pill--brand"
-                    : "pl-pill pl-pill--info";
-
-              return (
-                <article
-                  key={eng.key}
-                  className="glass-ring glass-card rounded-xl p-4 flex flex-col justify-between gap-3"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className={pillarPillClass}>{eng.pillar}</span>
-                      <span
-                        className="num text-xs font-semibold"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
-                        {eng.version}
-                      </span>
-                    </div>
-                    <SubHeadingTag className="m-0 text-base font-extrabold tracking-tight">
-                      {eng.name}
-                    </SubHeadingTag>
-                    <div
-                      className="text-xs font-semibold"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      {eng.domain} · {eng.retrainCadence}
-                    </div>
-                    <p
-                      className="m-0 text-xs leading-relaxed"
-                      style={{ color: "var(--pl-text-secondary)" }}
-                    >
-                      {eng.summary}
-                    </p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="ticket-perf" />
-                    <div
-                      className="text-xs font-bold flex items-start gap-1.5"
-                      style={{ color: "var(--pl-success)" }}
-                    >
-                      <MaestroIcon name="check" size={13} className="mt-0.5" />
-                      <span>{eng.inputsLabel}</span>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-
-            {/* 6ta tarjeta: Comparativa directa contra Tipster Tradicional */}
-            <article
-              className="glass-ring rounded-xl p-4 flex flex-col justify-between gap-3"
-              style={{ background: "var(--pl-compare-surface)" }}
-            >
-              <div className="space-y-2">
-                <span className="pl-pill pl-pill--brand">Comparativa</span>
-                <SubHeadingTag className="m-0 text-base font-extrabold tracking-tight">
-                  PitchLab vs Tipster Tradicional
-                </SubHeadingTag>
-                <ul
-                  className="m-0 p-0 list-none space-y-1.5 text-xs"
-                  style={{ color: "var(--pl-text-secondary)" }}
-                >
-                  <li className="flex items-start gap-1.5">
-                    <MaestroIcon
-                      name="check"
-                      size={13}
-                      className="mt-0.5"
-                      style={{ color: "var(--pl-success)" }}
-                    />
-                    <span>
-                      <strong>hasta 5 picks por partido</strong> + Armador de Parlays sin choques
-                      lógicos.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-1.5">
-                    <MaestroIcon
-                      name="check"
-                      size={13}
-                      className="mt-0.5"
-                      style={{ color: "var(--pl-success)" }}
-                    />
-                    <span>
-                      <strong>Boletos inmutables:</strong> nadie borra derrotas después del
-                      silbatazo.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-1.5">
-                    <MaestroIcon
-                      name="check"
-                      size={13}
-                      className="mt-0.5"
-                      style={{ color: "var(--pl-success)" }}
-                    />
-                    <span>
-                      <strong>${MEMBERSHIP_SPEC.monthlyMxn} MXN al mes</strong>, todo incluido.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              <a
-                href={hasFullAccess ? (inClub ? "/app" : "/app/parlays") : upgradeHref}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo(hasFullAccess ? (inClub ? "/app" : "/app/parlays") : upgradeHref);
-                }}
-                className="pl-btn-primary w-full !min-h-[36px] !text-xs"
-              >
-                <span>
-                  {hasFullAccess
-                    ? inClub
-                      ? "Volver a partidos de hoy"
-                      : "Armar un parlay"
-                    : "Activar Pase PitchLab Ultra"}
-                </span>
-                <MaestroIcon name="arrowRight" size={13} />
-              </a>
-            </article>
+              <span>{primaryLabel}</span>
+              <MaestroIcon name="arrowRight" size={15} />
+            </Button>
+            <a href="/resultados" className="pl-ed-link-btn">
+              Ver resultados FT
+            </a>
+            <a href="/verificacion" className="pl-ed-link-btn">
+              Verificar recibo SHA-256
+            </a>
           </div>
         </div>
+      </SofascoreCard>
+
+      <div className="pl-ed-table-stack">
+        <SofascoreCard
+          title="Cinco motores propietarios de PitchLab"
+          meta="Sin datos posteriores al partido"
+        >
+          <SofascoreTable
+            caption="Motores estadísticos de PitchLab, alcance y evidencia fuera de muestra"
+            columns={ENGINE_COLUMNS}
+            rows={SPACETIME_ENGINES}
+            rowKey={(eng) => eng.key}
+          />
+        </SofascoreCard>
       </div>
 
-      {/* Termómetro de Precisión Real en Cancha (4 bloques calibrados) */}
-      <div className="glass-ring glass-card rounded-2xl p-6 space-y-4">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div className="space-y-1">
-            <SubHeadingTag className="m-0 text-xl font-extrabold tracking-tight">
-              Probabilidad anunciada contra resultado real
-            </SubHeadingTag>
-            <p className="m-0 text-sm" style={{ color: "var(--pl-text-muted)" }}>
-              Si decimos 70 %, esos picks deberían acertar cerca de 7 de cada 10 veces. Aquí
-              publicamos cuánto acertaron de verdad.
+      <div className="pl-ed-table-stack">
+        <SofascoreCard
+          title="Probabilidad anunciada contra resultado real"
+          meta="Bandas de calibración públicas"
+        >
+          <div className="pl-ed-stack">
+            <p className="pl-ed-subcopy">
+              Si decimos 70 %, esos picks deberían cumplirse cerca de 7 de cada 10 veces. Aquí
+              publicamos la banda de referencia y su seguimiento auditado.
+            </p>
+            <SofascoreTable
+              caption="Bandas de calibración anunciada contra resultado auditado"
+              columns={PRECISION_COLUMNS}
+              rows={PRECISION_BUCKETS}
+              rowKey={(bucket) => bucket.id}
+            />
+          </div>
+        </SofascoreCard>
+      </div>
+
+      <div className="pl-ed-split">
+        <div className="pl-ed-table-stack">
+          <SofascoreCard title="PitchLab contra un tipster típico" meta="Comparativa directa">
+            <SofascoreTable
+              caption="Comparativa estructural entre PitchLab y un tipster típico"
+              columns={VS_TIPSTER_COLUMNS}
+              rows={SPACETIME_VS_TIPSTER_ROWS}
+              rowKey={(row) => row.criterion}
+            />
+          </SofascoreCard>
+        </div>
+
+        <SofascoreCard title="Cortex IA lo explica en claro" meta="Trazabilidad total">
+          <div className="pl-ed-stack">
+            <blockquote className="pl-ed-quote">{CORTEX_SAMPLE_QUOTE}</blockquote>
+            <p className="pl-ed-subcopy">
+              Cortex IA solo resume lo que producen Tachyon, Singularity, Minkowski y Geodesic. Si
+              falta una alineación o un dato relevante, lo advierte antes del partido.
+            </p>
+            <p className="pl-ed-muted">
+              Contenido estrictamente analítico para mayores de 18 años en México. No aceptamos
+              apuestas ni garantizamos resultados futuros.
             </p>
           </div>
-          <span className="pl-pill pl-pill--success num">
-            Datos públicos
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {PRECISION_BUCKETS.map((b) => (
-            <div
-              key={b.id}
-              className="glass-ring rounded-xl p-4 space-y-2.5"
-              style={{ background: "var(--pl-surface)" }}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <strong className="font-bold text-sm">{b.label}</strong>
-                <span
-                  className="num text-xs font-semibold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  {b.auditedPicksCount === null
-                    ? "Auditoría en curso"
-                    : `${b.auditedPicksCount.toLocaleString("es-MX")} auditados`}
-                </span>
-              </div>
-
-              <div className="space-y-1.5 num text-xs">
-                <div className="flex justify-between">
-                  <span style={{ color: "var(--pl-text-muted)" }}>
-                    Prometido: <strong style={{ color: "var(--pl-text)" }}>{(b.promisedMeanP * 100).toFixed(1)} %</strong>
-                  </span>
-                  <span style={{ color: "var(--pl-success)" }}>
-                    Real auditado:{" "}
-                    <strong>
-                      {b.actualHitRate === null ? "se publica con los primeros picks" : `${(b.actualHitRate * 100).toFixed(1)} %`}
-                    </strong>
-                  </span>
-                </div>
-                <PBar p={b.promisedMeanP} lead />
-                {b.actualHitRate !== null ? (
-                  <div
-                    className="pbar pos"
-                    style={
-                      {
-                        "--w": `${(b.actualHitRate * 100).toFixed(1)}%`,
-                      } as React.CSSProperties
-                    }
-                  >
-                    <span />
-                  </div>
-                ) : null}
-              </div>
-
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                {b.rangeLabel}
-                {b.closingBeatRate !== null
-                  ? ` · Supera el cierre en ${(b.closingBeatRate * 100).toFixed(1)} %`
-                  : ""}
-              </p>
-            </div>
-          ))}
-        </div>
+        </SofascoreCard>
       </div>
     </section>
   );
 }
+
+const BILLING_TABS: readonly SofascoreTabItem[] = [
+  { id: "monthly", label: `Mensual · $${MEMBERSHIP_SPEC.monthlyMxn}` },
+  {
+    id: "annual",
+    label: `Anual · $${MEMBERSHIP_SPEC.annualMxn.toLocaleString("es-MX")} (Ahorras 4 meses)`,
+  },
+];
 
 export function PlansAndReferralsSection({
   isStandalone = false,
 }: {
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const { month1NoCardMode, accountsEnabled, hasAccountSession, paymentMode, upgradeHref } = usePlatformCore();
+  const { month1NoCardMode, accountsEnabled, hasAccountSession, paymentMode, upgradeHref } =
+    usePlatformCore();
   const { navigateTo, pushToast } = usePlatformActions();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const [checkoutBusy, setCheckoutBusy] = useState<boolean>(false);
 
-  // En modo `transfer` (Beta 1.0) no se abre Stripe Checkout; se dirige a Mi plan o al registro.
-  const handleSubscribe = async () => {
+  const handleSubscribe = async (): Promise<void> => {
     const planTarget = `/app/account?tab=plan&plan=${billing}#transfer`;
     if (paymentMode === "transfer") {
       if (hasAccountSession) {
@@ -411,29 +376,25 @@ export function PlansAndReferralsSection({
       pushToast(result.error ?? "No se pudo abrir el pago.", "warning");
     }
   };
+
   const isAnnual = billing === "annual";
   const HeadingTag = isStandalone ? "h1" : "h2";
-  const SubHeadingTag = isStandalone ? "h2" : "h3";
 
   const checklistItems = [
-    "hasta 5 picks por partido (Conservador, Medio, Arriesgado y Totales)",
+    "Hasta 5 picks por partido (Conservador, Medio, Arriesgado y Totales)",
     "Armador de parlays de 2 a 6 selecciones, también del mismo partido",
     "Todos los picks y mercados, con resumen previo y bajas reportadas",
     "Comparador de momios y comunidad de socios",
   ];
 
   return (
-    <section id="pase-total" className="space-y-5">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="space-y-1">
-          <HeadingTag
-            className={`m-0 ${
-              isStandalone ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl"
-            } font-extrabold tracking-tight`}
-          >
+    <section id="pase-total" className="pl-ed-stack">
+      <div className="pl-ed-head-row">
+        <div className="pl-ed-head-copy">
+          <HeadingTag className={isStandalone ? "pl-ed-title" : "pl-ed-h2"}>
             Un solo plan: Pase PitchLab Ultra.
           </HeadingTag>
-          <p className="m-0 text-sm" style={{ color: "var(--pl-text-muted)" }}>
+          <p className="pl-ed-subcopy">
             Menos de $10 pesos al día por todos los picks, parlays sin límite y la comunidad.
             {paymentMode === "transfer"
               ? " Precios con IVA incluido · activación por transferencia SPEI o cupón en Beta 1.0."
@@ -441,55 +402,29 @@ export function PlansAndReferralsSection({
           </p>
         </div>
 
-        <div
-          className="seg-well glass-ring"
-          role="group"
-          aria-label="Periodicidad de facturación"
-        >
-          <button
-            type="button"
-            className="seg-btn"
-            aria-pressed={!isAnnual}
-            onClick={() => setBilling("monthly")}
-          >
-            Mensual · ${MEMBERSHIP_SPEC.monthlyMxn}
-          </button>
-          <button
-            type="button"
-            className="seg-btn"
-            aria-pressed={isAnnual}
-            onClick={() => setBilling("annual")}
-          >
-            Anual · ${MEMBERSHIP_SPEC.annualMxn.toLocaleString("es-MX")} (Ahorras 4 meses)
-          </button>
-        </div>
+        <SofascoreTabs
+          items={BILLING_TABS}
+          value={billing}
+          onChange={(next) => setBilling(next === "annual" ? "annual" : "monthly")}
+          variant="segmented"
+          ariaLabel="Periodicidad de facturación"
+        />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-        {/* Columna izquierda: Pase PitchLab Ultra */}
-        <div className="lg:col-span-7 glass-ring glass-lens glass-ring--featured relative overflow-hidden rounded-2xl p-6 flex flex-col justify-between gap-5">
-          <div className="relative z-10 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="font-extrabold text-lg">
-                {MEMBERSHIP_SPEC.name}
-              </span>
-              <span className="pl-pill pl-pill--success">
-                {month1NoCardMode
-                  ? "7 días gratis, sin tarjeta"
-                  : "7 días gratis"}
-              </span>
-            </div>
-
-            <div className="ticket-perf" />
-
-            <div className="num flex items-baseline gap-2">
-              <span className="text-xl font-bold">$</span>
-              <span className="text-4xl sm:text-5xl font-extrabold">
+      <div className="pl-ed-pricing-grid">
+        <SofascoreCard
+          title={MEMBERSHIP_SPEC.name}
+          meta={month1NoCardMode ? "7 días gratis, sin tarjeta" : "7 días gratis"}
+        >
+          <div className="pl-ed-stack">
+            <div className="num" style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+              <span style={{ fontSize: "1.25rem", fontWeight: 700 }}>$</span>
+              <span style={{ fontSize: "2.75rem", fontWeight: 800, lineHeight: 1 }}>
                 {isAnnual
                   ? MEMBERSHIP_SPEC.annualMxn.toLocaleString("es-MX")
                   : MEMBERSHIP_SPEC.monthlyMxn}
               </span>
-              <span className="text-sm" style={{ color: "var(--pl-text-muted)" }}>
+              <span className="pl-ed-muted">
                 MXN /{" "}
                 {isAnnual
                   ? `año (equivale a $${MEMBERSHIP_SPEC.annualMonthlyEquivalentMxn}/mes)`
@@ -497,116 +432,85 @@ export function PlansAndReferralsSection({
               </span>
             </div>
 
-            <div
-              className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm"
-              style={{ color: "var(--pl-text-secondary)" }}
-            >
+            <ul className="pl-ed-checklist">
               {checklistItems.map((item) => (
-                <div key={item} className="flex items-start gap-2">
+                <li key={item}>
                   <MaestroIcon
                     name="check"
                     size={15}
-                    className="mt-0.5"
-                    style={{ color: "var(--pl-success)" }}
+                    style={{ color: "var(--pl-success)", marginTop: 3, flexShrink: 0 }}
                   />
                   <span>{item}</span>
-                </div>
+                </li>
               ))}
+            </ul>
+
+            <div className="pl-ed-actions">
+              <Button
+                variant="primary"
+                disabled={checkoutBusy}
+                aria-busy={checkoutBusy}
+                onClick={() => void handleSubscribe()}
+              >
+                <span>
+                  {month1NoCardMode
+                    ? "Empezar prueba gratis"
+                    : "Suscribirme al Pase PitchLab Ultra"}
+                </span>
+                <MaestroIcon name="arrowRight" size={15} />
+              </Button>
+              <Button variant="secondary" onClick={() => navigateTo("/onboarding")}>
+                Elegir mis ligas
+              </Button>
             </div>
           </div>
+        </SofascoreCard>
 
-          <div className="relative z-10 flex flex-wrap items-center gap-3">
-            <a
-              href="/signup"
-              aria-busy={checkoutBusy}
-              onClick={(e) => {
-                e.preventDefault();
-                if (!checkoutBusy) void handleSubscribe();
-              }}
-              className="pl-btn-primary !min-h-[44px] flex-1 text-sm"
-            >
-              <span>
-                {month1NoCardMode
-                  ? "Empezar prueba gratis"
-                  : "Suscribirme al Pase PitchLab Ultra"}
-              </span>
-              <MaestroIcon name="arrowRight" size={15} />
-            </a>
-            <a
-              href="/onboarding"
-              onClick={(e) => {
-                e.preventDefault();
-                navigateTo("/onboarding");
-              }}
-              className="pl-btn-glass glass-ring !min-h-[44px] text-sm"
-            >
-              Elegir mis ligas
-            </a>
-          </div>
-        </div>
-
-        {/* Columna derecha: Referidos Doble Vía + Portal Tipster Oficial */}
-        <div className="lg:col-span-5 glass-ring glass-card rounded-2xl p-6 flex flex-col justify-between gap-4">
-          <div className="space-y-3">
-            <span className="pl-pill pl-pill--brand">
-              <MaestroIcon name="gift" size={14} />
-              <span>Referidos Doble Vía · Ambos suman</span>
-            </span>
-
-            <SubHeadingTag className="m-0 text-xl font-extrabold tracking-tight">
-              Invita a un amigo y los dos suman días
-            </SubHeadingTag>
-
-            <ul
-              className="m-0 p-0 list-none space-y-2 text-xs sm:text-sm"
-              style={{ color: "var(--pl-text-secondary)" }}
-            >
-              <li className="flex items-start gap-2">
-                <strong style={{ color: "var(--pl-brand)" }}>1.</strong>
-                <span>
+        <SofascoreCard title="Invita a un amigo y los dos suman días" meta="Referidos Doble Vía">
+          <div className="pl-ed-stack">
+            <ol className="pl-ver-steps">
+              <li className="pl-ver-step">
+                <span className="pl-ver-step-num num" aria-hidden="true">
+                  1
+                </span>
+                <span className="pl-ed-subcopy">
                   Tu amigo recibe{" "}
-                  <strong>7 días de Pase PitchLab Ultra gratis + 30 % de descuento</strong> en su 1.er
-                  mes ($209 MXN).
+                  <strong>7 días de Pase PitchLab Ultra gratis + 30 % de descuento</strong> en su
+                  1.er mes ($209 MXN).
                 </span>
               </li>
-              <li className="flex items-start gap-2">
-                <strong style={{ color: "var(--pl-brand)" }}>2.</strong>
-                <span>
+              <li className="pl-ver-step">
+                <span className="pl-ver-step-num num" aria-hidden="true">
+                  2
+                </span>
+                <span className="pl-ed-subcopy">
                   En cuanto paga su primer mes,{" "}
                   <strong>ambos suman +7 días gratis</strong> acumulados automáticamente.
                 </span>
               </li>
-              <li className="flex items-start gap-2">
-                <strong style={{ color: "var(--pl-brand)" }}>3.</strong>
-                <span>
+              <li className="pl-ver-step">
+                <span className="pl-ver-step-num num" aria-hidden="true">
+                  3
+                </span>
+                <span className="pl-ed-subcopy">
                   Al llegar a 5 amigos activos sumas <strong>+1 mes completo extra</strong> e
                   insignia Embajador.
                 </span>
               </li>
-            </ul>
+            </ol>
 
-            <div className="ticket-perf" />
-
-            <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
-              <strong style={{ color: "var(--pl-text)" }}>¿Eres creador o tipster?</strong>{" "}
-              Aplica como <strong>Tipster Oficial</strong>: obtén Pase PitchLab Ultra incluido, 1 Pick
-              Gratis semanal con tu boleto brandeado y{" "}
-              <strong>25 % de comisión recurrente</strong>.
+            <p className="pl-ed-muted">
+              <strong style={{ color: "var(--pl-text)" }}>¿Eres creador o tipster?</strong> Aplica
+              como <strong>Tipster Oficial</strong>: obtén Pase PitchLab Ultra incluido, 1 Pick
+              Gratis semanal y <strong>25 % de comisión recurrente</strong>.
             </p>
-          </div>
 
-          <a
-            href="/signup"
-            onClick={(e) => {
-              e.preventDefault();
-              navigateTo("/signup");
-            }}
-            className="pl-btn-glass glass-ring w-full !min-h-[40px] !text-xs"
-          >
-            <MaestroIcon name="trophy" size={14} />
-            <span>Solicitar perfil Tipster Oficial</span>
-          </a>
-        </div>
+            <Button variant="secondary" onClick={() => navigateTo("/signup")}>
+              <MaestroIcon name="trophy" size={15} />
+              <span>Solicitar perfil Tipster Oficial</span>
+            </Button>
+          </div>
+        </SofascoreCard>
       </div>
     </section>
   );
@@ -616,7 +520,10 @@ export function TechPrecisionSurface(): React.JSX.Element {
   return (
     <AtmosphereStage activePath="/motores">
       <PublicHeaderV4 activePath="/motores" />
-      <main id="main" className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-12">
+      <main
+        id="main"
+        className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 pb-12 space-y-10"
+      >
         <TechPrecisionSection isStandalone />
         <PlansAndReferralsSection />
       </main>
@@ -631,7 +538,7 @@ export function PricingSurface(): React.JSX.Element {
   const faqs = [
     {
       q: "¿Por qué solo existe un Pase PitchLab Ultra?",
-      a: "Eliminamos escalones artificiales. Con una sola suscripción ($299 MXN/mes o $2,390 MXN/año) tienes acceso a todos los picks de cada partido (hasta 5), el resumen previo de cada partido, el armador de parlays y la comunidad. Los props de jugadores llegarán cuando su modelo pase las pruebas.",
+      a: "Eliminamos escalones artificiales. Con una sola suscripción ($299 MXN/mes o $2,390 MXN/año) tienes acceso a todos los picks de cada partido (hasta 5), el resumen previo de cada partido, el armador de parlays y la comunidad.",
     },
     {
       q: "¿Cómo funciona la prueba gratis?",
@@ -650,51 +557,40 @@ export function PricingSurface(): React.JSX.Element {
   return (
     <AtmosphereStage activePath="/precio">
       <PublicHeaderV4 activePath="/precio" />
-      <main id="main" className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-12">
+      <main
+        id="main"
+        className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 pb-12 space-y-10"
+      >
         <PlansAndReferralsSection isStandalone />
         <TechPrecisionSection />
 
-        <section className="glass-card glass-ring rounded-2xl p-6 space-y-3">
-          <h2 className="m-0 text-xl font-extrabold tracking-tight">Preguntas frecuentes</h2>
-          <div className="space-y-2">
+        <SofascoreCard title="Preguntas frecuentes">
+          <div className="pl-ed-stack">
             {faqs.map((f, idx) => {
               const isOpen = openFaq === idx;
               return (
-                <div
-                  key={f.q}
-                  className="glass-ring rounded-xl p-3.5"
-                  style={{ background: "var(--pl-surface)" }}
-                >
+                <div key={f.q} className="pl-ed-faq-item">
                   <button
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between gap-3 text-left font-bold text-sm bg-transparent border-0 cursor-pointer p-0"
-                    style={{ color: "var(--pl-text)" }}
+                    className="pl-ed-faq-btn"
                   >
                     <span>{f.q}</span>
-                    <MaestroIcon name={isOpen ? "minus" : "plus"} size={14} />
+                    <MaestroIcon name={isOpen ? "minus" : "plus"} size={15} />
                   </button>
-                  {isOpen ? (
-                    <p
-                      className="m-0 mt-2 text-xs leading-relaxed"
-                      style={{ color: "var(--pl-text-secondary)" }}
-                    >
-                      {f.a}
-                    </p>
-                  ) : null}
+                  {isOpen ? <p className="pl-ed-faq-body">{f.a}</p> : null}
                 </div>
               );
             })}
           </div>
-        </section>
+        </SofascoreCard>
       </main>
       <PublicFooterV4 />
     </AtmosphereStage>
   );
 }
 
-/** Pide al servidor una sesión de Stripe Checkout para el plan elegido. */
 async function startCheckout(
   interval: "monthly" | "annual",
 ): Promise<{ url?: string; status: number; error?: string }> {

@@ -1,3 +1,4 @@
+import "../editorial-verificacion.css";
 import React from "react";
 import type { Metadata } from "next";
 import { MotoresPageSurface } from "@pitchlab/ui/public-sections";

@@ -1,11 +1,12 @@
+import "../../editorial-verificacion.css";
 import React from "react";
 import type { Metadata } from "next";
-import { LegalDocumentSurface } from "@pitchlab/ui/legal";
+import { LegalDocumentSurface, ResponsiblePlayControls } from "@pitchlab/ui/legal";
 
 export const revalidate = 3600;
 
 const DESCRIPTION =
-  "Compromiso +18 en México, diferencia entre análisis estadístico y apuesta, controles de pausa voluntaria en tu cuenta y líneas gratuitas de ayuda.";
+  "Compromiso +18 en México, diferencia entre análisis estadístico y apuesta, controles inmediatos de pausa voluntaria y líneas gratuitas de ayuda.";
 
 export const metadata: Metadata = {
   title: "Juego responsable (+18) · PitchLab",
@@ -23,11 +24,13 @@ export default function JuegoResponsablePage(): React.JSX.Element {
       lastUpdated="Última actualización: noviembre de 2026"
       intro={
         <p>
-          PitchLab está dirigido exclusivamente a personas <strong>mayores de 18 años</strong> con
-          interés en la estadística y el análisis deportivo. Nuestro objetivo es ofrecer contexto
-          cuantitativo transparente, nunca incentivar conductas de riesgo.
+          PitchLab está dirigido exclusivamente a personas <strong>mayores de 18 años</strong> en
+          México con interés en la estadística y el análisis deportivo. Tratamos tus datos conforme
+          a la <strong>LFPDPPP</strong> y operamos de manera estrictamente informativa, nunca para
+          incentivar conductas de riesgo.
         </p>
       }
+      actionPanel={<ResponsiblePlayControls />}
       sections={[
         {
           id: "mayoria-edad-y-alcance",
@@ -37,7 +40,9 @@ export default function JuegoResponsablePage(): React.JSX.Element {
               Durante el registro verificamos la mayoría de edad (+18) y rechazamos la creación de
               cuentas de menores. <strong>PitchLab no es casa de apuestas:</strong> no recibimos
               depósitos para jugar, no colocamos boletos por cuenta del usuario, no pagamos premios
-              monetarios y no incluimos enlaces de afiliados ni bonos de casas de apuestas.
+              monetarios y no incluimos enlaces de afiliados ni bonos de casas de apuestas, en
+              cumplimiento con el marco regulatorio de la Dirección General de Juegos y Sorteos
+              (<strong>SEGOB</strong>) y la protección de datos de la <strong>LFPDPPP</strong>.
             </p>
           ),
         },
@@ -69,8 +74,8 @@ export default function JuegoResponsablePage(): React.JSX.Element {
           body: (
             <>
               <p>
-                Desde <code>/app/account?tab=prefs</code> puedes activar en cualquier momento estas
-                medidas reales de autocontrol:
+                Puedes activar estos controles directamente arriba o desde{" "}
+                <code>/app/account?tab=prefs</code> en cualquier momento:
               </p>
               <ul>
                 <li>
@@ -87,8 +92,8 @@ export default function JuegoResponsablePage(): React.JSX.Element {
                   en unidades simuladas (<code>u</code>), sin montos referenciales en MXN.
                 </li>
                 <li>
-                  <strong>Eliminación definitiva de cuenta:</strong> solicita la baja total de tu
-                  cuenta desde la sección <em>Tu cuenta</em> en preferencias o escribiendo a{" "}
+                  <strong>Eliminación definitiva de cuenta (ARCO):</strong> solicita la baja total
+                  de tu cuenta desde la sección <em>Tu cuenta</em> en preferencias o escribiendo a{" "}
                   <a href="mailto:soporte@pitchlab.mx">soporte@pitchlab.mx</a>.
                 </li>
               </ul>

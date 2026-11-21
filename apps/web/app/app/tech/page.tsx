@@ -1,3 +1,4 @@
+import "../../editorial-verificacion.css";
 import React from "react";
 import { ClubTechView } from "@pitchlab/ui/tech";
 

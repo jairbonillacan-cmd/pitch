@@ -1,6 +1,14 @@
 "use client";
 
 import React, { useMemo } from "react";
+import {
+  SofascoreCard,
+  SofascoreEmptyState,
+  SofascoreKpiStrip,
+  SofascoreTable,
+  type SofascoreKpiItem,
+  type SofascoreTableColumn,
+} from "../../components/ui/primitives";
 
 export interface CalibrationSample {
   readonly p: number;
@@ -37,10 +45,6 @@ const BUCKET_DEFS = [
   { key: "b80", label: "80 %+", minP: 0.8, maxP: 1.01 },
 ] as const;
 
-/**
- * Calcula curva de calibración real (observado vs prometido), Brier score y ECE
- * sobre partidos efectivamente finalizados y calificados.
- */
 export function computeModelCalibration(
   samples: readonly CalibrationSample[],
 ): ModelCalibrationSummary {
@@ -105,16 +109,51 @@ export function computeModelCalibration(
 
 export interface CalibrationCurveChartProps {
   samples?: readonly CalibrationSample[];
-  /** Permite pasar cubetas ya resumidas (p. ej. evaluación walk-forward en `/resultados`). */
   summaryOverride?: ModelCalibrationSummary;
   title?: string;
   subtitle?: string;
 }
 
-/**
- * Gráfica SVG accesible de calibración real del motor (`observado` vs `probabilidad anunciada`),
- * con línea diagonal de calibración perfecta, Brier, ECE y tabla numérica limpia.
- */
+const CALIBRATION_COLUMNS: readonly SofascoreTableColumn<CalibrationBucketRow>[] = [
+  {
+    key: "band",
+    header: "Banda",
+    sticky: true,
+    render: (row) => row.label,
+  },
+  {
+    key: "estimated",
+    header: "Est.",
+    numeric: true,
+    align: "end",
+    render: (row) => `${(row.meanPredicted * 100).toFixed(1)} %`,
+  },
+  {
+    key: "observed",
+    header: "Real",
+    numeric: true,
+    align: "end",
+    render: (row) => <strong>{(row.observedRate * 100).toFixed(1)} %</strong>,
+  },
+  {
+    key: "gap",
+    header: "Dif.",
+    numeric: true,
+    align: "end",
+    render: (row) => {
+      const sign = row.gapPts > 0 ? "+" : "";
+      return `${sign}${row.gapPts.toFixed(1)} pp`;
+    },
+  },
+  {
+    key: "sample",
+    header: "n",
+    numeric: true,
+    align: "end",
+    render: (row) => `${row.hits}/${row.count}`,
+  },
+];
+
 export function CalibrationCurveChart({
   samples = [],
   summaryOverride,
@@ -128,17 +167,12 @@ export function CalibrationCurveChart({
 
   const w = 360;
   const h = 220;
-  const pad = { top: 18, right: 20, bottom: 30, left: 38 };
+  const pad = { top: 18, right: 20, bottom: 30, left: 40 };
   const plotW = w - pad.left - pad.right;
   const plotH = h - pad.top - pad.bottom;
 
-  const toX = (p: number) => pad.left + Math.max(0.25, Math.min(1, p) - 0.25) / 0.75 * plotW;
-  const toY = (p: number) => pad.top + (1 - Math.max(0.25, Math.min(1, p) - 0.25) / 0.75) * plotH;
-  // Escala lineal directa 30 % .. 100 % para mayor legibilidad
   const scaleX = (p: number) => pad.left + ((Math.max(0.3, Math.min(1, p)) - 0.3) / 0.7) * plotW;
   const scaleY = (p: number) => pad.top + (1 - (Math.max(0.3, Math.min(1, p)) - 0.3) / 0.7) * plotH;
-  void toX;
-  void toY;
 
   const polylinePoints = summary.buckets
     .map((b) => `${scaleX(b.meanPredicted).toFixed(1)},${scaleY(b.observedRate).toFixed(1)}`)
@@ -146,133 +180,128 @@ export function CalibrationCurveChart({
 
   const ticks = [0.4, 0.6, 0.8, 1.0] as const;
 
+  const kpiItems: SofascoreKpiItem[] =
+    summary.total > 0
+      ? [
+          {
+            id: "sample",
+            label: "Muestra FT",
+            value: String(summary.total),
+            delta: `${summary.hits} cumplidos`,
+          },
+          {
+            id: "ece",
+            label: "ECE",
+            value: summary.ece !== null ? `${(summary.ece * 100).toFixed(1)} pp` : "—",
+            tone: summary.ece !== null && summary.ece <= 0.05 ? "positive" : "default",
+          },
+          {
+            id: "brier",
+            label: "Brier",
+            value: summary.brierScore !== null ? summary.brierScore.toFixed(3) : "—",
+            tone: summary.brierScore !== null && summary.brierScore <= 0.22 ? "brand" : "default",
+          },
+          {
+            id: "rate",
+            label: "Real vs. Est.",
+            value: `${(summary.overallHitRate * 100).toFixed(1)} %`,
+            delta: `Est. ${(summary.meanPredicted * 100).toFixed(1)} %`,
+          },
+        ]
+      : [];
+
   return (
-    <section
-      className="pl-cal-card glass-card glass-ring"
-      aria-label={title}
-      data-calibration-curve=""
-    >
-      <header className="pl-cal-head">
-        <div>
-          <h2 className="pl-cortex-label m-0">{title}</h2>
-          <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            {subtitle}
-          </p>
-        </div>
-        {summary.total > 0 ? (
-          <div className="pl-cal-kpis num">
-            <div>
-              <span>Muestra</span>
-              <strong>{summary.total}</strong>
+    <div data-calibration-curve="">
+      <SofascoreCard
+        title={title}
+        meta={summary.total > 0 ? `${summary.total} partidos FT` : "Sin muestra"}
+      >
+        <div className="pl-ed-stack">
+          <p className="pl-ed-subcopy">{subtitle}</p>
+
+          {kpiItems.length > 0 ? (
+            <SofascoreKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
+          ) : null}
+
+          {summary.total === 0 ? (
+            <SofascoreEmptyState
+              title="Sin partidos suficientes en este filtro"
+              description="Todavía no hay suficientes partidos finalizados en este filtro para trazar la curva."
+            />
+          ) : (
+            <div className="pl-ed-cal-grid">
+              <figure className="pl-ed-cal-figure">
+                <svg
+                  viewBox={`0 0 ${w} ${h}`}
+                  className="pl-cal-svg"
+                  role="img"
+                  aria-label={`Curva de calibración sobre ${summary.total} partidos: probabilidad media anunciada ${(summary.meanPredicted * 100).toFixed(1)} %, acierto observado ${(summary.overallHitRate * 100).toFixed(1)} %`}
+                >
+                  {ticks.map((t) => {
+                    const y = scaleY(t);
+                    const x = scaleX(t);
+                    return (
+                      <g key={t}>
+                        <line x1={pad.left} y1={y} x2={w - pad.right} y2={y} className="pl-cal-grid" />
+                        <text x={pad.left - 6} y={y + 3} textAnchor="end" className="pl-cal-axis num">
+                          {Math.round(t * 100)}%
+                        </text>
+                        <text x={x} y={h - 8} textAnchor="middle" className="pl-cal-axis num">
+                          {Math.round(t * 100)}%
+                        </text>
+                      </g>
+                    );
+                  })}
+
+                  <line
+                    x1={scaleX(0.3)}
+                    y1={scaleY(0.3)}
+                    x2={scaleX(1)}
+                    y2={scaleY(1)}
+                    className="pl-cal-ideal"
+                  />
+
+                  {summary.buckets.length > 1 ? (
+                    <polyline points={polylinePoints} fill="none" className="pl-cal-line" />
+                  ) : null}
+
+                  {summary.buckets.map((b) => {
+                    const cx = scaleX(b.meanPredicted);
+                    const cy = scaleY(b.observedRate);
+                    const r = Math.min(8.5, Math.max(4, 3 + Math.sqrt(b.count) * 0.8));
+                    return (
+                      <g key={b.key}>
+                        <circle cx={cx} cy={cy} r={r} className="pl-cal-dot" />
+                        <title>
+                          {`${b.label}: estimado ${(b.meanPredicted * 100).toFixed(1)} %, real ${(b.observedRate * 100).toFixed(1)} % (${b.hits}/${b.count})`}
+                        </title>
+                      </g>
+                    );
+                  })}
+                </svg>
+                <figcaption className="pl-cal-caption">
+                  Línea punteada = calibración ideal. Puntos más cerca de la diagonal indican probabilidades más honestas.
+                </figcaption>
+              </figure>
+
+              <div className="pl-ed-stack">
+                <SofascoreTable
+                  caption="Resumen de calibración por banda de probabilidad"
+                  columns={CALIBRATION_COLUMNS}
+                  rows={summary.buckets}
+                  rowKey={(row) => row.key}
+                  density="compact"
+                />
+                {summary.total < 20 ? (
+                  <p className="pl-ed-muted num">
+                    Muestra pequeña ({summary.total} partidos): los porcentajes por banda se estabilizan al superar 20 registros.
+                  </p>
+                ) : null}
+              </div>
             </div>
-            {summary.ece !== null ? (
-              <div>
-                <span>ECE</span>
-                <strong>{(summary.ece * 100).toFixed(1)} pp</strong>
-              </div>
-            ) : null}
-            {summary.brierScore !== null ? (
-              <div>
-                <span>Brier</span>
-                <strong>{summary.brierScore.toFixed(3)}</strong>
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-      </header>
-
-      {summary.total === 0 ? (
-        <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-          Todavía no hay suficientes partidos finalizados en este filtro para trazar la curva.
-        </p>
-      ) : (
-        <div className="pl-cal-body">
-          <figure className="pl-cal-figure m-0">
-            <svg
-              viewBox={`0 0 ${w} ${h}`}
-              className="pl-cal-svg"
-              role="img"
-              aria-label={`Curva de calibración sobre ${summary.total} partidos: probabilidad media anunciada ${(summary.meanPredicted * 100).toFixed(1)} %, acierto observado ${(summary.overallHitRate * 100).toFixed(1)} %`}
-            >
-              {ticks.map((t) => {
-                const y = scaleY(t);
-                const x = scaleX(t);
-                return (
-                  <g key={t}>
-                    <line x1={pad.left} y1={y} x2={w - pad.right} y2={y} className="pl-cal-grid" />
-                    <text x={pad.left - 6} y={y + 3} textAnchor="end" className="pl-cal-axis num">
-                      {Math.round(t * 100)}%
-                    </text>
-                    <text x={x} y={h - 8} textAnchor="middle" className="pl-cal-axis num">
-                      {Math.round(t * 100)}%
-                    </text>
-                  </g>
-                );
-              })}
-
-              {/* Diagonal de calibración perfecta (observado = estimado) */}
-              <line
-                x1={scaleX(0.3)}
-                y1={scaleY(0.3)}
-                x2={scaleX(1)}
-                y2={scaleY(1)}
-                className="pl-cal-ideal"
-              />
-
-              {summary.buckets.length > 1 ? (
-                <polyline points={polylinePoints} fill="none" className="pl-cal-line" />
-              ) : null}
-
-              {summary.buckets.map((b) => {
-                const cx = scaleX(b.meanPredicted);
-                const cy = scaleY(b.observedRate);
-                const r = Math.min(8.5, Math.max(4, 3 + Math.sqrt(b.count) * 0.8));
-                return (
-                  <g key={b.key}>
-                    <circle cx={cx} cy={cy} r={r} className="pl-cal-dot" />
-                    <title>
-                      {`${b.label}: estimado ${(b.meanPredicted * 100).toFixed(1)} %, real ${(b.observedRate * 100).toFixed(1)} % (${b.hits}/${b.count})`}
-                    </title>
-                  </g>
-                );
-              })}
-            </svg>
-            <figcaption className="pl-cal-caption">
-              Línea punteada = calibración ideal. Puntos más cerca de la diagonal indican probabilidades más honestas.
-            </figcaption>
-          </figure>
-
-          <div className="pl-cal-table-wrap">
-            <table className="pl-cal-table">
-              <thead>
-                <tr>
-                  <th>Banda</th>
-                  <th className="num">Est.</th>
-                  <th className="num">Real</th>
-                  <th className="num">n</th>
-                </tr>
-              </thead>
-              <tbody>
-                {summary.buckets.map((b) => (
-                  <tr key={b.key}>
-                    <td>{b.label}</td>
-                    <td className="num">{(b.meanPredicted * 100).toFixed(0)} %</td>
-                    <td className="num font-bold">{(b.observedRate * 100).toFixed(0)} %</td>
-                    <td className="num" style={{ color: "var(--pl-text-muted)" }}>
-                      {b.hits}/{b.count}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {summary.total < 20 ? (
-              <p className="m-0 mt-2 text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-                Muestra pequeña ({summary.total} partidos): los porcentajes por banda se estabilizan al superar 20 registros.
-              </p>
-            ) : null}
-          </div>
+          )}
         </div>
-      )}
-    </section>
+      </SofascoreCard>
+    </div>
   );
 }

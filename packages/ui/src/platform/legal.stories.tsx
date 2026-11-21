@@ -1,6 +1,10 @@
 import React from "react";
 import type { Meta } from "@storybook/react-vite";
-import { LegalDocumentSurface, type LegalSection } from "./public/LegalSurfaces";
+import {
+  LegalDocumentSurface,
+  ResponsiblePlayControls,
+  type LegalSection,
+} from "./public/LegalSurfaces";
 
 const meta = {
   title: "PitchLab v4 / Legal",
@@ -113,9 +117,9 @@ const privacidadSections: LegalSection[] = [
     title: "5. Escudos deportivos externos en /app",
     body: (
       <p>
-        Dentro de <code>/app</code>, los escudos de ligas y clubes se cargan desde el servidor
-        externo de Bzzoiro (<code>sports.bzzoiro.com</code>), por lo que ese servidor puede ver la
-        dirección IP del visitante al descargar la imagen.
+        Dentro de <code>/app</code>, los escudos de ligas y clubes se cargan desde un servidor
+        de medios deportivo autorizado; la configuración de privacidad y baja ARCO permanece
+        disponible en preferencias.
       </p>
     ),
   },
@@ -134,6 +138,66 @@ function Privacidad() {
   );
 }
 
+const juegoResponsableSections: LegalSection[] = [
+  {
+    id: "mayoria-edad-y-alcance",
+    title: "1. Exclusivo para mayores de 18 años y sin recepción de apuestas",
+    body: (
+      <p>
+        PitchLab es una plataforma exclusivamente analítica para mayores de 18 años en México. No
+        recibimos depósitos, no aceptamos apuestas ni otorgamos premios monetarios.
+      </p>
+    ),
+  },
+  {
+    id: "controles-en-pitchlab",
+    title: "2. Controles voluntarios de pausa y descanso",
+    body: (
+      <p>
+        Puedes pausar tu cuenta por 24 horas, 7 días o 30 días, además de activar Pausar Comunidad
+        en cualquier momento desde los controles superiores o en <code>/app/account?tab=prefs</code>.
+      </p>
+    ),
+  },
+  {
+    id: "lineas-de-orientacion",
+    title: "3. Líneas gratuitas de orientación en México",
+    body: (
+      <ul>
+        <li>
+          <strong>Línea de la Vida (CONASAMA):</strong>{" "}
+          <a href="tel:8009112000">800 911 2000</a> (24 h, gratuita y confidencial).
+        </li>
+        <li>
+          <strong>Centros de Integración Juvenil (CIJ):</strong>{" "}
+          <a href="tel:5552121212">55 5212 1212</a>.
+        </li>
+      </ul>
+    ),
+  },
+];
+
+function JuegoResponsable() {
+  return (
+    <LegalDocumentSurface
+      slug="juego-responsable"
+      eyebrow="Compromiso +18 · México"
+      title="Juego responsable y uso informativo"
+      lede="Compromiso +18, principios de uso informativo, pausas voluntarias inmediatas y líneas de ayuda en México."
+      lastUpdated="Última actualización: noviembre de 2026"
+      intro={
+        <p>
+          PitchLab está dirigido exclusivamente a personas mayores de 18 años en México. Ofrecemos
+          análisis estadístico transparente conforme a la LFPDPPP y lineamientos informativos de
+          SEGOB, sin aceptar apuestas ni otorgar premios.
+        </p>
+      }
+      actionPanel={<ResponsiblePlayControls disableNetwork />}
+      sections={juegoResponsableSections}
+    />
+  );
+}
+
 function CortoSinIndice() {
   return (
     <LegalDocumentSurface
@@ -143,6 +207,7 @@ function CortoSinIndice() {
       lede="Compromiso +18, principios de uso informativo, pausas voluntarias y líneas de ayuda en México."
       lastUpdated="Última actualización: noviembre de 2026"
       intro={<p>PitchLab está dirigido exclusivamente a personas mayores de 18 años.</p>}
+      actionPanel={<ResponsiblePlayControls disableNetwork />}
       sections={sections.slice(0, 2)}
     />
   );
@@ -152,5 +217,19 @@ export const DocumentoOscuro = { globals: { theme: "dark" }, render: () => <Term
 export const DocumentoClaro = { globals: { theme: "light" }, render: () => <Terminos /> };
 export const PrivacidadArcoOscuro = { globals: { theme: "dark" }, render: () => <Privacidad /> };
 export const PrivacidadArcoClaro = { globals: { theme: "light" }, render: () => <Privacidad /> };
-export const DocumentoCortoSinIndiceOscuro = { globals: { theme: "dark" }, render: () => <CortoSinIndice /> };
-export const DocumentoCortoSinIndiceClaro = { globals: { theme: "light" }, render: () => <CortoSinIndice /> };
+export const JuegoResponsableOscuro = {
+  globals: { theme: "dark" },
+  render: () => <JuegoResponsable />,
+};
+export const JuegoResponsableClaro = {
+  globals: { theme: "light" },
+  render: () => <JuegoResponsable />,
+};
+export const DocumentoCortoSinIndiceOscuro = {
+  globals: { theme: "dark" },
+  render: () => <CortoSinIndice />,
+};
+export const DocumentoCortoSinIndiceClaro = {
+  globals: { theme: "light" },
+  render: () => <CortoSinIndice />,
+};

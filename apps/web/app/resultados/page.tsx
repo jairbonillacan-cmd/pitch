@@ -1,4 +1,5 @@
 import "../record-v2.css";
+import "../editorial-verificacion.css";
 import React from "react";
 import type { Metadata } from "next";
 import { ResultadosPageSurface } from "@pitchlab/ui/public-sections";
