@@ -20,3 +20,4 @@ export * from "./cortex";
 export * from "./squads";
 export * from "./urls";
 export * from "./competitions";
+export * from "./branded.js";
