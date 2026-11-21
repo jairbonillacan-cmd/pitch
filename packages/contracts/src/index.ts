@@ -21,3 +21,4 @@ export * from "./squads";
 export * from "./urls";
 export * from "./competitions";
 export * from "./branded.js";
+export * from "./league-capabilities.js";
