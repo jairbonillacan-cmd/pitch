@@ -2,7 +2,40 @@ import React from "react";
 import { SportOutlookCard } from "./club/match/sport-outlook/SportOutlookCard";
 import type { SportOutlookInput } from "./club/match/sport-outlook/sport-outlook-types";
 
-/* Panoramas de ejemplo (cifras ilustrativas, no son datos de la jornada). */
+const NFL: SportOutlookInput = {
+  sport: "nfl",
+  homeTeam: "Kansas City Chiefs",
+  awayTeam: "Buffalo Bills",
+  pHome: 0.562,
+  pAway: 0.438,
+  expectedHome: 25.4,
+  expectedAway: 22.1,
+  drivers: [
+    { factor: "sumersports_epa_success", impactLogit: 0.24, impactUnits: 2.6 },
+    { factor: "injuries_qb_depth", impactLogit: -0.08, impactUnits: -0.9 },
+    { factor: "referee_penalties", impactLogit: 0.05, impactUnits: 0.5 },
+    { factor: "weather_stadium_physics", impactLogit: 0.11, impactUnits: 1.1 },
+  ],
+  lines: [
+    { kind: "total", line: 47.5, p: 0.514 },
+    { kind: "spread", line: -3.5, p: 0.478 },
+  ],
+  nflSpecials: {
+    expectedMargin: 3.3,
+    pOvertime: 0.068,
+    fairOvertimeDecimal: 14.71,
+    pExactPlus3: 0.094,
+    pExactMinus3: 0.061,
+    pExactPlus7: 0.062,
+    pExactMinus7: 0.039,
+  },
+  confirmations: [
+    { kind: "key_player", team: "home", status: "confirmed", playerName: "Patrick Mahomes" },
+    { kind: "key_player", team: "away", status: "questionable", playerName: "Dalton Kincaid" },
+  ],
+  rest: { home: { restDays: 7 }, away: { restDays: 7 } },
+  generatedAtUtc: "2026-11-14T19:00:00Z",
+};
 
 const NHL: SportOutlookInput = {
   sport: "nhl",
@@ -93,7 +126,6 @@ const NBA: SportOutlookInput = {
   generatedAtUtc: "2026-11-14T18:20:00Z",
 };
 
-/** Lo que entrega hoy el motor de NCAAF: sin líneas ni confirmaciones todavía. */
 const NCAAF: SportOutlookInput = {
   sport: "ncaaf",
   homeTeam: "Texas Longhorns",
@@ -128,23 +160,33 @@ export default {
   title: "Platform v4 / Panorama por deporte",
 };
 
-export const Nhl = { render: () => <Frame outlook={NHL} /> };
+export const Nfl = { render: () => <Frame outlook={NFL} />, globals: { theme: "dark" } };
+export const NflClaro = { ...Nfl, globals: { theme: "light" } };
+
+export const Nhl = { render: () => <Frame outlook={NHL} />, globals: { theme: "dark" } };
 export const NhlClaro = { ...Nhl, globals: { theme: "light" } };
 
-export const Mlb = { render: () => <Frame outlook={MLB} /> };
+export const Mlb = { render: () => <Frame outlook={MLB} />, globals: { theme: "dark" } };
 export const MlbClaro = { ...Mlb, globals: { theme: "light" } };
 
-export const Nba = { render: () => <Frame outlook={NBA} /> };
+export const Nba = { render: () => <Frame outlook={NBA} />, globals: { theme: "dark" } };
 export const NbaClaro = { ...Nba, globals: { theme: "light" } };
 
-export const NcaafSoloMotor = { render: () => <Frame outlook={NCAAF} /> };
+export const NcaafSoloMotor = {
+  render: () => <Frame outlook={NCAAF} />,
+  globals: { theme: "dark" },
+};
 export const NcaafSoloMotorClaro = { ...NcaafSoloMotor, globals: { theme: "light" } };
 
-export const SinPanorama = { render: () => <Frame outlook={SIN_DATOS} /> };
+export const SinPanorama = {
+  render: () => <Frame outlook={SIN_DATOS} />,
+  globals: { theme: "dark" },
+};
 export const SinPanoramaClaro = { ...SinPanorama, globals: { theme: "light" } };
 
 export const Movil = {
   render: () => <Frame outlook={MLB} />,
+  globals: { theme: "dark" },
   parameters: { viewport: { defaultViewport: "mobile1" } },
 };
 export const MovilClaro = { ...Movil, globals: { theme: "light" } };

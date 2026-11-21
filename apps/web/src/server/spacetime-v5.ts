@@ -1,4 +1,8 @@
-import type { LiveInPlayWinProb } from "@pitchlab/contracts";
+import {
+  COMPETITION_BY_ID,
+  parseStrictFiniteNumber,
+  type LiveInPlayWinProb,
+} from "@pitchlab/contracts";
 import { probabilityToFairOdds } from "@pitchlab/spacetime";
 import {
   buildMatchEpistemicSummaryV5,
@@ -6,11 +10,15 @@ import {
   buildUnifiedMultiSportMatchIntelligenceV5,
   buildVerifiedMatchFactSheet,
   compileDeterministicVerifiedSummaryEs,
+  evaluateNflInPlayState,
+  evaluatePlayerLinkedSgpV5,
   evaluatePointsSportEarlyPayout,
   evaluateSoccerEarlyPayoutAndInPlay,
   evaluateStudentTSameGameParlayV5,
   projectNflDiscreteKeyTotalPmfV5,
+  projectNflMarketSpreadPosteriorV5,
   projectNflOvertimeProbabilityV5,
+  projectSoccerPlayerPropOutlookV5,
   solveDiagonalInflatedScoreMatrix4Param,
   solveNflKeyNumberMarginPmfExact,
   summarizeSoccerMarketsFromMatrixV4,
@@ -18,17 +26,28 @@ import {
   validateNarrativeAgainstFactSheet,
   type EpistemicConformalArtifactV51,
   type EpistemicProbabilityBandV5,
+  type HierarchicalPropsModelArtifactV5,
   type InPlayEarlyPayoutArtifactV5,
+  type KnockoutLegTypeV5,
+  type LineupStatusV36,
   type MicroFeatureVectorInputV4,
   type MultiSportV40StateArtifact,
+  type MultiSportV40TeamStateEntry,
   type NflModelArtifactV5,
   type SgpCopulaArtifactV5,
   type SgpLegInput,
   type SoccerMicroMetricKey,
   type SoccerMicroModelArtifactV5,
+  type SoccerPlayerPropInputV4,
+  type SoccerPositionCluster,
+  type SoccerPropFamilyV4,
+  type UnitProbability as SpacetimeUnitProbability,
 } from "@pitchlab/spacetime/v5";
+import clubGoalsArtifactJson from "@pitchlab/spacetime/data/model_club_goals_v5_0_candidate.json";
 import epistemicArtifactJson from "@pitchlab/spacetime/data/model_epistemic_conformal_v5_1_candidate.json";
+import hierarchicalPropsArtifactJson from "@pitchlab/spacetime/data/model_hierarchical_props_v5_0_candidate.json";
 import inplayArtifactJson from "@pitchlab/spacetime/data/model_inplay_early_payout_v5_0_candidate.json";
+import intlGoalsArtifactJson from "@pitchlab/spacetime/data/model_intl_goals_v5_0_candidate.json";
 import microArtifactJson from "@pitchlab/spacetime/data/model_soccer_micro_v5_0_candidate.json";
 import multisportStateJson from "@pitchlab/spacetime/data/multisport_v4_0_state_candidate.json";
 import nflArtifactJson from "@pitchlab/spacetime/data/model_nfl_v5_0_candidate.json";
@@ -46,12 +65,122 @@ import type {
 } from "@pitchlab/ui/types";
 import { teamScore } from "./spacetime";
 
-const epistemicArtifact = epistemicArtifactJson as unknown as EpistemicConformalArtifactV51;
-const inplayArtifact = inplayArtifactJson as unknown as InPlayEarlyPayoutArtifactV5;
-const microArtifact = microArtifactJson as unknown as SoccerMicroModelArtifactV5;
-const multisportState = multisportStateJson as unknown as MultiSportV40StateArtifact;
-const nflArtifact = nflArtifactJson as unknown as NflModelArtifactV5;
-const sgpArtifact = sgpArtifactJson as unknown as SgpCopulaArtifactV5;
+export type {
+  KnockoutLegTypeV5,
+  LineupStatusV36,
+  SoccerPlayerPropInputV4,
+  SoccerPositionCluster,
+  SoccerPropFamilyV4,
+  SpacetimeUnitProbability,
+};
+
+function toArtifactStatus(raw: string): "candidate" | "production" {
+  return raw === "production" ? "production" : "candidate";
+}
+
+function isMultiSportCode(raw: string): raw is "mlb" | "nhl" | "nba" | "ncaaf" {
+  return raw === "mlb" || raw === "nhl" || raw === "nba" || raw === "ncaaf";
+}
+
+const epistemicArtifact: EpistemicConformalArtifactV51 = {
+  schema_version: epistemicArtifactJson.schema_version,
+  status: toArtifactStatus(epistemicArtifactJson.status),
+  production_activated: epistemicArtifactJson.production_activated,
+  holdout_cut_utc: epistemicArtifactJson.holdout_cut_utc,
+  holdout_sealed_untouched: epistemicArtifactJson.holdout_sealed_untouched,
+  sports: {
+    soccer: epistemicArtifactJson.sports.soccer,
+    nfl: epistemicArtifactJson.sports.nfl,
+    multisport: epistemicArtifactJson.sports.multisport,
+  },
+};
+
+const inplayWeights = inplayArtifactJson.soccer.minute_bucket_weights_6;
+const inplayArtifact: InPlayEarlyPayoutArtifactV5 = {
+  ...inplayArtifactJson,
+  status: toArtifactStatus(inplayArtifactJson.status),
+  soccer: {
+    ...inplayArtifactJson.soccer,
+    minute_bucket_weights_6: [
+      inplayWeights[0] ?? 0.126799,
+      inplayWeights[1] ?? 0.143104,
+      inplayWeights[2] ?? 0.167323,
+      inplayWeights[3] ?? 0.164121,
+      inplayWeights[4] ?? 0.169973,
+      inplayWeights[5] ?? 0.22868,
+    ],
+  },
+  points_sports_early_payout: {
+    nfl: { ...inplayArtifactJson.points_sports_early_payout.nfl, trigger_lead: 17 },
+    nba: { ...inplayArtifactJson.points_sports_early_payout.nba, trigger_lead: 20 },
+    mlb: { ...inplayArtifactJson.points_sports_early_payout.mlb, trigger_lead: 5 },
+  },
+};
+
+const microArtifact: SoccerMicroModelArtifactV5 = {
+  ...microArtifactJson,
+  status: toArtifactStatus(microArtifactJson.status),
+};
+
+const multisportTeams: Record<string, MultiSportV40TeamStateEntry> = {};
+for (const [teamKey, entry] of Object.entries(multisportStateJson.teams)) {
+  if (!isMultiSportCode(entry.sport)) continue;
+  const metrics: Record<string, number> = {};
+  for (const [mKey, mVal] of Object.entries(entry.metrics)) {
+    const parsed = parseStrictFiniteNumber(mVal);
+    if (parsed !== null) {
+      metrics[mKey] = parsed;
+    }
+  }
+  multisportTeams[teamKey] = {
+    team_key: entry.team_key,
+    team_name: entry.team_name,
+    sport: entry.sport,
+    elevation_m: entry.elevation_m,
+    is_dome: entry.is_dome,
+    metrics,
+  };
+}
+
+const multisportState: MultiSportV40StateArtifact = {
+  schema_version: multisportStateJson.schema_version,
+  status: toArtifactStatus(multisportStateJson.status),
+  production_activated: multisportStateJson.production_activated,
+  holdout_cut_utc: multisportStateJson.holdout_cut_utc,
+  holdout_sealed_untouched: multisportStateJson.holdout_sealed_untouched,
+  v36_physics_config: {
+    ...multisportStateJson.v36_physics_config,
+    status: toArtifactStatus(multisportStateJson.v36_physics_config.status),
+  },
+  teams: multisportTeams,
+};
+
+const nflArtifact: NflModelArtifactV5 = {
+  ...nflArtifactJson,
+  status: toArtifactStatus(nflArtifactJson.status),
+};
+
+const sgpArtifact: SgpCopulaArtifactV5 = {
+  ...sgpArtifactJson,
+  status: toArtifactStatus(sgpArtifactJson.status),
+  sports: {
+    soccer: {
+      ...sgpArtifactJson.sports.soccer,
+      copula_family:
+        sgpArtifactJson.sports.soccer.copula_family === "gaussian" ? "gaussian" : "student_t",
+    },
+    nfl: {
+      ...sgpArtifactJson.sports.nfl,
+      copula_family:
+        sgpArtifactJson.sports.nfl.copula_family === "gaussian" ? "gaussian" : "student_t",
+    },
+  },
+};
+
+const hierarchicalPropsArtifact: HierarchicalPropsModelArtifactV5 = {
+  ...hierarchicalPropsArtifactJson,
+  status: toArtifactStatus(hierarchicalPropsArtifactJson.status),
+};
 
 interface OfficialPriorV51Entry {
   readonly last_div: string;
@@ -63,13 +192,70 @@ interface OfficialPriorV51Entry {
   readonly cpf_mult: number;
 }
 
-const officialPriors = (
-  officialPriorsJson as unknown as {
-    readonly officials: Readonly<Record<string, OfficialPriorV51Entry>>;
-  }
-).officials;
+const officialPriors: Readonly<Record<string, OfficialPriorV51Entry>> =
+  officialPriorsJson.officials;
 
-/** Liga de la app → código de división en Spacetime v5.1 (23 divisiones entrenadas). */
+const INTERNATIONAL_LEAGUE_IDS = new Set<string>([
+  "concacaf-nations",
+  "uefa-nations",
+  "amistosos",
+  "copa-del-mundo",
+  "eliminatorias",
+  "copa-america",
+  "eurocopa",
+  "copa-oro",
+  "copa-africana",
+  "copa-asiatica",
+]);
+
+const NFL_INDOOR_TEAM_CODES = new Set<string>([
+  "ARI",
+  "ATL",
+  "DAL",
+  "DET",
+  "HOU",
+  "IND",
+  "LA",
+  "LAC",
+  "LAR",
+  "LV",
+  "MIN",
+  "NO",
+]);
+
+const NFL_TURF_TEAM_CODES = new Set<string>([
+  "ATL",
+  "BUF",
+  "CAR",
+  "CIN",
+  "DAL",
+  "DET",
+  "HOU",
+  "IND",
+  "LA",
+  "LAC",
+  "LAR",
+  "MIN",
+  "NE",
+  "NO",
+  "NYG",
+  "NYJ",
+  "SEA",
+  "TEN",
+]);
+
+const NFL_INDOOR_VENUE_RE =
+  /\b(?:ford field|u\.?s\.?\s*bank|superdome|mercedes-benz stadium|lucas oil|at&t stadium|sofi stadium|allegiant|state farm stadium|nrg stadium|dome|indoor|techado|domo|retractable)\b/i;
+
+const NFL_TURF_VENUE_RE =
+  /\b(?:ford field|u\.?s\.?\s*bank|superdome|mercedes-benz stadium|lucas oil|at&t stadium|sofi stadium|nrg stadium|metlife|highmark|gillette|paycor|lumen field|bank of america|nissan stadium|turf|fieldturf|artificial|sint[eé]tic[oa]|matrix)\b/i;
+
+const NFL_NATURAL_GRASS_RE =
+  /\b(?:natural grass|grass|pasto natural|c[eé]sped natural|hierba natural)\b/i;
+
+const SPREAD_MARKET_KEYS = new Set<string>(["spread", "spreads", "point_spread", "nfl_spread"]);
+const TOTAL_MARKET_KEYS = new Set<string>(["totals", "total", "over_under", "nfl_totals"]);
+
 export const LEAGUE_TO_V5_DIV: Readonly<Record<string, string>> = {
   "premier-league": "E0",
   championship: "E1",
@@ -116,6 +302,148 @@ export const LEAGUE_TO_V5_DIV: Readonly<Record<string, string>> = {
   "uefa-super-cup": "E0",
   "caf-champions": "T1",
 };
+
+export interface SoccerGoalsCalibrationParamsV5 {
+  readonly scope: "club" | "international";
+  readonly rhoPrior: number;
+  readonly dispersionR: number;
+  readonly rhoDrawBlendWeight: number;
+}
+
+export function resolveSoccerGoalsParamsV5(league: string): SoccerGoalsCalibrationParamsV5 {
+  const isInternational =
+    INTERNATIONAL_LEAGUE_IDS.has(league) ||
+    COMPETITION_BY_ID[league]?.region === "national-teams";
+  if (isInternational) {
+    return {
+      scope: "international",
+      rhoPrior: intlGoalsArtifactJson.default_rho,
+      dispersionR: intlGoalsArtifactJson.dispersion_r,
+      rhoDrawBlendWeight: intlGoalsArtifactJson.rho_draw_blend_weight,
+    };
+  }
+  return {
+    scope: "club",
+    rhoPrior: clubGoalsArtifactJson.default_rho,
+    dispersionR: clubGoalsArtifactJson.dispersion_r,
+    rhoDrawBlendWeight: clubGoalsArtifactJson.rho_draw_blend_weight,
+  };
+}
+
+export interface NflMarketContextV5 {
+  readonly marketSpreadHome: number | null;
+  readonly marketTotalLine: number | null;
+  readonly isIndoor: boolean;
+  readonly isTurf: boolean;
+}
+
+function normalizeZero(value: number): number {
+  return value === 0 ? 0 : value;
+}
+
+function formatSignedLine(line: number): string {
+  const clean = normalizeZero(round1(line));
+  return clean > 0 ? `+${clean}` : `${clean}`;
+}
+
+function parseSpreadFromRow(row: PlatformMarketRow): number | null {
+  if (!SPREAD_MARKET_KEYS.has(row.market.trim().toLowerCase())) {
+    return null;
+  }
+  const sel = row.selection.trim().toLowerCase();
+  const isHome = sel === "home" || sel.startsWith("home_") || sel.startsWith("home ");
+  const isAway = sel === "away" || sel.startsWith("away_") || sel.startsWith("away ");
+  if (!isHome && !isAway) return null;
+
+  let rawLine = parseStrictFiniteNumber(row.line);
+  if (rawLine === null) {
+    const match = /^(?:home|away)[_\s]([+-]?\d+(?:\.\d+)?)$/.exec(sel);
+    if (match?.[1]) {
+      rawLine = parseStrictFiniteNumber(match[1]);
+    }
+  }
+  if (rawLine === null || Math.abs(rawLine) > 35) return null;
+  return normalizeZero(isHome ? rawLine : -rawLine);
+}
+
+function parseTotalFromRow(row: PlatformMarketRow): number | null {
+  if (!TOTAL_MARKET_KEYS.has(row.market.trim().toLowerCase())) {
+    return null;
+  }
+  const sel = row.selection.trim().toLowerCase();
+  const isTotalSel =
+    sel === "over" ||
+    sel === "under" ||
+    sel.startsWith("over_") ||
+    sel.startsWith("under_") ||
+    sel.startsWith("over ") ||
+    sel.startsWith("under ");
+  if (!isTotalSel) return null;
+
+  let rawLine = parseStrictFiniteNumber(row.line);
+  if (rawLine === null) {
+    const match = /^(?:over|under)[_\s](\d+(?:\.\d+)?)$/.exec(sel);
+    if (match?.[1]) {
+      rawLine = parseStrictFiniteNumber(match[1]);
+    }
+  }
+  if (rawLine === null || rawLine < 20 || rawLine > 85) return null;
+  return rawLine;
+}
+
+function pickPrioritizedLine(
+  rows: readonly PlatformMarketRow[],
+  extractor: (row: PlatformMarketRow) => number | null,
+): number | null {
+  let fallbackLine: number | null = null;
+  for (const row of rows) {
+    if (row.isDerived === true) continue;
+    const parsed = extractor(row);
+    if (parsed === null) continue;
+    if (typeof row.currentDecimal === "number" && Number.isFinite(row.currentDecimal) && row.currentDecimal > 1) {
+      return parsed;
+    }
+    if (fallbackLine === null) {
+      fallbackLine = parsed;
+    }
+  }
+  return fallbackLine;
+}
+
+export function extractNflMarketContextV5(
+  game: PlatformGame,
+  existingMarkets: readonly PlatformMarketRow[] = [],
+): NflMarketContextV5 {
+  const combinedRows: PlatformMarketRow[] = [...existingMarkets, ...(game.markets ?? [])];
+  const marketSpreadHome = pickPrioritizedLine(combinedRows, parseSpreadFromRow);
+  const marketTotalLine = pickPrioritizedLine(combinedRows, parseTotalFromRow);
+
+  const venue = game.venue ?? "";
+  const pitchCondition = game.preGame?.matchContext?.pitchCondition ?? "";
+  const weatherDesc = game.preGame?.matchContext?.weather?.description ?? "";
+  const envText = `${venue} ${pitchCondition} ${weatherDesc}`.trim();
+  const homeCode = game.home.code.trim().toUpperCase();
+
+  const isIndoor =
+    NFL_INDOOR_VENUE_RE.test(envText) ||
+    (!game.neutralSite && NFL_INDOOR_TEAM_CODES.has(homeCode));
+
+  let isTurf = false;
+  if (NFL_NATURAL_GRASS_RE.test(pitchCondition)) {
+    isTurf = false;
+  } else if (NFL_TURF_VENUE_RE.test(envText)) {
+    isTurf = true;
+  } else if (!game.neutralSite && NFL_TURF_TEAM_CODES.has(homeCode)) {
+    isTurf = true;
+  }
+
+  return {
+    marketSpreadHome,
+    marketTotalLine,
+    isIndoor,
+    isTurf,
+  };
+}
 
 function clampProb(p: number): number {
   return Math.max(0.001, Math.min(0.999, p));
@@ -171,10 +499,6 @@ export interface ResolvedRefereePriorV5 {
 const refereePriorMemo = new Map<string, ResolvedRefereePriorV5 | null>();
 const MAX_REFEREE_MEMO = 500;
 
-/**
- * Resuelve el árbitro del partido contra los 839 perfiles Empirical Bayes de `official_priors_v5_1.json`.
- * Soporta nombres completos («Michael Oliver» → «m oliver») y compuestos («Bruno José Costa»).
- */
 export function resolveRefereePriorV5(
   refereeName: string | null | undefined,
   div?: string | null,
@@ -313,14 +637,6 @@ export interface MatchDetailV5Result {
   readonly fallbackOutlook: MatchOutlookSummary | null;
 }
 
-/**
- * Ejecuta Spacetime Suite v5.1 en servidor (`< 0.4 ms` en frío, `< 0.01 ms` en caché, `0` red,
- * `100%` determinista) para enriquecer la ficha del partido con bandas epistémicas 90 %, pago
- * anticipado, micro-mercados con rigor arbitral real, mitades 1T/2T, mercados multideporte y
- * síntesis verificada.
- *
- * Respeta la superficie congelada `v3.2`: nunca sobrescribe filas ya emitidas por `v3.2`.
- */
 export function buildMatchDetailV5(
   game: PlatformGame,
   options: {
@@ -333,16 +649,26 @@ export function buildMatchDetailV5(
   }
 
   const existing = options.existingMarkets ?? [];
-  const existingSig = existing.map((r) => `${r.market}:${r.selection}:${r.line ?? ""}`).join(",");
+  const existingSig = existing
+    .map((r) => `${r.market}:${r.selection}:${r.line ?? ""}:${r.currentDecimal ?? ""}`)
+    .join(",");
+  const gameMarketsSig = (game.markets ?? [])
+    .map((r) => `${r.market}:${r.selection}:${r.line ?? ""}:${r.currentDecimal ?? ""}`)
+    .join(",");
   const cacheKey = [
     game.id,
     game.league,
     game.x12.join(","),
     game.projection ? `${game.projection.home},${game.projection.away},${game.projection.total}` : "",
+    game.venue ?? "",
+    game.neutralSite ? "1" : "0",
     game.referee ?? game.preGame?.matchContext?.referee ?? "",
+    game.preGame?.matchContext?.pitchCondition ?? "",
+    game.preGame?.matchContext?.weather?.description ?? "",
     game.preGame?.absences?.length ?? 0,
     options.hasV32Outlook ? "1" : "0",
     existingSig,
+    gameMarketsSig,
   ].join("|");
   if (v5DetailCache.has(cacheKey)) {
     return v5DetailCache.get(cacheKey) ?? null;
@@ -373,7 +699,6 @@ function buildMatchDetailV5Uncached(
     }
   };
 
-  // ── 1. FÚTBOL (23 divisiones + copas + selecciones) ────────────────────────────────────
   if (game.sport === "football") {
     const [rawH, rawD, rawA] = game.x12;
     const sum = rawH + rawD + rawA;
@@ -386,17 +711,16 @@ function buildMatchDetailV5Uncached(
     const totalGoals = Math.max(1.2, Math.min(4.8, game.projection?.total ?? 2.65));
     const refereeName = game.referee ?? game.preGame?.matchContext?.referee ?? null;
     const refPrior = resolveRefereePriorV5(refereeName, div);
+    const goalsParams = resolveSoccerGoalsParamsV5(String(game.league));
 
-    // Resolvemos directamente los submódulos rápidos v5.1 (evita correr la integración QMC
-    // Student-t de 2,048 nodos en cada ficha cuando el SGP se evalúa bajo demanda en /api/parlays/sgp).
     const sol4 = solveDiagonalInflatedScoreMatrix4Param({
       pHome,
       pDraw,
       pAway,
       totalGoalsTarget: totalGoals,
-      rhoPrior: 0.0,
-      dispersionR: 45.0,
-      rhoDrawBlendWeight: 0.0,
+      rhoPrior: goalsParams.rhoPrior,
+      dispersionR: goalsParams.dispersionR,
+      rhoDrawBlendWeight: goalsParams.rhoDrawBlendWeight,
     });
     const socMarkets = summarizeSoccerMarketsFromMatrixV4(sol4.matrix);
     const lh = sol4.muHome;
@@ -408,15 +732,8 @@ function buildMatchDetailV5Uncached(
     const tempoExc = lh + la - 2.65;
     const tightness = Math.exp(-Math.abs(supH)) - 0.55;
     const dp = microArtifact.div_priors[div];
-    const metricKeys: readonly SoccerMicroMetricKey[] = [
-      "corners",
-      "yellow_cards",
-      "fouls",
-      "shots_on_target",
-      "shots",
-    ];
-    const featuresByMetric = {} as Record<SoccerMicroMetricKey, MicroFeatureVectorInputV4>;
-    for (const q of metricKeys) {
+
+    const buildMetricFeature = (q: SoccerMicroMetricKey): MicroFeatureVectorInputV4 => {
       const sp = microArtifact.metrics[q];
       const bh = dp?.metrics[q]?.home_mean ?? sp.default_home_rate;
       const ba = dp?.metrics[q]?.away_mean ?? sp.default_away_rate;
@@ -426,11 +743,19 @@ function buildMatchDetailV5Uncached(
           : refPrior && q === "fouls"
             ? Math.log(Math.max(0.5, refPrior.foulsMultiplier))
             : 0.0;
-      featuresByMetric[q] = {
+      return {
         homeFeatures8: [Math.log(Math.max(bh, 0.12)), supH, siegeH, tempoExc, tightness, 0, 0, logRef],
         awayFeatures8: [Math.log(Math.max(ba, 0.12)), supA, siegeA, tempoExc, tightness, 0, 0, logRef],
       };
-    }
+    };
+
+    const featuresByMetric: Record<SoccerMicroMetricKey, MicroFeatureVectorInputV4> = {
+      corners: buildMetricFeature("corners"),
+      yellow_cards: buildMetricFeature("yellow_cards"),
+      fouls: buildMetricFeature("fouls"),
+      shots_on_target: buildMetricFeature("shots_on_target"),
+      shots: buildMetricFeature("shots"),
+    };
 
     const micro = buildSoccerMicroMatchOutlookV5({
       matchId: game.id,
@@ -510,7 +835,6 @@ function buildMatchDetailV5Uncached(
 
     const extraMarkets: PlatformMarketRow[] = [];
     if (micro) {
-      // Micro-mercados de conteos causales (córners, amarillas, faltas, remates, a puerta, rojas, booking points)
       const microPairs: ReadonlyArray<{
         readonly key: SoccerMicroMetricKey;
         readonly market: string;
@@ -565,7 +889,6 @@ function buildMatchDetailV5Uncached(
         );
       }
 
-      // Tarjeta roja (Sí / No)
       pushUnique(
         extraMarkets,
         makeV5Row({
@@ -599,7 +922,6 @@ function buildMatchDetailV5Uncached(
         }),
       );
 
-      // Puntos por tarjeta (Booking Points — línea principal 45.5 o central)
       const bpLine =
         micro.bookingPoints.lines.find((l) => Math.abs(l.line - 45.5) < 0.01) ??
         micro.bookingPoints.lines[0];
@@ -639,7 +961,6 @@ function buildMatchDetailV5Uncached(
         );
       }
 
-      // Mitades (1.er tiempo y 2.º tiempo): solo agrega si aún no existen mercados de 1T/2T
       const addHalfRows = (
         half: typeof micro.firstHalf,
         prefix: "ht" | "2h",
@@ -794,7 +1115,6 @@ function buildMatchDetailV5Uncached(
         }
       : null;
 
-    // Fallback de MatchOutlookSummary para las 23+ ligas de expansión que no están en v3.2
     let fallbackOutlook: MatchOutlookSummary | null = null;
     if (!options.hasV32Outlook && intel.soccerMarkets) {
       const m = intel.soccerMarkets;
@@ -814,7 +1134,9 @@ function buildMatchDetailV5Uncached(
             : {
                 label: "Empate",
                 p: round4(m.pDraw),
-                fairDecimal: round2(intel.coreProbabilities.fairOddsDraw?.decimal ?? 1 / Math.max(m.pDraw, 0.01)),
+                fairDecimal: round2(
+                  intel.coreProbabilities.fairOddsDraw?.decimal ?? 1 / Math.max(m.pDraw, 0.01),
+                ),
               };
 
       fallbackOutlook = {
@@ -859,13 +1181,15 @@ function buildMatchDetailV5Uncached(
     };
   }
 
-  // ── 2. NFL (Minkowski v5: números clave ±3, Overtime y Pago Anticipado +17 pts) ────────
   if (game.sport === "american-football") {
     const [rawH, , rawA] = game.x12;
-    const twoWay = Math.max(rawH + rawA, 1e-6);
+    const twoWay = rawH + rawA;
+    if (!Number.isFinite(twoWay) || twoWay <= 0) return null;
     const pHome = clampProb(rawH / twoWay);
-    const pAway = clampProb(rawA / twoWay);
+    const pAway = 1 - pHome;
     const pTie = 0.004;
+    const nflCtx = extractNflMarketContextV5(game, existing);
+
     const sol = solveNflKeyNumberMarginPmfExact({
       pHome: pHome * (1 - pTie),
       pTie,
@@ -890,18 +1214,31 @@ function buildMatchDetailV5Uncached(
       },
     });
     const center = sol.maxAbsMargin;
+
+    const spreadPosterior =
+      nflCtx.marketSpreadHome !== null
+        ? projectNflMarketSpreadPosteriorV5({
+            modelExpectedMargin: sol.expectedMargin,
+            marketSpreadHome: nflCtx.marketSpreadHome,
+            pTie,
+            artifact: nflArtifact,
+          })
+        : null;
+
     const totOut = projectNflDiscreteKeyTotalPmfV5({
       modelExpectedTotal: game.projection?.total ?? 44.5,
       artifact: nflArtifact,
-      marketTotalLine: null,
+      marketTotalLine: nflCtx.marketTotalLine,
     });
+
     const otOut = projectNflOvertimeProbabilityV5({
       expectedMargin: sol.expectedMargin,
       expectedTotal: totOut.modelExpectedTotal,
-      isIndoor: false,
-      isTurf: false,
+      isIndoor: nflCtx.isIndoor,
+      isTurf: nflCtx.isTurf,
       artifact: nflArtifact,
     });
+
     const nflEp17 = evaluatePointsSportEarlyPayout({
       sport: "nfl",
       pHomeWin: pHome,
@@ -915,8 +1252,12 @@ function buildMatchDetailV5Uncached(
       sport: "nfl",
       calibrationArtifact: epistemicArtifact,
     });
+    const mktTotalPost = totOut.marketPosteriorProjection;
     const pOver445 =
       totOut.objectiveProjections.find((t) => Math.abs(t.totalLine - 44.5) < 1e-6)?.pOverNoPush ?? 0.5;
+    const canonicalTotalLine = mktTotalPost?.totalLine ?? 44.5;
+    const pOverCanonical = mktTotalPost?.pOverNoPush ?? pOver445;
+
     const facts = buildVerifiedMatchFactSheet({
       matchId: game.id,
       sport: "nfl",
@@ -926,8 +1267,8 @@ function buildMatchDetailV5Uncached(
       pDraw: null,
       pAway,
       expectedTotal: totOut.modelExpectedTotal,
-      canonicalTotalLine: 44.5,
-      pOverCanonical: pOver445,
+      canonicalTotalLine,
+      pOverCanonical,
     });
     const verifiedSummaryEs = compileDeterministicVerifiedSummaryEs(facts);
     const guardrailPassed =
@@ -959,6 +1300,80 @@ function buildMatchDetailV5Uncached(
     };
 
     const extraMarkets: PlatformMarketRow[] = [];
+    if (spreadPosterior) {
+      const homeSpreadStr = formatSignedLine(spreadPosterior.spreadHome);
+      const awaySpreadStr = formatSignedLine(-spreadPosterior.spreadHome);
+      const spreadTitle = `Hándicap posterior v5.1 (${homeSpreadStr})`;
+      pushUnique(
+        extraMarkets,
+        makeV5Row({
+          group: "Hándicap posterior v5.1",
+          market: "nfl_spread_posterior",
+          selection: "home",
+          label: `${game.home.name} (${homeSpreadStr})`,
+          line: spreadPosterior.spreadHome,
+          p: spreadPosterior.pHomeCoverNoPush,
+          fairDecimal: spreadPosterior.fairOddsHomeCover.decimal,
+          fairAmerican: spreadPosterior.fairOddsHomeCover.american,
+          cardCategory: "handicap",
+          cardTitle: spreadTitle,
+          isMostLikely: spreadPosterior.pHomeCoverNoPush >= spreadPosterior.pAwayCoverNoPush,
+        }),
+      );
+      pushUnique(
+        extraMarkets,
+        makeV5Row({
+          group: "Hándicap posterior v5.1",
+          market: "nfl_spread_posterior",
+          selection: "away",
+          label: `${game.away.name} (${awaySpreadStr})`,
+          line: normalizeZero(-spreadPosterior.spreadHome),
+          p: spreadPosterior.pAwayCoverNoPush,
+          fairDecimal: spreadPosterior.fairOddsAwayCover.decimal,
+          fairAmerican: spreadPosterior.fairOddsAwayCover.american,
+          cardCategory: "handicap",
+          cardTitle: spreadTitle,
+          isMostLikely: spreadPosterior.pAwayCoverNoPush > spreadPosterior.pHomeCoverNoPush,
+        }),
+      );
+    }
+
+    if (mktTotalPost) {
+      const totTitle = `Total posterior v5.1 (${mktTotalPost.totalLine})`;
+      pushUnique(
+        extraMarkets,
+        makeV5Row({
+          group: "Total posterior v5.1",
+          market: "nfl_total_posterior",
+          selection: "over",
+          label: `Más de ${mktTotalPost.totalLine} pts`,
+          line: mktTotalPost.totalLine,
+          p: mktTotalPost.pOverNoPush,
+          fairDecimal: mktTotalPost.fairOddsOver.decimal,
+          fairAmerican: mktTotalPost.fairOddsOver.american,
+          cardCategory: "goles",
+          cardTitle: totTitle,
+          isMostLikely: mktTotalPost.pOverNoPush >= mktTotalPost.pUnderNoPush,
+        }),
+      );
+      pushUnique(
+        extraMarkets,
+        makeV5Row({
+          group: "Total posterior v5.1",
+          market: "nfl_total_posterior",
+          selection: "under",
+          label: `Menos de ${mktTotalPost.totalLine} pts`,
+          line: mktTotalPost.totalLine,
+          p: mktTotalPost.pUnderNoPush,
+          fairDecimal: mktTotalPost.fairOddsUnder.decimal,
+          fairAmerican: mktTotalPost.fairOddsUnder.american,
+          cardCategory: "goles",
+          cardTitle: totTitle,
+          isMostLikely: mktTotalPost.pUnderNoPush > mktTotalPost.pOverNoPush,
+        }),
+      );
+    }
+
     const nflM = intel.nflMarketsV5;
     if (nflM) {
       const pNoOt = clampProb(1 - nflM.pOvertime);
@@ -986,7 +1401,10 @@ function buildMatchDetailV5Uncached(
           label: "Sin tiempo extra — No",
           p: pNoOt,
           fairDecimal: 1 / pNoOt,
-          fairAmerican: pNoOt >= 0.5 ? -Math.round((pNoOt / (1 - pNoOt)) * 100) : Math.round(((1 - pNoOt) / pNoOt) * 100),
+          fairAmerican:
+            pNoOt >= 0.5
+              ? -Math.round((pNoOt / (1 - pNoOt)) * 100)
+              : Math.round(((1 - pNoOt) / pNoOt) * 100),
           cardCategory: "resultado",
           cardTitle: "Tiempo extra (Overtime)",
           isMostLikely: pNoOt > nflM.pOvertime,
@@ -1033,7 +1451,6 @@ function buildMatchDetailV5Uncached(
     };
   }
 
-  // ── 3. MULTIDEPORTE US (MLB Kepler F5, NHL Curvature Empty-Net, NBA Tensor) ────────────
   const msSport: "mlb" | "nhl" | "nba" | null =
     game.sport === "baseball"
       ? "mlb"
@@ -1043,6 +1460,14 @@ function buildMatchDetailV5Uncached(
           ? "nba"
           : null;
   if (!msSport) return null;
+
+  const [rawH, , rawA] = game.x12;
+  const twoWay = rawH + rawA;
+  if (!Number.isFinite(twoWay) || twoWay <= 0) return null;
+  const livePHome = clampProb(rawH / twoWay);
+  const livePAway = 1 - livePHome;
+  const fairLiveHome = probabilityToFairOdds(livePHome);
+  const fairLiveAway = probabilityToFairOdds(livePAway);
 
   const homeKey = findMultiSportTeamKey(msSport, game.home.name, game.home.code);
   const awayKey = findMultiSportTeamKey(msSport, game.away.name, game.away.code);
@@ -1063,8 +1488,14 @@ function buildMatchDetailV5Uncached(
     const extraMarkets: PlatformMarketRow[] = [];
     const highlights: Array<{ label: string; value: string; sub?: string }> = [];
     const msOut = intel.multiSportOutlook;
+    let msExpectedTotal = game.projection?.total ?? (msSport === "nba" ? 224 : msSport === "nhl" ? 6.0 : 8.5);
+    let msCanonicalLine = game.goalLine?.line ?? (msSport === "nba" ? 224.5 : msSport === "nhl" ? 6.0 : 8.5);
+    let msPOverCanonical = game.goalLine?.pOver ?? 0.5;
 
     if (msOut?.sport === "mlb") {
+      msExpectedTotal = game.projection?.total ?? msOut.full_game.expected_total_runs;
+      msCanonicalLine = game.goalLine?.line ?? msOut.full_game.total_line;
+      msPOverCanonical = game.goalLine?.pOver ?? msOut.full_game.p_over_cond_no_push;
       const f5TotalRuns = msOut.f5.mu_home + msOut.f5.mu_away;
       highlights.push(
         {
@@ -1129,6 +1560,10 @@ function buildMatchDetailV5Uncached(
         }),
       );
     } else if (msOut?.sport === "nhl") {
+      msExpectedTotal =
+        game.projection?.total ?? msOut.expected_goals_home_full + msOut.expected_goals_away_full;
+      msCanonicalLine = game.goalLine?.line ?? msOut.total_line;
+      msPOverCanonical = game.goalLine?.pOver ?? msOut.p_over_cond_no_push;
       highlights.push(
         {
           label: "Probabilidad de Prórroga / SO",
@@ -1138,7 +1573,7 @@ function buildMatchDetailV5Uncached(
         {
           label: `Puck Line ${game.home.shortName} (-1.5)`,
           value: `${(msOut.p_puckline_home_minus_1_5 * 100).toFixed(1)} %`,
-          sub: `Incluye ajuste por portería vacía`,
+          sub: "Incluye ajuste por portería vacía",
         },
       );
       const plTitle = "Puck Line (-1.5 / +1.5)";
@@ -1185,6 +1620,9 @@ function buildMatchDetailV5Uncached(
         }),
       );
     } else if (msOut?.sport === "nba") {
+      msExpectedTotal = game.projection?.total ?? msOut.expected_total;
+      msCanonicalLine = game.goalLine?.line ?? msOut.total_line;
+      msPOverCanonical = game.goalLine?.pOver ?? msOut.p_over;
       highlights.push(
         {
           label: "Margen proyectado",
@@ -1194,41 +1632,86 @@ function buildMatchDetailV5Uncached(
         {
           label: "Probabilidad de Prórroga",
           value: `${(msOut.p_overtime * 100).toFixed(1)} %`,
-          sub: `Banda epistémica calibrada al 90 %`,
+          sub: "Banda epistémica calibrada al 90 %",
         },
       );
     }
 
-    const ep = intel.pointsSportEarlyPayout;
-    const earlyPayout: EarlyPayoutSummaryView | null = ep
+    const epAnchored =
+      msSport === "mlb" || msSport === "nba"
+        ? evaluatePointsSportEarlyPayout({
+            sport: msSport,
+            pHomeWin: livePHome,
+            artifact: inplayArtifact,
+          })
+        : null;
+
+    const earlyPayout: EarlyPayoutSummaryView | null = epAnchored
       ? {
-          triggerLabel: msSport === "mlb" ? `Ventaja de +${ep.triggerLead} carreras` : `Ventaja de +${ep.triggerLead} pts`,
-          homeWinProb: round4(ep.pHomeEarlyPayoutWin),
-          awayWinProb: round4(ep.pAwayEarlyPayoutWin),
-          homeLiftPts: round1(ep.homeEarlyPayoutLift * 100),
-          awayLiftPts: round1(ep.awayEarlyPayoutLift * 100),
-          fairHomeDecimal: round2(ep.fairOddsHomeEarlyPayout.decimal),
-          fairAwayDecimal: round2(ep.fairOddsAwayEarlyPayout.decimal),
+          triggerLabel:
+            msSport === "mlb"
+              ? `Ventaja de +${epAnchored.triggerLead} carreras`
+              : `Ventaja de +${epAnchored.triggerLead} pts`,
+          homeWinProb: round4(epAnchored.pHomeEarlyPayoutWin),
+          awayWinProb: round4(epAnchored.pAwayEarlyPayoutWin),
+          homeLiftPts: round1(epAnchored.homeEarlyPayoutLift * 100),
+          awayLiftPts: round1(epAnchored.awayEarlyPayoutLift * 100),
+          fairHomeDecimal: round2(epAnchored.fairOddsHomeEarlyPayout.decimal),
+          fairAwayDecimal: round2(epAnchored.fairOddsAwayEarlyPayout.decimal),
           validatedOos: false,
         }
       : null;
 
-    const pH = intel.coreProbabilities.pHome;
-    const pA = intel.coreProbabilities.pAway;
+    const epistemic = buildMatchEpistemicSummaryV5({
+      pHome: livePHome,
+      pDraw: null,
+      pAway: livePAway,
+      effectiveSampleGames: msSport === "mlb" ? 60 : 40,
+      sport: "multisport",
+      calibrationArtifact: epistemicArtifact,
+    });
+
+    const facts = buildVerifiedMatchFactSheet({
+      matchId: game.id,
+      sport: msSport,
+      homeTeam: game.home.name,
+      awayTeam: game.away.name,
+      pHome: livePHome,
+      pDraw: null,
+      pAway: livePAway,
+      expectedTotal: msExpectedTotal,
+      canonicalTotalLine: msCanonicalLine,
+      pOverCanonical: msPOverCanonical,
+    });
+    const verifiedSummaryEs = compileDeterministicVerifiedSummaryEs(facts);
+    const guardrailPassed =
+      validateNarrativeAgainstFactSheet(verifiedSummaryEs, facts).passed &&
+      validateMatchMathematicalInvariants({
+        pHome: livePHome,
+        pDraw: null,
+        pAway: livePAway,
+        pHomeEarlyPayoutWin: epAnchored?.pHomeEarlyPayoutWin ?? null,
+        pAwayEarlyPayoutWin: epAnchored?.pAwayEarlyPayoutWin ?? null,
+        epistemicBands: [
+          { label: "home", ...epistemic.homeBand90 },
+          { label: "away", ...epistemic.awayBand90 },
+        ],
+      }).passed;
+
     const fallbackOutlook: MatchOutlookSummary | null = !options.hasV32Outlook
       ? {
           generatedAtUtc: game.kickoffUtc,
           mostLikely:
-            pH >= pA
+            livePHome >= livePAway
               ? {
                   label: `Gana ${game.home.name}`,
-                  p: round4(pH),
-                  fairDecimal: round2(intel.coreProbabilities.fairOddsHome.decimal),
+                  p: round4(livePHome),
+                  fairDecimal: round2(fairLiveHome.decimal),
                 }
               : {
                   label: `Gana ${game.away.name}`,
-                  p: round4(pA),
-                  fairDecimal: round2(intel.coreProbabilities.fairOddsAway.decimal),
+                  p: round4(livePAway),
+                  fairDecimal: round2(fairLiveAway.decimal),
                 },
           scorelines: [],
           quality: { flag: "ok", coveragePct: 90 },
@@ -1245,29 +1728,33 @@ function buildMatchDetailV5Uncached(
     return {
       v5: {
         epistemic: {
-          home: toBandView(intel.epistemicUncertainty90.homeBand90),
+          home: toBandView(epistemic.homeBand90),
           draw: null,
-          away: toBandView(intel.epistemicUncertainty90.awayBand90),
+          away: toBandView(epistemic.awayBand90),
         },
         earlyPayout,
         multisportSpecials: highlights.length > 0 ? { sport: msSport, highlights } : null,
-        verifiedSummaryEs: intel.verifiedSummaryEs,
-        guardrailPassed: intel.guardrailAudit.passed,
+        verifiedSummaryEs,
+        guardrailPassed,
       },
       extraMarkets,
       fallbackOutlook,
     };
   }
 
-  // Fallback ligero solo con bandas epistémicas + resumen verificado si el equipo no está en stateArtifact
-  const [rawH, , rawA] = game.x12;
-  const twoWay = Math.max(rawH + rawA, 1e-6);
-  const pH = clampProb(rawH / twoWay);
-  const pA = clampProb(rawA / twoWay);
+  const epFallback =
+    msSport === "mlb" || msSport === "nba"
+      ? evaluatePointsSportEarlyPayout({
+          sport: msSport,
+          pHomeWin: livePHome,
+          artifact: inplayArtifact,
+        })
+      : null;
+
   const epistemic = buildMatchEpistemicSummaryV5({
-    pHome: pH,
+    pHome: livePHome,
     pDraw: null,
-    pAway: pA,
+    pAway: livePAway,
     effectiveSampleGames: msSport === "mlb" ? 50 : 32,
     sport: "multisport",
     calibrationArtifact: epistemicArtifact,
@@ -1277,14 +1764,28 @@ function buildMatchDetailV5Uncached(
     sport: msSport,
     homeTeam: game.home.name,
     awayTeam: game.away.name,
-    pHome: pH,
+    pHome: livePHome,
     pDraw: null,
-    pAway: pA,
+    pAway: livePAway,
     expectedTotal: game.projection?.total ?? (msSport === "nba" ? 224 : msSport === "nhl" ? 6.0 : 8.5),
     canonicalTotalLine: game.goalLine?.line ?? (msSport === "nba" ? 224.5 : msSport === "nhl" ? 6.0 : 8.5),
     pOverCanonical: game.goalLine?.pOver ?? 0.5,
   });
   const verifiedSummaryEs = compileDeterministicVerifiedSummaryEs(facts);
+  const guardrailPassed =
+    validateNarrativeAgainstFactSheet(verifiedSummaryEs, facts).passed &&
+    validateMatchMathematicalInvariants({
+      pHome: livePHome,
+      pDraw: null,
+      pAway: livePAway,
+      pHomeEarlyPayoutWin: epFallback?.pHomeEarlyPayoutWin ?? null,
+      pAwayEarlyPayoutWin: epFallback?.pAwayEarlyPayoutWin ?? null,
+      epistemicBands: [
+        { label: "home", ...epistemic.homeBand90 },
+        { label: "away", ...epistemic.awayBand90 },
+      ],
+    }).passed;
+
   return {
     v5: {
       epistemic: {
@@ -1292,17 +1793,31 @@ function buildMatchDetailV5Uncached(
         draw: null,
         away: toBandView(epistemic.awayBand90),
       },
+      ...(epFallback
+        ? {
+            earlyPayout: {
+              triggerLabel:
+                msSport === "mlb"
+                  ? `Ventaja de +${epFallback.triggerLead} carreras`
+                  : `Ventaja de +${epFallback.triggerLead} pts`,
+              homeWinProb: round4(epFallback.pHomeEarlyPayoutWin),
+              awayWinProb: round4(epFallback.pAwayEarlyPayoutWin),
+              homeLiftPts: round1(epFallback.homeEarlyPayoutLift * 100),
+              awayLiftPts: round1(epFallback.awayEarlyPayoutLift * 100),
+              fairHomeDecimal: round2(epFallback.fairOddsHomeEarlyPayout.decimal),
+              fairAwayDecimal: round2(epFallback.fairOddsAwayEarlyPayout.decimal),
+              validatedOos: false,
+            },
+          }
+        : {}),
       verifiedSummaryEs,
-      guardrailPassed: validateNarrativeAgainstFactSheet(verifiedSummaryEs, facts).passed,
+      guardrailPassed,
     },
     extraMarkets: [],
     fallbackOutlook: null,
   };
 }
 
-/**
- * Evalúa probabilidades dinámicas en vivo para un partido de fútbol en curso (`< 0.15 ms`, DP exacto).
- */
 export function evaluateLiveInPlaySoccerV5(params: {
   readonly pregameMuHome: number;
   readonly pregameMuAway: number;
@@ -1311,6 +1826,9 @@ export function evaluateLiveInPlaySoccerV5(params: {
   readonly currentAwayGoals: number;
   readonly redCardsHome?: number;
   readonly redCardsAway?: number;
+  readonly corePHome?: number;
+  readonly corePDraw?: number;
+  readonly corePAway?: number;
 }): LiveInPlayWinProb {
   const res = evaluateSoccerEarlyPayoutAndInPlay({
     pregameMuHome: Math.max(0.25, Math.min(5.0, params.pregameMuHome)),
@@ -1320,6 +1838,15 @@ export function evaluateLiveInPlaySoccerV5(params: {
     currentAwayGoals: Math.max(0, Math.min(10, Math.round(params.currentAwayGoals))),
     redCardsHome: Math.max(0, Math.min(4, Math.round(params.redCardsHome ?? 0))),
     redCardsAway: Math.max(0, Math.min(4, Math.round(params.redCardsAway ?? 0))),
+    ...(typeof params.corePHome === "number" && Number.isFinite(params.corePHome)
+      ? { corePHome: params.corePHome }
+      : {}),
+    ...(typeof params.corePDraw === "number" && Number.isFinite(params.corePDraw)
+      ? { corePDraw: params.corePDraw }
+      : {}),
+    ...(typeof params.corePAway === "number" && Number.isFinite(params.corePAway)
+      ? { corePAway: params.corePAway }
+      : {}),
     artifact: inplayArtifact,
   });
 
@@ -1340,10 +1867,52 @@ export function evaluateLiveInPlaySoccerV5(params: {
   };
 }
 
-/**
- * Evalúa un Same-Game Parlay (2..8 selecciones del mismo partido) con Cópula Student-t QMC
- * determinista + auditoría de margen oculto cuando el usuario ingresa el momio de su casa.
- */
+export interface LiveInPlayNflView extends LiveInPlayWinProb {
+  readonly secondsRemaining: number;
+  readonly currentScoreDiffHome: number;
+  readonly liveExpectedFinalMargin: number;
+  readonly liveExpectedFinalTotal: number;
+  readonly earlyPayout17AlreadyTriggeredHome: boolean;
+  readonly earlyPayout17AlreadyTriggeredAway: boolean;
+}
+
+export function evaluateLiveInPlayNflV5(params: {
+  readonly secondsRemaining: number;
+  readonly homeScore: number;
+  readonly awayScore: number;
+  readonly pregameExpectedMargin: number;
+  readonly pregameExpectedTotal: number;
+  readonly possession?: "home" | "away" | "neutral";
+}): LiveInPlayNflView {
+  const safeSeconds = Math.max(0, Math.min(3600, params.secondsRemaining));
+  const res = evaluateNflInPlayState({
+    secondsRemaining: safeSeconds,
+    homeScore: Math.max(0, Math.round(params.homeScore)),
+    awayScore: Math.max(0, Math.round(params.awayScore)),
+    pregameExpectedMargin: Math.max(-35, Math.min(35, params.pregameExpectedMargin)),
+    pregameExpectedTotal: Math.max(20, Math.min(85, params.pregameExpectedTotal)),
+    possession: params.possession ?? "neutral",
+    artifact: inplayArtifact,
+  });
+
+  return {
+    minute: Math.round((3600 - res.secondsRemaining) / 60),
+    secondsRemaining: res.secondsRemaining,
+    currentScoreDiffHome: res.currentScoreDiffHome,
+    liveExpectedFinalMargin: round2(res.liveExpectedFinalMargin),
+    liveExpectedFinalTotal: round2(res.liveExpectedFinalTotal),
+    pHome: round4(res.pHomeWinLive),
+    pDraw: null,
+    pAway: round4(res.pAwayWinLive),
+    fairHomeDecimal: round2(res.fairOddsHomeLive.decimal),
+    fairDrawDecimal: null,
+    fairAwayDecimal: round2(res.fairOddsAwayLive.decimal),
+    expectedFinalTotal: round2(res.liveExpectedFinalTotal),
+    earlyPayout17AlreadyTriggeredHome: res.earlyPayout17AlreadyTriggeredHome,
+    earlyPayout17AlreadyTriggeredAway: res.earlyPayout17AlreadyTriggeredAway,
+  };
+}
+
 export function evaluateSgpCopulaV5(params: {
   readonly sport: "soccer" | "nfl";
   readonly legs: readonly SgpLegInput[];
@@ -1377,9 +1946,105 @@ export function evaluateSgpCopulaV5(params: {
   };
 }
 
-/**
- * Guardrail anti-alucinación de Spacetime v5.1 para auditar cualquier resumen narrativo de Cortex IA.
- */
+export interface PlayerLinkedSgpAuditView {
+  readonly pPlayerScores: number;
+  readonly pTeamOutcomeMarginal: number;
+  readonly pTotalOutcomeMarginal: number | null;
+  readonly independentProbability: number;
+  readonly jointProbability: number;
+  readonly structuralLiftMultiplier: number;
+  readonly dixonColesRhoUsed: number;
+  readonly fairCombinedDecimal: number;
+  readonly fairCombinedAmerican: number;
+  readonly bookQuoteAudit: SgpCopulaAuditView["bookQuoteAudit"];
+}
+
+export function evaluatePlayerLinkedSgpCopulaV5(params: {
+  readonly pPlayerAnytimeGoal: number;
+  readonly teamExpectedGoals: number;
+  readonly opponentExpectedGoals: number;
+  readonly teamOutcome: "team_win" | "team_win_or_draw" | "any";
+  readonly matchTotalOverLine?: number | null;
+  readonly offeredCombinedDecimalOdds?: number | null;
+  readonly dixonColesRho?: number;
+}): PlayerLinkedSgpAuditView {
+  const dcRho = params.dixonColesRho ?? sgpArtifactJson.default_player_linked_dc_rho;
+  const evaluated = evaluatePlayerLinkedSgpV5({
+    pPlayerAnytimeGoal: params.pPlayerAnytimeGoal,
+    teamExpectedGoals: params.teamExpectedGoals,
+    opponentExpectedGoals: params.opponentExpectedGoals,
+    teamOutcome: params.teamOutcome,
+    matchTotalOverLine: params.matchTotalOverLine ?? null,
+    offeredCombinedDecimalOdds: params.offeredCombinedDecimalOdds ?? null,
+    dixonColesRho: dcRho,
+  });
+
+  return {
+    pPlayerScores: round4(evaluated.pPlayerScores),
+    pTeamOutcomeMarginal: round4(evaluated.pTeamOutcomeMarginal),
+    pTotalOutcomeMarginal:
+      evaluated.pTotalOutcomeMarginal !== null ? round4(evaluated.pTotalOutcomeMarginal) : null,
+    independentProbability: round4(evaluated.independentProbability),
+    jointProbability: round4(evaluated.jointProbability),
+    structuralLiftMultiplier: round4(evaluated.structuralLiftMultiplier),
+    dixonColesRhoUsed: dcRho,
+    fairCombinedDecimal: round2(evaluated.fairCombinedOdds.decimal),
+    fairCombinedAmerican: Math.round(evaluated.fairCombinedOdds.american),
+    bookQuoteAudit: evaluated.bookQuoteAudit
+      ? {
+          offeredDecimal: round2(evaluated.bookQuoteAudit.offeredCombinedDecimalOdds),
+          impliedBookProbability: round4(evaluated.bookQuoteAudit.impliedBookProbability),
+          fairCombinedDecimal: round2(evaluated.bookQuoteAudit.fairCombinedDecimalOdds),
+          effectiveHoldPct: round1(evaluated.bookQuoteAudit.effectiveHoldPct),
+          taxFlag: evaluated.bookQuoteAudit.taxFlag,
+        }
+      : null,
+  };
+}
+
+export interface SoccerPlayerPropProjectionV5 {
+  readonly propFamily: SoccerPropFamilyV4;
+  readonly posCluster: SoccerPositionCluster;
+  readonly lineupStatus: LineupStatusV36;
+  readonly line: number;
+  readonly lambdaEbPer90: number;
+  readonly expectedMinutes: number;
+  readonly pOverRaw: number;
+  readonly pOverCalibrated: SpacetimeUnitProbability;
+  readonly pUnderCalibrated: SpacetimeUnitProbability;
+  readonly pOverSubCover: SpacetimeUnitProbability;
+  readonly subCoverLift: number;
+  readonly fairOverDecimal: number;
+  readonly fairUnderDecimal: number;
+  readonly fairOverAmerican: number;
+  readonly fairUnderAmerican: number;
+  readonly fairOverSubCoverDecimal: number;
+}
+
+export function projectSoccerPlayerPropV5(
+  input: SoccerPlayerPropInputV4,
+): SoccerPlayerPropProjectionV5 {
+  const out = projectSoccerPlayerPropOutlookV5(input, hierarchicalPropsArtifact);
+  return {
+    propFamily: out.propFamily,
+    posCluster: out.posCluster,
+    lineupStatus: out.lineupStatus,
+    line: out.line,
+    lambdaEbPer90: out.lambdaEbPer90,
+    expectedMinutes: out.expectedMinutes,
+    pOverRaw: out.pOverRaw,
+    pOverCalibrated: out.pOverCalibrated,
+    pUnderCalibrated: out.pUnderCalibrated,
+    pOverSubCover: out.pOverSubCover,
+    subCoverLift: out.subCoverLift,
+    fairOverDecimal: round2(out.fairOddsOver.decimal),
+    fairUnderDecimal: round2(out.fairOddsUnder.decimal),
+    fairOverAmerican: Math.round(out.fairOddsOver.american),
+    fairUnderAmerican: Math.round(out.fairOddsUnder.american),
+    fairOverSubCoverDecimal: round2(out.fairOddsOverSubCover.decimal),
+  };
+}
+
 export function auditCortexNarrativeV5(
   game: PlatformGame,
   narrativeText: string,
@@ -1409,10 +2074,6 @@ export function auditCortexNarrativeV5(
   };
 }
 
-/**
- * Síntesis determinista verificada en español (US$0, 0 ms, 0 alucinaciones) como respaldo
- * cuando Cortex IA vía OpenRouter no está disponible o un partido aún no tiene caché.
- */
 export function deterministicVerifiedSummaryV5(game: PlatformGame): string | null {
   if (!game.x12 || game.hasForecast === false) return null;
   const [rawH, rawD, rawA] = game.x12;

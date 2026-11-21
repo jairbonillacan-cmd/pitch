@@ -57,7 +57,9 @@ const API_WRAPPER_EXEMPTIONS = new Set([
 const RATCHET_RULES = [
   "no-monolithic-use-platform",
   "no-prod-comments",
+  "no-slop-wrapper-bloat",
   "no-unsafe-number-cast",
+  "no-unsafe-type-assertion",
   "no-view-use-effect",
   "require-api-wrapper",
 ];
@@ -117,6 +119,12 @@ const FORBIDDEN_UI_COPY_RE = /\bConfianza\s+\d+|\bDatos\s+(?:completos|parciales
 const MONOLITHIC_USE_PLATFORM_RE = /\busePlatform\s*\(/g;
 const VIEW_USE_EFFECT_RE = /\b(?:React\.)?use(?:Layout)?Effect\s*\(/g;
 const UNSAFE_NUMBER_CAST_RE = /(?<![.\w$])Number\s*\(/g;
+const UNSAFE_TYPE_ASSERTION_RE = /\bas\s+(?:any\b|unknown\s+as\b)/g;
+const TS_SUPPRESSION_RE = /@ts-(?:ignore|nocheck)\b/g;
+const ESLINT_DISABLE_RE = /\beslint-disable(?:-(?:next-)?line)?([^\n]*)/g;
+const ESLINT_STRUCTURAL_CAUSE_RE =
+  /^\s+[a-z0-9@][a-z0-9@/_-]*(?:\s*,\s*[a-z0-9@][a-z0-9@/_-]*)*\s+--\s+[^\s*][^\n*]{2,}$/i;
+const SLOP_TODO_FIXME_RE = /\b(?:TODO|FIXME)\b/g;
 const API_WRAPPER_RE =
   /\b(?:withPublicRead|withSessionRead|withMemberMutation|withActivePaseMutation|withAdminMutation|withCronSecret)\s*\(/;
 const API_HANDLER_EXPORT_RE =
@@ -369,6 +377,7 @@ function scanCss(content) {
       codeWithoutStrings: content,
       codeOnly: content,
       commentLines: [],
+      commentSegments: [],
     };
   }
 
@@ -420,6 +429,7 @@ function scanCss(content) {
       codeWithoutStrings: content,
       codeOnly: content,
       commentLines: [],
+      commentSegments: [],
     };
   }
 
@@ -431,6 +441,7 @@ function scanCss(content) {
     codeWithoutStrings: codeOnly,
     codeOnly,
     commentLines: [],
+    commentSegments: [],
   };
 }
 
@@ -454,6 +465,7 @@ export function scanSource(content, isCss = false) {
   const noStr = [];
   const code = [];
   const commentLineSet = new Set();
+  const commentSegments = [];
   const templateBraceStack = [];
   let inTemplateChunk = false;
   let prevTokenType = "start";
@@ -562,6 +574,7 @@ export function scanSource(content, isCss = false) {
         const seg = content.slice(i, end);
         if (!isTripleSlashReference(content, i)) {
           commentLineSet.add(line);
+          commentSegments.push({ line, text: seg });
         }
         const masked = " ".repeat(seg.length);
         noCmt.push(masked);
@@ -577,12 +590,17 @@ export function scanSource(content, isCss = false) {
         const closeIdx = content.indexOf("*/", i + 2);
         const end = closeIdx === -1 ? len : closeIdx + 2;
         const seg = content.slice(i, end);
+        const startLine = line;
         commentLineSet.add(line);
         let nlPos = seg.indexOf("\n");
         while (nlPos !== -1) {
           line += 1;
           commentLineSet.add(line);
           nlPos = seg.indexOf("\n", nlPos + 1);
+        }
+        const blockLines = seg.split("\n");
+        for (let k = 0; k < blockLines.length; k += 1) {
+          commentSegments.push({ line: startLine + k, text: blockLines[k] });
         }
         const masked = maskPreservingNewlines(seg);
         noCmt.push(masked);
@@ -741,6 +759,7 @@ export function scanSource(content, isCss = false) {
       codeWithoutStrings: content,
       codeOnly: content,
       commentLines: [],
+      commentSegments: [],
     };
   }
 
@@ -750,7 +769,38 @@ export function scanSource(content, isCss = false) {
     codeWithoutStrings: hadString ? noStr.join("") : content,
     codeOnly: code.join(""),
     commentLines: commentLineSet.size > 0 ? [...commentLineSet].sort((a, b) => a - b) : [],
+    commentSegments,
   };
+}
+
+function collectSlopWrapperBloatLines(commentSegments) {
+  const lines = [];
+  for (const segment of commentSegments) {
+    const text = segment.text;
+    if (text.includes("@ts-")) {
+      TS_SUPPRESSION_RE.lastIndex = 0;
+      while (TS_SUPPRESSION_RE.exec(text) !== null) {
+        lines.push(segment.line);
+      }
+    }
+    if (text.includes("eslint-disable")) {
+      ESLINT_DISABLE_RE.lastIndex = 0;
+      let m;
+      while ((m = ESLINT_DISABLE_RE.exec(text)) !== null) {
+        const rest = m[1].replace(/\*\/\s*$/, "").trimEnd();
+        if (!ESLINT_STRUCTURAL_CAUSE_RE.test(rest)) {
+          lines.push(segment.line);
+        }
+      }
+    }
+    if (text.includes("TODO") || text.includes("FIXME")) {
+      SLOP_TODO_FIXME_RE.lastIndex = 0;
+      while (SLOP_TODO_FIXME_RE.exec(text) !== null) {
+        lines.push(segment.line);
+      }
+    }
+  }
+  return lines;
 }
 
 function collectMatchLines(text, regex, getLineStarts) {
@@ -1051,6 +1101,26 @@ function evaluateFile(rel, content) {
     }
   }
 
+  if (isProdCommentTarget(rel) && scanned.codeOnly.includes("as")) {
+    const hits = collectMatchLines(scanned.codeOnly, UNSAFE_TYPE_ASSERTION_RE, getLineStarts);
+    if (hits.length > 0) {
+      ratchetMeasurements["no-unsafe-type-assertion"] = {
+        count: hits.length,
+        lines: hits.map((h) => h.line),
+      };
+    }
+  }
+
+  if (isProdCommentTarget(rel) && scanned.commentSegments.length > 0) {
+    const bloatLines = collectSlopWrapperBloatLines(scanned.commentSegments);
+    if (bloatLines.length > 0) {
+      ratchetMeasurements["no-slop-wrapper-bloat"] = {
+        count: bloatLines.length,
+        lines: bloatLines,
+      };
+    }
+  }
+
   if (isApiRouteTarget(rel) && !API_WRAPPER_RE.test(scanned.codeOnly)) {
     const exportMatch = API_HANDLER_EXPORT_RE.exec(scanned.codeOnly);
     const handlerLine = exportMatch ? lineAtOffset(getLineStarts(), exportMatch.index) : 1;
@@ -1106,6 +1176,26 @@ function buildRatchetDiagnostic(rule, rel, measurement, allowed) {
       `Coerción numérica laxa detectada (${count} encontrada(s), límite ${allowed}; líneas: ${preview})`,
       "Convierte null, cadenas vacías o booleanos silenciosamente a 0/1 y propaga NaN/Infinity",
       "parseStrictFiniteNumber, parsePositiveDecimalOdds o parseUnitProbability de @pitchlab/contracts",
+    );
+  }
+  if (rule === "no-unsafe-type-assertion") {
+    return formatDiagnostic(
+      rule,
+      rel,
+      firstLine,
+      `Aserción de tipo insegura (as any / as unknown as) detectada (${count} encontrada(s), límite ${allowed}; líneas: ${preview})`,
+      "Anula el chequeo estático de TypeScript y oculta violaciones de contrato en tiempo de ejecución (Unslop)",
+      "narrowing real, type guard o parseStrictFiniteNumber / esquemas Zod de @pitchlab/contracts",
+    );
+  }
+  if (rule === "no-slop-wrapper-bloat") {
+    return formatDiagnostic(
+      rule,
+      rel,
+      firstLine,
+      `Supresión de compilador/linter o marcador pendiente detectado (${count} encontrado(s), límite ${allowed}; líneas: ${preview})`,
+      "Encubre deuda técnica o errores de tipo sin corregir la causa raíz y contamina el contexto (Unslop)",
+      "narrowing/tipos reales sin @ts-ignore/@ts-nocheck, eslint-disable con regla y causa estructural (-- razón), o resolver TODO/FIXME antes de integrar",
     );
   }
   return formatDiagnostic(

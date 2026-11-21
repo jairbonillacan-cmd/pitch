@@ -157,8 +157,8 @@ export async function toggleCouponActive(
   });
 }
 
-export async function listCouponsAdmin(db: Db, limit = 40): Promise<AccessCouponRow[]> {
-  const boundedLimit = Number.isFinite(limit) ? Math.min(100, Math.max(1, Math.trunc(limit))) : 40;
+export async function listCouponsAdmin(db: Db, limit: number = 40): Promise<AccessCouponRow[]> {
+  const boundedLimit = Number.isFinite(limit) ? Math.min(40, Math.max(1, Math.trunc(limit))) : 40;
   return db.select().from(accessCoupons).orderBy(desc(accessCoupons.createdAt)).limit(boundedLimit);
 }
 

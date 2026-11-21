@@ -694,49 +694,41 @@ async function resolvePostPickStatuses(
   return result;
 }
 
-async function loadFeedCommentsForPosts(
+interface RawFeedCommentRow {
+  id: string;
+  postId: string;
+  parentCommentId: string | null;
+  authorUserId: string;
+  authorHandle: string | null;
+  authorName: string | null;
+  authorAvatarUrl: string | null;
+  record: string;
+  body: string;
+  createdAt: Date;
+}
+
+async function hydrateFeedComments(
   db: Db,
   viewerUserId: string | null,
-  postIds: readonly string[],
-  perPostLimit: number,
-): Promise<{ commentsByPost: Map<string, FeedComment[]>; totalByPost: Map<string, number> }> {
+  rows: readonly RawFeedCommentRow[],
+): Promise<Map<string, FeedComment[]>> {
   const commentsByPost = new Map<string, FeedComment[]>();
-  const totalByPost = new Map<string, number>();
-  if (postIds.length === 0) return { commentsByPost, totalByPost };
+  if (rows.length === 0) return commentsByPost;
 
-  const notPausedForViewer = viewerUserId
-    ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
-    : eq(users.socialPauseEnabled, false);
+  const commentIds = rows.map((c) => c.id);
+  const authorHandleByCommentId = new Map<string, string>();
+  for (const c of rows) {
+    if (c.authorHandle) authorHandleByCommentId.set(c.id, c.authorHandle);
+  }
+  const missingParentIds = Array.from(
+    new Set(
+      rows
+        .map((c) => c.parentCommentId)
+        .filter((id): id is string => typeof id === "string" && id.length > 0 && !authorHandleByCommentId.has(id)),
+    ),
+  );
 
-  const comments = await db
-    .select({
-      id: socialComments.id,
-      postId: socialComments.postId,
-      parentCommentId: socialComments.parentCommentId,
-      authorUserId: socialComments.authorUserId,
-      authorHandle: users.handle,
-      authorName: users.displayName,
-      authorAvatarUrl: users.avatarUrl,
-      record: socialComments.authorRecordSnapshot,
-      body: socialComments.body,
-      createdAt: socialComments.createdAt,
-    })
-    .from(socialComments)
-    .innerJoin(users, eq(users.id, socialComments.authorUserId))
-    .where(
-      and(
-        inArray(socialComments.postId, [...postIds]),
-        eq(socialComments.isHiddenByModeration, false),
-        isNotNull(users.handle),
-        notPausedForViewer,
-      ),
-    )
-    .orderBy(asc(socialComments.createdAt), asc(socialComments.id));
-
-  if (comments.length === 0) return { commentsByPost, totalByPost };
-
-  const commentIds = comments.map((c) => c.id);
-  const [helpfulRows, viewerHelpfulRows] = await Promise.all([
+  const [helpfulRows, viewerHelpfulRows, parentHandleRows] = await Promise.all([
     db
       .select({
         commentId: socialCommentLikes.commentId,
@@ -744,22 +736,36 @@ async function loadFeedCommentsForPosts(
       })
       .from(socialCommentLikes)
       .where(inArray(socialCommentLikes.commentId, commentIds))
-      .groupBy(socialCommentLikes.commentId),
+      .groupBy(socialCommentLikes.commentId)
+      .limit(commentIds.length),
     viewerUserId
       ? db
           .select({ commentId: socialCommentLikes.commentId })
           .from(socialCommentLikes)
           .where(and(eq(socialCommentLikes.userId, viewerUserId), inArray(socialCommentLikes.commentId, commentIds)))
+          .limit(commentIds.length)
       : Promise.resolve([] as { commentId: string }[]),
+    missingParentIds.length > 0
+      ? db
+          .select({
+            id: socialComments.id,
+            authorHandle: users.handle,
+          })
+          .from(socialComments)
+          .innerJoin(users, eq(users.id, socialComments.authorUserId))
+          .where(and(inArray(socialComments.id, missingParentIds), isNotNull(users.handle)))
+          .limit(missingParentIds.length)
+      : Promise.resolve([] as { id: string; authorHandle: string | null }[]),
   ]);
 
+  for (const p of parentHandleRows) {
+    if (p.authorHandle) authorHandleByCommentId.set(p.id, p.authorHandle);
+  }
   const helpfulCountMap = new Map(helpfulRows.map((h) => [h.commentId, h.count]));
   const helpfulByMeSet = new Set(viewerHelpfulRows.map((h) => h.commentId));
-  const authorHandleByCommentId = new Map(comments.map((c) => [c.id, c.authorHandle!]));
 
-  const allByPost = new Map<string, FeedComment[]>();
-  for (const c of comments) {
-    const list = allByPost.get(c.postId) ?? [];
+  for (const c of rows) {
+    const list = commentsByPost.get(c.postId) ?? [];
     list.push({
       id: c.id,
       parentCommentId: c.parentCommentId ?? null,
@@ -774,14 +780,92 @@ async function loadFeedCommentsForPosts(
       helpfulCount: helpfulCountMap.get(c.id) ?? 0,
       helpfulByMe: helpfulByMeSet.has(c.id),
     });
-    allByPost.set(c.postId, list);
+    commentsByPost.set(c.postId, list);
   }
 
-  for (const [postId, list] of allByPost) {
-    totalByPost.set(postId, list.length);
-    commentsByPost.set(postId, list.length > perPostLimit ? list.slice(-perPostLimit) : list);
+  return commentsByPost;
+}
+
+async function loadFeedCommentsForPosts(
+  db: Db,
+  viewerUserId: string | null,
+  postIds: readonly string[],
+  perPostLimit: number,
+): Promise<{ commentsByPost: Map<string, FeedComment[]>; totalByPost: Map<string, number> }> {
+  const commentsByPost = new Map<string, FeedComment[]>();
+  const totalByPost = new Map<string, number>();
+  const uniquePostIds = Array.from(new Set(postIds)).slice(0, SOCIAL_LIMITS.feedPageMax);
+  if (uniquePostIds.length === 0) return { commentsByPost, totalByPost };
+
+  const safePerPostLimit = clampPageLimit(perPostLimit, SOCIAL_LIMITS.commentsPerPost, SOCIAL_LIMITS.commentsPageMax);
+  const notPausedForViewer = viewerUserId
+    ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
+    : eq(users.socialPauseEnabled, false);
+  const visibleCommentsWhere = and(
+    inArray(socialComments.postId, uniquePostIds),
+    eq(socialComments.isHiddenByModeration, false),
+    isNotNull(users.handle),
+    notPausedForViewer,
+  );
+
+  const ranked = db
+    .select({
+      id: socialComments.id,
+      postId: socialComments.postId,
+      parentCommentId: socialComments.parentCommentId,
+      authorUserId: socialComments.authorUserId,
+      authorHandle: users.handle,
+      authorName: users.displayName,
+      authorAvatarUrl: users.avatarUrl,
+      record: socialComments.authorRecordSnapshot,
+      body: socialComments.body,
+      createdAt: socialComments.createdAt,
+      rn: sql<number>`row_number() over (partition by ${socialComments.postId} order by ${socialComments.createdAt} desc, ${socialComments.id} desc)::int`.as(
+        "rn",
+      ),
+    })
+    .from(socialComments)
+    .innerJoin(users, eq(users.id, socialComments.authorUserId))
+    .where(visibleCommentsWhere)
+    .as("ranked_comments");
+
+  const [countRows, boundedComments] = await Promise.all([
+    db
+      .select({
+        postId: socialComments.postId,
+        count: sql<number>`count(*)::int`,
+      })
+      .from(socialComments)
+      .innerJoin(users, eq(users.id, socialComments.authorUserId))
+      .where(visibleCommentsWhere)
+      .groupBy(socialComments.postId)
+      .limit(uniquePostIds.length),
+    db
+      .select({
+        id: ranked.id,
+        postId: ranked.postId,
+        parentCommentId: ranked.parentCommentId,
+        authorUserId: ranked.authorUserId,
+        authorHandle: ranked.authorHandle,
+        authorName: ranked.authorName,
+        authorAvatarUrl: ranked.authorAvatarUrl,
+        record: ranked.record,
+        body: ranked.body,
+        createdAt: ranked.createdAt,
+      })
+      .from(ranked)
+      .where(sql`${ranked.rn} <= ${safePerPostLimit}`)
+      .orderBy(asc(ranked.createdAt), asc(ranked.id))
+      .limit(uniquePostIds.length * safePerPostLimit),
+  ]);
+
+  for (const row of countRows) {
+    totalByPost.set(row.postId, row.count);
   }
-  return { commentsByPost, totalByPost };
+  if (boundedComments.length === 0) return { commentsByPost, totalByPost };
+
+  const hydrated = await hydrateFeedComments(db, viewerUserId, boundedComments);
+  return { commentsByPost: hydrated, totalByPost };
 }
 
 export async function listPostComments(
@@ -794,14 +878,52 @@ export async function listPostComments(
   const [post] = await db
     .select({ id: socialPosts.id })
     .from(socialPosts)
-    .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)));
+    .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)))
+    .limit(1);
   if (!post) return { ok: false, reason: "no_existe" };
   const safeLimit = clampPageLimit(limit, SOCIAL_LIMITS.commentsPageMax, SOCIAL_LIMITS.commentsPageMax);
-  const { commentsByPost, totalByPost } = await loadFeedCommentsForPosts(db, viewerUserId, [postId], safeLimit);
+  const notPausedForViewer = viewerUserId
+    ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
+    : eq(users.socialPauseEnabled, false);
+  const visiblePostCommentsWhere = and(
+    eq(socialComments.postId, postId),
+    eq(socialComments.isHiddenByModeration, false),
+    isNotNull(users.handle),
+    notPausedForViewer,
+  );
+
+  const [countRows, newestComments] = await Promise.all([
+    db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(socialComments)
+      .innerJoin(users, eq(users.id, socialComments.authorUserId))
+      .where(visiblePostCommentsWhere),
+    db
+      .select({
+        id: socialComments.id,
+        postId: socialComments.postId,
+        parentCommentId: socialComments.parentCommentId,
+        authorUserId: socialComments.authorUserId,
+        authorHandle: users.handle,
+        authorName: users.displayName,
+        authorAvatarUrl: users.avatarUrl,
+        record: socialComments.authorRecordSnapshot,
+        body: socialComments.body,
+        createdAt: socialComments.createdAt,
+      })
+      .from(socialComments)
+      .innerJoin(users, eq(users.id, socialComments.authorUserId))
+      .where(visiblePostCommentsWhere)
+      .orderBy(desc(socialComments.createdAt), desc(socialComments.id))
+      .limit(safeLimit),
+  ]);
+
+  const orderedComments = [...newestComments].reverse();
+  const hydrated = await hydrateFeedComments(db, viewerUserId, orderedComments);
   return {
     ok: true,
-    comments: commentsByPost.get(postId) ?? [],
-    commentsCount: totalByPost.get(postId) ?? 0,
+    comments: hydrated.get(postId) ?? [],
+    commentsCount: countRows[0]?.count ?? 0,
   };
 }
 

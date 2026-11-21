@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   COMPETITION_BY_ID,
+  LEAGUE_CAPABILITY_LIST,
   LeagueSnapshotSchema,
   LeagueInjuriesFileSchema,
   MarketPulseFileSchema,
@@ -15,6 +16,7 @@ import {
   type LeagueId,
   type LeagueSnapshot,
   type PlatformSport,
+  type ProductLeagueKey,
   type StandingRow,
   type MatchAnalysis,
   type MarketPulseView,
@@ -65,76 +67,12 @@ export function resolveSnapshotsRoot(): string {
   return candidates[1] ?? candidates[0]!;
 }
 
-/** Ligas y competencias con producto en la beta (las que tienen snapshot propio). */
-export const PRODUCT_LEAGUES = [
-  "liga-mx",
-  "premier-league",
-  "laliga",
-  "bundesliga",
-  "serie-a",
-  "ligue-1",
-  "nfl",
-  "nba",
-  "nhl",
-  "mlb",
-  // Norteamérica y CONCACAF clubes
-  "mls",
-  "concacaf-champions",
-  "leagues-cup",
-  // Copas internacionales de clubes
-  "champions-league",
-  "europa-league",
-  "conference-league",
-  "uefa-super-cup",
-  "libertadores",
-  "sudamericana",
-  "caf-champions",
-  // Sudamérica
-  "liga-argentina",
-  "brasileirao",
-  "brasileirao-b",
-  "copa-do-brasil",
-  "primera-a-colombia",
-  "copa-colombia",
-  "primera-chile",
-  "ligapro-ecuador",
-  "liga-1-peru",
-  // Copas y 2.ª división del Top 5 europeo
-  "championship",
-  "fa-cup",
-  "carabao-cup",
-  "segunda-espana",
-  "copa-del-rey",
-  "liga-f",
-  "bundesliga-2",
-  "dfb-pokal",
-  "serie-b",
-  "coppa-italia",
-  "ligue-2",
-  "coupe-de-france",
-  // Otras 1.ª divisiones europeas, Medio Oriente y Asia
-  "eredivisie",
-  "liga-portugal",
-  "pro-league-belgica",
-  "super-lig",
-  "saudi-pro-league",
-  "j1-league",
-  // Selecciones
-  "concacaf-nations",
-  "uefa-nations",
-  "amistosos",
-  "copa-del-mundo",
-  "eliminatorias",
-  "copa-america",
-  "eurocopa",
-  "copa-oro",
-  "copa-africana",
-  "copa-asiatica",
-] as const;
+export const PRODUCT_LEAGUES: readonly ProductLeagueKey[] = Object.freeze(
+  LEAGUE_CAPABILITY_LIST.map((entry) => entry.id),
+);
 
 export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
 
-/** Caché en memoria por archivo y fecha de modificación (se invalida al reescribir el snapshot). */
 const snapshotCache = new Map<string, { key: string; envelope: SnapshotEnvelope }>();
 
 function fileMtime(file: string): number {
@@ -145,10 +83,6 @@ function fileMtime(file: string): number {
   }
 }
 
-/**
- * Volumen por resultado de mercados de predicción (FD-20). Vive aparte del snapshot para
- * actualizarse sin tocar los análisis publicados; si falta o no es válido, el panel no aparece.
- */
 function loadMarketPulse(file: string): Map<string, MarketPulseView> {
   const byGame = new Map<string, MarketPulseView>();
   if (!fs.existsSync(file)) return byGame;
@@ -162,10 +96,6 @@ function loadMarketPulse(file: string): Map<string, MarketPulseView> {
   return byGame;
 }
 
-/**
- * Bajas y lesiones verificadas por liga (`data/snapshots/<league>/injuries.json`).
- * Si el archivo no existe o no pasa el esquema, devuelve mapa vacío sin romper la página.
- */
 function loadLeagueInjuries(file: string): Map<string, TeamInjuryEntry[]> {
   const byTeam = new Map<string, TeamInjuryEntry[]>();
   if (!fs.existsSync(file)) return byTeam;
@@ -242,12 +172,9 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
     };
   }
 
-  // Caché por fecha de modificación: evita parsear y normalizar el mismo snapshot en cada
-  // request (siete ligas por página) y se invalida solo cuando el job lo reescribe.
   const pulsePath = path.join(root, leagueKey, "market-pulse.json");
   const injuriesPath = path.join(root, leagueKey, "injuries.json");
   const snapshotMtime = fileMtime(latestPath);
-  // La clave combina snapshot, pulso y bajas: pulso y bajas pueden cambiar entre jornadas.
   const cacheKey =
     snapshotMtime > 0
       ? `${snapshotMtime}:${fileMtime(pulsePath)}:${fileMtime(injuriesPath)}`
@@ -408,11 +335,6 @@ const cortexWriteupCache = new Map<
   { mtime: number; byGame: Map<string, CortexWriteup | null> }
 >();
 
-/**
- * Análisis por secciones de Cortex IA de un partido (lo redacta el corte; aquí no se llama al
- * modelo). `null` si el partido no lo tiene o el archivo no se puede leer.
- * Cacheado en memoria por liga + `mtimeMs` para evitar releer `latest.json` en cada visita.
- */
 export function loadCortexWriteup(leagueKey: ProductLeague, gameId: string): CortexWriteup | null {
   try {
     const latestPath = path.join(resolveSnapshotsRoot(), leagueKey, "latest.json");
@@ -427,7 +349,6 @@ export function loadCortexWriteup(leagueKey: ProductLeague, gameId: string): Cor
       return cached.byGame.get(gameId) ?? null;
     }
 
-    // Si ya tenemos el snapshot crudo en caché para el mismo mtime, evitar otra lectura de disco.
     const rawCached = rawSnapshotCache.get(leagueKey);
     const analyses =
       rawCached && rawCached.mtime === mtime
@@ -454,7 +375,6 @@ export function loadCortexWriteup(leagueKey: ProductLeague, gameId: string): Cor
 
 const rawSnapshotCache = new Map<string, { mtime: number; snapshot: LeagueSnapshot }>();
 
-/** Lee y cachea el snapshot crudo completo (`teamRates`, `standings`, `games`, `analyses`) de una liga. */
 export function loadRawLeagueSnapshot(leagueKey: ProductLeague): LeagueSnapshot | null {
   try {
     const latestPath = path.join(resolveSnapshotsRoot(), leagueKey, "latest.json");
