@@ -62,6 +62,13 @@ const SHOT_OUTCOME_LABEL_ES: Record<AtomicShotItem["outcome"], string> = {
   miss: "Desviado",
 };
 
+function sanitizeInternalHref(raw: string | null | undefined): string | null {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return null;
+  return trimmed;
+}
+
 function computeOrdinalRank(
   values: readonly number[],
   target: number,
@@ -552,10 +559,9 @@ export function MatchContextPanel({
 
           {selectedPitchPlayer ? (() => {
             const sideTeam = selectedPitchPlayer.side === "home" ? game.home : game.away;
+            const safePlayerHref = sanitizeInternalHref(selectedPitchPlayer.playerHref);
             const targetHref =
-              selectedPitchPlayer.playerHref && selectedPitchPlayer.playerHref.startsWith("/")
-                ? selectedPitchPlayer.playerHref
-                : `${canonicalTeamHref(game.league, sideTeam.slug)}?tab=plantilla`;
+              safePlayerHref ?? `${canonicalTeamHref(game.league, sideTeam.slug)}?tab=plantilla`;
             return (
               <div
                 className="pl-ctx-inspector-bar"
@@ -598,7 +604,7 @@ export function MatchContextPanel({
                     }}
                     className="pl-ctx-inspector-link"
                   >
-                    {selectedPitchPlayer.playerHref ? "Ver jugador" : `Plantilla ${sideTeam.shortName}`}
+                    {safePlayerHref ? "Ver jugador" : `Plantilla ${sideTeam.shortName}`}
                   </a>
                   <button
                     type="button"
@@ -620,8 +626,6 @@ export function MatchContextPanel({
             return (
               <div
                 className="pl-ctx-inspector-bar"
-                role="status"
-                aria-live="polite"
                 data-ctx-shot-inspector=""
               >
                 <div className="pl-ctx-inspector-meta num">

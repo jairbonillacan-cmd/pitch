@@ -5,7 +5,6 @@ import {
   isLivePhaseActive,
   isSafePublicLabel,
   LeagueIdSchema,
-  SportIdSchema,
   type LeagueId,
   type LiveScoreboard,
   type LiveScoreboardEntry,
@@ -122,6 +121,29 @@ function parsePinnedViewsArray(raw: unknown): readonly HomePinnedViewItem[] | nu
   return result;
 }
 
+function parseHomeSportFilter(raw: string): SportFilter {
+  switch (raw) {
+    case "futbol":
+    case "selecciones":
+    case "nfl":
+    case "nba":
+    case "nhl":
+    case "mlb":
+      return raw;
+    default:
+      return ALL;
+  }
+}
+
+function parseHomeLeagueFilter(raw: string): LeagueFilter {
+  const parsed = LeagueIdSchema.safeParse(raw);
+  return parsed.success ? parsed.data : ALL;
+}
+
+function signalFilterForPinnedView(view: HomePinnedViewItem): ModelSignalFilter {
+  return view.onlyPositiveEdge ? "value" : view.band === "alta" ? "high_confidence" : "all";
+}
+
 export function HomeClubView({
   initialDay,
   initialToday,
@@ -135,7 +157,6 @@ export function HomeClubView({
     userTimezone,
     favoriteLeagues,
     hasAccountSessionAuth,
-    savedScreenerViews,
   } = usePlatformCore();
   const journal = useJournalEntries();
   const watchlistGameIds = useWatchlistGameIds();
@@ -165,20 +186,11 @@ export function HomeClubView({
     parsePinnedViewsArray,
   );
   const pinnedViews = useMemo<readonly HomePinnedViewItem[]>(() => {
-    const serverList = parsePinnedViewsArray(prefsPayload?.preferences?.savedViews) ?? EMPTY_PINNED_VIEWS;
-    const contextList = parsePinnedViewsArray(savedScreenerViews) ?? EMPTY_PINNED_VIEWS;
-    const merged: HomePinnedViewItem[] = [];
-    const seen = new Set<string>();
-    for (const source of [serverList, localPinnedViews, contextList]) {
-      for (const item of source) {
-        if (seen.has(item.id)) continue;
-        seen.add(item.id);
-        merged.push(item);
-        if (merged.length >= 6) return merged;
-      }
+    if (Array.isArray(prefsPayload?.preferences?.savedViews)) {
+      return parsePinnedViewsArray(prefsPayload.preferences.savedViews) ?? EMPTY_PINNED_VIEWS;
     }
-    return merged;
-  }, [localPinnedViews, prefsPayload?.preferences?.savedViews, savedScreenerViews]);
+    return localPinnedViews;
+  }, [localPinnedViews, prefsPayload?.preferences?.savedViews]);
 
   const chosenDay = homeNav.chosenDay ?? initialDay ?? null;
   const sport = homeNav.hasExplicitSport ? homeNav.sport : initialSport;
@@ -343,10 +355,27 @@ export function HomeClubView({
     setActivePinnedViewId(null);
   }, []);
 
+  const matchesPinnedView = useCallback(
+    (view: HomePinnedViewItem): boolean =>
+      sport === parseHomeSportFilter(view.sport) &&
+      league === parseHomeLeagueFilter(view.league) &&
+      signalFilter === signalFilterForPinnedView(view) &&
+      statusFilter === "all" &&
+      selectedCountries.length === 0 &&
+      selectedLeagues.length === 0,
+    [league, selectedCountries.length, selectedLeagues.length, signalFilter, sport, statusFilter],
+  );
+
+  const effectiveActivePinnedViewId = useMemo<string | null>(() => {
+    if (!activePinnedViewId) return null;
+    const selected = pinnedViews.find((item) => item.id === activePinnedViewId);
+    return selected && matchesPinnedView(selected) ? selected.id : null;
+  }, [activePinnedViewId, matchesPinnedView, pinnedViews]);
+
   const applyPinnedView = useCallback(
     (view: HomePinnedViewItem) => {
       void requestFullShell();
-      if (activePinnedViewId === view.id) {
+      if (effectiveActivePinnedViewId === view.id) {
         setActivePinnedViewId(null);
         homeNav.pickSport(ALL);
         setLeague(ALL);
@@ -354,15 +383,14 @@ export function HomeClubView({
         return;
       }
       setActivePinnedViewId(view.id);
-      const parsedSport = SportIdSchema.safeParse(view.sport);
-      const parsedLeague = LeagueIdSchema.safeParse(view.league);
-      homeNav.pickSport(parsedSport.success ? parsedSport.data : ALL);
-      setLeague(parsedLeague.success ? parsedLeague.data : ALL);
-      setSignalFilter(
-        view.onlyPositiveEdge ? "value" : view.band === "alta" ? "high_confidence" : "all",
-      );
+      homeNav.pickSport(parseHomeSportFilter(view.sport));
+      setLeague(parseHomeLeagueFilter(view.league));
+      setSignalFilter(signalFilterForPinnedView(view));
+      setStatusFilter("all");
+      setSelectedCountries([]);
+      setSelectedLeagues([]);
     },
-    [activePinnedViewId, homeNav, requestFullShell, setLeague],
+    [effectiveActivePinnedViewId, homeNav, requestFullShell, setLeague],
   );
 
   const statusFilteredGames = useMemo(() => {
@@ -565,7 +593,7 @@ export function HomeClubView({
     <AtmosphereStage activePath="/app">
       <ClubWorkspaceShell
         activePath="/app"
-        initialHomeDay={initialDay}
+        initialHomeDay={initialDay ?? day}
         initialHomeToday={initialToday}
         initialHomeSport={initialSport}
         initialHomeLeague={initialLeague}
@@ -616,7 +644,7 @@ export function HomeClubView({
                 <span className="pl-home-pinned-label">Fijadas</span>
                 <div className="pl-home-pinned-list">
                   {pinnedViews.map((view) => {
-                    const isActive = activePinnedViewId === view.id;
+                    const isActive = effectiveActivePinnedViewId === view.id;
                     return (
                       <button
                         key={view.id}
@@ -671,6 +699,7 @@ export function HomeClubView({
                 setSignalFilter(signal);
                 setSelectedCountries(countries);
                 setSelectedLeagues(leagues);
+                setActivePinnedViewId(null);
               }}
             />
           </div>

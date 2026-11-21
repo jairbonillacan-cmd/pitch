@@ -837,4 +837,14 @@
     gap: 10px;
     margin-bottom: 12px;
   }
+
+  @media (max-width: 767px), (pointer: coarse) {
+    .pl-home-pinned-chip,
+    .pl-home-pinned-link,
+    .pl-ctx-inspector-link,
+    .pl-ctx-inspector-close {
+      min-block-size: 44px;
+      min-inline-size: 44px;
+    }
+  }
 }

@@ -59,7 +59,7 @@ export default async function CanonicalTeamProfilePage({
   const capability = getLeagueCapability(leagueKey);
   const isLeagueHealthy =
     capability !== undefined &&
-    (capability.uiVisibilityPolicy === "always_visible" ||
+    (capability.uiVisibilityPolicy === "always" ||
       listUiVisibleLeagues().some((lg) => String(lg) === leagueKey));
 
   const standingsSplits =

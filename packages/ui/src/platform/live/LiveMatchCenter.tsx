@@ -47,6 +47,13 @@ const LIVE_SHOT_OUTCOME_ES: Record<AtomicShotItem["outcome"], string> = {
   miss: "Desviado",
 };
 
+function sanitizeInternalHref(raw: string | null | undefined): string | null {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return null;
+  return trimmed;
+}
+
 export function LivePhaseBadge({
   entry,
   kickoffLocal,
@@ -634,10 +641,9 @@ export function LiveMatchPanelView({
           ) : null}
           {selectedAvgPlayer ? (() => {
             const sideTeam = selectedAvgPlayer.side === "home" ? game.home : game.away;
+            const safePlayerHref = sanitizeInternalHref(selectedAvgPlayer.playerHref);
             const targetHref =
-              selectedAvgPlayer.playerHref && selectedAvgPlayer.playerHref.startsWith("/")
-                ? selectedAvgPlayer.playerHref
-                : `${canonicalTeamHref(game.league, sideTeam.slug)}?tab=plantilla`;
+              safePlayerHref ?? `${canonicalTeamHref(game.league, sideTeam.slug)}?tab=plantilla`;
             return (
               <div
                 className="pl-live-inspector-bar"
@@ -668,7 +674,7 @@ export function LiveMatchPanelView({
                     </span>
                   ) : null}
                 </div>
-                <div className="pl-ctx-inspector-actions">
+                <div className="pl-live-inspector-actions">
                   <a
                     href={targetHref}
                     onClick={(e) => {
@@ -676,9 +682,9 @@ export function LiveMatchPanelView({
                       e.preventDefault();
                       platformActions.navigateTo(targetHref);
                     }}
-                    className="pl-ctx-inspector-link"
+                    className="pl-live-inspector-link"
                   >
-                    {selectedAvgPlayer.playerHref ? "Ver jugador" : `Plantilla ${sideTeam.shortName}`}
+                    {safePlayerHref ? "Ver jugador" : `Plantilla ${sideTeam.shortName}`}
                   </a>
                   <button
                     type="button"
@@ -698,8 +704,6 @@ export function LiveMatchPanelView({
             return (
               <div
                 className="pl-live-inspector-bar"
-                role="status"
-                aria-live="polite"
                 data-live-shot-inspector=""
               >
                 <div className="pl-live-inspector-meta num">
