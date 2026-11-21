@@ -22,3 +22,4 @@ export * from "./closing-odds";
 export * from "./cortex-cache";
 export * from "./push";
 export * from "./funnel";
+export * from "./security-rate-limit";

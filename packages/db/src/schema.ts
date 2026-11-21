@@ -8,6 +8,7 @@
 import { sql } from "drizzle-orm";
 import {
   type AnyPgColumn,
+  bigint,
   boolean,
   char,
   check,
@@ -144,6 +145,21 @@ export const watchlist = pgTable(
   (t) => [primaryKey({ columns: [t.userId, t.gameId] }), index("watchlist_game_idx").on(t.gameId)],
 );
 
+export interface SavedScreenerViewRecord {
+  id: string;
+  name: string;
+  sport: string;
+  league: string;
+  band: string;
+  kind: string;
+  sort: string;
+  onlyPositiveEdge: boolean;
+  minOddsStep: number;
+  maxOddsStep: number;
+  window: string;
+  pinToHomeHub: boolean;
+}
+
 export const userPreferences = pgTable(
   "user_preferences",
   {
@@ -178,8 +194,9 @@ export const userPreferences = pgTable(
     followedTopics: jsonb("followed_topics")
       .notNull()
       .default(sql`'{"leagues":[],"teams":[]}'::jsonb`),
-    /** Hasta 3 insignias destacadas en el perfil; la app vuelve a validarlas al leer. */
     featuredBadges: text("featured_badges").array().notNull().default(sql`'{}'::text[]`),
+    preferredBookmakers: text("preferred_bookmakers").array().notNull().default(sql`'{}'::text[]`),
+    savedViews: jsonb("saved_views").$type<SavedScreenerViewRecord[]>().notNull().default(sql`'[]'::jsonb`),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
   (t) => [
@@ -1224,6 +1241,47 @@ export const funnelEvents = pgTable(
     check(
       "funnel_events_name_ck",
       sql`${t.eventName} IN ('landing', 'signup_step1', 'signup_step2', 'first_sealed_pick', 'spei_transfer', 'coupon_redeemed')`,
+    ),
+  ],
+);
+
+export const securityRateBuckets = pgTable(
+  "security_rate_buckets",
+  {
+    bucket: text("bucket").notNull(),
+    subjectKey: text("subject_key").notNull(),
+    windowStart: bigint("window_start", { mode: "number" }).notNull(),
+    hits: integer("hits").notNull().default(1),
+    expiresAt: ts("expires_at").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "security_rate_buckets_pk", columns: [t.bucket, t.subjectKey, t.windowStart] }),
+    index("security_rate_buckets_expires_idx").on(t.expiresAt),
+  ],
+);
+
+export const securityAbuseEvents = pgTable(
+  "security_abuse_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+    ipHash: text("ip_hash").notNull(),
+    route: text("route").notNull(),
+    kind: text("kind").notNull(),
+    severity: text("severity").notNull(),
+    details: jsonb("details").$type<Record<string, unknown>>().notNull().default(sql`'{}'::jsonb`),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index("security_abuse_events_created_idx").on(t.createdAt.desc()),
+    index("security_abuse_events_user_created_idx").on(t.userId, t.createdAt.desc()),
+    check(
+      "security_abuse_events_kind_ck",
+      sql`${t.kind} IN ('rate_limit', 'scraping_velocity', 'session_revoked', 'csrf_rejected', 'idor_attempt')`,
+    ),
+    check(
+      "security_abuse_events_severity_ck",
+      sql`${t.severity} IN ('low', 'medium', 'high', 'critical')`,
     ),
   ],
 );
