@@ -50,6 +50,7 @@ async function seal(userId: string, pickId: string, sealedAt: Date) {
 beforeAll(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client) as unknown as Db;
 }, 60_000);
 

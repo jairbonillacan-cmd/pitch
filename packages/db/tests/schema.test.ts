@@ -27,6 +27,7 @@ async function newUser(email: string) {
 beforeEach(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client);
 });
 

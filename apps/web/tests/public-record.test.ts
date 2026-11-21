@@ -6,13 +6,18 @@ import { GET as getPreferences, PUT as putPreferences } from "../app/api/me/pref
 import { GET as getPublicRecordRoute } from "../app/api/u/[handle]/record/route";
 import { sealPick } from "../src/server/member-data";
 import { loadPublicRecord } from "../src/server/public-record";
+import { resetRateLimitsForTests } from "../src/server/request-security";
+import { setSessionDbForTests } from "../src/server/session-user";
 
 const mocks = vi.hoisted(() => ({
   requireMember: vi.fn(),
   createDb: vi.fn(),
 }));
 
-vi.mock("../src/server/session-user", () => ({ requireMember: mocks.requireMember }));
+vi.mock("../src/server/session-user", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../src/server/session-user")>()),
+  requireMember: mocks.requireMember,
+}));
 vi.mock("@pitchlab/db", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@pitchlab/db")>()),
   createDb: mocks.createDb,
@@ -25,11 +30,12 @@ let userId: string;
 beforeAll(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client) as unknown as Db;
 });
 
 beforeEach(async () => {
-  await client.exec("TRUNCATE TABLE users CASCADE;");
+  await client.exec("TRUNCATE TABLE users, security_rate_buckets, security_abuse_events CASCADE;");
   const [u] = await db
     .insert(users)
     .values({
@@ -42,12 +48,22 @@ beforeEach(async () => {
     })
     .returning();
   userId = u!.id;
-  mocks.requireMember.mockResolvedValue({ db, userId });
+  mocks.requireMember.mockResolvedValue({
+    db,
+    userId,
+    email: "ana@example.com",
+    emailVerified: true,
+    authUserId: "auth_ana",
+  });
   mocks.createDb.mockReturnValue(db);
+  setSessionDbForTests(db);
+  resetRateLimitsForTests();
   vi.stubEnv("DATABASE_URL", "postgres://stub");
 });
 
 afterEach(() => {
+  setSessionDbForTests(null);
+  resetRateLimitsForTests();
   vi.resetAllMocks();
   vi.unstubAllEnvs();
 });
