@@ -1,7 +1,8 @@
 # Mapa de Features y Gobernanza de Pantallas (`FEATURE_MAP`)
 
 > **Propósito:** fuente única y vinculante que conecta cada pantalla visible de PitchLab con su(s) ruta(s) exacta(s), su clasificación operativa (`ZONA PROTEGIDA` · `REDISEÑO TOTAL` · `MEJORA FUNCIONAL`), los archivos y widgets que la implementan y los invariantes que **no pueden romperse**.
-> **Complementa:** `docs/architecture/ROUTE_MAP.md`, `docs/architecture/CONSTRAINT_FIRST_PLAYBOOK.md`, `docs/design/DESIGN_SYSTEM.md`, `docs/design/GUIA_RECREACION_GPT.md` y `ADR-050`–`ADR-055`.
+> **Complementa:** `docs/architecture/ROUTE_MAP.md`, `docs/architecture/CONSTRAINT_FIRST_PLAYBOOK.md`, `docs/execution/HANDOFF_CASA_ARQUITECTURA_MAESTRA.md`, `docs/design/DESIGN_SYSTEM.md`, `docs/design/GUIA_RECREACION_GPT.md` y `ADR-050`–`ADR-055`.
+> **Estado al 2026-11-21 (cierre limpio de Ola 2A Híbrida + Fixes `pstack` 2A):** Kit Base Sofascore (`.pl-sf-*` en `@pitchlab/ui/primitives`, `@pitchlab/ui/hooks`, 9 componentes `@pitchlab/ui/atomic`, 6 stubs CSS de ruta y Storybook oscuro/claro en verde) y los 4 backends puros de Ola 4 (`market_alerts` + Copiloto NL, Live Pick Tracker, Árbitros EB `κ=15`, Standings/Brackets) ya están integrados y verificados en `gemini-dos`. Pendientes para continuar en casa: **Mega-Ola UX `2B + 3`**, **Ola 4 UI** y **Ola 5** (ver plan disjunto y métricas BEFORE en `docs/execution/HANDOFF_CASA_ARQUITECTURA_MAESTRA.md`).
 
 ---
 
@@ -10,7 +11,7 @@
 | Clasificación | Significado operativo | Qué está permitido | Qué está prohibido |
 |---|---|---|---|
 | **`ZONA PROTEGIDA`** | Las **3 vistas troncales aprobadas** (`/app` Inicio, Ficha de Partido, Páginas de Equipo). | Únicamente pulido quirúrgico puntual: objetivos táctiles `>= 44 px` móvil, eliminar redundancias menores, auto-salto al siguiente día con partidos y ranura discreta de vistas fijadas en Inicio, cablear componentes `Atomic*` elevados en Partido y split `Total \| Local \| Visitante` + bloque compacto `Ataque vs Defensa` en Equipo. | Rehacer el layout troncal, cambiar jerarquía de columnas/pestañas base, retirar módulos existentes o introducir cambios de diseño destructivos. |
-| **`REDISEÑO TOTAL`** | Las **13 secciones** marcadas para eliminación total de AI-slop, consolidación al sistema plano editorial Sofascore (`<SofaButton>`, `<SofaPanel>`, `<SofaTable>`, `<SofaKpiStrip>`, `<SofaTabs>`, `<SofaFilterBar>`, `<SofaEmptyState>`) y migración a `0 useEffect` en vistas. | Reconstruir estructura, tablas, densidad, controles y CSS modular dedicado cumpliendo `DESIGN_SYSTEM.md` y los invariantes de la tabla maestra. | Romper rutas canónicas/redirecciones `308`, fugar datos `Cero-Fuga`/`FD-16`, ocultar picks `FT`, usar `glass-*`/`backdrop-filter`/hex literales o romper exports consumidos por otras vistas. |
+| **`REDISEÑO TOTAL`** | Las **13 secciones** marcadas para eliminación total de AI-slop, consolidación al sistema plano editorial Sofascore (`@pitchlab/ui/primitives`: `<Button>`, `<SofascoreCard>`, `<SofascoreTable>`, `<SofascoreSignalPair>`, `<SofascoreValueCell>`, `<SofascoreKpiStrip>`, `<SofascoreTabs>`, `<SofascoreFilterBar>`, `<SofascoreEmptyState>`, prefijo DOM `.pl-sf-*` sin `"sofascore"`) y migración a `0 useEffect` en vistas (`@pitchlab/ui/hooks`). | Reconstruir estructura, tablas, densidad, controles y CSS modular dedicado cumpliendo `DESIGN_SYSTEM.md` y los invariantes de la tabla maestra. | Romper rutas canónicas/redirecciones `308`, fugar datos `Cero-Fuga`/`FD-16`, ocultar picks `FT`, usar `glass-*`/`backdrop-filter`/hex literales o romper exports consumidos por otras vistas. |
 | **`MEJORA FUNCIONAL`** | **Social / Comunidad** (`/app/social`). | Depurar tarjetas de publicación, resaltar `Momio justo` y botón *Copiar a mi parlay*, corregir botones `< 44 px`, añadir filtro/paginación limpia por liga y bajar `useEffect` a hooks auditados. | Destruir el flujo de feed (`Para ti · Siguiendo · Consenso · Ranking`), romper moderación/reportes, o eliminar exports compartidos de `community-ui.tsx`. |
 
 ---
@@ -100,4 +101,5 @@ Capturar siempre contra el servidor dev loopback aislado (`http://localhost:<pue
 - **Zona Protegida — Inicio:** `/app`
 - **Zona Protegida — Ficha de Partido:** primer partido activo `/app/liga-mx/g/<gameSlug>` *(o `/app/premier-league/g/<gameSlug>`)*
 - **Zona Protegida — Página de Equipo:** `/app/liga-mx/t/monterrey`
-- **Storybook (Primitivas y Kit Atómico):** `http://127.0.0.1:6006` → `PitchLab/Sofascore Kit` + los `7` `PitchLab/Atomic/*` en `theme=dark` y `theme=light`.
+- **Storybook (Primitivas y Kit Atómico):** `http://127.0.0.1:6006` → `Platform v4 / Editorial Kit / Base` + los `9` `Platform v4 / Atómicos / *` (incluyendo `PropBetLabChart` y `LivePickProgressBar`) en `theme=dark` y `theme=light`.
+- **Script reproducible de captura local (fuera de Git):** `node scripts/capture-visual-review.mjs --phase=before|after --base-url=http://127.0.0.1:<puerto>` (guarda PNGs y `manifest.json` en `os.tmpdir()/pitchlab-visual-review/<phase>`). Ver métricas BEFORE base en `docs/execution/HANDOFF_CASA_ARQUITECTURA_MAESTRA.md`.
