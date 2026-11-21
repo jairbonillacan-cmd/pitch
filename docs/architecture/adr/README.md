@@ -59,3 +59,6 @@
 | [ADR-053](ADR-053-app-nativa-gestos-pwa-offline-y-shell-progresivo.md) | Sensación 100 % App Nativa, gestos táctiles, PWA `/offline`, shell RSC progresivo en 2 etapas y caché público ISR | Aceptada |
 | [ADR-054](ADR-054-pulido-nativo-diseno-plano-scoutpicks-parlays-e-insignias.md) | Pulido 100 % App Nativa, diseño plano editorial, evidencia de picks (ScoutPicks/Bzzoiro), parlays unificados, récord pierna por pierna e insignias animadas | Aceptada |
 | [ADR-055](ADR-055-catalogo-picks-bzzoiro-unlimited-ui-atomica-sofascore.md) | Catálogo de picks de 34 familias, Bzzoiro Unlimited, UI atómica Sofascore, retiro de `@base-ui/react` y blindaje Cero-Fuga | Aceptada |
+| [ADR-056](ADR-056-arquitectura-constraint-first-ratchet-y-pstack.md) | Arquitectura *Constraint-First*, *ratchet* descendente y verificación independiente `pstack` | Aceptada |
+| [ADR-057](ADR-057-ciberseguridad-nivel-alto-sin-lock-in.md) | Ciberseguridad Nivel ALTO, anti-scraping, inmutabilidad SQL (`0025`) y observabilidad sin lock-in | Aceptada |
+| [ADR-058](ADR-058-league-capability-redisenio-editorial-y-features-bzzoiro.md) | `LeagueCapabilityContract`, rediseño editorial plano (`.pl-sf-*`), frontera Zona Protegida y features Bzzoiro/Scout Picks | Aceptada |

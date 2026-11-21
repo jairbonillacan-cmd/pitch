@@ -1,7 +1,7 @@
 # Mapa de rutas (`pitchlab.mx`)
 
 > **Propósito:** fuente única de verdad de las URLs implementadas en `apps/web/app/`. Todo enlace en UI, correos, SEO (`robots.ts` / `sitemap.ts`) y guardas (`club-route-guard.ts`) sigue este mapa.
-> **Actualizado:** 2026-11-19 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
+> **Actualizado:** 2026-11-21 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
 
 ## 1. Convenciones
 
@@ -25,12 +25,14 @@
 | Ruta | Propósito | Notas |
 |---|---|---|
 | `/` | Portada / Landing | Muestra interactiva, herramientas y Pase PitchLab Ultra |
-| `/resultados` | Historial público auditado | Marcadores cerrados y lectura previa |
+| `/resultados` | Historial público auditado | Marcadores cerrados y lectura previa (`ISR`) |
+| `/verificacion` | Verificador criptográfico SHA-256 (`ADR-057`/`ADR-058`) | Recálculo local 100 % cliente con WebCrypto API (sin enviar datos a servidor); `ISR revalidate=3600`, JSON-LD `WebApplication` + `BreadcrumbList` |
 | `/motores` | Ciencia y validación | Precisión fuera de muestra y motores |
 | `/precio` | Planes y Pase PitchLab Ultra | Precio en MXN con SPEI, IVA y CFDI |
+| `/u/[handle]` | Perfil público compartido de socio o tipster | Accesible sin sesión solo si `publicRecordVisible === true` y registro completo (`404` en caso contrario); OpenGraph dinámico `1200×630` |
 | `/legal/privacidad` | Aviso de privacidad | — |
 | `/legal/terminos` | Términos de uso | Incluye ancla `#comunidad` |
-| `/legal/juego-responsable` | Juego responsable (+18) | Pausas voluntarias y Línea de la Vida |
+| `/legal/juego-responsable` | Juego responsable (+18) | Pausas voluntarias inmediatas (`24h`/`7d`/`30d`, comunidad) y `tel:` Línea de la Vida / CIJ |
 | `/legal/creditos` | Créditos de datos abiertos | `nflverse`, `openfootball`, `football-data.org` |
 | `/blog` | Índice del blog | Artículo destacado + rejilla; JSON-LD `Blog`; RSS en `/blog/rss.xml`. Guía: `docs/content/BLOG.md` |
 | `/blog/categoria/[categoria]` | Artículos de una categoría | `momios`, `parlays`, `juego-responsable`, `guias` (`BLOG_CATEGORIES`); `404` si no existe; `noindex` y fuera del sitemap si está vacía |
@@ -56,6 +58,7 @@
 | `/signup` | Registro en 2 pasos (cuenta + perfil/edad) | `noindex`; preserva `?next=` y `?code=`; guarda paso 2 sin sesión |
 | `/onboarding` | Preferencias iniciales (`unitMxn`, ligas, riesgo) | `noindex` |
 | `/baja` | Centro de preferencias y baja de avisos por correo | `noindex`; enlaza a `/app/account?tab=prefs` |
+| `/offline` | Pantalla de respaldo sin conexión PWA (`ADR-053`) | `noindex`; única ruta HTML precacheada por `public/sw.js` en producción |
 
 ## 4. Rutas del Club (`/app/*`, requieren sesión + `noindex`)
 
@@ -64,25 +67,28 @@
 | `/app` | Jornada de hoy | Partidos próximos, spotlight y top 3 picks |
 | `/app/picks` | Todos los picks del día | Buscador con comparador de momio en vivo |
 | `/app/parlays` | Armador de parlays y SGP | De 2 a 6 selecciones + guardado en bitácora |
-| `/app/props` | Tendencias y props de jugadores (ADR-046) | Rachas U5/U10/U20 contra línea deslizable (`<PlayerPropStreakCard>`) + catálogo multi-deporte |
-| `/app/momios` | Comparador de momios | Movimientos y líneas del corte |
-| `/app/comparar` | Comparador rápido H2H (`?modo=equipos\|jugadores&liga=&a=&b=`) | Equipos cara a cara, jugadores lado a lado y descarga 9:16 |
+| `/app/props` | Tendencias y props de jugadores (`ADR-046`/`ADR-058`) | Protegido por `fullAccess` (`Cero-Fuga`); tabla maestra + `<PropBetLabChart>` (curva minutos + `xG` + rival EB) |
+| `/app/alertas` | Alertas de mercado y Copiloto NL (`ADR-058`) | `5` triggers (`market_opened`, `sharp_steam`, `stale_line_ev`, `lineup_confirmed`, `schedule_change`), parser ES determinista y Copiloto NL ZDR opt-in (`FLAG_AI_ENABLED`) |
+| `/app/momios` | Comparador de momios | Matriz terminal multi-casa anclada a `Momio justo PitchLab` (`SpacetimeAnchoredQuote`) |
+| `/app/comparar` | Comparador rápido H2H (`?modo=equipos\|jugadores&liga=&a=&b=`) | Equipos cara a cara (incl. `Ataque vs Defensa`), jugadores lado a lado y descarga 9:16 |
 | `/app/historial` | Resultados cerrados (`FT`) | Historial completo + `<CalibrationCurveChart>` (Brier, ECE y cubetas reales) |
-| `/app/lab` | Mi Bitácora | Picks y parlays sellados con CLV y CSV |
+| `/app/lab` | Mi Récord / Bitácora | Picks y parlays sellados inmutables (`0025`) con `<LivePickProgressBar>`, CLV y CSV |
 | `/app/tech` | Motores dentro del Club | Validación y comparativa interna |
-| `/app/social` | Comunidad VIP | Feed y ranking de socios |
-| `/app/account` | Cuenta, Preferencias, Plan, CFDI y Referidos | `?tab=prefs|plan|cfdi|referrals`, `?pago=ok|cancelado`; SPEI, preferencias DB, export y solicitud de baja |
+| `/app/social` | Comunidad VIP | Feed (`Para ti · Siguiendo · Consenso · Ranking`), moderación y copiar a parlay |
+| `/app/account` | Cuenta, Preferencias, Plan, CFDI y Referidos | `?tab=prefs|plan|cfdi|referrals`, `?pago=ok|cancelado`; SPEI, casas/vistas guardadas DB (`0025`), export y solicitud de baja |
 | `/app/canjear` | Canje de cupón dentro del Club (`?codigo=`) | Redime cupones de acceso y extiende días del pase |
-| `/app/tipster` | Portal de Tipsters Oficiales | En Beta 1.0 lee `/api/tipster/me`; `?connect=ok|refresh` en modo Stripe Connect |
-| `/app/admin` | Panel del equipo fundador | Solo `isAdmin` (o preview tools habilitado), si no `HTTP 404`; SPEI, cupones, socios, moderación y comisiones |
+| `/app/tipster` | Portal de Tipsters Oficiales | Solo `isTipster` o `isAdmin`; lee `/api/tipster/me`; `?connect=ok|refresh` en modo Stripe Connect |
+| `/app/admin` | Panel del equipo fundador | Solo `isAdmin` con correo verificado (si no `HTTP 404`); `4` pestañas (`Salud de datos & Ligas`, `Seguridad & Anti-Scraping`, `Pagos & Cupones`, `Socios & Moderación`) |
 | `/app/[league]` | Hub por liga o competencia (57 ligas activas en `PRODUCT_LEAGUES`) | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
+| `/app/[league]/arbitros` | Directorio y ranking arbitral por liga (`ADR-058`) | Solo fútbol con `providers.referees === true` (`404` en el resto); tasas suavizadas EB `κ = 15` |
+| `/app/[league]/r/[refereeSlug]` | **Canónica** · Perfil disciplinario del árbitro (`ADR-058`) | `league` y `refereeSlug` (`CanonicalPublicSlug`) validados (`404` si faltan); hasta `20` jornadas recientes y jugadores amonestables |
 | `/app/[league]/g/[gameSlug]` | **Canónica** · Match Studio (`<home>-vs-<away>-<hash6>`, ADR-042) | Analizador 360°, árbitro y contexto, `?tab=resumen\|ia\|numeros\|dinero\|contexto` |
-| `/app/[league]/t/[teamSlug]` | **Canónica** · Perfil del club o selección (ADR-042) | `?league` y `teamSlug` validados (`404` si faltan), `?tab=resumen\|estadisticas\|plantilla\|partidos` |
-| `/app/[league]/t/[teamSlug]/p/[playerSlug]` | **Canónica** · Perfil individual del jugador (ADR-042) | `?league`, `teamSlug` y `playerSlug` validados (`404` si faltan) |
+| `/app/[league]/t/[teamSlug]` | **Canónica** · Perfil del club o selección (ADR-042) | `?league` y `teamSlug` validados (`404` si faltan), `?tab=resumen\|estadisticas\|plantilla\|partidos`, standings splits y brackets SVG |
+| `/app/[league]/t/[teamSlug]/p/[playerSlug]` | **Canónica** · Perfil individual del jugador (ADR-042) | `?league`, `teamSlug` y `playerSlug` validados (`404` si faltan); incluye `<PropBetLabChart>` |
 | `/app/[league]/games/[gameId]` | Redirección permanente `308` -> `/app/[league]/g/[gameSlug]` | Preserva query string (ADR-042) |
 | `/app/[league]/teams/[teamId]` | Redirección permanente `308` -> `/app/[league]/t/[teamSlug]` | Preserva query string (ADR-042) |
 | `/app/[league]/teams/[teamId]/players/[playerSlug]` | Redirección permanente `308` -> `/app/[league]/t/[teamSlug]/p/[playerSlug]` | Preserva query string (ADR-042) |
-| `/app/u/[handle]` | Perfil público de socio o tipster | `404` si el handle no existe o es privado; botón `Insignias` en cabecera |
+| `/app/u/[handle]` | Perfil de socio o tipster dentro del Club (`noindex`) | `404` si el handle no existe o es privado; insignias y recibo SHA-256 verificable en `/verificacion` |
 
 ### Alias legados dentro de `/app/*` (`club-route-guard.ts`)
 
@@ -91,6 +97,7 @@
 | `/app/account/referrals` | `/app/account?tab=referrals` |
 | `/app/account/notifications`, `/app/settings` | `/app/account?tab=prefs` |
 | `/app/cuenta` | `/app/account` |
+| `/app/alerts` | `/app/alertas` |
 | `/app/journal`, `/app/bitacora` | `/app/lab` |
 | `/app/resultados` | `/app/historial` |
 | `/app/comunidad` | `/app/social` |
@@ -98,12 +105,17 @@
 | `/app/precio` | `/app/account?tab=plan` |
 | `/app/epl` | `/app/premier-league` |
 | `/app/la-liga` | `/app/laliga` |
+| `/app/tipstar` | `/app/tipster` |
 | `/app/h2h`, `/app/compare` | `/app/comparar` |
 
 ## 5. Endpoints HTTP reales (`apps/web/app/api/*`)
 
-- Autenticación y onboarding: `/api/auth/[...all]`, `/api/handles/check`, `/api/me/signup`, `/api/beta/unlock`, `/api/beta/logout`.
-- Búsqueda, comparación y utilidades del Club: `/api/search/players`, `/api/compare`, `/api/me/push`.
-- Cuenta, plan, cupones, preferencias, feedback y privacidad: `/api/me/profile`, `/api/me/profile/x`, `/api/me/avatar`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/transfers`, `/api/me/transfers/[id]`, `/api/me/coupons/preview`, `/api/me/redeem`, `/api/me/referrals`, `/api/me/preferences`, `/api/me/email-preferences`, `/api/me/feedback`, `/api/me/export`, `/api/me/deletion-request`, `/api/me/notifications`, `/api/me/notifications/read`.
-- Comunidad, perfiles, tipsters, pagos y tareas programadas: `/api/u/[handle]`, `/api/social/posts`, `/api/social/posts/[id]`, `/api/social/posts/[id]/comments`, `/api/social/posts/[id]/like`, `/api/social/follows`, `/api/social/reports`, `/api/tipster/me`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`, `/api/cron/tipster-payouts`.
-- Administración interna (`requireAdmin`): `/api/admin/overview`, `/api/admin/flags`, `/api/admin/moderation`, `/api/admin/tipsters`, `/api/admin/transfers`, `/api/admin/transfers/[id]/approve`, `/api/admin/transfers/[id]/reject`, `/api/admin/coupons`, `/api/admin/coupons/batch`, `/api/admin/coupons/[id]`, `/api/admin/coupons/[id]/redemptions`, `/api/admin/inbox`, `/api/admin/audit`, `/api/admin/members`, `/api/admin/access/grant`, `/api/admin/access/revoke`, `/api/admin/tipster-payouts`, `/api/admin/tipster-payouts/[id]/mark-paid`.
+Todas las **`86` rutas** están gobernadas al `100 %` por `apps/web/src/server/api-guards.ts` (`ADR-057`: `82` envueltas en uno de los 6 wrappers canónicos + `4` excepciones endurecidas `auth/[...all]`, `webhooks/stripe`, `beta/unlock`, `beta/logout`; verificadas por `require-api-wrapper` en `scripts/lint-codebase.mjs`):
+
+- **Autenticación, onboarding y sesión pública (7):** `/api/auth/[...all]`, `/api/handles/check`, `/api/handles/suggest`, `/api/me/signup`, `/api/beta/unlock`, `/api/beta/logout`, `/api/public/session`.
+- **Salud, shell progresivo, en vivo, noticias, búsqueda, comparación y parlays SGP (12):** `/api/health`, `/api/shell/extend`, `/api/analytics/funnel`, `/api/live/scoreboard`, `/api/live/alerts`, `/api/live/games/[gameId]`, `/api/news/article`, `/api/search/players`, `/api/search/referees` (`withSessionRead`, `limit <= 40`, allowlist `PRODUCT_LEAGUES`), `/api/compare`, `/api/parlays/sgp`, `/api/me/live-picks` (`GET`, `withSessionRead`, `allowBeta: false`, `X-PitchLab-Trace`, `private, no-store`).
+- **Alertas de mercado y Copiloto NL (`0026`, `ADR-058`) (3):** `/api/alerts` (`GET` `withSessionRead`; `POST|PATCH|DELETE` `withActivePaseMutation`), `/api/alerts/copilot` (`POST`, `withActivePaseMutation`, `15/min`), `/api/alerts/batch` (`POST`, `withActivePaseMutation`, máx. `10` ops atómicas).
+- **Cuenta, plan, cupones, preferencias, push, feedback y privacidad (21):** `/api/me/profile`, `/api/me/profile/x`, `/api/me/avatar`, `/api/me/badges`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/transfers`, `/api/me/transfers/[id]`, `/api/me/coupons/preview`, `/api/me/redeem`, `/api/me/referrals`, `/api/me/preferences`, `/api/me/email-preferences`, `/api/me/email-preferences/unsubscribe`, `/api/me/push`, `/api/me/feedback`, `/api/me/export`, `/api/me/deletion-request`, `/api/me/notifications`, `/api/me/notifications/read`.
+- **Comunidad, perfiles, tipsters y pagos (18):** `/api/u/[handle]`, `/api/u/[handle]/record`, `/api/social/posts`, `/api/social/posts/[id]`, `/api/social/posts/[id]/comments`, `/api/social/posts/[id]/comments/[commentId]`, `/api/social/posts/[id]/comments/[commentId]/like`, `/api/social/posts/[id]/like`, `/api/social/posts/[id]/copy`, `/api/social/follows`, `/api/social/reports`, `/api/social/consensus`, `/api/social/ranking`, `/api/social/votes`, `/api/tipster/me`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`.
+- **Tareas programadas (`withCronSecret`) (5):** `/api/cron/settle-picks`, `/api/cron/push-alerts`, `/api/cron/tipster-payouts`, `/api/cron/weekly-digest`, `/api/cron/monthly-record`.
+- **Administración interna (`withAdminMutation` / `requireAdmin`) (20):** `/api/admin/overview`, `/api/admin/data-health`, `/api/admin/security-abuse` (`GET`, `limit <= 40`, telemetría `security_abuse_events` 24 h), `/api/admin/flags`, `/api/admin/moderation`, `/api/admin/tipsters`, `/api/admin/transfers`, `/api/admin/transfers/[id]/approve`, `/api/admin/transfers/[id]/reject`, `/api/admin/coupons`, `/api/admin/coupons/batch`, `/api/admin/coupons/[id]`, `/api/admin/coupons/[id]/redemptions`, `/api/admin/inbox`, `/api/admin/audit`, `/api/admin/members`, `/api/admin/access/grant`, `/api/admin/access/revoke`, `/api/admin/tipster-payouts`, `/api/admin/tipster-payouts/[id]/mark-paid`.
