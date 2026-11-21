@@ -2,7 +2,7 @@
 
 import React, { useId, useState } from "react";
 import { Button, SofascoreCard } from "../../../components/ui/primitives";
-import { ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
+import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { PlSelect } from "../../components/PlSelect";
 import { useSafeEffect } from "../../hooks";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
@@ -133,10 +133,19 @@ export function BillingTab({
   return (
     <div className="pl-acct-stack">
       {!accountsEnabled ? (
-        <ExampleNotice>
-          La emisión de facturas CFDI 4.0 se habilita al activar tu Pase PitchLab Ultra. Por
-          privacidad, tus datos fiscales no se guardan en el navegador.
-        </ExampleNotice>
+        <div className="pl-acct-example-notice">
+          <div className="pl-acct-example-head">
+            <span className="pl-acct-example-badge">
+              <MaestroIcon name="eye" size={13} />
+              <span>Ejemplo</span>
+            </span>
+            <strong className="pl-acct-example-title">Contenido de ejemplo</strong>
+          </div>
+          <p className="pl-acct-example-body">
+            La emisión de facturas CFDI 4.0 se habilita al activar tu Pase PitchLab Ultra. Por
+            privacidad, tus datos fiscales no se guardan en el navegador.
+          </p>
+        </div>
       ) : paymentMode === "transfer" ? (
         <SofascoreCard
           as="section"

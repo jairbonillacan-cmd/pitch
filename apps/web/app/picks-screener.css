@@ -642,13 +642,14 @@
   inline-size: 100%;
   min-inline-size: 0;
   min-block-size: 44px;
-  padding: 0 10px;
+  padding: 0 28px 0 10px;
   border-radius: 10px;
   border: 1px solid var(--pl-border);
   background: var(--pl-surface-elevated);
   color: var(--pl-text);
   font-size: 1rem;
   font-weight: 600;
+  text-overflow: ellipsis;
   cursor: pointer;
 }
 
@@ -1853,7 +1854,6 @@
   color: var(--pl-brand);
 }
 
-.pl-bb-sgp-note,
 .pl-bb-empty {
   margin: 0;
   font-size: 0.76rem;

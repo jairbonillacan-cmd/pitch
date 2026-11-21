@@ -26,7 +26,6 @@ import {
 } from "../community-examples";
 import { BadgePickerDialog } from "../components/BadgePickerDialog";
 import {
-  ExampleNotice,
   MaestroIcon,
   TipsterVerifiedBadge,
   VerifiedSeal,
@@ -680,10 +679,19 @@ function ProfileContent({
     <div className="pl-prof">
       {profile.isExample ? (
         <>
-          <ExampleNotice className="pl-prof-example">
-            @{profile.handle} es un perfil de ejemplo: su récord y publicaciones muestran cómo se
-            verá un perfil {profile.isTipster ? "verificado" : "de socio"}.
-          </ExampleNotice>
+          <div className="pl-prof-example">
+            <div className="pl-prof-example-head">
+              <span className="pl-pill pl-pill--warning">
+                <MaestroIcon name="eye" size={13} />
+                <span>Ejemplo</span>
+              </span>
+              <strong className="pl-prof-example-title">Contenido de ejemplo</strong>
+            </div>
+            <p className="pl-prof-example-body">
+              @{profile.handle} es un perfil de ejemplo: su récord y publicaciones muestran cómo se
+              verá un perfil {profile.isTipster ? "verificado" : "de socio"}.
+            </p>
+          </div>
           <p className="pl-prof-example-line">
             <span className="pl-pill pl-pill--warning">Ejemplo</span> Perfil de ejemplo
           </p>

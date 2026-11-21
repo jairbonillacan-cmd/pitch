@@ -2,7 +2,6 @@
 
 import React, { useCallback, useId, useMemo, useState } from "react";
 import {
-  parseStrictFiniteNumber,
   sportForLeague,
   type PlatformSport,
 } from "@pitchlab/contracts";
@@ -48,6 +47,7 @@ import {
   NBA_MIN_MINUTES_PER_GAME,
   NBA_STAT_CODE_ORDER,
   normalizePlayerMatchName,
+  parseManualBookOdds,
   resolveNbaPropStatCode,
   resolvePlayerLineupSignal,
   type NbaStructuredStatCode,
@@ -135,20 +135,6 @@ const PROPS_SPORT_ORDER: readonly string[] = [
   "ice-hockey",
   "baseball",
 ];
-
-function parseManualBookOdds(raw: string): number | null {
-  const cleaned = raw.trim().replace(",", ".");
-  if (!cleaned) return null;
-  const parsed = parseStrictFiniteNumber(cleaned);
-  if (parsed === null) return null;
-  if (/^[+-]/.test(cleaned) && Math.abs(parsed) >= 100) {
-    return parsed > 0 ? 1 + parsed / 100 : 1 + 100 / Math.abs(parsed);
-  }
-  if (parsed > 1.01 && parsed <= 1000) {
-    return parsed;
-  }
-  return null;
-}
 
 function clampLine(value: number, minLine: number, maxLine: number): number {
   const rounded = Math.round(value * 10) / 10;

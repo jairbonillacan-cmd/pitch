@@ -17,9 +17,8 @@ import { LeagueBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import {
   ExampleBadge,
-  ExampleNotice,
   MaestroIcon,
-  NoticeCard,
+  type MaestroIconName,
 } from "../components/MaestroPrimitives";
 import { PlSelect } from "../components/PlSelect";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
@@ -35,6 +34,38 @@ import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import { shortDateLabel } from "./home/home-model";
 
 export { SocialVipClubView } from "./CommunityClubView";
+
+function TipsterEditorialNotice({
+  icon,
+  tone,
+  badgeText,
+  title,
+  action,
+  children,
+}: {
+  icon: MaestroIconName;
+  tone: "warning" | "success" | "brand";
+  badgeText: string;
+  title: string;
+  action?: React.ReactNode;
+  children: React.ReactNode;
+}): React.JSX.Element {
+  return (
+    <div className="pl-ta-notice" data-tone={tone}>
+      <div className="pl-ta-notice-head">
+        <div className="pl-ta-notice-identity">
+          <span className="pl-ta-badge" data-tone={tone}>
+            <MaestroIcon name={icon} size={13} />
+            <span>{badgeText}</span>
+          </span>
+          <strong className="pl-ta-notice-title">{title}</strong>
+        </div>
+        {action ? <div>{action}</div> : null}
+      </div>
+      <div className="pl-ta-notice-body">{children}</div>
+    </div>
+  );
+}
 
 interface TipsterMeLedgerRow {
   id: string;
@@ -431,15 +462,20 @@ export function TipsterPortalClubView({
       <ClubWorkspaceShell activePath="/app/tipster">
         <div className="pl-ta-page">
           {!isRealTipster ? (
-            <ExampleNotice>
+            <TipsterEditorialNotice
+              icon="eye"
+              tone="warning"
+              badgeText="Ejemplo"
+              title="Contenido de ejemplo"
+            >
               {hasAccountSessionAuth && tipsterMeLoaded
                 ? "Vista de ejemplo del Portal Tipster. Tu cuenta aún no tiene un perfil de creador activo; para emitir códigos entra a Admin."
                 : `Así funcionará el Portal Tipster. @${sofia.handle} es un perfil de ejemplo: sus unidades, ventaja y referidos son ficticios. El pick que muestra sí sale de nuestro modelo.`}
-            </ExampleNotice>
+            </TipsterEditorialNotice>
           ) : null}
 
           {paymentMode !== "transfer" && connectNotice === "ready" ? (
-            <NoticeCard
+            <TipsterEditorialNotice
               icon="check"
               tone="success"
               badgeText="Pagos"
@@ -447,9 +483,9 @@ export function TipsterPortalClubView({
             >
               Tus datos fiscales y bancarios quedaron registrados de forma cifrada en Stripe. Las
               comisiones liberadas se depositarán automáticamente.
-            </NoticeCard>
+            </TipsterEditorialNotice>
           ) : paymentMode !== "transfer" && connectNotice === "retry" ? (
-            <NoticeCard
+            <TipsterEditorialNotice
               icon="calendar"
               tone="warning"
               badgeText="Pagos pendientes"
@@ -469,13 +505,13 @@ export function TipsterPortalClubView({
             >
               Stripe cerró la sesión antes de completar la verificación. Puedes retomarla en
               cualquier momento.
-            </NoticeCard>
+            </TipsterEditorialNotice>
           ) : null}
 
           {canFetchTipsterMe ? (
             paymentMode === "transfer" ? (
               isRealTipster ? (
-                <NoticeCard
+                <TipsterEditorialNotice
                   icon="receipt"
                   tone="success"
                   badgeText="Liquidación por SPEI"
@@ -485,10 +521,10 @@ export function TipsterPortalClubView({
                   IVA (16 %). Cada pago pasa 14 días en ventana de validación y, al liberarse, el
                   equipo registra el folio SPEI directamente en tu historial sin exponer datos
                   bancarios en pantalla.
-                </NoticeCard>
+                </TipsterEditorialNotice>
               ) : null
             ) : (
-              <NoticeCard
+              <TipsterEditorialNotice
                 icon="gift"
                 tone="success"
                 badgeText="Pagos"
@@ -507,12 +543,12 @@ export function TipsterPortalClubView({
               >
                 Tu {activeTipster.commissionPct} % sobre el neto se libera 14 días después de cada
                 cobro y se deposita automáticamente sin almacenar tu cuenta bancaria en claro.
-              </NoticeCard>
+              </TipsterEditorialNotice>
             )
           ) : null}
 
           {allowRoleSimulation && !isRoleAuthorized ? (
-            <NoticeCard
+            <TipsterEditorialNotice
               icon="crown"
               tone="success"
               badgeText="Vista Previa · Programa de Creadores"
@@ -534,7 +570,7 @@ export function TipsterPortalClubView({
                 Como Tipster Oficial liberas 1 Pick abierto a la semana con tu código de 5 días
                 gratis mientras los otros 4 picks del partido siguen protegidos.
               </span>
-            </NoticeCard>
+            </TipsterEditorialNotice>
           ) : null}
 
           <header className="pl-ta-header">

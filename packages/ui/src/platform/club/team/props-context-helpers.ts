@@ -1,4 +1,9 @@
-import { canonicalGameHref, type LeagueId, type PlatformSport } from "@pitchlab/contracts";
+import {
+  canonicalGameHref,
+  parseStrictFiniteNumber,
+  type LeagueId,
+  type PlatformSport,
+} from "@pitchlab/contracts";
 import { decimalToAmericanInt } from "../../access-guard";
 import { evaluatePropLineProbability } from "../../match-picks-engine";
 import { resolveMatchRefereeAnalytics, type RefereeAnalyticsItem } from "../../referee-stats";
@@ -112,19 +117,33 @@ export function parseNumericMetric(raw: string | null | undefined): number | nul
   if (!trimmed || trimmed === "-" || trimmed === "—" || trimmed === "--") return null;
   if (trimmed.includes(":")) {
     const parts = trimmed.split(":");
-    const mins = Number(parts[0]);
-    const secs = Number(parts[1] ?? "0");
-    if (Number.isFinite(mins) && mins >= 0) {
-      return mins + (Number.isFinite(secs) && secs >= 0 ? secs / 60 : 0);
+    const mins = parseStrictFiniteNumber(parts[0]);
+    const secs = parseStrictFiniteNumber(parts[1] ?? "0");
+    if (mins !== null && mins >= 0) {
+      return mins + (secs !== null && secs >= 0 ? secs / 60 : 0);
     }
     return null;
   }
   if (trimmed.includes("/")) {
-    const first = Number(trimmed.split("/")[0]);
-    return Number.isFinite(first) && first >= 0 ? first : null;
+    const first = parseStrictFiniteNumber(trimmed.split("/")[0]);
+    return first !== null && first >= 0 ? first : null;
   }
-  const n = Number(trimmed.replace(/%$/, ""));
-  return Number.isFinite(n) && n >= 0 ? n : null;
+  const value = parseStrictFiniteNumber(trimmed.replace(/%$/, ""));
+  return value !== null && value >= 0 ? value : null;
+}
+
+export function parseManualBookOdds(raw: string): number | null {
+  const cleaned = raw.trim().replace(",", ".");
+  if (!cleaned) return null;
+  const parsed = parseStrictFiniteNumber(cleaned);
+  if (parsed === null) return null;
+  if (/^[+-]/.test(cleaned) && Math.abs(parsed) >= 100) {
+    return parsed > 0 ? 1 + parsed / 100 : 1 + 100 / Math.abs(parsed);
+  }
+  if (parsed > 1.01 && parsed <= 1000) {
+    return parsed;
+  }
+  return null;
 }
 
 export function parseNbaMetricValue(
@@ -426,11 +445,6 @@ function halfPointLine(mean: number, isPoints: boolean): number {
   return Math.max(0.5, Math.floor(mean) + 0.5);
 }
 
-/**
- * Construye props estructurados NBA (`PTS`, `REB`, `AST`, `3PM`) ligados a `fairOdds`
- * y proyección Spacetime a partir de datos verificados del jugador y del catálogo activo.
- * Nunca fabrica estadísticas ausentes ni emite líneas para jugadores en baja.
- */
 export function deriveStructuredNbaPlayerPicks(params: {
   player: TeamSquadPlayer;
   league: LeagueId;
@@ -555,10 +569,6 @@ export function deriveStructuredNbaPlayerPicks(params: {
   );
 }
 
-/**
- * Calcula el perfil disciplinario real del equipo a partir de la plantilla verificada.
- * Devuelve `null` si no existen registros de tarjetas ni faltas en el corte actual.
- */
 export function computeTeamDisciplinaryProfile(
   squad: TeamProfileData["squad"],
   standing: TeamStandingSummary | null,
@@ -621,10 +631,6 @@ export function computeTeamDisciplinaryProfile(
   };
 }
 
-/**
- * Resuelve el contexto arbitral del próximo partido del equipo (o del más reciente con dato)
- * a partir de los partidos hidratados en `dataset.games` y el análisis bayesiano de árbitros.
- */
 export function resolveTeamNextMatchReferee(
   games: readonly PlatformGame[],
   league: LeagueId,

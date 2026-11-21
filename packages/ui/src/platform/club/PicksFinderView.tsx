@@ -218,7 +218,7 @@ const POSITION_OPTIONS: ReadonlyArray<{ id: PositionFilter; label: string }> = [
 ];
 
 const MARKET_FAMILY_GROUPS: ReadonlyArray<{ id: LegacyFamilyGroup; label: string }> = [
-  { id: "all", label: "Todos los mercados (34)" },
+  { id: "all", label: "Mercados (34)" },
   { id: "resultado", label: "Resultado (1X2 / DC / DNB)" },
   { id: "goles", label: "Goles y totales" },
   { id: "ambos", label: "Ambos anotan y portería" },

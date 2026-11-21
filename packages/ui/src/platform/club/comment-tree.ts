@@ -6,11 +6,6 @@ export interface CommentTreeNode {
   descendantCount: number;
 }
 
-/**
- * Construye el árbol de hilos multinivel respetando el orden de llegada.
- * Si el padre no está en el corte actual (p. ej. últimos 30), promueve la respuesta a raíz
- * manteniendo su `replyToHandle` para conservar el contexto.
- */
 export function buildCommentTree(comments: readonly SocialComment[]): CommentTreeNode[] {
   const nodesById = new Map<string, CommentTreeNode>();
   for (const comment of comments) {
@@ -60,10 +55,6 @@ export function buildCommentTree(comments: readonly SocialComment[]): CommentTre
   return roots;
 }
 
-/**
- * Elimina un comentario y sube sus respuestas directas al padre anterior
- * para mantener intacto el resto del hilo.
- */
 export function reparentDeletedComment(
   comments: readonly SocialComment[],
   commentId: string,

@@ -101,33 +101,6 @@
     padding-inline: 14px;
   }
 
-  .pl-rec-card {
-    border-radius: var(--radius-panel, 12px);
-    border: 1px solid var(--pl-border);
-    background: var(--pl-surface);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    min-inline-size: 0;
-  }
-
-  .pl-rec-card-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 8px 16px;
-  }
-
-  .pl-rec-card-title {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: -0.015em;
-    color: var(--pl-text);
-  }
-
   .pl-rec-card-meta {
     margin: 0;
     font-size: 0.78rem;
@@ -1254,10 +1227,6 @@
   }
 
   @media (max-width: 560px) {
-    .pl-rec-card {
-      padding: 14px;
-    }
-
     .pl-rec-input-row {
       flex-direction: column;
     }

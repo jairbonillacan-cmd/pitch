@@ -64,10 +64,6 @@ export function auditStatusFromJournal(status: JournalEntry["status"]): AuditPic
   return "pending";
 }
 
-/**
- * Resuelve el estado auditable de un pick en un partido finalizado (FT) sin ocultar nunca
- * partidos empatados en línea entera (Push) ni partidos pendientes de liquidación.
- */
 export function resolveFinishedPickAuditStatus(
   pick: MatchPick | undefined,
   score: PlatformGame["score"],
@@ -197,10 +193,6 @@ export interface MarketFamilyTag {
   readonly shortLabel: string;
 }
 
-/**
- * Clasificación limpia y determinista por familia de mercado (fútbol y deportes US)
- * compatible con picks del motor y entradas selladas de la bitácora.
- */
 export function classifyMarketFamily(input: {
   readonly market?: string | null;
   readonly marketGroup?: string | null;
@@ -315,7 +307,6 @@ export function classifyMarketFamily(input: {
   return { key: "moneyline", label: "Resultado 1X2 / Ganador", shortLabel: "1X2 / ML" };
 }
 
-/** Valor esperado real en %: `(p * decimal - 1) * 100`. Devuelve `null` sin datos válidos. */
 export function computePickEvPct(
   p: number | null | undefined,
   marketDecimal: number | null | undefined,
@@ -334,7 +325,6 @@ export function computePickEvPct(
   return Math.round((p * marketDecimal - 1) * 1000) / 10;
 }
 
-/** Valor esperado real de una entrada de bitácora frente al momio justo (`p = 1 / fairDecimal`). */
 export function computeJournalEntryEvPct(
   entry: Pick<JournalEntry, "fairDecimal" | "userDecimal">,
 ): number | null {
@@ -350,7 +340,6 @@ export function computeJournalEntryEvPct(
   return computePickEvPct(impliedFairP, entry.userDecimal);
 }
 
-/** Resultado neto en unidades para una entrada individual (incluyendo `0` exacto en Push). */
 export function computeJournalSettlementUnits(
   entry: Pick<JournalEntry, "status" | "units" | "userDecimal">,
 ): number | null {
@@ -365,7 +354,6 @@ export function computeJournalSettlementUnits(
   return entry.units === 0 ? 0 : Math.round(-entry.units * 100) / 100;
 }
 
-/** Casa de apuestas real capturada en el pick (nunca inventada). */
 export function resolveCapturedBookLabel(
   pick: Pick<MatchPick, "marketDecimal" | "marketBookLabel" | "bookQuotes"> | undefined,
 ): string | null {
@@ -387,7 +375,6 @@ export interface AuditMarketFamilyRow extends RateRow {
   readonly avgClvPct: number | null;
 }
 
-/** Desglose auditable por familia de mercado para Mi récord (ganados, perdidos, push, EV y CLV). */
 export function computeJournalMarketFamilyBreakdown(
   entries: readonly JournalEntry[],
   pickById?: ReadonlyMap<string, MatchPick>,

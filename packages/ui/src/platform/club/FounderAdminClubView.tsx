@@ -14,7 +14,7 @@ import {
   type SofascoreTabItem,
   type SofascoreTableColumn,
 } from "../../components/ui/primitives";
-import { ExampleNotice, MaestroIcon } from "../components/MaestroPrimitives";
+import { MaestroIcon } from "../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../components/PlatformOverlays";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { useAbortableJson } from "../hooks";
@@ -601,11 +601,22 @@ export function FounderAdminClubView({
       <ClubWorkspaceShell activePath="/app/admin">
         <div className="pl-ta-page">
           {!accountsEnabled ? (
-            <ExampleNotice>
-              Consola en modo demostración: sin cuentas activas, los códigos, referidos y
-              comisiones son de ejemplo y no se guardan. Con la base de datos conectada muestra
-              cifras reales.
-            </ExampleNotice>
+            <div className="pl-ta-notice" data-tone="warning">
+              <div className="pl-ta-notice-head">
+                <div className="pl-ta-notice-identity">
+                  <span className="pl-ta-badge" data-tone="warning">
+                    <MaestroIcon name="eye" size={13} />
+                    <span>Ejemplo</span>
+                  </span>
+                  <strong className="pl-ta-notice-title">Contenido de ejemplo</strong>
+                </div>
+              </div>
+              <div className="pl-ta-notice-body">
+                Consola en modo demostración: sin cuentas activas, los códigos, referidos y
+                comisiones son de ejemplo y no se guardan. Con la base de datos conectada muestra
+                cifras reales.
+              </div>
+            </div>
           ) : null}
 
           <header className="pl-ta-header">

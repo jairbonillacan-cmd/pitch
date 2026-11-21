@@ -12,7 +12,7 @@ import {
   type SofascoreTableColumn,
 } from "../../../components/ui/primitives";
 import { CouponRedeemBox } from "../../components/CanjearCouponView";
-import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
+import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../../components/PlatformOverlays";
 import { ACCOUNT_TAB_EVENT } from "../../components/ShellChrome";
 import { useAbortableJson, useSafeEffect } from "../../hooks";
@@ -1173,10 +1173,19 @@ export function PlanTab({
   return (
     <div className="pl-acct-stack">
       {!accountsEnabled ? (
-        <ExampleNotice>
-          Estado, fechas e historial de muestra en modo de prueba. Los precios del Pase PitchLab
-          Ultra son los vigentes.
-        </ExampleNotice>
+        <div className="pl-acct-example-notice">
+          <div className="pl-acct-example-head">
+            <span className="pl-acct-example-badge">
+              <MaestroIcon name="eye" size={13} />
+              <span>Ejemplo</span>
+            </span>
+            <strong className="pl-acct-example-title">Contenido de ejemplo</strong>
+          </div>
+          <p className="pl-acct-example-body">
+            Estado, fechas e historial de muestra en modo de prueba. Los precios del Pase PitchLab
+            Ultra son los vigentes.
+          </p>
+        </div>
       ) : null}
 
       {isCancelled ? (

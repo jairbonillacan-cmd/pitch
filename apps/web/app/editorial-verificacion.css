@@ -165,12 +165,6 @@
     white-space: nowrap;
   }
 
-  .pl-ed-badge--brand {
-    background: var(--pl-pill-brand-bg);
-    color: var(--pl-pill-brand-fg);
-    border-color: var(--pl-pill-brand-border);
-  }
-
   .pl-ed-badge--ok {
     background: var(--pl-pill-success-bg);
     color: var(--pl-pill-success-fg);

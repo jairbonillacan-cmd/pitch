@@ -10,7 +10,7 @@ import {
   type SofascoreKpiItem,
   type SofascoreTableColumn,
 } from "../../../components/ui/primitives";
-import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
+import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
 import { useMediaQuery, useSafeEffect } from "../../hooks";
 import { triggerHaptic } from "../../navigation-helpers";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
@@ -491,9 +491,18 @@ export function InviteTab({
       </span>
 
       {!accountsEnabled ? (
-        <ExampleNotice>
-          Código, avance e invitaciones de muestra. Tus datos reales aparecen al activar las cuentas.
-        </ExampleNotice>
+        <div className="pl-acct-example-notice">
+          <div className="pl-acct-example-head">
+            <span className="pl-acct-example-badge">
+              <MaestroIcon name="eye" size={13} />
+              <span>Ejemplo</span>
+            </span>
+            <strong className="pl-acct-example-title">Contenido de ejemplo</strong>
+          </div>
+          <p className="pl-acct-example-body">
+            Código, avance e invitaciones de muestra. Tus datos reales aparecen al activar las cuentas.
+          </p>
+        </div>
       ) : null}
 
       <div className="pl-acct-hero-grid">

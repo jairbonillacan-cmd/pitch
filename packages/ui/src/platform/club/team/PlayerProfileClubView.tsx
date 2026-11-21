@@ -45,6 +45,8 @@ import {
   MIN_SAMPLE_GUARD_LABEL,
   deriveStructuredNbaPlayerPicks,
   evaluatePlayerMinutesGuard,
+  parseManualBookOdds,
+  parseNumericMetric,
   resolvePlayerLineupSignal,
   resolveTeamNextMatchReferee,
 } from "./props-context-helpers";
@@ -149,41 +151,6 @@ const NON_PROP_LABELS = new Set([
   "OPS",
   "XG",
 ]);
-
-function parseStrictStatNumeric(raw: string | null | undefined): number | null {
-  if (!raw) return null;
-  const trimmed = raw.trim().replace(",", ".");
-  if (!trimmed || trimmed === "-" || trimmed === "—" || trimmed === "--") return null;
-  if (trimmed.includes(":")) {
-    const parts = trimmed.split(":");
-    const mins = parseStrictFiniteNumber(parts[0]);
-    const secs = parseStrictFiniteNumber(parts[1] ?? "0");
-    if (mins !== null && mins >= 0) {
-      return mins + (secs !== null && secs >= 0 ? secs / 60 : 0);
-    }
-    return null;
-  }
-  if (trimmed.includes("/")) {
-    const first = parseStrictFiniteNumber(trimmed.split("/")[0]);
-    return first !== null && first >= 0 ? first : null;
-  }
-  const value = parseStrictFiniteNumber(trimmed.replace(/%$/, ""));
-  return value !== null && value >= 0 ? value : null;
-}
-
-function parseManualBookOdds(raw: string): number | null {
-  const cleaned = raw.trim().replace(",", ".");
-  if (!cleaned) return null;
-  const parsed = parseStrictFiniteNumber(cleaned);
-  if (parsed === null) return null;
-  if (/^[+-]/.test(cleaned) && Math.abs(parsed) >= 100) {
-    return parsed > 0 ? 1 + parsed / 100 : 1 + 100 / Math.abs(parsed);
-  }
-  if (parsed > 1.01 && parsed <= 1000) {
-    return parsed;
-  }
-  return null;
-}
 
 function buildPlayerKpiItems(
   player: TeamSquadPlayer,
@@ -350,7 +317,7 @@ function extractMinutesFromGameLog(
     const lbl = s.label.trim().toUpperCase();
     return lbl === "MIN" || lbl === "MINS" || lbl === "MINUTOS";
   });
-  const parsed = hit ? parseStrictStatNumeric(hit.value) : null;
+  const parsed = hit ? parseNumericMetric(hit.value) : null;
   if (parsed !== null && Number.isFinite(parsed)) {
     return Math.round(parsed);
   }
@@ -360,7 +327,7 @@ function extractMinutesFromGameLog(
 function extractXgFromGameLog(game: TeamSquadPlayerRecentGame): number | null {
   const hit = game.stats.find((s) => s.label.trim().toUpperCase() === "XG");
   if (!hit) return null;
-  const parsed = parseStrictStatNumeric(hit.value);
+  const parsed = parseNumericMetric(hit.value);
   return parsed !== null && Number.isFinite(parsed) ? parsed : null;
 }
 
@@ -390,7 +357,7 @@ function buildRecentGameSeries(
     for (let idx = 0; idx < chronological.length; idx += 1) {
       const g = chronological[idx]!;
       const found = g.stats.find((s) => s.label === lbl);
-      const val = parseStrictStatNumeric(found?.value);
+      const val = parseNumericMetric(found?.value);
       if (val === null) continue;
       pts.push({
         id: `${lbl}-${g.dateIso}-${idx}`,

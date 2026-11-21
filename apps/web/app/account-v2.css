@@ -801,6 +801,53 @@ html[data-theme="light"] .pl-acct-card-stage .pl-referral-card-fallback-inner {
   font-weight: 700;
 }
 
+.pl-acct-example-notice {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: var(--radius-panel, 12px);
+  border: 1px solid var(--pl-border);
+  border-inline-start: 3px solid var(--pl-warning);
+  background: var(--pl-surface);
+  min-inline-size: 0;
+}
+
+.pl-acct-example-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.pl-acct-example-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid var(--pl-pill-warning-border);
+  background: var(--pl-pill-warning-bg);
+  color: var(--pl-pill-warning-fg);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pl-acct-example-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pl-text);
+}
+
+.pl-acct-example-body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--pl-text-secondary);
+  text-wrap: pretty;
+}
+
 .pl-acct-plan-banner {
   scroll-margin-top: 88px;
   display: flex;
