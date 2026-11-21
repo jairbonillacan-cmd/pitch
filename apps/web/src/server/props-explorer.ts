@@ -1,14 +1,3 @@
-/**
- * Cargador SSR de tendencias y props estructurados de jugadores (`NBA` + `Fútbol` + ligas activas)
- * combinando Bzzoiro Unlimited (`loadNbaGuardedPropsBridge`, `loadNbaInjuriesBridge`) y snapshots
- * verificados en `data/snapshots/<league>/squads.json` + `latest.json`.
- *
- * Reglas:
- * - Licencia Bzzoiro v4.0: toda línea siempre ligada a proyección Spacetime y `fairOdds (1/p)`.
- * - Guardia de muestra mínima: `minMinutes >= 45` (fútbol) / rotación `>= 18 min/p` y `>= 45 min` acumulados (NBA).
- * - `Cero-Fuga`: devuelve `[]` si `fullAccess` es `false`.
- * - `FD-16`: cero IDs crudos de proveedor ni URLs externas.
- */
 import fs from "node:fs";
 import path from "node:path";
 import {
@@ -17,12 +6,15 @@ import {
   LeagueSquadsFileSchema,
   asLeagueId,
   canonicalPlayerHref,
+  isKnockoutCupCompetition,
+  parseStrictFiniteNumber,
   slugifyPlayerName,
   sportForLeague,
   type LeagueId,
   type LeagueSnapshot,
   type LeagueSquadsFile,
   type PlatformSport,
+  type SquadPlayerStats,
 } from "@pitchlab/contracts";
 import type {
   NbaPropStatCode,
@@ -39,6 +31,15 @@ import {
   type NbaRealInjuryBridgeItem,
 } from "./player-live-stats";
 import { PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
+import {
+  LEAGUE_TO_V5_DIV,
+  projectSoccerPlayerPropV5,
+  resolveRefereePriorV5,
+  type KnockoutLegTypeV5,
+  type LineupStatusV36,
+  type SoccerPositionCluster,
+  type SoccerPropFamilyV4,
+} from "./spacetime-v5";
 
 export interface ExplorerStreakCard extends PropsStreakExplorerItem {
   readonly id: string;
@@ -91,6 +92,10 @@ function normKey(raw: string): string {
     .trim();
 }
 
+function round1(value: number): number {
+  return Math.round(value * 10) / 10;
+}
+
 function teamSlugFromId(teamId: string): string {
   const clean = teamId.trim().toLowerCase();
   return clean.includes(".") ? clean.split(".").slice(1).join(".") : clean;
@@ -101,30 +106,30 @@ function parseNumericStat(raw: string): number | null {
   if (!trimmed || trimmed === "-" || trimmed === "—" || trimmed === "--") return null;
   if (trimmed.includes(":")) {
     const parts = trimmed.split(":");
-    const mins = Number(parts[0]);
-    const secs = Number(parts[1] ?? "0");
-    if (Number.isFinite(mins) && mins >= 0) {
-      return mins + (Number.isFinite(secs) && secs >= 0 ? secs / 60 : 0);
+    const mins = parseStrictFiniteNumber(parts[0]);
+    const secs = parseStrictFiniteNumber(parts[1] ?? "0");
+    if (mins !== null && mins >= 0) {
+      return mins + (secs !== null && secs >= 0 ? secs / 60 : 0);
     }
     return null;
   }
   if (trimmed.includes("/")) {
-    const first = Number(trimmed.split("/")[0]);
-    return Number.isFinite(first) && first >= 0 ? first : null;
+    const first = parseStrictFiniteNumber(trimmed.split("/")[0]);
+    return first !== null && first >= 0 ? first : null;
   }
-  const n = Number(trimmed.replace(/%$/, ""));
-  return Number.isFinite(n) && n >= 0 ? n : null;
+  const n = parseStrictFiniteNumber(trimmed.replace(/%$/, ""));
+  return n !== null && n >= 0 ? n : null;
 }
 
 function clampProb(p: number): number {
   return Math.round(Math.min(0.92, Math.max(0.08, p)) * 1000) / 1000;
 }
 
-function evaluateOverProb(mean: number, sd: number, line: number): {
-  pOver: number;
-  pUnder: number;
-  fairOverDecimal: number;
-  fairUnderDecimal: number;
+function evaluateContinuousOverProb(mean: number, sd: number, line: number): {
+  readonly pOver: number;
+  readonly pUnder: number;
+  readonly fairOverDecimal: number;
+  readonly fairUnderDecimal: number;
 } {
   const z = (line - mean) / Math.max(0.45, sd);
   const cdf = 1 / (1 + Math.exp(-1.702 * z));
@@ -135,6 +140,325 @@ function evaluateOverProb(mean: number, sd: number, line: number): {
     pUnder,
     fairOverDecimal: Math.max(1.05, Math.round((1 / pOver) * 100) / 100),
     fairUnderDecimal: Math.max(1.05, Math.round((1 / pUnder) * 100) / 100),
+  };
+}
+
+export function resolveSoccerPropFamilyV5(
+  statLabel: string,
+  propId?: string,
+): SoccerPropFamilyV4 | null {
+  const combined = normKey(`${statLabel} ${propId ?? ""}`);
+  if (
+    combined.includes("atajada") ||
+    combined.includes("player saves") ||
+    /\bsaves?\b/.test(combined)
+  ) {
+    return null;
+  }
+  if (
+    combined.includes("anota o asiste") ||
+    combined.includes("gol o asistencia") ||
+    combined.includes("goal or assist") ||
+    combined.includes("goals assists") ||
+    combined.includes("g a")
+  ) {
+    return "goals_assists";
+  }
+  if (
+    combined.includes("a puerta") ||
+    combined.includes("al arco") ||
+    combined.includes("shots on target") ||
+    combined.includes("player sot") ||
+    /\bsot\b/.test(combined)
+  ) {
+    return "shots_on_target";
+  }
+  if (
+    combined.includes("tiros") ||
+    combined.includes("remates") ||
+    combined.includes("player shots") ||
+    /\bshots?\b/.test(combined)
+  ) {
+    return "shots";
+  }
+  if (combined.includes("asistenc") || combined.includes("assist")) {
+    return "assists";
+  }
+  if (
+    combined.includes("amarill") ||
+    combined.includes("tarjeta") ||
+    combined.includes("yellow") ||
+    combined.includes("booking")
+  ) {
+    return "yellow_cards";
+  }
+  if (
+    combined.includes("anotador") ||
+    combined.includes("goles") ||
+    /\bgol\b/.test(combined) ||
+    combined.includes("player goal") ||
+    /\bgoals?\b/.test(combined)
+  ) {
+    return "goals";
+  }
+  return null;
+}
+
+export function resolveSoccerPositionClusterV5(
+  positionGroup?: string | null,
+  positionLabel?: string | null,
+): SoccerPositionCluster {
+  const group = normKey(positionGroup ?? "");
+  const label = normKey(positionLabel ?? "");
+  const text = `${group} ${label}`.trim();
+
+  if (group === "gk" || /\b(?:gk|portero|arquero|goalkeeper)\b/.test(text)) {
+    return "GK";
+  }
+  if (
+    group === "def" ||
+    /\b(?:def|defensa|defender|back|central|lateral|carrilero|cb|lb|rb|lwb|rwb|fb)\b/.test(text)
+  ) {
+    if (/\b(?:lateral|carrilero|fullback|wingback|lb|rb|lwb|rwb|fb)\b/.test(text)) {
+      return "DF_FB";
+    }
+    return "DF_CB";
+  }
+  if (
+    group === "fwd" ||
+    /\b(?:fwd|delantero|atacante|forward|striker|extremo|winger|cf|st|lw|rw)\b/.test(text)
+  ) {
+    if (/\b(?:extremo|winger|wing|lw|rw|volante ofensivo)\b/.test(text)) {
+      return "FW_W";
+    }
+    return "FW_CF";
+  }
+  if (/\b(?:pivote|contencion|defensivo|cdm|dm)\b/.test(text)) {
+    return "MF_DM";
+  }
+  if (/\b(?:ofensivo|mediapunta|enganche|cam|am)\b/.test(text)) {
+    return "MF_AM";
+  }
+  return "MF_CM";
+}
+
+export function resolveSoccerKnockoutLegTypeV5(params: {
+  readonly league: string;
+  readonly round?: string | null;
+  readonly stageName?: string | null;
+  readonly previousLegGameId?: string | null;
+}): KnockoutLegTypeV5 {
+  const stageText = normKey([params.stageName ?? "", params.round ?? ""].filter(Boolean).join(" "));
+  const hasLegMarker =
+    stageText.includes("ida") ||
+    stageText.includes("vuelta") ||
+    stageText.includes("first leg") ||
+    stageText.includes("second leg") ||
+    stageText.includes("leg 1") ||
+    stageText.includes("leg 2");
+
+  if (
+    params.league === "uefa-super-cup" ||
+    (stageText.includes("final") &&
+      !stageText.includes("semifinal") &&
+      !stageText.includes("semi final") &&
+      !stageText.includes("cuartos") &&
+      !stageText.includes("octavos") &&
+      !stageText.includes("quarter") &&
+      !hasLegMarker)
+  ) {
+    return "single_final";
+  }
+
+  if (
+    Boolean(params.previousLegGameId) ||
+    stageText.includes("vuelta") ||
+    stageText.includes("second leg") ||
+    stageText.includes("2nd leg") ||
+    stageText.includes("leg 2")
+  ) {
+    return "second_leg";
+  }
+
+  if (
+    stageText.includes("ida") ||
+    stageText.includes("first leg") ||
+    stageText.includes("1st leg") ||
+    stageText.includes("leg 1")
+  ) {
+    return "first_leg";
+  }
+
+  if (
+    isKnockoutCupCompetition(params.league) ||
+    /\b(?:liguilla|cuartos|semifinal|semi final|octavos|quarter|round of 16|eliminatoria|playoff|knockout|repechaje)\b/.test(
+      stageText,
+    )
+  ) {
+    return "first_leg";
+  }
+
+  return "none";
+}
+
+function seasonCountForSoccerFamily(
+  stats: SquadPlayerStats,
+  family: SoccerPropFamilyV4,
+): number {
+  if (family === "goals") return stats.goals;
+  if (family === "assists") return stats.assists;
+  if (family === "goals_assists") return stats.goals + stats.assists;
+  if (family === "yellow_cards") return stats.yellowCards;
+  if (family === "shots") return stats.shots;
+  return stats.shotsOnTarget;
+}
+
+export interface FootballPropEvaluationInputV5 {
+  readonly statLabel: string;
+  readonly propId?: string;
+  readonly line: number;
+  readonly projectionMean: number;
+  readonly projectionSd: number;
+  readonly league: string;
+  readonly positionGroup?: string | null;
+  readonly positionLabel?: string | null;
+  readonly avgMinutes?: number | null;
+  readonly sampleGames?: number | null;
+  readonly playerStats?: SquadPlayerStats | null;
+  readonly lineupStatus?: "confirmed" | "probable" | null;
+  readonly availabilityStatus?: "available" | "doubtful";
+  readonly refereeName?: string | null;
+  readonly refereeAvgYellow?: number | null;
+  readonly round?: string | null;
+  readonly stageName?: string | null;
+  readonly previousLegGameId?: string | null;
+  readonly teamProjectedGoals?: number | null;
+}
+
+export interface FootballPropEvaluationResultV5 {
+  readonly source: "spacetime_hierarchical_v5" | "continuous_fallback";
+  readonly propFamily: SoccerPropFamilyV4 | null;
+  readonly posCluster: SoccerPositionCluster;
+  readonly lineupStatus: LineupStatusV36;
+  readonly knockoutLegType: KnockoutLegTypeV5;
+  readonly expectedMinutes: number;
+  readonly pOver: number;
+  readonly pUnder: number;
+  readonly pOverSubCover: number | null;
+  readonly subCoverLift: number;
+  readonly fairOverDecimal: number;
+  readonly fairUnderDecimal: number;
+}
+
+export function evaluateFootballPropV5(
+  input: FootballPropEvaluationInputV5,
+): FootballPropEvaluationResultV5 {
+  const propFamily = resolveSoccerPropFamilyV5(input.statLabel, input.propId);
+  const posCluster = resolveSoccerPositionClusterV5(input.positionGroup, input.positionLabel);
+  const knockoutLegType = resolveSoccerKnockoutLegTypeV5({
+    league: input.league,
+    round: input.round,
+    stageName: input.stageName,
+    previousLegGameId: input.previousLegGameId,
+  });
+
+  const resolvedLineupStatus: LineupStatusV36 =
+    input.availabilityStatus === "doubtful"
+      ? "doubt"
+      : input.lineupStatus === "confirmed"
+        ? "confirmed_starter"
+        : input.lineupStatus === "probable"
+          ? "projected_starter"
+          : input.avgMinutes !== null && input.avgMinutes !== undefined && input.avgMinutes < 55
+            ? "bench"
+            : "projected_starter";
+
+  if (propFamily === null) {
+    const fallback = evaluateContinuousOverProb(
+      input.projectionMean,
+      input.projectionSd,
+      input.line,
+    );
+    return {
+      source: "continuous_fallback",
+      propFamily: null,
+      posCluster,
+      lineupStatus: resolvedLineupStatus,
+      knockoutLegType,
+      expectedMinutes: input.avgMinutes ?? 90,
+      pOver: fallback.pOver,
+      pUnder: fallback.pUnder,
+      pOverSubCover: null,
+      subCoverLift: 0,
+      fairOverDecimal: fallback.fairOverDecimal,
+      fairUnderDecimal: fallback.fairUnderDecimal,
+    };
+  }
+
+  const minsPerGame = Math.max(FOOTBALL_MIN_MINUTES, Math.min(92, input.avgMinutes ?? 78));
+  let weightedSumY: number;
+  let weightedExposure90: number;
+
+  if (input.playerStats && input.playerStats.appearances > 0) {
+    weightedExposure90 = Math.max(0.5, (input.playerStats.appearances * minsPerGame) / 90);
+    weightedSumY = seasonCountForSoccerFamily(input.playerStats, propFamily);
+  } else {
+    const games = Math.max(1, input.sampleGames ?? 6);
+    weightedExposure90 = Math.max(0.5, (games * minsPerGame) / 90);
+    const ratePer90 = Math.max(0, input.projectionMean) * (90 / minsPerGame);
+    weightedSumY = ratePer90 * weightedExposure90;
+  }
+
+  const teamGoalFactor =
+    typeof input.teamProjectedGoals === "number" &&
+    Number.isFinite(input.teamProjectedGoals) &&
+    input.teamProjectedGoals > 0
+      ? input.teamProjectedGoals / 1.35
+      : 1.0;
+
+  let refereeFactor = 1.0;
+  if (propFamily === "yellow_cards") {
+    const div = LEAGUE_TO_V5_DIV[input.league] ?? null;
+    const refPrior = resolveRefereePriorV5(input.refereeName, div);
+    if (refPrior) {
+      refereeFactor = refPrior.cardsMultiplier;
+    } else if (
+      typeof input.refereeAvgYellow === "number" &&
+      Number.isFinite(input.refereeAvgYellow) &&
+      input.refereeAvgYellow > 0
+    ) {
+      refereeFactor = input.refereeAvgYellow / 4.1;
+    }
+  }
+
+  const projected = projectSoccerPlayerPropV5({
+    propFamily,
+    posCluster,
+    weightedSumY,
+    weightedExposure90,
+    expectedMinutesStarter:
+      input.avgMinutes !== null && input.avgMinutes !== undefined ? minsPerGame : null,
+    lineupStatus: resolvedLineupStatus,
+    teamGoalFactor,
+    oppDefFactor: 1.0,
+    refereeFactor,
+    line: input.line,
+    knockoutLegType,
+  });
+
+  return {
+    source: "spacetime_hierarchical_v5",
+    propFamily,
+    posCluster,
+    lineupStatus: projected.lineupStatus,
+    knockoutLegType,
+    expectedMinutes: projected.expectedMinutes,
+    pOver: projected.pOverCalibrated,
+    pUnder: projected.pUnderCalibrated,
+    pOverSubCover: projected.pOverSubCover,
+    subCoverLift: projected.subCoverLift,
+    fairOverDecimal: projected.fairOverDecimal,
+    fairUnderDecimal: projected.fairUnderDecimal,
   };
 }
 
@@ -248,8 +572,6 @@ function normalizeSeasonMinutesPerGame(
   const isExplicitTotal = k.includes("total") || l.includes("TOTAL");
 
   if (sport === "basketball") {
-    // NBA `seasonMetrics.min` suele venir por partido (p. ej. 31.9); si llega acumulado
-    // (> 48 min/p, marcado total o múltiplo de `seasonGp` frente a logs), normalizar entre `seasonGp`.
     if (
       !isExplicitPerGame &&
       seasonGp > 1 &&
@@ -257,17 +579,15 @@ function normalizeSeasonMinutesPerGame(
         raw > 48 ||
         (avgFromLogs !== null && avgFromLogs > 0 && raw / avgFromLogs >= Math.max(2, seasonGp * 0.6)))
     ) {
-      return Math.round((raw / seasonGp) * 10) / 10;
+      return round1(raw / seasonGp);
     }
-    return Math.round(raw * 10) / 10;
+    return round1(raw);
   }
 
-  // En fútbol (y resto de deportes), `seasonMetrics.min` representa suma acumulada de temporada
-  // salvo indicación explícita por partido: dividir entre `seasonGp` para obtener minutos reales por partido.
   if (!isExplicitPerGame && seasonGp > 1) {
-    return Math.round((raw / seasonGp) * 10) / 10;
+    return round1(raw / seasonGp);
   }
-  return Math.round(raw * 10) / 10;
+  return round1(raw);
 }
 
 function extractPlayerMinutesMeta(
@@ -301,7 +621,7 @@ function extractPlayerMinutesMeta(
     player.stats.appearances;
   const avgFromLogs =
     logMins.length > 0
-      ? Math.round((logMins.reduce((a, b) => a + b, 0) / logMins.length) * 10) / 10
+      ? round1(logMins.reduce((a, b) => a + b, 0) / logMins.length)
       : null;
   const seasonMinPerGame = normalizeSeasonMinutesPerGame(
     sport,
@@ -348,7 +668,6 @@ function extractPlayerMinutesMeta(
 
   const apps = player.stats.appearances;
   if (sport === "football") {
-    // Sin minutos verificados en logs ni temporada: fallar cerrado para guardia >= 45 min.
     return { avgMinutes: null, minMinutesGuard: false, sampleGames: apps };
   }
 
@@ -429,7 +748,6 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
   const cards: ExplorerStreakCard[] = [];
   const seenCardIds = new Set<string>();
 
-  // 1) Priorizar props NBA enriquecidos de Bzzoiro Unlimited (`player-props.json`) con guardia de minutos y bajas
   const nbaInjuries = loadNbaInjuriesBridge();
   const nbaInjuryByKey = new Map<string, NbaRealInjuryBridgeItem>();
   for (const inj of nbaInjuries) {
@@ -486,7 +804,7 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
       grouped.set(gKey, bucket);
     }
 
-    const nbaLeagueId = asLeagueId("nba") as LeagueId;
+    const nbaLeagueId: LeagueId = asLeagueId("nba");
     let nbaBridgeCount = 0;
     for (const item of grouped.values()) {
       if (item.series.length === 0) continue;
@@ -514,7 +832,6 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
     }
   }
 
-  // 2) Tendencias verificadas en `squads.json` por liga (excluyendo bajas y aplicando guardia de minutos)
   const prioritizedLeagues: readonly ProductLeague[] = [
     "nba",
     "nfl",
@@ -536,7 +853,7 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
     if (!squads) continue;
 
     let perLeagueCount = 0;
-    const leagueId = asLeagueId(lg) as LeagueId;
+    const leagueId: LeagueId = asLeagueId(lg);
     const sport = sportForLeague(lg);
     const leagueLabel = COMPETITION_BY_ID[lg]?.label ?? lg;
     const prefLabels = METRIC_PRIORITY[sport] ?? [];
@@ -652,15 +969,6 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
   return cards.slice(0, maxCards);
 }
 
-/**
- * Construye el catálogo estructurado de Props para `/app/props` combinando:
- * 1) Props NBA estructurados (`PTS`, `REB`, `AST`, `3PM`) de Bzzoiro Unlimited (`player-props.json`)
- *    y `data/snapshots/nba/squads.json` ligados a proyección Spacetime + `fairOdds (1/p)`.
- * 2) Props de fútbol enriquecidos con guardia `minMinutes >= 45`, estado de alineación
- *    (`confirmed | probable`) y contexto arbitral real desde `latest.json`.
- *
- * Respeta estrictamente `Cero-Fuga` (vacío para visitantes) y `FD-16` (cero IDs/URLs de proveedor).
- */
 export function loadStructuredPlayerProps(options: {
   fullAccess: boolean;
   baseProps?: readonly PlayerPropItem[];
@@ -675,7 +983,7 @@ export function loadStructuredPlayerProps(options: {
   const out: PropsLabPlayerPropItem[] = [];
   const seenIds = new Set<string>();
 
-  const nbaLeagueId = asLeagueId("nba") as LeagueId;
+  const nbaLeagueId: LeagueId = asLeagueId("nba");
   const nbaLeagueLabel = COMPETITION_BY_ID["nba"]?.label ?? "NBA";
   const nbaSnapshot = readSnapshotFile(root, "nba");
   const nbaSquads = readSquadsFile(root, "nba");
@@ -724,7 +1032,6 @@ export function loadStructuredPlayerProps(options: {
     }
   }
 
-  // 1) Bzzoiro NBA Unlimited (`player-props.json`) con guardia de minutos y filtro de bajas reales
   const guardedNbaBridge = loadNbaGuardedPropsBridge({ injuries: nbaInjuries });
   for (const bp of guardedNbaBridge) {
     const code = mapBridgeStatKeyToCode(bp.statKey);
@@ -760,8 +1067,8 @@ export function loadStructuredPlayerProps(options: {
       statCode: code,
       baseLine: bp.baseLine,
       step,
-      minLine: Math.max(0.5, Number((bp.baseLine - span).toFixed(1))),
-      maxLine: Number((bp.baseLine + span).toFixed(1)),
+      minLine: Math.max(0.5, round1(bp.baseLine - span)),
+      maxLine: round1(bp.baseLine + span),
       projectionMean: bp.projectionMean,
       projectionSd: Math.max(0.6, bp.projectionSd),
       engineName: "Tachyon NBA Lab",
@@ -779,7 +1086,6 @@ export function loadStructuredPlayerProps(options: {
     });
   }
 
-  // 2) Props NBA estructurados verificados desde `data/snapshots/nba/squads.json` para partidos próximos
   if (nbaSquads && upcomingNbaGames.length > 0) {
     const statDefs: ReadonlyArray<{
       code: NbaPropStatCode;
@@ -818,12 +1124,14 @@ export function loadStructuredPlayerProps(options: {
             return meta.minMinutesGuard;
           })
           .sort((a, b) => {
-            const aPts = parseNumericStat(
-              a.seasonMetrics?.find((m) => m.key === "pts" || m.label === "PTS")?.value ?? "",
-            ) ?? 0;
-            const bPts = parseNumericStat(
-              b.seasonMetrics?.find((m) => m.key === "pts" || m.label === "PTS")?.value ?? "",
-            ) ?? 0;
+            const aPts =
+              parseNumericStat(
+                a.seasonMetrics?.find((m) => m.key === "pts" || m.label === "PTS")?.value ?? "",
+              ) ?? 0;
+            const bPts =
+              parseNumericStat(
+                b.seasonMetrics?.find((m) => m.key === "pts" || m.label === "PTS")?.value ?? "",
+              ) ?? 0;
             return bPts - aPts;
           })
           .slice(0, 2);
@@ -873,7 +1181,7 @@ export function loadStructuredPlayerProps(options: {
               : mean >= 4
                 ? Math.max(0.5, Math.floor(mean) - 0.5)
                 : Math.max(0.5, Math.floor(mean) + 0.5);
-            const ev = evaluateOverProb(mean, sd, baseLine);
+            const ev = evaluateContinuousOverProb(mean, sd, baseLine);
             const step = isPts ? 1 : 0.5;
             const span = isPts ? 5 : 2.5;
             const minNote =
@@ -898,8 +1206,8 @@ export function loadStructuredPlayerProps(options: {
               statCode: def.code,
               baseLine,
               step,
-              minLine: Math.max(0.5, Number((baseLine - span).toFixed(1))),
-              maxLine: Number((baseLine + span).toFixed(1)),
+              minLine: Math.max(0.5, round1(baseLine - span)),
+              maxLine: round1(baseLine + span),
               projectionMean: mean,
               projectionSd: sd,
               engineName: "Tachyon NBA Lab",
@@ -926,14 +1234,12 @@ export function loadStructuredPlayerProps(options: {
     }
   }
 
-  // 3) Enriquecer props base (fútbol y otras ligas) con guardia >= 45 min, alineación y árbitro
   const squadsByLeague = new Map<string, LeagueSquadsFile | null>();
   const snapshotByLeague = new Map<string, LeagueSnapshot | null>();
 
   for (const rawProp of options.baseProps ?? []) {
     const sport = sportForLeague(String(rawProp.league));
     if (sport === "basketball") {
-      // Evitar duplicar con los props NBA estructurados y evitar momios hardcoded 1.91 sin análisis
       continue;
     }
     if (seenIds.has(rawProp.id)) continue;
@@ -980,24 +1286,71 @@ export function loadStructuredPlayerProps(options: {
       sport === "football"
         ? extractRefereeSummaryFromSnapshot(snapshot, rawProp.gameId)
         : null;
-    const ev = evaluateOverProb(
-      rawProp.projectionMean,
-      rawProp.projectionSd,
-      rawProp.baseLine,
-    );
+    const availabilityStatus: "available" | "doubtful" =
+      matchedPlayer?.availability === "doubtful" ? "doubtful" : "available";
+
+    let fairOverDecimal: number;
+    let fairUnderDecimal: number;
+
+    if (sport === "football") {
+      const snapGame = snapshot?.games.find((g) => g.id === rawProp.gameId) ?? null;
+      const snapAnalysis = snapshot?.analyses[rawProp.gameId] ?? null;
+      const matchCtx = snapAnalysis?.matchContext ?? null;
+      const targetTeam = rawProp.teamSlug.trim().toLowerCase();
+      const isHome = snapGame ? teamSlugFromId(snapGame.home.id) === targetTeam : false;
+      const isAway = snapGame ? teamSlugFromId(snapGame.away.id) === targetTeam : false;
+      const teamProjectedGoals =
+        snapAnalysis?.projection && (isHome || isAway)
+          ? isHome
+            ? snapAnalysis.projection.home
+            : snapAnalysis.projection.away
+          : null;
+
+      const footballEv = evaluateFootballPropV5({
+        statLabel: rawProp.statLabel,
+        propId: rawProp.id,
+        line: rawProp.baseLine,
+        projectionMean: rawProp.projectionMean,
+        projectionSd: rawProp.projectionSd,
+        league: lgKey,
+        positionGroup: matchedPlayer?.positionGroup ?? rawProp.position,
+        positionLabel: matchedPlayer?.positionLabel ?? rawProp.position,
+        avgMinutes: minutesMeta.avgMinutes,
+        sampleGames: minutesMeta.sampleGames,
+        playerStats: matchedPlayer?.stats ?? null,
+        lineupStatus,
+        availabilityStatus,
+        refereeName: snapGame?.referee ?? matchCtx?.referee ?? refereeSummary?.name ?? null,
+        refereeAvgYellow: refereeSummary?.avgYellow ?? null,
+        round: snapGame?.round ?? null,
+        stageName: matchCtx?.stageName ?? snapGame?.phase ?? null,
+        previousLegGameId: matchCtx?.previousLegGameId ?? null,
+        teamProjectedGoals,
+      });
+      fairOverDecimal = footballEv.fairOverDecimal;
+      fairUnderDecimal = footballEv.fairUnderDecimal;
+    } else {
+      const ev = evaluateContinuousOverProb(
+        rawProp.projectionMean,
+        rawProp.projectionSd,
+        rawProp.baseLine,
+      );
+      fairOverDecimal = ev.fairOverDecimal;
+      fairUnderDecimal = ev.fairUnderDecimal;
+    }
 
     seenIds.add(rawProp.id);
     out.push({
       ...rawProp,
       sport,
-      marketOverDecimal: ev.fairOverDecimal,
-      marketUnderDecimal: ev.fairUnderDecimal,
+      marketOverDecimal: fairOverDecimal,
+      marketUnderDecimal: fairUnderDecimal,
       hasVerifiedMarketQuote: false,
       avgMinutes: minutesMeta.avgMinutes,
       sampleGames: minutesMeta.sampleGames > 0 ? minutesMeta.sampleGames : null,
       minMinutesGuard: minutesMeta.minMinutesGuard,
       lineupStatus,
-      availabilityStatus: matchedPlayer?.availability === "doubtful" ? "doubtful" : "available",
+      availabilityStatus,
       injuryNote: matchedPlayer?.injuryDetail ?? null,
       playerHref: matchedPlayer
         ? canonicalPlayerHref(rawProp.league, rawProp.teamSlug, matchedPlayer.slug)
