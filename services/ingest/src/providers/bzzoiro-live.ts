@@ -12,6 +12,7 @@
  * Licencia: se muestran resultados derivados; el JSON crudo no se reenvía al navegador.
  */
 import type {
+  LiveAveragePosition,
   LiveCommentaryItem,
   LiveIncident,
   LiveMatchDetail,
@@ -1288,6 +1289,49 @@ export function extractBzzoiroMatchTelemetry(
     shotmap: parseBzzoiroShotmap(statsRaw, playerStatsRaw),
     averagePositions: parseBzzoiroAveragePositions(statsRaw, playerStatsRaw),
   };
+}
+
+export function normalizedShotToLiveShot(shot: NormalizedShot): LiveShot {
+  const cleanPlayer = sanitizeClientText(shot.playerName);
+  return {
+    minute: shot.minute,
+    ...(shot.addedTime !== undefined ? { addedTime: shot.addedTime } : {}),
+    side: shot.side,
+    outcome: toLegacyLiveShotOutcome(shot.outcome),
+    xg: Number.isFinite(shot.xg) ? shot.xg : null,
+    x: Number.isFinite(shot.x) ? shot.x : null,
+    y: Number.isFinite(shot.y) ? shot.y : null,
+    ...(cleanPlayer ? { player: cleanPlayer } : {}),
+    ...(shot.bodyPart ? { bodyPart: shot.bodyPart } : {}),
+  };
+}
+
+export function normalizedAvgPositionsToLive(
+  pos: NormalizedTeamAveragePositions,
+): LiveAveragePosition[] {
+  const mapSide = (
+    side: "home" | "away",
+    entries: readonly NormalizedAveragePosition[],
+  ): LiveAveragePosition[] => {
+    const out: LiveAveragePosition[] = [];
+    for (const entry of entries) {
+      const cleanName = sanitizeClientText(entry.playerName);
+      if (!cleanName) continue;
+      const cleanPosition = sanitizeClientText(entry.position);
+      out.push({
+        side,
+        name: cleanName,
+        number: entry.jerseyNumber,
+        position: cleanPosition,
+        x: entry.x,
+        y: entry.y,
+        touches: entry.touches,
+        ...(entry.rating !== undefined ? { rating: entry.rating } : {}),
+      });
+    }
+    return out;
+  };
+  return [...mapSide("home", pos.home), ...mapSide("away", pos.away)];
 }
 
 export function parseLiveStats(raw: BzLiveStats | null): Pick<

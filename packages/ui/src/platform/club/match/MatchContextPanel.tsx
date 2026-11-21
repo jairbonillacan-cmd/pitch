@@ -6,6 +6,7 @@ import {
   isNationalCompetition,
   sportHasDraw,
   sportScoringUnit,
+  type LiveAveragePosition,
   type LiveMatchDetail,
   type StandingRow,
 } from "@pitchlab/contracts";
@@ -119,6 +120,23 @@ function buildLivePlayerRatings(
     }
   }
   return count > 0 ? map : undefined;
+}
+
+function toAtomicAveragePositions(
+  positions: readonly LiveAveragePosition[] | undefined,
+): readonly AtomicAveragePositionPlayer[] {
+  if (!positions || positions.length === 0) return [];
+  return positions.map((p) => ({
+    side: p.side,
+    name: p.name,
+    ...(p.shortName ? { shortName: p.shortName } : {}),
+    number: p.number ?? null,
+    position: p.position ?? null,
+    x: p.x,
+    y: p.y,
+    touches: p.touches ?? null,
+    rating: p.rating ?? null,
+  }));
 }
 
 export interface MatchContextPanelProps {
@@ -254,9 +272,14 @@ export function MatchContextPanel({
     return [];
   }, [shotsProp, effectiveLiveDetail?.shots]);
 
+  const effectiveAveragePositions = useMemo<readonly AtomicAveragePositionPlayer[]>(() => {
+    if (averagePositions !== undefined) return averagePositions;
+    return toAtomicAveragePositions(effectiveLiveDetail?.averagePositions);
+  }, [averagePositions, effectiveLiveDetail?.averagePositions]);
+
   const showShotmap = game.sport === "football" && effectiveShots.length > 0;
   const showAvgPositions =
-    game.sport === "football" && Boolean(averagePositions && averagePositions.length > 0);
+    game.sport === "football" && effectiveAveragePositions.length > 0;
   const hasTacticalBoard = showLineupPitch || showShotmap || showAvgPositions;
 
   const stadiumLocation = [preContext?.venueCity, preContext?.venueCountry]
@@ -419,9 +442,9 @@ export function MatchContextPanel({
                   awayLabel={game.away.shortName}
                 />
               ) : null}
-              {showAvgPositions && averagePositions ? (
+              {showAvgPositions ? (
                 <AtomicAveragePositionsPitch
-                  players={averagePositions}
+                  players={effectiveAveragePositions}
                   homeLabel={game.home.shortName}
                   awayLabel={game.away.shortName}
                   homeFormation={activeLineups?.homeFormation}
