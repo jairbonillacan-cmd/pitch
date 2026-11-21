@@ -1,29 +1,54 @@
 import { NextResponse } from "next/server";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { setSocialCommentHelpful } from "@pitchlab/db";
-import { verifySameOriginMutation } from "../../../../../../../../src/server/request-security";
-import { reasonResponse, requireSocialMember } from "../../../../../../../../src/server/social";
+import { z } from "zod";
+import { withActivePaseMutation, type ActivePaseMutationContext } from "../../../../../../../../src/server/api-guards";
+import { reasonResponse } from "../../../../../../../../src/server/social";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** `{ helpful: true | false }`: marca o quita «Útil» en un comentario. */
-export async function PUT(
-  request: Request,
-  { params }: { params: Promise<{ id: string; commentId: string }> },
-): Promise<NextResponse> {
-  const originErr = verifySameOriginMutation(request, { requireJson: false });
-  if (originErr) return originErr;
-  const member = await requireSocialMember(request);
-  if ("error" in member) return member.error;
-  const { id, commentId } = await params;
-  if (!/^[0-9a-f-]{36}$/i.test(id) || !/^[0-9a-f-]{36}$/i.test(commentId)) {
-    return reasonResponse("no_existe");
-  }
-  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
-  if (typeof body?.helpful !== "boolean") {
-    return NextResponse.json({ error: "Falta helpful" }, { status: 400 });
-  }
-  const result = await setSocialCommentHelpful(member.db, member.userId, commentId, body.helpful, new Date(), id);
-  if (!result.ok) return reasonResponse(result.reason);
-  return NextResponse.json({ helpfulCount: result.helpfulCount, helpfulByMe: result.helpfulByMe });
-}
+type CommentParams = { id: string; commentId: string };
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+const CommentParamsSchema = z.object({
+  id: z.string().regex(UUID_RE),
+  commentId: z.string().regex(UUID_RE),
+});
+
+const HelpfulPayloadSchema = z
+  .object({
+    helpful: z.boolean(),
+  })
+  .strict();
+
+export const PUT = withActivePaseMutation(
+  {
+    bucket: "social-comment-like",
+    limit: 60,
+    windowMs: 60_000,
+    requireSocialHandle: true,
+    requireJson: false,
+  },
+  async ({ request, params, user }: ActivePaseMutationContext<CommentParams>) => {
+    const parsedParams = CommentParamsSchema.safeParse(params);
+    if (!parsedParams.success) return reasonResponse("no_existe");
+    const raw = await request.json().catch(() => null);
+    const parsedBody = HelpfulPayloadSchema.safeParse(raw);
+    if (!parsedBody.success) {
+      const err = createSanitizedErrorPayload("INVALID_INPUT", "Falta helpful.");
+      return NextResponse.json({ ok: false, error: err.message, code: err.code }, { status: 400 });
+    }
+    const result = await setSocialCommentHelpful(
+      user.db,
+      user.userId,
+      parsedParams.data.commentId,
+      parsedBody.data.helpful,
+      new Date(),
+      parsedParams.data.id,
+    );
+    if (!result.ok) return reasonResponse(result.reason);
+    return NextResponse.json({ helpfulCount: result.helpfulCount, helpfulByMe: result.helpfulByMe });
+  },
+);
