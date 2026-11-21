@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-21T05:36:03Z",
+  "updatedAtUtc": "2026-11-21T08:42:32Z",
   "openIncidents": {
     "validation::calendario::liga-mx": {
       "incidentKey": "validation::calendario::liga-mx",
@@ -12,9 +12,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 17 (0 < 1).",
       "failingSinceUtc": "2026-11-20T13:29:28.978Z",
-      "lastSeenAtUtc": "2026-11-21T05:36:03Z",
+      "lastSeenAtUtc": "2026-11-21T08:42:32Z",
       "emailedAtUtc": null,
-      "occurrences": 7
+      "occurrences": 8
     },
     "validation::calendario::laliga": {
       "incidentKey": "validation::calendario::laliga",
@@ -26,9 +26,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 13 (1 < 10).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-21T05:36:03Z",
+      "lastSeenAtUtc": "2026-11-21T08:42:32Z",
       "emailedAtUtc": null,
-      "occurrences": 4
+      "occurrences": 5
     },
     "validation::calendario::bundesliga": {
       "incidentKey": "validation::calendario::bundesliga",
@@ -40,9 +40,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 10 (1 < 9).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-21T05:36:03Z",
+      "lastSeenAtUtc": "2026-11-21T08:42:32Z",
       "emailedAtUtc": null,
-      "occurrences": 4
+      "occurrences": 5
     },
     "validation::calendario::ligue-1": {
       "incidentKey": "validation::calendario::ligue-1",
@@ -54,9 +54,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (1 < 9).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-21T05:36:03Z",
+      "lastSeenAtUtc": "2026-11-21T08:42:32Z",
       "emailedAtUtc": null,
-      "occurrences": 4
+      "occurrences": 5
     }
   }
 }
