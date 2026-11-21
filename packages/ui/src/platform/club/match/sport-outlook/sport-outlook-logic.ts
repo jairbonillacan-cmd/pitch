@@ -1,4 +1,4 @@
-import { FORBIDDEN_PROVIDER_TOKENS } from "@pitchlab/contracts";
+import { isSafePublicLabel } from "@pitchlab/contracts";
 import type {
   ConfirmationKind,
   ConfirmationStatus,
@@ -72,11 +72,7 @@ export function isSafeDriverLabel(raw: string | undefined): raw is string {
   const trimmed = raw.trim();
   if (!trimmed || trimmed.includes("_")) return false;
   if (TECHNICAL_JARGON_RE.test(trimmed)) return false;
-  const lowered = trimmed.toLowerCase();
-  for (const token of FORBIDDEN_PROVIDER_TOKENS) {
-    if (lowered.includes(token)) return false;
-  }
-  return true;
+  return isSafePublicLabel(trimmed);
 }
 
 export function unitWord(sport: OutlookSport, value: number): string {

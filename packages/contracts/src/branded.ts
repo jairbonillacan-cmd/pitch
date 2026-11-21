@@ -21,7 +21,18 @@ const SQL_LEAK_RE =
 const INTERNAL_PATH_LEAK_RE =
   /(?:^|[\s("'])\/(?:Users|home|var|etc|opt|srv|tmp|workspace|root|usr|proc|sys)\/[^\s)"']*|(?:^|[\s("'])\/app\/(?:apps|packages|services|src|dist|build|node_modules|\.next|\.env|\S+\.(?:ts|tsx|js|jsx|mjs|cjs|sql|json|env))|\b[A-Za-z]:\\[^\s)"']+|\\\\[A-Za-z0-9_.-]+\\[^\s)"']+|\b(?:apps|packages|services|src)\/[\w./-]+\.(?:ts|tsx|js|jsx|mjs|cjs|sql|json)\b|\.(?:ts|tsx|js|jsx|mjs|cjs):\d+(?::\d+)?\b|file:\/{2}|(?:https?|postgres(?:ql)?|mysql|mongodb(?:\+srv)?|redis|amqp|s3):\/{2}|\b(?:DATABASE_URL|BETTER_AUTH_SECRET|CRON_SECRET|BZZOIRO_API_KEY|THE_ODDS_API_KEY)\b|\bBearer\s+[A-Za-z0-9._-]{8,}\b/i;
 const CONTROL_CHARS_RE = /[\u0000-\u001f\u007f]+/g;
+const HAS_CONTROL_CHAR_RE = /[\u0000-\u001f\u007f]/;
 const WHITESPACE_RUN_RE = /\s+/g;
+const DIACRITICS_RE = /[\u0300-\u036f]/g;
+const FD16_SEPARATOR_RE = /[\s_\-\u2013\u2014]+/g;
+const FD16_WORD_SEPARATOR_RE = /[_\-\u2013\u2014]+/g;
+const FD16_DOMAIN_RE =
+  /(?:^|[\s([{"'/@:,])(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|io|app|net|org|mx|co|tv|gg|bet|dev|ai|es|uk|de|fr|it|br|ar|cl|pe|info|biz|xyz)(?=$|[\s)\]}"'/:?#,;!.])/i;
+const FD16_RAW_NUMERIC_ID_RE = /\b\d{5,}\b/;
+const FD16_ALGORITHM_RE =
+  /\b(?:dixon\s*coles|(?:bi)?poisson|light\s*gbm|platt|pitagor(?:as|ic[oa]s?)?|pythag(?:orean)?|venn\s*abers|cat\s*boost|xg\s*boost|(?:club|xg)?elo|brier|log\s*loss|ece|mc|monte\s*carlo|hgb|pava|log5|xg(?:a|ot)?)\b/i;
+const FD16_EDITORIAL_JARGON_RE =
+  /\bconfianza[\s:=]*\d|\bdatos\s+(?:completos|parciales)\b/i;
 
 export const MAX_POSITIVE_DECIMAL_ODDS = 1000;
 export const DEFAULT_UNIT_PROBABILITY_EPSILON = 0.001;
@@ -37,6 +48,20 @@ export const FORBIDDEN_PROVIDER_TOKENS = [
   "scoutpicks",
   "astraanalisis",
 ] as const;
+
+const FD16_COMPACT_PROVIDER_TOKENS: readonly string[] = [
+  ...FORBIDDEN_PROVIDER_TOKENS.map((token) => token.replace(/-/g, "")),
+  "theoddsapi",
+  "nflverse",
+  "openfootball",
+  "polymarket",
+  "kalshi",
+  "understat",
+  "betfair",
+  "flashscore",
+  "whoscored",
+  "fbref",
+];
 
 export const QUOTE_MOVEMENTS = [
   "STEAM",
@@ -529,4 +554,48 @@ export function createSanitizedErrorPayload(
       ? Object.freeze({ code: safeCode, message: safeMessage })
       : Object.freeze({ code: safeCode, message: safeMessage, requestId: safeRequestId });
   return payload as SanitizedErrorPayload;
+}
+
+function foldFd16Text(raw: string): string {
+  return raw.normalize("NFD").replace(DIACRITICS_RE, "").toLowerCase();
+}
+
+export function containsForbiddenFd16Term(text: string): boolean {
+  if (typeof text !== "string") {
+    return false;
+  }
+  const trimmed = text.trim();
+  if (trimmed.length === 0) {
+    return false;
+  }
+  if (EXPLICIT_URL_SCHEME_RE.test(trimmed) || FD16_DOMAIN_RE.test(trimmed)) {
+    return true;
+  }
+  const folded = foldFd16Text(trimmed);
+  const compact = folded.replace(FD16_SEPARATOR_RE, "");
+  for (const token of FD16_COMPACT_PROVIDER_TOKENS) {
+    if (compact.includes(token)) {
+      return true;
+    }
+  }
+  const spaced = folded.replace(FD16_WORD_SEPARATOR_RE, " ");
+  if (
+    FD16_ALGORITHM_RE.test(spaced) ||
+    FD16_RAW_NUMERIC_ID_RE.test(spaced) ||
+    FD16_EDITORIAL_JARGON_RE.test(spaced)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+export function isSafePublicLabel(text: string): boolean {
+  if (typeof text !== "string") {
+    return false;
+  }
+  const trimmed = text.trim();
+  if (trimmed.length === 0 || HAS_CONTROL_CHAR_RE.test(trimmed)) {
+    return false;
+  }
+  return !containsForbiddenFd16Term(trimmed);
 }
