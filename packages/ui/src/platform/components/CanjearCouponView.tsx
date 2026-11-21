@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useState } from "react";
-import {
-  usePlatformActions,
-  usePlatformCore,
-} from "../platform-provider";
+import React, { useCallback, useId, useState } from "react";
+import { Button, SofascoreCard } from "../../components/ui/primitives";
+import { useSafeEffect } from "../hooks";
+import { usePlatformActions, usePlatformCore } from "../platform-provider";
 import { lookupPreviewCoupon, redeemPreviewCoupon } from "../preview-spei-store";
 import { ExampleNotice, MaestroIcon } from "./MaestroPrimitives";
 import {
@@ -53,10 +52,21 @@ function normalizeInputCode(raw: string): string {
   return raw.toUpperCase().replace(/\s+/g, "").slice(0, 32);
 }
 
-/**
- * Caja reutilizable de canje de cupones de acceso temporal (`POST /api/me/redeem`).
- * Usada tanto en `/canjear` y `/app/canjear` como en `Mi plan` y la pantalla de pase vencido.
- */
+function sanitizeCouponPreviewState(
+  raw: CouponPreviewState | null,
+): CouponPreviewState | null {
+  if (!raw) return null;
+  if (raw.reason === "cuenta_distinta") {
+    return {
+      valid: false,
+      reason: "cuenta_distinta",
+      error: raw.error ?? "Este cupón está reservado para otra cuenta.",
+      coupon: null,
+    };
+  }
+  return raw;
+}
+
 export function CouponRedeemBox({
   initialCode = "",
   onRedeemed,
@@ -95,8 +105,9 @@ export function CouponRedeemBox({
     storyResultOverride?.newAccessUntilIso ?? null,
   );
   const inputId = useId();
+  const errorId = useId();
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const clean = normalizeInputCode(initialCode);
     if (clean) setCode(clean);
   }, [initialCode]);
@@ -164,7 +175,9 @@ export function CouponRedeemBox({
 
         if (!res.ok || !json?.ok) {
           setStatus("error");
-          setMessage(json?.error ?? "No se pudo canjear el cupón. Revisa el código e intenta de nuevo.");
+          setMessage(
+            json?.error ?? "No se pudo canjear el cupón. Revisa el código e intenta de nuevo.",
+          );
           return;
         }
 
@@ -209,8 +222,7 @@ export function CouponRedeemBox({
     <form onSubmit={handleSubmit} noValidate className={compact ? "space-y-2.5" : "space-y-3"}>
       <label
         htmlFor={inputId}
-        className="block text-xs font-semibold"
-        style={{ color: "var(--pl-text-secondary)" }}
+        className="block text-xs font-semibold text-[var(--pl-text-secondary)]"
       >
         Código de cupón
       </label>
@@ -224,8 +236,11 @@ export function CouponRedeemBox({
           autoCorrect="off"
           autoCapitalize="characters"
           spellCheck={false}
+          enterKeyHint="done"
           maxLength={32}
           placeholder="PL-XXXX-XXXX"
+          aria-invalid={status === "error" ? "true" : undefined}
+          aria-describedby={status === "error" ? errorId : undefined}
           value={code}
           onChange={(e) => {
             setCode(normalizeInputCode(e.target.value));
@@ -234,24 +249,25 @@ export function CouponRedeemBox({
               setMessage("");
             }
           }}
-          className="glass-input flex-1 min-h-[44px] px-3.5 text-base font-extrabold uppercase tracking-wider num"
+          className="flex-1 min-w-0 min-h-11 rounded-xl border border-[var(--pl-border-strong)] bg-[var(--pl-surface-elevated)] px-3.5 text-base font-extrabold uppercase tracking-wider text-[var(--pl-text)] num focus-visible:outline-2 focus-visible:outline-[var(--pl-brand)] focus-visible:outline-offset-1"
         />
-        <button
+        <Button
           type="submit"
+          variant="primary"
           disabled={busy}
-          className="pl-btn-primary min-h-[44px] px-5 text-sm shrink-0"
           data-redeem-submit=""
+          className="shrink-0"
         >
           <MaestroIcon name="ticket" size={16} />
           <span>{busy ? "Canjeando…" : "Canjear cupón"}</span>
-        </button>
+        </Button>
       </div>
 
       {status === "error" && message ? (
         <p
+          id={errorId}
           role="alert"
-          className="m-0 text-xs font-semibold leading-relaxed"
-          style={{ color: "var(--pl-danger)" }}
+          className="m-0 text-xs font-semibold leading-relaxed text-[var(--pl-danger)]"
           data-coupon-feedback="error"
         >
           {message}
@@ -262,8 +278,7 @@ export function CouponRedeemBox({
         <div
           role="status"
           aria-live="polite"
-          className="glass-ring rounded-xl p-3 space-y-1"
-          style={{ background: "var(--pl-surface)" }}
+          className="rounded-xl border border-[var(--pl-pill-success-border)] bg-[var(--pl-surface-elevated)] p-3 space-y-1.5"
           data-coupon-feedback="success"
         >
           <div className="flex flex-wrap items-center gap-2">
@@ -272,14 +287,12 @@ export function CouponRedeemBox({
               <span>+{grantedDays ?? 0} días sumados</span>
             </span>
             {newUntilIso ? (
-              <span className="text-xs font-semibold num" style={{ color: "var(--pl-text-muted)" }}>
+              <span className="text-xs font-semibold num text-[var(--pl-text-muted)]">
                 Vigente hasta {formatCouponDate(newUntilIso)}
               </span>
             ) : null}
           </div>
-          <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text)" }}>
-            {message}
-          </p>
+          <p className="m-0 text-xs leading-relaxed text-[var(--pl-text)]">{message}</p>
         </div>
       ) : null}
     </form>
@@ -306,7 +319,10 @@ export function CanjearCouponView({
   initialPreview = null,
   storyOverride,
 }: CanjearCouponViewProps): React.JSX.Element {
-  const { accountsEnabled: ctxAccountsEnabled, hasAccountSessionAuth: ctxHasAccountSessionAuth } = usePlatformCore();
+  const {
+    accountsEnabled: ctxAccountsEnabled,
+    hasAccountSessionAuth: ctxHasAccountSessionAuth,
+  } = usePlatformCore();
   const { navigateTo } = usePlatformActions();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
@@ -314,8 +330,10 @@ export function CanjearCouponView({
   const normalizedInitial = normalizeInputCode(initialCode);
 
   const [lookupCode, setLookupCode] = useState<string>(normalizedInitial);
-  const [preview, setPreview] = useState<CouponPreviewState | null>(
-    storyOverride?.preview !== undefined ? storyOverride.preview : initialPreview,
+  const [preview, setPreview] = useState<CouponPreviewState | null>(() =>
+    sanitizeCouponPreviewState(
+      storyOverride?.preview !== undefined ? storyOverride.preview : initialPreview,
+    ),
   );
   const [checkingPreview, setCheckingPreview] = useState<boolean>(false);
   const [redeemSuccess, setRedeemSuccess] = useState<boolean>(
@@ -323,16 +341,18 @@ export function CanjearCouponView({
   );
   const previewInputId = useId();
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (accountsEnabled || storyOverride || !normalizedInitial) return;
     const looked = lookupPreviewCoupon(normalizedInitial);
     if (looked.found) {
-      setPreview({
-        valid: looked.valid,
-        reason: looked.reason,
-        error: looked.error,
-        coupon: looked.coupon ?? null,
-      });
+      setPreview(
+        sanitizeCouponPreviewState({
+          valid: looked.valid,
+          reason: looked.reason,
+          error: looked.error,
+          coupon: looked.coupon ?? null,
+        }),
+      );
     }
   }, [accountsEnabled, normalizedInitial, storyOverride]);
 
@@ -345,23 +365,34 @@ export function CanjearCouponView({
           valid: false,
           reason: "no_existe",
           error: "Escribe el código de cupón para validarlo.",
+          coupon: null,
         });
         return;
       }
       if (!accountsEnabled) {
         const looked = lookupPreviewCoupon(cleaned);
         if (looked.found) {
-          setPreview({
-            valid: looked.valid,
-            reason: looked.reason,
-            error: looked.error,
-            coupon: looked.coupon ?? null,
-          });
+          setPreview(
+            sanitizeCouponPreviewState({
+              valid: looked.valid,
+              reason: looked.reason,
+              error: looked.error,
+              coupon: looked.coupon ?? null,
+            }),
+          );
           return;
         }
         setPreview({
           valid: true,
           coupon: { code: cleaned, days: 15, maxRedemptions: 1, expiresAtIso: null },
+        });
+        return;
+      }
+      if (!hasAccountSession) {
+        setPreview({
+          valid: false,
+          error: "Inicia sesión o crea tu cuenta para validar y canjear este cupón.",
+          coupon: null,
         });
         return;
       }
@@ -372,202 +403,245 @@ export function CanjearCouponView({
           { credentials: "same-origin" },
         );
         const json = (await res.json().catch(() => null)) as CouponPreviewState | null;
-        if (json) setPreview(json);
+        if (json) {
+          setPreview(sanitizeCouponPreviewState(json));
+        } else {
+          setPreview({
+            valid: false,
+            error: "No pudimos validar el código en este momento. Intenta de nuevo.",
+            coupon: null,
+          });
+        }
       } catch (err) {
         void err;
         setPreview({
           valid: false,
           error: "No pudimos validar el código en este momento. Intenta de nuevo.",
+          coupon: null,
         });
       } finally {
         setCheckingPreview(false);
       }
     },
-    [accountsEnabled, lookupCode],
+    [accountsEnabled, hasAccountSession, lookupCode],
   );
 
-  const activeCode = preview?.coupon?.code ?? (lookupCode || normalizedInitial);
+  const safePreview = sanitizeCouponPreviewState(preview);
+  const isRestrictedOtherAccount = safePreview?.reason === "cuenta_distinta";
+  const activeCode = isRestrictedOtherAccount
+    ? ""
+    : (safePreview?.coupon?.code ?? (lookupCode || normalizedInitial));
   const nextClubUrl = activeCode
     ? `/app/canjear?codigo=${encodeURIComponent(activeCode)}`
     : "/app/canjear";
 
   const content = (
-    <div className="max-w-2xl mx-auto space-y-5">
+    <div className="max-w-2xl mx-auto space-y-5 min-w-0">
       {!accountsEnabled ? (
         <ExampleNotice>
-          Vista previa del canje de cupones. Con cuentas activas valida disponibilidad y suma días reales al socio.
+          Vista previa del canje de cupones. Con cuentas activas valida disponibilidad y suma días
+          reales al socio.
         </ExampleNotice>
       ) : null}
 
-      <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-7 space-y-5">
-        <div className="relative z-10 space-y-2">
-          <span className="pl-pill pl-pill--brand">
-            <MaestroIcon name="gift" size={14} />
-            <span>Cupón de acceso · Pase PitchLab Ultra</span>
-          </span>
-          <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
-            {preview?.valid && preview.coupon
-              ? `Canjea un cupón de acceso · +${preview.coupon.days} ${preview.coupon.days === 1 ? "día" : "días"}`
-              : "Canjea un cupón de acceso"}
-          </h1>
-          <p className="m-0 text-sm leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-            Si confirmamos tu transferencia SPEI, ingresa aquí el cupón de un solo uso que recibiste desde{" "}
-            <strong className="num">noreply@pitchlab.mx</strong> para activar tu suscripción. Los días se acumulan sin pedir tarjeta ni cobros automáticos.
-          </p>
-        </div>
-
-        {/* Estado del código detectado por URL o validación */}
-        {preview ? (
-          <div
-            className="relative z-10 glass-ring rounded-2xl p-4 space-y-2"
-            style={{ background: "var(--pl-surface)" }}
-            data-coupon-preview={preview.valid ? "valid" : "invalid"}
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="font-extrabold tracking-wider num text-base" style={{ color: "var(--pl-text)" }}>
-                  {preview.coupon?.code ?? activeCode}
-                </span>
-                {preview.coupon?.maxRedemptions === 1 ? (
-                  <span className="pl-pill pl-pill--info">Un solo uso</span>
-                ) : null}
-                {preview.coupon?.isTransferCoupon || preview.coupon?.isPersonal ? (
-                  <span className="pl-pill pl-pill--brand">Transferencia SPEI</span>
-                ) : null}
-              </div>
-              {preview.valid && preview.coupon ? (
-                <span className="pl-pill pl-pill--success num">
-                  <MaestroIcon name="check" size={13} />
-                  <span>+{preview.coupon.days} días disponibles</span>
-                </span>
-              ) : (
-                <span className="pl-pill pl-pill--danger">
-                  <MaestroIcon name="x" size={13} />
-                  <span>No disponible</span>
-                </span>
-              )}
-            </div>
-
-            {preview.coupon?.expiresAtIso ? (
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Vigencia para canjear: hasta el {formatCouponDate(preview.coupon.expiresAtIso)}.
-              </p>
-            ) : null}
-
-            {!preview.valid && preview.error ? (
-              <p className="m-0 text-xs font-semibold" style={{ color: "var(--pl-danger)" }} role="alert">
-                {preview.error}
-              </p>
-            ) : null}
+      <SofascoreCard as="section" className="min-w-0">
+        <div className="space-y-5 p-1 sm:p-2">
+          <div className="space-y-2.5">
+            <span className="pl-pill pl-pill--brand">
+              <MaestroIcon name="gift" size={14} />
+              <span>Cupón de acceso · Pase PitchLab Ultra</span>
+            </span>
+            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight [text-wrap:balance] text-[var(--pl-text)]">
+              {safePreview?.valid && safePreview.coupon
+                ? `Canjea un cupón de acceso · +${safePreview.coupon.days} ${safePreview.coupon.days === 1 ? "día" : "días"}`
+                : "Canjea un cupón de acceso"}
+            </h1>
+            <p className="m-0 text-sm leading-relaxed [text-wrap:pretty] text-[var(--pl-text-secondary)]">
+              Si confirmamos tu transferencia SPEI, ingresa aquí el cupón de un solo uso que
+              recibiste desde <strong className="num">noreply@pitchlab.mx</strong> para activar tu
+              suscripción. Los días se acumulan sin pedir tarjeta ni cobros automáticos.
+            </p>
           </div>
-        ) : null}
 
-        {/* Flujo según sesión */}
-        <div className="relative z-10 space-y-4">
-          {mode === "public" && !hasAccountSession && accountsEnabled ? (
-            <>
-              <form onSubmit={handleCheckCode} noValidate className="space-y-2">
-                <label
-                  htmlFor={previewInputId}
-                  className="block text-xs font-semibold"
-                  style={{ color: "var(--pl-text-secondary)" }}
-                >
-                  ¿Tienes otro código? Revísalo aquí
-                </label>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    id={previewInputId}
-                    type="text"
-                    value={lookupCode}
-                    maxLength={32}
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="characters"
-                    spellCheck={false}
-                    placeholder="PL-XXXX-XXXX"
-                    onChange={(e) => setLookupCode(normalizeInputCode(e.target.value))}
-                    className="glass-input flex-1 min-h-[44px] px-3.5 text-base font-extrabold uppercase tracking-wider num"
-                  />
-                  <button
-                    type="submit"
-                    disabled={checkingPreview}
-                    className="pl-btn-glass glass-ring min-h-[44px] px-4 text-sm shrink-0"
-                  >
-                    {checkingPreview ? "Validando…" : "Validar código"}
-                  </button>
+          {safePreview ? (
+            <div
+              className="rounded-xl border border-[var(--pl-border)] bg-[var(--pl-surface-elevated)] p-4 space-y-2"
+              data-coupon-preview={safePreview.valid ? "valid" : "invalid"}
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center gap-2 min-w-0">
+                  {!isRestrictedOtherAccount && (safePreview.coupon?.code || activeCode) ? (
+                    <span className="font-extrabold tracking-wider num text-base text-[var(--pl-text)] break-all">
+                      {safePreview.coupon?.code ?? activeCode}
+                    </span>
+                  ) : null}
+                  {!isRestrictedOtherAccount && safePreview.coupon?.maxRedemptions === 1 ? (
+                    <span className="pl-pill pl-pill--info">Un solo uso</span>
+                  ) : null}
+                  {!isRestrictedOtherAccount &&
+                  (safePreview.coupon?.isTransferCoupon || safePreview.coupon?.isPersonal) ? (
+                    <span className="pl-pill pl-pill--brand">Transferencia SPEI</span>
+                  ) : null}
                 </div>
-              </form>
-
-              <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-                <a
-                  href={`/signup?next=${encodeURIComponent(nextClubUrl)}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigateTo(`/signup?next=${encodeURIComponent(nextClubUrl)}`);
-                  }}
-                  className="pl-btn-primary min-h-[44px] flex-1 text-sm"
-                >
-                  <span>Crear cuenta y canjear</span>
-                  <MaestroIcon name="arrowRight" size={15} />
-                </a>
-                <a
-                  href={`/login?next=${encodeURIComponent(nextClubUrl)}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigateTo(`/login?next=${encodeURIComponent(nextClubUrl)}`);
-                  }}
-                  className="pl-btn-glass glass-ring min-h-[44px] flex-1 text-sm"
-                >
-                  <span>Ya tengo cuenta · Iniciar sesión</span>
-                </a>
+                {safePreview.valid && safePreview.coupon ? (
+                  <span className="pl-pill pl-pill--success num">
+                    <MaestroIcon name="check" size={13} />
+                    <span>+{safePreview.coupon.days} días disponibles</span>
+                  </span>
+                ) : (
+                  <span className="pl-pill pl-pill--danger">
+                    <MaestroIcon name="x" size={13} />
+                    <span>No disponible</span>
+                  </span>
+                )}
               </div>
-            </>
-          ) : (
-            <>
-              <CouponRedeemBox
-                initialCode={activeCode}
-                hasAccountSessionOverride={storyOverride?.hasAccountSession}
-                onRedeemed={() => setRedeemSuccess(true)}
-                storyResultOverride={
-                  storyOverride?.redeemStatus
-                    ? {
-                        status: storyOverride.redeemStatus,
-                        message: storyOverride.redeemMessage,
-                        days: storyOverride.redeemDays,
-                      }
-                    : undefined
-                }
-              />
 
-              {redeemSuccess ? (
-                <div className="flex flex-wrap items-center gap-2.5 pt-1">
-                  <a
-                    href="/app"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateTo("/app");
-                    }}
-                    className="pl-btn-primary min-h-[44px] px-5 text-sm"
-                  >
-                    <span>Entrar al tablero</span>
-                    <MaestroIcon name="arrowRight" size={15} />
-                  </a>
-                  <a
-                    href="/app/account?tab=plan"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateTo("/app/account?tab=plan");
-                    }}
-                    className="pl-btn-glass glass-ring min-h-[44px] px-4 text-sm"
-                  >
-                    <span>Ver Mi plan</span>
-                  </a>
-                </div>
+              {!isRestrictedOtherAccount && safePreview.coupon?.expiresAtIso ? (
+                <p className="m-0 text-xs text-[var(--pl-text-muted)]">
+                  Vigencia para canjear: hasta el {formatCouponDate(safePreview.coupon.expiresAtIso)}.
+                </p>
               ) : null}
-            </>
-          )}
+
+              {!safePreview.valid && safePreview.error ? (
+                <p
+                  className="m-0 text-xs font-semibold text-[var(--pl-danger)]"
+                  role="alert"
+                >
+                  {safePreview.error}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+
+          <div className="space-y-4">
+            {mode === "public" && !hasAccountSession && accountsEnabled ? (
+              <>
+                <form onSubmit={handleCheckCode} noValidate className="space-y-2">
+                  <label
+                    htmlFor={previewInputId}
+                    className="block text-xs font-semibold text-[var(--pl-text-secondary)]"
+                  >
+                    ¿Tienes otro código? Revísalo aquí
+                  </label>
+                  <div className="flex flex-col sm:flex-row gap-2.5">
+                    <input
+                      id={previewInputId}
+                      type="text"
+                      value={lookupCode}
+                      maxLength={32}
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="characters"
+                      spellCheck={false}
+                      enterKeyHint="done"
+                      placeholder="PL-XXXX-XXXX"
+                      onChange={(e) => setLookupCode(normalizeInputCode(e.target.value))}
+                      className="flex-1 min-w-0 min-h-11 rounded-xl border border-[var(--pl-border-strong)] bg-[var(--pl-surface-elevated)] px-3.5 text-base font-extrabold uppercase tracking-wider text-[var(--pl-text)] num focus-visible:outline-2 focus-visible:outline-[var(--pl-brand)] focus-visible:outline-offset-1"
+                    />
+                    <Button
+                      type="submit"
+                      variant="secondary"
+                      disabled={checkingPreview}
+                      className="shrink-0"
+                    >
+                      {checkingPreview ? "Validando…" : "Validar código"}
+                    </Button>
+                  </div>
+                </form>
+
+                <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                  <Button
+                    variant="primary"
+                    nativeButton={false}
+                    className="flex-1"
+                    render={
+                      <a
+                        href={`/signup?next=${encodeURIComponent(nextClubUrl)}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigateTo(`/signup?next=${encodeURIComponent(nextClubUrl)}`);
+                        }}
+                      />
+                    }
+                  >
+                    <span>Crear cuenta y canjear</span>
+                    <MaestroIcon name="arrowRight" size={15} />
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    nativeButton={false}
+                    className="flex-1"
+                    render={
+                      <a
+                        href={`/login?next=${encodeURIComponent(nextClubUrl)}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigateTo(`/login?next=${encodeURIComponent(nextClubUrl)}`);
+                        }}
+                      />
+                    }
+                  >
+                    <span>Ya tengo cuenta · Iniciar sesión</span>
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <CouponRedeemBox
+                  initialCode={activeCode}
+                  hasAccountSessionOverride={storyOverride?.hasAccountSession}
+                  onRedeemed={() => setRedeemSuccess(true)}
+                  storyResultOverride={
+                    storyOverride?.redeemStatus
+                      ? {
+                          status: storyOverride.redeemStatus,
+                          message: storyOverride.redeemMessage,
+                          days: storyOverride.redeemDays,
+                        }
+                      : undefined
+                  }
+                />
+
+                {redeemSuccess ? (
+                  <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                    <Button
+                      variant="primary"
+                      nativeButton={false}
+                      render={
+                        <a
+                          href="/app"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigateTo("/app");
+                          }}
+                        />
+                      }
+                    >
+                      <span>Entrar al tablero</span>
+                      <MaestroIcon name="arrowRight" size={15} />
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      nativeButton={false}
+                      render={
+                        <a
+                          href="/app/account?tab=plan"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigateTo("/app/account?tab=plan");
+                          }}
+                        />
+                      }
+                    >
+                      <span>Ver Mi plan</span>
+                    </Button>
+                  </div>
+                ) : null}
+              </>
+            )}
+          </div>
         </div>
-      </section>
+      </SofascoreCard>
     </div>
   );
 

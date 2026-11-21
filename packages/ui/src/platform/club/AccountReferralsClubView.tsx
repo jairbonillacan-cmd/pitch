@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import { Button, SofascoreCard } from "../../components/ui/primitives";
 import { TipsterVerifiedBadge, UltraTag } from "../components/MaestroPrimitives";
 import {
   ACCOUNT_TAB_EVENT,
   AtmosphereStage,
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
+import { useSafeEffect } from "../hooks";
 import { usePlatformActions, usePlatformCore } from "../platform-provider";
-import { Avatar, TabPanel, UnderlineTabs, type TabDef } from "./community-ui";
+import { Avatar } from "./community-ui";
 import {
   resolveSessionIdentity,
   type ServerProfileSummary,
@@ -30,7 +32,12 @@ export type AccountTabKey = "referrals" | "plan" | "prefs" | "cfdi";
 
 export const BILLING_TAB_ENABLED = false;
 
-const ACCOUNT_TABS: readonly TabDef<AccountTabKey>[] = [
+interface AccountTabSpec {
+  readonly key: AccountTabKey;
+  readonly label: string;
+}
+
+const ACCOUNT_TABS: readonly AccountTabSpec[] = [
   { key: "plan", label: "Mi plan" },
   { key: "referrals", label: "Invitar amigos" },
   { key: "prefs", label: "Preferencias" },
@@ -50,6 +57,25 @@ export function resolveAccountTab(value: unknown): AccountTabKey | null {
   if (value === "preferencias") return "prefs";
   if (isAccountTabKey(value)) return value;
   return value === "cfdi" ? "plan" : null;
+}
+
+type NearestScrollIntoViewOptions = ScrollIntoViewOptions & {
+  readonly container?: "all" | "nearest";
+};
+
+function scrollAccountTabIntoView(element: HTMLElement | null): void {
+  if (!element || typeof element.scrollIntoView !== "function") return;
+  const opts: NearestScrollIntoViewOptions = {
+    block: "nearest",
+    inline: "nearest",
+    container: "nearest",
+  };
+  try {
+    element.scrollIntoView(opts);
+  } catch (err) {
+    void err;
+    element.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
 }
 
 export interface MeReferralsPayload extends ServerReferralsData, ServerProfileSummary {}
@@ -88,6 +114,7 @@ export function AccountReferralsClubView({
     resolveAccountTab(initialTab) ?? "plan",
   );
   const [prefsSavedTick, setPrefsSavedTick] = useState<number>(0);
+  const tabButtonRefs = useRef<Partial<Record<AccountTabKey, HTMLButtonElement | null>>>({});
 
   const serverPayload = initialServerReferrals ?? memberReferralsSnapshot ?? null;
   const referralsLoading = Boolean(
@@ -118,7 +145,8 @@ export function AccountReferralsClubView({
     }
   }, []);
 
-  useEffect(() => {
+  useSafeEffect(() => {
+    if (typeof window === "undefined") return;
     const syncFromUrl = () => {
       try {
         const param = resolveAccountTab(new URLSearchParams(window.location.search).get("tab"));
@@ -136,9 +164,11 @@ export function AccountReferralsClubView({
     syncFromUrl();
 
     const onAccountTabEvent = (event: Event) => {
-      const next = (event as CustomEvent<unknown>).detail;
-      if (isAccountTabKey(next)) {
-        selectTab(next);
+      if ("detail" in event) {
+        const detail = (event as CustomEvent<unknown>).detail;
+        if (isAccountTabKey(detail)) {
+          selectTab(detail);
+        }
       }
     };
     window.addEventListener(ACCOUNT_TAB_EVENT, onAccountTabEvent);
@@ -149,14 +179,11 @@ export function AccountReferralsClubView({
     };
   }, [initialTab, selectTab]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (typeof document === "undefined") return;
-    const activeButton = document.getElementById(`pl-acct-tab-${accountTab}`);
-    activeButton?.scrollIntoView?.({
-      block: "nearest",
-      inline: "nearest",
-      container: "nearest",
-    } as ScrollIntoViewOptions);
+    const activeButton =
+      tabButtonRefs.current[accountTab] ?? document.getElementById(`pl-acct-tab-${accountTab}`);
+    scrollAccountTabIntoView(activeButton);
 
     if (typeof window !== "undefined" && accountTab === "prefs") {
       const hash = window.location.hash.slice(1);
@@ -166,6 +193,42 @@ export function AccountReferralsClubView({
       }
     }
   }, [accountTab]);
+
+  const handleTabKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>, currentKey: AccountTabKey) => {
+      const currentIndex = ACCOUNT_TABS.findIndex((item) => item.key === currentKey);
+      if (currentIndex < 0) return;
+
+      const listEl = event.currentTarget.closest<HTMLElement>('[role="tablist"]');
+      const isRtl =
+        listEl !== null &&
+        typeof window !== "undefined" &&
+        window.getComputedStyle(listEl).direction === "rtl";
+      const nextKey = isRtl ? "ArrowLeft" : "ArrowRight";
+      const prevKey = isRtl ? "ArrowRight" : "ArrowLeft";
+
+      let targetIndex = -1;
+      if (event.key === nextKey) {
+        targetIndex = (currentIndex + 1) % ACCOUNT_TABS.length;
+      } else if (event.key === prevKey) {
+        targetIndex = (currentIndex - 1 + ACCOUNT_TABS.length) % ACCOUNT_TABS.length;
+      } else if (event.key === "Home") {
+        targetIndex = 0;
+      } else if (event.key === "End") {
+        targetIndex = ACCOUNT_TABS.length - 1;
+      }
+
+      if (targetIndex < 0) return;
+      event.preventDefault();
+      const target = ACCOUNT_TABS[targetIndex];
+      if (!target) return;
+      const nextBtn = tabButtonRefs.current[target.key] ?? null;
+      nextBtn?.focus();
+      scrollAccountTabIntoView(nextBtn);
+      selectTab(target.key);
+    },
+    [selectTab],
+  );
 
   const identity = useMemo(
     () =>
@@ -183,94 +246,135 @@ export function AccountReferralsClubView({
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/account">
         <div className="pl-acct">
-          <header className="pl-acct-header">
-            <div className="pl-acct-header-top">
-              <div className="pl-acct-identity">
-                <Avatar
-                  initials={identity.initials}
-                  avatarUrl={identity.avatarUrl}
-                  gradVar={identity.avatarGrad}
-                  size={52}
-                />
-                <div className="pl-acct-identity-text">
-                  <div className="pl-acct-title-row">
-                    <h1 className="pl-acct-h1">Mi cuenta</h1>
-                    <UltraTag />
-                    {identity.isTipster ? <TipsterVerifiedBadge /> : null}
+          <SofascoreCard as="section" className="pl-acct-header-card">
+            <header className="pl-acct-header">
+              <div className="pl-acct-header-top">
+                <div className="pl-acct-identity">
+                  <Avatar
+                    initials={identity.initials}
+                    avatarUrl={identity.avatarUrl}
+                    gradVar={identity.avatarGrad}
+                    size={52}
+                  />
+                  <div className="pl-acct-identity-text">
+                    <div className="pl-acct-title-row">
+                      <h1 className="pl-acct-h1">Mi cuenta</h1>
+                      <UltraTag />
+                      {identity.isTipster ? <TipsterVerifiedBadge /> : null}
+                    </div>
+                    <p className="pl-acct-subtitle">
+                      <a
+                        href={profileHref}
+                        className="pl-acct-handle-link"
+                        onClick={(e) => {
+                          if (
+                            e.button !== 0 ||
+                            e.metaKey ||
+                            e.ctrlKey ||
+                            e.shiftKey ||
+                            e.altKey
+                          ) {
+                            return;
+                          }
+                          e.preventDefault();
+                          navigateTo(profileHref);
+                        }}
+                      >
+                        {identity.atHandle}
+                      </a>
+                      <span aria-hidden="true">·</span>
+                      <span>Pase PitchLab Ultra</span>
+                    </p>
                   </div>
-                  <p className="pl-acct-subtitle">
-                    <a
-                      href={profileHref}
-                      className="pl-acct-handle-link"
-                      onClick={(e) => {
-                        if (
-                          e.button !== 0 ||
-                          e.metaKey ||
-                          e.ctrlKey ||
-                          e.shiftKey ||
-                          e.altKey
-                        ) {
-                          return;
-                        }
-                        e.preventDefault();
-                        navigateTo(profileHref);
-                      }}
-                    >
-                      {identity.atHandle}
-                    </a>
-                    <span aria-hidden="true">·</span>
-                    <span>Pase PitchLab Ultra</span>
-                  </p>
                 </div>
+
+                {accountTab === "prefs" ? (
+                  <span
+                    role="status"
+                    aria-live="polite"
+                    className="pl-acct-autosave"
+                    data-prefs-autosave=""
+                  >
+                    <span className="pl-acct-autosave-dot" aria-hidden="true" />
+                    <span>
+                      {prefsSavedTick > 0 ? "Guardado" : "Los cambios se guardan solos"}
+                    </span>
+                  </span>
+                ) : (
+                  <div className="pl-acct-hide-mobile">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      nativeButton={false}
+                      render={
+                        <a
+                          href={profileHref}
+                          onClick={(e) => {
+                            if (
+                              e.button !== 0 ||
+                              e.metaKey ||
+                              e.ctrlKey ||
+                              e.shiftKey ||
+                              e.altKey
+                            ) {
+                              return;
+                            }
+                            e.preventDefault();
+                            navigateTo(profileHref);
+                          }}
+                        />
+                      }
+                    >
+                      Ver mi perfil
+                    </Button>
+                  </div>
+                )}
               </div>
 
-              {accountTab === "prefs" ? (
-                <span
-                  role="status"
-                  aria-live="polite"
-                  className="pl-acct-autosave"
-                  data-prefs-autosave=""
-                >
-                  <span className="pl-acct-autosave-dot" aria-hidden="true" />
-                  <span>
-                    {prefsSavedTick > 0 ? "Guardado" : "Los cambios se guardan solos"}
-                  </span>
-                </span>
-              ) : (
-                <a
-                  href={profileHref}
-                  className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm pl-acct-hide-mobile"
-                  onClick={(e) => {
-                    if (
-                      e.button !== 0 ||
-                      e.metaKey ||
-                      e.ctrlKey ||
-                      e.shiftKey ||
-                      e.altKey
-                    ) {
-                      return;
-                    }
-                    e.preventDefault();
-                    navigateTo(profileHref);
-                  }}
-                >
-                  Ver mi perfil
-                </a>
-              )}
-            </div>
-
-            <UnderlineTabs
-              tabs={ACCOUNT_TABS}
-              active={accountTab}
-              onChange={selectTab}
-              label="Secciones de mi cuenta"
-              idPrefix="pl-acct"
-              className="pl-acct-tabs"
-            />
-          </header>
+              <div
+                role="tablist"
+                aria-label="Secciones de mi cuenta"
+                aria-orientation="horizontal"
+                className="pl-sf-tabs is-underline pl-acct-tabs"
+                data-pl-sf-tabs="underline"
+              >
+                {ACCOUNT_TABS.map((item) => {
+                  const isSelected = accountTab === item.key;
+                  return (
+                    <button
+                      key={item.key}
+                      ref={(el) => {
+                        tabButtonRefs.current[item.key] = el;
+                      }}
+                      id={`pl-acct-tab-${item.key}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={isSelected}
+                      tabIndex={isSelected ? 0 : -1}
+                      data-pl-sf-tab={item.key}
+                      className="pl-sf-tab pl-acct-tab-btn"
+                      onClick={(event) => {
+                        scrollAccountTabIntoView(event.currentTarget);
+                        if (item.key !== accountTab) {
+                          selectTab(item.key);
+                        }
+                      }}
+                      onKeyDown={(event) => handleTabKeyDown(event, item.key)}
+                    >
+                      <span className="pl-sf-tab-label">{item.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </header>
+          </SofascoreCard>
 
           {accountTab === "referrals" ? (
-            <TabPanel tabKey="referrals" idPrefix="pl-acct">
+            <div
+              id="pl-acct-panel-referrals"
+              role="tabpanel"
+              aria-labelledby="pl-acct-tab-referrals"
+            >
               <InviteTab
                 identity={identity}
                 serverReferrals={serverPayload}
@@ -282,11 +386,15 @@ export function AccountReferralsClubView({
                     : undefined)
                 }
               />
-            </TabPanel>
+            </div>
           ) : null}
 
           {accountTab === "plan" ? (
-            <TabPanel tabKey="plan" idPrefix="pl-acct">
+            <div
+              id="pl-acct-panel-plan"
+              role="tabpanel"
+              aria-labelledby="pl-acct-tab-plan"
+            >
               <PlanTab
                 identity={identity}
                 referralCode={serverPayload?.referralCode ?? viewerIdentity?.referralCode}
@@ -300,11 +408,15 @@ export function AccountReferralsClubView({
                     : undefined)
                 }
               />
-            </TabPanel>
+            </div>
           ) : null}
 
           {accountTab === "prefs" ? (
-            <TabPanel tabKey="prefs" idPrefix="pl-acct">
+            <div
+              id="pl-acct-panel-prefs"
+              role="tabpanel"
+              aria-labelledby="pl-acct-tab-prefs"
+            >
               <PrefsTab
                 identity={identity}
                 serverEmail={storyOverride?.profile?.email ?? serverPayload?.email}
@@ -316,13 +428,17 @@ export function AccountReferralsClubView({
                     : undefined)
                 }
               />
-            </TabPanel>
+            </div>
           ) : null}
 
           {BILLING_TAB_ENABLED && accountTab === "cfdi" ? (
-            <TabPanel tabKey="cfdi" idPrefix="pl-acct">
+            <div
+              id="pl-acct-panel-cfdi"
+              role="tabpanel"
+              aria-labelledby="pl-acct-tab-cfdi"
+            >
               <BillingTab accountsEnabledOverride={storyOverride?.accountsEnabled} />
-            </TabPanel>
+            </div>
           ) : null}
         </div>
       </ClubWorkspaceShell>

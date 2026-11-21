@@ -1,22 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useId } from "react";
 import { MaestroIcon, type MaestroIconName } from "./MaestroPrimitives";
 
 export interface SettingsGroupProps {
-  /** Título opcional de la sección en mayúsculas suaves (estilo lista agrupada nativa). */
   title?: string;
-  /** Descripción auxiliar opcional debajo del grupo. */
   footnote?: string;
   id?: string;
   className?: string;
   children: React.ReactNode;
 }
 
-/**
- * Contenedor atómico de lista agrupada para Preferencias, Cuenta y Soporte.
- * Sigue el estándar curado (mobile-first, objetivos ≥ 44 px, divisores sutiles).
- */
 export function SettingsGroup({
   title,
   footnote,
@@ -24,21 +18,25 @@ export function SettingsGroup({
   className = "",
   children,
 }: SettingsGroupProps): React.JSX.Element {
-  const headingId = title ? `${id ?? "pl-sg"}-title` : undefined;
+  const autoId = useId();
+  const headingId = title ? (id ? `${id}-title` : `${autoId}-title`) : undefined;
   return (
     <section
       id={id}
-      className={`pl-sg ${className}`.trim()}
+      className={`pl-sg pl-sf-settings-group ${className}`.trim()}
       aria-labelledby={headingId}
       data-settings-group=""
+      data-pl-sf-settings-group=""
     >
       {title ? (
-        <h2 id={headingId} className="pl-sg-heading">
+        <h2 id={headingId} className="pl-sg-heading pl-sf-settings-heading">
           {title}
         </h2>
       ) : null}
-      <div className="pl-sg-card glass-ring">{children}</div>
-      {footnote ? <p className="pl-sg-footnote">{footnote}</p> : null}
+      <div className="pl-sg-card border border-[var(--pl-border)] bg-[var(--pl-surface)]">
+        {children}
+      </div>
+      {footnote ? <p className="pl-sg-footnote pl-sf-settings-footnote">{footnote}</p> : null}
     </section>
   );
 }
@@ -47,11 +45,8 @@ export interface SettingsRowProps {
   icon?: MaestroIconName;
   title: string;
   subtitle?: string;
-  /** Valor de texto alineado a la derecha antes de la flecha (ej. "Español (MX)", "Decimal"). */
   value?: React.ReactNode;
-  /** Control interactivo a la derecha (Switch, segmented control, badge) cuando no es botón/link. */
   trailing?: React.ReactNode;
-  /** Si se pasa `href` renderiza `<a>`; si se pasa `onClick` renderiza `<button>`; si no, contenedor. */
   href?: string;
   external?: boolean;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -62,10 +57,6 @@ export interface SettingsRowProps {
   className?: string;
 }
 
-/**
- * Fila atómica dentro de `<SettingsGroup>`: ícono circular, título, subtítulo,
- * valor/control derecho y flecha de navegación opcional.
- */
 export function SettingsRow({
   icon,
   title,
@@ -81,7 +72,7 @@ export function SettingsRow({
   dataAttr,
   className = "",
 }: SettingsRowProps): React.JSX.Element {
-  const interactive = Boolean(href || onClick);
+  const interactive = Boolean(href || onClick) && !disabled;
   const displayChevron = showChevron ?? (interactive && !trailing);
 
   const content = (
@@ -96,7 +87,7 @@ export function SettingsRow({
         {subtitle ? <span className="pl-sg-subtitle">{subtitle}</span> : null}
       </span>
       {value !== undefined && value !== null ? (
-        <span className="pl-sg-value">{value}</span>
+        <span className="pl-sg-value num">{value}</span>
       ) : null}
       {trailing ? <span className="pl-sg-trailing">{trailing}</span> : null}
       {displayChevron ? (
@@ -107,7 +98,8 @@ export function SettingsRow({
     </>
   );
 
-  const rowClass = `pl-sg-row is-${tone} ${interactive ? "is-interactive" : ""} ${disabled ? "is-disabled" : ""} ${className}`.trim();
+  const rowClass =
+    `pl-sg-row is-${tone} ${interactive ? "is-interactive" : ""} ${disabled ? "is-disabled" : ""} ${className}`.trim();
   const extraData = dataAttr ? { [`data-${dataAttr}`]: "" } : {};
 
   if (href && !disabled) {
@@ -118,6 +110,8 @@ export function SettingsRow({
         rel={external ? "noopener noreferrer" : undefined}
         onClick={onClick}
         className={rowClass}
+        data-pl-sf-settings-row=""
+        data-pl-sf-tone={tone}
         {...extraData}
       >
         {content}
@@ -132,6 +126,8 @@ export function SettingsRow({
         disabled={disabled}
         onClick={onClick}
         className={rowClass}
+        data-pl-sf-settings-row=""
+        data-pl-sf-tone={tone}
         {...extraData}
       >
         {content}
@@ -140,7 +136,12 @@ export function SettingsRow({
   }
 
   return (
-    <div className={rowClass} {...extraData}>
+    <div
+      className={rowClass}
+      data-pl-sf-settings-row=""
+      data-pl-sf-tone={tone}
+      {...extraData}
+    >
       {content}
     </div>
   );

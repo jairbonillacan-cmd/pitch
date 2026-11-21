@@ -1,24 +1,35 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
+import {
+  Button,
+  SofascoreCard,
+  SofascoreEmptyState,
+  SofascoreKpiStrip,
+  SofascoreTable,
+  type SofascoreKpiItem,
+  type SofascoreTableColumn,
+} from "../../../components/ui/primitives";
 import { CouponRedeemBox } from "../../components/CanjearCouponView";
 import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
-import { triggerHaptic } from "../../navigation-helpers";
-import { ConfirmActionDialog, TopLayerModalDialog } from "../../components/PlatformOverlays";
+import { ConfirmActionDialog } from "../../components/PlatformOverlays";
 import { ACCOUNT_TAB_EVENT } from "../../components/ShellChrome";
+import { useAbortableJson, useSafeEffect } from "../../hooks";
+import { triggerHaptic } from "../../navigation-helpers";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import {
   PREVIEW_SPEI_EVENT,
   readPreviewSpeiState,
   type PreviewSpeiState,
 } from "../../preview-spei-store";
-import type { PaymentMode } from "../../types";
 import {
   annualSavingsMxn,
   MEMBERSHIP_SPEC,
   referralEarnedDays,
   SPACETIME_METRICS_HEADLINE,
 } from "../../spacetime-catalog";
+import type { PaymentMode } from "../../types";
 import {
   deriveExampleReferralCode,
   type SessionAccountIdentity,
@@ -97,6 +108,14 @@ export interface PlanTabStoryOverride {
 
 type PlanDialogKind = "cancel" | "reactivate" | "card" | "switch" | null;
 
+interface ExamplePaymentRow {
+  readonly id: string;
+  readonly date: string;
+  readonly what: string;
+  readonly amount: string;
+  readonly hasInvoice: boolean;
+}
+
 const DAY_MS = 86_400_000;
 
 const TRANSFER_STATUS_META: Record<
@@ -170,7 +189,7 @@ export function PlanTab({
   onOpenBilling?: () => void;
 }): React.JSX.Element {
   const {
-    accountsEnabled: ctxAccountsEnabled,
+    viewerRole,
     hasAccountSessionAuth,
     allowRoleSimulation,
     paymentMode: ctxPaymentMode,
@@ -179,28 +198,34 @@ export function PlanTab({
   const { pushToast } = usePlatformActions();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
+  const shouldFetchServerPlan = Boolean(
+    hasAccountSessionAuth &&
+      !storyOverride?.serverPlan &&
+      !initialServerPlan &&
+      !storyOverride?.planState,
+  );
+
+  const fetchedPlan = useAbortableJson<ServerPlanPayload>("/api/me/plan", {
+    enabled: shouldFetchServerPlan,
+    initialData: storyOverride?.serverPlan ?? initialServerPlan ?? null,
+  });
+
+  const [mutatedPlan, setMutatedPlan] = useState<ServerPlanPayload | null>(null);
   const [simPlanState, setSimPlanState] = useState<PlanStateOverride | null>(null);
   const [previewSpei, setPreviewSpei] = useState<PreviewSpeiState | null>(null);
 
-  useEffect(() => {
-    if (accountsEnabled || storyOverride) return;
+  useSafeEffect(() => {
+    if (accountsEnabled || storyOverride || typeof window === "undefined") return;
     const sync = () => setPreviewSpei(readPreviewSpeiState());
     sync();
     window.addEventListener(PREVIEW_SPEI_EVENT, sync);
     return () => window.removeEventListener(PREVIEW_SPEI_EVENT, sync);
   }, [accountsEnabled, storyOverride]);
 
-  const [serverPlan, setServerPlan] = useState<ServerPlanPayload | null>(
-    storyOverride?.serverPlan ?? initialServerPlan ?? null,
-  );
-  const [loadingPlan, setLoadingPlan] = useState<boolean>(
-    Boolean(
-      hasAccountSessionAuth &&
-        !storyOverride?.serverPlan &&
-        !initialServerPlan &&
-        !storyOverride?.planState,
-    ),
-  );
+  const serverPlan: ServerPlanPayload | null =
+    mutatedPlan ?? storyOverride?.serverPlan ?? initialServerPlan ?? fetchedPlan.data ?? null;
+  const loadingPlan = Boolean(shouldFetchServerPlan && fetchedPlan.loading && !serverPlan);
+
   const [flipped, setFlipped] = useState(false);
   const [cancelledLocal, setCancelledLocal] = useState<boolean | null>(null);
   const [switchedCycleLocal, setSwitchedCycleLocal] = useState<"mensual" | "anual" | null>(null);
@@ -217,9 +242,7 @@ export function PlanTab({
   const [checkoutBusy, setCheckoutBusy] = useState(false);
   const bannerRef = useRef<HTMLDivElement | null>(null);
   const transferSectionRef = useRef<HTMLElement | null>(null);
-  const dialogTitleId = useId();
 
-  // Estado SPEI (Beta 1.0)
   const [transferBusy, setTransferBusy] = useState(false);
   const [transferFeedback, setTransferFeedback] = useState<{
     kind: "ok" | "error";
@@ -236,53 +259,16 @@ export function PlanTab({
   const reloadServerPlan = useCallback(async () => {
     if (!hasAccountSessionAuth || storyOverride?.serverPlan || storyOverride?.planState) return;
     try {
-      const res = await fetch("/api/me/plan", { credentials: "same-origin" });
+      const res = await fetch("/api/me/plan", { credentials: "same-origin", cache: "no-store" });
       if (!res.ok) return;
       const json = (await res.json()) as ServerPlanPayload;
-      if (json) setServerPlan(json);
+      if (json) setMutatedPlan(json);
     } catch (err) {
       void err;
     }
   }, [hasAccountSessionAuth, storyOverride?.planState, storyOverride?.serverPlan]);
 
-  useEffect(() => {
-    if (storyOverride?.serverPlan) {
-      setServerPlan(storyOverride.serverPlan);
-      setLoadingPlan(false);
-      return;
-    }
-    if (initialServerPlan) {
-      setServerPlan(initialServerPlan);
-      setLoadingPlan(false);
-      return;
-    }
-    if (!hasAccountSessionAuth || storyOverride?.planState) {
-      setLoadingPlan(false);
-      return;
-    }
-    let cancelled = false;
-    setLoadingPlan(true);
-    fetch("/api/me/plan", { credentials: "same-origin" })
-      .then(async (res) => {
-        if (!res.ok) return null;
-        return (await res.json()) as ServerPlanPayload;
-      })
-      .then((json) => {
-        if (cancelled) return;
-        if (json) setServerPlan(json);
-      })
-      .catch((err) => {
-        void err;
-      })
-      .finally(() => {
-        if (!cancelled) setLoadingPlan(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [hasAccountSessionAuth, initialServerPlan, storyOverride?.planState, storyOverride?.serverPlan]);
-
-  useEffect(() => {
+  useSafeEffect(() => {
     if (typeof window === "undefined") return;
     const handleUpdated = () => {
       void reloadServerPlan();
@@ -291,25 +277,33 @@ export function PlanTab({
     return () => window.removeEventListener("pitchlab:plan-updated", handleUpdated);
   }, [reloadServerPlan]);
 
+  const canExposeSpeiDetails =
+    viewerRole !== "visitor" && (accountsEnabled || Boolean(storyOverride));
   const effectivePaymentMode: PaymentMode =
     storyOverride?.paymentMode ?? serverPlan?.paymentMode ?? ctxPaymentMode;
   const isTransferMode = effectivePaymentMode === "transfer";
-  const activePending = serverPlan?.activePendingTransfer ?? null;
-  const transferHistory =
-    serverPlan?.transferHistory ?? (!accountsEnabled ? (previewSpei?.requests ?? []) : []);
-  const transferBank = serverPlan?.transferBank ?? {
-    configured: false,
-    bank: null,
-    beneficiary: null,
-    clabe: null,
-    clabeMasked: null,
-    instructions: null,
-    supportEmail: "soporte@pitchlab.mx",
-  };
+  const activePending = canExposeSpeiDetails ? (serverPlan?.activePendingTransfer ?? null) : null;
+  const transferHistory = canExposeSpeiDetails
+    ? (serverPlan?.transferHistory ?? (!accountsEnabled ? (previewSpei?.requests ?? []) : []))
+    : [];
+  const transferBank: TransferBankInfo =
+    canExposeSpeiDetails && serverPlan?.transferBank
+      ? serverPlan.transferBank
+      : {
+          configured: false,
+          bank: null,
+          beneficiary: null,
+          clabe: null,
+          clabeMasked: null,
+          instructions: null,
+          supportEmail: "soporte@pitchlab.mx",
+        };
+  const visibleSpeiReference = canExposeSpeiDetails
+    ? (serverPlan?.speiReferenceCode ?? null)
+    : null;
 
-  // Solo hidratar al abrir una solicitud pendiente distinta para que una recarga en segundo plano no borre lo escrito.
   const hydratedPendingIdRef = useRef<string | null>(null);
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!activePending) {
       hydratedPendingIdRef.current = null;
       return;
@@ -326,7 +320,6 @@ export function PlanTab({
     setUserNote(activePending.userNote ?? "");
   }, [activePending]);
 
-  // Sin cuentas, el estado predeterminado es «prueba» (§4), salvo override de Storybook, simulador o canje SPEI en sesión preview.
   const baseState: PlanStateOverride = useMemo(() => {
     if (simPlanState) return simPlanState;
     if (storyOverride?.planState) return storyOverride.planState;
@@ -335,7 +328,13 @@ export function PlanTab({
       return previewSpei.activeInterval === "annual" ? "anual" : "mensual";
     }
     return "prueba";
-  }, [accountsEnabled, previewSpei?.activeInterval, serverPlan, simPlanState, storyOverride?.planState]);
+  }, [
+    accountsEnabled,
+    previewSpei?.activeInterval,
+    serverPlan,
+    simPlanState,
+    storyOverride?.planState,
+  ]);
 
   const stripeConfigured =
     storyOverride?.stripeConfigured ?? serverPlan?.stripeConfigured ?? false;
@@ -355,8 +354,7 @@ export function PlanTab({
     return baseState === "sin_renovacion" || Boolean(serverPlan?.cancelAtPeriodEnd);
   }, [baseState, cancelledLocal, isTrial, serverPlan?.cancelAtPeriodEnd]);
 
-  const selectedCycle: "mensual" | "anual" =
-    cycleChoice ?? (isAnnual ? "anual" : "mensual");
+  const selectedCycle: "mensual" | "anual" = cycleChoice ?? (isAnnual ? "anual" : "mensual");
 
   const paidFriends = useMemo(() => {
     if (typeof storyOverride?.paidFriends === "number") {
@@ -369,7 +367,13 @@ export function PlanTab({
       return Math.max(0, referralPaidFriends);
     }
     return 2 + Math.max(0, referralPaidFriends);
-  }, [accountsEnabled, isTrial, referralPaidFriends, serverPlan?.paidFriends, storyOverride?.paidFriends]);
+  }, [
+    accountsEnabled,
+    isTrial,
+    referralPaidFriends,
+    serverPlan?.paidFriends,
+    storyOverride?.paidFriends,
+  ]);
 
   const earnedDays = useMemo(
     () =>
@@ -386,10 +390,7 @@ export function PlanTab({
     return 4;
   }, [accountsEnabled, serverPlan]);
 
-  // Fechas: con cuentas salen de accessUntil() y currentPeriodEnd; sin cuentas son las del lienzo marcadas «Ejemplo».
-  const exampleBaseCutIso = isAnnual
-    ? "2027-11-11T12:00:00Z"
-    : "2026-12-11T12:00:00Z";
+  const exampleBaseCutIso = isAnnual ? "2027-11-11T12:00:00Z" : "2026-12-11T12:00:00Z";
   const exampleShiftedIso = addDaysIso(exampleBaseCutIso, earnedDays);
 
   const baseCutDate = accountsEnabled
@@ -430,10 +431,7 @@ export function PlanTab({
   const statusPill = useMemo(() => {
     if (isTrial) {
       if (isExpiredPass) {
-        return {
-          label: "Prueba finalizada",
-          toneClass: "pl-acct-status-pill--warn",
-        };
+        return { label: "Prueba finalizada", toneClass: "pl-acct-status-pill--warn" };
       }
       return {
         label: `Prueba · ${trialDaysLeft === 1 ? "queda 1 día" : `quedan ${trialDaysLeft} días`}`,
@@ -441,21 +439,12 @@ export function PlanTab({
       };
     }
     if (isExpiredPass) {
-      return {
-        label: "Sin pase activo",
-        toneClass: "pl-acct-status-pill--warn",
-      };
+      return { label: "Sin pase activo", toneClass: "pl-acct-status-pill--warn" };
     }
     if (isCancelled) {
-      return {
-        label: "Sin renovación",
-        toneClass: "pl-acct-status-pill--warn",
-      };
+      return { label: "Sin renovación", toneClass: "pl-acct-status-pill--warn" };
     }
-    return {
-      label: "Activo",
-      toneClass: "pl-acct-status-pill--ok",
-    };
+    return { label: "Activo", toneClass: "pl-acct-status-pill--ok" };
   }, [isCancelled, isExpiredPass, isTrial, trialDaysLeft]);
 
   const headline = useMemo(() => {
@@ -501,9 +490,18 @@ export function PlanTab({
     return earnedDays > 0
       ? `Tu cobro del ${baseCutDate} se recorre al ${accessEndDate} por tus +${earnedDays} días a favor. Te avisamos 3 días antes.`
       : `Se renueva el ${baseCutDate} y te avisamos 3 días antes.`;
-  }, [accessEndDate, baseCutDate, earnedDays, isAnnual, isCancelled, isExpiredPass, isTransferMode, isTrial]);
+  }, [
+    accessEndDate,
+    baseCutDate,
+    earnedDays,
+    isAnnual,
+    isCancelled,
+    isExpiredPass,
+    isTransferMode,
+    isTrial,
+  ]);
 
-  const facts = useMemo(() => {
+  const kpiItems = useMemo<readonly SofascoreKpiItem[]>(() => {
     const daysNote =
       earnedDays === 0
         ? `Sumas +${bothRewardDays} días por cada amigo que pague`
@@ -518,50 +516,54 @@ export function PlanTab({
     if (isTrial) {
       return [
         {
+          id: "plan",
           label: "Plan",
           value: `Prueba sin costo de ${trialTotalDays} días`,
-          note: "Sin tarjeta",
-          tone: "muted" as const,
+          delta: "Sin tarjeta",
+          tone: "default",
         },
         {
+          id: "end",
           label: "Termina",
           value: accessEndDate,
-          note:
+          delta:
             trialDaysLeft > 0
               ? `En ${trialDaysLeft} ${trialDaysLeft === 1 ? "día" : "días"}`
               : "Periodo concluido",
-          tone: "warn" as const,
+          tone: "brand",
         },
         {
+          id: "method",
           label: isTransferMode ? "Método de pago" : "Tarjeta",
           value: isTransferMode ? "Transferencia SPEI o cupón" : "Sin cobro automático",
-          note: isTransferMode
+          delta: isTransferMode
             ? "Sin cobro automático; validamos tu referencia"
             : "Elige mensual o anual si decides activar",
-          tone: "muted" as const,
+          tone: "default",
         },
         {
+          id: "earned",
           label: "Días a favor",
           value: `+${earnedDays} días`,
-          note: daysNote,
-          tone: earnedDays > 0 ? ("ok" as const) : ("muted" as const),
+          delta: daysNote,
+          tone: earnedDays > 0 ? "positive" : "default",
         },
       ];
     }
 
     return [
       {
+        id: "plan",
         label: "Plan",
-        value: isAnnual
-          ? `Anual · $${annualFormatted} MXN`
-          : `Mensual · $${monthlyMxn} MXN`,
-        note: "IVA incluido",
-        tone: "muted" as const,
+        value: isAnnual ? `Anual · $${annualFormatted} MXN` : `Mensual · $${monthlyMxn} MXN`,
+        delta: "IVA incluido",
+        tone: "default",
       },
       {
+        id: "cut",
         label: isCancelled || isTransferMode || isExpiredPass ? "Acceso hasta" : "Próximo cobro",
         value: accessEndDate,
-        note: isExpiredPass
+        delta: isExpiredPass
           ? "Vencido · renueva por SPEI o cupón"
           : isCancelled
             ? `Tienes acceso hasta ${accessEndDate}`
@@ -573,14 +575,15 @@ export function PlanTab({
                   ? `$${annualFormatted} MXN`
                   : `$${monthlyMxn} MXN`,
         tone: isExpiredPass
-          ? ("warn" as const)
+          ? "negative"
           : isCancelled
-            ? ("muted" as const)
+            ? "default"
             : earnedDays > 0
-              ? ("ok" as const)
-              : ("muted" as const),
+              ? "positive"
+              : "default",
       },
       {
+        id: "method",
         label: isTransferMode ? "Método de pago" : "Tarjeta",
         value: isTransferMode
           ? "Transferencia SPEI"
@@ -589,18 +592,19 @@ export function PlanTab({
               ? "Registrada en Stripe"
               : "Sin tarjeta registrada"
             : "Visa ···· 4242",
-        note: isTransferMode
+        delta: isTransferMode
           ? "Activación manual sin tarjeta guardada"
           : accountsEnabled
             ? "Administrada por Stripe"
             : "Vence 08/29 · Ejemplo",
-        tone: "muted" as const,
+        tone: "default",
       },
       {
+        id: "earned",
         label: "Días a favor",
         value: `+${earnedDays} días`,
-        note: daysNote,
-        tone: earnedDays > 0 ? ("ok" as const) : ("muted" as const),
+        delta: daysNote,
+        tone: earnedDays > 0 ? "positive" : "default",
       },
     ];
   }, [
@@ -652,7 +656,7 @@ export function PlanTab({
     [isTransferMode],
   );
 
-  const examplePayments = useMemo(() => {
+  const examplePayments = useMemo<readonly ExamplePaymentRow[]>(() => {
     if (isTrial) {
       return [
         {
@@ -717,6 +721,95 @@ export function PlanTab({
     }
   }, [onOpenBilling]);
 
+  const transferHistoryColumns = useMemo<readonly SofascoreTableColumn<TransferRequestItem>[]>(
+    () => [
+      {
+        key: "detail",
+        header: "Movimiento",
+        render: (item) => (
+          <div className="pl-acct-payment-meta">
+            <b className="num">{formatShortDateEs(item.createdAtIso, "Reciente")}</b>
+            <span>
+              {item.planInterval === "annual" ? "Pase anual" : "Pase mensual"} ·{" "}
+              <span className="num">{item.referenceCode}</span>
+            </span>
+            {item.awaitingCouponRedemption ? (
+              <span className="block text-xs pt-0.5 text-[var(--pl-brand)]">
+                Revisa tu correo (noreply@pitchlab.mx) y canjea tu cupón en /canjear
+              </span>
+            ) : null}
+            {item.status === "rejected" && item.rejectionReason ? (
+              <span className="block text-xs pt-0.5 text-[var(--pl-danger)]">
+                Motivo: {item.rejectionReason}
+              </span>
+            ) : null}
+          </div>
+        ),
+      },
+      {
+        key: "amount",
+        header: "Monto",
+        numeric: true,
+        align: "end",
+        render: (item) => (
+          <b className="pl-acct-payment-amt num">{formatCentavosMxn(item.amountCentavosMxn)}</b>
+        ),
+      },
+      {
+        key: "status",
+        header: "Estado",
+        align: "end",
+        render: (item) => {
+          const meta = item.awaitingCouponRedemption
+            ? { label: "Cupón enviado", pillClass: "pl-pill--info" }
+            : item.status === "approved"
+              ? { label: "Suscripción activa", pillClass: "pl-pill--success" }
+              : TRANSFER_STATUS_META[item.status];
+          return <span className={`pl-pill ${meta.pillClass}`}>{meta.label}</span>;
+        },
+      },
+    ],
+    [],
+  );
+
+  const examplePaymentColumns = useMemo<readonly SofascoreTableColumn<ExamplePaymentRow>[]>(
+    () => [
+      {
+        key: "detail",
+        header: "Movimiento",
+        render: (payment) => (
+          <div className="pl-acct-payment-meta">
+            <b className="num">{payment.date}</b>
+            <span>{payment.what}</span>
+          </div>
+        ),
+      },
+      {
+        key: "amount",
+        header: "Monto",
+        numeric: true,
+        align: "end",
+        render: (payment) => <b className="pl-acct-payment-amt num">{payment.amount}</b>,
+      },
+      {
+        key: "invoice",
+        header: "Factura",
+        align: "end",
+        render: (payment) =>
+          payment.hasInvoice && onOpenBilling ? (
+            <Button type="button" variant="secondary" size="sm" onClick={handleGoBilling}>
+              Factura
+            </Button>
+          ) : (
+            <span className="pl-acct-payment-dash" aria-label="Sin factura">
+              —
+            </span>
+          ),
+      },
+    ],
+    [handleGoBilling, onOpenBilling],
+  );
+
   const scrollToTransfer = useCallback(() => {
     if (transferSectionRef.current) {
       transferSectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -774,9 +867,10 @@ export function PlanTab({
 
         if (!res.ok) {
           if (res.status === 409 && json?.activePending) {
-            setServerPlan((prev) =>
-              prev ? { ...prev, activePendingTransfer: json.activePending } : prev,
-            );
+            setMutatedPlan((prev) => {
+              const base = prev ?? serverPlan;
+              return base ? { ...base, activePendingTransfer: json.activePending } : base;
+            });
             setTransferFeedback({
               kind: "ok",
               text: json.error ?? "Ya tienes una transferencia pendiente.",
@@ -792,14 +886,16 @@ export function PlanTab({
         }
 
         if (json?.request) {
-          setServerPlan((prev) => {
-            if (!prev) return prev;
+          const created = json.request;
+          setMutatedPlan((prev) => {
+            const base = prev ?? serverPlan;
+            if (!base) return base;
             return {
-              ...prev,
-              activePendingTransfer: json.request,
+              ...base,
+              activePendingTransfer: created,
               transferHistory: [
-                json.request!,
-                ...(prev.transferHistory ?? []).filter((item) => item.id !== json.request!.id),
+                created,
+                ...(base.transferHistory ?? []).filter((item) => item.id !== created.id),
               ],
             };
           });
@@ -816,7 +912,7 @@ export function PlanTab({
         setTransferBusy(false);
       }
     },
-    [accountsEnabled, hasAccountSessionAuth, reloadServerPlan, scrollToTransfer],
+    [accountsEnabled, hasAccountSessionAuth, reloadServerPlan, scrollToTransfer, serverPlan],
   );
 
   const handleSubmitReceipt = useCallback(
@@ -840,15 +936,15 @@ export function PlanTab({
       const trimmedPesos = reportedPesos.trim().replace(/[$,\s]/g, "");
       let reportedAmountCentavosMxn: number | null = null;
       if (trimmedPesos.length > 0) {
-        const num = Number(trimmedPesos);
-        if (!Number.isFinite(num) || num <= 0) {
+        const parsedAmount = parseStrictFiniteNumber(trimmedPesos);
+        if (parsedAmount === null || parsedAmount <= 0) {
           setTransferFeedback({
             kind: "error",
             text: "Escribe un monto transferido válido mayor a $0 MXN.",
           });
           return;
         }
-        reportedAmountCentavosMxn = Math.round(num * 100);
+        reportedAmountCentavosMxn = Math.round(parsedAmount * 100);
       }
 
       setTransferBusy(true);
@@ -882,17 +978,18 @@ export function PlanTab({
         }
 
         if (json.request) {
-          setServerPlan((prev) =>
-            prev
-              ? {
-                  ...prev,
-                  activePendingTransfer: json.request,
-                  transferHistory: (prev.transferHistory ?? []).map((item) =>
-                    item.id === json.request!.id ? json.request! : item,
-                  ),
-                }
-              : prev,
-          );
+          const updatedReq = json.request;
+          setMutatedPlan((prev) => {
+            const base = prev ?? serverPlan;
+            if (!base) return base;
+            return {
+              ...base,
+              activePendingTransfer: updatedReq,
+              transferHistory: (base.transferHistory ?? []).map((item) =>
+                item.id === updatedReq.id ? updatedReq : item,
+              ),
+            };
+          });
         }
         setTransferFeedback({
           kind: "ok",
@@ -918,6 +1015,7 @@ export function PlanTab({
       pushToast,
       receiptReference,
       reportedPesos,
+      serverPlan,
       transferDate,
       userNote,
     ],
@@ -1000,7 +1098,7 @@ export function PlanTab({
         setPortalNotice(
           !stripeConfigured
             ? "Disponible cuando se active el cobro."
-            : json?.error ?? "No se pudo abrir el pago.",
+            : (json?.error ?? "No se pudo abrir el pago."),
         );
       } catch (err) {
         void err;
@@ -1024,19 +1122,12 @@ export function PlanTab({
     setCancelledLocal(true);
     setActiveDialog(null);
     setPortalNotice(
-      accountsEnabled && !stripeConfigured
-        ? "Disponible cuando se active el cobro."
-        : "",
+      accountsEnabled && !stripeConfigured ? "Disponible cuando se active el cobro." : "",
     );
     if (typeof window !== "undefined") {
-      const reduced = Boolean(
-        window.matchMedia?.("(prefers-reduced-motion: reduce)").matches,
-      );
+      const reduced = Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
       window.requestAnimationFrame(() => {
-        window.scrollTo({
-          top: 0,
-          behavior: reduced ? "auto" : "smooth",
-        });
+        window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
       });
     }
   }, [accountsEnabled, stripeConfigured]);
@@ -1045,9 +1136,7 @@ export function PlanTab({
     setCancelledLocal(false);
     setActiveDialog(null);
     setPortalNotice(
-      stripeConfigured
-        ? "Renovación reactivada."
-        : "Disponible cuando se active el cobro.",
+      stripeConfigured ? "Renovación reactivada." : "Disponible cuando se active el cobro.",
     );
   }, [stripeConfigured]);
 
@@ -1072,9 +1161,11 @@ export function PlanTab({
   if (accountsEnabled && loadingPlan) {
     return (
       <div className="pl-acct-stack">
-        <section className="pl-acct-card glass-card glass-ring" aria-live="polite">
-          <p className="pl-acct-generating">Cargando tu plan…</p>
-        </section>
+        <SofascoreCard as="section">
+          <p className="pl-acct-generating" aria-live="polite">
+            Cargando tu plan…
+          </p>
+        </SofascoreCard>
       </div>
     );
   }
@@ -1083,11 +1174,11 @@ export function PlanTab({
     <div className="pl-acct-stack">
       {!accountsEnabled ? (
         <ExampleNotice>
-          Estado, fechas e historial de muestra en modo de prueba. Los precios del Pase PitchLab Ultra son los vigentes.
+          Estado, fechas e historial de muestra en modo de prueba. Los precios del Pase PitchLab
+          Ultra son los vigentes.
         </ExampleNotice>
       ) : null}
 
-      {/* Aviso superior de cancelación, reactivación o estado del cobro */}
       {isCancelled ? (
         <div
           ref={bannerRef}
@@ -1100,14 +1191,15 @@ export function PlanTab({
             Cancelaste la renovación. Tienes acceso hasta el {accessEndDate}.
             {portalNotice ? ` ${portalNotice}` : ""}
           </span>
-          <button
+          <Button
             type="button"
-            className="pl-acct-btn pl-acct-btn--primary pl-acct-btn--sm min-h-11 sm:min-h-9"
+            variant="primary"
+            size="sm"
             data-reactivate-plan=""
             onClick={() => setActiveDialog("reactivate")}
           >
             Reactivar renovación
-          </button>
+          </Button>
         </div>
       ) : portalNotice ? (
         <div
@@ -1126,7 +1218,8 @@ export function PlanTab({
           data-plan-checkout-notice="success"
         >
           <span>
-            ¡Pago recibido! Estamos confirmando tu Pase PitchLab Ultra; en unos segundos verás tu suscripción activa.
+            ¡Pago recibido! Estamos confirmando tu Pase PitchLab Ultra; en unos segundos verás tu
+            suscripción activa.
           </span>
         </div>
       ) : checkoutNotice === "cancelled" ? (
@@ -1142,12 +1235,14 @@ export function PlanTab({
         </div>
       ) : null}
 
-      {/* Hero: Tu pase 3D + Estado y 4 datos */}
       <div className="pl-acct-plan-hero">
         <section className="pl-acct-card-stage" aria-label="Tu pase">
           <div className="pl-acct-card-stage-top">
             <span className="pl-acct-card-stage-title">Tu pase</span>
-            <span className={`pl-acct-status-pill num ${statusPill.toneClass}`} data-plan-status="">
+            <span
+              className={`pl-acct-status-pill num ${statusPill.toneClass}`}
+              data-plan-status=""
+            >
               <span aria-hidden="true" className="pl-acct-status-dot" />
               <span>{statusPill.label}</span>
             </span>
@@ -1180,620 +1275,606 @@ export function PlanTab({
           </span>
         </section>
 
-        <section
-          className="pl-acct-card glass-card glass-ring pl-acct-plan-summary"
-          aria-labelledby="pl-acct-plan-title"
-        >
-          <div className="pl-acct-plan-head">
-            <div className="pl-acct-row-between">
-              <span className="pl-acct-eyebrow">Mi plan</span>
-              {!accountsEnabled ? <ExampleBadge /> : null}
-            </div>
-            <h2 id="pl-acct-plan-title" className="pl-acct-h2 pl-acct-h2--lg">
-              {headline}
-            </h2>
-            <p className="pl-acct-subcopy">{subline}</p>
-          </div>
-
-          <dl className="pl-acct-plan-facts num">
-            {facts.map((fact) => (
-              <div key={fact.label} className="pl-acct-plan-fact">
-                <dt>{fact.label}</dt>
-                <dd>
-                  <span>{fact.value}</span>
-                  <span
-                    className={`pl-acct-plan-fact-note pl-acct-plan-fact-note--${fact.tone}`}
-                  >
-                    {fact.note}
-                  </span>
-                </dd>
+        <SofascoreCard as="section" className="pl-acct-plan-summary">
+          <div className="pl-acct-plan-summary-inner">
+            <div className="pl-acct-plan-head">
+              <div className="pl-acct-row-between">
+                <span className="pl-acct-eyebrow">Mi plan</span>
+                {!accountsEnabled ? <ExampleBadge /> : null}
               </div>
-            ))}
-          </dl>
+              <h2 id="pl-acct-plan-title" className="pl-acct-h2 pl-acct-h2--lg">
+                {headline}
+              </h2>
+              <p className="pl-acct-subcopy">{subline}</p>
+            </div>
 
-          <div className="pl-acct-plan-actions">
-            {isTrial ? (
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--primary"
-                disabled={checkoutBusy || transferBusy}
-                onClick={() => handleActivateFromTrial(selectedCycle)}
-              >
-                {checkoutBusy || transferBusy
-                  ? "Procesando…"
-                  : selectedCycle === "anual"
-                    ? "Activar anual"
-                    : "Activar mensual"}
-              </button>
-            ) : isTransferMode ? (
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--primary"
-                disabled={transferBusy}
-                onClick={scrollToTransfer}
-              >
-                {activePending
-                  ? "Ver transferencia pendiente"
-                  : isExpiredPass
-                    ? "Activar por transferencia SPEI"
-                    : "Extender por transferencia SPEI"}
-              </button>
-            ) : null}
+            <SofascoreKpiStrip items={kpiItems} className="pl-acct-plan-kpis" />
 
-            {!isTransferMode && isCancelled ? (
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--primary"
-                onClick={() => setActiveDialog("reactivate")}
-              >
-                Reactivar renovación
-              </button>
-            ) : null}
+            <div className="pl-acct-plan-actions">
+              {isTrial ? (
+                <Button
+                  type="button"
+                  variant="primary"
+                  disabled={checkoutBusy || transferBusy}
+                  onClick={() => void handleActivateFromTrial(selectedCycle)}
+                >
+                  {checkoutBusy || transferBusy
+                    ? "Procesando…"
+                    : selectedCycle === "anual"
+                      ? "Activar anual"
+                      : "Activar mensual"}
+                </Button>
+              ) : isTransferMode ? (
+                <Button
+                  type="button"
+                  variant="primary"
+                  disabled={transferBusy}
+                  onClick={scrollToTransfer}
+                >
+                  {activePending
+                    ? "Ver transferencia pendiente"
+                    : isExpiredPass
+                      ? "Activar por transferencia SPEI"
+                      : "Extender por transferencia SPEI"}
+                </Button>
+              ) : null}
 
-            {!isTransferMode && !isTrial && !isCancelled && !isAnnual ? (
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--primary"
-                onClick={() => {
-                  setCycleChoice("anual");
-                  setActiveDialog("switch");
-                }}
-              >
-                Cambiar a anual
-              </button>
-            ) : null}
+              {!isTransferMode && isCancelled ? (
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={() => setActiveDialog("reactivate")}
+                >
+                  Reactivar renovación
+                </Button>
+              ) : null}
 
-            {!isTransferMode && !isTrial ? (
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--ghost"
-                onClick={() => setActiveDialog("card")}
-              >
-                Cambiar tarjeta
-              </button>
-            ) : null}
+              {!isTransferMode && !isTrial && !isCancelled && !isAnnual ? (
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={() => {
+                    setCycleChoice("anual");
+                    setActiveDialog("switch");
+                  }}
+                >
+                  Cambiar a anual
+                </Button>
+              ) : null}
 
-            {!isTransferMode && !isTrial && !isCancelled ? (
-              <button
-                type="button"
-                className="pl-acct-link-btn"
-                data-cancel-plan=""
-                onClick={() => setActiveDialog("cancel")}
-              >
-                Cancelar renovación
-              </button>
-            ) : null}
+              {!isTransferMode && !isTrial ? (
+                <Button type="button" variant="secondary" onClick={() => setActiveDialog("card")}>
+                  Cambiar tarjeta
+                </Button>
+              ) : null}
 
-            <button
-              type="button"
-              className="pl-acct-btn pl-acct-btn--ghost"
-              onClick={scrollToTransfer}
-            >
-              <MaestroIcon name="ticket" size={14} />
-              <span>Canjear cupón</span>
-            </button>
+              {!isTransferMode && !isTrial && !isCancelled ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  tone="danger"
+                  data-cancel-plan=""
+                  onClick={() => setActiveDialog("cancel")}
+                >
+                  Cancelar renovación
+                </Button>
+              ) : null}
+
+              <Button type="button" variant="secondary" onClick={scrollToTransfer}>
+                <MaestroIcon name="ticket" size={14} />
+                <span>Canjear cupón</span>
+              </Button>
+            </div>
           </div>
-        </section>
+        </SofascoreCard>
       </div>
 
-      {/* Mensual o anual */}
-      <section
-        className="pl-acct-card glass-card glass-ring"
-        aria-labelledby="pl-acct-ciclo-h"
+      <SofascoreCard
+        id="pl-acct-ciclo"
+        title="Mensual o anual"
+        meta={
+          isTransferMode
+            ? "IVA incluido · SPEI sin cargo automático"
+            : "IVA incluido · CFDI 4.0 en cada cobro"
+        }
       >
-        <div className="pl-acct-row-between">
-          <h3 id="pl-acct-ciclo-h" className="pl-acct-h3">
-            Mensual o anual
-          </h3>
-          <span className="pl-acct-muted-inline">
-            {isTransferMode
-              ? "IVA incluido · transferencia SPEI única (sin cargo automático)"
-              : "IVA incluido · factura CFDI 4.0 en cada cobro"}
-          </span>
-        </div>
-
-        <div className="pl-acct-cycle-grid" role="group" aria-label="Ciclo de cobro">
-          <button
-            type="button"
-            className="pl-acct-cycle-opt"
-            aria-pressed={selectedCycle === "mensual"}
-            onClick={() => setCycleChoice("mensual")}
-          >
-            <span className="pl-acct-cycle-top">
-              <span>Mensual</span>
-              {!isTrial && !isAnnual && !isExpiredPass ? (
-                <span className="pl-acct-cycle-current">Tu plan</span>
-              ) : null}
-              {serverPlan?.eligibleForReferralDiscount ? (
-                <span className="pl-pill pl-pill--success num">-30 % primer mes</span>
-              ) : null}
-            </span>
-            <span className="pl-acct-cycle-price num">
-              ${serverPlan?.eligibleForReferralDiscount ? firstMonthFriendMxn : monthlyMxn}{" "}
-              <small>
-                {serverPlan?.eligibleForReferralDiscount
-                  ? `MXN primer mes (después $${monthlyMxn})`
-                  : "MXN al mes"}
-              </small>
-            </span>
-            <span className="pl-acct-cycle-note">
-              {isTransferMode ? "30 días de pase completo sin renovación automática." : "Cancelas cuando quieras."}
-            </span>
-          </button>
-
-          <button
-            type="button"
-            className="pl-acct-cycle-opt"
-            aria-pressed={selectedCycle === "anual"}
-            onClick={() => setCycleChoice("anual")}
-          >
-            <span className="pl-acct-cycle-top">
-              <span>Anual</span>
-              <span className="pl-acct-cycle-save num">
-                {!isTrial && isAnnual && !isExpiredPass ? "Tu plan" : `Ahorras $${savingsFormatted}`}
+        <div className="space-y-4">
+          <div className="pl-acct-cycle-grid" role="group" aria-label="Ciclo de cobro">
+            <button
+              type="button"
+              className="pl-acct-cycle-opt"
+              aria-pressed={selectedCycle === "mensual"}
+              onClick={() => setCycleChoice("mensual")}
+            >
+              <span className="pl-acct-cycle-top">
+                <span>Mensual</span>
+                {!isTrial && !isAnnual && !isExpiredPass ? (
+                  <span className="pl-acct-cycle-current">Tu plan</span>
+                ) : null}
+                {serverPlan?.eligibleForReferralDiscount ? (
+                  <span className="pl-pill pl-pill--success num">-30 % primer mes</span>
+                ) : null}
               </span>
-            </span>
-            <span className="pl-acct-cycle-price num">
-              ${annualFormatted} <small>MXN al año</small>
-            </span>
-            <span className="pl-acct-cycle-note num">
-              ${annualEqMxn} al mes · ahorras ${savingsFormatted} al año frente al mensual.
-            </span>
-          </button>
-        </div>
+              <span className="pl-acct-cycle-price num">
+                ${serverPlan?.eligibleForReferralDiscount ? firstMonthFriendMxn : monthlyMxn}{" "}
+                <small>
+                  {serverPlan?.eligibleForReferralDiscount
+                    ? `MXN primer mes (después $${monthlyMxn})`
+                    : "MXN al mes"}
+                </small>
+              </span>
+              <span className="pl-acct-cycle-note">
+                {isTransferMode
+                  ? "30 días de pase completo sin renovación automática."
+                  : "Cancelas cuando quieras."}
+              </span>
+            </button>
 
-        <div className="pl-acct-cycle-foot">
-          <span className="pl-acct-cycle-foot-copy">
-            {isTransferMode
-              ? selectedCycle === "anual"
-                ? `Activas 365 días por $${annualFormatted} MXN con transferencia SPEI única.`
-                : `Activas 30 días por $${
-                    serverPlan?.eligibleForReferralDiscount ? firstMonthFriendMxn : monthlyMxn
-                  } MXN con transferencia SPEI única.`
-              : isTrial
-                ? selectedCycle === "anual"
-                  ? `Activas el año completo por $${annualFormatted} MXN hoy, con factura. Cambiar después no pierde días.`
-                  : `Activas el ciclo mensual por $${monthlyMxn} MXN hoy, con factura. Cambiar después no pierde días.`
-                : cycleDiffersFromCurrent
-                  ? selectedCycle === "anual"
-                    ? `Pasas a anual en tu siguiente corte (${accessEndDate}): pagas $${annualFormatted} MXN y no pierdes días.`
-                    : `Vuelves a mensual al terminar tu año (${accessEndDate}). Cambiar no pierde días: aplica en el siguiente corte.`
-                  : "Cambiar no pierde días: aplica en el siguiente corte."}
-          </span>
-
-          {isTrial || isTransferMode ? (
             <button
               type="button"
-              className="pl-acct-btn pl-acct-btn--primary"
-              disabled={checkoutBusy || transferBusy}
-              onClick={() => handleActivateFromTrial(selectedCycle)}
+              className="pl-acct-cycle-opt"
+              aria-pressed={selectedCycle === "anual"}
+              onClick={() => setCycleChoice("anual")}
             >
-              {checkoutBusy || transferBusy
-                ? "Generando…"
-                : isTransferMode
-                  ? activePending
-                    ? "Ver solicitud SPEI"
-                    : selectedCycle === "anual"
-                      ? "Pagar anual por SPEI"
-                      : "Pagar mensual por SPEI"
-                  : selectedCycle === "anual"
-                    ? "Activar anual"
-                    : "Activar mensual"}
+              <span className="pl-acct-cycle-top">
+                <span>Anual</span>
+                <span className="pl-acct-cycle-save num">
+                  {!isTrial && isAnnual && !isExpiredPass
+                    ? "Tu plan"
+                    : `Ahorras $${savingsFormatted}`}
+                </span>
+              </span>
+              <span className="pl-acct-cycle-price num">
+                ${annualFormatted} <small>MXN al año</small>
+              </span>
+              <span className="pl-acct-cycle-note num">
+                ${annualEqMxn} al mes · ahorras ${savingsFormatted} al año frente al mensual.
+              </span>
             </button>
-          ) : cycleDiffersFromCurrent ? (
-            <button
-              type="button"
-              className="pl-acct-btn pl-acct-btn--primary"
-              onClick={() => setActiveDialog("switch")}
-            >
-              {selectedCycle === "anual" ? "Cambiar a anual" : "Cambiar a mensual"}
-            </button>
-          ) : null}
-        </div>
-      </section>
+          </div>
 
-      {/* Panel de transferencia SPEI + Canje de cupón */}
-      <section
-        id="transfer"
-        ref={transferSectionRef}
-        className="pl-acct-card glass-card glass-ring space-y-5"
-        aria-labelledby="pl-acct-spei-h"
-      >
-        <div className="pl-acct-row-between">
-          <div>
-            <h3 id="pl-acct-spei-h" className="pl-acct-h3">
+          <div className="pl-acct-cycle-foot">
+            <span className="pl-acct-cycle-foot-copy">
               {isTransferMode
-                ? "Activar o renovar por transferencia SPEI"
-                : "Canjea un cupón de acceso"}
-            </h3>
-            <p className="m-0 text-xs pt-1" style={{ color: "var(--pl-text-muted)" }}>
+                ? selectedCycle === "anual"
+                  ? `Activas 365 días por $${annualFormatted} MXN con transferencia SPEI única.`
+                  : `Activas 30 días por $${
+                      serverPlan?.eligibleForReferralDiscount ? firstMonthFriendMxn : monthlyMxn
+                    } MXN con transferencia SPEI única.`
+                : isTrial
+                  ? selectedCycle === "anual"
+                    ? `Activas el año completo por $${annualFormatted} MXN hoy, con factura. Cambiar después no pierde días.`
+                    : `Activas el ciclo mensual por $${monthlyMxn} MXN hoy, con factura. Cambiar después no pierde días.`
+                  : cycleDiffersFromCurrent
+                    ? selectedCycle === "anual"
+                      ? `Pasas a anual en tu siguiente corte (${accessEndDate}): pagas $${annualFormatted} MXN y no pierdes días.`
+                      : `Vuelves a mensual al terminar tu año (${accessEndDate}). Cambiar no pierde días: aplica en el siguiente corte.`
+                    : "Cambiar no pierde días: aplica en el siguiente corte."}
+            </span>
+
+            {isTrial || isTransferMode ? (
+              <Button
+                type="button"
+                variant="primary"
+                disabled={checkoutBusy || transferBusy}
+                onClick={() => void handleActivateFromTrial(selectedCycle)}
+              >
+                {checkoutBusy || transferBusy
+                  ? "Generando…"
+                  : isTransferMode
+                    ? activePending
+                      ? "Ver solicitud SPEI"
+                      : selectedCycle === "anual"
+                        ? "Pagar anual por SPEI"
+                        : "Pagar mensual por SPEI"
+                    : selectedCycle === "anual"
+                      ? "Activar anual"
+                      : "Activar mensual"}
+              </Button>
+            ) : cycleDiffersFromCurrent ? (
+              <Button type="button" variant="primary" onClick={() => setActiveDialog("switch")}>
+                {selectedCycle === "anual" ? "Cambiar a anual" : "Cambiar a mensual"}
+              </Button>
+            ) : null}
+          </div>
+        </div>
+      </SofascoreCard>
+
+      <section id="transfer" ref={transferSectionRef} aria-labelledby="pl-acct-spei-title">
+        <SofascoreCard
+          id="pl-acct-spei"
+          title={
+            isTransferMode
+              ? "Activar o renovar por transferencia SPEI"
+              : "Canjea un cupón de acceso"
+          }
+          meta={
+            activePending ? (
+              <span className="pl-pill pl-pill--warning">En revisión</span>
+            ) : transferHistory.some((item) => item.awaitingCouponRedemption) ? (
+              <span className="pl-pill pl-pill--info">Cupón enviado</span>
+            ) : undefined
+          }
+        >
+          <div className="space-y-5">
+            <p className="m-0 text-xs text-[var(--pl-text-muted)]">
               {isTransferMode
                 ? "Activa o renueva sin tarjeta con transferencia SPEI o canjea un cupón directo."
                 : "Si recibiste un código promocional o regalo, súmalo a tu acceso actual."}
             </p>
-          </div>
-          {activePending ? (
-            <span className="pl-pill pl-pill--warning">En revisión</span>
-          ) : transferHistory.some((item) => item.awaitingCouponRedemption) ? (
-            <span className="pl-pill pl-pill--info">Cupón enviado</span>
-          ) : null}
-        </div>
 
-        {isTransferMode ? (
-          <ol className="pl-acct-steps" aria-label="Cómo activar por SPEI">
-            <li>
-              <span className="pl-acct-step-num num">1</span>
-              <span>
-                <strong>Genera tu referencia</strong> y copia la CLABE.
-              </span>
-            </li>
-            <li>
-              <span className="pl-acct-step-num num">2</span>
-              <span>
-                <strong>Transfiere y reporta</strong> tu clave de rastreo.
-              </span>
-            </li>
-            <li>
-              <span className="pl-acct-step-num num">3</span>
-              <span>
-                <strong>Recibe tu cupón</strong> y actívalo en 1 toque.
-              </span>
-            </li>
-          </ol>
-        ) : null}
-
-        {transferHistory.some((item) => item.awaitingCouponRedemption) ? (
-          <div
-            role="status"
-            aria-live="polite"
-            className="glass-ring rounded-xl p-3.5 text-xs space-y-1"
-            style={{ background: "var(--pl-surface-elevated)" }}
-            data-plan-awaiting-redemption=""
-          >
-            <strong className="block text-sm font-extrabold" style={{ color: "var(--pl-success)" }}>
-              Pago confirmado · Revisa tu correo para canjear tu cupón
-            </strong>
-            <p className="m-0 leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-              Te enviamos un cupón personal de un solo uso (vigencia de 30 días) desde{" "}
-              <strong className="num">noreply@pitchlab.mx</strong>. Ingrésalo en la caja de canje de abajo o en{" "}
-              <a href="/canjear" className="underline font-bold" style={{ color: "var(--pl-brand)" }}>
-                /canjear
-              </a>{" "}
-              para activar tus días pagados.
-            </p>
-          </div>
-        ) : null}
-
-        {transferFeedback ? (
-          <div
-            role={transferFeedback.kind === "error" ? "alert" : "status"}
-            aria-live="polite"
-            className="glass-ring rounded-xl p-3 text-xs font-semibold"
-            style={{
-              background: "var(--pl-surface-elevated)",
-              color:
-                transferFeedback.kind === "error" ? "var(--pl-danger)" : "var(--pl-success)",
-            }}
-          >
-            {transferFeedback.text}
-          </div>
-        ) : null}
-
-        {isTransferMode ? (
-          activePending ? (
-            <div className="space-y-4">
-              {/* Paso 1: Datos bancarios y referencia */}
-              <div
-                className="glass-ring rounded-2xl p-4 space-y-3"
-                style={{ background: "var(--pl-surface-elevated)" }}
-              >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="pl-pill pl-pill--brand">Paso 1 · Haz tu transferencia SPEI</span>
-                  <span className="text-xs font-semibold num" style={{ color: "var(--pl-text-muted)" }}>
-                    {activePending.planInterval === "annual" ? "Plan anual (365 días)" : "Plan mensual (30 días)"}
-                    {activePending.referralDiscountApplied ? " · Incluye 30 % dto. referido" : ""}
+            {isTransferMode ? (
+              <ol className="pl-acct-steps" aria-label="Cómo activar por SPEI">
+                <li>
+                  <span className="pl-acct-step-num num">1</span>
+                  <span>
+                    <strong>Genera tu referencia</strong> y copia la CLABE.
                   </span>
+                </li>
+                <li>
+                  <span className="pl-acct-step-num num">2</span>
+                  <span>
+                    <strong>Transfiere y reporta</strong> tu clave de rastreo.
+                  </span>
+                </li>
+                <li>
+                  <span className="pl-acct-step-num num">3</span>
+                  <span>
+                    <strong>Recibe tu cupón</strong> y actívalo en 1 toque.
+                  </span>
+                </li>
+              </ol>
+            ) : null}
+
+            {transferHistory.some((item) => item.awaitingCouponRedemption) ? (
+              <div
+                role="status"
+                aria-live="polite"
+                className="rounded-xl border border-[var(--pl-pill-success-border)] bg-[var(--pl-surface-elevated)] p-3.5 text-xs space-y-1"
+                data-plan-awaiting-redemption=""
+              >
+                <strong className="block text-sm font-extrabold text-[var(--pl-success)]">
+                  Pago confirmado · Revisa tu correo para canjear tu cupón
+                </strong>
+                <p className="m-0 leading-relaxed text-[var(--pl-text-secondary)]">
+                  Te enviamos un cupón personal de un solo uso (vigencia de 30 días) desde{" "}
+                  <strong className="num">noreply@pitchlab.mx</strong>. Ingrésalo en la caja de
+                  canje de abajo o en{" "}
+                  <a href="/canjear" className="underline font-bold text-[var(--pl-brand)]">
+                    /canjear
+                  </a>{" "}
+                  para activar tus días pagados.
+                </p>
+              </div>
+            ) : null}
+
+            {transferFeedback ? (
+              <div
+                role={transferFeedback.kind === "error" ? "alert" : "status"}
+                aria-live="polite"
+                className={`rounded-xl border p-3 text-xs font-semibold bg-[var(--pl-surface-elevated)] ${
+                  transferFeedback.kind === "error"
+                    ? "border-[var(--pl-pill-danger-border)] text-[var(--pl-danger)]"
+                    : "border-[var(--pl-pill-success-border)] text-[var(--pl-success)]"
+                }`}
+              >
+                {transferFeedback.text}
+              </div>
+            ) : null}
+
+            {isTransferMode ? (
+              !canExposeSpeiDetails ? (
+                <div className="rounded-xl border border-[var(--pl-border)] bg-[var(--pl-surface-elevated)] p-4 text-xs text-[var(--pl-text-secondary)]">
+                  Inicia sesión con tu cuenta para consultar los datos bancarios destino y tu
+                  referencia única SPEI.
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                  <div className="space-y-0.5">
-                    <span style={{ color: "var(--pl-text-muted)" }}>Monto exacto</span>
-                    <strong className="block text-lg font-extrabold num" style={{ color: "var(--pl-text)" }}>
-                      {formatCentavosMxn(activePending.amountCentavosMxn)}
-                    </strong>
-                  </div>
-
-                  <div className="space-y-1 min-w-0">
-                    <span style={{ color: "var(--pl-text-muted)" }}>Concepto / Referencia única</span>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <strong
-                        className="text-base font-extrabold tracking-wider num break-all"
-                        style={{ color: "var(--pl-brand)" }}
-                        data-transfer-ref=""
-                      >
-                        {activePending.referenceCode}
-                      </strong>
-                      <button
-                        type="button"
-                        className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs min-h-11 sm:min-h-9"
-                        onClick={() =>
-                          void handleCopyText(activePending.referenceCode, "ref", "Concepto SPEI")
-                        }
-                      >
-                        <MaestroIcon name={copiedKey === "ref" ? "check" : "copy"} size={12} />
-                        <span>{copiedKey === "ref" ? "Copiado" : "Copiar"}</span>
-                      </button>
-                      <span className="sr-only" role="status" aria-live="polite">
-                        {copiedKey === "ref" ? "Concepto SPEI copiado al portapapeles" : ""}
+              ) : activePending ? (
+                <div className="space-y-4">
+                  <div className="rounded-xl border border-[var(--pl-border)] bg-[var(--pl-surface-elevated)] p-4 space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="pl-pill pl-pill--brand">
+                        Paso 1 · Haz tu transferencia SPEI
+                      </span>
+                      <span className="text-xs font-semibold num text-[var(--pl-text-muted)]">
+                        {activePending.planInterval === "annual"
+                          ? "Plan anual (365 días)"
+                          : "Plan mensual (30 días)"}
+                        {activePending.referralDiscountApplied
+                          ? " · Incluye 30 % dto. referido"
+                          : ""}
                       </span>
                     </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      <div className="space-y-0.5">
+                        <span className="text-[var(--pl-text-muted)]">Monto exacto</span>
+                        <strong className="block text-lg font-extrabold num text-[var(--pl-text)]">
+                          {formatCentavosMxn(activePending.amountCentavosMxn)}
+                        </strong>
+                      </div>
+
+                      <div className="space-y-1 min-w-0">
+                        <span className="text-[var(--pl-text-muted)]">
+                          Concepto / Referencia única
+                        </span>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <strong
+                            className="text-base font-extrabold tracking-wider num break-all text-[var(--pl-brand)]"
+                            data-transfer-ref=""
+                          >
+                            {activePending.referenceCode}
+                          </strong>
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            size="sm"
+                            onClick={() =>
+                              void handleCopyText(
+                                activePending.referenceCode,
+                                "ref",
+                                "Concepto SPEI",
+                              )
+                            }
+                          >
+                            <MaestroIcon name={copiedKey === "ref" ? "check" : "copy"} size={13} />
+                            <span>{copiedKey === "ref" ? "Copiado" : "Copiar"}</span>
+                          </Button>
+                          <span className="sr-only" role="status" aria-live="polite">
+                            {copiedKey === "ref" ? "Concepto SPEI copiado al portapapeles" : ""}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {transferBank.configured && transferBank.clabe ? (
+                      <dl className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-3 border-t border-[var(--pl-border)] m-0">
+                        <div className="min-w-0">
+                          <dt className="text-[var(--pl-text-muted)]">Banco</dt>
+                          <dd className="m-0 font-bold break-words text-[var(--pl-text)]">
+                            {transferBank.bank}
+                          </dd>
+                        </div>
+                        <div className="min-w-0">
+                          <dt className="text-[var(--pl-text-muted)]">Beneficiario</dt>
+                          <dd className="m-0 font-bold break-words text-[var(--pl-text)]">
+                            {transferBank.beneficiary}
+                          </dd>
+                        </div>
+                        <div className="min-w-0">
+                          <dt className="text-[var(--pl-text-muted)]">CLABE interbancaria</dt>
+                          <dd className="m-0 flex flex-wrap items-center gap-2 font-extrabold num">
+                            <span className="break-all text-[var(--pl-text)]">
+                              {transferBank.clabe}
+                            </span>
+                            <Button
+                              type="button"
+                              variant="secondary"
+                              size="sm"
+                              onClick={() =>
+                                void handleCopyText(transferBank.clabe!, "clabe", "CLABE")
+                              }
+                            >
+                              <MaestroIcon
+                                name={copiedKey === "clabe" ? "check" : "copy"}
+                                size={13}
+                              />
+                              <span>{copiedKey === "clabe" ? "Copiada" : "Copiar"}</span>
+                            </Button>
+                            <span className="sr-only" role="status" aria-live="polite">
+                              {copiedKey === "clabe" ? "CLABE copiada al portapapeles" : ""}
+                            </span>
+                          </dd>
+                        </div>
+                      </dl>
+                    ) : (
+                      <p className="m-0 text-xs leading-relaxed pt-1 text-[var(--pl-warning)]">
+                        Los datos de CLABE están actualizándose en esta instancia. Escríbenos a{" "}
+                        <strong>{transferBank.supportEmail}</strong> indicando tu referencia{" "}
+                        <strong className="num">{activePending.referenceCode}</strong> para recibir
+                        la CLABE al instante.
+                      </p>
+                    )}
+
+                    {transferBank.instructions ? (
+                      <p className="m-0 text-xs text-[var(--pl-text-muted)]">
+                        {transferBank.instructions}
+                      </p>
+                    ) : null}
                   </div>
-                </div>
 
-                {transferBank.configured && transferBank.clabe ? (
-                  <dl className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2 hairline-t m-0">
-                    <div className="min-w-0">
-                      <dt style={{ color: "var(--pl-text-muted)" }}>Banco</dt>
-                      <dd className="m-0 font-bold break-words" style={{ color: "var(--pl-text)" }}>
-                        {transferBank.bank}
-                      </dd>
+                  <form
+                    onSubmit={handleSubmitReceipt}
+                    noValidate
+                    className="rounded-xl border border-[var(--pl-border)] bg-[var(--pl-surface-elevated)] p-4 space-y-3"
+                    data-transfer-receipt-form=""
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="pl-pill pl-pill--info">
+                        Paso 2 · Ya transferí (opcional pero agiliza)
+                      </span>
+                      {activePending.receiptReference || activePending.originBank ? (
+                        <span className="pl-pill pl-pill--success">Comprobante enviado</span>
+                      ) : null}
                     </div>
-                    <div className="min-w-0">
-                      <dt style={{ color: "var(--pl-text-muted)" }}>Beneficiario</dt>
-                      <dd className="m-0 font-bold break-words" style={{ color: "var(--pl-text)" }}>
-                        {transferBank.beneficiary}
-                      </dd>
-                    </div>
-                    <div className="min-w-0">
-                      <dt style={{ color: "var(--pl-text-muted)" }}>CLABE interbancaria</dt>
-                      <dd className="m-0 flex flex-wrap items-center gap-2 font-extrabold num">
-                        <span className="break-all" style={{ color: "var(--pl-text)" }}>
-                          {transferBank.clabe}
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      <label className="space-y-1 block min-w-0">
+                        <span className="font-semibold text-[var(--pl-text-secondary)]">
+                          Banco de origen
                         </span>
-                        <button
-                          type="button"
-                          className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs min-h-11 sm:min-h-9"
-                          onClick={() =>
-                            void handleCopyText(transferBank.clabe!, "clabe", "CLABE")
-                          }
-                        >
-                          <MaestroIcon name={copiedKey === "clabe" ? "check" : "copy"} size={12} />
-                          <span>{copiedKey === "clabe" ? "Copiada" : "Copiar"}</span>
-                        </button>
-                        <span className="sr-only" role="status" aria-live="polite">
-                          {copiedKey === "clabe" ? "CLABE copiada al portapapeles" : ""}
+                        <input
+                          type="text"
+                          name="originBank"
+                          maxLength={80}
+                          placeholder="Ej. BBVA, Nu, Santander"
+                          value={originBank}
+                          onChange={(e) => setOriginBank(e.target.value)}
+                          className="pl-acct-input"
+                        />
+                      </label>
+
+                      <label className="space-y-1 block min-w-0">
+                        <span className="font-semibold text-[var(--pl-text-secondary)]">
+                          Monto transferido (MXN)
                         </span>
-                      </dd>
+                        <input
+                          type="text"
+                          name="reportedPesos"
+                          inputMode="decimal"
+                          value={reportedPesos}
+                          onChange={(e) => setReportedPesos(e.target.value)}
+                          className="pl-acct-input num"
+                        />
+                      </label>
+
+                      <label className="space-y-1 block min-w-0">
+                        <span className="font-semibold text-[var(--pl-text-secondary)]">
+                          Clave de rastreo o folio SPEI
+                        </span>
+                        <input
+                          type="text"
+                          name="receiptReference"
+                          maxLength={120}
+                          autoComplete="off"
+                          autoCorrect="off"
+                          autoCapitalize="none"
+                          spellCheck={false}
+                          placeholder="Folio de tu comprobante"
+                          value={receiptReference}
+                          onChange={(e) => setReceiptReference(e.target.value)}
+                          className="pl-acct-input num"
+                        />
+                      </label>
+
+                      <label className="space-y-1 block min-w-0">
+                        <span className="font-semibold text-[var(--pl-text-secondary)]">
+                          Nombre del titular que transfiere
+                        </span>
+                        <input
+                          type="text"
+                          name="payerName"
+                          maxLength={120}
+                          autoComplete="name"
+                          placeholder="Como aparece en tu cuenta"
+                          value={payerName}
+                          onChange={(e) => setPayerName(e.target.value)}
+                          className="pl-acct-input"
+                        />
+                      </label>
+
+                      <label className="space-y-1 block min-w-0">
+                        <span className="font-semibold text-[var(--pl-text-secondary)]">
+                          Fecha de la transferencia
+                        </span>
+                        <input
+                          type="date"
+                          name="transferDate"
+                          value={transferDate}
+                          onChange={(e) => setTransferDate(e.target.value)}
+                          className="pl-acct-input num"
+                        />
+                      </label>
+
+                      <label className="space-y-1 block min-w-0">
+                        <span className="font-semibold text-[var(--pl-text-secondary)]">
+                          Nota opcional
+                        </span>
+                        <input
+                          type="text"
+                          name="userNote"
+                          maxLength={280}
+                          placeholder="Cualquier detalle para identificarla"
+                          value={userNote}
+                          onChange={(e) => setUserNote(e.target.value)}
+                          className="pl-acct-input"
+                        />
+                      </label>
                     </div>
-                  </dl>
-                ) : (
-                  <p className="m-0 text-xs leading-relaxed pt-1" style={{ color: "var(--pl-warning)" }}>
-                    Los datos de CLABE están actualizándose en esta instancia. Escríbenos a{" "}
-                    <strong>{transferBank.supportEmail}</strong> indicando tu referencia{" "}
-                    <strong className="num">{activePending.referenceCode}</strong> para recibir la CLABE al instante.
-                  </p>
-                )}
 
-                {transferBank.instructions ? (
-                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    {transferBank.instructions}
-                  </p>
-                ) : null}
-              </div>
-
-              {/* Paso 2: Ya transferí */}
-              <form
-                onSubmit={handleSubmitReceipt}
-                noValidate
-                className="glass-ring rounded-2xl p-4 space-y-3"
-                style={{ background: "var(--pl-surface-elevated)" }}
-                data-transfer-receipt-form=""
-              >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="pl-pill pl-pill--info">Paso 2 · Ya transferí (opcional pero agiliza)</span>
-                  {activePending.receiptReference || activePending.originBank ? (
-                    <span className="pl-pill pl-pill--success">Comprobante enviado</span>
-                  ) : null}
+                    <div className="flex flex-wrap items-center justify-between gap-2.5 pt-1">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        tone="danger"
+                        disabled={transferBusy}
+                        onClick={() => setConfirmCancelTransferOpen(true)}
+                      >
+                        Cancelar solicitud
+                      </Button>
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        disabled={transferBusy}
+                        data-transfer-submit=""
+                      >
+                        {transferBusy
+                          ? "Guardando…"
+                          : activePending.receiptReference || activePending.originBank
+                            ? "Actualizar comprobante"
+                            : "Ya transferí · Enviar datos"}
+                      </Button>
+                    </div>
+                  </form>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                  <label className="space-y-1 block">
-                    <span className="font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
-                      Banco de origen
+              ) : (
+                <div className="rounded-xl border border-[var(--pl-border)] bg-[var(--pl-surface-elevated)] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="space-y-1 text-xs min-w-0">
+                    <strong className="block text-sm font-extrabold text-[var(--pl-text)]">
+                      {selectedCycle === "anual"
+                        ? `Pase anual (365 días) · ${formatCentavosMxn(
+                            serverPlan?.quotedAnnualCentavos ?? annualMxn * 100,
+                          )}`
+                        : `Pase mensual (30 días) · ${formatCentavosMxn(
+                            serverPlan?.quotedMonthlyCentavos ??
+                              (serverPlan?.eligibleForReferralDiscount
+                                ? firstMonthFriendMxn * 100
+                                : monthlyMxn * 100),
+                          )}`}
+                    </strong>
+                    <span className="text-[var(--pl-text-muted)]">
+                      {visibleSpeiReference
+                        ? `Tu referencia única permanente es ${visibleSpeiReference}. Registra tu transferencia para recibir tu cupón por correo.`
+                        : "Usa tu referencia única ligada a tu cuenta para identificar tu transferencia y recibir tu cupón."}
                     </span>
-                    <input
-                      type="text"
-                      maxLength={80}
-                      placeholder="Ej. BBVA, Nu, Santander"
-                      value={originBank}
-                      onChange={(e) => setOriginBank(e.target.value)}
-                      className="glass-input w-full min-h-[44px] px-3 text-base"
-                    />
-                  </label>
-
-                  <label className="space-y-1 block">
-                    <span className="font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
-                      Monto transferido (MXN)
-                    </span>
-                    <input
-                      type="number"
-                      step="0.01"
-                      min="1"
-                      value={reportedPesos}
-                      onChange={(e) => setReportedPesos(e.target.value)}
-                      className="glass-input w-full min-h-[44px] px-3 text-base num"
-                    />
-                  </label>
-
-                  <label className="space-y-1 block">
-                    <span className="font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
-                      Clave de rastreo o folio SPEI
-                    </span>
-                    <input
-                      type="text"
-                      maxLength={120}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      autoCapitalize="none"
-                      spellCheck={false}
-                      placeholder="Folio de tu comprobante"
-                      value={receiptReference}
-                      onChange={(e) => setReceiptReference(e.target.value)}
-                      className="glass-input w-full min-h-[44px] px-3 text-base num"
-                    />
-                  </label>
-
-                  <label className="space-y-1 block">
-                    <span className="font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
-                      Nombre del titular que transfiere
-                    </span>
-                    <input
-                      type="text"
-                      maxLength={120}
-                      placeholder="Como aparece en tu cuenta"
-                      value={payerName}
-                      onChange={(e) => setPayerName(e.target.value)}
-                      className="glass-input w-full min-h-[44px] px-3 text-base"
-                    />
-                  </label>
-
-                  <label className="space-y-1 block">
-                    <span className="font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
-                      Fecha de la transferencia
-                    </span>
-                    <input
-                      type="date"
-                      value={transferDate}
-                      onChange={(e) => setTransferDate(e.target.value)}
-                      className="glass-input w-full min-h-[44px] px-3 text-base num"
-                    />
-                  </label>
-
-                  <label className="space-y-1 block">
-                    <span className="font-semibold" style={{ color: "var(--pl-text-secondary)" }}>
-                      Nota opcional
-                    </span>
-                    <input
-                      type="text"
-                      maxLength={280}
-                      placeholder="Cualquier detalle para identificarla"
-                      value={userNote}
-                      onChange={(e) => setUserNote(e.target.value)}
-                      className="glass-input w-full min-h-[44px] px-3 text-base"
-                    />
-                  </label>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-between gap-2.5 pt-1">
-                  <button
+                  </div>
+                  <Button
                     type="button"
+                    variant="primary"
                     disabled={transferBusy}
-                    onClick={() => setConfirmCancelTransferOpen(true)}
-                    className="pl-acct-btn pl-acct-btn--ghost"
+                    onClick={() =>
+                      void handleCreateTransfer(selectedCycle === "anual" ? "annual" : "monthly")
+                    }
+                    className="shrink-0"
+                    data-create-transfer=""
                   >
-                    Cancelar solicitud
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={transferBusy}
-                    className="pl-acct-btn pl-acct-btn--primary"
-                    data-transfer-submit=""
-                  >
-                    {transferBusy
-                      ? "Guardando…"
-                      : activePending.receiptReference || activePending.originBank
-                        ? "Actualizar comprobante"
-                        : "Ya transferí · Enviar datos"}
-                  </button>
+                    {transferBusy ? "Preparando…" : "Ver cuenta SPEI y referencia"}
+                  </Button>
                 </div>
-              </form>
-            </div>
-          ) : (
-            <div
-              className="glass-ring rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-              style={{ background: "var(--pl-surface-elevated)" }}
-            >
-              <div className="space-y-1 text-xs">
-                <strong className="block text-sm font-extrabold" style={{ color: "var(--pl-text)" }}>
-                  {selectedCycle === "anual"
-                    ? `Pase anual (365 días) · ${formatCentavosMxn(
-                        serverPlan?.quotedAnnualCentavos ?? annualMxn * 100,
-                      )}`
-                    : `Pase mensual (30 días) · ${formatCentavosMxn(
-                        serverPlan?.quotedMonthlyCentavos ??
-                          (serverPlan?.eligibleForReferralDiscount
-                            ? firstMonthFriendMxn * 100
-                            : monthlyMxn * 100),
-                      )}`}
-                </strong>
-                <span style={{ color: "var(--pl-text-muted)" }}>
-                  {serverPlan?.speiReferenceCode
-                    ? `Tu referencia única permanente es ${serverPlan.speiReferenceCode}. Registra tu transferencia para recibir tu cupón por correo.`
-                    : "Usa tu referencia única ligada a tu cuenta para identificar tu transferencia y recibir tu cupón."}
+              )
+            ) : null}
+
+            <div className="pt-4 border-t border-[var(--pl-border)] space-y-2.5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h4 className="m-0 text-sm font-extrabold text-[var(--pl-text)]">
+                  ¿Tienes un cupón de acceso?
+                </h4>
+                <span className="text-xs text-[var(--pl-text-muted)]">
+                  Suma días directo a tu pase
                 </span>
               </div>
-              <button
-                type="button"
-                disabled={transferBusy}
-                onClick={() =>
-                  void handleCreateTransfer(selectedCycle === "anual" ? "annual" : "monthly")
-                }
-                className="pl-acct-btn pl-acct-btn--primary shrink-0"
-                data-create-transfer=""
-              >
-                {transferBusy ? "Preparando…" : "Ver cuenta SPEI y referencia"}
-              </button>
+              <CouponRedeemBox
+                compact
+                onRedeemed={() => {
+                  void reloadServerPlan();
+                }}
+              />
             </div>
-          )
-        ) : null}
-
-        <div className="pt-2 hairline-t space-y-2">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h4 className="m-0 text-sm font-extrabold" style={{ color: "var(--pl-text)" }}>
-              ¿Tienes un cupón de acceso?
-            </h4>
-            <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Suma días directo a tu pase
-            </span>
           </div>
-          <CouponRedeemBox
-            compact
-            onRedeemed={() => {
-              void reloadServerPlan();
-            }}
-          />
-        </div>
+        </SofascoreCard>
       </section>
 
-      {/* Lo que incluye tu pase + Historial de pagos */}
       <div className="pl-acct-plan-bottom">
-        <section
-          className="pl-acct-card glass-card glass-ring"
-          aria-labelledby="pl-acct-incluye-h"
-        >
-          <h3 id="pl-acct-incluye-h" className="pl-acct-h3">
-            Lo que incluye tu pase
-          </h3>
+        <SofascoreCard id="pl-acct-incluye" title="Lo que incluye tu pase">
           <ul className="pl-acct-plan-features" role="list">
             {features.map((feat) => (
               <li key={feat.title} className="pl-acct-plan-feature">
@@ -1805,99 +1886,49 @@ export function PlanTab({
               </li>
             ))}
           </ul>
-        </section>
+        </SofascoreCard>
 
-        <section
-          className="pl-acct-card glass-card glass-ring"
-          aria-labelledby="pl-acct-pagos-h"
+        <SofascoreCard
+          id="pl-acct-pagos"
+          title="Historial de pagos"
+          meta={!accountsEnabled ? <ExampleBadge /> : undefined}
         >
-          <div className="pl-acct-row-between">
-            <h3 id="pl-acct-pagos-h" className="pl-acct-h3">
-              Historial de pagos
-            </h3>
-            {!accountsEnabled ? <ExampleBadge /> : null}
-          </div>
-
-          {accountsEnabled || transferHistory.length > 0 ? (
-            transferHistory.length === 0 ? (
-              <p className="pl-acct-empty-line">
-                {isTransferMode
-                  ? "Aún no tienes transferencias ni cobros registrados."
-                  : "Aún no tienes cobros registrados."}
-              </p>
+          <div className="space-y-3" data-transfer-history="">
+            {accountsEnabled || transferHistory.length > 0 ? (
+              transferHistory.length === 0 ? (
+                <SofascoreEmptyState
+                  title={
+                    isTransferMode
+                      ? "Aún no tienes transferencias ni cobros registrados."
+                      : "Aún no tienes cobros registrados."
+                  }
+                />
+              ) : (
+                <SofascoreTable
+                  caption="Historial de transferencias y pagos"
+                  columns={transferHistoryColumns}
+                  rows={transferHistory}
+                  rowKey={(row) => row.id}
+                  density="compact"
+                />
+              )
             ) : (
-              <ul className="pl-acct-payments" role="list" data-transfer-history="">
-                {transferHistory.map((item) => {
-                  const meta = item.awaitingCouponRedemption
-                    ? { label: "Cupón enviado", pillClass: "pl-pill--info" }
-                    : item.status === "approved"
-                      ? { label: "Suscripción activa", pillClass: "pl-pill--success" }
-                      : TRANSFER_STATUS_META[item.status];
-                  return (
-                    <li key={item.id} className="pl-acct-payment-row">
-                      <div className="pl-acct-payment-meta">
-                        <b className="num">{formatShortDateEs(item.createdAtIso, "Reciente")}</b>
-                        <span>
-                          {item.planInterval === "annual" ? "Pase anual" : "Pase mensual"} ·{" "}
-                          <span className="num">{item.referenceCode}</span>
-                        </span>
-                        {item.awaitingCouponRedemption ? (
-                          <span className="block text-xs pt-0.5" style={{ color: "var(--pl-brand)" }}>
-                            Revisa tu correo (noreply@pitchlab.mx) y canjea tu cupón en /canjear
-                          </span>
-                        ) : null}
-                        {item.status === "rejected" && item.rejectionReason ? (
-                          <span className="block text-xs pt-0.5" style={{ color: "var(--pl-danger)" }}>
-                            Motivo: {item.rejectionReason}
-                          </span>
-                        ) : null}
-                      </div>
-                      <b className="pl-acct-payment-amt num">
-                        {formatCentavosMxn(item.amountCentavosMxn)}
-                      </b>
-                      <span className={`pl-pill ${meta.pillClass}`}>{meta.label}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            )
-          ) : (
-            <ul className="pl-acct-payments" role="list">
-              {examplePayments.map((payment) => (
-                <li key={payment.id} className="pl-acct-payment-row">
-                  <div className="pl-acct-payment-meta">
-                    <b className="num">{payment.date}</b>
-                    <span>{payment.what}</span>
-                  </div>
-                  <b className="pl-acct-payment-amt num">{payment.amount}</b>
-                  {payment.hasInvoice && onOpenBilling ? (
-                    <button
-                      type="button"
-                      className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs min-h-11 sm:min-h-9"
-                      onClick={handleGoBilling}
-                    >
-                      Factura
-                    </button>
-                  ) : (
-                    <span className="pl-acct-payment-dash" aria-label="Sin factura">
-                      —
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )}
+              <SofascoreTable
+                caption="Historial de pagos de muestra"
+                columns={examplePaymentColumns}
+                rows={examplePayments}
+                rowKey={(row) => row.id}
+                density="compact"
+              />
+            )}
 
-          {onOpenBilling ? (
-            <button
-              type="button"
-              className="pl-acct-text-link min-h-11 sm:min-h-9"
-              onClick={handleGoBilling}
-            >
-              Datos de facturación
-            </button>
-          ) : null}
-        </section>
+            {onOpenBilling ? (
+              <Button type="button" variant="ghost" size="sm" onClick={handleGoBilling}>
+                Datos de facturación
+              </Button>
+            ) : null}
+          </div>
+        </SofascoreCard>
       </div>
 
       <p className="pl-acct-legal-foot">
@@ -1906,148 +1937,59 @@ export function PlanTab({
           : "El cobro lo procesa Stripe; PitchLab no guarda tu tarjeta. Si cancelas, conservas el acceso hasta el final del periodo pagado y tus días a favor. Solo mayores de 18."}
       </p>
 
-      {/* Diálogo modal nativo (TopLayerModalDialog) */}
-      <TopLayerModalDialog
-        open={activeDialog !== null}
-        onClose={() => setActiveDialog(null)}
-        ariaLabelledBy={dialogTitleId}
-        maxWidth="28rem"
-      >
-        {activeDialog === "cancel" ? (
-          <div className="pl-acct-dialog-body">
-            <h3 id={dialogTitleId} className="pl-acct-h3">
-              ¿Cancelar la renovación?
-            </h3>
-            <p className="pl-acct-dialog-copy">
-              Al cancelar no se te vuelve a cobrar y conservas todo lo tuyo:
-            </p>
-            <ul className="pl-acct-dialog-list" role="list">
-              <li>
-                Acceso completo a PitchLab Ultra hasta el <strong>{accessEndDate}</strong>.
-              </li>
-              <li>
-                Tus <strong className="num">+{earnedDays} días a favor</strong> sumados a esa fecha.
-              </li>
-              <li>Tu bitácora y tus picks cerrados guardados.</li>
-            </ul>
-            <div className="pl-acct-dialog-actions">
-              <button
-                type="button"
-                autoFocus
-                className="pl-acct-btn pl-acct-btn--primary"
-                onClick={() => setActiveDialog(null)}
-              >
-                Mantener mi pase
-              </button>
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--danger"
-                data-confirm-cancel=""
-                onClick={confirmCancel}
-              >
-                Cancelar renovación
-              </button>
-            </div>
-          </div>
-        ) : null}
+      <ConfirmActionDialog
+        open={activeDialog === "cancel"}
+        title="¿Cancelar la renovación?"
+        description={`Al cancelar no se te vuelve a cobrar. Conservas acceso completo hasta el ${accessEndDate}, tus +${earnedDays} días a favor y tu bitácora cerrada.`}
+        cancelLabel="Cancelar"
+        confirmLabel="Cancelar renovación"
+        tone="danger"
+        onConfirm={confirmCancel}
+        onCancel={() => setActiveDialog(null)}
+      />
 
-        {activeDialog === "reactivate" ? (
-          <div className="pl-acct-dialog-body">
-            <h3 id={dialogTitleId} className="pl-acct-h3">
-              ¿Reactivar la renovación?
-            </h3>
-            <p className="pl-acct-dialog-copy">
-              Tu pase seguirá activo sin interrupción después del{" "}
-              <strong>{accessEndDate}</strong>, respetando tus días a favor.
-            </p>
-            <div className="pl-acct-dialog-actions">
-              <button
-                type="button"
-                autoFocus
-                className="pl-acct-btn pl-acct-btn--ghost"
-                onClick={() => setActiveDialog(null)}
-              >
-                Cerrar
-              </button>
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--primary"
-                data-confirm-reactivate=""
-                onClick={confirmReactivate}
-              >
-                Reactivar renovación
-              </button>
-            </div>
-          </div>
-        ) : null}
+      <ConfirmActionDialog
+        open={activeDialog === "reactivate"}
+        title="¿Reactivar la renovación?"
+        description={`Tu pase seguirá activo sin interrupción después del ${accessEndDate}, respetando tus días a favor.`}
+        cancelLabel="Cancelar"
+        confirmLabel="Reactivar renovación"
+        tone="brand"
+        onConfirm={confirmReactivate}
+        onCancel={() => setActiveDialog(null)}
+      />
 
-        {activeDialog === "card" ? (
-          <div className="pl-acct-dialog-body">
-            <h3 id={dialogTitleId} className="pl-acct-h3">
-              Cambiar tarjeta de pago
-            </h3>
-            <p className="pl-acct-dialog-copy">
-              Stripe procesa y resguarda tu tarjeta. Desde el portal de cobro puedes reemplazarla sin perder días de tu pase.
-            </p>
-            <div className="pl-acct-dialog-actions">
-              <button
-                type="button"
-                autoFocus
-                className="pl-acct-btn pl-acct-btn--ghost"
-                onClick={() => setActiveDialog(null)}
-              >
-                Cerrar
-              </button>
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--primary"
-                data-confirm-card=""
-                onClick={confirmCardChange}
-              >
-                Continuar
-              </button>
-            </div>
-          </div>
-        ) : null}
+      <ConfirmActionDialog
+        open={activeDialog === "card"}
+        title="Cambiar tarjeta de pago"
+        description="Stripe procesa y resguarda tu tarjeta. Desde el portal de cobro puedes reemplazarla sin perder días de tu pase."
+        cancelLabel="Cancelar"
+        confirmLabel="Continuar"
+        tone="brand"
+        onConfirm={confirmCardChange}
+        onCancel={() => setActiveDialog(null)}
+      />
 
-        {activeDialog === "switch" ? (
-          <div className="pl-acct-dialog-body">
-            <h3 id={dialogTitleId} className="pl-acct-h3">
-              {selectedCycle === "anual" ? "Cambiar a ciclo anual" : "Cambiar a ciclo mensual"}
-            </h3>
-            <p className="pl-acct-dialog-copy">
-              Cambiar no pierde días: aplica en el siguiente corte ({accessEndDate}).
-              {selectedCycle === "anual"
-                ? ` Pagarás $${annualFormatted} MXN al año (ahorras $${savingsFormatted} MXN frente al mensual).`
-                : ` Pagarás $${monthlyMxn} MXN al mes al terminar tu periodo actual.`}
-            </p>
-            <div className="pl-acct-dialog-actions">
-              <button
-                type="button"
-                autoFocus
-                className="pl-acct-btn pl-acct-btn--ghost"
-                onClick={() => setActiveDialog(null)}
-              >
-                Cerrar
-              </button>
-              <button
-                type="button"
-                className="pl-acct-btn pl-acct-btn--primary"
-                data-confirm-switch=""
-                onClick={confirmCycleSwitch}
-              >
-                Confirmar cambio
-              </button>
-            </div>
-          </div>
-        ) : null}
-      </TopLayerModalDialog>
+      <ConfirmActionDialog
+        open={activeDialog === "switch"}
+        title={selectedCycle === "anual" ? "Cambiar a ciclo anual" : "Cambiar a ciclo mensual"}
+        description={
+          selectedCycle === "anual"
+            ? `Cambiar no pierde días: aplica en el siguiente corte (${accessEndDate}). Pagarás $${annualFormatted} MXN al año (ahorras $${savingsFormatted} MXN frente al mensual).`
+            : `Cambiar no pierde días: aplica en el siguiente corte (${accessEndDate}). Pagarás $${monthlyMxn} MXN al mes al terminar tu periodo actual.`
+        }
+        cancelLabel="Cancelar"
+        confirmLabel="Confirmar cambio"
+        tone="brand"
+        onConfirm={confirmCycleSwitch}
+        onCancel={() => setActiveDialog(null)}
+      />
 
       <ConfirmActionDialog
         open={confirmCancelTransferOpen}
         title="¿Cancelar solicitud SPEI?"
         description="Se anulará tu referencia pendiente actual. Podrás generar una nueva referencia cuando quieras."
-        cancelLabel="Conservar solicitud"
+        cancelLabel="Cancelar"
         confirmLabel="Cancelar solicitud"
         tone="danger"
         onConfirm={() => {
@@ -2057,10 +1999,7 @@ export function PlanTab({
       />
 
       {allowRoleSimulation ? (
-        <aside
-          className="pl-acct-simulator glass-card glass-ring"
-          aria-label="Simulador de estado del plan"
-        >
+        <aside className="pl-acct-simulator" aria-label="Simulador de estado del plan">
           <div className="pl-acct-simulator-copy">
             <span className="pl-acct-sim-badge">Simulador</span>
             <span>Vista previa de estado en desarrollo (no visible en producción).</span>
@@ -2076,7 +2015,7 @@ export function PlanTab({
               <button
                 key={opt.value}
                 type="button"
-                className="min-h-11 md:min-h-9"
+                className="pl-acct-seg-btn"
                 data-sim-plan-state={opt.value}
                 aria-pressed={baseState === opt.value}
                 onClick={() => {

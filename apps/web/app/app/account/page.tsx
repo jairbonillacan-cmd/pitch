@@ -34,7 +34,7 @@ async function loadInitialAccountSnapshots(): Promise<{
     if (!session) {
       return { referrals: null, plan: null };
     }
-    cachedDb ??= createDb(url) as unknown as Db;
+    cachedDb ??= createDb(url);
     const userId = await profileIdForAuthUser(cachedDb, session.user.id);
     if (!userId) {
       return { referrals: null, plan: null };
