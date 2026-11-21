@@ -80,6 +80,7 @@ interface AlertsListResponse {
   readonly ok: boolean;
   readonly alerts?: readonly MarketAlertItem[];
   readonly maxActiveAlerts?: number;
+  readonly error?: string;
 }
 
 interface CopilotDraftServerPayload {
@@ -279,6 +280,9 @@ function isMarketFamilyId(value: string): value is MarketFamilyId {
 function normalizeBookValue(raw: string | null | undefined): string {
   if (!raw) return "";
   const cleaned = raw.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "");
+  if (cleaned === "caliente_mx" || cleaned === "calientemx" || cleaned === "caliente-mx") {
+    return "caliente";
+  }
   return cleaned;
 }
 
@@ -319,11 +323,13 @@ function supportedFamiliesForLeague(leagueId: string): readonly MarketFamilyId[]
 
 function buildEmptyDraft(defaultLeague = "liga-mx"): AlertDraftForm {
   const safeLeague = getLeagueCapability(defaultLeague) ? defaultLeague : "liga-mx";
+  const defaultMarketFamily: MarketFamilyId | "" =
+    getLeagueCapability(safeLeague)?.supportedMarketFamilies[0] ?? "1x2";
   return {
     name: "",
     trigger: "stale_line_ev",
     league: safeLeague,
-    marketFamily: "1x2",
+    marketFamily: defaultMarketFamily,
     selection: "",
     direction: "",
     thresholdEvPct: "3.5",
@@ -356,7 +362,7 @@ function alertToDraft(alert: MarketAlertItem): AlertDraftForm {
       alert.maxDecimal !== null && Number.isFinite(alert.maxDecimal)
         ? String(alert.maxDecimal)
         : "",
-    bookmaker: alert.bookmaker ?? "",
+    bookmaker: normalizeBookValue(alert.bookmaker),
     cooldownMinutes: String(alert.cooldownMinutes),
     channel: alert.channel,
     active: alert.active,
@@ -463,9 +469,9 @@ function parseLocalPreviewPrompt(promptEs: string, defaultLeague: string): Alert
 
   let bookmaker = "";
   for (const option of BOOKMAKER_OPTIONS) {
-    const shortKey = option.id.replace("_mx", "");
-    if (folded.includes(shortKey)) {
-      bookmaker = option.id;
+    const canonicalId = normalizeBookValue(option.id);
+    if (canonicalId && folded.includes(canonicalId)) {
+      bookmaker = canonicalId;
       break;
     }
   }
@@ -622,9 +628,15 @@ function buildValidatedMutationBody(draft: AlertDraftForm):
     return { ok: false, error: "El momio mínimo no puede ser mayor que el momio máximo." };
   }
 
-  const parsedCooldown = parseStrictFiniteNumber(draft.cooldownMinutes.trim());
-  const cooldownMinutes =
-    parsedCooldown !== null ? Math.round(parsedCooldown) : 60;
+  const rawCooldown = draft.cooldownMinutes.trim();
+  let cooldownMinutes = 60;
+  if (rawCooldown.length > 0) {
+    const parsedCooldown = parseStrictFiniteNumber(rawCooldown);
+    if (parsedCooldown === null) {
+      return { ok: false, error: "El enfriamiento debe ser un número entre 5 y 1440 minutos." };
+    }
+    cooldownMinutes = Math.round(parsedCooldown);
+  }
   if (cooldownMinutes < 5 || cooldownMinutes > 1440) {
     return { ok: false, error: "El enfriamiento debe estar entre 5 y 1440 minutos." };
   }
@@ -712,6 +724,8 @@ export function AlertsClubView({
   });
 
   const [mutatedAlerts, setMutatedAlerts] = useState<readonly MarketAlertItem[] | null>(null);
+  const [refreshedMaxActive, setRefreshedMaxActive] = useState<number | null>(null);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [statusTab, setStatusTab] = useState<StatusTabKey>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [triggerFilter, setTriggerFilter] = useState<string>("all");
@@ -762,7 +776,7 @@ export function AlertsClubView({
     return remoteAlerts.data?.alerts ?? initialAlerts ?? [];
   }, [mutatedAlerts, remoteAlerts.data?.alerts, initialAlerts]);
 
-  const maxActiveAlerts = remoteAlerts.data?.maxActiveAlerts ?? initialMaxActive;
+  const maxActiveAlerts = refreshedMaxActive ?? remoteAlerts.data?.maxActiveAlerts ?? initialMaxActive;
 
   const activeCount = useMemo(
     () => alerts.filter((item) => item.active).length,
@@ -941,12 +955,29 @@ export function AlertsClubView({
     setCopilotError(null);
     setDraftError(null);
 
+    const wasEditingExisting = editingAlertId !== null;
+    const effectiveEditedFields: ReadonlySet<DraftFieldKey> = wasEditingExisting
+      ? new Set()
+      : manualEditedFields;
+
+    const applyCopilotDraft = (
+      nextDraft: AlertDraftForm,
+      source: CopilotResolutionSource,
+    ) => {
+      setLastRawCopilotDraft(nextDraft);
+      setCopilotSource(source);
+      if (wasEditingExisting) {
+        setEditingAlertId(null);
+        setManualEditedFields(new Set());
+        setDraft(nextDraft);
+        return;
+      }
+      setDraft((prev) => mergeDraftPreservingEdits(prev, nextDraft, effectiveEditedFields));
+    };
+
     if (!canMutateServer) {
       const previewDraft = parseLocalPreviewPrompt(clean, defaultLeague);
-      setLastRawCopilotDraft(previewDraft);
-      setCopilotSource("local_preview");
-      setEditingAlertId(null);
-      setDraft((prev) => mergeDraftPreservingEdits(prev, previewDraft, manualEditedFields));
+      applyCopilotDraft(previewDraft, "local_preview");
       return;
     }
 
@@ -964,10 +995,7 @@ export function AlertsClubView({
       const payload = (await response.json().catch(() => null)) as CopilotResponsePayload | null;
       if (response.status === 401 || response.status === 403) {
         const previewDraft = parseLocalPreviewPrompt(clean, defaultLeague);
-        setLastRawCopilotDraft(previewDraft);
-        setCopilotSource("local_preview");
-        setEditingAlertId(null);
-        setDraft((prev) => mergeDraftPreservingEdits(prev, previewDraft, manualEditedFields));
+        applyCopilotDraft(previewDraft, "local_preview");
         setCopilotError(
           "Inicia sesión con tu Pase Ultra activo para usar el Copiloto con guardado en cuenta.",
         );
@@ -982,17 +1010,41 @@ export function AlertsClubView({
         return;
       }
       const nextDraft = serverDraftToForm(payload.draft);
-      setLastRawCopilotDraft(nextDraft);
-      setCopilotSource(payload.source ?? "deterministic");
-      setEditingAlertId(null);
-      setDraft((prev) => mergeDraftPreservingEdits(prev, nextDraft, manualEditedFields));
+      applyCopilotDraft(nextDraft, payload.source ?? "deterministic");
     } catch (err) {
       void err;
       setCopilotError("Error de conexión al consultar el Copiloto de alertas.");
     } finally {
       setCopilotBusy(false);
     }
-  }, [copilotPrompt, canMutateServer, defaultLeague, manualEditedFields]);
+  }, [copilotPrompt, canMutateServer, defaultLeague, editingAlertId, manualEditedFields]);
+
+  const handleRefreshAlerts = useCallback(async () => {
+    if (!resolvedAccountReady) return;
+    setRefreshing(true);
+    try {
+      const response = await fetch("/api/alerts", {
+        method: "GET",
+        credentials: "same-origin",
+        headers: { accept: "application/json" },
+      });
+      const payload = (await response.json().catch(() => null)) as AlertsListResponse | null;
+      if (!response.ok || !payload?.ok || !Array.isArray(payload.alerts)) {
+        notify(payload?.error ?? "No se pudo actualizar la lista de alertas.", "danger");
+        return;
+      }
+      setMutatedAlerts(payload.alerts);
+      if (typeof payload.maxActiveAlerts === "number") {
+        setRefreshedMaxActive(payload.maxActiveAlerts);
+      }
+      notify("Lista de alertas actualizada.", "info");
+    } catch (err) {
+      void err;
+      notify("Error de red al actualizar las alertas.", "danger");
+    } finally {
+      setRefreshing(false);
+    }
+  }, [resolvedAccountReady, notify]);
 
   const handleCopilotFormSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -1233,10 +1285,18 @@ export function AlertsClubView({
   );
 
   const bookmakerOptionsForDraft = useMemo(() => {
-    const base = BOOKMAKER_OPTIONS.map((item) => ({ id: item.id, label: item.label }));
-    if (draft?.bookmaker && !base.some((item) => item.id === draft.bookmaker)) {
+    const seen = new Map<string, string>();
+    for (const item of BOOKMAKER_OPTIONS) {
+      const id = normalizeBookValue(item.id);
+      if (id && !seen.has(id)) {
+        seen.set(id, item.label);
+      }
+    }
+    const base = Array.from(seen.entries(), ([id, label]) => ({ id, label }));
+    const draftBook = normalizeBookValue(draft?.bookmaker);
+    if (draftBook && !seen.has(draftBook)) {
       return [
-        { id: draft.bookmaker, label: formatCanonicalBookLabel(draft.bookmaker) },
+        { id: draftBook, label: formatCanonicalBookLabel(draftBook) },
         ...base,
       ];
     }
@@ -1249,10 +1309,11 @@ export function AlertsClubView({
         key: "select",
         header: "Sel.",
         render: (row) => (
-          <label className="pl-al-check-label" aria-label={`Seleccionar alerta ${row.name}`}>
+          <label className="pl-al-check-label">
             <input
               type="checkbox"
               className="pl-al-checkbox"
+              aria-label={`Seleccionar alerta ${row.name}`}
               checked={selectedIds.has(row.id)}
               disabled={!selectedIds.has(row.id) && selectedVisibleIds.length >= MAX_BATCH_OPS}
               onChange={() => toggleSelectRow(row.id)}
@@ -1386,13 +1447,10 @@ export function AlertsClubView({
             <Button
               variant="secondary"
               size="sm"
-              disabled={remoteAlerts.loading}
-              onClick={() => {
-                setMutatedAlerts(null);
-                remoteAlerts.reload();
-              }}
+              disabled={remoteAlerts.loading || refreshing}
+              onClick={() => void handleRefreshAlerts()}
             >
-              Actualizar
+              {refreshing ? "Actualizando…" : "Actualizar"}
             </Button>
           ) : null}
           <Button variant="primary" size="sm" onClick={handleOpenManualDraft}>

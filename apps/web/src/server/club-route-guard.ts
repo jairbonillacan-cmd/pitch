@@ -78,6 +78,8 @@ export function resolveClubRoute(
     canonicalGameHrefFor?: (league: string, gameId: string) => string | null;
     teamExists?: (league: string, teamId: string) => boolean;
     playerExists?: (league: string, teamId: string, playerSlug: string) => boolean;
+    refereeDirectoryExists?: (league: string) => boolean;
+    refereeExists?: (league: string, refereeSlug: string) => boolean;
   },
 ): ClubRouteResolution {
   if (!rawPath || typeof rawPath !== "string") {
@@ -141,7 +143,11 @@ export function resolveClubRoute(
 
   if (segments.length === 2 && segments[1] === "arbitros") {
     const league = segments[0]!;
-    if (options.isLeague(league) && hasFootballRefereesCapability(league)) {
+    if (
+      options.isLeague(league) &&
+      hasFootballRefereesCapability(league) &&
+      (!options.refereeDirectoryExists || options.refereeDirectoryExists(league))
+    ) {
       return { kind: "ok", pathname };
     }
     return { kind: "not_found", pathname };
@@ -154,7 +160,8 @@ export function resolveClubRoute(
       refereeSlug &&
       options.isLeague(league) &&
       hasFootballRefereesCapability(league) &&
-      parseCanonicalPublicSlug(refereeSlug) !== null
+      parseCanonicalPublicSlug(refereeSlug) !== null &&
+      (!options.refereeExists || options.refereeExists(league, refereeSlug))
     ) {
       return { kind: "ok", pathname };
     }

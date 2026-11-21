@@ -1155,13 +1155,34 @@ export function RefereeProfileClubView({
 }
 
 export function RefereesClubView({
+  league,
   title = "Árbitros",
   ranking,
   profile,
-  availableLeagues,
+  availableLeagues = [],
   onNavigate,
   className,
 }: RefereesClubViewProps = {}): React.JSX.Element {
+  const platformActions = useOptionalPlatformActions();
+  const emptyLeagueSelectId = useId();
+
+  const navigateSafe = useCallback(
+    (href: string) => {
+      if (onNavigate) {
+        onNavigate(href);
+        return;
+      }
+      if (platformActions) {
+        platformActions.navigateTo(href);
+        return;
+      }
+      if (typeof window !== "undefined") {
+        window.location.assign(href);
+      }
+    },
+    [onNavigate, platformActions],
+  );
+
   if (profile) {
     return (
       <RefereeProfileClubView
@@ -1181,12 +1202,59 @@ export function RefereesClubView({
       />
     );
   }
+  const primaryAvailable = availableLeagues[0] ?? null;
   return (
-    <SofascoreCard title={title} className={className}>
-      <SofascoreEmptyState
-        title="Selecciona una liga de fútbol"
-        description="Consulta promedios ajustados de tarjetas, faltas, penales y rigor arbitral por competición."
-      />
-    </SofascoreCard>
+    <div className={["pl-rf-root", className].filter(Boolean).join(" ")}>
+      {league || availableLeagues.length > 0 ? (
+        <div className="pl-rf-topbar">
+          {league ? (
+            <RefereeBackLink
+              fallbackHref={`/app/${encodeURIComponent(league)}`}
+              label="Volver a la liga"
+              onNavigate={navigateSafe}
+            />
+          ) : null}
+          {availableLeagues.length > 0 ? (
+            <div className="pl-rf-league-switcher">
+              <label htmlFor={emptyLeagueSelectId} className="sr-only">
+                Elegir una liga con ranking arbitral disponible
+              </label>
+              <select
+                id={emptyLeagueSelectId}
+                value=""
+                onChange={(event) => {
+                  const target = availableLeagues.find((lg) => lg.id === event.target.value);
+                  if (target) navigateSafe(target.href);
+                }}
+                className="pl-al-select pl-rf-league-select"
+              >
+                <option value="">Cambiar a liga con árbitros…</option>
+                {availableLeagues.map((lg) => (
+                  <option key={lg.id} value={lg.id}>
+                    {safeText(lg.label, lg.id)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+      <SofascoreCard title={title}>
+        <SofascoreEmptyState
+          title={
+            league
+              ? "Sin muestra arbitral publicada en esta competición"
+              : "Selecciona una liga de fútbol"
+          }
+          description="Consulta promedios ajustados de tarjetas, faltas, penales y rigor arbitral en las ligas con designaciones activas."
+          actionLabel={
+            primaryAvailable
+              ? `Ver árbitros de ${safeText(primaryAvailable.label, primaryAvailable.id)}`
+              : undefined
+          }
+          onAction={primaryAvailable ? () => navigateSafe(primaryAvailable.href) : undefined}
+        />
+      </SofascoreCard>
+    </div>
   );
 }

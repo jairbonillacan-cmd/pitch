@@ -487,6 +487,15 @@
     font-weight: 750;
     color: var(--pl-text);
     white-space: nowrap;
+    max-inline-size: min(260px, 54vw);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .pl-al-cell-sub {
+    max-inline-size: min(260px, 54vw);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .pl-al-cell-sub,
@@ -1307,6 +1316,13 @@
   .pl-sb-detail-link:hover {
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+
+  @media (max-width: 767px) {
+    .pl-al-cell-name,
+    .pl-al-cell-sub {
+      max-inline-size: 168px;
+    }
   }
 
   @media (max-width: 767px), (pointer: coarse) {

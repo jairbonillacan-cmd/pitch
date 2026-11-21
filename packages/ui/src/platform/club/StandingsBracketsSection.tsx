@@ -367,6 +367,11 @@ export function StandingsSplitsPanel({
     [standings.total.length, standings.home.length, standings.away.length],
   );
 
+  const effectiveConference =
+    selectedConference !== "all" && standings.conferences.includes(selectedConference)
+      ? selectedConference
+      : "all";
+
   const activeRows = useMemo(() => {
     const base =
       split === "home"
@@ -374,11 +379,11 @@ export function StandingsSplitsPanel({
         : split === "away"
           ? standings.away
           : standings.total;
-    if (!standings.hasConferences || selectedConference === "all") {
+    if (!standings.hasConferences || effectiveConference === "all") {
       return base;
     }
-    return base.filter((row) => row.conference === selectedConference);
-  }, [split, standings, selectedConference]);
+    return base.filter((row) => row.conference === effectiveConference);
+  }, [split, standings, effectiveConference]);
 
   const safeZones = useMemo(
     () =>
@@ -590,8 +595,8 @@ export function StandingsSplitsPanel({
             <div className="pl-sb-conf-pills" role="group" aria-label="Filtrar por conferencia">
               <button
                 type="button"
-                className={`pl-sb-conf-btn${selectedConference === "all" ? " is-active" : ""}`}
-                aria-pressed={selectedConference === "all"}
+                className={`pl-sb-conf-btn${effectiveConference === "all" ? " is-active" : ""}`}
+                aria-pressed={effectiveConference === "all"}
                 onClick={() => setSelectedConference("all")}
               >
                 Todas
@@ -600,8 +605,8 @@ export function StandingsSplitsPanel({
                 <button
                   key={conf}
                   type="button"
-                  className={`pl-sb-conf-btn${selectedConference === conf ? " is-active" : ""}`}
-                  aria-pressed={selectedConference === conf}
+                  className={`pl-sb-conf-btn${effectiveConference === conf ? " is-active" : ""}`}
+                  aria-pressed={effectiveConference === conf}
                   onClick={() => setSelectedConference(conf)}
                 >
                   {safeLabel(conf, conf)}

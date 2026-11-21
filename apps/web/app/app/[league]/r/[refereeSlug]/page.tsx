@@ -34,7 +34,7 @@ export async function generateMetadata({
     return { title: "Árbitro no encontrado | PitchLab" };
   }
   const profile = loadRefereeProfile(normalizedSlug, normalizedLeague);
-  if (!profile) {
+  if (!profile || profile.primaryLeague !== normalizedLeague) {
     return { title: "Árbitro no encontrado | PitchLab" };
   }
   return {
@@ -60,7 +60,7 @@ export default async function RefereeDetailProfilePage({
   }
 
   const profile = loadRefereeProfile(normalizedSlug, normalizedLeague);
-  if (!profile) {
+  if (!profile || profile.primaryLeague !== normalizedLeague) {
     notFound();
   }
 

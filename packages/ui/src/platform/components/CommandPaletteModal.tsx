@@ -342,12 +342,12 @@ export function CommandPaletteModal({
   const nq = normSearch(q);
 
   const matchingPlayers: readonly CommandPlayerHit[] =
-    shouldFetchPlayers && Array.isArray(playersRemote.data?.items)
+    shouldFetchPlayers && !playersRemote.error && Array.isArray(playersRemote.data?.items)
       ? playersRemote.data.items
       : [];
 
   const matchingReferees: readonly CommandRefereeHit[] =
-    shouldFetchReferees && Array.isArray(refereesRemote.data?.items)
+    shouldFetchReferees && !refereesRemote.error && Array.isArray(refereesRemote.data?.items)
       ? refereesRemote.data.items.filter((item) => isSafePublicLabel(item.name))
       : [];
 
@@ -472,6 +472,13 @@ export function CommandPaletteModal({
       if (event.nativeEvent.isComposing || event.keyCode === 229) {
         return;
       }
+      if (
+        event.target instanceof HTMLElement &&
+        event.target !== inputRef.current &&
+        event.target.closest("button, a, [role='tab']") !== null
+      ) {
+        return;
+      }
       const target = orderedTargets[clampedActive];
       if (target) {
         event.preventDefault();
@@ -513,7 +520,7 @@ export function CommandPaletteModal({
             {query.length > 0 ? (
               <button
                 type="button"
-                className="pl-cmd-clear"
+                className="pl-cmd-clear !min-w-11 !min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:!min-w-7 [@media(min-width:768px)_and_(pointer:fine)]:!min-h-7 [@media(min-width:768px)_and_(pointer:fine)]:!w-7 [@media(min-width:768px)_and_(pointer:fine)]:!h-7"
                 aria-label="Limpiar búsqueda"
                 onClick={() => {
                   setQuery("");
@@ -564,12 +571,27 @@ export function CommandPaletteModal({
         <div ref={resultsRef} className="pl-cmd-results">
           {!hasResults && !isRemoteLoading ? (
             <div className="pl-cmd-empty">
-              <p className="m-0 text-sm font-semibold" style={{ color: "var(--pl-text)" }}>
-                Sin coincidencias para «{query}»
-              </p>
-              <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Prueba con MLB, Liga MX, un equipo, un jugador, un árbitro o un @socio.
-              </p>
+              {activeScope === "players" && q.length < 2 ? (
+                <>
+                  <p className="m-0 text-sm font-semibold" style={{ color: "var(--pl-text)" }}>
+                    Escribe al menos 2 caracteres para buscar jugadores.
+                  </p>
+                  <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    Busca por nombre, apellido o equipo en las ligas activas.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="m-0 text-sm font-semibold" style={{ color: "var(--pl-text)" }}>
+                    {q.length > 0
+                      ? `Sin coincidencias para «${query}»`
+                      : "Sin resultados disponibles en esta categoría"}
+                  </p>
+                  <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    Prueba con MLB, Liga MX, un equipo, un jugador, un árbitro o un @socio.
+                  </p>
+                </>
+              )}
             </div>
           ) : null}
 

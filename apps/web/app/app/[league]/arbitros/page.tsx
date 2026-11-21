@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { COMPETITION_BY_ID, getLeagueCapability } from "@pitchlab/contracts";
 import {
+  RefereesClubView,
   RefereesDirectoryClubView,
   type RefereeLeagueLinkOption,
 } from "@pitchlab/ui/referees";
@@ -48,12 +49,10 @@ export async function generateMetadata({
     return { title: "Árbitros no disponibles | PitchLab" };
   }
   const ranking = loadLeagueRefereeRanking(normalized);
-  if (!ranking) {
-    return { title: "Árbitros no disponibles | PitchLab" };
-  }
+  const leagueLabel = ranking?.leagueLabel ?? COMPETITION_BY_ID[normalized]?.label ?? normalized;
   return {
-    title: `Árbitros · ${ranking.leagueLabel} | PitchLab`,
-    description: `Ranking arbitral de ${ranking.leagueLabel}: tasas suavizadas de tarjetas amarillas, rojas, penales, faltas y perfil de rigor.`,
+    title: `Árbitros · ${leagueLabel} | PitchLab`,
+    description: `Ranking arbitral de ${leagueLabel}: tasas suavizadas de tarjetas amarillas, rojas, penales, faltas y perfil de rigor.`,
   };
 }
 
@@ -69,11 +68,18 @@ export default async function LeagueRefereesDirectoryPage({
   }
 
   const ranking = loadLeagueRefereeRanking(normalized);
-  if (!ranking) {
-    notFound();
-  }
-
   const availableLeagues = loadAvailableRefereeLeagues();
+
+  if (!ranking) {
+    const leagueLabel = COMPETITION_BY_ID[normalized]?.label ?? normalized;
+    return (
+      <RefereesClubView
+        league={normalized}
+        title={`Árbitros · ${leagueLabel}`}
+        availableLeagues={availableLeagues}
+      />
+    );
+  }
 
   return (
     <RefereesDirectoryClubView
