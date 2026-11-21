@@ -1250,13 +1250,12 @@ html[data-theme="light"] .pl-atom-jersey {
   position: sticky;
   inset-block-start: var(--layout-header, 64px);
   z-index: 20;
-  block-size: 48px;
-  min-block-size: 44px;
+  min-block-size: 48px;
   max-block-size: 52px;
-  padding-block: 4px;
+  padding-block: 2px;
   border-radius: 0 0 12px 12px;
   border-block-start: 0;
-  overflow: hidden;
+  overflow-x: clip;
 }
 
 .pl-atom-header-grid {
@@ -1373,10 +1372,16 @@ html[data-theme="light"] .pl-atom-jersey {
 }
 
 .pl-atom-header-trailing {
+  display: inline-flex;
+  align-items: center;
   flex: none;
   min-inline-size: 0;
-  max-inline-size: 96px;
-  overflow: hidden;
+  max-inline-size: 120px;
+}
+
+.pl-atom-header-trailing .pl-atom-seg-btn {
+  padding-inline: 8px;
+  max-inline-size: 100%;
 }
 
 @container (min-width: 600px) {
@@ -1408,7 +1413,11 @@ html[data-theme="light"] .pl-atom-jersey {
     font-size: 0.8125rem;
   }
   .pl-atom-header-trailing {
-    max-inline-size: 72px;
+    max-inline-size: 100px;
+  }
+  .pl-atom-header-trailing .pl-atom-seg-btn {
+    padding-inline: 8px;
+    font-size: 0.7rem;
   }
 }
 
@@ -1497,9 +1506,14 @@ html[data-theme="light"] .pl-atom-jersey {
   transition: background-color 140ms ease, border-color 140ms ease;
 }
 
-.pl-atom-betlab-step-btn:hover {
+.pl-atom-betlab-step-btn:hover:not(:disabled) {
   background: var(--pl-surface-hover);
   border-color: var(--pl-brand);
+}
+
+.pl-atom-betlab-step-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
 }
 
 .pl-atom-betlab-rival {
@@ -1946,6 +1960,11 @@ html[data-theme="light"] .pl-atom-jersey {
     min-block-size: 44px;
     min-inline-size: 44px;
     padding: 6px 12px;
+  }
+  .pl-atom-node-trigger {
+    min-inline-size: 44px;
+    min-block-size: 44px;
+    justify-content: center;
   }
   .pl-atom-disclosure summary {
     min-block-size: 44px;

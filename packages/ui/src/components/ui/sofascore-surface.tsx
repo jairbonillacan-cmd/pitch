@@ -32,11 +32,13 @@ export function SofascoreCard({
 }: SofascoreCardProps): React.JSX.Element {
   const autoHeadingId = useId();
   const headingId = title ? (id ? `${id}-title` : autoHeadingId) : undefined;
+  const regionLabelledBy = Component === "div" ? undefined : headingId;
   const hasHeader = Boolean(title) || (meta !== undefined && meta !== null);
 
   return (
     <Component
       id={id}
+      aria-labelledby={regionLabelledBy}
       className={joinClasses("pl-sf-card", density === "compact" && "is-compact", className)}
       data-pl-sf-card=""
       data-pl-sf-density={density}
@@ -634,6 +636,7 @@ export function SettingsGroup({
   return (
     <section
       id={id}
+      aria-labelledby={headingId}
       className={joinClasses("pl-sf-settings-group", className)}
       data-pl-sf-settings-group=""
     >

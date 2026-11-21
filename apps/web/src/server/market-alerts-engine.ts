@@ -307,19 +307,19 @@ export interface EvaluateMarketAlertResult {
 
 const DIACRITICS_RE = /[\u0300-\u036f]/g;
 const PROMPT_INJECTION_RE =
-  /\b(?:ignore\s+(?:all\s+)?previous(?:\s+instructions)?|disregard\s+(?:all\s+)?instructions|ignora\s+(?:todas\s+)?(?:las\s+)?instrucciones|olvida\s+(?:todas\s+)?las\s+reglas|override\s+system|jailbreak|revela\s+tus\s+instrucciones|muestra\s+el\s+prompt)\b|\b(?:system|assistant|developer)\s*:/i;
+  /<\/?(?:solicitud_socio|system|instructions?)\b|\b(?:ignore\s+(?:all\s+)?previous(?:\s+instructions)?|disregard\s+(?:all\s+)?instructions|ignora\s+(?:todas?\s+|todo\s+lo\s+)?(?:las?\s+|tus?\s+)?(?:instrucciones|reglas|anterior(?:es)?)|olvida\s+(?:todas?\s+|todo\s+lo\s+)?(?:las?\s+|tus?\s+)?(?:reglas|instrucciones|anterior(?:es)?)|override\s+system|jailbreak|revela\s+tus\s+instrucciones|muestra\s+el\s+prompt)\b|\b(?:system|assistant|developer)\s*:/i;
 
 const FORBIDDEN_BETTING_RE =
-  /\b(?:apuesta\s+segura|garantizad[oa]s?|sin\s+riesgo|ganancia\s+segura|100\s*%\s*segur[oa]|no\s+(?:puede|va\s+a)\s+fallar|m[eé]tele\s+\d+|coloca\s+(?:una\s+|la\s+)?apuesta|ejecuta\s+(?:la\s+)?apuesta|apuesta\s+autom[aá]tic|autom[aá]ticamente\s+en\s+mi\s+casa|\bstake\b|unidades\s+de\s+stake|all[\s-]?in)\b/i;
+  /\b(?:apuestas?\s+seguras?|garantizad[oa]s?|sin\s+riesgo|risk[\s-]?free|sure\s*bets?|ganancias?\s+seguras?|100\s*%\s*segur[oa]s?|no\s+(?:puede|va\s+a)\s+fallar|metele\s+\d+|coloc(?:a|ar)\s+(?:una\s+|las?\s+)?apuestas?|ejecut(?:a|ar)\s+(?:una\s+|las?\s+)?apuestas?|apuestas?\s+automatic[oa]?s?|apostar\s+automatic[a-z]*|auto[\s-]?bets?|automaticamente\s+en\s+mi\s+casa|stake|unidades\s+de\s+stake|all[\s-]?in)\b/i;
 
 const UNSUPPORTED_SPORT_RE =
-  /\b(?:f[oó]rmula\s*1|\bf1\b|gran\s+premio|motogp|nascar|tenis|\batp\b|\bwta\b|grand\s+slam|wimbledon|roland\s+garros|\bufc\b|\bmma\b|boxeo|boxing|\bgolf\b|\bpga\b|ciclismo|tour\s+de\s+francia|cricket|rugby|esports|league\s+of\s+legends|valorant|\bcs2\b|dardos|snooker|voleibol|balonmano|handball|p[aá]del|caballos|galgos)\b/i;
+  /\b(?:formula\s*1|f1|gran\s+premio|motogp|nascar|tenis|atp|wta|grand\s+slam|wimbledon|roland\s+garros|ufc|mma|boxeo|boxing|golf|pga|ciclismo|tour\s+de\s+francia|cricket|rugby|esports|league\s+of\s+legends|valorant|cs2|dardos|snooker|voleibol|balonmano|handball|padel|caballos|galgos)\b/i;
 
 const UNSUPPORTED_LEAGUE_RE =
-  /\b(?:ncaaf|ncaa\s+football|wnba|khl|npb|liga\s+de\s+expansi[oó]n|tercera\s+divisi[oó]n|liga\s+marciana|superliga\s+china|xfl|ufl|cfl)\b/i;
+  /\b(?:ncaaf|ncaa\s+football|ncaab|ncaa\s+basketball|wnba|khl|npb|liga\s+de\s+expansion|tercera\s+division|liga\s+marciana|superliga\s+china|xfl|ufl|cfl|liga\s+mx\s+femenil|femenil|femenina|g[\s-]?league|premier\s+league\s+2|youth\s+league|euroliga|euroleague|liga\s+acb|serie\s+c|mls\s+next\s+pro)\b/i;
 
 const UNSUPPORTED_MARKET_RE =
-  /\b(?:saques?\s+de\s+banda|throw[\s-]?ins?|minuto\s+exacto\s+del\s+primer\s+gol|minuto\s+del\s+primer\s+gol|primer\s+saque\s+de\s+centro|autogol|penalti\s+fallado|revisi[oó]n\s+var|tiempo\s+a[nñ]adido|fueras?\s+de\s+lugar|offsides?|expulsi[oó]n\s+de\s+entrenador|vuelta\s+r[aá]pida|pole\s+position|triple\s+doble|doble\s+doble|primer\s+canasta|marcador\s+exacto\s+al\s+minuto)\b/i;
+  /\b(?:saques?\s+de\s+banda|throw[\s-]?ins?|minuto\s+exacto\s+del\s+primer\s+gol|minuto\s+del\s+primer\s+gol|primer\s+saque\s+de\s+centro|autogol|penalti\s+fallado|revision\s+var|tiempo\s+anadido|fueras?\s+de\s+lugar|offsides?|expulsion\s+de\s+entrenador|vuelta\s+rapida|pole\s+position|triple\s+doble|doble\s+doble|primer\s+canasta|marcador\s+exacto\s+al\s+minuto)\b/i;
 
 const SCHEDULE_CHANGE_TRIGGER_RE =
   /\b(?:cambio\s+de\s+horario|cambio\s+de\s+sede|horario,\s*sede|aplazamiento|pospuesto|reprogramad[oa]|suspendid[oa]|cambio\s+de\s+fecha)\b/i;
@@ -376,6 +376,11 @@ function foldText(raw: string): string {
   return raw.normalize("NFD").replace(DIACRITICS_RE, "").toLowerCase();
 }
 
+export function hasExplicitUnsupportedLeague(promptEs: string): boolean {
+  if (typeof promptEs !== "string") return false;
+  return UNSUPPORTED_LEAGUE_RE.test(foldText(promptEs));
+}
+
 function escapeRegExp(raw: string): string {
   return raw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -428,7 +433,9 @@ function buildLeagueAliases(): readonly LeagueAlias[] {
   for (const meta of COMPETITION_CATALOG) {
     if (!isProductLeagueId(meta.id)) continue;
     rawPairs.push([meta.id, meta.label]);
-    rawPairs.push([meta.id, meta.shortLabel]);
+    if (foldText(meta.shortLabel).trim() !== foldText(meta.country).trim()) {
+      rawPairs.push([meta.id, meta.shortLabel]);
+    }
     rawPairs.push([meta.id, meta.id.replace(/-/g, " ")]);
     rawPairs.push([meta.id, meta.id]);
   }
@@ -523,14 +530,14 @@ function detectDirectionAndLine(promptEs: string): {
   readonly line: number | null;
 } {
   const overMatch =
-    /(?:m[aá]s\s+de|over|arriba\s+de|encima\s+de)\s+(\d+(?:[.,]\d+)?)(?!\s*(?:%|puntos\s+porcentuales|pp\b))/i.exec(
+    /(?:m[aá]s\s+de|over|arriba\s+de|encima\s+de)\s+(\d+(?:[.,]\d+)?)(?!\d|[.,]\d)(?!\s*(?:%|puntos\s+porcentuales|pp\b))/i.exec(
       promptEs,
     );
   if (overMatch?.[1]) {
     return { direction: "over", line: parseNumberLiteral(overMatch[1]) };
   }
   const underMatch =
-    /(?:menos\s+de|under|debajo\s+de|abajo\s+de)\s+(\d+(?:[.,]\d+)?)(?!\s*(?:%|puntos\s+porcentuales|pp\b))/i.exec(
+    /(?:menos\s+de|under|debajo\s+de|abajo\s+de)\s+(\d+(?:[.,]\d+)?)(?!\d|[.,]\d)(?!\s*(?:%|puntos\s+porcentuales|pp\b))/i.exec(
       promptEs,
     );
   if (underMatch?.[1]) {
@@ -835,7 +842,8 @@ export function parseSpanishAlertPromptDeterministic(promptEs: string): ParseAle
       "La solicitud debe tener entre 8 y 400 caracteres.",
     );
   }
-  if (PROMPT_INJECTION_RE.test(cleanPrompt)) {
+  const foldedPrompt = foldText(cleanPrompt);
+  if (PROMPT_INJECTION_RE.test(foldedPrompt)) {
     return rejectResult(
       "prompt_injection",
       "Solicitud rechazada: solo se aceptan reglas de alertas de mercado.",
@@ -847,25 +855,25 @@ export function parseSpanishAlertPromptDeterministic(promptEs: string): ParseAle
       "Solicitud rechazada: contiene referencias internas, URLs o identificadores no permitidos.",
     );
   }
-  if (FORBIDDEN_BETTING_RE.test(cleanPrompt)) {
+  if (FORBIDDEN_BETTING_RE.test(foldedPrompt)) {
     return rejectResult(
       "forbidden_betting_or_execution",
       "PitchLab no ofrece apuestas seguras garantizadas ni ejecuta apuestas automáticamente.",
     );
   }
-  if (UNSUPPORTED_SPORT_RE.test(cleanPrompt)) {
+  if (UNSUPPORTED_SPORT_RE.test(foldedPrompt)) {
     return rejectResult(
       "unsupported_sport",
       "Deporte fuera del catálogo de PitchLab (Fútbol, NBA, NFL, MLB y NHL).",
     );
   }
-  if (UNSUPPORTED_LEAGUE_RE.test(cleanPrompt)) {
+  if (UNSUPPORTED_LEAGUE_RE.test(foldedPrompt)) {
     return rejectResult(
       "unsupported_league",
       "Competición fuera del catálogo activo de PitchLab.",
     );
   }
-  if (UNSUPPORTED_MARKET_RE.test(cleanPrompt)) {
+  if (UNSUPPORTED_MARKET_RE.test(foldedPrompt)) {
     return rejectResult(
       "unsupported_market_family",
       "Mercado fuera de las 34 familias soportadas por PitchLab.",
@@ -983,6 +991,89 @@ export function buildMarketAlertSelectionLabel(rule: MarketAlertRule): string | 
   return combined.length > 0 ? combined.slice(0, 160) : null;
 }
 
+const PLAYER_STAT_KEY_SET: ReadonlySet<string> = new Set(ALERT_PLAYER_STAT_KEYS);
+const SELECTION_DIRECTION_LINE_RE =
+  /^(over|under|home|away|draw|any)\s+([+-]?\d+(?:\.\d+)?)$/i;
+const SELECTION_NUMERIC_LINE_RE = /^[+-]?\d+(?:\.\d+)?$/;
+
+function parseSelectionMetadata(
+  selection: string | null,
+  marketFamily: MarketFamilyId | null,
+): {
+  readonly teamQuery: string | null;
+  readonly playerQuery: string | null;
+  readonly playerStatKey: AlertPlayerStatKey | null;
+  readonly direction: MarketAlertDirection | null;
+  readonly line: number | null;
+} {
+  if (!selection) {
+    return {
+      teamQuery: null,
+      playerQuery: null,
+      playerStatKey: null,
+      direction: null,
+      line: null,
+    };
+  }
+  const parts = selection
+    .split(" · ")
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0);
+  const isPlayerMarket =
+    marketFamily === "player_props_football" || marketFamily === "nba_player_props";
+
+  let teamQuery: string | null = null;
+  let playerQuery: string | null = null;
+  let playerStatKey: AlertPlayerStatKey | null = null;
+  let parsedDirection: MarketAlertDirection | null = null;
+  let line: number | null = null;
+
+  for (const part of parts) {
+    if (playerStatKey === null && PLAYER_STAT_KEY_SET.has(part)) {
+      const matchedStat = ALERT_PLAYER_STAT_KEYS.find((key) => key === part) ?? null;
+      if (matchedStat) {
+        playerStatKey = matchedStat;
+        continue;
+      }
+    }
+    const dirLineMatch = SELECTION_DIRECTION_LINE_RE.exec(part);
+    if (dirLineMatch) {
+      const dirToken = dirLineMatch[1]?.toLowerCase();
+      const matchedDir = ALERT_DIRECTIONS.find((item) => item === dirToken) ?? null;
+      const parsedNum = parseNumberLiteral(dirLineMatch[2]);
+      if (parsedDirection === null && matchedDir) {
+        parsedDirection = matchedDir;
+      }
+      if (line === null && parsedNum !== null) {
+        line = parsedNum;
+      }
+      continue;
+    }
+    if (line === null && SELECTION_NUMERIC_LINE_RE.test(part)) {
+      const parsedNum = parseNumberLiteral(part);
+      if (parsedNum !== null) {
+        line = parsedNum;
+        continue;
+      }
+    }
+    if (isPlayerMarket) {
+      if (playerQuery === null) {
+        playerQuery = part;
+      }
+    } else if (teamQuery === null) {
+      teamQuery = part;
+    }
+  }
+
+  return {
+    teamQuery,
+    playerQuery,
+    playerStatKey,
+    direction: parsedDirection,
+    line,
+  };
+}
+
 export function alertRuleToDbCreateInput(
   rule: MarketAlertRule,
   overrides: {
@@ -994,15 +1085,24 @@ export function alertRuleToDbCreateInput(
     readonly active?: boolean;
   } = {},
 ): CreateMarketAlertInput {
+  const trimmedOverrideName = overrides.name?.trim();
+  const safeName =
+    trimmedOverrideName &&
+    trimmedOverrideName.length >= 2 &&
+    isSafePublicLabel(trimmedOverrideName)
+      ? trimmedOverrideName.slice(0, 120)
+      : buildMarketAlertNameEs(rule);
   return {
-    name: overrides.name?.trim() || buildMarketAlertNameEs(rule),
+    name: safeName,
     trigger: rule.trigger,
     league: rule.league,
     marketFamily: rule.marketFamily,
     selection: buildMarketAlertSelectionLabel(rule),
     thresholdEvPct: rule.minEvPct ?? rule.minDeltaNoVigPp,
-    minDecimal: overrides.minDecimal ?? rule.minDecimal ?? null,
-    maxDecimal: overrides.maxDecimal ?? rule.maxDecimal ?? null,
+    minDecimal:
+      overrides.minDecimal !== undefined ? overrides.minDecimal : (rule.minDecimal ?? null),
+    maxDecimal:
+      overrides.maxDecimal !== undefined ? overrides.maxDecimal : (rule.maxDecimal ?? null),
     direction: rule.direction,
     bookmaker: rule.preferredBook,
     cooldownMinutes: overrides.cooldownMinutes ?? rule.cooldownMinutes ?? 60,
@@ -1016,9 +1116,10 @@ export function dbRowToEvaluatableRule(row: MarketAlertRow): MarketAlertEvaluata
     ALERT_TRIGGERS.find((item) => item === row.trigger) ?? "market_opened";
   const marketFamily: MarketFamilyId | null =
     row.marketFamily && isCanonicalMarketFamily(row.marketFamily) ? row.marketFamily : null;
+  const parsedSelection = parseSelectionMetadata(row.selection, marketFamily);
   const direction: MarketAlertDirection | null = row.direction
-    ? (ALERT_DIRECTIONS.find((item) => item === row.direction) ?? null)
-    : null;
+    ? (ALERT_DIRECTIONS.find((item) => item === row.direction) ?? parsedSelection.direction)
+    : parsedSelection.direction;
 
   return {
     id: row.id,
@@ -1026,8 +1127,12 @@ export function dbRowToEvaluatableRule(row: MarketAlertRow): MarketAlertEvaluata
     trigger,
     league: row.league,
     marketFamily,
+    teamQuery: parsedSelection.teamQuery,
+    playerQuery: parsedSelection.playerQuery,
+    playerStatKey: parsedSelection.playerStatKey,
     selection: row.selection,
     direction,
+    line: parsedSelection.line,
     thresholdEvPct: row.thresholdEvPct,
     minEvPct: trigger === "sharp_steam" ? null : row.thresholdEvPct,
     minDeltaNoVigPp: trigger === "sharp_steam" ? row.thresholdEvPct : null,
@@ -1158,12 +1263,16 @@ export function evaluateMarketAlertTrigger(
     }
   }
 
-  if (rule.playerStatKey && event.playerStatKey && rule.playerStatKey !== event.playerStatKey) {
-    return { matched: false, reason: "player_stat_mismatch", dedupeHash };
+  if (rule.playerStatKey) {
+    if (!event.playerStatKey || rule.playerStatKey !== event.playerStatKey) {
+      return { matched: false, reason: "player_stat_mismatch", dedupeHash };
+    }
   }
 
-  if (rule.direction && rule.direction !== "any" && event.direction && rule.direction !== event.direction) {
-    return { matched: false, reason: "direction_mismatch", dedupeHash };
+  if (rule.direction && rule.direction !== "any") {
+    if (!event.direction || rule.direction !== event.direction) {
+      return { matched: false, reason: "direction_mismatch", dedupeHash };
+    }
   }
 
   if (rule.line !== undefined && rule.line !== null) {

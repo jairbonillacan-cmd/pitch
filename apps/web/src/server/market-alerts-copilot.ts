@@ -4,6 +4,7 @@ import { createDb, FLAG_AI_ENABLED, getBoolFlag, type Db } from "@pitchlab/db";
 import {
   ALERT_TRIGGERS,
   AlertRejectCodeSchema,
+  hasExplicitUnsupportedLeague,
   MarketAlertRuleSchema,
   parseSpanishAlertPromptDeterministic,
   type AlertRejectCode,
@@ -138,6 +139,8 @@ const HARD_PRE_REJECT_CODES: ReadonlySet<AlertRejectCode> = new Set([
   "unsupported_market_family",
 ]);
 
+const SOLICITUD_TAG_BREAKOUT_RE = /<\/?(?:solicitud_socio|system|instructions?)\b/i;
+
 function parseLlmJsonOutput(
   rawContent: string,
   model: string,
@@ -201,9 +204,24 @@ export async function parseMarketAlertWithCopilot(
   promptEs: string,
   options: MarketAlertsCopilotOptions = {},
 ): Promise<MarketAlertsCopilotResult> {
+  if (typeof promptEs === "string" && SOLICITUD_TAG_BREAKOUT_RE.test(promptEs)) {
+    return {
+      outcome: "reject",
+      rejectCode: "prompt_injection",
+      message: "Solicitud rechazada: solo se aceptan reglas de alertas de mercado.",
+      source: "deterministic",
+      model: null,
+    };
+  }
+
   const deterministic = parseSpanishAlertPromptDeterministic(promptEs);
 
-  if (deterministic.outcome === "reject" && HARD_PRE_REJECT_CODES.has(deterministic.rejectCode)) {
+  if (
+    deterministic.outcome === "reject" &&
+    (HARD_PRE_REJECT_CODES.has(deterministic.rejectCode) ||
+      (deterministic.rejectCode === "unsupported_league" &&
+        hasExplicitUnsupportedLeague(promptEs)))
+  ) {
     return { ...deterministic, source: "deterministic", model: null };
   }
 
@@ -248,7 +266,10 @@ export async function parseMarketAlertWithCopilot(
         max_tokens: 320,
         messages: [
           { role: "system", content: COPILOT_SYSTEM_PROMPT },
-          { role: "user", content: `<solicitud_socio>\n${promptEs.trim()}\n</solicitud_socio>` },
+          {
+            role: "user",
+            content: `<solicitud_socio>\n${promptEs.trim().replace(/<\/?solicitud_socio[^>]*>/gi, "")}\n</solicitud_socio>`,
+          },
         ],
         provider: {
           data_collection: "deny",

@@ -118,7 +118,7 @@ export function computeLiveProgressMetrics(opts: {
     };
   }
 
-  const safeTarget = Math.max(0.5, target);
+  const safeTarget = Math.max(0, target);
   const safeActual = Math.max(0, actual);
   const safeProj = projected !== null ? Math.max(0, projected) : null;
   const scaleMax = Math.max(safeTarget * 1.25, safeActual, safeProj ?? 0, 1);

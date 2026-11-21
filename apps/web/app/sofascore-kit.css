@@ -731,6 +731,7 @@
   @media (max-width: 767px), (pointer: coarse) {
     .pl-sf-tab,
     .pl-sf-tabs.is-segmented .pl-sf-tab {
+      min-inline-size: 44px;
       min-block-size: 44px;
     }
 

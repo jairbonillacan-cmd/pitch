@@ -73,6 +73,7 @@ export interface ResidualProjectionInput {
   readonly elapsedMinutes: number;
   readonly totalMinutes: number;
   readonly preMatchExpected?: number | null;
+  readonly direction?: LivePickDirection;
 }
 
 export interface ResidualProjectionResult {
@@ -316,7 +317,10 @@ export function computeResidualProjection(
       : 0;
   const elapsedMinutes = Math.max(0, Math.min(totalMinutes, rawElapsed));
   const remainingMinutes = round2(Math.max(0, totalMinutes - elapsedMinutes));
-  const remainingNeeded = round2(Math.max(0, targetLine - actualValue));
+  const remainingNeeded =
+    input.direction === "handicap"
+      ? round2(Math.max(0, -targetLine - actualValue))
+      : round2(Math.max(0, targetLine - actualValue));
 
   const fallbackPrior = targetLine > 0 ? targetLine : Math.max(0, actualValue);
   const priorTotal =
@@ -373,8 +377,34 @@ function splitNameTokens(normalized: string): string[] {
   return normalized.split(" ").filter((token) => token.length > 0);
 }
 
-function isJrSuffix(token: string): boolean {
-  return token === "jr" || token === "junior" || token === "sr" || token === "ii" || token === "iii";
+function isGenerationalSuffix(token: string): boolean {
+  return (
+    token === "jr" ||
+    token === "junior" ||
+    token === "sr" ||
+    token === "senior" ||
+    token === "ii" ||
+    token === "iii" ||
+    token === "iv"
+  );
+}
+
+function stripGenerationalSuffixes(tokens: readonly string[]): string[] {
+  const result = [...tokens];
+  while (result.length > 1 && isGenerationalSuffix(result[result.length - 1]!)) {
+    result.pop();
+  }
+  return result;
+}
+
+function playersMatchExact(queryName: string, candidateName: string): boolean {
+  const normA = normalizePlayerToken(queryName);
+  const normB = normalizePlayerToken(candidateName);
+  if (!normA || !normB) return false;
+  if (normA === normB) return true;
+  const coreA = stripGenerationalSuffixes(splitNameTokens(normA)).join(" ");
+  const coreB = stripGenerationalSuffixes(splitNameTokens(normB)).join(" ");
+  return coreA.length > 0 && coreA === coreB;
 }
 
 function playersMatch(queryName: string, candidateName: string): boolean {
@@ -383,15 +413,19 @@ function playersMatch(queryName: string, candidateName: string): boolean {
   if (!normA || !normB) return false;
   if (normA === normB) return true;
 
-  const tokensA = splitNameTokens(normA);
-  const tokensB = splitNameTokens(normB);
+  const tokensA = stripGenerationalSuffixes(splitNameTokens(normA));
+  const tokensB = stripGenerationalSuffixes(splitNameTokens(normB));
   if (tokensA.length === 0 || tokensB.length === 0) return false;
 
-  if (tokensA.length === 1 && tokensA[0]!.length >= 4) {
-    return tokensB.includes(tokensA[0]!);
+  if (tokensA.join(" ") === tokensB.join(" ")) return true;
+
+  if (tokensA.length === 1) {
+    const single = tokensA[0]!;
+    return single.length >= 4 && tokensB.length >= 2 && tokensB[tokensB.length - 1] === single;
   }
-  if (tokensB.length === 1 && tokensB[0]!.length >= 4) {
-    return tokensA.includes(tokensB[0]!);
+  if (tokensB.length === 1) {
+    const single = tokensB[0]!;
+    return single.length >= 4 && tokensA.length >= 2 && tokensA[tokensA.length - 1] === single;
   }
 
   const firstA = tokensA[0]!;
@@ -405,9 +439,16 @@ function playersMatch(queryName: string, candidateName: string): boolean {
     if (firstB.length === 1 && firstA.startsWith(firstB)) return true;
   }
 
-  if (firstA === firstB && firstA.length >= 4) {
-    if (isJrSuffix(lastA) && isJrSuffix(lastB)) return true;
-    if (tokensA.length >= 2 && tokensB.length >= 2 && tokensA[1] === tokensB[1]) return true;
+  const shorter = tokensA.length <= tokensB.length ? tokensA : tokensB;
+  const longer = tokensA.length <= tokensB.length ? tokensB : tokensA;
+  if (
+    shorter.length >= 2 &&
+    longer.length === shorter.length + 1 &&
+    shorter[0]!.length >= 3 &&
+    shorter[shorter.length - 1]!.length >= 3 &&
+    shorter.every((token, idx) => longer[idx] === token)
+  ) {
+    return true;
   }
 
   return false;
@@ -451,6 +492,9 @@ export function detectStarterOnBench(
   if (lineups && typeof lineups === "object") {
     const generic: LiveTrackerGenericLineups = lineups;
     const isPredicted = generic.status === "predicted" || generic.confirmed === false;
+    if (isPredicted) {
+      return { alert: null, detail: null };
+    }
     const starters = [
       ...extractPlayerNames(generic.homeStarters),
       ...extractPlayerNames(generic.awayStarters),
@@ -469,6 +513,10 @@ export function detectStarterOnBench(
       ...extractPlayerNames(generic.away?.substitutes),
     ];
 
+    if (starters.some((candidate) => playersMatchExact(rawName, candidate))) {
+      return { alert: null, detail: null };
+    }
+
     if (bench.some((candidate) => playersMatch(rawName, candidate))) {
       return {
         alert: "titular_en_banca",
@@ -480,7 +528,7 @@ export function detectStarterOnBench(
       return { alert: null, detail: null };
     }
 
-    if (!isPredicted && starters.length >= 11) {
+    if (starters.length >= 11) {
       return {
         alert: "titular_en_banca",
         detail: `${safePlayerName} no figura en el XI titular confirmado.`,
@@ -490,10 +538,15 @@ export function detectStarterOnBench(
 
   const stats = input.playerStats ?? [];
   if (stats.length > 0) {
-    const matched = stats.find((row) => {
-      const candidate = row.player ?? row.name ?? "";
-      return candidate.length > 0 && playersMatch(rawName, candidate);
-    });
+    const matched =
+      stats.find((row) => {
+        const candidate = row.player ?? row.name ?? "";
+        return candidate.length > 0 && playersMatchExact(rawName, candidate);
+      }) ??
+      stats.find((row) => {
+        const candidate = row.player ?? row.name ?? "";
+        return candidate.length > 0 && playersMatch(rawName, candidate);
+      });
     if (matched) {
       if (
         matched.isStarter === false ||
@@ -1281,6 +1334,7 @@ function evaluateLiveLeg(input: {
     elapsedMinutes: clockState.elapsedMinutes,
     totalMinutes,
     preMatchExpected,
+    direction: spec.direction,
   });
 
   const lineups =
@@ -1311,7 +1365,7 @@ function evaluateLiveLeg(input: {
   } else if (spec.category === "btts" && spec.direction === "over") {
     hitLocked = actualValue >= 2;
   } else if (isMonotonicOver) {
-    hitLocked = actualValue > spec.targetLine;
+    hitLocked = asianEval ? asianEval.state === "won_full" : actualValue > spec.targetLine;
   } else if (clockState.phase === "final") {
     if (asianEval) {
       hitLocked = asianEval.state === "won_full" || asianEval.state === "won_half";
@@ -1436,6 +1490,20 @@ function computeTrackerNextPollSeconds(
     return null;
   }
   return scoreboardPoll;
+}
+
+function isLegProjectedHit(leg: LiveTrackedPickLeg): boolean {
+  if (leg.hitLocked) return true;
+  if (leg.phase === "final") {
+    return leg.asianState === "won_full" || leg.asianState === "won_half";
+  }
+  if (leg.direction === "under") {
+    return leg.projectedFinal < leg.targetLine;
+  }
+  if (leg.direction === "handicap") {
+    return leg.projectedFinal + leg.targetLine > 0;
+  }
+  return leg.paceRatio >= 1;
 }
 
 export async function loadUserLiveTrackedPicks(
@@ -1588,9 +1656,7 @@ export async function loadUserLiveTrackedPicks(
 
       const totalLegs = evaluatedLegs.length;
       const hitLegs = evaluatedLegs.filter((leg) => leg.hitLocked).length;
-      const projectedHitLegs = evaluatedLegs.filter(
-        (leg) => leg.hitLocked || leg.paceRatio >= 1,
-      ).length;
+      const projectedHitLegs = evaluatedLegs.filter(isLegProjectedHit).length;
       const activeLegsCount = evaluatedLegs.filter((leg) => isLivePhaseActive(leg.phase)).length;
       const allFinal = evaluatedLegs.every((leg) => leg.phase === "final");
       const anyLostFinal = evaluatedLegs.some(

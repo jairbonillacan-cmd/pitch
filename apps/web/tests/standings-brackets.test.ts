@@ -291,4 +291,78 @@ describe("Brackets eliminatorios · Liga MX, Libertadores real, UEFA proyectado,
     expect(nba!.finalsTie!.bestOf).toBe(7);
     expect(containsForbiddenFd16Term(JSON.stringify(nba))).toBe(false);
   });
+
+  it("construye bracket MLB en series Best-of-N reales sin truncar a 2 juegos y decide ALCS y Serie Mundial por victorias", () => {
+    const mlb = buildLeagueKnockoutBracket("mlb");
+    expect(mlb).not.toBeNull();
+    expect(mlb!.mode).toBe("active_knockout");
+    expect(mlb!.sport).toBe("baseball");
+    expect(mlb!.rounds.map((r) => r.key)).toEqual([
+      "round_of_16",
+      "quarterfinals",
+      "semifinals",
+      "final",
+    ]);
+    expect(mlb!.rounds.every((r) => r.twoLegged === false)).toBe(true);
+
+    const wildCard = mlb!.rounds.find((r) => r.key === "round_of_16")!;
+    const division = mlb!.rounds.find((r) => r.key === "quarterfinals")!;
+    const championship = mlb!.rounds.find((r) => r.key === "semifinals")!;
+    const worldSeries = mlb!.rounds.find((r) => r.key === "final")!;
+
+    expect(wildCard.bestOf).toBe(3);
+    expect(division.bestOf).toBe(5);
+    expect(championship.bestOf).toBe(7);
+    expect(worldSeries.bestOf).toBe(7);
+
+    const alcs = championship.ties.find((t) => t.id === "mlb:semifinals:2");
+    expect(alcs).toBeDefined();
+    expect(alcs!.legs.length).toBe(5);
+    expect(alcs!.legs.map((l) => l.legNumber)).toEqual([1, 2, 3, 4, 5]);
+    expect(alcs!.seriesWinsA).toBe(3);
+    expect(alcs!.seriesWinsB).toBe(2);
+    expect(alcs!.aggregateA).toBeNull();
+    expect(alcs!.aggregateB).toBeNull();
+    expect(alcs!.bestOf).toBe(7);
+    expect(alcs!.status).toBe("decided");
+    expect(alcs!.winnerTeamSlug).toBe("tampa-bay-rays");
+
+    expect(worldSeries.ties.length).toBe(1);
+    const finalTie = worldSeries.ties[0]!;
+    expect(finalTie.id).toBe("mlb:final:1");
+    expect(finalTie.bestOf).toBe(7);
+    expect(finalTie.legs.length).toBe(5);
+    expect(finalTie.legs.map((l) => l.legNumber)).toEqual([1, 2, 3, 4, 5]);
+    expect(finalTie.seriesWinsA).toBe(4);
+    expect(finalTie.seriesWinsB).toBe(1);
+    expect(finalTie.aggregateA).toBeNull();
+    expect(finalTie.aggregateB).toBeNull();
+    expect(finalTie.status).toBe("decided");
+    expect(finalTie.winnerTeamSlug).toBe("milwaukee-brewers");
+    expect(mlb!.finalsTie?.id).toBe("mlb:final:1");
+    expect(mlb!.championSlug).toBe("milwaukee-brewers");
+    expect(containsForbiddenFd16Term(JSON.stringify(mlb))).toBe(false);
+  });
+
+  it("excluye Clasificación y Fase Final en copa-asiatica dejando exactamente 1 llave en final", () => {
+    const asianCup = buildLeagueKnockoutBracket("copa-asiatica");
+    expect(asianCup).not.toBeNull();
+    expect(asianCup!.mode).toBe("active_knockout");
+    expect(asianCup!.rounds.map((r) => r.key)).toEqual([
+      "round_of_16",
+      "quarterfinals",
+      "semifinals",
+      "final",
+    ]);
+
+    const finalRound = asianCup!.rounds.find((r) => r.key === "final");
+    expect(finalRound).toBeDefined();
+    expect(finalRound!.ties.length).toBe(1);
+    expect(asianCup!.finalsTie).not.toBeNull();
+    expect(asianCup!.finalsTie!.id).toBe("copa-asiatica:final:1");
+    expect(asianCup!.finalsTie!.status).toBe("decided");
+    expect(asianCup!.finalsTie!.winnerTeamSlug).toBe("catar");
+    expect(asianCup!.championSlug).toBe("catar");
+    expect(containsForbiddenFd16Term(JSON.stringify(asianCup))).toBe(false);
+  });
 });

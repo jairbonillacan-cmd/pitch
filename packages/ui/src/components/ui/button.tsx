@@ -27,11 +27,12 @@ const buttonStyleVariants = cva(
       },
       size: {
         default: "min-h-11 h-11 px-4 text-sm",
-        sm: "min-h-11 sm:min-h-9 sm:h-9 px-3 text-sm",
+        sm: "min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 [@media(min-width:768px)_and_(pointer:fine)]:h-9 px-3 text-sm",
         lg: "min-h-12 h-12 px-5 text-base",
         tall: "min-h-[52px] h-[52px] px-4 text-base",
         icon: "min-h-11 min-w-11 size-11",
-        "icon-sm": "min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 sm:size-9",
+        "icon-sm":
+          "min-h-11 min-w-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 [@media(min-width:768px)_and_(pointer:fine)]:min-w-9 [@media(min-width:768px)_and_(pointer:fine)]:size-9",
       },
       shape: {
         pill: "rounded-(--radius-pill)",
@@ -310,6 +311,7 @@ function Button({
 
   return (
     <button
+      {...props}
       ref={ref}
       data-slot="button"
       data-hierarchy={resolved.hierarchy}
@@ -322,7 +324,6 @@ function Button({
       style={style}
       onClick={focusableWhenDisabled && disabled ? handleClick : onClick}
       onKeyDown={focusableWhenDisabled && disabled ? handleKeyDown : onKeyDown}
-      {...props}
     >
       {children}
     </button>

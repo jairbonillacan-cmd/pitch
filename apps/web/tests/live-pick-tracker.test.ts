@@ -9,6 +9,7 @@ import {
 } from "@pitchlab/contracts";
 import {
   applyMigrations,
+  claimLiveCacheSlotOnce,
   eq,
   grantDays,
   sealedPicks,
@@ -386,6 +387,38 @@ describe("computeResidualProjection (min 0, 2, 15, 60, 90 y 0 NaN)", () => {
       expect(Number.isFinite(res.paceRatio)).toBe(true);
     }
   });
+
+  it("calcula remainingNeeded con signo correcto para líneas de hándicap negativas y positivas", () => {
+    const negHandicap = computeResidualProjection({
+      actualValue: 0,
+      targetLine: -0.75,
+      elapsedMinutes: 60,
+      totalMinutes: 90,
+      preMatchExpected: 0.5,
+      direction: "handicap",
+    });
+    expect(negHandicap.remainingNeeded).toBe(0.75);
+
+    const posHandicapCovering = computeResidualProjection({
+      actualValue: -1,
+      targetLine: 1.5,
+      elapsedMinutes: 60,
+      totalMinutes: 90,
+      preMatchExpected: -0.5,
+      direction: "handicap",
+    });
+    expect(posHandicapCovering.remainingNeeded).toBe(0);
+
+    const posHandicapBehind = computeResidualProjection({
+      actualValue: -2,
+      targetLine: 1.5,
+      elapsedMinutes: 60,
+      totalMinutes: 90,
+      preMatchExpected: -0.5,
+      direction: "handicap",
+    });
+    expect(posHandicapBehind.remainingNeeded).toBe(0.5);
+  });
 });
 
 describe("detectStarterOnBench", () => {
@@ -468,6 +501,77 @@ describe("detectStarterOnBench", () => {
     expect(activeStarter).toEqual({ alert: null, detail: null });
 
     expect(detectStarterOnBench({ playerName: null })).toEqual({ alert: null, detail: null });
+  });
+
+  it("evita falsos positivos por homónimos Jr/II, nombres compuestos hispanos, monónimos, precedencia starters y status predicted", () => {
+    const jrSameFirst = detectStarterOnBench({
+      playerName: "Michael Porter Jr.",
+      lineups: {
+        status: "confirmed",
+        homeStarters: [{ name: "Michael Porter Jr." }],
+        homeBench: [{ name: "Michael Beasley Jr." }],
+      },
+    });
+    expect(jrSameFirst).toEqual({ alert: null, detail: null });
+
+    const jrWithoutStarterEntry = detectStarterOnBench({
+      playerName: "Michael Porter Jr.",
+      lineups: {
+        status: "confirmed",
+        homeStarters: [{ name: "Nikola Jokic" }],
+        homeBench: [{ name: "Michael Beasley Jr." }],
+      },
+    });
+    expect(jrWithoutStarterEntry).toEqual({ alert: null, detail: null });
+
+    const hispanicCompound = detectStarterOnBench({
+      playerName: "José Juan Macías",
+      lineups: {
+        status: "confirmed",
+        homeStarters: [{ name: "José Juan Macías" }],
+        homeBench: [{ name: "José Juan Vázquez" }],
+      },
+    });
+    expect(hispanicCompound).toEqual({ alert: null, detail: null });
+
+    const hispanicCompoundNoStarter = detectStarterOnBench({
+      playerName: "José Juan Macías",
+      lineups: {
+        status: "confirmed",
+        homeStarters: [{ name: "Roberto Alvarado" }],
+        homeBench: [{ name: "José Juan Vázquez" }],
+      },
+    });
+    expect(hispanicCompoundNoStarter).toEqual({ alert: null, detail: null });
+
+    const mononymBench = detectStarterOnBench({
+      playerName: "Gabriel Magalhães",
+      lineups: {
+        status: "confirmed",
+        homeStarters: [{ name: "Gabriel Magalhães" }],
+        awayBench: [{ name: "Gabriel" }],
+      },
+    });
+    expect(mononymBench).toEqual({ alert: null, detail: null });
+
+    const initialBenchExactStarter = detectStarterOnBench({
+      playerName: "Jonathan Rodríguez",
+      lineups: {
+        status: "confirmed",
+        homeStarters: [{ name: "Jonathan Rodríguez" }],
+        awayBench: [{ name: "J. Rodríguez" }],
+      },
+    });
+    expect(initialBenchExactStarter).toEqual({ alert: null, detail: null });
+
+    const predictedBench = detectStarterOnBench({
+      playerName: "Henry Martín",
+      lineups: {
+        status: "predicted",
+        homeBench: [{ name: "Henry Martín" }],
+      },
+    });
+    expect(predictedBench).toEqual({ alert: null, detail: null });
   });
 });
 
@@ -900,5 +1004,295 @@ describe("loadUserLiveTrackedPicks, hitos #hash Web Push y ruta /api/me/live-pic
     expect(body.items[0]?.actualValue).toBe(2);
     expect(body.items[0]?.hitLocked).toBe(true);
     expect(body.nextPollSeconds).toBe(15);
+  });
+
+  it("evita hit_locked prematuro en Over 2.75, corrige projectedHitLegs en Under 2.5 y hándicap, y reclama caché atómicamente", async () => {
+    const userId = await seedMemberWithPass("signs_socio");
+    const gameQuiet = "mx-2026-j18-quiet-0-0";
+    const gameBlowout = "mx-2026-j18-blowout-3-0";
+    const gameOverHalf = "mx-2026-j18-over275-half";
+    const gameOverFull = "mx-2026-j18-over275-full";
+    const gameAwayLead = "mx-2026-j18-away-0-1";
+
+    await sealPick(
+      db,
+      userId,
+      {
+        pickId: "pick-over-275-half",
+        gameId: gameOverHalf,
+        leagueLabel: "Liga MX",
+        matchLabel: "Tigres vs Toluca",
+        pickLabel: "Más de 2.75 goles",
+        origin: "Spacetime Suite",
+        pickKind: "single",
+        pickMarket: "totals",
+        pickSelection: "over_2.75",
+        pickLine: 2.75,
+        units: 1,
+        userDecimal: 2.02,
+        fairDecimal: 1.94,
+        kickoffAt: KICKOFF_AT,
+      },
+      SEAL_AT,
+    );
+
+    await sealPick(
+      db,
+      userId,
+      {
+        pickId: "pick-over-275-full",
+        gameId: gameOverFull,
+        leagueLabel: "Liga MX",
+        matchLabel: "León vs Pachuca",
+        pickLabel: "Más de 2.75 goles",
+        origin: "Spacetime Suite",
+        pickKind: "single",
+        pickMarket: "totals",
+        pickSelection: "over_2.75",
+        pickLine: 2.75,
+        units: 1,
+        userDecimal: 2.02,
+        fairDecimal: 1.94,
+        kickoffAt: KICKOFF_AT,
+      },
+      SEAL_AT,
+    );
+
+    await sealPick(
+      db,
+      userId,
+      {
+        pickId: "pick-ah-neg-075-00",
+        gameId: gameQuiet,
+        leagueLabel: "Liga MX",
+        matchLabel: "Atlas vs Santos",
+        pickLabel: "Atlas -0.75",
+        origin: "Spacetime Suite",
+        pickKind: "single",
+        pickMarket: "asian_handicap",
+        pickSelection: "home_-0.75",
+        pickLine: -0.75,
+        units: 1,
+        userDecimal: 1.95,
+        fairDecimal: 1.9,
+        kickoffAt: KICKOFF_AT,
+      },
+      SEAL_AT,
+    );
+
+    await sealPick(
+      db,
+      userId,
+      {
+        pickId: "pick-ah-pos-15-01",
+        gameId: gameAwayLead,
+        leagueLabel: "Liga MX",
+        matchLabel: "Puebla vs Monterrey",
+        pickLabel: "Puebla +1.5",
+        origin: "Spacetime Suite",
+        pickKind: "single",
+        pickMarket: "asian_handicap",
+        pickSelection: "home_+1.5",
+        pickLine: 1.5,
+        units: 1,
+        userDecimal: 1.85,
+        fairDecimal: 1.8,
+        kickoffAt: KICKOFF_AT,
+      },
+      SEAL_AT,
+    );
+
+    await sealPick(
+      db,
+      userId,
+      {
+        pickId: "parlay:under-and-ah-winning",
+        gameId: gameQuiet,
+        leagueLabel: "Combinada",
+        matchLabel: "2 selecciones",
+        pickLabel: "Menos de 2.5 goles + Puebla +1.5",
+        origin: "Parlay Combinado",
+        pickKind: "parlay",
+        parlayLegs: [
+          {
+            pickId: "leg-under-winning",
+            gameId: gameQuiet,
+            leagueLabel: "Liga MX",
+            matchLabel: "Atlas vs Santos",
+            pickLabel: "Menos de 2.5 goles",
+            market: "totals",
+            selection: "under_2.5",
+            line: 2.5,
+            p: 0.54,
+            fairDecimal: 1.85,
+            kickoffAt: KICKOFF_AT.toISOString(),
+          },
+          {
+            pickId: "leg-ah-covering",
+            gameId: gameAwayLead,
+            leagueLabel: "Liga MX",
+            matchLabel: "Puebla vs Monterrey",
+            pickLabel: "Puebla +1.5",
+            market: "asian_handicap",
+            selection: "home_+1.5",
+            line: 1.5,
+            p: 0.56,
+            fairDecimal: 1.79,
+            kickoffAt: KICKOFF_AT.toISOString(),
+          },
+        ],
+        units: 1,
+        userDecimal: 3.1,
+        fairDecimal: 2.95,
+        kickoffAt: KICKOFF_AT,
+      },
+      SEAL_AT,
+    );
+
+    await sealPick(
+      db,
+      userId,
+      {
+        pickId: "parlay:under-losing",
+        gameId: gameBlowout,
+        leagueLabel: "Combinada",
+        matchLabel: "1 selección",
+        pickLabel: "Menos de 2.5 goles",
+        origin: "Parlay Combinado",
+        pickKind: "parlay",
+        parlayLegs: [
+          {
+            pickId: "leg-under-busted",
+            gameId: gameBlowout,
+            leagueLabel: "Liga MX",
+            matchLabel: "América vs Juárez",
+            pickLabel: "Menos de 2.5 goles",
+            market: "totals",
+            selection: "under_2.5",
+            line: 2.5,
+            p: 0.52,
+            fairDecimal: 1.92,
+            kickoffAt: KICKOFF_AT.toISOString(),
+          },
+        ],
+        units: 1,
+        userDecimal: 1.95,
+        fairDecimal: 1.92,
+        kickoffAt: KICKOFF_AT,
+      },
+      SEAL_AT,
+    );
+
+    const details = [
+      makeLiveDetail({
+        gameId: gameQuiet,
+        league: "liga-mx",
+        phase: "live",
+        clock: "60",
+        minute: 60,
+        homeScore: 0,
+        awayScore: 0,
+      }),
+      makeLiveDetail({
+        gameId: gameBlowout,
+        league: "liga-mx",
+        phase: "live",
+        clock: "60",
+        minute: 60,
+        homeScore: 3,
+        awayScore: 0,
+      }),
+      makeLiveDetail({
+        gameId: gameOverHalf,
+        league: "liga-mx",
+        phase: "live",
+        clock: "65",
+        minute: 65,
+        homeScore: 2,
+        awayScore: 1,
+      }),
+      makeLiveDetail({
+        gameId: gameOverFull,
+        league: "liga-mx",
+        phase: "live",
+        clock: "78",
+        minute: 78,
+        homeScore: 3,
+        awayScore: 1,
+      }),
+      makeLiveDetail({
+        gameId: gameAwayLead,
+        league: "liga-mx",
+        phase: "live",
+        clock: "60",
+        minute: 60,
+        homeScore: 0,
+        awayScore: 1,
+      }),
+    ];
+
+    const scoreboard: LiveScoreboard = {
+      generatedAt: LIVE_NOW.toISOString(),
+      sourceFetchedAt: LIVE_NOW.toISOString(),
+      active: true,
+      nextPollSeconds: 15,
+      notice: null,
+      entries: details.map((d) => d.entry),
+    };
+    const matchDetails = new Map<string, LiveMatchDetail>(details.map((d) => [d.gameId, d]));
+
+    const tracked = await loadUserLiveTrackedPicks(db, userId, {
+      now: LIVE_NOW,
+      scoreboard,
+      matchDetails,
+      dataset: EMPTY_DATASET,
+    });
+
+    const over275Half = tracked.items.find((item) => item.pickId === "pick-over-275-half");
+    expect(over275Half?.asianState).toBe("won_half");
+    expect(over275Half?.hitLocked).toBe(false);
+    expect(over275Half?.milestoneCandidates.some((m) => m.milestone === "hit_locked")).toBe(false);
+
+    const over275Full = tracked.items.find((item) => item.pickId === "pick-over-275-full");
+    expect(over275Full?.asianState).toBe("won_full");
+    expect(over275Full?.hitLocked).toBe(true);
+    expect(over275Full?.milestoneCandidates.some((m) => m.milestone === "hit_locked")).toBe(true);
+
+    const ahNeg = tracked.items.find((item) => item.pickId === "pick-ah-neg-075-00");
+    expect(ahNeg?.remainingNeeded).toBe(0.75);
+
+    const ahPos = tracked.items.find((item) => item.pickId === "pick-ah-pos-15-01");
+    expect(ahPos?.remainingNeeded).toBe(0);
+
+    const parlayWin = tracked.items.find((item) => item.pickId === "parlay:under-and-ah-winning");
+    expect(parlayWin?.projectedFinal).toBe(2);
+
+    const parlayLose = tracked.items.find((item) => item.pickId === "parlay:under-losing");
+    expect(parlayLose?.projectedFinal).toBe(0);
+
+    const atomicKey = "push:livepick:signs_socio:abcdef123456";
+    const [claimA, claimB] = await Promise.all([
+      claimLiveCacheSlotOnce(db, atomicKey, { sentAt: LIVE_NOW.toISOString() }, LIVE_NOW, 60_000),
+      claimLiveCacheSlotOnce(db, atomicKey, { sentAt: LIVE_NOW.toISOString() }, LIVE_NOW, 60_000),
+    ]);
+    expect([claimA, claimB].filter(Boolean)).toHaveLength(1);
+
+    const claimWhileFresh = await claimLiveCacheSlotOnce(
+      db,
+      atomicKey,
+      { sentAt: LIVE_NOW.toISOString() },
+      new Date(LIVE_NOW.getTime() + 30_000),
+      60_000,
+    );
+    expect(claimWhileFresh).toBe(false);
+
+    const claimAfterExpiry = await claimLiveCacheSlotOnce(
+      db,
+      atomicKey,
+      { sentAt: LIVE_NOW.toISOString() },
+      new Date(LIVE_NOW.getTime() + 61_000),
+      60_000,
+    );
+    expect(claimAfterExpiry).toBe(true);
   });
 });

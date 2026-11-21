@@ -12,6 +12,7 @@ import {
   listMarketAlertsForUser,
   MAX_MARKET_ALERTS_LIST_LIMIT,
   MAX_MARKET_ALERTS_PER_USER,
+  MAX_TOTAL_MARKET_ALERTS_PER_USER,
   updateMarketAlertForUser,
   type MarketAlertRow,
   type MarketAlertTrigger,
@@ -170,6 +171,17 @@ function validateAlertSemantics(input: {
   return null;
 }
 
+function isValidMergedLeagueMarketPair(merged: {
+  readonly trigger: MarketAlertTrigger;
+  readonly league: string | null;
+  readonly marketFamily: string | null;
+}): boolean {
+  if (!merged.league || !merged.marketFamily) return true;
+  const cap = getLeagueCapability(merged.league);
+  if (!cap) return false;
+  return cap.supportedMarketFamilies.some((fam) => fam === merged.marketFamily);
+}
+
 export const GET = withSessionRead(
   {
     bucket: "alerts-read",
@@ -217,12 +229,14 @@ export const POST = withActivePaseMutation(
     if (semanticError) {
       return errorJson("INVALID_ALERT_PAYLOAD", semanticError, 400);
     }
-    const result = await createMarketAlert(user.db, user.userId, parsed.data);
+    const result = await createMarketAlert(user.db, user.userId, parsed.data, new Date(), {
+      validateMerged: isValidMergedLeagueMarketPair,
+    });
     if (!result.ok) {
       if (result.reason === "limit_exceeded") {
         return errorJson(
           "ALERT_LIMIT_EXCEEDED",
-          `Alcanzaste el límite máximo de ${MAX_MARKET_ALERTS_PER_USER} alertas activas.`,
+          `Alcanzaste el límite máximo de ${MAX_MARKET_ALERTS_PER_USER} alertas activas (${MAX_TOTAL_MARKET_ALERTS_PER_USER} totales).`,
           409,
         );
       }
@@ -252,7 +266,14 @@ export const PATCH = withActivePaseMutation(
       return errorJson("INVALID_ALERT_PATCH", semanticError, 400);
     }
     const { id, ...patch } = parsed.data;
-    const result = await updateMarketAlertForUser(user.db, user.userId, id, patch);
+    const result = await updateMarketAlertForUser(
+      user.db,
+      user.userId,
+      id,
+      patch,
+      new Date(),
+      { validateMerged: isValidMergedLeagueMarketPair },
+    );
     if (!result.ok) {
       if (result.reason === "not_found") {
         return errorJson("ALERT_NOT_FOUND", "Alerta no encontrada.", 404);
@@ -264,7 +285,11 @@ export const PATCH = withActivePaseMutation(
           409,
         );
       }
-      return errorJson("INVALID_ALERT_PATCH", "No se pudo actualizar la alerta.", 400);
+      return errorJson(
+        "INVALID_ALERT_PATCH",
+        "La combinación de liga, familia de mercado o momios no es válida.",
+        400,
+      );
     }
     return NextResponse.json({ ok: true, alert: serializeAlert(result.alert) });
   },

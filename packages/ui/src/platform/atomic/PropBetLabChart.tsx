@@ -91,7 +91,8 @@ function formatValueCompact(value: number): string {
 }
 
 function formatMinuteAxis(value: number, sport: "football" | "basketball"): string {
-  const rounded = Math.round(value);
+  const safe = Number.isFinite(value) ? Math.max(0, value) : 0;
+  const rounded = Math.round(safe);
   return sport === "basketball" ? `${rounded}m` : `${rounded}'`;
 }
 
@@ -216,7 +217,7 @@ export function PropBetLabChart({
 
   const stepLine = (delta: number) => {
     if (!onLineChange) return;
-    const next = Math.max(0.5, Math.round((safeLine + delta) * 10) / 10);
+    const next = Math.max(0, Math.round((safeLine + delta) * 10) / 10);
     onLineChange(next);
   };
 
@@ -245,6 +246,7 @@ export function PropBetLabChart({
                 type="button"
                 className="pl-atom-betlab-step-btn"
                 aria-label="Bajar línea en 0.5"
+                disabled={safeLine <= 0}
                 onClick={() => stepLine(-0.5)}
               >
                 −

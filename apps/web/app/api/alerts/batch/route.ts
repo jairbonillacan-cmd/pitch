@@ -9,9 +9,11 @@ import {
   applyMarketAlertBatch,
   MAX_MARKET_ALERT_BATCH_OPS,
   MAX_MARKET_ALERTS_PER_USER,
+  MAX_TOTAL_MARKET_ALERTS_PER_USER,
   type MarketAlertBatchItemResult,
   type MarketAlertBatchOperation,
   type MarketAlertRow,
+  type MarketAlertTrigger,
 } from "@pitchlab/db/market-alerts";
 import { withActivePaseMutation } from "../../../../src/server/api-guards";
 import {
@@ -152,6 +154,17 @@ function validateOperationSemantics(op: MarketAlertBatchOperation): string | nul
   return null;
 }
 
+function isValidMergedLeagueMarketPair(merged: {
+  readonly trigger: MarketAlertTrigger;
+  readonly league: string | null;
+  readonly marketFamily: string | null;
+}): boolean {
+  if (!merged.league || !merged.marketFamily) return true;
+  const cap = getLeagueCapability(merged.league);
+  if (!cap) return false;
+  return cap.supportedMarketFamilies.some((fam) => fam === merged.marketFamily);
+}
+
 export const POST = withActivePaseMutation(
   {
     bucket: "alerts-batch",
@@ -183,7 +196,13 @@ export const POST = withActivePaseMutation(
       }
     }
 
-    const result = await applyMarketAlertBatch(user.db, user.userId, parsed.data.operations);
+    const result = await applyMarketAlertBatch(
+      user.db,
+      user.userId,
+      parsed.data.operations,
+      new Date(),
+      { validateMerged: isValidMergedLeagueMarketPair },
+    );
     if (!result.ok) {
       if (result.reason === "not_found") {
         return errorJson("ALERT_NOT_FOUND", "Una o más alertas del lote no existen.", 404);
@@ -191,8 +210,15 @@ export const POST = withActivePaseMutation(
       if (result.reason === "limit_exceeded") {
         return errorJson(
           "ALERT_LIMIT_EXCEEDED",
-          `El lote supera el límite de ${MAX_MARKET_ALERTS_PER_USER} alertas activas.`,
+          `El lote supera el límite de ${MAX_MARKET_ALERTS_PER_USER} alertas activas (${MAX_TOTAL_MARKET_ALERTS_PER_USER} totales).`,
           409,
+        );
+      }
+      if (result.reason === "invalid_input") {
+        return errorJson(
+          "INVALID_ALERT_BATCH",
+          "Una o más operaciones del lote tienen parámetros o combinaciones liga/mercado inválidos.",
+          400,
         );
       }
       return errorJson(

@@ -75,6 +75,34 @@ describe("Árbitros · Empirical Bayes κ=15, perfiles, tarjeteables y búsqueda
     expect(classifyRefereeProfileTier(3.6, 4.1, 15, 15).tier).toBe("permisivo");
     expect(classifyRefereeProfileTier(4.12, 4.1, 50, 15).tier).toBe("promedio");
     expect(classifyRefereeProfileTier(null, 4.1, 50, 15).tier).toBe("promedio");
+
+    const nanRate = shrinkRefereeMetricEb(NaN, 10, 4.15, 15);
+    expect(Number.isFinite(nanRate)).toBe(true);
+    expect(nanRate).toBe(4.15);
+
+    const nanRateZeroMatches = shrinkRefereeMetricEb(NaN, 0, 4.15, 15);
+    expect(Number.isFinite(nanRateZeroMatches)).toBe(true);
+    expect(nanRateZeroMatches).toBe(4.15);
+
+    const negativeRate = shrinkRefereeMetricEb(-5, 10, 4.15, 15);
+    expect(Number.isFinite(negativeRate)).toBe(true);
+    expect(negativeRate).toBeGreaterThanOrEqual(0);
+    expect(negativeRate).toBe(4.15);
+
+    const infRate = shrinkRefereeMetricEb(Infinity, 10, 4.15, 15);
+    expect(Number.isFinite(infRate)).toBe(true);
+    expect(infRate).toBe(4.15);
+
+    const nanPrior = shrinkRefereeMetricEb(4.5, 10, NaN, 15);
+    expect(Number.isFinite(nanPrior)).toBe(true);
+    expect(nanPrior).toBeGreaterThanOrEqual(0);
+    expect(nanPrior).toBe(4.29);
+
+    const negPrior = shrinkRefereeMetricEb(4.5, 10, -2, 15);
+    expect(Number.isFinite(negPrior)).toBe(true);
+    expect(negPrior).toBe(4.29);
+
+    expect(shrinkRefereeMetricEb(0, 10, 0, 15)).toBe(0);
   });
 
   it("construye rankings reales en premier-league, liga-mx y libertadores con EB κ=15 y 0 fugas FD-16", () => {
@@ -113,6 +141,30 @@ describe("Árbitros · Empirical Bayes κ=15, perfiles, tarjeteables y búsqueda
     expect(containsForbiddenFd16Term(JSON.stringify(lib))).toBe(false);
 
     expect(loadLeagueRefereeRanking("liga-inexistente")).toBeNull();
+    expect(loadLeagueRefereeRanking("mlb")).toBeNull();
+    expect(loadLeagueRefereeRanking("nba")).toBeNull();
+    expect(loadLeagueRefereeRanking("nfl")).toBeNull();
+    expect(loadLeagueRefereeRanking("nhl")).toBeNull();
+    expect(searchRefereesDirectory("Vic Carapazza")).toEqual([]);
+    expect(searchRefereesDirectory("", { league: "mlb" })).toEqual([]);
+    expect(loadRefereeProfile("vic-carapazza")).toBeNull();
+
+    for (const leagueKey of ["premier-league", "laliga", "bundesliga", "serie-a", "liga-mx", "libertadores"] as const) {
+      const ranking = loadLeagueRefereeRanking(leagueKey);
+      expect(ranking).not.toBeNull();
+      const withEb = ranking!.referees.filter((r) => r.ebYellow !== null);
+      const withoutEb = ranking!.referees.filter((r) => r.ebYellow === null);
+      if (withEb.length > 1) {
+        expect(withEb[0]!.rigorPercentile).toBe(100);
+        expect(withEb[withEb.length - 1]!.rigorPercentile).toBe(0);
+      } else if (withEb.length === 1) {
+        expect(withEb[0]!.rigorPercentile).toBe(50);
+      }
+      for (const ref of withoutEb) {
+        expect(ref.rigorPercentile).toBe(50);
+        expect(ref.tier).toBe("promedio");
+      }
+    }
   });
 
   it("carga perfil completo con <= 20 jornadas, desglose por competición, próximo encuentro y bookablePlayers reales", () => {

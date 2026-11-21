@@ -168,7 +168,7 @@ export interface BracketTeamSlot {
 }
 
 export interface BracketLegDetail {
-  readonly legNumber: 1 | 2;
+  readonly legNumber: number;
   readonly matchSlug: string;
   readonly dateIso: string;
   readonly status: "NS" | "LIVE" | "FT";
@@ -1798,17 +1798,70 @@ const FOOTBALL_KNOCKOUT_ROUNDS: Readonly<Record<string, KnockoutRoundMeta>> = {
   },
 };
 
+const US_BEST_OF_SERIES_SPORTS: ReadonlySet<PlatformSport> = new Set([
+  "baseball",
+  "basketball",
+  "ice-hockey",
+]);
+
+const EXCLUDED_KNOCKOUT_TERMS: readonly string[] = [
+  "qualification",
+  "clasificacion",
+  "league phase",
+  "fase final",
+  "fase de grupos",
+  "group stage",
+  "temporada regular",
+  "regular season",
+  "preseason",
+  "pretemporada",
+  "spring training",
+  "jornada",
+  "semana",
+  "third place",
+  "tercer puesto",
+  "tercer lugar",
+];
+
+const FINAL_STAGE_RE =
+  /^(?:gran\s+)?final(?:\s+(?:ida|vuelta))?$|^serie\s+mundial$|^finals?$|^super\s+bowl$|^stanley\s+cup\s+finals?$/;
+
+function normalizeKnockoutLabel(raw: string | null | undefined): string {
+  if (!raw) return "";
+  return raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function buildNormalizedStageParts(
+  roundRaw: string | null,
+  stageRaw: string | null,
+): { readonly parts: readonly string[]; readonly combined: string } | null {
+  const stageNorm = normalizeKnockoutLabel(stageRaw);
+  const roundNorm = normalizeKnockoutLabel(roundRaw);
+  const parts: string[] = [];
+  if (stageNorm) parts.push(stageNorm);
+  if (roundNorm && roundNorm !== stageNorm) parts.push(roundNorm);
+  if (parts.length === 0) return null;
+  const combined = parts.join(" ");
+  for (const term of EXCLUDED_KNOCKOUT_TERMS) {
+    if (combined.includes(term)) return null;
+  }
+  return { parts, combined };
+}
+
 function classifyKnockoutStageKey(
   league: ProductLeague,
   roundRaw: string | null,
   stageRaw: string | null,
   hasLeaguePhaseMatches: boolean,
 ): KnockoutRoundMeta | null {
-  const combined = `${stageRaw ?? ""} ${roundRaw ?? ""}`.trim().toLowerCase();
-  if (!combined) return null;
-  if (combined.includes("qualification") || combined.includes("league phase")) return null;
-  if (combined.includes("temporada regular") || combined.includes("regular season")) return null;
-  if (combined.includes("jornada") || combined.includes("semana")) return null;
+  const normalized = buildNormalizedStageParts(roundRaw, stageRaw);
+  if (!normalized) return null;
+  const { parts, combined } = normalized;
 
   if (/\bplay[-\s]?in\b/.test(combined)) {
     return FOOTBALL_KNOCKOUT_ROUNDS.play_in!;
@@ -1828,11 +1881,7 @@ function classifyKnockoutStageKey(
   ) {
     return FOOTBALL_KNOCKOUT_ROUNDS.semifinals!;
   }
-  if (
-    /^(?:gran\s+)?final$|serie mundial|\bfinals\b/.test(combined.trim()) ||
-    (/\bfinal\b/.test(combined) &&
-      !/quarter|semi|cuartos|octavos|playoff/.test(combined))
-  ) {
+  if (parts.some((part) => FINAL_STAGE_RE.test(part)) || FINAL_STAGE_RE.test(combined)) {
     return {
       ...FOOTBALL_KNOCKOUT_ROUNDS.final!,
       twoLegged: league === "liga-mx",
@@ -1843,6 +1892,132 @@ function classifyKnockoutStageKey(
     /\bplayoff\s*round\b|\bronda.*playoff\b|\bknockout.*playoff\b/.test(combined)
   ) {
     return FOOTBALL_KNOCKOUT_ROUNDS.knockout_playoffs!;
+  }
+  return null;
+}
+
+function classifyUsSeriesStageKey(
+  sport: PlatformSport,
+  roundRaw: string | null,
+  stageRaw: string | null,
+): KnockoutRoundMeta | null {
+  const normalized = buildNormalizedStageParts(roundRaw, stageRaw);
+  if (!normalized) return null;
+  const { parts, combined } = normalized;
+
+  if (/\bplay[-\s]?in\b/.test(combined)) {
+    return {
+      key: "play_in",
+      label: "Play-In",
+      order: 10,
+      twoLegged: false,
+      bestOf: 1,
+    };
+  }
+
+  if (sport === "baseball") {
+    if (/\bcomodines\b|\bwild\s*card\b/.test(combined)) {
+      return {
+        key: "round_of_16",
+        label: "Serie de Comodines",
+        order: 20,
+        twoLegged: false,
+        bestOf: 3,
+      };
+    }
+    if (
+      /\bserie\s+divisional\b|\bdivision\s+series\b|\b(?:alds|nlds)\b|\bquarter[-\s]?final|\bcuartos\b/.test(
+        combined,
+      )
+    ) {
+      return {
+        key: "quarterfinals",
+        label: "Serie Divisional",
+        order: 30,
+        twoLegged: false,
+        bestOf: 5,
+      };
+    }
+    if (
+      /\bserie\s+de\s+campeonato\b|\bchampionship\s+series\b|\b(?:alcs|nlcs)\b|\bsemi[-\s]?final/.test(
+        combined,
+      )
+    ) {
+      return {
+        key: "semifinals",
+        label: "Serie de Campeonato",
+        order: 40,
+        twoLegged: false,
+        bestOf: 7,
+      };
+    }
+    if (
+      parts.some((part) => FINAL_STAGE_RE.test(part) || /^world\s+series$/.test(part)) ||
+      FINAL_STAGE_RE.test(combined) ||
+      /^world\s+series$/.test(combined)
+    ) {
+      return {
+        key: "final",
+        label: "Serie Mundial",
+        order: 50,
+        twoLegged: false,
+        bestOf: 7,
+      };
+    }
+    return null;
+  }
+
+  if (
+    /\b(?:first|1st)\s+round\b|\bprimera\s+ronda\b|\bround\s+of\s+16\b|\boctavos\b|\bwild\s*card\b|\bcomodines\b/.test(
+      combined,
+    )
+  ) {
+    return {
+      key: "first_round",
+      label: "Primera ronda",
+      order: 20,
+      twoLegged: false,
+      bestOf: 7,
+    };
+  }
+  if (
+    /\b(?:conference|conferencia)\s+semi|\bsemifinal(?:es)?\s+de\s+conferencia\b|\b(?:second|2nd)\s+round\b|\bsegunda\s+ronda\b|\bquarter[-\s]?final|\bcuartos\b/.test(
+      combined,
+    )
+  ) {
+    return {
+      key: "quarterfinals",
+      label: "Semifinales de conferencia",
+      order: 30,
+      twoLegged: false,
+      bestOf: 7,
+    };
+  }
+  if (
+    /\b(?:conference|conferencia)\s+final|\bfinal(?:es)?\s+de\s+conferencia\b|\bsemi[-\s]?final/.test(
+      combined,
+    )
+  ) {
+    return {
+      key: "semifinals",
+      label: "Finales de conferencia",
+      order: 40,
+      twoLegged: false,
+      bestOf: 7,
+    };
+  }
+  if (
+    parts.some((part) => FINAL_STAGE_RE.test(part) || /^nba\s+finals?$/.test(part)) ||
+    FINAL_STAGE_RE.test(combined) ||
+    /^nba\s+finals?$/.test(combined)
+  ) {
+    return {
+      key: "final",
+      label: sport === "ice-hockey" ? "Final de la Stanley Cup" : "Finales NBA",
+      order: 50,
+      twoLegged: false,
+      bestOf: 7,
+    };
   }
   return null;
 }
@@ -2137,6 +2312,211 @@ function buildActiveFootballBracket(
         : CONMEBOL_CUP_COMPETITIONS.has(league)
           ? "conmebol_knockout"
           : "generic_knockout";
+
+  return {
+    league,
+    leagueLabel: LEAGUE_LABELS[league] ?? league,
+    sport: capability.sport,
+    season: snapshot?.seasonLabel ?? "2026",
+    updatedAt: snapshot?.updatedAt ?? new Date().toISOString(),
+    mode: "active_knockout",
+    format,
+    hasRelegationZones: capability.hasRelegationZones,
+    rounds,
+    conferences: [],
+    finalsTie,
+    championSlug: championSlot?.teamSlug ?? null,
+    championName: championSlot?.name ?? null,
+  };
+}
+
+function buildActiveUsSeriesBracket(
+  league: ProductLeague,
+  snapshot: LeagueSnapshot | null,
+  registry: Map<string, TeamMetaRecord>,
+  allMatches: readonly UnifiedMatchRecord[],
+  capability: LeagueCapabilityContract,
+): LeagueKnockoutBracketPayload | null {
+  const matchesByRound = new Map<string, { meta: KnockoutRoundMeta; matches: UnifiedMatchRecord[] }>();
+  for (const match of allMatches) {
+    const stageMeta = classifyUsSeriesStageKey(
+      capability.sport,
+      match.round,
+      match.stageName,
+    );
+    if (!stageMeta) continue;
+    let bucket = matchesByRound.get(stageMeta.key);
+    if (!bucket) {
+      bucket = { meta: stageMeta, matches: [] };
+      matchesByRound.set(stageMeta.key, bucket);
+    }
+    bucket.matches.push(match);
+  }
+
+  if (matchesByRound.size === 0) return null;
+
+  const sortedRounds = Array.from(matchesByRound.values()).sort(
+    (a, b) => a.meta.order - b.meta.order,
+  );
+
+  const teamsInNextRoundByKey = new Map<string, Set<string>>();
+  for (let idx = 0; idx < sortedRounds.length - 1; idx += 1) {
+    const currentKey = sortedRounds[idx]!.meta.key;
+    const nextMatches = sortedRounds[idx + 1]!.matches;
+    const nextTeams = new Set<string>();
+    for (const m of nextMatches) {
+      nextTeams.add(canonicalSlug(m.homeSlug));
+      nextTeams.add(canonicalSlug(m.awaySlug));
+    }
+    teamsInNextRoundByKey.set(currentKey, nextTeams);
+  }
+
+  const rounds: BracketRound[] = sortedRounds.map((bucket) => {
+    const grouped = new Map<string, UnifiedMatchRecord[]>();
+    for (const m of bucket.matches) {
+      const hCanon = canonicalSlug(m.homeSlug);
+      const aCanon = canonicalSlug(m.awaySlug);
+      const pairKey = hCanon < aCanon ? `${hCanon}|${aCanon}` : `${aCanon}|${hCanon}`;
+      const list = grouped.get(pairKey) ?? [];
+      list.push(m);
+      grouped.set(pairKey, list);
+    }
+
+    for (const list of grouped.values()) {
+      list.sort((a, b) => a.dateIso.localeCompare(b.dateIso));
+    }
+
+    const nextRoundTeams = teamsInNextRoundByKey.get(bucket.meta.key) ?? new Set<string>();
+    const pairs = Array.from(grouped.values()).sort((a, b) =>
+      a[0]!.dateIso.localeCompare(b[0]!.dateIso),
+    );
+    const bestOf = bucket.meta.bestOf ?? 7;
+    const winsToClinch = Math.floor(bestOf / 2) + 1;
+
+    const ties: BracketTie[] = pairs.map((seriesMatches, slotIdx) => {
+      const firstGame = seriesMatches[0]!;
+      const metaA = resolveOrCreateTeamMeta(league, registry, firstGame.homeTeamId);
+      const metaB = resolveOrCreateTeamMeta(league, registry, firstGame.awayTeamId);
+      const canonA = canonicalSlug(metaA.teamSlug);
+      const canonB = canonicalSlug(metaB.teamSlug);
+
+      let seriesWinsA = 0;
+      let seriesWinsB = 0;
+      let finishedGames = 0;
+      let inProgressGames = 0;
+
+      const legs: BracketLegDetail[] = seriesMatches.map((game, idx) => {
+        const legHomeIsA = canonicalSlug(game.homeSlug) === canonA;
+        if (game.status === "FT" && game.homeScore !== null && game.awayScore !== null) {
+          finishedGames += 1;
+          const scoreA = legHomeIsA ? game.homeScore : game.awayScore;
+          const scoreB = legHomeIsA ? game.awayScore : game.homeScore;
+          if (scoreA > scoreB) {
+            seriesWinsA += 1;
+          } else if (scoreB > scoreA) {
+            seriesWinsB += 1;
+          }
+        } else if (game.status === "LIVE") {
+          inProgressGames += 1;
+        }
+
+        return {
+          legNumber: idx + 1,
+          matchSlug: game.matchSlug,
+          dateIso: game.dateIso,
+          status: game.status,
+          homeTeamSlug: game.homeSlug,
+          awayTeamSlug: game.awaySlug,
+          homeScore: game.homeScore,
+          awayScore: game.awayScore,
+          extraTimeScore: game.extraTimeScore,
+          penaltyShootout: game.penaltyShootout,
+          href: game.href,
+        };
+      });
+
+      const allKnownGamesFinished = finishedGames === legs.length && legs.length > 0;
+      const hasClinched = seriesWinsA >= winsToClinch || seriesWinsB >= winsToClinch;
+      const hasAdvancementProof =
+        nextRoundTeams.has(canonA) !== nextRoundTeams.has(canonB);
+      const isDecided =
+        hasClinched || (allKnownGamesFinished && hasAdvancementProof);
+
+      let winnerSide: "A" | "B" | null = null;
+      if (isDecided) {
+        if (seriesWinsA > seriesWinsB) {
+          winnerSide = "A";
+        } else if (seriesWinsB > seriesWinsA) {
+          winnerSide = "B";
+        } else if (nextRoundTeams.has(canonA) && !nextRoundTeams.has(canonB)) {
+          winnerSide = "A";
+        } else if (nextRoundTeams.has(canonB) && !nextRoundTeams.has(canonA)) {
+          winnerSide = "B";
+        }
+      }
+
+      const status: BracketTie["status"] =
+        inProgressGames > 0 && !hasClinched
+          ? "in_progress"
+          : isDecided
+            ? "decided"
+            : finishedGames > 0
+              ? "in_progress"
+              : "scheduled";
+
+      const note =
+        bestOf === 1
+          ? "Partido único"
+          : isDecided && finishedGames > 0
+            ? `Serie al mejor de ${bestOf} (${seriesWinsA}-${seriesWinsB})`
+            : `Al mejor de ${bestOf} partidos`;
+
+      const sharedConference =
+        metaA.conference && metaA.conference === metaB.conference ? metaA.conference : null;
+
+      return {
+        id: `${league}:${bucket.meta.key}:${slotIdx + 1}`,
+        roundKey: bucket.meta.key,
+        conference: sharedConference,
+        slotIndex: slotIdx + 1,
+        teamA: slotFromMeta(league, metaA, null),
+        teamB: slotFromMeta(league, metaB, null),
+        aggregateA: null,
+        aggregateB: null,
+        penaltiesA: null,
+        penaltiesB: null,
+        seriesWinsA: finishedGames > 0 ? seriesWinsA : null,
+        seriesWinsB: finishedGames > 0 ? seriesWinsB : null,
+        bestOf,
+        legs,
+        status,
+        winnerSide,
+        winnerTeamSlug:
+          winnerSide === "A" ? metaA.teamSlug : winnerSide === "B" ? metaB.teamSlug : null,
+        note,
+      };
+    });
+
+    return {
+      key: bucket.meta.key,
+      label: bucket.meta.label,
+      order: bucket.meta.order,
+      twoLegged: false,
+      bestOf,
+      ties,
+    };
+  });
+
+  const finalRound = rounds.find((r) => r.key === "final") ?? null;
+  const finalsTie = finalRound?.ties[0] ?? null;
+  const championSlot =
+    finalsTie?.winnerSide === "A"
+      ? finalsTie.teamA
+      : finalsTie?.winnerSide === "B"
+        ? finalsTie.teamB
+        : null;
+
+  const format: BracketFormat = league === "nba" ? "nba_playoffs" : "generic_knockout";
 
   return {
     league,
@@ -2781,9 +3161,20 @@ export function buildLeagueKnockoutBracket(league: string): LeagueKnockoutBracke
   const allMatches = loadUnifiedMatches(normalized, snapshot, registry);
   let payload: LeagueKnockoutBracketPayload | null = null;
 
-  if (normalized === "nba") {
-    const splits = buildLeagueStandingsSplits("nba");
-    payload = buildProjectedNbaBracket(snapshot, splits);
+  if (US_BEST_OF_SERIES_SPORTS.has(capability.sport)) {
+    const activeSeries = buildActiveUsSeriesBracket(
+      normalized,
+      snapshot,
+      registry,
+      allMatches,
+      capability,
+    );
+    if (activeSeries) {
+      payload = activeSeries;
+    } else if (normalized === "nba") {
+      const splits = buildLeagueStandingsSplits("nba");
+      payload = buildProjectedNbaBracket(snapshot, splits);
+    }
   } else {
     const active = buildActiveFootballBracket(
       normalized,
