@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useCallback, useId, useMemo, useRef, useState } from "react";
 import {
   canonicalGameHref,
   isLivePhaseActive,
@@ -9,6 +9,7 @@ import {
 import { usePackIconBase } from "../../../pack-icon-theme";
 import { LeagueBadge, TeamBadge } from "../../../sports";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { useSafeEffect } from "../../hooks";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import type { PlatformGame } from "../../types";
 import {
@@ -201,12 +202,12 @@ function useHorizontalChipsScroll(depsKey: string) {
     );
   }, []);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const el = chipsRef.current;
     if (el) el.scrollLeft = 0;
   }, [depsKey]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const el = chipsRef.current;
     const frame = typeof requestAnimationFrame === "function" ? requestAnimationFrame(syncChipsScroll) : 0;
     syncChipsScroll();
@@ -246,10 +247,6 @@ function useHorizontalChipsScroll(depsKey: string) {
   return { chipsRef, chipsScroll, syncChipsScroll, scrollChipsBy };
 }
 
-/**
- * Encabezado unificado de filtros del Inicio (exportado por compatibilidad y pruebas):
- * Franja 1 (deportes) → Franja 2 (ligas) → Franja 3 (control de día + tira de partidos).
- */
 export function HomeFilterHeader({
   allGames,
   dayGames,
@@ -486,7 +483,6 @@ export function HomeFilterHeader({
   );
 }
 
-/** Barra superior de tendencias y chips rápidos en `/app`. */
 export function HomeTrendingStrip({
   orderedChips,
   day,
@@ -612,7 +608,6 @@ export interface CalendarEventDaysSummary {
   readonly legendLabel: string;
 }
 
-/** Barra de control del tablero de partidos: pestañas de vista, selector de fecha + calendario, estado, filtros y momios. */
 export function HomeBoardBar({
   boardView,
   onBoardViewChange,
@@ -663,7 +658,7 @@ export function HomeBoardBar({
   const centerParts = formatCenterDayParts(day, today);
   const centerAria = day === today ? "Hoy, abrir calendario" : `${centerParts.top}, abrir calendario`;
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!calendarOpen) return;
     const onPointerDown = (ev: MouseEvent) => {
       if (datePickerWrapRef.current && !datePickerWrapRef.current.contains(ev.target as Node)) {
@@ -1018,7 +1013,7 @@ export function HomeBoardBar({
         <div className="pl-home-board-pills" role="group" aria-label="Estado de los partidos">
           <button
             type="button"
-            className={`pl-home-status-pill min-h-11 sm:min-h-9 is-live-pill ${liveVisibleCount > 0 ? "has-live" : ""} ${statusFilter === "live" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 is-live-pill ${liveVisibleCount > 0 ? "has-live" : ""} ${statusFilter === "live" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "live"}
             onClick={() => onStatusFilterChange(statusFilter === "live" ? "all" : "live")}
           >
@@ -1026,7 +1021,7 @@ export function HomeBoardBar({
           </button>
           <button
             type="button"
-            className={`pl-home-status-pill min-h-11 sm:min-h-9 ${statusFilter === "finished" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${statusFilter === "finished" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "finished"}
             onClick={() => onStatusFilterChange(statusFilter === "finished" ? "all" : "finished")}
           >
@@ -1034,7 +1029,7 @@ export function HomeBoardBar({
           </button>
           <button
             type="button"
-            className={`pl-home-status-pill min-h-11 sm:min-h-9 ${statusFilter === "upcoming" ? "is-on" : ""}`.trim()}
+            className={`pl-home-status-pill min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${statusFilter === "upcoming" ? "is-on" : ""}`.trim()}
             aria-pressed={statusFilter === "upcoming"}
             onClick={() => onStatusFilterChange(statusFilter === "upcoming" ? "all" : "upcoming")}
           >
@@ -1043,7 +1038,7 @@ export function HomeBoardBar({
 
           <button
             type="button"
-            className={`pl-home-filter-btn min-h-11 sm:min-h-9 ${activeModalFilterCount > 0 ? "is-active" : ""}`.trim()}
+            className={`pl-home-filter-btn min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${activeModalFilterCount > 0 ? "is-active" : ""}`.trim()}
             aria-haspopup="dialog"
             aria-expanded={filtersOpen}
             data-home-filters-trigger=""

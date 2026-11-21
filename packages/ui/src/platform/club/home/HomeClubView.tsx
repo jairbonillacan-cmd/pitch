@@ -1,8 +1,11 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   isLivePhaseActive,
+  isSafePublicLabel,
+  LeagueIdSchema,
+  SportIdSchema,
   type LeagueId,
   type LiveScoreboard,
   type LiveScoreboardEntry,
@@ -10,6 +13,7 @@ import {
 import { isPickUnlocked } from "../../access-guard";
 import { LivePicksTrackerStrip } from "../../components/LivePicksTrackerStrip";
 import { AtmosphereStage, ClubWorkspaceShell } from "../../components/ShellChrome";
+import { useAbortableJson, useLocalStorageState, useSafeEffect } from "../../hooks";
 import { useLiveScoreboard } from "../../live/live-store";
 import {
   useHomeNavFilter,
@@ -18,6 +22,7 @@ import {
   usePlatformCore,
   useWatchlistGameIds,
 } from "../../platform-provider";
+import { SAVED_SCREENER_VIEWS_STORAGE_KEY } from "../../screener-views";
 import type { MatchPick, PlatformGame } from "../../types";
 import { teamTopicKey, useFollowedTopics } from "../community-ui";
 import { AstroMatchRow, HomeMatchCardsSection } from "./AstroMatchRow";
@@ -73,12 +78,50 @@ export interface HomeClubViewProps {
   readonly liveBoardOverride?: LiveScoreboard | null;
 }
 
-/**
- * Inicio (`/app`) modularizado y editorial:
- * 1) Barra superior de tendencias (`HomeTrendingStrip`) + deportes/ligas integrados en cabecera.
- * 2) Columna principal: controles del tablero (`HomeBoardBar`) + lista plana agrupada por liga (`HomeMatchCardsSection`).
- * 3) Columna lateral (`HomeRightRail`): Centro de parlays, picks con mayor probabilidad, valor y Mi récord.
- */
+interface HomePinnedViewItem {
+  readonly id: string;
+  readonly name: string;
+  readonly sport: string;
+  readonly league: string;
+  readonly onlyPositiveEdge: boolean;
+  readonly band: string;
+}
+
+interface PreferencesSavedViewsPayload {
+  readonly preferences?: {
+    readonly savedViews?: unknown;
+  };
+}
+
+const EMPTY_PINNED_VIEWS: readonly HomePinnedViewItem[] = [];
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function parsePinnedViewsArray(raw: unknown): readonly HomePinnedViewItem[] | null {
+  if (!Array.isArray(raw)) return null;
+  const result: HomePinnedViewItem[] = [];
+  const seen = new Set<string>();
+  for (const entry of raw) {
+    if (!isRecord(entry) || entry.pinToHomeHub !== true) continue;
+    const id = typeof entry.id === "string" ? entry.id.trim() : "";
+    const name = typeof entry.name === "string" ? entry.name.trim() : "";
+    if (!id || !name || seen.has(id) || !isSafePublicLabel(name)) continue;
+    seen.add(id);
+    result.push({
+      id,
+      name: name.slice(0, 48),
+      sport: typeof entry.sport === "string" ? entry.sport : ALL,
+      league: typeof entry.league === "string" ? entry.league : ALL,
+      onlyPositiveEdge: entry.onlyPositiveEdge === true,
+      band: typeof entry.band === "string" ? entry.band : ALL,
+    });
+    if (result.length >= 6) break;
+  }
+  return result;
+}
+
 export function HomeClubView({
   initialDay,
   initialToday,
@@ -86,7 +129,14 @@ export function HomeClubView({
   initialLeague = ALL,
   liveBoardOverride,
 }: HomeClubViewProps = {}): React.JSX.Element {
-  const { dataset, viewerRole, userTimezone, favoriteLeagues } = usePlatformCore();
+  const {
+    dataset,
+    viewerRole,
+    userTimezone,
+    favoriteLeagues,
+    hasAccountSessionAuth,
+    savedScreenerViews,
+  } = usePlatformCore();
   const journal = useJournalEntries();
   const watchlistGameIds = useWatchlistGameIds();
   const { topics, toggleLeague: toggleTopicLeague } = useFollowedTopics();
@@ -100,10 +150,35 @@ export function HomeClubView({
     [initialToday, userTimezone],
   );
 
-  useEffect(() => {
+  useSafeEffect(() => {
     setTodayOverride(initialToday ?? null);
     return () => setTodayOverride(null);
   }, [initialToday, setTodayOverride]);
+
+  const { data: prefsPayload } = useAbortableJson<PreferencesSavedViewsPayload>(
+    "/api/me/preferences",
+    { enabled: hasAccountSessionAuth && viewerRole !== "visitor" },
+  );
+  const [localPinnedViews] = useLocalStorageState<readonly HomePinnedViewItem[]>(
+    SAVED_SCREENER_VIEWS_STORAGE_KEY,
+    EMPTY_PINNED_VIEWS,
+    parsePinnedViewsArray,
+  );
+  const pinnedViews = useMemo<readonly HomePinnedViewItem[]>(() => {
+    const serverList = parsePinnedViewsArray(prefsPayload?.preferences?.savedViews) ?? EMPTY_PINNED_VIEWS;
+    const contextList = parsePinnedViewsArray(savedScreenerViews) ?? EMPTY_PINNED_VIEWS;
+    const merged: HomePinnedViewItem[] = [];
+    const seen = new Set<string>();
+    for (const source of [serverList, localPinnedViews, contextList]) {
+      for (const item of source) {
+        if (seen.has(item.id)) continue;
+        seen.add(item.id);
+        merged.push(item);
+        if (merged.length >= 6) return merged;
+      }
+    }
+    return merged;
+  }, [localPinnedViews, prefsPayload?.preferences?.savedViews, savedScreenerViews]);
 
   const chosenDay = homeNav.chosenDay ?? initialDay ?? null;
   const sport = homeNav.hasExplicitSport ? homeNav.sport : initialSport;
@@ -118,6 +193,7 @@ export function HomeClubView({
   const [selectedLeagues, setSelectedLeagues] = useState<LeagueId[]>([]);
   const [showOdds, setShowOdds] = useState<boolean>(false);
   const [filtersOpen, setFiltersOpen] = useState<boolean>(false);
+  const [activePinnedViewId, setActivePinnedViewId] = useState<string | null>(null);
 
   const favoriteLeagueSet = useMemo(() => {
     const s = new Set<string>(favoriteLeagues);
@@ -158,7 +234,25 @@ export function HomeClubView({
     return map;
   }, [liveBoard]);
 
-  const day = useMemo<string>(() => resolveHomeDay(games, chosenDay, today), [chosenDay, games, today]);
+  const day = useMemo<string>(() => {
+    const resolved = resolveHomeDay(games, chosenDay, today);
+    if (chosenDay !== null) {
+      return resolved;
+    }
+    if (gamesForSelection(games, resolved, today).length > 0) {
+      return resolved;
+    }
+    const futureDays = [...new Set(games.map((g) => g.dayId))]
+      .filter((dayKey) => dayKey > today)
+      .sort();
+    if (futureDays.length > 0) {
+      return futureDays[0]!;
+    }
+    const pastDays = [...new Set(games.map((g) => g.dayId))]
+      .filter((dayKey) => dayKey < today)
+      .sort();
+    return pastDays[pastDays.length - 1] ?? resolved;
+  }, [chosenDay, games, today]);
   const isPast = day < today;
 
   const dayOptions = useMemo(
@@ -246,7 +340,30 @@ export function HomeClubView({
     setSignalFilter("all");
     setSelectedCountries([]);
     setSelectedLeagues([]);
+    setActivePinnedViewId(null);
   }, []);
+
+  const applyPinnedView = useCallback(
+    (view: HomePinnedViewItem) => {
+      void requestFullShell();
+      if (activePinnedViewId === view.id) {
+        setActivePinnedViewId(null);
+        homeNav.pickSport(ALL);
+        setLeague(ALL);
+        setSignalFilter("all");
+        return;
+      }
+      setActivePinnedViewId(view.id);
+      const parsedSport = SportIdSchema.safeParse(view.sport);
+      const parsedLeague = LeagueIdSchema.safeParse(view.league);
+      homeNav.pickSport(parsedSport.success ? parsedSport.data : ALL);
+      setLeague(parsedLeague.success ? parsedLeague.data : ALL);
+      setSignalFilter(
+        view.onlyPositiveEdge ? "value" : view.band === "alta" ? "high_confidence" : "all",
+      );
+    },
+    [activePinnedViewId, homeNav, requestFullShell, setLeague],
+  );
 
   const statusFilteredGames = useMemo(() => {
     let list = visible;
@@ -490,6 +607,43 @@ export function HomeClubView({
               onRequestFullShell={handleRequestFullShell}
             />
 
+            {pinnedViews.length > 0 ? (
+              <nav
+                aria-label="Vistas fijadas"
+                className="pl-home-pinned-bar"
+                data-home-pinned-views=""
+              >
+                <span className="pl-home-pinned-label">Fijadas</span>
+                <div className="pl-home-pinned-list">
+                  {pinnedViews.map((view) => {
+                    const isActive = activePinnedViewId === view.id;
+                    return (
+                      <button
+                        key={view.id}
+                        type="button"
+                        className={`pl-home-pinned-chip ${isActive ? "is-active" : ""}`.trim()}
+                        aria-pressed={isActive}
+                        data-pinned-view-id={view.id}
+                        onClick={() => applyPinnedView(view)}
+                      >
+                        <span>{view.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <a
+                  href="/app/picks"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo("/app/picks");
+                  }}
+                  className="pl-home-pinned-link"
+                >
+                  Picks
+                </a>
+              </nav>
+            ) : null}
+
             <HomeMatchCardsSection
               groups={dayGroups}
               today={today}
@@ -537,5 +691,4 @@ export function HomeClubView({
   );
 }
 
-/** Alias de compatibilidad histórica para rutas y consumidores internos. */
 export const JornadaClubView = HomeClubView;

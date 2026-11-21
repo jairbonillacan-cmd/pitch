@@ -1093,14 +1093,72 @@
   }
 }
 
+.pl-live-inspector-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface-elevated);
+  font-size: 0.8rem;
+  color: var(--pl-text);
+}
+
+.pl-live-inspector-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-inline-size: 0;
+}
+
+.pl-live-inspector-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 32px;
+  min-inline-size: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text-muted);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
+}
+
+.pl-live-inspector-close:hover {
+  background: var(--pl-surface-hover);
+  border-color: var(--pl-border-strong);
+  color: var(--pl-text);
+}
+
+.pl-live-inspector-close:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
 @media (max-width: 767px), (pointer: coarse) {
   .pl-live-follow-btn,
   .pl-live-chip,
   .pl-live-tab,
+  .pl-live-inspector-close,
   .pl-live-table summary {
     min-block-size: 44px;
   }
-  .pl-live-follow-btn {
+  .pl-live-follow-btn,
+  .pl-live-chip,
+  .pl-live-tab,
+  .pl-live-inspector-close {
     min-inline-size: 44px;
   }
 }

@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   canonicalTeamHref,
   isNationalCompetition,
+  parseStrictFiniteNumber,
   sportHasDraw,
   sportScoringUnit,
   type LiveAveragePosition,
   type LiveMatchDetail,
+  type LiveSide,
   type StandingRow,
 } from "@pitchlab/contracts";
 import { TeamBadge } from "../../../sports";
@@ -17,8 +19,12 @@ import {
   type AtomicAveragePositionPlayer,
 } from "../../atomic/AtomicAveragePositionsPitch";
 import { AtomicFormStrip } from "../../atomic/AtomicFormStrip";
-import { AtomicLineupPitch } from "../../atomic/AtomicLineupPitch";
+import {
+  AtomicLineupPitch,
+  type AtomicLineupPlayer,
+} from "../../atomic/AtomicLineupPitch";
 import { AtomicShotmapPitch, type AtomicShotItem } from "../../atomic/AtomicShotmapPitch";
+import { AtomicStatComparisonBar } from "../../atomic/AtomicStatComparisonBar";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
 import { useLiveMatch } from "../../live/live-store";
@@ -34,18 +40,57 @@ import {
 
 type Result = "G" | "E" | "P";
 
-/** «P-G-G-G-G · 4-1» → ["P","G","G","G","G"]. */
+interface SelectedPitchPlayer {
+  readonly name: string;
+  readonly side: LiveSide;
+  readonly number: number | null;
+  readonly position: string | null;
+  readonly rating: number | null;
+  readonly heightPct: number | null;
+  readonly touches: number | null;
+  readonly playerHref: string | null;
+}
+
+const SHOT_OUTCOME_LABEL_ES: Record<AtomicShotItem["outcome"], string> = {
+  goal: "Gol",
+  save: "Atajado",
+  saved: "Atajado",
+  on_target: "A puerta",
+  block: "Bloqueado",
+  blocked: "Bloqueado",
+  post: "Al poste",
+  miss: "Desviado",
+};
+
+function computeOrdinalRank(
+  values: readonly number[],
+  target: number,
+  lowerIsBetter: boolean,
+): number | null {
+  if (values.length < 2 || !Number.isFinite(target)) return null;
+  let betterCount = 0;
+  for (const val of values) {
+    if (!Number.isFinite(val)) continue;
+    if (lowerIsBetter ? val < target : val > target) {
+      betterCount += 1;
+    }
+  }
+  return betterCount + 1;
+}
+
 export function parseForm(value: string): Result[] {
   const head = value.split("·")[0] ?? "";
   return (head.match(/[GEPWDL]/g) ?? []).map((c) => (c === "W" ? "G" : c === "D" ? "E" : c === "L" ? "P" : (c as Result)));
 }
 
-/** «129 pts a favor · 94 en contra» con 5 partidos → por partido. */
 function perGame(sub: string | undefined, games: number): { for: number; against: number } | null {
   if (!sub || games <= 0) return null;
   const nums = sub.match(/\d+(?:\.\d+)?/g);
   if (!nums || nums.length < 2) return null;
-  return { for: Number(nums[0]) / games, against: Number(nums[1]) / games };
+  const goalsFor = parseStrictFiniteNumber(nums[0]);
+  const goalsAgainst = parseStrictFiniteNumber(nums[1]);
+  if (goalsFor === null || goalsAgainst === null) return null;
+  return { for: goalsFor / games, against: goalsAgainst / games };
 }
 
 function standingSlug(teamId: string): string {
@@ -150,12 +195,6 @@ export interface MatchContextPanelProps {
   readonly opinionsSlot?: React.ReactNode;
 }
 
-/**
- * Contexto del partido: cómo llegan los equipos (forma con `AtomicFormStrip`, producción,
- * descanso y bajas), lectura táctica en cancha (`AtomicLineupPitch`, `AtomicShotmapPitch`,
- * `AtomicAveragePositionsPitch`), sede/clima/árbitro/TV MX, historial directo y tabla.
- * Todo sale de datos reales del partido sin inventar valores.
- */
 export function MatchContextPanel({
   game,
   standings = [],
@@ -168,6 +207,8 @@ export function MatchContextPanel({
 }: MatchContextPanelProps): React.JSX.Element {
   const platformActions = useOptionalPlatformActions();
   const platformCore = useOptionalPlatformCore();
+  const [selectedPitchPlayer, setSelectedPitchPlayer] = useState<SelectedPitchPlayer | null>(null);
+  const [selectedShot, setSelectedShot] = useState<AtomicShotItem | null>(null);
   const liveSupported = game.sport !== "american-football" && game.league !== "nfl";
   const liveSnap = useLiveMatch(game.id, liveSupported && liveDetailProp === undefined);
   const effectiveLiveDetail = liveDetailProp !== undefined ? liveDetailProp : liveSnap.data;
@@ -190,6 +231,31 @@ export function MatchContextPanel({
   const awayStandingIdx = standings.findIndex(
     (r) => matchSideForStanding(r, game) === "away",
   );
+
+  const standingsRankBars = useMemo(() => {
+    if (standings.length < 2 || homeStandingIdx < 0 || awayStandingIdx < 0) return null;
+    const homeRow = standings[homeStandingIdx]!;
+    const awayRow = standings[awayStandingIdx]!;
+    if (homeRow.played <= 0 || awayRow.played <= 0) return null;
+    const playedRows = standings.filter((row) => row.played > 0);
+    if (playedRows.length < 2) return null;
+    const gfRates = playedRows.map((row) => row.goalsFor / row.played);
+    const gaRates = playedRows.map((row) => row.goalsAgainst / row.played);
+    const homeGf = homeRow.goalsFor / homeRow.played;
+    const awayGf = awayRow.goalsFor / awayRow.played;
+    const homeGa = homeRow.goalsAgainst / homeRow.played;
+    const awayGa = awayRow.goalsAgainst / awayRow.played;
+    return {
+      homeGf,
+      awayGf,
+      homeGfRank: computeOrdinalRank(gfRates, homeGf, false),
+      awayGfRank: computeOrdinalRank(gfRates, awayGf, false),
+      homeGa,
+      awayGa,
+      homeGaRank: computeOrdinalRank(gaRates, homeGa, true),
+      awayGaRank: computeOrdinalRank(gaRates, awayGa, true),
+    };
+  }, [awayStandingIdx, homeStandingIdx, standings]);
 
   const sides = [
     {
@@ -334,7 +400,7 @@ export function MatchContextPanel({
                         e.preventDefault();
                         platformActions.navigateTo(canonicalTeamHref(game.league, s.team.slug));
                       }}
-                      className="pl-team-link inline-flex items-center min-h-11 sm:min-h-0"
+                      className="pl-team-link inline-flex items-center min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-0"
                       title={`Ver perfil de ${s.team.name}`}
                     >
                       {s.team.name}
@@ -424,6 +490,19 @@ export function MatchContextPanel({
                 status={confirmedLineupSlot.enabled ? "confirmed" : "probable"}
                 incidents={effectiveLiveDetail?.incidents}
                 playerRatings={playerRatings}
+                onSelectPlayer={(player: AtomicLineupPlayer, side: LiveSide) => {
+                  setSelectedShot(null);
+                  setSelectedPitchPlayer({
+                    name: player.name,
+                    side,
+                    number: player.number ?? null,
+                    position: player.position ?? null,
+                    rating: player.rating ?? playerRatings?.[player.name] ?? null,
+                    heightPct: null,
+                    touches: null,
+                    playerHref: player.playerHref ?? null,
+                  });
+                }}
               />
               {probableLineupSlot?.available && !confirmedLineupSlot.enabled ? (
                 <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
@@ -440,6 +519,10 @@ export function MatchContextPanel({
                   shots={effectiveShots}
                   homeLabel={game.home.shortName}
                   awayLabel={game.away.shortName}
+                  onSelectShot={(shot) => {
+                    if (shot) setSelectedPitchPlayer(null);
+                    setSelectedShot(shot);
+                  }}
                 />
               ) : null}
               {showAvgPositions ? (
@@ -449,10 +532,140 @@ export function MatchContextPanel({
                   awayLabel={game.away.shortName}
                   homeFormation={activeLineups?.homeFormation}
                   awayFormation={activeLineups?.awayFormation}
+                  onSelectPlayer={(player: AtomicAveragePositionPlayer) => {
+                    setSelectedShot(null);
+                    setSelectedPitchPlayer({
+                      name: player.name,
+                      side: player.side,
+                      number: player.number ?? null,
+                      position: player.position ?? null,
+                      rating: player.rating ?? null,
+                      heightPct: Math.round(player.x),
+                      touches: player.touches ?? null,
+                      playerHref: player.playerHref ?? null,
+                    });
+                  }}
                 />
               ) : null}
             </div>
           ) : null}
+
+          {selectedPitchPlayer ? (() => {
+            const sideTeam = selectedPitchPlayer.side === "home" ? game.home : game.away;
+            const targetHref =
+              selectedPitchPlayer.playerHref && selectedPitchPlayer.playerHref.startsWith("/")
+                ? selectedPitchPlayer.playerHref
+                : `${canonicalTeamHref(game.league, sideTeam.slug)}?tab=plantilla`;
+            return (
+              <div
+                className="pl-ctx-inspector-bar"
+                role="status"
+                aria-live="polite"
+                data-ctx-player-inspector=""
+              >
+                <div className="pl-ctx-inspector-meta num">
+                  <strong>
+                    {selectedPitchPlayer.number != null ? `#${selectedPitchPlayer.number} ` : ""}
+                    {selectedPitchPlayer.name}
+                  </strong>
+                  <span style={{ color: "var(--pl-text-muted)" }}>{sideTeam.shortName}</span>
+                  {selectedPitchPlayer.position ? (
+                    <span className="pl-pill text-[11px]">{selectedPitchPlayer.position}</span>
+                  ) : null}
+                  {selectedPitchPlayer.rating != null ? (
+                    <span className="pl-pill text-[11px]">
+                      Nota {selectedPitchPlayer.rating.toFixed(1)}
+                    </span>
+                  ) : null}
+                  {selectedPitchPlayer.heightPct != null ? (
+                    <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                      Altura {selectedPitchPlayer.heightPct} %
+                    </span>
+                  ) : null}
+                  {selectedPitchPlayer.touches != null ? (
+                    <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                      {selectedPitchPlayer.touches} toques
+                    </span>
+                  ) : null}
+                </div>
+                <div className="pl-ctx-inspector-actions">
+                  <a
+                    href={targetHref}
+                    onClick={(e) => {
+                      if (!platformActions) return;
+                      e.preventDefault();
+                      platformActions.navigateTo(targetHref);
+                    }}
+                    className="pl-ctx-inspector-link"
+                  >
+                    {selectedPitchPlayer.playerHref ? "Ver jugador" : `Plantilla ${sideTeam.shortName}`}
+                  </a>
+                  <button
+                    type="button"
+                    className="pl-ctx-inspector-close"
+                    aria-label="Cerrar detalle del jugador"
+                    onClick={() => setSelectedPitchPlayer(null)}
+                  >
+                    <MaestroIcon name="x" size={13} />
+                  </button>
+                </div>
+              </div>
+            );
+          })() : null}
+
+          {selectedShot ? (() => {
+            const sideTeam = selectedShot.side === "home" ? game.home : game.away;
+            const teamHref = canonicalTeamHref(game.league, sideTeam.slug);
+            const minuteLabel = `${selectedShot.minute}${selectedShot.addedTime ? `+${selectedShot.addedTime}` : ""}'`;
+            return (
+              <div
+                className="pl-ctx-inspector-bar"
+                role="status"
+                aria-live="polite"
+                data-ctx-shot-inspector=""
+              >
+                <div className="pl-ctx-inspector-meta num">
+                  <strong>{minuteLabel}</strong>
+                  <span>{sideTeam.shortName}</span>
+                  {selectedShot.player ? <strong>{selectedShot.player}</strong> : null}
+                  <span className="pl-pill text-[11px]">
+                    {SHOT_OUTCOME_LABEL_ES[selectedShot.outcome]}
+                  </span>
+                  {selectedShot.xg != null ? (
+                    <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                      xG {selectedShot.xg.toFixed(2)}
+                    </span>
+                  ) : null}
+                  {selectedShot.situation ? (
+                    <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      {selectedShot.situation}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="pl-ctx-inspector-actions">
+                  <a
+                    href={teamHref}
+                    onClick={(e) => {
+                      if (!platformActions) return;
+                      e.preventDefault();
+                      platformActions.navigateTo(teamHref);
+                    }}
+                    className="pl-ctx-inspector-link"
+                  >
+                    Ver {sideTeam.shortName}
+                  </a>
+                  <button
+                    type="button"
+                    className="pl-ctx-inspector-close"
+                    aria-label="Cerrar detalle del remate"
+                    onClick={() => setSelectedShot(null)}
+                  >
+                    <MaestroIcon name="x" size={13} />
+                  </button>
+                </div>
+              </div>
+            );
+          })() : null}
         </section>
       ) : null}
 
@@ -767,7 +980,6 @@ export function MatchContextPanel({
         </section>
       </div>
 
-      {/* Bajas y ausencias detalladas + Opiniones de socios lado a lado cuando existe */}
       {(() => {
         const absencesSection = (
           <section
@@ -831,7 +1043,6 @@ export function MatchContextPanel({
         );
       })()}
 
-      {/* Tabla de posiciones */}
       <section
         className="pl-ctx-card glass-card glass-ring"
         aria-labelledby="ctx-standings"
@@ -856,6 +1067,35 @@ export function MatchContextPanel({
             </div>
           ) : null}
         </div>
+        {standingsRankBars ? (
+          <div className="pl-ctx-rank-strip" data-ctx-rank-bars="">
+            <AtomicStatComparisonBar
+              label={unit === "pts" ? "Puntos a favor / PJ" : "Goles a favor / PJ"}
+              homeValue={standingsRankBars.homeGf}
+              awayValue={standingsRankBars.awayGf}
+              homeLabel={game.home.shortName}
+              awayLabel={game.away.shortName}
+              digits={2}
+              rankA={standingsRankBars.homeGfRank}
+              rankB={standingsRankBars.awayGfRank}
+              variant="compact"
+              showTeamLabels
+            />
+            <AtomicStatComparisonBar
+              label={unit === "pts" ? "Puntos en contra / PJ" : "Goles en contra / PJ"}
+              homeValue={standingsRankBars.homeGa}
+              awayValue={standingsRankBars.awayGa}
+              homeLabel={game.home.shortName}
+              awayLabel={game.away.shortName}
+              digits={2}
+              lowerIsBetter
+              rankA={standingsRankBars.homeGaRank}
+              rankB={standingsRankBars.awayGaRank}
+              variant="compact"
+              showTeamLabels
+            />
+          </div>
+        ) : null}
         {standings.length === 0 ? (
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
             {game.sport !== "football"

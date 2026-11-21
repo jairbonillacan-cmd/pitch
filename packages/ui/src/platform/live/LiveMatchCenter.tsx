@@ -1,15 +1,9 @@
 "use client";
 
-/**
- * EN-VIVO-1 · Match Center: marcador del día, ficha en vivo y «Siguiendo».
- *
- * Los componentes de presentación (`LiveMatchPanelView`, `LiveScoreboardView`) reciben los datos
- * por props para Storybook y pruebas; los contenedores (`LiveMatchPanel`, `LiveScoreboardStrip`)
- * los leen del sondeo compartido (`live-store.ts`).
- */
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   canonicalGameHref,
+  canonicalTeamHref,
   LIVE_PHASE_LABEL_ES,
   isLivePhaseActive,
   type LiveAveragePosition,
@@ -23,13 +17,15 @@ import {
   AtomicAveragePositionsPitch,
   type AtomicAveragePositionPlayer,
 } from "../atomic/AtomicAveragePositionsPitch";
-import { AtomicShotmapPitch } from "../atomic/AtomicShotmapPitch";
+import { AtomicShotmapPitch, type AtomicShotItem } from "../atomic/AtomicShotmapPitch";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { SportEventIcon } from "../components/SportEventIcons";
+import { useSafeEffect } from "../hooks";
 import {
   DEFAULT_FOLLOW_ALERTS,
   type FollowAlerts,
   useFollowAlerts,
+  useOptionalPlatformActions,
   useOptionalPlatformCore,
   usePlatformActions,
   usePlatformCore,
@@ -40,7 +36,16 @@ import { LiveStatBars, MomentumChart, XgRaceChart } from "./live-charts";
 import { LiveWinProbBar } from "./LiveWinProbBar";
 import { useLiveMatch, useLiveScoreboard } from "./live-store";
 
-// ---------- Piezas ----------
+const LIVE_SHOT_OUTCOME_ES: Record<AtomicShotItem["outcome"], string> = {
+  goal: "Gol",
+  save: "Atajado",
+  saved: "Atajado",
+  on_target: "A puerta",
+  block: "Bloqueado",
+  blocked: "Bloqueado",
+  post: "Al poste",
+  miss: "Desviado",
+};
 
 export function LivePhaseBadge({
   entry,
@@ -49,7 +54,6 @@ export function LivePhaseBadge({
 }: {
   entry: LiveScoreboardEntry;
   kickoffLocal?: string;
-  /** Rótulo corto para filas angostas («MT» en vez de «Medio tiempo»). */
   short?: boolean;
 }): React.JSX.Element {
   const active = isLivePhaseActive(entry.phase);
@@ -96,7 +100,6 @@ function incidentText(i: LiveIncident): { title: string; detail: string | null }
   }
 }
 
-/** Línea de tiempo: lo más reciente arriba. */
 export function LiveTimeline({
   incidents,
   homeLabel,
@@ -145,7 +148,6 @@ export function LiveTimeline({
   );
 }
 
-/** «Siguiendo»: seguir el partido y elegir qué avisos llegan a la campana. */
 export function FollowControl({ gameId, compact = false }: { gameId: string; compact?: boolean }): React.JSX.Element {
   const { toggleWatchlistGame, setFollowAlerts } = usePlatformActions();
   const watchlistGameIds = useWatchlistGameIds();
@@ -155,7 +157,7 @@ export function FollowControl({ gameId, compact = false }: { gameId: string; com
   const [pulseSeq, setPulseSeq] = React.useState(0);
   const prevFollowingRef = React.useRef(following);
 
-  React.useEffect(() => {
+  useSafeEffect(() => {
     if (prevFollowingRef.current && !following && !compact) {
       setClosingAlerts(true);
       const t = window.setTimeout(() => setClosingAlerts(false), 230);
@@ -226,22 +228,15 @@ export function FollowControl({ gameId, compact = false }: { gameId: string; com
   );
 }
 
-// ---------- Ficha en vivo ----------
-
 export interface LiveMatchPanelViewProps {
   game: Pick<PlatformGame, "id" | "league" | "home" | "away" | "kickoffLocal">;
   detail: LiveMatchDetail | null;
   loading?: boolean;
   error?: boolean;
-  /** Oculta el control «Siguiendo» (Storybook sin proveedor). */
   showFollow?: boolean;
-  /** Oculta la gráfica de momentum cuando ya vive en la columna lateral de la ficha. */
   hideMomentum?: boolean;
-  /** Oculta el marcador duplicado cuando el hero principal ya lo muestra arriba. */
   hideScoreboard?: boolean;
-  /** Oculta la línea de tiempo duplicada cuando ya vive por tiempos en el riel lateral. */
   hideTimeline?: boolean;
-  /** Posiciones medias reales opcionales (0..100); se omite la cancha cuando faltan datos. */
   averagePositions?: readonly AtomicAveragePositionPlayer[];
 }
 
@@ -444,6 +439,9 @@ export function LiveMatchPanelView({
   averagePositions,
 }: LiveMatchPanelViewProps): React.JSX.Element | null {
   const platformCore = useOptionalPlatformCore();
+  const platformActions = useOptionalPlatformActions();
+  const [selectedShot, setSelectedShot] = useState<AtomicShotItem | null>(null);
+  const [selectedAvgPlayer, setSelectedAvgPlayer] = useState<AtomicAveragePositionPlayer | null>(null);
   const oddsFormat = platformCore?.oddsFormat ?? "american";
   const home = game.home.shortName;
   const away = game.away.shortName;
@@ -453,9 +451,7 @@ export function LiveMatchPanelView({
     return toAtomicAveragePositions(detail?.averagePositions);
   }, [averagePositions, detail?.averagePositions]);
 
-  // Screen Wake Lock opcional: mantiene la pantalla encendida solo mientras el partido en vivo
-  // esté activo y visible, liberando el bloqueo al cambiar de pestaña/app o desmontar (ADR-053).
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!live || typeof navigator === "undefined" || typeof document === "undefined") return;
     const nav = navigator as Navigator & {
       wakeLock?: {
@@ -615,15 +611,121 @@ export function LiveMatchPanelView({
           )}
           <XgRaceChart points={detail.xgTimeline} homeLabel={home} awayLabel={away} estimated={detail.xgEstimated} />
           {detail.shots.length > 0 ? (
-            <AtomicShotmapPitch shots={detail.shots} homeLabel={home} awayLabel={away} />
+            <AtomicShotmapPitch
+              shots={detail.shots}
+              homeLabel={home}
+              awayLabel={away}
+              onSelectShot={(shot) => {
+                if (shot) setSelectedAvgPlayer(null);
+                setSelectedShot(shot);
+              }}
+            />
           ) : null}
           {effectiveAveragePositions.length > 0 ? (
             <AtomicAveragePositionsPitch
               players={effectiveAveragePositions}
               homeLabel={home}
               awayLabel={away}
+              onSelectPlayer={(player) => {
+                setSelectedShot(null);
+                setSelectedAvgPlayer(player);
+              }}
             />
           ) : null}
+          {selectedAvgPlayer ? (() => {
+            const sideTeam = selectedAvgPlayer.side === "home" ? game.home : game.away;
+            const targetHref =
+              selectedAvgPlayer.playerHref && selectedAvgPlayer.playerHref.startsWith("/")
+                ? selectedAvgPlayer.playerHref
+                : `${canonicalTeamHref(game.league, sideTeam.slug)}?tab=plantilla`;
+            return (
+              <div
+                className="pl-live-inspector-bar"
+                role="status"
+                aria-live="polite"
+                data-live-player-inspector=""
+              >
+                <div className="pl-live-inspector-meta num">
+                  <strong>
+                    {selectedAvgPlayer.number != null ? `#${selectedAvgPlayer.number} ` : ""}
+                    {selectedAvgPlayer.name}
+                  </strong>
+                  <span style={{ color: "var(--pl-text-muted)" }}>{sideTeam.shortName}</span>
+                  {selectedAvgPlayer.position ? (
+                    <span className="pl-pill text-[11px]">{selectedAvgPlayer.position}</span>
+                  ) : null}
+                  <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                    Altura {Math.round(selectedAvgPlayer.x)} %
+                  </span>
+                  {selectedAvgPlayer.touches != null ? (
+                    <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                      {selectedAvgPlayer.touches} toques
+                    </span>
+                  ) : null}
+                  {selectedAvgPlayer.rating != null ? (
+                    <span className="pl-pill text-[11px]">
+                      Nota {selectedAvgPlayer.rating.toFixed(1)}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="pl-ctx-inspector-actions">
+                  <a
+                    href={targetHref}
+                    onClick={(e) => {
+                      if (!platformActions) return;
+                      e.preventDefault();
+                      platformActions.navigateTo(targetHref);
+                    }}
+                    className="pl-ctx-inspector-link"
+                  >
+                    {selectedAvgPlayer.playerHref ? "Ver jugador" : `Plantilla ${sideTeam.shortName}`}
+                  </a>
+                  <button
+                    type="button"
+                    className="pl-live-inspector-close"
+                    aria-label="Cerrar detalle del jugador"
+                    onClick={() => setSelectedAvgPlayer(null)}
+                  >
+                    <MaestroIcon name="x" size={13} />
+                  </button>
+                </div>
+              </div>
+            );
+          })() : null}
+          {selectedShot ? (() => {
+            const sideTeam = selectedShot.side === "home" ? game.home : game.away;
+            const minuteLabel = `${selectedShot.minute}${selectedShot.addedTime ? `+${selectedShot.addedTime}` : ""}'`;
+            return (
+              <div
+                className="pl-live-inspector-bar"
+                role="status"
+                aria-live="polite"
+                data-live-shot-inspector=""
+              >
+                <div className="pl-live-inspector-meta num">
+                  <strong>{minuteLabel}</strong>
+                  <span>{sideTeam.shortName}</span>
+                  {selectedShot.player ? <strong>{selectedShot.player}</strong> : null}
+                  <span className="pl-pill text-[11px]">
+                    {LIVE_SHOT_OUTCOME_ES[selectedShot.outcome]}
+                  </span>
+                  {selectedShot.xg != null ? (
+                    <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                      xG {selectedShot.xg.toFixed(2)}
+                    </span>
+                  ) : null}
+                </div>
+                <button
+                  type="button"
+                  className="pl-live-inspector-close"
+                  aria-label="Cerrar detalle del remate"
+                  onClick={() => setSelectedShot(null)}
+                >
+                  <MaestroIcon name="x" size={13} />
+                </button>
+              </div>
+            );
+          })() : null}
           {detail.stats ? <LiveStatBars stats={detail.stats} homeLabel={home} awayLabel={away} /> : null}
         </div>
         {hideTimeline ? null : (
@@ -650,7 +752,6 @@ export function LiveMatchPanelView({
   );
 }
 
-/** Contenedor de la ficha: se conecta al sondeo solo cerca del inicio, en juego o ya jugado. */
 export function LiveMatchPanel({
   game,
   hideMomentum = false,
@@ -663,7 +764,6 @@ export function LiveMatchPanel({
   const supported = game.sport !== "american-football" && game.league !== "nfl";
   const snap = useLiveMatch(game.id, supported);
   if (!supported) return null;
-  // En la ficha, «Siguiendo» ya está en la barra superior: aquí no se repite.
   return (
     <LiveMatchPanelView
       game={game}
@@ -676,8 +776,6 @@ export function LiveMatchPanel({
     />
   );
 }
-
-// ---------- Marcador del día ----------
 
 export interface LiveScoreboardViewProps {
   board: LiveScoreboard | null;

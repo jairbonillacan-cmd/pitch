@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   canonicalGameHref,
   canonicalTeamHref,
@@ -36,13 +36,8 @@ import {
 } from "./home-view-helpers";
 import { LiveSportBallIcon } from "./HomeFilterBar";
 
-export const INITIAL_HOME_CARDS_LIMIT = 14;
+export const INITIAL_HOME_CARDS_LIMIT = 10;
 
-/**
- * Fila plana editorial de partido dentro del bloque de su competición:
- * conserva la claridad escaneable (equipos, proyección/marcador, ProbSplit 1·X·2,
- * pick principal con PBar, momio justo y acciones) sin cajas anidadas ni micro-etiquetas decorativas.
- */
 export const AstroMatchRow = React.memo(function AstroMatchRow({
   game,
   liveEntry,
@@ -159,10 +154,12 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
               <span className="pl-astro-status">{isFinished ? "Final" : "Por jugar"}</span>
             </span>
           )}
-          <span className="pl-astro-venue-meta truncate">
-            {game.round}
-            {game.venue ? ` · ${game.venue}` : ""}
-          </span>
+          {game.round || game.venue ? (
+            <span className="pl-astro-venue-meta truncate">
+              {game.round}
+              {game.venue ? `${game.round ? " · " : ""}${game.venue}` : ""}
+            </span>
+          ) : null}
         </a>
       </div>
 
@@ -187,12 +184,14 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
                 >
                   {game.home.name}
                 </a>
-                <div className="pl-astro-team-sub">
-                  {!game.neutralSite ? <span className="pl-side-tag is-home">Local</span> : null}
-                  {game.home.record ? (
-                    <span className="pl-astro-team-rec num">{game.home.record}</span>
-                  ) : null}
-                </div>
+                {!game.neutralSite || game.home.record ? (
+                  <div className="pl-astro-team-sub">
+                    {!game.neutralSite ? <span className="pl-side-tag is-home">Local</span> : null}
+                    {game.home.record ? (
+                      <span className="pl-astro-team-rec num">{game.home.record}</span>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
               <a
                 href={studioHref}
@@ -223,12 +222,14 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
                 >
                   {game.away.name}
                 </a>
-                <div className="pl-astro-team-sub">
-                  {!game.neutralSite ? <span className="pl-side-tag">Visita</span> : null}
-                  {game.away.record ? (
-                    <span className="pl-astro-team-rec num">{game.away.record}</span>
-                  ) : null}
-                </div>
+                {!game.neutralSite || game.away.record ? (
+                  <div className="pl-astro-team-sub">
+                    {!game.neutralSite ? <span className="pl-side-tag">Visita</span> : null}
+                    {game.away.record ? (
+                      <span className="pl-astro-team-rec num">{game.away.record}</span>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
               <a
                 href={studioHref}
@@ -243,9 +244,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
           </div>
 
           {scoreCaption ? (
-            <div className="pl-astro-score-caption num">
-              <span>{scoreCaption}</span>
-            </div>
+            <div className="pl-astro-score-caption num">{scoreCaption}</div>
           ) : null}
         </div>
 
@@ -312,7 +311,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
               onPointerEnter={() => prefetchRoute(studioHref)}
               onTouchStart={() => prefetchRoute(studioHref)}
               onClick={openStudio}
-              className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+              className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
             >
               <span>Ver partido</span>
               <MaestroIcon name="arrowRight" size={12} />
@@ -326,7 +325,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
               onPointerEnter={() => prefetchRoute(studioHref)}
               onTouchStart={() => prefetchRoute(studioHref)}
               onClick={openStudio}
-              className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+              className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
             >
               <span>Ver partido</span>
               <MaestroIcon name="arrowRight" size={12} />
@@ -344,19 +343,17 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
 
               <div className="pl-astro-pick-sub num">
                 <span className="pl-astro-pick-odds-inline">
-                  <span>
-                    Momio justo{" "}
-                    <strong style={{ color: "var(--pl-text)" }}>
-                      {formatOddsValue(mainPick.fairDecimal, oddsFormat)}
-                    </strong>
-                  </span>
+                  Momio justo{" "}
+                  <strong style={{ color: "var(--pl-text)" }}>
+                    {formatOddsValue(mainPick.fairDecimal, oddsFormat)}
+                  </strong>
                   {showOdds && mainPick.marketDecimal ? (
-                    <span>
-                      · Casa{" "}
+                    <>
+                      {" "}· Casa{" "}
                       <strong style={{ color: "var(--pl-brand)" }}>
                         {formatOddsValue(mainPick.marketDecimal, oddsFormat)}
                       </strong>
-                    </span>
+                    </>
                   ) : null}
                 </span>
                 {goalHint || countsHint ? (
@@ -411,7 +408,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
                   e.preventDefault();
                   navigateTo(upgradeHref);
                 }}
-                className="pl-btn-accent text-xs min-h-11 sm:min-h-10 px-3 inline-flex items-center gap-1.5 no-underline"
+                className="pl-btn-accent text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-3 inline-flex items-center gap-1.5 no-underline"
               >
                 <MaestroIcon name="unlock" size={12} />
                 <span>{hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}</span>
@@ -421,7 +418,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
                 onPointerEnter={() => prefetchRoute(studioHref)}
                 onTouchStart={() => prefetchRoute(studioHref)}
                 onClick={openStudio}
-                className="pl-btn-glass text-xs min-h-11 sm:min-h-10 px-3 inline-flex items-center gap-1.5 no-underline"
+                className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-3 inline-flex items-center gap-1.5 no-underline"
               >
                 <span>Ver partido</span>
                 <MaestroIcon name="arrowRight" size={12} />
@@ -458,12 +455,15 @@ export function HomeMatchCardsSection({
 }): React.JSX.Element {
   const { navigateTo, prefetchRoute } = usePlatformActions();
   const totalGames = groups.reduce((sum, d) => sum + d.count, 0);
-  const [limit, setLimit] = useState<number>(INITIAL_HOME_CARDS_LIMIT);
+  const [limitState, setLimitState] = useState<{
+    readonly key: string | undefined;
+    readonly limit: number;
+  }>(() => ({
+    key: resetKey,
+    limit: INITIAL_HOME_CARDS_LIMIT,
+  }));
+  const limit = limitState.key === resetKey ? limitState.limit : INITIAL_HOME_CARDS_LIMIT;
   const [collapsedLeagues, setCollapsedLeagues] = useState<ReadonlySet<string>>(() => new Set());
-
-  useEffect(() => {
-    setLimit(INITIAL_HOME_CARDS_LIMIT);
-  }, [resetKey]);
 
   const toggleCollapseLeague = useCallback((lg: string) => {
     setCollapsedLeagues((prev) => {
@@ -622,7 +622,12 @@ export function HomeMatchCardsSection({
           <button
             type="button"
             className="pl-btn-glass text-xs min-h-11 px-4 num"
-            onClick={() => setLimit((c) => c + INITIAL_HOME_CARDS_LIMIT)}
+            onClick={() =>
+              setLimitState({
+                key: resetKey,
+                limit: limit + INITIAL_HOME_CARDS_LIMIT,
+              })
+            }
           >
             Ver más partidos ({totalGames - limit})
           </button>

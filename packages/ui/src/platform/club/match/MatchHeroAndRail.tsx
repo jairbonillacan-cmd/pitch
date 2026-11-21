@@ -321,7 +321,7 @@ export function MatchHeroScoreboard({
         <div className="pl-match-hero-actions">
           <button
             type="button"
-            className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 sm:px-2.5 inline-flex items-center gap-1.5"
+            className="pl-btn-glass pl-match-share-btn text-xs min-w-11 min-h-11 justify-center [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3 [@media(min-width:768px)_and_(pointer:fine)]:px-2.5 inline-flex items-center gap-1.5"
             aria-label="Compartir tarjeta 9:16 del partido"
             data-share-match-story=""
             onClick={() => {
@@ -607,7 +607,6 @@ export function MatchLeftRail({
 
   return (
     <aside className="pl-match-rail" aria-label="Panel rápido del partido">
-      {/* 1. Hasta arriba: Momento del partido */}
       <section
         className="pl-match-rail-card"
         aria-labelledby="rail-momentum-heading"
@@ -665,7 +664,6 @@ export function MatchLeftRail({
         )}
       </section>
 
-      {/* 2. Eventos por periodo (1.º tiempo, 2.º tiempo, goles/tarjetas) y cruce de eliminatoria */}
       <section
         className="pl-match-rail-card"
         aria-labelledby="rail-events-heading"
@@ -679,7 +677,7 @@ export function MatchLeftRail({
           {totalSubs > 0 ? (
             <button
               type="button"
-              className="pl-pill text-[11px] cursor-pointer num min-h-11 sm:min-h-7 px-3 sm:px-2.5"
+              className="pl-pill text-[11px] cursor-pointer num min-w-11 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-7 px-3 [@media(min-width:768px)_and_(pointer:fine)]:px-2.5"
               aria-pressed={showSubsInRail}
               onClick={() => setShowSubsInRail((prev) => !prev)}
             >
@@ -794,7 +792,6 @@ export function MatchLeftRail({
         )}
       </section>
 
-      {/* 3. Forma reciente, TV MX y accesos directos (sin repetir Picks ni 1·X·2 del Hero/workspace) */}
       <section className="pl-match-rail-card" aria-labelledby="rail-context-heading">
         <div className="pl-match-rail-head">
           <h2 id="rail-context-heading" className="pl-match-rail-title inline-flex items-center gap-1.5">

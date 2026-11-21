@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getLeagueCapability } from "@pitchlab/contracts";
 import { TeamProfileClubView, type TeamProfileTab } from "@pitchlab/ui/team-profile";
+import { listUiVisibleLeagues } from "../../../../../src/server/data-health";
+import {
+  buildLeagueKnockoutBracket,
+  buildLeagueStandingsSplits,
+  getTeamAttackDefenseComparison,
+} from "../../../../../src/server/standings-brackets";
 import { loadTeamProfile } from "../../../../../src/server/team-profile";
 import { getViewerAccess } from "../../../../../src/server/viewer-access";
+import "../../../../alerts-referees.css";
+import "../../../../atomic-kit.css";
 
 export const dynamic = "force-dynamic";
 
@@ -30,7 +39,6 @@ export async function generateMetadata({
   };
 }
 
-/** Ruta canónica corta de equipo: `/app/<league>/t/<teamSlug>` (ADR-042). */
 export default async function CanonicalTeamProfilePage({
   params,
   searchParams,
@@ -47,10 +55,33 @@ export default async function CanonicalTeamProfilePage({
     notFound();
   }
 
+  const leagueKey: string = profile.league;
+  const capability = getLeagueCapability(leagueKey);
+  const isLeagueHealthy =
+    capability !== undefined &&
+    (capability.uiVisibilityPolicy === "always_visible" ||
+      listUiVisibleLeagues().some((lg) => String(lg) === leagueKey));
+
+  const standingsSplits =
+    isLeagueHealthy && capability?.hasStandingsTable
+      ? buildLeagueStandingsSplits(leagueKey)
+      : null;
+  const attackDefense =
+    isLeagueHealthy && access.fullAccess
+      ? getTeamAttackDefenseComparison(leagueKey, profile.team.slug)
+      : null;
+  const bracket =
+    isLeagueHealthy && capability?.hasKnockoutBracket
+      ? buildLeagueKnockoutBracket(leagueKey)
+      : null;
+
   return (
     <TeamProfileClubView
       profile={profile}
       initialTab={resolveTab(resolvedSearch?.tab)}
+      standingsSplits={standingsSplits}
+      attackDefense={attackDefense}
+      bracket={bracket}
     />
   );
 }

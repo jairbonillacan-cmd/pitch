@@ -6,6 +6,7 @@ import {
   canonicalPlayerHref,
   canonicalTeamHref,
   isLivePhaseActive,
+  parseStrictFiniteNumber,
   sportHasDraw,
   sportScoringUnit,
   type LeagueId,
@@ -34,6 +35,14 @@ import {
 } from "../../platform-provider";
 import { teamTopicKey, useFollowedTopics } from "../community-ui";
 import { localizeInjuryLabelEs } from "../match/pre-match-logic";
+import {
+  AttackDefenseOrdinalCard,
+  KnockoutBracketSvgPanel,
+  StandingsSplitsPanel,
+  type LeagueKnockoutBracketData,
+  type LeagueStandingsSplitsData,
+  type TeamAttackDefenseData,
+} from "../StandingsBracketsSection";
 import { PersonAvatar } from "./PersonAvatar";
 import {
   computeTeamDisciplinaryProfile,
@@ -66,6 +75,9 @@ export interface TeamProfileClubViewProps {
   profile: TeamProfileData;
   initialTab?: TeamProfileTab;
   liveBoardOverride?: LiveScoreboard | null;
+  standingsSplits?: LeagueStandingsSplitsData | null;
+  attackDefense?: TeamAttackDefenseData | null;
+  bracket?: LeagueKnockoutBracketData | null;
 }
 
 const VENUE_SPLIT_OPTIONS: readonly PlSelectOption<"all" | "home" | "away">[] = [
@@ -110,7 +122,10 @@ function formatCompactSlashDate(isoDate: string): string | null {
   const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDate.trim());
   if (!match) return null;
   const [, yyyy, mm, dd] = match;
-  return `${Number(dd)}/${Number(mm)}/${yyyy!.slice(2)}`;
+  const dayNum = parseStrictFiniteNumber(dd);
+  const monthNum = parseStrictFiniteNumber(mm);
+  if (dayNum === null || monthNum === null) return null;
+  return `${dayNum}/${monthNum}/${yyyy!.slice(2)}`;
 }
 
 function formatCountryCity(venueGeo: TeamVenueGeo | null): string {
@@ -263,10 +278,6 @@ function formatRecordSummary(
     : `${rec.wins}G - ${rec.losses}P`;
 }
 
-/**
- * Resume métricas y encabezados de tabla según la lógica real del deporte
- * (puntos 3/2 en fútbol y hockey vs. porcentaje de victorias %V en NFL/NBA/MLB).
- */
 function standingDisplayMeta(standing: TeamStandingSummary, sport: PlatformSport) {
   const usesPoints = sport === "football" || sport === "ice-hockey";
   const maxPtsPerGame = sport === "football" ? 3 : 2;
@@ -601,7 +612,7 @@ function TeamContextCard({
                 e.preventDefault();
                 onNavigate(backHref);
               }}
-              className="pl-team-link text-xs font-semibold inline-flex items-center gap-1 min-h-11 sm:min-h-9"
+              className="pl-team-link text-xs font-semibold inline-flex items-center gap-1 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9"
               style={{ color: "var(--pl-brand)" }}
             >
               <span>Ver tabla</span>
@@ -781,7 +792,7 @@ function TeamRefereeDisciplineCard({
                     e.preventDefault();
                     onNavigate(refereeInfo.gameHref);
                   }}
-                  className="pl-team-link text-xs font-semibold inline-flex items-center gap-1 min-h-11 sm:min-h-9 shrink-0"
+                  className="pl-team-link text-xs font-semibold inline-flex items-center gap-1 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 shrink-0"
                   style={{ color: "var(--pl-brand)" }}
                 >
                   <span>Ver partido</span>
@@ -903,7 +914,7 @@ function TeamRefereeDisciplineCard({
                     e.preventDefault();
                     onNavigate(topBookedHref);
                   }}
-                  className="pl-team-link font-bold inline-flex items-center gap-1.5 min-h-11 sm:min-h-9 num"
+                  className="pl-team-link font-bold inline-flex items-center gap-1.5 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 num"
                 >
                   <span>{disciplinary.topBookedPlayer.shortName}</span>
                   <span className="pl-pill pl-pill--warning text-[11px]">
@@ -942,7 +953,8 @@ function monthTitleFromIso(isoDate: string): string {
   const m = /^(\d{4})-(\d{2})/.exec(isoDate.trim());
   if (!m) return "Jornada programada";
   const year = m[1];
-  const monthIdx = Number(m[2]) - 1;
+  const parsedMonth = parseStrictFiniteNumber(m[2]);
+  const monthIdx = parsedMonth !== null ? parsedMonth - 1 : -1;
   return `${MONTH_NAMES_ES[monthIdx] ?? "Mes"} ${year}`;
 }
 
@@ -1131,13 +1143,6 @@ function TeamStatsSection({
   );
 }
 
-/**
- * Columna lateral compacta «Partidos» inspirada en marcadores editoriales:
- * - Cabecera «Partidos» + selector «Todos / En casa / De visita»
- * - Conmutador «Lista | Calendario»
- * - Píldoras «Finalizados | Próximos» + paginación «‹ ›»
- * - Subcabecera con emblema de liga y bandera de país + filas compactas con estrella
- */
 function TeamMatchesRail({
   profile,
   venueGeo,
@@ -1411,7 +1416,7 @@ function TeamMatchesRail({
             {filteredFinished.length > 0 ? (
               <button
                 type="button"
-                className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3"
+                className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3"
                 onClick={() => {
                   setStatusMode("finished");
                   setPage(0);
@@ -1562,6 +1567,9 @@ export function TeamProfileClubView({
   profile,
   initialTab = "resumen",
   liveBoardOverride,
+  standingsSplits = null,
+  attackDefense = null,
+  bracket = null,
 }: TeamProfileClubViewProps): React.JSX.Element {
   const { dataset, viewerRole, hasAccountSession, upgradeHref } = usePlatformCore();
   const { toggleWatchlistGame, navigateTo } = usePlatformActions();
@@ -1833,7 +1841,6 @@ export function TeamProfileClubView({
   return (
     <AtmosphereStage activePath={canonicalTeamHref(profile.league, profile.team.slug)}>
       <ClubWorkspaceShell activePath={canonicalTeamHref(profile.league, profile.team.slug)}>
-        {/* Ruta superior estilo editorial deportivo */}
         <nav aria-label="Ruta del equipo" className="pl-team-crumb">
           <ContextualBackButton fallbackHref={leagueHref} />
           <ol className="pl-team-crumb-list">
@@ -1881,14 +1888,12 @@ export function TeamProfileClubView({
           </ol>
         </nav>
 
-        {/* Cabecera Hero del Equipo: escudo limpio + identidad + partido anterior/siguiente + KPIs */}
         <section
           className="pl-team-hero glass-card glass-ring rounded-3xl p-5 sm:p-6"
           data-team-hero={profile.team.slug}
           style={{ viewTransitionName: "pl-team-hero" }}
         >
           <div className="pl-team-hero-grid">
-            {/* Izquierda: escudo limpio, nombre, país, entrenador/código, racha y sede/liga */}
             <div className="pl-team-hero-identity">
               <div className="pl-team-hero-head">
                 <span className="pl-team-hero-crest">
@@ -2030,7 +2035,6 @@ export function TeamProfileClubView({
               </div>
             </div>
 
-            {/* Derecha: acción superior + Partido anterior y Partido siguiente */}
             <div className="pl-team-hero-side">
               <div className="pl-team-hero-actions">
                 <span className="pl-team-updated-text num">
@@ -2055,7 +2059,7 @@ export function TeamProfileClubView({
                       `/app/comparar?modo=equipos&liga=${profile.league}&a=${profile.team.slug}`,
                     );
                   }}
-                  className="pl-btn-glass text-xs min-h-11 lg:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
+                  className="pl-btn-glass text-xs min-h-11 [@media(min-width:1024px)_and_(pointer:fine)]:min-h-9 px-3 inline-flex items-center gap-1.5 no-underline"
                 >
                   <MaestroIcon name="chart" size={13} />
                   <span>Comparar</span>
@@ -2063,7 +2067,6 @@ export function TeamProfileClubView({
               </div>
 
               <div className="pl-team-hero-matches">
-                {/* Cuando el equipo juega en vivo: tarjeta En Vivo (Imagen 3) en lugar de Partido anterior (o junto a Partido siguiente) */}
                 {liveMatchInfo ? (
                   <div className="pl-team-mini-col" data-team-live-slot="">
                     <span className="pl-team-mini-heading is-live">En Vivo</span>
@@ -2119,7 +2122,6 @@ export function TeamProfileClubView({
                     </a>
                   </div>
                 ) : (
-                  /* Tarjeta 1: Partido anterior */
                   <div className="pl-team-mini-col">
                     <span className="pl-team-mini-heading">Partido anterior</span>
                     {lastMatch && lastMatchSides ? (
@@ -2226,7 +2228,6 @@ export function TeamProfileClubView({
                   </div>
                 )}
 
-                {/* Tarjeta 2: Partido siguiente */}
                 <div className="pl-team-mini-col">
                   <span className="pl-team-mini-heading">Partido siguiente</span>
                   {nextUpcoming && nextMatchSides ? (
@@ -2408,7 +2409,6 @@ export function TeamProfileClubView({
           </dl>
         </section>
 
-        {/* Cuerpo de 2 columnas: Izquierda principal unificada (Resumen, Estadísticas, Plantilla) + Derecha compacta (Partidos) */}
         <div className="pl-team-workspace">
           <div className="pl-team-main-col">
             <div className="pl-team-main-sheet glass-card glass-ring">
@@ -2444,7 +2444,6 @@ export function TeamProfileClubView({
                 })}
               </div>
 
-              {/* Panel Resumen */}
               <div
                 id="team-panel-resumen"
                 role="tabpanel"
@@ -2483,6 +2482,23 @@ export function TeamProfileClubView({
                     isVisitorRestricted={isVisitorRestricted}
                     onNavigate={navigateTo}
                   />
+
+                  {standingsSplits && standingsSplits.total.length > 0 ? (
+                    <StandingsSplitsPanel
+                      standings={standingsSplits}
+                      highlightTeamSlug={profile.team.slug}
+                      compact
+                      onNavigate={navigateTo}
+                    />
+                  ) : null}
+
+                  {bracket ? (
+                    <KnockoutBracketSvgPanel
+                      bracket={bracket}
+                      highlightTeamSlug={profile.team.slug}
+                      onNavigate={navigateTo}
+                    />
+                  ) : null}
 
                   {profile.relatedTeams.length > 0 ? (
                     <section className="glass-card glass-ring rounded-2xl p-5 space-y-3">
@@ -2525,7 +2541,6 @@ export function TeamProfileClubView({
                 </div>
               </div>
 
-              {/* Panel Estadísticas */}
               <div
                 id="team-panel-estadisticas"
                 role="tabpanel"
@@ -2533,14 +2548,20 @@ export function TeamProfileClubView({
                 tabIndex={activeTab === "estadisticas" ? 0 : undefined}
                 hidden={activeTab !== "estadisticas"}
               >
-                <TeamStatsSection
-                  standing={profile.standing}
-                  averages={profile.recentAverages}
-                  sport={profile.sport}
-                />
+                {activeTab === "estadisticas" ? (
+                  <div className="pl-team-sheet-stack">
+                    <TeamStatsSection
+                      standing={profile.standing}
+                      averages={profile.recentAverages}
+                      sport={profile.sport}
+                    />
+                    {!isVisitorRestricted && attackDefense ? (
+                      <AttackDefenseOrdinalCard data={attackDefense} compact />
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
 
-              {/* Panel Plantilla */}
               <div
                 id="team-panel-plantilla"
                 role="tabpanel"
@@ -2548,26 +2569,28 @@ export function TeamProfileClubView({
                 tabIndex={activeTab === "plantilla" ? 0 : undefined}
                 hidden={activeTab !== "plantilla"}
               >
-                {hasSquad && profile.squad ? (
-                  <TeamSquadSection
-                    league={profile.league}
-                    sport={profile.sport}
-                    teamSlug={profile.team.slug}
-                    teamName={profile.team.name}
-                    seasonLabel={profile.seasonLabel}
-                    squad={profile.squad}
-                    injuries={profile.injuries}
-                    lineupByPlayer={teamLineupMap.byPlayerKey}
-                    lineupBannerLabel={teamLineupMap.statusLabel}
-                    isVisitorRestricted={isVisitorRestricted}
-                    upgradeHref={upgradeHref}
-                    onNavigate={navigateTo}
-                  />
-                ) : (
-                  <section className="glass-card glass-ring rounded-2xl p-6 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                    Este corte aún no incluye el desglose individual de plantilla para esta competición.
-                  </section>
-                )}
+                {activeTab === "plantilla" ? (
+                  hasSquad && profile.squad ? (
+                    <TeamSquadSection
+                      league={profile.league}
+                      sport={profile.sport}
+                      teamSlug={profile.team.slug}
+                      teamName={profile.team.name}
+                      seasonLabel={profile.seasonLabel}
+                      squad={profile.squad}
+                      injuries={profile.injuries}
+                      lineupByPlayer={teamLineupMap.byPlayerKey}
+                      lineupBannerLabel={teamLineupMap.statusLabel}
+                      isVisitorRestricted={isVisitorRestricted}
+                      upgradeHref={upgradeHref}
+                      onNavigate={navigateTo}
+                    />
+                  ) : (
+                    <section className="glass-card glass-ring rounded-2xl p-6 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Este corte aún no incluye el desglose individual de plantilla para esta competición.
+                    </section>
+                  )
+                ) : null}
               </div>
             </div>
           </div>
