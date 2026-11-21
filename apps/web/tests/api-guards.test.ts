@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Db } from "@pitchlab/db";
 import type { AuthenticatedMember } from "../src/server/session-user";
@@ -6,6 +6,7 @@ import type { ViewerAccess } from "../src/server/viewer-access";
 
 const mocks = vi.hoisted(() => ({
   createDb: vi.fn(),
+  finishTwitterLink: vi.fn(),
   getAuth: vi.fn(),
   getViewerAccess: vi.fn(),
   hasActivePaseTotal: vi.fn(),
@@ -35,6 +36,10 @@ vi.mock("../src/server/auth", () => ({
   getAuth: mocks.getAuth,
 }));
 
+vi.mock("../src/server/profile-x", () => ({
+  finishTwitterLink: mocks.finishTwitterLink,
+}));
+
 vi.mock("../src/server/session-user", () => ({
   isAdminEmail: mocks.isAdminEmail,
   requireAdmin: mocks.requireAdmin,
@@ -51,6 +56,8 @@ vi.mock("../src/server/viewer-access", () => ({
   getViewerAccess: mocks.getViewerAccess,
 }));
 
+import { GET as getAuthRoute } from "../app/api/auth/[...all]/route";
+import { middleware } from "../middleware";
 import {
   ApiGuardHttpError,
   recordIdorAttempt,
@@ -186,7 +193,11 @@ beforeEach(() => {
   resetScrapingVelocityForTests();
 
   mocks.createDb.mockReturnValue(fakeDb);
-  mocks.getAuth.mockReturnValue({ api: { getSession: vi.fn() } });
+  mocks.finishTwitterLink.mockResolvedValue(new Response(null, { status: 303 }));
+  mocks.getAuth.mockReturnValue({
+    api: { getSession: vi.fn() },
+    handler: vi.fn(async () => NextResponse.json({ session: null })),
+  });
   mocks.getViewerAccess.mockResolvedValue(NONE_ACCESS);
   mocks.hasActivePaseTotal.mockResolvedValue(true);
   mocks.isAdminEmail.mockReturnValue(false);
@@ -1085,5 +1096,122 @@ describe("sanitización de errores y auditoría IDOR", () => {
       }),
     );
     expect(warnSpy).toHaveBeenCalled();
+  });
+});
+
+describe("middleware y /api/auth/[...all]", () => {
+  it("permite POST /api/me/email-preferences/unsubscribe cross-site (RFC 8058) y rechaza /api/me/profile cross-site con 403", async () => {
+    const unsubRes = await middleware(
+      new NextRequest("https://pitchlab.mx/api/me/email-preferences/unsubscribe?token=x", {
+        method: "POST",
+        headers: {
+          "sec-fetch-site": "cross-site",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        body: "List-Unsubscribe=One-Click",
+      }),
+    );
+    expect(unsubRes.status).not.toBe(403);
+    expect(unsubRes.headers.get("x-content-type-options")).toBe("nosniff");
+
+    const unsubTrailingRes = await middleware(
+      new NextRequest("https://pitchlab.mx/api/me/email-preferences/unsubscribe/?token=x", {
+        method: "POST",
+        headers: {
+          "sec-fetch-site": "cross-site",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        body: "List-Unsubscribe=One-Click",
+      }),
+    );
+    expect(unsubTrailingRes.status).not.toBe(403);
+
+    const profileRes = await middleware(
+      new NextRequest("https://pitchlab.mx/api/me/profile", {
+        method: "POST",
+        headers: {
+          "sec-fetch-site": "cross-site",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ displayName: "Atacante" }),
+      }),
+    );
+    expect(profileRes.status).toBe(403);
+    expect(await profileRes.json()).toEqual({ ok: false, error: "origen_invalido" });
+
+    const prefsRes = await middleware(
+      new NextRequest("https://pitchlab.mx/api/me/email-preferences", {
+        method: "PUT",
+        headers: {
+          "sec-fetch-site": "cross-site",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ weeklyDigest: false }),
+      }),
+    );
+    expect(prefsRes.status).toBe(403);
+  });
+
+  it("limita GET /api/auth/get-session por cuota IP (429) y aplica auth-callback estricto con trailing slash", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const authHandler = vi.fn(async () => NextResponse.json({ session: null }));
+    mocks.getAuth.mockReturnValue({
+      api: { getSession: vi.fn() },
+      handler: authHandler,
+    });
+
+    const makeSessionReq = () =>
+      new Request("https://pitchlab.mx/api/auth/get-session", {
+        method: "GET",
+        headers: { "cf-connecting-ip": "201.141.90.10" },
+      });
+
+    for (let i = 0; i < 120; i += 1) {
+      const res = await getAuthRoute(makeSessionReq());
+      expect(res.status).toBe(200);
+      expect(res.headers.get("cache-control")).toBe("no-store");
+      expect(res.headers.get("x-content-type-options")).toBe("nosniff");
+    }
+
+    const throttledSession = await getAuthRoute(makeSessionReq());
+    expect(throttledSession.status).toBe(429);
+    expect(throttledSession.headers.get("retry-after")).toBeTruthy();
+    expect(throttledSession.headers.get("cache-control")).toBe("no-store");
+    expect(authHandler).toHaveBeenCalledTimes(120);
+
+    const makeTrailingCallbackReq = () =>
+      new Request("https://pitchlab.mx/api/auth/magic-link/verify/?token=abc", {
+        method: "GET",
+        headers: { "cf-connecting-ip": "201.141.90.11" },
+      });
+
+    for (let i = 0; i < 20; i += 1) {
+      const res = await getAuthRoute(makeTrailingCallbackReq());
+      expect(res.status).toBe(200);
+    }
+
+    const throttledCallback = await getAuthRoute(makeTrailingCallbackReq());
+    expect(throttledCallback.status).toBe(429);
+    expect(throttledCallback.headers.get("retry-after")).toBeTruthy();
+
+    const twitterTrailingRes = await getAuthRoute(
+      new Request("https://pitchlab.mx/api/auth/callback/twitter/", {
+        method: "GET",
+        headers: { "cf-connecting-ip": "201.141.90.12" },
+      }),
+    );
+    expect(twitterTrailingRes.status).toBe(303);
+    expect(mocks.finishTwitterLink).toHaveBeenCalledTimes(1);
+
+    setNodeEnv("production");
+    const unavailableGet = await getAuthRoute(
+      new Request("https://pitchlab.mx/api/auth/get-session", {
+        method: "GET",
+        headers: { "cf-connecting-ip": "201.141.90.13" },
+      }),
+    );
+    expect(unavailableGet.status).toBe(503);
+    expect(unavailableGet.headers.get("retry-after")).toBe("30");
   });
 });

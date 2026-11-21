@@ -15,6 +15,7 @@ export const dynamic = "force-dynamic";
 
 const AUTH_POST_LIMIT = 20;
 const AUTH_CALLBACK_LIMIT = 20;
+const AUTH_GET_LIMIT = 120;
 const AUTH_WINDOW_MS = 60_000;
 
 function withAuthSecurityHeaders(response: Response): Response {
@@ -48,9 +49,15 @@ function notConfiguredResponse(): NextResponse {
   );
 }
 
+function normalizeAuthPathname(pathname: string): string {
+  if (pathname.length <= 1) return pathname;
+  const trimmed = pathname.replace(/\/+$/, "");
+  return trimmed || "/";
+}
+
 function resolveAuthPathname(request: Request): string {
   try {
-    return new URL(request.url).pathname;
+    return normalizeAuthPathname(new URL(request.url).pathname);
   } catch (err) {
     void err;
     return "/api/auth";
@@ -62,6 +69,7 @@ async function enforceAuthRateLimit(
   bucket: string,
   limit: number,
   pathname: string,
+  failClosed = true,
 ): Promise<Response | null> {
   const ip = trustedClientIp(request.headers) || "127.0.0.1";
   const rl = await checkEndpointRateLimit({
@@ -69,7 +77,7 @@ async function enforceAuthRateLimit(
     key: ip,
     limit,
     windowMs: AUTH_WINDOW_MS,
-    failClosed: true,
+    failClosed,
   });
   if (rl.storeUnavailable) {
     return serviceUnavailableRateLimitResponse(rl.retryAfterSeconds);
@@ -88,19 +96,15 @@ async function enforceAuthRateLimit(
 export async function GET(request: Request): Promise<Response> {
   const pathname = resolveAuthPathname(request);
   const isCallback =
-    pathname === "/api/auth/callback/twitter" ||
+    pathname === "/api/auth/callback" ||
     pathname.startsWith("/api/auth/callback/") ||
-    pathname === "/api/auth/magic-link/verify";
+    pathname === "/api/auth/magic-link/verify" ||
+    pathname.startsWith("/api/auth/magic-link/verify/");
 
-  if (isCallback) {
-    const blocked = await enforceAuthRateLimit(
-      request,
-      "auth-callback",
-      AUTH_CALLBACK_LIMIT,
-      pathname,
-    );
-    if (blocked) return blocked;
-  }
+  const blocked = isCallback
+    ? await enforceAuthRateLimit(request, "auth-callback", AUTH_CALLBACK_LIMIT, pathname, true)
+    : await enforceAuthRateLimit(request, "auth-get", AUTH_GET_LIMIT, pathname, true);
+  if (blocked) return blocked;
 
   if (pathname === "/api/auth/callback/twitter") {
     return withAuthSecurityHeaders(await finishTwitterLink(request));
@@ -113,7 +117,7 @@ export async function GET(request: Request): Promise<Response> {
 
 export async function POST(request: Request): Promise<Response> {
   const pathname = resolveAuthPathname(request);
-  const blocked = await enforceAuthRateLimit(request, "auth-post", AUTH_POST_LIMIT, pathname);
+  const blocked = await enforceAuthRateLimit(request, "auth-post", AUTH_POST_LIMIT, pathname, true);
   if (blocked) return blocked;
 
   const auth = getAuth();

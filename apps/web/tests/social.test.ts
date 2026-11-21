@@ -26,6 +26,7 @@ const mocks = vi.hoisted(() => ({
   reportSocialContent: vi.fn(),
   listModerationPanelData: vi.fn(),
   applyModerationAction: vi.fn(),
+  findModerationTargetAuthor: vi.fn(),
   listSocialFeed: vi.fn(),
   createSocialPost: vi.fn(),
   getSocialPostById: vi.fn(),
@@ -72,6 +73,7 @@ vi.mock("@pitchlab/db", async (importOriginal) => ({
   reportSocialContent: mocks.reportSocialContent,
   listModerationPanelData: mocks.listModerationPanelData,
   applyModerationAction: mocks.applyModerationAction,
+  findModerationTargetAuthor: mocks.findModerationTargetAuthor,
   listSocialFeed: mocks.listSocialFeed,
   createSocialPost: mocks.createSocialPost,
   getSocialPostById: mocks.getSocialPostById,
@@ -261,6 +263,7 @@ describe("comunidad: reportes y panel de moderación", () => {
       });
       mocks.requireMember.mockResolvedValue(memberSession("admin-1", "fundador@pitchlab.mx"));
       mocks.applyModerationAction.mockResolvedValue({ ok: true });
+      mocks.findModerationTargetAuthor.mockResolvedValue(null);
       mocks.listModerationPanelData.mockResolvedValue({ pendingQueue: [], hiddenItems: [], pausedMembers: [] });
 
       const adminRes = await postModeration(
@@ -485,7 +488,7 @@ describe("comunidad: reportes y panel de moderación", () => {
     );
     expect(invalidDetailRes.status).toBe(400);
 
-    mocks.requireSocialMember.mockResolvedValueOnce({
+    mocks.requireSocialMember.mockResolvedValue({
       error: NextResponse.json({ error: "La comunidad es para socios con Pase vigente." }, { status: 403 }),
     });
     mocks.deleteSocialPost.mockResolvedValueOnce(true);
@@ -499,6 +502,7 @@ describe("comunidad: reportes y panel de moderación", () => {
     expect(delPostRes.status).toBe(200);
     expect(mocks.deleteSocialPost).toHaveBeenCalledWith({}, "u1", postId);
 
+    mocks.requireSocialMember.mockReset();
     mocks.requireSocialMember.mockResolvedValue(memberSession("u1"));
     const badLikeRes = await putPostLikeRoute(
       new Request(`http://localhost:9990/api/social/posts/${postId}/like`, {

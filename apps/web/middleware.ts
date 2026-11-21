@@ -224,12 +224,20 @@ function isDynamicCspRoute(pathname: string): boolean {
   return false;
 }
 
+function normalizeApiPathname(pathname: string): string {
+  if (pathname.length <= 1) return pathname;
+  const trimmed = pathname.replace(/\/+$/, "");
+  return trimmed || "/";
+}
+
 function isCrossSiteExemptApiPath(pathname: string): boolean {
+  const normalized = normalizeApiPathname(pathname);
   return (
-    pathname === "/api/webhooks/stripe" ||
-    pathname.startsWith("/api/webhooks/stripe/") ||
-    pathname === "/api/cron" ||
-    pathname.startsWith("/api/cron/")
+    normalized === "/api/webhooks/stripe" ||
+    normalized.startsWith("/api/webhooks/stripe/") ||
+    normalized === "/api/cron" ||
+    normalized.startsWith("/api/cron/") ||
+    normalized === "/api/me/email-preferences/unsubscribe"
   );
 }
 
