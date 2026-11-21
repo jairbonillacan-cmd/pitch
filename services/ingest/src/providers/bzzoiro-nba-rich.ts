@@ -1422,8 +1422,8 @@ export async function collectBzzoiroNbaRichBundle(
             line: row.line,
             book: row.book,
             decimal: row.price_decimal,
-            ...(row.opening_price !== undefined ? { openingDecimal: row.opening_price } : {}),
-            ...(row.movement_direction !== undefined ? { movement: row.movement_direction } : {}),
+            ...(row.opening_price != null ? { openingDecimal: row.opening_price } : {}),
+            ...(row.movement_direction != null ? { movement: row.movement_direction } : {}),
             capturedAtUtc: row.ts_captured,
           });
         }
