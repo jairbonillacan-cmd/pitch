@@ -835,6 +835,26 @@ function detectUnitCoordScale(pairs: readonly { x: number; y: number }[]): boole
   return maxAbs <= 1.15 && anyFractional;
 }
 
+function isGoalOriginShotmapAxis(xs: readonly number[]): boolean {
+  if (xs.length === 0) return false;
+  const sorted = xs.slice().sort((a, b) => a - b);
+  const maxX = sorted[sorted.length - 1];
+  if (maxX !== undefined && maxX <= 50) return true;
+  const mid = Math.floor(sorted.length / 2);
+  const median =
+    sorted.length % 2 === 1
+      ? (sorted[mid] ?? 50)
+      : ((sorted[mid - 1] ?? 50) + (sorted[mid] ?? 50)) / 2;
+  return median < 50;
+}
+
+export function normalizeShotmapAxisX(xs: readonly number[]): number[] {
+  if (!isGoalOriginShotmapAxis(xs)) {
+    return xs.slice();
+  }
+  return xs.map((x) => round2(Math.max(0, Math.min(100, 100 - x))));
+}
+
 /** Normaliza resultado de disparo Bzzoiro a `goal | saved | blocked | miss | post`. */
 export function normalizeShotOutcome(raw: unknown): NormalizedShotOutcome | null {
   const s = String(raw ?? "")
@@ -1000,9 +1020,10 @@ export function parseBzzoiroShotmap(
   }
 
   const unitScale = detectUnitCoordScale(preliminary.map((p) => ({ x: p.rawX, y: p.rawY })));
+  const normalizedXs = normalizeShotmapAxisX(preliminary.map((p) => clampCoord(p.rawX, unitScale)));
   const shots: NormalizedShot[] = preliminary
-    .map((p) => ({
-      x: clampCoord(p.rawX, unitScale),
+    .map((p, idx) => ({
+      x: normalizedXs[idx] ?? clampCoord(p.rawX, unitScale),
       y: clampCoord(p.rawY, unitScale),
       minute: p.minute,
       ...(p.addedTime !== undefined ? { addedTime: p.addedTime } : {}),
@@ -1390,16 +1411,24 @@ export function parseLiveStats(raw: BzLiveStats | null): Pick<
       .filter((p): p is typeof p & { rawX: number; rawY: number } => p.rawX !== null && p.rawY !== null)
       .map((p) => ({ x: p.rawX, y: p.rawY })),
   );
-  const shots: LiveShot[] = preliminaryShots
-    .sort((a, b) => a.order - b.order)
-    .map((p) => ({
+  const orderedShots = preliminaryShots.slice().sort((a, b) => a.order - b.order);
+  const scaledXs = orderedShots.map((p) => (p.rawX !== null ? clampCoord(p.rawX, unitScale) : null));
+  const normalizedValidXs = normalizeShotmapAxisX(
+    scaledXs.filter((x): x is number => x !== null),
+  );
+  let validXIndex = 0;
+  const shots: LiveShot[] = orderedShots.map((p, idx) => {
+    const scaledX = scaledXs[idx] ?? null;
+    const x = scaledX !== null ? (normalizedValidXs[validXIndex++] ?? scaledX) : null;
+    return {
       minute: p.minute,
       side: p.side,
       outcome: p.outcome,
       xg: p.xg,
-      x: p.rawX !== null ? clampCoord(p.rawX, unitScale) : null,
+      x,
       y: p.rawY !== null ? clampCoord(p.rawY, unitScale) : null,
-    }));
+    };
+  });
   const home = raw.stats?.home;
   const away = raw.stats?.away;
   return {

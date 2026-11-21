@@ -660,7 +660,7 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
               settlement: "pending",
               engineName: "PitchLab Spacetime v5.1",
               isPrimaryModelPick: true,
-              isDerived: false,
+              isDerived: true,
               conflictGroup: "home_side",
               playerMeta: {
                 playerName: secretPlayer,
@@ -695,6 +695,8 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
             expect(redacted.isRedacted).toBe(true);
             expect(redacted.isDailyOpenPromo).toBe(false);
             expect(redacted.isTipsterWeeklyOpen).toBe(false);
+            expect(redacted.isPrimaryModelPick).toBe(false);
+            expect(redacted.isDerived).toBe(false);
             expect(redacted.selectionKey).toBe("locked");
             expect(redacted.line).toBeNull();
             expect(redacted.playerMeta).toBeNull();
@@ -783,6 +785,8 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
               const isExplicitPromo = Boolean(item.isDailyOpenPromo || item.isTipsterWeeklyOpen);
               if (!isExplicitPromo) {
                 expect(item.isRedacted).toBe(true);
+                expect(item.isPrimaryModelPick).toBe(false);
+                expect(item.isDerived).toBe(false);
                 expect(item.pricing.p).toBe(0);
                 expect(item.pricing.fairOdds).toBe(0);
                 expect(item.pricing.marketDecimal).toBeNull();

@@ -179,7 +179,12 @@ export const LiveShotSchema = z.object({
   side: LiveSideSchema,
   outcome: LiveShotOutcomeSchema,
   xg: z.number().nonnegative().nullable(),
-  x: z.number().min(0).max(100).nullable(),
+  x: z
+    .number()
+    .min(0)
+    .max(100)
+    .nullable()
+    .describe("Coordenada X normalizada 0..100 donde 100 es la portería atacada"),
   y: z.number().min(0).max(100).nullable(),
   player: z.string().min(1).max(120).nullable().optional(),
   bodyPart: z.string().min(1).max(32).nullable().optional(),
