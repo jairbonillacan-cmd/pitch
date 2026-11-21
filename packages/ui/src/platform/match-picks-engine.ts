@@ -676,6 +676,8 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
       ? {
           sourceLabel: rawLineups!.sourceLabel,
           verifiedAtUtc: rawLineups!.updatedAtUtc,
+          status: "confirmed" as const,
+          confirmed: true,
           homeFormation: rawLineups!.home.formation,
           awayFormation: rawLineups!.away.formation,
           homeStarters: rawLineups!.home.starters.map((p) => ({
@@ -695,6 +697,8 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
       ? {
           sourceLabel: rawLineups!.sourceLabel,
           verifiedAtUtc: rawLineups!.updatedAtUtc,
+          status: "predicted" as const,
+          confirmed: false,
           confidence: rawLineups!.confidence,
           homeFormation: rawLineups!.home.formation,
           awayFormation: rawLineups!.away.formation,

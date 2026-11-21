@@ -293,7 +293,7 @@ function defaultDeps(): LiveDeps {
 class QuotaGuardError extends Error {}
 
 async function providerGet<T>(deps: LiveDeps, pathWithQuery: string): Promise<T | null> {
-  if (!deps.fetch) throw new QuotaGuardError("Sin clave de Bzzoiro");
+  if (!deps.fetch) throw new QuotaGuardError("Sin clave del feed en vivo");
   const now = deps.now();
   const q = await deps.store.quota(now);
   if (!deps.budget.unlimited && deps.budget.dailyMax > 0 && q.requests >= deps.budget.dailyMax) {
@@ -305,8 +305,8 @@ async function providerGet<T>(deps: LiveDeps, pathWithQuery: string): Promise<T 
   const res = await deps.fetch(pathWithQuery);
   await deps.store.countRequest(now, res.remaining);
   if (res.status === 404) return null;
-  if (res.status === 429) throw new QuotaGuardError("Bzzoiro pidió esperar (429)");
-  if (res.status < 200 || res.status >= 300) throw new Error(`Bzzoiro respondió ${res.status}`);
+  if (res.status === 429) throw new QuotaGuardError("Feed en vivo pidió esperar (429)");
+  if (res.status < 200 || res.status >= 300) throw new Error(`Feed en vivo respondió ${res.status}`);
   return res.body as T;
 }
 

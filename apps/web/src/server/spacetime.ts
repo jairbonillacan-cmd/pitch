@@ -1,4 +1,7 @@
-import type { MatchAnalysis } from "@pitchlab/contracts";
+import {
+  isPermittedMarketQuoteBook,
+  type MatchAnalysis,
+} from "@pitchlab/contracts";
 import {
   buildTeamMasterIndex,
   predictLiveMatchup,
@@ -92,9 +95,7 @@ const DRIVER_LABELS: Record<string, string> = {
 
 /** Fuente de momios → nombre de casa visible. Las fuentes de señales no son casas. */
 const BOOK_LABELS: Record<string, string> = {
-  caliente_mx: "Caliente",
   pinnacle: "Pinnacle",
-  betfair_exchange: "Betfair Exchange",
   smarkets: "Smarkets",
   matchbook: "Matchbook",
   bet365: "Bet365",
@@ -109,6 +110,10 @@ const BOOK_LABELS: Record<string, string> = {
   williamhill: "William Hill",
   william_hill: "William Hill",
   unibet: "Unibet",
+  betrivers: "BetRivers",
+  novibet: "Novibet",
+  betway: "Betway",
+  playdoit: "Playdoit",
 };
 
 export function formatBookLabel(book: string): string {
@@ -248,10 +253,14 @@ export function maxOddsAgeHours(): number {
   return Number.isFinite(raw) && raw > 0 ? raw : 72;
 }
 
+const MAX_FUTURE_SKEW_MS = 6 * 3_600_000;
+
 export function isMarketFresh(asOfUtc: string | null | undefined, nowMs: number = Date.now()): boolean {
   if (!asOfUtc) return false;
   const t = Date.parse(asOfUtc);
-  return Number.isFinite(t) && nowMs - t <= maxOddsAgeHours() * 3_600_000;
+  if (!Number.isFinite(t)) return false;
+  const ageMs = nowMs - t;
+  return ageMs >= -MAX_FUTURE_SKEW_MS && ageMs <= maxOddsAgeHours() * 3_600_000;
 }
 
 const OD_DATE = new Intl.DateTimeFormat("es-MX", {
@@ -277,7 +286,10 @@ function toSignal(
   homeTeam: TeamMasterFeatureRecord | null,
   awayTeam: TeamMasterFeatureRecord | null,
 ): SpacetimeSignal {
-  const source = (rec.market_sources ?? []).find((s) => BOOK_LABELS[s]);
+  const source = (rec.market_sources ?? []).find((s) => {
+    const label = BOOK_LABELS[s];
+    return Boolean(label) && isPermittedMarketQuoteBook(s, label);
+  });
   const gate = pred.geodesicV2;
   const oddsBySide = new Map((gate?.outcomes ?? []).map((o) => [o.side, o.decimalOdds]));
   const homeOdds = oddsBySide.get("home");

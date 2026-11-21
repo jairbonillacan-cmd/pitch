@@ -2,6 +2,8 @@ import {
   TIER1_MAJOR_CUP_IDS,
   createSpacetimeAnchoredQuote,
   getLeagueCapability,
+  isBlockedMarketQuoteBook,
+  isPermittedMarketQuoteBook,
   parseStrictFiniteNumber,
   type ProductLeagueId,
   type QuoteMovement,
@@ -82,9 +84,6 @@ export const BZZOIRO_COMPARISON_BOOK_META: Readonly<
   draftkings: { canonical: "draftkings", label: "DraftKings" },
   fanduel: { canonical: "fanduel", label: "FanDuel" },
   betmgm: { canonical: "betmgm", label: "BetMGM" },
-  caliente: { canonical: "caliente_mx", label: "Caliente" },
-  "caliente-mx": { canonical: "caliente_mx", label: "Caliente" },
-  caliente_mx: { canonical: "caliente_mx", label: "Caliente" },
   bwin: { canonical: "bwin", label: "Bwin" },
   "william-hill": { canonical: "william_hill", label: "William Hill" },
   william_hill: { canonical: "william_hill", label: "William Hill" },
@@ -102,8 +101,10 @@ export const PRIORITY_COMPARISON_BOOKS = new Set([
   "draftkings",
   "fanduel",
   "betmgm",
-  "caliente_mx",
 ]);
+
+const MAX_COMPARISON_QUOTE_AGE_MS = 72 * 3_600_000;
+const MAX_COMPARISON_FUTURE_SKEW_MS = 6 * 3_600_000;
 
 const LOOKAHEAD_DAYS = 8;
 const PAGE_LIMIT = 200;
@@ -282,6 +283,17 @@ function inferLineFromMarketSlug(
   return null;
 }
 
+function isFreshComparisonTimestamp(
+  capturedAtIso: string | undefined,
+  nowMs: number,
+): capturedAtIso is string {
+  if (!capturedAtIso || !Number.isFinite(nowMs)) return false;
+  const ms = Date.parse(capturedAtIso);
+  if (!Number.isFinite(ms)) return false;
+  const ageMs = nowMs - ms;
+  return ageMs >= -MAX_COMPARISON_FUTURE_SKEW_MS && ageMs <= MAX_COMPARISON_QUOTE_AGE_MS;
+}
+
 export function toSpacetimeAnchoredQuote(
   input: ToSpacetimeAnchoredQuoteInput,
 ): SpacetimeAnchoredQuote {
@@ -289,9 +301,14 @@ export function toSpacetimeAnchoredQuote(
   if (prob === null || prob <= 0.001 || prob >= 0.999) {
     throw new RangeError("Expected Spacetime modelProb strictly within (0.001, 0.999)");
   }
+  if (isBlockedMarketQuoteBook(undefined, input.bookLabel)) {
+    throw new RangeError("Blocked or unsafe bookmaker label");
+  }
+  const capturedAtIso = normalizeCapturedAtIso(input.capturedAtIso);
+  if (!capturedAtIso) {
+    throw new RangeError("Expected explicit ISO-8601 capturedAtIso");
+  }
   const movement: QuoteMovement = input.movement ?? "STABLE";
-  const capturedAtIso =
-    input.capturedAtIso === undefined ? new Date().toISOString() : input.capturedAtIso;
   return createSpacetimeAnchoredQuote({
     bookLabel: input.bookLabel,
     marketKey: input.marketKey,
@@ -533,9 +550,9 @@ function normalizeComparisonBook(
     .trim()
     .toLowerCase()
     .replace(/\s+/g, "_");
-  if (!rawSlug) return null;
+  if (!rawSlug || isBlockedMarketQuoteBook(rawSlug)) return null;
   const hit = BZZOIRO_COMPARISON_BOOK_META[rawSlug] ?? BZZOIRO_COMPARISON_BOOK_META[rawSlug.replace(/_/g, "-")];
-  if (!hit) return null;
+  if (!hit || !isPermittedMarketQuoteBook(hit.canonical, hit.label)) return null;
   return { canonical: hit.canonical, label: hit.label, isSharp: Boolean(hit.isSharp) };
 }
 
@@ -678,10 +695,12 @@ export function parseBzzoiroOddsComparison(
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
     capturedAtUtc?: string;
+    nowMs?: number;
     priorityBooksOnly?: boolean;
     requireSpacetimeAnchor?: boolean;
   } = {},
 ): SelectionOddsComparison[] {
+  const nowMs = options.nowMs ?? Date.now();
   const flatRows = flattenComparisonRows(raw);
   const grouped = new Map<
     string,
@@ -721,6 +740,7 @@ export function parseBzzoiroOddsComparison(
         ? String(row.movement ?? row.movement_direction).trim()
         : null;
     const capturedAtUtc = normalizeCapturedAtIso(row.updated_at ?? row.captured_at ?? options.capturedAtUtc);
+    if (!isFreshComparisonTimestamp(capturedAtUtc, nowMs)) continue;
 
     const key = selectionPriorKey(quote.market, selectionLine, quote.selection);
     let bucket = grouped.get(key);
@@ -830,6 +850,7 @@ export function parseBzzoiroOddsComparison(
     if (modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, bestDecimal);
     const bestCapturedAtIso = sorted[0]!.capturedAtUtc ?? normalizeCapturedAtIso(options.capturedAtUtc);
+    if (!isFreshComparisonTimestamp(bestCapturedAtIso, nowMs)) continue;
     const anchoredQuote = toSpacetimeAnchoredQuote({
       bookLabel: sorted[0]!.bookLabel,
       marketKey: bucket.market,
@@ -873,10 +894,12 @@ export function parseBzzoiroBestOdds(
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
     capturedAtUtc?: string;
+    nowMs?: number;
     priorityBooksOnly?: boolean;
     requireSpacetimeAnchor?: boolean;
   } = {},
 ): BestOddsComparisonEntry[] {
+  const nowMs = options.nowMs ?? Date.now();
   const flatRows = flattenComparisonRows(raw);
   const out: BestOddsComparisonEntry[] = [];
 
@@ -908,6 +931,7 @@ export function parseBzzoiroBestOdds(
     if (modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, currentDecimal);
     const capturedAtIso = normalizeCapturedAtIso(row.updated_at ?? row.captured_at ?? options.capturedAtUtc);
+    if (!isFreshComparisonTimestamp(capturedAtIso, nowMs)) continue;
     const anchoredQuote = toSpacetimeAnchoredQuote({
       bookLabel: bookMeta.label,
       marketKey: quote.market,
@@ -995,7 +1019,7 @@ export function parseBzzoiroOdds(params: {
     for (const row of rows) {
       if (row.is_live === true) continue;
       const book = BZZOIRO_BOOK_MAP[String(row.bookmaker_slug ?? "").trim().toLowerCase()];
-      if (!book) continue;
+      if (!book || !isPermittedMarketQuoteBook(book)) continue;
       const quote = mapBzzoiroMarketQuote(row);
       if (!quote) continue;
       const currentDecimal = parseDecimalOdds(row.decimal_odds ?? row.odds ?? row.price_decimal);
@@ -1109,7 +1133,7 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     const raw = await this.getRawJson("/odds/best/", { market, limit: String(PAGE_LIMIT) });
     return parseBzzoiroBestOdds(raw, {
       modelProbsByKey: options.modelProbsByKey,
-      capturedAtUtc: options.capturedAtUtc,
+      capturedAtUtc: options.capturedAtUtc ?? new Date().toISOString(),
       priorityBooksOnly: options.priorityBooksOnly,
       requireSpacetimeAnchor: true,
     });
@@ -1157,7 +1181,7 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     const raw = await this.getRawJson(`/events/${providerEventId}/odds/comparison/`, {});
     return parseBzzoiroOddsComparison(raw, {
       modelProbsByKey: options.modelProbsByKey,
-      capturedAtUtc: options.capturedAtUtc,
+      capturedAtUtc: options.capturedAtUtc ?? new Date().toISOString(),
       priorityBooksOnly: options.priorityBooksOnly,
       requireSpacetimeAnchor: true,
     });

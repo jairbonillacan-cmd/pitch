@@ -1,5 +1,11 @@
 import { cache } from "react";
-import { COMPETITION_BY_ID, TIER1_LEAGUE_IDS, type StandingRow } from "@pitchlab/contracts";
+import {
+  COMPETITION_BY_ID,
+  TIER1_LEAGUE_IDS,
+  isBlockedMarketQuoteBook,
+  isPermittedMarketQuoteBook,
+  type StandingRow,
+} from "@pitchlab/contracts";
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import { ALLOWED_BOOKMAKER_IDS } from "@pitchlab/ui/bookmakers";
 import type { MatchPicksCatalog } from "@pitchlab/ui/picks-catalog";
@@ -16,7 +22,7 @@ import type {
 } from "@pitchlab/ui/types";
 import { paymentMode } from "./billing/payment-mode";
 import { getViewerAccess } from "./viewer-access";
-import { buildSpacetimeSignals } from "./spacetime";
+import { buildSpacetimeSignals, isMarketFresh } from "./spacetime";
 import { buildMatchDetailV5 } from "./spacetime-v5";
 import { resolveServerFrozenMainPick } from "./frozen-picks";
 import { applyOutlook, outlookDetailFor } from "./outlook";
@@ -273,6 +279,7 @@ export function splitInitialShellDataset(
       projectShellGame(g, {
         keepParlayCandidates: false,
         isVisitorRedacted: slim.isServerRedactedForVisitor,
+        nowMs,
       }),
     );
   };
@@ -332,6 +339,7 @@ export function splitInitialShellDataset(
   let stage1Games = selected;
   let stage1: PlatformDataset = {
     ...slim,
+    serverNowUtc: new Date(nowMs).toISOString(),
     playerProps: [],
     leagues: stage1Leagues,
     games: stage1Games,
@@ -449,6 +457,7 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
 
   return {
     ...dataset,
+    serverNowUtc: new Date().toISOString(),
     teams: buildTeamsDirectoryFromEnvelopes(envelopes),
     playerProps: loadLeaguePlayerProps(dataset.games),
   };
@@ -556,7 +565,7 @@ export function loadShellPlayerProps(options?: { fullAccess?: boolean }) {
  */
 function projectShellPick(
   pk: MatchPick,
-  opts: { includeQuotes: boolean },
+  opts: { includeQuotes: boolean; nowMs: number },
 ): MatchPick {
   const roundedP = Math.round(pk.p * 10_000) / 10_000;
   let compactQuotes: MatchPick["bookQuotes"] = undefined;
@@ -565,21 +574,18 @@ function projectShellPick(
     const filtered = pk.bookQuotes
       .filter(
         (q) =>
-          q.isBest ||
-          ALLOWED_BOOKMAKER_IDS.has(q.book) ||
-          (q.openingDecimal != null &&
-            q.openingDecimal > 1 &&
-            Math.abs((q.decimal - q.openingDecimal) / q.openingDecimal) >= 0.05),
+          Number.isFinite(q.decimal) &&
+          q.decimal > 1.01 &&
+          ALLOWED_BOOKMAKER_IDS.has(q.book) &&
+          isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
+          isMarketFresh(q.capturedAtUtc, opts.nowMs),
       )
       .slice(0, 3)
       .map((q) => ({
         book: q.book,
         bookLabel: q.bookLabel,
         decimal: q.decimal,
-        capturedAtUtc:
-          q.capturedAtUtc && q.capturedAtUtc !== pk.marketCapturedAtUtc
-            ? q.capturedAtUtc
-            : "",
+        capturedAtUtc: q.capturedAtUtc,
         ...(q.openingDecimal != null && Math.abs(q.openingDecimal - q.decimal) >= 0.01
           ? { openingDecimal: q.openingDecimal }
           : {}),
@@ -592,6 +598,15 @@ function projectShellPick(
       compactQuotes = filtered;
     }
   }
+
+  const topMarketAllowed =
+    !pk.isRedacted &&
+    pk.marketDecimal !== null &&
+    Number.isFinite(pk.marketDecimal) &&
+    pk.marketDecimal > 1.01 &&
+    isMarketFresh(pk.marketCapturedAtUtc, opts.nowMs) &&
+    (pk.marketBookLabel == null ||
+      !isBlockedMarketQuoteBook(pk.marketBookLabel, pk.marketBookLabel));
 
   return {
     id: pk.id,
@@ -617,14 +632,16 @@ function projectShellPick(
     p: roundedP,
     fairDecimal: pk.fairDecimal,
     fairAmerican: pk.fairAmerican,
-    marketDecimal: pk.marketDecimal,
-    marketAmerican: pk.marketAmerican,
-    ...(pk.marketBookLabel !== undefined ? { marketBookLabel: pk.marketBookLabel } : {}),
-    ...(pk.marketCapturedAtUtc !== undefined
+    marketDecimal: topMarketAllowed ? pk.marketDecimal : null,
+    marketAmerican: topMarketAllowed ? pk.marketAmerican : null,
+    ...(topMarketAllowed && pk.marketBookLabel !== undefined
+      ? { marketBookLabel: pk.marketBookLabel }
+      : {}),
+    ...(topMarketAllowed && pk.marketCapturedAtUtc !== undefined
       ? { marketCapturedAtUtc: pk.marketCapturedAtUtc }
       : {}),
     ...(compactQuotes ? { bookQuotes: compactQuotes } : {}),
-    edgePts: pk.edgePts,
+    edgePts: topMarketAllowed ? pk.edgePts : null,
     confidenceScore: pk.confidenceScore,
     suggestedUnits: pk.suggestedUnits,
     ...(pk.result !== undefined ? { result: pk.result } : {}),
@@ -643,7 +660,7 @@ function projectShellPick(
  */
 function projectShellGame(
   g: PlatformGame,
-  opts: { keepParlayCandidates: boolean; isVisitorRedacted: boolean },
+  opts: { keepParlayCandidates: boolean; isVisitorRedacted: boolean; nowMs: number },
 ): PlatformGame {
   const isFinished = g.status === "FT";
   const hasPromoOpenPick = g.picks.some(
@@ -660,7 +677,7 @@ function projectShellGame(
     g.parlayCandidates.length > 0
       ? g.parlayCandidates
           .slice(0, 3)
-          .map((pk) => projectShellPick(pk, { includeQuotes: false }))
+          .map((pk) => projectShellPick(pk, { includeQuotes: false, nowMs: opts.nowMs }))
       : undefined;
 
   const canKeepMatchContext =
@@ -698,7 +715,7 @@ function projectShellGame(
     confidenceScore: g.confidenceScore,
     confidenceLevel: g.confidenceLevel,
     picks: shellPicks.map((pk) =>
-      projectShellPick(pk, { includeQuotes: !isFinished && !lockedVisitorGame }),
+      projectShellPick(pk, { includeQuotes: !isFinished && !lockedVisitorGame, nowMs: opts.nowMs }),
     ),
     ...(projectedParlayCandidates ? { parlayCandidates: projectedParlayCandidates } : {}),
     preGame: g.preGame
@@ -743,14 +760,18 @@ function projectShellGame(
  * campo enriquecido de Bzzoiro reservado para detalle).
  * Cada página de liga, partido o props recibe su detalle puntual en servidor.
  */
-export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
-  const parlayCandidateHorizonMs = Date.now() + 2 * 86_400_000;
+export function withoutGameDetail(
+  dataset: PlatformDataset,
+  nowMs: number = Date.now(),
+): PlatformDataset {
+  const parlayCandidateHorizonMs = nowMs + 2 * 86_400_000;
   const activeShellLeagues = new Set<string>([
     ...CORE_SHELL_LEAGUES,
     ...dataset.games.map((g) => g.league),
   ]);
   return {
     ...dataset,
+    serverNowUtc: dataset.serverNowUtc ?? new Date(nowMs).toISOString(),
     playerProps: [],
     leagues: dataset.leagues.map((lg) => ({
       ...lg,
@@ -770,6 +791,7 @@ export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
       return projectShellGame(g, {
         keepParlayCandidates,
         isVisitorRedacted: dataset.isServerRedactedForVisitor,
+        nowMs,
       });
     }),
   };
@@ -1128,7 +1150,10 @@ export async function loadPublicPlatformState(
         })
       : sanitizePublicDataset(baseMemberDataset);
     return {
-      dataset: memberDataset,
+      dataset: {
+        ...memberDataset,
+        serverNowUtc: new Date().toISOString(),
+      },
       initialRole: access.isAdmin ? "admin" : access.isTipster ? "tipster" : "member",
       hasActiveSession: true,
       allowRoleSimulation: previewToolsEnabled(access.isAdmin),
@@ -1174,7 +1199,10 @@ export async function loadPublicPlatformState(
     : sanitizePublicDataset(redacted);
 
   return {
-    dataset: scopedDataset,
+    dataset: {
+      ...scopedDataset,
+      serverNowUtc: new Date().toISOString(),
+    },
     initialRole: "visitor",
     hasActiveSession: false,
     allowRoleSimulation: false,
@@ -1212,7 +1240,10 @@ export async function loadClubPlatformState(
 
   if (!hasActiveSession) {
     return {
-      dataset: getInitialVisitorShell(bundle),
+      dataset: {
+        ...getInitialVisitorShell(bundle),
+        serverNowUtc: new Date().toISOString(),
+      },
       initialRole: "visitor",
       hasActiveSession: false,
       allowRoleSimulation: false,
@@ -1233,7 +1264,10 @@ export async function loadClubPlatformState(
     : preferredRole;
 
   return {
-    dataset: getInitialMemberShell(bundle),
+    dataset: {
+      ...getInitialMemberShell(bundle),
+      serverNowUtc: new Date().toISOString(),
+    },
     initialRole: resolvedRole,
     hasActiveSession: true,
     allowRoleSimulation: previewToolsEnabled(access.isAdmin),

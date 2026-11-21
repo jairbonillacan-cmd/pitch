@@ -297,19 +297,13 @@ export function resolvePersonPhotoUrl(photoKey?: string | null): string | null {
     const parsed = new URL(raw);
     if (
       parsed.protocol === "https:" &&
-      parsed.hostname === "a.espncdn.com" &&
-      parsed.pathname.startsWith("/i/headshots/")
-    ) {
-      return raw;
-    }
-    if (
-      parsed.protocol === "https:" &&
       parsed.hostname === "sports.bzzoiro.com" &&
       parsed.pathname.startsWith("/img/")
     ) {
       return raw;
     }
-  } catch {
+  } catch (err) {
+    void err;
     return null;
   }
 

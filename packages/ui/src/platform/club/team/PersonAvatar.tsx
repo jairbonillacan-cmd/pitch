@@ -3,7 +3,22 @@
 import React, { useEffect, useState } from "react";
 import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import { usePackIconBase } from "../../../pack-icon-theme";
+import { useEmblemSurface } from "../../../sports";
 import { ProgressiveImage } from "../../components/ProgressiveImage";
+
+const EXTERNAL_BZZOIRO_IMG_RE = /^https:\/\/sports\.bzzoiro\.com\/img\//i;
+
+function resolveSurfacePersonPhotoUrl(
+  photoKey: string | null | undefined,
+  surface: "public" | "app",
+): string | null {
+  const url = resolvePersonPhotoUrl(photoKey);
+  if (!url) return null;
+  if (surface !== "app" && EXTERNAL_BZZOIRO_IMG_RE.test(url)) {
+    return null;
+  }
+  return url;
+}
 
 export interface PersonAvatarProps {
   photoKey?: string | null;
@@ -29,8 +44,9 @@ export function PersonAvatar({
   className,
 }: PersonAvatarProps): React.JSX.Element {
   const iconBase = usePackIconBase();
-  const primaryUrl = resolvePersonPhotoUrl(photoKey);
-  const secondaryUrl = resolvePersonPhotoUrl(fallbackPhotoKey);
+  const surface = useEmblemSurface();
+  const primaryUrl = resolveSurfacePersonPhotoUrl(photoKey, surface);
+  const secondaryUrl = resolveSurfacePersonPhotoUrl(fallbackPhotoKey, surface);
 
   const [stage, setStage] = useState<"primary" | "secondary" | "icon">(() =>
     primaryUrl ? "primary" : secondaryUrl ? "secondary" : "icon",

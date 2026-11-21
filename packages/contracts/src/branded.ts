@@ -604,6 +604,58 @@ export function containsForbiddenFd16Term(text: string): boolean {
   return false;
 }
 
+export const BLOCKED_BOOK_IDS: ReadonlySet<string> = new Set([
+  "caliente",
+  "caliente_mx",
+  "action_network",
+  "action_network_splits",
+  "oddsportal",
+  "oddschecker",
+  "synthetic",
+  "demo",
+  "mock",
+  "placeholder",
+  "betfair",
+  "betfair_exchange",
+]);
+
+export const PERMITTED_MARKET_QUOTE_BOOK_IDS: ReadonlySet<string> = new Set([
+  "pinnacle",
+  "smarkets",
+  "matchbook",
+  "bet365",
+  "codere",
+  "betcris",
+  "novibet",
+  "betway",
+  "playdoit",
+  "draftkings",
+  "fanduel",
+  "betmgm",
+  "betrivers",
+  "bwin",
+  "william_hill",
+  "unibet",
+  "betonline",
+]);
+
+function normalizeMarketBookToken(raw: string): string {
+  const normalized = foldFd16Text(raw)
+    .trim()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+  if (normalized === "williamhill") {
+    return "william_hill";
+  }
+  if (normalized === "betonlineag") {
+    return "betonline";
+  }
+  if (normalized === "calientemx") {
+    return "caliente_mx";
+  }
+  return normalized;
+}
+
 export function isSafePublicLabel(text: string): boolean {
   if (typeof text !== "string") {
     return false;
@@ -613,4 +665,57 @@ export function isSafePublicLabel(text: string): boolean {
     return false;
   }
   return !containsForbiddenFd16Term(trimmed);
+}
+
+export function isBlockedMarketQuoteBook(
+  bookId?: string | null,
+  bookLabel?: string | null,
+): boolean {
+  const hasId = typeof bookId === "string" && bookId.trim().length > 0;
+  const hasLabel = typeof bookLabel === "string" && bookLabel.trim().length > 0;
+  if (!hasId && !hasLabel) {
+    return true;
+  }
+  if (hasId) {
+    const idToken = normalizeMarketBookToken(bookId);
+    if (
+      !idToken ||
+      BLOCKED_BOOK_IDS.has(idToken) ||
+      containsForbiddenFd16Term(idToken.replace(/_/g, " "))
+    ) {
+      return true;
+    }
+  }
+  if (hasLabel) {
+    const trimmedLabel = bookLabel.trim();
+    if (!isSafePublicLabel(trimmedLabel)) {
+      return true;
+    }
+    const labelToken = normalizeMarketBookToken(trimmedLabel);
+    const primarySegment = trimmedLabel.split(/[·|]/)[0] ?? trimmedLabel;
+    const primaryToken = normalizeMarketBookToken(primarySegment);
+    if (
+      !labelToken ||
+      BLOCKED_BOOK_IDS.has(labelToken) ||
+      !primaryToken ||
+      BLOCKED_BOOK_IDS.has(primaryToken)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function isPermittedMarketQuoteBook(
+  bookId?: string | null,
+  bookLabel?: string | null,
+): boolean {
+  if (isBlockedMarketQuoteBook(bookId, bookLabel)) {
+    return false;
+  }
+  if (typeof bookId !== "string" || bookId.trim().length === 0) {
+    return false;
+  }
+  const idToken = normalizeMarketBookToken(bookId);
+  return PERMITTED_MARKET_QUOTE_BOOK_IDS.has(idToken);
 }

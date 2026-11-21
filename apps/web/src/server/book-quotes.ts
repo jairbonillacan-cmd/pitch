@@ -2,6 +2,8 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import {
   COMPETITION_BY_ID,
+  isBlockedMarketQuoteBook,
+  isPermittedMarketQuoteBook,
   parseStrictFiniteNumber,
   type SpacetimeAnchoredQuote,
 } from "@pitchlab/contracts";
@@ -195,9 +197,7 @@ function normalizeIsoTimestamp(raw: string | undefined): string | undefined {
 }
 
 function normalizeServerBookKey(raw: string): string {
-  const key = normalizeBookKey(raw);
-  if (key === "caliente" || key === "caliente_mx") return "caliente_mx";
-  return key;
+  return normalizeBookKey(raw);
 }
 
 function round2(v: number): number {
@@ -526,7 +526,8 @@ export function parseQuotesLedgerTicks(
     const hints = extractEventTeamHints(tick.event_id, tick.ts_event_start);
     if (!hints) continue;
     const book = normalizeServerBookKey(tick.book ?? "");
-    if (!book) continue;
+    const bookLabel = formatCanonicalBookLabel(book);
+    if (!book || !isPermittedMarketQuoteBook(book, bookLabel)) continue;
 
     const selKey = buildSourceTickLookupKey(tick.market, tick.selection, tick.line);
     if (!selKey) continue;
@@ -671,7 +672,10 @@ function loadSnapshotMarketLinesByLeague(nowMs: number): {
     try {
       const parsed = JSON.parse(readFileSync(f.filePath, "utf8")) as RawSnapshotMarketLinesFile;
       const appLeague = parsed.league && COMPETITION_BY_ID[parsed.league] ? parsed.league : f.league;
-      const fallbackCaptured = parsed.updatedAt ?? new Date(nowMs).toISOString();
+      const fallbackCaptured =
+        typeof parsed.updatedAt === "string" && parsed.updatedAt.trim().length > 0
+          ? parsed.updatedAt.trim()
+          : undefined;
       if (!Array.isArray(parsed.lines) || parsed.lines.length === 0) continue;
 
       const eventsMap = new Map<
@@ -691,8 +695,10 @@ function loadSnapshotMarketLinesByLeague(nowMs: number): {
           continue;
         }
         const capturedAtUtc = line.capturedAtUtc ?? fallbackCaptured;
-        if (!isMarketFresh(capturedAtUtc, nowMs)) continue;
-        const book = normalizeServerBookKey(line.book ?? "consensus") || "consensus";
+        if (!capturedAtUtc || !isMarketFresh(capturedAtUtc, nowMs)) continue;
+        const book = normalizeServerBookKey(line.book ?? "");
+        const bookLabel = formatCanonicalBookLabel(book);
+        if (!book || !isPermittedMarketQuoteBook(book, bookLabel)) continue;
         const selKey = buildSourceTickLookupKey(line.market, line.outcome, line.line);
         if (!selKey) continue;
 
@@ -919,25 +925,39 @@ function computeEdgePts(p: number, decimal: number | null): number | null {
 function enrichPickWithQuotes(
   pick: MatchPick,
   ev: ParsedEventQuotes,
+  nowMs: number,
 ): MatchPick {
   if (pick.isRedacted || !isValidSpacetimeProb(pick.p)) return pick;
   const key = buildLookupKey(pick.market ?? pick.marketGroup, pick.selectionKey, pick.line, pick.label);
-  const quotes = ev.bySelectionKey.get(key);
-  if (!quotes || quotes.length === 0) return pick;
+  const rawQuotes = ev.bySelectionKey.get(key);
+  const quotes = (rawQuotes ?? []).filter(
+    (q) =>
+      isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
+      isMarketFresh(q.capturedAtUtc, nowMs),
+  );
+  if (quotes.length === 0) return pick;
 
   let mergedQuotes: readonly BookQuoteItem[] = quotes;
-  if (
+  const existingMarketAllowed =
     pick.marketDecimal !== null &&
-    pick.marketBookLabel &&
-    pick.marketCapturedAtUtc
-  ) {
+    Boolean(pick.marketBookLabel) &&
+    Boolean(pick.marketCapturedAtUtc) &&
+    !isBlockedMarketQuoteBook(pick.marketBookLabel, pick.marketBookLabel) &&
+    isMarketFresh(pick.marketCapturedAtUtc, nowMs);
+
+  if (existingMarketAllowed && pick.marketDecimal !== null && pick.marketBookLabel && pick.marketCapturedAtUtc) {
     const existingBookKey = normalizeServerBookKey(pick.marketBookLabel);
-    if (existingBookKey && !quotes.some((q) => q.book === existingBookKey)) {
+    const existingBookLabel = formatCanonicalBookLabel(existingBookKey);
+    if (
+      existingBookKey &&
+      isPermittedMarketQuoteBook(existingBookKey, existingBookLabel) &&
+      !quotes.some((q) => q.book === existingBookKey)
+    ) {
       mergedQuotes = finalizeBookQuoteList([
         ...quotes,
         {
           book: existingBookKey,
-          bookLabel: formatCanonicalBookLabel(existingBookKey),
+          bookLabel: existingBookLabel,
           decimal: pick.marketDecimal,
           capturedAtUtc: pick.marketCapturedAtUtc,
         },
@@ -950,7 +970,7 @@ function enrichPickWithQuotes(
   }
 
   const top = mergedQuotes[0]!;
-  if (pick.marketDecimal !== null) {
+  if (existingMarketAllowed && pick.marketDecimal !== null) {
     return {
       ...pick,
       bookQuotes: mergedQuotes,
@@ -1037,9 +1057,9 @@ export function enrichDatasetWithBookQuotes(
     anyChanged = true;
     return {
       ...game,
-      picks: game.picks.map((pk) => enrichPickWithQuotes(pk, ev)),
+      picks: game.picks.map((pk) => enrichPickWithQuotes(pk, ev, nowMs)),
       ...(game.parlayCandidates
-        ? { parlayCandidates: game.parlayCandidates.map((pk) => enrichPickWithQuotes(pk, ev)) }
+        ? { parlayCandidates: game.parlayCandidates.map((pk) => enrichPickWithQuotes(pk, ev, nowMs)) }
         : {}),
       markets:
         game.markets.length > 0
@@ -1052,7 +1072,17 @@ export function enrichDatasetWithBookQuotes(
 }
 
 function mapCanonicalComparison(entry: SelectionOddsComparison): SelectionBookComparison | null {
-  if (!isValidSpacetimeProb(entry.modelProb) || !entry.anchoredQuote) {
+  if (
+    !isValidSpacetimeProb(entry.modelProb) ||
+    !entry.anchoredQuote ||
+    !isPermittedMarketQuoteBook(entry.bestBook, entry.bestBookLabel)
+  ) {
+    return null;
+  }
+  const permittedBooks = entry.books.filter((b) =>
+    isPermittedMarketQuoteBook(b.book, b.bookLabel),
+  );
+  if (permittedBooks.length === 0) {
     return null;
   }
   return {
@@ -1073,12 +1103,16 @@ function mapCanonicalComparison(entry: SelectionOddsComparison): SelectionBookCo
     edgePts: entry.edgePts,
     evPct: entry.evPct,
     anchoredQuote: entry.anchoredQuote,
-    books: entry.books,
+    books: permittedBooks,
   };
 }
 
 function mapCanonicalBestQuote(entry: BestOddsComparisonEntry): BestMarketQuoteSummary | null {
-  if (!isValidSpacetimeProb(entry.modelProb) || !entry.anchoredQuote) {
+  if (
+    !isValidSpacetimeProb(entry.modelProb) ||
+    !entry.anchoredQuote ||
+    !isPermittedMarketQuoteBook(entry.book, entry.bookLabel)
+  ) {
     return null;
   }
   return {
@@ -1106,12 +1140,16 @@ export function parseBzzoiroComparisonPayload(
   raw: unknown,
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+    capturedAtUtc?: string;
+    nowMs?: number;
     relevantBooksOnly?: boolean;
     requireSpacetimeAnchor?: boolean;
   } = {},
 ): SelectionBookComparison[] {
   const canonical = parseBzzoiroOddsComparison(raw, {
     modelProbsByKey: options.modelProbsByKey,
+    capturedAtUtc: options.capturedAtUtc,
+    nowMs: options.nowMs,
     priorityBooksOnly: options.relevantBooksOnly !== false,
     requireSpacetimeAnchor: true,
   });
@@ -1124,12 +1162,16 @@ export function parseBzzoiroBestOddsPayload(
   raw: unknown,
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+    capturedAtUtc?: string;
+    nowMs?: number;
     relevantBooksOnly?: boolean;
     requireSpacetimeAnchor?: boolean;
   } = {},
 ): BestMarketQuoteSummary[] {
   const canonical = parseBzzoiroBestOdds(raw, {
     modelProbsByKey: options.modelProbsByKey,
+    capturedAtUtc: options.capturedAtUtc,
+    nowMs: options.nowMs,
     priorityBooksOnly: options.relevantBooksOnly !== false,
     requireSpacetimeAnchor: true,
   });
@@ -1138,8 +1180,21 @@ export function parseBzzoiroBestOddsPayload(
     .filter((item): item is BestMarketQuoteSummary => item !== null);
 }
 
-export function buildMarketRowComparison(row: PlatformMarketRow): SelectionBookComparison | null {
-  const quotes = row.bookQuotes ?? [];
+export function buildMarketRowComparison(
+  row: PlatformMarketRow,
+  options: { nowMs?: number } = {},
+): SelectionBookComparison | null {
+  const nowMs = options.nowMs ?? Date.now();
+  const quotes = (row.bookQuotes ?? []).filter((q) => {
+    const book = normalizeServerBookKey(q.book);
+    const label = q.bookLabel || formatCanonicalBookLabel(book);
+    return (
+      Number.isFinite(q.decimal) &&
+      q.decimal > 1.01 &&
+      isPermittedMarketQuoteBook(book, label) &&
+      isMarketFresh(q.capturedAtUtc, nowMs)
+    );
+  });
   if (quotes.length === 0 || !isValidSpacetimeProb(row.p)) return null;
 
   let coordinatedShorteningBooks = 0;
@@ -1207,6 +1262,8 @@ export function buildMarketRowComparison(row: PlatformMarketRow): SelectionBookC
   const selection = normalizeSelectionToken(market, row.selection);
   const bestBook = normalizeServerBookKey(bestQuote.book);
   const bestBookLabel = bestQuote.bookLabel || formatCanonicalBookLabel(bestBook);
+  const capturedAtIso = normalizeIsoTimestamp(bestQuote.capturedAtUtc);
+  if (!capturedAtIso) return null;
   const anchoredQuote = toSpacetimeAnchoredQuote({
     bookLabel: bestBookLabel,
     marketKey: market,
@@ -1215,7 +1272,7 @@ export function buildMarketRowComparison(row: PlatformMarketRow): SelectionBookC
     bookDecimal: bestDecimal,
     modelProb: row.p,
     movement: consensusMv.signal,
-    capturedAtIso: normalizeIsoTimestamp(bestQuote.capturedAtUtc),
+    capturedAtIso,
   });
 
   return {
@@ -1246,7 +1303,7 @@ const liveOddsCache = new Map<string, { fetchedAtMs: number; payload: unknown }>
 async function fetchBzzoiroOddsEndpointCached(
   pathWithQuery: string,
   options: { fetchImpl?: typeof fetch; env?: Readonly<Record<string, string | undefined>> } = {},
-): Promise<unknown | null> {
+): Promise<{ payload: unknown; fetchedAtIso: string } | null> {
   const env = options.env ?? process.env;
   if (env.PITCHLAB_OFFLINE === "1" || env.PLAYWRIGHT_TEST === "1") return null;
   const apiKey = env.BZZOIRO_API_KEY?.trim();
@@ -1255,7 +1312,7 @@ async function fetchBzzoiroOddsEndpointCached(
   const now = Date.now();
   const cached = liveOddsCache.get(pathWithQuery);
   if (cached && now - cached.fetchedAtMs < LIVE_ODDS_CACHE_TTL_MS) {
-    return cached.payload;
+    return { payload: cached.payload, fetchedAtIso: new Date(cached.fetchedAtMs).toISOString() };
   }
 
   const base = (env.BZZOIRO_API_BASE_URL?.trim() || "https://sports.bzzoiro.com/api/v2").replace(/\/+$/, "");
@@ -1269,7 +1326,7 @@ async function fetchBzzoiroOddsEndpointCached(
     if (!res.ok) return null;
     const payload = (await res.json()) as unknown;
     liveOddsCache.set(pathWithQuery, { fetchedAtMs: now, payload });
-    return payload;
+    return { payload, fetchedAtIso: new Date(now).toISOString() };
   } catch (err) {
     void err;
     return null;
@@ -1283,13 +1340,14 @@ export async function fetchBzzoiroBestOddsWithSpacetime(params: {
   env?: Readonly<Record<string, string | undefined>>;
 }): Promise<BestMarketQuoteSummary[]> {
   const market = (params.market ?? "1x2").trim().toLowerCase();
-  const raw = await fetchBzzoiroOddsEndpointCached(
+  const fetched = await fetchBzzoiroOddsEndpointCached(
     `/odds/best/?market=${encodeURIComponent(market)}&limit=200`,
     { fetchImpl: params.fetchImpl, env: params.env },
   );
-  if (!raw) return [];
-  return parseBzzoiroBestOddsPayload(raw, {
+  if (!fetched) return [];
+  return parseBzzoiroBestOddsPayload(fetched.payload, {
     modelProbsByKey: params.modelProbsByKey,
+    capturedAtUtc: fetched.fetchedAtIso,
     relevantBooksOnly: true,
   });
 }
@@ -1301,13 +1359,14 @@ export async function fetchBzzoiroEventComparisonWithSpacetime(params: {
   env?: Readonly<Record<string, string | undefined>>;
 }): Promise<SelectionBookComparison[]> {
   if (!Number.isInteger(params.providerEventId) || params.providerEventId <= 0) return [];
-  const raw = await fetchBzzoiroOddsEndpointCached(
+  const fetched = await fetchBzzoiroOddsEndpointCached(
     `/events/${params.providerEventId}/odds/comparison/`,
     { fetchImpl: params.fetchImpl, env: params.env },
   );
-  if (!raw) return [];
-  return parseBzzoiroComparisonPayload(raw, {
+  if (!fetched) return [];
+  return parseBzzoiroComparisonPayload(fetched.payload, {
     modelProbsByKey: params.modelProbsByKey,
+    capturedAtUtc: fetched.fetchedAtIso,
     relevantBooksOnly: true,
   });
 }

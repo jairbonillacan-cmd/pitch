@@ -204,15 +204,36 @@ function findMatchingStreakCard(
   return streakIndex.get(key) ?? null;
 }
 
+function resolvePropLineEvaluation(
+  prop: PropsLabPlayerPropItem,
+  activeLine: number,
+): { pOver: number; pUnder: number; fairOverDecimal: number; fairUnderDecimal: number } {
+  const isAtBaseLine = Math.abs(activeLine - prop.baseLine) < 0.01;
+  if (
+    isAtBaseLine &&
+    prop.hasVerifiedMarketQuote === false &&
+    Number.isFinite(prop.marketOverDecimal) &&
+    prop.marketOverDecimal > 1.01
+  ) {
+    const pOver = Math.min(0.99, Math.max(0.01, 1 / prop.marketOverDecimal));
+    const pUnder =
+      Number.isFinite(prop.marketUnderDecimal) && prop.marketUnderDecimal > 1.01
+        ? Math.min(0.99, Math.max(0.01, 1 / prop.marketUnderDecimal))
+        : Math.min(0.99, Math.max(0.01, 1 - pOver));
+    const fairOverDecimal = Math.max(1.01, Math.round(prop.marketOverDecimal * 100) / 100);
+    const fairUnderDecimal =
+      Number.isFinite(prop.marketUnderDecimal) && prop.marketUnderDecimal > 1.01
+        ? Math.max(1.01, Math.round(prop.marketUnderDecimal * 100) / 100)
+        : Math.max(1.01, Math.round((1 / pUnder) * 100) / 100);
+    return { pOver, pUnder, fairOverDecimal, fairUnderDecimal };
+  }
+  return evaluatePropLineProbability(prop.projectionMean, prop.projectionSd, activeLine);
+}
+
 function buildBetLabPointsForEntry(
   entry: EnrichedPropEntry,
   matchedStreak: PropsStreakExplorerItem | null,
 ): readonly PropBetLabPoint[] {
-  const verifiedAvgMinutes =
-    entry.prop.avgMinutes != null && Number.isFinite(entry.prop.avgMinutes)
-      ? Math.round(entry.prop.avgMinutes)
-      : 0;
-
   if (matchedStreak && matchedStreak.series.length > 0) {
     const statCodeLower = entry.statCode ? String(entry.statCode).toLowerCase() : "";
     const statNorm = normalizePlayerMatchName(entry.prop.statLabel);
@@ -228,13 +249,13 @@ function buildBetLabPointsForEntry(
       return matchedSeries.points.map((pt, idx) => ({
         id: `${entry.prop.id}-s-${idx}`,
         label: pt.label,
-        opponent: pt.opponent ?? pt.label,
+        opponent: pt.opponent ?? "—",
         date: pt.date,
         value: pt.value,
         minutes:
-          pt.minutes != null && Number.isFinite(pt.minutes)
+          pt.minutes != null && Number.isFinite(pt.minutes) && pt.minutes >= 0
             ? Math.round(pt.minutes)
-            : verifiedAvgMinutes,
+            : null,
         xg: pt.xg != null && Number.isFinite(pt.xg) ? pt.xg : null,
         isHome: pt.isHome,
       }));
@@ -245,10 +266,10 @@ function buildBetLabPointsForEntry(
     const chronological = entry.prop.last10.slice().reverse();
     return chronological.map((value, idx) => ({
       id: `${entry.prop.id}-l-${idx}`,
-      label: `J${idx + 1}`,
-      opponent: "Histórico",
+      label: `#${idx + 1}`,
+      opponent: "—",
       value,
-      minutes: verifiedAvgMinutes,
+      minutes: null,
       xg: null,
     }));
   }
@@ -279,7 +300,7 @@ export function PropsLabClubView({
   const [requestedTab, setRequestedTab] = useState<PropsWorkspaceTab>("proyecciones");
   const [activeSport, setActiveSport] = useState<string>("all");
   const [nbaStatFilter, setNbaStatFilter] = useState<NbaPropStatCode | "all">("all");
-  const [onlyMinMinutesGuard, setOnlyMinMinutesGuard] = useState<boolean>(false);
+  const [onlyMinMinutesGuard, setOnlyMinMinutesGuard] = useState<boolean>(true);
   const [onlyLineupSignal, setOnlyLineupSignal] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [streakVisibleCount, setStreakVisibleCount] = useState<number>(INITIAL_STREAK_PAGE_SIZE);
@@ -736,11 +757,7 @@ export function PropsLabClubView({
             entry.prop.minLine,
             entry.prop.maxLine,
           );
-          const evalRes = evaluatePropLineProbability(
-            entry.prop.projectionMean,
-            entry.prop.projectionSd,
-            activeLine,
-          );
+          const evalRes = resolvePropLineEvaluation(entry.prop, activeLine);
           const parsedBook = parseManualBookOdds(propOddsInputs[entry.prop.id] ?? "");
           const hasUserOdds = parsedBook !== null;
           const hasComparable = hasUserOdds || entry.prop.hasVerifiedMarketQuote === true;
@@ -776,11 +793,7 @@ export function PropsLabClubView({
             entry.prop.minLine,
             entry.prop.maxLine,
           );
-          const evalRes = evaluatePropLineProbability(
-            entry.prop.projectionMean,
-            entry.prop.projectionSd,
-            activeLine,
-          );
+          const evalRes = resolvePropLineEvaluation(entry.prop, activeLine);
           const parsedBook = parseManualBookOdds(propOddsInputs[entry.prop.id] ?? "");
           const hasComparable = parsedBook !== null || entry.prop.hasVerifiedMarketQuote === true;
           const activeBookDec =
@@ -823,7 +836,7 @@ export function PropsLabClubView({
       prop.minLine,
       prop.maxLine,
     );
-    const evalRes = evaluatePropLineProbability(prop.projectionMean, prop.projectionSd, activeLine);
+    const evalRes = resolvePropLineEvaluation(prop, activeLine);
     const matchedStreak = findMatchingStreakCard(streakByPlayerKey, prop);
     const points = buildBetLabPointsForEntry(selectedEntry, matchedStreak);
     const rivalKey = opponentSlug ? `${prop.league}:${opponentSlug}` : null;

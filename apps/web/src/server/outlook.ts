@@ -1,5 +1,6 @@
 import {
   asMarketKey,
+  isPermittedMarketQuoteBook,
   type AnalysisMarketGroup,
   type AnalysisMarketRow,
   type MatchAnalysis,
@@ -94,6 +95,14 @@ function relabel(label: string, o: MatchOutlook, game: TeamNames): string {
   return label.split(o.homeTeam).join(game.home.name).split(o.awayTeam).join(game.away.name);
 }
 
+function isPermittedFreshMarketBlock(
+  market: MarketOutlook["market"],
+  nowMs: number,
+): market is NonNullable<MarketOutlook["market"]> {
+  if (!market || !isMarketFresh(market.tsCaptured, nowMs)) return false;
+  return isPermittedMarketQuoteBook(market.book, formatBookLabel(market.book));
+}
+
 function rowsOf(
   m: MarketOutlook,
   o: MatchOutlook,
@@ -102,7 +111,7 @@ function rowsOf(
 ): PlatformMarketRow[] {
   const meta = MARKET_GROUPS[m.marketKey];
   if (!meta) return [];
-  const freshQuote = m.market && isMarketFresh(m.market.tsCaptured, nowMs) ? m.market : null;
+  const freshQuote = isPermittedFreshMarketBlock(m.market, nowMs) ? m.market : null;
   const quoteBookLabel = freshQuote ? formatBookLabel(freshQuote.book) : null;
   return m.selections.map((s) => {
     const rawPrice = freshQuote?.oddsBySelection?.[s.selection];
@@ -150,11 +159,9 @@ export function outlookDetailFromMatchOutlook(
   const markets = [...publishedMarkets, ...derivedExtras.rows];
 
   const result = o.marketsByKey["1x2"] ?? o.marketsByKey.moneyline ?? null;
-  const freshBlocks = o.markets.filter(
-    (m) => m.market !== null && isMarketFresh(m.market.tsCaptured, nowMs),
-  );
+  const freshBlocks = o.markets.filter((m) => isPermittedFreshMarketBlock(m.market, nowMs));
   const preferredFresh =
-    result?.market && isMarketFresh(result.market.tsCaptured, nowMs)
+    result?.market && isPermittedFreshMarketBlock(result.market, nowMs)
       ? result.market
       : freshBlocks[0]?.market ?? null;
 
@@ -390,7 +397,7 @@ function freshSignalMarket(
   nowMs: number,
 ): NonNullable<SpacetimeSignal["market"]> | null {
   const mkt = isNfl ? o.marketsByKey.moneyline?.market : o.marketsByKey["1x2"]?.market;
-  if (!mkt || !isMarketFresh(mkt.tsCaptured, nowMs) || !mkt.oddsBySelection) {
+  if (!mkt || !isPermittedFreshMarketBlock(mkt, nowMs) || !mkt.oddsBySelection) {
     return null;
   }
   const homeOdds = mkt.oddsBySelection.home;

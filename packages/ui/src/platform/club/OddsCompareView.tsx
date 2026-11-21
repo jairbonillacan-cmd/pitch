@@ -4,7 +4,9 @@ import React, { useId, useMemo, useState } from "react";
 import {
   canonicalGameHref,
   formatOddsCaptureEs,
+  isBlockedMarketQuoteBook,
   isLeagueActiveInWindow,
+  isPermittedMarketQuoteBook,
   isSafePublicLabel,
   type LeagueId,
 } from "@pitchlab/contracts";
@@ -56,21 +58,9 @@ const MAX_QUOTE_AGE_MS = 72 * 60 * 60 * 1000;
 const MAX_FUTURE_SKEW_MS = 6 * 60 * 60 * 1000;
 const MAX_MATRIX_BOOKS = 3;
 
-const BLOCKED_BOOKMAKER_KEYS: ReadonlySet<string> = new Set([
-  "caliente",
-  "caliente_mx",
-  "action_network",
-  "oddsportal",
-  "oddschecker",
-  "synthetic",
-  "demo",
-  "mock",
-  "placeholder",
-]);
-
 function isPermittedBookKey(raw: string): boolean {
   const key = normalizeBookKey(raw);
-  return key.length > 0 && !BLOCKED_BOOKMAKER_KEYS.has(key) && ALLOWED_BOOKMAKER_IDS.has(key);
+  return key.length > 0 && isPermittedMarketQuoteBook(key) && ALLOWED_BOOKMAKER_IDS.has(key);
 }
 
 function isSafeBookLabel(label: string | null | undefined): boolean {
@@ -78,7 +68,7 @@ function isSafeBookLabel(label: string | null | undefined): boolean {
   const trimmed = label.trim();
   if (trimmed.length === 0) return false;
   if (!isSafePublicLabel(trimmed)) return false;
-  return !BLOCKED_BOOKMAKER_KEYS.has(normalizeBookKey(trimmed));
+  return !isBlockedMarketQuoteBook(trimmed, trimmed);
 }
 
 function isFreshQuoteStamp(
@@ -93,52 +83,26 @@ function isFreshQuoteStamp(
 }
 
 function resolveAnchorMs(
+  serverNowUtc: string | null | undefined,
   generatedAt: string | null | undefined,
-  games: readonly PlatformGame[],
 ): number {
+  const serverMs = serverNowUtc ? Date.parse(serverNowUtc) : Number.NaN;
+  if (Number.isFinite(serverMs)) {
+    return serverMs;
+  }
   const generatedMs = generatedAt ? Date.parse(generatedAt) : Number.NaN;
   if (Number.isFinite(generatedMs)) {
     return generatedMs;
   }
-
-  let maxCapturedMs = Number.NaN;
-  let maxKickoffMs = Number.NaN;
-
-  for (const game of games) {
-    if (game.status !== "FT") {
-      const kickoffMs = Date.parse(game.kickoffUtc);
-      if (Number.isFinite(kickoffMs) && (!Number.isFinite(maxKickoffMs) || kickoffMs > maxKickoffMs)) {
-        maxKickoffMs = kickoffMs;
-      }
-    }
-    for (const pick of game.picks) {
-      if (pick.marketCapturedAtUtc) {
-        const ms = Date.parse(pick.marketCapturedAtUtc);
-        if (Number.isFinite(ms) && (!Number.isFinite(maxCapturedMs) || ms > maxCapturedMs)) {
-          maxCapturedMs = ms;
-        }
-      }
-      if (pick.bookQuotes) {
-        for (const quote of pick.bookQuotes) {
-          const ms = Date.parse(quote.capturedAtUtc);
-          if (Number.isFinite(ms) && (!Number.isFinite(maxCapturedMs) || ms > maxCapturedMs)) {
-            maxCapturedMs = ms;
-          }
-        }
-      }
-    }
-  }
-
-  if (Number.isFinite(maxCapturedMs)) return maxCapturedMs;
-  return maxKickoffMs;
+  return Number.NaN;
 }
 
 function resolveAnchorDayId(
-  generatedAt: string | null | undefined,
+  anchorUtc: string | null | undefined,
   games: readonly PlatformGame[],
   timeZone: string,
 ): string {
-  const parsedMs = generatedAt ? Date.parse(generatedAt) : Number.NaN;
+  const parsedMs = anchorUtc ? Date.parse(anchorUtc) : Number.NaN;
   if (Number.isFinite(parsedMs)) {
     return todayId(timeZone, new Date(parsedMs));
   }
@@ -155,6 +119,15 @@ function signedAmerican(dec: number): string {
 }
 
 export function edgeAgainstBook(p: number, bookDecimal: number): number {
+  if (
+    !Number.isFinite(p) ||
+    !Number.isFinite(bookDecimal) ||
+    bookDecimal <= 1 ||
+    p <= 0 ||
+    p >= 1
+  ) {
+    return 0;
+  }
   return Math.round((p - 1 / bookDecimal) * 1000) / 10;
 }
 
@@ -440,12 +413,12 @@ export function OddsCompareClubView(): React.JSX.Element {
 
   const timeZone = userTimezone || "America/Mexico_City";
   const anchorDayId = useMemo(
-    () => resolveAnchorDayId(dataset.generatedAt, dataset.games, timeZone),
-    [dataset.games, dataset.generatedAt, timeZone],
+    () => resolveAnchorDayId(dataset.serverNowUtc ?? dataset.generatedAt, dataset.games, timeZone),
+    [dataset.games, dataset.generatedAt, dataset.serverNowUtc, timeZone],
   );
   const anchorMs = useMemo(
-    () => resolveAnchorMs(dataset.generatedAt, dataset.games),
-    [dataset.games, dataset.generatedAt],
+    () => resolveAnchorMs(dataset.serverNowUtc, dataset.generatedAt),
+    [dataset.generatedAt, dataset.serverNowUtc],
   );
 
   const parlayIds = useMemo(() => new Set(parlayLegs.map((leg) => leg.pick.id)), [parlayLegs]);

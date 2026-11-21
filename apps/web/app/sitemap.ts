@@ -17,6 +17,7 @@ export const revalidate = 3600;
 const PUBLIC_PATHS = [
   "/",
   "/resultados",
+  "/verificacion",
   "/motores",
   "/precio",
   "/legal/privacidad",

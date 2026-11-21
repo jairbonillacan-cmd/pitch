@@ -251,7 +251,7 @@ export const MARKET_FAMILIES: Readonly<Record<MarketFamilyId, MarketFamilySpec>>
     requiresLineupGuard: false,
     usesRefereeAdjustment: false,
     sgpEligible: true,
-    description: "Tiros de esquina totales modelados con Binomial Negativa y guion de partido.",
+    description: "Tiros de esquina totales proyectados según ritmo ofensivo y guion de partido.",
   },
   corners_team: {
     id: "corners_team",
@@ -279,7 +279,7 @@ export const MARKET_FAMILIES: Readonly<Record<MarketFamilyId, MarketFamilySpec>>
     requiresLineupGuard: false,
     usesRefereeAdjustment: false,
     sgpEligible: true,
-    description: "Volumen total de remates proyectado con sobredispersión Binomial Negativa.",
+    description: "Volumen total de remates proyectado según ritmo ofensivo y dispersión del partido.",
   },
   shots_on_target: {
     id: "shots_on_target",
@@ -321,7 +321,7 @@ export const MARKET_FAMILIES: Readonly<Record<MarketFamilyId, MarketFamilySpec>>
     requiresLineupGuard: false,
     usesRefereeAdjustment: true,
     sgpEligible: true,
-    description: "Tarjetas amarillas totales con ajuste bayesiano Empirical Bayes por rigor arbitral.",
+    description: "Tarjetas amarillas totales ajustadas por muestra y rigor arbitral.",
   },
   player_props_football: {
     id: "player_props_football",

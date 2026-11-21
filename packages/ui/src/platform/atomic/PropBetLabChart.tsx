@@ -8,7 +8,7 @@ export interface PropBetLabPoint {
   readonly opponent: string;
   readonly date?: string;
   readonly value: number;
-  readonly minutes: number;
+  readonly minutes: number | null;
   readonly xg?: number | null;
   readonly isHome?: boolean;
 }
@@ -88,6 +88,10 @@ function formatLineNumber(value: number): string {
 function formatValueCompact(value: number): string {
   const safe = Number.isFinite(value) ? value : 0;
   return Number.isInteger(safe) ? String(safe) : safe.toFixed(1);
+}
+
+function hasValidMinutes(value: number | null | undefined): value is number {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0;
 }
 
 function formatMinuteAxis(value: number, sport: "football" | "basketball"): string {
@@ -202,18 +206,26 @@ export function PropBetLabChart({
     const barX = Math.round((centerX - barW / 2) * 10) / 10;
     const barTop = valueToY(pt.value);
     const barHeight = Math.max(2, Math.round((padTop + plotH - barTop) * 10) / 10);
-    const minY = minuteToY(pt.minutes);
+    const minY = hasValidMinutes(pt.minutes) ? minuteToY(pt.minutes) : null;
     const outcome = classifyPropPointHit(pt.value, safeLine);
     return { pt, idx, centerX, barX, barTop, barHeight, minY, outcome };
   });
 
-  const minutePolylinePoints = plottedBars.map((item) => `${item.centerX},${item.minY}`).join(" ");
+  const barsWithMinutes = plottedBars.filter(
+    (item): item is (typeof plottedBars)[number] & { readonly minY: number } => item.minY !== null,
+  );
+  const hasMinutesSeries = barsWithMinutes.length > 0;
+  const minutePolylinePoints = barsWithMinutes
+    .map((item) => `${item.centerX},${item.minY}`)
+    .join(" ");
   const minuteRangeText = formatMinuteRange(resolvedMaxMinutes, sport);
   const hasRivalBand =
     (rivalDefenseRank != null && Number.isFinite(rivalDefenseRank) && rivalDefenseRank > 0) ||
     (typeof rivalEbLabel === "string" && rivalEbLabel.trim().length > 0);
 
-  const svgTitle = `${playerName}: ${statLabel} (${unitLabel}) frente a línea ${formatLineNumber(safeLine)} en últimos ${visiblePoints.length} partidos, con curva de minutos ${minuteRangeText}. Acierto L5 ${rates.l5.hits}/${rates.l5.total} (${rates.l5.pct} %).`;
+  const svgTitle = hasMinutesSeries
+    ? `${playerName}: ${statLabel} (${unitLabel}) frente a línea ${formatLineNumber(safeLine)} en últimos ${visiblePoints.length} partidos, con curva de minutos ${minuteRangeText}. Acierto L5 ${rates.l5.hits}/${rates.l5.total} (${rates.l5.pct} %).`
+    : `${playerName}: ${statLabel} (${unitLabel}) frente a línea ${formatLineNumber(safeLine)} en últimos ${visiblePoints.length} partidos. Acierto L5 ${rates.l5.hits}/${rates.l5.total} (${rates.l5.pct} %).`;
 
   const stepLine = (delta: number) => {
     if (!onLineChange) return;
@@ -338,22 +350,26 @@ export function PropBetLabChart({
             0
           </text>
 
-          <text
-            x={svgW - padRight + 4}
-            y={padTop + 3}
-            textAnchor="start"
-            className="pl-atom-betlab-axis-min"
-          >
-            {formatMinuteAxis(resolvedMaxMinutes, sport)}
-          </text>
-          <text
-            x={svgW - padRight + 4}
-            y={padTop + plotH + 3}
-            textAnchor="start"
-            className="pl-atom-betlab-axis-min"
-          >
-            {formatMinuteAxis(0, sport)}
-          </text>
+          {hasMinutesSeries ? (
+            <>
+              <text
+                x={svgW - padRight + 4}
+                y={padTop + 3}
+                textAnchor="start"
+                className="pl-atom-betlab-axis-min"
+              >
+                {formatMinuteAxis(resolvedMaxMinutes, sport)}
+              </text>
+              <text
+                x={svgW - padRight + 4}
+                y={padTop + plotH + 3}
+                textAnchor="start"
+                className="pl-atom-betlab-axis-min"
+              >
+                {formatMinuteAxis(0, sport)}
+              </text>
+            </>
+          ) : null}
 
           {plottedBars.map((item) => (
             <g key={item.pt.id} data-betlab-bar={item.outcome}>
@@ -396,14 +412,14 @@ export function PropBetLabChart({
             className="pl-atom-betlab-threshold"
           />
 
-          {plottedBars.length >= 2 ? (
+          {barsWithMinutes.length >= 2 ? (
             <polyline
               points={minutePolylinePoints}
               className="pl-atom-betlab-min-line"
             />
           ) : null}
 
-          {plottedBars.map((item) => (
+          {barsWithMinutes.map((item) => (
             <circle
               key={`min-${item.pt.id}`}
               cx={item.centerX}
@@ -425,9 +441,11 @@ export function PropBetLabChart({
         <span className="pl-atom-legend-item">
           <span className="pl-atom-betlab-swatch is-line" /> Línea {formatLineNumber(safeLine)}
         </span>
-        <span className="pl-atom-legend-item">
-          <span className="pl-atom-betlab-swatch is-min" /> Minutos ({minuteRangeText})
-        </span>
+        {hasMinutesSeries ? (
+          <span className="pl-atom-legend-item">
+            <span className="pl-atom-betlab-swatch is-min" /> Minutos ({minuteRangeText})
+          </span>
+        ) : null}
       </div>
 
       {pointsWithXg.length > 0 ? (
@@ -510,13 +528,17 @@ export function PropBetLabChart({
                   <tr key={`row-${pt.id}`}>
                     <th scope="row">{pt.label}</th>
                     <td data-label="Rival">
-                      {pt.isHome === false ? `@ ${pt.opponent}` : pt.opponent}
+                      {!pt.opponent || pt.opponent.trim().length === 0 || pt.opponent === "—"
+                        ? "—"
+                        : pt.isHome === false
+                          ? `@ ${pt.opponent}`
+                          : pt.opponent}
                     </td>
                     <td className="num" data-label={unitLabel}>
                       {formatValueCompact(pt.value)}
                     </td>
                     <td className="num" data-label="Min">
-                      {formatMinuteAxis(pt.minutes, sport)}
+                      {hasValidMinutes(pt.minutes) ? formatMinuteAxis(pt.minutes, sport) : "—"}
                     </td>
                     {pointsWithXg.length > 0 ? (
                       <td className="num" data-label="xG">

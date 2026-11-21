@@ -353,6 +353,17 @@ export interface FootballPropEvaluationResultV5 {
 export function evaluateFootballPropV5(
   input: FootballPropEvaluationInputV5,
 ): FootballPropEvaluationResultV5 {
+  const rawAvgMinutes = input.avgMinutes;
+  if (
+    typeof rawAvgMinutes !== "number" ||
+    !Number.isFinite(rawAvgMinutes) ||
+    rawAvgMinutes < FOOTBALL_MIN_MINUTES
+  ) {
+    throw new RangeError(
+      `evaluateFootballPropV5 requires explicit avgMinutes >= ${FOOTBALL_MIN_MINUTES}`,
+    );
+  }
+  const minsPerGame = Math.min(92, rawAvgMinutes);
   const propFamily = resolveSoccerPropFamilyV5(input.statLabel, input.propId);
   const posCluster = resolveSoccerPositionClusterV5(input.positionGroup, input.positionLabel);
   const knockoutLegType = resolveSoccerKnockoutLegTypeV5({
@@ -369,7 +380,7 @@ export function evaluateFootballPropV5(
         ? "confirmed_starter"
         : input.lineupStatus === "probable"
           ? "projected_starter"
-          : input.avgMinutes !== null && input.avgMinutes !== undefined && input.avgMinutes < 55
+          : minsPerGame < 55
             ? "bench"
             : "projected_starter";
 
@@ -385,7 +396,7 @@ export function evaluateFootballPropV5(
       posCluster,
       lineupStatus: resolvedLineupStatus,
       knockoutLegType,
-      expectedMinutes: input.avgMinutes ?? 90,
+      expectedMinutes: minsPerGame,
       pOver: fallback.pOver,
       pUnder: fallback.pUnder,
       pOverSubCover: null,
@@ -395,7 +406,6 @@ export function evaluateFootballPropV5(
     };
   }
 
-  const minsPerGame = Math.max(FOOTBALL_MIN_MINUTES, Math.min(92, input.avgMinutes ?? 78));
   let weightedSumY: number;
   let weightedExposure90: number;
 
@@ -796,7 +806,7 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
             .slice()
             .reverse()
             .map((value, idx) => ({
-              label: `J${idx + 1}`,
+              label: `#${idx + 1}`,
               value,
             })),
         });
@@ -904,6 +914,9 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
               });
               const minVal = minHit ? parseNumericStat(minHit.value) : null;
               if (sport === "football" && (minVal === null || minVal < FOOTBALL_MIN_MINUTES)) {
+                return null;
+              }
+              if (sport === "basketball" && (minVal === null || minVal < NBA_MIN_MINUTES_PER_GAME)) {
                 return null;
               }
               const hit = g.stats.find((s) => s.label === lbl);
@@ -1166,6 +1179,14 @@ export function loadStructuredPlayerProps(options: {
 
             const logVals = (player.recentGames ?? [])
               .map((g) => {
+                const minHit = g.stats.find((s) => {
+                  const u = s.label.trim().toUpperCase();
+                  return u === "MIN" || u === "MINS" || u === "MINUTOS";
+                });
+                const minVal = minHit ? parseNumericStat(minHit.value) : null;
+                if (minVal === null || minVal < NBA_MIN_MINUTES_PER_GAME) {
+                  return null;
+                }
                 const hit = g.stats.find((s) =>
                   def.keys.includes(s.label.trim().toLowerCase()),
                 );
@@ -1301,6 +1322,9 @@ export function loadStructuredPlayerProps(options: {
     let fairUnderDecimal: number;
 
     if (sport === "football") {
+      if (minutesMeta.avgMinutes === null || minutesMeta.avgMinutes < FOOTBALL_MIN_MINUTES) {
+        continue;
+      }
       const snapGame = snapshot?.games.find((g) => g.id === rawProp.gameId) ?? null;
       const snapAnalysis = snapshot?.analyses[rawProp.gameId] ?? null;
       const matchCtx = snapAnalysis?.matchContext ?? null;

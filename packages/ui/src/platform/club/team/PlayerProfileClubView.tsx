@@ -311,17 +311,16 @@ function formatCompactSlashDate(iso?: string | null): string | null {
 
 function extractMinutesFromGameLog(
   game: TeamSquadPlayerRecentGame,
-  fallbackMinutes: number,
-): number {
+): number | null {
   const hit = game.stats.find((s) => {
     const lbl = s.label.trim().toUpperCase();
     return lbl === "MIN" || lbl === "MINS" || lbl === "MINUTOS";
   });
   const parsed = hit ? parseNumericMetric(hit.value) : null;
-  if (parsed !== null && Number.isFinite(parsed)) {
+  if (parsed !== null && Number.isFinite(parsed) && parsed >= 0) {
     return Math.round(parsed);
   }
-  return Math.round(fallbackMinutes);
+  return null;
 }
 
 function extractXgFromGameLog(game: TeamSquadPlayerRecentGame): number | null {
@@ -334,7 +333,6 @@ function extractXgFromGameLog(game: TeamSquadPlayerRecentGame): number | null {
 function buildRecentGameSeries(
   logs: readonly TeamSquadPlayerRecentGame[],
   sport: PlayerProfileData["sport"],
-  fallbackMinutes: number,
 ): readonly PlayerBetLabSeries[] {
   const rawLabels = Array.from(new Set(logs.flatMap((g) => g.stats.map((s) => s.label))));
   const preferredOrder =
@@ -365,7 +363,7 @@ function buildRecentGameSeries(
         opponent: g.opponent,
         date: g.dateIso,
         value: val,
-        minutes: extractMinutesFromGameLog(g, fallbackMinutes),
+        minutes: extractMinutesFromGameLog(g),
         xg: sport === "football" ? extractXgFromGameLog(g) : null,
         isHome: g.isHome === true ? true : g.isHome === false ? false : undefined,
       });
@@ -804,6 +802,7 @@ export function PlayerProfileClubView({
     if (isVisitorRestricted || isPlayerUnavailable) return [];
 
     if (profile.sport === "basketball") {
+      if (!minutesGuard.qualified) return [];
       const derivedNba = deriveStructuredNbaPlayerPicks({
         player: profile.player,
         league: profile.league,
@@ -853,9 +852,8 @@ export function PlayerProfileClubView({
   const betLabSeries = useMemo(() => {
     const logs = profile.player.recentGames;
     if (!logs || logs.length < 3) return [];
-    const fallbackMinutes = minutesGuard.avgMinutes ?? 0;
-    return buildRecentGameSeries(logs, profile.sport, fallbackMinutes);
-  }, [minutesGuard.avgMinutes, profile.player.recentGames, profile.sport]);
+    return buildRecentGameSeries(logs, profile.sport);
+  }, [profile.player.recentGames, profile.sport]);
 
   const activeLabSeries = useMemo(
     () => betLabSeries.find((s) => s.key === selectedLabMetricKey) ?? betLabSeries[0] ?? null,

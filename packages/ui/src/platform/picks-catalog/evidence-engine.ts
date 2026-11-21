@@ -11,7 +11,7 @@
  * - Cero borrado en `FT`: todo pick en partido finalizado conserva su liquidación auditable
  *   (`hit | miss | push | pending`).
  */
-import { sportScoringUnit } from "@pitchlab/contracts";
+import { isBlockedMarketQuoteBook, sportScoringUnit } from "@pitchlab/contracts";
 import { decimalToAmericanInt } from "../access-guard";
 import {
   REFEREE_EB_PRIOR_WEIGHT,
@@ -175,7 +175,7 @@ export function computeShinDeVig(
   if (!Number.isFinite(normSum) || normSum <= 0) return null;
 
   return {
-    probs: rawProbs.map((p) => round4(p / normSum)),
+    probs: rawProbs.map((p) => p / normSum),
     method: "shin",
     overroundPct,
     shinZ: round4(z),
@@ -293,17 +293,42 @@ export interface ComputePickPricingInput {
  * etiqueta limpia `"Valor +X.X %"` únicamente cuando existe valor esperado positivo real.
  */
 export function computePickPricing(input: ComputePickPricingInput): PickPricingMetrics {
-  const safeP = round4(
-    clamp(
-      Number.isFinite(input.calibratedProb) ? input.calibratedProb : 0.5,
-      MIN_CALIBRATED_PROB,
-      MAX_CALIBRATED_PROB,
-    ),
-  );
+  const rawProb = input.calibratedProb;
+  const probIsFinite = typeof rawProb === "number" && Number.isFinite(rawProb);
+  const hasValidSpacetimeAnchor = probIsFinite && rawProb > 0.005 && rawProb < 0.995;
+
+  if (!probIsFinite) {
+    return {
+      p: 0,
+      fairOdds: 0,
+      fairAmerican: 0,
+      marketDecimal: null,
+      marketAmerican: null,
+      marketBookLabel: null,
+      marketCapturedAtUtc: null,
+      deVigMarketProb: null,
+      deVigMethod: "none",
+      overroundPct: null,
+      evPct: null,
+      edgePts: null,
+      noVigEdgePts: null,
+      valueLabel: null,
+      hasPositiveValue: false,
+    };
+  }
+
+  const safeP = round4(clamp(rawProb, MIN_CALIBRATED_PROB, MAX_CALIBRATED_PROB));
   const fairOdds = Math.max(1.01, round2(1 / safeP));
   const fairAmerican = decimalToAmericanInt(fairOdds);
 
+  const bookLabelSafe =
+    input.marketBookLabel == null ||
+    input.marketBookLabel.trim().length === 0 ||
+    !isBlockedMarketQuoteBook(input.marketBookLabel, input.marketBookLabel);
+
   const validMarket =
+    hasValidSpacetimeAnchor &&
+    bookLabelSafe &&
     typeof input.marketDecimal === "number" &&
     Number.isFinite(input.marketDecimal) &&
     input.marketDecimal >= 1.01

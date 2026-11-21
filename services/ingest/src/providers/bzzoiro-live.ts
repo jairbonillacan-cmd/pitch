@@ -29,7 +29,7 @@ import { BZZOIRO_LEAGUES, type BzTeamStatsRaw } from "./bzzoiro.js";
 import { slugifyTeamName } from "../team-slug.js";
 import { teamSimilarity } from "./link.js";
 
-export const BZZOIRO_ATTRIBUTION = "Datos en vivo: Bzzoiro Sports Data";
+export const BZZOIRO_ATTRIBUTION = "Datos en vivo · PitchLab";
 
 // ---------- Formas de la API (tolerantes: solo lo que usamos) ----------
 

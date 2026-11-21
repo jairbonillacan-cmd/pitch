@@ -155,6 +155,8 @@ export interface VerifiedMatchLineups {
   sourceLabel: string;
   /** Momento ISO UTC de verificación de la alineación oficial. */
   verifiedAtUtc: string;
+  status?: "confirmed" | "predicted";
+  confirmed?: boolean;
   /** Porcentaje de confianza cuando es alineación probable/proyectada (0-100). */
   confidence?: number;
   homeFormation?: string;
@@ -756,6 +758,7 @@ export interface LeagueNewsItem {
 
 export interface PlatformDataset {
   generatedAt: string;
+  serverNowUtc?: string;
   leagues: PlatformLeagueSummary[];
   games: PlatformGame[];
   /** Directorio ligero de todos los equipos/franquicias activas (búsqueda y navegación). */

@@ -2,6 +2,10 @@
  * Catálogo informativo de casas de referencia (cero enlaces de afiliado, conforme a PRODUCT.md).
  * Permite al socio filtrar qué casas usa como referencia frente al Momio Justo del modelo.
  */
+import {
+  isBlockedMarketQuoteBook,
+  isPermittedMarketQuoteBook,
+} from "@pitchlab/contracts";
 import type { BookQuoteItem } from "./types";
 
 export interface BookmakerOption {
@@ -11,7 +15,6 @@ export interface BookmakerOption {
 }
 
 export const BOOKMAKER_OPTIONS: readonly BookmakerOption[] = [
-  { id: "caliente_mx", label: "Caliente", regionHint: "MX" },
   { id: "codere", label: "Codere", regionHint: "MX" },
   { id: "bet365", label: "Bet365", regionHint: "MX / Global" },
   { id: "betcris", label: "Betcris", regionHint: "MX / LatAm" },
@@ -20,6 +23,7 @@ export const BOOKMAKER_OPTIONS: readonly BookmakerOption[] = [
   { id: "playdoit", label: "Playdoit", regionHint: "MX" },
   { id: "pinnacle", label: "Pinnacle", regionHint: "Referencia" },
   { id: "betmgm", label: "BetMGM", regionHint: "US" },
+  { id: "betrivers", label: "BetRivers", regionHint: "US" },
   { id: "bwin", label: "Bwin", regionHint: "Global" },
   { id: "william_hill", label: "William Hill", regionHint: "Global" },
   { id: "unibet", label: "Unibet", regionHint: "Global" },
@@ -36,7 +40,6 @@ export const DEFAULT_PREFERRED_BOOKS: readonly string[] = ["codere", "bet365", "
 
 export const BOOKMAKER_LABEL_BY_ID: Readonly<Record<string, string>> = Object.fromEntries([
   ...BOOKMAKER_OPTIONS.map((b) => [b.id, b.label]),
-  ["caliente_mx", "Caliente"],
   ["williamhill", "William Hill"],
   ["william-hill", "William Hill"],
   ["betonlineag", "BetOnline"],
@@ -122,19 +125,32 @@ export function resolvePreferredBookQuote(
   preferredBooks?: readonly string[],
 ): BookQuoteItem | null {
   if (!quotes || quotes.length === 0) return null;
+  const safeQuotes = quotes.filter(
+    (q) =>
+      Number.isFinite(q.decimal) &&
+      q.decimal > 1.01 &&
+      !isBlockedMarketQuoteBook(q.book, q.bookLabel) &&
+      isPermittedMarketQuoteBook(q.book, q.bookLabel),
+  );
+  if (safeQuotes.length === 0) return null;
+
   const activeSet =
     preferredBooks && preferredBooks.length > 0
-      ? new Set(preferredBooks.map((b) => normalizeBookKey(b)))
+      ? new Set(
+          preferredBooks
+            .map((b) => normalizeBookKey(b))
+            .filter((b) => !isBlockedMarketQuoteBook(b)),
+        )
       : ALLOWED_BOOKMAKER_IDS;
 
-  const matching = quotes
+  const matching = safeQuotes
     .filter((q) => activeSet.has(normalizeBookKey(q.book)))
     .slice()
     .sort((a, b) => b.decimal - a.decimal || b.capturedAtUtc.localeCompare(a.capturedAtUtc));
 
   if (matching[0]) return matching[0];
 
-  const fallback = quotes
+  const fallback = safeQuotes
     .slice()
     .sort((a, b) => b.decimal - a.decimal || b.capturedAtUtc.localeCompare(a.capturedAtUtc));
   return fallback[0] ?? null;

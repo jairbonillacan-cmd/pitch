@@ -423,9 +423,9 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
         updatedAtUtc: fallbackOddsTs,
         ageHours: fallbackAge,
         maxHours: momiosThresholds.staleHours,
-        sourceLabel: "bzzoiro / the_odds_api / betfair",
+        sourceLabel: "Flujo de mercado PitchLab",
         recordsCount: 0,
-        note: "Sin captura legal < 72 h activa (configura THE_ODDS_API_KEY o Betfair en Actions).",
+        note: "Sin captura legal < 72 h activa",
         lastError: prevOddsErr,
       };
     }
