@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useId, useMemo, useState } from "react";
+import { parseStrictFiniteNumber, type LeagueId } from "@pitchlab/contracts";
+import { SofascoreTabs, type SofascoreTabItem } from "../../components/ui/primitives";
 import { TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { PersonAvatar } from "../club/team/PersonAvatar";
-import type { LeagueId } from "@pitchlab/contracts";
 import type { OddsFormat } from "../types";
 
 export interface PropGamePoint {
@@ -12,6 +13,9 @@ export interface PropGamePoint {
   readonly opponent?: string;
   readonly date?: string;
   readonly value: number;
+  readonly minutes?: number | null;
+  readonly xg?: number | null;
+  readonly isHome?: boolean;
 }
 
 export interface PropMetricSeries {
@@ -36,9 +40,7 @@ export interface PlayerPropStreakCardProps {
   series: readonly PropMetricSeries[];
   playerHref?: string;
   onNavigate?: (href: string) => void;
-  /** Ventana inicial de partidos (`5`, `10` o `20`). */
   initialWindow?: 5 | 10 | 20;
-  /** Formato de momio para mostrar la cuota justa calibrada. */
   oddsFormat?: OddsFormat;
 }
 
@@ -46,12 +48,17 @@ export interface PropStreakSummary {
   hits: number;
   total: number;
   hitRatePct: number;
-  /** Probabilidad ajustada por contracción bayesiana Beta(2,2) en `(0.02, 0.98)` (jamás 0 % ni 100 % crudo). */
   pCalibrated: number;
   fairDecimal: number;
   reliabilityLabel: string;
   average: number;
   maxVal: number;
+}
+
+interface RangeSliderVarsStyle extends React.CSSProperties {
+  "--attr-min": string;
+  "--attr-max": string;
+  "--control-value": string;
 }
 
 export function evaluatePropStreak(
@@ -99,11 +106,6 @@ export function evaluatePropStreak(
 
 const WINDOWS = [5, 10, 20] as const;
 
-/**
- * Tarjeta interactiva de Player Props y racha («Últimos 5 / 10 / 20» vs línea deslizable).
- * Usa `<input type="range">` nativo estilizado con custom properties (`--control-value`,
- * `--attr-min`, `--attr-max`) para máxima accesibilidad y compatibilidad cross-browser.
- */
 export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
   playerName,
   teamName,
@@ -125,28 +127,19 @@ export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
     [series, metricKey],
   );
 
-  const [line, setLine] = useState<number>(() => activeSeries?.defaultLine ?? 0.5);
+  const [lineByMetric, setLineByMetric] = useState<Readonly<Record<string, number>>>({});
   const [windowSize, setWindowSize] = useState<5 | 10 | 20>(initialWindow);
-  const sliderRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    if (activeSeries) {
-      setLine(activeSeries.defaultLine);
-    }
-  }, [activeSeries?.key, activeSeries?.defaultLine]);
+  const activeKey = activeSeries?.key ?? "";
+  const line = activeSeries
+    ? (lineByMetric[activeKey] ?? activeSeries.defaultLine)
+    : 0.5;
 
   const minLine = activeSeries?.minLine ?? 0.5;
-  const maxLine = activeSeries?.maxLine ?? Math.max(4.5, Math.ceil((activeSeries?.defaultLine ?? 1.5) * 3) + 0.5);
+  const maxLine =
+    activeSeries?.maxLine ??
+    Math.max(4.5, Math.ceil((activeSeries?.defaultLine ?? 1.5) * 3) + 0.5);
   const step = activeSeries?.step ?? 0.5;
-
-  // Fallback Safari/Firefox sin typed `attr()` ni `::-webkit-slider-progress`: sincroniza custom properties en DOM.
-  useEffect(() => {
-    const el = sliderRef.current;
-    if (!el) return;
-    el.style.setProperty("--attr-min", String(minLine));
-    el.style.setProperty("--attr-max", String(maxLine));
-    el.style.setProperty("--control-value", String(line));
-  }, [minLine, maxLine, line]);
 
   const points = useMemo(
     () => (activeSeries?.points ?? []).slice(-windowSize),
@@ -157,34 +150,54 @@ export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
     [activeSeries, line, windowSize],
   );
 
+  const metricTabs = useMemo<SofascoreTabItem[]>(
+    () => series.map((s) => ({ id: s.key, label: s.label })),
+    [series],
+  );
+
   const lineBottomPct = Math.max(8, Math.min(82, (line / summary.maxVal) * 82));
 
   if (!activeSeries) {
     return (
-      <article className="pl-prop-card glass-card glass-ring" data-prop-streak-card="">
-        <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+      <article className="pl-pb-streak-card" data-prop-streak-card="">
+        <p className="pl-pb-comparator-hint">
           Sin registros suficientes por partido para este jugador todavía.
         </p>
       </article>
     );
   }
 
+  const sliderStyle: RangeSliderVarsStyle = {
+    "--attr-min": String(minLine),
+    "--attr-max": String(maxLine),
+    "--control-value": String(line),
+  };
+
   return (
-    <article className="pl-prop-card glass-card glass-ring" data-prop-streak-card="">
-      <header className="pl-prop-head">
-        <div className="pl-prop-identity">
+    <article className="pl-pb-streak-card" data-prop-streak-card="">
+      <header className="pl-pb-streak-head">
+        <div className="pl-pb-streak-identity">
           <PersonAvatar photoKey={photoKey} size={40} />
-          <div className="min-w-0">
-            <h3 className="m-0 text-sm font-extrabold truncate">
+          <div className="pl-pb-player-copy">
+            <h3 className="pl-pb-streak-title">
               {playerHref ? (
                 <a
                   href={playerHref}
                   onClick={(e) => {
-                    if (!onNavigate) return;
+                    if (
+                      !onNavigate ||
+                      e.metaKey ||
+                      e.ctrlKey ||
+                      e.shiftKey ||
+                      e.altKey ||
+                      e.button !== 0
+                    ) {
+                      return;
+                    }
                     e.preventDefault();
                     onNavigate(playerHref);
                   }}
-                  className="pl-team-link"
+                  className="pl-pb-player-name"
                 >
                   {playerName}
                 </a>
@@ -192,15 +205,21 @@ export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
                 playerName
               )}
             </h3>
-            <p className="m-0 flex items-center gap-1.5 text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
-              <TeamBadge league={league} slug={teamSlug} name={teamName} logoUrl={teamLogoUrl} size={15} />
+            <p className="pl-pb-streak-team">
+              <TeamBadge
+                league={league}
+                slug={teamSlug}
+                name={teamName}
+                logoUrl={teamLogoUrl}
+                size={15}
+              />
               <span className="truncate">{teamName}</span>
               {positionLabel ? <span>· {positionLabel}</span> : null}
             </p>
           </div>
         </div>
 
-        <div className="pl-prop-hit-badge num" data-prop-hit-rate="">
+        <div className="pl-pb-streak-hit num" data-prop-hit-rate="">
           <strong className={summary.hitRatePct >= 60 ? "is-hot" : ""}>
             {summary.hits}/{summary.total}
           </strong>
@@ -209,34 +228,29 @@ export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
       </header>
 
       {series.length > 1 ? (
-        <div className="pl-prop-metrics" role="tablist" aria-label="Estadística del jugador">
-          {series.map((s) => (
-            <button
-              key={s.key}
-              type="button"
-              role="tab"
-              aria-selected={s.key === activeSeries.key}
-              className={`pl-prop-metric-pill ${s.key === activeSeries.key ? "is-on" : ""}`.trim()}
-              onClick={() => setMetricKey(s.key)}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
+        <SofascoreTabs
+          items={metricTabs}
+          value={activeSeries.key}
+          onChange={setMetricKey}
+          variant="segmented"
+          ariaLabel="Estadística del jugador"
+        />
       ) : null}
 
-      <div className="pl-prop-controls">
-        <div className="pl-prop-slider-wrap">
-          <div className="pl-prop-slider-label-row">
-            <label htmlFor={sliderId} className="text-xs font-semibold">
-              Línea: <strong className="num">Más de {line.toFixed(1)} {activeSeries.unit}</strong>
+      <div className="pl-pb-streak-controls">
+        <div className="pl-pb-streak-slider">
+          <div className="pl-pb-streak-slider-row">
+            <label htmlFor={sliderId} className="font-semibold">
+              Línea:{" "}
+              <strong className="num">
+                Más de {line.toFixed(1)} {activeSeries.unit}
+              </strong>
             </label>
-            <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+            <span className="num" style={{ color: "var(--pl-text-muted)" }}>
               Prom. {summary.average.toFixed(2)}
             </span>
           </div>
           <input
-            ref={sliderRef}
             id={sliderId}
             type="range"
             className="pl-range-slider"
@@ -244,19 +258,27 @@ export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
             max={maxLine}
             step={step}
             value={line}
+            style={sliderStyle}
             aria-valuetext={`Más de ${line.toFixed(1)} ${activeSeries.unit} (${summary.hits} de ${summary.total} partidos)`}
-            onChange={(e) => setLine(Number(e.target.value))}
+            onChange={(e) => {
+              const parsed = parseStrictFiniteNumber(e.target.value);
+              if (parsed === null) return;
+              setLineByMetric((prev) => ({
+                ...prev,
+                [activeSeries.key]: parsed,
+              }));
+            }}
           />
         </div>
 
-        <div className="pl-prop-windows" role="group" aria-label="Ventana de últimos partidos">
+        <div className="pl-pb-win-group" role="group" aria-label="Ventana de últimos partidos">
           {WINDOWS.map((w) => {
             const disabled = activeSeries.points.length < w && w > 5;
             return (
               <button
                 key={w}
                 type="button"
-                className={`pl-prop-win-btn num ${windowSize === w ? "is-on" : ""}`.trim()}
+                className={`pl-pb-win-btn num ${windowSize === w ? "is-on" : ""}`.trim()}
                 aria-pressed={windowSize === w}
                 disabled={disabled}
                 onClick={() => setWindowSize(w)}
@@ -304,18 +326,16 @@ export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
         </ol>
       </div>
 
-      <footer className="pl-prop-cal-foot num" data-prop-calibrated="">
-        <span className="pl-prop-cal-stat">
+      <footer className="pl-pb-streak-foot num" data-prop-calibrated="">
+        <span className="pl-pb-streak-stat">
           <span>Prob. ajustada</span>
           <strong>{(summary.pCalibrated * 100).toFixed(1)} %</strong>
         </span>
-        <span className="pl-prop-cal-stat">
+        <span className="pl-pb-streak-stat">
           <span>Momio justo</span>
-          <strong style={{ color: "var(--pl-brand)" }}>
-            {formatOddsValue(summary.fairDecimal, oddsFormat)}
-          </strong>
+          <strong className="is-brand">{formatOddsValue(summary.fairDecimal, oddsFormat)}</strong>
         </span>
-        <span className="pl-prop-cal-sample">{summary.reliabilityLabel}</span>
+        <span className="pl-pb-streak-sample">{summary.reliabilityLabel}</span>
       </footer>
     </article>
   );
