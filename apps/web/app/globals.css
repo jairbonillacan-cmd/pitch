@@ -32,6 +32,7 @@
    por ruta en su layout.tsx/page.tsx (ADR-051) y todas en Storybook preview.ts. */
 @import "./pitchlab-v4.css" layer(components);
 @import "./badges.css" layer(components);
+@import "./sofascore-kit.css" layer(components);
 
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/node_modules/@heroui/react/dist";
