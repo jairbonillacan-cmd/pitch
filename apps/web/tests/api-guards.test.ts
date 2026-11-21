@@ -71,7 +71,9 @@ import {
 } from "../src/server/api-guards";
 import {
   checkEndpointRateLimit,
+  rateLimitResponse,
   resetRateLimitsForTests,
+  serviceUnavailableRateLimitResponse,
   setRateLimitDbForTests,
   trustedClientIp,
   verifySameOriginMutation,
@@ -135,6 +137,34 @@ const ACCOUNT_NO_PASE: ViewerAccess = {
 
 const pgRateCounts = new Map<string, number>();
 
+const HOSTED_ENV_KEYS = [
+  "PITCHLAB_HOSTED",
+  "VERCEL",
+  "K_SERVICE",
+  "FLY_APP_NAME",
+  "RAILWAY_ENVIRONMENT",
+  "RAILWAY_PROJECT_ID",
+  "RENDER",
+  "AWS_EXECUTION_ENV",
+  "ECS_CONTAINER_METADATA_URI",
+  "ECS_CONTAINER_METADATA_URI_V4",
+  "CONTAINER_APP_NAME",
+  "WEBSITE_SITE_NAME",
+  "DO_APP_PLATFORM",
+  "COOLIFY_APP_ID",
+] as const;
+
+function clearLoopbackRateLimitEnv(): void {
+  delete process.env.PITCHLAB_LOCAL_MEMORY_RATE_LIMIT;
+  delete process.env.BETTER_AUTH_URL;
+  delete process.env.UPSTASH_REDIS_REST_URL;
+  delete process.env.UPSTASH_REDIS_REST_TOKEN;
+  delete process.env.DATABASE_URL;
+  for (const key of HOSTED_ENV_KEYS) {
+    delete process.env[key];
+  }
+}
+
 function setNodeEnv(value: string | undefined): void {
   (process.env as Record<string, string | undefined>).NODE_ENV = value;
 }
@@ -178,9 +208,7 @@ function sameOriginMutation(
 beforeEach(() => {
   process.env = { ...ENV_BACKUP };
   setNodeEnv("test");
-  delete process.env.UPSTASH_REDIS_REST_URL;
-  delete process.env.UPSTASH_REDIS_REST_TOKEN;
-  delete process.env.DATABASE_URL;
+  clearLoopbackRateLimitEnv();
   delete process.env.CRON_SECRET;
   delete process.env.PITCHLAB_WATERMARK_SECRET;
   delete process.env.PITCHLAB_AUDIT_SALT;
@@ -479,6 +507,257 @@ describe("request-security", () => {
     expect(open.storeUnavailable).toBeUndefined();
     expect(warnSpy).toHaveBeenCalled();
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it("mantiene fail-closed (storeUnavailable / 503) en NODE_ENV=production por defecto sin PITCHLAB_LOCAL_MEMORY_RATE_LIMIT", async () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      clearLoopbackRateLimitEnv();
+      setNodeEnv("production");
+
+      const closed = await checkEndpointRateLimit({
+        bucket: "prod-loopback-default-closed",
+        key: "127.0.0.1",
+        limit: 5,
+        windowMs: 60_000,
+        failClosed: true,
+      });
+
+      expect(closed).toEqual({
+        allowed: false,
+        remaining: 0,
+        retryAfterSeconds: 30,
+        storeUnavailable: true,
+      });
+      expect(serviceUnavailableRateLimitResponse(closed.retryAfterSeconds).status).toBe(503);
+      expect(errorSpy).toHaveBeenCalled();
+    } finally {
+      process.env = { ...ENV_BACKUP };
+    }
+  });
+
+  it("mantiene fail-closed con PITCHLAB_LOCAL_MEMORY_RATE_LIMIT=1 cuando hay marcadores hospedados (PITCHLAB_HOSTED=1 o VERCEL=1)", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      clearLoopbackRateLimitEnv();
+      setNodeEnv("production");
+      process.env.PITCHLAB_LOCAL_MEMORY_RATE_LIMIT = "1";
+      process.env.PITCHLAB_HOSTED = "1";
+
+      const hostedExplicit = await checkEndpointRateLimit({
+        bucket: "prod-loopback-hosted-explicit",
+        key: "127.0.0.1",
+        limit: 5,
+        windowMs: 60_000,
+        failClosed: true,
+      });
+      expect(hostedExplicit).toEqual({
+        allowed: false,
+        remaining: 0,
+        retryAfterSeconds: 30,
+        storeUnavailable: true,
+      });
+
+      process.env.PITCHLAB_HOSTED = "true";
+      const hostedTrue = await checkEndpointRateLimit({
+        bucket: "prod-loopback-hosted-true",
+        key: "127.0.0.1",
+        limit: 5,
+        windowMs: 60_000,
+        failClosed: true,
+      });
+      expect(hostedTrue.storeUnavailable).toBe(true);
+      expect(hostedTrue.allowed).toBe(false);
+
+      delete process.env.PITCHLAB_HOSTED;
+      process.env.VERCEL = "1";
+      const hostedVercel = await checkEndpointRateLimit({
+        bucket: "prod-loopback-hosted-vercel",
+        key: "127.0.0.1",
+        limit: 5,
+        windowMs: 60_000,
+        failClosed: true,
+      });
+      expect(hostedVercel).toEqual({
+        allowed: false,
+        remaining: 0,
+        retryAfterSeconds: 30,
+        storeUnavailable: true,
+      });
+    } finally {
+      process.env = { ...ENV_BACKUP };
+    }
+  });
+
+  it("mantiene fail-closed con PITCHLAB_LOCAL_MEMORY_RATE_LIMIT=1 cuando DATABASE_URL o Upstash Redis están configurados y fallan", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      clearLoopbackRateLimitEnv();
+      setNodeEnv("production");
+      process.env.PITCHLAB_LOCAL_MEMORY_RATE_LIMIT = "1";
+      process.env.DATABASE_URL = "postgres://postgres:postgres@127.0.0.1:5432/pitchlab";
+      mocks.incrementPgRateBucket.mockRejectedValueOnce(new Error("pg_down"));
+
+      const pgFailed = await checkEndpointRateLimit({
+        bucket: "prod-loopback-db-failing",
+        key: "127.0.0.1",
+        limit: 5,
+        windowMs: 60_000,
+        failClosed: true,
+      });
+      expect(mocks.incrementPgRateBucket).toHaveBeenCalledTimes(1);
+      expect(pgFailed).toEqual({
+        allowed: false,
+        remaining: 0,
+        retryAfterSeconds: 30,
+        storeUnavailable: true,
+      });
+
+      delete process.env.DATABASE_URL;
+      process.env.UPSTASH_REDIS_REST_URL = "https://upstash.example";
+      process.env.UPSTASH_REDIS_REST_TOKEN = "token_test";
+      const failingFetch: typeof fetch = async () =>
+        new Response("upstream down", { status: 500 });
+
+      const redisFailed = await checkEndpointRateLimit({
+        bucket: "prod-loopback-redis-failing",
+        key: "127.0.0.1",
+        limit: 5,
+        windowMs: 60_000,
+        failClosed: true,
+        fetchImpl: failingFetch,
+      });
+      expect(redisFailed).toEqual({
+        allowed: false,
+        remaining: 0,
+        retryAfterSeconds: 30,
+        storeUnavailable: true,
+      });
+    } finally {
+      process.env = { ...ENV_BACKUP };
+    }
+  });
+
+  it("mantiene fail-closed con PITCHLAB_LOCAL_MEMORY_RATE_LIMIT=1 cuando BETTER_AUTH_URL apunta a un origen remoto", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      clearLoopbackRateLimitEnv();
+      setNodeEnv("production");
+      process.env.PITCHLAB_LOCAL_MEMORY_RATE_LIMIT = "1";
+      process.env.BETTER_AUTH_URL = "https://pitchlab.app";
+
+      const remoteOrigin = await checkEndpointRateLimit({
+        bucket: "prod-loopback-remote-auth-url",
+        key: "127.0.0.1",
+        limit: 5,
+        windowMs: 60_000,
+        failClosed: true,
+      });
+      expect(remoteOrigin).toEqual({
+        allowed: false,
+        remaining: 0,
+        retryAfterSeconds: 30,
+        storeUnavailable: true,
+      });
+    } finally {
+      process.env = { ...ENV_BACKUP };
+    }
+  });
+
+  it("permite fallback en memoria en loopback local con PITCHLAB_LOCAL_MEMORY_RATE_LIMIT=1 sin Redis/DB ni marcadores hospedados y bloquea con 429 al superar limit", async () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      clearLoopbackRateLimitEnv();
+      setNodeEnv("production");
+      process.env.PITCHLAB_LOCAL_MEMORY_RATE_LIMIT = "1";
+      const nowMs = 1_700_000_000_000;
+
+      const first = await checkEndpointRateLimit({
+        bucket: "prod-loopback-ok",
+        key: "127.0.0.1",
+        limit: 2,
+        windowMs: 60_000,
+        nowMs,
+        failClosed: true,
+      });
+      expect(first).toEqual({
+        allowed: true,
+        remaining: 1,
+        retryAfterSeconds: 0,
+      });
+      expect(first.storeUnavailable).toBeUndefined();
+
+      const second = await checkEndpointRateLimit({
+        bucket: "prod-loopback-ok",
+        key: "127.0.0.1",
+        limit: 2,
+        windowMs: 60_000,
+        nowMs: nowMs + 1_000,
+        failClosed: true,
+      });
+      expect(second).toEqual({
+        allowed: true,
+        remaining: 0,
+        retryAfterSeconds: 0,
+      });
+
+      const throttled = await checkEndpointRateLimit({
+        bucket: "prod-loopback-ok",
+        key: "127.0.0.1",
+        limit: 2,
+        windowMs: 60_000,
+        nowMs: nowMs + 2_000,
+        failClosed: true,
+      });
+      expect(throttled.allowed).toBe(false);
+      expect(throttled.remaining).toBe(0);
+      expect(throttled.storeUnavailable).toBeUndefined();
+      expect(throttled.retryAfterSeconds).toBe(58);
+      expect(rateLimitResponse(throttled.retryAfterSeconds).status).toBe(429);
+
+      process.env.BETTER_AUTH_URL = "http://127.0.0.1:3100";
+      const loopbackUrlAllowed = await checkEndpointRateLimit({
+        bucket: "prod-loopback-explicit-url",
+        key: "127.0.0.1",
+        limit: 1,
+        windowMs: 60_000,
+        nowMs,
+        failClosed: true,
+      });
+      expect(loopbackUrlAllowed.allowed).toBe(true);
+      expect(loopbackUrlAllowed.storeUnavailable).toBeUndefined();
+
+      const loopbackUrlThrottled = await checkEndpointRateLimit({
+        bucket: "prod-loopback-explicit-url",
+        key: "127.0.0.1",
+        limit: 1,
+        windowMs: 60_000,
+        nowMs: nowMs + 500,
+        failClosed: true,
+      });
+      expect(loopbackUrlThrottled.allowed).toBe(false);
+      expect(loopbackUrlThrottled.storeUnavailable).toBeUndefined();
+
+      process.env.VERCEL = "1";
+      process.env.PITCHLAB_HOSTED = "0";
+      const explicitNonHosted = await checkEndpointRateLimit({
+        bucket: "prod-loopback-hosted-false-override",
+        key: "127.0.0.1",
+        limit: 2,
+        windowMs: 60_000,
+        nowMs,
+        failClosed: true,
+      });
+      expect(explicitNonHosted.allowed).toBe(true);
+      expect(explicitNonHosted.storeUnavailable).toBeUndefined();
+
+      expect(warnSpy).toHaveBeenCalled();
+      expect(errorSpy).not.toHaveBeenCalled();
+    } finally {
+      process.env = { ...ENV_BACKUP };
+    }
   });
 });
 

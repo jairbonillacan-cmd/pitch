@@ -10,6 +10,7 @@ interface MemoryRateEntry {
 
 const MAX_MEMORY_ENTRIES = 5_000;
 const FAIL_CLOSED_RETRY_SECONDS = 30;
+const LOCAL_LOOPBACK_ORIGIN_RE = /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?(\/|$)/i;
 const memoryStore = new Map<string, MemoryRateEntry>();
 let warnedMemoryFallback = false;
 let rateLimitDbOverride: Db | null = null;
@@ -47,7 +48,7 @@ function resolvePgRateLimitDb(explicitDb: Db | undefined, databaseUrl: string): 
   if (existingSessionDb) return existingSessionDb;
   if (!databaseUrl) return null;
   if (!cachedPgDb || cachedPgDbUrl !== databaseUrl) {
-    cachedPgDb = createDb(databaseUrl) as unknown as Db;
+    cachedPgDb = createDb(databaseUrl);
     cachedPgDbUrl = databaseUrl;
   }
   return cachedPgDb;
@@ -235,6 +236,41 @@ function pruneMemoryStore(nowMs: number): void {
   }
 }
 
+function isHostedRemoteEnvironment(): boolean {
+  const explicit = process.env.PITCHLAB_HOSTED?.trim().toLowerCase();
+  if (explicit === "1" || explicit === "true") return true;
+  if (explicit === "0" || explicit === "false") return false;
+  return Boolean(
+    process.env.VERCEL ||
+      process.env.K_SERVICE ||
+      process.env.FLY_APP_NAME ||
+      process.env.RAILWAY_ENVIRONMENT ||
+      process.env.RAILWAY_PROJECT_ID ||
+      process.env.RENDER ||
+      process.env.AWS_EXECUTION_ENV ||
+      process.env.ECS_CONTAINER_METADATA_URI ||
+      process.env.ECS_CONTAINER_METADATA_URI_V4 ||
+      process.env.CONTAINER_APP_NAME ||
+      process.env.WEBSITE_SITE_NAME ||
+      process.env.DO_APP_PLATFORM ||
+      process.env.COOLIFY_APP_ID,
+  );
+}
+
+function allowLocalLoopbackMemoryRateLimit(
+  hasRedisConfigured: boolean,
+  hasDatabaseConfigured: boolean,
+): boolean {
+  if (process.env.PITCHLAB_LOCAL_MEMORY_RATE_LIMIT !== "1") return false;
+  if (isHostedRemoteEnvironment()) return false;
+  if (hasRedisConfigured || hasDatabaseConfigured) return false;
+  const configuredAuthUrl = process.env.BETTER_AUTH_URL?.trim();
+  if (configuredAuthUrl && !LOCAL_LOOPBACK_ORIGIN_RE.test(configuredAuthUrl)) {
+    return false;
+  }
+  return true;
+}
+
 export interface RateLimitCheckOptions {
   bucket: string;
   key: string;
@@ -339,11 +375,18 @@ export async function checkEndpointRateLimit(
     }
   }
 
-  if (process.env.NODE_ENV === "production" && options.failClosed === true) {
+  const hasRedisConfigured = Boolean(upstashUrl && upstashToken);
+  const hasDatabaseConfigured = Boolean(databaseUrl);
+
+  if (
+    process.env.NODE_ENV === "production" &&
+    options.failClosed === true &&
+    !allowLocalLoopbackMemoryRateLimit(hasRedisConfigured, hasDatabaseConfigured)
+  ) {
     logSecurityEvent("error", "rate_limit_fail_closed", {
       bucket: options.bucket,
-      hasRedis: Boolean(upstashUrl && upstashToken),
-      hasDatabase: Boolean(databaseUrl),
+      hasRedis: hasRedisConfigured,
+      hasDatabase: hasDatabaseConfigured,
     });
     return {
       allowed: false,
