@@ -27,13 +27,9 @@ export interface AtomicMatchHeaderBarProps {
   readonly away: AtomicMatchHeaderTeam;
   readonly score?: { readonly home: number; readonly away: number } | null;
   readonly phase?: LivePhase;
-  /** Minuto en vivo (`"58"` o `"45+2"`) o etiqueta de inicio (`"17:00"`). */
   readonly clock?: string | null;
-  /** Última incidencia destacada para mostrar con `<SportEventIcon />` en contenedores amplios. */
   readonly latestEvent?: AtomicMatchHeaderEvent | null;
-  /** Activa posicionamiento sticky compacto (una sola fila, `< 12 %` viewport). */
   readonly sticky?: boolean;
-  /** Slot compacto opcional a la derecha (p. ej. botón Seguir). */
   readonly trailing?: React.ReactNode;
   readonly className?: string;
 }
@@ -50,11 +46,6 @@ function formatClockLabel(phase: LivePhase | undefined, clock: string | null | u
   return "vs";
 }
 
-/**
- * Barra compacta de encabezado de partido para vistas densas o sticky:
- * escudos, marcador/reloj en `.num`, expulsiones y evento reciente con `<SportEventIcon />`.
- * Cero `backdrop-filter`, una sola fila compacta, sin desbordamiento en 375 px.
- */
 export function AtomicMatchHeaderBar({
   league,
   home,
@@ -75,6 +66,7 @@ export function AtomicMatchHeaderBar({
 
   const homeLead = hasScore && score.home > score.away;
   const awayLead = hasScore && score.away > score.home;
+  const badgeSize = sticky ? 20 : 22;
   const eventMin =
     latestEvent?.minute != null
       ? `${latestEvent.minute}${latestEvent.addedTime ? `+${latestEvent.addedTime}` : ""}'`
@@ -84,6 +76,7 @@ export function AtomicMatchHeaderBar({
     <header
       className={`pl-atom-header${sticky ? " is-sticky" : ""}${isLive ? " is-live" : ""} ${className}`.trim()}
       data-atomic-match-header=""
+      data-sticky={sticky ? "true" : undefined}
       aria-label={`${homeShort} ${hasScore ? `${score.home} a ${score.away}` : "contra"} ${awayShort}, ${clockLabel}`}
     >
       <div className="pl-atom-header-grid">
@@ -103,7 +96,7 @@ export function AtomicMatchHeaderBar({
             slug={home.slug}
             name={home.name}
             logoUrl={home.logoUrl}
-            size={22}
+            size={badgeSize}
             decorative
           />
         </div>
@@ -128,7 +121,7 @@ export function AtomicMatchHeaderBar({
             slug={away.slug}
             name={away.name}
             logoUrl={away.logoUrl}
-            size={22}
+            size={badgeSize}
             decorative
           />
           <span className="pl-atom-header-name">{awayShort}</span>

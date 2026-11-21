@@ -10,6 +10,7 @@ export interface AtomicFormEntry {
   readonly outcome: AtomicFormOutcome;
   readonly glyph: "G" | "E" | "P" | "W" | "L" | "T";
   readonly spoken: string;
+  readonly tooltip?: string | null;
 }
 
 const US_SPORTS: ReadonlySet<PlatformSport> = new Set([
@@ -28,27 +29,50 @@ function resolveNotation(
   return "es";
 }
 
-function outcomeToEntry(outcome: AtomicFormOutcome, resolved: "es" | "us"): AtomicFormEntry {
+function outcomeToEntry(
+  outcome: AtomicFormOutcome,
+  resolved: "es" | "us",
+  tooltip?: string | null,
+): AtomicFormEntry {
+  const cleanTooltip =
+    typeof tooltip === "string" && tooltip.trim().length > 0 ? tooltip.trim() : null;
   if (resolved === "us") {
-    if (outcome === "win") return { outcome, glyph: "W", spoken: "Victoria" };
-    if (outcome === "draw") return { outcome, glyph: "T", spoken: "Empate" };
-    return { outcome, glyph: "L", spoken: "Derrota" };
+    if (outcome === "win") {
+      return cleanTooltip
+        ? { outcome, glyph: "W", spoken: "Victoria", tooltip: cleanTooltip }
+        : { outcome, glyph: "W", spoken: "Victoria" };
+    }
+    if (outcome === "draw") {
+      return cleanTooltip
+        ? { outcome, glyph: "T", spoken: "Empate", tooltip: cleanTooltip }
+        : { outcome, glyph: "T", spoken: "Empate" };
+    }
+    return cleanTooltip
+      ? { outcome, glyph: "L", spoken: "Derrota", tooltip: cleanTooltip }
+      : { outcome, glyph: "L", spoken: "Derrota" };
   }
-  if (outcome === "win") return { outcome, glyph: "G", spoken: "Ganó" };
-  if (outcome === "draw") return { outcome, glyph: "E", spoken: "Empató" };
-  return { outcome, glyph: "P", spoken: "Perdió" };
+  if (outcome === "win") {
+    return cleanTooltip
+      ? { outcome, glyph: "G", spoken: "Ganó", tooltip: cleanTooltip }
+      : { outcome, glyph: "G", spoken: "Ganó" };
+  }
+  if (outcome === "draw") {
+    return cleanTooltip
+      ? { outcome, glyph: "E", spoken: "Empató", tooltip: cleanTooltip }
+      : { outcome, glyph: "E", spoken: "Empató" };
+  }
+  return cleanTooltip
+    ? { outcome, glyph: "P", spoken: "Perdió", tooltip: cleanTooltip }
+    : { outcome, glyph: "P", spoken: "Perdió" };
 }
 
-/**
- * Normaliza una racha en cadena (`"G-E-P-G-G · 3-1"`, `"WWLWW"`) o arreglo (`["G","E","P"]`)
- * hacia entradas tipadas en notación española (`G/E/P`) o US (`W/L`/`T`).
- */
 export function parseAtomicForm(
   form: string | readonly string[] | null | undefined,
   opts?: {
     readonly notation?: AtomicFormNotation;
     readonly sport?: PlatformSport;
     readonly max?: number;
+    readonly tooltips?: readonly string[];
   },
 ): AtomicFormEntry[] {
   const resolved = resolveNotation(opts?.notation ?? "auto", opts?.sport);
@@ -59,42 +83,44 @@ export function parseAtomicForm(
     tokens = form.map((item) => String(item).trim().toUpperCase());
   } else if (typeof form === "string") {
     const head = form.split("·")[0] ?? "";
-    tokens = (head.toUpperCase().match(/[GEPWDLT]/g) ?? []);
+    tokens = head.toUpperCase().match(/[GEPWDLT]/g) ?? [];
   } else {
     tokens = [];
   }
 
-  const out: AtomicFormEntry[] = [];
+  const outcomes: AtomicFormOutcome[] = [];
   for (const ch of tokens) {
-    if (ch === "G" || ch === "W") out.push(outcomeToEntry("win", resolved));
-    else if (ch === "E" || ch === "D" || ch === "T") out.push(outcomeToEntry("draw", resolved));
-    else if (ch === "P" || ch === "L") out.push(outcomeToEntry("loss", resolved));
+    if (ch === "G" || ch === "W") outcomes.push("win");
+    else if (ch === "E" || ch === "D" || ch === "T") outcomes.push("draw");
+    else if (ch === "P" || ch === "L") outcomes.push("loss");
   }
 
-  return max > 0 ? out.slice(-max) : out;
+  const slicedOutcomes = max > 0 ? outcomes.slice(-max) : outcomes;
+  const rawTooltips = opts?.tooltips;
+  const alignedTooltips =
+    rawTooltips && rawTooltips.length > 0
+      ? rawTooltips.length >= outcomes.length && max > 0
+        ? rawTooltips.slice(-slicedOutcomes.length)
+        : rawTooltips
+      : undefined;
+
+  return slicedOutcomes.map((outcome, idx) =>
+    outcomeToEntry(outcome, resolved, alignedTooltips?.[idx]),
+  );
 }
 
 export interface AtomicFormStripProps {
-  /** Racha cruda (`"G-E-P-G-G · 3-1"`, `"WWLWL"`) o lista de resultados. */
   readonly form: string | readonly string[] | null | undefined;
-  /** Deporte para elegir automáticamente `G/E/P` (fútbol) o `W/L` (ligas US). */
   readonly sport?: PlatformSport;
-  /** Fuerza notación `es` (`G/E/P`), `us` (`W/L`) o `auto` según `sport`. */
   readonly notation?: AtomicFormNotation;
-  /** Máximo de resultados visibles (por defecto 5). */
   readonly max?: number;
   readonly size?: "xs" | "sm" | "md";
-  /** Nombre opcional del club para enriquecer `aria-label`. */
   readonly teamName?: string;
-  /** Texto discreto si no hay forma disponible (`null` omite el nodo). */
   readonly emptyFallback?: string | null;
+  readonly tooltips?: readonly string[];
   readonly className?: string;
 }
 
-/**
- * Tira compacta de forma reciente (`G/E/P` y `W/L` US) con diseño plano editorial,
- * contraste WCAG AA en tema oscuro y claro y `role="img"` accesible.
- */
 export function AtomicFormStrip({
   form,
   sport,
@@ -103,9 +129,10 @@ export function AtomicFormStrip({
   size = "sm",
   teamName,
   emptyFallback = "—",
+  tooltips,
   className = "",
 }: AtomicFormStripProps): React.JSX.Element | null {
-  const entries = parseAtomicForm(form, { notation, sport, max });
+  const entries = parseAtomicForm(form, { notation, sport, max, tooltips });
 
   if (entries.length === 0) {
     if (emptyFallback === null) return null;
@@ -122,7 +149,9 @@ export function AtomicFormStrip({
   }
 
   const prefix = teamName ? `Forma de ${teamName}` : "Forma reciente";
-  const ariaLabel = `${prefix} (últimos ${entries.length}): ${entries.map((e) => e.spoken).join(", ")}`;
+  const ariaLabel = `${prefix} (últimos ${entries.length}): ${entries
+    .map((e) => (e.tooltip ? `${e.spoken} (${e.tooltip})` : e.spoken))
+    .join(", ")}`;
 
   return (
     <span
@@ -134,7 +163,9 @@ export function AtomicFormStrip({
       {entries.map((entry, idx) => (
         <span
           key={`${entry.glyph}-${idx}`}
-          className={`pl-atom-form-cell is-${entry.outcome}`}
+          className={`pl-atom-form-cell is-${entry.outcome}${entry.tooltip ? " has-tooltip" : ""}`}
+          title={entry.tooltip ?? undefined}
+          data-tooltip={entry.tooltip ?? undefined}
           aria-hidden="true"
         >
           {entry.glyph}

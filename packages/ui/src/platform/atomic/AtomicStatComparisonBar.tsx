@@ -10,21 +10,24 @@ export interface StatBarWidths {
   readonly lead: "home" | "away" | "tie";
 }
 
-/**
- * Calcula anchos limpios [0..100] para barras comparativas pareadas (ADR-054):
- * - Porcentajes (`pct`): ancho directo sobre 100 %.
- * - Métricas con signo (`signed`, ej. `Goles evitados -0.54 vs -0.44`): escala sobre `max(|h|, |a|)`
- *   para que nunca se rendericen vacías por valores negativos, marcando `homeNegative`/`awayNegative`.
- * - Conteos/acumulados positivos: proporción directa `h / (h + a)` para lectura comparativa instantánea.
- */
 export function computeStatBarWidths(
   home: number,
   away: number,
-  opts?: { pct?: boolean; signed?: boolean },
+  opts?: { pct?: boolean; signed?: boolean; lowerIsBetter?: boolean },
 ): StatBarWidths {
   const h = Number.isFinite(home) ? home : 0;
   const a = Number.isFinite(away) ? away : 0;
-  const lead: "home" | "away" | "tie" = h > a ? "home" : a > h ? "away" : "tie";
+  const lead: "home" | "away" | "tie" = opts?.lowerIsBetter
+    ? h < a
+      ? "home"
+      : a < h
+        ? "away"
+        : "tie"
+    : h > a
+      ? "home"
+      : a > h
+        ? "away"
+        : "tie";
   const clampPct = (v: number) => Math.max(0, Math.min(100, Math.round(v * 10) / 10));
 
   if (opts?.pct) {
@@ -65,23 +68,21 @@ export function computeStatBarWidths(
 }
 
 export interface AtomicStatComparisonBarProps {
-  /** Nombre legible de la métrica (p. ej. "Posesión", "xG", "Goles evitados"). */
   readonly label: string;
   readonly homeValue: number | null | undefined;
   readonly awayValue: number | null | undefined;
   readonly homeLabel?: string;
   readonly awayLabel?: string;
-  /** Sobrescritura opcional del texto ya formateado. */
   readonly homeDisplay?: string;
   readonly awayDisplay?: string;
   readonly pct?: boolean;
   readonly signed?: boolean;
   readonly digits?: number;
-  /** Variante visual: `default` (Match Center) o `compact` (tarjetas densas). */
+  readonly lowerIsBetter?: boolean;
+  readonly rankA?: number | null;
+  readonly rankB?: number | null;
   readonly variant?: "default" | "compact";
-  /** Muestra los nombres de equipo sobre las cifras cuando el componente vive fuera de una tabla. */
   readonly showTeamLabels?: boolean;
-  /** Cuando se renderiza dentro de un `<dl>` existente, emite `<dt>` y `<dd>` semánticos. */
   readonly asDefinitionItem?: boolean;
   readonly className?: string;
 }
@@ -96,11 +97,12 @@ function formatStatValue(
   return String(Math.round(value));
 }
 
-/**
- * Barra comparativa plana editorial apoyada en `computeStatBarWidths`:
- * 100 % tokens `--pl-*`, cero gradientes, soporte completo para porcentajes,
- * conteos positivos y métricas negativas (`data-negative="true"`).
- */
+function normalizeOrdinalRank(rank: number | null | undefined): number | null {
+  if (rank == null || !Number.isFinite(rank)) return null;
+  const rounded = Math.round(rank);
+  return rounded > 0 ? rounded : null;
+}
+
 export function AtomicStatComparisonBar({
   label,
   homeValue,
@@ -112,6 +114,9 @@ export function AtomicStatComparisonBar({
   pct,
   signed,
   digits,
+  lowerIsBetter = false,
+  rankA = null,
+  rankB = null,
   variant = "default",
   showTeamLabels = false,
   asDefinitionItem = false,
@@ -119,28 +124,46 @@ export function AtomicStatComparisonBar({
 }: AtomicStatComparisonBarProps): React.JSX.Element {
   const hNum = homeValue != null && Number.isFinite(homeValue) ? homeValue : 0;
   const aNum = awayValue != null && Number.isFinite(awayValue) ? awayValue : 0;
-  const bar = computeStatBarWidths(hNum, aNum, { pct, signed });
+  const bar = computeStatBarWidths(hNum, aNum, { pct, signed, lowerIsBetter });
 
   const homeText = homeDisplay ?? formatStatValue(homeValue, { pct, digits });
   const awayText = awayDisplay ?? formatStatValue(awayValue, { pct, digits });
+  const resolvedRankA = normalizeOrdinalRank(rankA);
+  const resolvedRankB = normalizeOrdinalRank(rankB);
+  const hasRanks = resolvedRankA !== null || resolvedRankB !== null;
 
   const rowContent = (
     <>
       <span
-        className="pl-live-stat-value pl-atom-stat-val num"
+        className={`pl-live-stat-value pl-atom-stat-val num${hasRanks ? " has-rank" : ""}`}
         data-lead={bar.lead === "home" ? "" : undefined}
       >
         <span className="sr-only">{homeLabel}: </span>
-        {homeText}
+        <span>{homeText}</span>
+        {resolvedRankA !== null ? (
+          <span
+            className="pl-atom-stat-rank num"
+            data-rank={resolvedRankA}
+            aria-label={`Puesto ${resolvedRankA} de liga`}
+          >
+            {`${resolvedRankA}.º`}
+          </span>
+        ) : null}
       </span>
-      <span className="pl-live-stat-track pl-live-stat-track--home pl-atom-stat-track pl-atom-stat-track--home" aria-hidden="true">
+      <span
+        className="pl-live-stat-track pl-live-stat-track--home pl-atom-stat-track pl-atom-stat-track--home"
+        aria-hidden="true"
+      >
         <span
           data-lead={bar.lead === "home" ? "true" : undefined}
           data-negative={bar.homeNegative ? "true" : undefined}
           style={{ inlineSize: `${bar.homePct}%` }}
         />
       </span>
-      <span className="pl-live-stat-track pl-live-stat-track--away pl-atom-stat-track pl-atom-stat-track--away" aria-hidden="true">
+      <span
+        className="pl-live-stat-track pl-live-stat-track--away pl-atom-stat-track pl-atom-stat-track--away"
+        aria-hidden="true"
+      >
         <span
           data-lead={bar.lead === "away" ? "true" : undefined}
           data-negative={bar.awayNegative ? "true" : undefined}
@@ -148,20 +171,32 @@ export function AtomicStatComparisonBar({
         />
       </span>
       <span
-        className="pl-live-stat-value pl-atom-stat-val num"
+        className={`pl-live-stat-value pl-atom-stat-val pl-atom-stat-val--away num${hasRanks ? " has-rank" : ""}`}
         data-lead={bar.lead === "away" ? "" : undefined}
       >
         <span className="sr-only">{awayLabel}: </span>
-        {awayText}
+        <span>{awayText}</span>
+        {resolvedRankB !== null ? (
+          <span
+            className="pl-atom-stat-rank num"
+            data-rank={resolvedRankB}
+            aria-label={`Puesto ${resolvedRankB} de liga`}
+          >
+            {`${resolvedRankB}.º`}
+          </span>
+        ) : null}
       </span>
     </>
   );
 
+  const rootClassName = `pl-atom-stat pl-atom-stat--${variant}${hasRanks ? " has-ranks" : ""} ${className}`.trim();
+
   if (asDefinitionItem) {
     return (
       <div
-        className={`pl-live-stat pl-atom-stat pl-atom-stat--${variant} ${className}`.trim()}
+        className={`pl-live-stat ${rootClassName}`.trim()}
         data-atomic-stat=""
+        data-lower-is-better={lowerIsBetter ? "true" : undefined}
       >
         <dt className="pl-atom-stat-label">{label}</dt>
         <dd className="pl-atom-stat-row">{rowContent}</dd>
@@ -171,8 +206,9 @@ export function AtomicStatComparisonBar({
 
   return (
     <div
-      className={`pl-atom-stat pl-atom-stat--${variant} ${className}`.trim()}
+      className={rootClassName}
       data-atomic-stat=""
+      data-lower-is-better={lowerIsBetter ? "true" : undefined}
     >
       {showTeamLabels ? (
         <div className="pl-atom-stat-teams">
