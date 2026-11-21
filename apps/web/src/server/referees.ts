@@ -6,6 +6,7 @@ import {
   canonicalGameSlug,
   canonicalPlayerHref,
   cleanTeamRouteSlug,
+  getLeagueCapability,
   isSafePublicLabel,
   LeagueSquadsFileSchema,
   parseCanonicalPublicSlug,
@@ -388,15 +389,27 @@ export function isProductLeagueKey(value: string): value is ProductLeague {
   return PRODUCT_LEAGUE_SET.has(value);
 }
 
+function isFootballRefereeLeague(league: ProductLeague): boolean {
+  const capability = getLeagueCapability(league);
+  return capability?.providers.referees === true && capability.sport === "football";
+}
+
 export function shrinkRefereeMetricEb(
   rawRate: number,
   matches: number,
   leaguePriorMean: number,
   kappa: number = REFEREE_EB_KAPPA,
 ): number {
+  const safePrior =
+    Number.isFinite(leaguePriorMean) && leaguePriorMean >= 0
+      ? leaguePriorMean
+      : DEFAULT_PRIOR_YELLOW;
+  if (!Number.isFinite(rawRate) || rawRate < 0) {
+    return round2(safePrior);
+  }
   const safeMatches = Math.max(0, Number.isFinite(matches) ? matches : 0);
   const safeKappa = Math.max(1, Number.isFinite(kappa) ? kappa : REFEREE_EB_KAPPA);
-  const shrunk = (safeMatches * rawRate + safeKappa * leaguePriorMean) / (safeMatches + safeKappa);
+  const shrunk = (safeMatches * rawRate + safeKappa * safePrior) / (safeMatches + safeKappa);
   return round2(shrunk);
 }
 
@@ -797,16 +810,24 @@ function buildLeagueRefereeData(
   });
 
   const total = scored.length;
+  const totalWithEbYellow = scored.filter((entry) => entry.ebYellow !== null).length;
   const matchesBySlug = new Map<string, ObservedRefereeMatch[]>();
+  let ebRank = 0;
   const referees: LeagueRefereeRankingItem[] = scored.map((entry, idx) => {
     const rank = idx + 1;
-    const rigorPercentile =
-      total <= 1 ? 50 : Math.round(((total - rank) / (total - 1)) * 100);
+    let rigorPercentile = 50;
+    if (entry.ebYellow !== null) {
+      ebRank += 1;
+      rigorPercentile =
+        totalWithEbYellow <= 1
+          ? 50
+          : Math.round(((totalWithEbYellow - ebRank) / (totalWithEbYellow - 1)) * 100);
+    }
     const classification = classifyRefereeProfileTier(
       entry.ebYellow,
       leagueMeanYellow,
       rigorPercentile,
-      total,
+      totalWithEbYellow,
     );
     const { lastMatch, nextAssignment } = pickLastAndNext(entry.observedMatches);
     matchesBySlug.set(entry.acc.slug, entry.observedMatches);
@@ -882,6 +903,7 @@ function getRefereeDirectory(): RefereeDirectoryCache {
   >();
 
   for (const league of PRODUCT_LEAGUES) {
+    if (!isFootballRefereeLeague(league)) continue;
     const built = buildLeagueRefereeData(root, league);
     if (!built) continue;
     rankingsByLeague.set(league, built.ranking);
@@ -1071,6 +1093,7 @@ function loadBookablePlayersForAssignment(
 export function loadLeagueRefereeRanking(league: string): LeagueRefereeRankingResponse | null {
   const normalized = league.trim().toLowerCase();
   if (!isProductLeagueKey(normalized)) return null;
+  if (!isFootballRefereeLeague(normalized)) return null;
   const directory = getRefereeDirectory();
   return directory.rankingsByLeague.get(normalized) ?? null;
 }
@@ -1188,7 +1211,7 @@ export function searchRefereesDirectory(
   const rawLeague = opts.league?.trim().toLowerCase() || null;
   let leagueFilter: ProductLeague | null = null;
   if (rawLeague !== null) {
-    if (!isProductLeagueKey(rawLeague)) {
+    if (!isProductLeagueKey(rawLeague) || !isFootballRefereeLeague(rawLeague)) {
       return [];
     }
     leagueFilter = rawLeague;
