@@ -442,7 +442,7 @@ export function BitacoraClubView({
         id: "saldo",
         label: "Saldo",
         value: formatSignedUnits(stats.netUnits),
-        delta: `${stats.won}G–${stats.lost}P${auditSummary.pushes > 0 ? ` · ${auditSummary.pushes}P` : ""}${stats.open > 0 ? ` · ${stats.open} ab.` : ""}`,
+        delta: `${stats.won}G–${stats.lost}P${auditSummary.pushes > 0 ? ` · ${auditSummary.pushes} Push` : ""}${stats.open > 0 ? ` · ${stats.open} ab.` : ""}`,
         tone: stats.netUnits > 0 ? "positive" : stats.netUnits < 0 ? "negative" : "default",
       },
       {

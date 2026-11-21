@@ -101,6 +101,33 @@
     padding-inline: 14px;
   }
 
+  .pl-rec-card {
+    border-radius: var(--radius-panel, 12px);
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-inline-size: 0;
+  }
+
+  .pl-rec-card-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 16px;
+  }
+
+  .pl-rec-card-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--pl-text);
+  }
+
   .pl-rec-card-meta {
     margin: 0;
     font-size: 0.78rem;
@@ -1121,6 +1148,59 @@
     min-inline-size: 0;
   }
 
+  .pl-live-pick-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--pl-border);
+    background: var(--pl-surface-elevated);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color var(--time-fast, 120ms) var(--ease-out, ease);
+  }
+
+  a.pl-live-pick-tile:hover {
+    border-color: var(--pl-border-strong);
+  }
+
+  progress.pl-live-progress {
+    --progress-bar-fill: var(--pl-brand);
+    --progress-bar-radius: 999px;
+    appearance: none;
+    border: 0 solid;
+    overflow: clip;
+    inline-size: 100%;
+    block-size: 6px;
+    border-radius: var(--progress-bar-radius);
+    background: var(--pl-surface);
+  }
+
+  progress.pl-live-progress.pl-live-progress--success {
+    --progress-bar-fill: var(--pl-success);
+  }
+
+  progress.pl-live-progress.pl-live-progress--warning {
+    --progress-bar-fill: var(--pl-warning);
+  }
+
+  progress.pl-live-progress::-webkit-progress-bar {
+    background: transparent;
+  }
+
+  progress.pl-live-progress::-webkit-progress-value {
+    background: var(--progress-bar-fill, var(--pl-brand));
+    border-radius: var(--progress-bar-radius);
+    transition: inline-size 180ms ease;
+  }
+
+  progress.pl-live-progress::-moz-progress-bar {
+    background: var(--progress-bar-fill, var(--pl-brand));
+    border-radius: var(--progress-bar-radius);
+    transition: inline-size 180ms ease;
+  }
+
   @media (min-width: 768px) and (pointer: fine) {
     .pl-rec-select {
       min-block-size: 38px;
@@ -1174,6 +1254,10 @@
   }
 
   @media (max-width: 560px) {
+    .pl-rec-card {
+      padding: 14px;
+    }
+
     .pl-rec-input-row {
       flex-direction: column;
     }
@@ -1216,8 +1300,17 @@
     .pl-rec-select,
     .pl-cal-cell,
     .pl-cal-detail-item,
-    .pl-ticket-card {
+    .pl-ticket-card,
+    .pl-live-pick-tile {
       transition-duration: 0ms;
+    }
+
+    progress.pl-live-progress::-webkit-progress-value {
+      transition: none;
+    }
+
+    progress.pl-live-progress::-moz-progress-bar {
+      transition: none;
     }
   }
 }

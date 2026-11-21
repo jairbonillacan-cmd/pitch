@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useId, useMemo, useState } from "react";
-import { parseStrictFiniteNumber } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, type LivePhase } from "@pitchlab/contracts";
 import {
   Button,
   SofascoreCard,
@@ -68,6 +68,7 @@ const ORIGIN_SHORT_LABEL: Record<string, string> = {
 export interface LiveTrackedPickLegSnapshot {
   readonly pickId: string;
   readonly gameId: string;
+  readonly phase: LivePhase;
   readonly matchLabel: string;
   readonly pickLabel: string;
   readonly clockLabel: string;
@@ -86,6 +87,7 @@ export interface LiveTrackedPickSnapshot {
   readonly pickId: string;
   readonly gameId: string;
   readonly pickKind: "single" | "parlay";
+  readonly phase: LivePhase;
   readonly matchLabel: string;
   readonly pickLabel: string;
   readonly href: string | null;
@@ -108,6 +110,38 @@ interface ParsedLivePicksResponse {
 
 function isPlainRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function parseLivePhase(raw: unknown): LivePhase {
+  if (
+    raw === "scheduled" ||
+    raw === "live" ||
+    raw === "halftime" ||
+    raw === "final" ||
+    raw === "penalties" ||
+    raw === "postponed" ||
+    raw === "cancelled" ||
+    raw === "unknown"
+  ) {
+    return raw;
+  }
+  return "unknown";
+}
+
+function isLivePhaseOrAlertActive(
+  phase: LivePhase,
+  starterAlert: LivePickLineupAlert,
+): boolean {
+  return (
+    phase === "live" ||
+    phase === "halftime" ||
+    phase === "penalties" ||
+    starterAlert === "titular_en_banca"
+  );
+}
+
+function isActiveLiveTrackedPick(item: LiveTrackedPickSnapshot): boolean {
+  return isLivePhaseOrAlertActive(item.phase, item.starterAlert);
 }
 
 function parseDirection(raw: unknown): "over" | "under" | "handicap" {
@@ -147,6 +181,7 @@ function parseLiveLeg(raw: unknown): LiveTrackedPickLegSnapshot | null {
   return {
     pickId,
     gameId,
+    phase: parseLivePhase(raw.phase),
     matchLabel,
     pickLabel,
     clockLabel,
@@ -192,6 +227,7 @@ function parseLiveTrackedPicksPayload(raw: unknown): ParsedLivePicksResponse | n
       pickId,
       gameId,
       pickKind: entry.pickKind === "parlay" ? "parlay" : "single",
+      phase: parseLivePhase(entry.phase),
       matchLabel,
       pickLabel,
       href: typeof entry.href === "string" && entry.href.startsWith("/") ? entry.href : null,
@@ -225,6 +261,8 @@ export function isParlayJournalEntry(entry: JournalEntry): boolean {
 
 interface ResolvedLegDisplay {
   readonly key: string;
+  readonly gameId?: string;
+  readonly pickId?: string;
   readonly index: number;
   readonly leagueLabel: string;
   readonly matchLabel: string;
@@ -272,6 +310,8 @@ function resolveParlayLegsForDisplay(
 
       return {
         key: `${leg.gameId}-${leg.pickId}-${i}`,
+        gameId: leg.gameId,
+        pickId: leg.pickId,
         index: i + 1,
         leagueLabel: leg.leagueLabel ?? entry.leagueLabel,
         matchLabel: leg.matchLabel ?? `Pierna ${i + 1}`,
@@ -328,19 +368,39 @@ function ParlayLegsList({
   oddsFormat: OddsFormat;
   liveLegs?: readonly LiveTrackedPickLegSnapshot[];
 }): React.JSX.Element {
-  const liveByLabel = useMemo(() => {
-    const map = new Map<string, LiveTrackedPickLegSnapshot>();
+  const liveLegIndex = useMemo(() => {
+    const byComposite = new Map<string, LiveTrackedPickLegSnapshot>();
+    const byPickId = new Map<string, LiveTrackedPickLegSnapshot>();
+    const byLabel = new Map<string, LiveTrackedPickLegSnapshot>();
     for (const item of liveLegs ?? []) {
-      map.set(item.pickLabel.toLowerCase(), item);
+      if (!isLivePhaseOrAlertActive(item.phase, item.starterAlert)) continue;
+      if (item.gameId && item.pickId) {
+        byComposite.set(`${item.gameId}::${item.pickId}`, item);
+      }
+      if (item.pickId && !byPickId.has(item.pickId)) {
+        byPickId.set(item.pickId, item);
+      }
+      const normLabel = item.pickLabel.toLowerCase();
+      if (normLabel && !byLabel.has(normLabel)) {
+        byLabel.set(normLabel, item);
+      }
     }
-    return map;
+    return { byComposite, byPickId, byLabel };
   }, [liveLegs]);
 
   return (
     <ul className="pl-rec-parlay-legs" role="list">
       {legs.map((leg) => {
         const st = getAuditStatusMeta(leg.status);
-        const liveLeg = liveByLabel.get(leg.pickLabel.toLowerCase()) ?? null;
+        const liveLeg =
+          (leg.gameId && leg.pickId
+            ? liveLegIndex.byComposite.get(`${leg.gameId}::${leg.pickId}`)
+            : undefined) ??
+          (leg.pickId ? liveLegIndex.byPickId.get(leg.pickId) : undefined) ??
+          (!leg.gameId && !leg.pickId
+            ? liveLegIndex.byLabel.get(leg.pickLabel.toLowerCase())
+            : undefined) ??
+          null;
         return (
           <li key={leg.key} className="pl-rec-parlay-leg">
             <div className="min-w-0 flex-1 space-y-1">
@@ -566,6 +626,7 @@ export function RecordPicksTab({
         pickId: entry.pickId,
         gameId: entry.gameId,
         pickKind: isParlayJournalEntry(entry) ? "parlay" : "single",
+        phase: "live",
         matchLabel: entry.matchLabel,
         pickLabel: entry.pickLabel,
         href: progress.href ?? null,
@@ -585,9 +646,12 @@ export function RecordPicksTab({
   }, [gameById, journal, overrideLiveTrackedPicks, serverLiveItems.length]);
 
   const activeLiveTrackedPicks = useMemo<readonly LiveTrackedPickSnapshot[]>(() => {
-    if (overrideLiveTrackedPicks) return overrideLiveTrackedPicks;
-    if (serverLiveItems.length > 0) return serverLiveItems;
-    return localFallbackLiveItems;
+    const source = overrideLiveTrackedPicks
+      ? overrideLiveTrackedPicks
+      : serverLiveItems.length > 0
+        ? serverLiveItems
+        : localFallbackLiveItems;
+    return source.filter(isActiveLiveTrackedPick);
   }, [localFallbackLiveItems, overrideLiveTrackedPicks, serverLiveItems]);
 
   const liveTrackByKey = useMemo(() => {

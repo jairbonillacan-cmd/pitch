@@ -96,7 +96,7 @@ function buildBreakdownColumns(
         const pushes = row.pushes ?? 0;
         return (
           <span className="num whitespace-nowrap">
-            {row.won}G–{losses}P{pushes > 0 ? ` · ${pushes}P` : ""}
+            {row.won}G–{losses}P{pushes > 0 ? ` · ${pushes} Push` : ""}
           </span>
         );
       },

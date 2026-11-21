@@ -400,7 +400,7 @@ export function HistorialClubView(): React.JSX.Element {
         id: "hit",
         label: "Pick principal ganado",
         value: decidedScoped.length > 0 ? `${hitPct.toFixed(1)} %` : "—",
-        delta: `${scopedStatusCounts.won}G–${scopedStatusCounts.lost}P${scopedStatusCounts.push > 0 ? ` · ${scopedStatusCounts.push}P` : ""}`,
+        delta: `${scopedStatusCounts.won}G–${scopedStatusCounts.lost}P${scopedStatusCounts.push > 0 ? ` · ${scopedStatusCounts.push} Push` : ""}`,
         tone: decidedScoped.length > 0 && hitPct >= 55 ? "positive" : "default",
       },
       {
@@ -503,7 +503,7 @@ export function HistorialClubView(): React.JSX.Element {
         render: (r) => (
           <span className="num whitespace-nowrap">
             {r.hits}/{r.total}
-            {r.pushes && r.pushes > 0 ? ` · ${r.pushes}P` : ""}
+            {r.pushes && r.pushes > 0 ? ` · ${r.pushes} Push` : ""}
           </span>
         ),
       },
