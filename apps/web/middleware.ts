@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 import { CLUB_PROFILE_HANDLE_HEADER, CLUB_REQUEST_PATH_HEADER } from "./src/profile-path";
+import { THEME_INIT_SCRIPT } from "./src/theme-init-script";
 
 const BETA_COOKIE_NAME = "pl_beta";
 const MUTATION_METHODS = new Set(["POST", "PUT", "PATCH", "DELETE"]);
@@ -164,14 +165,32 @@ function generateCspNonce(): string {
   return btoa(binary);
 }
 
-function buildDynamicCsp(nonce: string): string {
+let cachedThemeInitHash: string | null = null;
+
+async function getThemeInitCspHash(): Promise<string> {
+  if (cachedThemeInitHash) return cachedThemeInitHash;
+  const digest = await globalThis.crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(THEME_INIT_SCRIPT),
+  );
+  const bytes = new Uint8Array(digest);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 1) {
+    binary += String.fromCharCode(bytes[i] ?? 0);
+  }
+  cachedThemeInitHash = `sha256-${btoa(binary)}`;
+  return cachedThemeInitHash;
+}
+
+async function buildDynamicCsp(nonce: string): Promise<string> {
   const isDev = process.env.NODE_ENV !== "production";
   const captchaDisabled = process.env.PITCHLAB_CAPTCHA_PROVIDER?.trim().toLowerCase() === "none";
   const turnstileOrigin = captchaDisabled ? "" : " https://challenges.cloudflare.com";
+  const themeHash = await getThemeInitCspHash();
 
   const scriptSrc = isDev
-    ? `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-eval'${turnstileOrigin}`
-    : `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${turnstileOrigin}`;
+    ? `script-src 'self' 'nonce-${nonce}' '${themeHash}' 'strict-dynamic' 'unsafe-eval'${turnstileOrigin}`
+    : `script-src 'self' 'nonce-${nonce}' '${themeHash}' 'strict-dynamic'${turnstileOrigin}`;
   const connectSrc = isDev
     ? `connect-src 'self' ws: wss:${turnstileOrigin}`
     : `connect-src 'self'${turnstileOrigin}`;
@@ -299,7 +318,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     }
 
     const nonce = generateCspNonce();
-    const csp = buildDynamicCsp(nonce);
+    const csp = await buildDynamicCsp(nonce);
     const requestHeaders = new Headers(request.headers);
     requestHeaders.delete(CLUB_PROFILE_HANDLE_HEADER);
     requestHeaders.delete(CLUB_REQUEST_PATH_HEADER);
@@ -321,7 +340,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
   if (isDynamicCspRoute(pathname)) {
     const nonce = generateCspNonce();
-    const csp = buildDynamicCsp(nonce);
+    const csp = await buildDynamicCsp(nonce);
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-nonce", nonce);
     requestHeaders.set("Content-Security-Policy", csp);

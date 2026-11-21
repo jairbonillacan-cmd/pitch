@@ -1,12 +1,9 @@
 import React from "react";
 import type { Metadata, Viewport } from "next";
-import { LIGHT_THEME_TOKENS, STAGE_DARK_TOKENS } from "@pitchlab/tokens";
 import { DashboardEntryProvider } from "../src/client/dashboard-entry";
 import { PwaRuntimeMount } from "../src/client/pwa-runtime";
+import { DARK_THEME_COLOR, LIGHT_THEME_COLOR, THEME_INIT_SCRIPT } from "../src/theme-init-script";
 import "./globals.css";
-
-const DARK_THEME_COLOR = STAGE_DARK_TOKENS["--pl-glass-nav"];
-const LIGHT_THEME_COLOR = LIGHT_THEME_TOKENS["--background-elevated"];
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -38,8 +35,6 @@ export const metadata: Metadata = {
     apple: [{ url: "/brand/app-icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
-
-const THEME_INIT_SCRIPT = `(function(){var d=document.documentElement;d.dataset.style="solid";var theme="dark";try{var t=localStorage.getItem("pl-theme");theme=(t==="light"||t==="dark")?t:"dark";}catch(e){theme="dark";}d.dataset.theme=theme;d.style.colorScheme=theme;var c=theme==="light"?${JSON.stringify(LIGHT_THEME_COLOR)}:${JSON.stringify(DARK_THEME_COLOR)};var m=document.querySelector('meta[name="theme-color"]:not([media])');if(m){m.content=c;}})();`;
 
 export default function RootLayout({
   children,

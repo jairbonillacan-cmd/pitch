@@ -23,7 +23,7 @@ export function useVisibilityPolling(
     }
 
     const safeIntervalMs: number = intervalMs;
-    let timerId: ReturnType<typeof window.setInterval> | null = null;
+    let timerId: number | null = null;
     let inFlight = false;
     let disposed = false;
 
