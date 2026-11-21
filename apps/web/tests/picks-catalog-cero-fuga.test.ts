@@ -467,6 +467,8 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
         expect(item.bookQuotes).toBeUndefined();
         expect(item.isDailyOpenPromo).toBe(false);
         expect(item.isTipsterWeeklyOpen).toBe(false);
+        expect(item.isPrimaryModelPick).toBe(false);
+        expect(item.isDerived).toBe(false);
 
         expect(item.pricing).toEqual({
           p: 0,
@@ -538,6 +540,8 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
     for (const locked of lockedPicks) {
       expect(locked.selectionKey).toBe("locked");
       expect(locked.line).toBeNull();
+      expect(locked.isPrimaryModelPick).toBe(false);
+      expect(locked.isDerived).toBe(false);
       expect(locked.pricing.p).toBe(0);
       expect(locked.pricing.fairOdds).toBe(0);
       expect(locked.pricing.marketDecimal).toBeNull();
@@ -548,10 +552,11 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
       expect(locked.bookQuotes).toBeUndefined();
     }
 
-    // `redactCatalogPickForVisitor` limpia incluso un pick previamente abierto.
     const manuallyRedacted = redactCatalogPickForVisitor(openPicks[0]!);
     expect(manuallyRedacted.isRedacted).toBe(true);
     expect(manuallyRedacted.isDailyOpenPromo).toBe(false);
+    expect(manuallyRedacted.isPrimaryModelPick).toBe(false);
+    expect(manuallyRedacted.isDerived).toBe(false);
     expect(manuallyRedacted.pricing.p).toBe(0);
     expect(manuallyRedacted.pricing.fairOdds).toBe(0);
     expect(manuallyRedacted.bookQuotes).toBeUndefined();
@@ -866,6 +871,8 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
         const isPromo = Boolean(item.isDailyOpenPromo || item.isTipsterWeeklyOpen);
         if (!isPromo) {
           expect(item.isRedacted).toBe(true);
+          expect(item.isPrimaryModelPick).toBe(false);
+          expect(item.isDerived).toBe(false);
           expect(item.pricing.p).toBe(0);
           expect(item.pricing.fairOdds).toBe(0);
           expect(item.pricing.marketDecimal).toBeNull();
@@ -897,6 +904,8 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
         const isPromo = Boolean(item.isDailyOpenPromo || item.isTipsterWeeklyOpen);
         if (!isPromo) {
           expect(item.isRedacted).toBe(true);
+          expect(item.isPrimaryModelPick).toBe(false);
+          expect(item.isDerived).toBe(false);
           expect(item.pricing.p).toBe(0);
           expect(item.pricing.fairOdds).toBe(0);
         }
@@ -913,6 +922,28 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
     for (const catalog of memberCatalogs) {
       expect(catalog.isRedactedForVisitor).toBe(false);
       expect(catalog.picks.every((p) => !p.isRedacted)).toBe(true);
+    }
+  });
+
+  it("acota loadServerPicksCatalogsForScreener a <= 180 KB para fullAccess=true y fullAccess=false", async () => {
+    const maxBytes = 180 * 1024;
+
+    const memberCatalogs = await loadServerPicksCatalogsForScreener({ fullAccess: true });
+    expect(Object.keys(memberCatalogs).length).toBeGreaterThan(0);
+    expect(Buffer.byteLength(JSON.stringify(memberCatalogs), "utf8")).toBeLessThanOrEqual(maxBytes);
+
+    const visitorCatalogs = await loadServerPicksCatalogsForScreener({ fullAccess: false });
+    expect(Object.keys(visitorCatalogs).length).toBeGreaterThan(0);
+    expect(Buffer.byteLength(JSON.stringify(visitorCatalogs), "utf8")).toBeLessThanOrEqual(maxBytes);
+    for (const catalog of Object.values(visitorCatalogs)) {
+      for (const item of catalog.picks) {
+        const isPromo = Boolean(item.isDailyOpenPromo || item.isTipsterWeeklyOpen);
+        if (!isPromo) {
+          expect(item.isRedacted).toBe(true);
+          expect(item.isPrimaryModelPick).toBe(false);
+          expect(item.isDerived).toBe(false);
+        }
+      }
     }
   });
 });

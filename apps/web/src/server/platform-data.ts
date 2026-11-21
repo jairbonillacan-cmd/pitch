@@ -783,6 +783,7 @@ function collectOpenPromoPickIds(dataset: PlatformDataset): ReadonlySet<string> 
 }
 
 const DEFAULT_SCREENER_CATALOG_MAX_GAMES = 60;
+const SCREENER_INITIAL_MAX_BYTES = 180 * 1024;
 
 function buildScreenerCatalogsRecord(
   bundle: DatasetMemoBundle,
@@ -793,7 +794,12 @@ function buildScreenerCatalogsRecord(
   const upcomingGames = horizon.games
     .filter((g) => g.status !== "FT")
     .slice()
-    .sort(compareShellGamePriority)
+    .sort((a, b) => {
+      const aLive = a.status === "LIVE" ? 0 : 1;
+      const bLive = b.status === "LIVE" ? 0 : 1;
+      if (aLive !== bLive) return aLive - bLive;
+      return compareShellGamePriority(a, b);
+    })
     .slice(0, Math.max(1, maxGames));
 
   const batch = buildServerMatchPicksCatalogsBatch(upcomingGames, {
@@ -804,7 +810,25 @@ function buildScreenerCatalogsRecord(
     maxTotalPicks: 18,
     compact: true,
   });
-  return Object.fromEntries(batch);
+
+  const catalogs: Record<string, MatchPicksCatalog> = {};
+  let accumulatedBytes = 2;
+  let includedCount = 0;
+
+  for (const [gameId, catalog] of batch) {
+    const entryBytes =
+      Buffer.byteLength(JSON.stringify(gameId), "utf8") +
+      Buffer.byteLength(JSON.stringify(catalog), "utf8") +
+      (includedCount > 0 ? 2 : 1);
+    if (accumulatedBytes + entryBytes > SCREENER_INITIAL_MAX_BYTES) {
+      break;
+    }
+    catalogs[gameId] = catalog;
+    accumulatedBytes += entryBytes;
+    includedCount += 1;
+  }
+
+  return catalogs;
 }
 
 export async function loadServerPicksCatalogsForScreener(options?: {

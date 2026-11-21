@@ -15,6 +15,12 @@ import {
   AtomicOddsChip,
   AtomicShotmapPitch,
   AtomicStatComparisonBar,
+  LIVE_ASIAN_STATE_LABEL_ES,
+  LivePickProgressBar,
+  PropBetLabChart,
+  classifyPropPointHit,
+  computeLiveProgressMetrics,
+  computePropHitRates,
   computeShotRadius,
   computeStatBarWidths,
   normalizeShotBucket,
@@ -22,6 +28,8 @@ import {
   parseLineupFormationRows,
   resolveAveragePositionCollisions,
   resolveOddsMovement,
+  type LiveAsianPickState,
+  type PropBetLabPoint,
 } from "../src/platform/atomic/index";
 import {
   BetBuilderDrawer,
@@ -40,11 +48,6 @@ import { PlatformProvider } from "../src/platform/platform-provider";
 import type { SavedScreenerView } from "../src/platform/screener-views";
 import type { BookQuoteItem } from "../src/platform/types";
 
-/**
- * Guardia estricta ADR-054 + FD-16:
- * Ningún componente atómico ni de picks puede exponer "Conf.", "Confianza",
- * "Datos completos", "Datos parciales", ni nombres/IDs/URLs crudas de proveedor.
- */
 const FORBIDDEN_RENDER_PATTERNS: ReadonlyArray<readonly [string, RegExp]> = [
   ["Conf.", /\bconf\./i],
   ["Confianza", /\bconfianza\b/i],
@@ -163,7 +166,7 @@ function buildSampleDataset() {
 }
 
 describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`)", () => {
-  it("renderiza AtomicShotmapPitch en vista completa, media cancha y estado vacío", () => {
+  it("renderiza AtomicShotmapPitch en vista completa, media cancha, onSelectShot y estado vacío", () => {
     expect(normalizeShotBucket("save")).toBe("on_target");
     expect(normalizeShotBucket("block")).toBe("blocked");
     expect(computeShotRadius(0.5)).toBeGreaterThan(computeShotRadius(0.05));
@@ -176,11 +179,18 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     ];
 
     const fullHtml = renderToStaticMarkup(
-      <AtomicShotmapPitch shots={shots} homeLabel="América" awayLabel="Chivas" />,
+      <AtomicShotmapPitch
+        shots={shots}
+        homeLabel="América"
+        awayLabel="Chivas"
+        onSelectShot={() => {}}
+      />,
     );
     expect(fullHtml).toContain('data-atomic-shotmap=""');
     expect(fullHtml).toContain('data-pitch-view="full"');
     expect(fullHtml).toContain('viewBox="0 0 360 224"');
+    expect(fullHtml).toContain('role="button"');
+    expect(fullHtml).toMatch(/tabindex="0"/i);
     expect(fullHtml).toContain("0.51");
     expect(fullHtml).toContain("0.52");
     expect(fullHtml).toContain("Ver tiros como tabla (4)");
@@ -205,7 +215,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     assertCleanEditorialHtml(emptyHtml, "AtomicShotmapPitch(empty)");
   });
 
-  it("renderiza AtomicAveragePositionsPitch y resuelve colisiones deterministas", () => {
+  it("renderiza AtomicAveragePositionsPitch con colisiones deterministas, playerHref y onSelectPlayer", () => {
     const collided = resolveAveragePositionCollisions([
       { id: "p1", name: "Álvaro Fidalgo", number: 8, side: "home", x: 55, y: 50, touches: 80 },
       { id: "p2", name: "Jonathan dos Santos", number: 6, side: "home", x: 55, y: 50, touches: 60 },
@@ -224,9 +234,9 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     const html = renderToStaticMarkup(
       <AtomicAveragePositionsPitch
         players={[
-          { id: "h1", name: "Luis Malagón", number: 1, side: "home", x: 10, y: 50, touches: 34, position: "GK" },
+          { id: "h1", name: "Luis Malagón", number: 1, side: "home", x: 10, y: 50, touches: 34, position: "GK", playerHref: "/app/jugador/luis-malagon" },
           { id: "h2", name: "Israel Reyes", number: 3, side: "home", x: 38, y: 62, touches: 58, position: "DEF" },
-          { id: "h3", name: "Álvaro Fidalgo", number: 8, side: "home", x: 60, y: 48, touches: 82, position: "MID" },
+          { id: "h3", name: "Álvaro Fidalgo", number: 8, side: "home", x: 60, y: 48, touches: 82, position: "MID", playerHref: "/app/jugador/alvaro-fidalgo" },
           { id: "h4", name: "Henry Martín", number: 21, side: "home", x: 78, y: 51, touches: 41, position: "FWD" },
           { id: "a1", name: "Raúl Rangel", number: 1, side: "away", x: 12, y: 50, touches: 29, position: "GK" },
           { id: "a2", name: "Roberto Alvarado", number: 25, side: "away", x: 69, y: 74, touches: 64, position: "MID" },
@@ -235,6 +245,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
         awayLabel="Chivas"
         homeFormation="4-2-3-1"
         awayFormation="4-3-3"
+        onSelectPlayer={() => {}}
       />,
     );
     expect(html).toContain('data-atomic-avgpos=""');
@@ -243,13 +254,16 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     expect(html).toContain("4-2-3-1");
     expect(html).toContain("Bloque medio");
     expect(html).toContain("Fidalgo");
+    expect(html).toContain('href="/app/jugador/alvaro-fidalgo"');
+    expect(html).toContain("pl-atom-node-trigger");
     expect(html).toContain("Ver posiciones medias como tabla (4)");
     assertCleanEditorialHtml(html, "AtomicAveragePositionsPitch");
   });
 
-  it("renderiza AtomicLineupPitch con XI confirmado/probable, notas e iconos de incidencias", () => {
+  it("renderiza AtomicLineupPitch con XI confirmado/probable, playerHref, onSelectPlayer e incidencias", () => {
     expect(parseLineupFormationRows("4-2-3-1")).toEqual([1, 4, 2, 3, 1]);
     expect(parseLineupFormationRows("3-5-2")).toEqual([1, 3, 5, 2]);
+    expect(parseLineupFormationRows("1-4-4-2")).toEqual([1, 4, 4, 2]);
 
     const incidents: LiveIncident[] = [
       {
@@ -272,11 +286,11 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
       { name: "Sebastián Cáceres", number: 4, position: "DEF", rating: 6.9 },
       { name: "Cristian Calderón", number: 18, position: "DEF", rating: 7.0 },
       { name: "Jonathan dos Santos", number: 6, position: "MID", rating: 7.5 },
-      { name: "Álvaro Fidalgo", number: 8, position: "MID", rating: 8.2, events: ["goal" as const] },
+      { name: "Álvaro Fidalgo", number: 8, position: "MID", rating: 8.2, events: ["goal" as const], playerHref: "/app/jugador/alvaro-fidalgo" },
       { name: "Alejandro Zendejas", number: 17, position: "MID", rating: 7.6 },
       { name: "Diego Valdés", number: 10, position: "MID", rating: 7.8 },
       { name: "Brian Rodríguez", number: 7, position: "MID", rating: 7.2 },
-      { name: "Henry Martín", number: 21, position: "FWD", isCaptain: true, rating: 8.1 },
+      { name: "Henry Martín", number: 21, position: "FWD", isCaptain: true, rating: 8.1, playerHref: "/app/jugador/henry-martin" },
     ];
     const awayStarters = [
       { name: "Raúl Rangel", number: 1, position: "GK", rating: 6.8 },
@@ -304,6 +318,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
         homeCoach="A. Jardine"
         awayCoach="Ó. García"
         incidents={incidents}
+        onSelectPlayer={() => {}}
       />,
     );
     expect(confirmedHtml).toContain('data-atomic-lineup=""');
@@ -314,6 +329,8 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     expect(confirmedHtml).toContain("pl-atom-rating is-elite");
     expect(confirmedHtml).toContain("pl-sport-evt-ico--goal");
     expect(confirmedHtml).toContain("pl-sport-evt-ico--yellow");
+    expect(confirmedHtml).toContain('href="/app/jugador/henry-martin"');
+    expect(confirmedHtml).toContain("pl-atom-node-trigger");
     assertCleanEditorialHtml(confirmedHtml, "AtomicLineupPitch(confirmed)");
 
     const probableHtml = renderToStaticMarkup(
@@ -330,7 +347,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     assertCleanEditorialHtml(probableHtml, "AtomicLineupPitch(probable)");
   });
 
-  it("renderiza AtomicStatComparisonBar con valores positivos, porcentajes y valores negativos (ADR-054)", () => {
+  it("renderiza AtomicStatComparisonBar con valores negativos, lowerIsBetter y ranks ordinales rankA/rankB", () => {
     const negWidths = computeStatBarWidths(-0.54, -0.44, { signed: true });
     expect(negWidths.homePct).toBe(100);
     expect(negWidths.awayPct).toBe(81.5);
@@ -344,6 +361,32 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     expect(mixedWidths.homeNegative).toBe(false);
     expect(mixedWidths.awayNegative).toBe(true);
     expect(mixedWidths.lead).toBe("home");
+
+    const lowerWidths = computeStatBarWidths(0.78, 1.42, { lowerIsBetter: true });
+    expect(lowerWidths.lead).toBe("home");
+
+    const lowerRankHtml = renderToStaticMarkup(
+      <AtomicStatComparisonBar
+        label="Goles concedidos / partido"
+        homeValue={0.78}
+        awayValue={1.42}
+        homeLabel="América"
+        awayLabel="Chivas"
+        digits={2}
+        lowerIsBetter
+        rankA={1}
+        rankB={14}
+        showTeamLabels
+      />,
+    );
+    expect(lowerRankHtml).toContain('data-lower-is-better="true"');
+    expect(lowerRankHtml).toContain('data-rank="1"');
+    expect(lowerRankHtml).toContain('data-rank="14"');
+    expect(lowerRankHtml).toContain("1.º");
+    expect(lowerRankHtml).toContain("14.º");
+    expect(lowerRankHtml).toContain("0.78");
+    expect(lowerRankHtml).toContain("1.42");
+    assertCleanEditorialHtml(lowerRankHtml, "AtomicStatComparisonBar(lowerIsBetter+ranks)");
 
     const negativeHtml = renderToStaticMarkup(
       <AtomicStatComparisonBar
@@ -385,14 +428,14 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     assertCleanEditorialHtml(pctHtml, "AtomicStatComparisonBar(pct)");
   });
 
-  it("renderiza AtomicFormStrip en notación española G/E/P y US W/L", () => {
-    expect(parseAtomicForm("G-E-P-G-G · 3-1", { notation: "es" }).map((e) => e.glyph)).toEqual([
-      "G",
-      "E",
-      "P",
-      "G",
-      "G",
-    ]);
+  it("renderiza AtomicFormStrip en notación española G/E/P, US W/L y tooltips por celda", () => {
+    const parsedWithTips = parseAtomicForm("G-E-P-G-G · 3-1", {
+      notation: "es",
+      tooltips: ["2-0 vs Tigres", "1-1 @ Rayados", "0-1 vs Cruz Azul", "3-0 vs Pumas", "2-1 vs Chivas"],
+    });
+    expect(parsedWithTips.map((e) => e.glyph)).toEqual(["G", "E", "P", "G", "G"]);
+    expect(parsedWithTips[0]!.tooltip).toBe("2-0 vs Tigres");
+    expect(parsedWithTips[4]!.tooltip).toBe("2-1 vs Chivas");
 
     const esHtml = renderToStaticMarkup(
       <AtomicFormStrip form="G-E-P-G-G · 3-1" sport="football" teamName="América" />,
@@ -401,6 +444,19 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     expect(esHtml).toContain('role="img"');
     expect(esHtml).toContain("Forma de América (últimos 5): Ganó, Empató, Perdió, Ganó, Ganó");
     assertCleanEditorialHtml(esHtml, "AtomicFormStrip(es)");
+
+    const tipsHtml = renderToStaticMarkup(
+      <AtomicFormStrip
+        form="G-E-P-G-G"
+        sport="football"
+        teamName="América"
+        tooltips={["2-0 vs Tigres", "1-1 @ Rayados", "0-1 vs Cruz Azul", "3-0 vs Pumas", "2-1 vs Chivas"]}
+      />,
+    );
+    expect(tipsHtml).toContain('data-tooltip="2-0 vs Tigres"');
+    expect(tipsHtml).toContain('title="2-1 vs Chivas"');
+    expect(tipsHtml).toContain("has-tooltip");
+    assertCleanEditorialHtml(tipsHtml, "AtomicFormStrip(tooltips)");
 
     const usHtml = renderToStaticMarkup(
       <AtomicFormStrip form="WWLWL" sport="basketball" teamName="Lakers" />,
@@ -413,7 +469,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     assertCleanEditorialHtml(emptyHtml, "AtomicFormStrip(empty)");
   });
 
-  it("renderiza AtomicOddsChip anclado a Momio justo con movimiento Steam/drifting y EV+", () => {
+  it("renderiza AtomicOddsChip en variantes chip y cell tabular (máx. 2 indicadores) anclado a Momio justo", () => {
     expect(resolveOddsMovement({ marketDecimal: 1.85, openingDecimal: 2.05 }).direction).toBe("steam");
     expect(resolveOddsMovement({ marketDecimal: 1.95, openingDecimal: 1.8 }).direction).toBe("drifting");
 
@@ -429,6 +485,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
       />,
     );
     expect(steamHtml).toContain('data-atomic-odds=""');
+    expect(steamHtml).toContain('data-variant="chip"');
     expect(steamHtml).toContain('data-movement="steam"');
     expect(steamHtml).toContain("Momio justo");
     expect(steamHtml).toContain("1.72");
@@ -437,6 +494,35 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     expect(steamHtml).toContain("Steam");
     expect(steamHtml).toContain("Valor +7.6 %");
     assertCleanEditorialHtml(steamHtml, "AtomicOddsChip(steam)");
+
+    const cellHtml = renderToStaticMarkup(
+      <AtomicOddsChip
+        fairDecimal={1.72}
+        marketDecimal={1.85}
+        openingDecimal={2.05}
+        oddsFormat="decimal"
+        valuePct={7.6}
+        variant="cell"
+        highlight
+      />,
+    );
+    expect(cellHtml).toContain('data-variant="cell"');
+    expect(cellHtml).toContain('data-indicator-count="2"');
+    expect(cellHtml).toContain("pl-atom-odds--cell");
+    expect(cellHtml).toContain("1.85");
+    expect(cellHtml).toContain("Justo 1.72");
+    expect(cellHtml).toContain("+7.6%");
+    expect(cellHtml).toContain("Steam");
+    assertCleanEditorialHtml(cellHtml, "AtomicOddsChip(cell)");
+
+    const fairOnlyCellHtml = renderToStaticMarkup(
+      <AtomicOddsChip fairDecimal={1.72} oddsFormat="american" variant="cell" compact />,
+    );
+    expect(fairOnlyCellHtml).toContain('data-variant="cell"');
+    expect(fairOnlyCellHtml).toContain('data-indicator-count="0"');
+    expect(fairOnlyCellHtml).toContain("-139");
+    expect(fairOnlyCellHtml).toContain("Momio justo");
+    assertCleanEditorialHtml(fairOnlyCellHtml, "AtomicOddsChip(cell-fair-only)");
 
     const fairOnlyAmericanHtml = renderToStaticMarkup(
       <AtomicOddsChip fairDecimal={1.72} oddsFormat="american" compact />,
@@ -447,7 +533,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     assertCleanEditorialHtml(fairOnlyAmericanHtml, "AtomicOddsChip(fair-only)");
   });
 
-  it("renderiza AtomicMatchHeaderBar en estado en vivo con expulsiones e incidencia reciente", () => {
+  it("renderiza AtomicMatchHeaderBar en estado en vivo sticky compacto con expulsiones e incidencia reciente", () => {
     const html = renderToStaticMarkup(
       <AtomicMatchHeaderBar
         league={asLeagueId("liga-mx")}
@@ -461,6 +547,7 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
       />,
     );
     expect(html).toContain('data-atomic-match-header=""');
+    expect(html).toContain('data-sticky="true"');
     expect(html).toContain("is-sticky");
     expect(html).toContain("is-live");
     expect(html).toContain("América");
@@ -470,6 +557,171 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     expect(html).toContain("pl-sport-evt-ico--goal");
     expect(html).toContain("H. Martín (2-1)");
     assertCleanEditorialHtml(html, "AtomicMatchHeaderBar");
+  });
+
+  it("renderiza PropBetLabChart para Fútbol (0'-90' + xG + rival EB) y NBA (0-48m) con resumen L5/L10/L20 y FD-16 limpio", () => {
+    const footballPoints: PropBetLabPoint[] = [
+      { id: "f1", label: "J10", opponent: "Tigres", value: 3, minutes: 88, xg: 0.54, isHome: true },
+      { id: "f2", label: "J11", opponent: "Toluca", value: 2, minutes: 74, xg: 0.28, isHome: false },
+      { id: "f3", label: "J12", opponent: "Pumas", value: 4, minutes: 90, xg: 0.76, isHome: true },
+      { id: "f4", label: "J13", opponent: "León", value: 3, minutes: 82, xg: 0.41, isHome: false },
+      { id: "f5", label: "J14", opponent: "Santos", value: 5, minutes: 90, xg: 0.92, isHome: true },
+      { id: "f6", label: "J15", opponent: "Chivas", value: 3, minutes: 86, xg: 0.63, isHome: true },
+    ];
+
+    expect(classifyPropPointHit(3, 2.5)).toBe("hit");
+    expect(classifyPropPointHit(2, 2.5)).toBe("miss");
+    expect(classifyPropPointHit(2, 2)).toBe("push");
+
+    const fbRates = computePropHitRates(footballPoints, 2.5);
+    expect(fbRates.l5).toEqual({ hits: 4, total: 5, pct: 80 });
+    expect(fbRates.l10).toEqual({ hits: 5, total: 6, pct: 83 });
+
+    const footballHtml = renderToStaticMarkup(
+      <PropBetLabChart
+        playerName="Henry Martín"
+        statLabel="Remates totales"
+        unitLabel="remates"
+        sport="football"
+        line={2.5}
+        points={footballPoints}
+        maxMinutes={90}
+        rivalDefenseRank={16}
+        rivalLeagueSize={18}
+        rivalEbLabel="Rival cede +1.7 remates/p vs media"
+        calibratedProb={0.64}
+        fairDecimal={1.56}
+        onLineChange={() => {}}
+      />,
+    );
+    expect(footballHtml).toContain('data-atomic-betlab=""');
+    expect(footballHtml).toContain('data-sport="football"');
+    expect(footballHtml).toContain('role="img"');
+    expect(footballHtml).toContain("<title>");
+    expect(footballHtml).toContain('data-max-minutes="90"');
+    expect(footballHtml).toContain("<polyline");
+    expect(footballHtml).toMatch(/90(?:'|&#x27;)/);
+    expect(footballHtml).toContain("xG 0.92");
+    expect(footballHtml).toContain("Defensa rival");
+    expect(footballHtml).toContain("16.º");
+    expect(footballHtml).toContain("Rival cede +1.7 remates/p vs media");
+    expect(footballHtml).toContain("4/5");
+    expect(footballHtml).toContain("80 %");
+    expect(footballHtml).toContain("p calibrada");
+    expect(footballHtml).toContain("64.0 %");
+    expect(footballHtml).toContain("Momio justo");
+    expect(footballHtml).toContain("1.56");
+    assertCleanEditorialHtml(footballHtml, "PropBetLabChart(football)");
+
+    const nbaPoints: PropBetLabPoint[] = [
+      { id: "n1", label: "DEN", opponent: "Nuggets", value: 28, minutes: 37, isHome: true },
+      { id: "n2", label: "PHX", opponent: "Suns", value: 22, minutes: 34, isHome: false },
+      { id: "n3", label: "GSW", opponent: "Warriors", value: 31, minutes: 39, isHome: true },
+      { id: "n4", label: "DAL", opponent: "Mavericks", value: 26, minutes: 36, isHome: false },
+      { id: "n5", label: "BOS", opponent: "Celtics", value: 29, minutes: 40, isHome: true },
+    ];
+
+    const nbaHtml = renderToStaticMarkup(
+      <PropBetLabChart
+        playerName="LeBron James"
+        statLabel="Puntos"
+        unitLabel="pts"
+        sport="basketball"
+        line={24.5}
+        points={nbaPoints}
+        maxMinutes={48}
+        rivalDefenseRank={24}
+        rivalLeagueSize={30}
+        rivalEbLabel="Defensa exterior #24 en puntos permitidos"
+        calibratedProb={0.61}
+        fairDecimal={1.64}
+      />,
+    );
+    expect(nbaHtml).toContain('data-sport="basketball"');
+    expect(nbaHtml).toContain('data-max-minutes="48"');
+    expect(nbaHtml).toContain("48m");
+    expect(nbaHtml).toContain("0–48m");
+    expect(nbaHtml).toContain("24.º");
+    expect(nbaHtml).toContain("61.0 %");
+    expect(nbaHtml).toContain("1.64");
+    expect(nbaHtml).not.toContain('data-betlab-xg-strip=""');
+    assertCleanEditorialHtml(nbaHtml, "PropBetLabChart(nba)");
+
+    const emptyBetLabHtml = renderToStaticMarkup(
+      <PropBetLabChart
+        playerName="Jugador sin historial"
+        statLabel="Remates"
+        unitLabel="remates"
+        sport="football"
+        line={1.5}
+        points={[]}
+      />,
+    );
+    expect(emptyBetLabHtml).toContain('data-atomic-betlab="empty"');
+    assertCleanEditorialHtml(emptyBetLabHtml, "PropBetLabChart(empty)");
+  });
+
+  it("renderiza LivePickProgressBar con los 5 estados asiáticos, proyección residual y alerta titular_en_banca", () => {
+    const expectedLabels: ReadonlyArray<readonly [LiveAsianPickState, string]> = [
+      ["won_full", "Ganado completo"],
+      ["won_half", "Medio ganado"],
+      ["push", "Empate · Push"],
+      ["lost_half", "Medio perdido"],
+      ["lost_full", "Perdido"],
+    ];
+
+    for (const [state, expectedText] of expectedLabels) {
+      expect(LIVE_ASIAN_STATE_LABEL_ES[state]).toBe(expectedText);
+      const html = renderToStaticMarkup(
+        <LivePickProgressBar
+          pickLabel="América -0.75 (Hándicap asiático)"
+          matchLabel="América vs Chivas"
+          clockLabel="64'"
+          actualValue={1}
+          targetLine={-0.75}
+          unitLabel="goles"
+          direction="handicap"
+          projectedFinal={1.4}
+          asianState={state}
+        />,
+      );
+      expect(html).toContain('data-atomic-livebar=""');
+      expect(html).toContain(`data-asian-state="${state}"`);
+      expect(html).toContain(expectedText);
+      expect(html).toContain('role="progressbar"');
+      expect(html).toContain("Proy.");
+      assertCleanEditorialHtml(html, `LivePickProgressBar(${state})`);
+    }
+
+    const overMetrics = computeLiveProgressMetrics({
+      actualValue: 2,
+      targetLine: 2.5,
+      direction: "over",
+      projectedFinal: 3.1,
+    });
+    expect(overMetrics.tone).toBe("on_pace");
+    expect(overMetrics.projectedPct).toBeGreaterThan(overMetrics.targetPct);
+
+    const benchAlertHtml = renderToStaticMarkup(
+      <LivePickProgressBar
+        pickLabel="Henry Martín Más de 2.5 remates"
+        matchLabel="América vs Chivas"
+        clockLabel="XI confirmado"
+        actualValue={0}
+        targetLine={2.5}
+        unitLabel="remates"
+        direction="over"
+        projectedFinal={0.8}
+        starterAlert="titular_en_banca"
+        starterAlertDetail="Inicia en la banca según el XI confirmado."
+        compact
+      />,
+    );
+    expect(benchAlertHtml).toContain('data-starter-alert="titular_en_banca"');
+    expect(benchAlertHtml).toContain("Titular en banca");
+    expect(benchAlertHtml).toContain("Inicia en la banca según el XI confirmado.");
+    expect(benchAlertHtml).toContain("is-compact");
+    assertCleanEditorialHtml(benchAlertHtml, "LivePickProgressBar(titular_en_banca)");
   });
 });
 

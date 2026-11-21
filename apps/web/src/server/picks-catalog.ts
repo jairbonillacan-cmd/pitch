@@ -1,15 +1,3 @@
-/**
- * Adaptador de servidor para el Catálogo de Picks de 34 Familias (`Spacetime v5.1`).
- *
- * Responsabilidades:
- * - Función pura `buildServerMatchPicksCatalog(game, options)` sin efectos secundarios ni I/O.
- * - Cumplimiento estricto de `Cero-Fuga`: cuando `fullAccess === false` y el partido aún no
- *   finaliza (`status !== "FT"`), redacta todos los picks reservados eliminando probabilidad,
- *   cuotas, valor, lado, línea, evidencia interna y metadatos de jugador.
- * - Preserva íntegros los partidos `FT` con liquidación auditable (`hit | miss | push | pending`).
- * - Compacta el payload por familia y límite global para rutas de partido/picks sin inflar
- *   el shell RSC inicial (`ADR-051` / `ADR-053`).
- */
 import { getLeagueCapability } from "@pitchlab/contracts";
 import type {
   MatchIntelligenceV5View,
@@ -30,39 +18,23 @@ import {
 } from "@pitchlab/ui/picks-catalog";
 
 export interface ServerMatchPicksCatalogOptions {
-  /** `true` para socios autenticados; `false` aplica redacción estricta Cero-Fuga. */
   readonly fullAccess: boolean;
-  /** Filas de mercado enriquecidas en servidor (v3.2 / v5.1 / cuotas vigentes). */
   readonly markets?: readonly PlatformMarketRow[];
-  /** Enriquecimiento Spacetime v5.1 (micro-conteos, rigor arbitral, bandas epistémicas). */
   readonly v5?: MatchIntelligenceV5View | null;
-  /** Player props ya cargados para el partido/liga. */
   readonly playerProps?: readonly PlayerPropItem[];
-  /** Candidatos granulares de player props de fútbol (sujetos a guardia >= 45 min). */
   readonly footballPlayers?: readonly FootballPlayerPropCandidateInput[];
-  /** Candidatos granulares de player props NBA (PTS / REB / AST / 3PM). */
   readonly nbaPlayers?: readonly NbaPlayerPropCandidateInput[];
-  /** Historial reciente real de equipo local/visitante para ventanas L5/L10/L20/Local-Visita. */
   readonly homeHistory?: readonly TeamMatchEvidenceRecord[];
   readonly awayHistory?: readonly TeamMatchEvidenceRecord[];
-  /** Marcador F5 y estadísticas finales reales (para liquidar picks en partidos `FT`). */
   readonly f5Score?: { readonly home: number; readonly away: number } | null;
   readonly finalStats?: MatchFinalCountStats | null;
-  /** IDs explícitamente abiertos para visitante (Pick Abierto del Día / Tipster semanal). */
   readonly unlockedPickIds?: ReadonlySet<string>;
-  /** Subconjunto opcional de familias solicitadas por la vista. */
   readonly families?: readonly MarketFamilyId[];
-  /** Método preferido de de-vig (`auto` usa Shin en overround >= 3.5 % y proporcional en sharp). */
   readonly deVigPreference?: "auto" | "proportional" | "shin" | "power";
-  /** Tope de selecciones por familia para mantener el payload ligero (por defecto `4`). */
   readonly maxPicksPerFamily?: number;
-  /** Tope global de selecciones por partido (por defecto `48`). */
   readonly maxTotalPicks?: number;
-  /** Tope de marcadores redactados para visitante (por defecto `8`). */
   readonly maxVisitorLockedSlots?: number;
-  /** Si `true`, recorta `bookQuotes` y viñetas secundarias para transporte RSC mínimo. */
   readonly compact?: boolean;
-  /** Timestamp ISO determinista opcional. */
   readonly nowIso?: string;
 }
 
@@ -70,11 +42,6 @@ const DEFAULT_MAX_PICKS_PER_FAMILY = 4;
 const DEFAULT_MAX_TOTAL_PICKS = 48;
 const DEFAULT_MAX_VISITOR_LOCKED_SLOTS = 8;
 
-/**
- * Redacta un pick bloqueado bajo la política `Cero-Fuga`:
- * ninguna probabilidad, cuota justa/casa, EV, ventaja, lado, línea, evidencia, eje direccional
- * ni jugador se serializa hacia visitantes sin Pase PitchLab Ultra activo.
- */
 export function redactCatalogPickForVisitor(
   item: CatalogPickItem,
   slotIdx?: number,
@@ -127,8 +94,8 @@ export function redactCatalogPickForVisitor(
     },
     settlement: "pending",
     engineName: "PitchLab Spacetime v5.1",
-    isPrimaryModelPick: item.isPrimaryModelPick,
-    isDerived: item.isDerived,
+    isPrimaryModelPick: false,
+    isDerived: false,
     conflictGroup: "independent",
     playerMeta: null,
     isDailyOpenPromo: false,
@@ -144,7 +111,6 @@ function rankPickForCompaction(item: CatalogPickItem): number {
       ? 40 + Math.min(30, item.pricing.evPct * 2)
       : 0;
   const quoteBonus = item.pricing.marketDecimal !== null ? 15 : 0;
-  // Prioriza líneas balanceadas y accionables (evita extremos 2 % / 98 % antes de líneas centrales)
   const balanceScore = 30 - Math.abs(item.pricing.p - 0.58) * 50;
   return primaryBonus + valueBonus + quoteBonus + balanceScore;
 }
@@ -171,10 +137,6 @@ function rebuildCatalogSummary(
   };
 }
 
-/**
- * Compacta un catálogo de partido preservando representatividad en todas las familias activas
- * sin inflar el payload serializado para rutas RSC (`/app/[league]/g/[gameSlug]` o `/app/picks`).
- */
 export function compactCatalogPayload(
   catalog: MatchPicksCatalog,
   options: {
@@ -187,7 +149,6 @@ export function compactCatalogPayload(
   const maxTotal = Math.max(1, options.maxTotalPicks ?? DEFAULT_MAX_TOTAL_PICKS);
   const compactMode = options.compact ?? true;
 
-  // Agrupar por familia manteniendo el orden canónico de aparición
   const byFamily = new Map<MarketFamilyId, CatalogPickItem[]>();
   for (const item of catalog.picks) {
     const list = byFamily.get(item.family) ?? [];
@@ -204,7 +165,6 @@ export function compactCatalogPayload(
     trimmedPerFamily.push(...sorted);
   }
 
-  // Selección final garantizando al menos el mejor pick de cada familia antes de rellenar hasta maxTotal
   const selected: CatalogPickItem[] = [];
   const selectedIds = new Set<string>();
 
@@ -246,12 +206,6 @@ export function compactCatalogPayload(
   return rebuildCatalogSummary(catalog, finalPicks, catalog.isRedactedForVisitor);
 }
 
-/**
- * Función pura de servidor para construir el catálogo de picks de un partido:
- * - Aplica `Cero-Fuga` estricta cuando `fullAccess === false` en partidos `NS` / `LIVE`.
- * - Mantiene auditable y sin redacción cualquier partido `FT` con su estado `hit | miss | push | pending`.
- * - Compacta el payload para mantener respuestas rápidas sin inflar el shell RSC inicial.
- */
 export function buildServerMatchPicksCatalog(
   game: PlatformGame,
   options: ServerMatchPicksCatalogOptions,
@@ -284,7 +238,6 @@ export function buildServerMatchPicksCatalog(
     catalog = rebuildCatalogSummary(catalog, filtered, false);
   }
 
-  // Partidos FT siempre auditables; socios con fullAccess ven el catálogo completo compactado
   if (options.fullAccess || game.status === "FT") {
     return compactCatalogPayload(catalog, {
       maxPicksPerFamily: options.maxPicksPerFamily,
@@ -293,7 +246,6 @@ export function buildServerMatchPicksCatalog(
     });
   }
 
-  // Visitante en partido NS / LIVE: política Cero-Fuga estricta
   const unlockedIds = options.unlockedPickIds ?? new Set<string>();
   const maxLockedSlots = Math.max(
     0,
@@ -323,10 +275,6 @@ export function buildServerMatchPicksCatalog(
   return rebuildCatalogSummary(catalog, visitorPicks, true);
 }
 
-/**
- * Construye catálogos compactos en lote para vistas multi-partido (p. ej. `/app/picks`)
- * respetando la misma frontera `Cero-Fuga` por sesión.
- */
 export function buildServerMatchPicksCatalogsBatch(
   games: readonly PlatformGame[],
   options: Omit<

@@ -96,12 +96,6 @@ interface ResolvedEvidenceItem {
   readonly familyId?: MarketFamilyId;
 }
 
-/**
- * Tablero accionable de Picks agrupados por mercado con columna de Evidencia real (ADR-054).
- * Estilo editorial plano sobre tokens `--pl-*`: filtros rápidos por familia, píldoras
- * multi-ventana (`L5 / L10 / L20 / H2H` + `xG`), comparativa de casas con `Valor +X.X %`
- * y movimiento de línea (`Steam` / `↓ Bajando` / `↑ Subiendo`), más Bet Builder 1-clic.
- */
 export function MatchPicksEvidenceBoard({
   game,
   markets,
@@ -148,7 +142,7 @@ export function MatchPicksEvidenceBoard({
             pick,
             groupKey: catItem.category,
             groupLabel: CATALOG_CATEGORY_LABELS[catItem.category],
-            isPrimaryModelPick: catItem.isPrimaryModelPick,
+            isPrimaryModelPick: false,
             evidence: [],
             evidenceAvgPct: null,
             houseDecimal: null,
@@ -349,7 +343,6 @@ export function MatchPicksEvidenceBoard({
       if (sortBy === "prob") {
         return b.pick.p - a.pick.p;
       }
-      // recomendados: picks principales del modelo primero, luego mayor probabilidad/valor
       if (a.isPrimaryModelPick !== b.isPrimaryModelPick) {
         return a.isPrimaryModelPick ? -1 : 1;
       }
@@ -425,7 +418,6 @@ export function MatchPicksEvidenceBoard({
         </span>
       </div>
 
-      {/* Barra de filtros planos horizontales por mercado */}
       <div className="pl-ev-filters" role="group" aria-label="Filtrar picks por mercado y criterio">
         <button
           type="button"
@@ -547,11 +539,10 @@ export function MatchPicksEvidenceBoard({
                           data-evidence-pick={item.id}
                           data-market-family={item.familyId ?? item.pick.market ?? ""}
                         >
-                          {/* Columna 1: Pick + probabilidad */}
                           <div className="pl-ev-col-pick">
                             <div className="flex flex-wrap items-center gap-1.5">
                               <span className="pl-ev-cat">{item.pick.categoryLabel}</span>
-                              {item.isPrimaryModelPick ? (
+                              {unlocked && item.isPrimaryModelPick ? (
                                 <span className="pl-pill pl-pill--brand text-[10px]">Modelo</span>
                               ) : null}
                               {isFinished && unlocked && item.settlement ? (
@@ -595,7 +586,6 @@ export function MatchPicksEvidenceBoard({
                             )}
                           </div>
 
-                          {/* Columna 2: Evidencia multi-ventana + detalle verificable */}
                           <div className="pl-ev-col-evidence space-y-2">
                             {unlocked ? (
                               <>
@@ -626,7 +616,6 @@ export function MatchPicksEvidenceBoard({
                             )}
                           </div>
 
-                          {/* Columna 3: Momio justo vs Casa + Bet Builder / Parlay */}
                           <div className="pl-ev-col-odds">
                             {unlocked ? (
                               <>

@@ -27,7 +27,8 @@
     "data:catalog": "node scripts/data-catalog.mjs",
     "verify:data": "node scripts/data-catalog.mjs --verify",
     "ai:simulate": "node services/ai-eval/simulate-usage.mjs",
-    "eval:cortex": "tsx services/ai-eval/eval-cortex.ts"
+    "eval:cortex": "tsx services/ai-eval/eval-cortex.ts",
+    "eval:alerts": "tsx services/ai-eval/eval-alerts.ts"
   },
   "devDependencies": {
     "@types/node": "26.6.6",

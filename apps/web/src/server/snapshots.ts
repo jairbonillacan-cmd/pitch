@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
+  CLIENT_MATCH_CONTEXT_FACTOR_LABELS,
   COMPETITION_BY_ID,
   LEAGUE_CAPABILITY_LIST,
   LeagueSnapshotSchema,
@@ -113,17 +114,7 @@ function loadLeagueInjuries(file: string): Map<string, TeamInjuryEntry[]> {
   return byTeam;
 }
 
-const matchContext = new Set([
-  "Forma local",
-  "Forma visitante",
-  "Posición local",
-  "Posición visitante",
-  "Local",
-  "Visitante",
-  "Descanso",
-  "Tiempo extra",
-  "Abridores",
-]);
+const matchContext: ReadonlySet<string> = new Set(CLIENT_MATCH_CONTEXT_FACTOR_LABELS);
 
 function matchForClient({ steps: _steps, why: _why, ...match }: MatchAnalysis): MatchAnalysis {
   return {

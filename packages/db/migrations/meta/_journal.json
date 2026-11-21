@@ -183,6 +183,13 @@
       "when": 1794525000014,
       "tag": "0025_seguridad_rate_limit_inmutable_y_preferencias",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1794525000015,
+      "tag": "0026_alertas_mercado",
+      "breakpoints": true
     }
   ]
 }

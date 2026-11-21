@@ -16,9 +16,11 @@ import {
   linkLiveEvents,
   list,
   nextPollSeconds,
+  normalizeShotmapAxisX,
   normalizedAvgPositionsToLive,
   normalizedShotToLiveShot,
   parseBzzoiroAveragePositions,
+  parseBzzoiroShotmap,
   parseIncidents,
   parseLiveStats,
   phaseFrom,
@@ -160,6 +162,32 @@ describe("estadísticas, xG y momentum", () => {
   it("acumula el xG por minuto", () => {
     const last = parsed.xgTimeline.at(-1)!;
     expect(last).toEqual({ minute: 84, home: 1.815, away: 0.348 });
+  });
+
+  it("normaliza el eje X de shots hacia 100=portería atacada en stats.json y preserva payloads ya orientados (>50)", () => {
+    const rawStats = read<BzLiveStats>("stats.json");
+    expect(parsed.shots.find((s) => s.minute === 84)?.x).toBe(99);
+    expect(parsed.shots.find((s) => s.minute === 81)?.x).toBe(62.9);
+
+    const parsedShotmap = parseBzzoiroShotmap(rawStats);
+    expect(parsedShotmap.shots.find((s) => s.minute === 84)?.x).toBe(99);
+    expect(parsedShotmap.shots.find((s) => s.minute === 81)?.x).toBe(62.9);
+
+    const syntheticPayload: BzLiveStats = {
+      shotmap: [
+        {
+          min: 55,
+          home: true,
+          type: "goal",
+          xg: 0.34,
+          pos: { x: 0.85, y: 0.5 },
+        },
+      ],
+    };
+    expect(parseLiveStats(syntheticPayload).shots[0]?.x).toBe(85);
+    expect(parseBzzoiroShotmap(syntheticPayload).shots[0]?.x).toBe(85);
+    expect(normalizeShotmapAxisX([1, 37.1])).toEqual([99, 62.9]);
+    expect(normalizeShotmapAxisX([85])).toEqual([85]);
   });
 
   it("responde vacío sin estadísticas", () => {

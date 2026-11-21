@@ -183,11 +183,11 @@ export interface SelectionOddsComparison {
   readonly deltaPct: number | null;
   readonly impliedProbDeltaPts: number | null;
   readonly signal: LineMovementSignal;
-  readonly modelProb: number | null;
-  readonly fairOdds: number | null;
-  readonly edgePts: number | null;
-  readonly evPct: number | null;
-  readonly anchoredQuote?: SpacetimeAnchoredQuote;
+  readonly modelProb: number;
+  readonly fairOdds: number;
+  readonly edgePts: number;
+  readonly evPct: number;
+  readonly anchoredQuote: SpacetimeAnchoredQuote;
   readonly books: readonly ComparisonBookQuote[];
 }
 
@@ -204,11 +204,11 @@ export interface BestOddsComparisonEntry {
   readonly deltaPct: number | null;
   readonly impliedProbDeltaPts: number | null;
   readonly signal: LineMovementSignal;
-  readonly modelProb: number | null;
-  readonly fairOdds: number | null;
-  readonly edgePts: number | null;
-  readonly evPct: number | null;
-  readonly anchoredQuote?: SpacetimeAnchoredQuote;
+  readonly modelProb: number;
+  readonly fairOdds: number;
+  readonly edgePts: number;
+  readonly evPct: number;
+  readonly anchoredQuote: SpacetimeAnchoredQuote;
 }
 
 export interface ToSpacetimeAnchoredQuoteInput {
@@ -594,15 +594,12 @@ function lookupModelProb(
   return null;
 }
 
-function computeSpacetimeAnalytics(modelProb: number | null, currentDecimal: number): {
-  modelProb: number | null;
-  fairOdds: number | null;
-  edgePts: number | null;
-  evPct: number | null;
+function computeSpacetimeAnalytics(modelProb: number, currentDecimal: number): {
+  modelProb: number;
+  fairOdds: number;
+  edgePts: number;
+  evPct: number;
 } {
-  if (modelProb === null) {
-    return { modelProb: null, fairOdds: null, edgePts: null, evPct: null };
-  }
   const fairOdds = round3(1 / modelProb);
   const edgePts = round2((modelProb - 1 / currentDecimal) * 100);
   const evPct = round2((modelProb * currentDecimal - 1) * 100);
@@ -830,22 +827,19 @@ export function parseBzzoiroOddsComparison(
     });
 
     const modelProb = lookupModelProb(options.modelProbsByKey, bucket.market, bucket.line, bucket.selection);
-    if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
+    if (modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, bestDecimal);
     const bestCapturedAtIso = sorted[0]!.capturedAtUtc ?? normalizeCapturedAtIso(options.capturedAtUtc);
-    const anchoredQuote =
-      modelProb !== null
-        ? toSpacetimeAnchoredQuote({
-            bookLabel: sorted[0]!.bookLabel,
-            marketKey: bucket.market,
-            selection: bucket.selection,
-            line: bucket.line,
-            bookDecimal: bestDecimal,
-            modelProb,
-            movement: consensusMovement.signal,
-            capturedAtIso: bestCapturedAtIso,
-          })
-        : undefined;
+    const anchoredQuote = toSpacetimeAnchoredQuote({
+      bookLabel: sorted[0]!.bookLabel,
+      marketKey: bucket.market,
+      selection: bucket.selection,
+      line: bucket.line,
+      bookDecimal: bestDecimal,
+      modelProb,
+      movement: consensusMovement.signal,
+      capturedAtIso: bestCapturedAtIso,
+    });
 
     out.push({
       market: bucket.market,
@@ -861,7 +855,7 @@ export function parseBzzoiroOddsComparison(
       impliedProbDeltaPts: consensusMovement.impliedProbDeltaPts,
       signal: consensusMovement.signal,
       ...analytics,
-      ...(anchoredQuote ? { anchoredQuote } : {}),
+      anchoredQuote,
       books,
     });
   }
@@ -911,22 +905,19 @@ export function parseBzzoiroBestOdds(
       ? row.event_date.trim()
       : undefined;
     const modelProb = lookupModelProb(options.modelProbsByKey, quote.market, selectionLine, quote.selection);
-    if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
+    if (modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, currentDecimal);
     const capturedAtIso = normalizeCapturedAtIso(row.updated_at ?? row.captured_at ?? options.capturedAtUtc);
-    const anchoredQuote =
-      modelProb !== null
-        ? toSpacetimeAnchoredQuote({
-            bookLabel: bookMeta.label,
-            marketKey: quote.market,
-            selection: quote.selection,
-            line: selectionLine,
-            bookDecimal: mv.currentDecimal,
-            modelProb,
-            movement: mv.signal,
-            capturedAtIso,
-          })
-        : undefined;
+    const anchoredQuote = toSpacetimeAnchoredQuote({
+      bookLabel: bookMeta.label,
+      marketKey: quote.market,
+      selection: quote.selection,
+      line: selectionLine,
+      bookDecimal: mv.currentDecimal,
+      modelProb,
+      movement: mv.signal,
+      capturedAtIso,
+    });
 
     out.push({
       ...(matchLabel ? { matchLabel } : {}),
@@ -942,7 +933,7 @@ export function parseBzzoiroBestOdds(
       impliedProbDeltaPts: mv.impliedProbDeltaPts,
       signal: mv.signal,
       ...analytics,
-      ...(anchoredQuote ? { anchoredQuote } : {}),
+      anchoredQuote,
     });
   }
 
@@ -1116,7 +1107,12 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
   ): Promise<BestOddsComparisonEntry[]> {
     assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
     const raw = await this.getRawJson("/odds/best/", { market, limit: String(PAGE_LIMIT) });
-    return parseBzzoiroBestOdds(raw, options);
+    return parseBzzoiroBestOdds(raw, {
+      modelProbsByKey: options.modelProbsByKey,
+      capturedAtUtc: options.capturedAtUtc,
+      priorityBooksOnly: options.priorityBooksOnly,
+      requireSpacetimeAnchor: true,
+    });
   }
 
   async fetchBestOddsExtendedMarkets(
@@ -1131,7 +1127,12 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
     const all: BestOddsComparisonEntry[] = [];
     for (const market of markets) {
-      const rows = await this.fetchBestOddsAnalyzed(market, options);
+      const rows = await this.fetchBestOddsAnalyzed(market, {
+        modelProbsByKey: options.modelProbsByKey,
+        capturedAtUtc: options.capturedAtUtc,
+        priorityBooksOnly: options.priorityBooksOnly,
+        requireSpacetimeAnchor: true,
+      });
       all.push(...rows);
     }
     return all;
@@ -1154,7 +1155,12 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
   ): Promise<SelectionOddsComparison[]> {
     assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
     const raw = await this.getRawJson(`/events/${providerEventId}/odds/comparison/`, {});
-    return parseBzzoiroOddsComparison(raw, options);
+    return parseBzzoiroOddsComparison(raw, {
+      modelProbsByKey: options.modelProbsByKey,
+      capturedAtUtc: options.capturedAtUtc,
+      priorityBooksOnly: options.priorityBooksOnly,
+      requireSpacetimeAnchor: true,
+    });
   }
 
   async fetchSnapshots(

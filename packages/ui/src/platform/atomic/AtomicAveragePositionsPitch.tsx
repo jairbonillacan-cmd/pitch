@@ -9,24 +9,19 @@ export interface AtomicAveragePositionPlayer {
   readonly shortName?: string;
   readonly number?: number | null;
   readonly side: LiveSide;
-  /** Coordenada 0..100 desde la portería propia (0) hasta la portería rival (100). */
   readonly x: number;
-  /** Coordenada 0..100 a lo ancho del campo (0 banda izquierda, 100 banda derecha). */
   readonly y: number;
-  /** Volumen de toques para escalar sutilmente el radio del nodo. */
   readonly touches?: number | null;
   readonly position?: string | null;
   readonly rating?: number | null;
+  readonly playerHref?: string | null;
 }
 
 export interface ResolvedAveragePositionNode {
   readonly player: AtomicAveragePositionPlayer;
   readonly shortLabel: string;
-  /** Coordenada relajada horizontal (0..100) en la cancha vertical. */
   readonly leftPct: number;
-  /** Coordenada relajada vertical (0..100, menor = más cerca del arco rival). */
   readonly topPct: number;
-  /** Escala sutil por toques en [0.90, 1.18]. */
   readonly sizeScale: number;
 }
 
@@ -39,7 +34,19 @@ export interface AtomicAveragePositionsPitchProps {
   readonly defaultSide?: LiveSide;
   readonly title?: string;
   readonly showTable?: boolean;
+  readonly onSelectPlayer?: (player: AtomicAveragePositionPlayer) => void;
   readonly className?: string;
+}
+
+interface AveragePositionNodeStyle extends React.CSSProperties {
+  "--node-scale"?: number;
+}
+
+function sanitizeInternalHref(href: string | null | undefined): string | null {
+  if (typeof href !== "string") return null;
+  const trimmed = href.trim();
+  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return null;
+  return trimmed;
 }
 
 function abbreviatePlayerName(name: string, explicit?: string): string {
@@ -54,10 +61,6 @@ function abbreviatePlayerName(name: string, explicit?: string): string {
   return last.slice(0, 11);
 }
 
-/**
- * Aplica separación determinista suave a posiciones medias (0..100) para evitar
- * solapamientos de dorsales y etiquetas en pantallas móviles de 375 px.
- */
 export function resolveAveragePositionCollisions(
   players: readonly AtomicAveragePositionPlayer[],
   minDist = 12,
@@ -74,7 +77,6 @@ export function resolveAveragePositionCollisions(
   const pts = players.map((player) => {
     const rawX = Number.isFinite(player.x) ? Math.max(0, Math.min(100, player.x)) : 50;
     const rawY = Number.isFinite(player.y) ? Math.max(0, Math.min(100, player.y)) : 50;
-    // Cancha vertical: arco rival arriba (top menor), arco propio abajo (top mayor)
     const left = Math.max(11, Math.min(89, 10 + (rawY / 100) * 80));
     const top = Math.max(11, Math.min(89, 90 - (rawX / 100) * 80));
     const t =
@@ -85,7 +87,6 @@ export function resolveAveragePositionCollisions(
     return { player, left, top, sizeScale };
   });
 
-  // 10 iteraciones deterministas de repulsión elíptica (más margen vertical para las etiquetas)
   const minX = minDist;
   const minY = minDist * 1.12;
   for (let iter = 0; iter < 10; iter += 1) {
@@ -124,12 +125,6 @@ export function resolveAveragePositionCollisions(
   }));
 }
 
-/**
- * Cancha SVG de posiciones medias (0..100):
- * - Nodos de dorsal + abreviatura del jugador escalados sutilmente por volumen de toques.
- * - Toggle Local / Visita para lectura nítida sin solapamientos en 375 px y 1440 px.
- * - Línea de altura media del bloque y tabla accesible `<details>`.
- */
 export function AtomicAveragePositionsPitch({
   players,
   homeLabel,
@@ -139,6 +134,7 @@ export function AtomicAveragePositionsPitch({
   defaultSide = "home",
   title = "Posiciones medias",
   showTable = true,
+  onSelectPlayer,
   className = "",
 }: AtomicAveragePositionsPitchProps): React.JSX.Element | null {
   const uid = useId().replace(/:/g, "");
@@ -169,7 +165,6 @@ export function AtomicAveragePositionsPitch({
     [activePlayers],
   );
 
-  // Altura media del bloque de campo (excluyendo portero si x < 22)
   const avgBlockHeight = useMemo(() => {
     const outfield = activePlayers.filter((p) => p.x >= 20);
     const pool = outfield.length >= 4 ? outfield : activePlayers;
@@ -180,7 +175,10 @@ export function AtomicAveragePositionsPitch({
 
   if (players.length === 0) return null;
 
-  const blockLineY = avgBlockHeight !== null ? Math.round((366 - (avgBlockHeight / 100) * 352) * 10) / 10 : null;
+  const blockLineY =
+    avgBlockHeight !== null ? Math.round((366 - (avgBlockHeight / 100) * 352) * 10) / 10 : null;
+  const hasInteractiveNodes =
+    Boolean(onSelectPlayer) || nodes.some((n) => sanitizeInternalHref(n.player.playerHref) !== null);
 
   return (
     <figure
@@ -230,27 +228,23 @@ export function AtomicAveragePositionsPitch({
 
       <div
         className="pl-atom-avgpos-canvas"
-        role="img"
+        role={hasInteractiveNodes ? "group" : "img"}
         aria-label={`Posiciones medias de ${activeTeamName}: ${nodes.map((n) => `${n.player.number ?? ""} ${n.player.name}`.trim()).join(", ")}`}
       >
         <svg viewBox="0 0 320 380" className="pl-atom-pitch-svg" aria-hidden="true">
           <rect x="10" y="10" width="300" height="360" rx="10" className="pl-atom-pitch-grass" />
-          {/* Mediocampo */}
           <line x1="10" y1="190" x2="310" y2="190" className="pl-atom-pitch-line" />
           <circle cx="160" cy="190" r="34" className="pl-atom-pitch-line" />
           <circle cx="160" cy="190" r="2.2" className="pl-atom-pitch-spot" />
 
-          {/* Área superior (ataque ↑) */}
           <rect x="74" y="10" width="172" height="58" className="pl-atom-pitch-line" />
           <rect x="118" y="10" width="84" height="22" className="pl-atom-pitch-line" />
           <path d="M 130 68 A 32 32 0 0 0 190 68" className="pl-atom-pitch-line" />
 
-          {/* Área inferior (portería propia) */}
           <rect x="74" y="312" width="172" height="58" className="pl-atom-pitch-line" />
           <rect x="118" y="348" width="84" height="22" className="pl-atom-pitch-line" />
           <path d="M 130 312 A 32 32 0 0 1 190 312" className="pl-atom-pitch-line" />
 
-          {/* Línea de altura media del bloque */}
           {blockLineY !== null ? (
             <line
               x1="14"
@@ -267,24 +261,52 @@ export function AtomicAveragePositionsPitch({
         </svg>
 
         <ol className="pl-atom-pitch-nodes" role="list">
-          {nodes.map((node, idx) => (
-            <li
-              key={node.player.id ?? `${effectiveSide}-${node.player.name}-${idx}`}
-              className="pl-atom-avgpos-node"
-              style={
-                {
-                  left: `${node.leftPct}%`,
-                  top: `${node.topPct}%`,
-                  "--node-scale": node.sizeScale,
-                } as React.CSSProperties
-              }
-            >
-              <span className={`pl-atom-jersey is-${effectiveSide} num`}>
-                {node.player.number ?? idx + 1}
-              </span>
-              <span className="pl-atom-player-tag">{node.shortLabel}</span>
-            </li>
-          ))}
+          {nodes.map((node, idx) => {
+            const safeHref = sanitizeInternalHref(node.player.playerHref);
+            const jerseyNumber = node.player.number ?? idx + 1;
+            const nodeStyle: AveragePositionNodeStyle = {
+              left: `${node.leftPct}%`,
+              top: `${node.topPct}%`,
+              "--node-scale": node.sizeScale,
+            };
+            const nodeAriaLabel = `${node.player.name}, dorsal ${jerseyNumber}, altura ${Math.round(node.player.x)} %`;
+            const nodeContent = (
+              <>
+                <span className={`pl-atom-jersey is-${effectiveSide} num`}>{jerseyNumber}</span>
+                <span className="pl-atom-player-tag">{node.shortLabel}</span>
+              </>
+            );
+
+            return (
+              <li
+                key={node.player.id ?? `${effectiveSide}-${node.player.name}-${idx}`}
+                className="pl-atom-avgpos-node"
+                style={nodeStyle}
+              >
+                {safeHref ? (
+                  <a
+                    href={safeHref}
+                    className="pl-atom-node-trigger"
+                    aria-label={nodeAriaLabel}
+                    onClick={onSelectPlayer ? () => onSelectPlayer(node.player) : undefined}
+                  >
+                    {nodeContent}
+                  </a>
+                ) : onSelectPlayer ? (
+                  <button
+                    type="button"
+                    className="pl-atom-node-trigger"
+                    aria-label={nodeAriaLabel}
+                    onClick={() => onSelectPlayer(node.player)}
+                  >
+                    {nodeContent}
+                  </button>
+                ) : (
+                  nodeContent
+                )}
+              </li>
+            );
+          })}
         </ol>
       </div>
 
@@ -305,27 +327,48 @@ export function AtomicAveragePositionsPitch({
               </caption>
               <thead>
                 <tr>
-                  <th scope="col" className="num">#</th>
+                  <th scope="col" className="num">
+                    #
+                  </th>
                   <th scope="col">Jugador</th>
                   <th scope="col">Pos</th>
-                  <th scope="col" className="num">Altura</th>
-                  <th scope="col" className="num">Toques</th>
+                  <th scope="col" className="num">
+                    Altura
+                  </th>
+                  <th scope="col" className="num">
+                    Toques
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {[...activePlayers]
                   .sort((a, b) => b.x - a.x)
-                  .map((p, idx) => (
-                    <tr key={p.id ?? `tbl-${p.name}-${idx}`}>
-                      <td className="num" data-label="#">{p.number ?? "—"}</td>
-                      <th scope="row">{p.name}</th>
-                      <td data-label="Pos">{p.position ?? "—"}</td>
-                      <td className="num" data-label="Altura">{Math.round(p.x)} %</td>
-                      <td className="num" data-label="Toques">
-                        {p.touches != null ? Math.round(p.touches) : "—"}
-                      </td>
-                    </tr>
-                  ))}
+                  .map((p, idx) => {
+                    const rowHref = sanitizeInternalHref(p.playerHref);
+                    return (
+                      <tr key={p.id ?? `tbl-${p.name}-${idx}`}>
+                        <td className="num" data-label="#">
+                          {p.number ?? "—"}
+                        </td>
+                        <th scope="row">
+                          {rowHref ? (
+                            <a href={rowHref} className="pl-atom-table-link">
+                              {p.name}
+                            </a>
+                          ) : (
+                            p.name
+                          )}
+                        </th>
+                        <td data-label="Pos">{p.position ?? "—"}</td>
+                        <td className="num" data-label="Altura">
+                          {Math.round(p.x)} %
+                        </td>
+                        <td className="num" data-label="Toques">
+                          {p.touches != null ? Math.round(p.touches) : "—"}
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

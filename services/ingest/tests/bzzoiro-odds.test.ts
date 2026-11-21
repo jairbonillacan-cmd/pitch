@@ -6,7 +6,9 @@ import {
   BZZOIRO_ODDS_LEAGUES,
   BZZOIRO_TIER1_CUP_ODDS_LEAGUES,
   BzzoiroOddsAdapter,
+  parseBzzoiroBestOdds,
   parseBzzoiroOdds,
+  parseBzzoiroOddsComparison,
   toSpacetimeAnchoredQuote,
   type BzOddsEvent,
   type BzOddsRow,
@@ -190,7 +192,7 @@ describe("Momios de fútbol desde Bzzoiro", () => {
       bookDecimal: 2.05,
       modelProb: 0.55,
       edgePts: 6.2,
-      evPct: 12.8,
+      evPct: 12.7,
       movement: "STEAM",
       capturedAtIso: "2026-11-20T15:00:00Z",
     });
@@ -230,5 +232,107 @@ describe("Momios de fútbol desde Bzzoiro", () => {
         capturedAtIso: "2026-11-20T15:00:00Z",
       }),
     ).toThrow(RangeError);
+  });
+
+  it("descarta incondicionalmente cuotas sin modelProb válida incluso con requireSpacetimeAnchor: false", async () => {
+    const rawComparison = {
+      results: [
+        {
+          market: "1x2",
+          outcome: "home",
+          bookmakers: [
+            { bookmaker_slug: "pinnacle", decimal_odds: 2.05, opening_odds: 2.15 },
+            { bookmaker_slug: "bet365", decimal_odds: 2.01, opening_odds: 2.12 },
+          ],
+        },
+        {
+          market: "1x2",
+          outcome: "away",
+          bookmakers: [
+            { bookmaker_slug: "pinnacle", decimal_odds: 3.6, opening_odds: 3.5 },
+          ],
+        },
+      ],
+    };
+    const rawBest = {
+      results: [
+        {
+          home_team: "Arsenal",
+          away_team: "Chelsea",
+          event_date: "2026-11-22T16:30:00Z",
+          market: "1x2",
+          best_odds: {
+            home: { bookmaker_slug: "pinnacle", decimal_odds: 2.05, opening_odds: 2.15 },
+            away: { bookmaker_slug: "bet365", decimal_odds: 3.6, opening_odds: 3.5 },
+          },
+        },
+      ],
+    };
+
+    expect(parseBzzoiroOddsComparison(rawComparison)).toEqual([]);
+    expect(parseBzzoiroOddsComparison(rawComparison, { requireSpacetimeAnchor: false })).toEqual([]);
+    expect(parseBzzoiroBestOdds(rawBest)).toEqual([]);
+    expect(parseBzzoiroBestOdds(rawBest, { requireSpacetimeAnchor: false })).toEqual([]);
+
+    const compAnchored = parseBzzoiroOddsComparison(rawComparison, {
+      modelProbsByKey: { "1x2|null|home": 0.55 },
+      capturedAtUtc: "2026-11-20T15:00:00Z",
+      requireSpacetimeAnchor: false,
+    });
+    expect(compAnchored).toHaveLength(1);
+    expect(compAnchored[0]).toMatchObject({
+      market: "1x2",
+      selection: "home",
+      bestBook: "pinnacle",
+      bestDecimal: 2.05,
+      modelProb: 0.55,
+      fairOdds: 1.818,
+    });
+    expect(Object.isFrozen(compAnchored[0]!.anchoredQuote)).toBe(true);
+    expect(compAnchored[0]!.anchoredQuote).toMatchObject({
+      bookLabel: "Pinnacle",
+      bookDecimal: 2.05,
+      modelProb: 0.55,
+      edgePts: 6.2,
+      evPct: 12.7,
+    });
+
+    const bestAnchored = parseBzzoiroBestOdds(rawBest, {
+      modelProbsByKey: { "1x2|null|home": 0.55 },
+      capturedAtUtc: "2026-11-20T15:00:00Z",
+      requireSpacetimeAnchor: false,
+    });
+    expect(bestAnchored).toHaveLength(1);
+    expect(bestAnchored[0]).toMatchObject({
+      market: "1x2",
+      selection: "home",
+      book: "pinnacle",
+      currentDecimal: 2.05,
+      modelProb: 0.55,
+      fairOdds: 1.818,
+    });
+    expect(Object.isFrozen(bestAnchored[0]!.anchoredQuote)).toBe(true);
+    expect(bestAnchored[0]!.anchoredQuote).toMatchObject({
+      bookLabel: "Pinnacle",
+      bookDecimal: 2.05,
+      modelProb: 0.55,
+      edgePts: 6.2,
+      evPct: 12.7,
+    });
+
+    const requester: HttpRequesterFn = async ({ url }) => {
+      const body = url.includes("/odds/comparison/") ? rawComparison : rawBest;
+      return { url, status: 200, headers: {}, bodyText: JSON.stringify(body), sha256: "" };
+    };
+    const adapter = new BzzoiroOddsAdapter({
+      env: { BZZOIRO_API_KEY: "clave_de_prueba" },
+      transport: new CleanHttpTransport({ rateLimitRps: 1000, requester }),
+    });
+    expect(
+      await adapter.fetchEventOddsComparisonAnalyzed(999, { requireSpacetimeAnchor: false }),
+    ).toEqual([]);
+    expect(
+      await adapter.fetchBestOddsAnalyzed("1x2", { requireSpacetimeAnchor: false }),
+    ).toEqual([]);
   });
 });

@@ -72,7 +72,6 @@ const SECTION_STYLE: React.CSSProperties = {
   gap: 6,
 };
 
-/** Los tres estados clave (`NS`, `LIVE` con minuto y marcador, y `FT`) más medio tiempo (tema oscuro). */
 export const EstadosDelPartidoOscuro: Story = {
   globals: { theme: "dark" },
   render: () => (
@@ -139,13 +138,11 @@ export const EstadosDelPartidoOscuro: Story = {
   ),
 };
 
-/** Los tres estados clave (`NS`, `LIVE` y `FT`) en tema claro. */
 export const EstadosDelPartidoClaro: Story = {
   globals: { theme: "light" },
   render: EstadosDelPartidoOscuro.render,
 };
 
-/** Partido programado (`NS`) antes del inicio (tema oscuro). */
 export const PorJugarNSOscuro: Story = {
   globals: { theme: "dark" },
   args: {
@@ -158,7 +155,6 @@ export const PorJugarNSOscuro: Story = {
   },
 };
 
-/** Partido programado (`NS`) en tema claro. */
 export const PorJugarNSClaro: Story = {
   globals: { theme: "light" },
   args: {
@@ -171,17 +167,14 @@ export const PorJugarNSClaro: Story = {
   },
 };
 
-/** Partido en vivo (`LIVE`) con minuto, marcador, tarjeta roja e incidencia (tema oscuro). */
 export const EnVivoOscuro: Story = {
   globals: { theme: "dark" },
 };
 
-/** Partido en vivo (`LIVE`) en tema claro. */
 export const EnVivoClaro: Story = {
   globals: { theme: "light" },
 };
 
-/** Partido finalizado (`FT`) resaltando al equipo ganador (tema oscuro). */
 export const FinalizadoFTOscuro: Story = {
   globals: { theme: "dark" },
   args: {
@@ -194,7 +187,6 @@ export const FinalizadoFTOscuro: Story = {
   },
 };
 
-/** Partido finalizado (`FT`) en tema claro. */
 export const FinalizadoFTClaro: Story = {
   globals: { theme: "light" },
   args: {
@@ -207,7 +199,6 @@ export const FinalizadoFTClaro: Story = {
   },
 };
 
-/** Encabezado compacto en ancho móvil de 375 px sin desbordamiento (tema oscuro). */
 export const MovilEnVivoOscuro: Story = {
   globals: { theme: "dark" },
   render: (args: AtomicMatchHeaderBarProps) => (
@@ -217,8 +208,74 @@ export const MovilEnVivoOscuro: Story = {
   ),
 };
 
-/** Encabezado compacto en ancho móvil de 375 px en tema claro. */
 export const MovilEnVivoClaro: Story = {
   globals: { theme: "light" },
   render: MovilEnVivoOscuro.render,
+};
+
+export const StickyMovil320Oscuro: Story = {
+  globals: { theme: "dark" },
+  render: (args: AtomicMatchHeaderBarProps) => (
+    <div
+      style={{
+        width: 320,
+        maxWidth: "100%",
+        maxHeight: 220,
+        overflowY: "auto",
+        overflowX: "clip",
+        border: "1px solid var(--pl-border)",
+        borderRadius: 12,
+      }}
+    >
+      <AtomicMatchHeaderBar
+        {...args}
+        sticky
+        trailing={
+          <button type="button" className="pl-atom-seg-btn is-active">
+            Siguiendo
+          </button>
+        }
+      />
+      <div style={{ padding: 12, display: "grid", gap: 8 }}>
+        <span className="pl-atom-sub">Ancho 320 px · Encabezado sticky compacto</span>
+        <div className="pl-atom-card" style={{ minHeight: 180 }}>
+          <span className="pl-atom-sub">Contenido desplazable del partido</span>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const StickyMovil320Claro: Story = {
+  globals: { theme: "light" },
+  render: StickyMovil320Oscuro.render,
+};
+
+export const StickyEscritorio1440Oscuro: Story = {
+  globals: { theme: "dark" },
+  parameters: { layout: "fullscreen" },
+  render: (args: AtomicMatchHeaderBarProps) => (
+    <div style={{ maxWidth: 1440, margin: "0 auto" }}>
+      <AtomicMatchHeaderBar
+        {...args}
+        sticky
+        trailing={
+          <button type="button" className="pl-atom-seg-btn is-active">
+            Siguiendo
+          </button>
+        }
+      />
+      <div style={{ padding: 16 }}>
+        <div className="pl-atom-card" style={{ minHeight: 160 }}>
+          <span className="pl-atom-sub">Vista 1440 px · Barra sticky de una sola línea</span>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const StickyEscritorio1440Claro: Story = {
+  globals: { theme: "light" },
+  parameters: { layout: "fullscreen" },
+  render: StickyEscritorio1440Oscuro.render,
 };
