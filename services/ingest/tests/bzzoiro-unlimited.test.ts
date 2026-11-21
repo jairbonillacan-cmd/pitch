@@ -47,6 +47,8 @@ import {
 import {
   buildGuardedNbaPlayerPropSeeds,
   buildNbaPlayerPropSeeds,
+  buildNbaPlayerPropsSnapshotFile,
+  collectBzzoiroNbaRichBundle,
   DEFAULT_NBA_PROP_MIN_MINUTES,
   fetchBzzoiroNbaBoxScore,
   fetchBzzoiroNbaOdds,
@@ -62,6 +64,7 @@ import {
   parseNbaMinutes,
 } from "../src/providers/bzzoiro-nba-rich.js";
 import type { ProviderClient } from "../src/providers/http.js";
+import { resolveNbaStandingsWithFallback } from "../src/us-standings-cli.js";
 
 const LIVE_FIX = join(import.meta.dirname, "fixtures", "bzzoiro-live");
 const REAL_STATS_FIXTURE = JSON.parse(readFileSync(join(LIVE_FIX, "stats.json"), "utf8")) as BzLiveStats;
@@ -771,10 +774,28 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
     expect(homeRow.signal).toBe("STEAM");
     expect(homeRow.fairOdds).toBeCloseTo(1 / 0.56, 2);
     expect(homeRow.evPct).toBeCloseTo((0.56 * 1.92 - 1) * 100, 1);
+    expect(homeRow.anchoredQuote).toMatchObject({
+      bookLabel: "Betcris",
+      marketKey: "1x2",
+      selection: "home",
+      line: null,
+      bookDecimal: 1.92,
+      modelProb: 0.56,
+      movement: "STEAM",
+    });
+    expect(Object.isFrozen(homeRow.anchoredQuote)).toBe(true);
 
     const wtnRow = parsed.find((r) => r.market === "win_to_nil_home" && r.selection === "yes")!;
     expect(wtnRow.signal).toBe("DRIFTING");
     expect(wtnRow.bestBookLabel).toBe("Bet365");
+    expect(wtnRow.anchoredQuote).toMatchObject({
+      bookLabel: "Bet365",
+      marketKey: "win_to_nil_home",
+      selection: "yes",
+      bookDecimal: 3.1,
+      modelProb: 0.36,
+      movement: "DRIFTING",
+    });
     assertFd16Clean(parsed, ["987654321"]);
   });
 
@@ -2306,5 +2327,136 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
         }).length,
       ).toBeGreaterThan(0);
     }
+  });
+
+  it("cablea collectBzzoiroNbaRichBundle (standings, pregame, odds, player-games -> player-props.json), SpacetimeAnchoredQuote NBA y respaldo ESPN", async () => {
+    const { client, calls } = createMockProviderClient({
+      "/basketball/api/v2/standings/?league=1": {
+        results: [
+          { team: { id: 101, name: "Boston Celtics" }, wins: 15, losses: 3, points_for: 2150, points_against: 1920 },
+          { team: { id: 102, name: "Miami Heat" }, wins: 11, losses: 7, points_for: 2010, points_against: 1960 },
+        ],
+      },
+      "/basketball/api/v2/events/880/pregame/": {
+        event_id: 880,
+        officials: [{ id: 77, name: "Marc Davis" }],
+        rest_days: { home: 2, away: 0 },
+        injuries: {
+          home: [
+            { player_id: 5002, name: "Kristaps Porzingis", status: "Out", injury_type: "Tobillo" },
+          ],
+          away: [],
+        },
+      },
+      "/basketball/api/v2/events/880/odds/": {
+        results: [
+          {
+            market: "moneyline",
+            outcome: "home",
+            bookmaker_slug: "pinnacle",
+            decimal_odds: 1.75,
+            opening_odds: 1.85,
+            updated_at: "2026-11-21T18:00:00Z",
+          },
+        ],
+      },
+      "/basketball/api/v2/players/?team_id=101&limit=30": {
+        results: [
+          { id: 5001, name: "Jayson Tatum", position: "SF", status: "available" },
+          { id: 5002, name: "Kristaps Porzingis", position: "C", status: "available" },
+        ],
+      },
+      "/basketball/api/v2/players/?team_id=102&limit=30": {
+        results: [],
+      },
+      "/basketball/api/v2/players/5001/games/?limit=15": {
+        results: [
+          { id: 1, event_id: 9901, game_date: "2026-11-18", opponent: "Knicks", minutes: "35:00", points: 30, rebounds: 8, assists: 6, three_pointers_made: 4 },
+          { id: 2, event_id: 9902, game_date: "2026-11-16", opponent: "Heat", minutes: "36:00", points: 28, rebounds: 7, assists: 5, three_pointers_made: 3 },
+          { id: 3, event_id: 9903, game_date: "2026-11-14", opponent: "Bucks", minutes: "34:00", points: 32, rebounds: 9, assists: 7, three_pointers_made: 5 },
+        ],
+      },
+    });
+
+    const bundle = await collectBzzoiroNbaRichBundle({
+      client,
+      upcomingEvents: [
+        {
+          providerMatchId: 880,
+          gameId: "nba-2026-11-22-mia-bos",
+          homeTeamId: "nba.boston-celtics",
+          homeTeamName: "Boston Celtics",
+          homeProviderTeamId: 101,
+          awayTeamId: "nba.miami-heat",
+          awayTeamName: "Miami Heat",
+          awayProviderTeamId: 102,
+          kickoffUtc: "2026-11-22T00:30:00Z",
+        },
+      ],
+      nowIso: "2026-11-21T18:00:00Z",
+    });
+
+    expect(bundle.standingsOk).toBe(true);
+    expect(bundle.standings).toHaveLength(2);
+    expect(bundle.pregameByGameId.get("nba-2026-11-22-mia-bos")?.officials).toEqual(["Marc Davis"]);
+    expect(bundle.marketLines).toHaveLength(1);
+    expect(bundle.propSeeds.length).toBeGreaterThanOrEqual(4);
+    expect(bundle.propSeeds.every((s) => s.player === "Jayson Tatum")).toBe(true);
+    expect(calls).not.toContain("/basketball/api/v2/players/5002/games/?limit=15");
+
+    const propsFile = buildNbaPlayerPropsSnapshotFile(bundle.propSeeds, "2026-11-21T18:00:00Z");
+    expect(propsFile.schemaVersion).toBe(1);
+    expect(propsFile.league).toBe("nba");
+    expect(propsFile.minMinutesGuard).toBe(DEFAULT_NBA_PROP_MIN_MINUTES);
+    assertFd16Clean(propsFile, ["880", "101", "102", "5001", "5002", "9901"]);
+
+    const anchoredNbaComp = parseBzzoiroNbaOddsComparison(
+      [
+        {
+          market: "moneyline",
+          outcome: "home",
+          bookmaker_slug: "pinnacle",
+          decimal_odds: 1.75,
+          opening_odds: 1.85,
+          updated_at: "2026-11-21T18:00:00Z",
+        },
+      ],
+      { modelProbsByKey: { "moneyline|null|home": 0.62 }, requireSpacetimeAnchor: true },
+    );
+    expect(anchoredNbaComp).toHaveLength(1);
+    expect(anchoredNbaComp[0]!.anchoredQuote).toMatchObject({
+      bookLabel: "Pinnacle",
+      marketKey: "moneyline",
+      selection: "home",
+      bookDecimal: 1.75,
+      modelProb: 0.62,
+      capturedAtIso: "2026-11-21T18:00:00Z",
+    });
+    expect(
+      parseBzzoiroNbaOddsComparison(
+        [{ market: "moneyline", outcome: "home", bookmaker_slug: "pinnacle", decimal_odds: 1.75 }],
+        { requireSpacetimeAnchor: true },
+      ),
+    ).toEqual([]);
+
+    const bzPrimary = await resolveNbaStandingsWithFallback({
+      fetchBzzoiro: async () => bundle.standings,
+      fetchEspn: async () => {
+        throw new Error("ESPN no debería consultarse cuando Bzzoiro responde completo");
+      },
+      minBzzoiroTeams: 2,
+    });
+    expect(bzPrimary.source).toBe("bzzoiro");
+    expect(bzPrimary.standings).toHaveLength(2);
+
+    const espnFallback = await resolveNbaStandingsWithFallback({
+      fetchBzzoiro: async () => {
+        throw new Error("Bzzoiro temporalmente caído");
+      },
+      fetchEspn: async () => bundle.standings,
+      minBzzoiroTeams: 2,
+    });
+    expect(espnFallback.source).toBe("espn");
+    expect(espnFallback.standings).toHaveLength(2);
   });
 });

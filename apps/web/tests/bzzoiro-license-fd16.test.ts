@@ -354,6 +354,17 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
     expect(comp.fairDecimal).toBeCloseTo(1 / 0.56, 2);
     expect(comp.edgePts).toBeCloseTo((0.56 - 1 / 2.02) * 100, 1);
     expect(comp.evPct).toBeCloseTo((0.56 * 2.02 - 1) * 100, 1);
+    expect(comp.anchoredQuote).toMatchObject({
+      bookLabel: "Bet365",
+      marketKey: "1x2",
+      selection: "home",
+      line: null,
+      bookDecimal: 2.02,
+      modelProb: 0.56,
+      movement: "STEAM",
+      capturedAtIso: "2026-11-20T15:05:00Z",
+    });
+    expect(Object.isFrozen(comp.anchoredQuote)).toBe(true);
 
     // Cero redistribución de feed crudo, IDs de proveedor ni URLs externas:
     const serialized = JSON.stringify(parsed);
@@ -399,6 +410,14 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
     expect(bestDirect[0]!.modelProb).toBe(0.55);
     expect(bestDirect[0]!.fairDecimal).toBeCloseTo(1 / 0.55, 2);
     expect(bestDirect[0]!.evPct).toBeCloseTo((0.55 * 1.98 - 1) * 100, 1);
+    expect(bestDirect[0]!.anchoredQuote).toMatchObject({
+      bookLabel: "Pinnacle",
+      marketKey: "totals",
+      selection: "over",
+      line: 2.5,
+      bookDecimal: 1.98,
+      modelProb: 0.55,
+    });
 
     const directSerialized = JSON.stringify(bestDirect);
     expect(directSerialized).not.toMatch(FORBIDDEN_FD16_RE);
@@ -485,6 +504,16 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
     expect(rowComparison!.modelProb).toBe(0.57);
     expect(rowComparison!.fairDecimal).toBeCloseTo(1 / 0.57, 2);
     expect(rowComparison!.signal).toBe("STEAM");
+    expect(rowComparison!.anchoredQuote).toMatchObject({
+      bookLabel: "Bet365",
+      marketKey: "1x2",
+      selection: "home",
+      bookDecimal: 1.94,
+      modelProb: 0.57,
+      movement: "STEAM",
+    });
+    expect(JSON.stringify(rowComparison)).not.toMatch(FORBIDDEN_FD16_RE);
+    expect(JSON.stringify(rowComparison)).not.toMatch(/https?:\/\/|www\./i);
     expect(
       classifyQuoteMovement({ openingDecimal: 2.1, currentDecimal: 1.9 }).signal,
     ).toBe("STEAM");
@@ -556,6 +585,43 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
     expect(partialBest[0]!.fairDecimal).toBeCloseTo(1 / 0.56, 2);
     expect(partialBest[0]!.edgePts).not.toBeNull();
     expect(partialBest[0]!.evPct).not.toBeNull();
+    expect(partialBest[0]!.anchoredQuote).toBeDefined();
+    expect(partialComp[0]!.anchoredQuote).toBeDefined();
+
+    expect(
+      parseBzzoiroComparisonPayload(rawMixedComparison, {
+        modelProbsByKey: { "1x2|null|home": 0.001, "1x2|null|away": 0.999 },
+        requireSpacetimeAnchor: false,
+      }),
+    ).toEqual([]);
+    expect(
+      parseBzzoiroBestOddsPayload(rawMixedBest, {
+        modelProbsByKey: { "1x2|null|home": 0.001, "1x2|null|draw": 0.999 },
+        requireSpacetimeAnchor: false,
+      }),
+    ).toEqual([]);
+    expect(
+      buildMarketRowComparison({
+        group: "Resultado 1X2",
+        market: "1x2",
+        selection: "home",
+        label: "Sin ancla Spacetime",
+        p: 0.001,
+        fairDecimal: 1000,
+        fairAmerican: 99900,
+        openDecimal: null,
+        currentDecimal: 2.0,
+        edgePts: null,
+        bookQuotes: [
+          {
+            book: "pinnacle",
+            bookLabel: "Pinnacle",
+            decimal: 2.0,
+            capturedAtUtc: "2026-11-20T15:00:00Z",
+          },
+        ],
+      }),
+    ).toBeNull();
   });
 });
 
