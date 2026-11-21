@@ -34,10 +34,11 @@ export interface NextRouteContext<TParams extends RouteParams = Record<string, n
   params: Promise<TParams>;
 }
 
-export type GuardedRouteHandler<TParams extends RouteParams = Record<string, never>> = (
-  request?: Request,
-  ctx?: NextRouteContext<TParams>,
-) => Promise<Response>;
+export interface GuardedRouteHandler<TParams extends RouteParams = Record<string, never>> {
+  (): Promise<Response>;
+  (request: Request): Promise<Response>;
+  (request: Request, ctx: NextRouteContext<TParams>): Promise<Response>;
+}
 
 export interface AdminMember {
   db: Db;

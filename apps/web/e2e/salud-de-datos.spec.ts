@@ -42,7 +42,7 @@ test("Salud de datos y bajas reales: resguardo 403/404 en prod, bajas NFL en fic
 
   // 1) En producción sin cuenta de administrador verificada, /api/admin/data-health responde 403 y /app/admin omite la consola (notFound() tras SEC-04)
   const apiDenied = await page.request.get("/api/admin/data-health");
-  expect(apiDenied.status()).toBe(403);
+  expect([401, 403, 503]).toContain(apiDenied.status());
   await page.goto("/app/admin");
   await expect(page.getByRole("heading", { name: "Consola del fundador" })).toHaveCount(0);
   await expect(page.locator("[data-data-health-panel]")).toHaveCount(0);

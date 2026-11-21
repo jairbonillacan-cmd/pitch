@@ -756,8 +756,7 @@ export async function resolveVerifiedNewsArticleSummary(
   }
 
   let entry: LeagueCacheEntry | null | undefined = store.entries.get(league);
-  const entryExpired = !entry || nowMs - entry.fetchedAtMs >= NEWS_CACHE_TTL_MS;
-  if (entryExpired || !entry.articlesByOpaqueId.has(opaqueId)) {
+  if (!entry || nowMs - entry.fetchedAtMs >= NEWS_CACHE_TTL_MS || !entry.articlesByOpaqueId.has(opaqueId)) {
     entry = await loadOrRefreshFeed(league, options?.feedFetcher, nowMs);
   }
   const baseArticle = entry?.articlesByOpaqueId.get(opaqueId);

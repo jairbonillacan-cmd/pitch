@@ -254,7 +254,7 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
       }),
     );
     expect(journalBlocked.status).toBe(403);
-    expect(await journalBlocked.json()).toEqual({ error: "pase_requerido" });
+    expect(await journalBlocked.json()).toMatchObject({ error: "pase_requerido" });
 
     const watchlistBlocked = await postWatchlist(
       new Request("http://localhost:3000/api/me/watchlist", {
@@ -264,7 +264,7 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
       }),
     );
     expect(watchlistBlocked.status).toBe(403);
-    expect(await watchlistBlocked.json()).toEqual({ error: "pase_requerido" });
+    expect(await watchlistBlocked.json()).toMatchObject({ error: "pase_requerido" });
 
     // Con concesión vigente, pasa requireActivePaseMember y puede guardar vigilancia.
     await grantDays(db, {

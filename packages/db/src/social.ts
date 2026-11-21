@@ -788,7 +788,7 @@ export async function listPostComments(
   db: Db,
   viewerUserId: string | null,
   postId: string,
-  limit = SOCIAL_LIMITS.commentsPageMax,
+  limit: number = SOCIAL_LIMITS.commentsPageMax,
 ): Promise<{ ok: true; comments: FeedComment[]; commentsCount: number } | { ok: false; reason: "no_existe" }> {
   if (!UUID_PATTERN.test(postId)) return { ok: false, reason: "no_existe" };
   const [post] = await db
@@ -1047,7 +1047,7 @@ function excerptOf(body: string | null): string | null {
 export async function listSocialNotifications(
   db: Db,
   userId: string,
-  limit = SOCIAL_LIMITS.notificationsPageMax,
+  limit: number = SOCIAL_LIMITS.notificationsPageMax,
 ): Promise<SocialNotificationRow[]> {
   const safeLimit = clampPageLimit(limit, SOCIAL_LIMITS.notificationsPageMax, SOCIAL_LIMITS.notificationsPageMax);
   const rows = await db
@@ -1126,7 +1126,7 @@ export async function markSocialNotificationsRead(
 export async function listFollowing(
   db: Db,
   userId: string,
-  limit = SOCIAL_LIMITS.followingPageMax,
+  limit: number = SOCIAL_LIMITS.followingPageMax,
 ): Promise<string[]> {
   const safeLimit = clampPageLimit(limit, SOCIAL_LIMITS.followingPageMax, SOCIAL_LIMITS.followingPageMax);
   const rows = await db
