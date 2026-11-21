@@ -1,12 +1,8 @@
-/**
- * Precompila `data/snapshots/shell-index.json` a partir de todos los snapshots vigentes
- * (`data/snapshots/<league>/latest.json`, `injuries.json` y `market-pulse.json`) para
- * que el arranque en frío serverless (Vercel) cargue las 57 competencias en 1 sola lectura.
- */
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  CLIENT_MATCH_CONTEXT_FACTOR_LABELS,
   COMPETITION_BY_ID,
   LeagueInjuriesFileSchema,
   LeagueSnapshotSchema,
@@ -29,16 +25,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "../../..");
 const SNAPSHOTS_ROOT = join(REPO_ROOT, "data/snapshots");
 
-const MATCH_CONTEXT_FACTORS = new Set([
-  "Forma local",
-  "Forma visitante",
-  "Posición local",
-  "Posición visitante",
-  "Local",
-  "Visitante",
-  "Descanso",
-  "Tiempo extra",
-]);
+const MATCH_CONTEXT_FACTORS: ReadonlySet<string> = new Set(CLIENT_MATCH_CONTEXT_FACTOR_LABELS);
 
 function trimMatchForClient({ steps: _steps, why: _why, ...match }: MatchAnalysis): MatchAnalysis {
   return {

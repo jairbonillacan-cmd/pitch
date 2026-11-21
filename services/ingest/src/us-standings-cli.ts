@@ -1,13 +1,3 @@
-/**
- * `pnpm --filter @pitchlab/ingest snapshot:us-standings [--leagues=nfl,nba,nhl,mlb]`
- *
- * Actualiza:
- *  - `nfl`: calendario, resultados y tabla de posiciones AFC/NFC desde `nflverse` (CC-BY 4.0)
- *  - `nba`: tabla de posiciones Este/Oeste actualizada (preserva pronósticos vigentes)
- *  - `nhl`: tabla de posiciones Este/Oeste desde NHL Web API (preserva pronósticos vigentes)
- *  - `mlb`: calendario 2026 + postemporada + apertura 2027, tasas reales, pronósticos walk-forward,
- *           clasificación AL/NL, historial `season-results.json` y bajas médicas desde MLB Stats API
- */
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -81,7 +71,6 @@ function resolveSnapshotTeamByRaw(
   );
   if (byExact) return byExact;
 
-  // Caso especial comunes (e.g. LA Clippers vs Los Angeles Clippers)
   const lastWord = target.split(" ").at(-1) ?? "";
   if (lastWord.length >= 4) {
     const byNickname = candidates.find((c) => normKey(c.name).endsWith(` ${lastWord}`) || normKey(c.shortName) === lastWord);
@@ -111,7 +100,7 @@ interface NhlStandingsItem {
 
 function nhlStreakForm(item: NhlStandingsItem): StandingFormToken[] {
   const code = (item.streakCode ?? "").toUpperCase();
-  const count = Number(item.streakCount ?? 0);
+  const count = parseStrictFiniteNumber(item.streakCount) ?? 0;
   if (count < 5) return [];
   const tok: StandingFormToken = code === "W" ? "W" : "L";
   return Array.from({ length: 5 }, () => tok);
@@ -277,15 +266,19 @@ async function fetchNbaSeasonGames(
       if (!res.ok) return;
       const payload = (await res.json()) as EspnTeamSchedulePayload;
       for (const ev of payload.events ?? []) {
-        if (ev.seasonType?.type === 1) continue; // omitir pretemporada
+        if (ev.seasonType?.type === 1) continue;
         const comp = ev.competitions?.[0];
         if (!comp?.status?.type?.completed) continue;
         const hComp = comp.competitors?.find((c) => c.homeAway === "home");
         const aComp = comp.competitors?.find((c) => c.homeAway === "away");
         if (!hComp || !aComp) continue;
-        const rawH = typeof hComp.score === "object" ? (hComp.score?.value ?? Number(hComp.score?.displayValue)) : Number(hComp.score);
-        const rawA = typeof aComp.score === "object" ? (aComp.score?.value ?? Number(aComp.score?.displayValue)) : Number(aComp.score);
-        if (!Number.isFinite(rawH) || !Number.isFinite(rawA)) continue;
+        const rawH = parseStrictFiniteNumber(
+          typeof hComp.score === "object" ? (hComp.score?.value ?? hComp.score?.displayValue) : hComp.score,
+        );
+        const rawA = parseStrictFiniteNumber(
+          typeof aComp.score === "object" ? (aComp.score?.value ?? aComp.score?.displayValue) : aComp.score,
+        );
+        if (rawH === null || rawA === null) continue;
         const home = resolveSnapshotTeamByRaw(prev, hComp.team?.displayName ?? "", hComp.team?.abbreviation);
         const away = resolveSnapshotTeamByRaw(prev, aComp.team?.displayName ?? "", aComp.team?.abbreviation);
         if (!home || !away || home.teamId === away.teamId) continue;
@@ -546,16 +539,22 @@ async function fetchEspnNbaStandingsRows(
   return finalizeConferenceStandings("nba", rows, { computeGamesBehind: true });
 }
 
-async function hydrateNbaStandings(now: Date): Promise<void> {
+export async function hydrateNbaStandings(
+  now: Date,
+  env: Readonly<Record<string, string | undefined>> = process.env,
+): Promise<void> {
+  if (env.PITCHLAB_OFFLINE === "1") {
+    console.log("[standings:nba] PITCHLAB_OFFLINE=1; se omiten consultas remotas y se conserva snapshot previo.");
+    return;
+  }
   const prev = loadPreviousSnapshot(SNAPSHOTS, "nba");
   if (!prev) {
     console.warn("[standings:nba] No existe latest.json previo; omitido.");
     return;
   }
   const updatedAt = now.toISOString();
-  const isOffline = process.env.PITCHLAB_OFFLINE === "1";
-  const bzzoiroCfg = readProviderConfigs().bzzoiro;
-  const bzzoiroAvailable = bzzoiroCfg.enabled && !isOffline;
+  const bzzoiroCfg = readProviderConfigs(env).bzzoiro;
+  const bzzoiroAvailable = bzzoiroCfg.enabled;
   const bzClient = bzzoiroAvailable
     ? createProviderClient(
         { ...bzzoiroCfg, baseUrl: bzzoiroCfg.baseUrl.replace(/\/api\/v2$/, "") },
@@ -569,7 +568,7 @@ async function hydrateNbaStandings(now: Date): Promise<void> {
       )
     : null;
 
-  const seasonGames = isOffline ? [] : await fetchNbaSeasonGames(prev, updatedAt);
+  const seasonGames = await fetchNbaSeasonGames(prev, updatedAt);
   const realFormByTeam = computeFormFromGames(seasonGames);
   if (seasonGames.length > 0) {
     writeSeasonResultsFile(SNAPSHOTS, {
@@ -767,18 +766,39 @@ async function buildAndPublishMlb(now: Date): Promise<void> {
   );
 }
 
-async function main(): Promise<void> {
-  loadRootEnvFiles(ROOT);
-  const arg = process.argv.find((a) => a.startsWith("--leagues="))?.slice(10);
-  const selected = new Set(arg ? arg.split(",").map((s) => s.trim()) : ["nfl", "nba", "nhl", "mlb"]);
-  const now = new Date();
+export interface RunUsStandingsCliOptions {
+  readonly env?: Readonly<Record<string, string | undefined>>;
+  readonly argv?: readonly string[];
+  readonly now?: Date;
+}
+
+export interface RunUsStandingsCliResult {
+  readonly skippedOffline: boolean;
+  readonly failures: number;
+}
+
+export async function runUsStandingsCli(
+  options: RunUsStandingsCliOptions = {},
+): Promise<RunUsStandingsCliResult> {
+  const env = options.env ?? process.env;
+  const argv = options.argv ?? process.argv.slice(2);
+  if (env.PITCHLAB_OFFLINE === "1" || argv.includes("--offline")) {
+    console.log("[us-standings] PITCHLAB_OFFLINE=1; se omiten consultas remotas y se conservan snapshots previos.");
+    return { skippedOffline: true, failures: 0 };
+  }
+
+  const arg = argv.find((a) => a.startsWith("--leagues="))?.slice(10);
+  const selected = new Set(
+    arg ? arg.split(",").map((s) => s.trim()).filter(Boolean) : ["nfl", "nba", "nhl", "mlb"],
+  );
+  const now = options.now ?? new Date();
   let failures = 0;
 
   for (const league of selected) {
     try {
       if (league === "nfl") await updateNflWithStandings(now);
       else if (league === "nhl") await hydrateNhlStandings(now);
-      else if (league === "nba") await hydrateNbaStandings(now);
+      else if (league === "nba") await hydrateNbaStandings(now, env);
       else if (league === "mlb") await buildAndPublishMlb(now);
       else throw new Error(`Liga no soportada: ${league}`);
     } catch (err) {
@@ -787,7 +807,16 @@ async function main(): Promise<void> {
     }
   }
 
-  if (failures > 0) process.exitCode = 1;
+  return { skippedOffline: false, failures };
+}
+
+async function main(): Promise<void> {
+  loadRootEnvFiles(ROOT);
+  const result = await runUsStandingsCli({
+    env: process.env,
+    argv: process.argv.slice(2),
+  });
+  if (result.failures > 0) process.exitCode = 1;
 }
 
 const isDirectEntry =

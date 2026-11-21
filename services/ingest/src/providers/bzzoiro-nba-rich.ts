@@ -1,15 +1,3 @@
-/**
- * NBA enriquecido desde Bzzoiro Basketball API (`/basketball/api/v2/`).
- *
- * Cubre los recursos adicionales disponibles en la cuenta (`BZZOIRO_UNLIMITED=1`):
- *  - `/basketball/api/v2/standings/?league=1` -> clasificación oficial Este/Oeste
- *  - `/basketball/api/v2/events/{id}/box-score/` y `/team-stats/` -> métricas de equipo y box score por jugador
- *  - `/basketball/api/v2/events/{id}/odds/` -> cuotas NBA (`moneyline`, `spread`, `totals`) con apertura, delta% y `SHORTENING`/`DRIFTING`/`STEAM`
- *  - `/basketball/api/v2/events/{id}/pregame/` -> contexto prepartido (árbitros, descanso, B2B, bajas reales)
- *  - `/basketball/api/v2/players/{id}/games/` -> bitácora de últimos juegos para props de jugador NBA con guardia `minMinutes`
- *
- * Cumple licencia Bzzoiro v4.0 + `FD-16`: salidas normalizadas sin IDs crudos de proveedor ni URLs externas.
- */
 import {
   parseStrictFiniteNumber,
   type SpacetimeAnchoredQuote,
@@ -249,11 +237,11 @@ export interface NbaSelectionOddsComparison {
   readonly currentConsensusDecimal: number;
   readonly deltaPct: number | null;
   readonly signal: LineMovementSignal;
-  readonly modelProb: number | null;
-  readonly fairOdds: number | null;
-  readonly edgePts: number | null;
-  readonly evPct: number | null;
-  readonly anchoredQuote?: SpacetimeAnchoredQuote;
+  readonly modelProb: number;
+  readonly fairOdds: number;
+  readonly edgePts: number;
+  readonly evPct: number;
+  readonly anchoredQuote: SpacetimeAnchoredQuote;
   readonly books: readonly ComparisonBookQuote[];
 }
 
@@ -361,7 +349,6 @@ function teamSlugOf(teamId: string): string {
   return teamId.includes(".") ? teamId.split(".").slice(1).join(".") : teamId;
 }
 
-/** Convierte `/basketball/api/v2/standings/?league=1` a `StandingRow[]` canónicos NBA. */
 export function parseBzzoiroNbaStandings(
   raw: BzList<BzNbaStandingRowRaw> | { east?: BzNbaStandingRowRaw[]; west?: BzNbaStandingRowRaw[] } | null,
 ): StandingRow[] {
@@ -448,7 +435,6 @@ function parseNbaSideBox(raw: BzNbaTeamBoxRaw | null | undefined): NbaBoxTeamMet
   };
 }
 
-/** Interpreta `/basketball/api/v2/events/{id}/box-score/` y `/team-stats/` (métricas por equipo). */
 export function parseBzzoiroNbaBoxScore(
   raw: BzNbaBoxScoreRaw | null | undefined,
 ): BzNbaBoxScoreSummary | null {
@@ -490,7 +476,6 @@ function parseNbaPlayerBoxRows(
   return out.sort((a, b) => (b.minutes ?? 0) - (a.minutes ?? 0) || b.points - a.points);
 }
 
-/** Extrae box score completo (equipo + líneas individuales por jugador) sin IDs crudos (`FD-16`). */
 export function parseBzzoiroNbaBoxScoreDetail(
   raw: BzNbaBoxScoreRaw | null | undefined,
 ): NormalizedNbaBoxScoreDetail {
@@ -568,9 +553,6 @@ function parseNbaInjurySide(rows: readonly BzNbaInjuryRaw[] | undefined): Normal
   return out;
 }
 
-/**
- * Normaliza `/basketball/api/v2/events/{id}/pregame/` (árbitros, descanso, B2B y bajas reales) sin IDs crudos (`FD-16`).
- */
 export function parseBzzoiroNbaPregame(raw: BzNbaPregameRaw | null | undefined): NormalizedNbaPregame | null {
   if (!raw || typeof raw !== "object") return null;
 
@@ -692,7 +674,6 @@ function mapNbaMarket(row: BzNbaOddsRowRaw): {
   return null;
 }
 
-/** Interpreta `/basketball/api/v2/events/{id}/odds/` en filas `OddsSnapshotRow` canónicas para NBA. */
 export function parseBzzoiroNbaOdds(params: {
   homeTeamRaw: string;
   awayTeamRaw: string;
@@ -761,9 +742,6 @@ export function parseBzzoiroNbaOdds(params: {
   return out;
 }
 
-/**
- * Comparativa multi-casa NBA con detección de `SHORTENING`/`DRIFTING`/`STEAM` y anclaje Spacetime (`FD-16`).
- */
 export function parseBzzoiroNbaOddsComparison(
   odds: readonly BzNbaOddsRowRaw[] | null | undefined,
   options: {
@@ -911,21 +889,18 @@ export function parseBzzoiroNbaOddsComparison(
       typeof rawProb === "number" && Number.isFinite(rawProb) && rawProb > 0.001 && rawProb < 0.999
         ? rawProb
         : null;
-    if (options.requireSpacetimeAnchor === true && validRawProb === null) continue;
-    const modelProb = validRawProb !== null ? round3(validRawProb) : null;
-    const anchoredQuote =
-      validRawProb !== null
-        ? toSpacetimeAnchoredQuote({
-            bookLabel: sorted[0]!.bookLabel,
-            marketKey: bucket.market,
-            selection: bucket.selection,
-            line: bucket.line,
-            bookDecimal: bestDecimal,
-            modelProb: validRawProb,
-            movement: consensusMv.signal,
-            capturedAtIso: sorted[0]!.capturedAtUtc,
-          })
-        : undefined;
+    if (validRawProb === null) continue;
+    const modelProb = round3(validRawProb);
+    const anchoredQuote = toSpacetimeAnchoredQuote({
+      bookLabel: sorted[0]!.bookLabel,
+      marketKey: bucket.market,
+      selection: bucket.selection,
+      line: bucket.line,
+      bookDecimal: bestDecimal,
+      modelProb: validRawProb,
+      movement: consensusMv.signal,
+      capturedAtIso: sorted[0]!.capturedAtUtc,
+    });
 
     out.push({
       market: bucket.market,
@@ -940,10 +915,10 @@ export function parseBzzoiroNbaOddsComparison(
       deltaPct: consensusMv.deltaPct,
       signal: consensusMv.signal,
       modelProb,
-      fairOdds: validRawProb !== null ? round3(1 / validRawProb) : null,
-      edgePts: validRawProb !== null ? round2((validRawProb - 1 / bestDecimal) * 100) : null,
-      evPct: validRawProb !== null ? round2((validRawProb * bestDecimal - 1) * 100) : null,
-      ...(anchoredQuote ? { anchoredQuote } : {}),
+      fairOdds: round3(1 / validRawProb),
+      edgePts: round2((validRawProb - 1 / bestDecimal) * 100),
+      evPct: round2((validRawProb * bestDecimal - 1) * 100),
+      anchoredQuote,
       books,
     });
   }
@@ -951,7 +926,6 @@ export function parseBzzoiroNbaOddsComparison(
   return out;
 }
 
-/** Normaliza `/basketball/api/v2/players/{id}/games/` sin IDs crudos ni URLs (`FD-16`). */
 export function parseBzzoiroNbaPlayerGames(
   raw: readonly BzNbaPlayerGameRaw[] | BzList<BzNbaPlayerGameRaw> | null | undefined,
 ): NormalizedNbaPlayerGame[] {
@@ -1009,20 +983,13 @@ function roundHalfLine(mean: number): number {
   return Math.max(0.5, Math.floor(mean) + 0.5);
 }
 
-/**
- * Construye seeds de props NBA (`PTS`, `REB`, `AST`, `3PM`, `P+R+A`) a partir de
- * `/basketball/api/v2/players/{id}/games/`, con soporte opcional de guardia `minMinutes`
- * y exclusión de bajas reales (`availabilityStatus`).
- */
 export function buildNbaPlayerPropSeeds(params: {
   player: string;
   teamSlug: string;
   teamName: string;
   position?: string;
   games: readonly BzNbaPlayerGameRaw[];
-  /** Mínimo de minutos por partido para admitir la muestra (p. ej. `18` en producción). */
   minMinutes?: number;
-  /** Mínimo de promedio de minutos en la ventana reciente. */
   minAvgMinutes?: number;
   minSampleGames?: number;
   availabilityStatus?: string | null;
@@ -1081,7 +1048,9 @@ export function buildNbaPlayerPropSeeds(params: {
     },
   ];
 
-  const cleanPlayer = sanitizeClientText(params.player) ?? params.player.trim();
+  const cleanPlayer = sanitizeClientText(params.player);
+  if (!cleanPlayer) return [];
+  const cleanTeamName = sanitizeClientText(params.teamName)?.slice(0, 120) ?? "Equipo NBA";
   const seeds: NbaPlayerPropSeed[] = [];
   for (const d of defs) {
     const vals = recent.map(d.extract).filter((v): v is number => v !== null && v >= 0);
@@ -1091,7 +1060,7 @@ export function buildNbaPlayerPropSeeds(params: {
     seeds.push({
       player: cleanPlayer.slice(0, 120),
       teamSlug: params.teamSlug,
-      teamName: sanitizeClientText(params.teamName) ?? params.teamName,
+      teamName: cleanTeamName,
       position: sanitizeClientText(params.position) ?? "NBA",
       statKey: d.key,
       statLabel: d.label,
@@ -1106,7 +1075,6 @@ export function buildNbaPlayerPropSeeds(params: {
   return seeds;
 }
 
-/** Atajo estricto para producción NBA: aplica guardia `minMinutes >= 18` y filtra bajas reales. */
 export function buildGuardedNbaPlayerPropSeeds(params: {
   player: string;
   teamSlug: string;
@@ -1126,7 +1094,6 @@ export function buildGuardedNbaPlayerPropSeeds(params: {
   });
 }
 
-/** Fetchers de alto nivel sobre `ProviderClient` (`/basketball/api/v2/`). */
 export async function fetchBzzoiroNbaStandings(client: ProviderClient): Promise<StandingRow[]> {
   const raw = await client.get<BzList<BzNbaStandingRowRaw> | { east?: BzNbaStandingRowRaw[]; west?: BzNbaStandingRowRaw[] }>(
     `/basketball/api/v2/standings/?league=${NBA_LEAGUE_ID}`,
@@ -1200,7 +1167,7 @@ export async function fetchBzzoiroNbaOdds(
     }),
     comparison: parseBzzoiroNbaOddsComparison(listRaw, {
       modelProbsByKey: params.modelProbsByKey,
-      requireSpacetimeAnchor: params.requireSpacetimeAnchor,
+      requireSpacetimeAnchor: true,
     }),
   };
 }

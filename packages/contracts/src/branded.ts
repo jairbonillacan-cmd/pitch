@@ -90,6 +90,21 @@ export type VisitorRestrictedKey = (typeof VISITOR_RESTRICTED_KEYS)[number];
 
 const VISITOR_RESTRICTED_KEY_SET: ReadonlySet<string> = new Set(VISITOR_RESTRICTED_KEYS);
 
+export const CLIENT_MATCH_CONTEXT_FACTOR_LABELS = [
+  "Forma local",
+  "Forma visitante",
+  "Posición local",
+  "Posición visitante",
+  "Local",
+  "Visitante",
+  "Descanso",
+  "Tiempo extra",
+  "Abridores",
+] as const;
+
+export type ClientMatchContextFactorLabel =
+  (typeof CLIENT_MATCH_CONTEXT_FACTOR_LABELS)[number];
+
 export type UnitProbability = Brand<number, "UnitProbability">;
 export type PositiveDecimalOdds = Brand<number, "PositiveDecimalOdds">;
 export type OpaqueResourceId = Brand<string, "OpaqueResourceId">;

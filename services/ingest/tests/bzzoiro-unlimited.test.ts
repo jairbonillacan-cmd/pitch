@@ -1,6 +1,7 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
+import { describe, expect, it, vi } from "vitest";
 import {
   annotateBestOddsBySelection,
   BzzoiroOddsAdapter,
@@ -63,8 +64,13 @@ import {
   parseBzzoiroNbaStandings,
   parseNbaMinutes,
 } from "../src/providers/bzzoiro-nba-rich.js";
-import type { ProviderClient } from "../src/providers/http.js";
-import { resolveNbaStandingsWithFallback } from "../src/us-standings-cli.js";
+import { cacheFileFor, type ProviderClient } from "../src/providers/http.js";
+import { runUsSnapshotCli } from "../src/us-snapshot-cli.js";
+import {
+  hydrateNbaStandings,
+  resolveNbaStandingsWithFallback,
+  runUsStandingsCli,
+} from "../src/us-standings-cli.js";
 
 const LIVE_FIX = join(import.meta.dirname, "fixtures", "bzzoiro-live");
 const REAL_STATS_FIXTURE = JSON.parse(readFileSync(join(LIVE_FIX, "stats.json"), "utf8")) as BzLiveStats;
@@ -1850,13 +1856,21 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
         { market: "moneyline", outcome: "home", bookmaker_slug: "fanduel", decimal_odds: 1.52, opening_odds: 1.67 },
         { market: "totals", outcome: "over", line: 224.5, bookmaker_slug: "betmgm", decimal_odds: 1.95, opening_odds: 1.88 },
       ],
-      { modelProbsByKey: { "moneyline|null|home": 0.68 } },
+      {
+        modelProbsByKey: {
+          "moneyline|null|home": 0.68,
+          "totals|224.5|over": 0.53,
+        },
+      },
     );
     const mlHome = nbaComp.find((c) => c.market === "moneyline" && c.selection === "home")!;
+    const totalsOver = nbaComp.find((c) => c.market === "totals")!;
     expect(mlHome.signal).toBe("STEAM");
     expect(mlHome.bestBook).toBe("draftkings");
     expect(mlHome.fairOdds).toBeCloseTo(1 / 0.68, 2);
-    expect(nbaComp.find((c) => c.market === "totals")?.signal).toBe("DRIFTING");
+    expect(Object.isFrozen(mlHome.anchoredQuote)).toBe(true);
+    expect(totalsOver.signal).toBe("DRIFTING");
+    expect(Object.isFrozen(totalsOver.anchoredQuote)).toBe(true);
     assertFd16Clean(nbaComp);
   });
 
@@ -1939,6 +1953,7 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
       awayTeamRaw: "Miami Heat",
       kickoffUtc: "2026-11-22T00:30:00Z",
       capturedAtUtc: "2026-11-21T18:00:00Z",
+      modelProbsByKey: { "moneyline|null|home": 0.6 },
     });
 
     expect(calls).toEqual([
@@ -1949,7 +1964,10 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
     expect(box.teamMetrics?.home.fgPct).toBe(48.5);
     expect(pre?.officials).toEqual(["Marc Davis"]);
     expect(odds.snapshotRows).toHaveLength(1);
+    expect(odds.comparison).toHaveLength(1);
     expect(odds.comparison[0]?.signal).toBe("SHORTENING");
+    expect(odds.comparison[0]?.fairOdds).toBe(1.667);
+    expect(Object.isFrozen(odds.comparison[0]?.anchoredQuote)).toBe(true);
     assertFd16Clean({ box, pre, comparison: odds.comparison }, ["880"]);
   });
 
@@ -2458,5 +2476,205 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
     });
     expect(espnFallback.source).toBe("espn");
     expect(espnFallback.standings).toHaveLength(2);
+  });
+
+  it("exige anclaje Spacetime incondicional en NBA (sin modelProbsByKey o requireSpacetimeAnchor: false -> []) y bloquea fallbacks con solo URLs", async () => {
+    const rawNbaOdds = [
+      {
+        market: "moneyline",
+        outcome: "home",
+        bookmaker_slug: "pinnacle",
+        decimal_odds: 1.75,
+        opening_odds: 1.85,
+        updated_at: "2026-11-21T18:00:00Z",
+      },
+      {
+        market: "totals",
+        outcome: "over",
+        line: 224.5,
+        bookmaker_slug: "betmgm",
+        decimal_odds: 1.95,
+        opening_odds: 1.88,
+        updated_at: "2026-11-21T18:00:00Z",
+      },
+    ];
+
+    expect(parseBzzoiroNbaOddsComparison(rawNbaOdds)).toEqual([]);
+    expect(parseBzzoiroNbaOddsComparison(rawNbaOdds, { requireSpacetimeAnchor: false })).toEqual([]);
+
+    const partial = parseBzzoiroNbaOddsComparison(rawNbaOdds, {
+      modelProbsByKey: { "moneyline|null|home": 0.62 },
+      requireSpacetimeAnchor: false,
+    });
+    expect(partial).toHaveLength(1);
+    expect(partial[0]).toMatchObject({
+      market: "moneyline",
+      selection: "home",
+      modelProb: 0.62,
+      fairOdds: 1.613,
+    });
+    expect(Object.isFrozen(partial[0]!.anchoredQuote)).toBe(true);
+
+    const { client } = createMockProviderClient({
+      "/basketball/api/v2/events/881/odds/": { results: rawNbaOdds },
+    });
+    const unanchoredFetch = await fetchBzzoiroNbaOdds(client, {
+      providerEventId: 881,
+      homeTeamRaw: "Boston Celtics",
+      awayTeamRaw: "Miami Heat",
+      kickoffUtc: "2026-11-22T00:30:00Z",
+      capturedAtUtc: "2026-11-21T18:00:00Z",
+      requireSpacetimeAnchor: false,
+    });
+    expect(unanchoredFetch.comparison).toEqual([]);
+
+    const sampleGames = [
+      { minutes: "34:00", points: 25, rebounds: 6, assists: 5, three_pointers_made: 3 },
+      { minutes: "35:00", points: 27, rebounds: 7, assists: 6, three_pointers_made: 4 },
+      { minutes: "33:00", points: 24, rebounds: 5, assists: 4, three_pointers_made: 2 },
+    ];
+    expect(
+      buildGuardedNbaPlayerPropSeeds({
+        player: "https://sports.bzzoiro.com/player/887766",
+        teamSlug: "boston-celtics",
+        teamName: "Boston Celtics",
+        games: sampleGames,
+      }),
+    ).toEqual([]);
+
+    const sanitizedTeamSeeds = buildGuardedNbaPlayerPropSeeds({
+      player: "Jayson Tatum",
+      teamSlug: "boston-celtics",
+      teamName: "https://sports.bzzoiro.com/team/101",
+      games: sampleGames,
+    });
+    expect(sanitizedTeamSeeds.length).toBeGreaterThan(0);
+    expect(sanitizedTeamSeeds.every((s) => s.teamName === "Equipo NBA")).toBe(true);
+    assertFd16Clean(sanitizedTeamSeeds);
+  });
+
+  it("degrada limpio con PITCHLAB_OFFLINE=1 en us-standings-cli y us-snapshot-cli sin llamadas de red reales", async () => {
+    const now = new Date("2026-11-21T18:00:00Z");
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async () => {
+      throw new Error("Red no permitida en PITCHLAB_OFFLINE=1");
+    });
+
+    const tempRoot = mkdtempSync(join(tmpdir(), "pl-us-offline-"));
+    const cacheDir = join(tempRoot, "cache");
+    const preservedSnaps = join(tempRoot, "snaps-preserved");
+    const cachedSnaps = join(tempRoot, "snaps-cached");
+
+    let customFetchCalls = 0;
+    const blockingFetch: typeof fetch = async () => {
+      customFetchCalls += 1;
+      throw new Error("Red no permitida en PITCHLAB_OFFLINE=1");
+    };
+
+    try {
+      const standingsResult = await runUsStandingsCli({
+        env: { PITCHLAB_OFFLINE: "1" },
+        argv: ["--leagues=nba,nhl,nfl,mlb"],
+        now,
+      });
+      expect(standingsResult).toEqual({ skippedOffline: true, failures: 0 });
+      await hydrateNbaStandings(now, { PITCHLAB_OFFLINE: "1" });
+      expect(fetchSpy).not.toHaveBeenCalled();
+
+      const sentinelPath = join(preservedSnaps, "nba", "latest.json");
+      mkdirSync(dirname(sentinelPath), { recursive: true });
+      writeFileSync(sentinelPath, '{"sentinel":"preserved"}\n', "utf8");
+
+      const missingCacheRes = await runUsSnapshotCli({
+        env: { PITCHLAB_OFFLINE: "1" },
+        argv: ["--sports=nba"],
+        cacheDir,
+        snapshotsRoot: preservedSnaps,
+        now,
+        fetchImpl: blockingFetch,
+      });
+      expect(missingCacheRes).toEqual({
+        offline: true,
+        skippedMissingKey: false,
+        updatedSports: [],
+        preservedOfflineSports: ["nba"],
+        failures: 0,
+      });
+      expect(readFileSync(sentinelPath, "utf8")).toBe('{"sentinel":"preserved"}\n');
+      expect(customFetchCalls).toBe(0);
+
+      const writeSeasonCache = (startYear: number, results: unknown[]) => {
+        const pathWithQuery = `/basketball/api/v2/events/?league=1&date_from=${startYear}-08-01&date_to=${startYear + 1}-07-31&limit=200&offset=0`;
+        const filePath = cacheFileFor(cacheDir, "bzzoiro", pathWithQuery);
+        mkdirSync(dirname(filePath), { recursive: true });
+        writeFileSync(
+          filePath,
+          JSON.stringify({ count: results.length, next: null, results }),
+          "utf8",
+        );
+      };
+      writeSeasonCache(2024, []);
+      writeSeasonCache(2025, []);
+      writeSeasonCache(2026, [
+        {
+          id: 1001,
+          league: { id: 1 },
+          home_team: { id: 3, name: "Boston Celtics", short_name: "Celtics" },
+          away_team: { id: 26, name: "Miami Heat", short_name: "Heat" },
+          event_date: "2026-11-20T00:30:00Z",
+          status: "finished",
+          home_score: 118,
+          away_score: 105,
+        },
+        {
+          id: 1002,
+          league: { id: 1 },
+          home_team: { id: 3, name: "Boston Celtics", short_name: "Celtics" },
+          away_team: { id: 26, name: "Miami Heat", short_name: "Heat" },
+          event_date: "2026-11-22T00:30:00Z",
+          status: "scheduled",
+          home_score: null,
+          away_score: null,
+        },
+      ]);
+
+      const cachedRes = await runUsSnapshotCli({
+        env: { PITCHLAB_OFFLINE: "1" },
+        argv: ["--sports=nba"],
+        cacheDir,
+        snapshotsRoot: cachedSnaps,
+        now,
+        fetchImpl: blockingFetch,
+      });
+      expect(cachedRes).toEqual({
+        offline: true,
+        skippedMissingKey: false,
+        updatedSports: ["nba"],
+        preservedOfflineSports: [],
+        failures: 0,
+      });
+      expect(existsSync(join(cachedSnaps, "nba", "latest.json"))).toBe(true);
+      expect(customFetchCalls).toBe(0);
+
+      const noKeyRes = await runUsSnapshotCli({
+        env: {},
+        argv: ["--sports=nba"],
+        cacheDir,
+        snapshotsRoot: cachedSnaps,
+        now,
+        fetchImpl: blockingFetch,
+      });
+      expect(noKeyRes).toEqual({
+        offline: false,
+        skippedMissingKey: true,
+        updatedSports: [],
+        preservedOfflineSports: [],
+        failures: 0,
+      });
+      expect(customFetchCalls).toBe(0);
+      expect(fetchSpy).not.toHaveBeenCalled();
+    } finally {
+      fetchSpy.mockRestore();
+      rmSync(tempRoot, { recursive: true, force: true });
+    }
   });
 });

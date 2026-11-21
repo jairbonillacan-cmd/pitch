@@ -161,11 +161,31 @@ export function writeNbaRichSidecarFiles(
   return { wroteMarketLines, wrotePlayerProps };
 }
 
-async function main(): Promise<void> {
-  loadRootEnvFiles(ROOT);
+export interface RunUsSnapshotCliOptions {
+  readonly env?: Readonly<Record<string, string | undefined>>;
+  readonly argv?: readonly string[];
+  readonly cacheDir?: string;
+  readonly snapshotsRoot?: string;
+  readonly now?: Date;
+  readonly fetchImpl?: typeof fetch;
+}
+
+export interface RunUsSnapshotCliResult {
+  readonly offline: boolean;
+  readonly skippedMissingKey: boolean;
+  readonly updatedSports: UsSport[];
+  readonly preservedOfflineSports: UsSport[];
+  readonly failures: number;
+}
+
+export async function runUsSnapshotCli(
+  options: RunUsSnapshotCliOptions = {},
+): Promise<RunUsSnapshotCliResult> {
+  const env = options.env ?? process.env;
+  const argv = options.argv ?? process.argv.slice(2);
   let sports: UsSport[] = ["nba", "nhl"];
-  let offline = process.env.PITCHLAB_OFFLINE === "1";
-  for (const arg of process.argv.slice(2)) {
+  let offline = env.PITCHLAB_OFFLINE === "1";
+  for (const arg of argv) {
     if (arg === "--offline") offline = true;
     else if (arg.startsWith("--sports=")) {
       sports = arg.slice(9).split(",").filter((s): s is UsSport => s in BZZOIRO_US);
@@ -173,42 +193,70 @@ async function main(): Promise<void> {
       throw new Error(`Argumento no reconocido: '${arg}'.`);
     }
   }
-  const cfg = readProviderConfigs().bzzoiro;
+  const cfg = readProviderConfigs(env).bzzoiro;
   if (!cfg.enabled && !offline) {
     console.log("[snapshot:us] Falta BZZOIRO_API_KEY; no se genera NBA/NHL.");
-    return;
+    return {
+      offline: false,
+      skippedMissingKey: true,
+      updatedSports: [],
+      preservedOfflineSports: [],
+      failures: 0,
+    };
   }
   const rootCfg = { ...cfg, baseUrl: cfg.baseUrl.replace(/\/api\/v2$/, "") };
-  const now = new Date();
+  const snapshotsRoot = options.snapshotsRoot ?? SNAPSHOTS;
+  const cacheDir = options.cacheDir ?? resolve(ROOT, "data", "history", "raw");
+  const now = options.now ?? new Date();
   const updatedAtIso = now.toISOString();
   const parsedStartYear = parseStrictFiniteNumber(usSeasonOf(updatedAtIso).slice(0, 4));
   const currentStart = parsedStartYear ?? now.getUTCFullYear();
+  const updatedSports: UsSport[] = [];
+  const preservedOfflineSports: UsSport[] = [];
   let failures = 0;
 
   for (const sport of sports) {
     try {
       const client = createProviderClient(rootCfg, {
-        cacheDir: resolve(ROOT, "data", "history", "raw"),
+        cacheDir,
         minIntervalMs: 1_000,
         maxRequests: 30,
         offline,
+        ...(options.fetchImpl ? { fetchImpl: options.fetchImpl } : {}),
         log: (m) => console.log(`[snapshot:${sport}] ${m}`),
       });
       const rows: UsGameRow[] = [];
+      let offlineCacheMiss = false;
       for (let year = currentStart - 2; year <= currentStart; year++) {
-        rows.push(...(await collectUsSeason(client, sport, year, year === currentStart)));
+        try {
+          rows.push(...(await collectUsSeason(client, sport, year, !offline && year === currentStart)));
+        } catch (seasonErr) {
+          if (offline && seasonErr instanceof Error && seasonErr.message.startsWith("Modo offline:")) {
+            offlineCacheMiss = true;
+            break;
+          }
+          throw seasonErr;
+        }
       }
-      const previous = loadPreviousSnapshot(SNAPSHOTS, sport);
+      if (offline && (offlineCacheMiss || rows.length === 0)) {
+        preservedOfflineSports.push(sport);
+        console.log(
+          `[snapshot:${sport}] Modo offline sin caché local completa; se conserva snapshot previo.`,
+        );
+        continue;
+      }
+      const previous = loadPreviousSnapshot(snapshotsRoot, sport);
       let candidate = buildUsLeagueSnapshot({ sport, rows, now, previousSnapshot: previous });
 
       let nbaRich: NbaRichCollectionResult | null = null;
       if (sport === "nba" && cfg.enabled && !offline) {
         try {
           const richClient = createProviderClient(rootCfg, {
-            cacheDir: resolve(ROOT, "data", "history", "raw"),
+            cacheDir,
             minIntervalMs: cfg.unlimitedQuota ? 150 : 1_000,
             maxRequests: cfg.unlimitedQuota ? 300 : 40,
             offline: false,
+            ...(options.fetchImpl ? { fetchImpl: options.fetchImpl } : {}),
             log: (m) => console.log(`[snapshot:nba:rich] ${m}`),
           });
           const upcomingEvents = buildNbaRichEventTargets(rows, candidate);
@@ -231,21 +279,29 @@ async function main(): Promise<void> {
 
       const validation = validateLeagueSnapshotCandidate(candidate, previous, { nowMs: now.getTime() });
       if (!validation.ok) {
-        failures++;
         const reason = validation.issues.slice(0, 3).map((i) => `${i.code}: ${i.message}`).join(" | ");
+        if (offline) {
+          preservedOfflineSports.push(sport);
+          console.log(
+            `[snapshot:${sport}] Modo offline con caché insuficiente (${reason}); se conserva snapshot previo.`,
+          );
+          continue;
+        }
+        failures++;
         console.error(`[snapshot:${sport}] rechazado por validación; se conserva el anterior (${reason}).`);
         continue;
       }
       const { latestPath } = writeSnapshotFiles(
-        SNAPSHOTS,
+        snapshotsRoot,
         validation.value ?? candidate,
         updatedAtIso.slice(0, 10),
       );
       let richSummary = "";
       if (nbaRich) {
-        const sidecars = writeNbaRichSidecarFiles(SNAPSHOTS, nbaRich, updatedAtIso);
+        const sidecars = writeNbaRichSidecarFiles(snapshotsRoot, nbaRich, updatedAtIso);
         richSummary = ` · pregame=${nbaRich.pregameByGameId.size} · líneas=${nbaRich.marketLines.length}${sidecars.wroteMarketLines ? " (guardadas)" : ""} · props=${nbaRich.propSeeds.length}${sidecars.wrotePlayerProps ? " (player-props.json)" : ""}`;
       }
+      updatedSports.push(sport);
       console.log(
         `[snapshot:${sport}] ${candidate.games.length} partidos (${Object.keys(candidate.analyses).length} con análisis)${richSummary} → ${latestPath} · peticiones ${client.stats.requests}`,
       );
@@ -254,7 +310,23 @@ async function main(): Promise<void> {
       console.error(`[snapshot:${sport}] error; se conserva el anterior:`, error instanceof Error ? error.message : error);
     }
   }
-  if (failures > 0) process.exitCode = 1;
+
+  return {
+    offline,
+    skippedMissingKey: false,
+    updatedSports,
+    preservedOfflineSports,
+    failures,
+  };
+}
+
+async function main(): Promise<void> {
+  loadRootEnvFiles(ROOT);
+  const result = await runUsSnapshotCli({
+    env: process.env,
+    argv: process.argv.slice(2),
+  });
+  if (result.failures > 0) process.exitCode = 1;
 }
 
 const isDirectEntry =
