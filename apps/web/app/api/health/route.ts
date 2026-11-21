@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { withPublicRead } from "../../../src/server/api-guards";
 
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 function detectRuntimeLabel(): string {
@@ -15,22 +17,19 @@ function detectRuntimeLabel(): string {
   return "node";
 }
 
-/**
- * Sonda ligera de salud agnóstica de proveedor (Docker HEALTHCHECK, Kubernetes, Cloud Run, Fly, Railway, ECS, VPS).
- * No toca la base de datos para responder en < 2 ms sin despertar conexiones inactivas de PostgreSQL.
- */
-export function GET(): NextResponse {
-  return NextResponse.json(
-    {
-      ok: true,
-      service: "pitchlab-web",
-      runtime: detectRuntimeLabel(),
-    },
-    {
-      status: 200,
-      headers: {
-        "Cache-Control": "no-store, max-age=0",
+export const GET = withPublicRead(
+  {
+    bucket: "health",
+    skipRateLimit: true,
+    cacheControl: "no-store",
+  },
+  () =>
+    NextResponse.json(
+      {
+        ok: true,
+        service: "pitchlab-web",
+        runtime: detectRuntimeLabel(),
       },
-    },
-  );
-}
+      { status: 200 },
+    ),
+);

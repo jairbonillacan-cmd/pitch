@@ -18,9 +18,10 @@ describe("preparación Google Cloud Run (/api/health, GCS avatares, K_SERVICE, T
 
   it("GET /api/health responde 200 sin tocar base de datos y con Cache-Control no-store", async () => {
     vi.stubEnv("K_SERVICE", "pitchlab-web");
-    const res = healthGet();
+    const res = await healthGet(new Request("http://localhost:3000/api/health"));
     expect(res.status).toBe(200);
     expect(res.headers.get("cache-control")).toContain("no-store");
+    expect(res.headers.get("x-content-type-options")).toBe("nosniff");
     expect(await res.json()).toEqual({
       ok: true,
       service: "pitchlab-web",

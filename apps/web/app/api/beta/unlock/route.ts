@@ -1,4 +1,4 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import {
   checkRateLimit,
   getBetaCookieMaxAge,
@@ -8,11 +8,28 @@ import {
   signBetaCookieToken,
   verifyPinCodeConstantTime,
 } from "../../../../src/server/beta-auth";
-import { trustedClientIp, verifySameOriginMutation } from "../../../../src/server/request-security";
+import {
+  rateLimitResponse,
+  serviceUnavailableRateLimitResponse,
+  trustedClientIp,
+  verifySameOriginMutation,
+} from "../../../../src/server/request-security";
 
-export async function POST(request: NextRequest): Promise<NextResponse> {
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+const SECURITY_HEADERS = {
+  "Cache-Control": "no-store",
+  "X-Content-Type-Options": "nosniff",
+} as const;
+
+export async function POST(request: Request): Promise<NextResponse> {
   const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
+  if (csrfError) {
+    csrfError.headers.set("Cache-Control", "no-store");
+    csrfError.headers.set("X-Content-Type-Options", "nosniff");
+    return csrfError;
+  }
 
   if (!isBetaPinEnabled()) {
     return NextResponse.json(
@@ -20,36 +37,38 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         ok: false,
         error: "El acceso por código beta está deshabilitado. Inicia sesión con tu cuenta.",
       },
-      { status: 403 },
+      { status: 403, headers: SECURITY_HEADERS },
     );
   }
 
   const ip = trustedClientIp(request.headers) || "127.0.0.1";
 
   const rl = await checkRateLimit(ip);
+  if (rl.storeUnavailable) {
+    return serviceUnavailableRateLimitResponse(rl.retryAfterSeconds);
+  }
   if (!rl.allowed) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "Demasiados intentos. Intenta de nuevo en unos minutos.",
-      },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": String(rl.retryAfterSeconds),
-        },
-      },
+    return rateLimitResponse(
+      rl.retryAfterSeconds,
+      "Demasiados intentos. Intenta de nuevo en unos minutos.",
     );
   }
 
-  let body: { code?: string; next?: string } = {};
+  let body: { code?: unknown; next?: unknown } = {};
   try {
-    body = (await request.json()) as { code?: string; next?: string };
+    const parsed: unknown = await request.json();
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return NextResponse.json(
+        { ok: false, error: "Solicitud inválida." },
+        { status: 400, headers: SECURITY_HEADERS },
+      );
+    }
+    body = parsed as { code?: unknown; next?: unknown };
   } catch (err) {
     void err;
     return NextResponse.json(
       { ok: false, error: "Solicitud inválida." },
-      { status: 400 },
+      { status: 400, headers: SECURITY_HEADERS },
     );
   }
 
@@ -64,7 +83,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         ok: false,
         error: "El acceso por código beta está deshabilitado.",
       },
-      { status: 403 },
+      { status: 403, headers: SECURITY_HEADERS },
     );
   }
   if (!valid) {
@@ -73,7 +92,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         ok: false,
         error: "Código incorrecto. Si tienes invitación, escríbenos.",
       },
-      { status: 401 },
+      { status: 401, headers: SECURITY_HEADERS },
     );
   }
 
@@ -87,11 +106,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         ok: false,
         error: "El acceso por código beta está deshabilitado.",
       },
-      { status: 403 },
+      { status: 403, headers: SECURITY_HEADERS },
     );
   }
-  const redirectTo = sanitizeNextPath(body.next);
-  const response = NextResponse.json({ ok: true, redirectTo });
+
+  const nextParam = typeof body.next === "string" ? body.next : undefined;
+  const redirectTo = sanitizeNextPath(nextParam);
+  const response = NextResponse.json({ ok: true, redirectTo }, { headers: SECURITY_HEADERS });
 
   response.cookies.set({
     name: getBetaCookieName(),

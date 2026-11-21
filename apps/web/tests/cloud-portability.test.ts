@@ -161,11 +161,13 @@ describe("ADR-050 · Portabilidad e independencia de proveedor (sin lock-in Verc
     vi.stubEnv("WEBSITE_SITE_NAME", "");
     vi.stubEnv("PITCHLAB_RUNTIME_LABEL", "");
 
-    const neutral = await healthGet().json();
+    const neutralRes = await healthGet(new Request("http://localhost:3000/api/health"));
+    const neutral = await neutralRes.json();
     expect(neutral).toEqual({ ok: true, service: "pitchlab-web", runtime: "node" });
 
     vi.stubEnv("PITCHLAB_RUNTIME_LABEL", "docker-vps");
-    const custom = await healthGet().json();
+    const customRes = await healthGet(new Request("http://localhost:3000/api/health"));
+    const custom = await customRes.json();
     expect(custom).toEqual({ ok: true, service: "pitchlab-web", runtime: "docker-vps" });
   });
 

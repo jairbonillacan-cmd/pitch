@@ -1,29 +1,35 @@
 import { NextResponse } from "next/server";
-import { loadPublicMemberProfile } from "../../../../src/server/profile";
+import { checkHandleFormat } from "@pitchlab/db";
 import {
-  checkEndpointRateLimit,
-  rateLimitResponse,
-  trustedClientIp,
-} from "../../../../src/server/request-security";
+  withPublicRead,
+  type PublicReadContext,
+} from "../../../../src/server/api-guards";
+import { loadPublicMemberProfile } from "../../../../src/server/profile";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ handle: string }> },
-): Promise<NextResponse> {
-  const rl = await checkEndpointRateLimit({
+export const GET = withPublicRead(
+  {
     bucket: "public-profile",
-    key: trustedClientIp(request.headers) || "local",
     limit: 60,
     windowMs: 60_000,
-  });
-  if (!rl.allowed) return rateLimitResponse(rl.retryAfterSeconds);
+    cacheControl: "no-store",
+  },
+  async ({ params }: PublicReadContext<{ handle: string }>) => {
+    const rawHandle = typeof params.handle === "string" ? params.handle.slice(0, 40) : "";
+    const handleCheck = checkHandleFormat(rawHandle);
+    if (!handleCheck.ok) {
+      return NextResponse.json({ error: "perfil_no_encontrado" }, { status: 404 });
+    }
 
-  const profile = await loadPublicMemberProfile((await params).handle);
-  if (!profile) return NextResponse.json({ error: "perfil_no_encontrado" }, { status: 404 });
-  return NextResponse.json(profile, {
-    headers: { "Cache-Control": "public, max-age=60, s-maxage=120" },
-  });
-}
+    const profile = await loadPublicMemberProfile(handleCheck.handle);
+    if (!profile) {
+      return NextResponse.json({ error: "perfil_no_encontrado" }, { status: 404 });
+    }
+
+    return NextResponse.json(profile, {
+      headers: { "Cache-Control": "public, max-age=60, s-maxage=120" },
+    });
+  },
+);

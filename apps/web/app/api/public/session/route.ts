@@ -1,21 +1,19 @@
 import { NextResponse } from "next/server";
+import { withPublicRead } from "../../../../src/server/api-guards";
 import { hasPublicSessionCookie } from "../../../../src/server/public-session";
 
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/**
- * Comprobación mínima de sesión para la barra pública (`PublicNavBarClient`).
- * Permite cachear HTML público (ISR + `Cache-Control: public`) sin leer cookies
- * durante el renderizado SSR ni filtrar datos de sesión entre visitantes (`ADR-053`).
- */
-export async function GET(): Promise<NextResponse> {
-  const authenticated = await hasPublicSessionCookie();
-  return NextResponse.json(
-    { authenticated },
-    {
-      headers: {
-        "Cache-Control": "private, no-store, max-age=0",
-      },
-    },
-  );
-}
+export const GET = withPublicRead(
+  {
+    bucket: "public-session",
+    limit: 120,
+    windowMs: 60_000,
+    cacheControl: "private, no-store, max-age=0",
+  },
+  async () => {
+    const authenticated = await hasPublicSessionCookie();
+    return NextResponse.json({ authenticated });
+  },
+);

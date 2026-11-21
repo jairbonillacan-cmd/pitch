@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireCronAuth } from "../../../../src/server/cron-auth";
+import { withCronSecret } from "../../../../src/server/api-guards";
 import { runMonthlyRecordJob } from "../../../../src/server/lifecycle-emails";
 import { getMailer } from "../../../../src/server/mailer";
 import { serverDb } from "../../../../src/server/session-user";
@@ -7,10 +7,7 @@ import { serverDb } from "../../../../src/server/session-user";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-async function handleMonthlyRecord(request: Request): Promise<NextResponse> {
-  const authError = requireCronAuth(request);
-  if (authError) return authError;
-
+const handleMonthlyRecord = withCronSecret({ bucket: "cron-monthly-record" }, async () => {
   const db = serverDb();
   if (!db) {
     return NextResponse.json({ error: "Base de datos no disponible" }, { status: 503 });
@@ -23,12 +20,7 @@ async function handleMonthlyRecord(request: Request): Promise<NextResponse> {
     ranAtUtc: now.toISOString(),
     ...summary,
   });
-}
+});
 
-export async function GET(request: Request): Promise<NextResponse> {
-  return handleMonthlyRecord(request);
-}
-
-export async function POST(request: Request): Promise<NextResponse> {
-  return handleMonthlyRecord(request);
-}
+export const GET = handleMonthlyRecord;
+export const POST = handleMonthlyRecord;

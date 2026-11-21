@@ -1,8 +1,12 @@
-import { checkEndpointRateLimit, resetRateLimitsForTests } from "./request-security";
+import {
+  checkEndpointRateLimit,
+  resetRateLimitsForTests,
+  type RateLimitCheckResult,
+} from "./request-security";
 
 const COOKIE_NAME = "pl_beta";
-const COOKIE_MAX_AGE_SECONDS = 30 * 24 * 60 * 60; // 30 days
-const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const COOKIE_MAX_AGE_SECONDS = 30 * 24 * 60 * 60;
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX_ATTEMPTS = 5;
 
 const FORBIDDEN_PROD_COOKIE_SECRETS: ReadonlySet<string> = new Set([
@@ -28,10 +32,6 @@ export function getBetaCookieMaxAge(): number {
   return COOKIE_MAX_AGE_SECONDS;
 }
 
-/**
- * En producción con cuentas reales activas, el acceso compartido por PIN (`pl_beta`) queda
- * apagado salvo que se autorice explícitamente con `PITCHLAB_ALLOW_BETA_PIN_IN_PROD=1`.
- */
 export function isBetaPinEnabled(): boolean {
   const accountsOn = Boolean(process.env.DATABASE_URL && process.env.BETTER_AUTH_SECRET);
   if (
@@ -43,7 +43,11 @@ export function isBetaPinEnabled(): boolean {
   }
   if (process.env.NODE_ENV === "production") {
     const code = (process.env.PITCHLAB_BETA_CODE ?? process.env.PREVIEW_ACCESS_CODE ?? "").trim();
-    const secret = (process.env.PITCHLAB_COOKIE_SECRET ?? process.env.BETA_COOKIE_SECRET ?? "").trim();
+    const secret = (
+      process.env.PITCHLAB_COOKIE_SECRET ??
+      process.env.BETA_COOKIE_SECRET ??
+      ""
+    ).trim();
     if (!code || secret.length < 32 || isForbiddenProdCookieSecret(secret)) {
       return false;
     }
@@ -80,11 +84,6 @@ function getBetaCookieSecret(): string {
   throw new Error("PITCHLAB_COOKIE_SECRET (>= 32 chars) is not configured in production.");
 }
 
-/**
- * Clave con la que se firma la cookie: el secreto más el código vigente.
- * Cambiar PITCHLAB_BETA_CODE invalida todas las cookies emitidas con el código
- * anterior, sin tener que rotar también PITCHLAB_COOKIE_SECRET.
- */
 export function betaCookieSigningKey(secret: string, code: string): string {
   return `${secret}|code:${code}`;
 }
@@ -123,10 +122,6 @@ function timingSafeEqualBytes(a: Uint8Array, b: Uint8Array): boolean {
   return diff === 0;
 }
 
-/**
- * Constant-time comparison of the user-submitted PIN against PREVIEW_ACCESS_CODE
- * by comparing their HMAC-SHA256 digests of fixed 32-byte length.
- */
 export async function verifyPinCodeConstantTime(
   candidate: string,
   expectedOverride?: string,
@@ -168,12 +163,19 @@ export async function verifyBetaCookieToken(
     return false;
   }
   const [iatStr, expStr, sigHex] = parts;
-  if (!iatStr || !expStr || !sigHex || !/^[0-9a-f]{64}$/i.test(sigHex)) {
+  if (
+    !iatStr ||
+    !expStr ||
+    !sigHex ||
+    !/^\d+$/.test(iatStr) ||
+    !/^\d+$/.test(expStr) ||
+    !/^[0-9a-f]{64}$/i.test(sigHex)
+  ) {
     return false;
   }
-  const iat = Number(iatStr);
-  const exp = Number(expStr);
-  if (!Number.isInteger(iat) || !Number.isInteger(exp)) {
+  const iat = Number.parseInt(iatStr, 10);
+  const exp = Number.parseInt(expStr, 10);
+  if (!Number.isSafeInteger(iat) || !Number.isSafeInteger(exp)) {
     return false;
   }
   const nowSec = Math.floor(nowMs / 1000);
@@ -184,7 +186,7 @@ export async function verifyBetaCookieToken(
   const expectedBytes = await hmacSha256Bytes(secret, `${iat}.${exp}`);
   const actualBytes = new Uint8Array(32);
   for (let i = 0; i < 32; i++) {
-    actualBytes[i] = parseInt(sigHex.slice(i * 2, i * 2 + 2), 16);
+    actualBytes[i] = Number.parseInt(sigHex.slice(i * 2, i * 2 + 2), 16);
   }
   return timingSafeEqualBytes(expectedBytes, actualBytes);
 }
@@ -192,13 +194,14 @@ export async function verifyBetaCookieToken(
 export async function checkRateLimit(
   ip: string,
   nowMs: number = Date.now(),
-): Promise<{ allowed: boolean; remaining: number; retryAfterSeconds: number }> {
+): Promise<RateLimitCheckResult> {
   return checkEndpointRateLimit({
     bucket: "beta-pin",
     key: ip || "unknown",
     limit: RATE_LIMIT_MAX_ATTEMPTS,
     windowMs: RATE_LIMIT_WINDOW_MS,
     nowMs,
+    failClosed: true,
   });
 }
 
@@ -206,9 +209,6 @@ export function resetMemoryRateLimitForTests(): void {
   resetRateLimitsForTests();
 }
 
-/**
- * Ensures `?next=` only redirects to internal `/app` routes (prevents open redirects).
- */
 export function sanitizeNextPath(nextParam: string | null | undefined): string {
   if (!nextParam || typeof nextParam !== "string") {
     return "/app";
