@@ -2,11 +2,12 @@ import { randomUUID } from "node:crypto";
 import { and, count, desc, eq, sql } from "drizzle-orm";
 import type { Db } from "./billing";
 import { withDbTransaction, type DbExecutor } from "./client";
-import { marketAlerts, type MarketAlertRow, type NewMarketAlertRow } from "./schema";
+import { marketAlerts, users, type MarketAlertRow, type NewMarketAlertRow } from "./schema";
 
 export type { MarketAlertRow, NewMarketAlertRow };
 
 export const MAX_MARKET_ALERTS_PER_USER = 40;
+export const MAX_TOTAL_MARKET_ALERTS_PER_USER = 80;
 export const MAX_MARKET_ALERTS_LIST_LIMIT = 40;
 export const MAX_MARKET_ALERT_BATCH_OPS = 10;
 export const MIN_MARKET_ALERT_COOLDOWN_MINUTES = 5;
@@ -150,6 +151,16 @@ export interface RecordMarketAlertFiredInput {
   readonly now?: Date;
 }
 
+export type MarketAlertMergedValidator = (merged: {
+  readonly trigger: MarketAlertTrigger;
+  readonly league: string | null;
+  readonly marketFamily: string | null;
+}) => boolean;
+
+export interface MarketAlertMutationOptions {
+  readonly validateMerged?: MarketAlertMergedValidator;
+}
+
 export type RecordMarketAlertFiredResult =
   | { readonly ok: true; readonly alert: MarketAlertRow }
   | {
@@ -264,6 +275,25 @@ export async function countActiveMarketAlertsForUser(
   return parseCountResult(row?.total);
 }
 
+export async function countTotalMarketAlertsForUser(
+  db: DbExecutor,
+  userId: string,
+): Promise<number> {
+  const [row] = await db
+    .select({ total: count() })
+    .from(marketAlerts)
+    .where(eq(marketAlerts.userId, userId));
+  return parseCountResult(row?.total);
+}
+
+async function lockUserMarketAlertsInTx(tx: Db, userId: string): Promise<void> {
+  await tx
+    .select({ id: users.id })
+    .from(users)
+    .where(eq(users.id, userId))
+    .for("update");
+}
+
 export async function listMarketAlertsForUser(
   db: DbExecutor,
   userId: string,
@@ -320,6 +350,7 @@ async function createMarketAlertInTx(
   userId: string,
   input: CreateMarketAlertInput,
   now: Date,
+  opts?: MarketAlertMutationOptions,
 ): Promise<CreateMarketAlertResult> {
   const name = sanitizeAlertName(input.name);
   if (!name || !isValidTrigger(input.trigger)) {
@@ -357,6 +388,26 @@ async function createMarketAlertInTx(
     alertId = candidateId;
   }
 
+  const league = sanitizeOptionalText(input.league, 64);
+  const marketFamily = sanitizeOptionalText(input.marketFamily, 64);
+  if (
+    opts?.validateMerged &&
+    !opts.validateMerged({
+      trigger: input.trigger,
+      league,
+      marketFamily,
+    })
+  ) {
+    return { ok: false, reason: "invalid_input" };
+  }
+
+  await lockUserMarketAlertsInTx(tx, userId);
+
+  const totalCount = await countTotalMarketAlertsForUser(tx, userId);
+  if (totalCount >= MAX_TOTAL_MARKET_ALERTS_PER_USER) {
+    return { ok: false, reason: "limit_exceeded" };
+  }
+
   const active = input.active !== false;
   if (active) {
     const activeCount = await countActiveMarketAlertsForUser(tx, userId);
@@ -372,8 +423,8 @@ async function createMarketAlertInTx(
       userId,
       name,
       trigger: input.trigger,
-      league: sanitizeOptionalText(input.league, 64),
-      marketFamily: sanitizeOptionalText(input.marketFamily, 64),
+      league,
+      marketFamily,
       selection: sanitizeOptionalText(input.selection, 160),
       thresholdEvPct: evPct.value,
       minDecimal: minDec.value,
@@ -400,11 +451,15 @@ async function updateMarketAlertInTx(
   alertId: string,
   patch: UpdateMarketAlertInput,
   now: Date,
+  opts?: MarketAlertMutationOptions,
 ): Promise<UpdateMarketAlertResult> {
   const cleanId = alertId.trim();
   if (!ALERT_ID_RE.test(cleanId)) {
     return { ok: false, reason: "not_found" };
   }
+
+  await lockUserMarketAlertsInTx(tx, userId);
+
   const existing = await getMarketAlertForUser(tx, userId, cleanId);
   if (!existing) {
     return { ok: false, reason: "not_found" };
@@ -458,6 +513,24 @@ async function updateMarketAlertInTx(
     return { ok: false, reason: "invalid_input" };
   }
 
+  const nextLeague =
+    patch.league !== undefined ? sanitizeOptionalText(patch.league, 64) : existing.league;
+  const nextMarketFamily =
+    patch.marketFamily !== undefined
+      ? sanitizeOptionalText(patch.marketFamily, 64)
+      : existing.marketFamily;
+
+  if (
+    opts?.validateMerged &&
+    !opts.validateMerged({
+      trigger: nextTrigger,
+      league: nextLeague,
+      marketFamily: nextMarketFamily,
+    })
+  ) {
+    return { ok: false, reason: "invalid_input" };
+  }
+
   const nextActive = patch.active !== undefined ? patch.active : existing.active;
   if (!existing.active && nextActive) {
     const activeCount = await countActiveMarketAlertsForUser(tx, userId);
@@ -466,12 +539,6 @@ async function updateMarketAlertInTx(
     }
   }
 
-  const nextLeague =
-    patch.league !== undefined ? sanitizeOptionalText(patch.league, 64) : existing.league;
-  const nextMarketFamily =
-    patch.marketFamily !== undefined
-      ? sanitizeOptionalText(patch.marketFamily, 64)
-      : existing.marketFamily;
   const nextSelection =
     patch.selection !== undefined
       ? sanitizeOptionalText(patch.selection, 160)
@@ -533,8 +600,9 @@ export async function createMarketAlert(
   userId: string,
   input: CreateMarketAlertInput,
   now = new Date(),
+  opts?: MarketAlertMutationOptions,
 ): Promise<CreateMarketAlertResult> {
-  return withDbTransaction(db, (tx) => createMarketAlertInTx(tx, userId, input, now));
+  return withDbTransaction(db, (tx) => createMarketAlertInTx(tx, userId, input, now, opts));
 }
 
 export async function updateMarketAlertForUser(
@@ -543,8 +611,9 @@ export async function updateMarketAlertForUser(
   alertId: string,
   patch: UpdateMarketAlertInput,
   now = new Date(),
+  opts?: MarketAlertMutationOptions,
 ): Promise<UpdateMarketAlertResult> {
-  return withDbTransaction(db, (tx) => updateMarketAlertInTx(tx, userId, alertId, patch, now));
+  return withDbTransaction(db, (tx) => updateMarketAlertInTx(tx, userId, alertId, patch, now, opts));
 }
 
 export async function deleteMarketAlertForUser(
@@ -560,6 +629,7 @@ export async function applyMarketAlertBatch(
   userId: string,
   operations: readonly MarketAlertBatchOperation[],
   now = new Date(),
+  opts?: MarketAlertMutationOptions,
 ): Promise<ApplyMarketAlertBatchResult> {
   if (!Array.isArray(operations) || operations.length === 0) {
     return { ok: false, reason: "batch_size_invalid" };
@@ -570,6 +640,7 @@ export async function applyMarketAlertBatch(
 
   try {
     const results = await withDbTransaction(db, async (tx) => {
+      await lockUserMarketAlertsInTx(tx, userId);
       const applied: MarketAlertBatchItemResult[] = [];
       for (let idx = 0; idx < operations.length; idx += 1) {
         const operation = operations[idx];
@@ -577,13 +648,20 @@ export async function applyMarketAlertBatch(
           throw new BatchRollbackError("invalid_input", idx);
         }
         if (operation.op === "create") {
-          const res = await createMarketAlertInTx(tx, userId, operation.data, now);
+          const res = await createMarketAlertInTx(tx, userId, operation.data, now, opts);
           if (!res.ok) {
             throw new BatchRollbackError(res.reason, idx);
           }
           applied.push({ op: "create", alert: res.alert });
         } else if (operation.op === "update") {
-          const res = await updateMarketAlertInTx(tx, userId, operation.id, operation.patch, now);
+          const res = await updateMarketAlertInTx(
+            tx,
+            userId,
+            operation.id,
+            operation.patch,
+            now,
+            opts,
+          );
           if (!res.ok) {
             throw new BatchRollbackError(res.reason, idx);
           }
@@ -643,7 +721,7 @@ export async function recordMarketAlertFired(
       .select(MARKET_ALERT_COLUMNS)
       .from(marketAlerts)
       .where(scope)
-      .limit(1);
+      .for("update");
 
     if (!existing) {
       return { ok: false, reason: "not_found" } as const;

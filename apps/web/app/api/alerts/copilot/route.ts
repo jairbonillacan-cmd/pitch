@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createSanitizedErrorPayload } from "@pitchlab/contracts";
+import { createSanitizedErrorPayload, isSafePublicLabel } from "@pitchlab/contracts";
 import {
   createMarketAlert,
   MAX_MARKET_ALERTS_PER_USER,
+  MAX_TOTAL_MARKET_ALERTS_PER_USER,
   type MarketAlertRow,
 } from "@pitchlab/db/market-alerts";
 import { withActivePaseMutation } from "../../../../src/server/api-guards";
@@ -85,6 +86,14 @@ export const POST = withActivePaseMutation(
       );
     }
 
+    if (parsed.data.name !== undefined && !isSafePublicLabel(parsed.data.name)) {
+      return errorJson(
+        "INVALID_ALERT_NAME",
+        "El nombre de la alerta contiene texto no permitido.",
+        400,
+      );
+    }
+
     if (
       parsed.data.minDecimal !== undefined &&
       parsed.data.minDecimal !== null &&
@@ -127,13 +136,27 @@ export const POST = withActivePaseMutation(
       maxDecimal: parsed.data.maxDecimal,
     });
 
+    if (
+      draft.minDecimal !== undefined &&
+      draft.minDecimal !== null &&
+      draft.maxDecimal !== undefined &&
+      draft.maxDecimal !== null &&
+      draft.minDecimal > draft.maxDecimal
+    ) {
+      return errorJson(
+        "INVALID_DECIMAL_RANGE",
+        "El momio mínimo no puede superar al momio máximo.",
+        400,
+      );
+    }
+
     if (parsed.data.save === true) {
       const created = await createMarketAlert(user.db, user.userId, draft);
       if (!created.ok) {
         if (created.reason === "limit_exceeded") {
           return errorJson(
             "ALERT_LIMIT_EXCEEDED",
-            `Alcanzaste el límite máximo de ${MAX_MARKET_ALERTS_PER_USER} alertas activas.`,
+            `Alcanzaste el límite máximo de ${MAX_MARKET_ALERTS_PER_USER} alertas activas (${MAX_TOTAL_MARKET_ALERTS_PER_USER} totales).`,
             409,
           );
         }

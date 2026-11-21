@@ -7,16 +7,15 @@ import {
 import {
   and,
   authUser,
+  claimLiveCacheSlotOnce,
   desc,
   eq,
   hasActivePaseTotal,
   inArray,
   listLiveGameWatchers,
   listPushAlertRecipients,
-  readLiveCache,
   sealedPicks,
   users,
-  writeLiveCache,
   type Db,
 } from "@pitchlab/db";
 import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
@@ -172,10 +171,13 @@ export function findPreMatchPushGames(
 
 async function claimAlertOnce(db: Db, cacheKey: string, now: Date): Promise<boolean> {
   try {
-    const existing = await readLiveCache(db, cacheKey, now);
-    if (existing?.fresh) return false;
-    await writeLiveCache(db, cacheKey, { sentAt: now.toISOString() }, now, DEDUPE_TTL_MS);
-    return true;
+    return await claimLiveCacheSlotOnce(
+      db,
+      cacheKey,
+      { sentAt: now.toISOString() },
+      now,
+      DEDUPE_TTL_MS,
+    );
   } catch (err) {
     void err;
     return true;
@@ -193,10 +195,7 @@ async function claimLivePickMilestoneOnce(
   },
   now: Date,
 ): Promise<boolean> {
-  const existing = await readLiveCache(db, cacheKey, now);
-  if (existing?.fresh) return false;
-  await writeLiveCache(db, cacheKey, meta, now, LIVE_PICK_DEDUPE_TTL_MS);
-  return true;
+  return claimLiveCacheSlotOnce(db, cacheKey, meta, now, LIVE_PICK_DEDUPE_TTL_MS);
 }
 
 function sanitizeCacheSegment(raw: string): string {

@@ -8,6 +8,7 @@ import { applyMigrations, marketAlerts, MIGRATIONS_DIR, users, type Db } from ".
 import {
   applyMarketAlertBatch,
   countActiveMarketAlertsForUser,
+  countTotalMarketAlertsForUser,
   createMarketAlert,
   deleteMarketAlertForUser,
   getMarketAlertForUser,
@@ -15,6 +16,7 @@ import {
   listMarketAlertsForUser,
   MAX_MARKET_ALERT_BATCH_OPS,
   MAX_MARKET_ALERTS_PER_USER,
+  MAX_TOTAL_MARKET_ALERTS_PER_USER,
   recordMarketAlertFired,
   updateMarketAlertForUser,
 } from "../src/market-alerts";
@@ -394,5 +396,116 @@ describe("CRUD acotado de market_alerts (<= 40, anti-IDOR, batch <= 10, cooldown
     if (!fire2.ok) return;
     expect(fire2.alert.firedCount).toBe(2);
     expect(fire2.alert.lastFiredHash).toBe("hash_event_002");
+  });
+
+  it("impone tope total de 80 alertas (activas + pausadas) y valida estado fusionado en update y batch", async () => {
+    const capUser = await createUser("total_cap_socio");
+    for (let i = 0; i < MAX_MARKET_ALERTS_PER_USER; i += 1) {
+      const res = await createMarketAlert(
+        db,
+        capUser.id,
+        {
+          name: `Activa ${i + 1}`,
+          trigger: "market_opened",
+          league: "liga-mx",
+          marketFamily: "corners_total",
+          active: true,
+        },
+        new Date(T0.getTime() + i * 1_000),
+      );
+      expect(res.ok).toBe(true);
+    }
+    const pausedAllowance = MAX_TOTAL_MARKET_ALERTS_PER_USER - MAX_MARKET_ALERTS_PER_USER;
+    for (let i = 0; i < pausedAllowance; i += 1) {
+      const res = await createMarketAlert(
+        db,
+        capUser.id,
+        {
+          name: `Pausada ${i + 1}`,
+          trigger: "stale_line_ev",
+          league: "nba",
+          marketFamily: "nba_totals",
+          active: false,
+        },
+        new Date(T0.getTime() + (i + 100) * 1_000),
+      );
+      expect(res.ok).toBe(true);
+    }
+
+    expect(await countTotalMarketAlertsForUser(db, capUser.id)).toBe(
+      MAX_TOTAL_MARKET_ALERTS_PER_USER,
+    );
+    const totalOverflow = await createMarketAlert(
+      db,
+      capUser.id,
+      {
+        name: "Pausada 81 bloqueada",
+        trigger: "stale_line_ev",
+        league: "nba",
+        marketFamily: "nba_totals",
+        active: false,
+      },
+      new Date(T0.getTime() + 500_000),
+    );
+    expect(totalOverflow).toEqual({ ok: false, reason: "limit_exceeded" });
+
+    const crossUser = await createUser("cross_league_socio");
+    const nbaAlert = await createMarketAlert(
+      db,
+      crossUser.id,
+      {
+        name: "NBA Totales",
+        trigger: "market_opened",
+        league: "nba",
+        marketFamily: "nba_totals",
+      },
+      T0,
+    );
+    expect(nbaAlert.ok).toBe(true);
+    if (!nbaAlert.ok) return;
+
+    const rejectCrossLeague = (merged: {
+      readonly league: string | null;
+      readonly marketFamily: string | null;
+    }) => !(merged.league === "liga-mx" && merged.marketFamily === "nba_totals");
+
+    const crossUpdate = await updateMarketAlertForUser(
+      db,
+      crossUser.id,
+      nbaAlert.alert.id,
+      { league: "liga-mx" },
+      new Date(T0.getTime() + 10_000),
+      { validateMerged: rejectCrossLeague },
+    );
+    expect(crossUpdate).toEqual({ ok: false, reason: "invalid_input" });
+
+    const crossBatch = await applyMarketAlertBatch(
+      db,
+      crossUser.id,
+      [
+        {
+          op: "create",
+          data: {
+            name: "Debe revertirse por batch inválido",
+            trigger: "market_opened",
+            league: "liga-mx",
+            marketFamily: "corners_total",
+          },
+        },
+        {
+          op: "update",
+          id: nbaAlert.alert.id,
+          patch: { league: "liga-mx" },
+        },
+      ],
+      new Date(T0.getTime() + 20_000),
+      { validateMerged: rejectCrossLeague },
+    );
+    expect(crossBatch).toEqual({ ok: false, reason: "invalid_input", failedIndex: 1 });
+
+    const remaining = await listMarketAlertsForUser(db, crossUser.id);
+    expect(remaining).toHaveLength(1);
+    expect(remaining[0]?.league).toBe("nba");
+    expect(remaining[0]?.marketFamily).toBe("nba_totals");
   });
 });

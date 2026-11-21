@@ -1,4 +1,4 @@
-import { and, desc, eq, gt, inArray, isNull, lt, or, sql } from "drizzle-orm";
+import { and, desc, eq, gt, inArray, isNull, lt, lte, or, sql } from "drizzle-orm";
 import type { Db } from "./billing";
 import { liveFeedCache, liveMatchEvents, providerMatchLinks, providerQuota, watchlist } from "./schema";
 
@@ -58,6 +58,39 @@ export async function writeLiveCache(db: Db, key: string, payload: unknown, now:
       target: liveFeedCache.cacheKey,
       set: { payload: payload as object, fetchedAt: now, freshUntil, refreshLeaseUntil: null },
     });
+}
+
+export async function claimLiveCacheSlotOnce(
+  db: Db,
+  key: string,
+  payload: Readonly<Record<string, unknown>>,
+  now: Date,
+  ttlMs: number,
+): Promise<boolean> {
+  if (!CACHE_KEY_RE.test(key)) throw new Error(`Llave de caché no válida: ${key}`);
+  const safeTtlMs = Number.isFinite(ttlMs) && ttlMs > 0 ? Math.trunc(ttlMs) : 60_000;
+  const freshUntil = new Date(now.getTime() + safeTtlMs);
+  const claimed = await db
+    .insert(liveFeedCache)
+    .values({
+      cacheKey: key,
+      payload,
+      fetchedAt: now,
+      freshUntil,
+      refreshLeaseUntil: null,
+    })
+    .onConflictDoUpdate({
+      target: liveFeedCache.cacheKey,
+      set: {
+        payload,
+        fetchedAt: now,
+        freshUntil,
+        refreshLeaseUntil: null,
+      },
+      setWhere: lte(liveFeedCache.freshUntil, now),
+    })
+    .returning({ cacheKey: liveFeedCache.cacheKey });
+  return claimed.length > 0;
 }
 
 export async function releaseLiveRefresh(db: Db, key: string): Promise<void> {
