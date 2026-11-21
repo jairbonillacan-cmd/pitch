@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { applyMigrations, type Db } from "@pitchlab/db";
 import {
   dbLiveStore,
@@ -14,10 +14,41 @@ import {
   type LiveDeps,
   type LiveFetch,
 } from "../src/server/live";
+import { resetScrapingVelocityForTests } from "../src/server/api-guards";
+import { resetAuthForTests, type PitchLabAuth } from "../src/server/auth";
+import { resetRateLimitsForTests } from "../src/server/request-security";
+import type { ViewerAccess } from "../src/server/viewer-access";
+import { GET as alertsGET } from "../app/api/live/alerts/route";
 import { GET as scoreboardGET } from "../app/api/live/scoreboard/route";
 import { GET as gameGET } from "../app/api/live/games/[gameId]/route";
+import { GET as searchPlayersGET } from "../app/api/search/players/route";
 
-// Respuestas reales de Bzzoiro (2026-11-14), recortadas; las comparte la prueba del adaptador.
+const mocks = vi.hoisted(() => ({
+  getViewerAccess: vi.fn(),
+}));
+
+vi.mock("../src/server/viewer-access", () => ({
+  getViewerAccess: mocks.getViewerAccess,
+}));
+
+const ACCESS_NONE: ViewerAccess = {
+  via: "none",
+  signupComplete: false,
+  fullAccess: false,
+  isAdmin: false,
+  isTipster: false,
+  profile: null,
+};
+
+const ACCESS_BETA: ViewerAccess = {
+  via: "beta",
+  signupComplete: true,
+  fullAccess: true,
+  isAdmin: false,
+  isTipster: false,
+  profile: null,
+};
+
 const FIX = join(import.meta.dirname, "..", "..", "..", "services", "ingest", "tests", "fixtures", "bzzoiro-live");
 const fixture = (name: string): unknown => JSON.parse(readFileSync(join(FIX, name), "utf8"));
 
@@ -30,7 +61,6 @@ const candidate = {
   awayName: "Rayados de Monterrey",
 };
 
-/** Proveedor falso: cuenta las peticiones y responde con los fixtures. */
 function fakeProvider(overrides: Record<string, unknown> = {}) {
   const calls: string[] = [];
   const routes: Record<string, unknown> = {
@@ -57,10 +87,17 @@ function deps(at: string, fetch: LiveFetch | null, extra: Partial<LiveDeps> = {}
     now: () => new Date(clock),
     candidates: () => [candidate],
     ...extra,
-    // Permite adelantar el reloj en la prueba.
     ...({ advance: (ms: number) => (clock += ms) } as object),
   } as LiveDeps;
 }
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+  mocks.getViewerAccess.mockReset();
+  resetAuthForTests();
+  resetRateLimitsForTests();
+  resetScrapingVelocityForTests();
+});
 
 describe("marcador del día (un solo lector)", () => {
   it("no consulta al proveedor si ningún partido puede estar en juego y le dice al navegador que no pregunte", async () => {
@@ -81,7 +118,6 @@ describe("marcador del día (un solo lector)", () => {
     expect(p.calls).toEqual(["/events/live/"]);
     expect(first.entries[0]).toMatchObject({ phase: "live", clock: "34", score: { home: 0, away: 1 } });
     expect(first.nextPollSeconds).toBe(15);
-    // Nunca sale el id del proveedor.
     expect(JSON.stringify(first)).not.toContain("602407");
   });
 
@@ -105,7 +141,7 @@ describe("marcador del día (un solo lector)", () => {
     expect(first.entries[0]?.phase).toBe("live");
     d.advance(21_000);
     const second = await getLiveScoreboard(d);
-    expect(calls).toHaveLength(1); // ya no gasta: quedan 250 y la reserva es 300
+    expect(calls).toHaveLength(1);
     expect(second.entries[0]?.phase).toBe("live");
     expect(second.notice).toMatch(/cuidar la cuota/);
   });
@@ -138,7 +174,6 @@ describe("ficha en vivo", () => {
     expect(detail?.xgTimeline.at(-1)?.home).toBeCloseTo(1.815);
     expect(detail?.nextPollSeconds).toBe(20);
     expect(detail?.attribution).toMatch(/Bzzoiro/);
-    // live + incidentes + stats; el enlace salió de la lista en vivo (sin pedir la liga del día).
     expect(p.calls.sort()).toEqual(["/events/602407/incidents/", "/events/602407/stats/", "/events/live/"]);
   });
 
@@ -156,7 +191,7 @@ describe("ficha en vivo", () => {
     expect(detail?.nextPollSeconds).toBeNull();
     const firstCalls = p.calls.length;
     await getLiveMatchDetail(QRO_MTY, d);
-    expect(p.calls.length).toBe(firstCalls); // todo sale de la caché
+    expect(p.calls.length).toBe(firstCalls);
   });
 
   it("en modo ilimitado (`BZZOIRO_UNLIMITED`) omite topes de cuota y carga narración incremental, player-stats y TV MX", async () => {
@@ -213,7 +248,7 @@ describe("ficha en vivo", () => {
         return {
           status: 200,
           body: { results: pollCycle === 1 ? baseCommentary : extraCommentary },
-          remaining: 10, // bajo respecto a reserva, pero modo ilimitado lo permite
+          remaining: 10,
         };
       }
       const res = await p.fetch(path);
@@ -239,18 +274,31 @@ describe("ficha en vivo", () => {
     expect(second?.commentary?.map((c) => c.id)).toEqual(["10", "11"]);
   });
 
-  it("partido desconocido: 404", async () => {
+  it("anónimo sin sesión recibe 401 con private, no-store", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_NONE);
+    const res = await gameGET(new Request("http://localhost/api/live/games/no-existe"), {
+      params: Promise.resolve({ gameId: "no-existe" }),
+    });
+    expect(res.status).toBe(401);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
+  });
+
+  it("partido desconocido con sesión: 404 privado", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
     const res = await gameGET(new Request("http://localhost/api/live/games/no-existe"), {
       params: Promise.resolve({ gameId: "no-existe" }),
     });
     expect(res.status).toBe(404);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
   });
 
-  it("id con caracteres raros: 400", async () => {
+  it("id con caracteres raros con sesión: 400 privado", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
     const res = await gameGET(new Request("http://localhost/api/live/games/x"), {
       params: Promise.resolve({ gameId: "x;drop" }),
     });
     expect(res.status).toBe(400);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
   });
 });
 
@@ -271,13 +319,11 @@ describe("caché compartida en Neon (dos instancias)", () => {
     const fromB = await getLiveScoreboard(b);
     expect(p.calls).toEqual(["/events/live/"]);
     expect(fromB.entries[0]?.score).toEqual({ home: 0, away: 1 });
-    // Arranque en frío sobre partido ya iniciado (34', 0-1) no debe emitir goles retroactivos falsos.
     const coldRows = (await db.execute(
       "SELECT kind, home_score, away_score FROM live_match_events ORDER BY kind" as never,
     )) as unknown as { rows: { kind: string }[] };
     expect(coldRows.rows).toEqual([]);
 
-    // Al ocurrir un gol real posterior (0-1 -> 1-1 tras vencer el caché), sí se registra el evento `goal`.
     const liveNext = structuredClone(fixture("live.json")) as {
       events: Array<{ id: number; home_score: number; away_score: number; current_minute: number }>;
     };
@@ -299,7 +345,7 @@ describe("caché compartida en Neon (dos instancias)", () => {
   });
 });
 
-describe("cabeceras y cuota", () => {
+describe("cabeceras, cuota y cierre anti-scraping en rutas live/search", () => {
   it("lee lo restante del `RateLimit` de Bzzoiro", () => {
     expect(parseRateLimitRemaining('"football";r=7213;t=52800')).toBe(7213);
     expect(parseRateLimitRemaining(null)).toBeNull();
@@ -311,11 +357,58 @@ describe("cabeceras y cuota", () => {
     expect(liveCacheControl(null, false)).toMatch(/s-maxage=120/);
   });
 
-  it("la ruta del marcador responde con `Cache-Control` para el CDN", async () => {
-    const res = await scoreboardGET();
+  it("GET /api/live/scoreboard devuelve 401 anónimo y 200 privado con private, no-store", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_NONE);
+    const unauth = await scoreboardGET(new Request("http://localhost/api/live/scoreboard"));
+    expect(unauth.status).toBe(401);
+    expect(unauth.headers.get("cache-control")).toBe("private, no-store");
+
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
+    const res = await scoreboardGET(new Request("http://localhost/api/live/scoreboard"));
     expect(res.status).toBe(200);
-    expect(res.headers.get("cache-control")).toMatch(/^public, s-maxage=/);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
+    expect(res.headers.get("x-content-type-options")).toBe("nosniff");
     const body = (await res.json()) as { entries: unknown[] };
     expect(Array.isArray(body.entries)).toBe(true);
+  });
+
+  it("GET /api/live/alerts devuelve 401 sin sesión con private, no-store", async () => {
+    vi.stubEnv("DATABASE_URL", "postgresql://local/test");
+    resetAuthForTests({
+      api: {
+        getSession: async () => null,
+      },
+    } as unknown as PitchLabAuth);
+    const res = await alertsGET(new Request("http://localhost/api/live/alerts"));
+    expect(res.status).toBe(401);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
+    expect(res.headers.get("x-content-type-options")).toBe("nosniff");
+  });
+
+  it("GET /api/search/players devuelve 401 anónimo, exige q.length >= 2 y responde private, no-store", async () => {
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_NONE);
+    const unauth = await searchPlayersGET(
+      new Request("http://localhost/api/search/players?q=ohtani&league=mlb"),
+    );
+    expect(unauth.status).toBe(401);
+    expect(unauth.headers.get("cache-control")).toBe("private, no-store");
+
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
+    const shortQuery = await searchPlayersGET(
+      new Request("http://localhost/api/search/players?q=a&league=mlb"),
+    );
+    expect(shortQuery.status).toBe(200);
+    expect(shortQuery.headers.get("cache-control")).toBe("private, no-store");
+    expect(await shortQuery.json()).toEqual({ items: [] });
+
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_BETA);
+    const ok = await searchPlayersGET(
+      new Request("http://localhost/api/search/players?q=al&limit=99"),
+    );
+    expect(ok.status).toBe(200);
+    expect(ok.headers.get("cache-control")).toBe("private, no-store");
+    const body = (await ok.json()) as { items: unknown[] };
+    expect(Array.isArray(body.items)).toBe(true);
+    expect(body.items.length).toBeLessThanOrEqual(40);
   });
 });

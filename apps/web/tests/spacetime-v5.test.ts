@@ -1,6 +1,6 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { asLeagueId } from "@pitchlab/contracts";
-import type { PlatformGame } from "@pitchlab/ui/platform";
+import type { PlatformGame } from "@pitchlab/ui/types";
 import {
   auditCortexNarrativeV5,
   buildMatchDetailV5,
@@ -9,12 +9,47 @@ import {
   evaluateSgpCopulaV5,
   resolveRefereePriorV5,
 } from "../src/server/spacetime-v5";
+import { resetRateLimitsForTests } from "../src/server/request-security";
+import type { ViewerAccess } from "../src/server/viewer-access";
 import { POST as sgpPost } from "../app/api/parlays/sgp/route";
 
-const sgpViewerAccessMock = vi.fn().mockResolvedValue({ via: "beta", fullAccess: true });
+const ACCESS_BETA_FULL: ViewerAccess = {
+  via: "beta",
+  signupComplete: true,
+  fullAccess: true,
+  isAdmin: false,
+  isTipster: false,
+  profile: null,
+};
+
+const ACCESS_NO_PASS: ViewerAccess = {
+  via: "account",
+  signupComplete: true,
+  fullAccess: false,
+  isAdmin: false,
+  isTipster: false,
+  profile: null,
+};
+
+const ACCESS_NONE: ViewerAccess = {
+  via: "none",
+  signupComplete: false,
+  fullAccess: false,
+  isAdmin: false,
+  isTipster: false,
+  profile: null,
+};
+
+const sgpViewerAccessMock = vi.fn().mockResolvedValue(ACCESS_BETA_FULL);
 vi.mock("../src/server/viewer-access", () => ({
   getViewerAccess: () => sgpViewerAccessMock(),
 }));
+
+afterEach(() => {
+  sgpViewerAccessMock.mockReset();
+  sgpViewerAccessMock.mockResolvedValue(ACCESS_BETA_FULL);
+  resetRateLimitsForTests();
+});
 
 function makeGame(overrides: Partial<PlatformGame> = {}): PlatformGame {
   return {
@@ -86,18 +121,15 @@ describe("spacetime-v5 · Puente servidor Spacetime Suite v5.1 → UI", () => {
     expect(res).not.toBeNull();
     const { v5, extraMarkets, fallbackOutlook } = res!;
 
-    // Banda epistémica coherente: pLower90 <= pPoint <= pUpper90
     expect(v5.epistemic.home.pLower90).toBeLessThanOrEqual(v5.epistemic.home.pPoint);
     expect(v5.epistemic.home.pPoint).toBeLessThanOrEqual(v5.epistemic.home.pUpper90);
     expect(v5.epistemic.draw).not.toBeNull();
 
-    // Pago anticipado +2 goles >= probabilidad regular
     expect(v5.earlyPayout).not.toBeNull();
     expect(v5.earlyPayout!.triggerLabel).toContain("+2");
     expect(v5.earlyPayout!.homeWinProb).toBeGreaterThanOrEqual(0.45);
     expect(v5.earlyPayout!.homeLiftPts).toBeGreaterThan(0);
 
-    // Micro-mercados y árbitro real
     expect(v5.microCounts?.corners?.total).toBeGreaterThan(4);
     expect(v5.microCounts?.yellowCards?.total).toBeGreaterThan(1);
     expect(v5.microCounts?.refereeProfile?.name).toBe("Michael Oliver");
@@ -107,11 +139,9 @@ describe("spacetime-v5 · Puente servidor Spacetime Suite v5.1 → UI", () => {
     expect(extraMarkets.some((m) => m.market === "ht_1x2")).toBe(true);
     expect(extraMarkets.some((m) => m.market === "2h_1x2")).toBe(true);
 
-    // Fallback de MatchOutlookSummary para ligas fuera de v3.2 (como MLS)
     expect(fallbackOutlook).not.toBeNull();
     expect(fallbackOutlook!.scorelines.length).toBeGreaterThan(0);
 
-    // Guardrail y síntesis determinista verificada
     expect(v5.guardrailPassed).toBe(true);
     expect(v5.verifiedSummaryEs.length).toBeGreaterThan(20);
   });
@@ -188,7 +218,7 @@ describe("spacetime-v5 · Puente servidor Spacetime Suite v5.1 → UI", () => {
     expect((live.pNextGoalHome ?? 0) + (live.pNextGoalAway ?? 0) + (live.pNoMoreGoals ?? 0)).toBeCloseTo(1, 2);
   });
 
-  it("evalúa Cópula Student-t SGP y audita sobrecargo vía ruta POST /api/parlays/sgp", async () => {
+  it("evalúa Cópula Student-t SGP y audita sobrecargo vía ruta POST /api/parlays/sgp con withActivePaseMutation", async () => {
     const direct = evaluateSgpCopulaV5({
       sport: "soccer",
       legs: [
@@ -218,6 +248,8 @@ describe("spacetime-v5 · Puente servidor Spacetime Suite v5.1 → UI", () => {
     });
     const res = await sgpPost(req);
     expect(res.status).toBe(200);
+    expect(res.headers.get("Cache-Control")).toBe("private, no-store");
+    expect(res.headers.get("X-Content-Type-Options")).toBe("nosniff");
     const json = (await res.json()) as { audit: typeof direct };
     expect(json.audit.jointProbability).toBeCloseTo(direct.jointProbability, 4);
     expect(json.audit.bookQuoteAudit?.taxFlag).toBe("severe_sgp_tax");
@@ -228,11 +260,36 @@ describe("spacetime-v5 · Puente servidor Spacetime Suite v5.1 → UI", () => {
         "content-type": "application/json",
         origin: "http://localhost:9990",
       },
-      body: JSON.stringify({ sport: "soccer", legs: [{ legId: "only1", factor: "total_goals", marginalProbability: 0.5, direction: 1 }] }),
+      body: JSON.stringify({
+        sport: "soccer",
+        legs: [{ legId: "only1", factor: "total_goals", marginalProbability: 0.5, direction: 1 }],
+      }),
     });
-    expect((await sgpPost(badReq)).status).toBe(400);
+    const badRes = await sgpPost(badReq);
+    expect(badRes.status).toBe(400);
+    const badBody = (await badRes.json()) as Record<string, unknown>;
+    expect(badBody.code).toBe("INVALID_SGP_REQUEST");
+    expect("issues" in badBody).toBe(false);
 
-    // CSRF / mismo origen obligatorio
+    const badOddsRes = await sgpPost(
+      new Request("http://localhost:9990/api/parlays/sgp", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          origin: "http://localhost:9990",
+        },
+        body: JSON.stringify({
+          sport: "soccer",
+          legs: [
+            { legId: "l1", factor: "total_goals", marginalProbability: 0.55, direction: 1 },
+            { legId: "l2", factor: "total_shots_on_target", marginalProbability: 0.55, direction: 1 },
+          ],
+          offeredCombinedDecimalOdds: "not-a-number",
+        }),
+      }),
+    );
+    expect(badOddsRes.status).toBe(400);
+
     const crossOriginReq = new Request("http://localhost:9990/api/parlays/sgp", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -240,19 +297,33 @@ describe("spacetime-v5 · Puente servidor Spacetime Suite v5.1 → UI", () => {
     });
     expect((await sgpPost(crossOriginReq)).status).toBe(403);
 
-    // Sesión + pase vigente obligatorios
-    sgpViewerAccessMock.mockResolvedValueOnce({ via: "none", fullAccess: false });
-    expect(
-      (
-        await sgpPost(
-          new Request("http://localhost:9990/api/parlays/sgp", {
-            method: "POST",
-            headers: { "content-type": "application/json", origin: "http://localhost:9990" },
-            body: JSON.stringify({ sport: "soccer", legs: [] }),
-          }),
-        )
-      ).status,
-    ).toBe(401);
+    sgpViewerAccessMock.mockResolvedValueOnce(ACCESS_NONE);
+    const unauthRes = await sgpPost(
+      new Request("http://localhost:9990/api/parlays/sgp", {
+        method: "POST",
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
+        body: JSON.stringify({ sport: "soccer", legs: [] }),
+      }),
+    );
+    expect(unauthRes.status).toBe(401);
+    expect(unauthRes.headers.get("Cache-Control")).toBe("private, no-store");
+
+    sgpViewerAccessMock.mockResolvedValueOnce(ACCESS_NO_PASS);
+    const noPassRes = await sgpPost(
+      new Request("http://localhost:9990/api/parlays/sgp", {
+        method: "POST",
+        headers: { "content-type": "application/json", origin: "http://localhost:9990" },
+        body: JSON.stringify({
+          sport: "soccer",
+          legs: [
+            { legId: "l1", factor: "total_goals", marginalProbability: 0.55, direction: 1 },
+            { legId: "l2", factor: "total_shots_on_target", marginalProbability: 0.55, direction: 1 },
+          ],
+        }),
+      }),
+    );
+    expect(noPassRes.status).toBe(403);
+    expect(await noPassRes.json()).toEqual({ ok: false, error: "pase_requerido" });
   });
 
   it("detecta promesas prohibidas y genera síntesis determinista verificada para Cortex IA", () => {

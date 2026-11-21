@@ -1,7 +1,11 @@
+import { createHmac } from "node:crypto";
 import {
+  assertOpaqueResourceId,
   canonicalGameHref,
   canonicalTeamHref,
+  parseOpaqueResourceId,
   type LeagueSnapshot,
+  type OpaqueResourceId,
 } from "@pitchlab/contracts";
 import {
   getBzzoiroTeamEmblemUrl,
@@ -12,6 +16,7 @@ import type {
   LeagueNewsCategory,
   LeagueNewsItem,
 } from "@pitchlab/ui/types";
+import { logSecurityEvent } from "./safe-logger";
 import type { ProductLeague } from "./snapshots";
 
 const ESPN_NEWS_SLUGS: Readonly<
@@ -78,6 +83,41 @@ const ESPN_NEWS_SLUGS: Readonly<
 
 const NEWS_CACHE_TTL_MS = 10 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 4_000;
+const OPAQUE_NEWS_ID_RE = /^n_[A-Za-z0-9_-]{16}$/;
+
+function newsOpaqueSecret(): string {
+  const explicit = process.env.NEWS_OPAQUE_SECRET?.trim();
+  if (explicit) return explicit;
+  const authSecret = process.env.BETTER_AUTH_SECRET?.trim();
+  if (authSecret) return authSecret;
+  return "pl-news";
+}
+
+export function opaqueNewsId(league: ProductLeague, rawId: string): OpaqueResourceId {
+  const secret = newsOpaqueSecret();
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    const input = attempt === 0 ? `${league}:${rawId}` : `${league}:${rawId}:${attempt}`;
+    const digest = createHmac("sha256", secret)
+      .update(input)
+      .digest()
+      .subarray(0, 12)
+      .toString("base64url");
+    const candidate = `n_${digest}`;
+    const parsed = parseOpaqueResourceId(candidate);
+    if (parsed && OPAQUE_NEWS_ID_RE.test(parsed)) {
+      return parsed;
+    }
+  }
+  return assertOpaqueResourceId(`n_${"0".repeat(16)}`, "newsOpaqueId");
+}
+
+export function parseOpaqueNewsId(raw: unknown): OpaqueResourceId | null {
+  const parsed = parseOpaqueResourceId(raw);
+  if (!parsed || !OPAQUE_NEWS_ID_RE.test(parsed)) {
+    return null;
+  }
+  return parsed;
+}
 
 export interface ParsedEspnArticle {
   id: string;
@@ -97,8 +137,14 @@ export interface ParsedEspnArticle {
 interface LeagueCacheEntry {
   fetchedAtMs: number;
   articles: ParsedEspnArticle[];
-  articlesById: Map<string, ParsedEspnArticle>;
-  urlsById: Map<string, string>;
+  articlesByOpaqueId: Map<OpaqueResourceId, ParsedEspnArticle>;
+  urlsByOpaqueId: Map<OpaqueResourceId, string>;
+}
+
+interface OpaqueIndexEntry {
+  league: ProductLeague;
+  rawId: string;
+  fetchedAtMs: number;
 }
 
 interface SummaryCacheEntry {
@@ -106,29 +152,40 @@ interface SummaryCacheEntry {
   summary: LeagueNewsArticleSummary;
 }
 
-const GLOBAL_CACHE_KEY = "__pitchlabEspnNewsCache_v2";
-
-function getCacheStore(): {
+interface NewsCacheStore {
   entries: Map<ProductLeague, LeagueCacheEntry>;
   inflight: Map<ProductLeague, Promise<LeagueCacheEntry | null>>;
   summaries: Map<string, SummaryCacheEntry>;
-} {
-  const g = globalThis as unknown as Record<
-    string,
-    {
-      entries: Map<ProductLeague, LeagueCacheEntry>;
-      inflight: Map<ProductLeague, Promise<LeagueCacheEntry | null>>;
-      summaries: Map<string, SummaryCacheEntry>;
-    }
-  >;
+  opaqueIndex: Map<OpaqueResourceId, OpaqueIndexEntry>;
+}
+
+const GLOBAL_CACHE_KEY = "__pitchlabEspnNewsCache_v3";
+
+function getCacheStore(): NewsCacheStore {
+  const g = globalThis as unknown as Record<string, NewsCacheStore>;
   if (!g[GLOBAL_CACHE_KEY]) {
     g[GLOBAL_CACHE_KEY] = {
       entries: new Map(),
       inflight: new Map(),
       summaries: new Map(),
+      opaqueIndex: new Map(),
     };
   }
   return g[GLOBAL_CACHE_KEY];
+}
+
+export function lookupLeagueForOpaqueNewsId(
+  opaqueId: OpaqueResourceId,
+  nowMs: number = Date.now(),
+): ProductLeague | null {
+  const store = getCacheStore();
+  const hit = store.opaqueIndex.get(opaqueId);
+  if (!hit) return null;
+  if (nowMs - hit.fetchedAtMs >= NEWS_CACHE_TTL_MS) {
+    store.opaqueIndex.delete(opaqueId);
+    return null;
+  }
+  return hit.league;
 }
 
 const FORBIDDEN_COPY_RE =
@@ -138,16 +195,11 @@ function cleanText(text: string): string {
   return text.replace(/^VIDEO:\s*/i, "").replace(/\s{2,}/g, " ").trim();
 }
 
-/** Titular: si nombra al proveedor se omite esa mención (nunca se reatribuye a PitchLab). */
 function sanitizeHeadline(text: string): string {
   return cleanText(text.replace(new RegExp(FORBIDDEN_COPY_RE.source, "gi"), ""))
     .replace(/\s+([,.:;])/g, "$1");
 }
 
-/**
- * Descripción: se descartan las frases que nombran al proveedor o fuentes internas.
- * Reemplazar el nombre por «PitchLab» atribuiría a PitchLab un reporte ajeno.
- */
 function sanitizeDescription(text: string): string {
   return cleanText(text)
     .split(/(?<=[.!?])\s+/)
@@ -164,7 +216,8 @@ export function isValidEspnArticleUrl(rawUrl: string | undefined): rawUrl is str
       parsed.protocol === "https:" &&
       /^(?:[a-z0-9-]+\.)*espn\.com(?:\.[a-z]{2})?$/i.test(parsed.hostname)
     );
-  } catch {
+  } catch (err) {
+    void err;
     return false;
   }
 }
@@ -247,18 +300,25 @@ export function parseEspnArticlesPayload(payload: unknown): ParsedEspnArticle[] 
 export type NewsFetcher = (url: string) => Promise<unknown>;
 
 const defaultFetcher: NewsFetcher = async (url) => {
-  // Mismo patrón que los adaptadores de ESPN de `services/ingest` (solo `accept`): la API
-  // pública rechaza con 403 los `user-agent` personalizados.
   const res = await fetch(url, {
     headers: { accept: "application/json" },
     signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     cache: "no-store",
+    redirect: "error",
   });
   if (!res.ok) {
     throw new Error(`News feed HTTP ${res.status}`);
   }
   return res.json();
 };
+
+function pruneExpiredOpaqueIndex(store: NewsCacheStore, nowMs: number): void {
+  for (const [key, entry] of store.opaqueIndex) {
+    if (nowMs - entry.fetchedAtMs >= NEWS_CACHE_TTL_MS) {
+      store.opaqueIndex.delete(key);
+    }
+  }
+}
 
 async function loadOrRefreshFeed(
   league: ProductLeague,
@@ -286,22 +346,26 @@ async function loadOrRefreshFeed(
     try {
       const payload = await fetcher(url);
       const articles = parseEspnArticlesPayload(payload);
-      const articlesById = new Map<string, ParsedEspnArticle>();
-      const urlsById = new Map<string, string>();
+      const fetchedAtMs = nowMs;
+      const articlesByOpaqueId = new Map<OpaqueResourceId, ParsedEspnArticle>();
+      const urlsByOpaqueId = new Map<OpaqueResourceId, string>();
+      pruneExpiredOpaqueIndex(store, fetchedAtMs);
       for (const art of articles) {
-        articlesById.set(art.id, art);
-        if (art.webUrl) urlsById.set(art.id, art.webUrl);
+        const opaqueId = opaqueNewsId(league, art.id);
+        articlesByOpaqueId.set(opaqueId, art);
+        if (art.webUrl) urlsByOpaqueId.set(opaqueId, art.webUrl);
+        store.opaqueIndex.set(opaqueId, { league, rawId: art.id, fetchedAtMs });
       }
       const next: LeagueCacheEntry = {
-        fetchedAtMs: Date.now(),
+        fetchedAtMs,
         articles,
-        articlesById,
-        urlsById,
+        articlesByOpaqueId,
+        urlsByOpaqueId,
       };
       store.entries.set(league, next);
       return next;
     } catch (err) {
-      console.warn(`[espn-news] fallo al consultar noticias reales de ${league}:`, err);
+      logSecurityEvent("warn", "news_feed_fetch_failed", { league, error: err });
       return cached ?? null;
     } finally {
       store.inflight.delete(league);
@@ -405,10 +469,8 @@ function matchTeamInSnapshot(
   }
 
   const tagsNorm = article.teamTags.map(normalize);
-  // Solo el titular: la descripción menciona sedes y rivales que no son el tema de la nota.
   const textNorm = normalize(article.headline);
 
-  // 1) Coincidencia exacta/parcial contra teamTags de la nota
   for (const cand of bySlug.values()) {
     for (const tag of tagsNorm) {
       if (
@@ -429,7 +491,6 @@ function matchTeamInSnapshot(
     }
   }
 
-  // 2) Coincidencia en titular / descripción (evitando palabras cortas ambiguas)
   for (const cand of bySlug.values()) {
     if (
       cand.aliases.some(
@@ -507,6 +568,7 @@ export function buildNewsItemsFromEspn(
     if (!key || seenHeadlines.has(key)) continue;
     seenHeadlines.add(key);
 
+    const opaqueId = opaqueNewsId(league, art.id);
     const { category, categoryLabel } = classifyEspnArticle(art);
     const matchedTeam = matchTeamInSnapshot(league, art, snapshot);
 
@@ -543,7 +605,7 @@ export function buildNewsItemsFromEspn(
       .slice(0, 4);
 
     out.push({
-      id: `live-${league}-${art.id}`,
+      id: opaqueId,
       category,
       categoryLabel,
       title: art.headline,
@@ -562,7 +624,7 @@ export function buildNewsItemsFromEspn(
         : undefined,
       href,
       ctaLabel,
-      summaryHref: `/api/news/article?league=${encodeURIComponent(league)}&id=${encodeURIComponent(art.id)}`,
+      summaryHref: `/api/news/article?league=${encodeURIComponent(league)}&id=${encodeURIComponent(opaqueId)}`,
       readMoreLabel: "Leer nota",
       ...(summaryHighlights.length > 0 ? { summaryHighlights } : {}),
     });
@@ -606,13 +668,13 @@ const NAMED_ENTITIES: Record<string, string> = {
 
 function decodeHtmlEntities(input: string): string {
   return input
-    .replace(/&#(\d+);/g, (_, dec) => {
-      const code = Number(dec);
+    .replace(/&#(\d+);/g, (_, dec: string) => {
+      const code = Number.parseInt(dec, 10);
       return Number.isInteger(code) && code > 0 && code <= 0x10ffff
         ? String.fromCodePoint(code)
         : "";
     })
-    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => {
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex: string) => {
       const code = Number.parseInt(hex, 16);
       return Number.isInteger(code) && code > 0 && code <= 0x10ffff
         ? String.fromCodePoint(code)
@@ -624,10 +686,6 @@ function decodeHtmlEntities(input: string): string {
 const BOILERPLATE_PARA_RE =
   /^(?:informaci[oó]n de .+ fue utilizada|con informaci[oó]n de |lee tambi[eé]n\b|ver m[aá]s\b|nota relacionada\b|suscr[ií]bete\b|descarga la app\b)/i;
 
-/**
- * Extrae párrafos limpios y concisos en texto plano para mostrar un resumen editorial
- * dentro de PitchLab sin HTML crudo, anuncios ni menciones a proveedores externos.
- */
 export function extractSummaryParagraphsFromStoryHtml(
   storyHtml: string,
   existingLead?: string,
@@ -667,10 +725,6 @@ export function extractSummaryParagraphsFromStoryHtml(
   return paragraphs;
 }
 
-/**
- * Descarga (con caché de 10 min) noticias reales en español desde la API pública de ESPN
- * y las enriquece con escudos y enlaces directos a partidos o clubes dentro de PitchLab.
- */
 export async function fetchEspnLeagueNews(
   league: ProductLeague,
   snapshot: LeagueSnapshot | null,
@@ -681,10 +735,6 @@ export async function fetchEspnLeagueNews(
   return buildNewsItemsFromEspn(league, entry.articles, snapshot);
 }
 
-/**
- * Construye en el servidor un resumen legible dentro de PitchLab para una nota verificada
- * del feed de la liga. Nunca redirige ni expone URLs del proveedor original.
- */
 export async function resolveVerifiedNewsArticleSummary(
   league: ProductLeague,
   articleId: string,
@@ -694,24 +744,26 @@ export async function resolveVerifiedNewsArticleSummary(
     nowMs?: number;
   },
 ): Promise<LeagueNewsArticleSummary | null> {
-  if (!/^\d{1,20}$/.test(articleId)) return null;
+  const opaqueId = parseOpaqueNewsId(articleId);
+  if (!opaqueId) return null;
 
   const nowMs = options?.nowMs ?? Date.now();
   const store = getCacheStore();
-  const cacheKey = `${league}:${articleId}`;
+  const cacheKey = `${league}:${opaqueId}`;
   const cachedSummary = store.summaries.get(cacheKey);
   if (cachedSummary && nowMs - cachedSummary.fetchedAtMs < NEWS_CACHE_TTL_MS) {
     return cachedSummary.summary;
   }
 
   let entry: LeagueCacheEntry | null | undefined = store.entries.get(league);
-  if (!entry || !entry.articlesById.has(articleId)) {
+  const entryExpired = !entry || nowMs - entry.fetchedAtMs >= NEWS_CACHE_TTL_MS;
+  if (entryExpired || !entry.articlesByOpaqueId.has(opaqueId)) {
     entry = await loadOrRefreshFeed(league, options?.feedFetcher, nowMs);
   }
-  const baseArticle = entry?.articlesById.get(articleId);
+  const baseArticle = entry?.articlesByOpaqueId.get(opaqueId);
   if (!baseArticle) return null;
 
-  const storyUrl = `https://now.core.api.espn.com/v1/sports/news/${encodeURIComponent(articleId)}?lang=es&region=mx`;
+  const storyUrl = `https://now.core.api.espn.com/v1/sports/news/${encodeURIComponent(baseArticle.id)}?lang=es&region=mx`;
   let storyHtml = "";
   let storyDescription = baseArticle.description;
   let storyHeadline = baseArticle.headline;
@@ -761,7 +813,7 @@ export async function resolveVerifiedNewsArticleSummary(
       }
     }
   } catch (err) {
-    console.warn(`[espn-news] no se pudo ampliar resumen ${league}/${articleId}:`, err);
+    logSecurityEvent("warn", "news_summary_enrich_failed", { league, opaqueId, error: err });
   }
 
   const lead =
@@ -780,7 +832,7 @@ export async function resolveVerifiedNewsArticleSummary(
     .slice(0, 5);
 
   const summary: LeagueNewsArticleSummary = {
-    id: articleId,
+    id: opaqueId,
     title: storyHeadline,
     lead,
     paragraphs,
@@ -794,28 +846,26 @@ export async function resolveVerifiedNewsArticleSummary(
   return summary;
 }
 
-/**
- * Resuelve en el servidor el URL real de una nota verificada de la caché/API de noticias.
- */
 export async function resolveVerifiedNewsArticleUrl(
   league: ProductLeague,
   articleId: string,
   fetcher?: NewsFetcher,
 ): Promise<string | null> {
-  if (!/^\d{1,20}$/.test(articleId)) return null;
+  const opaqueId = parseOpaqueNewsId(articleId);
+  if (!opaqueId) return null;
   const store = getCacheStore();
   let entry: LeagueCacheEntry | null | undefined = store.entries.get(league);
-  if (!entry || !entry.urlsById.has(articleId)) {
+  if (!entry || !entry.urlsByOpaqueId.has(opaqueId)) {
     entry = await loadOrRefreshFeed(league, fetcher);
   }
-  const url = entry?.urlsById.get(articleId);
+  const url = entry?.urlsByOpaqueId.get(opaqueId);
   return isValidEspnArticleUrl(url) ? url : null;
 }
 
-/** Utilidad para limpiar caché en pruebas unitarias. */
 export function clearEspnNewsCacheForTest(): void {
   const store = getCacheStore();
   store.entries.clear();
   store.inflight.clear();
   store.summaries.clear();
+  store.opaqueIndex.clear();
 }
