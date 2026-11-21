@@ -1,3 +1,4 @@
+import "../../atomic-kit.css";
 import "../../momios-compare.css";
 import type { Metadata } from "next";
 import { asLeagueId } from "@pitchlab/contracts";
@@ -29,14 +30,16 @@ export const metadata: Metadata = {
 
 function toCompareAttackDefensePayload(
   block: TeamAttackDefenseBlock | null,
+  canonicalSlugA?: string,
+  canonicalSlugB?: string,
 ): CompareAttackDefensePayload | null {
   if (!block || !block.teamB) return null;
   return {
     league: asLeagueId(block.league),
     leagueLabel: block.leagueLabel,
     leagueSize: block.leagueSize,
-    teamASlug: block.teamA.teamSlug,
-    teamBSlug: block.teamB.teamSlug,
+    teamASlug: canonicalSlugA || block.teamA.teamSlug,
+    teamBSlug: canonicalSlugB || block.teamB.teamSlug,
     teamAAttackRank: block.teamA.attackRank,
     teamADefenseRank: block.teamA.defenseRank,
     teamAOverallRank: block.teamA.overallRank,
@@ -149,6 +152,8 @@ export default async function ComparePage({
             rawTeamComparison.teamA.slug,
             rawTeamComparison.teamB.slug,
           ),
+          rawTeamComparison.teamA.slug,
+          rawTeamComparison.teamB.slug,
         )
       : null;
 

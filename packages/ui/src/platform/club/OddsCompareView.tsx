@@ -85,12 +85,52 @@ function isFreshQuoteStamp(
   capturedAtUtc: string | null | undefined,
   anchorMs: number,
 ): boolean {
-  if (!capturedAtUtc) return false;
+  if (!capturedAtUtc || !Number.isFinite(anchorMs)) return false;
   const capturedMs = Date.parse(capturedAtUtc);
   if (!Number.isFinite(capturedMs)) return false;
-  if (!Number.isFinite(anchorMs)) return true;
   const ageMs = anchorMs - capturedMs;
   return ageMs >= -MAX_FUTURE_SKEW_MS && ageMs <= MAX_QUOTE_AGE_MS;
+}
+
+function resolveAnchorMs(
+  generatedAt: string | null | undefined,
+  games: readonly PlatformGame[],
+): number {
+  const generatedMs = generatedAt ? Date.parse(generatedAt) : Number.NaN;
+  if (Number.isFinite(generatedMs)) {
+    return generatedMs;
+  }
+
+  let maxCapturedMs = Number.NaN;
+  let maxKickoffMs = Number.NaN;
+
+  for (const game of games) {
+    if (game.status !== "FT") {
+      const kickoffMs = Date.parse(game.kickoffUtc);
+      if (Number.isFinite(kickoffMs) && (!Number.isFinite(maxKickoffMs) || kickoffMs > maxKickoffMs)) {
+        maxKickoffMs = kickoffMs;
+      }
+    }
+    for (const pick of game.picks) {
+      if (pick.marketCapturedAtUtc) {
+        const ms = Date.parse(pick.marketCapturedAtUtc);
+        if (Number.isFinite(ms) && (!Number.isFinite(maxCapturedMs) || ms > maxCapturedMs)) {
+          maxCapturedMs = ms;
+        }
+      }
+      if (pick.bookQuotes) {
+        for (const quote of pick.bookQuotes) {
+          const ms = Date.parse(quote.capturedAtUtc);
+          if (Number.isFinite(ms) && (!Number.isFinite(maxCapturedMs) || ms > maxCapturedMs)) {
+            maxCapturedMs = ms;
+          }
+        }
+      }
+    }
+  }
+
+  if (Number.isFinite(maxCapturedMs)) return maxCapturedMs;
+  return maxKickoffMs;
 }
 
 function resolveAnchorDayId(
@@ -403,10 +443,10 @@ export function OddsCompareClubView(): React.JSX.Element {
     () => resolveAnchorDayId(dataset.generatedAt, dataset.games, timeZone),
     [dataset.games, dataset.generatedAt, timeZone],
   );
-  const anchorMs = useMemo(() => {
-    const ms = dataset.generatedAt ? Date.parse(dataset.generatedAt) : Number.NaN;
-    return Number.isFinite(ms) ? ms : Number.NaN;
-  }, [dataset.generatedAt]);
+  const anchorMs = useMemo(
+    () => resolveAnchorMs(dataset.generatedAt, dataset.games),
+    [dataset.games, dataset.generatedAt],
+  );
 
   const parlayIds = useMemo(() => new Set(parlayLegs.map((leg) => leg.pick.id)), [parlayLegs]);
 

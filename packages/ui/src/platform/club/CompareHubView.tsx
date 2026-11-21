@@ -184,6 +184,7 @@ export interface CompareHubViewProps {
 
 interface TeamCompareApiResponse {
   readonly teamComparison?: TeamComparisonPayload | null;
+  readonly attackDefense?: CompareAttackDefensePayload | null;
 }
 
 interface PlayerCompareApiResponse {
@@ -399,21 +400,21 @@ export function CompareHubView({
   ]);
 
   const activeAttackDefense = useMemo<CompareAttackDefensePayload | null>(() => {
-    if (!initialAttackDefense || initialAttackDefense.league !== league) return null;
-    if (
-      initialAttackDefense.teamASlug === teamASlug &&
-      initialAttackDefense.teamBSlug === teamBSlug
-    ) {
-      return initialAttackDefense;
-    }
-    if (
-      initialAttackDefense.teamASlug === teamBSlug &&
-      initialAttackDefense.teamBSlug === teamASlug
-    ) {
-      return swapAttackDefense(initialAttackDefense);
-    }
-    return null;
-  }, [initialAttackDefense, league, teamASlug, teamBSlug]);
+    if (!teamASlug || !teamBSlug || teamASlug === teamBSlug) return null;
+    const resolveCandidate = (
+      candidate: CompareAttackDefensePayload | null | undefined,
+    ): CompareAttackDefensePayload | null => {
+      if (!candidate || candidate.league !== league) return null;
+      if (candidate.teamASlug === teamASlug && candidate.teamBSlug === teamBSlug) {
+        return candidate;
+      }
+      if (candidate.teamASlug === teamBSlug && candidate.teamBSlug === teamASlug) {
+        return swapAttackDefense(candidate);
+      }
+      return null;
+    };
+    return resolveCandidate(initialAttackDefense) ?? resolveCandidate(teamQuery.data?.attackDefense);
+  }, [initialAttackDefense, league, teamASlug, teamBSlug, teamQuery.data]);
 
   const matchesInitialPlayer =
     initialPlayerComparison !== null &&

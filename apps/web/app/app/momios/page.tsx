@@ -1,3 +1,4 @@
+import "../../atomic-kit.css";
 import "../../momios-compare.css";
 import React from "react";
 import type { Metadata } from "next";
