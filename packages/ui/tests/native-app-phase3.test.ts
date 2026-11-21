@@ -8,7 +8,10 @@ import {
   saveRouteScroll,
   triggerHaptic,
 } from "../src/platform/navigation-helpers";
-import { shouldDismissSheetSwipe } from "../src/platform/components/use-sheet-swipe-dismiss";
+import {
+  isInteractiveSwipeTarget,
+  shouldDismissSheetSwipe,
+} from "../src/platform/components/use-sheet-swipe-dismiss";
 
 function createMemoryStorage(): Storage {
   const store = new Map<string, string>();
@@ -114,6 +117,25 @@ describe("ADR-053 · navigation-helpers y gestos táctiles", () => {
     expect(shouldDismissSheetSwipe(48, 0.72)).toBe(true);
     expect(shouldDismissSheetSwipe(40, 0.15)).toBe(false);
     expect(shouldDismissSheetSwipe(-30, 0.9)).toBe(false);
+  });
+
+  it("no captura el gesto swipe-to-dismiss cuando el puntero inicia en controles interactivos", () => {
+    const buttonLike = {
+      closest: (sel: string) => (sel.includes("button") ? ({} as Element) : null),
+    } as unknown as EventTarget;
+    const textInsideLink = {
+      parentElement: {
+        closest: (sel: string) => (sel.includes("a") ? ({} as Element) : null),
+      },
+    } as unknown as EventTarget;
+    const plainHandle = {
+      closest: () => null,
+    } as unknown as EventTarget;
+
+    expect(isInteractiveSwipeTarget(buttonLike)).toBe(true);
+    expect(isInteractiveSwipeTarget(textInsideLink)).toBe(true);
+    expect(isInteractiveSwipeTarget(plainHandle)).toBe(false);
+    expect(isInteractiveSwipeTarget(null)).toBe(false);
   });
 
   it("ejecuta runWithViewTransition con respaldo directo cuando no existe API o hay reduced-motion", () => {

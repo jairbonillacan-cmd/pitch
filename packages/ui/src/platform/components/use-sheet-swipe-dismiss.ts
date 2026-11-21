@@ -21,6 +21,27 @@ export interface SheetSwipeState {
   readonly dragging: boolean;
 }
 
+const INTERACTIVE_SWIPE_SELECTOR =
+  'button, a, input, select, textarea, summary, label, [role="button"], [role="link"], [role="tab"], [role="option"], [role="switch"], [role="menuitem"], [role="checkbox"], [role="radio"], [contenteditable="true"]';
+
+const DRAG_ACTIVATION_SLOP_PX = 8;
+
+/**
+ * Evita que el gesto *swipe-to-dismiss* capture clics o toques sobre controles interactivos
+ * (botones, enlaces, entradas, pestañas) montados dentro de la hoja o su cabecera.
+ */
+export function isInteractiveSwipeTarget(target: EventTarget | null): boolean {
+  if (!target || typeof target !== "object") return false;
+  const candidate =
+    "closest" in target && typeof (target as Element).closest === "function"
+      ? (target as Element)
+      : "parentElement" in target
+        ? ((target as Node).parentElement ?? null)
+        : null;
+  if (!candidate || typeof candidate.closest !== "function") return false;
+  return candidate.closest(INTERACTIVE_SWIPE_SELECTOR) !== null;
+}
+
 /**
  * Decisión pura para pruebas unitarias: determina si un arrastre hacia abajo cierra la hoja.
  */
@@ -69,24 +90,54 @@ export function useSheetSwipeDismiss({
   const startTimeRef = useRef<number>(0);
   const lastYRef = useRef<number>(0);
   const activePointerIdRef = useRef<number | null>(null);
+  const capturedTargetRef = useRef<HTMLElement | null>(null);
+  const draggingActiveRef = useRef<boolean>(false);
+
+  const releaseCapture = useCallback(() => {
+    const target = capturedTargetRef.current;
+    const pointerId = activePointerIdRef.current;
+    capturedTargetRef.current = null;
+    if (target && pointerId !== null) {
+      try {
+        if (typeof target.hasPointerCapture === "function" && target.hasPointerCapture(pointerId)) {
+          target.releasePointerCapture(pointerId);
+        }
+      } catch (err) {
+        void err;
+      }
+    }
+  }, []);
 
   const begin = useCallback(
-    (clientY: number) => {
-      if (disabled) return;
-      if (scrollContainerRef?.current && scrollContainerRef.current.scrollTop > 0) return;
+    (clientY: number): boolean => {
+      if (disabled) return false;
+      if (scrollContainerRef?.current && scrollContainerRef.current.scrollTop > 0) return false;
       startYRef.current = clientY;
       lastYRef.current = clientY;
       startTimeRef.current = Date.now();
-      setState({ offsetY: 0, dragging: true });
+      draggingActiveRef.current = false;
+      return true;
     },
     [disabled, scrollContainerRef],
   );
 
   const move = useCallback(
-    (clientY: number) => {
+    (clientY: number, pointerEvent?: React.PointerEvent<HTMLElement>) => {
       if (disabled || startYRef.current === null) return;
       const delta = clientY - startYRef.current;
       lastYRef.current = clientY;
+      if (!draggingActiveRef.current) {
+        if (delta < DRAG_ACTIVATION_SLOP_PX) return;
+        draggingActiveRef.current = true;
+        if (pointerEvent) {
+          try {
+            pointerEvent.currentTarget.setPointerCapture(pointerEvent.pointerId);
+            capturedTargetRef.current = pointerEvent.currentTarget;
+          } catch (err) {
+            void err;
+          }
+        }
+      }
       // Permite ligera resistencia hacia arriba (hasta 0) y arrastre 1:1 hacia abajo
       const clamped = delta > 0 ? Math.min(delta, 420) : 0;
       setState((prev) =>
@@ -98,32 +149,42 @@ export function useSheetSwipeDismiss({
 
   const finish = useCallback(() => {
     if (startYRef.current === null) return;
+    const wasDragging = draggingActiveRef.current;
     const offset = Math.max(0, lastYRef.current - startYRef.current);
     const elapsed = Math.max(1, Date.now() - startTimeRef.current);
     const velocity = offset / elapsed;
+    releaseCapture();
     startYRef.current = null;
     activePointerIdRef.current = null;
+    draggingActiveRef.current = false;
+    if (!wasDragging) return;
     if (shouldDismissSheetSwipe(offset, velocity, thresholdPx, velocityPxPerMs)) {
       setState({ offsetY: 0, dragging: false });
       onDismiss();
     } else {
       setState({ offsetY: 0, dragging: false });
     }
-  }, [onDismiss, thresholdPx, velocityPxPerMs]);
+  }, [onDismiss, releaseCapture, thresholdPx, velocityPxPerMs]);
 
   const cancel = useCallback(() => {
+    const wasDragging = draggingActiveRef.current;
+    releaseCapture();
     startYRef.current = null;
     activePointerIdRef.current = null;
-    setState({ offsetY: 0, dragging: false });
-  }, []);
+    draggingActiveRef.current = false;
+    if (wasDragging) {
+      setState({ offsetY: 0, dragging: false });
+    }
+  }, [releaseCapture]);
 
   const onTouchStart = useCallback(
     (e: React.TouchEvent<HTMLElement>) => {
+      if (disabled || isInteractiveSwipeTarget(e.target)) return;
       const touch = e.touches[0];
       if (!touch) return;
       begin(touch.clientY);
     },
-    [begin],
+    [begin, disabled],
   );
 
   const onTouchMove = useCallback(
@@ -137,23 +198,20 @@ export function useSheetSwipeDismiss({
 
   const onPointerDown = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
+      if (disabled) return;
       if (e.pointerType === "touch") return; // Ya lo manejan onTouch*
       if (e.button !== 0) return;
+      if (isInteractiveSwipeTarget(e.target)) return;
+      if (!begin(e.clientY)) return;
       activePointerIdRef.current = e.pointerId;
-      try {
-        e.currentTarget.setPointerCapture(e.pointerId);
-      } catch (err) {
-        void err;
-      }
-      begin(e.clientY);
     },
-    [begin],
+    [begin, disabled],
   );
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent<HTMLElement>) => {
       if (activePointerIdRef.current !== e.pointerId) return;
-      move(e.clientY);
+      move(e.clientY, e);
     },
     [move],
   );
