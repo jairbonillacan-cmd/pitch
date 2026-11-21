@@ -7,6 +7,8 @@ import {
   AdminPaymentsCouponsSection,
   type AdminPaymentsStoryOverride,
 } from "./club/AdminPaymentsCouponsSection";
+import { type AdminSecurityAbuseResponse } from "./club/AdminSecurityAbuseSection";
+import { FounderAdminClubView } from "./club/FounderAdminClubView";
 import type { ServerPlanPayload, TransferRequestItem } from "./club/account/PlanTab";
 import { CanjearCouponView, type CanjearCouponViewProps } from "./components/CanjearCouponView";
 import { ExpiredPassGate, type ExpiredPassGateProps } from "./components/ExpiredPassGate";
@@ -700,8 +702,18 @@ export const AdminSociosVigenciasOscuro = {
   render: () => <AdminOpsStory theme="dark" initialTab="members" />,
 };
 
+export const AdminSociosVigenciasClaro = {
+  globals: { theme: "light" },
+  render: () => <AdminOpsStory theme="light" initialTab="members" />,
+};
+
 export const AdminCuponesOscuro = {
   render: () => <AdminOpsStory theme="dark" initialTab="coupons" />,
+};
+
+export const AdminCuponesClaro = {
+  globals: { theme: "light" },
+  render: () => <AdminOpsStory theme="light" initialTab="coupons" />,
 };
 
 export const AdminLiquidacionesTipstersOscuro = {
@@ -711,6 +723,70 @@ export const AdminLiquidacionesTipstersOscuro = {
 export const AdminLiquidacionesTipstersClaro = {
   globals: { theme: "light" },
   render: () => <AdminOpsStory theme="light" initialTab="payouts" />,
+};
+
+const SAMPLE_SECURITY_ABUSE: AdminSecurityAbuseResponse = {
+  generatedAtIso: "2026-11-21T19:00:00Z",
+  windowHours: 24,
+  summary: {
+    total24h: 9,
+    critical24h: 1,
+    high24h: 2,
+    revocations24h: 1,
+    scraping24h: 3,
+    rateLimit24h: 4,
+    csrf24h: 1,
+    idor24h: 0,
+  },
+  events: [
+    {
+      id: "story-sec-1",
+      kind: "session_revoked",
+      severity: "critical",
+      route: "/api/shell/extend",
+      ipHashPrefix: "b72e90c14f11",
+      userRef: "u:4a19d02f",
+      summaryDetail: "cubeta shell-extend · 75 recursos · 5 min",
+      createdAtIso: "2026-11-21T18:40:00Z",
+    },
+    {
+      id: "story-sec-2",
+      kind: "scraping_velocity",
+      severity: "high",
+      route: "/api/live/games/premier-league-09",
+      ipHashPrefix: "b72e90c14f11",
+      userRef: "u:4a19d02f",
+      summaryDetail: "cubeta live-game · 51 recursos · 5 min",
+      createdAtIso: "2026-11-21T18:36:00Z",
+    },
+  ],
+};
+
+export const AdminConsolaSeguridadOscuro = {
+  render: () => (
+    <Beta1StoryFrame theme="dark" initialRole="admin">
+      <FounderAdminClubView
+        initialTab="security"
+        storySecurityAbuse={SAMPLE_SECURITY_ABUSE}
+        storyPaymentsOverride={ADMIN_OVERRIDE}
+        storyModeration={{ pendingQueue: [], hiddenItems: [], pausedMembers: [] }}
+      />
+    </Beta1StoryFrame>
+  ),
+};
+
+export const AdminConsolaSeguridadClaro = {
+  globals: { theme: "light" },
+  render: () => (
+    <Beta1StoryFrame theme="light" initialRole="admin">
+      <FounderAdminClubView
+        initialTab="security"
+        storySecurityAbuse={SAMPLE_SECURITY_ABUSE}
+        storyPaymentsOverride={ADMIN_OVERRIDE}
+        storyModeration={{ pendingQueue: [], hiddenItems: [], pausedMembers: [] }}
+      />
+    </Beta1StoryFrame>
+  ),
 };
 
 /* ---------- /precio · Cuenta SPEI + Referencia única + Cupón enviado ---------- */

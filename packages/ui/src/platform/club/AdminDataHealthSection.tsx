@@ -6,6 +6,7 @@ import {
   computeDataAgeHours,
   DATA_FRESHNESS_THRESHOLDS_HOURS,
   formatOddsCaptureEs,
+  isTier1League,
   summarizeDataHealthCells,
   type DataHealthCellStatus,
   type DataHealthReport,
@@ -13,11 +14,24 @@ import {
   type LeagueDataHealthRow,
   type LeagueDataTypeCell,
 } from "@pitchlab/contracts";
+import {
+  Button,
+  SofascoreEmptyState,
+  SofascoreFilterBar,
+  SofascoreKpiStrip,
+  SofascoreTabs,
+  type SofascoreKpiItem,
+  type SofascoreTabItem,
+} from "../../components/ui/primitives";
 import { LeagueBadge } from "../../sports";
 import { MaestroIcon, type MaestroIconName } from "../components/MaestroPrimitives";
 import type { PlatformDataset } from "../types";
 
 type BadgeTone = "ok" | "warning" | "danger" | "info" | "muted";
+type LeagueScopeTab = "tier1" | "alerts" | "all";
+
+const TIER_FILTER_THRESHOLD = 15;
+const ALL_LEAGUES_PAGE_SIZE = 20;
 
 const CELL_STATUS_UI: Readonly<
   Record<DataHealthCellStatus, { label: string; icon: MaestroIconName; tone: BadgeTone }>
@@ -40,17 +54,40 @@ const WORKFLOW_STATUS_UI: Readonly<
 };
 
 const OVERALL_UI: Readonly<
-  Record<DataHealthReport["overallStatus"], { label: string; pillClass: string; icon: MaestroIconName }>
+  Record<
+    DataHealthReport["overallStatus"],
+    { label: string; tone: "success" | "warning" | "danger"; icon: MaestroIconName }
+  >
 > = {
-  ok: { label: "7 ligas al día", pillClass: "pl-pill pl-pill--success", icon: "check" },
-  degraded: { label: "Revisión preventiva", pillClass: "pl-pill pl-pill--warning", icon: "eye" },
-  critical: { label: "Atención requerida", pillClass: "pl-pill pl-pill--danger", icon: "flame" },
+  ok: { label: "Ligas al día", tone: "success", icon: "check" },
+  degraded: { label: "Revisión preventiva", tone: "warning", icon: "eye" },
+  critical: { label: "Atención requerida", tone: "danger", icon: "flame" },
 };
 
 function formatDurationEs(durationMs: number | null): string {
   if (durationMs === null || !Number.isFinite(durationMs)) return "—";
   if (durationMs < 1000) return `${Math.round(durationMs)} ms`;
   return `${(durationMs / 1000).toFixed(1)} s`;
+}
+
+function rowHasAlert(row: LeagueDataHealthRow): boolean {
+  const cells = [
+    row.cells.calendario,
+    row.cells.bajas,
+    row.cells.momios,
+    row.cells.alineaciones,
+  ];
+  return cells.some(
+    (cell) =>
+      cell.status === "stale" ||
+      cell.status === "error" ||
+      cell.status === "warning" ||
+      cell.lastError !== null,
+  );
+}
+
+function isLeagueScopeTab(value: string): value is LeagueScopeTab {
+  return value === "tier1" || value === "alerts" || value === "all";
 }
 
 function buildFallbackReportFromDataset(dataset: PlatformDataset): DataHealthReport {
@@ -225,12 +262,6 @@ export interface AdminDataHealthSectionProps {
   readonly enableLiveFetch?: boolean;
 }
 
-/**
- * Panel «Salud de datos» de la Consola del Fundador (`/app/admin`):
- * muestra el estado y último error de cada workflow automático (`odds-refresh` y
- * `pre-mvp-snapshot`), incidentes activos con estado de envío por Resend y la matriz
- * de última actualización por liga × tipo de dato (calendario, bajas, momios, alineaciones).
- */
 export function AdminDataHealthSection({
   dataset,
   initialReport = null,
@@ -248,6 +279,9 @@ export function AdminDataHealthSection({
   const [fetchedReport, setFetchedReport] = useState<DataHealthReport | null>(null);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [refreshError, setRefreshError] = useState<string | null>(null);
+  const [leagueScope, setLeagueScope] = useState<LeagueScopeTab>("tier1");
+  const [leagueSearch, setLeagueSearch] = useState<string>("");
+  const [visibleLimit, setVisibleLimit] = useState<number>(ALL_LEAGUES_PAGE_SIZE);
 
   const report = storyReport ?? fetchedReport ?? initialReport ?? fallbackReport;
   const counts = useMemo(
@@ -257,6 +291,90 @@ export function AdminDataHealthSection({
   const overall = OVERALL_UI[report.overallStatus];
   const hasCriticalIncident = report.activeIncidents.some(
     (inc) => inc.severity === "critical",
+  );
+
+  const tier1Leagues = useMemo(
+    () => report.leagues.filter((row) => isTier1League(row.league)),
+    [report.leagues],
+  );
+  const alertLeagues = useMemo(
+    () => report.leagues.filter(rowHasAlert),
+    [report.leagues],
+  );
+  const useScopedFilter = report.leagues.length > TIER_FILTER_THRESHOLD;
+
+  const scopeTabs = useMemo<readonly SofascoreTabItem[]>(
+    () => [
+      { id: "tier1", label: "Tier 1", count: tier1Leagues.length },
+      { id: "alerts", label: "Con alertas", count: alertLeagues.length },
+      { id: "all", label: "Todas", count: report.leagues.length },
+    ],
+    [alertLeagues.length, report.leagues.length, tier1Leagues.length],
+  );
+
+  const filteredLeagues = useMemo(() => {
+    const base = !useScopedFilter
+      ? report.leagues
+      : leagueScope === "tier1"
+        ? tier1Leagues.length > 0
+          ? tier1Leagues
+          : report.leagues
+        : leagueScope === "alerts"
+          ? alertLeagues
+          : report.leagues;
+
+    const q = leagueSearch.trim().toLowerCase();
+    if (!q) return base;
+    return base.filter(
+      (row) =>
+        row.leagueLabel.toLowerCase().includes(q) ||
+        row.league.toLowerCase().includes(q),
+    );
+  }, [alertLeagues, leagueScope, leagueSearch, report.leagues, tier1Leagues, useScopedFilter]);
+
+  const displayedLeagues = useMemo(() => {
+    if (!useScopedFilter || leagueScope === "tier1") {
+      return filteredLeagues;
+    }
+    return filteredLeagues.slice(0, visibleLimit);
+  }, [filteredLeagues, leagueScope, useScopedFilter, visibleLimit]);
+
+  const hasMoreLeagues = displayedLeagues.length < filteredLeagues.length;
+
+  const kpiItems = useMemo<readonly SofascoreKpiItem[]>(
+    () => [
+      {
+        id: "cells-ok",
+        label: "Celdas al día",
+        value: counts.okCells.toLocaleString("es-MX"),
+        tone: "positive",
+      },
+      {
+        id: "cells-warn",
+        label: "Por vencer",
+        value: counts.warningCells.toLocaleString("es-MX"),
+        tone: counts.warningCells > 0 ? "brand" : "default",
+      },
+      {
+        id: "cells-err",
+        label: "Vencidos / Error",
+        value: counts.staleOrErrorCells.toLocaleString("es-MX"),
+        tone: counts.staleOrErrorCells > 0 ? "negative" : "positive",
+      },
+      {
+        id: "leagues-total",
+        label: "Ligas monitoreadas",
+        value: report.leagues.length.toLocaleString("es-MX"),
+        delta: tier1Leagues.length > 0 ? `${tier1Leagues.length} Tier 1` : undefined,
+      },
+    ],
+    [
+      counts.okCells,
+      counts.staleOrErrorCells,
+      counts.warningCells,
+      report.leagues.length,
+      tier1Leagues.length,
+    ],
   );
 
   const handleRefresh = useCallback(async () => {
@@ -284,7 +402,7 @@ export function AdminDataHealthSection({
 
   return (
     <section
-      className="pl-dh-panel glass-card glass-ring"
+      className="pl-dh-panel"
       aria-labelledby={headingId}
       data-data-health-panel=""
       data-overall-status={report.overallStatus}
@@ -304,7 +422,7 @@ export function AdminDataHealthSection({
         </div>
 
         <div className="pl-dh-header-actions">
-          <span className={`${overall.pillClass} num`} aria-live="polite">
+          <span className="pl-dh-overall-badge num" data-tone={overall.tone} aria-live="polite">
             <MaestroIcon name={overall.icon} size={13} />
             <span>
               {overall.label} · {counts.okCells} al día
@@ -315,50 +433,50 @@ export function AdminDataHealthSection({
           </span>
 
           {enableLiveFetch && !storyReport ? (
-            <button
-              type="button"
-              className="pl-dh-refresh-btn"
+            <Button
+              variant="secondary"
+              size="sm"
               disabled={refreshing}
               onClick={() => void handleRefresh()}
             >
-              <MaestroIcon name="activity" size={13} />
+              <MaestroIcon name="activity" size={14} />
               <span>{refreshing ? "Actualizando…" : "Actualizar estado"}</span>
-            </button>
+            </Button>
           ) : null}
         </div>
       </header>
 
       {refreshError ? (
-        <p className="m-0 text-xs" style={{ color: "var(--pl-danger)" }} role="alert">
+        <p className="pl-dh-alert-text" role="alert">
           {refreshError}
         </p>
       ) : null}
 
-      {/* Franja de umbrales X por tipo de dato */}
+      <SofascoreKpiStrip items={kpiItems} />
+
       <ul className="pl-dh-thresholds num" aria-label="Umbrales máximos de frescura por tipo de dato">
         <li className="pl-dh-threshold-chip">
-          <span>Calendario y resultados:</span>
+          <span>Calendario y resultados</span>
           <strong>
             máx. {report.thresholdsHours.calendario} h ({report.thresholdsHours.calendarioMatchday} h en jornada)
           </strong>
         </li>
         <li className="pl-dh-threshold-chip">
-          <span>Bajas y lesiones:</span>
+          <span>Bajas y lesiones</span>
           <strong>máx. {report.thresholdsHours.bajas} h</strong>
         </li>
         <li className="pl-dh-threshold-chip">
-          <span>Momios:</span>
+          <span>Momios</span>
           <strong>
             alerta {report.thresholdsHours.momios} h · caducan {report.thresholdsHours.momiosHardExpire} h
           </strong>
         </li>
         <li className="pl-dh-threshold-chip">
-          <span>Alineaciones:</span>
+          <span>Alineaciones</span>
           <strong>Apagadas (sin fuente verificada)</strong>
         </li>
       </ul>
 
-      {/* Estado y último error de cada workflow */}
       <div className="pl-dh-workflows-wrap">
         <div className="pl-dh-workflows-grid">
           {report.workflows.map((wf) => {
@@ -419,7 +537,6 @@ export function AdminDataHealthSection({
         </div>
       </div>
 
-      {/* Incidencias activas y control de avisos por Resend */}
       {report.activeIncidents.length > 0 ? (
         <div
           className="pl-dh-incidents"
@@ -456,58 +573,106 @@ export function AdminDataHealthSection({
           </ul>
         </div>
       ) : (
-        <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+        <p className="pl-dh-muted-text">
           Sin incidencias abiertas · Los avisos a <code>PITCHLAB_ADMIN_EMAILS</code> por Resend
           están armados y solo se disparan cuando algo falla o supera su umbral.
         </p>
       )}
 
-      {/* Matriz responsiva por liga y tipo de dato */}
-      <div
-        tabIndex={0}
-        role="region"
-        aria-labelledby={captionId}
-        className="pl-dh-matrix-wrap"
-      >
-        <table className="pl-dh-table">
-          <caption id={captionId} className="sr-only">
-            Estado de actualización por liga y tipo de dato (calendario, bajas, momios y alineaciones)
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Liga</th>
-              <th scope="col">Calendario y resultados</th>
-              <th scope="col">Bajas y lesiones</th>
-              <th scope="col">Momios (&lt; 72 h)</th>
-              <th scope="col">Alineación confirmada</th>
-            </tr>
-          </thead>
-          <tbody>
-            {report.leagues.map((row) => (
-              <tr key={row.league} data-league-health-row={row.league}>
-                <th scope="row">
-                  <span className="pl-dh-league-cell">
-                    <LeagueBadge league={row.league} label={row.leagueLabel} size={18} />
-                    <span>{row.leagueLabel}</span>
-                  </span>
-                </th>
-                <td>
-                  <DataTypeCellView cell={row.cells.calendario} />
-                </td>
-                <td>
-                  <DataTypeCellView cell={row.cells.bajas} />
-                </td>
-                <td>
-                  <DataTypeCellView cell={row.cells.momios} />
-                </td>
-                <td>
-                  <DataTypeCellView cell={row.cells.alineaciones} />
-                </td>
+      {useScopedFilter ? (
+        <SofascoreFilterBar
+          searchValue={leagueSearch}
+          onSearchChange={(next) => {
+            setLeagueSearch(next);
+            setVisibleLimit(ALL_LEAGUES_PAGE_SIZE);
+          }}
+          searchPlaceholder="Buscar liga (ej. Liga MX, NFL, Premier)…"
+          resultCount={filteredLeagues.length}
+        >
+          <SofascoreTabs
+            items={scopeTabs}
+            value={leagueScope}
+            onChange={(next) => {
+              if (isLeagueScopeTab(next)) {
+                setLeagueScope(next);
+                setVisibleLimit(ALL_LEAGUES_PAGE_SIZE);
+              }
+            }}
+            variant="segmented"
+            ariaLabel="Filtrar ligas en matriz de salud de datos"
+          />
+        </SofascoreFilterBar>
+      ) : null}
+
+      {displayedLeagues.length === 0 ? (
+        <SofascoreEmptyState
+          title="Sin ligas en este filtro"
+          description="Ajusta la búsqueda o cambia a Tier 1 / Todas para ver la matriz completa."
+          actionLabel="Ver Tier 1"
+          onAction={() => {
+            setLeagueScope("tier1");
+            setLeagueSearch("");
+          }}
+        />
+      ) : (
+        <div
+          tabIndex={0}
+          role="region"
+          aria-labelledby={captionId}
+          className="pl-dh-matrix-wrap"
+        >
+          <table className="pl-dh-table">
+            <caption id={captionId} className="sr-only">
+              Estado de actualización por liga y tipo de dato (calendario, bajas, momios y alineaciones)
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Liga</th>
+                <th scope="col">Calendario y resultados</th>
+                <th scope="col">Bajas y lesiones</th>
+                <th scope="col">Momios (&lt; 72 h)</th>
+                <th scope="col">Alineación confirmada</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {displayedLeagues.map((row) => (
+                <tr key={row.league} data-league-health-row={row.league}>
+                  <th scope="row">
+                    <span className="pl-dh-league-cell">
+                      <LeagueBadge league={row.league} label={row.leagueLabel} size={18} />
+                      <span>{row.leagueLabel}</span>
+                    </span>
+                  </th>
+                  <td>
+                    <DataTypeCellView cell={row.cells.calendario} />
+                  </td>
+                  <td>
+                    <DataTypeCellView cell={row.cells.bajas} />
+                  </td>
+                  <td>
+                    <DataTypeCellView cell={row.cells.momios} />
+                  </td>
+                  <td>
+                    <DataTypeCellView cell={row.cells.alineaciones} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {hasMoreLeagues ? (
+        <div className="pl-dh-load-more">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setVisibleLimit((prev) => prev + ALL_LEAGUES_PAGE_SIZE)}
+          >
+            Mostrar más ligas ({filteredLeagues.length - displayedLeagues.length} restantes)
+          </Button>
+        </div>
+      ) : null}
     </section>
   );
 }
