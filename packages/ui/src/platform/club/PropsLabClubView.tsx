@@ -114,7 +114,6 @@ interface EnrichedPropEntry {
   readonly guardLabel: string;
   readonly photoKey: string | null;
   readonly opponentSlug: string | null;
-  readonly opponentShortName: string | null;
   readonly unitLabel: string;
 }
 
@@ -195,7 +194,7 @@ function evaluateMinMinutesEligibility(
     }
     return prop.minMinutesGuard === true;
   }
-  return prop.minMinutesGuard !== false;
+  return true;
 }
 
 function resolveLineupPresentation(
@@ -223,12 +222,10 @@ function buildBetLabPointsForEntry(
   entry: EnrichedPropEntry,
   matchedStreak: PropsStreakExplorerItem | null,
 ): readonly PropBetLabPoint[] {
-  const defaultMin =
+  const verifiedAvgMinutes =
     entry.prop.avgMinutes != null && Number.isFinite(entry.prop.avgMinutes)
       ? Math.round(entry.prop.avgMinutes)
-      : entry.sport === "basketball"
-        ? 30
-        : 78;
+      : 0;
 
   if (matchedStreak && matchedStreak.series.length > 0) {
     const statCodeLower = entry.statCode ? String(entry.statCode).toLowerCase() : "";
@@ -249,7 +246,9 @@ function buildBetLabPointsForEntry(
         date: pt.date,
         value: pt.value,
         minutes:
-          pt.minutes != null && Number.isFinite(pt.minutes) ? Math.round(pt.minutes) : defaultMin,
+          pt.minutes != null && Number.isFinite(pt.minutes)
+            ? Math.round(pt.minutes)
+            : verifiedAvgMinutes,
         xg: pt.xg != null && Number.isFinite(pt.xg) ? pt.xg : null,
         isHome: pt.isHome,
       }));
@@ -258,13 +257,12 @@ function buildBetLabPointsForEntry(
 
   if (entry.prop.last10.length > 0) {
     const chronological = entry.prop.last10.slice().reverse();
-    const fallbackOpp = entry.opponentShortName ?? entry.prop.matchLabel;
     return chronological.map((value, idx) => ({
       id: `${entry.prop.id}-l-${idx}`,
       label: `J${idx + 1}`,
-      opponent: fallbackOpp,
+      opponent: "Histórico",
       value,
-      minutes: defaultMin,
+      minutes: verifiedAvgMinutes,
       xg: null,
     }));
   }
@@ -345,15 +343,12 @@ export function PropsLabClubView({
 
       const matchedGame = gamesById.get(prop.gameId) ?? null;
       let opponentSlug: string | null = null;
-      let opponentShortName: string | null = null;
       if (matchedGame) {
         const teamLower = prop.teamSlug.trim().toLowerCase();
         if (matchedGame.home.slug.toLowerCase() === teamLower) {
           opponentSlug = matchedGame.away.slug.toLowerCase();
-          opponentShortName = matchedGame.away.shortName;
         } else if (matchedGame.away.slug.toLowerCase() === teamLower) {
           opponentSlug = matchedGame.home.slug.toLowerCase();
-          opponentShortName = matchedGame.home.shortName;
         }
       }
 
@@ -388,7 +383,6 @@ export function PropsLabClubView({
         guardLabel: sport === "basketball" ? "Muestra ≥ 18 min/p" : MIN_SAMPLE_GUARD_LABEL,
         photoKey,
         opponentSlug,
-        opponentShortName,
         unitLabel: resolvePropUnitLabel(prop.statLabel, statCode ? String(statCode) : null),
       });
     }
@@ -498,7 +492,7 @@ export function PropsLabClubView({
     const q = searchQuery.trim().toLowerCase();
     return streakCards.filter((card) => {
       if (activeSport !== "all" && card.sport !== activeSport) return false;
-      if (onlyMinMinutesGuard && card.minMinutesGuard === false) return false;
+      if (onlyMinMinutesGuard && card.minMinutesGuard !== true) return false;
       if (!q) return true;
       return (
         card.playerName.toLowerCase().includes(q) ||
@@ -955,8 +949,8 @@ export function PropsLabClubView({
             <div data-props-empty="">
               <SofascoreCard>
                 <SofascoreEmptyState
-                  title="Props de jugadores: próximamente"
-                  description="Spacetime Suite v5.1 todavía no proyecta estadísticas individuales para este corte. Cuando el motor publique líneas validadas, aquí verás proyección, curva de minutos y ventaja contra tu casa."
+                  title="Sin props calibrados en este corte"
+                  description="Spacetime Suite v5.1 todavía no publica líneas individuales validadas para este corte. Cuando haya muestra y proyecciones verificadas, aquí verás curva de minutos, momio justo y ventaja contra tu casa."
                 />
               </SofascoreCard>
             </div>
@@ -1065,7 +1059,11 @@ export function PropsLabClubView({
                             setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
                           }}
                         >
-                          {MIN_SAMPLE_GUARD_LABEL}
+                          {activeSport === "basketball"
+                            ? "Muestra ≥ 18 min/p"
+                            : activeSport === "football"
+                              ? MIN_SAMPLE_GUARD_LABEL
+                              : "Muestra ≥ 45m / ≥ 18m"}
                         </Button>
                       ) : null}
 
@@ -1217,17 +1215,6 @@ export function PropsLabClubView({
                                 rivalEbLabel={selectedBetLabData.rivalDefense?.ebLabel ?? null}
                                 calibratedProb={selectedBetLabData.evalRes.pOver}
                                 fairDecimal={selectedBetLabData.evalRes.fairOverDecimal}
-                                onLineChange={(nextLine) => {
-                                  const clamped = clampLine(
-                                    nextLine,
-                                    selectedBetLabData.entry.prop.minLine,
-                                    selectedBetLabData.entry.prop.maxLine,
-                                  );
-                                  setCustomLines((prev) => ({
-                                    ...prev,
-                                    [selectedBetLabData.entry.prop.id]: clamped,
-                                  }));
-                                }}
                               />
 
                               <div className="pl-pb-line-bar num">
@@ -1479,6 +1466,7 @@ export function PropsLabClubView({
                                 <Button
                                   variant="primary"
                                   size="sm"
+                                  disabled={selectedBetLabData.alreadySealed}
                                   onClick={() =>
                                     handleSealProp(
                                       selectedBetLabData.entry.prop,

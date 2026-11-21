@@ -886,8 +886,7 @@ export function PlayerProfileClubView({
   const betLabSeries = useMemo(() => {
     const logs = profile.player.recentGames;
     if (!logs || logs.length < 3) return [];
-    const fallbackMinutes =
-      minutesGuard.avgMinutes ?? (profile.sport === "basketball" ? 28 : 75);
+    const fallbackMinutes = minutesGuard.avgMinutes ?? 0;
     return buildRecentGameSeries(logs, profile.sport, fallbackMinutes);
   }, [minutesGuard.avgMinutes, profile.player.recentGames, profile.sport]);
 
@@ -1649,17 +1648,91 @@ export function PlayerProfileClubView({
                     fairDecimal={
                       isVisitorRestricted ? null : (labEvaluation?.fairDecimal ?? null)
                     }
-                    onLineChange={(nextLine) => {
-                      const clamped = Math.min(
-                        activeLabSeries.maxLine,
-                        Math.max(activeLabSeries.minLine, Math.round(nextLine * 10) / 10),
-                      );
-                      setLabLinesByKey((prev) => ({
-                        ...prev,
-                        [activeLabSeries.key]: clamped,
-                      }));
-                    }}
+                    onLineChange={
+                      activeLabSeries.step === 0.5
+                        ? (nextLine) => {
+                            const snapped = Math.round(nextLine * 2) / 2;
+                            const clamped = Math.min(
+                              activeLabSeries.maxLine,
+                              Math.max(activeLabSeries.minLine, snapped),
+                            );
+                            setLabLinesByKey((prev) => ({
+                              ...prev,
+                              [activeLabSeries.key]: clamped,
+                            }));
+                          }
+                        : undefined
+                    }
                   />
+
+                  {activeLabSeries.step !== 0.5 ? (
+                    <div className="pl-pb-line-bar num">
+                      <div className="pl-pb-line-readout">
+                        <span className="pl-pb-line-readout-label">
+                          Línea de {activeLabSeries.label} (paso {activeLabSeries.step})
+                        </span>
+                        <div className="pl-pb-line-readout-vals">
+                          <strong>{activeLabLine.toFixed(1)}</strong>
+                        </div>
+                      </div>
+                      <div
+                        className="pl-pb-line-controls"
+                        role="group"
+                        aria-label={`Ajustar línea de ${activeLabSeries.label}`}
+                      >
+                        <Button
+                          variant="secondary"
+                          size="icon-sm"
+                          aria-label={`Bajar línea en ${activeLabSeries.step}`}
+                          disabled={activeLabLine <= activeLabSeries.minLine}
+                          onClick={() => {
+                            const next = Math.max(
+                              activeLabSeries.minLine,
+                              Math.round((activeLabLine - activeLabSeries.step) * 10) / 10,
+                            );
+                            setLabLinesByKey((prev) => ({
+                              ...prev,
+                              [activeLabSeries.key]: next,
+                            }));
+                          }}
+                        >
+                          −
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          disabled={Math.abs(activeLabLine - activeLabSeries.defaultLine) < 0.01}
+                          className="num"
+                          onClick={() =>
+                            setLabLinesByKey((prev) => ({
+                              ...prev,
+                              [activeLabSeries.key]: activeLabSeries.defaultLine,
+                            }))
+                          }
+                        >
+                          Base ({activeLabSeries.defaultLine.toFixed(1)})
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="icon-sm"
+                          aria-label={`Subir línea en ${activeLabSeries.step}`}
+                          disabled={activeLabLine >= activeLabSeries.maxLine}
+                          onClick={() => {
+                            const next = Math.min(
+                              activeLabSeries.maxLine,
+                              Math.round((activeLabLine + activeLabSeries.step) * 10) / 10,
+                            );
+                            setLabLinesByKey((prev) => ({
+                              ...prev,
+                              [activeLabSeries.key]: next,
+                            }));
+                          }}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                  ) : null}
 
                   {!isVisitorRestricted && labEvaluation ? (
                     <div className="pl-pb-comparator" data-player-lab-comparator="">
@@ -1734,6 +1807,7 @@ export function PlayerProfileClubView({
                 photoKey={profile.player.photoKey}
                 positionLabel={profile.player.positionLabel}
                 oddsFormat={oddsFormat}
+                redactCalibratedOdds={isVisitorRestricted}
                 series={streakFallbackSeries}
               />
             )

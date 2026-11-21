@@ -42,6 +42,7 @@ export interface PlayerPropStreakCardProps {
   onNavigate?: (href: string) => void;
   initialWindow?: 5 | 10 | 20;
   oddsFormat?: OddsFormat;
+  redactCalibratedOdds?: boolean;
 }
 
 export interface PropStreakSummary {
@@ -119,6 +120,7 @@ export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
   onNavigate,
   initialWindow = 5,
   oddsFormat = "decimal",
+  redactCalibratedOdds = false,
 }: PlayerPropStreakCardProps): React.JSX.Element {
   const sliderId = useId();
   const [metricKey, setMetricKey] = useState<string>(() => series[0]?.key ?? "");
@@ -327,14 +329,24 @@ export const PlayerPropStreakCard = React.memo(function PlayerPropStreakCard({
       </div>
 
       <footer className="pl-pb-streak-foot num" data-prop-calibrated="">
-        <span className="pl-pb-streak-stat">
-          <span>Prob. ajustada</span>
-          <strong>{(summary.pCalibrated * 100).toFixed(1)} %</strong>
-        </span>
-        <span className="pl-pb-streak-stat">
-          <span>Momio justo</span>
-          <strong className="is-brand">{formatOddsValue(summary.fairDecimal, oddsFormat)}</strong>
-        </span>
+        {redactCalibratedOdds ? (
+          <span className="pl-pb-streak-sample">
+            Momio justo reservado para Pase PitchLab Ultra
+          </span>
+        ) : (
+          <>
+            <span className="pl-pb-streak-stat">
+              <span>Prob. ajustada</span>
+              <strong>{(summary.pCalibrated * 100).toFixed(1)} %</strong>
+            </span>
+            <span className="pl-pb-streak-stat">
+              <span>Momio justo</span>
+              <strong className="is-brand">
+                {formatOddsValue(summary.fairDecimal, oddsFormat)}
+              </strong>
+            </span>
+          </>
+        )}
         <span className="pl-pb-streak-sample">{summary.reliabilityLabel}</span>
       </footer>
     </article>

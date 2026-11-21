@@ -898,22 +898,30 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
             .slice()
             .reverse()
             .map((g) => {
-              if (sport === "football") {
-                const minHit = g.stats.find((s) => {
-                  const u = s.label.trim().toUpperCase();
-                  return u === "MIN" || u === "MINS" || u === "MINUTOS";
-                });
-                const minVal = minHit ? parseNumericStat(minHit.value) : null;
-                if (minVal === null || minVal < FOOTBALL_MIN_MINUTES) return null;
+              const minHit = g.stats.find((s) => {
+                const u = s.label.trim().toUpperCase();
+                return u === "MIN" || u === "MINS" || u === "MINUTOS";
+              });
+              const minVal = minHit ? parseNumericStat(minHit.value) : null;
+              if (sport === "football" && (minVal === null || minVal < FOOTBALL_MIN_MINUTES)) {
+                return null;
               }
               const hit = g.stats.find((s) => s.label === lbl);
               const val = hit ? parseNumericStat(hit.value) : null;
               if (val === null) return null;
+              const xgHit =
+                sport === "football"
+                  ? g.stats.find((s) => s.label.trim().toUpperCase() === "XG")
+                  : undefined;
+              const xgVal = xgHit ? parseNumericStat(xgHit.value) : null;
               return {
                 label: (g.opponentAbbr ?? g.opponent).slice(0, 8),
                 opponent: g.opponent,
                 date: g.dateIso,
                 value: val,
+                ...(minVal !== null ? { minutes: Math.round(minVal) } : {}),
+                ...(xgVal !== null ? { xg: xgVal } : {}),
+                ...(g.isHome === true || g.isHome === false ? { isHome: g.isHome } : {}),
               };
             })
             .filter((p): p is NonNullable<typeof p> => p !== null);
