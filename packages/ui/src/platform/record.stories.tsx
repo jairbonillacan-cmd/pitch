@@ -3,8 +3,11 @@ import type { Meta } from "@storybook/react-vite";
 import type { PublicMemberProfile } from "@pitchlab/contracts";
 import { AnalystProfileClubView } from "./club/AnalystProfileClubView";
 import { BitacoraClubView, type BitacoraClubViewProps } from "./club/BitacoraClubView";
-import { RecordPicksTab } from "./club/record/RecordPicksTab";
-import type { JournalEntry } from "./types";
+import { HistorialClubView } from "./club/HistorialClubView";
+import {
+  RecordPicksTab,
+  type LiveTrackedPickSnapshot,
+} from "./club/record/RecordPicksTab";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 import {
@@ -14,6 +17,7 @@ import {
   publicRecordView,
   type RecordEntry,
 } from "./record-stats";
+import type { JournalEntry } from "./types";
 
 const meta = {
   title: "PitchLab v4 / Mi récord",
@@ -132,6 +136,24 @@ export const PrivacidadConVistaPreviaClaro = {
   render: () => <RecordStory initialTab="privacidad" />,
 };
 
+export const HistorialResultadosOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <PlatformProvider dataset={dataset} initialRole="member">
+      <HistorialClubView />
+    </PlatformProvider>
+  ),
+};
+
+export const HistorialResultadosClaro = {
+  globals: { theme: "light" },
+  render: () => (
+    <PlatformProvider dataset={dataset} initialRole="member">
+      <HistorialClubView />
+    </PlatformProvider>
+  ),
+};
+
 export const RecordPublicoCompartidoOscuro = {
   globals: { theme: "dark" },
   render: () => (
@@ -202,6 +224,22 @@ const PARLAY_SAMPLE_JOURNAL: JournalEntry[] = [
     sealedAt: "20 nov, 12:00",
   },
   {
+    id: "story-live-1",
+    pickId: "p-live-1",
+    gameId: "g-live-1",
+    leagueLabel: "Premier League",
+    matchLabel: "Liverpool vs Manchester City",
+    pickLabel: "Más de 2.5 goles",
+    origin: "Spacetime Suite",
+    units: 1.25,
+    userDecimal: 1.94,
+    fairDecimal: 1.82,
+    clvPct: 2.9,
+    status: "pending",
+    pickKind: "single",
+    sealedAt: "21 nov, 13:30",
+  },
+  {
     id: "story-parlay-1",
     pickId: "parlay:p-1+p-2+p-3",
     gameId: "g-1",
@@ -267,7 +305,47 @@ const PARLAY_SAMPLE_JOURNAL: JournalEntry[] = [
   },
 ];
 
-/** Filtro Todos · Simples · Parlays y desglose pierna por pierna en Mi récord (ADR-054). */
+const LIVE_TRACKED_FIXTURES: readonly LiveTrackedPickSnapshot[] = [
+  {
+    id: "story-live-1",
+    pickId: "p-live-1",
+    gameId: "g-live-1",
+    pickKind: "single",
+    matchLabel: "Liverpool 2–0 Manchester City",
+    pickLabel: "Más de 2.5 goles",
+    href: "/app/premier-league",
+    clockLabel: "64'",
+    actualValue: 2,
+    targetLine: 2.5,
+    unitLabel: "goles",
+    direction: "over",
+    projectedFinal: 2.85,
+    asianState: null,
+    starterAlert: null,
+    starterAlertDetail: null,
+    legs: [],
+  },
+  {
+    id: "story-live-ah",
+    pickId: "p-live-ah",
+    gameId: "g-live-2",
+    pickKind: "single",
+    matchLabel: "Monterrey 1–1 Tigres",
+    pickLabel: "Monterrey -0.25 Hándicap Asiático",
+    href: "/app/liga-mx",
+    clockLabel: "72'",
+    actualValue: 0,
+    targetLine: -0.25,
+    unitLabel: "dif.",
+    direction: "handicap",
+    projectedFinal: 0.2,
+    asianState: "lost_half",
+    starterAlert: "titular_en_banca",
+    starterAlertDetail: "Germán Berterame figura en la banca del XI confirmado.",
+    legs: [],
+  },
+];
+
 export const ParlaysPiernaPorPiernaOscuro = {
   globals: { theme: "dark" },
   render: () => (
@@ -282,6 +360,7 @@ export const ParlaysPiernaPorPiernaOscuro = {
           onNavigateHome={() => undefined}
           onOpenWinningEntry={() => undefined}
           onOpenShareTicket={() => undefined}
+          overrideLiveTrackedPicks={LIVE_TRACKED_FIXTURES}
         />
       </div>
     </PlatformProvider>

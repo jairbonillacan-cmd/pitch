@@ -1,17 +1,29 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useCallback, useId, useMemo, useRef, useState } from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
+import {
+  Button,
+  SofascoreCard,
+  SofascoreEmptyState,
+  SofascoreTable,
+  type SofascoreTableColumn,
+} from "../../../components/ui/primitives";
 import { formatOddsValue } from "../../access-guard";
+import { DailyResultsCalendar } from "../../components/DailyResultsCalendar";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../../components/PlatformOverlays";
-import type { RecordStats } from "../../record-stats";
+import {
+  buildMonthlyRecordCalendar,
+  type RecordStats,
+} from "../../record-stats";
 import type { JournalEntry, MatchPick, OddsFormat } from "../../types";
 import { formatUnitsAsMxn } from "../account/account-helpers";
 import {
   BalanceCurveFigure,
-  RateBreakdownList,
   formatSignedPctValue,
   formatSignedUnits,
+  type AuditRateDisplayRow,
 } from "./PublicRecordSections";
 import {
   computeJournalAuditSummary,
@@ -28,11 +40,111 @@ function parseBankrollInput(
   if (!/^\d+(\.\d{1,2})?$/.test(clean)) {
     return { ok: false, error: "Escribe un monto válido en pesos (por ejemplo, 5000)." };
   }
-  const num = Number(clean);
-  if (!Number.isFinite(num) || num < 0 || num > 10_000_000) {
+  const num = parseStrictFiniteNumber(clean);
+  if (num === null || num < 0 || num > 10_000_000) {
     return { ok: false, error: "La banca inicial debe estar entre $0 y $10,000,000 MXN." };
   }
   return { ok: true, value: Math.round(num) };
+}
+
+function buildBreakdownColumns(
+  entityHeader: string,
+  showAuditMeta: boolean,
+): readonly SofascoreTableColumn<AuditRateDisplayRow>[] {
+  const cols: SofascoreTableColumn<AuditRateDisplayRow>[] = [
+    {
+      key: "label",
+      header: entityHeader,
+      sticky: true,
+      render: (row) => <span className="pl-rec-tbl-entity">{row.label}</span>,
+    },
+    {
+      key: "hitRate",
+      header: "Acierto",
+      numeric: true,
+      render: (row) => {
+        const pct = row.total > 0 ? Math.round((row.won / row.total) * 1000) / 10 : 0;
+        const barColor =
+          row.total === 0
+            ? "var(--pl-text-muted)"
+            : pct >= 55
+              ? "var(--pl-success)"
+              : pct < 45
+                ? "var(--pl-warning)"
+                : "var(--pl-brand)";
+        return (
+          <div className="pl-rec-tbl-rate num">
+            <strong>{row.total > 0 ? `${pct.toFixed(1)} %` : "—"}</strong>
+            <span className="pl-rec-tbl-bar" aria-hidden="true">
+              <span
+                style={{
+                  inlineSize: `${Math.min(100, Math.max(0, pct))}%`,
+                  background: barColor,
+                }}
+              />
+            </span>
+          </div>
+        );
+      },
+    },
+    {
+      key: "record",
+      header: "G–P",
+      numeric: true,
+      render: (row) => {
+        const losses = Math.max(0, row.total - row.won);
+        const pushes = row.pushes ?? 0;
+        return (
+          <span className="num whitespace-nowrap">
+            {row.won}G–{losses}P{pushes > 0 ? ` · ${pushes}P` : ""}
+          </span>
+        );
+      },
+    },
+  ];
+
+  if (showAuditMeta) {
+    cols.push({
+      key: "evClv",
+      header: "EV / CLV",
+      numeric: true,
+      render: (row) => {
+        const hasEv = typeof row.avgEvPct === "number" && Number.isFinite(row.avgEvPct);
+        const hasClv = typeof row.avgClvPct === "number" && Number.isFinite(row.avgClvPct);
+        if (!hasEv && !hasClv) return <span style={{ color: "var(--pl-text-muted)" }}>—</span>;
+        return (
+          <span className="num whitespace-nowrap text-xs">
+            {hasEv && row.avgEvPct !== null && row.avgEvPct !== undefined ? (
+              <strong
+                style={{
+                  color: row.avgEvPct > 0 ? "var(--pl-success)" : "var(--pl-text-secondary)",
+                }}
+              >
+                {formatSignedPctValue(row.avgEvPct)}
+              </strong>
+            ) : null}
+            {hasEv && hasClv ? " · " : null}
+            {hasClv && row.avgClvPct !== null && row.avgClvPct !== undefined
+              ? formatSignedPctValue(row.avgClvPct)
+              : null}
+          </span>
+        );
+      },
+    });
+  }
+
+  cols.push({
+    key: "netUnits",
+    header: "Saldo",
+    numeric: true,
+    render: (row) => (
+      <strong className={`num whitespace-nowrap ${row.netUnits >= 0 ? "pl-rec-pos" : "pl-rec-neg"}`}>
+        {formatSignedUnits(row.netUnits)}
+      </strong>
+    ),
+  });
+
+  return cols;
 }
 
 export function RecordBankStatsTab({
@@ -43,6 +155,7 @@ export function RecordBankStatsTab({
   onSaveBankroll,
   entries,
   pickById,
+  userTimezone = "America/Mexico_City",
 }: {
   stats: RecordStats;
   unitMxn: number;
@@ -51,6 +164,7 @@ export function RecordBankStatsTab({
   onSaveBankroll: (nextMxn: number | null) => void;
   entries?: readonly JournalEntry[];
   pickById?: ReadonlyMap<string, MatchPick>;
+  userTimezone?: string;
 }): React.JSX.Element {
   const uid = useId();
   const inputId = `${uid}-bank-input`;
@@ -65,22 +179,31 @@ export function RecordBankStatsTab({
   const [error, setError] = useState<string | null>(null);
   const [confirmClearBankOpen, setConfirmClearBankOpen] = useState(false);
 
-  useEffect(() => {
-    setDraft(bankrollStartMxn !== null ? String(bankrollStartMxn) : "");
-    setEdited(false);
-    setError(null);
-  }, [bankrollStartMxn]);
+  const displayDraft = edited ? draft : bankrollStartMxn !== null ? String(bankrollStartMxn) : "";
 
   const auditSummary = useMemo(
     () => (entries ? computeJournalAuditSummary(entries) : null),
     [entries],
   );
 
-  const marketFamilyRows = useMemo(() => {
+  const marketFamilyRows = useMemo<readonly AuditRateDisplayRow[]>(() => {
     if (!entries || entries.length === 0) return stats.byMarket;
     const fineRows = computeJournalMarketFamilyBreakdown(entries, pickById);
     return fineRows.length > 0 ? fineRows : stats.byMarket;
   }, [entries, pickById, stats.byMarket]);
+
+  const buildMonthlyCalendar = useCallback(
+    (ym: string) =>
+      buildMonthlyRecordCalendar(entries ?? [], ym || undefined, {
+        timeZone: userTimezone,
+        includeNetUnits: true,
+      }),
+    [entries, userTimezone],
+  );
+
+  const leagueCols = useMemo(() => buildBreakdownColumns("Liga", false), []);
+  const marketCols = useMemo(() => buildBreakdownColumns("Familia", true), []);
+  const typeCols = useMemo(() => buildBreakdownColumns("Tipo", false), []);
 
   const startingUnits =
     bankrollStartMxn !== null && bankrollStartMxn > 0 && unitMxn > 0
@@ -93,13 +216,13 @@ export function RecordBankStatsTab({
 
   const handleBlur = () => {
     if (!edited) return;
-    const parsed = parseBankrollInput(draft);
+    const parsed = parseBankrollInput(displayDraft);
     if (!parsed.ok) setError(parsed.error);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const parsed = parseBankrollInput(draft);
+    const parsed = parseBankrollInput(displayDraft);
     if (!parsed.ok) {
       setError(parsed.error);
       inputRef.current?.focus();
@@ -107,6 +230,7 @@ export function RecordBankStatsTab({
     }
     setError(null);
     setEdited(false);
+    setDraft(parsed.value !== null ? String(parsed.value) : "");
     onSaveBankroll(parsed.value);
   };
 
@@ -126,164 +250,174 @@ export function RecordBankStatsTab({
 
   return (
     <div className="pl-rec-stack">
-      {/* Banca inicial privada en pesos MXN */}
-      <section className="pl-rec-card glass-card glass-ring" aria-labelledby={`${uid}-bank-heading`}>
-        <div className="pl-rec-card-head">
-          <div className="min-w-0">
-            <h2 id={`${uid}-bank-heading`} className="pl-rec-card-title [text-wrap:balance]">
-              Tu banca inicial (opcional)
-            </h2>
-            <p className="pl-rec-card-meta num">
-              Valor actual de tu unidad: 1u = ${unitMxn.toLocaleString("es-MX")} MXN
-            </p>
-          </div>
+      <SofascoreCard
+        id={`${uid}-bank`}
+        title="Tu banca inicial (opcional)"
+        meta={
           <span className="pl-rec-private-note">
             <MaestroIcon name="shield" size={14} />
             <span>Siempre privado · Nadie más ve pesos</span>
           </span>
-        </div>
+        }
+      >
+        <div className="space-y-3">
+          <p className="pl-rec-card-meta num">
+            Valor actual de tu unidad: 1u = ${unitMxn.toLocaleString("es-MX")} MXN
+          </p>
 
-        <div className="pl-rec-bank-grid">
-          <form
-            className="pl-rec-bank-form"
-            onSubmit={handleSubmit}
-            aria-labelledby={`${uid}-bank-heading`}
-            noValidate
-          >
-            <label htmlFor={inputId} className="pl-rec-label">
-              Banca inicial en pesos (MXN)
-            </label>
-            <p id={helpId} className="pl-rec-hint [text-wrap:pretty]">
-              Si la indicas, calculamos tu retorno sobre la banca y arrancamos tu curva de saldo
-              desde esas unidades. Los montos en pesos jamás salen en tu perfil público.
-            </p>
+          <div className="pl-rec-bank-grid">
+            <form
+              className="pl-rec-bank-form"
+              onSubmit={handleSubmit}
+              aria-labelledby={`${uid}-bank-title`}
+              noValidate
+            >
+              <label htmlFor={inputId} className="pl-rec-label">
+                Banca inicial en pesos (MXN)
+              </label>
+              <p id={helpId} className="pl-rec-hint [text-wrap:pretty]">
+                Si la indicas, calculamos tu retorno sobre la banca y arrancamos tu curva de saldo
+                desde esas unidades. Los montos en pesos jamás salen en tu perfil público.
+              </p>
 
-            <div className="pl-rec-input-row">
-              <div className="pl-rec-input-wrap">
-                <span className="pl-rec-currency" aria-hidden="true">
-                  $
-                </span>
-                <input
-                  ref={inputRef}
-                  id={inputId}
-                  name="bankrollStartMxn"
-                  type="text"
-                  inputMode="numeric"
-                  enterKeyHint="done"
-                  autoComplete="off"
-                  spellCheck={false}
-                  placeholder="Ej. 5000"
-                  value={draft}
-                  aria-describedby={error ? `${helpId} ${errorId}` : helpId}
-                  aria-invalid={error ? "true" : undefined}
-                  className="pl-rec-input num text-base"
-                  onChange={(e) => {
-                    setDraft(e.target.value);
-                    setEdited(true);
-                    if (error) setError(null);
-                  }}
-                  onBlur={handleBlur}
-                />
-                <span className="pl-rec-currency-Unit" aria-hidden="true">
-                  MXN
-                </span>
+              <div className="pl-rec-input-row">
+                <div className="pl-rec-input-wrap">
+                  <span className="pl-rec-currency" aria-hidden="true">
+                    $
+                  </span>
+                  <input
+                    ref={inputRef}
+                    id={inputId}
+                    name="bankrollStartMxn"
+                    type="text"
+                    inputMode="numeric"
+                    enterKeyHint="done"
+                    autoComplete="off"
+                    spellCheck={false}
+                    placeholder="Ej. 5000"
+                    value={displayDraft}
+                    aria-describedby={error ? `${helpId} ${errorId}` : helpId}
+                    aria-invalid={error ? "true" : undefined}
+                    className="pl-rec-input num"
+                    onChange={(e) => {
+                      setDraft(e.target.value);
+                      setEdited(true);
+                      if (error) setError(null);
+                    }}
+                    onBlur={handleBlur}
+                  />
+                  <span className="pl-rec-currency-Unit" aria-hidden="true">
+                    MXN
+                  </span>
+                </div>
+
+                <Button type="submit" variant="primary" size="lg">
+                  Guardar banca
+                </Button>
+
+                {bankrollStartMxn !== null ? (
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    tone="danger"
+                    size="lg"
+                    data-clear-bankroll-trigger=""
+                    onClick={() => setConfirmClearBankOpen(true)}
+                  >
+                    Quitar
+                  </Button>
+                ) : null}
               </div>
 
-              <button type="submit" className="pl-rec-btn pl-rec-btn--primary min-h-12">
-                Guardar banca
-              </button>
-
-              {bankrollStartMxn !== null ? (
-                <button
-                  type="button"
-                  className="pl-rec-btn min-h-12"
-                  data-clear-bankroll-trigger=""
-                  onClick={() => setConfirmClearBankOpen(true)}
-                >
-                  Quitar
-                </button>
+              {error ? (
+                <p id={errorId} className="pl-rec-error" role="status">
+                  {error}
+                </p>
               ) : null}
-            </div>
 
-            {error ? (
-              <p id={errorId} className="pl-rec-error" role="status">
-                {error}
-              </p>
-            ) : null}
+              <div
+                className="pl-rec-presets num"
+                role="group"
+                aria-label="Montos rápidos de banca inicial"
+              >
+                {BANKROLL_PRESETS.map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    className="pl-rec-chip"
+                    aria-pressed={bankrollStartMxn === preset}
+                    onClick={() => {
+                      setDraft(String(preset));
+                      setEdited(false);
+                      setError(null);
+                      onSaveBankroll(preset);
+                    }}
+                  >
+                    ${preset.toLocaleString("es-MX")} ({(preset / unitMxn).toFixed(1)}u)
+                  </button>
+                ))}
+              </div>
+            </form>
 
-            <div className="pl-rec-presets num" role="group" aria-label="Montos rápidos de banca inicial">
-              {BANKROLL_PRESETS.map((preset) => (
-                <button
-                  key={preset}
-                  type="button"
-                  className="pl-rec-chip min-h-11 sm:min-h-9"
-                  aria-pressed={bankrollStartMxn === preset}
-                  onClick={() => {
-                    setDraft(String(preset));
-                    setEdited(false);
-                    setError(null);
-                    onSaveBankroll(preset);
-                  }}
-                >
-                  ${preset.toLocaleString("es-MX")} ({(preset / unitMxn).toFixed(1)}u)
-                </button>
-              ))}
-            </div>
-          </form>
-
-          <div className="pl-rec-bank-summary num" data-private-bankroll-summary="">
-            <div className="pl-rec-bank-row">
-              <span style={{ color: "var(--pl-text-muted)" }}>Banca inicial</span>
-              <strong>
-                {bankrollStartMxn !== null && startingUnits !== null
-                  ? `$${bankrollStartMxn.toLocaleString("es-MX")} MXN (${startingUnits.toFixed(2)}u)`
-                  : "Sin definir (curva desde 0u)"}
-              </strong>
-            </div>
-            <div className="pl-rec-bank-row">
-              <span style={{ color: "var(--pl-text-muted)" }}>Movimiento acumulado</span>
-              <strong className={stats.netUnits >= 0 ? "pl-rec-pos" : "pl-rec-neg"}>
-                {formatSignedUnits(stats.netUnits)} ({formatUnitsAsMxn(stats.netUnits, unitMxn)})
-              </strong>
-            </div>
-            <div className="pl-rec-bank-row">
-              <span style={{ color: "var(--pl-text-muted)" }}>Banca actual estimada</span>
-              <strong>
-                {currentMxn !== null && currentUnits !== null
-                  ? `$${currentMxn.toLocaleString("es-MX")} MXN (${currentUnits.toFixed(2)}u)`
-                  : `${stats.netUnits >= 0 ? "+" : ""}${stats.netUnits.toFixed(2)}u`}
-              </strong>
+            <div className="pl-rec-bank-summary num" data-private-bankroll-summary="">
+              <div className="pl-rec-bank-row">
+                <span style={{ color: "var(--pl-text-muted)" }}>Banca inicial</span>
+                <strong>
+                  {bankrollStartMxn !== null && startingUnits !== null
+                    ? `$${bankrollStartMxn.toLocaleString("es-MX")} MXN (${startingUnits.toFixed(2)}u)`
+                    : "Sin definir (curva desde 0u)"}
+                </strong>
+              </div>
+              <div className="pl-rec-bank-row">
+                <span style={{ color: "var(--pl-text-muted)" }}>Movimiento acumulado</span>
+                <strong className={stats.netUnits >= 0 ? "pl-rec-pos" : "pl-rec-neg"}>
+                  {formatSignedUnits(stats.netUnits)} ({formatUnitsAsMxn(stats.netUnits, unitMxn)})
+                </strong>
+              </div>
+              <div className="pl-rec-bank-row">
+                <span style={{ color: "var(--pl-text-muted)" }}>Banca actual estimada</span>
+                <strong>
+                  {currentMxn !== null && currentUnits !== null
+                    ? `$${currentMxn.toLocaleString("es-MX")} MXN (${currentUnits.toFixed(2)}u)`
+                    : `${stats.netUnits >= 0 ? "+" : ""}${stats.netUnits.toFixed(2)}u`}
+                </strong>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </SofascoreCard>
 
-      {/* 1. Curva de saldo en el tiempo */}
-      <section className="pl-rec-card glass-card glass-ring" aria-labelledby={`${uid}-curve-heading`}>
-        <div className="pl-rec-card-head">
-          <div className="min-w-0">
-            <h2 id={`${uid}-curve-heading`} className="pl-rec-card-title [text-wrap:balance]">
-              Curva de saldo en el tiempo
-            </h2>
+      <div className="pl-rec-balance-cal-grid">
+        <SofascoreCard
+          id={`${uid}-curve`}
+          title="Curva de saldo en el tiempo"
+          meta={
+            <span>
+              {stats.settled} {stats.settled === 1 ? "cerrado" : "cerrados"}
+              {auditSummary && auditSummary.pushes > 0 ? ` · ${auditSummary.pushes} push` : ""}
+              {stats.open > 0 ? ` · ${stats.open} pend.` : ""}
+            </span>
+          }
+        >
+          <div className="space-y-3">
             <p className="pl-rec-card-meta [text-wrap:pretty]">
               Evolución acumulada en unidades según la fecha de cierre de cada pick.
             </p>
+            <BalanceCurveFigure curve={stats.curve} startingUnits={startingUnits} />
           </div>
-          <span className="pl-pill num">
-            {stats.settled} {stats.settled === 1 ? "cerrado" : "cerrados"}
-            {auditSummary && auditSummary.pushes > 0 ? ` · ${auditSummary.pushes} push` : ""}
-            {stats.open > 0 ? ` · ${stats.open} pend.` : ""}
-          </span>
-        </div>
-        <BalanceCurveFigure curve={stats.curve} startingUnits={startingUnits} />
-      </section>
+        </SofascoreCard>
 
-      {/* 3, 4, 5 y 6: Rendimiento y retorno · Ventaja (CLV/EV+) y momio promedio · Rachas y meses */}
+        <SofascoreCard
+          id={`${uid}-calendar`}
+          title="Calendario mensual de resultados"
+          meta={<span>Por día de cierre</span>}
+        >
+          <DailyResultsCalendar buildMonth={buildMonthlyCalendar} mode="units" />
+        </SofascoreCard>
+      </div>
+
       <div className="pl-rec-metrics-grid num">
-        <section className="pl-rec-metric-box glass-card glass-ring" aria-labelledby={`${uid}-roi-heading`}>
-          <h2 id={`${uid}-roi-heading`} className="pl-rec-card-title [text-wrap:balance]">
-            Rendimiento y retorno
-          </h2>
+        <SofascoreCard id={`${uid}-roi`} title="Rendimiento y retorno" density="compact">
           <div className="pl-rec-metric-pair">
             <div>
               <span className="pl-rec-metric-label">Rendimiento</span>
@@ -294,9 +428,7 @@ export function RecordBankStatsTab({
               >
                 {stats.yieldPct !== null ? formatSignedPctValue(stats.yieldPct) : "—"}
               </div>
-              <span className="pl-rec-kpi-sub">
-                Sobre {stats.stakedUnits.toFixed(2)}u jugadas
-              </span>
+              <span className="pl-rec-kpi-sub">Sobre {stats.stakedUnits.toFixed(2)}u jugadas</span>
             </div>
             <div>
               <span className="pl-rec-metric-label">Retorno sobre tu banca</span>
@@ -314,12 +446,9 @@ export function RecordBankStatsTab({
               </span>
             </div>
           </div>
-        </section>
+        </SofascoreCard>
 
-        <section className="pl-rec-metric-box glass-card glass-ring" aria-labelledby={`${uid}-clv-heading`}>
-          <h2 id={`${uid}-clv-heading`} className="pl-rec-card-title [text-wrap:balance]">
-            Ventaja y momio promedio
-          </h2>
+        <SofascoreCard id={`${uid}-clv`} title="Ventaja y momio promedio" density="compact">
           <div className="pl-rec-metric-pair">
             <div>
               <span className="pl-rec-metric-label">Ventaja / CLV promedio</span>
@@ -354,12 +483,9 @@ export function RecordBankStatsTab({
               </span>
             </div>
           </div>
-        </section>
+        </SofascoreCard>
 
-        <section className="pl-rec-metric-box glass-card glass-ring" aria-labelledby={`${uid}-streak-heading`}>
-          <h2 id={`${uid}-streak-heading`} className="pl-rec-card-title [text-wrap:balance]">
-            Rachas y meses extremos
-          </h2>
+        <SofascoreCard id={`${uid}-streak`} title="Rachas y meses extremos" density="compact">
           <div className="pl-rec-metric-pair">
             <div>
               <span className="pl-rec-metric-label">Racha actual</span>
@@ -400,49 +526,63 @@ export function RecordBankStatsTab({
               )}
             </div>
           </div>
-        </section>
+        </SofascoreCard>
       </div>
 
-      {/* 2. Acierto por liga, por familia de mercado y por tipo de pick */}
       <div className="pl-rec-breakdowns">
-        <section className="pl-rec-card glass-card glass-ring" aria-labelledby={`${uid}-by-league`}>
-          <div className="pl-rec-card-head">
-            <h2 id={`${uid}-by-league`} className="pl-rec-card-title">
-              Acierto por liga
-            </h2>
-            <span className="pl-rec-card-meta num">{stats.byLeague.length} ligas</span>
-          </div>
-          <RateBreakdownList
+        <SofascoreCard
+          id={`${uid}-by-league`}
+          title="Acierto por liga"
+          meta={<span>{stats.byLeague.length} ligas</span>}
+          density="compact"
+        >
+          <SofascoreTable
+            caption="Desglose de acierto y saldo por liga"
+            columns={leagueCols}
             rows={stats.byLeague}
-            emptyText="Aún no tienes picks cerrados por liga."
+            rowKey={(row) => row.key}
+            density="compact"
+            emptyState={
+              <SofascoreEmptyState title="Aún no tienes picks cerrados por liga." />
+            }
           />
-        </section>
+        </SofascoreCard>
 
-        <section className="pl-rec-card glass-card glass-ring" aria-labelledby={`${uid}-by-market`}>
-          <div className="pl-rec-card-head">
-            <h2 id={`${uid}-by-market`} className="pl-rec-card-title">
-              Acierto por mercado
-            </h2>
-            <span className="pl-rec-card-meta num">{marketFamilyRows.length} familias</span>
-          </div>
-          <RateBreakdownList
+        <SofascoreCard
+          id={`${uid}-by-market`}
+          title="Acierto por mercado"
+          meta={<span>{marketFamilyRows.length} familias</span>}
+          density="compact"
+        >
+          <SofascoreTable
+            caption="Desglose de acierto, EV y saldo por familia de mercado"
+            columns={marketCols}
             rows={marketFamilyRows}
-            emptyText="Aún no tienes picks cerrados por familia de mercado."
+            rowKey={(row) => row.key}
+            density="compact"
+            emptyState={
+              <SofascoreEmptyState title="Aún no tienes picks cerrados por familia de mercado." />
+            }
           />
-        </section>
+        </SofascoreCard>
 
-        <section className="pl-rec-card glass-card glass-ring" aria-labelledby={`${uid}-by-type`}>
-          <div className="pl-rec-card-head">
-            <h2 id={`${uid}-by-type`} className="pl-rec-card-title">
-              Acierto por tipo de pick
-            </h2>
-            <span className="pl-rec-card-meta num">{stats.byType.length} tipos</span>
-          </div>
-          <RateBreakdownList
+        <SofascoreCard
+          id={`${uid}-by-type`}
+          title="Acierto por tipo de pick"
+          meta={<span>{stats.byType.length} tipos</span>}
+          density="compact"
+        >
+          <SofascoreTable
+            caption="Desglose de acierto y saldo por tipo de pick"
+            columns={typeCols}
             rows={stats.byType}
-            emptyText="Aún no tienes picks cerrados por tipo."
+            rowKey={(row) => row.key}
+            density="compact"
+            emptyState={
+              <SofascoreEmptyState title="Aún no tienes picks cerrados por tipo." />
+            }
           />
-        </section>
+        </SofascoreCard>
       </div>
 
       <ConfirmActionDialog

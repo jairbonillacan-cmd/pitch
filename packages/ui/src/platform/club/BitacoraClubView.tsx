@@ -1,9 +1,20 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import {
+  Button,
+  SofascoreCard,
+  SofascoreKpiStrip,
+  type SofascoreKpiItem,
+} from "../../components/ui/primitives";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { WinningTicketDialog } from "../components/WinningTicketDialog";
+import {
+  useAbortableJson,
+  useSafeEffect,
+  useUrlSearchTab,
+} from "../hooks";
 import {
   ownHandleFor,
   useJournalEntries,
@@ -26,7 +37,6 @@ import {
   writeStoredPrefs,
   type StoredAccountPrefsV1,
 } from "./account/account-helpers";
-import { TabPanel, UnderlineTabs, useUrlTab, type TabDef } from "./community-ui";
 import {
   formatSignedPctValue,
   formatSignedUnits,
@@ -38,12 +48,48 @@ import { computeJournalAuditSummary } from "./record/record-audit-helpers";
 
 export type RecordTabKey = "picks" | "banca" | "privacidad";
 
-const RECORD_TABS: readonly TabDef<RecordTabKey>[] = [
+interface RecordTabSpec {
+  readonly key: RecordTabKey;
+  readonly label: string;
+}
+
+const RECORD_TABS: readonly RecordTabSpec[] = [
   { key: "picks", label: "Picks" },
-  { key: "banca", label: "Banca y estadísticas", shortLabel: "Estadísticas" },
+  { key: "banca", label: "Banca y estadísticas" },
   { key: "privacidad", label: "Privacidad" },
 ];
+
 const RECORD_TAB_KEYS: readonly RecordTabKey[] = ["picks", "banca", "privacidad"];
+
+interface ServerPreferencesEnvelope {
+  readonly preferences?: {
+    readonly unitMxnCentavos?: number;
+    readonly showMxnBalance?: boolean;
+    readonly publicRecordVisible?: boolean;
+    readonly showInRanking?: boolean;
+    readonly recordPrivacy?: unknown;
+    readonly bankrollStartMxnCentavos?: number | null;
+  };
+}
+
+type NearestScrollIntoViewOptions = ScrollIntoViewOptions & {
+  readonly container?: "all" | "nearest";
+};
+
+function scrollRecordTabIntoView(element: HTMLButtonElement | null): void {
+  if (!element || typeof element.scrollIntoView !== "function") return;
+  const opts: NearestScrollIntoViewOptions = {
+    block: "nearest",
+    inline: "nearest",
+    container: "nearest",
+  };
+  try {
+    element.scrollIntoView(opts);
+  } catch (err) {
+    void err;
+    element.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
+}
 
 function mergeRecordPrefs(
   base: StoredAccountPrefsV1,
@@ -65,6 +111,25 @@ function mergeRecordPrefs(
   };
 }
 
+function updatePrivacyField(
+  prev: RecordPrivacy,
+  block: RecordPrivacyBlock,
+  field: string,
+  enabled: boolean,
+): RecordPrivacy {
+  const updatedFields: Record<string, boolean> = Object.fromEntries(
+    Object.entries(prev[block].fields),
+  );
+  updatedFields[field] = enabled;
+  return normalizeRecordPrivacy({
+    ...prev,
+    [block]: {
+      enabled: prev[block].enabled,
+      fields: updatedFields,
+    },
+  });
+}
+
 export interface BitacoraClubViewProps {
   initialTab?: RecordTabKey;
   storyPrefs?: Partial<StoredAccountPrefsV1>;
@@ -74,14 +139,32 @@ export function BitacoraClubView({
   initialTab,
   storyPrefs,
 }: BitacoraClubViewProps = {}): React.JSX.Element {
-  const { dataset, oddsFormat, showMxnBalance, unitMxn, viewerIdentity, viewerRole, hasAccountSessionAuth } = usePlatformCore();
-  const { setShowMxnBalance, setUnitMxn, toggleWatchlistGame, exportJournalCsv, openShareTicket, pushToast, navigateTo } = usePlatformActions();
+  const {
+    dataset,
+    oddsFormat,
+    showMxnBalance,
+    unitMxn,
+    userTimezone,
+    viewerIdentity,
+    viewerRole,
+    hasAccountSessionAuth,
+  } = usePlatformCore();
+  const {
+    setShowMxnBalance,
+    setUnitMxn,
+    toggleWatchlistGame,
+    exportJournalCsv,
+    openShareTicket,
+    pushToast,
+    navigateTo,
+  } = usePlatformActions();
   const journal = useJournalEntries();
   const watchlistGameIds = useWatchlistGameIds();
 
   const canPersistServer = Boolean(hasAccountSessionAuth && !storyPrefs);
 
-  const [tab, setTab] = useUrlTab<RecordTabKey>(
+  const [tab, setTab] = useUrlSearchTab<RecordTabKey>(
+    "tab",
     RECORD_TAB_KEYS,
     initialTab ?? "picks",
   );
@@ -89,84 +172,63 @@ export function BitacoraClubView({
   const [prefs, setPrefs] = useState<StoredAccountPrefsV1>(() =>
     mergeRecordPrefs(DEFAULT_STORED_PREFS_V1, storyPrefs),
   );
+  const appliedServerPrefsRef = useRef<boolean>(false);
+  const tabButtonRefs = useRef<Partial<Record<RecordTabKey, HTMLButtonElement | null>>>({});
 
-  // Hidrata desde localStorage en cliente (y respeta overrides de Storybook/tests).
-  useEffect(() => {
+  useSafeEffect(() => {
     setPrefs(mergeRecordPrefs(readStoredPrefs(), storyPrefs));
   }, [storyPrefs]);
 
-  // Con cuenta real autenticada: hidrata desde PostgreSQL (`/api/me/preferences`).
-  useEffect(() => {
-    if (!canPersistServer) return;
-    let cancelled = false;
-    void fetch("/api/me/preferences", {
-      credentials: "same-origin",
-      cache: "no-store",
-    })
-      .then(async (res) =>
-        res.ok
-          ? ((await res.json().catch(() => null)) as {
-              preferences?: {
-                unitMxnCentavos?: number;
-                showMxnBalance?: boolean;
-                publicRecordVisible?: boolean;
-                showInRanking?: boolean;
-                recordPrivacy?: unknown;
-                bankrollStartMxnCentavos?: number | null;
-              };
-            } | null)
-          : null,
-      )
-      .then((data) => {
-        if (cancelled || !data?.preferences) return;
-        const p = data.preferences;
-        const serverUnit =
-          typeof p.unitMxnCentavos === "number" && Number.isFinite(p.unitMxnCentavos)
-            ? Math.max(10, Math.min(100_000, Math.round(p.unitMxnCentavos / 100)))
-            : undefined;
-        if (serverUnit !== undefined) setUnitMxn(serverUnit);
-        if (typeof p.showMxnBalance === "boolean") setShowMxnBalance(p.showMxnBalance);
+  const serverPrefsQuery = useAbortableJson<ServerPreferencesEnvelope>(
+    "/api/me/preferences",
+    { enabled: canPersistServer },
+  );
 
-        setPrefs((prev) => {
-          const next: StoredAccountPrefsV1 = {
-            ...prev,
-            unitMxn: serverUnit ?? prev.unitMxn,
-            showMxnBalance:
-              typeof p.showMxnBalance === "boolean" ? p.showMxnBalance : prev.showMxnBalance,
-            privacy: {
-              ...prev.privacy,
-              publicProfile:
-                typeof p.publicRecordVisible === "boolean"
-                  ? p.publicRecordVisible
-                  : prev.privacy.publicProfile,
-              showInRanking:
-                typeof p.showInRanking === "boolean"
-                  ? p.showInRanking
-                  : prev.privacy.showInRanking,
-            },
-            recordPrivacy:
-              p.recordPrivacy !== undefined
-                ? normalizeRecordPrivacy(p.recordPrivacy)
-                : prev.recordPrivacy,
-            bankrollStartMxn:
-              p.bankrollStartMxnCentavos === null
-                ? null
-                : typeof p.bankrollStartMxnCentavos === "number" &&
-                    Number.isFinite(p.bankrollStartMxnCentavos)
-                  ? Math.round(p.bankrollStartMxnCentavos / 100)
-                  : prev.bankrollStartMxn,
-          };
-          writeStoredPrefs(next);
-          return next;
-        });
-      })
-      .catch((err) => {
-        void err;
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [canPersistServer, setShowMxnBalance, setUnitMxn]);
+  useSafeEffect(() => {
+    if (!canPersistServer || appliedServerPrefsRef.current) return;
+    const p = serverPrefsQuery.data?.preferences;
+    if (!p) return;
+    appliedServerPrefsRef.current = true;
+    const serverUnit =
+      typeof p.unitMxnCentavos === "number" && Number.isFinite(p.unitMxnCentavos)
+        ? Math.max(10, Math.min(100_000, Math.round(p.unitMxnCentavos / 100)))
+        : undefined;
+    if (serverUnit !== undefined) setUnitMxn(serverUnit);
+    if (typeof p.showMxnBalance === "boolean") setShowMxnBalance(p.showMxnBalance);
+
+    setPrefs((prev) => {
+      const next: StoredAccountPrefsV1 = {
+        ...prev,
+        unitMxn: serverUnit ?? prev.unitMxn,
+        showMxnBalance:
+          typeof p.showMxnBalance === "boolean" ? p.showMxnBalance : prev.showMxnBalance,
+        privacy: {
+          ...prev.privacy,
+          publicProfile:
+            typeof p.publicRecordVisible === "boolean"
+              ? p.publicRecordVisible
+              : prev.privacy.publicProfile,
+          showInRanking:
+            typeof p.showInRanking === "boolean"
+              ? p.showInRanking
+              : prev.privacy.showInRanking,
+        },
+        recordPrivacy:
+          p.recordPrivacy !== undefined
+            ? normalizeRecordPrivacy(p.recordPrivacy)
+            : prev.recordPrivacy,
+        bankrollStartMxn:
+          p.bankrollStartMxnCentavos === null
+            ? null
+            : typeof p.bankrollStartMxnCentavos === "number" &&
+                Number.isFinite(p.bankrollStartMxnCentavos)
+              ? Math.round(p.bankrollStartMxnCentavos / 100)
+              : prev.bankrollStartMxn,
+      };
+      writeStoredPrefs(next);
+      return next;
+    });
+  }, [canPersistServer, serverPrefsQuery.data, setShowMxnBalance, setUnitMxn]);
 
   const persistServerPatch = useCallback(
     (body: Record<string, unknown>) => {
@@ -198,10 +260,7 @@ export function BitacoraClubView({
     [journal, startingUnits],
   );
 
-  const auditSummary = useMemo(
-    () => computeJournalAuditSummary(journal),
-    [journal],
-  );
+  const auditSummary = useMemo(() => computeJournalAuditSummary(journal), [journal]);
 
   const pickById = useMemo(() => {
     const map = new Map<string, MatchPick>();
@@ -304,16 +363,7 @@ export function BitacoraClubView({
   const handleToggleField = useCallback(
     (block: RecordPrivacyBlock, field: string, enabled: boolean) => {
       setPrefs((prev) => {
-        const nextPrivacy: RecordPrivacy = {
-          ...prev.recordPrivacy,
-          [block]: {
-            ...prev.recordPrivacy[block],
-            fields: {
-              ...(prev.recordPrivacy[block].fields as Record<string, boolean>),
-              [field]: enabled,
-            } as RecordPrivacy[typeof block]["fields"],
-          },
-        };
+        const nextPrivacy = updatePrivacyField(prev.recordPrivacy, block, field, enabled);
         const next: StoredAccountPrefsV1 = { ...prev, recordPrivacy: nextPrivacy };
         writeStoredPrefs(next);
         persistServerPatch({ recordPrivacy: nextPrivacy });
@@ -342,6 +392,43 @@ export function BitacoraClubView({
     pushToast("Privacidad restaurada a la configuración predeterminada.", "default");
   }, [persistServerPatch, pushToast]);
 
+  const handleTabKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>, currentKey: RecordTabKey) => {
+      const idx = RECORD_TAB_KEYS.indexOf(currentKey);
+      if (idx < 0) return;
+      const listEl = event.currentTarget.closest<HTMLElement>('[role="tablist"]');
+      const isRtl =
+        listEl !== null &&
+        typeof window !== "undefined" &&
+        window.getComputedStyle(listEl).direction === "rtl";
+      const nextKey = isRtl ? "ArrowLeft" : "ArrowRight";
+      const prevKey = isRtl ? "ArrowRight" : "ArrowLeft";
+
+      let targetIndex = -1;
+      if (event.key === nextKey) {
+        targetIndex = (idx + 1) % RECORD_TAB_KEYS.length;
+      } else if (event.key === prevKey) {
+        targetIndex = (idx - 1 + RECORD_TAB_KEYS.length) % RECORD_TAB_KEYS.length;
+      } else if (event.key === "Home") {
+        targetIndex = 0;
+      } else if (event.key === "End") {
+        targetIndex = RECORD_TAB_KEYS.length - 1;
+      }
+
+      if (targetIndex < 0) return;
+      event.preventDefault();
+      const targetTab = RECORD_TAB_KEYS[targetIndex];
+      if (!targetTab) return;
+      const node = tabButtonRefs.current[targetTab] ?? null;
+      node?.focus();
+      scrollRecordTabIntoView(node);
+      if (targetTab !== tab) {
+        setTab(targetTab);
+      }
+    },
+    [setTab, tab],
+  );
+
   const streakValue =
     stats.currentStreak.kind === "won"
       ? `${stats.currentStreak.length}G seguidos`
@@ -349,15 +436,81 @@ export function BitacoraClubView({
         ? `${stats.currentStreak.length}P seguidos`
         : "Sin cierres";
 
+  const kpiItems = useMemo<readonly SofascoreKpiItem[]>(
+    () => [
+      {
+        id: "saldo",
+        label: "Saldo",
+        value: formatSignedUnits(stats.netUnits),
+        delta: `${stats.won}G–${stats.lost}P${auditSummary.pushes > 0 ? ` · ${auditSummary.pushes}P` : ""}${stats.open > 0 ? ` · ${stats.open} ab.` : ""}`,
+        tone: stats.netUnits > 0 ? "positive" : stats.netUnits < 0 ? "negative" : "default",
+      },
+      {
+        id: "acierto",
+        label: "Acierto",
+        value: stats.hitRatePct !== null ? `${stats.hitRatePct.toFixed(1)} %` : "—",
+        delta:
+          stats.settled > 0
+            ? `${stats.won}/${stats.settled} cerrados`
+            : `${journal.length} sellados`,
+        tone:
+          stats.hitRatePct !== null && stats.hitRatePct >= 55 ? "positive" : "default",
+      },
+      {
+        id: "rendimiento",
+        label: "Rendimiento",
+        value: stats.yieldPct !== null ? formatSignedPctValue(stats.yieldPct) : "—",
+        delta: `CLV ${stats.avgClvPct !== null ? formatSignedPctValue(stats.avgClvPct) : "—"}${
+          auditSummary.avgEvPct !== null
+            ? ` · EV ${formatSignedPctValue(auditSummary.avgEvPct)}`
+            : ""
+        }`,
+        tone:
+          stats.yieldPct === null
+            ? "default"
+            : stats.yieldPct >= 0
+              ? "positive"
+              : "negative",
+      },
+      {
+        id: "racha",
+        label: "Racha actual",
+        value: streakValue,
+        delta: `Mejor ${stats.bestWinStreak}G`,
+        tone:
+          stats.currentStreak.kind === "won"
+            ? "positive"
+            : stats.currentStreak.kind === "lost"
+              ? "negative"
+              : "default",
+      },
+    ],
+    [
+      auditSummary.avgEvPct,
+      auditSummary.pushes,
+      journal.length,
+      stats.avgClvPct,
+      stats.bestWinStreak,
+      stats.currentStreak.kind,
+      stats.hitRatePct,
+      stats.lost,
+      stats.netUnits,
+      stats.open,
+      stats.settled,
+      stats.won,
+      stats.yieldPct,
+      streakValue,
+    ],
+  );
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/lab">
         <div className="pl-rec">
-          {/* Hero editorial plano y 4 indicadores clave */}
-          <header className="pl-rec-hero glass-card glass-ring">
+          <SofascoreCard as="section" className="pl-rec-hero-card">
             <div className="pl-rec-hero-top">
               <div className="pl-rec-hero-copy">
-                <div>
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="pl-pill pl-pill--brand">
                     <MaestroIcon name="ticket" size={13} />
                     <span>Sellado antes del partido</span>
@@ -376,9 +529,9 @@ export function BitacoraClubView({
               </div>
 
               <div className="pl-rec-hero-actions">
-                <button
-                  type="button"
-                  className="pl-btn-primary text-xs min-h-11 sm:min-h-10"
+                <Button
+                  variant="primary"
+                  size="sm"
                   onClick={() =>
                     openShareTicket({
                       kind: "pick",
@@ -404,176 +557,131 @@ export function BitacoraClubView({
                 >
                   <MaestroIcon name="share" size={14} />
                   <span>Compartir récord</span>
-                </button>
+                </Button>
 
-                <button
-                  type="button"
-                  className="pl-btn-glass text-xs min-h-11 sm:min-h-10"
+                <Button
+                  variant="secondary"
+                  size="sm"
                   onClick={() => exportJournalCsv()}
                 >
                   <MaestroIcon name="download" size={14} />
                   <span>Exportar CSV</span>
+                </Button>
+              </div>
+            </div>
+
+            <SofascoreKpiStrip items={kpiItems} className="pl-rec-kpi-strip" />
+
+            {effectiveShowMxn || prefs.bankrollStartMxn !== null ? (
+              <p className="pl-rec-kpi-mxn num" data-bitacora-mxn-balance="">
+                Saldo privado estimado: ≈ {formatUnitsAsMxn(stats.netUnits, effectiveUnitMxn)} (1u =
+                ${effectiveUnitMxn.toLocaleString("es-MX")} MXN)
+              </p>
+            ) : null}
+          </SofascoreCard>
+
+          <div
+            role="tablist"
+            aria-label="Secciones de Mi récord"
+            aria-orientation="horizontal"
+            className="pl-sf-tabs is-underline pl-rec-tabs"
+            data-pl-sf-tabs="underline"
+          >
+            {RECORD_TABS.map((item) => {
+              const isSelected = tab === item.key;
+              return (
+                <button
+                  key={item.key}
+                  ref={(el) => {
+                    tabButtonRefs.current[item.key] = el;
+                  }}
+                  id={`pl-rec-tab-${item.key}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  tabIndex={isSelected ? 0 : -1}
+                  data-pl-sf-tab={item.key}
+                  className="pl-sf-tab pl-rec-tab-btn"
+                  onClick={(event) => {
+                    scrollRecordTabIntoView(event.currentTarget);
+                    if (item.key !== tab) {
+                      setTab(item.key);
+                    }
+                  }}
+                  onKeyDown={(event) => handleTabKeyDown(event, item.key)}
+                >
+                  <span className="pl-sf-tab-label">{item.label}</span>
+                  {item.key === "picks" && journal.length > 0 ? (
+                    <span className="pl-sf-tab-count num">{journal.length}</span>
+                  ) : null}
                 </button>
-              </div>
-            </div>
+              );
+            })}
+          </div>
 
-            <div className="pl-rec-kpis num">
-              <div className="pl-rec-kpi glass-ring">
-                <div className="pl-rec-kpi-head">
-                  <span>Saldo</span>
-                  <MaestroIcon
-                    name="chart"
-                    size={15}
-                    style={{
-                      color:
-                        stats.netUnits >= 0 ? "var(--pl-success)" : "var(--pl-danger)",
-                    }}
-                  />
-                </div>
-                <strong
-                  className={`pl-rec-kpi-val ${stats.netUnits >= 0 ? "pl-rec-pos" : "pl-rec-neg"}`}
-                >
-                  {formatSignedUnits(stats.netUnits)}
-                </strong>
-                {effectiveShowMxn || prefs.bankrollStartMxn !== null ? (
-                  <span className="pl-rec-kpi-mxn" data-bitacora-mxn-balance="">
-                    ≈ {formatUnitsAsMxn(stats.netUnits, effectiveUnitMxn)} (1u = $
-                    {effectiveUnitMxn.toLocaleString("es-MX")})
-                  </span>
-                ) : null}
-                <span className="pl-rec-kpi-sub">
-                  {stats.won}G – {stats.lost}P
-                  {auditSummary.pushes > 0 ? ` · ${auditSummary.pushes} Push` : ""} ·{" "}
-                  {stats.open} {stats.open === 1 ? "pendiente" : "pendientes"}
-                </span>
-              </div>
+          <div
+            id="pl-rec-panel-picks"
+            role="tabpanel"
+            aria-labelledby="pl-rec-tab-picks"
+            hidden={tab !== "picks"}
+          >
+            {tab === "picks" ? (
+              <RecordPicksTab
+                journal={journal}
+                oddsFormat={oddsFormat}
+                watchedGames={watchedGames}
+                suggestedUpcoming={suggestedUpcoming}
+                onToggleWatchlist={toggleWatchlistGame}
+                onNavigateHome={() => navigateTo("/app")}
+                onOpenWinningEntry={setWinningEntry}
+                onOpenShareTicket={openShareTicket}
+              />
+            ) : null}
+          </div>
 
-              <div className="pl-rec-kpi glass-ring">
-                <div className="pl-rec-kpi-head">
-                  <span>Acierto</span>
-                  <MaestroIcon
-                    name="check"
-                    size={15}
-                    style={{ color: "var(--pl-info)" }}
-                  />
-                </div>
-                <strong className="pl-rec-kpi-val">
-                  {stats.hitRatePct !== null ? `${stats.hitRatePct.toFixed(1)} %` : "—"}
-                </strong>
-                <span className="pl-rec-kpi-sub">
-                  {stats.settled > 0
-                    ? `${stats.won} de ${stats.settled} decididos`
-                    : `${journal.length} picks registrados`}
-                </span>
-              </div>
+          <div
+            id="pl-rec-panel-banca"
+            role="tabpanel"
+            aria-labelledby="pl-rec-tab-banca"
+            hidden={tab !== "banca"}
+          >
+            {tab === "banca" ? (
+              <RecordBankStatsTab
+                stats={stats}
+                unitMxn={effectiveUnitMxn}
+                bankrollStartMxn={prefs.bankrollStartMxn}
+                oddsFormat={oddsFormat}
+                onSaveBankroll={handleSaveBankroll}
+                entries={journal}
+                pickById={pickById}
+                userTimezone={userTimezone || "America/Mexico_City"}
+              />
+            ) : null}
+          </div>
 
-              <div className="pl-rec-kpi glass-ring">
-                <div className="pl-rec-kpi-head">
-                  <span>Rendimiento</span>
-                  <MaestroIcon
-                    name="bolt"
-                    size={15}
-                    style={{ color: "var(--pl-brand)" }}
-                  />
-                </div>
-                <strong
-                  className={`pl-rec-kpi-val ${
-                    stats.yieldPct === null
-                      ? ""
-                      : stats.yieldPct >= 0
-                        ? "pl-rec-pos"
-                        : "pl-rec-neg"
-                  }`}
-                >
-                  {stats.yieldPct !== null ? formatSignedPctValue(stats.yieldPct) : "—"}
-                </strong>
-                <span className="pl-rec-kpi-sub">
-                  CLV {stats.avgClvPct !== null ? formatSignedPctValue(stats.avgClvPct) : "—"}
-                  {auditSummary.avgEvPct !== null
-                    ? ` · EV ${formatSignedPctValue(auditSummary.avgEvPct)}`
-                    : ""}
-                  {stats.roiPct !== null ? ` · Retorno ${formatSignedPctValue(stats.roiPct)}` : ""}
-                </span>
-              </div>
-
-              <div className="pl-rec-kpi glass-ring">
-                <div className="pl-rec-kpi-head">
-                  <span>Racha actual</span>
-                  <MaestroIcon
-                    name="bell"
-                    size={15}
-                    style={{ color: "var(--pl-accent)" }}
-                  />
-                </div>
-                <strong
-                  className={`pl-rec-kpi-val ${
-                    stats.currentStreak.kind === "won"
-                      ? "pl-rec-pos"
-                      : stats.currentStreak.kind === "lost"
-                        ? "pl-rec-neg"
-                        : ""
-                  }`}
-                >
-                  {streakValue}
-                </strong>
-                <span className="pl-rec-kpi-sub">
-                  Mejor racha: {stats.bestWinStreak}G · {watchlistGameIds.length} en vigilancia
-                </span>
-              </div>
-            </div>
-          </header>
-
-          {/* 3 pestañas WAI-ARIA sincronizadas con ?tab= */}
-          <UnderlineTabs
-            tabs={RECORD_TABS}
-            active={tab}
-            onChange={setTab}
-            label="Secciones de Mi récord"
-            idPrefix="pl-rec"
-            className="pl-rec-tabs"
-          />
-
-          <TabPanel tabKey="picks" idPrefix="pl-rec" active={tab}>
-            <RecordPicksTab
-              journal={journal}
-              oddsFormat={oddsFormat}
-              watchedGames={watchedGames}
-              suggestedUpcoming={suggestedUpcoming}
-              onToggleWatchlist={toggleWatchlistGame}
-              onNavigateHome={() => navigateTo("/app")}
-              onOpenWinningEntry={setWinningEntry}
-              onOpenShareTicket={openShareTicket}
-            />
-          </TabPanel>
-
-          <TabPanel tabKey="banca" idPrefix="pl-rec" active={tab}>
-            <RecordBankStatsTab
-              stats={stats}
-              unitMxn={effectiveUnitMxn}
-              bankrollStartMxn={prefs.bankrollStartMxn}
-              oddsFormat={oddsFormat}
-              onSaveBankroll={handleSaveBankroll}
-              entries={journal}
-              pickById={pickById}
-            />
-          </TabPanel>
-
-          <TabPanel tabKey="privacidad" idPrefix="pl-rec" active={tab}>
-            <RecordPrivacyTab
-              handle={ownHandle}
-              stats={stats}
-              entries={journal}
-              oddsFormat={oddsFormat}
-              publicRecordVisible={prefs.privacy.publicProfile}
-              showInRanking={prefs.privacy.showInRanking}
-              privacy={prefs.recordPrivacy}
-              onTogglePublicRecord={handleTogglePublicRecord}
-              onToggleShowInRanking={handleToggleShowInRanking}
-              onToggleBlock={handleToggleBlock}
-              onToggleField={handleToggleField}
-              onResetPrivacy={handleResetPrivacy}
-            />
-          </TabPanel>
+          <div
+            id="pl-rec-panel-privacidad"
+            role="tabpanel"
+            aria-labelledby="pl-rec-tab-privacidad"
+            hidden={tab !== "privacidad"}
+          >
+            {tab === "privacidad" ? (
+              <RecordPrivacyTab
+                handle={ownHandle}
+                stats={stats}
+                entries={journal}
+                oddsFormat={oddsFormat}
+                publicRecordVisible={prefs.privacy.publicProfile}
+                showInRanking={prefs.privacy.showInRanking}
+                privacy={prefs.recordPrivacy}
+                onTogglePublicRecord={handleTogglePublicRecord}
+                onToggleShowInRanking={handleToggleShowInRanking}
+                onToggleBlock={handleToggleBlock}
+                onToggleField={handleToggleField}
+                onResetPrivacy={handleResetPrivacy}
+              />
+            ) : null}
+          </div>
         </div>
 
         <WinningTicketDialog entry={winningEntry} onClose={() => setWinningEntry(null)} />
