@@ -3,16 +3,25 @@ import "../../../community-social.css";
 import "../../../record-v2.css";
 import "../../../account-v2.css";
 import React from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AnalystProfileClubView } from "@pitchlab/ui/profile";
 import { normalizeClubHandle } from "../../../../src/profile-path";
 import { isAvatarStorageEnabled } from "../../../../src/server/avatar-storage";
-import { loadClubProfile } from "../../../../src/server/club-profile";
 import { loadProfileBadges } from "../../../../src/server/badges";
+import { loadClubProfile } from "../../../../src/server/club-profile";
 import { loadPublicRecord } from "../../../../src/server/public-record";
 import { loadFollowInfo } from "../../../../src/server/social";
 import { twitterCredentials } from "../../../../src/server/twitter";
 import { getViewerAccess } from "../../../../src/server/viewer-access";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
+};
 
 export default async function ClubAnalystProfilePage({
   params,

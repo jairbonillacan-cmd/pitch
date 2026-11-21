@@ -35,7 +35,7 @@ export async function generateMetadata({
 
   const { profile, publicRecord } = data;
   const roleLabel = profile.isTipster ? "Tipster Oficial" : "Socio PitchLab";
-  let statsSummary = "Récord verificado en unidades en PitchLab.";
+  let statsSummary = "Récord sellado en unidades en PitchLab.";
   if (publicRecord && !publicRecord.hidden && publicRecord.settled > 0) {
     const parts: string[] = [];
     if (publicRecord.view.hitRatePct !== null) {

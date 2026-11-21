@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useCallback, useId, useMemo, useRef, useState } from "react";
 import { LEAGUE_CATALOG, type LeagueId } from "@pitchlab/contracts";
+import { Button, SofascoreCard } from "../../components/ui/primitives";
 import {
   exampleLeaderboardRows,
   getExampleAnalystSpec,
@@ -9,8 +10,9 @@ import {
   OWN_PROFILE_ALIASES,
 } from "../community-examples";
 import { MaestroIcon } from "../components/MaestroPrimitives";
-import { ProgressiveImage } from "../components/ProgressiveImage";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
+import { ProgressiveImage } from "../components/ProgressiveImage";
+import { useAbortableJson, useSafeEffect } from "../hooks";
 import {
   type ViewerIdentity,
   useJournalEntries,
@@ -19,11 +21,13 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
-import type { JournalEntry, PlatformDataset, SocialPost, SocialReportReason, ViewerRole } from "../types";
-
-/* ---------------------------------------------------------------------------
-   Identidad propia
-   ------------------------------------------------------------------------- */
+import type {
+  JournalEntry,
+  PlatformDataset,
+  SocialPost,
+  SocialReportReason,
+  ViewerRole,
+} from "../types";
 
 export interface OwnIdentity {
   handle: string;
@@ -33,10 +37,6 @@ export interface OwnIdentity {
   avatarUrl?: string | null;
 }
 
-/**
- * Quién eres en Comunidad. Con cuenta, tu nombre y @usuario; con el PIN de la beta,
- * los socios publican como `socio_pl` y el tipster simulado como `sofia_nfl`.
- */
 export function ownIdentityFor(
   role: ViewerRole,
   identity: ViewerIdentity | null = null,
@@ -67,17 +67,18 @@ export function ownIdentityFor(
   };
 }
 
-/** Alias de la beta con PIN que también apuntan a tu perfil (con cuenta no hay alias). */
 export { OWN_PROFILE_ALIASES };
 
-/** ¿Este @usuario de la URL es tu perfil? */
-export function isOwnProfileHandle(handle: string, own: OwnIdentity | null, hasAccount: boolean): boolean {
+export function isOwnProfileHandle(
+  handle: string,
+  own: OwnIdentity | null,
+  hasAccount: boolean,
+): boolean {
   if (!own) return false;
   if (handle === own.handle) return true;
   return !hasAccount && (OWN_PROFILE_ALIASES as readonly string[]).includes(handle);
 }
 
-/** Filas que manda `/api/social/ranking` (cifras agregadas, sin picks). */
 export interface ServerRankingRow {
   handle: string;
   name: string;
@@ -114,48 +115,28 @@ export function rowsFromServer(rows: readonly ServerRankingRow[]): LeaderboardAn
   }));
 }
 
-/**
- * Filas del leaderboard.
- * - Con cuenta: el ranking real del servidor (solo socios que aceptaron aparecer). Si
- *   todavía nadie aparece, se muestran perfiles de ejemplo marcados como tales.
- * - Con el PIN de la beta: perfiles de ejemplo + tu récord local.
- */
 export function useLeaderboardRows(): {
   rows: LeaderboardAnalyst[];
   own: OwnIdentity | null;
   today: Date;
-  /** `server`: ranking real; `examples`: perfiles de ejemplo (la vista lo dice). */
   source: "server" | "examples";
-  /** Tu récord local (para decirte cuántos picks te faltan aunque no aparezcas). */
   ownJournal: readonly JournalEntry[];
 } {
   const { viewerRole, viewerIdentity, hasAccountSessionAuth } = usePlatformCore();
   const journal = useJournalEntries();
   const today = useMemo(() => new Date(), []);
   const own = useMemo(() => ownIdentityFor(viewerRole, viewerIdentity), [viewerRole, viewerIdentity]);
-  const [serverRows, setServerRows] = useState<ServerRankingRow[] | null>(null);
 
-  useEffect(() => {
-    if (!hasAccountSessionAuth) return;
-    let alive = true;
-    fetch("/api/social/ranking", { credentials: "same-origin" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data: { rows?: ServerRankingRow[] } | null) => {
-        if (alive && Array.isArray(data?.rows)) setServerRows(data.rows);
-      })
-      .catch((err: unknown) => {
-        void err;
-      });
-    return () => {
-      alive = false;
-    };
-  }, [hasAccountSessionAuth]);
+  const rankingQuery = useAbortableJson<{ rows?: ServerRankingRow[] }>(
+    "/api/social/ranking",
+    { enabled: hasAccountSessionAuth },
+  );
 
+  const serverRows = Array.isArray(rankingQuery.data?.rows) ? rankingQuery.data.rows : null;
   const fromServer = useMemo(() => (serverRows ? rowsFromServer(serverRows) : null), [serverRows]);
   const rows = useMemo(() => {
     if (fromServer && fromServer.length > 0) return fromServer;
     const examples = exampleLeaderboardRows(today);
-    // Con cuenta, tu récord solo entra al ranking real (si aceptaste aparecer).
     if (!own || fromServer || examples.some((r) => r.handle === own.handle)) return examples;
     return [
       ...examples,
@@ -176,10 +157,6 @@ export function useLeaderboardRows(): {
   const source = fromServer && fromServer.length > 0 ? "server" : "examples";
   return { rows, own, today, source, ownJournal: journal };
 }
-
-/* ---------------------------------------------------------------------------
-   Partido de un pick
-   ------------------------------------------------------------------------- */
 
 export interface EntryGameMeta {
   league: LeagueId;
@@ -208,7 +185,6 @@ export function resolveEntryGame(
   };
 }
 
-/** «registrado 2 días antes» / «registrado 5 horas antes». */
 export function registeredBeforeLabel(entry: JournalEntry, kickoffIso?: string): string | null {
   if (!entry.sealedAtIso || !kickoffIso) return null;
   const diffMs = new Date(kickoffIso).getTime() - new Date(entry.sealedAtIso).getTime();
@@ -228,7 +204,6 @@ export function shortDate(iso?: string): string {
   return Number.isNaN(d.getTime()) ? "" : SHORT_DATE.format(d).replace(".", "");
 }
 
-/** «hace 18 min», «hace 3 h», «ayer», «8 nov». */
 export function relativeTime(iso: string | undefined, now: Date = new Date()): string {
   if (!iso) return "";
   const d = new Date(iso);
@@ -241,10 +216,6 @@ export function relativeTime(iso: string | undefined, now: Date = new Date()): s
   if (hours < 48) return "ayer";
   return shortDate(iso);
 }
-
-/* ---------------------------------------------------------------------------
-   Piezas visuales
-   ------------------------------------------------------------------------- */
 
 export function Avatar({
   initials,
@@ -268,7 +239,12 @@ export function Avatar({
   return (
     <span
       className={["pl-avatar", className].filter(Boolean).join(" ")}
-      style={{ width: size, height: size, background: gradVar, fontSize: Math.round(size * 0.34) }}
+      style={{
+        width: size,
+        height: size,
+        background: gradVar,
+        fontSize: Math.round(size * 0.34),
+      }}
       aria-hidden="true"
     >
       {showImage ? (
@@ -297,7 +273,6 @@ export function outcomeOf(status: JournalEntry["status"] | PickOutcome): PickOut
   return status;
 }
 
-/** Estado del pick, siempre con texto. */
 export function PickStatus({
   status,
   detail,
@@ -316,15 +291,31 @@ export function PickStatus({
           ? "Nulo"
           : "Abierto";
   return (
-    <span className={["pl-pick-status", `pl-pick-status--${status}`, className].filter(Boolean).join(" ")}>
+    <span
+      className={["pl-pick-status", `pl-pick-status--${status}`, className]
+        .filter(Boolean)
+        .join(" ")}
+    >
       {label}
       {detail ? <span className="num"> · {detail}</span> : null}
     </span>
   );
 }
 
-export function HeartIcon({ filled = false, size = 16 }: { filled?: boolean; size?: number }): React.JSX.Element {
-  return <MaestroIcon name="heart" size={size} className={filled ? "pl-heart-filled" : undefined} />;
+export function HeartIcon({
+  filled = false,
+  size = 16,
+}: {
+  filled?: boolean;
+  size?: number;
+}): React.JSX.Element {
+  return (
+    <MaestroIcon
+      name="heart"
+      size={size}
+      className={filled ? "pl-heart-filled" : undefined}
+    />
+  );
 }
 
 export function CommentIcon({ size = 16 }: { size?: number }): React.JSX.Element {
@@ -343,14 +334,14 @@ export function GiftIcon({ size = 20 }: { size?: number }): React.JSX.Element {
   return <MaestroIcon name="gift" size={size} />;
 }
 
-/** Comparte una URL con la hoja nativa o la copia al portapapeles. */
 export async function shareUrl(
   url: string,
   title: string,
   onCopied: () => void,
   onError: () => void,
 ): Promise<void> {
-  const absolute = typeof window !== "undefined" ? new URL(url, window.location.origin).toString() : url;
+  const absolute =
+    typeof window !== "undefined" ? new URL(url, window.location.origin).toString() : url;
   try {
     if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
       await navigator.share({ title, url: absolute });
@@ -364,9 +355,271 @@ export async function shareUrl(
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Pestañas subrayadas (WAI-ARIA) con la activa en ?tab=
-   ------------------------------------------------------------------------- */
+const SHA256_K: readonly number[] = [
+  0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4,
+  0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe,
+  0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f,
+  0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+  0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc,
+  0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b,
+  0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116,
+  0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+  0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7,
+  0xc67178f2,
+];
+
+function rotr32(value: number, bits: number): number {
+  return (value >>> bits) | (value << (32 - bits));
+}
+
+function encodeUtf8Bytes(input: string): number[] {
+  const bytes: number[] = [];
+  for (let i = 0; i < input.length; i += 1) {
+    let code = input.charCodeAt(i);
+    if (code >= 0xd800 && code <= 0xdbff && i + 1 < input.length) {
+      const low = input.charCodeAt(i + 1);
+      if (low >= 0xdc00 && low <= 0xdfff) {
+        code = ((code - 0xd800) << 10) + (low - 0xdc00) + 0x10000;
+        i += 1;
+      }
+    }
+    if (code < 0x80) {
+      bytes.push(code);
+    } else if (code < 0x800) {
+      bytes.push(0xc0 | (code >> 6), 0x80 | (code & 0x3f));
+    } else if (code < 0x10000) {
+      bytes.push(0xe0 | (code >> 12), 0x80 | ((code >> 6) & 0x3f), 0x80 | (code & 0x3f));
+    } else {
+      bytes.push(
+        0xf0 | (code >> 18),
+        0x80 | ((code >> 12) & 0x3f),
+        0x80 | ((code >> 6) & 0x3f),
+        0x80 | (code & 0x3f),
+      );
+    }
+  }
+  return bytes;
+}
+
+export function computeSha256Hex(message: string): string {
+  const bytes = encodeUtf8Bytes(message);
+  const bitLen = bytes.length * 8;
+  bytes.push(0x80);
+  while (bytes.length % 64 !== 56) {
+    bytes.push(0);
+  }
+  const highBits = Math.floor(bitLen / 0x100000000);
+  const lowBits = bitLen >>> 0;
+  bytes.push(
+    (highBits >>> 24) & 0xff,
+    (highBits >>> 16) & 0xff,
+    (highBits >>> 8) & 0xff,
+    highBits & 0xff,
+    (lowBits >>> 24) & 0xff,
+    (lowBits >>> 16) & 0xff,
+    (lowBits >>> 8) & 0xff,
+    lowBits & 0xff,
+  );
+
+  let h0 = 0x6a09e667;
+  let h1 = 0xbb67ae85;
+  let h2 = 0x3c6ef372;
+  let h3 = 0xa54ff53a;
+  let h4 = 0x510e527f;
+  let h5 = 0x9b05688c;
+  let h6 = 0x1f83d9ab;
+  let h7 = 0x5be0cd19;
+
+  const w = new Array<number>(64).fill(0);
+  for (let offset = 0; offset < bytes.length; offset += 64) {
+    for (let i = 0; i < 16; i += 1) {
+      const idx = offset + i * 4;
+      w[i] =
+        (((bytes[idx] ?? 0) << 24) |
+          ((bytes[idx + 1] ?? 0) << 16) |
+          ((bytes[idx + 2] ?? 0) << 8) |
+          (bytes[idx + 3] ?? 0)) >>>
+        0;
+    }
+    for (let i = 16; i < 64; i += 1) {
+      const s0 = rotr32(w[i - 15]!, 7) ^ rotr32(w[i - 15]!, 18) ^ (w[i - 15]! >>> 3);
+      const s1 = rotr32(w[i - 2]!, 17) ^ rotr32(w[i - 2]!, 19) ^ (w[i - 2]! >>> 10);
+      w[i] = (w[i - 16]! + s0 + w[i - 7]! + s1) >>> 0;
+    }
+
+    let a = h0;
+    let b = h1;
+    let c = h2;
+    let d = h3;
+    let e = h4;
+    let f = h5;
+    let g = h6;
+    let h = h7;
+
+    for (let i = 0; i < 64; i += 1) {
+      const S1 = rotr32(e, 6) ^ rotr32(e, 11) ^ rotr32(e, 25);
+      const ch = (e & f) ^ (~e & g);
+      const temp1 = (h + S1 + ch + SHA256_K[i]! + w[i]!) >>> 0;
+      const S0 = rotr32(a, 2) ^ rotr32(a, 13) ^ rotr32(a, 22);
+      const maj = (a & b) ^ (a & c) ^ (b & c);
+      const temp2 = (S0 + maj) >>> 0;
+
+      h = g;
+      g = f;
+      f = e;
+      e = (d + temp1) >>> 0;
+      d = c;
+      c = b;
+      b = a;
+      a = (temp1 + temp2) >>> 0;
+    }
+
+    h0 = (h0 + a) >>> 0;
+    h1 = (h1 + b) >>> 0;
+    h2 = (h2 + c) >>> 0;
+    h3 = (h3 + d) >>> 0;
+    h4 = (h4 + e) >>> 0;
+    h5 = (h5 + f) >>> 0;
+    h6 = (h6 + g) >>> 0;
+    h7 = (h7 + h) >>> 0;
+  }
+
+  return [h0, h1, h2, h3, h4, h5, h6, h7]
+    .map((word) => word.toString(16).padStart(8, "0"))
+    .join("");
+}
+
+export interface ProfileVerificationReceiptProps {
+  readonly handle: string;
+  readonly canonicalPayload: string | null;
+  readonly settledCount: number;
+  readonly isPrivate?: boolean;
+  readonly onNavigate?: (href: string) => void;
+  readonly onNotify?: (message: string, tone?: "default" | "success" | "warning") => void;
+}
+
+export function ProfileVerificationReceipt({
+  handle,
+  canonicalPayload,
+  settledCount,
+  isPrivate = false,
+  onNavigate,
+  onNotify,
+}: ProfileVerificationReceiptProps): React.JSX.Element {
+  const [copied, setCopied] = useState(false);
+
+  useSafeEffect(() => {
+    if (!copied) return;
+    const timer = window.setTimeout(() => setCopied(false), 1800);
+    return () => window.clearTimeout(timer);
+  }, [copied]);
+
+  const digest = useMemo(
+    () => (canonicalPayload ? computeSha256Hex(canonicalPayload) : null),
+    [canonicalPayload],
+  );
+
+  const handleCopy = (): void => {
+    if (!canonicalPayload || !digest) return;
+    const text = `${canonicalPayload}\nSHA-256: ${digest}`;
+    if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) {
+      onNotify?.("No pudimos copiar el recibo en este navegador.", "warning");
+      return;
+    }
+    void navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(true);
+        onNotify?.("Recibo SHA-256 copiado para auditar en /verificacion.", "success");
+      })
+      .catch((err: unknown) => {
+        void err;
+        onNotify?.("No pudimos copiar el recibo.", "warning");
+      });
+  };
+
+  return (
+    <SofascoreCard
+      as="section"
+      density="compact"
+      title="Recibo criptográfico"
+      meta={
+        <span className="pl-prof-receipt-badge num">
+          <MaestroIcon name="shield" size={12} />
+          SHA-256
+        </span>
+      }
+      className="pl-prof-receipt-card"
+    >
+      <div className="pl-prof-receipt" data-profile-verification-receipt={handle}>
+        <div className="pl-prof-receipt-copy">
+          {isPrivate ? (
+            <p className="pl-prof-receipt-desc">
+              El récord de @{handle} está en privado. Todos los picks cerrados en PitchLab se
+              sellan antes del inicio del partido con huella verificable SHA-256.
+            </p>
+          ) : digest && canonicalPayload ? (
+            <>
+              <p className="pl-prof-receipt-desc">
+                Huella verificable del corte público ({settledCount}{" "}
+                {settledCount === 1 ? "pick cerrado" : "picks cerrados"} · sin montos en pesos).
+              </p>
+              <div className="pl-prof-receipt-hash-box">
+                <span className="pl-prof-receipt-hash-label">SHA-256</span>
+                <code className="pl-prof-receipt-hash num" title={digest}>
+                  {digest}
+                </code>
+              </div>
+              <details className="pl-prof-receipt-details">
+                <summary className="pl-prof-receipt-summary">Ver cadena canónica sellada</summary>
+                <code className="pl-prof-receipt-payload num">{canonicalPayload}</code>
+              </details>
+            </>
+          ) : (
+            <p className="pl-prof-receipt-desc">
+              Cuando @{handle} liquide su primer pick aparecerá aquí su recibo SHA-256 auditable.
+            </p>
+          )}
+        </div>
+
+        <div className="pl-prof-receipt-actions">
+          {digest && !isPrivate ? (
+            <Button variant="secondary" size="sm" onClick={handleCopy}>
+              <MaestroIcon name={copied ? "check" : "copy"} size={14} />
+              <span>{copied ? "Copiado" : "Copiar recibo"}</span>
+            </Button>
+          ) : null}
+          <Button
+            variant="secondary"
+            size="sm"
+            render={
+              <a
+                href="/verificacion"
+                onClick={(event) => {
+                  if (
+                    !onNavigate ||
+                    event.button !== 0 ||
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  ) {
+                    return;
+                  }
+                  event.preventDefault();
+                  onNavigate("/verificacion");
+                }}
+              />
+            }
+          >
+            <MaestroIcon name="shield" size={14} />
+            <span>Verificar</span>
+          </Button>
+        </div>
+      </div>
+    </SofascoreCard>
+  );
+}
 
 export interface TabDef<K extends string> {
   key: K;
@@ -374,20 +627,26 @@ export interface TabDef<K extends string> {
   shortLabel?: string;
 }
 
-/** Lee y escribe la pestaña activa en `?tab=` sin recargar. */
 export function useUrlTab<K extends string>(
   keys: readonly K[],
   fallback: K,
 ): [K, (next: K) => void] {
+  const keysRef = useRef<readonly K[]>(keys);
+  keysRef.current = keys;
   const [tab, setTabState] = useState<K>(fallback);
-  useEffect(() => {
+
+  useSafeEffect(() => {
+    if (typeof window === "undefined") return;
     const param = new URLSearchParams(window.location.search).get("tab");
-    if (param && (keys as readonly string[]).includes(param)) setTabState(param as K);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (param && (keysRef.current as readonly string[]).includes(param)) {
+      setTabState(param as K);
+    }
   }, []);
+
   const setTab = useCallback(
     (next: K) => {
       setTabState(next);
+      if (typeof window === "undefined") return;
       const url = new URL(window.location.href);
       if (next === fallback) url.searchParams.delete("tab");
       else url.searchParams.set("tab", next);
@@ -396,6 +655,25 @@ export function useUrlTab<K extends string>(
     [fallback],
   );
   return [tab, setTab];
+}
+
+type NearestScrollOptions = ScrollIntoViewOptions & {
+  readonly container?: "all" | "nearest";
+};
+
+function scrollUnderlineTabIntoView(element: HTMLButtonElement | null): void {
+  if (!element || typeof element.scrollIntoView !== "function") return;
+  const opts: NearestScrollOptions = {
+    block: "nearest",
+    inline: "nearest",
+    container: "nearest",
+  };
+  try {
+    element.scrollIntoView(opts);
+  } catch (err) {
+    void err;
+    element.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
 }
 
 export function UnderlineTabs<K extends string>({
@@ -416,24 +694,29 @@ export function UnderlineTabs<K extends string>({
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
   const didMountRef = useRef(false);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
       return;
     }
     const activeIndex = tabs.findIndex((t) => t.key === active);
     if (activeIndex >= 0) {
-      refs.current[activeIndex]?.scrollIntoView?.({
-        block: "nearest",
-        inline: "nearest",
-      });
+      scrollUnderlineTabIntoView(refs.current[activeIndex] ?? null);
     }
   }, [active, tabs]);
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, index: number): void => {
+    const listEl = event.currentTarget.closest<HTMLElement>('[role="tablist"]');
+    const isRtl =
+      listEl !== null &&
+      typeof window !== "undefined" &&
+      window.getComputedStyle(listEl).direction === "rtl";
+    const nextKey = isRtl ? "ArrowLeft" : "ArrowRight";
+    const prevKey = isRtl ? "ArrowRight" : "ArrowLeft";
+
     let next = -1;
-    if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
-    else if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
+    if (event.key === nextKey) next = (index + 1) % tabs.length;
+    else if (event.key === prevKey) next = (index - 1 + tabs.length) % tabs.length;
     else if (event.key === "Home") next = 0;
     else if (event.key === "End") next = tabs.length - 1;
     if (next < 0) return;
@@ -441,8 +724,14 @@ export function UnderlineTabs<K extends string>({
     onChange(tabs[next]!.key);
     refs.current[next]?.focus();
   };
+
   return (
-    <div className={["pl-utabs", className].filter(Boolean).join(" ")} role="tablist" aria-label={label}>
+    <div
+      className={["pl-utabs", className].filter(Boolean).join(" ")}
+      role="tablist"
+      aria-label={label}
+      aria-orientation="horizontal"
+    >
       {tabs.map((t, i) => {
         const selected = t.key === active;
         return (
@@ -458,7 +747,10 @@ export function UnderlineTabs<K extends string>({
             aria-selected={selected}
             aria-controls={`${idPrefix}-panel-${t.key}`}
             tabIndex={selected ? 0 : -1}
-            onClick={() => onChange(t.key)}
+            onClick={(event) => {
+              scrollUnderlineTabIntoView(event.currentTarget);
+              onChange(t.key);
+            }}
             onKeyDown={(e) => onKeyDown(e, i)}
           >
             {t.shortLabel ? (
@@ -506,12 +798,6 @@ export function TabPanel<K extends string>({
   );
 }
 
-/* ---------------------------------------------------------------------------
-   Seguidos
-   - Socios reales: en el servidor (`/api/social/follows`), los ve en cualquier dispositivo.
-   - Perfiles de ejemplo, o sin cuenta (PIN de beta): en este navegador.
-   ------------------------------------------------------------------------- */
-
 const FOLLOWING_KEY = "pitchlab.community.following";
 const FOLLOWING_EVENT = "pitchlab:following";
 
@@ -534,10 +820,8 @@ function writeFollowing(next: readonly string[]): void {
   }
 }
 
-/** Seguidos en el servidor, compartidos entre Comunidad y Perfil. null = sin servidor. */
 let serverFollowing: string[] | null = null;
 let serverFollowingRequest: Promise<void> | null = null;
-/** De quién es el caché: si cambia la cuenta en la misma pestaña, se vuelve a pedir. */
 let serverFollowingOwner: string | null = null;
 
 function loadServerFollowing(owner: string): Promise<void> {
@@ -564,7 +848,6 @@ function loadServerFollowing(owner: string): Promise<void> {
 function currentFollowing(): string[] {
   const local = readFollowing();
   if (!serverFollowing) return local;
-  // Con servidor, del navegador solo cuentan los perfiles de ejemplo.
   const examples = local.filter((h) => getExampleAnalystSpec(h));
   return [...new Set([...serverFollowing, ...examples])];
 }
@@ -578,7 +861,8 @@ export function useFollowing(): {
   const { pushToast } = usePlatformActions();
   const owner = viewerIdentity?.handle ?? null;
   const [following, setFollowing] = useState<string[]>([]);
-  useEffect(() => {
+
+  useSafeEffect(() => {
     const sync = (): void => setFollowing(currentFollowing());
     sync();
     if (hasAccountSessionAuth && owner) void loadServerFollowing(owner);
@@ -589,6 +873,7 @@ export function useFollowing(): {
       window.removeEventListener("storage", sync);
     };
   }, [hasAccountSessionAuth, owner]);
+
   const toggle = useCallback(
     (handle: string): boolean => {
       const willFollow = !currentFollowing().includes(handle);
@@ -625,10 +910,6 @@ export function useFollowing(): {
   return { following, isFollowing, toggle };
 }
 
-/* ---------------------------------------------------------------------------
-   Menú y diálogo de reporte (publicaciones y comentarios ajenos)
-   ------------------------------------------------------------------------- */
-
 export const SOCIAL_REPORT_REASON_OPTIONS: ReadonlyArray<{
   value: SocialReportReason;
   label: string;
@@ -662,16 +943,21 @@ export function SocialReportMenu({
   const [open, setOpen] = useState(false);
   const openingDialogRef = useRef(false);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const menuEl = menuRef.current;
     const triggerEl = triggerRef.current;
     if (!menuEl || !triggerEl || typeof menuEl.showPopover !== "function") return;
 
-    const hasFocusGroup = typeof HTMLElement !== "undefined" && "focusGroup" in HTMLElement.prototype;
-    const hasAnchor = typeof CSS !== "undefined" && typeof CSS.supports === "function" && CSS.supports("position-area", "block-end");
+    const hasFocusGroup =
+      typeof HTMLElement !== "undefined" && "focusGroup" in HTMLElement.prototype;
+    const hasAnchor =
+      typeof CSS !== "undefined" &&
+      typeof CSS.supports === "function" &&
+      CSS.supports("position-area", "block-end");
 
-    const getItems = (): HTMLButtonElement[] =>
-      [...menuEl.querySelectorAll<HTMLButtonElement>("button:not(:disabled)")];
+    const getItems = (): HTMLButtonElement[] => [
+      ...menuEl.querySelectorAll<HTMLButtonElement>("button:not(:disabled)"),
+    ];
 
     if (!hasFocusGroup) {
       menuEl.setAttribute("role", "menu");
@@ -748,11 +1034,7 @@ export function SocialReportMenu({
         ref={triggerRef}
         type="button"
         popoverTarget={menuId}
-        className={`pl-com-more-btn ${
-          compact
-            ? "pl-com-more-btn--sm min-h-11 min-w-11 sm:min-h-7 sm:min-w-7"
-            : "min-h-11 min-w-11 sm:min-h-8 sm:min-w-8"
-        }`}
+        className={`pl-com-more-btn${compact ? " pl-com-more-btn--sm" : ""}`}
         aria-expanded={open}
         aria-label={triggerLabel}
         onClick={() => {
@@ -768,15 +1050,18 @@ export function SocialReportMenu({
         id={menuId}
         popover="auto"
         data-fallback-open={open ? "true" : undefined}
-        className="pl-com-menu glass-card glass-ring"
+        className="pl-com-menu"
         {...({ focusgroup: "menu nomemory" } as React.HTMLAttributes<HTMLDivElement>)}
       >
         <button
           type="button"
-          className="pl-com-menu-item min-h-11 sm:min-h-9"
+          className="pl-com-menu-item"
           onClick={() => {
             openingDialogRef.current = true;
-            if (typeof menuRef.current?.hidePopover === "function" && menuRef.current.matches(":popover-open")) {
+            if (
+              typeof menuRef.current?.hidePopover === "function" &&
+              menuRef.current.matches(":popover-open")
+            ) {
               menuRef.current.hidePopover();
             } else {
               setOpen(false);
@@ -792,28 +1077,18 @@ export function SocialReportMenu({
   );
 }
 
-export function SocialReportDialog({
+function SocialReportDialogBody({
   target,
   onClose,
 }: {
-  target: SocialReportTarget | null;
+  target: SocialReportTarget;
   onClose: () => void;
-}): React.JSX.Element | null {
+}): React.JSX.Element {
   const uid = useId();
   const { reportSocialContent } = usePlatformActions();
   const [reason, setReason] = useState<SocialReportReason>("spam_enlaces");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (target) {
-      setReason("spam_enlaces");
-      setSubmitting(false);
-      setError("");
-    }
-  }, [target]);
-
-  if (!target) return null;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
@@ -840,17 +1115,19 @@ export function SocialReportDialog({
           <h2 id={`${uid}-title`} className="pl-com-sheet-title">
             {target.kind === "post" ? "Reportar publicación" : "Reportar comentario"}
           </h2>
-          <button
+          <Button
             type="button"
-            className="pl-com-icon-btn min-h-11 min-w-11 sm:min-h-9 sm:min-w-9"
+            variant="ghost"
+            size="icon-sm"
             aria-label="Cerrar"
             onClick={onClose}
           >
             <MaestroIcon name="x" size={16} />
-          </button>
+          </Button>
         </div>
         <p className="pl-com-report-sub">
-          De <strong>@{target.authorHandle}</strong>. Tu reporte es confidencial y ayuda a mantener Comunidad limpia.
+          De <strong>@{target.authorHandle}</strong>. Tu reporte es confidencial y ayuda a mantener
+          Comunidad limpia.
         </p>
         <fieldset className="pl-com-report-fieldset">
           <legend className="pl-com-report-legend">Motivo del reporte</legend>
@@ -880,33 +1157,32 @@ export function SocialReportDialog({
           ) : null}
         </div>
         <div className="pl-com-report-actions">
-          <button
-            type="button"
-            className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm min-h-11 sm:min-h-9"
-            onClick={onClose}
-          >
+          <Button type="button" variant="secondary" size="sm" onClick={onClose}>
             Cancelar
-          </button>
-          <button
-            type="submit"
-            className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm min-h-11 sm:min-h-9"
-            disabled={submitting}
-          >
+          </Button>
+          <Button type="submit" variant="primary" size="sm" disabled={submitting}>
             {submitting ? "Enviando…" : "Enviar reporte"}
-          </button>
+          </Button>
         </div>
       </form>
     </TopLayerModalDialog>
   );
 }
 
-/* ---------------------------------------------------------------------------
-   Ligas y equipos que sigues (filtran «Siguiendo»)
-   ------------------------------------------------------------------------- */
+export function SocialReportDialog({
+  target,
+  onClose,
+}: {
+  target: SocialReportTarget | null;
+  onClose: () => void;
+}): React.JSX.Element | null {
+  if (!target) return null;
+  const targetKey = `${target.kind}:${target.postId ?? ""}:${target.commentId ?? ""}:${target.authorHandle}`;
+  return <SocialReportDialogBody key={targetKey} target={target} onClose={onClose} />;
+}
 
 export interface FollowedTopics {
   leagues: string[];
-  /** `liga:slug` del equipo. */
   teams: string[];
 }
 
@@ -916,14 +1192,25 @@ const TOPICS_MAX = 40;
 
 function sanitizeTopicList(v: unknown): string[] {
   return Array.isArray(v)
-    ? Array.from(new Set(v.filter((x): x is string => typeof x === "string" && x.trim().length > 0 && x.length <= 80))).slice(0, TOPICS_MAX)
+    ? Array.from(
+        new Set(
+          v.filter(
+            (x): x is string => typeof x === "string" && x.trim().length > 0 && x.length <= 80,
+          ),
+        ),
+      ).slice(0, TOPICS_MAX)
     : [];
 }
 
 function readTopics(): FollowedTopics {
   try {
-    const raw = JSON.parse(window.localStorage.getItem(TOPICS_KEY) ?? "null") as Partial<FollowedTopics> | null;
-    return { leagues: sanitizeTopicList(raw?.leagues), teams: sanitizeTopicList(raw?.teams) };
+    const raw = JSON.parse(
+      window.localStorage.getItem(TOPICS_KEY) ?? "null",
+    ) as Partial<FollowedTopics> | null;
+    return {
+      leagues: sanitizeTopicList(raw?.leagues),
+      teams: sanitizeTopicList(raw?.teams),
+    };
   } catch (err) {
     void err;
     return { leagues: [], teams: [] };
@@ -941,10 +1228,6 @@ function cacheTopicsLocally(next: FollowedTopics): void {
 
 export const teamTopicKey = (league: string, slug: string): string => `${league}:${slug}`;
 
-/**
- * Ligas y equipos que sigues en Comunidad. Se guardan en tu cuenta cuando hay sesión
- * activa y en caché local para respuesta instantánea entre dispositivos.
- */
 export function useFollowedTopics(): {
   topics: FollowedTopics;
   toggleLeague: (league: string) => void;
@@ -954,7 +1237,7 @@ export function useFollowedTopics(): {
   const hasAccountSessionAuth = Boolean(core?.hasAccountSessionAuth);
   const [topics, setTopics] = useState<FollowedTopics>({ leagues: [], teams: [] });
 
-  useEffect(() => {
+  useSafeEffect(() => {
     const sync = (): void => setTopics(readTopics());
     sync();
     window.addEventListener(TOPICS_EVENT, sync);
@@ -965,32 +1248,20 @@ export function useFollowedTopics(): {
     };
   }, []);
 
-  useEffect(() => {
-    if (!hasAccountSessionAuth) return;
-    let cancelled = false;
-    void (async () => {
-      try {
-        const res = await fetch("/api/me/preferences", { credentials: "same-origin" });
-        if (!res.ok) return;
-        const json = (await res.json().catch(() => null)) as {
-          preferences?: { followedTopics?: Partial<FollowedTopics> | null };
-        } | null;
-        const remoteRaw = json?.preferences?.followedTopics;
-        if (!remoteRaw || cancelled) return;
-        const remote: FollowedTopics = {
-          leagues: sanitizeTopicList(remoteRaw.leagues),
-          teams: sanitizeTopicList(remoteRaw.teams),
-        };
-        setTopics(remote);
-        cacheTopicsLocally(remote);
-      } catch (err) {
-        void err;
-      }
-    })();
-    return () => {
-      cancelled = true;
+  const remotePrefsQuery = useAbortableJson<{
+    preferences?: { followedTopics?: Partial<FollowedTopics> | null };
+  }>("/api/me/preferences", { enabled: hasAccountSessionAuth });
+
+  useSafeEffect(() => {
+    const remoteRaw = remotePrefsQuery.data?.preferences?.followedTopics;
+    if (!remoteRaw) return;
+    const remote: FollowedTopics = {
+      leagues: sanitizeTopicList(remoteRaw.leagues),
+      teams: sanitizeTopicList(remoteRaw.teams),
     };
-  }, [hasAccountSessionAuth]);
+    setTopics(remote);
+    cacheTopicsLocally(remote);
+  }, [remotePrefsQuery.data]);
 
   const write = useCallback(
     (next: FollowedTopics) => {
@@ -1046,9 +1317,9 @@ function leagueLabelsFor(id: string): string[] {
   return [entry.name.toLowerCase(), entry.shortName.toLowerCase()];
 }
 
-/** ¿La publicación habla de una liga o un equipo que sigues? */
 export function postMatchesTopics(
-  post: Pick<SocialPost, "gameId" | "pick"> & Partial<Pick<SocialPost, "leagueLabel" | "matchLabel">>,
+  post: Pick<SocialPost, "gameId" | "pick"> &
+    Partial<Pick<SocialPost, "leagueLabel" | "matchLabel">>,
   topics: FollowedTopics,
   dataset: PlatformDataset,
 ): boolean {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Meta } from "@storybook/react-vite";
+import { asLeagueId } from "@pitchlab/contracts";
 import {
   CommunityConsensusTab,
   CommunityTopicsPicker,
@@ -9,6 +10,7 @@ import { SocialPostCard, resolvePostAuthor } from "./club/SocialPostCard";
 import { reparentDeletedComment } from "./club/comment-tree";
 import type { FollowedTopics } from "./club/community-ui";
 import { computeConsensus, type WinnerVoteTally } from "./community-stats";
+import { useSafeEffect } from "./hooks";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 import type { PlatformGame, SocialPost } from "./types";
@@ -31,25 +33,46 @@ function game(
   x12: [number, number, number],
   hoursAhead: number,
 ): PlatformGame {
-  const sport = league === "nfl" ? "american-football" : "football";
+  const sport: PlatformGame["sport"] = league === asLeagueId("nfl") ? "american-football" : "football";
   return {
     id,
     league,
     leagueLabel,
     sport,
-    status: "NS",
+    round: "Jornada 12",
+    dayId: "2026-11-14",
+    dayLabel: "Sábado 14 nov",
     kickoffUtc: new Date(Date.UTC(2026, 10, 14, 2) + hoursAhead * 3_600_000).toISOString(),
+    kickoffLocal: "20:00",
+    venue: "Estadio local",
+    status: "NS",
     home: { slug: home[0], name: home[1], shortName: home[1], code: home[1].slice(0, 3).toUpperCase(), record: "" },
     away: { slug: away[0], name: away[1], shortName: away[1], code: away[1].slice(0, 3).toUpperCase(), record: "" },
     x12,
+    projection: null,
+    confidenceScore: null,
+    confidenceLevel: null,
     picks: [],
-  } as unknown as PlatformGame;
+    preGame: {
+      cortexSynthesis: "",
+      tacticalKeys: [],
+      lineupStatusLabel: "Sin alineación confirmada",
+      lineupsConfirmed60m: false,
+      absences: [],
+      moneyFlow: null,
+    },
+    markets: [],
+    factors: [],
+    headToHead: [],
+    updatedAtLabel: "hace 5 min",
+    spacetime: null,
+  };
 }
 
 const GAMES: PlatformGame[] = [
-  game("st-1", "liga-mx" as PlatformGame["league"], "Liga MX", ["queretaro", "Querétaro"], ["monterrey", "Monterrey"], [0.4, 0.26, 0.34], 20),
-  game("st-2", "premier-league" as PlatformGame["league"], "Premier League", ["arsenal", "Arsenal"], ["chelsea", "Chelsea"], [0.52, 0.25, 0.23], 30),
-  game("st-3", "nfl" as PlatformGame["league"], "NFL", ["det", "Detroit"], ["gb", "Green Bay"], [0.55, 0, 0.45], 44),
+  game("st-1", asLeagueId("liga-mx"), "Liga MX", ["queretaro", "Querétaro"], ["monterrey", "Monterrey"], [0.4, 0.26, 0.34], 20),
+  game("st-2", asLeagueId("premier-league"), "Premier League", ["arsenal", "Arsenal"], ["chelsea", "Chelsea"], [0.52, 0.25, 0.23], 30),
+  game("st-3", asLeagueId("nfl"), "NFL", ["det", "Detroit"], ["gb", "Green Bay"], [0.55, 0, 0.45], 44),
 ];
 
 const TALLIES: WinnerVoteTally[] = [
@@ -77,10 +100,8 @@ const consensusStory = (theme: "dark" | "light", tallies: WinnerVoteTally[]) => 
   ),
 });
 
-/** Consenso con votos de «¿Quién gana?» contra el 1X2 del modelo. */
 export const ConsensoConVotosOscuro = consensusStory("dark", TALLIES);
 export const ConsensoConVotosClaro = consensusStory("light", TALLIES);
-/** Sin picks ni votos suficientes. */
 export const ConsensoVacioOscuro = consensusStory("dark", []);
 export const ConsensoVacioClaro = consensusStory("light", []);
 
@@ -107,14 +128,12 @@ const topicsStory = (theme: "dark" | "light") => ({
   ),
 });
 
-/** Ligas y equipos que sigues (filtran «Siguiendo»). */
 export const LigasYEquiposOscuro = topicsStory("dark");
 export const LigasYEquiposClaro = topicsStory("light");
 
 function WithTab({ tab, children }: { tab: string; children: React.ReactNode }): React.JSX.Element {
-  // `useUrlTab` lee `?tab=` al montar: se fija antes de pintar Comunidad.
   const [ready, setReady] = React.useState(false);
-  React.useLayoutEffect(() => {
+  useSafeEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("tab", tab);
     window.history.replaceState(window.history.state, "", url.toString());
@@ -128,13 +147,14 @@ const rankingStory = (theme: "dark" | "light") => ({
   render: () => (
     <WithTab tab="ranking">
       <PlatformProvider dataset={dataset} initialRole="member">
-        <SocialVipClubView />
+        <div style={{ padding: 20, background: "var(--pl-stage-bg)", minHeight: "100vh" }}>
+          <SocialVipClubView />
+        </div>
       </PlatformProvider>
     </WithTab>
   ),
 });
 
-/** Ranking de 7 y 30 días; sin cuenta muestra perfiles de ejemplo marcados. */
 export const RankingOscuro = rankingStory("dark");
 export const RankingClaro = rankingStory("light");
 
@@ -222,75 +242,101 @@ const STORY_POST: SocialPost = {
   },
 };
 
-function ThreadCardStory(): React.JSX.Element {
-  const [post, setPost] = useState<SocialPost>(STORY_POST);
+const OPEN_PICK_STORY_POST: SocialPost = {
+  ...STORY_POST,
+  id: "story-post-open",
+  matchLabel: "Arsenal vs Chelsea",
+  leagueLabel: "Premier League",
+  gameId: "st-2",
+  pickBadge: "Arsenal gana · 1.5u · 1.95",
+  body: "Presión alta sostenida y descanso favorable para el local. El momio justo se ubica en 1.81 con margen sólido para el boleto.",
+  comments: [],
+  commentsCount: 0,
+  pick: {
+    gameId: "st-2",
+    pickId: "pick-story-open-1",
+    label: "Arsenal gana",
+    units: 1.5,
+    userDecimal: 1.95,
+    fairDecimal: 1.81,
+    modelProbability: 0.552,
+    status: "open",
+  },
+};
+
+function ThreadCardStory({ initialPost = STORY_POST }: { initialPost?: SocialPost }): React.JSX.Element {
+  const [post, setPost] = useState<SocialPost>(initialPost);
   const author = resolvePostAuthor(post, null, []);
   return (
-    <div className="pl-com-shell" style={{ maxWidth: 680, margin: "0 auto", padding: 24 }}>
-      <SocialPostCard
-        post={post}
-        author={author}
-        own={{ handle: "ana_mx", name: "Ana López", avatarInitials: "AL", avatarGradVar: "var(--avatar-grad-4)" }}
-        dataset={dataset}
-        oddsFormat="decimal"
-        highlighted
-        onShare={() => {}}
-        goProfile={() => (e) => e.preventDefault()}
-        toggleSocialLike={() =>
-          setPost((prev) => ({
-            ...prev,
-            likedByMe: !prev.likedByMe,
-            likes: prev.likedByMe ? prev.likes - 1 : prev.likes + 1,
-          }))
-        }
-        onToggleCommentHelpful={(_postId, commentId) =>
-          setPost((prev) => ({
-            ...prev,
-            comments: prev.comments.map((c) =>
-              c.id === commentId
-                ? {
-                    ...c,
-                    helpfulByMe: !c.helpfulByMe,
-                    helpfulCount: (c.helpfulCount ?? 0) + (c.helpfulByMe ? -1 : 1),
-                  }
-                : c,
-            ),
-          }))
-        }
-        addSocialComment={(_postId, body, parentCommentId) => {
-          const clean = body.trim();
-          if (!clean) return { ok: false, error: "Escribe una respuesta." };
-          setPost((prev) => {
-            const parent = parentCommentId ? prev.comments.find((c) => c.id === parentCommentId) : undefined;
-            const next = {
-              id: `c-${Date.now()}`,
-              parentCommentId: parent?.id ?? null,
-              replyToHandle: parent?.authorHandle ?? null,
-              authorHandle: "ana_mx",
-              authorName: "Ana López",
-              verifiedBadge: "+6.2u · 12 picks",
-              body: clean,
-              createdAt: "ahora",
-              isMine: true,
-              helpfulCount: 0,
-              helpfulByMe: false,
-            };
-            return {
+    <div style={{ background: "var(--pl-stage-bg)", minHeight: "100vh", padding: 24 }}>
+      <div className="pl-com-shell" style={{ maxWidth: 680, margin: "0 auto" }}>
+        <SocialPostCard
+          post={post}
+          author={author}
+          own={{ handle: "ana_mx", name: "Ana López", avatarInitials: "AL", avatarGradVar: "var(--avatar-grad-4)" }}
+          dataset={dataset}
+          oddsFormat="decimal"
+          highlighted
+          onShare={() => undefined}
+          onCopyToParlay={() => undefined}
+          onCopyToJournal={() => undefined}
+          goProfile={() => (e) => e.preventDefault()}
+          toggleSocialLike={() =>
+            setPost((prev) => ({
               ...prev,
-              comments: [...prev.comments, next],
-              commentsCount: (prev.commentsCount ?? prev.comments.length) + 1,
-            };
-          });
-          return { ok: true };
-        }}
-        onDeleteComment={(_postId, commentId) =>
-          setPost((prev) => ({
-            ...prev,
-            comments: reparentDeletedComment(prev.comments, commentId),
-            commentsCount: Math.max(0, (prev.commentsCount ?? prev.comments.length) - 1),
-          }))
-        }
-      />
+              likedByMe: !prev.likedByMe,
+              likes: prev.likedByMe ? prev.likes - 1 : prev.likes + 1,
+            }))
+          }
+          onToggleCommentHelpful={(_postId, commentId) =>
+            setPost((prev) => ({
+              ...prev,
+              comments: prev.comments.map((c) =>
+                c.id === commentId
+                  ? {
+                      ...c,
+                      helpfulByMe: !c.helpfulByMe,
+                      helpfulCount: (c.helpfulCount ?? 0) + (c.helpfulByMe ? -1 : 1),
+                    }
+                  : c,
+              ),
+            }))
+          }
+          addSocialComment={(_postId, body, parentCommentId) => {
+            const clean = body.trim();
+            if (!clean) return { ok: false, error: "Escribe una respuesta." };
+            setPost((prev) => {
+              const parent = parentCommentId ? prev.comments.find((c) => c.id === parentCommentId) : undefined;
+              const next = {
+                id: `c-${Date.now()}`,
+                parentCommentId: parent?.id ?? null,
+                replyToHandle: parent?.authorHandle ?? null,
+                authorHandle: "ana_mx",
+                authorName: "Ana López",
+                verifiedBadge: "+6.2u · 12 picks",
+                body: clean,
+                createdAt: "ahora",
+                isMine: true,
+                helpfulCount: 0,
+                helpfulByMe: false,
+              };
+              return {
+                ...prev,
+                comments: [...prev.comments, next],
+                commentsCount: (prev.commentsCount ?? prev.comments.length) + 1,
+              };
+            });
+            return { ok: true };
+          }}
+          onDeleteComment={(_postId, commentId) =>
+            setPost((prev) => ({
+              ...prev,
+              comments: reparentDeletedComment(prev.comments, commentId),
+              commentsCount: Math.max(0, (prev.commentsCount ?? prev.comments.length) - 1),
+            }))
+          }
+        />
+      </div>
     </div>
   );
 }
@@ -300,21 +346,28 @@ const threadCardStory = (theme: "dark" | "light") => ({
   render: () => <ThreadCardStory />,
 });
 
-/** Tarjeta unificada de publicación con pick liquidado, seguidores, hilos multinivel y voto Útil. */
+const openPickStory = (theme: "dark" | "light") => ({
+  globals: { theme },
+  render: () => <ThreadCardStory initialPost={OPEN_PICK_STORY_POST} />,
+});
+
 export const PublicacionConHiloOscuro = threadCardStory("dark");
 export const PublicacionConHiloClaro = threadCardStory("light");
+export const PublicacionPickAbiertoOscuro = openPickStory("dark");
+export const PublicacionPickAbiertoClaro = openPickStory("light");
 
 const forYouStory = (theme: "dark" | "light") => ({
   globals: { theme },
   render: () => (
     <WithTab tab="para-ti">
       <PlatformProvider dataset={dataset} initialRole="tipster">
-        <SocialVipClubView />
+        <div style={{ padding: 20, background: "var(--pl-stage-bg)", minHeight: "100vh" }}>
+          <SocialVipClubView />
+        </div>
       </PlatformProvider>
     </WithTab>
   ),
 });
 
-/** Feed «Para ti» con filtros por liga/estado, ordenamiento y Composer con unidades y momio editables. */
 export const ParaTiFiltrosYComposerOscuro = forYouStory("dark");
 export const ParaTiFiltrosYComposerClaro = forYouStory("light");

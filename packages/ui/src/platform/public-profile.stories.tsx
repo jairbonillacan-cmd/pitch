@@ -59,7 +59,7 @@ const PUB_BADGES = publicBadges(ALL_BADGES, {
 const TIPSTER_PROFILE: PublicMemberProfile = {
   displayName: "Mateo Rivera",
   handle: "mateorivera",
-  bio: "Modelo cuantitativo en fútbol mexicano y basquetbol nocturno. Cierres verificados antes del arranque.",
+  bio: "Modelo cuantitativo en fútbol mexicano y basquetbol nocturno. Cierres sellados antes del arranque.",
   avatarUrl: null,
   xUsername: "mateorivera",
   joinedAt: "2026-07-10T12:00:00Z",
@@ -95,7 +95,7 @@ export const TipsterPublicoOscuro = {
           settled: STATS.settled,
           view: publicRecordView(STATS, ENTRIES, normalizeRecordPrivacy(DEFAULT_RECORD_PRIVACY)),
         }}
-        badges={{ public: PUB_BADGES, featured: PUB_BADGES.slice(0, 2) }}
+        badges={{ public: PUB_BADGES, featured: PUB_BADGES.slice(0, 3) }}
         signupHref="/signup?code=MATEO-7"
       />
     </Stage>
@@ -113,7 +113,7 @@ export const TipsterPublicoClaro = {
           settled: STATS.settled,
           view: publicRecordView(STATS, ENTRIES, normalizeRecordPrivacy(DEFAULT_RECORD_PRIVACY)),
         }}
-        badges={{ public: PUB_BADGES, featured: PUB_BADGES.slice(0, 2) }}
+        badges={{ public: PUB_BADGES, featured: PUB_BADGES.slice(0, 3) }}
       />
     </Stage>
   ),
@@ -123,6 +123,25 @@ export const SocioConRecordPrivado = {
   globals: { theme: "dark" },
   render: () => (
     <Stage theme="dark">
+      <PublicAnalystProfileSurface
+        profile={{
+          ...TIPSTER_PROFILE,
+          displayName: "Valeria Soto",
+          handle: "valesoto",
+          isTipster: false,
+          xUsername: null,
+        }}
+        publicRecord={{ hidden: true }}
+        badges={{ public: [], featured: [] }}
+      />
+    </Stage>
+  ),
+};
+
+export const SocioConRecordPrivadoClaro = {
+  globals: { theme: "light" },
+  render: () => (
+    <Stage theme="light">
       <PublicAnalystProfileSurface
         profile={{
           ...TIPSTER_PROFILE,
