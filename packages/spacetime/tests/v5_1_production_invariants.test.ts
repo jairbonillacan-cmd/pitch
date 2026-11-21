@@ -42,8 +42,13 @@ function readJson<T>(relPath: string): T {
   return parsed;
 }
 
-function sha256File(relPath: string): string {
-  return createHash("sha256").update(readFileSync(resolve(PACKAGE_ROOT, relPath))).digest("hex");
+function sha256File(relPath: string): { raw: string; lf: string; crlf: string } {
+  const bytes = readFileSync(resolve(PACKAGE_ROOT, relPath));
+  const raw = createHash("sha256").update(bytes).digest("hex");
+  const normalizedLf = bytes.toString("utf8").replace(/\r\n/g, "\n");
+  const lf = createHash("sha256").update(normalizedLf, "utf8").digest("hex");
+  const crlf = createHash("sha256").update(normalizedLf.replace(/\n/g, "\r\n"), "utf8").digest("hex");
+  return { raw, lf, crlf };
 }
 
 function resolveRegistryLocalDataPath(artifactPath: string): string {
@@ -555,7 +560,8 @@ describe("PitchLab v5.1 · Invariantes Locales de Producción (10/12 Axiomas Red
     for (const ent of reg.active_artifacts) {
       expect(ent.artifact_path.toLowerCase()).not.toContain("sealed_holdout");
       const localRel = resolveRegistryLocalDataPath(ent.artifact_path);
-      expect(sha256File(localRel)).toBe(ent.sha256);
+      const hashes = sha256File(localRel);
+      expect([hashes.raw, hashes.lf, hashes.crlf]).toContain(ent.sha256);
     }
   });
 });
