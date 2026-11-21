@@ -388,6 +388,123 @@ test("ratchet baseline, --files, --strict-files y --shrink-baseline funcionan ex
   }
 });
 
+test("no-unsafe-type-assertion bloquea as any y as unknown as en producción y respeta exclusiones", async () => {
+  const rootDir = createTempWorkspace({
+    "apps/web/src/bad-any.ts": "export const bad = (v: unknown) => v as any;\n",
+    "packages/ui/src/bad-double.ts": "export const cast = (v: string) => v as unknown as number;\n",
+    "apps/web/src/safe.ts": [
+      'export const doc = "no uses as any ni as unknown as";',
+      "export const isStr = (v: unknown): v is string => typeof v === 'string';",
+    ].join("\n"),
+    "apps/web/tests/allowed.test.ts": "export const t = ({} as any) as unknown as string;\n",
+    "packages/ui/src/Demo.stories.tsx": "export const s = {} as unknown as Record<string, unknown>;\n",
+    "packages/sports-assets/src/gen.generated.ts": "export const g = {} as any;\n",
+  });
+  try {
+    const result = await runLint({ rootDir });
+    assert.equal(result.ok, false);
+    assert.equal(result.errors.length, 2);
+    assertInstructiveDiagnostic(result.errors[0], "no-unsafe-type-assertion", "apps/web/src/bad-any.ts", 1);
+    assert.match(
+      result.errors[0],
+      /narrowing real, type guard o parseStrictFiniteNumber \/ esquemas Zod de @pitchlab\/contracts/,
+    );
+    assertInstructiveDiagnostic(
+      result.errors[1],
+      "no-unsafe-type-assertion",
+      "packages/ui/src/bad-double.ts",
+      1,
+    );
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
+test("no-slop-wrapper-bloat bloquea @ts-ignore, @ts-nocheck, eslint-disable sin causa y TODO/FIXME", async () => {
+  const rootDir = createTempWorkspace({
+    "apps/web/src/slop.tsx": [
+      `${LINE_CMT} @ts-ignore`,
+      `${LINE_CMT} @ts-nocheck`,
+      `${LINE_CMT} eslint-disable-next-line react-hooks/exhaustive-deps`,
+      `${BLOCK_OPEN} eslint-disable ${BLOCK_CLOSE}`,
+      `${LINE_CMT} eslint-disable-next-line no-console -- salida CLI documentada`,
+      `${LINE_CMT} TODO: corregir después`,
+      `${BLOCK_OPEN} FIXME temporal ${BLOCK_CLOSE}`,
+      'export const copy = "VER TODO @ts-ignore FIXME";',
+      "export const Heading = () => <span>VER TODO</span>;",
+    ].join("\n"),
+    "apps/web/src/clean.tsx": [
+      'export const copy = "VER TODO";',
+      "export const Heading = () => <span>VER TODO</span>;",
+    ].join("\n"),
+    "apps/web/tests/slop.test.ts": `${LINE_CMT} @ts-ignore TODO FIXME eslint-disable\nexport const ok = 1;\n`,
+    "packages/ui/src/Slop.stories.tsx": `${LINE_CMT} TODO: story\nexport const ok = 1;\n`,
+    "packages/sports-assets/src/slop.generated.ts": `${LINE_CMT} @ts-nocheck\nexport const g = 1;\n`,
+  });
+  try {
+    const result = await runLint({ rootDir });
+    assert.equal(result.ok, false);
+    const slopErrors = result.errors.filter((e) => e.startsWith("[no-slop-wrapper-bloat]"));
+    assert.equal(slopErrors.length, 1);
+    assertInstructiveDiagnostic(slopErrors[0], "no-slop-wrapper-bloat", "apps/web/src/slop.tsx", 1);
+    assert.match(slopErrors[0], /6 encontrado\(s\)/);
+    assert.match(slopErrors[0], /líneas: 1, 2, 3, 4, 6, 7/);
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
+test("ratchet baseline y --strict-files aplican 0 en nuevos/estrictos para reglas Unslop", async () => {
+  const rootDir = createTempWorkspace({
+    "apps/web/src/legacy-unslop.ts": [
+      `${LINE_CMT} @ts-ignore`,
+      `${LINE_CMT} TODO: limpiar deuda`,
+      "export const a = ({} as any);",
+      "export const b = ('x' as unknown as number);",
+    ].join("\n"),
+  });
+  const baselinePath = join(rootDir, "scripts", "lint-ratchet-baseline.json");
+
+  try {
+    mkdirSync(dirname(baselinePath), { recursive: true });
+
+    const initRes = runCli(["--root", rootDir, "--init-baseline"]);
+    assert.equal(initRes.status, 0, initRes.stderr);
+
+    const baselineData = JSON.parse(readFileSync(baselinePath, "utf8"));
+    assert.equal(baselineData.rules["no-unsafe-type-assertion"]["apps/web/src/legacy-unslop.ts"], 2);
+    assert.equal(baselineData.rules["no-slop-wrapper-bloat"]["apps/web/src/legacy-unslop.ts"], 2);
+
+    const passRes = runCli(["--root", rootDir]);
+    assert.equal(passRes.status, 0, passRes.stderr);
+
+    const strictRes = runCli(["--root", rootDir, "--strict-files", "apps/web/src/legacy-unslop.ts"]);
+    assert.equal(strictRes.status, 1);
+    assert.match(strictRes.stderr, /\[no-unsafe-type-assertion\] apps\/web\/src\/legacy-unslop\.ts:3/);
+    assert.match(strictRes.stderr, /\[no-slop-wrapper-bloat\] apps\/web\/src\/legacy-unslop\.ts:1/);
+
+    writeWorkspaceFile(
+      rootDir,
+      "apps/web/src/brand-new-slop.ts",
+      [`${LINE_CMT} FIXME: no permitido en archivo nuevo`, "export const z = ({} as any);"].join("\n"),
+    );
+    const newFileRes = runCli(["--root", rootDir]);
+    assert.equal(newFileRes.status, 1);
+    assert.match(newFileRes.stderr, /\[no-unsafe-type-assertion\] apps\/web\/src\/brand-new-slop\.ts:2/);
+    assert.match(newFileRes.stderr, /\[no-slop-wrapper-bloat\] apps\/web\/src\/brand-new-slop\.ts:1/);
+    rmSync(join(rootDir, "apps/web/src/brand-new-slop.ts"));
+
+    writeWorkspaceFile(rootDir, "apps/web/src/legacy-unslop.ts", "export const clean = 1;\n");
+    const shrinkRes = runCli(["--root", rootDir, "--shrink-baseline"]);
+    assert.equal(shrinkRes.status, 0, shrinkRes.stderr);
+    const shrunkBaseline = JSON.parse(readFileSync(baselinePath, "utf8"));
+    assert.equal(shrunkBaseline.rules["no-unsafe-type-assertion"]["apps/web/src/legacy-unslop.ts"], undefined);
+    assert.equal(shrunkBaseline.rules["no-slop-wrapper-bloat"]["apps/web/src/legacy-unslop.ts"], undefined);
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
 test("el propio scripts/lint-codebase.mjs pasa en modo --strict-files con cero deuda y los tests tienen cero comentarios", () => {
   const selfCheck = runCli(["--strict-files", "scripts/lint-codebase.mjs"]);
   assert.equal(selfCheck.status, 0, selfCheck.stderr);
