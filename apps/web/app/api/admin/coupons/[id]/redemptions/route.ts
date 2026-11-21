@@ -1,32 +1,49 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createSanitizedErrorPayload, parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { listCouponRedemptionsAdmin } from "@pitchlab/db";
-import { requireAdmin } from "../../../../../../src/server/session-user";
+import { withAdminMutation, type AdminMutationContext } from "../../../../../../src/server/api-guards";
 import { UUID_RE } from "../../../../../../src/server/transfer-helpers";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** GET /api/admin/coupons/[id]/redemptions — quién canjeó un cupón y cuándo. */
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse> {
-  const admin = await requireAdmin(request);
-  if ("error" in admin) return admin.error;
+const MAX_ADMIN_LIST_LIMIT = 40;
+const couponIdSchema = z.string().trim().regex(UUID_RE);
 
-  const { id } = await params;
-  if (!UUID_RE.test(id)) {
-    return NextResponse.json({ error: "Cupón inválido." }, { status: 400 });
-  }
+function parseBoundedLimit(request: Request, defaultLimit: number): number {
+  const raw = new URL(request.url).searchParams.get("limit");
+  if (raw === null || raw.trim() === "") return defaultLimit;
+  const parsed = parseStrictFiniteNumber(raw);
+  if (parsed === null || !Number.isInteger(parsed)) return defaultLimit;
+  return Math.max(1, Math.min(MAX_ADMIN_LIST_LIMIT, parsed));
+}
 
-  const rows = await listCouponRedemptionsAdmin(admin.db, id);
+function invalidInputResponse(code: string, message: string, status = 400): NextResponse {
+  const payload = createSanitizedErrorPayload(code, message);
   return NextResponse.json(
-    {
-      redemptions: rows.map((r) => ({
+    { ok: false, error: payload.message, code: payload.code, message: payload.message },
+    { status },
+  );
+}
+
+export const GET = withAdminMutation(
+  { bucket: "admin-coupons-redemptions", allowGet: true, limit: 60 },
+  async ({ request, params, user }: AdminMutationContext<{ id: string }>) => {
+    const parsedId = couponIdSchema.safeParse(params.id);
+    if (!parsedId.success) {
+      return invalidInputResponse("INVALID_COUPON_ID", "Cupón inválido.");
+    }
+
+    const limit = parseBoundedLimit(request, MAX_ADMIN_LIST_LIMIT);
+    const rows = await listCouponRedemptionsAdmin(user.db, parsedId.data);
+    const boundedRows = rows.slice(0, limit);
+
+    return NextResponse.json({
+      redemptions: boundedRows.map((r) => ({
         ...r,
         createdAtIso: r.createdAt.toISOString(),
       })),
-    },
-    { headers: { "Cache-Control": "no-store" } },
-  );
-}
+    });
+  },
+);

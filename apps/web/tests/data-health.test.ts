@@ -1,9 +1,36 @@
+import type { NextResponse } from "next/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { GET } from "../app/api/admin/data-health/route";
+import type { Db } from "@pitchlab/db";
+import { resetAuthForTests, type PitchLabAuth } from "../src/server/auth";
 import { loadServerDataHealthReport } from "../src/server/data-health";
+import { resetRateLimitsForTests } from "../src/server/request-security";
+import { setSessionDbForTests } from "../src/server/session-user";
 import { PRODUCT_LEAGUES, loadLeagueSnapshotEnvelope } from "../src/server/snapshots";
 
+const sessionMocks = vi.hoisted(() => ({
+  requireAdminOverride: null as
+    | ((request: Request) => Promise<{ db: Db; userId: string; email: string } | { error: NextResponse }>)
+    | null,
+}));
+
+vi.mock("../src/server/session-user", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../src/server/session-user")>();
+  return {
+    ...actual,
+    requireAdmin: (request: Request) =>
+      sessionMocks.requireAdminOverride
+        ? sessionMocks.requireAdminOverride(request)
+        : actual.requireAdmin(request),
+  };
+});
+
+import { GET } from "../app/api/admin/data-health/route";
+
 afterEach(() => {
+  sessionMocks.requireAdminOverride = null;
+  resetAuthForTests(undefined);
+  resetRateLimitsForTests();
+  setSessionDbForTests(null);
   vi.unstubAllEnvs();
 });
 
@@ -40,18 +67,66 @@ describe("Salud de datos en servidor y bajas nominales en snapshots", () => {
     }
   });
 
-  it("protege GET /api/admin/data-health con 403 en producción sin admin y responde 200 en modo desarrollo/revisión", async () => {
+  it("exige sesión admin verificada en GET /api/admin/data-health sin bypass en desarrollo ni producción", async () => {
     vi.stubEnv("DATABASE_URL", "");
     vi.stubEnv("BETTER_AUTH_SECRET", "");
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("PITCHLAB_PREVIEW_TOOLS", "");
+    resetAuthForTests(undefined);
 
-    const denied = await GET(new Request("http://127.0.0.1:3100/api/admin/data-health"));
-    expect(denied.status).toBe(403);
+    const deniedProd = await GET(new Request("http://127.0.0.1:3100/api/admin/data-health"));
+    expect(deniedProd.status).toBe(503);
+    expect(deniedProd.headers.get("cache-control")).toBe("private, no-store");
+    expect(deniedProd.headers.get("x-content-type-options")).toBe("nosniff");
 
     vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("PITCHLAB_PREVIEW_TOOLS", "1");
+    resetAuthForTests(undefined);
+
+    const deniedDev = await GET(new Request("http://127.0.0.1:3100/api/admin/data-health"));
+    expect(deniedDev.status).toBe(503);
+
+    vi.stubEnv("PITCHLAB_ADMIN_EMAILS", "founder@pitchlab.mx");
+    resetAuthForTests({
+      api: { getSession: async () => null },
+    } as unknown as PitchLabAuth);
+    const unauthenticated = await GET(new Request("http://127.0.0.1:3100/api/admin/data-health"));
+    expect(unauthenticated.status).toBe(401);
+
+    resetAuthForTests({
+      api: {
+        getSession: async () => ({
+          user: { id: "auth-socio-1", email: "socio@example.com", emailVerified: true },
+        }),
+      },
+    } as unknown as PitchLabAuth);
+    const nonAdmin = await GET(new Request("http://127.0.0.1:3100/api/admin/data-health"));
+    expect(nonAdmin.status).toBe(403);
+
+    resetAuthForTests({
+      api: {
+        getSession: async () => ({
+          user: { id: "auth-admin-unverified", email: "founder@pitchlab.mx", emailVerified: false },
+        }),
+      },
+    } as unknown as PitchLabAuth);
+    const unverifiedAdmin = await GET(new Request("http://127.0.0.1:3100/api/admin/data-health"));
+    expect(unverifiedAdmin.status).toBe(403);
+
+    resetAuthForTests(undefined);
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "");
+    vi.stubEnv("NODE_ENV", "test");
+    sessionMocks.requireAdminOverride = async () => ({
+      db: undefined as unknown as Db,
+      userId: "admin-health-1",
+      email: "founder@pitchlab.mx",
+    });
+
     const allowed = await GET(new Request("http://127.0.0.1:3100/api/admin/data-health"));
     expect(allowed.status).toBe(200);
+    expect(allowed.headers.get("cache-control")).toBe("private, no-store");
+    expect(allowed.headers.get("x-content-type-options")).toBe("nosniff");
     const body = (await allowed.json()) as { leagues: unknown[]; workflows: unknown[] };
     expect(body.workflows).toHaveLength(2);
     expect(body.leagues).toHaveLength(PRODUCT_LEAGUES.length);
