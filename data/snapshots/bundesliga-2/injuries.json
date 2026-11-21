@@ -1,73 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga-2",
-  "observedAt": "2026-11-21T12:53:07.742Z",
+  "observedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "bundesliga-2.karlsruher",
-      "player": "Marcel Franke",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "bundesliga-2.karlsruher",
-      "player": "Moritz Broschinski",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Ankle Injury",
-      "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "bundesliga-2.karlsruher",
-      "player": "Sebastian Jung",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "bundesliga-2.heidenheim",
-      "player": "Jonas Föhrenbach",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Shin Injury",
-      "injuryType": "Shin Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "bundesliga-2.heidenheim",
-      "player": "Luca Kerber",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "bundesliga-2.heidenheim",
-      "player": "Thomas Dähne",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Abdominal Injury",
-      "injuryType": "Abdominal Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "bundesliga-2.holstein-kiel",
-      "player": "Lasse Rosenboom",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Ligament Injury",
-      "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
     {
       "teamId": "bundesliga-2.hannover",
       "player": "Benedikt Pichler",
@@ -75,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "bundesliga-2.hannover",
@@ -84,25 +21,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "bundesliga-2.hannover",
-      "player": "Lars Timo Gindorf",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "bundesliga-2.hannover",
-      "player": "Stefán Teitur Þórðarson",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "bundesliga-2.sg-dynamo-dresden",
@@ -111,7 +30,88 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.st-pauli",
+      "player": "Gisli Thordarson",
+      "position": "M",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.st-pauli",
+      "player": "Louis Oppie",
+      "position": "M",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.st-pauli",
+      "player": "Mathias Pereira Lage",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.st-pauli",
+      "player": "Rony Jansson",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.nurnberg",
+      "player": "Finn Ole Becker",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.nurnberg",
+      "player": "Kristian Mandić",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.nurnberg",
+      "player": "Mohamed Ali Zoma",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Dislocated Shoulder",
+      "injuryType": "Dislocated Shoulder",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.eintracht-braunschweig",
+      "player": "Samuele Di Benedetto",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Ligament Injury",
+      "injuryType": "Ligament Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "bundesliga-2.energie-cottbus",
+      "player": "Axel Borgmann",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     }
   ]
 }

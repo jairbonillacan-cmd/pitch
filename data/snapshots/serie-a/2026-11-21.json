@@ -277,6 +277,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/75/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Juan Luca Sacchi",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -310,6 +311,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/60/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Ermanno Feliciani",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -343,6 +345,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1277/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Giovanni Ayroldi",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -376,6 +379,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/66/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Luca Zufferli",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -409,6 +413,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/61/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Marco Di Bello",
       "neutralSite": false,
       "result": {
         "home": 3,
@@ -442,6 +447,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/70/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Luca Pairetto",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -475,6 +481,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/63/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Davide Massa",
       "neutralSite": false,
       "result": {
         "home": 1,
@@ -508,6 +515,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/71/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Claudio Giuseppe Allegretta",
       "neutralSite": false,
       "result": {
         "home": 0,
@@ -541,6 +549,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/69/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Daniele Chiffi",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -574,6 +583,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/73/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Andrea Colombo",
       "neutralSite": false,
       "result": {
         "home": 2,
@@ -607,6 +617,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/67/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Andrea Calzavara",
       "neutralSite": false
     },
     {
@@ -634,6 +645,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/60/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Matteo Marcenaro",
       "neutralSite": false
     },
     {
@@ -661,6 +673,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/65/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Simone Sozza",
       "neutralSite": false
     },
     {
@@ -688,6 +701,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/78/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Antonio Rapuano",
       "neutralSite": false
     },
     {
@@ -715,6 +729,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1285/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Alberto Ruben Arena",
       "neutralSite": false
     },
     {
@@ -742,6 +757,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/59/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Maria Sole Ferrieri Caputi",
       "neutralSite": false
     },
     {
@@ -769,6 +785,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/75/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Livio Marinelli",
       "neutralSite": false
     },
     {
@@ -796,6 +813,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1277/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Luca Pairetto",
       "neutralSite": false
     },
     {
@@ -823,6 +841,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/77/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Fabio Maresca",
       "neutralSite": false
     },
     {
@@ -6357,10 +6376,10 @@
         "referee": "Andrea Calzavara",
         "refereeStats": {
           "country": "Italy",
-          "matches": 37,
-          "avgYellow": 1.16,
+          "matches": 38,
+          "avgYellow": 1.13,
           "avgRed": 0,
-          "avgFouls": 28.6,
+          "avgFouls": 28.2,
           "avgGoals": 2.11
         }
       }
@@ -7107,11 +7126,11 @@
         "referee": "Matteo Marcenaro",
         "refereeStats": {
           "country": "Italy",
-          "matches": 41,
-          "avgYellow": 2.85,
+          "matches": 42,
+          "avgYellow": 2.86,
           "avgRed": 0.17,
-          "avgFouls": 26.2,
-          "avgGoals": 2.85
+          "avgFouls": 26.1,
+          "avgGoals": 2.86
         }
       }
     },

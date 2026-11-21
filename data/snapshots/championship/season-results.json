@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "championship",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "matches": [
     {
       "id": "championship-2026-08-14-wolverhampton-blackburn-rove-i5q670",
@@ -1981,6 +1981,127 @@
       "homeTeam": "championship.birmingham-city",
       "awayTeam": "championship.swansea-city",
       "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-southampton-derby-county-2n7pjp",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T12:30:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.southampton",
+      "awayTeam": "championship.derby-county",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-norwich-city-cardiff-city-eq5u9q",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T12:30:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.norwich-city",
+      "awayTeam": "championship.cardiff-city",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-millwall-queens-park-ra-9n3nih",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T12:30:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.millwall",
+      "awayTeam": "championship.queens-park-rangers",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-wolverhampton-charlton-athle-aphhzx",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.wolverhampton",
+      "awayTeam": "championship.charlton-athletic",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-west-ham-unite-preston-north--6bb0yc",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.west-ham-united",
+      "awayTeam": "championship.preston-north-end",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-swansea-city-west-bromwich--top9mx",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.swansea-city",
+      "awayTeam": "championship.west-bromwich-albion",
+      "homeScore": 2,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-stoke-city-birmingham-cit-e79fgy",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.stoke-city",
+      "awayTeam": "championship.birmingham-city",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-sheffield-unit-watford-z22l12",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.sheffield-united",
+      "awayTeam": "championship.watford",
+      "homeScore": 4,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-middlesbrough-bristol-city-7hicpy",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.middlesbrough",
+      "awayTeam": "championship.bristol-city",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-lincoln-city-wrexham-v8pmw9",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.lincoln-city",
+      "awayTeam": "championship.wrexham",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "championship-2026-11-21-bolton-wandere-portsmouth-w9lpa0",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:00:00.000Z",
+      "round": "Regular season · Matchday 16",
+      "homeTeam": "championship.bolton-wanderers",
+      "awayTeam": "championship.portsmouth",
+      "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
     }

@@ -1,46 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "eredivisie",
-  "observedAt": "2026-11-21T12:53:07.742Z",
+  "observedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "eredivisie.psv-eindhoven",
-      "player": "Adamo Nagalo",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "eredivisie.psv-eindhoven",
-      "player": "Alassane Pléa",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "eredivisie.psv-eindhoven",
-      "player": "Jerdy Schouten",
-      "position": "D",
-      "status": "Baja",
-      "detail": "ACL Knee Injury",
-      "injuryType": "ACL Knee Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "eredivisie.willem-ii-tilburg",
-      "player": "Justin Hoogma",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
     {
       "teamId": "eredivisie.cambuur",
       "player": "Jamal Amofa",
@@ -48,7 +12,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.go-ahead-eagles",
@@ -57,7 +21,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -66,7 +30,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -75,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -84,7 +48,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -93,7 +57,7 @@
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.ajax",
@@ -102,7 +66,16 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "eredivisie.az-alkmaar",
+      "player": "Lewis Schouten",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.az-alkmaar",
@@ -111,7 +84,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.pec-zwolle",
@@ -120,7 +93,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "eredivisie.ado-den-haag",
@@ -129,7 +102,34 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "eredivisie.telstar",
+      "player": "Rui Mendes",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "eredivisie.utrecht",
+      "player": "Miliano Jonathans",
+      "position": "F",
+      "status": "Baja",
+      "detail": "ACL Knee Injury",
+      "injuryType": "ACL Knee Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "eredivisie.utrecht",
+      "player": "Noah Ohio",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     }
   ]
 }

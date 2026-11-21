@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "liga-1-peru",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "lines": [
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -11,12 +11,12 @@
       "outcome": "yes",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.85,
+      "decimal": 1.82,
       "openingDecimal": 1.81,
-      "deltaPct": 2.21,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0.55,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -26,12 +26,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betano",
-      "decimal": 1.9,
+      "decimal": 1.83,
       "openingDecimal": 1.82,
-      "deltaPct": 4.4,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0.55,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -46,7 +46,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -56,12 +56,12 @@
       "outcome": "yes",
       "line": null,
       "book": "unibet",
-      "decimal": 1.84,
+      "decimal": 1.8,
       "openingDecimal": 1.8,
-      "deltaPct": 2.22,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -71,12 +71,12 @@
       "outcome": "yes",
       "line": null,
       "book": "novibet",
-      "decimal": 1.76,
+      "decimal": 1.84,
       "openingDecimal": 1.84,
-      "deltaPct": -4.35,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -86,12 +86,12 @@
       "outcome": "yes",
       "line": null,
       "book": "bwin",
-      "decimal": 1.87,
+      "decimal": 1.83,
       "openingDecimal": 1.83,
-      "deltaPct": 2.19,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -101,12 +101,12 @@
       "outcome": "yes",
       "line": null,
       "book": "sportingbet",
-      "decimal": 1.87,
+      "decimal": 1.83,
       "openingDecimal": 1.83,
-      "deltaPct": 2.19,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -121,7 +121,7 @@
       "deltaPct": 2.29,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -136,7 +136,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -151,7 +151,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -166,7 +166,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -176,12 +176,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betsson",
-      "decimal": 1.95,
+      "decimal": 1.92,
       "openingDecimal": 1.88,
-      "deltaPct": 3.72,
+      "deltaPct": 2.13,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -191,12 +191,12 @@
       "outcome": "yes",
       "line": null,
       "book": "fonbet",
-      "decimal": 1.87,
+      "decimal": 1.83,
       "openingDecimal": 1.82,
-      "deltaPct": 2.75,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0.55,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -206,12 +206,12 @@
       "outcome": "yes",
       "line": null,
       "book": "10bet",
-      "decimal": 1.833,
+      "decimal": 1.75,
       "openingDecimal": 1.769,
-      "deltaPct": 3.62,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": -1.07,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -221,12 +221,12 @@
       "outcome": "yes",
       "line": null,
       "book": "vistabet",
-      "decimal": 1.87,
+      "decimal": 1.83,
       "openingDecimal": 1.83,
-      "deltaPct": 2.19,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -241,7 +241,7 @@
       "deltaPct": 1.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -256,7 +256,7 @@
       "deltaPct": 1.89,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -266,12 +266,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "novibet",
-      "decimal": 1.08,
+      "decimal": 1.09,
       "openingDecimal": 1.06,
-      "deltaPct": 1.89,
+      "deltaPct": 2.83,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -286,7 +286,7 @@
       "deltaPct": 0.93,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -301,7 +301,7 @@
       "deltaPct": 0.93,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -316,7 +316,7 @@
       "deltaPct": 2.59,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -331,7 +331,7 @@
       "deltaPct": 1.98,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -346,7 +346,7 @@
       "deltaPct": 1.88,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -361,7 +361,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -371,12 +371,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betsson",
-      "decimal": 1.05,
+      "decimal": 1.06,
       "openingDecimal": 1.04,
-      "deltaPct": 0.96,
+      "deltaPct": 1.92,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -391,7 +391,7 @@
       "deltaPct": 4.13,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -406,7 +406,7 @@
       "deltaPct": 0.93,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -416,12 +416,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betano",
-      "decimal": 5.9,
+      "decimal": 5.8,
       "openingDecimal": 6.6,
-      "deltaPct": -10.61,
+      "deltaPct": -12.12,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -436,7 +436,7 @@
       "deltaPct": -20,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -446,12 +446,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "novibet",
-      "decimal": 6.8,
+      "decimal": 6.5,
       "openingDecimal": 7.7,
-      "deltaPct": -11.69,
+      "deltaPct": -15.58,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -466,7 +466,7 @@
       "deltaPct": -6.67,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -481,7 +481,7 @@
       "deltaPct": -6.67,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -496,7 +496,7 @@
       "deltaPct": -14.29,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -511,7 +511,7 @@
       "deltaPct": -23.53,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -526,7 +526,7 @@
       "deltaPct": -23.53,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -541,7 +541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -551,12 +551,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betsson",
-      "decimal": 7.9,
+      "decimal": 7.4,
       "openingDecimal": 9,
-      "deltaPct": -12.22,
+      "deltaPct": -17.78,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -571,7 +571,7 @@
       "deltaPct": -23.53,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -586,7 +586,7 @@
       "deltaPct": -6.67,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -596,12 +596,12 @@
       "outcome": "no",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.854,
+      "decimal": 1.884,
       "openingDecimal": 1.895,
-      "deltaPct": -2.16,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": -0.58,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -611,12 +611,12 @@
       "outcome": "no",
       "line": null,
       "book": "betano",
-      "decimal": 1.8,
+      "decimal": 1.87,
       "openingDecimal": 1.9,
-      "deltaPct": -5.26,
+      "deltaPct": -1.58,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -631,7 +631,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -646,7 +646,7 @@
       "deltaPct": -1.05,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -656,12 +656,12 @@
       "outcome": "no",
       "line": null,
       "book": "novibet",
-      "decimal": 1.98,
+      "decimal": 1.89,
       "openingDecimal": 1.89,
-      "deltaPct": 4.76,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -671,12 +671,12 @@
       "outcome": "no",
       "line": null,
       "book": "bwin",
-      "decimal": 1.82,
+      "decimal": 1.85,
       "openingDecimal": 1.85,
-      "deltaPct": -1.62,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -686,12 +686,12 @@
       "outcome": "no",
       "line": null,
       "book": "sportingbet",
-      "decimal": 1.82,
+      "decimal": 1.85,
       "openingDecimal": 1.85,
-      "deltaPct": -1.62,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -706,7 +706,7 @@
       "deltaPct": -3.09,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -721,7 +721,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -736,7 +736,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -751,7 +751,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -766,7 +766,7 @@
       "deltaPct": -1.62,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -776,12 +776,12 @@
       "outcome": "no",
       "line": null,
       "book": "fonbet",
-      "decimal": 1.83,
+      "decimal": 1.87,
       "openingDecimal": 1.88,
-      "deltaPct": -2.66,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": -0.53,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -791,12 +791,12 @@
       "outcome": "no",
       "line": null,
       "book": "10bet",
-      "decimal": 1.85,
+      "decimal": 1.93,
       "openingDecimal": 1.909,
-      "deltaPct": -3.09,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 1.1,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -806,12 +806,12 @@
       "outcome": "no",
       "line": null,
       "book": "vistabet",
-      "decimal": 1.82,
+      "decimal": 1.85,
       "openingDecimal": 1.85,
-      "deltaPct": -1.62,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -821,12 +821,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "1xbet",
-      "decimal": 1.108,
+      "decimal": 1.129,
       "openingDecimal": 1.087,
-      "deltaPct": 1.93,
+      "deltaPct": 3.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -836,12 +836,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 1.17,
+      "decimal": 1.19,
       "openingDecimal": 1.14,
-      "deltaPct": 2.63,
+      "deltaPct": 4.39,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -851,12 +851,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "1xbet",
-      "decimal": 4.95,
+      "decimal": 4.55,
       "openingDecimal": 5.4,
-      "deltaPct": -8.33,
+      "deltaPct": -15.74,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -866,12 +866,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 5,
+      "decimal": 4.5,
       "openingDecimal": 5.75,
-      "deltaPct": -13.04,
+      "deltaPct": -21.74,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -881,12 +881,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "1xbet",
-      "decimal": 1.8,
+      "decimal": 1.89,
       "openingDecimal": 1.68,
-      "deltaPct": 7.14,
+      "deltaPct": 12.5,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -896,12 +896,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "novibet",
-      "decimal": 1.8,
+      "decimal": 1.91,
       "openingDecimal": 1.73,
-      "deltaPct": 4.05,
+      "deltaPct": 10.4,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -911,12 +911,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "bet365",
-      "decimal": 1.9,
+      "decimal": 2.025,
       "openingDecimal": 1.75,
-      "deltaPct": 8.57,
+      "deltaPct": 15.71,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -926,12 +926,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "betsson",
-      "decimal": 1.87,
+      "decimal": 1.95,
       "openingDecimal": 1.72,
-      "deltaPct": 8.72,
+      "deltaPct": 13.37,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -941,12 +941,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "10bet",
-      "decimal": 1.87,
+      "decimal": 1.95,
       "openingDecimal": 1.75,
-      "deltaPct": 6.86,
+      "deltaPct": 11.43,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -956,12 +956,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "1xbet",
-      "decimal": 1.83,
+      "decimal": 1.75,
       "openingDecimal": 1.98,
-      "deltaPct": -7.58,
+      "deltaPct": -11.62,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -971,12 +971,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "novibet",
-      "decimal": 1.97,
+      "decimal": 1.86,
       "openingDecimal": 2.06,
-      "deltaPct": -4.37,
+      "deltaPct": -9.71,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -986,12 +986,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "bet365",
-      "decimal": 1.9,
+      "decimal": 1.775,
       "openingDecimal": 2.05,
-      "deltaPct": -7.32,
+      "deltaPct": -13.41,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1001,12 +1001,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "betsson",
-      "decimal": 1.92,
+      "decimal": 1.85,
       "openingDecimal": 2.1,
-      "deltaPct": -8.57,
+      "deltaPct": -11.9,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1016,177 +1016,177 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "10bet",
-      "decimal": 1.87,
+      "decimal": 1.8,
       "openingDecimal": 2,
-      "deltaPct": -6.5,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "1xbet",
-      "decimal": 1.47,
-      "openingDecimal": 1.4,
-      "deltaPct": 5,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "novibet",
-      "decimal": 1.49,
-      "openingDecimal": 1.45,
-      "deltaPct": 2.76,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "bet365",
-      "decimal": 1.525,
-      "openingDecimal": 1.45,
-      "deltaPct": 5.17,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "betsson",
-      "decimal": 1.5,
-      "openingDecimal": 1.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "1xbet",
-      "decimal": 2.375,
-      "openingDecimal": 2.58,
-      "deltaPct": -7.95,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "novibet",
-      "decimal": 2.55,
-      "openingDecimal": 2.7,
-      "deltaPct": -5.56,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "bet365",
-      "decimal": 2.425,
-      "openingDecimal": 2.675,
-      "deltaPct": -9.35,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "betsson",
-      "decimal": 2.55,
-      "openingDecimal": 2.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "1xbet",
-      "decimal": 1.23,
-      "openingDecimal": 1.188,
-      "deltaPct": 3.54,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "bet365",
-      "decimal": 1.3,
-      "openingDecimal": 1.25,
-      "deltaPct": 4,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.75,
-      "book": "1xbet",
-      "decimal": 3.42,
-      "openingDecimal": 3.8,
       "deltaPct": -10,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 1.53,
+      "openingDecimal": 1.4,
+      "deltaPct": 9.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "novibet",
+      "decimal": 1.55,
+      "openingDecimal": 1.45,
+      "deltaPct": 6.9,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "bet365",
+      "decimal": 1.6,
+      "openingDecimal": 1.45,
+      "deltaPct": 10.34,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "betsson",
+      "decimal": 1.55,
+      "openingDecimal": 1.5,
+      "deltaPct": 3.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 2.23,
+      "openingDecimal": 2.58,
+      "deltaPct": -13.57,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "novibet",
+      "decimal": 2.4,
+      "openingDecimal": 2.7,
+      "deltaPct": -11.11,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "bet365",
+      "decimal": 2.3,
+      "openingDecimal": 2.675,
+      "deltaPct": -14.02,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "betsson",
+      "decimal": 2.45,
+      "openingDecimal": 2.55,
+      "deltaPct": -3.92,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 1.26,
+      "openingDecimal": 1.188,
+      "deltaPct": 6.06,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "bet365",
+      "decimal": 1.35,
+      "openingDecimal": 1.25,
+      "deltaPct": 8,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 3.2,
+      "openingDecimal": 3.8,
+      "deltaPct": -15.79,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1196,12 +1196,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "bet365",
-      "decimal": 3.45,
+      "decimal": 3.1,
       "openingDecimal": 3.8,
-      "deltaPct": -9.21,
+      "deltaPct": -18.42,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1211,12 +1211,12 @@
       "outcome": "HOME",
       "line": -2.75,
       "book": "1xbet",
-      "decimal": 3.04,
+      "decimal": 3.28,
       "openingDecimal": 2.7,
-      "deltaPct": 12.59,
+      "deltaPct": 21.48,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1241,12 +1241,12 @@
       "outcome": "HOME",
       "line": -2.75,
       "book": "bet365",
-      "decimal": 3.3,
+      "decimal": 3.45,
       "openingDecimal": 2.85,
-      "deltaPct": 15.79,
+      "deltaPct": 21.05,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1256,12 +1256,12 @@
       "outcome": "AWAY",
       "line": -2.75,
       "book": "1xbet",
-      "decimal": 1.29,
+      "decimal": 1.25,
       "openingDecimal": 1.36,
-      "deltaPct": -5.15,
+      "deltaPct": -8.09,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1286,12 +1286,12 @@
       "outcome": "AWAY",
       "line": -2.75,
       "book": "bet365",
-      "decimal": 1.325,
+      "decimal": 1.3,
       "openingDecimal": 1.4,
-      "deltaPct": -5.36,
+      "deltaPct": -7.14,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1301,12 +1301,12 @@
       "outcome": "HOME",
       "line": -2.25,
       "book": "1xbet",
-      "decimal": 2.3,
+      "decimal": 2.46,
       "openingDecimal": 2.1,
-      "deltaPct": 9.52,
+      "deltaPct": 17.14,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1316,42 +1316,42 @@
       "outcome": "HOME",
       "line": -2.25,
       "book": "novibet",
-      "decimal": 2.3,
-      "openingDecimal": 2.2,
-      "deltaPct": 4.55,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.25,
-      "book": "bet365",
-      "decimal": 2.425,
-      "openingDecimal": 2.2,
-      "deltaPct": 10.23,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.25,
-      "book": "betsson",
       "decimal": 2.5,
       "openingDecimal": 2.2,
       "deltaPct": 13.64,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.25,
+      "book": "bet365",
+      "decimal": 2.6,
+      "openingDecimal": 2.2,
+      "deltaPct": 18.18,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.25,
+      "book": "betsson",
+      "decimal": 2.65,
+      "openingDecimal": 2.2,
+      "deltaPct": 20.45,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1361,12 +1361,12 @@
       "outcome": "AWAY",
       "line": -2.25,
       "book": "1xbet",
-      "decimal": 1.49,
+      "decimal": 1.43,
       "openingDecimal": 1.59,
-      "deltaPct": -6.29,
+      "deltaPct": -10.06,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1376,12 +1376,12 @@
       "outcome": "AWAY",
       "line": -2.25,
       "book": "novibet",
-      "decimal": 1.6,
+      "decimal": 1.51,
       "openingDecimal": 1.66,
-      "deltaPct": -3.61,
+      "deltaPct": -9.04,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1391,12 +1391,12 @@
       "outcome": "AWAY",
       "line": -2.25,
       "book": "bet365",
-      "decimal": 1.525,
+      "decimal": 1.475,
       "openingDecimal": 1.65,
-      "deltaPct": -7.58,
+      "deltaPct": -10.61,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1406,12 +1406,12 @@
       "outcome": "AWAY",
       "line": -2.25,
       "book": "betsson",
-      "decimal": 1.52,
+      "decimal": 1.48,
       "openingDecimal": 1.65,
-      "deltaPct": -7.88,
+      "deltaPct": -10.3,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1421,12 +1421,12 @@
       "outcome": "HOME",
       "line": -3.75,
       "book": "1xbet",
-      "decimal": 5.65,
+      "decimal": 6.15,
       "openingDecimal": 4.9,
-      "deltaPct": 15.31,
+      "deltaPct": 25.51,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1451,12 +1451,12 @@
       "outcome": "AWAY",
       "line": -3.75,
       "book": "1xbet",
-      "decimal": 1.078,
+      "decimal": 1.06,
       "openingDecimal": 1.11,
-      "deltaPct": -2.88,
+      "deltaPct": -4.5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1481,12 +1481,12 @@
       "outcome": "HOME",
       "line": -3.25,
       "book": "1xbet",
-      "decimal": 4.2,
+      "decimal": 4.6,
       "openingDecimal": 3.68,
-      "deltaPct": 14.13,
+      "deltaPct": 25,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1495,388 +1495,13 @@
       "market": "asian_handicap",
       "outcome": "HOME",
       "line": -3.25,
-      "book": "bet365",
-      "decimal": 4.5,
-      "openingDecimal": 3.9,
-      "deltaPct": 15.38,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -3.25,
-      "book": "1xbet",
-      "decimal": 1.153,
-      "openingDecimal": 1.2,
-      "deltaPct": -3.92,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -3.25,
-      "book": "bet365",
-      "decimal": 1.19,
-      "openingDecimal": 1.24,
-      "deltaPct": -4.03,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "1xbet",
-      "decimal": 1.67,
-      "openingDecimal": 1.58,
-      "deltaPct": 5.7,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "interwetten",
-      "decimal": 1.65,
-      "openingDecimal": 1.6,
-      "deltaPct": 3.12,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "unibet",
-      "decimal": 1.7,
-      "openingDecimal": 1.6,
-      "deltaPct": 6.25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "novibet",
-      "decimal": 1.65,
-      "openingDecimal": 1.6,
-      "deltaPct": 3.12,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "888sport",
-      "decimal": 1.7,
-      "openingDecimal": 1.615,
-      "deltaPct": 5.26,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "william-hill",
-      "decimal": 1.7,
-      "openingDecimal": 1.615,
-      "deltaPct": 5.26,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "bet365",
-      "decimal": 1.7,
-      "openingDecimal": 1.6,
-      "deltaPct": 6.25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "betsson",
-      "decimal": 1.7,
-      "openingDecimal": 1.58,
-      "deltaPct": 7.59,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "fonbet",
-      "decimal": 1.67,
-      "openingDecimal": 1.57,
-      "deltaPct": 6.37,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.5,
-      "book": "10bet",
-      "decimal": 1.7,
-      "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "1xbet",
-      "decimal": 2.09,
-      "openingDecimal": 2.25,
-      "deltaPct": -7.11,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "interwetten",
-      "decimal": 2.05,
-      "openingDecimal": 2.1,
-      "deltaPct": -2.38,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "unibet",
-      "decimal": 2.1,
-      "openingDecimal": 2.25,
-      "deltaPct": -6.67,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "novibet",
-      "decimal": 2.2,
-      "openingDecimal": 2.3,
-      "deltaPct": -4.35,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "888sport",
-      "decimal": 2.05,
-      "openingDecimal": 2.15,
-      "deltaPct": -4.65,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "william-hill",
-      "decimal": 2.05,
-      "openingDecimal": 2.15,
-      "deltaPct": -4.65,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "bet365",
-      "decimal": 2.1,
-      "openingDecimal": 2.3,
-      "deltaPct": -8.7,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "betsson",
-      "decimal": 2.15,
-      "openingDecimal": 2.35,
-      "deltaPct": -8.51,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "fonbet",
-      "decimal": 2.07,
-      "openingDecimal": 2.25,
-      "deltaPct": -8,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.5,
-      "book": "10bet",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -3.5,
-      "book": "1xbet",
-      "decimal": 4.55,
-      "openingDecimal": 3.98,
-      "deltaPct": 14.32,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -3.5,
       "book": "bet365",
       "decimal": 5,
-      "openingDecimal": 4.15,
-      "deltaPct": 20.48,
+      "openingDecimal": 3.9,
+      "deltaPct": 28.21,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -3.5,
-      "book": "fonbet",
-      "decimal": 4.3,
-      "openingDecimal": 3.85,
-      "deltaPct": 11.69,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -1884,209 +1509,14 @@
       "awayName": "FC Cajamarca",
       "market": "asian_handicap",
       "outcome": "AWAY",
-      "line": -3.5,
+      "line": -3.25,
       "book": "1xbet",
-      "decimal": 1.131,
-      "openingDecimal": 1.171,
-      "deltaPct": -3.42,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -3.5,
-      "book": "bet365",
-      "decimal": 1.17,
-      "openingDecimal": 1.22,
-      "deltaPct": -4.1,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -3.5,
-      "book": "fonbet",
-      "decimal": 1.17,
+      "decimal": 1.126,
       "openingDecimal": 1.2,
-      "deltaPct": -2.5,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -4.5,
-      "book": "1xbet",
-      "decimal": 8.3,
-      "openingDecimal": 7.2,
-      "deltaPct": 15.28,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -4.5,
-      "book": "1xbet",
-      "decimal": 1.016,
-      "openingDecimal": 1.035,
-      "deltaPct": -1.84,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "1xbet",
-      "decimal": 2.56,
-      "openingDecimal": 2.33,
-      "deltaPct": 9.87,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "interwetten",
-      "decimal": 2.6,
-      "openingDecimal": 2.3,
-      "deltaPct": 13.04,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "unibet",
-      "decimal": 2.65,
-      "openingDecimal": 2.45,
-      "deltaPct": 8.16,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "novibet",
-      "decimal": 2.55,
-      "openingDecimal": 2.4,
-      "deltaPct": 6.25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "bet365",
-      "decimal": 2.675,
-      "openingDecimal": 2.425,
-      "deltaPct": 10.31,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "betsson",
-      "decimal": 2.5,
-      "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T08:23:31Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2.5,
-      "book": "fonbet",
-      "decimal": 2.5,
-      "openingDecimal": 2.3,
-      "deltaPct": 8.7,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
-      "book": "1xbet",
-      "decimal": 1.4,
-      "openingDecimal": 1.48,
-      "deltaPct": -5.41,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
-      "book": "interwetten",
-      "decimal": 1.4,
-      "openingDecimal": 1.5,
-      "deltaPct": -6.67,
+      "deltaPct": -6.17,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2094,74 +1524,14 @@
       "awayName": "FC Cajamarca",
       "market": "asian_handicap",
       "outcome": "AWAY",
-      "line": -2.5,
-      "book": "unibet",
-      "decimal": 1.45,
-      "openingDecimal": 1.52,
-      "deltaPct": -4.61,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
-      "book": "novibet",
-      "decimal": 1.49,
-      "openingDecimal": 1.54,
-      "deltaPct": -3.25,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
+      "line": -3.25,
       "book": "bet365",
-      "decimal": 1.45,
-      "openingDecimal": 1.525,
-      "deltaPct": -4.92,
+      "decimal": 1.17,
+      "openingDecimal": 1.24,
+      "deltaPct": -5.65,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
-      "book": "betsson",
-      "decimal": 1.52,
-      "openingDecimal": 1.52,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T08:23:31Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2.5,
-      "book": "fonbet",
-      "decimal": 1.48,
-      "openingDecimal": 1.55,
-      "deltaPct": -4.52,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2169,14 +1539,599 @@
       "awayName": "FC Cajamarca",
       "market": "asian_handicap",
       "outcome": "HOME",
-      "line": -0.5,
+      "line": -1.5,
+      "book": "1xbet",
+      "decimal": 1.77,
+      "openingDecimal": 1.58,
+      "deltaPct": 12.03,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "interwetten",
+      "decimal": 1.75,
+      "openingDecimal": 1.6,
+      "deltaPct": 9.37,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
       "book": "unibet",
-      "decimal": 1.25,
+      "decimal": 1.78,
+      "openingDecimal": 1.6,
+      "deltaPct": 11.25,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "novibet",
+      "decimal": 1.73,
+      "openingDecimal": 1.6,
+      "deltaPct": 8.12,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "888sport",
+      "decimal": 1.75,
+      "openingDecimal": 1.615,
+      "deltaPct": 8.36,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "william-hill",
+      "decimal": 1.75,
+      "openingDecimal": 1.615,
+      "deltaPct": 8.36,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "bet365",
+      "decimal": 1.825,
+      "openingDecimal": 1.6,
+      "deltaPct": 14.06,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "betsson",
+      "decimal": 1.8,
+      "openingDecimal": 1.58,
+      "deltaPct": 13.92,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "fonbet",
+      "decimal": 1.77,
+      "openingDecimal": 1.57,
+      "deltaPct": 12.74,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "10bet",
+      "decimal": 1.75,
+      "openingDecimal": 1.7,
+      "deltaPct": 2.94,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "1xbet",
+      "decimal": 1.95,
+      "openingDecimal": 2.25,
+      "deltaPct": -13.33,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "interwetten",
+      "decimal": 1.9,
+      "openingDecimal": 2.1,
+      "deltaPct": -9.52,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "unibet",
+      "decimal": 1.95,
+      "openingDecimal": 2.25,
+      "deltaPct": -13.33,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "novibet",
+      "decimal": 2.07,
+      "openingDecimal": 2.3,
+      "deltaPct": -10,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "888sport",
+      "decimal": 1.95,
+      "openingDecimal": 2.15,
+      "deltaPct": -9.3,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "william-hill",
+      "decimal": 1.95,
+      "openingDecimal": 2.15,
+      "deltaPct": -9.3,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "bet365",
+      "decimal": 1.975,
+      "openingDecimal": 2.3,
+      "deltaPct": -14.13,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "betsson",
+      "decimal": 2,
+      "openingDecimal": 2.35,
+      "deltaPct": -14.89,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "fonbet",
+      "decimal": 1.93,
+      "openingDecimal": 2.25,
+      "deltaPct": -14.22,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "10bet",
+      "decimal": 2,
+      "openingDecimal": 2.1,
+      "deltaPct": -4.76,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -3.5,
+      "book": "1xbet",
+      "decimal": 4.95,
+      "openingDecimal": 3.98,
+      "deltaPct": 24.37,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -3.5,
+      "book": "bet365",
+      "decimal": 5.5,
+      "openingDecimal": 4.15,
+      "deltaPct": 32.53,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -3.5,
+      "book": "fonbet",
+      "decimal": 4.7,
+      "openingDecimal": 3.85,
+      "deltaPct": 22.08,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -3.5,
+      "book": "1xbet",
+      "decimal": 1.108,
+      "openingDecimal": 1.171,
+      "deltaPct": -5.38,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -3.5,
+      "book": "bet365",
+      "decimal": 1.15,
       "openingDecimal": 1.22,
-      "deltaPct": 2.46,
+      "deltaPct": -5.74,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -3.5,
+      "book": "fonbet",
+      "decimal": 1.14,
+      "openingDecimal": 1.2,
+      "deltaPct": -5,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -4.5,
+      "book": "1xbet",
+      "decimal": 9,
+      "openingDecimal": 7.2,
+      "deltaPct": 25,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "1xbet",
+      "decimal": 2.78,
+      "openingDecimal": 2.33,
+      "deltaPct": 19.31,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "interwetten",
+      "decimal": 2.8,
+      "openingDecimal": 2.3,
+      "deltaPct": 21.74,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "unibet",
+      "decimal": 2.9,
+      "openingDecimal": 2.45,
+      "deltaPct": 18.37,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "novibet",
+      "decimal": 2.8,
+      "openingDecimal": 2.4,
+      "deltaPct": 16.67,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "bet365",
+      "decimal": 3,
+      "openingDecimal": 2.425,
+      "deltaPct": 23.71,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "fonbet",
+      "decimal": 2.8,
+      "openingDecimal": 2.3,
+      "deltaPct": 21.74,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "1xbet",
+      "decimal": 1.34,
+      "openingDecimal": 1.48,
+      "deltaPct": -9.46,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "interwetten",
+      "decimal": 1.35,
+      "openingDecimal": 1.5,
+      "deltaPct": -10,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "unibet",
+      "decimal": 1.37,
+      "openingDecimal": 1.52,
+      "deltaPct": -9.87,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "novibet",
+      "decimal": 1.42,
+      "openingDecimal": 1.54,
+      "deltaPct": -7.79,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "bet365",
+      "decimal": 1.375,
+      "openingDecimal": 1.525,
+      "deltaPct": -9.84,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "fonbet",
+      "decimal": 1.38,
+      "openingDecimal": 1.55,
+      "deltaPct": -10.97,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.5,
+      "book": "unibet",
+      "decimal": 1.29,
+      "openingDecimal": 1.22,
+      "deltaPct": 5.74,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2186,12 +2141,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "bet365",
-      "decimal": 1.26,
+      "decimal": 1.275,
       "openingDecimal": 1.21,
-      "deltaPct": 4.13,
+      "deltaPct": 5.37,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2201,12 +2156,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "unibet",
-      "decimal": 3.75,
+      "decimal": 3.5,
       "openingDecimal": 4,
-      "deltaPct": -6.25,
+      "deltaPct": -12.5,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2216,12 +2171,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "bet365",
-      "decimal": 3.7,
+      "decimal": 3.55,
       "openingDecimal": 4.25,
-      "deltaPct": -12.94,
+      "deltaPct": -16.47,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2231,12 +2186,27 @@
       "outcome": "HOME",
       "line": 0,
       "book": "1xbet",
-      "decimal": 1.031,
+      "decimal": 1.046,
       "openingDecimal": 1.02,
-      "deltaPct": 1.08,
+      "deltaPct": 2.55,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0,
+      "book": "bet365",
+      "decimal": 1.1,
+      "openingDecimal": 1.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2246,12 +2216,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "fonbet",
-      "decimal": 1.08,
+      "decimal": 1.1,
       "openingDecimal": 1.06,
-      "deltaPct": 1.89,
+      "deltaPct": 3.77,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2261,12 +2231,27 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "1xbet",
-      "decimal": 7.4,
+      "decimal": 6.7,
       "openingDecimal": 9,
-      "deltaPct": -17.78,
+      "deltaPct": -25.56,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "bet365",
+      "decimal": 7,
+      "openingDecimal": 7,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2276,12 +2261,12 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "fonbet",
-      "decimal": 5.8,
+      "decimal": 5.4,
       "openingDecimal": 6.5,
-      "deltaPct": -10.77,
+      "deltaPct": -16.92,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2291,12 +2276,12 @@
       "outcome": "HOME",
       "line": -2,
       "book": "1xbet",
-      "decimal": 2.05,
+      "decimal": 2.19,
       "openingDecimal": 1.86,
-      "deltaPct": 10.22,
+      "deltaPct": 17.74,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2306,12 +2291,12 @@
       "outcome": "HOME",
       "line": -2,
       "book": "novibet",
-      "decimal": 2.1,
+      "decimal": 2.2,
       "openingDecimal": 1.94,
-      "deltaPct": 8.25,
+      "deltaPct": 13.4,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2326,7 +2311,7 @@
       "deltaPct": 18.99,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2341,7 +2326,7 @@
       "deltaPct": 17.35,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2351,27 +2336,12 @@
       "outcome": "HOME",
       "line": -2,
       "book": "fonbet",
-      "decimal": 2.25,
+      "decimal": 2.15,
       "openingDecimal": 1.87,
-      "deltaPct": 20.32,
+      "deltaPct": 14.97,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -2,
-      "book": "10bet",
-      "decimal": 1.95,
-      "openingDecimal": 1.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T08:23:31Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2381,12 +2351,12 @@
       "outcome": "AWAY",
       "line": -2,
       "book": "1xbet",
-      "decimal": 1.62,
+      "decimal": 1.54,
       "openingDecimal": 1.76,
-      "deltaPct": -7.95,
+      "deltaPct": -12.5,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2396,12 +2366,12 @@
       "outcome": "AWAY",
       "line": -2,
       "book": "novibet",
-      "decimal": 1.7,
+      "decimal": 1.64,
       "openingDecimal": 1.83,
-      "deltaPct": -7.1,
+      "deltaPct": -10.38,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2416,7 +2386,7 @@
       "deltaPct": -13.7,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2431,7 +2401,7 @@
       "deltaPct": -12.57,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2441,42 +2411,42 @@
       "outcome": "AWAY",
       "line": -2,
       "book": "fonbet",
-      "decimal": 1.57,
+      "decimal": 1.62,
       "openingDecimal": 1.83,
-      "deltaPct": -14.21,
+      "deltaPct": -11.48,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
       "homeName": "Alianza Lima",
       "awayName": "FC Cajamarca",
       "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -2,
-      "book": "10bet",
-      "decimal": 1.8,
-      "openingDecimal": 1.8,
+      "outcome": "HOME",
+      "line": -1,
+      "book": "1xbet",
+      "decimal": 1.33,
+      "openingDecimal": 1.24,
+      "deltaPct": 7.26,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1,
+      "book": "novibet",
+      "decimal": 1.37,
+      "openingDecimal": 1.37,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T08:23:31Z"
-    },
-    {
-      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
-      "homeName": "Alianza Lima",
-      "awayName": "FC Cajamarca",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1,
-      "book": "1xbet",
-      "decimal": 1.285,
-      "openingDecimal": 1.24,
-      "deltaPct": 3.63,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2486,12 +2456,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "bet365",
-      "decimal": 1.375,
+      "decimal": 1.425,
       "openingDecimal": 1.3,
-      "deltaPct": 5.77,
+      "deltaPct": 9.62,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2501,12 +2471,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "fonbet",
-      "decimal": 1.35,
+      "decimal": 1.4,
       "openingDecimal": 1.3,
-      "deltaPct": 3.85,
+      "deltaPct": 7.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2516,12 +2486,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "1xbet",
-      "decimal": 3.05,
+      "decimal": 2.83,
       "openingDecimal": 3.34,
-      "deltaPct": -8.68,
+      "deltaPct": -15.27,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2530,13 +2500,28 @@
       "market": "asian_handicap",
       "outcome": "AWAY",
       "line": -1,
-      "book": "bet365",
+      "book": "novibet",
       "decimal": 3,
+      "openingDecimal": 3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
+    },
+    {
+      "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "homeName": "Alianza Lima",
+      "awayName": "FC Cajamarca",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1,
+      "book": "bet365",
+      "decimal": 2.75,
       "openingDecimal": 3.45,
-      "deltaPct": -13.04,
+      "deltaPct": -20.29,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2546,12 +2531,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "fonbet",
-      "decimal": 2.9,
+      "decimal": 2.7,
       "openingDecimal": 3.15,
-      "deltaPct": -7.94,
+      "deltaPct": -14.29,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2561,12 +2546,12 @@
       "outcome": "HOME",
       "line": -3,
       "book": "1xbet",
-      "decimal": 3.88,
+      "decimal": 4.3,
       "openingDecimal": 3.34,
-      "deltaPct": 16.17,
+      "deltaPct": 28.74,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2576,12 +2561,12 @@
       "outcome": "HOME",
       "line": -3,
       "book": "bet365",
-      "decimal": 4.15,
+      "decimal": 4.5,
       "openingDecimal": 3.55,
-      "deltaPct": 16.9,
+      "deltaPct": 26.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2591,12 +2576,12 @@
       "outcome": "HOME",
       "line": -3,
       "book": "fonbet",
-      "decimal": 3.65,
+      "decimal": 4,
       "openingDecimal": 3.25,
-      "deltaPct": 12.31,
+      "deltaPct": 23.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2606,12 +2591,12 @@
       "outcome": "AWAY",
       "line": -3,
       "book": "1xbet",
-      "decimal": 1.179,
+      "decimal": 1.147,
       "openingDecimal": 1.24,
-      "deltaPct": -4.92,
+      "deltaPct": -7.5,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2621,12 +2606,12 @@
       "outcome": "AWAY",
       "line": -3,
       "book": "bet365",
-      "decimal": 1.22,
+      "decimal": 1.19,
       "openingDecimal": 1.275,
-      "deltaPct": -4.31,
+      "deltaPct": -6.67,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2636,12 +2621,12 @@
       "outcome": "AWAY",
       "line": -3,
       "book": "fonbet",
-      "decimal": 1.22,
+      "decimal": 1.18,
       "openingDecimal": 1.28,
-      "deltaPct": -4.69,
+      "deltaPct": -7.81,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2651,12 +2636,12 @@
       "outcome": "HOME",
       "line": -4,
       "book": "1xbet",
-      "decimal": 7.7,
+      "decimal": 8.5,
       "openingDecimal": 6.6,
-      "deltaPct": 16.67,
+      "deltaPct": 28.79,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
@@ -2666,12 +2651,12 @@
       "outcome": "AWAY",
       "line": -4,
       "book": "1xbet",
-      "decimal": 1.025,
+      "decimal": 1.012,
       "openingDecimal": 1.048,
-      "deltaPct": -2.19,
+      "deltaPct": -3.44,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:41Z"
+      "capturedAtUtc": "2026-11-21T17:22:19Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2686,7 +2671,7 @@
       "deltaPct": -4.14,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2701,7 +2686,7 @@
       "deltaPct": -4.14,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2716,7 +2701,7 @@
       "deltaPct": -2.6,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2731,7 +2716,7 @@
       "deltaPct": -6.04,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2741,12 +2726,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.44,
+      "decimal": 1.4,
       "openingDecimal": 1.44,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2761,7 +2746,7 @@
       "deltaPct": -7.37,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2776,7 +2761,7 @@
       "deltaPct": -2.78,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2791,7 +2776,7 @@
       "deltaPct": -6.67,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2806,7 +2791,7 @@
       "deltaPct": -4.55,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2821,7 +2806,7 @@
       "deltaPct": -6.67,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2836,7 +2821,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2851,7 +2836,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2866,7 +2851,7 @@
       "deltaPct": -1.4,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2876,12 +2861,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "sbo",
-      "decimal": 1.47,
+      "decimal": 1.4,
       "openingDecimal": 1.44,
-      "deltaPct": 2.08,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2896,7 +2881,7 @@
       "deltaPct": 4.6,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2911,7 +2896,7 @@
       "deltaPct": -1.97,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2926,7 +2911,7 @@
       "deltaPct": 3.45,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2941,7 +2926,7 @@
       "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2956,7 +2941,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2971,7 +2956,7 @@
       "deltaPct": 15.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -2986,7 +2971,7 @@
       "deltaPct": 6.24,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3001,7 +2986,7 @@
       "deltaPct": 3.1,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3016,7 +3001,7 @@
       "deltaPct": 6.52,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3031,7 +3016,7 @@
       "deltaPct": 3.1,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3046,7 +3031,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3061,7 +3046,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3076,7 +3061,7 @@
       "deltaPct": 1.16,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3086,12 +3071,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.82,
+      "decimal": 3.97,
       "openingDecimal": 3.87,
-      "deltaPct": -1.29,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.58,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3106,7 +3091,7 @@
       "deltaPct": 15.09,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3121,7 +3106,7 @@
       "deltaPct": -7.95,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3136,7 +3121,7 @@
       "deltaPct": 8.49,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3151,7 +3136,7 @@
       "deltaPct": 19.79,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3161,12 +3146,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "william-hill",
-      "decimal": 6,
+      "decimal": 7,
       "openingDecimal": 5.8,
-      "deltaPct": 3.45,
+      "deltaPct": 20.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3181,7 +3166,7 @@
       "deltaPct": 18.18,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3196,7 +3181,7 @@
       "deltaPct": 10,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3211,7 +3196,7 @@
       "deltaPct": 19.79,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3226,7 +3211,7 @@
       "deltaPct": 10.71,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3241,7 +3226,7 @@
       "deltaPct": 19.79,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3256,7 +3241,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3271,7 +3256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3286,7 +3271,7 @@
       "deltaPct": 1.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3296,12 +3281,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sbo",
-      "decimal": 4.48,
+      "decimal": 4.94,
       "openingDecimal": 4.65,
-      "deltaPct": -3.66,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 6.24,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3316,7 +3301,7 @@
       "deltaPct": -1.85,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3326,12 +3311,12 @@
       "outcome": "1X",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.11,
+      "decimal": 1.1,
       "openingDecimal": 1.12,
-      "deltaPct": -0.89,
+      "deltaPct": -1.79,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3346,7 +3331,7 @@
       "deltaPct": -0.9,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3361,7 +3346,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3371,12 +3356,12 @@
       "outcome": "1X",
       "line": null,
       "book": "sbo",
-      "decimal": 1.09,
+      "decimal": 1.07,
       "openingDecimal": 1.08,
-      "deltaPct": 0.93,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -0.93,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3391,7 +3376,7 @@
       "deltaPct": 8.59,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3401,12 +3386,12 @@
       "outcome": "X2",
       "line": null,
       "book": "william-hill",
-      "decimal": 2.6,
+      "decimal": 2.7,
       "openingDecimal": 2.5,
-      "deltaPct": 4,
+      "deltaPct": 8,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3421,7 +3406,7 @@
       "deltaPct": 5.2,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3436,7 +3421,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3446,12 +3431,12 @@
       "outcome": "X2",
       "line": null,
       "book": "sbo",
-      "decimal": 2.23,
+      "decimal": 2.4,
       "openingDecimal": 2.29,
-      "deltaPct": -2.62,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 4.8,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3466,7 +3451,7 @@
       "deltaPct": -0.85,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3481,7 +3466,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3496,7 +3481,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3511,7 +3496,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3521,12 +3506,12 @@
       "outcome": "12",
       "line": null,
       "book": "sbo",
-      "decimal": 1.14,
+      "decimal": 1.13,
       "openingDecimal": 1.13,
-      "deltaPct": 0.88,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3541,7 +3526,7 @@
       "deltaPct": -0.91,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3556,7 +3541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3571,7 +3556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3586,7 +3571,7 @@
       "deltaPct": 2.94,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3601,7 +3586,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3611,12 +3596,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "betvictor",
-      "decimal": 5.5,
+      "decimal": 5.4,
       "openingDecimal": 5.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -1.82,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3631,7 +3616,7 @@
       "deltaPct": -1.38,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3646,7 +3631,7 @@
       "deltaPct": -4.03,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3661,7 +3646,7 @@
       "deltaPct": -2.15,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3676,7 +3661,7 @@
       "deltaPct": 1.38,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3686,12 +3671,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 1.45,
+      "decimal": 1.47,
       "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.38,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3706,7 +3691,7 @@
       "deltaPct": 2.07,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3721,7 +3706,7 @@
       "deltaPct": -1.19,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3736,7 +3721,7 @@
       "deltaPct": 4.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3751,7 +3736,7 @@
       "deltaPct": 3.14,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3761,12 +3746,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 2.6,
+      "decimal": 2.55,
       "openingDecimal": 2.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -1.92,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3781,7 +3766,7 @@
       "deltaPct": -2.26,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3796,7 +3781,7 @@
       "deltaPct": -5.8,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3811,7 +3796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3821,12 +3806,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "betvictor",
-      "decimal": 2.12,
+      "decimal": 2.15,
       "openingDecimal": 2.12,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.42,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3841,7 +3826,7 @@
       "deltaPct": 1.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3856,7 +3841,7 @@
       "deltaPct": 0.62,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3871,7 +3856,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3881,12 +3866,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "betvictor",
-      "decimal": 1.62,
+      "decimal": 1.6,
       "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -1.23,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3901,7 +3886,7 @@
       "deltaPct": 1.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3916,7 +3901,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3931,7 +3916,7 @@
       "deltaPct": 2.79,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3946,7 +3931,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3956,12 +3941,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.6,
+      "decimal": 1.62,
       "openingDecimal": 1.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.25,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3976,7 +3961,7 @@
       "deltaPct": -2.29,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -3991,7 +3976,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4006,7 +3991,7 @@
       "deltaPct": -4.55,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4021,7 +4006,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4036,7 +4021,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4051,7 +4036,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4066,7 +4051,7 @@
       "deltaPct": 0.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4081,7 +4066,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4091,12 +4076,12 @@
       "outcome": "over",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 1.19,
+      "decimal": 1.21,
       "openingDecimal": 1.19,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.68,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4106,12 +4091,12 @@
       "outcome": "under",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 3.68,
+      "decimal": 3.58,
       "openingDecimal": 3.71,
-      "deltaPct": -0.81,
+      "deltaPct": -3.5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4121,12 +4106,12 @@
       "outcome": "over",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 1.42,
+      "decimal": 1.44,
       "openingDecimal": 1.42,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.41,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4136,12 +4121,12 @@
       "outcome": "under",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 2.57,
+      "decimal": 2.51,
       "openingDecimal": 2.58,
-      "deltaPct": -0.39,
+      "deltaPct": -2.71,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4151,12 +4136,12 @@
       "outcome": "over",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 1.73,
+      "decimal": 1.77,
       "openingDecimal": 1.74,
-      "deltaPct": -0.57,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.72,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4166,12 +4151,12 @@
       "outcome": "under",
       "line": 9.5,
       "book": "1xbet",
-      "decimal": 2,
+      "decimal": 1.94,
       "openingDecimal": 1.98,
-      "deltaPct": 1.01,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.02,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4181,12 +4166,12 @@
       "outcome": "over",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 2.18,
+      "decimal": 2.22,
       "openingDecimal": 2.16,
-      "deltaPct": 0.93,
+      "deltaPct": 2.78,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4196,12 +4181,12 @@
       "outcome": "under",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 1.6,
+      "decimal": 1.58,
       "openingDecimal": 1.61,
-      "deltaPct": -0.62,
+      "deltaPct": -1.86,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4211,12 +4196,12 @@
       "outcome": "over",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 2.86,
+      "decimal": 2.93,
       "openingDecimal": 2.84,
-      "deltaPct": 0.7,
+      "deltaPct": 3.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sporting-crist-cienciano-egfg7r",
@@ -4226,12 +4211,12 @@
       "outcome": "under",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 1.33,
+      "decimal": 1.32,
       "openingDecimal": 1.34,
-      "deltaPct": -0.75,
+      "deltaPct": -1.49,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4241,12 +4226,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "1xbet",
-      "decimal": 2.13,
+      "decimal": 2.03,
       "openingDecimal": 2.13,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -4.69,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4256,12 +4241,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "pinnacle",
-      "decimal": 2.07,
+      "decimal": 2.01,
       "openingDecimal": 2.09,
-      "deltaPct": -0.96,
+      "deltaPct": -3.83,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4276,7 +4261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4286,12 +4271,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 2,
+      "decimal": 1.95,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4301,12 +4286,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "william-hill",
-      "decimal": 2.1,
+      "decimal": 2.05,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.38,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4321,7 +4306,7 @@
       "deltaPct": 2.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4336,7 +4321,7 @@
       "deltaPct": -2.44,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4346,12 +4331,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "coral",
-      "decimal": 2,
+      "decimal": 1.95,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4366,7 +4351,7 @@
       "deltaPct": -0.48,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4376,12 +4361,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 2,
+      "decimal": 1.95,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4391,12 +4376,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betvictor",
-      "decimal": 2.05,
+      "decimal": 2.15,
       "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 4.88,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4411,7 +4396,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4421,12 +4406,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "mansionbet",
-      "decimal": 1.93,
+      "decimal": 1.9,
       "openingDecimal": 1.96,
-      "deltaPct": -1.53,
+      "deltaPct": -3.06,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4441,7 +4426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4451,12 +4436,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.52,
+      "decimal": 3.58,
       "openingDecimal": 3.52,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.7,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4466,12 +4451,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "pinnacle",
-      "decimal": 3.62,
+      "decimal": 3.7,
       "openingDecimal": 3.6,
-      "deltaPct": 0.56,
+      "deltaPct": 2.78,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4486,7 +4471,7 @@
       "deltaPct": 1.37,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4496,12 +4481,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bwin",
-      "decimal": 3.3,
+      "decimal": 3.4,
       "openingDecimal": 3.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 3.03,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4516,7 +4501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4531,7 +4516,7 @@
       "deltaPct": 2.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4541,12 +4526,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "betfair",
-      "decimal": 3.5,
+      "decimal": 3.6,
       "openingDecimal": 3.4,
-      "deltaPct": 2.94,
+      "deltaPct": 5.88,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4556,12 +4541,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "coral",
-      "decimal": 3.4,
+      "decimal": 3.5,
       "openingDecimal": 3.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.94,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4576,7 +4561,7 @@
       "deltaPct": 2.78,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4586,12 +4571,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.4,
+      "decimal": 3.5,
       "openingDecimal": 3.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.94,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4601,12 +4586,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "betvictor",
-      "decimal": 3.6,
+      "decimal": 3.5,
       "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4621,7 +4606,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4631,12 +4616,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "mansionbet",
-      "decimal": 3.5,
+      "decimal": 3.55,
       "openingDecimal": 3.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.43,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4651,7 +4636,7 @@
       "deltaPct": 0.65,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4661,12 +4646,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.07,
+      "decimal": 3.26,
       "openingDecimal": 3.07,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 6.19,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4676,12 +4661,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "pinnacle",
-      "decimal": 3.14,
+      "decimal": 3.21,
       "openingDecimal": 3.1,
-      "deltaPct": 1.29,
+      "deltaPct": 3.55,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4696,7 +4681,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4711,7 +4696,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4721,12 +4706,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "william-hill",
-      "decimal": 3.1,
+      "decimal": 3.2,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 3.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4741,7 +4726,7 @@
       "deltaPct": -5.88,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4751,12 +4736,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betfair",
-      "decimal": 3.1,
+      "decimal": 3.2,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 3.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4771,7 +4756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4786,7 +4771,7 @@
       "deltaPct": -2.94,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4801,7 +4786,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4811,12 +4796,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betvictor",
-      "decimal": 3.13,
+      "decimal": 3,
       "openingDecimal": 3.13,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -4.15,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4831,7 +4816,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4841,12 +4826,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "mansionbet",
-      "decimal": 3.2,
+      "decimal": 3.3,
       "openingDecimal": 3.15,
-      "deltaPct": 1.59,
+      "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4861,7 +4846,7 @@
       "deltaPct": -0.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4871,12 +4856,12 @@
       "outcome": "1X",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.32,
+      "decimal": 1.29,
       "openingDecimal": 1.32,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.27,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4891,7 +4876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4906,7 +4891,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4921,7 +4906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4936,7 +4921,7 @@
       "deltaPct": 0.82,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4946,12 +4931,12 @@
       "outcome": "X2",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.64,
+      "decimal": 1.71,
       "openingDecimal": 1.64,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 4.27,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4966,7 +4951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4976,12 +4961,12 @@
       "outcome": "X2",
       "line": null,
       "book": "betfair",
-      "decimal": 1.67,
+      "decimal": 1.73,
       "openingDecimal": 1.62,
-      "deltaPct": 3.09,
+      "deltaPct": 6.79,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -4991,12 +4976,12 @@
       "outcome": "X2",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.67,
+      "decimal": 1.62,
       "openingDecimal": 1.67,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.99,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5011,7 +4996,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5026,7 +5011,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5041,7 +5026,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5051,12 +5036,12 @@
       "outcome": "12",
       "line": null,
       "book": "betfair",
-      "decimal": 1.25,
+      "decimal": 1.22,
       "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.4,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5066,12 +5051,12 @@
       "outcome": "12",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.22,
+      "decimal": 1.25,
       "openingDecimal": 1.22,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.46,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5086,7 +5071,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5096,12 +5081,12 @@
       "outcome": "over",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 1.15,
+      "decimal": 1.14,
       "openingDecimal": 1.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -0.87,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5116,7 +5101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5131,7 +5116,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5141,12 +5126,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 4.3,
+      "decimal": 4.4,
       "openingDecimal": 4.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5161,7 +5146,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5171,12 +5156,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "betvictor",
-      "decimal": 4.4,
+      "decimal": 4.33,
       "openingDecimal": 4.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -1.59,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5186,12 +5171,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "1xbet",
-      "decimal": 1.63,
+      "decimal": 1.6,
       "openingDecimal": 1.63,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -1.84,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5206,7 +5191,7 @@
       "deltaPct": 0.64,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5221,7 +5206,7 @@
       "deltaPct": -2.94,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5231,12 +5216,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "betfair",
-      "decimal": 1.62,
+      "decimal": 1.6,
       "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -1.23,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5246,12 +5231,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 1.63,
+      "decimal": 1.65,
       "openingDecimal": 1.63,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5261,12 +5246,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "1xbet",
-      "decimal": 2.17,
+      "decimal": 2.23,
       "openingDecimal": 2.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5281,7 +5266,7 @@
       "deltaPct": -0.44,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5296,7 +5281,7 @@
       "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5306,12 +5291,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "betfair",
-      "decimal": 2.25,
+      "decimal": 2.3,
       "openingDecimal": 2.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.22,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5321,12 +5306,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 2.1,
+      "decimal": 2.07,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -1.43,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5336,12 +5321,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 2.49,
+      "decimal": 2.43,
       "openingDecimal": 2.49,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.41,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5356,7 +5341,7 @@
       "deltaPct": 0.82,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5366,12 +5351,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "betfair",
-      "decimal": 2.63,
+      "decimal": 2.55,
       "openingDecimal": 2.63,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -3.04,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5381,12 +5366,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "betvictor",
-      "decimal": 2.63,
+      "decimal": 2.7,
       "openingDecimal": 2.63,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.66,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5396,12 +5381,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 1.42,
+      "decimal": 1.44,
       "openingDecimal": 1.42,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.41,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5416,7 +5401,7 @@
       "deltaPct": -0.67,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5426,12 +5411,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "betfair",
-      "decimal": 1.47,
+      "decimal": 1.5,
       "openingDecimal": 1.47,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 2.04,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5441,12 +5426,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "betvictor",
-      "decimal": 1.44,
+      "decimal": 1.4,
       "openingDecimal": 1.44,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5456,12 +5441,12 @@
       "outcome": "yes",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.53,
+      "decimal": 1.51,
       "openingDecimal": 1.53,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": -1.31,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5476,7 +5461,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5491,7 +5476,7 @@
       "deltaPct": -0.31,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5506,7 +5491,7 @@
       "deltaPct": -1.96,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5521,7 +5506,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5531,12 +5516,12 @@
       "outcome": "no",
       "line": null,
       "book": "1xbet",
-      "decimal": 2.35,
+      "decimal": 2.39,
       "openingDecimal": 2.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "deltaPct": 1.7,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5551,7 +5536,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5566,7 +5551,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5581,7 +5566,7 @@
       "deltaPct": 5.04,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5596,7 +5581,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5611,7 +5596,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5626,7 +5611,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5641,7 +5626,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5651,12 +5636,12 @@
       "outcome": "over",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 1.16,
+      "decimal": 1.15,
       "openingDecimal": 1.27,
-      "deltaPct": -8.66,
+      "deltaPct": -9.45,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5666,12 +5651,12 @@
       "outcome": "under",
       "line": 7.5,
       "book": "1xbet",
-      "decimal": 3.95,
+      "decimal": 4.08,
       "openingDecimal": 3.15,
-      "deltaPct": 25.4,
+      "deltaPct": 29.52,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5681,12 +5666,12 @@
       "outcome": "over",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 1.37,
+      "decimal": 1.35,
       "openingDecimal": 1.54,
-      "deltaPct": -11.04,
+      "deltaPct": -12.34,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5696,12 +5681,12 @@
       "outcome": "under",
       "line": 8.5,
       "book": "1xbet",
-      "decimal": 2.71,
+      "decimal": 2.78,
       "openingDecimal": 2.28,
-      "deltaPct": 18.86,
+      "deltaPct": 21.93,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5716,7 +5701,7 @@
       "deltaPct": -13.61,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5731,7 +5716,7 @@
       "deltaPct": 17.32,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5741,12 +5726,12 @@
       "outcome": "over",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 2.08,
+      "decimal": 2.04,
       "openingDecimal": 2.45,
-      "deltaPct": -15.1,
+      "deltaPct": -16.73,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5756,12 +5741,12 @@
       "outcome": "under",
       "line": 10.5,
       "book": "1xbet",
-      "decimal": 1.66,
+      "decimal": 1.69,
       "openingDecimal": 1.46,
-      "deltaPct": 13.7,
+      "deltaPct": 15.75,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5771,12 +5756,12 @@
       "outcome": "over",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 2.69,
+      "decimal": 2.62,
       "openingDecimal": 3.34,
-      "deltaPct": -19.46,
+      "deltaPct": -21.56,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     },
     {
       "gameId": "liga-1-peru-2026-11-22-sport-huancayo-universitario--sllvy5",
@@ -5786,12 +5771,12 @@
       "outcome": "under",
       "line": 11.5,
       "book": "1xbet",
-      "decimal": 1.38,
+      "decimal": 1.4,
       "openingDecimal": 1.24,
-      "deltaPct": 11.29,
+      "deltaPct": 12.9,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T12:50:11Z"
+      "capturedAtUtc": "2026-11-21T17:50:08Z"
     }
   ]
 }

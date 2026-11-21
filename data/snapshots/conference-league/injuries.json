@@ -1,10 +1,28 @@
 {
   "schemaVersion": 1,
   "league": "conference-league",
-  "observedAt": "2026-11-21T12:53:07.742Z",
+  "observedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
+    {
+      "teamId": "conference-league.mjallby-aif",
+      "player": "Timo Stavitski",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Back Injury",
+      "injuryType": "Back Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "conference-league.mjallby-aif",
+      "player": "Villum Dalsgaard",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
     {
       "teamId": "conference-league.lincoln-red-imps",
       "player": "Ethan Jolley",
@@ -12,7 +30,7 @@
       "status": "Duda",
       "detail": "Leg Injury",
       "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.hnk-hajduk-split",
@@ -21,7 +39,7 @@
       "status": "Baja",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.hnk-hajduk-split",
@@ -30,7 +48,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.hnk-hajduk-split",
@@ -39,7 +57,7 @@
       "status": "Duda",
       "detail": "Back Injury",
       "injuryType": "Back Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.crvena-zvezda",
@@ -48,7 +66,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.crvena-zvezda",
@@ -57,7 +75,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.inter-d-escaldes",
@@ -66,7 +84,7 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.thun",
@@ -75,7 +93,7 @@
       "status": "Baja",
       "detail": "Knee Surgery",
       "injuryType": "Knee Surgery",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.thun",
@@ -84,7 +102,16 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "conference-league.heart-of-midlothian",
+      "player": "Blair Spittal",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Shin Injury",
+      "injuryType": "Shin Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -93,7 +120,7 @@
       "status": "Baja",
       "detail": "Knee Surgery",
       "injuryType": "Knee Surgery",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -102,7 +129,7 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -111,7 +138,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -120,7 +147,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "conference-league.heart-of-midlothian",
@@ -129,7 +156,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     }
   ]
 }

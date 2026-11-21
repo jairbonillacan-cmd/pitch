@@ -5,7 +5,7 @@
   "season": "ligapro-ecuador-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 5",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -219,7 +219,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -254,7 +254,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +324,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +359,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +394,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +429,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +464,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +499,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +534,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +569,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +604,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +639,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +674,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +709,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +744,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -774,6 +774,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/740/?bg=transparent"
       },
       "venue": "Estadio Bellavista, Ambato",
+      "referee": "Augusto Bergelio Aragon Bautista",
       "neutralSite": false
     },
     {
@@ -9253,6 +9254,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Augusto Bergelio Aragon Bautista",
+        "refereeStats": {
+          "country": "Ecuador",
+          "matches": 40,
+          "avgYellow": 4.6,
+          "avgRed": 0.23,
+          "avgFouls": 23.6,
+          "avgGoals": 2.38
+        },
         "weather": {
           "temperatureC": 21,
           "windSpeedKmh": 27

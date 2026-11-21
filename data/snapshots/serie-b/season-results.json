@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-b",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "matches": [
     {
       "id": "serie-b-2026-08-21-l-r-vicenza-catanzaro-j05jn1",
@@ -1222,6 +1222,61 @@
       "homeTeam": "serie-b.hellas-verona",
       "awayTeam": "serie-b.cesena",
       "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-21-sudtirol-cremonese-u0tlvf",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "serie-b.sudtirol",
+      "awayTeam": "serie-b.cremonese",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-21-sampdoria-benevento-gf1p82",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "serie-b.sampdoria",
+      "awayTeam": "serie-b.benevento",
+      "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-21-modena-juve-stabia-az65l9",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "serie-b.modena",
+      "awayTeam": "serie-b.juve-stabia",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-21-carrarese-virtus-entella-1d9cky",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "serie-b.carrarese",
+      "awayTeam": "serie-b.virtus-entella",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-21-ascoli-l-r-vicenza-q3yc3g",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T14:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "serie-b.ascoli",
+      "awayTeam": "serie-b.l-r-vicenza",
+      "homeScore": 2,
       "awayScore": 2,
       "neutralSite": false
     }

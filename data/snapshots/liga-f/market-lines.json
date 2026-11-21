@@ -1,1178 +1,8 @@
 {
   "schemaVersion": 1,
   "league": "liga-f",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "lines": [
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "interwetten",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "unibet",
-      "decimal": 2.15,
-      "openingDecimal": 2.2,
-      "deltaPct": -2.27,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "bwin",
-      "decimal": 2.15,
-      "openingDecimal": 2.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "sportingbet",
-      "decimal": 2.15,
-      "openingDecimal": 2.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betway",
-      "decimal": 2.2,
-      "openingDecimal": 2.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "888sport",
-      "decimal": 2.05,
-      "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 2.05,
-      "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betsson",
-      "decimal": 2.12,
-      "openingDecimal": 2.15,
-      "deltaPct": -1.4,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "fonbet",
-      "decimal": 2.15,
-      "openingDecimal": 2.2,
-      "deltaPct": -2.27,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "vistabet",
-      "decimal": 2.15,
-      "openingDecimal": 2.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betano",
-      "decimal": 5.3,
-      "openingDecimal": 5.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "unibet",
-      "decimal": 5.75,
-      "openingDecimal": 5.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "novibet",
-      "decimal": 5.45,
-      "openingDecimal": 5.6,
-      "deltaPct": -2.68,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betway",
-      "decimal": 7,
-      "openingDecimal": 7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "888sport",
-      "decimal": 7,
-      "openingDecimal": 7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 7,
-      "openingDecimal": 7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betsson",
-      "decimal": 5.8,
-      "openingDecimal": 6,
-      "deltaPct": -3.33,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betano",
-      "decimal": 1.1,
-      "openingDecimal": 1.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "unibet",
-      "decimal": 1.1,
-      "openingDecimal": 1.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "novibet",
-      "decimal": 1.11,
-      "openingDecimal": 1.1,
-      "deltaPct": 0.91,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betway",
-      "decimal": 1.091,
-      "openingDecimal": 1.091,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "888sport",
-      "decimal": 1.083,
-      "openingDecimal": 1.083,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.083,
-      "openingDecimal": 1.083,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betsson",
-      "decimal": 1.1,
-      "openingDecimal": 1.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "interwetten",
-      "decimal": 1.6,
-      "openingDecimal": 1.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "unibet",
-      "decimal": 1.62,
-      "openingDecimal": 1.6,
-      "deltaPct": 1.25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "bwin",
-      "decimal": 1.61,
-      "openingDecimal": 1.6,
-      "deltaPct": 0.63,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "sportingbet",
-      "decimal": 1.61,
-      "openingDecimal": 1.6,
-      "deltaPct": 0.63,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "betway",
-      "decimal": 1.615,
-      "openingDecimal": 1.615,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "888sport",
-      "decimal": 1.7,
-      "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.7,
-      "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "betsson",
-      "decimal": 1.62,
-      "openingDecimal": 1.6,
-      "deltaPct": 1.25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "fonbet",
-      "decimal": 1.62,
-      "openingDecimal": 1.6,
-      "deltaPct": 1.25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "btts",
-      "outcome": "no",
-      "line": null,
-      "book": "vistabet",
-      "decimal": 1.61,
-      "openingDecimal": 1.6,
-      "deltaPct": 0.63,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.25,
-      "book": "1xbet",
-      "decimal": 3.98,
-      "openingDecimal": 3.98,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0.25,
-      "book": "1xbet",
-      "decimal": 1.171,
-      "openingDecimal": 1.171,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.75,
-      "book": "1xbet",
-      "decimal": 2.69,
-      "openingDecimal": 2.69,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0.75,
-      "book": "1xbet",
-      "decimal": 1.363,
-      "openingDecimal": 1.363,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 1.25,
-      "book": "1xbet",
-      "decimal": 1.909,
-      "openingDecimal": 1.909,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1.25,
-      "book": "1xbet",
-      "decimal": 1.72,
-      "openingDecimal": 1.72,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 1.75,
-      "book": "1xbet",
-      "decimal": 1.52,
-      "openingDecimal": 1.52,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1.75,
-      "book": "1xbet",
-      "decimal": 2.24,
-      "openingDecimal": 2.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 2.25,
-      "book": "1xbet",
-      "decimal": 1.28,
-      "openingDecimal": 1.28,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 2.25,
-      "book": "1xbet",
-      "decimal": 3.08,
-      "openingDecimal": 3.08,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 2.75,
-      "book": "1xbet",
-      "decimal": 1.16,
-      "openingDecimal": 1.2,
-      "deltaPct": -3.33,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 2.75,
-      "book": "1xbet",
-      "decimal": 4.5,
-      "openingDecimal": 4,
-      "deltaPct": 12.5,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 2.5,
-      "book": "1xbet",
-      "decimal": 1.24,
-      "openingDecimal": 1.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 2.5,
-      "book": "fonbet",
-      "decimal": 1.25,
-      "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 2.5,
-      "book": "1xbet",
-      "decimal": 3.34,
-      "openingDecimal": 3.34,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 2.5,
-      "book": "fonbet",
-      "decimal": 3.35,
-      "openingDecimal": 3.4,
-      "deltaPct": -1.47,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 1.5,
-      "book": "1xbet",
-      "decimal": 1.71,
-      "openingDecimal": 1.71,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 1.5,
-      "book": "unibet",
-      "decimal": 1.75,
-      "openingDecimal": 1.73,
-      "deltaPct": 1.16,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 1.5,
-      "book": "888sport",
-      "decimal": 1.7,
-      "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 1.5,
-      "book": "fonbet",
-      "decimal": 1.73,
-      "openingDecimal": 1.73,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1.5,
-      "book": "1xbet",
-      "decimal": 1.96,
-      "openingDecimal": 1.96,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1.5,
-      "book": "unibet",
-      "decimal": 1.98,
-      "openingDecimal": 1.98,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1.5,
-      "book": "888sport",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1.5,
-      "book": "fonbet",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 3.5,
-      "book": "1xbet",
-      "decimal": 1.049,
-      "openingDecimal": 1.049,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 3.5,
-      "book": "fonbet",
-      "decimal": 1.07,
-      "openingDecimal": 1.06,
-      "deltaPct": 0.94,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 3.5,
-      "book": "1xbet",
-      "decimal": 6.55,
-      "openingDecimal": 6.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 3.5,
-      "book": "fonbet",
-      "decimal": 6.5,
-      "openingDecimal": 6.6,
-      "deltaPct": -1.52,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0,
-      "book": "1xbet",
-      "decimal": 6.35,
-      "openingDecimal": 6.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0,
-      "book": "fonbet",
-      "decimal": 6.2,
-      "openingDecimal": 6.4,
-      "deltaPct": -3.13,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "1xbet",
-      "decimal": 1.055,
-      "openingDecimal": 1.055,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "fonbet",
-      "decimal": 1.07,
-      "openingDecimal": 1.07,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 2,
-      "book": "1xbet",
-      "decimal": 1.35,
-      "openingDecimal": 1.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 2,
-      "book": "fonbet",
-      "decimal": 1.4,
-      "openingDecimal": 1.38,
-      "deltaPct": 1.45,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 2,
-      "book": "1xbet",
-      "decimal": 2.74,
-      "openingDecimal": 2.74,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 2,
-      "book": "fonbet",
-      "decimal": 2.75,
-      "openingDecimal": 2.8,
-      "deltaPct": -1.79,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 3,
-      "book": "1xbet",
-      "decimal": 1.069,
-      "openingDecimal": 1.069,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 3,
-      "book": "fonbet",
-      "decimal": 1.09,
-      "openingDecimal": 1.09,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 3,
-      "book": "1xbet",
-      "decimal": 5.9,
-      "openingDecimal": 5.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 3,
-      "book": "fonbet",
-      "decimal": 5.7,
-      "openingDecimal": 5.8,
-      "deltaPct": -1.72,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 1,
-      "book": "1xbet",
-      "decimal": 2.33,
-      "openingDecimal": 2.33,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 1,
-      "book": "fonbet",
-      "decimal": 2.35,
-      "openingDecimal": 2.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1,
-      "book": "1xbet",
-      "decimal": 1.48,
-      "openingDecimal": 1.48,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
-    {
-      "gameId": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
-      "homeName": "SD Eibar",
-      "awayName": "Club Atlético de Madrid",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 1,
-      "book": "fonbet",
-      "decimal": 1.52,
-      "openingDecimal": 1.52,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:22:42Z"
-    },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
       "homeName": "Logroño United",
@@ -1186,7 +16,7 @@
       "deltaPct": 6.06,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1201,7 +31,7 @@
       "deltaPct": 4.79,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1216,7 +46,7 @@
       "deltaPct": 4.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1231,7 +61,7 @@
       "deltaPct": 4.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1246,7 +76,7 @@
       "deltaPct": 4.41,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1261,7 +91,7 @@
       "deltaPct": 5.26,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1276,7 +106,7 @@
       "deltaPct": 5.26,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1291,7 +121,7 @@
       "deltaPct": 5.95,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1306,7 +136,7 @@
       "deltaPct": 4.12,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1321,7 +151,7 @@
       "deltaPct": 4.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1331,12 +161,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betano",
-      "decimal": 1.47,
+      "decimal": 1.5,
       "openingDecimal": 1.47,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "deltaPct": 2.04,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1351,7 +181,7 @@
       "deltaPct": -1.33,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1366,7 +196,7 @@
       "deltaPct": 0.67,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1381,7 +211,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1396,7 +226,7 @@
       "deltaPct": 3.88,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1411,7 +241,7 @@
       "deltaPct": 3.88,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1426,7 +256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1436,12 +266,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betano",
-      "decimal": 2.37,
+      "decimal": 2.32,
       "openingDecimal": 2.37,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "deltaPct": -2.11,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1456,7 +286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1466,12 +296,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "novibet",
-      "decimal": 2.4,
+      "decimal": 2.35,
       "openingDecimal": 2.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "deltaPct": -2.08,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1486,7 +316,7 @@
       "deltaPct": 4.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1501,7 +331,7 @@
       "deltaPct": -5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1516,7 +346,7 @@
       "deltaPct": -5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1531,7 +361,7 @@
       "deltaPct": 0.41,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1546,7 +376,7 @@
       "deltaPct": -7.32,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1561,7 +391,7 @@
       "deltaPct": -7.14,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1576,7 +406,7 @@
       "deltaPct": -5.85,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1591,7 +421,7 @@
       "deltaPct": -5.85,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1606,7 +436,7 @@
       "deltaPct": -4.88,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1621,7 +451,7 @@
       "deltaPct": -6.82,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1636,7 +466,7 @@
       "deltaPct": -6.82,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1651,7 +481,7 @@
       "deltaPct": -5.94,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1666,7 +496,7 @@
       "deltaPct": -4.46,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1681,7 +511,7 @@
       "deltaPct": -5.85,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1696,7 +526,7 @@
       "deltaPct": 1.18,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1711,7 +541,7 @@
       "deltaPct": -1.6,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1726,7 +556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1741,7 +571,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1756,7 +586,7 @@
       "deltaPct": 4.27,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1771,7 +601,7 @@
       "deltaPct": -1.6,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1786,7 +616,7 @@
       "deltaPct": 1.77,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1801,7 +631,7 @@
       "deltaPct": -1.32,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1816,7 +646,7 @@
       "deltaPct": 0.75,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1831,7 +661,7 @@
       "deltaPct": -1.44,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1846,7 +676,7 @@
       "deltaPct": 0.26,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1861,7 +691,7 @@
       "deltaPct": -1.22,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1876,7 +706,7 @@
       "deltaPct": 4.35,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1891,7 +721,7 @@
       "deltaPct": 5.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1906,7 +736,7 @@
       "deltaPct": -1.33,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1921,7 +751,7 @@
       "deltaPct": -2.44,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1936,7 +766,7 @@
       "deltaPct": 6.41,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1951,7 +781,7 @@
       "deltaPct": 6.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1966,7 +796,7 @@
       "deltaPct": -0.68,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1981,7 +811,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1996,7 +826,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2011,7 +841,7 @@
       "deltaPct": -0.93,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2026,7 +856,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2041,7 +871,7 @@
       "deltaPct": 1.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2056,7 +886,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2071,7 +901,7 @@
       "deltaPct": 5.13,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2086,7 +916,7 @@
       "deltaPct": -1.73,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2101,7 +931,7 @@
       "deltaPct": -2.94,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2116,7 +946,7 @@
       "deltaPct": 0.68,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2131,7 +961,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2146,7 +976,7 @@
       "deltaPct": -0.83,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2161,7 +991,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2176,7 +1006,7 @@
       "deltaPct": 5.71,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2191,7 +1021,7 @@
       "deltaPct": 6.35,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2206,7 +1036,7 @@
       "deltaPct": -0.77,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2221,7 +1051,7 @@
       "deltaPct": -0.93,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2236,7 +1066,7 @@
       "deltaPct": 3.3,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2251,7 +1081,7 @@
       "deltaPct": 1.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2266,7 +1096,7 @@
       "deltaPct": -1.52,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2281,7 +1111,7 @@
       "deltaPct": -2.22,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2296,7 +1126,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2311,7 +1141,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2326,7 +1156,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -2341,7 +1171,7 @@
       "deltaPct": 3.57,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T11:23:19Z"
+      "capturedAtUtc": "2026-11-21T17:21:54Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2356,7 +1186,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2371,7 +1201,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2386,7 +1216,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2401,7 +1231,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2416,7 +1246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2431,7 +1261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2446,7 +1276,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2456,12 +1286,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betano",
-      "decimal": 1.17,
+      "decimal": 1.22,
       "openingDecimal": 1.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "deltaPct": 4.27,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2476,7 +1306,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2491,7 +1321,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2506,7 +1336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2521,7 +1351,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2536,7 +1366,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2551,7 +1381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2561,12 +1391,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betano",
-      "decimal": 4.05,
+      "decimal": 3.55,
       "openingDecimal": 4.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "deltaPct": -12.35,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2581,7 +1411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2596,7 +1426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2611,7 +1441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2626,7 +1456,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2641,7 +1471,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2656,7 +1486,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2671,7 +1501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2686,7 +1516,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2701,7 +1531,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2716,7 +1546,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2731,7 +1561,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2746,7 +1576,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2761,7 +1591,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2776,7 +1606,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2791,7 +1621,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2806,7 +1636,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2821,7 +1651,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2836,7 +1666,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2851,7 +1681,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2866,7 +1696,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2881,7 +1711,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2896,7 +1726,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2911,7 +1741,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2926,7 +1756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2941,7 +1771,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2956,7 +1786,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2971,7 +1801,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -2986,7 +1816,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3001,7 +1831,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3016,7 +1846,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3031,7 +1861,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3046,7 +1876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3061,7 +1891,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3076,7 +1906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3091,7 +1921,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3106,7 +1936,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3121,7 +1951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3136,7 +1966,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3151,7 +1981,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3166,7 +1996,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3181,7 +2011,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3196,7 +2026,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3211,7 +2041,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3226,7 +2056,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3241,7 +2071,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3256,7 +2086,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3271,7 +2101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3286,7 +2116,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3301,7 +2131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3316,7 +2146,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3331,7 +2161,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3346,7 +2176,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3361,7 +2191,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -3376,7 +2206,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:24:00Z"
+      "capturedAtUtc": "2026-11-21T17:22:37Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3391,7 +2221,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3406,7 +2236,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3421,7 +2251,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3436,7 +2266,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3451,7 +2281,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3466,7 +2296,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3481,7 +2311,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3496,7 +2326,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3511,7 +2341,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3526,7 +2356,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3541,7 +2371,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3556,7 +2386,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3571,7 +2401,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3586,7 +2416,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3601,7 +2431,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3616,7 +2446,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3631,7 +2461,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3646,7 +2476,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3661,7 +2491,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3676,7 +2506,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3691,7 +2521,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3706,7 +2536,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3721,7 +2551,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3736,7 +2566,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3751,7 +2581,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3766,7 +2596,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3781,7 +2611,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3796,7 +2626,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3811,7 +2641,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3826,7 +2656,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3841,7 +2671,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3856,7 +2686,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3871,7 +2701,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3886,7 +2716,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3901,7 +2731,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3916,7 +2746,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3926,12 +2756,12 @@
       "outcome": "HOME",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 1.99,
+      "decimal": 1.98,
       "openingDecimal": 1.99,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "deltaPct": -0.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3946,7 +2776,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3961,7 +2791,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3976,7 +2806,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -3991,7 +2821,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4006,7 +2836,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4021,7 +2851,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4036,7 +2866,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4051,7 +2881,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4066,7 +2896,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4081,7 +2911,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4096,7 +2926,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4111,7 +2941,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4126,7 +2956,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4141,7 +2971,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4156,7 +2986,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4171,7 +3001,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4186,7 +3016,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4196,12 +3026,12 @@
       "outcome": "HOME",
       "line": 3,
       "book": "1xbet",
-      "decimal": 1.159,
+      "decimal": 1.158,
       "openingDecimal": 1.159,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "deltaPct": -0.09,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4216,7 +3046,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4231,7 +3061,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4246,7 +3076,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4261,7 +3091,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4276,7 +3106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4291,7 +3121,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4306,7 +3136,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4321,7 +3151,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4336,7 +3166,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4351,7 +3181,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
@@ -4366,52 +3196,1087 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T11:23:58Z"
+      "capturedAtUtc": "2026-11-21T17:22:36Z"
     },
     {
       "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
       "homeName": "Costa Adeje Tenerife",
       "awayName": "Madrid CFF",
-      "market": "1x2",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "unibet",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.727,
+      "openingDecimal": 1.727,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.667,
+      "openingDecimal": 1.667,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.667,
+      "openingDecimal": 1.667,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.72,
+      "openingDecimal": 1.72,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
       "outcome": "HOME",
       "line": null,
-      "book": "bet365",
-      "decimal": 1.615,
-      "openingDecimal": 1.615,
+      "book": "betano",
+      "decimal": 1.35,
+      "openingDecimal": 1.35,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-19T18:51:30Z"
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
     },
     {
       "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
       "homeName": "Costa Adeje Tenerife",
       "awayName": "Madrid CFF",
-      "market": "1x2",
-      "outcome": "DRAW",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
       "line": null,
-      "book": "bet365",
-      "decimal": 3.8,
-      "openingDecimal": 3.8,
+      "book": "unibet",
+      "decimal": 1.33,
+      "openingDecimal": 1.33,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-19T18:51:30Z"
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
     },
     {
       "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
       "homeName": "Costa Adeje Tenerife",
       "awayName": "Madrid CFF",
-      "market": "1x2",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "novibet",
+      "decimal": 1.35,
+      "openingDecimal": 1.35,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.34,
+      "openingDecimal": 1.34,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
       "outcome": "AWAY",
       "line": null,
-      "book": "bet365",
-      "decimal": 4.2,
-      "openingDecimal": 4.2,
+      "book": "betano",
+      "decimal": 2.8,
+      "openingDecimal": 2.8,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-19T18:51:30Z"
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "unibet",
+      "decimal": 3,
+      "openingDecimal": 3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "novibet",
+      "decimal": 2.9,
+      "openingDecimal": 2.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betway",
+      "decimal": 3.25,
+      "openingDecimal": 3.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "888sport",
+      "decimal": 3,
+      "openingDecimal": 3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 3,
+      "openingDecimal": 3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betsson",
+      "decimal": 3,
+      "openingDecimal": 3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "interwetten",
+      "decimal": 1.95,
+      "openingDecimal": 1.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2,
+      "openingDecimal": 2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betway",
+      "decimal": 2,
+      "openingDecimal": 2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.95,
+      "openingDecimal": 1.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 2,
+      "openingDecimal": 2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.25,
+      "book": "1xbet",
+      "decimal": 1.49,
+      "openingDecimal": 1.49,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "1xbet",
+      "decimal": 2.3,
+      "openingDecimal": 2.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 3.5,
+      "openingDecimal": 3.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 1.22,
+      "openingDecimal": 1.22,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 2.56,
+      "openingDecimal": 2.56,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 1.4,
+      "openingDecimal": 1.4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 1.89,
+      "openingDecimal": 1.89,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 1.74,
+      "openingDecimal": 1.74,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.25,
+      "book": "1xbet",
+      "decimal": 1.23,
+      "openingDecimal": 1.23,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.25,
+      "book": "1xbet",
+      "decimal": 3.42,
+      "openingDecimal": 3.42,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.75,
+      "book": "1xbet",
+      "decimal": 1.13,
+      "openingDecimal": 1.13,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0.75,
+      "book": "1xbet",
+      "decimal": 5.1,
+      "openingDecimal": 5.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "1xbet",
+      "decimal": 2.875,
+      "openingDecimal": 2.875,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.5,
+      "book": "fonbet",
+      "decimal": 2.95,
+      "openingDecimal": 2.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "1xbet",
+      "decimal": 1.32,
+      "openingDecimal": 1.32,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.5,
+      "book": "fonbet",
+      "decimal": 1.33,
+      "openingDecimal": 1.33,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "1xbet",
+      "decimal": 5.65,
+      "openingDecimal": 5.65,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2.5,
+      "book": "fonbet",
+      "decimal": 6,
+      "openingDecimal": 6,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "1xbet",
+      "decimal": 1.078,
+      "openingDecimal": 1.078,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "fonbet",
+      "decimal": 1.08,
+      "openingDecimal": 1.08,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1.5,
+      "book": "1xbet",
+      "decimal": 1.013,
+      "openingDecimal": 1.013,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1.5,
+      "book": "fonbet",
+      "decimal": 1.04,
+      "openingDecimal": 1.04,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1.5,
+      "book": "1xbet",
+      "decimal": 8.5,
+      "openingDecimal": 8.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1.5,
+      "book": "fonbet",
+      "decimal": 8.5,
+      "openingDecimal": 8.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.5,
+      "book": "unibet",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.5,
+      "book": "888sport",
+      "decimal": 1.75,
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.5,
+      "book": "unibet",
+      "decimal": 1.98,
+      "openingDecimal": 1.98,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.5,
+      "book": "888sport",
+      "decimal": 1.95,
+      "openingDecimal": 1.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0,
+      "book": "1xbet",
+      "decimal": 1.3,
+      "openingDecimal": 1.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0,
+      "book": "fonbet",
+      "decimal": 1.33,
+      "openingDecimal": 1.33,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "1xbet",
+      "decimal": 2.97,
+      "openingDecimal": 2.97,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "fonbet",
+      "decimal": 2.95,
+      "openingDecimal": 2.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2,
+      "book": "1xbet",
+      "decimal": 4.9,
+      "openingDecimal": 4.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -2,
+      "book": "fonbet",
+      "decimal": 5.2,
+      "openingDecimal": 5.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2,
+      "book": "1xbet",
+      "decimal": 1.11,
+      "openingDecimal": 1.11,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2,
+      "book": "fonbet",
+      "decimal": 1.11,
+      "openingDecimal": 1.11,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1,
+      "book": "1xbet",
+      "decimal": 2.27,
+      "openingDecimal": 2.27,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1,
+      "book": "fonbet",
+      "decimal": 2.3,
+      "openingDecimal": 2.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1,
+      "book": "1xbet",
+      "decimal": 1.53,
+      "openingDecimal": 1.53,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1,
+      "book": "fonbet",
+      "decimal": 1.55,
+      "openingDecimal": 1.55,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1,
+      "book": "1xbet",
+      "decimal": 1.026,
+      "openingDecimal": 1.026,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 1,
+      "book": "fonbet",
+      "decimal": 1.05,
+      "openingDecimal": 1.05,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1,
+      "book": "1xbet",
+      "decimal": 7.7,
+      "openingDecimal": 7.7,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
+    },
+    {
+      "gameId": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "homeName": "Costa Adeje Tenerife",
+      "awayName": "Madrid CFF",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 1,
+      "book": "fonbet",
+      "decimal": 7.2,
+      "openingDecimal": 7.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-21T17:24:21Z"
     },
     {
       "gameId": "liga-f-2026-11-22-barcelona-athletic-uxsb0h",

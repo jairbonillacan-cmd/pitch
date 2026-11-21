@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligue-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "matches": [
     {
       "id": "ligue-2-2026-08-08-usl-dunkerque-grenoble-foot-mzlpsj",
@@ -1245,6 +1245,17 @@
       "awayTeam": "ligue-2.clermont-foot",
       "homeScore": 4,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-21-stade-lavalloi-montpellier-dw2osp",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T13:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.stade-lavallois",
+      "awayTeam": "ligue-2.montpellier",
+      "homeScore": 1,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "segunda-espana",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "matches": [
     {
       "id": "segunda-espana-2026-08-14-real-sociedad--castellon-ifica8",
@@ -1673,6 +1673,28 @@
       "homeTeam": "segunda-espana.andorra",
       "awayTeam": "segunda-espana.leganes",
       "homeScore": 1,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-21-ce-sabadell-granada-r2tnwb",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T13:00:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.ce-sabadell",
+      "awayTeam": "segunda-espana.granada",
+      "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-21-real-sociedad--cadiz-bjnhsv",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:15:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.real-sociedad-b",
+      "awayTeam": "segunda-espana.cadiz",
+      "homeScore": 0,
       "awayScore": 3,
       "neutralSite": false
     }

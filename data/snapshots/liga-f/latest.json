@@ -5,7 +5,7 @@
   "season": "liga-f-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2914870546484825,
-      "adjustedAgainst": 1.5267489229636706
+      "adjustedFor": 1.2929212281238784,
+      "adjustedAgainst": 1.531064737346115
     },
     "liga-f.logrono-united": {
       "teamId": "liga-f.logrono-united",
@@ -29,8 +29,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2753925452293544,
-      "adjustedAgainst": 1.3212762045301316
+      "adjustedFor": 1.2804241352735128,
+      "adjustedAgainst": 1.3219861351475442
     },
     "liga-f.real-deportivo-a-coruna": {
       "teamId": "liga-f.real-deportivo-a-coruna",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.110885318931216,
-      "adjustedAgainst": 1.2374341995548106
+      "adjustedFor": 1.1127966895515586,
+      "adjustedAgainst": 1.2380381697042624
     },
     "liga-f.sevilla": {
       "teamId": "liga-f.sevilla",
@@ -51,8 +51,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1538447334548727,
-      "adjustedAgainst": 1.3743496911822564
+      "adjustedFor": 1.1546806438782418,
+      "adjustedAgainst": 1.3741416461444145
     },
     "liga-f.sd-eibar": {
       "teamId": "liga-f.sd-eibar",
@@ -60,10 +60,10 @@
       "shortName": "Eibar",
       "code": "SDE",
       "forPerGame": 1,
-      "againstPerGame": 1.3636363636363635,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.0278191138727504,
-      "adjustedAgainst": 1.415104745247667
+      "againstPerGame": 1.5,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.0364728160915315,
+      "adjustedAgainst": 1.4802548942834797
     },
     "liga-f.espanyol-barcelona": {
       "teamId": "liga-f.espanyol-barcelona",
@@ -73,8 +73,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2813498970508566,
-      "adjustedAgainst": 1.286016229459926
+      "adjustedFor": 1.2835263979488425,
+      "adjustedAgainst": 1.2904630628799725
     },
     "liga-f.madrid-cff": {
       "teamId": "liga-f.madrid-cff",
@@ -84,8 +84,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 2.1818181818181817,
       "gamesPlayed": 11,
-      "adjustedFor": 1.601847050624369,
-      "adjustedAgainst": 1.9182650628331297
+      "adjustedFor": 1.6027084296461784,
+      "adjustedAgainst": 1.916546889679256
     },
     "liga-f.granada": {
       "teamId": "liga-f.granada",
@@ -95,8 +95,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9357559187928377,
-      "adjustedAgainst": 1.3314099183575396
+      "adjustedFor": 0.9366741496450465,
+      "adjustedAgainst": 1.3310905361328982
     },
     "liga-f.athletic": {
       "teamId": "liga-f.athletic",
@@ -106,8 +106,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.37033553327523,
-      "adjustedAgainst": 1.1029269017439016
+      "adjustedFor": 1.371942703102406,
+      "adjustedAgainst": 1.1035856889486324
     },
     "liga-f.badalona-women": {
       "teamId": "liga-f.badalona-women",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2435913098464886,
-      "adjustedAgainst": 1.6591581456580167
+      "adjustedFor": 1.244067276427554,
+      "adjustedAgainst": 1.658622749696047
     },
     "liga-f.deportivo-alaves": {
       "teamId": "liga-f.deportivo-alaves",
@@ -128,8 +128,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 1.4,
       "gamesPlayed": 10,
-      "adjustedFor": 0.9490296423362844,
-      "adjustedAgainst": 1.3139209963767544
+      "adjustedFor": 0.950208695333609,
+      "adjustedAgainst": 1.3139971072378458
     },
     "liga-f.valencia": {
       "teamId": "liga-f.valencia",
@@ -139,8 +139,8 @@
       "forPerGame": 0.7272727272727273,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 0.8738981128678515,
-      "adjustedAgainst": 1.538249926428395
+      "adjustedFor": 0.875108528256798,
+      "adjustedAgainst": 1.537779250878522
     },
     "liga-f.barcelona": {
       "teamId": "liga-f.barcelona",
@@ -150,8 +150,8 @@
       "forPerGame": 3.8181818181818183,
       "againstPerGame": 0.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 2.9194451064936113,
-      "adjustedAgainst": 0.7456394217379317
+      "adjustedFor": 2.927817772672711,
+      "adjustedAgainst": 0.7471906539283967
     },
     "liga-f.costa-adeje-tenerife": {
       "teamId": "liga-f.costa-adeje-tenerife",
@@ -161,8 +161,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.617596715389554,
-      "adjustedAgainst": 1.3270937691455083
+      "adjustedFor": 1.6229847959474113,
+      "adjustedAgainst": 1.3319225143984212
     },
     "liga-f.real-madrid": {
       "teamId": "liga-f.real-madrid",
@@ -172,57 +172,22 @@
       "forPerGame": 2.3636363636363638,
       "againstPerGame": 1.9090909090909092,
       "gamesPlayed": 11,
-      "adjustedFor": 2.0881678344757,
-      "adjustedAgainst": 1.644227556982369
+      "adjustedFor": 2.0881796868282048,
+      "adjustedAgainst": 1.6439728817494101
     },
     "liga-f.atletico-madrid": {
       "teamId": "liga-f.atletico-madrid",
       "name": "Club Atlético de Madrid",
       "shortName": "de Madrid",
       "code": "ATL",
-      "forPerGame": 2.1818181818181817,
-      "againstPerGame": 1.1818181818181819,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.8935147735486,
-      "adjustedAgainst": 1.1463291341139878
+      "forPerGame": 2.25,
+      "againstPerGame": 1.1666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.9644945787046595,
+      "adjustedAgainst": 1.157457663913167
     }
   },
   "games": [
-    {
-      "id": "liga-f-2026-11-07-granada-espanyol-barce-jtjhvp",
-      "league": "liga-f",
-      "season": "liga-f-2026-27",
-      "week": 10,
-      "round": "Regular season · Matchday 10",
-      "phase": "Regular season",
-      "startTime": "2026-11-07T11:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-f.granada",
-        "league": "liga-f",
-        "name": "Granada Club de Fútbol",
-        "shortName": "Granada de Fútbol",
-        "code": "GRA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/914/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-f.espanyol-barcelona",
-        "league": "liga-f",
-        "name": "RCD Espanyol de Barcelona",
-        "shortName": "Espanyol de Barcelona",
-        "code": "ESP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/919/?bg=transparent"
-      },
-      "venue": "Estadio Miguel Prieto, Granada",
-      "referee": "Maria Gloria Planes Terol",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-f-2026-11-07-athletic-real-madrid-u6mdps",
       "league": "liga-f",
@@ -254,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +289,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -358,7 +323,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -393,7 +358,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -428,7 +393,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -463,7 +428,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -497,7 +462,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -532,7 +497,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -567,7 +532,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -602,7 +567,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -637,7 +602,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -672,7 +637,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -706,7 +671,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -741,7 +706,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +718,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-21T16:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-f.sd-eibar",
         "league": "liga-f",
@@ -772,7 +737,13 @@
       },
       "venue": "Unbe Sports Complex, Eibar",
       "referee": "Lorena Del Mar Trujillano Gallardo",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 3,
+        "observedAt": "2026-11-21T17:52:46.097Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
@@ -1421,454 +1392,6 @@
     }
   ],
   "analyses": {
-    "liga-f-2026-11-07-granada-espanyol-barce-jtjhvp": {
-      "game": "liga-f-2026-11-07-granada-espanyol-barce-jtjhvp",
-      "model": {
-        "id": "pitchlab-statistical-liga-f",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 0.9862318668578746,
-        "away": 1.2753859774944163,
-        "total": 2.261617844352291,
-        "margin": -0.28915411063654173
-      },
-      "x12": [
-        0.2889725632078184,
-        0.2787357639809967,
-        0.43229167281118513
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Granada de Fútbol gana",
-          "p": 0.2889725632078184,
-          "fairOdds": 3.4605361453669805
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2787357639809967,
-          "fairOdds": 3.587627169609196
-        },
-        {
-          "market": "h2h",
-          "selection": "Espanyol de Barcelona gana",
-          "p": 0.43229167281118513,
-          "fairOdds": 2.3132529791680176
-        },
-        {
-          "market": "double_chance",
-          "selection": "Granada de Fútbol o empate",
-          "p": 0.567708327188815,
-          "fairOdds": 1.7614679089732788
-        },
-        {
-          "market": "double_chance",
-          "selection": "Espanyol de Barcelona o empate",
-          "p": 0.7110274367921818,
-          "fairOdds": 1.4064154887067721
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7212642360190036,
-          "fairOdds": 1.3864544366146174
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6582331063831774,
-          "fairOdds": 1.5192186328863708
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.39375817715317374,
-          "fairOdds": 2.539629798242883
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.6062418228468263,
-          "fairOdds": 1.6495067847746643
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.192895929055394,
-          "fairOdds": 5.18414258350071
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.807104070944606,
-          "fairOdds": 1.2389975915121274
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.44991351911188,
-          "fairOdds": 2.2226493704256307
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5500864808881201,
-          "fairOdds": 1.817895975893627
-        },
-        {
-          "market": "team_totals",
-          "selection": "Granada de Fútbol más de 1.5",
-          "line": 1.5,
-          "p": 0.25917625918749354,
-          "fairOdds": 3.858378090396694
-        },
-        {
-          "market": "team_totals",
-          "selection": "Granada de Fútbol menos de 1.5",
-          "line": 1.5,
-          "p": 0.7408237408125065,
-          "fairOdds": 1.3498487493168607
-        },
-        {
-          "market": "team_totals",
-          "selection": "Espanyol de Barcelona más de 1.5",
-          "line": 1.5,
-          "p": 0.3644319833069285,
-          "fairOdds": 2.7439962621441745
-        },
-        {
-          "market": "team_totals",
-          "selection": "Espanyol de Barcelona menos de 1.5",
-          "line": 1.5,
-          "p": 0.6355680166930715,
-          "fairOdds": 1.5733957243523788
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.13483766036830555,
-          "fairOdds": 7.416325656115109
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12907698205052429,
-          "fairOdds": 7.747314696345879
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.10471306142139022,
-          "fairOdds": 9.549907016620997
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Granada de Fútbol gana",
-              "p": 0.2889725632078184,
-              "fairOdds": 3.4605361453669805
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2787357639809967,
-              "fairOdds": 3.587627169609196
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Espanyol de Barcelona gana",
-              "p": 0.43229167281118513,
-              "fairOdds": 2.3132529791680176
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Granada de Fútbol o empate",
-              "p": 0.567708327188815,
-              "fairOdds": 1.7614679089732788
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Espanyol de Barcelona o empate",
-              "p": 0.7110274367921818,
-              "fairOdds": 1.4064154887067721
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7212642360190036,
-              "fairOdds": 1.3864544366146174
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6582331063831774,
-              "fairOdds": 1.5192186328863708
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.39375817715317374,
-              "fairOdds": 2.539629798242883
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.6062418228468263,
-              "fairOdds": 1.6495067847746643
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.192895929055394,
-              "fairOdds": 5.18414258350071
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.807104070944606,
-              "fairOdds": 1.2389975915121274
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.44991351911188,
-              "fairOdds": 2.2226493704256307
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5500864808881201,
-              "fairOdds": 1.817895975893627
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Granada de Fútbol más de 1.5",
-              "line": 1.5,
-              "p": 0.25917625918749354,
-              "fairOdds": 3.858378090396694
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Granada de Fútbol menos de 1.5",
-              "line": 1.5,
-              "p": 0.7408237408125065,
-              "fairOdds": 1.3498487493168607
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Espanyol de Barcelona más de 1.5",
-              "line": 1.5,
-              "p": 0.3644319833069285,
-              "fairOdds": 2.7439962621441745
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Espanyol de Barcelona menos de 1.5",
-              "line": 1.5,
-              "p": 0.6355680166930715,
-              "fairOdds": 1.5733957243523788
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.13483766036830555,
-              "fairOdds": 7.416325656115109
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12907698205052429,
-              "fairOdds": 7.747314696345879
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.10471306142139022,
-              "fairOdds": 9.549907016620997
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.13483766036830555
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.90 goles/partido",
-          "detail": "30 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.29 concedidos/partido",
-          "detail": "4 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.28 goles/partido",
-          "detail": "4 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.33 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.10",
-          "detail": "estimada de 87 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.6–3.3",
-          "detail": "local 13%–50% · 87 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "12.º · 12 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "7.º · 15 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-G-P-E · 8 pts",
-          "detail": "5 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-G-P-E-G · 8 pts",
-          "detail": "6 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga F · corte 7 nov 2026, 04:00",
-        "Fuerza ajustada por rival · GRA 0.70 / 0.99 · ESP 0.96 / 0.96",
-        "Ponderando 80.2 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.99 – 1.28 · total 2.26",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-11-07T10:00:00.000Z",
-      "publishedAt": "2026-11-07T10:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.13483766036830555
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.3 goles: 1.0 de Granada de Fútbol y 1.3 de Espanyol de Barcelona.",
-          "Granada de Fútbol anota 30 % menos que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Maria Gloria Planes Terol",
-        "refereeStats": {
-          "country": "Spain",
-          "matches": 24,
-          "avgYellow": 4.08,
-          "avgRed": 0.17,
-          "avgFouls": 19.8,
-          "avgGoals": 3.12
-        },
-        "weather": {
-          "description": "clear"
-        },
-        "travelDistanceKm": 692,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Granada",
-        "venueCountry": "Spain",
-        "venueCapacity": 2000
-      }
-    },
     "liga-f-2026-11-07-athletic-real-madrid-u6mdps": {
       "game": "liga-f-2026-11-07-athletic-real-madrid-u6mdps",
       "model": {
@@ -3640,11 +3163,11 @@
         "referee": "Lorena Del Mar Trujillano Gallardo",
         "refereeStats": {
           "country": "Spain",
-          "matches": 8,
-          "avgYellow": 3.38,
-          "avgRed": 0.12,
-          "avgFouls": 14,
-          "avgGoals": 4.25
+          "matches": 9,
+          "avgYellow": 3.44,
+          "avgRed": 0.11,
+          "avgFouls": 13.8,
+          "avgGoals": 4.22
         },
         "weather": {
           "description": "cloudy"
@@ -6322,11 +5845,11 @@
         "referee": "Lorena Del Mar Trujillano Gallardo",
         "refereeStats": {
           "country": "Spain",
-          "matches": 8,
-          "avgYellow": 3.38,
-          "avgRed": 0.12,
-          "avgFouls": 14,
-          "avgGoals": 4.25
+          "matches": 9,
+          "avgYellow": 3.44,
+          "avgRed": 0.11,
+          "avgFouls": 13.8,
+          "avgGoals": 4.22
         },
         "halfTimeScore": {
           "home": 0,
@@ -9079,13 +8602,20 @@
         "referee": "Lorena Del Mar Trujillano Gallardo",
         "refereeStats": {
           "country": "Spain",
-          "matches": 8,
-          "avgYellow": 3.38,
-          "avgRed": 0.12,
-          "avgFouls": 14,
-          "avgGoals": 4.25
+          "matches": 9,
+          "avgYellow": 3.44,
+          "avgRed": 0.11,
+          "avgFouls": 13.8,
+          "avgGoals": 4.22
+        },
+        "weather": {
+          "description": "clear"
         },
         "travelDistanceKm": 306,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Eibar",
         "venueCountry": "Spain"
@@ -19924,6 +19454,26 @@
       ]
     },
     {
+      "teamId": "liga-f.atletico-madrid",
+      "name": "Club Atlético de Madrid",
+      "shortName": "de Madrid",
+      "code": "ATL",
+      "played": 12,
+      "won": 8,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 27,
+      "goalsAgainst": 14,
+      "points": 25,
+      "form": [
+        "W",
+        "D",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "liga-f.real-madrid",
       "name": "Real Madrid",
       "shortName": "Real Madrid",
@@ -19941,26 +19491,6 @@
         "W",
         "D",
         "D"
-      ]
-    },
-    {
-      "teamId": "liga-f.atletico-madrid",
-      "name": "Club Atlético de Madrid",
-      "shortName": "de Madrid",
-      "code": "ATL",
-      "played": 11,
-      "won": 7,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 24,
-      "goalsAgainst": 13,
-      "points": 22,
-      "form": [
-        "W",
-        "W",
-        "D",
-        "W",
-        "W"
       ]
     },
     {
@@ -20108,16 +19638,16 @@
       "name": "SD Eibar",
       "shortName": "Eibar",
       "code": "SDE",
-      "played": 11,
+      "played": 12,
       "won": 3,
       "drawn": 3,
-      "lost": 5,
-      "goalsFor": 11,
-      "goalsAgainst": 15,
+      "lost": 6,
+      "goalsFor": 12,
+      "goalsAgainst": 18,
       "points": 12,
       "form": [
-        "L",
         "D",
+        "L",
         "L",
         "L",
         "L"

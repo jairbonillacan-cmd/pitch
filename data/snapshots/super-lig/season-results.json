@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "super-lig",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "matches": [
     {
       "id": "super-lig-2026-08-14-galatasaray-corum-55kt5k",
@@ -1102,6 +1102,39 @@
       "awayTeam": "super-lig.gaziantep",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-11-21-galatasaray-samsunspor-an1t7z",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T13:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "super-lig.galatasaray",
+      "awayTeam": "super-lig.samsunspor",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-11-21-amedspor-caykur-rizespo-fh3hjp",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T13:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "super-lig.amedspor",
+      "awayTeam": "super-lig.caykur-rizespor",
+      "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-11-21-kocaelispor-fenerbahce-02x0hp",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T16:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "super-lig.kocaelispor",
+      "awayTeam": "super-lig.fenerbahce",
+      "homeScore": 2,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

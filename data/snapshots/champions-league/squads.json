@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "champions-league",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-21T12:53:07.742Z",
+  "observedAt": "2026-11-21T17:52:46.097Z",
   "teams": [
     {
       "teamId": "champions-league.lask",
@@ -24,7 +24,7 @@
           "winPct": 55.8
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "champions-league.lask.alemao",
@@ -827,7 +827,7 @@
             "subIns": 0,
             "goals": 1,
             "assists": 0,
-            "shots": 2,
+            "shots": 4,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -836,7 +836,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -862,9 +862,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 4,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -873,7 +873,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1084,7 +1084,7 @@
           "winPct": 53.8
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "champions-league.slovan-bratislava.adam-griger",
@@ -1191,9 +1191,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 5,
+            "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1330,10 +1330,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1378,7 +1378,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 4
           },
           "candidatePicks": []
         },
@@ -1443,7 +1443,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1452,7 +1452,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1524,9 +1524,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -1600,7 +1600,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -1665,8 +1665,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1850,7 +1850,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1859,7 +1859,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -1885,10 +1885,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 2,
+            "shots": 3,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2044,7 +2044,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2110,7 +2110,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2118,7 +2118,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2218,9 +2218,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 6,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2229,7 +2229,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         }
@@ -2255,7 +2255,7 @@
           "winPct": 65.3
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "champions-league.bod-glimt.andreas-helmersen",
@@ -2347,8 +2347,8 @@
           "nationality": "Norway",
           "nationalityCode": null,
           "photoKey": "pl-p:12259",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Groin Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -2392,7 +2392,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2495,8 +2495,8 @@
           "nationality": "Norway",
           "nationalityCode": null,
           "photoKey": "pl-p:3672",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Knee Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -2614,7 +2614,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2948,7 +2948,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2982,10 +2982,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 2,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3132,8 +3132,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3241,7 +3241,7 @@
           "winPct": 48.1
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "champions-league.lille.alexsandro-ribeiro",
@@ -3422,7 +3422,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 4,
             "shotsFaced": 0,
             "goalsConceded": 0
           },
@@ -3490,7 +3490,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3526,8 +3526,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3535,7 +3535,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3785,8 +3785,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3822,8 +3822,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3859,8 +3859,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3868,7 +3868,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3896,7 +3896,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3968,10 +3968,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4081,7 +4081,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4375,7 +4375,7 @@
           "winPct": 56
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "champions-league.feyenoord.anis-hadj-moussa",
@@ -4393,8 +4393,8 @@
           "nationality": "Algeria",
           "nationalityCode": null,
           "photoKey": "pl-p:3368",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Ankle Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -5583,7 +5583,7 @@
           "winPct": 66.7
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "champions-league.inter.aleksandar-stankovic",
@@ -6178,43 +6178,6 @@
           "candidatePicks": []
         },
         {
-          "id": "champions-league.inter.leonardo-bovio",
-          "slug": "leonardo-bovio",
-          "name": "Leonardo Bovio",
-          "shortName": "L. Bovio",
-          "jersey": "75",
-          "positionGroup": "MID",
-          "positionLabel": "D",
-          "age": 18,
-          "birthDate": "2008-02-04",
-          "heightCm": 187,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Italy",
-          "nationalityCode": null,
-          "photoKey": "pl-p:86375",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "champions-league.inter.luis-henrique",
           "slug": "luis-henrique",
           "name": "Luís Henrique",
@@ -6569,7 +6532,7 @@
           "winPct": 39.8
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "champions-league.villarreal.alassane-diatta",
@@ -7592,7 +7555,7 @@
           "winPct": 69.6
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "champions-league.paris-saint-germain.achraf-hakimi",
@@ -8182,7 +8145,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8254,9 +8217,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 2,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },

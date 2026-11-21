@@ -5,7 +5,7 @@
   "season": "ligue-2-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4166666666666667,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3247117388818408,
-      "adjustedAgainst": 1.2823060991996786
+      "adjustedFor": 1.3159383972087995,
+      "adjustedAgainst": 1.2808668734290107
     },
     "ligue-2.grenoble-foot": {
       "teamId": "ligue-2.grenoble-foot",
@@ -29,8 +29,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.112256824088872,
-      "adjustedAgainst": 1.5888673380796974
+      "adjustedFor": 1.1105068128944213,
+      "adjustedAgainst": 1.5884845229548616
     },
     "ligue-2.boulogne-cote-d-opale": {
       "teamId": "ligue-2.boulogne-cote-d-opale",
@@ -40,8 +40,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 0.7692307692307693,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9259220224519115,
-      "adjustedAgainst": 0.8861817692117401
+      "adjustedFor": 0.9255821866710497,
+      "adjustedAgainst": 0.8839446545640945
     },
     "ligue-2.nancy": {
       "teamId": "ligue-2.nancy",
@@ -51,8 +51,8 @@
       "forPerGame": 1.3846153846153846,
       "againstPerGame": 0.6923076923076923,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3162808178360303,
-      "adjustedAgainst": 0.8201011057520996
+      "adjustedFor": 1.3162335892286474,
+      "adjustedAgainst": 0.817821931102865
     },
     "ligue-2.sochaux": {
       "teamId": "ligue-2.sochaux",
@@ -62,8 +62,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 0.8244108249279288,
-      "adjustedAgainst": 1.2354617611736696
+      "adjustedFor": 0.8242145956813438,
+      "adjustedAgainst": 1.2274758950541536
     },
     "ligue-2.saint-etienne": {
       "teamId": "ligue-2.saint-etienne",
@@ -73,8 +73,8 @@
       "forPerGame": 2.0833333333333335,
       "againstPerGame": 0.9166666666666666,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6826575574685239,
-      "adjustedAgainst": 1.0115054123479679
+      "adjustedFor": 1.6851760046575317,
+      "adjustedAgainst": 1.009518852213436
     },
     "ligue-2.rodez-af": {
       "teamId": "ligue-2.rodez-af",
@@ -84,19 +84,19 @@
       "forPerGame": 1.5384615384615385,
       "againstPerGame": 1.8461538461538463,
       "gamesPlayed": 13,
-      "adjustedFor": 1.415447295537739,
-      "adjustedAgainst": 1.6243400265940282
+      "adjustedFor": 1.4165186375915315,
+      "adjustedAgainst": 1.6240817498158122
     },
     "ligue-2.stade-lavallois": {
       "teamId": "ligue-2.stade-lavallois",
       "name": "Stade Lavallois",
       "shortName": "Stade Lavallois",
       "code": "STA",
-      "forPerGame": 1.1666666666666667,
-      "againstPerGame": 1.9166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.184467929263179,
-      "adjustedAgainst": 1.7457228218326564
+      "forPerGame": 1.1538461538461537,
+      "againstPerGame": 1.7692307692307692,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.1881861987475766,
+      "adjustedAgainst": 1.6185891361876958
     },
     "ligue-2.pau": {
       "teamId": "ligue-2.pau",
@@ -106,8 +106,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2335879925744773,
-      "adjustedAgainst": 1.1808108276301168
+      "adjustedFor": 1.2330602971664293,
+      "adjustedAgainst": 1.1791557225721534
     },
     "ligue-2.annecy": {
       "teamId": "ligue-2.annecy",
@@ -117,8 +117,8 @@
       "forPerGame": 1.3846153846153846,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3664413301220713,
-      "adjustedAgainst": 1.481770136894383
+      "adjustedFor": 1.3595076528088823,
+      "adjustedAgainst": 1.4819449077230682
     },
     "ligue-2.nantes": {
       "teamId": "ligue-2.nantes",
@@ -128,8 +128,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1876322186208577,
-      "adjustedAgainst": 1.405717231672847
+      "adjustedFor": 1.1874408090496766,
+      "adjustedAgainst": 1.397165872746123
     },
     "ligue-2.red-star": {
       "teamId": "ligue-2.red-star",
@@ -139,19 +139,19 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2634536375078262,
-      "adjustedAgainst": 1.3389541475064355
+      "adjustedFor": 1.2643859363790966,
+      "adjustedAgainst": 1.3376216987760607
     },
     "ligue-2.montpellier": {
       "teamId": "ligue-2.montpellier",
       "name": "Montpellier",
       "shortName": "Montpellier",
       "code": "MON",
-      "forPerGame": 1.5,
-      "againstPerGame": 0.75,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.4419595180046871,
-      "adjustedAgainst": 0.8450562190051053
+      "forPerGame": 1.3846153846153846,
+      "againstPerGame": 0.7692307692307693,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.3241301917024533,
+      "adjustedAgainst": 0.851423176212568
     },
     "ligue-2.dijon": {
       "teamId": "ligue-2.dijon",
@@ -161,8 +161,8 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 1.510365296772301,
-      "adjustedAgainst": 1.4131925403912033
+      "adjustedFor": 1.5100646037412069,
+      "adjustedAgainst": 1.4107807349799582
     },
     "ligue-2.metz": {
       "teamId": "ligue-2.metz",
@@ -172,8 +172,8 @@
       "forPerGame": 1.6923076923076923,
       "againstPerGame": 1.5384615384615385,
       "gamesPlayed": 13,
-      "adjustedFor": 1.5592439600600512,
-      "adjustedAgainst": 1.4878173046297265
+      "adjustedFor": 1.558748548734891,
+      "adjustedAgainst": 1.487497413727314
     },
     "ligue-2.guingamp": {
       "teamId": "ligue-2.guingamp",
@@ -183,8 +183,8 @@
       "forPerGame": 1.3076923076923077,
       "againstPerGame": 1.6153846153846154,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2901444250070795,
-      "adjustedAgainst": 1.5004629762395256
+      "adjustedFor": 1.2825656436048778,
+      "adjustedAgainst": 1.4918350557845725
     },
     "ligue-2.clermont-foot": {
       "teamId": "ligue-2.clermont-foot",
@@ -194,8 +194,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.4615384615384615,
       "gamesPlayed": 13,
-      "adjustedFor": 1.016840419029379,
-      "adjustedAgainst": 1.4141035044552022
+      "adjustedFor": 1.0158232074771016,
+      "adjustedAgainst": 1.4060003186182892
     },
     "ligue-2.stade-reims": {
       "teamId": "ligue-2.stade-reims",
@@ -205,46 +205,11 @@
       "forPerGame": 2,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7951193293612,
-      "adjustedAgainst": 1.2967453116740493
+      "adjustedFor": 1.7872454617304936,
+      "adjustedAgainst": 1.2964156568224008
     }
   },
   "games": [
-    {
-      "id": "ligue-2-2026-11-02-stade-reims-sochaux-w9inlp",
-      "league": "ligue-2",
-      "season": "ligue-2-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-11-02T19:45:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligue-2.stade-reims",
-        "league": "ligue-2",
-        "name": "Stade de Reims",
-        "shortName": "Stade de Reims",
-        "code": "STA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1616/?bg=transparent"
-      },
-      "away": {
-        "id": "ligue-2.sochaux",
-        "league": "ligue-2",
-        "name": "Sochaux",
-        "shortName": "Sochaux",
-        "code": "SOC",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1618/?bg=transparent"
-      },
-      "venue": "Stade Auguste Delaune, Reims",
-      "referee": "Remi Landry",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "ligue-2-2026-11-02-red-star-nancy-h06u70",
       "league": "ligue-2",
@@ -276,7 +241,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +276,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +311,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +346,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +381,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +416,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +451,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +486,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +556,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +591,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +626,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +661,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +696,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +731,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -778,7 +743,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-21T13:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligue-2.stade-lavallois",
         "league": "ligue-2",
@@ -797,7 +762,13 @@
       },
       "venue": "Stade Francis-Le Basser, Laval",
       "referee": "Thomas Vincent",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-21T17:52:46.097Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligue-2-2026-11-21-stade-reims-saint-etienne-5wcyvz",
@@ -1390,457 +1361,6 @@
     }
   ],
   "analyses": {
-    "ligue-2-2026-11-02-stade-reims-sochaux-w9inlp": {
-      "game": "ligue-2-2026-11-02-stade-reims-sochaux-w9inlp",
-      "model": {
-        "id": "pitchlab-statistical-ligue-2",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.8826010223468488,
-        "away": 0.8458828549616252,
-        "total": 2.728483877308474,
-        "margin": 1.0367181673852235
-      },
-      "x12": [
-        0.6222633260320903,
-        0.21053023409787364,
-        0.16720643987003606
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Stade de Reims gana",
-          "p": 0.6222633260320903,
-          "fairOdds": 1.607036696789728
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.21053023409787364,
-          "fairOdds": 4.74991159481212
-        },
-        {
-          "market": "h2h",
-          "selection": "Sochaux gana",
-          "p": 0.16720643987003606,
-          "fairOdds": 5.980630894224328
-        },
-        {
-          "market": "double_chance",
-          "selection": "Stade de Reims o empate",
-          "p": 0.832793560129964,
-          "fairOdds": 1.2007777772008013
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sochaux o empate",
-          "p": 0.37773667396790966,
-          "fairOdds": 2.647346865994151
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7894697659021264,
-          "fairOdds": 1.2666729534060128
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7523001319271966,
-          "fairOdds": 1.329256712262247
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.513324767750953,
-          "fairOdds": 1.9480844541776805
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.48667523224904696,
-          "fairOdds": 2.054758355749381
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2921938356192698,
-          "fairOdds": 3.4223856840806373
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7078061643807302,
-          "fairOdds": 1.4128161781056463
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4797851246703161,
-          "fairOdds": 2.0842663696319246
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5202148753296839,
-          "fairOdds": 1.9222825940266595
-        },
-        {
-          "market": "team_totals",
-          "selection": "Stade de Reims más de 1.5",
-          "line": 1.5,
-          "p": 0.5612841114081939,
-          "fairOdds": 1.7816289106975094
-        },
-        {
-          "market": "team_totals",
-          "selection": "Stade de Reims menos de 1.5",
-          "line": 1.5,
-          "p": 0.4387158885918061,
-          "fairOdds": 2.2793794936623066
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sochaux más de 1.5",
-          "line": 1.5,
-          "p": 0.20778715367309886,
-          "fairOdds": 4.812617057035442
-        },
-        {
-          "market": "team_totals",
-          "selection": "Sochaux menos de 1.5",
-          "line": 1.5,
-          "p": 0.7922128463269011,
-          "fairOdds": 1.2622870288414345
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.12712946650290813,
-          "fairOdds": 7.865996983296745
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.11575057473943061,
-          "fairOdds": 8.639265958299804
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.09985649475734688,
-          "fairOdds": 10.01437114761557
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Stade de Reims gana",
-              "p": 0.6222633260320903,
-              "fairOdds": 1.607036696789728
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.21053023409787364,
-              "fairOdds": 4.74991159481212
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Sochaux gana",
-              "p": 0.16720643987003606,
-              "fairOdds": 5.980630894224328
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Stade de Reims o empate",
-              "p": 0.832793560129964,
-              "fairOdds": 1.2007777772008013
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Sochaux o empate",
-              "p": 0.37773667396790966,
-              "fairOdds": 2.647346865994151
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7894697659021264,
-              "fairOdds": 1.2666729534060128
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7523001319271966,
-              "fairOdds": 1.329256712262247
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.513324767750953,
-              "fairOdds": 1.9480844541776805
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.48667523224904696,
-              "fairOdds": 2.054758355749381
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2921938356192698,
-              "fairOdds": 3.4223856840806373
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7078061643807302,
-              "fairOdds": 1.4128161781056463
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4797851246703161,
-              "fairOdds": 2.0842663696319246
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5202148753296839,
-              "fairOdds": 1.9222825940266595
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Stade de Reims más de 1.5",
-              "line": 1.5,
-              "p": 0.5612841114081939,
-              "fairOdds": 1.7816289106975094
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Stade de Reims menos de 1.5",
-              "line": 1.5,
-              "p": 0.4387158885918061,
-              "fairOdds": 2.2793794936623066
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Sochaux más de 1.5",
-              "line": 1.5,
-              "p": 0.20778715367309886,
-              "fairOdds": 4.812617057035442
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Sochaux menos de 1.5",
-              "line": 1.5,
-              "p": 0.7922128463269011,
-              "fairOdds": 1.2622870288414345
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.12712946650290813,
-              "fairOdds": 7.865996983296745
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.11575057473943061,
-              "fairOdds": 8.639265958299804
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.09985649475734688,
-              "fairOdds": 10.01437114761557
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.12712946650290813
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.76 goles/partido",
-          "detail": "42 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.24 concedidos/partido",
-          "detail": "en la media de la liga · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.85 goles/partido",
-          "detail": "34 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.29 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.07",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–4.2",
-          "detail": "local 36%–84% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "4.º · 21 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "16.º · 11 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-E-G-E · 9 pts",
-          "detail": "8 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-E-E-P-P · 5 pts",
-          "detail": "6 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Ligue 2 · corte 2 nov 2026, 12:45",
-        "Fuerza ajustada por rival · STA 1.42 / 1.02 · SOC 0.66 / 0.98",
-        "Ponderando 96.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.88 – 0.85 · total 2.73",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-02T18:45:00.000Z",
-      "publishedAt": "2026-11-02T18:45:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09791142662403854
-      },
-      "insights": {
-        "why": [
-          "Stade de Reims gana en 62% de los escenarios; el empate, en 21%.",
-          "Sochaux anota 34 % menos que la media.",
-          "Stade de Reims anota 42 % más que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 10
-        }
-      },
-      "matchContext": {
-        "referee": "Remi Landry",
-        "refereeStats": {
-          "country": "France",
-          "matches": 36,
-          "avgYellow": 4.25,
-          "avgRed": 0.14,
-          "avgFouls": 31,
-          "avgGoals": 2.31
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 8,
-          "windSpeedKmh": 27
-        },
-        "travelDistanceKm": 283,
-        "halfTimeScore": {
-          "home": 2,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Reims",
-        "venueCountry": "France",
-        "venueCapacity": 21029
-      }
-    },
     "ligue-2-2026-11-02-red-star-nancy-h06u70": {
       "game": "ligue-2-2026-11-02-red-star-nancy-h06u70",
       "model": {
@@ -2269,11 +1789,11 @@
         "referee": "Thomas Vincent",
         "refereeStats": {
           "country": "France",
-          "matches": 5,
+          "matches": 6,
           "avgYellow": 5,
-          "avgRed": 0.2,
-          "avgFouls": 31.8,
-          "avgGoals": 3
+          "avgRed": 0.17,
+          "avgFouls": 33.2,
+          "avgGoals": 2.67
         },
         "weather": {
           "description": "cloudy",
@@ -9249,18 +8769,22 @@
         "referee": "Thomas Vincent",
         "refereeStats": {
           "country": "France",
-          "matches": 5,
+          "matches": 6,
           "avgYellow": 5,
-          "avgRed": 0.2,
-          "avgFouls": 31.8,
-          "avgGoals": 3
+          "avgRed": 0.17,
+          "avgFouls": 33.2,
+          "avgGoals": 2.67
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 11,
           "windSpeedKmh": 48
         },
         "travelDistanceKm": 837,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Laval",
         "venueCountry": "France",
@@ -19180,18 +18704,18 @@
       "name": "Montpellier",
       "shortName": "Montpellier",
       "code": "MON",
-      "played": 12,
+      "played": 13,
       "won": 7,
       "drawn": 3,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 18,
-      "goalsAgainst": 9,
+      "goalsAgainst": 10,
       "points": 24,
       "form": [
         "W",
         "W",
         "W",
-        "W",
+        "L",
         "L"
       ]
     },
@@ -19416,6 +18940,26 @@
       ]
     },
     {
+      "teamId": "ligue-2.stade-lavallois",
+      "name": "Stade Lavallois",
+      "shortName": "Stade Lavallois",
+      "code": "STA",
+      "played": 13,
+      "won": 3,
+      "drawn": 3,
+      "lost": 7,
+      "goalsFor": 15,
+      "goalsAgainst": 23,
+      "points": 12,
+      "form": [
+        "D",
+        "L",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "ligue-2.clermont-foot",
       "name": "Clermont Foot",
       "shortName": "Clermont Foot",
@@ -19473,26 +19017,6 @@
         "L",
         "L",
         "W"
-      ]
-    },
-    {
-      "teamId": "ligue-2.stade-lavallois",
-      "name": "Stade Lavallois",
-      "shortName": "Stade Lavallois",
-      "code": "STA",
-      "played": 12,
-      "won": 2,
-      "drawn": 3,
-      "lost": 7,
-      "goalsFor": 14,
-      "goalsAgainst": 23,
-      "points": 9,
-      "form": [
-        "L",
-        "D",
-        "L",
-        "W",
-        "L"
       ]
     }
   ]

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "copa-do-brasil",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-21T12:53:07.742Z",
+  "observedAt": "2026-11-21T17:52:46.097Z",
   "teams": [
     {
       "teamId": "copa-do-brasil.fluminense",
@@ -24,7 +24,7 @@
           "winPct": 57.8
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "copa-do-brasil.fluminense.agustin-canobbio",
@@ -1232,7 +1232,7 @@
           "winPct": 38.2
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "copa-do-brasil.vasco-gama.adson",
@@ -1546,8 +1546,8 @@
           "nationality": "Colombia",
           "nationalityCode": null,
           "photoKey": "pl-p:655",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Hip Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -2440,7 +2440,7 @@
           "winPct": 41.1
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "copa-do-brasil.fortaleza.bastos",
@@ -3648,7 +3648,7 @@
           "winPct": 60.7
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "copa-do-brasil.palmeiras.agustin-giay",
@@ -4819,7 +4819,7 @@
           "winPct": 22.2
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "copa-do-brasil.vitoria.alejandro-almaraz",
@@ -4928,7 +4928,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5039,7 +5039,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5324,10 +5324,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5400,7 +5400,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5409,7 +5409,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5511,8 +5511,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 2,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5520,7 +5520,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5770,7 +5770,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5779,7 +5779,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6027,7 +6027,7 @@
           "winPct": 43.8
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "copa-do-brasil.athletico.adriano-oliveira-farias",
@@ -7235,7 +7235,7 @@
           "winPct": 57.7
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "copa-do-brasil.corinthians.alex-santana",
@@ -8443,7 +8443,7 @@
           "winPct": 43.7
         }
       },
-      "updatedAt": "2026-11-21T12:53:07.742Z",
+      "updatedAt": "2026-11-21T17:52:46.097Z",
       "players": [
         {
           "id": "copa-do-brasil.internacional.alan-patrick",
@@ -8720,8 +8720,8 @@
           "nationality": "Ghana",
           "nationalityCode": null,
           "photoKey": "pl-p:182",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Thigh Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,

@@ -5,7 +5,7 @@
   "season": "eredivisie-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2.0833333333333335,
       "againstPerGame": 2.25,
       "gamesPlayed": 12,
-      "adjustedFor": 2.063614730893807,
-      "adjustedAgainst": 2.1306897348733966
+      "adjustedFor": 2.0645570568403753,
+      "adjustedAgainst": 2.1291579915013092
     },
     "eredivisie.excelsior": {
       "teamId": "eredivisie.excelsior",
@@ -29,19 +29,19 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.4166666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3957367982354307,
-      "adjustedAgainst": 2.195911420136135
+      "adjustedFor": 1.3974545175078907,
+      "adjustedAgainst": 2.1958836733270095
     },
     "eredivisie.nec-nijmegen": {
       "teamId": "eredivisie.nec-nijmegen",
       "name": "NEC Nijmegen",
       "shortName": "NEC Nijmegen",
       "code": "NEC",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.75,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.608516721728569,
-      "adjustedAgainst": 1.7657344235478538
+      "forPerGame": 1.6153846153846154,
+      "againstPerGame": 1.9230769230769231,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.6045380499543667,
+      "adjustedAgainst": 1.8429350570414913
     },
     "eredivisie.telstar": {
       "teamId": "eredivisie.telstar",
@@ -51,8 +51,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6604463832986909,
-      "adjustedAgainst": 1.9399859799973884
+      "adjustedFor": 1.6615361346731603,
+      "adjustedAgainst": 1.9438414961872315
     },
     "eredivisie.go-ahead-eagles": {
       "teamId": "eredivisie.go-ahead-eagles",
@@ -62,8 +62,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7794055937440032,
-      "adjustedAgainst": 2.2337824239161104
+      "adjustedFor": 1.7798588902758643,
+      "adjustedAgainst": 2.238101076396298
     },
     "eredivisie.willem-ii-tilburg": {
       "teamId": "eredivisie.willem-ii-tilburg",
@@ -73,19 +73,19 @@
       "forPerGame": 0.9166666666666666,
       "againstPerGame": 3.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1673395715362855,
-      "adjustedAgainst": 2.903035567428222
+      "adjustedFor": 1.1690260424611163,
+      "adjustedAgainst": 2.9008939244437304
     },
     "eredivisie.psv-eindhoven": {
       "teamId": "eredivisie.psv-eindhoven",
       "name": "PSV Eindhoven",
       "shortName": "PSV Eindhoven",
       "code": "PSV",
-      "forPerGame": 3.3333333333333335,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 12,
-      "adjustedFor": 2.8120413998202043,
-      "adjustedAgainst": 1.3689216141136376
+      "forPerGame": 3.3846153846153846,
+      "againstPerGame": 1.2307692307692308,
+      "gamesPlayed": 13,
+      "adjustedFor": 2.8854794853100794,
+      "adjustedAgainst": 1.3595133199307214
     },
     "eredivisie.fortuna-sittard": {
       "teamId": "eredivisie.fortuna-sittard",
@@ -95,8 +95,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7067740865594054,
-      "adjustedAgainst": 1.6155163525022758
+      "adjustedFor": 1.7075086666409245,
+      "adjustedAgainst": 1.615904436408858
     },
     "eredivisie.az-alkmaar": {
       "teamId": "eredivisie.az-alkmaar",
@@ -106,8 +106,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.8789374216848649,
-      "adjustedAgainst": 1.4293429052355147
+      "adjustedFor": 1.884658787653816,
+      "adjustedAgainst": 1.4329541764355491
     },
     "eredivisie.ado-den-haag": {
       "teamId": "eredivisie.ado-den-haag",
@@ -117,8 +117,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.536023619829117,
-      "adjustedAgainst": 1.8731055135452135
+      "adjustedFor": 1.5408713042401325,
+      "adjustedAgainst": 1.8724255401077206
     },
     "eredivisie.sparta-rotterdam": {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -128,8 +128,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2.4166666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6991610817494052,
-      "adjustedAgainst": 2.2237581593417235
+      "adjustedFor": 1.7044915747608078,
+      "adjustedAgainst": 2.223327621098447
     },
     "eredivisie.feyenoord": {
       "teamId": "eredivisie.feyenoord",
@@ -139,8 +139,8 @@
       "forPerGame": 3,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 2.644838752698584,
-      "adjustedAgainst": 1.5715653897537287
+      "adjustedFor": 2.644213361247497,
+      "adjustedAgainst": 1.5712157243961198
     },
     "eredivisie.pec-zwolle": {
       "teamId": "eredivisie.pec-zwolle",
@@ -150,8 +150,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2333956373495227,
-      "adjustedAgainst": 1.8629270224330197
+      "adjustedFor": 1.2350080196017068,
+      "adjustedAgainst": 1.8670098377009587
     },
     "eredivisie.ajax": {
       "teamId": "eredivisie.ajax",
@@ -161,8 +161,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 2.424322188676068,
-      "adjustedAgainst": 1.4262674991672653
+      "adjustedFor": 2.4247821105356073,
+      "adjustedAgainst": 1.426329063264904
     },
     "eredivisie.groningen": {
       "teamId": "eredivisie.groningen",
@@ -172,8 +172,8 @@
       "forPerGame": 2.4166666666666665,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 2.2954421160694487,
-      "adjustedAgainst": 2.215355858730912
+      "adjustedFor": 2.2950436551154167,
+      "adjustedAgainst": 2.214222381772436
     },
     "eredivisie.utrecht": {
       "teamId": "eredivisie.utrecht",
@@ -183,8 +183,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2.8333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7376222229487255,
-      "adjustedAgainst": 2.5149391240194006
+      "adjustedFor": 1.7382992229469696,
+      "adjustedAgainst": 2.5138024055941286
     },
     "eredivisie.heerenveen": {
       "teamId": "eredivisie.heerenveen",
@@ -194,8 +194,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 2.0139953491246425,
-      "adjustedAgainst": 1.460663631050631
+      "adjustedFor": 2.015030117585744,
+      "adjustedAgainst": 1.4604266380501116
     },
     "eredivisie.twente": {
       "teamId": "eredivisie.twente",
@@ -205,46 +205,11 @@
       "forPerGame": 2.5,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 2.3514673772468915,
-      "adjustedAgainst": 1.2081739200043446
+      "adjustedFor": 2.3579652310850276,
+      "adjustedAgainst": 1.2086736269198632
     }
   },
   "games": [
-    {
-      "id": "eredivisie-2026-10-31-psv-eindhoven-willem-ii-tilb-hfdck2",
-      "league": "eredivisie",
-      "season": "eredivisie-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T17:45:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "eredivisie.psv-eindhoven",
-        "league": "eredivisie",
-        "name": "PSV Eindhoven",
-        "shortName": "PSV Eindhoven",
-        "code": "PSV",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/115/?bg=transparent"
-      },
-      "away": {
-        "id": "eredivisie.willem-ii-tilburg",
-        "league": "eredivisie",
-        "name": "Willem II Tilburg",
-        "shortName": "Willem II Tilburg",
-        "code": "WIL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/2053/?bg=transparent"
-      },
-      "venue": "Philips Stadion, Eindhoven",
-      "referee": "Danny Makkelie",
-      "neutralSite": false,
-      "result": {
-        "home": 7,
-        "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "eredivisie-2026-10-31-cambuur-go-ahead-eagle-lp98wd",
       "league": "eredivisie",
@@ -276,7 +241,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +276,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +311,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +346,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +381,7 @@
       "result": {
         "home": 0,
         "away": 9,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +416,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +451,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +486,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +521,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +556,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +591,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +626,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +661,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +696,7 @@
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +731,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -778,7 +743,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-21T15:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "eredivisie.nec-nijmegen",
         "league": "eredivisie",
@@ -797,7 +762,13 @@
       },
       "venue": "Stadion de Goffert, Nijmegen",
       "referee": "Jeroen Manschot",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 4,
+        "observedAt": "2026-11-21T17:52:46.097Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "eredivisie-2026-11-21-feyenoord-excelsior-1o2q8c",
@@ -1674,461 +1645,37 @@
       },
       "venue": "Philips Stadion, Eindhoven",
       "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-12-13-willem-ii-tilb-ado-den-haag-897fio",
+      "league": "eredivisie",
+      "season": "eredivisie-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-13T13:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "eredivisie.willem-ii-tilburg",
+        "league": "eredivisie",
+        "name": "Willem II Tilburg",
+        "shortName": "Willem II Tilburg",
+        "code": "WIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/2053/?bg=transparent"
+      },
+      "away": {
+        "id": "eredivisie.ado-den-haag",
+        "league": "eredivisie",
+        "name": "ADO Den Haag",
+        "shortName": "ADO Den Haag",
+        "code": "ADO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1319/?bg=transparent"
+      },
+      "venue": "Koning Willem II Stadion, Tilburg",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "eredivisie-2026-10-31-psv-eindhoven-willem-ii-tilb-hfdck2": {
-      "game": "eredivisie-2026-10-31-psv-eindhoven-willem-ii-tilb-hfdck2",
-      "model": {
-        "id": "pitchlab-statistical-eredivisie",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 4.146651698162407,
-        "away": 0.8694594589571901,
-        "total": 5.016111157119598,
-        "margin": 3.2771922392052173
-      },
-      "x12": [
-        0.9039163253603627,
-        0.060802222345757655,
-        0.035281452293880446
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "PSV Eindhoven gana",
-          "p": 0.9039163253603627,
-          "fairOdds": 1.1062970896131694
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.060802222345757655,
-          "fairOdds": 16.44676726310108
-        },
-        {
-          "market": "h2h",
-          "selection": "Willem II Tilburg gana",
-          "p": 0.035281452293880446,
-          "fairOdds": 28.34350444733392
-        },
-        {
-          "market": "double_chance",
-          "selection": "PSV Eindhoven o empate",
-          "p": 0.9647185477061203,
-          "fairOdds": 1.036571756993551
-        },
-        {
-          "market": "double_chance",
-          "selection": "Willem II Tilburg o empate",
-          "p": 0.0960836746396381,
-          "fairOdds": 10.40759529389879
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.9391977776542432,
-          "fairOdds": 1.0647384648818246
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9587635778321603,
-          "fairOdds": 1.0430100007147523
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.8762397473036626,
-          "fairOdds": 1.1412401720843737
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.12376025269633739,
-          "fairOdds": 8.080138640744666
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.7362509608397452,
-          "fairOdds": 1.358232522860725
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.26374903916025483,
-          "fairOdds": 3.791483006663757
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5704010620740337,
-          "fairOdds": 1.753152415887696
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.42959893792596626,
-          "fairOdds": 2.3277524959159286
-        },
-        {
-          "market": "team_totals",
-          "selection": "PSV Eindhoven más de 1.5",
-          "line": 1.5,
-          "p": 0.9182911184531533,
-          "fairOdds": 1.0889792789071988
-        },
-        {
-          "market": "team_totals",
-          "selection": "PSV Eindhoven menos de 1.5",
-          "line": 1.5,
-          "p": 0.08170888154684675,
-          "fairOdds": 12.23857163467184
-        },
-        {
-          "market": "team_totals",
-          "selection": "Willem II Tilburg más de 1.5",
-          "line": 1.5,
-          "p": 0.21636358833118474,
-          "fairOdds": 4.621849765540558
-        },
-        {
-          "market": "team_totals",
-          "selection": "Willem II Tilburg menos de 1.5",
-          "line": 1.5,
-          "p": 0.7836364116688153,
-          "fairOdds": 1.2761020099492588
-        },
-        {
-          "market": "correct_score",
-          "selection": "4–0",
-          "p": 0.08198266531206866,
-          "fairOdds": 12.197700528440738
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–0",
-          "p": 0.0790832423648211,
-          "fairOdds": 12.644903902483819
-        },
-        {
-          "market": "correct_score",
-          "selection": "4–1",
-          "p": 0.0712806038260996,
-          "fairOdds": 14.029061853062572
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "PSV Eindhoven gana",
-              "p": 0.9039163253603627,
-              "fairOdds": 1.1062970896131694
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.060802222345757655,
-              "fairOdds": 16.44676726310108
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Willem II Tilburg gana",
-              "p": 0.035281452293880446,
-              "fairOdds": 28.34350444733392
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "PSV Eindhoven o empate",
-              "p": 0.9647185477061203,
-              "fairOdds": 1.036571756993551
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Willem II Tilburg o empate",
-              "p": 0.0960836746396381,
-              "fairOdds": 10.40759529389879
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.9391977776542432,
-              "fairOdds": 1.0647384648818246
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9587635778321603,
-              "fairOdds": 1.0430100007147523
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.8762397473036626,
-              "fairOdds": 1.1412401720843737
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.12376025269633739,
-              "fairOdds": 8.080138640744666
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.7362509608397452,
-              "fairOdds": 1.358232522860725
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.26374903916025483,
-              "fairOdds": 3.791483006663757
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5704010620740337,
-              "fairOdds": 1.753152415887696
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.42959893792596626,
-              "fairOdds": 2.3277524959159286
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "PSV Eindhoven más de 1.5",
-              "line": 1.5,
-              "p": 0.9182911184531533,
-              "fairOdds": 1.0889792789071988
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "PSV Eindhoven menos de 1.5",
-              "line": 1.5,
-              "p": 0.08170888154684675,
-              "fairOdds": 12.23857163467184
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Willem II Tilburg más de 1.5",
-              "line": 1.5,
-              "p": 0.21636358833118474,
-              "fairOdds": 4.621849765540558
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Willem II Tilburg menos de 1.5",
-              "line": 1.5,
-              "p": 0.7836364116688153,
-              "fairOdds": 1.2761020099492588
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "4-0",
-              "label": "4–0",
-              "p": 0.08198266531206866,
-              "fairOdds": 12.197700528440738
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-0",
-              "label": "3–0",
-              "p": 0.0790832423648211,
-              "fairOdds": 12.644903902483819
-            },
-            {
-              "market": "correct_score",
-              "selection": "4-1",
-              "label": "4–1",
-              "p": 0.0712806038260996,
-              "fairOdds": 14.029061853062572
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 4,
-        "away": 0,
-        "p": 0.08198266531206866
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "4.45 goles/partido",
-          "detail": "53 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "2.90 concedidos/partido",
-          "detail": "58 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.87 goles/partido",
-          "detail": "36 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.37 concedidos/partido",
-          "detail": "25 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×0.93",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 3.8–6.9",
-          "detail": "local 76%–97% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "1.º · 26 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "18.º · 3 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-G-P-E · 7 pts",
-          "detail": "10 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-P-P-P-P · 0 pts",
-          "detail": "5 goles a favor · 18 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Eredivisie · corte 31 oct 2026, 10:45",
-        "Fuerza ajustada por rival · PSV 1.53 / 0.75 · WIL 0.64 / 1.58",
-        "Ponderando 96.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 4.15 – 0.87 · total 5.02",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 4–0"
-      ],
-      "inputsAsOf": "2026-10-31T16:45:00.000Z",
-      "publishedAt": "2026-10-31T16:45:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 4,
-        "away": 0,
-        "p": 0.08198266531206866
-      },
-      "insights": {
-        "why": [
-          "Se esperan 5.0 goles: 4.1 de PSV Eindhoven y 0.9 de Willem II Tilburg.",
-          "Willem II Tilburg concede 58 % más que la media.",
-          "Willem II Tilburg anota 36 % menos que la media."
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Danny Makkelie",
-        "refereeStats": {
-          "country": "Netherlands",
-          "matches": 89,
-          "avgYellow": 3.17,
-          "avgRed": 0.16,
-          "avgFouls": 22.5,
-          "avgGoals": 3.83
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 9,
-          "windSpeedKmh": 55
-        },
-        "travelDistanceKm": 30,
-        "isLocalDerby": true,
-        "halfTimeScore": {
-          "home": 2,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Eindhoven",
-        "venueCountry": "Netherlands",
-        "venueCapacity": 36500
-      }
-    },
     "eredivisie-2026-10-31-cambuur-go-ahead-eagle-lp98wd": {
       "game": "eredivisie-2026-10-31-cambuur-go-ahead-eagle-lp98wd",
       "model": {
@@ -3461,11 +3008,11 @@
         "referee": "Jeroen Manschot",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 51,
-          "avgYellow": 3.61,
-          "avgRed": 0.16,
-          "avgFouls": 19.9,
-          "avgGoals": 3.16
+          "matches": 52,
+          "avgYellow": 3.63,
+          "avgRed": 0.15,
+          "avgFouls": 19.8,
+          "avgGoals": 3.19
         },
         "weather": {
           "description": "cloudy",
@@ -6615,11 +6162,11 @@
         "referee": "Jeroen Manschot",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 51,
-          "avgYellow": 3.61,
-          "avgRed": 0.16,
-          "avgFouls": 19.9,
-          "avgGoals": 3.16
+          "matches": 52,
+          "avgYellow": 3.63,
+          "avgRed": 0.15,
+          "avgFouls": 19.8,
+          "avgGoals": 3.19
         },
         "weather": {
           "description": "cloudy",
@@ -9353,19 +8900,23 @@
         "referee": "Jeroen Manschot",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 51,
-          "avgYellow": 3.61,
-          "avgRed": 0.16,
-          "avgFouls": 19.9,
-          "avgGoals": 3.16
+          "matches": 52,
+          "avgYellow": 3.63,
+          "avgRed": 0.15,
+          "avgFouls": 19.8,
+          "avgGoals": 3.19
         },
         "weather": {
-          "description": "unknown",
+          "description": "cloudy",
           "temperatureC": 5,
           "windSpeedKmh": 31
         },
         "travelDistanceKm": 50,
         "isLocalDerby": true,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 3
+        },
         "stageName": "Regular season",
         "venueCity": "Nijmegen",
         "venueCountry": "Netherlands",
@@ -9853,6 +9404,10 @@
         },
         "travelDistanceKm": 3,
         "isLocalDerby": true,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Rotterdam",
         "venueCountry": "Netherlands",
@@ -10337,6 +9892,10 @@
           "windSpeedKmh": 26
         },
         "travelDistanceKm": 133,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Utrecht",
         "venueCountry": "Netherlands",
@@ -24056,6 +23615,472 @@
         "venueCountry": "Netherlands",
         "venueCapacity": 36500
       }
+    },
+    "eredivisie-2026-12-13-willem-ii-tilb-ado-den-haag-897fio": {
+      "game": "eredivisie-2026-12-13-willem-ii-tilb-ado-den-haag-897fio",
+      "model": {
+        "id": "pitchlab-statistical-eredivisie",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.102531619405638,
+        "away": 2.42896588037606,
+        "total": 3.5314974997816977,
+        "margin": -1.3264342609704218
+      },
+      "x12": [
+        0.1596621650191657,
+        0.17078336394162788,
+        0.669554471039206
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Willem II Tilburg gana",
+          "p": 0.1596621650191657,
+          "fairOdds": 6.263224602271684
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.17078336394162788,
+          "fairOdds": 5.855371254672033
+        },
+        {
+          "market": "h2h",
+          "selection": "ADO Den Haag gana",
+          "p": 0.669554471039206,
+          "fairOdds": 1.4935304642920453
+        },
+        {
+          "market": "double_chance",
+          "selection": "Willem II Tilburg o empate",
+          "p": 0.3304455289607936,
+          "fairOdds": 3.0262173712710365
+        },
+        {
+          "market": "double_chance",
+          "selection": "ADO Den Haag o empate",
+          "p": 0.8403378349808338,
+          "fairOdds": 1.1899975918885144
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8292166360583717,
+          "fairOdds": 1.2059574742173964
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8634789499459309,
+          "fairOdds": 1.1581058230343864
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6849241642529176,
+          "fairOdds": 1.4600156516462695
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.3150758357470824,
+          "fairOdds": 3.1738390779124037
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4701231279410294,
+          "fairOdds": 2.1271023282339696
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5298768720589706,
+          "fairOdds": 1.8872308884028983
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6051826118492791,
+          "fairOdds": 1.6523938071258568
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.39481738815072087,
+          "fairOdds": 2.532816512170056
+        },
+        {
+          "market": "team_totals",
+          "selection": "Willem II Tilburg más de 1.5",
+          "line": 1.5,
+          "p": 0.30189757124267746,
+          "fairOdds": 3.3123817322669336
+        },
+        {
+          "market": "team_totals",
+          "selection": "Willem II Tilburg menos de 1.5",
+          "line": 1.5,
+          "p": 0.6981024287573225,
+          "fairOdds": 1.4324545493704683
+        },
+        {
+          "market": "team_totals",
+          "selection": "ADO Den Haag más de 1.5",
+          "line": 1.5,
+          "p": 0.697797909788277,
+          "fairOdds": 1.4330796724561927
+        },
+        {
+          "market": "team_totals",
+          "selection": "ADO Den Haag menos de 1.5",
+          "line": 1.5,
+          "p": 0.30220209021172295,
+          "fairOdds": 3.309043955650338
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.09517322803332832,
+          "fairOdds": 10.507156483646998
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–2",
+          "p": 0.086322447681487,
+          "fairOdds": 11.584472253263774
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–3",
+          "p": 0.07705750787273495,
+          "fairOdds": 12.9773208037244
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Willem II Tilburg gana",
+              "p": 0.1596621650191657,
+              "fairOdds": 6.263224602271684
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.17078336394162788,
+              "fairOdds": 5.855371254672033
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "ADO Den Haag gana",
+              "p": 0.669554471039206,
+              "fairOdds": 1.4935304642920453
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Willem II Tilburg o empate",
+              "p": 0.3304455289607936,
+              "fairOdds": 3.0262173712710365
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "ADO Den Haag o empate",
+              "p": 0.8403378349808338,
+              "fairOdds": 1.1899975918885144
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8292166360583717,
+              "fairOdds": 1.2059574742173964
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8634789499459309,
+              "fairOdds": 1.1581058230343864
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6849241642529176,
+              "fairOdds": 1.4600156516462695
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.3150758357470824,
+              "fairOdds": 3.1738390779124037
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4701231279410294,
+              "fairOdds": 2.1271023282339696
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5298768720589706,
+              "fairOdds": 1.8872308884028983
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6051826118492791,
+              "fairOdds": 1.6523938071258568
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.39481738815072087,
+              "fairOdds": 2.532816512170056
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Willem II Tilburg más de 1.5",
+              "line": 1.5,
+              "p": 0.30189757124267746,
+              "fairOdds": 3.3123817322669336
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Willem II Tilburg menos de 1.5",
+              "line": 1.5,
+              "p": 0.6981024287573225,
+              "fairOdds": 1.4324545493704683
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "ADO Den Haag más de 1.5",
+              "line": 1.5,
+              "p": 0.697797909788277,
+              "fairOdds": 1.4330796724561927
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "ADO Den Haag menos de 1.5",
+              "line": 1.5,
+              "p": 0.30220209021172295,
+              "fairOdds": 3.309043955650338
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.09517322803332832,
+              "fairOdds": 10.507156483646998
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-2",
+              "label": "0–2",
+              "p": 0.086322447681487,
+              "fairOdds": 11.584472253263774
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-3",
+              "label": "1–3",
+              "p": 0.07705750787273495,
+              "fairOdds": 12.9773208037244
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09517322803332832
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.19 goles/partido",
+          "detail": "36 % menos que la media · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.87 concedidos/partido",
+          "detail": "en la media de la liga · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.43 goles/partido",
+          "detail": "16 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "2.90 concedidos/partido",
+          "detail": "58 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×0.93",
+          "detail": "estimada de 109 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.5–4.9",
+          "detail": "local 6%–35% · 109 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "18.º · 3 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "17.º · 9 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-P-E · 1 pts",
+          "detail": "5 goles a favor · 20 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-G-P-P-G · 7 pts",
+          "detail": "9 goles a favor · 8 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Eredivisie · corte 21 nov 2026, 17:52",
+        "Fuerza ajustada por rival · WIL 0.64 / 1.58 · ADO 0.84 / 1.02",
+        "Ponderando 97.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.10 – 2.43 · total 3.53",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-21T17:52:46.097Z",
+      "publishedAt": "2026-11-21T17:52:46.097Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8634789499459309,
+          "fairOdds": 1.1581058230343864
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "Willem II Tilburg menos de 1.5",
+          "line": 1.5,
+          "p": 0.6981024287573225,
+          "fairOdds": 1.4324545493704683
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_3.5",
+          "label": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4701231279410294,
+          "fairOdds": 2.1271023282339696
+        }
+      ],
+      "confidence": {
+        "score": 81,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09517322803332832
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.5 goles: 1.1 de Willem II Tilburg y 2.4 de ADO Den Haag.",
+          "Willem II Tilburg concede 58 % más que la media.",
+          "Willem II Tilburg anota 36 % menos que la media."
+        ]
+      },
+      "picksAt": "2026-11-21T17:52:46.097Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Tilburg",
+        "venueCountry": "Netherlands",
+        "venueCapacity": 14637
+      }
     }
   },
   "standings": [
@@ -24064,17 +24089,17 @@
       "name": "PSV Eindhoven",
       "shortName": "PSV Eindhoven",
       "code": "PSV",
-      "played": 12,
-      "won": 8,
+      "played": 13,
+      "won": 9,
       "drawn": 2,
       "lost": 2,
-      "goalsFor": 40,
-      "goalsAgainst": 15,
-      "points": 26,
+      "goalsFor": 44,
+      "goalsAgainst": 16,
+      "points": 29,
       "form": [
-        "W",
         "L",
         "D",
+        "W",
         "W",
         "W"
       ]
@@ -24264,19 +24289,19 @@
       "name": "NEC Nijmegen",
       "shortName": "NEC Nijmegen",
       "code": "NEC",
-      "played": 12,
+      "played": 13,
       "won": 3,
       "drawn": 5,
-      "lost": 4,
-      "goalsFor": 20,
-      "goalsAgainst": 21,
+      "lost": 5,
+      "goalsFor": 21,
+      "goalsAgainst": 25,
       "points": 14,
       "form": [
         "D",
         "D",
-        "D",
         "L",
-        "W"
+        "W",
+        "L"
       ]
     },
     {

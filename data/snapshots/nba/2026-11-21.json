@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent",
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
-  "periodLabel": "19 nov – 23 nov",
-  "updatedAt": "2026-11-21T12:53:03.494Z",
+  "periodLabel": "20 nov – 23 nov",
+  "updatedAt": "2026-11-21T17:52:41.772Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -373,126 +373,6 @@
   },
   "games": [
     {
-      "id": "nba-2026-11-20-gsw-mem",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-20T01:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.memphis-grizzlies",
-        "league": "nba",
-        "name": "Memphis Grizzlies",
-        "shortName": "Grizzlies",
-        "code": "MEM",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/19/?bg=transparent"
-      },
-      "away": {
-        "id": "nba.golden-state-warriors",
-        "league": "nba",
-        "name": "Golden State Warriors",
-        "shortName": "Warriors",
-        "code": "GSW",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/22/?bg=transparent"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 126,
-        "away": 98,
-        "observedAt": "2026-11-21T12:52:51.111Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-20-nyk-min",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-20T01:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.minnesota-timberwolves",
-        "league": "nba",
-        "name": "Minnesota Timberwolves",
-        "shortName": "Timberwolves",
-        "code": "MIN",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/2/?bg=transparent"
-      },
-      "away": {
-        "id": "nba.new-york-knicks",
-        "league": "nba",
-        "name": "New York Knicks",
-        "shortName": "Knicks",
-        "code": "NYK",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/5/?bg=transparent"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 99,
-        "away": 102,
-        "observedAt": "2026-11-21T12:52:51.111Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-20-lac-sas",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-20T01:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.san-antonio-spurs",
-        "league": "nba",
-        "name": "San Antonio Spurs",
-        "shortName": "Spurs",
-        "code": "SAS",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/7/?bg=transparent"
-      },
-      "away": {
-        "id": "nba.los-angeles-clippers",
-        "league": "nba",
-        "name": "Los Angeles Clippers",
-        "shortName": "Clippers",
-        "code": "LAC",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/20/?bg=transparent"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 124,
-        "away": 112,
-        "observedAt": "2026-11-21T12:52:51.111Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
-      "id": "nba-2026-11-20-por-mil",
-      "league": "nba",
-      "season": "nba-2026-27",
-      "startTime": "2026-11-20T01:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "nba.milwaukee-bucks",
-        "league": "nba",
-        "name": "Milwaukee Bucks",
-        "shortName": "Bucks",
-        "code": "MIL",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/28/?bg=transparent"
-      },
-      "away": {
-        "id": "nba.portland-trail-blazers",
-        "league": "nba",
-        "name": "Portland Trail Blazers",
-        "shortName": "Trail Blazers",
-        "code": "POR",
-        "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/8/?bg=transparent"
-      },
-      "neutralSite": false,
-      "result": {
-        "home": 114,
-        "away": 124,
-        "observedAt": "2026-11-21T12:52:51.111Z",
-        "source": "bzzoiro"
-      }
-    },
-    {
       "id": "nba-2026-11-21-cha-atl",
       "league": "nba",
       "season": "nba-2026-27",
@@ -514,12 +394,11 @@
         "code": "CHA",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/27/?bg=transparent"
       },
-      "referee": "Josh Tiven",
       "neutralSite": false,
       "result": {
         "home": 111,
         "away": 97,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -545,12 +424,11 @@
         "code": "IND",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/25/?bg=transparent"
       },
-      "referee": "Sean Wright",
       "neutralSite": false,
       "result": {
         "home": 128,
         "away": 119,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -576,12 +454,11 @@
         "code": "TOR",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/12/?bg=transparent"
       },
-      "referee": "James Williams",
       "neutralSite": false,
       "result": {
         "home": 102,
         "away": 105,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -607,12 +484,11 @@
         "code": "ORL",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/10/?bg=transparent"
       },
-      "referee": "Bill Kennedy",
       "neutralSite": false,
       "result": {
         "home": 111,
         "away": 113,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -642,7 +518,7 @@
       "result": {
         "home": 126,
         "away": 120,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -672,7 +548,7 @@
       "result": {
         "home": 94,
         "away": 98,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -702,7 +578,7 @@
       "result": {
         "home": 101,
         "away": 111,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -728,12 +604,11 @@
         "code": "SAC",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/21/?bg=transparent"
       },
-      "referee": "John Goble",
       "neutralSite": false,
       "result": {
         "home": 106,
         "away": 104,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -759,12 +634,11 @@
         "code": "HOU",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/14/?bg=transparent"
       },
-      "referee": "Zach Zarba",
       "neutralSite": false,
       "result": {
         "home": 133,
         "away": 124,
-        "observedAt": "2026-11-21T12:52:51.111Z",
+        "observedAt": "2026-11-21T17:52:29.437Z",
         "source": "bzzoiro"
       }
     },
@@ -790,6 +664,7 @@
         "code": "MIL",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/28/?bg=transparent"
       },
+      "referee": "Tre Maddox",
       "neutralSite": false
     },
     {
@@ -3882,6 +3757,9 @@
           "76ers gana en 83 % de los escenarios, por 12.4 puntos en promedio.",
           "Se esperan 229.7 pts: 121.0 de 76ers y 108.6 de Bucks."
         ]
+      },
+      "matchContext": {
+        "referee": "Tre Maddox"
       }
     },
     "nba-2026-11-22-por-nyk": {

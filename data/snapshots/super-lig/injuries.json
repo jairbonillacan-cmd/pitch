@@ -1,235 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "super-lig",
-  "observedAt": "2026-11-21T12:53:07.742Z",
+  "observedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "super-lig.fenerbahce",
-      "player": "Archie Brown",
-      "position": "D",
-      "status": "Baja",
-      "detail": "fa_charge_of_improper_conduct",
-      "injuryType": "fa_charge_of_improper_conduct",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.fenerbahce",
-      "player": "Jayden Oosterwolde",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Achilles Tendon Injury",
-      "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.fenerbahce",
-      "player": "Marco Asensio",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.fenerbahce",
-      "player": "Mert Müldür",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Meniscus Injury",
-      "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.fenerbahce",
-      "player": "Nathan Aké",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.goztepe",
-      "player": "Luka Gugeshashvili",
-      "position": "G",
-      "status": "Baja",
-      "detail": "club_decision",
-      "injuryType": "club_decision",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.amedspor",
-      "player": "Dilhan Demir",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.amedspor",
-      "player": "Ermal Krasniqi",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.amedspor",
-      "player": "Lumbardh Dellova",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.amedspor",
-      "player": "Samuel Ballet",
-      "position": "F",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.eyupspor",
-      "player": "Ahmed Abdullahi",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.eyupspor",
-      "player": "Bilal Boutobba",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.eyupspor",
-      "player": "Lenny Pintor",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.eyupspor",
-      "player": "Ömer Ahmet Ceyhan",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.eyupspor",
-      "player": "Simone Giordano",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.trabzonspor",
-      "player": "Aral Şimşir",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.trabzonspor",
-      "player": "Arseniy Batagov",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.trabzonspor",
-      "player": "Chibuike Nwaiwu",
-      "position": "D",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.trabzonspor",
-      "player": "Cihan Çanak",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.trabzonspor",
-      "player": "Ernest Muçi",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.trabzonspor",
-      "player": "Franculino Djú",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.trabzonspor",
-      "player": "Okay Yokuşlu",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knee Surgery",
-      "injuryType": "Knee Surgery",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.gaziantep",
-      "player": "Fuat Bavuk",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.gaziantep",
-      "player": "Kacper Tobiasz",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
-    {
-      "teamId": "super-lig.gaziantep",
-      "player": "Nazım Sangaré",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hernia",
-      "injuryType": "Hernia",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
-    },
     {
       "teamId": "super-lig.basaksehir",
       "player": "Muhammed Şengezer",
@@ -237,7 +12,7 @@
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "super-lig.basaksehir",
@@ -246,7 +21,7 @@
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "super-lig.basaksehir",
@@ -255,7 +30,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "super-lig.samsunspor",
@@ -264,7 +39,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "super-lig.samsunspor",
@@ -273,7 +48,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     },
     {
       "teamId": "super-lig.samsunspor",
@@ -282,7 +57,187 @@
       "status": "Baja",
       "detail": "Broken Rib",
       "injuryType": "Broken Rib",
-      "reportedAt": "2026-11-21T12:53:07.742Z"
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.kas-mpasa",
+      "player": "Andri Fannar Baldursson",
+      "position": "M",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.kas-mpasa",
+      "player": "Elson Mendes",
+      "position": "M",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.kas-mpasa",
+      "player": "Kamil Ahmet Çörekçi",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Achilles Tendon Injury",
+      "injuryType": "Achilles Tendon Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.besiktas-jk",
+      "player": "Emmanuel Agbadou",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.besiktas-jk",
+      "player": "Fabio Miretti",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.besiktas-jk",
+      "player": "Ümit Akdağ",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Broken Wrist",
+      "injuryType": "Broken Wrist",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.genclerbirligi",
+      "player": "Abdurrahim Dursun",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.genclerbirligi",
+      "player": "Ensar Çavuşoğlu",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.genclerbirligi",
+      "player": "Gökhan Akkan",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.genclerbirligi",
+      "player": "Metehan Baltacı",
+      "position": "D",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.genclerbirligi",
+      "player": "Thalisson",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.alanyaspor",
+      "player": "Paolo Fernandes",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.gaziantep",
+      "player": "Fuat Bavuk",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.gaziantep",
+      "player": "Kacper Tobiasz",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.gaziantep",
+      "player": "Nazım Sangaré",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Hernia",
+      "injuryType": "Hernia",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.eyupspor",
+      "player": "Ahmed Abdullahi",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.eyupspor",
+      "player": "Bilal Boutobba",
+      "position": "M",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.eyupspor",
+      "player": "Lenny Pintor",
+      "position": "M",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.eyupspor",
+      "player": "Ömer Ahmet Ceyhan",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
+    },
+    {
+      "teamId": "super-lig.eyupspor",
+      "player": "Simone Giordano",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-21T17:52:46.097Z"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "bundesliga-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "matches": [
     {
       "id": "bundesliga-2-2026-08-07-bochum-hertha-bsc-1qv1vj",
@@ -1111,6 +1111,39 @@
       "round": "Regular season · Matchday 12",
       "homeTeam": "bundesliga-2.arminia-bielefeld",
       "awayTeam": "bundesliga-2.magdeburg",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-21-wolfsburg-holstein-kiel-ijzdjy",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T12:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.wolfsburg",
+      "awayTeam": "bundesliga-2.holstein-kiel",
+      "homeScore": 3,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-21-hannover-greuther-furth-yu7vad",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T12:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.hannover",
+      "awayTeam": "bundesliga-2.greuther-furth",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-21-nurnberg-eintracht-brau-7m8g5d",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T12:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.nurnberg",
+      "awayTeam": "bundesliga-2.eintracht-braunschweig",
       "homeScore": 1,
       "awayScore": 2,
       "neutralSite": false

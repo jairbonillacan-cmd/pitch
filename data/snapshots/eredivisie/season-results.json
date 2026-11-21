@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "eredivisie",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "matches": [
     {
       "id": "eredivisie-2026-08-07-cambuur-excelsior-dhnxi3",
@@ -1190,6 +1190,17 @@
       "awayTeam": "eredivisie.nec-nijmegen",
       "homeScore": 2,
       "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-21-nec-nijmegen-psv-eindhoven-pdls4l",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T15:30:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.nec-nijmegen",
+      "awayTeam": "eredivisie.psv-eindhoven",
+      "homeScore": 1,
+      "awayScore": 4,
       "neutralSite": false
     }
   ]

@@ -5,7 +5,7 @@
   "season": "pro-league-belgica-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-21T12:53:07.742Z",
+  "updatedAt": "2026-11-21T17:52:46.097Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2.4545454545454546,
       "againstPerGame": 0.8181818181818182,
       "gamesPlayed": 11,
-      "adjustedFor": 1.996274387591616,
-      "adjustedAgainst": 0.9986545357812774
+      "adjustedFor": 2.0049881216487737,
+      "adjustedAgainst": 0.9987483505247113
     },
     "pro-league-belgica.kv-kortrijk": {
       "teamId": "pro-league-belgica.kv-kortrijk",
@@ -29,8 +29,8 @@
       "forPerGame": 0.36363636363636365,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 0.6081357311515154,
-      "adjustedAgainst": 1.7684122930363808
+      "adjustedFor": 0.6103619370022837,
+      "adjustedAgainst": 1.7746459294116574
     },
     "pro-league-belgica.standard-liege": {
       "teamId": "pro-league-belgica.standard-liege",
@@ -40,8 +40,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3388063432208148,
-      "adjustedAgainst": 1.385820851284492
+      "adjustedFor": 1.3418185099493936,
+      "adjustedAgainst": 1.3917963566151932
     },
     "pro-league-belgica.cercle-brugge": {
       "teamId": "pro-league-belgica.cercle-brugge",
@@ -51,8 +51,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2319816710429867,
-      "adjustedAgainst": 1.4844502923867586
+      "adjustedFor": 1.2360294010035247,
+      "adjustedAgainst": 1.4872495864173698
     },
     "pro-league-belgica.sint-truidense-vv": {
       "teamId": "pro-league-belgica.sint-truidense-vv",
@@ -61,9 +61,9 @@
       "code": "SIN",
       "forPerGame": 2,
       "againstPerGame": 2,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.6489626469638439,
-      "adjustedAgainst": 1.7076412140296464
+      "gamesPlayed": 12,
+      "adjustedFor": 1.6961749716360035,
+      "adjustedAgainst": 1.6887070825000625
     },
     "pro-league-belgica.lommel": {
       "teamId": "pro-league-belgica.lommel",
@@ -73,8 +73,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.1818181818181819,
       "gamesPlayed": 11,
-      "adjustedFor": 1.327663502517559,
-      "adjustedAgainst": 1.0838688768193545
+      "adjustedFor": 1.3302402983546637,
+      "adjustedAgainst": 1.0863636867995203
     },
     "pro-league-belgica.kvc-westerlo": {
       "teamId": "pro-league-belgica.kvc-westerlo",
@@ -84,8 +84,8 @@
       "forPerGame": 2.1666666666666665,
       "againstPerGame": 2.5833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.8524541673322148,
-      "adjustedAgainst": 2.1283137225667086
+      "adjustedFor": 1.8559582956949034,
+      "adjustedAgainst": 2.1321245303004575
     },
     "pro-league-belgica.royale-union-saint-gilloise": {
       "teamId": "pro-league-belgica.royale-union-saint-gilloise",
@@ -95,8 +95,8 @@
       "forPerGame": 2.727272727272727,
       "againstPerGame": 0.6363636363636364,
       "gamesPlayed": 11,
-      "adjustedFor": 2.139251920398572,
-      "adjustedAgainst": 0.7923269311732535
+      "adjustedFor": 2.1441238750111347,
+      "adjustedAgainst": 0.794983892414104
     },
     "pro-league-belgica.kaa-gent": {
       "teamId": "pro-league-belgica.kaa-gent",
@@ -106,8 +106,8 @@
       "forPerGame": 1.8181818181818181,
       "againstPerGame": 0.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 1.5927857242980041,
-      "adjustedAgainst": 0.7892108648204147
+      "adjustedFor": 1.5974544078046355,
+      "adjustedAgainst": 0.7914512758431054
     },
     "pro-league-belgica.kv-mechelen": {
       "teamId": "pro-league-belgica.kv-mechelen",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 1.8181818181818181,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1717567787659917,
-      "adjustedAgainst": 1.611225986921087
+      "adjustedFor": 1.175256247808295,
+      "adjustedAgainst": 1.6140489593318155
     },
     "pro-league-belgica.zulte-waregem": {
       "teamId": "pro-league-belgica.zulte-waregem",
@@ -128,8 +128,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 1.8181818181818181,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1829069607773206,
-      "adjustedAgainst": 1.5604355739146214
+      "adjustedFor": 1.1850908202492945,
+      "adjustedAgainst": 1.5627901036545102
     },
     "pro-league-belgica.krc-genk": {
       "teamId": "pro-league-belgica.krc-genk",
@@ -139,19 +139,19 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.4456074971830108,
-      "adjustedAgainst": 1.2573901214144634
+      "adjustedFor": 1.4498633425015064,
+      "adjustedAgainst": 1.2595831419373793
     },
     "pro-league-belgica.sporting-charleroi": {
       "teamId": "pro-league-belgica.sporting-charleroi",
       "name": "RC Sporting Charleroi",
       "shortName": "RC Sporting Charleroi",
       "code": "SPO",
-      "forPerGame": 2.3636363636363638,
-      "againstPerGame": 1.1818181818181819,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.9123730815968691,
-      "adjustedAgainst": 1.2229662776954686
+      "forPerGame": 2.3333333333333335,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.8633983087423875,
+      "adjustedAgainst": 1.2575691448482875
     },
     "pro-league-belgica.oud-heverlee-leuven": {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
@@ -161,8 +161,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1427482966886662,
-      "adjustedAgainst": 1.3168803121334927
+      "adjustedFor": 1.1470548752939578,
+      "adjustedAgainst": 1.319135573924972
     },
     "pro-league-belgica.rsc-anderlecht": {
       "teamId": "pro-league-belgica.rsc-anderlecht",
@@ -172,8 +172,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2040210057133491,
-      "adjustedAgainst": 1.1021152892283148
+      "adjustedFor": 1.2084487070242917,
+      "adjustedAgainst": 1.1042155472094977
     },
     "pro-league-belgica.raal-la-louviere": {
       "teamId": "pro-league-belgica.raal-la-louviere",
@@ -183,8 +183,8 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 2.1818181818181817,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1882199447466764,
-      "adjustedAgainst": 1.895272149608451
+      "adjustedFor": 1.1918894325996265,
+      "adjustedAgainst": 1.8987034719333113
     },
     "pro-league-belgica.royal-antwerp": {
       "teamId": "pro-league-belgica.royal-antwerp",
@@ -194,8 +194,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 2.1818181818181817,
       "gamesPlayed": 11,
-      "adjustedFor": 1.4665500794322848,
-      "adjustedAgainst": 1.7535334495309345
+      "adjustedFor": 1.469888985379834,
+      "adjustedAgainst": 1.7569702814250052
     },
     "pro-league-belgica.beveren": {
       "teamId": "pro-league-belgica.beveren",
@@ -205,46 +205,11 @@
       "forPerGame": 1.1818181818181819,
       "againstPerGame": 2.090909090909091,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1902650756255102,
-      "adjustedAgainst": 1.813082904080663
+      "adjustedFor": 1.1942026892707849,
+      "adjustedAgainst": 1.8121918048174432
     }
   },
   "games": [
-    {
-      "id": "pro-league-belgica-2026-10-31-rsc-anderlecht-kvc-westerlo-haxs3i",
-      "league": "pro-league-belgica",
-      "season": "pro-league-belgica-2026-27",
-      "week": 10,
-      "round": "Regular season · Matchday 10",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T19:45:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "pro-league-belgica.rsc-anderlecht",
-        "league": "pro-league-belgica",
-        "name": "RSC Anderlecht",
-        "shortName": "RSC Anderlecht",
-        "code": "RSC",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/240/?bg=transparent"
-      },
-      "away": {
-        "id": "pro-league-belgica.kvc-westerlo",
-        "league": "pro-league-belgica",
-        "name": "KVC Westerlo",
-        "shortName": "KVC Westerlo",
-        "code": "KVC",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/241/?bg=transparent"
-      },
-      "venue": "Lotto Park, Brussels",
-      "referee": "Nicolas Laforge",
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "pro-league-belgica-2026-11-01-cercle-brugge-royal-antwerp-bo12bx",
       "league": "pro-league-belgica",
@@ -276,7 +241,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +276,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +311,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +346,7 @@
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +381,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +416,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +451,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +486,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +521,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +556,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +591,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +626,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +661,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +696,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +731,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:53:07.742Z",
+        "observedAt": "2026-11-21T17:52:46.097Z",
         "source": "pitchlab-feed"
       }
     },
@@ -778,7 +743,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-21T15:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "pro-league-belgica.sporting-charleroi",
         "league": "pro-league-belgica",
@@ -797,7 +762,13 @@
       },
       "venue": "Stade du Pays de Charleroi, Charleroi",
       "referee": "Bert Put",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 2,
+        "observedAt": "2026-11-21T17:52:46.097Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "pro-league-belgica-2026-11-21-krc-genk-raal-la-louvie-50sr3o",
@@ -1673,460 +1644,37 @@
       },
       "venue": "Maurice Dufrasne, Liege",
       "neutralSite": false
+    },
+    {
+      "id": "pro-league-belgica-2026-12-20-sint-truidense-kv-kortrijk-a635jc",
+      "league": "pro-league-belgica",
+      "season": "pro-league-belgica-2026-27",
+      "week": 15,
+      "round": "Regular season · Matchday 15",
+      "phase": "Regular season",
+      "startTime": "2026-12-20T15:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "pro-league-belgica.sint-truidense-vv",
+        "league": "pro-league-belgica",
+        "name": "Sint-Truidense VV",
+        "shortName": "Sint-Truidense VV",
+        "code": "SIN",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/244/?bg=transparent"
+      },
+      "away": {
+        "id": "pro-league-belgica.kv-kortrijk",
+        "league": "pro-league-belgica",
+        "name": "KV Kortrijk",
+        "shortName": "KV Kortrijk",
+        "code": "KVK",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/2763/?bg=transparent"
+      },
+      "venue": "Stayen, Sint- Truiden",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "pro-league-belgica-2026-10-31-rsc-anderlecht-kvc-westerlo-haxs3i": {
-      "game": "pro-league-belgica-2026-10-31-rsc-anderlecht-kvc-westerlo-haxs3i",
-      "model": {
-        "id": "pitchlab-statistical-pro-league-belgica",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.618550129176682,
-        "away": 1.5817641029906087,
-        "total": 4.20031423216729,
-        "margin": 1.0367860261860735
-      },
-      "x12": [
-        0.6021876196306575,
-        0.17386036969311647,
-        0.2239520106762257
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "RSC Anderlecht gana",
-          "p": 0.6021876196306575,
-          "fairOdds": 1.6606120209069304
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.17386036969311647,
-          "fairOdds": 5.751742054644856
-        },
-        {
-          "market": "h2h",
-          "selection": "KVC Westerlo gana",
-          "p": 0.2239520106762257,
-          "fairOdds": 4.465242339108671
-        },
-        {
-          "market": "double_chance",
-          "selection": "RSC Anderlecht o empate",
-          "p": 0.776047989323774,
-          "fairOdds": 1.2885801055568373
-        },
-        {
-          "market": "double_chance",
-          "selection": "KVC Westerlo o empate",
-          "p": 0.3978123803693422,
-          "fairOdds": 2.513747810139963
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8261396303068832,
-          "fairOdds": 1.2104491339176326
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9189306837651385,
-          "fairOdds": 1.0882213617056467
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.7897839915395801,
-          "fairOdds": 1.2661689914107164
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.21021600846041988,
-          "fairOdds": 4.757011643993246
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.6046179884142644,
-          "fairOdds": 1.6539368976148172
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.3953820115857356,
-          "fairOdds": 2.529199535379362
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7333599536063623,
-          "fairOdds": 1.3635868649254868
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.2666400463936377,
-          "fairOdds": 3.750374384962832
-        },
-        {
-          "market": "team_totals",
-          "selection": "RSC Anderlecht más de 1.5",
-          "line": 1.5,
-          "p": 0.7361526277937089,
-          "fairOdds": 1.3584139514614741
-        },
-        {
-          "market": "team_totals",
-          "selection": "RSC Anderlecht menos de 1.5",
-          "line": 1.5,
-          "p": 0.26384737220629106,
-          "fairOdds": 3.79006996218307
-        },
-        {
-          "market": "team_totals",
-          "selection": "KVC Westerlo más de 1.5",
-          "line": 1.5,
-          "p": 0.4691576838883311,
-          "fairOdds": 2.1314795309587637
-        },
-        {
-          "market": "team_totals",
-          "selection": "KVC Westerlo menos de 1.5",
-          "line": 1.5,
-          "p": 0.5308423161116689,
-          "fairOdds": 1.8837985775603434
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.08130189371590127,
-          "fairOdds": 12.29983650189463
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–1",
-          "p": 0.07096436143069403,
-          "fairOdds": 14.091580334681524
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–2",
-          "p": 0.06430020849248518,
-          "fairOdds": 15.55204910598184
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "RSC Anderlecht gana",
-              "p": 0.6021876196306575,
-              "fairOdds": 1.6606120209069304
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.17386036969311647,
-              "fairOdds": 5.751742054644856
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "KVC Westerlo gana",
-              "p": 0.2239520106762257,
-              "fairOdds": 4.465242339108671
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "RSC Anderlecht o empate",
-              "p": 0.776047989323774,
-              "fairOdds": 1.2885801055568373
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "KVC Westerlo o empate",
-              "p": 0.3978123803693422,
-              "fairOdds": 2.513747810139963
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8261396303068832,
-              "fairOdds": 1.2104491339176326
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9189306837651385,
-              "fairOdds": 1.0882213617056467
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.7897839915395801,
-              "fairOdds": 1.2661689914107164
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.21021600846041988,
-              "fairOdds": 4.757011643993246
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.6046179884142644,
-              "fairOdds": 1.6539368976148172
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.3953820115857356,
-              "fairOdds": 2.529199535379362
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7333599536063623,
-              "fairOdds": 1.3635868649254868
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.2666400463936377,
-              "fairOdds": 3.750374384962832
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "RSC Anderlecht más de 1.5",
-              "line": 1.5,
-              "p": 0.7361526277937089,
-              "fairOdds": 1.3584139514614741
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "RSC Anderlecht menos de 1.5",
-              "line": 1.5,
-              "p": 0.26384737220629106,
-              "fairOdds": 3.79006996218307
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "KVC Westerlo más de 1.5",
-              "line": 1.5,
-              "p": 0.4691576838883311,
-              "fairOdds": 2.1314795309587637
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "KVC Westerlo menos de 1.5",
-              "line": 1.5,
-              "p": 0.5308423161116689,
-              "fairOdds": 1.8837985775603434
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.08130189371590127,
-              "fairOdds": 12.29983650189463
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-1",
-              "label": "3–1",
-              "p": 0.07096436143069403,
-              "fairOdds": 14.091580334681524
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-2",
-              "label": "2–2",
-              "p": 0.06430020849248518,
-              "fairOdds": 15.55204910598184
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.08130189371590127
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.92 goles/partido",
-          "detail": "13 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "2.21 concedidos/partido",
-          "detail": "60 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.58 goles/partido",
-          "detail": "44 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.10 concedidos/partido",
-          "detail": "21 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.37",
-          "detail": "estimada de 99 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.9–6.4",
-          "detail": "local 35%–85% · 99 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "5.º · 20 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "9.º · 14 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-G-G-G-P · 10 pts",
-          "detail": "6 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-G-G-E · 13 pts",
-          "detail": "19 goles a favor · 7 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Pro League Bélgica · corte 31 oct 2026, 12:45",
-        "Fuerza ajustada por rival · RSC 0.87 / 0.79 · KVC 1.44 / 1.60",
-        "Ponderando 88.4 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.62 – 1.58 · total 4.20",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-10-31T18:45:00.000Z",
-      "publishedAt": "2026-10-31T18:45:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.08130189371590127
-      },
-      "insights": {
-        "why": [
-          "Se esperan 4.2 goles: 2.6 de RSC Anderlecht y 1.6 de KVC Westerlo.",
-          "KVC Westerlo concede 60 % más que la media.",
-          "KVC Westerlo anota 44 % más que la media."
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Nicolas Laforge",
-        "refereeStats": {
-          "country": "Belgium",
-          "matches": 54,
-          "avgYellow": 4.43,
-          "avgRed": 0.28,
-          "avgFouls": 21.4,
-          "avgGoals": 2.76
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 8,
-          "windSpeedKmh": 48
-        },
-        "travelDistanceKm": 53,
-        "halfTimeScore": {
-          "home": 3,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Brussels",
-        "venueCountry": "Belgium",
-        "venueCapacity": 21500
-      }
-    },
     "pro-league-belgica-2026-11-01-cercle-brugge-royal-antwerp-bo12bx": {
       "game": "pro-league-belgica-2026-11-01-cercle-brugge-royal-antwerp-bo12bx",
       "model": {
@@ -9396,11 +8944,11 @@
         "referee": "Bert Put",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 37,
-          "avgYellow": 3.68,
-          "avgRed": 0.27,
-          "avgFouls": 22.2,
-          "avgGoals": 2.7
+          "matches": 38,
+          "avgYellow": 3.66,
+          "avgRed": 0.34,
+          "avgFouls": 22.1,
+          "avgGoals": 2.74
         },
         "weather": {
           "description": "clear",
@@ -9408,6 +8956,10 @@
           "windSpeedKmh": 56
         },
         "travelDistanceKm": 67,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Charleroi",
         "venueCountry": "Belgium",
@@ -9891,6 +9443,10 @@
           "description": "unknown",
           "temperatureC": 2,
           "windSpeedKmh": 42
+        },
+        "halfTimeScore": {
+          "home": 3,
+          "away": 0
         },
         "stageName": "Regular season",
         "venueCity": "Genk",
@@ -24025,6 +23581,465 @@
         "venueCountry": "Belgium",
         "venueCapacity": 27670
       }
+    },
+    "pro-league-belgica-2026-12-20-sint-truidense-kv-kortrijk-a635jc": {
+      "game": "pro-league-belgica-2026-12-20-sint-truidense-kv-kortrijk-a635jc",
+      "model": {
+        "id": "pitchlab-statistical-pro-league-belgica",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.979201743396545,
+        "away": 0.7484140469769264,
+        "total": 3.7276157903734712,
+        "margin": 2.2307876964196187
+      },
+      "x12": [
+        0.8226782945191131,
+        0.11076847060251153,
+        0.06655323487837536
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Sint-Truidense VV gana",
+          "p": 0.8226782945191131,
+          "fairOdds": 1.215541976325677
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.11076847060251153,
+          "fairOdds": 9.027839732377114
+        },
+        {
+          "market": "h2h",
+          "selection": "KV Kortrijk gana",
+          "p": 0.06655323487837536,
+          "fairOdds": 15.025565651729462
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sint-Truidense VV o empate",
+          "p": 0.9334467651216246,
+          "fairOdds": 1.071298372189124
+        },
+        {
+          "market": "double_chance",
+          "selection": "KV Kortrijk o empate",
+          "p": 0.17732170548088688,
+          "fairOdds": 5.639467527610645
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8892315293974885,
+          "fairOdds": 1.1245665127029
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8835870142044367,
+          "fairOdds": 1.1317504489361232
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7191332784655021,
+          "fairOdds": 1.390562820474413
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.2808667215344979,
+          "fairOdds": 3.560407564614854
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.511460753094661,
+          "fairOdds": 1.9551842325131843
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.488539246905339,
+          "fairOdds": 2.0469184540126895
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.4974110845741748,
+          "fairOdds": 2.010409560647574
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.5025889154258252,
+          "fairOdds": 1.9896976819569063
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sint-Truidense VV más de 1.5",
+          "line": 1.5,
+          "p": 0.7976678413506662,
+          "fairOdds": 1.2536546519247047
+        },
+        {
+          "market": "team_totals",
+          "selection": "Sint-Truidense VV menos de 1.5",
+          "line": 1.5,
+          "p": 0.20233215864933385,
+          "fairOdds": 4.942368067812301
+        },
+        {
+          "market": "team_totals",
+          "selection": "KV Kortrijk más de 1.5",
+          "line": 1.5,
+          "p": 0.17279681780781875,
+          "fairOdds": 5.787143609971918
+        },
+        {
+          "market": "team_totals",
+          "selection": "KV Kortrijk menos de 1.5",
+          "line": 1.5,
+          "p": 0.8272031821921813,
+          "fairOdds": 1.2088928349500394
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.10675954088188679,
+          "fairOdds": 9.366844328286762
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–0",
+          "p": 0.10601940343984394,
+          "fairOdds": 9.43223568096576
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.07990034004481152,
+          "fairOdds": 12.515591290840032
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Sint-Truidense VV gana",
+              "p": 0.8226782945191131,
+              "fairOdds": 1.215541976325677
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.11076847060251153,
+              "fairOdds": 9.027839732377114
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "KV Kortrijk gana",
+              "p": 0.06655323487837536,
+              "fairOdds": 15.025565651729462
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Sint-Truidense VV o empate",
+              "p": 0.9334467651216246,
+              "fairOdds": 1.071298372189124
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "KV Kortrijk o empate",
+              "p": 0.17732170548088688,
+              "fairOdds": 5.639467527610645
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8892315293974885,
+              "fairOdds": 1.1245665127029
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8835870142044367,
+              "fairOdds": 1.1317504489361232
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7191332784655021,
+              "fairOdds": 1.390562820474413
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.2808667215344979,
+              "fairOdds": 3.560407564614854
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.511460753094661,
+              "fairOdds": 1.9551842325131843
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.488539246905339,
+              "fairOdds": 2.0469184540126895
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.4974110845741748,
+              "fairOdds": 2.010409560647574
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.5025889154258252,
+              "fairOdds": 1.9896976819569063
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Sint-Truidense VV más de 1.5",
+              "line": 1.5,
+              "p": 0.7976678413506662,
+              "fairOdds": 1.2536546519247047
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Sint-Truidense VV menos de 1.5",
+              "line": 1.5,
+              "p": 0.20233215864933385,
+              "fairOdds": 4.942368067812301
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "KV Kortrijk más de 1.5",
+              "line": 1.5,
+              "p": 0.17279681780781875,
+              "fairOdds": 5.787143609971918
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "KV Kortrijk menos de 1.5",
+              "line": 1.5,
+              "p": 0.8272031821921813,
+              "fairOdds": 1.2088928349500394
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.10675954088188679,
+              "fairOdds": 9.366844328286762
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-0",
+              "label": "3–0",
+              "p": 0.10601940343984394,
+              "fairOdds": 9.43223568096576
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.07990034004481152,
+              "fairOdds": 12.515591290840032
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 0,
+        "p": 0.10675954088188679
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "2.19 goles/partido",
+          "detail": "23 % más que la media · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.77 concedidos/partido",
+          "detail": "29 % más que la media · 11 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.75 goles/partido",
+          "detail": "56 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.69 concedidos/partido",
+          "detail": "23 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.36",
+          "detail": "estimada de 101 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.6–5.6",
+          "detail": "local 62%–95% · 101 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "10.º · 12 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "18.º · 4 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-G-E · 4 pts",
+          "detail": "12 goles a favor · 12 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-E-P-P · 4 pts",
+          "detail": "3 goles a favor · 8 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Pro League Bélgica · corte 21 nov 2026, 17:52",
+        "Fuerza ajustada por rival · SIN 1.23 / 1.23 · KVK 0.44 / 1.29",
+        "Ponderando 90.1 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.98 – 0.75 · total 3.73",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 3–0"
+      ],
+      "inputsAsOf": "2026-11-21T17:52:46.097Z",
+      "publishedAt": "2026-11-21T17:52:46.097Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Sint-Truidense VV o empate",
+          "p": 0.9334467651216246,
+          "fairOdds": 1.071298372189124
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "over_3.5",
+          "label": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.511460753094661,
+          "fairOdds": 1.9551842325131843
+        }
+      ],
+      "confidence": {
+        "score": 91,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 3,
+        "away": 0,
+        "p": 0.10601940343984394
+      },
+      "insights": {
+        "why": [
+          "Sint-Truidense VV gana en 82% de los escenarios; el empate, en 11%.",
+          "KV Kortrijk anota 56 % menos que la media.",
+          "KV Kortrijk concede 29 % más que la media."
+        ],
+        "restDays": {
+          "home": 29
+        }
+      },
+      "picksAt": "2026-11-21T17:52:46.097Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Sint- Truiden",
+        "venueCountry": "Belgium",
+        "venueCapacity": 14600
+      }
     }
   },
   "standings": [
@@ -24093,19 +24108,19 @@
       "name": "RC Sporting Charleroi",
       "shortName": "RC Sporting Charleroi",
       "code": "SPO",
-      "played": 11,
+      "played": 12,
       "won": 9,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 2,
-      "goalsFor": 26,
-      "goalsAgainst": 13,
-      "points": 27,
+      "goalsFor": 28,
+      "goalsAgainst": 15,
+      "points": 28,
       "form": [
-        "W",
         "W",
         "L",
         "W",
-        "W"
+        "W",
+        "D"
       ]
     },
     {
@@ -24209,6 +24224,26 @@
       ]
     },
     {
+      "teamId": "pro-league-belgica.sint-truidense-vv",
+      "name": "Sint-Truidense VV",
+      "shortName": "Sint-Truidense VV",
+      "code": "SIN",
+      "played": 12,
+      "won": 3,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 24,
+      "goalsAgainst": 24,
+      "points": 12,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "D"
+      ]
+    },
+    {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
       "name": "Oud-Heverlee Leuven",
       "shortName": "Oud-Heverlee Leuven",
@@ -24266,26 +24301,6 @@
         "W",
         "W",
         "L"
-      ]
-    },
-    {
-      "teamId": "pro-league-belgica.sint-truidense-vv",
-      "name": "Sint-Truidense VV",
-      "shortName": "Sint-Truidense VV",
-      "code": "SIN",
-      "played": 11,
-      "won": 3,
-      "drawn": 2,
-      "lost": 6,
-      "goalsFor": 22,
-      "goalsAgainst": 22,
-      "points": 11,
-      "form": [
-        "L",
-        "L",
-        "L",
-        "L",
-        "W"
       ]
     },
     {
