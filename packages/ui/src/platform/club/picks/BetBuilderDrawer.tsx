@@ -549,7 +549,11 @@ export function BetBuilderDrawer({
                         <span className="pl-bb-sgp-meta num">
                           {(candidate.p * 100).toFixed(1)} % · Justo{" "}
                           {formatOddsValue(candidate.fairDecimal, oddsFormat)}
-                          {!check.allowed && !inSlip ? " · Conflicto de eje" : ""}
+                          {!check.allowed && !inSlip
+                            ? check.code === "sgp_limit"
+                              ? " · Máx. 2 SGP"
+                              : " · Conflicto de eje"
+                            : ""}
                         </span>
                       </div>
                       <Button
@@ -565,7 +569,15 @@ export function BetBuilderDrawer({
                         onClick={() => handleToggleSuggestion(candidate, inSlip, check)}
                       >
                         <MaestroIcon name={inSlip ? "check" : "plus"} size={13} />
-                        <span>{inSlip ? "En boleto" : check.allowed ? "Unir" : "Choca"}</span>
+                        <span>
+                          {inSlip
+                            ? "En boleto"
+                            : check.allowed
+                              ? "Unir"
+                              : check.code === "sgp_limit"
+                                ? "Límite"
+                                : "Choca"}
+                        </span>
                       </Button>
                     </li>
                   );

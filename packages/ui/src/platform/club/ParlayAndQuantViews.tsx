@@ -287,14 +287,17 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         const hay =
           `${g.home.name} ${g.away.name} ${g.home.shortName} ${g.away.shortName} ${g.leagueLabel}`.toLowerCase();
         if (hay.includes(q)) return true;
-        return g.picks.some(
-          (pk) =>
-            pk.label.toLowerCase().includes(q) || pk.categoryLabel.toLowerCase().includes(q),
-        );
+        return g.picks.some((pk) => {
+          const unlocked = isPickUnlocked(pk, g.status, viewerRole);
+          return (
+            pk.categoryLabel.toLowerCase().includes(q) ||
+            (unlocked && pk.label.toLowerCase().includes(q))
+          );
+        });
       }
       return true;
     });
-  }, [effectiveLeague, manualQuery, openGamesAll, sportFilter]);
+  }, [effectiveLeague, manualQuery, openGamesAll, sportFilter, viewerRole]);
 
   const maxAutoLegs = Math.max(2, allowSgp ? allOpenGames.length * 2 : allOpenGames.length);
   const effectiveAutoLegCount = Math.min(maxAutoLegs, Math.max(2, autoLegCount));
@@ -360,16 +363,19 @@ export function ParlayBuilderClubView(): React.JSX.Element {
           }
         }
         if (q) {
+          const unlocked = isPickUnlocked(pick, game.status, viewerRole);
           const matchHay =
             `${game.home.name} ${game.away.name} ${game.home.shortName} ${game.away.shortName} ${game.leagueLabel}`.toLowerCase();
-          const pickHay = `${pick.label} ${pick.categoryLabel}`.toLowerCase();
+          const pickHay = unlocked
+            ? `${pick.label} ${pick.categoryLabel}`.toLowerCase()
+            : pick.categoryLabel.toLowerCase();
           if (!matchHay.includes(q) && !pickHay.includes(q)) continue;
         }
         rows.push(buildPickerRow(game, pick));
       }
     }
     return rows;
-  }, [allOpenGames, buildPickerRow, categoryFilter, manualQuery]);
+  }, [allOpenGames, buildPickerRow, categoryFilter, manualQuery, viewerRole]);
 
   const visibleManualRows = useMemo(
     () => manualPickerRowsAll.slice(0, catalogLimit),
@@ -612,7 +618,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 {shortDateLabel(row.game.dayId)} {row.game.kickoffLocal}
               </span>
             </span>
-            <span className="pl-pb-pick-label">{row.pick.label}</span>
+            <span className="pl-pb-pick-label">
+              {row.unlocked ? row.pick.label : "Selección reservada Pase PitchLab Ultra"}
+            </span>
             <span className="pl-pb-pick-cat">
               {row.game.leagueLabel} · {row.pick.categoryLabel}
             </span>
@@ -635,7 +643,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   ? formatOddsValue(row.bestOddsDecimal, oddsFormat)
                   : null
               }
-              evPct={row.evPct}
+              evPct={null}
             />
           ) : (
             <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
@@ -1124,6 +1132,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       rows={autoTableRows}
                       rowKey={(row) => row.id}
                       density="compact"
+                      className="pl-pb-table-wrap"
                       emptyState={
                         <SofascoreEmptyState
                           title="Sin partidos abiertos con ese filtro"
@@ -1176,6 +1185,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         rows={visibleManualRows}
                         rowKey={(row) => row.id}
                         density="compact"
+                        className="pl-pb-table-wrap"
                         emptyState={
                           <SofascoreEmptyState
                             title="Sin selecciones abiertas con ese filtro"

@@ -160,6 +160,8 @@ export function MobileParlaySheet({
     scrollContainerRef: listRef,
   });
 
+  const hasLegs = parlayLegs.length > 0;
+
   useSafeEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
@@ -174,7 +176,7 @@ export function MobileParlaySheet({
       dialog.returnValue = "";
       dialog.close();
     }
-  }, [open]);
+  }, [open, hasLegs]);
 
   useSafeEffect(() => {
     const dialog = dialogRef.current;
@@ -221,9 +223,9 @@ export function MobileParlaySheet({
         dialog.removeEventListener("pointerup", onPointerUp);
       }
     };
-  }, [closeSheet]);
+  }, [closeSheet, hasLegs]);
 
-  if (parlayLegs.length === 0) return null;
+  if (!hasLegs) return null;
 
   const oddsText = formatOddsValue(effectiveFairDecimal, oddsFormat);
 
