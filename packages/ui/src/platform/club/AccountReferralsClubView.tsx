@@ -7,7 +7,7 @@ import {
   AtmosphereStage,
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import { usePlatformActions, usePlatformCore } from "../platform-provider";
 import { Avatar, TabPanel, UnderlineTabs, type TabDef } from "./community-ui";
 import {
   resolveSessionIdentity,
@@ -28,10 +28,6 @@ import { PrefsTab, type PrefsTabStoryOverride } from "./account/PrefsTab";
 
 export type AccountTabKey = "referrals" | "plan" | "prefs" | "cfdi";
 
-/**
- * Facturación (CFDI) queda apagada en la beta: sin Facturapi no hay nada que hacer ahí. Para
- * encenderla basta con cambiar esta bandera; `?tab=cfdi` mientras tanto abre «Mi plan».
- */
 export const BILLING_TAB_ENABLED = false;
 
 const ACCOUNT_TABS: readonly TabDef<AccountTabKey>[] = [
@@ -50,7 +46,6 @@ function isAccountTabKey(value: unknown): value is AccountTabKey {
   );
 }
 
-/** Pestaña pedida (URL o prop) → pestaña visible; Facturación apagada cae en «Mi plan». */
 export function resolveAccountTab(value: unknown): AccountTabKey | null {
   if (value === "preferencias") return "prefs";
   if (isAccountTabKey(value)) return value;
@@ -84,10 +79,9 @@ export function AccountReferralsClubView({
     viewerRole,
     hasAccountSessionAuth,
     memberReferralsSnapshot,
-    memberReferralsLoaded,
-    navigateTo,
     viewerIdentity,
-  } = usePlatform();
+  } = usePlatformCore();
+  const { navigateTo } = usePlatformActions();
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
 
   const [accountTab, setAccountTabState] = useState<AccountTabKey>(
@@ -100,7 +94,8 @@ export function AccountReferralsClubView({
     accountsEnabled &&
       !storyOverride?.invite &&
       !initialServerReferrals &&
-      !memberReferralsLoaded,
+      !memberReferralsSnapshot &&
+      !viewerIdentity?.referralCode,
   );
 
   const handlePrefsSaved = useCallback(() => {

@@ -1,13 +1,5 @@
-/**
- * Validación de los textos de Cortex IA (compartida por la web y la ingesta).
- *
- * El LLM solo redacta: todo número del texto tiene que estar en los datos que recibió, sin
- * proveedores ni algoritmos (FD-16), sin muletillas de chat ni lenguaje de apuesta, y con los
- * roles local/visitante y el favorito sin invertir (las fallas medidas en Astra).
- */
 export const CORTEX_MAX_CHARS = 520;
 
-/** Términos que no pueden aparecer en la UI (FD-16 + proveedores + competidores). */
 export const FORBIDDEN_TERMS = [
   "dixon", "coles", "poisson", "logit", "logistic", "elo", "kelly", "shin", "devig", "de-vig",
   "lightgbm", "platt", "pitágoras", "pitagoras", "log5",
@@ -15,11 +7,11 @@ export const FORBIDDEN_TERMS = [
   "understat", "espn", "transfermarkt", "rotowire", "clubelo", "open-meteo", "pinnacle",
   "action network", "smarkets", "polymarket", "kalshi", "sumersports", "ourlads", "fbref",
   "opta", "statiskicks", "touchiq", "aztecavet", "linemate",
+  "bzzoiro", "sportmonks", "scoutpicks", "sofascore", "astraanalisis",
 ];
 
 export interface CortexFacts {
   partido: string;
-  /** Roles explícitos: el JSON ambiguo «local vs visitante» fue la causa de las inversiones de Astra. */
   local: string;
   visitante: string;
   liga: string;
@@ -29,15 +21,12 @@ export interface CortexFacts {
   factores: string[];
   bajas: string[];
   estadio: string | null;
-  /** Datos extra por sección (goles, córners, tabla, descanso…); todo número aquí queda permitido. */
   extras?: Record<string, unknown>;
 }
-
 
 const INJECTION_PATTERNS =
   /\b(?:ignore\s+(?:all\s+)?previous(?:\s+instructions)?|disregard\s+instructions|ignora\s+(?:todas\s+)?las\s+instrucciones|olvida\s+las\s+reglas)\b|\b(?:system|assistant|developer)\s*:/gi;
 
-/** Limpia cadenas provenientes de fuentes externas antes de interpolarlas en el prompt del LLM. */
 export function sanitizeCortexField(raw: string | null | undefined, maxLen: number = 80): string {
   if (!raw) return "";
   return raw
@@ -48,7 +37,6 @@ export function sanitizeCortexField(raw: string | null | undefined, maxLen: numb
     .slice(0, maxLen);
 }
 
-/** Números permitidos en el texto: los que aparecen en los datos. */
 export function allowedNumbers(facts: CortexFacts): Set<string> {
   const out = new Set<string>();
   const text = JSON.stringify(facts);
@@ -58,6 +46,11 @@ export function allowedNumbers(facts: CortexFacts): Set<string> {
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function parsePercentFloat(raw: string | null): number {
+  if (!raw) return Number.NaN;
+  return Number.parseFloat(raw);
 }
 
 export function validateCortexText(
@@ -77,6 +70,8 @@ export function validateCortexText(
   if (filler) return { ok: false, reason: "muletilla_de_chat" };
   const betting = BETTING_LANGUAGE.find((re) => re.test(lower));
   if (betting) return { ok: false, reason: "lenguaje_de_apuesta" };
+  const editorial = EDITORIAL_FORBIDDEN.find((re) => re.test(lower));
+  if (editorial) return { ok: false, reason: "jerga_editorial_prohibida" };
   const allowed = allowedNumbers(facts);
   for (const m of clean.matchAll(/\d+(?:[.,]\d+)?/g)) {
     if (!allowed.has(m[0].replace(",", "."))) return { ok: false, reason: `numero_no_respaldado:${m[0]}` };
@@ -86,10 +81,6 @@ export function validateCortexText(
   return { ok: true, text: clean };
 }
 
-/**
- * Muletillas que delatan al chat (Astra publicó «perdón», «el JSON» y autocorrecciones).
- * Se buscan sobre el texto en minúsculas.
- */
 const CHAT_FILLER: readonly RegExp[] = [
   /\bjson\b/,
   /datos_partido/,
@@ -101,13 +92,17 @@ const CHAT_FILLER: readonly RegExp[] = [
   /\bno tengo (?:acceso|informaci[oó]n)\b/,
 ];
 
-/** Lenguaje que incita a apostar o promete resultados. */
 const BETTING_LANGUAGE: readonly RegExp[] = [
   /\bapuesta segura\b/,
   /\bgarantiz/,
   /\bno (?:puede|va a) fallar\b/,
   /\bstake\b/,
   /\bapuesta (?:ya|fuerte|todo)\b/,
+];
+
+const EDITORIAL_FORBIDDEN: readonly RegExp[] = [
+  /\bconfianza\s*\d/,
+  /\bdatos\s+(?:completos|parciales)\b/,
 ];
 
 interface TeamRef {
@@ -131,7 +126,6 @@ function percentNumber(value: string | undefined): string | null {
   return m ? m[0].replace(",", ".") : null;
 }
 
-/** Posiciones de cada mención de un equipo dentro de una oración. */
 function mentions(sentence: string, ref: TeamRef): number[] {
   const lower = sentence.toLowerCase();
   const out: number[] = [];
@@ -142,13 +136,6 @@ function mentions(sentence: string, ref: TeamRef): number[] {
   return out;
 }
 
-/**
- * Coherencia equipo ↔ dato (las fallas medidas en Astra: 20.7 % de inversiones en NFL).
- *  - «favorito» junto a un solo equipo: tiene que ser el de mayor probabilidad del modelo.
- *  - «NN %» atribuido a un equipo: tiene que ser su probabilidad (modelo o mercado), no la del rival.
- *  - El visitante no puede aparecer «en casa» / «como local», ni el local «de visita».
- * Devuelve el motivo del rechazo o `null`.
- */
 export function checkTeamConsistency(text: string, facts: CortexFacts): string | null {
   const refs = teamRefs(facts);
   if (refs.length !== 2) return null;
@@ -156,8 +143,8 @@ export function checkTeamConsistency(text: string, facts: CortexFacts): string |
   const valuesOf = (key: string) =>
     new Set([probOf(key, facts.probabilidades), probOf(key, facts.mercado?.probabilidades)].filter(Boolean));
   const [home, away] = refs as [TeamRef, TeamRef];
-  const modelHome = Number(probOf(home.key, facts.probabilidades) ?? NaN);
-  const modelAway = Number(probOf(away.key, facts.probabilidades) ?? NaN);
+  const modelHome = parsePercentFloat(probOf(home.key, facts.probabilidades));
+  const modelAway = parsePercentFloat(probOf(away.key, facts.probabilidades));
   const favorite = modelHome > modelAway ? home : modelAway > modelHome ? away : null;
 
   for (const sentence of text.split(/(?<=[.!?;])\s+/)) {
@@ -186,7 +173,6 @@ export function checkTeamConsistency(text: string, facts: CortexFacts): string |
       const value = m[1]!.replace(",", ".");
       const start = m.index ?? 0;
       const end = start + m[0].length;
-      // «NN % para / de / a favor de <equipo>» manda sobre el equipo anterior.
       const following = lower.slice(end, end + 40);
       let owner: TeamRef | null =
         refs.find((r) =>
@@ -204,7 +190,6 @@ export function checkTeamConsistency(text: string, facts: CortexFacts): string |
             }
           }
         }
-        // Si entre el equipo y el número hay «empate», el número es del empate.
         if (owner && /empate/.test(lower.slice(best, start))) owner = null;
       }
       if (!owner) continue;
