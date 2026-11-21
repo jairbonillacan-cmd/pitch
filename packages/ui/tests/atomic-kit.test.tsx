@@ -659,6 +659,25 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     );
     expect(emptyBetLabHtml).toContain('data-atomic-betlab="empty"');
     assertCleanEditorialHtml(emptyBetLabHtml, "PropBetLabChart(empty)");
+
+    const nanMinutesHtml = renderToStaticMarkup(
+      <PropBetLabChart
+        playerName="Henry Martín"
+        statLabel="Goles"
+        unitLabel="goles"
+        sport="football"
+        line={0}
+        points={[
+          { id: "nan1", label: "J16", opponent: "Atlas", value: 1, minutes: Number.NaN, isHome: true },
+          { id: "nan2", label: "J17", opponent: "Puebla", value: 0, minutes: Number.POSITIVE_INFINITY, isHome: false },
+        ]}
+        onLineChange={() => {}}
+      />,
+    );
+    expect(nanMinutesHtml).not.toContain("NaN");
+    expect(nanMinutesHtml).not.toContain("Infinity");
+    expect(nanMinutesHtml).toMatch(/aria-label="Bajar línea en 0\.5"[^>]*disabled/);
+    assertCleanEditorialHtml(nanMinutesHtml, "PropBetLabChart(nan-minutes-zero-line)");
   });
 
   it("renderiza LivePickProgressBar con los 5 estados asiáticos, proyección residual y alerta titular_en_banca", () => {
@@ -701,6 +720,32 @@ describe("Componentes atómicos editoriales (`packages/ui/src/platform/atomic/*`
     });
     expect(overMetrics.tone).toBe("on_pace");
     expect(overMetrics.projectedPct).toBeGreaterThan(overMetrics.targetPct);
+
+    const zeroTargetMetrics = computeLiveProgressMetrics({
+      actualValue: 0.2,
+      targetLine: 0,
+      direction: "over",
+    });
+    expect(zeroTargetMetrics.tone).toBe("won");
+    expect(zeroTargetMetrics.targetPct).toBe(0);
+    expect(zeroTargetMetrics.actualPct).toBeGreaterThan(zeroTargetMetrics.targetPct);
+
+    const zeroTargetHtml = renderToStaticMarkup(
+      <LivePickProgressBar
+        pickLabel="Más de 0 goles"
+        matchLabel="América vs Atlas"
+        clockLabel="22'"
+        actualValue={0.2}
+        targetLine={0}
+        unitLabel="goles"
+        direction="over"
+      />,
+    );
+    expect(zeroTargetHtml).toContain('data-tone="won"');
+    expect(zeroTargetHtml).toContain("inset-inline-start:0%");
+    expect(zeroTargetHtml).toContain("inline-size:20%");
+    expect(zeroTargetHtml).not.toContain("NaN");
+    assertCleanEditorialHtml(zeroTargetHtml, "LivePickProgressBar(targetLine=0)");
 
     const benchAlertHtml = renderToStaticMarkup(
       <LivePickProgressBar

@@ -10,6 +10,7 @@ type ProgressProps = React.ComponentProps<typeof LivePickProgressBar>;
 
 interface AsianStateFixture {
   readonly state: LiveAsianPickState;
+  readonly direction: "over" | "handicap";
   readonly pickLabel: string;
   readonly matchLabel: string;
   readonly clockLabel: string;
@@ -22,26 +23,29 @@ interface AsianStateFixture {
 const ASIAN_STATE_FIXTURES: readonly AsianStateFixture[] = [
   {
     state: "won_full",
+    direction: "handicap",
     pickLabel: "América -0.5 (Hándicap asiático)",
     matchLabel: "América 2-0 Cruz Azul",
     clockLabel: "78'",
     actualValue: 2,
-    targetLine: 0.5,
+    targetLine: -0.5,
     unitLabel: "dif.",
     projectedFinal: 2.2,
   },
   {
     state: "won_half",
+    direction: "handicap",
     pickLabel: "América +0.25 (Hándicap asiático)",
     matchLabel: "América 1-1 Tigres",
     clockLabel: "81'",
     actualValue: 0,
-    targetLine: -0.25,
+    targetLine: 0.25,
     unitLabel: "dif.",
     projectedFinal: 0.1,
   },
   {
     state: "push",
+    direction: "over",
     pickLabel: "Más de 2.0 goles (Línea asiática)",
     matchLabel: "Arsenal 1-1 Chelsea",
     clockLabel: "72'",
@@ -52,21 +56,23 @@ const ASIAN_STATE_FIXTURES: readonly AsianStateFixture[] = [
   },
   {
     state: "lost_half",
+    direction: "handicap",
     pickLabel: "Cruz Azul -0.25 (Hándicap asiático)",
     matchLabel: "Cruz Azul 0-0 Monterrey",
     clockLabel: "84'",
     actualValue: 0,
-    targetLine: 0.25,
+    targetLine: -0.25,
     unitLabel: "dif.",
     projectedFinal: 0.1,
   },
   {
     state: "lost_full",
+    direction: "handicap",
     pickLabel: "Chivas -1.0 (Hándicap asiático)",
     matchLabel: "Chivas 0-1 Atlas",
     clockLabel: "86'",
     actualValue: -1,
-    targetLine: 1.0,
+    targetLine: -1.0,
     unitLabel: "dif.",
     projectedFinal: -0.8,
   },
@@ -172,7 +178,7 @@ export const CincoEstadosAsiaticosOscuro: Story = {
           actualValue={item.actualValue}
           targetLine={item.targetLine}
           unitLabel={item.unitLabel}
-          direction="handicap"
+          direction={item.direction}
           projectedFinal={item.projectedFinal}
           asianState={item.state}
         />
@@ -228,7 +234,7 @@ export const MovilOscuro: Story = {
         matchLabel="América 1-1 Tigres"
         clockLabel="81'"
         actualValue={0}
-        targetLine={-0.25}
+        targetLine={0.25}
         unitLabel="dif."
         direction="handicap"
         projectedFinal={0.1}

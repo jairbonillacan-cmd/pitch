@@ -138,7 +138,31 @@ describe("Kit Base de Primitivas Neutrales (.pl-sf-*) y Botón 3 Jerarquías", (
     expect(buttonVariants({ variant: "outline" })).toContain("bg-secondary");
     expect(buttonVariants({ variant: "destructive" })).toContain("text-destructive");
     expect(buttonVariants({ variant: "link" })).toContain("bg-transparent");
+    expect(buttonVariants({ size: "sm" })).toContain(
+      "[@media(min-width:768px)_and_(pointer:fine)]:min-h-9",
+    );
+    expect(buttonVariants({ size: "sm" })).not.toContain("sm:min-h-9");
     expect(buttonVariants({ size: "icon-sm" })).toContain("min-h-11");
+    expect(buttonVariants({ size: "icon-sm" })).toContain(
+      "[@media(min-width:768px)_and_(pointer:fine)]:size-9",
+    );
+    expect(buttonVariants({ size: "icon-sm" })).not.toContain("sm:size-9");
+
+    const overrideProps: React.ComponentProps<typeof Button> & {
+      "data-slot": string;
+    } = {
+      disabled: true,
+      focusableWhenDisabled: true,
+      "aria-disabled": false,
+      "data-slot": "custom",
+    };
+    const protectedButtonHtml = renderToStaticMarkup(
+      <Button {...overrideProps}>Protegido</Button>,
+    );
+    expect(protectedButtonHtml).toContain('data-slot="button"');
+    expect(protectedButtonHtml).not.toContain('data-slot="custom"');
+    expect(protectedButtonHtml).toContain('aria-disabled="true"');
+    expect(protectedButtonHtml).not.toContain('aria-disabled="false"');
 
     assertFd16Clean(html, "Button");
   });
@@ -297,6 +321,36 @@ describe("Kit Base de Primitivas Neutrales (.pl-sf-*) y Botón 3 Jerarquías", (
     );
     expect(emptySignals).toBe("");
 
+    const labelledCardHtml = renderToStaticMarkup(
+      <SofascoreCard id="mercados-card" title="Mercados">
+        <p>Contenido</p>
+      </SofascoreCard>,
+    );
+    expect(labelledCardHtml).toContain('aria-labelledby="mercados-card-title"');
+    expect(labelledCardHtml).toContain('<h2 id="mercados-card-title"');
+
+    const untitledCardHtml = renderToStaticMarkup(
+      <SofascoreCard>
+        <p>Sin título</p>
+      </SofascoreCard>,
+    );
+    expect(untitledCardHtml).not.toContain("aria-labelledby=");
+
+    const divCardHtml = renderToStaticMarkup(
+      <SofascoreCard id="bloque-div" title="Bloque" as="div">
+        <p>Contenido</p>
+      </SofascoreCard>,
+    );
+    expect(divCardHtml).not.toContain("aria-labelledby=");
+
+    const labelledSettingsHtml = renderToStaticMarkup(
+      <SettingsGroup id="prefs-group" title="Preferencias">
+        <SettingsRow title="Tema" value="Oscuro" />
+      </SettingsGroup>,
+    );
+    expect(labelledSettingsHtml).toContain('aria-labelledby="prefs-group-heading"');
+    expect(labelledSettingsHtml).toContain('<h2 id="prefs-group-heading"');
+
     assertFd16Clean(html, "SofascorePrimitives");
   });
 
@@ -340,6 +394,7 @@ describe("Kit Base de Primitivas Neutrales (.pl-sf-*) y Botón 3 Jerarquías", (
     expect(css).toContain(".pl-sf-card");
     expect(css).toContain(".pl-sf-table");
     expect(css).toContain(".pl-sf-tabs");
+    expect(css).toContain("min-inline-size: 44px");
     expect(css).toContain("min-block-size: 44px");
     expect(css).toContain("font-size: 16px");
     expect(css).not.toMatch(/sofascore/i);
