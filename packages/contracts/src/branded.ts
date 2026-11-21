@@ -200,7 +200,7 @@ export function parseStrictFiniteNumber(raw: unknown): number | null {
     if (!STRICT_CANONICAL_NUMBER_RE.test(trimmed)) {
       return null;
     }
-    const parsed = Number(trimmed);
+    const parsed = Number.parseFloat(trimmed);
     if (!Number.isFinite(parsed)) {
       return null;
     }

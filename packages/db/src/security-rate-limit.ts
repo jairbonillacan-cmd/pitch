@@ -109,7 +109,14 @@ export async function incrementPgRateBucket(
     })
     .returning({ hits: securityRateBuckets.hits });
 
-  const hits = Number(rows[0]?.hits ?? 1);
+  const rawHits = rows[0]?.hits;
+  const parsedHits =
+    typeof rawHits === "number"
+      ? rawHits
+      : typeof rawHits === "string"
+        ? Number.parseInt(rawHits, 10)
+        : 1;
+  const hits = Number.isFinite(parsedHits) && parsedHits > 0 ? Math.trunc(parsedHits) : 1;
   return { hits, resetAtMs };
 }
 
