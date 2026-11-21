@@ -83,7 +83,7 @@ function mirrorToAccountPrefsStorage(next: LocalResponsibleState): void {
   writeStoredPrefs({
     ...current,
     pauseChoice: next.pauseChoice,
-    pauseChosenAtIso: next.pauseUntilIso,
+    pauseChosenAtIso: next.pauseChoice ? new Date().toISOString() : null,
     privacy: {
       ...current.privacy,
       pauseCommunity: next.pauseCommunity,
@@ -102,11 +102,12 @@ export function ResponsiblePlayControls({
   disableNetwork = false,
   className,
 }: ResponsiblePlayControlsProps = {}): React.JSX.Element {
-  const sessionQuery = useAbortableJson<{ authenticated?: boolean }>(
-    disableNetwork ? null : "/api/public/session",
-    { enabled: !disableNetwork },
-  );
+  const sessionQuery = useAbortableJson<{
+    authenticated?: boolean;
+    hasAccountSession?: boolean;
+  }>(disableNetwork ? null : "/api/public/session", { enabled: !disableNetwork });
   const hasSession = sessionQuery.data?.authenticated === true;
+  const hasAccountSession = sessionQuery.data?.hasAccountSession === true;
 
   const [state, setState] = useLocalStorageState<LocalResponsibleState>(
     "pl-responsible-play-v1",
@@ -124,7 +125,7 @@ export function ResponsiblePlayControls({
     setState(next);
     mirrorToAccountPrefsStorage(next);
 
-    if (!hasSession || disableNetwork || typeof fetch !== "function") {
+    if (!hasAccountSession || disableNetwork || typeof fetch !== "function") {
       setSyncMessage(`${localConfirmation} Guardado en este dispositivo.`);
       return;
     }

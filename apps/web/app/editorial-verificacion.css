@@ -867,6 +867,27 @@
     word-break: break-word;
   }
 
+  .pl-ver-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-block-size: 44px;
+    min-inline-size: 44px;
+    padding-block: 4px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--pl-text-muted);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .pl-ver-summary:focus-visible {
+    outline: 2px solid var(--pl-brand);
+    outline-offset: 2px;
+    border-radius: var(--radius-control, 8px);
+  }
+
   .pl-ver-steps {
     display: flex;
     flex-direction: column;
@@ -1165,7 +1186,8 @@
     .pl-rp-pause-btn,
     .pl-rp-switch,
     .pl-rp-tel-btn,
-    .pl-ed-faq-btn {
+    .pl-ed-faq-btn,
+    .pl-ver-summary {
       min-block-size: 44px;
       min-inline-size: 44px;
     }

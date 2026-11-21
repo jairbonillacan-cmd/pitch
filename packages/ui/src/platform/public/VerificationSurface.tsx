@@ -69,6 +69,9 @@ export const EXAMPLE_VERIFICATION_RECEIPT_JSON = JSON.stringify(
 );
 
 const SHA256_HEX_RE = /^[0-9a-f]{64}$/;
+const TRAILING_HASH_FOOTER_RE =
+  /^([\s\S]*?)\r?\n(?:SHA-256|sha256|Hash):\s*([0-9a-fA-F]{64})\s*$/;
+const PROFILE_RECORD_PREFIX = "pitchlab-record-v1|";
 const HASH_FIELD_KEYS = new Set(["sha256", "sealHash", "seal_hash", "expectedHash", "hash"]);
 
 function isPlainRecord(value: unknown): value is Record<string, unknown> {
@@ -108,20 +111,12 @@ export interface ExtractedReceiptInput {
   readonly sealedAtUtc: string | null;
 }
 
-export function extractReceiptInput(rawText: string): ExtractedReceiptInput {
-  const trimmed = rawText.trim();
-  if (trimmed.length === 0) {
-    return {
-      canonicalPayload: "",
-      embeddedHash: null,
-      formatLabel: "Vacío",
-      kickoffUtc: null,
-      sealedAtUtc: null,
-    };
-  }
-
+function parseJsonReceiptInput(
+  text: string,
+  fallbackHash: string | null,
+): ExtractedReceiptInput | null {
   try {
-    const parsed: unknown = JSON.parse(trimmed);
+    const parsed: unknown = JSON.parse(text);
     if (Array.isArray(parsed)) {
       const kickoffCandidate =
         parsed.length >= 13 && typeof parsed[11] === "string" ? parsed[11] : null;
@@ -129,7 +124,7 @@ export function extractReceiptInput(rawText: string): ExtractedReceiptInput {
         parsed.length >= 13 && typeof parsed[12] === "string" ? parsed[12] : null;
       return {
         canonicalPayload: JSON.stringify(parsed),
-        embeddedHash: null,
+        embeddedHash: fallbackHash,
         formatLabel: "Tupla canónica JSON",
         kickoffUtc: kickoffCandidate,
         sealedAtUtc: sealedCandidate,
@@ -137,13 +132,14 @@ export function extractReceiptInput(rawText: string): ExtractedReceiptInput {
     }
 
     if (isPlainRecord(parsed)) {
-      const embeddedHash = readOptionalString(parsed, [
-        "sha256",
-        "sealHash",
-        "seal_hash",
-        "expectedHash",
-        "hash",
-      ]);
+      const embeddedHash =
+        readOptionalString(parsed, [
+          "sha256",
+          "sealHash",
+          "seal_hash",
+          "expectedHash",
+          "hash",
+        ]) ?? fallbackHash;
       if ("payload" in parsed && parsed.payload !== undefined) {
         const inner = parsed.payload;
         const innerRecord = isPlainRecord(inner) ? inner : null;
@@ -177,11 +173,54 @@ export function extractReceiptInput(rawText: string): ExtractedReceiptInput {
   } catch (err) {
     void err;
   }
+  return null;
+}
+
+export function extractReceiptInput(rawText: string): ExtractedReceiptInput {
+  const trimmed = rawText.trim();
+  if (trimmed.length === 0) {
+    return {
+      canonicalPayload: "",
+      embeddedHash: null,
+      formatLabel: "Vacío",
+      kickoffUtc: null,
+      sealedAtUtc: null,
+    };
+  }
+
+  const directJson = parseJsonReceiptInput(trimmed, null);
+  if (directJson) {
+    return directJson;
+  }
+
+  const footerMatch = TRAILING_HASH_FOOTER_RE.exec(trimmed);
+  if (footerMatch) {
+    const body = footerMatch[1] ?? "";
+    const footerHash = (footerMatch[2] ?? "").toLowerCase();
+    const trimmedBody = body.trim();
+    if (trimmedBody.startsWith("{") || trimmedBody.startsWith("[")) {
+      const jsonWithFooter = parseJsonReceiptInput(trimmedBody, footerHash);
+      if (jsonWithFooter) {
+        return jsonWithFooter;
+      }
+    }
+    return {
+      canonicalPayload: body,
+      embeddedHash: footerHash,
+      formatLabel: body.startsWith(PROFILE_RECORD_PREFIX)
+        ? "Recibo de perfil (pitchlab-record-v1)"
+        : "Texto con pie SHA-256",
+      kickoffUtc: null,
+      sealedAtUtc: null,
+    };
+  }
 
   return {
     canonicalPayload: trimmed,
     embeddedHash: null,
-    formatLabel: "Texto UTF-8 directo",
+    formatLabel: trimmed.startsWith(PROFILE_RECORD_PREFIX)
+      ? "Recibo de perfil (pitchlab-record-v1)"
+      : "Texto UTF-8 directo",
     kickoffUtc: null,
     sealedAtUtc: null,
   };
@@ -287,6 +326,7 @@ export function VerificationSurface({
   const [mode, setMode] = useState<VerificationMode>("json");
   const [rawReceipt, setRawReceipt] = useState<string>("");
   const [expectedHashInput, setExpectedHashInput] = useState<string>("");
+  const [lastAutoHash, setLastAutoHash] = useState<string | null>(null);
   const [fields, setFields] = useState<ReceiptStructuredFields>(EXAMPLE_VERIFICATION_FIELDS);
   const [touchedReceipt, setTouchedReceipt] = useState<boolean>(false);
   const [touchedHash, setTouchedHash] = useState<boolean>(false);
@@ -355,6 +395,7 @@ export function VerificationSurface({
 
       if (!nextExpected.trim() && embeddedHash) {
         setExpectedHashInput(embeddedHash);
+        setLastAutoHash(embeddedHash);
       }
 
       setBusy(true);
@@ -392,6 +433,7 @@ export function VerificationSurface({
     setMode("json");
     setRawReceipt(EXAMPLE_VERIFICATION_RECEIPT_JSON);
     setExpectedHashInput(EXAMPLE_VERIFICATION_EXPECTED_SHA256);
+    setLastAutoHash(EXAMPLE_VERIFICATION_EXPECTED_SHA256);
     setFields(EXAMPLE_VERIFICATION_FIELDS);
     setTouchedReceipt(false);
     setTouchedHash(false);
@@ -425,6 +467,7 @@ export function VerificationSurface({
     setMode("json");
     setRawReceipt(tamperedJson);
     setExpectedHashInput(EXAMPLE_VERIFICATION_EXPECTED_SHA256);
+    setLastAutoHash(EXAMPLE_VERIFICATION_EXPECTED_SHA256);
     setTouchedReceipt(false);
     setTouchedHash(false);
     void runVerification(
@@ -438,11 +481,25 @@ export function VerificationSurface({
   const handleClear = (): void => {
     setRawReceipt("");
     setExpectedHashInput("");
+    setLastAutoHash(null);
     setTouchedReceipt(false);
     setTouchedHash(false);
     setRuntimeError(null);
     setOutcome(null);
     setCopiedHash(false);
+  };
+
+  const handleRawReceiptChange = (nextRaw: string): void => {
+    setRawReceipt(nextRaw);
+    const extracted = extractReceiptInput(nextRaw);
+    const currentHash = expectedHashInput.trim().toLowerCase();
+    if (
+      extracted.embeddedHash &&
+      (currentHash.length === 0 || (lastAutoHash !== null && currentHash === lastAutoHash))
+    ) {
+      setExpectedHashInput(extracted.embeddedHash);
+      setLastAutoHash(extracted.embeddedHash);
+    }
   };
 
   const handleCopyComputed = async (): Promise<void> => {
@@ -521,11 +578,11 @@ export function VerificationSurface({
             {mode === "json" ? (
               <div className="pl-ver-field">
                 <label htmlFor={receiptId} className="pl-ver-label">
-                  Recibo JSON o tupla canónica
+                  Recibo JSON, tupla canónica o recibo de perfil
                 </label>
                 <p id={receiptHintId} className="pl-ver-hint">
-                  Pega el recibo exportado desde tu bitácora o perfil. El cálculo corre solo en
-                  memoria local.
+                  Pega un recibo JSON o el texto copiado desde un perfil público
+                  (pitchlab-record-v1|… + SHA-256). El cálculo corre solo en memoria local.
                 </p>
                 <textarea
                   id={receiptId}
@@ -535,13 +592,13 @@ export function VerificationSurface({
                   spellCheck={false}
                   autoCapitalize="none"
                   autoCorrect="off"
-                  placeholder='{"payload": {"league": "Liga MX", ...}, "sha256": "..."}'
+                  placeholder='{"payload": {"league": "Liga MX", ...}, "sha256": "..."} o pitchlab-record-v1|@usuario|...'
                   aria-invalid={showReceiptError ? "true" : "false"}
                   aria-describedby={
                     showReceiptError ? `${receiptHintId} ${receiptErrorId}` : receiptHintId
                   }
                   onBlur={() => setTouchedReceipt(true)}
-                  onChange={(event) => setRawReceipt(event.target.value)}
+                  onChange={(event) => handleRawReceiptChange(event.target.value)}
                   data-ver-json-input=""
                 />
                 {showReceiptError ? (
@@ -771,7 +828,7 @@ export function VerificationSurface({
                 </div>
 
                 <details>
-                  <summary className="pl-ed-muted" style={{ cursor: "pointer" }}>
+                  <summary className="pl-ver-summary">
                     Ver cadena canónica exacta usada para el cálculo SHA-256
                   </summary>
                   <div className="pl-ver-hash-box" style={{ marginTop: 8 }}>
