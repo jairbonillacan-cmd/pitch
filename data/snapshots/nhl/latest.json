@@ -5,7 +5,7 @@
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "21 nov – 23 nov",
-  "updatedAt": "2026-11-21T17:52:41.772Z",
+  "updatedAt": "2026-11-21T19:03:09.826Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -369,7 +369,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-21T18:00:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.carolina-hurricanes",
         "league": "nhl",
@@ -407,6 +407,7 @@
         "shortName": "Blackhawks",
         "code": "CHI"
       },
+      "referee": "TJ Luxmore",
       "neutralSite": false
     },
     {
@@ -1460,6 +1461,9 @@
           "Flames gana en 57 % de los escenarios.",
           "Se esperan 5.53 goles: 2.97 de Flames y 2.56 de Blackhawks."
         ]
+      },
+      "matchContext": {
+        "referee": "TJ Luxmore"
       }
     },
     "nhl-2026-11-21-buf-fla": {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAtUtc": "2026-11-21T18:09:05Z",
+  "generatedAtUtc": "2026-11-21T19:08:59.437Z",
   "overallStatus": "critical",
   "thresholdsHours": {
     "calendario": 30,
@@ -27,13 +27,13 @@
       "label": "Calendario, resultados y bajas",
       "workflowFile": ".github/workflows/pre-mvp-snapshot.yml",
       "status": "degraded",
-      "lastRunAtUtc": "2026-11-21T17:59:10.304Z",
+      "lastRunAtUtc": "2026-11-21T19:08:59.437Z",
       "lastSuccessAtUtc": "2026-11-15T18:45:23.950Z",
-      "durationMs": 10069,
+      "durationMs": 10350,
       "cadenceLabel": "Diario 11:00 UTC + cortes previos en días de partido",
       "lastError": {
         "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (6 < 10).",
-        "failingSinceUtc": "2026-11-21T17:59:10.304Z"
+        "failingSinceUtc": "2026-11-21T19:08:59.437Z"
       }
     }
   ],
@@ -45,8 +45,8 @@
         "calendario": {
           "dataType": "calendario",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 30,
           "sourceLabel": "nflverse",
           "recordsCount": 13,
@@ -56,8 +56,8 @@
         "bajas": {
           "dataType": "bajas",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "nflverse-cc-by-4.0",
           "recordsCount": 130,
@@ -68,7 +68,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-21T18:09:05Z",
-          "ageHours": 0,
+          "ageHours": 1,
           "maxHours": 36,
           "sourceLabel": "Bzzoiro / The Odds API / Betfair",
           "recordsCount": 0,
@@ -96,7 +96,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-21T13:02:18.077Z",
-          "ageHours": 5.1,
+          "ageHours": 6.1,
           "maxHours": 12,
           "sourceLabel": "football-data",
           "recordsCount": 20,
@@ -110,8 +110,8 @@
         "bajas": {
           "dataType": "bajas",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "espn-public-eng.1",
           "recordsCount": 0,
@@ -122,7 +122,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-21T15:54:10Z",
-          "ageHours": 2.2,
+          "ageHours": 3.2,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 763,
@@ -150,7 +150,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-20T19:06:37.907Z",
-          "ageHours": 23,
+          "ageHours": 24,
           "maxHours": 12,
           "sourceLabel": "openfootball+football-data",
           "recordsCount": 20,
@@ -164,8 +164,8 @@
         "bajas": {
           "dataType": "bajas",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "espn-public-esp.1",
           "recordsCount": 0,
@@ -176,7 +176,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-21T18:09:05Z",
-          "ageHours": 0,
+          "ageHours": 1,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 722,
@@ -204,7 +204,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-20T19:06:37.907Z",
-          "ageHours": 23,
+          "ageHours": 24,
           "maxHours": 12,
           "sourceLabel": "openfootball+football-data",
           "recordsCount": 18,
@@ -218,8 +218,8 @@
         "bajas": {
           "dataType": "bajas",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "espn-public-ger.1",
           "recordsCount": 0,
@@ -230,7 +230,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-21T15:54:10Z",
-          "ageHours": 2.2,
+          "ageHours": 3.2,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 806,
@@ -258,13 +258,13 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-21T13:02:18.077Z",
-          "ageHours": 5.1,
+          "ageHours": 6.1,
           "maxHours": 12,
           "sourceLabel": "openfootball+football-data",
           "recordsCount": 20,
           "note": "Jornada 12",
           "lastError": {
-            "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 12 (2 < 10).",
+            "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 12 (3 < 10).",
             "failingSinceUtc": "2026-11-21T17:59:10.304Z",
             "source": "openfootball+football-data"
           }
@@ -272,8 +272,8 @@
         "bajas": {
           "dataType": "bajas",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "espn-public-ita.1",
           "recordsCount": 0,
@@ -284,7 +284,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-21T18:09:05Z",
-          "ageHours": 0,
+          "ageHours": 1,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 776,
@@ -312,7 +312,7 @@
           "dataType": "calendario",
           "status": "error",
           "updatedAtUtc": "2026-11-20T19:06:37.907Z",
-          "ageHours": 23,
+          "ageHours": 24,
           "maxHours": 12,
           "sourceLabel": "openfootball+football-data",
           "recordsCount": 18,
@@ -326,8 +326,8 @@
         "bajas": {
           "dataType": "bajas",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "espn-public-fra.1",
           "recordsCount": 0,
@@ -338,7 +338,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-21T18:09:05Z",
-          "ageHours": 0,
+          "ageHours": 1,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 987,
@@ -365,8 +365,8 @@
         "calendario": {
           "dataType": "calendario",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 30,
           "sourceLabel": "espn",
           "recordsCount": 9,
@@ -376,8 +376,8 @@
         "bajas": {
           "dataType": "bajas",
           "status": "ok",
-          "updatedAtUtc": "2026-11-21T17:59:10.304Z",
-          "ageHours": 0.2,
+          "updatedAtUtc": "2026-11-21T19:08:59.437Z",
+          "ageHours": 0,
           "maxHours": 36,
           "sourceLabel": "espn-public-mex.1",
           "recordsCount": 0,
@@ -388,7 +388,7 @@
           "dataType": "momios",
           "status": "ok",
           "updatedAtUtc": "2026-11-21T18:09:05Z",
-          "ageHours": 0,
+          "ageHours": 1,
           "maxHours": 36,
           "sourceLabel": "bet365, bwin",
           "recordsCount": 856,
@@ -420,9 +420,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 13 (3 < 10).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-21T18:09:05Z",
+      "lastSeenAtUtc": "2026-11-21T19:08:59.437Z",
       "emailedAtUtc": null,
-      "occurrences": 9
+      "occurrences": 10
     },
     {
       "incidentKey": "validation::calendario::bundesliga",
@@ -434,9 +434,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 10 (6 < 9).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-21T18:09:05Z",
+      "lastSeenAtUtc": "2026-11-21T19:08:59.437Z",
       "emailedAtUtc": null,
-      "occurrences": 9
+      "occurrences": 10
     },
     {
       "incidentKey": "validation::calendario::ligue-1",
@@ -448,9 +448,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (1 < 9).",
       "failingSinceUtc": "2026-11-20T23:27:09.374Z",
-      "lastSeenAtUtc": "2026-11-21T18:09:05Z",
+      "lastSeenAtUtc": "2026-11-21T19:08:59.437Z",
       "emailedAtUtc": null,
-      "occurrences": 9
+      "occurrences": 10
     },
     {
       "incidentKey": "validation::calendario::premier-league",
@@ -462,9 +462,9 @@
       "workflowId": "pre-mvp-snapshot",
       "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 11 (6 < 10).",
       "failingSinceUtc": "2026-11-21T17:59:10.304Z",
-      "lastSeenAtUtc": "2026-11-21T18:09:05Z",
+      "lastSeenAtUtc": "2026-11-21T19:08:59.437Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     },
     {
       "incidentKey": "validation::calendario::serie-a",
@@ -474,11 +474,11 @@
       "league": "serie-a",
       "dataType": "calendario",
       "workflowId": "pre-mvp-snapshot",
-      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 12 (2 < 10).",
+      "message": "EMPTY_OR_REGRESSED_SNAPSHOT: El candidato perdió marcadores finales en Jornada 12 (3 < 10).",
       "failingSinceUtc": "2026-11-21T17:59:10.304Z",
-      "lastSeenAtUtc": "2026-11-21T18:09:05Z",
+      "lastSeenAtUtc": "2026-11-21T19:08:59.437Z",
       "emailedAtUtc": null,
-      "occurrences": 2
+      "occurrences": 3
     }
   ]
 }

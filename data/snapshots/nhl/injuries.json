@@ -1,10 +1,20 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-21T17:52:41.772Z",
+  "observedAt": "2026-11-21T19:03:09.826Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
+    {
+      "teamId": "nhl.anaheim-ducks",
+      "player": "Beckett Sennecke",
+      "position": "RW",
+      "status": "Baja",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-27",
+      "reportedAt": "2026-11-21T18:32:00.000Z"
+    },
     {
       "teamId": "nhl.anaheim-ducks",
       "player": "Ryan Poehling",
@@ -42,7 +52,7 @@
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-21",
+      "returnDate": "2026-12-01",
       "reportedAt": "2026-11-12T21:00:00.000Z"
     },
     {
@@ -202,7 +212,7 @@
       "status": "Baja",
       "detail": "Finger",
       "injuryType": "Finger",
-      "returnDate": "2026-11-22",
+      "returnDate": "2026-11-25",
       "reportedAt": "2026-11-19T20:29:00.000Z"
     },
     {
@@ -349,21 +359,21 @@
       "teamId": "nhl.los-angeles-kings",
       "player": "Artemi Panarin",
       "position": "LW",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Personal",
       "injuryType": "Personal",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-20T14:41:00.000Z"
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-21T18:20:00.000Z"
     },
     {
       "teamId": "nhl.los-angeles-kings",
       "player": "Trevor Moore",
       "position": "LW",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Parte médico reservado",
       "injuryType": "Undisclosed",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-20T14:41:00.000Z"
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-21T18:13:00.000Z"
     },
     {
       "teamId": "nhl.los-angeles-kings",
@@ -377,6 +387,16 @@
     },
     {
       "teamId": "nhl.minnesota-wild",
+      "player": "Quinn Hughes",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-21T18:43:00.000Z"
+    },
+    {
+      "teamId": "nhl.minnesota-wild",
       "player": "Yakov Trenin",
       "position": "C",
       "status": "Duda",
@@ -384,16 +404,6 @@
       "injuryType": "Personal",
       "returnDate": "2026-11-21",
       "reportedAt": "2026-11-20T19:16:00.000Z"
-    },
-    {
-      "teamId": "nhl.minnesota-wild",
-      "player": "Quinn Hughes",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Upper Body",
-      "injuryType": "Upper Body",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-20T04:12:00.000Z"
     },
     {
       "teamId": "nhl.minnesota-wild",
@@ -972,7 +982,7 @@
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-21",
+      "returnDate": "2026-11-23",
       "reportedAt": "2026-11-20T20:04:00.000Z"
     },
     {
@@ -1014,6 +1024,16 @@
       "injuryType": "Shoulder",
       "returnDate": "2027-02-12",
       "reportedAt": "2026-09-28T21:02:00.000Z"
+    },
+    {
+      "teamId": "nhl.vancouver-canucks",
+      "player": "Elias Pettersson",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T18:00:00.000Z"
     },
     {
       "teamId": "nhl.vancouver-canucks",
@@ -1092,7 +1112,7 @@
       "status": "Baja",
       "detail": "Parte médico reservado",
       "injuryType": "Undisclosed",
-      "returnDate": "2026-11-21",
+      "returnDate": "2026-11-23",
       "reportedAt": "2026-11-17T15:15:00.000Z"
     },
     {

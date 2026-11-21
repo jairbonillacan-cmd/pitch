@@ -1,37 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "serie-b",
-  "observedAt": "2026-11-21T17:52:46.097Z",
+  "observedAt": "2026-11-21T19:03:13.555Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "serie-b.palermo",
-      "player": "Antonio Palumbo",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
-    },
-    {
-      "teamId": "serie-b.palermo",
-      "player": "Mattia Bani",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
-    },
-    {
-      "teamId": "serie-b.palermo",
-      "player": "Niccolò Pierozzi",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Dislocated Shoulder",
-      "injuryType": "Dislocated Shoulder",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
-    },
     {
       "teamId": "serie-b.sudtirol",
       "player": "Aljoša Vasić",
@@ -39,7 +12,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     },
     {
       "teamId": "serie-b.sudtirol",
@@ -48,7 +21,7 @@
       "status": "Baja",
       "detail": "Broken Foot",
       "injuryType": "Broken Foot",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     },
     {
       "teamId": "serie-b.arezzo",
@@ -57,7 +30,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     },
     {
       "teamId": "serie-b.arezzo",
@@ -66,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     }
   ]
 }

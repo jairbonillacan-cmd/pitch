@@ -1,28 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "pro-league-belgica",
-  "observedAt": "2026-11-21T17:52:46.097Z",
+  "observedAt": "2026-11-21T19:03:13.555Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "pro-league-belgica.cercle-brugge",
-      "player": "Abdoulie Manneh",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
-    },
-    {
-      "teamId": "pro-league-belgica.cercle-brugge",
-      "player": "Yago Lincoln",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
-    },
     {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
       "player": "Birger Verstraete",
@@ -30,7 +12,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     },
     {
       "teamId": "pro-league-belgica.kaa-gent",
@@ -39,7 +21,7 @@
       "status": "Baja",
       "detail": "Broken Leg",
       "injuryType": "Broken Leg",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     },
     {
       "teamId": "pro-league-belgica.kaa-gent",
@@ -48,7 +30,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     },
     {
       "teamId": "pro-league-belgica.sporting-charleroi",
@@ -57,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     },
     {
       "teamId": "pro-league-belgica.raal-la-louviere",
@@ -66,7 +48,34 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-21T17:52:46.097Z"
+      "reportedAt": "2026-11-21T19:03:13.555Z"
+    },
+    {
+      "teamId": "pro-league-belgica.kv-kortrijk",
+      "player": "Anthony Philips",
+      "position": "F",
+      "status": "Baja",
+      "detail": "national_team",
+      "injuryType": "national_team",
+      "reportedAt": "2026-11-21T19:03:13.555Z"
+    },
+    {
+      "teamId": "pro-league-belgica.kv-mechelen",
+      "player": "Adeshina Ibrahim Ayodele",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-21T19:03:13.555Z"
+    },
+    {
+      "teamId": "pro-league-belgica.kv-mechelen",
+      "player": "Fredrik Hammar",
+      "position": "M",
+      "status": "Baja",
+      "detail": "yellow_card_accumulation_suspension",
+      "injuryType": "yellow_card_accumulation_suspension",
+      "reportedAt": "2026-11-21T19:03:13.555Z"
     }
   ]
 }

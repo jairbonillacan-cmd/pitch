@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "pro-league-belgica",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T17:52:46.097Z",
+  "updatedAt": "2026-11-21T19:03:13.555Z",
   "matches": [
     {
       "id": "pro-league-belgica-2026-08-07-brugge-kv-kv-kortrijk-n6m4ea",
@@ -1113,6 +1113,17 @@
       "awayTeam": "pro-league-belgica.sint-truidense-vv",
       "homeScore": 2,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "pro-league-belgica-2026-11-21-krc-genk-raal-la-louvie-50sr3o",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T17:15:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "pro-league-belgica.krc-genk",
+      "awayTeam": "pro-league-belgica.raal-la-louviere",
+      "homeScore": 3,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

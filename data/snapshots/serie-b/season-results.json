@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "serie-b",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T17:52:46.097Z",
+  "updatedAt": "2026-11-21T19:03:13.555Z",
   "matches": [
     {
       "id": "serie-b-2026-08-21-l-r-vicenza-catanzaro-j05jn1",
@@ -1278,6 +1278,17 @@
       "awayTeam": "serie-b.l-r-vicenza",
       "homeScore": 2,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "serie-b-2026-11-21-catanzaro-palermo-09d4ss",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T16:15:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "serie-b.catanzaro",
+      "awayTeam": "serie-b.palermo",
+      "homeScore": 3,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

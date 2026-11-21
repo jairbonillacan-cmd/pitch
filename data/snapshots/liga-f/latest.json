@@ -5,7 +5,7 @@
   "season": "liga-f-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-21T17:52:46.097Z",
+  "updatedAt": "2026-11-21T19:03:13.555Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -219,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -254,7 +254,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -358,7 +358,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -393,7 +393,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -428,7 +428,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -462,7 +462,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -497,7 +497,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -532,7 +532,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -567,7 +567,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -602,7 +602,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -637,7 +637,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -671,7 +671,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -706,7 +706,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -741,7 +741,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T17:52:46.097Z",
+        "observedAt": "2026-11-21T19:03:13.555Z",
         "source": "pitchlab-feed"
       }
     },
@@ -9091,6 +9091,10 @@
           "avgRed": 0.32,
           "avgFouls": 21.2,
           "avgGoals": 3
+        },
+        "halfTimeScore": {
+          "home": 1,
+          "away": 1
         },
         "stageName": "Regular season",
         "venueCity": "Logrono",

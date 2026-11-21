@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "fa-cup",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-21T17:52:46.097Z",
+  "observedAt": "2026-11-21T19:03:13.555Z",
   "teams": [
     {
       "teamId": "fa-cup.crewe-alexandra",
@@ -24,7 +24,7 @@
           "winPct": 37
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "fa-cup.crewe-alexandra.adrien-thibaut",
@@ -1232,7 +1232,7 @@
           "winPct": 34.9
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "fa-cup.wimbledon.alistair-smith",
@@ -1293,9 +1293,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -1369,8 +1369,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -1739,7 +1739,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 3,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2366,7 +2366,7 @@
           "winPct": 35.2
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "fa-cup.fleetwood-town.aaron-loupalo-bi",
@@ -2392,7 +2392,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2466,7 +2466,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2688,7 +2688,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2762,8 +2762,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3058,8 +3058,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3315,9 +3315,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3352,10 +3352,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3463,7 +3463,7 @@
           "winPct": 53.3
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "fa-cup.rochdale.aden-flint",
@@ -3748,8 +3748,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 4,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3757,7 +3757,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3970,8 +3970,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3979,7 +3979,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4044,8 +4044,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4275,7 +4275,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4449,7 +4449,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 0,
             "shotsOnTarget": 0,
@@ -4460,7 +4460,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4671,7 +4671,7 @@
           "winPct": 25
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "fa-cup.bromley.adam-jackson",
@@ -5111,9 +5111,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 5,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -5363,7 +5363,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5372,7 +5372,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5879,7 +5879,7 @@
           "winPct": 30.1
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "fa-cup.rotherham-united.aaron-nemane",
@@ -7013,7 +7013,7 @@
           "winPct": 60.2
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "fa-cup.york-city.afolabi-akinyemi",
@@ -7157,7 +7157,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 2,
+            "saves": 0,
             "shotsFaced": 0,
             "goalsConceded": 0
           },
@@ -7666,9 +7666,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7999,7 +7999,7 @@
           "winPct": 22.2
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "fa-cup.northampton-town.bobby-ashton",
@@ -8469,7 +8469,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8478,7 +8478,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8876,8 +8876,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8885,7 +8885,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },

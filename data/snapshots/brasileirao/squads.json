@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-21T17:52:46.097Z",
+  "observedAt": "2026-11-21T19:03:13.555Z",
   "teams": [
     {
       "teamId": "brasileirao.sao-paulo",
@@ -24,7 +24,7 @@
           "winPct": 37.6
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "brasileirao.sao-paulo.andre-silva",
@@ -1232,7 +1232,7 @@
           "winPct": 57.7
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "brasileirao.corinthians.alex-santana",
@@ -2440,7 +2440,7 @@
           "winPct": 62.5
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "brasileirao.botafogo.alex-telles",
@@ -2475,7 +2475,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2910,7 +2910,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2919,7 +2919,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3030,7 +3030,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3648,7 +3648,7 @@
           "winPct": 39.2
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "brasileirao.atletico-mineiro.alan-franco",
@@ -4856,7 +4856,7 @@
           "winPct": 60.7
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "brasileirao.palmeiras.agustin-giay",
@@ -6027,7 +6027,7 @@
           "winPct": 35.1
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "brasileirao.remo.andres-gonzalez",
@@ -6164,7 +6164,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6173,7 +6173,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 6
           },
           "candidatePicks": []
         },
@@ -6247,7 +6247,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6726,9 +6726,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 1,
+            "saves": 4,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 6
           },
           "candidatePicks": []
         },
@@ -6904,8 +6904,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6913,7 +6913,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7235,7 +7235,7 @@
           "winPct": 48.1
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "brasileirao.cruzeiro.bruno-rodrigues",
@@ -8443,7 +8443,7 @@
           "winPct": 43.4
         }
       },
-      "updatedAt": "2026-11-21T17:52:46.097Z",
+      "updatedAt": "2026-11-21T19:03:13.555Z",
       "players": [
         {
           "id": "brasileirao.bahia.ademir",

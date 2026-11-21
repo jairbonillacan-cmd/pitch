@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
   "league": "serie-a",
-  "observedAt": "2026-11-21T18:00:07.204Z",
+  "observedAt": "2026-11-21T19:09:30.757Z",
   "entries": [
     {
       "gameId": "serie-a-2026-27-md12-atalanta-bc-internazionale-milano",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T18:00:07.204Z",
+      "observedAt": "2026-11-21T19:09:30.757Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 424.584502,
+          "volume": 430.140058,
           "price": 0.175
         },
         {
           "side": "draw",
-          "volume": 67.716452,
+          "volume": 67.71645199999999,
           "price": 0.205
         },
         {
           "side": "away",
-          "volume": 3464.84028,
+          "volume": 3466.427582,
           "price": 0.625
         }
       ]
@@ -30,16 +30,16 @@
       "gameId": "serie-a-2026-27-md12-bologna-udinese",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T18:00:07.204Z",
+      "observedAt": "2026-11-21T19:09:30.757Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 3103.7775639999995,
+          "volume": 3103.777564,
           "price": 0.555
         },
         {
           "side": "draw",
-          "volume": 541.5312839999999,
+          "volume": 541.531284,
           "price": 0.255
         },
         {
@@ -76,16 +76,16 @@
       "gameId": "serie-a-2026-27-md12-juventus-venezia",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T18:00:07.204Z",
+      "observedAt": "2026-11-21T19:09:30.757Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 5589.758135,
+          "volume": 6251.902458,
           "price": 0.725
         },
         {
           "side": "draw",
-          "volume": 72.81871600000001,
+          "volume": 72.818716,
           "price": 0.175
         },
         {
@@ -122,7 +122,7 @@
       "gameId": "serie-a-2026-27-md12-milan-frosinone",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T18:00:07.204Z",
+      "observedAt": "2026-11-21T19:09:30.757Z",
       "outcomes": [
         {
           "side": "home",
@@ -145,7 +145,7 @@
       "gameId": "serie-a-2026-27-md12-monza-fiorentina",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T18:00:07.204Z",
+      "observedAt": "2026-11-21T19:09:30.757Z",
       "outcomes": [
         {
           "side": "home",
@@ -159,7 +159,7 @@
         },
         {
           "side": "away",
-          "volume": 341.823138,
+          "volume": 341.82313800000003,
           "price": 0.495
         }
       ]
@@ -168,21 +168,21 @@
       "gameId": "serie-a-2026-27-md12-napoli-torino",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T18:00:07.204Z",
+      "observedAt": "2026-11-21T19:09:30.757Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 28958.812294999996,
-          "price": 0.645
+          "volume": 57451.82897899999,
+          "price": 0.635
         },
         {
           "side": "draw",
-          "volume": 365.192884,
+          "volume": 575.125677,
           "price": 0.215
         },
         {
           "side": "away",
-          "volume": 1106.821055,
+          "volume": 1699.427722,
           "price": 0.145
         }
       ]
@@ -214,7 +214,7 @@
       "gameId": "serie-a-2026-27-md12-sassuolo-genoa-cfc",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T18:00:07.204Z",
+      "observedAt": "2026-11-21T19:09:30.757Z",
       "outcomes": [
         {
           "side": "home",
@@ -223,13 +223,13 @@
         },
         {
           "side": "draw",
-          "volume": 389.050807,
+          "volume": 484.80942799999997,
           "price": 0.285
         },
         {
           "side": "away",
-          "volume": 1662.5770509999998,
-          "price": 0.355
+          "volume": 2680.267051,
+          "price": 0.345
         }
       ]
     }
