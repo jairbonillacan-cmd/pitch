@@ -28,6 +28,7 @@ let db: Db;
 beforeEach(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client) as unknown as Db;
 });
 
@@ -36,7 +37,10 @@ async function createUser(email: string) {
   return u!;
 }
 
-async function expectImmutableRejected(promise: Promise<unknown>): Promise<void> {
+async function expectImmutableRejected(
+  promise: Promise<unknown>,
+  codePattern?: RegExp,
+): Promise<void> {
   let caught: unknown = null;
   try {
     await promise;
@@ -46,6 +50,9 @@ async function expectImmutableRejected(promise: Promise<unknown>): Promise<void>
   expect(caught).not.toBeNull();
   const detail = `${String(caught)} ${String((caught as { cause?: unknown })?.cause ?? "")}`;
   expect(detail).toMatch(/sealed_picks_immutable/);
+  if (codePattern) {
+    expect(detail).toMatch(codePattern);
+  }
 }
 
 describe("migración 0024: parlays, cuotas de cierre, Cortex cache, push y embudo", () => {
@@ -135,7 +142,88 @@ describe("migración 0024: parlays, cuotas de cierre, Cortex cache, push y embud
 
     await expectImmutableRejected(
       db.update(sealedPicks).set({ closingDecimal: "2.900" }).where(eq(sealedPicks.id, row!.id)),
+      /IMMUTABLE_SETTLED_PICK_UPDATE/,
     );
+  });
+
+  it("migración 0025: sin GUC histórico rechaza inserciones retroactivas post-kickoff, borrado directo y edición de filas liquidadas preservando ON DELETE CASCADE ARCO", async () => {
+    await client.exec("SET pitchlab.allow_historical_seed = 'off'");
+    const u = await createUser("inmutable-0025@example.com");
+
+    await expectImmutableRejected(
+      db.insert(sealedPicks).values({
+        userId: u.id,
+        pickId: "retro-g1__p1",
+        gameId: "retro-g1",
+        leagueLabel: "Liga MX",
+        matchLabel: "América vs Pumas",
+        pickLabel: "América gana",
+        origin: "Spacetime Suite",
+        units: "1.00",
+        userDecimal: "2.050",
+        fairDecimal: "1.950",
+        sealHash: "c".repeat(64),
+        sealedAt: new Date("2020-01-01T10:00:00Z"),
+        kickoffAt: new Date("2020-01-01T12:00:00Z"),
+      }),
+      /RETROACTIVE_SEALED_PICK_FORBIDDEN/,
+    );
+
+    const futureKickoff = new Date(Date.now() + 24 * 3_600_000);
+    const [livePick] = await db
+      .insert(sealedPicks)
+      .values({
+        userId: u.id,
+        pickId: "future-g1__p1",
+        gameId: "future-g1",
+        leagueLabel: "Premier League",
+        matchLabel: "Arsenal vs Chelsea",
+        pickLabel: "Arsenal gana",
+        origin: "Spacetime Suite",
+        units: "1.50",
+        userDecimal: "2.100",
+        fairDecimal: "1.980",
+        sealHash: "d".repeat(64),
+        sealedAt: new Date("2020-01-01T10:00:00Z"),
+        kickoffAt: futureKickoff,
+      })
+      .returning();
+
+    expect(livePick).toBeDefined();
+    expect(livePick!.sealedAt.getTime()).toBeGreaterThan(new Date("2025-01-01T00:00:00Z").getTime());
+
+    await expectImmutableRejected(
+      db.delete(sealedPicks).where(eq(sealedPicks.id, livePick!.id)),
+      /IMMUTABLE_SEALED_PICK_DELETE/,
+    );
+
+    await expectImmutableRejected(
+      db.update(sealedPicks).set({ clvPct: "1.50" }).where(eq(sealedPicks.id, livePick!.id)),
+      /IMMUTABLE_PENDING_SETTLEMENT_FIELDS/,
+    );
+
+    await db
+      .update(sealedPicks)
+      .set({
+        status: "won",
+        clvPct: "3.20",
+        closingDecimal: "1.980",
+        settledAt: new Date(Date.now() + 26 * 3_600_000),
+      })
+      .where(eq(sealedPicks.id, livePick!.id));
+
+    await expectImmutableRejected(
+      db.update(sealedPicks).set({ status: "lost" }).where(eq(sealedPicks.id, livePick!.id)),
+      /IMMUTABLE_SETTLED_PICK_UPDATE/,
+    );
+
+    await expectImmutableRejected(
+      db.update(sealedPicks).set({ clvPct: "9.99" }).where(eq(sealedPicks.id, livePick!.id)),
+      /IMMUTABLE_SETTLED_PICK_UPDATE/,
+    );
+
+    await db.delete(users).where(eq(users.id, u.id));
+    expect(await db.select().from(sealedPicks).where(eq(sealedPicks.userId, u.id))).toHaveLength(0);
   });
 
   it("cuotas de cierre: conserva la captura pre-kickoff más reciente y rechaza post-kickoff", async () => {

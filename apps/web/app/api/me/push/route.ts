@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import {
   deletePushSubscription,
   listUserPushSubscriptions,
@@ -7,12 +9,8 @@ import {
   upsertUserPreferences,
   type StoredPushSubscription,
 } from "@pitchlab/db";
-import {
-  checkEndpointRateLimit,
-  rateLimitResponse,
-  verifySameOriginMutation,
-} from "../../../../src/server/request-security";
-import { requireActivePaseMember } from "../../../../src/server/session-user";
+import { withActivePaseMutation, withSessionRead } from "../../../../src/server/api-guards";
+import { logSecurityEvent } from "../../../../src/server/safe-logger";
 import {
   isWebPushConfigured,
   parseAllowedWebPushEndpoint,
@@ -22,11 +20,26 @@ import {
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const NO_STORE = { "Cache-Control": "no-store" } as const;
+const MAX_PUSH_SUBSCRIPTIONS = 40;
 
-function parseEndpointUrl(raw: unknown): string | null {
-  return parseAllowedWebPushEndpoint(raw);
-}
+const PushSubscribeSchema = z.object({
+  endpoint: z.string().trim().min(1).max(2048),
+  keys: z.object({
+    p256dh: z.string().trim().min(16).max(512),
+    auth: z.string().trim().min(8).max(256),
+  }),
+  topics: z
+    .object({
+      picks: z.boolean().optional(),
+      live: z.boolean().optional(),
+      social: z.boolean().optional(),
+    })
+    .optional(),
+});
+
+const PushDeleteBodySchema = z.object({
+  endpoint: z.string().trim().min(1).max(2048).optional(),
+});
 
 function serializeSub(sub: {
   endpoint: string;
@@ -44,120 +57,185 @@ function serializeSub(sub: {
   };
 }
 
-/** GET /api/me/push — estado de Web Push VAPID y suscripciones del socio. */
-export async function GET(request: Request): Promise<NextResponse> {
-  const member = await requireActivePaseMember(request);
-  if ("error" in member) return member.error;
-
-  const vapid = vapidConfigFromEnv();
-  const subs = await listUserPushSubscriptions(member.db, member.userId);
-  return NextResponse.json(
-    {
+export const GET = withSessionRead(
+  {
+    bucket: "me-push-read",
+    allowBetaPin: false,
+    requireFullAccess: true,
+    cacheControl: "private, no-store",
+  },
+  async ({ user }) => {
+    const vapid = vapidConfigFromEnv();
+    const subs = (await listUserPushSubscriptions(user.db, user.userId)).slice(
+      0,
+      MAX_PUSH_SUBSCRIPTIONS,
+    );
+    return NextResponse.json({
       configured: Boolean(vapid),
       vapidPublicKey: vapid?.publicKey ?? null,
       subscriptions: subs.map(serializeSub),
-    },
-    { headers: NO_STORE },
-  );
-}
+    });
+  },
+);
 
-/** POST /api/me/push — registra o actualiza la suscripción Web Push del navegador. */
-export async function POST(request: Request): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
-
-  const member = await requireActivePaseMember(request);
-  if ("error" in member) return member.error;
-
-  const rl = await checkEndpointRateLimit({
+export const POST = withActivePaseMutation(
+  {
     bucket: "me-push-subscribe",
-    key: member.userId,
     limit: 20,
     windowMs: 3_600_000,
-  });
-  if (!rl.allowed) {
-    return rateLimitResponse(rl.retryAfterSeconds, "Demasiados cambios de notificaciones push.");
-  }
-
-  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
-  const endpoint = parseEndpointUrl(body?.endpoint);
-  const keys = (body?.keys && typeof body.keys === "object" ? body.keys : null) as Record<
-    string,
-    unknown
-  > | null;
-  const p256dh = typeof keys?.p256dh === "string" ? keys.p256dh.trim() : "";
-  const auth = typeof keys?.auth === "string" ? keys.auth.trim() : "";
-
-  if (!endpoint || p256dh.length < 16 || p256dh.length > 512 || auth.length < 8 || auth.length > 256) {
-    return NextResponse.json(
-      { ok: false, error: "Suscripción Web Push incompleta o inválida." },
-      { status: 400 },
-    );
-  }
-
-  const topics =
-    body?.topics && typeof body.topics === "object"
-      ? (body.topics as Record<string, unknown>)
-      : {};
-
-  let saved: StoredPushSubscription;
-  try {
-    saved = await upsertPushSubscription(member.db, {
-      userId: member.userId,
-      endpoint,
-      p256dh,
-      auth,
-      topicPicks: typeof topics.picks === "boolean" ? topics.picks : true,
-      topicLive: typeof topics.live === "boolean" ? topics.live : true,
-      topicSocial: typeof topics.social === "boolean" ? topics.social : true,
-      userAgent: request.headers.get("user-agent"),
-    });
-  } catch (err) {
-    if (err instanceof PushEndpointConflictError) {
+  },
+  async ({ request, user }) => {
+    let rawBody: unknown;
+    try {
+      rawBody = await request.json();
+    } catch (err) {
+      void err;
       return NextResponse.json(
-        { ok: false, error: "Este endpoint de notificación ya pertenece a otra cuenta." },
-        { status: 409, headers: NO_STORE },
+        {
+          ok: false,
+          error: "Suscripción Web Push incompleta o inválida.",
+          ...createSanitizedErrorPayload(
+            "INVALID_JSON",
+            "Suscripción Web Push incompleta o inválida.",
+          ),
+        },
+        { status: 400 },
       );
     }
-    throw err;
-  }
-  await upsertUserPreferences(member.db, member.userId, { pushEnabled: true });
 
-  return NextResponse.json(
-    {
-      ok: true,
-      configured: isWebPushConfigured(),
-      subscription: serializeSub(saved),
-    },
-    { status: 201, headers: NO_STORE },
-  );
-}
+    const parsed = PushSubscribeSchema.safeParse(rawBody);
+    const endpoint = parsed.success ? parseAllowedWebPushEndpoint(parsed.data.endpoint) : null;
+    if (!parsed.success || !endpoint) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Suscripción Web Push incompleta o inválida.",
+          ...createSanitizedErrorPayload(
+            "INVALID_PUSH_SUBSCRIPTION",
+            "Suscripción Web Push incompleta o inválida.",
+          ),
+        },
+        { status: 400 },
+      );
+    }
 
-/** DELETE /api/me/push — elimina un endpoint o todas las suscripciones push del socio. */
-export async function DELETE(request: Request): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
+    const { keys, topics } = parsed.data;
 
-  const member = await requireActivePaseMember(request);
-  if ("error" in member) return member.error;
+    let saved: StoredPushSubscription;
+    try {
+      saved = await upsertPushSubscription(user.db, {
+        userId: user.userId,
+        endpoint,
+        p256dh: keys.p256dh,
+        auth: keys.auth,
+        topicPicks: topics?.picks ?? true,
+        topicLive: topics?.live ?? true,
+        topicSocial: topics?.social ?? true,
+        userAgent: request.headers.get("user-agent"),
+      });
+    } catch (err) {
+      if (err instanceof PushEndpointConflictError) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: "Este endpoint de notificación ya pertenece a otra cuenta.",
+            ...createSanitizedErrorPayload(
+              "PUSH_ENDPOINT_CONFLICT",
+              "Este endpoint de notificación ya pertenece a otra cuenta.",
+            ),
+          },
+          { status: 409 },
+        );
+      }
+      logSecurityEvent("error", "push_subscribe_failed", {
+        userId: user.userId,
+        error: err,
+      });
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "No se pudo guardar la suscripción push.",
+          ...createSanitizedErrorPayload(
+            "PUSH_SUBSCRIBE_FAILED",
+            "No se pudo guardar la suscripción push.",
+          ),
+        },
+        { status: 500 },
+      );
+    }
 
-  const url = new URL(request.url);
-  const queryEndpoint = url.searchParams.get("endpoint");
-  const body = (await request.json().catch(() => null)) as { endpoint?: unknown } | null;
-  const rawEndpoint = body?.endpoint ?? queryEndpoint;
-  const endpoint = rawEndpoint ? parseEndpointUrl(rawEndpoint) : undefined;
-  if (rawEndpoint && !endpoint) {
-    return NextResponse.json({ ok: false, error: "Endpoint push inválido." }, { status: 400 });
-  }
+    await upsertUserPreferences(user.db, user.userId, { pushEnabled: true });
 
-  const removed = await deletePushSubscription(member.db, member.userId, endpoint ?? undefined);
-  const remaining = await listUserPushSubscriptions(member.db, member.userId);
-  if (remaining.length === 0) {
-    await upsertUserPreferences(member.db, member.userId, { pushEnabled: false });
-  }
+    return NextResponse.json(
+      {
+        ok: true,
+        configured: isWebPushConfigured(),
+        subscription: serializeSub(saved),
+      },
+      { status: 201 },
+    );
+  },
+);
 
-  return NextResponse.json(
-    { ok: true, removed, remaining: remaining.length },
-    { headers: NO_STORE },
-  );
-}
+export const DELETE = withActivePaseMutation(
+  {
+    bucket: "me-push-unsubscribe",
+    requireJson: false,
+  },
+  async ({ request, user }) => {
+    const url = new URL(request.url);
+    const queryEndpoint = url.searchParams.get("endpoint");
+
+    let bodyEndpoint: string | undefined;
+    const rawText = await request.text();
+    if (rawText.trim().length > 0) {
+      let rawBody: unknown;
+      try {
+        rawBody = JSON.parse(rawText);
+      } catch (err) {
+        void err;
+        return NextResponse.json(
+          {
+            ok: false,
+            error: "Endpoint push inválido.",
+            ...createSanitizedErrorPayload("INVALID_JSON", "Endpoint push inválido."),
+          },
+          { status: 400 },
+        );
+      }
+      const parsedBody = PushDeleteBodySchema.safeParse(rawBody);
+      if (!parsedBody.success) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: "Endpoint push inválido.",
+            ...createSanitizedErrorPayload("INVALID_PUSH_ENDPOINT", "Endpoint push inválido."),
+          },
+          { status: 400 },
+        );
+      }
+      bodyEndpoint = parsedBody.data.endpoint;
+    }
+
+    const rawEndpoint = bodyEndpoint ?? queryEndpoint;
+    const endpoint = rawEndpoint ? parseAllowedWebPushEndpoint(rawEndpoint) : undefined;
+    if (rawEndpoint && !endpoint) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Endpoint push inválido.",
+          ...createSanitizedErrorPayload("INVALID_PUSH_ENDPOINT", "Endpoint push inválido."),
+        },
+        { status: 400 },
+      );
+    }
+
+    const removed = await deletePushSubscription(user.db, user.userId, endpoint ?? undefined);
+    const remaining = await listUserPushSubscriptions(user.db, user.userId);
+    if (remaining.length === 0) {
+      await upsertUserPreferences(user.db, user.userId, { pushEnabled: false });
+    }
+
+    return NextResponse.json({ ok: true, removed, remaining: remaining.length });
+  },
+);

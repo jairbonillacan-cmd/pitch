@@ -1,36 +1,74 @@
-import { NextRequest, NextResponse } from "next/server";
-import { resolveVerifiedNewsArticleSummary } from "../../../../src/server/espn-news";
+import { NextResponse } from "next/server";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
+import { withSessionRead } from "../../../../src/server/api-guards";
+import {
+  lookupLeagueForOpaqueNewsId,
+  parseOpaqueNewsId,
+  resolveVerifiedNewsArticleSummary,
+} from "../../../../src/server/espn-news";
 import { PRODUCT_LEAGUES, type ProductLeague } from "../../../../src/server/snapshots";
-import { getViewerAccess } from "../../../../src/server/viewer-access";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function isProductLeague(value: string): value is ProductLeague {
   return (PRODUCT_LEAGUES as readonly string[]).includes(value);
 }
 
-/**
- * Devuelve en JSON el resumen editorial limpio de una nota verificada del feed de la liga
- * para mostrarlo dentro del lector de PitchLab, sin redirigir fuera de la plataforma.
- */
-export async function GET(request: NextRequest): Promise<NextResponse> {
-  const access = await getViewerAccess();
-  if (access.via === "none") {
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-  }
+export const GET = withSessionRead(
+  {
+    bucket: "news-article",
+    allowBetaPin: true,
+    resourceKey: ({ request }) => new URL(request.url).searchParams.get("id"),
+    cacheControl: "private, no-store",
+  },
+  async ({ request }) => {
+    const { searchParams } = new URL(request.url);
+    if (searchParams.has("url") || searchParams.has("href")) {
+      return NextResponse.json(
+        createSanitizedErrorPayload("INVALID_NEWS_PARAMS", "Parámetros de noticia inválidos."),
+        { status: 400 },
+      );
+    }
 
-  const { searchParams } = request.nextUrl;
-  const leagueRaw = (searchParams.get("league") ?? "").trim();
-  const idRaw = (searchParams.get("id") ?? "").trim();
+    const idRaw = (searchParams.get("id") ?? "").trim();
+    const opaqueId = parseOpaqueNewsId(idRaw);
+    if (!opaqueId) {
+      return NextResponse.json(
+        createSanitizedErrorPayload("INVALID_NEWS_PARAMS", "Parámetros de noticia inválidos."),
+        { status: 400 },
+      );
+    }
 
-  if (!isProductLeague(leagueRaw) || !/^\d{1,20}$/.test(idRaw)) {
-    return NextResponse.json({ error: "Parámetros de noticia inválidos" }, { status: 400 });
-  }
+    const leagueParam = searchParams.get("league");
+    let league: ProductLeague | null = null;
+    if (leagueParam !== null) {
+      const trimmedLeague = leagueParam.trim();
+      if (!isProductLeague(trimmedLeague)) {
+        return NextResponse.json(
+          createSanitizedErrorPayload("INVALID_NEWS_PARAMS", "Parámetros de noticia inválidos."),
+          { status: 400 },
+        );
+      }
+      league = trimmedLeague;
+    } else {
+      league = lookupLeagueForOpaqueNewsId(opaqueId);
+      if (!league) {
+        return NextResponse.json(
+          createSanitizedErrorPayload("INVALID_NEWS_PARAMS", "Parámetros de noticia inválidos."),
+          { status: 400 },
+        );
+      }
+    }
 
-  const summary = await resolveVerifiedNewsArticleSummary(leagueRaw, idRaw);
-  if (!summary) {
-    return NextResponse.json({ error: "Nota no encontrada" }, { status: 404 });
-  }
+    const summary = await resolveVerifiedNewsArticleSummary(league, opaqueId);
+    if (!summary) {
+      return NextResponse.json(
+        createSanitizedErrorPayload("NEWS_NOT_FOUND", "Nota no encontrada."),
+        { status: 404 },
+      );
+    }
 
-  const response = NextResponse.json(summary, { status: 200 });
-  response.headers.set("Cache-Control", "private, max-age=300");
-  return response;
-}
+    return NextResponse.json(summary, { status: 200 });
+  },
+);

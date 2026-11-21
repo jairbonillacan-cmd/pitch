@@ -6,17 +6,29 @@ import {
   AVATAR_SIZE_PX,
   setAvatarUploaderForTests,
 } from "../src/server/avatar-storage";
+import { resetRateLimitsForTests } from "../src/server/request-security";
 
 const mocks = vi.hoisted(() => ({
   requireMember: vi.fn(),
   setMemberAvatarUrl: vi.fn(),
 }));
 
-vi.mock("../src/server/session-user", () => ({ requireMember: mocks.requireMember }));
+vi.mock("../src/server/session-user", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../src/server/session-user")>()),
+  requireMember: mocks.requireMember,
+}));
 vi.mock("@pitchlab/db", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@pitchlab/db")>()),
   setMemberAvatarUrl: mocks.setMemberAvatarUrl,
 }));
+
+const fakeMember = {
+  db: {},
+  userId: "u-ana",
+  email: "ana@example.com",
+  emailVerified: true,
+  authUserId: "auth_ana",
+};
 
 function buildUploadRequest(file: File): Request {
   const form = new FormData();
@@ -30,6 +42,7 @@ function buildUploadRequest(file: File): Request {
 
 afterEach(() => {
   setAvatarUploaderForTests(null);
+  resetRateLimitsForTests();
   vi.resetAllMocks();
   vi.unstubAllEnvs();
 });
@@ -37,7 +50,7 @@ afterEach(() => {
 describe("foto de perfil (/api/me/avatar)", () => {
   it("responde 503 sin BLOB_READ_WRITE_TOKEN", async () => {
     vi.stubEnv("BLOB_READ_WRITE_TOKEN", "");
-    mocks.requireMember.mockResolvedValue({ db: {}, userId: "u-ana" });
+    mocks.requireMember.mockResolvedValue(fakeMember);
 
     const png = await sharp({
       create: { width: 32, height: 32, channels: 3, background: { r: 20, g: 80, b: 140 } },
@@ -47,13 +60,15 @@ describe("foto de perfil (/api/me/avatar)", () => {
     const res = await POST(buildUploadRequest(new File([new Uint8Array(png)], "foto.png", { type: "image/png" })));
 
     expect(res.status).toBe(503);
+    expect(res.headers.get("cache-control")).toBe("private, no-store");
+    expect(res.headers.get("x-content-type-options")).toBe("nosniff");
     expect(await res.json()).toEqual({ error: "almacenamiento_no_disponible" });
     expect(mocks.setMemberAvatarUrl).not.toHaveBeenCalled();
   });
 
   it("rechaza formatos no permitidos (SVG o firma falsa) y archivos mayores de 2 MB", async () => {
     vi.stubEnv("BLOB_READ_WRITE_TOKEN", "stub-token-solo-prueba");
-    mocks.requireMember.mockResolvedValue({ db: {}, userId: "u-ana" });
+    mocks.requireMember.mockResolvedValue(fakeMember);
 
     const svgFile = new File(["<svg xmlns='http://www.w3.org/2000/svg'></svg>"], "icono.svg", {
       type: "image/svg+xml",
@@ -76,7 +91,7 @@ describe("foto de perfil (/api/me/avatar)", () => {
 
   it("reduce la imagen a un cuadrado de 256 px, usa el uploader inyectado y borra el avatar anterior", async () => {
     vi.stubEnv("BLOB_READ_WRITE_TOKEN", "stub-token-solo-prueba");
-    mocks.requireMember.mockResolvedValue({ db: {}, userId: "u-ana" });
+    mocks.requireMember.mockResolvedValue(fakeMember);
 
     const uploadedBuffers: Buffer[] = [];
     const removedUrls: string[] = [];
@@ -121,7 +136,7 @@ describe("foto de perfil (/api/me/avatar)", () => {
   });
 
   it("DELETE quita la foto en base y limpia el blob anterior", async () => {
-    mocks.requireMember.mockResolvedValue({ db: {}, userId: "u-ana" });
+    mocks.requireMember.mockResolvedValue(fakeMember);
     const removedUrls: string[] = [];
     setAvatarUploaderForTests({
       async upload() {

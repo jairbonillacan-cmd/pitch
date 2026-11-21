@@ -5,12 +5,14 @@ import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
 import { GET as compareGET } from "../app/api/compare/route";
 import { GET as liveGameGET } from "../app/api/live/games/[gameId]/route";
 import { GET as extendGET } from "../app/api/shell/extend/route";
+import { resetScrapingVelocityForTests } from "../src/server/api-guards";
 import {
   buildServerRawPlatformDataset,
   splitInitialShellDataset,
   upcomingPlusRecentFinished,
   withoutGameDetail,
 } from "../src/server/platform-data";
+import { resetRateLimitsForTests } from "../src/server/request-security";
 import type { ViewerAccess } from "../src/server/viewer-access";
 
 const mocks = vi.hoisted(() => ({
@@ -113,6 +115,8 @@ function isZeroX12(x12: [number, number, number] | null): boolean {
 
 afterEach(() => {
   vi.resetAllMocks();
+  resetRateLimitsForTests();
+  resetScrapingVelocityForTests();
 });
 
 describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y /api/compare", () => {
@@ -144,8 +148,6 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
     expect(memberStage1.games.every((g) => g.parlayCandidates === undefined)).toBe(true);
     expect(visitorStage1.games.every((g) => g.parlayCandidates === undefined)).toBe(true);
 
-    // Estrés determinista: incluso con una jornada pico > 550 KB, el tramo 1 aplica guardia < 500 KB
-    // en ambos modos (member y visitor) preservando el partido promocional.
     const template = memberSlim.games.find((g) => g.status !== "FT" && g.picks.length > 0);
     expect(template).toBeDefined();
     const basePick = template!.picks[0]!;
@@ -219,12 +221,13 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
 
   it("GET /api/shell/extend devuelve 401 sin sesión, Cache-Control: private, no-store y redacta x12=[0,0,0] en partidos bloqueados no-showcase", async () => {
     mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_NONE);
-    const unauthRes = await extendGET();
+    const unauthRes = await extendGET(new Request("http://localhost:9990/api/shell/extend"));
     expect(unauthRes.status).toBe(401);
+    expect(unauthRes.headers.get("Cache-Control")).toBe("private, no-store");
     expect(await unauthRes.json()).toEqual({ error: "unauthorized" });
 
     mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_VISITOR_SESSION);
-    const visitorRes = await extendGET();
+    const visitorRes = await extendGET(new Request("http://localhost:9990/api/shell/extend"));
     expect(visitorRes.status).toBe(200);
     expect(visitorRes.headers.get("Cache-Control")).toBe("private, no-store");
     const visitorBody = (await visitorRes.json()) as {
@@ -235,7 +238,7 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
     expect(visitorBody.isRedactedForVisitor).toBe(true);
 
     mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_MEMBER);
-    const memberRes = await extendGET();
+    const memberRes = await extendGET(new Request("http://localhost:9990/api/shell/extend"));
     expect(memberRes.status).toBe(200);
     expect(memberRes.headers.get("Cache-Control")).toBe("private, no-store");
     const memberBody = (await memberRes.json()) as {
@@ -250,8 +253,6 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
       visitorBody.games.map((game) => [game.id, game]),
     );
 
-    // Agrupar partidos próximos no-promocionales con pronóstico real por liga:
-    // como máximo 1 partido showcase por liga puede mantener x12; el resto DEBE quedar en [0, 0, 0].
     const nonShowcaseRedacted: PlatformGame[] = [];
     const nonZeroByLeague = new Map<string, number>();
 
@@ -296,23 +297,17 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
     }
   });
 
-  it("GET /api/live/games/[gameId] omite inPlayWinProb cuando !access.fullAccess y usa Cache-Control: private, no-store para socios", async () => {
-    // 1) Visitante anónimo (!fullAccess): jamás recibe `inPlayWinProb` ni lo filtra en caché pública.
-    mocks.getLiveMatchDetail.mockResolvedValueOnce(SAMPLE_LIVE_DETAIL);
+  it("GET /api/live/games/[gameId] rechaza anónimos con 401, omite inPlayWinProb cuando !access.fullAccess y responde siempre private, no-store", async () => {
     mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_NONE);
     const anonRes = await liveGameGET(
       new Request("http://localhost:9990/api/live/games/mx-2026-live-sec-test"),
       { params: Promise.resolve({ gameId: "mx-2026-live-sec-test" }) },
     );
-    expect(anonRes.status).toBe(200);
-    expect(anonRes.headers.get("Cache-Control")).toBe(
-      "public, s-maxage=10, stale-while-revalidate=20",
-    );
-    const anonBody = (await anonRes.json()) as Record<string, unknown>;
-    expect("inPlayWinProb" in anonBody).toBe(false);
-    expect(anonBody.gameId).toBe(SAMPLE_LIVE_DETAIL.gameId);
+    expect(anonRes.status).toBe(401);
+    expect(anonRes.headers.get("Cache-Control")).toBe("private, no-store");
+    expect(await anonRes.json()).toEqual({ error: "unauthorized" });
+    expect(mocks.getLiveMatchDetail).not.toHaveBeenCalled();
 
-    // 2) Cuenta iniciada sin Pase vigente (!fullAccess): también omite `inPlayWinProb`.
     mocks.getLiveMatchDetail.mockResolvedValueOnce(SAMPLE_LIVE_DETAIL);
     mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_VISITOR_SESSION);
     const noPassRes = await liveGameGET(
@@ -320,10 +315,11 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
       { params: Promise.resolve({ gameId: "mx-2026-live-sec-test" }) },
     );
     expect(noPassRes.status).toBe(200);
+    expect(noPassRes.headers.get("Cache-Control")).toBe("private, no-store");
     const noPassBody = (await noPassRes.json()) as Record<string, unknown>;
     expect("inPlayWinProb" in noPassBody).toBe(false);
+    expect(noPassBody.gameId).toBe(SAMPLE_LIVE_DETAIL.gameId);
 
-    // 3) Socio con Pase activo (fullAccess): incluye `inPlayWinProb` con `Cache-Control: private, no-store`.
     mocks.getLiveMatchDetail.mockResolvedValueOnce(SAMPLE_LIVE_DETAIL);
     mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_MEMBER);
     const memberRes = await liveGameGET(
@@ -335,7 +331,6 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
     const memberBody = (await memberRes.json()) as LiveMatchDetail;
     expect(memberBody.inPlayWinProb).toEqual(SAMPLE_LIVE_DETAIL.inPlayWinProb);
 
-    // 4) Partido terminado sin `inPlayWinProb` conserva caché terminal pública incluso para socios.
     mocks.getLiveMatchDetail.mockResolvedValueOnce({
       ...SAMPLE_LIVE_DETAIL,
       entry: { ...SAMPLE_LIVE_DETAIL.entry, phase: "final", clock: null, minute: null },
@@ -348,17 +343,16 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
       { params: Promise.resolve({ gameId: "mx-2026-live-sec-test" }) },
     );
     expect(finalRes.status).toBe(200);
-    expect(finalRes.headers.get("Cache-Control")).toBe(
-      "public, s-maxage=3600, stale-while-revalidate=86400",
-    );
+    expect(finalRes.headers.get("Cache-Control")).toBe("private, no-store");
 
-    // 5) ID inválido / path traversal rechazado con 400 antes de consultar el lector en vivo.
     mocks.getLiveMatchDetail.mockClear();
+    mocks.getViewerAccess.mockResolvedValueOnce(ACCESS_MEMBER);
     const traversalRes = await liveGameGET(
       new Request("http://localhost:9990/api/live/games/bad"),
       { params: Promise.resolve({ gameId: "../../etc/passwd" }) },
     );
     expect(traversalRes.status).toBe(400);
+    expect(traversalRes.headers.get("Cache-Control")).toBe("private, no-store");
     expect(mocks.getLiveMatchDetail).not.toHaveBeenCalled();
   });
 
@@ -368,6 +362,7 @@ describe("Seguridad del shell RSC, /api/shell/extend, /api/live/games/[gameId] y
       new Request("http://localhost:9990/api/compare?modo=equipos&liga=liga-mx&a=america&b=chivas"),
     );
     expect(unauthRes.status).toBe(401);
+    expect(unauthRes.headers.get("Cache-Control")).toBe("private, no-store");
     expect(await unauthRes.json()).toEqual({ error: "unauthorized" });
 
     const invalidLeagues = [

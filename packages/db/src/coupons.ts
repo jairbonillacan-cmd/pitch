@@ -1,12 +1,3 @@
-/**
- * Cupones de acceso temporal y activación de pases pagados por SPEI (COBRO-SPEI-2).
- *
- * - Códigos generados automáticamente sin `0/O` ni `1/I` (alfabeto `23456789ABCDEFGHJKLMNPQRSTUVWXYZ`).
- * - Soporta cupones promocionales y cupones personales de un solo uso con vigencia emitidos al
- *   confirmar una transferencia SPEI (`transfer_request_id`, `restricted_to_user_id`, `max_redemptions = 1`).
- * - Canje atómico en transacción con bloqueo de fila `FOR UPDATE`, respaldo SQL y activación del
- *   periodo pagado (`sourceKind: "transfer_payment"`, referidos bilaterales y comisión de tipster).
- */
 import { randomInt } from "node:crypto";
 import { and, desc, eq, sql } from "drizzle-orm";
 import {
@@ -166,8 +157,9 @@ export async function toggleCouponActive(
   });
 }
 
-export async function listCouponsAdmin(db: Db, limit = 100): Promise<AccessCouponRow[]> {
-  return db.select().from(accessCoupons).orderBy(desc(accessCoupons.createdAt)).limit(limit);
+export async function listCouponsAdmin(db: Db, limit = 40): Promise<AccessCouponRow[]> {
+  const boundedLimit = Number.isFinite(limit) ? Math.min(100, Math.max(1, Math.trunc(limit))) : 40;
+  return db.select().from(accessCoupons).orderBy(desc(accessCoupons.createdAt)).limit(boundedLimit);
 }
 
 export interface CouponRedemptionDetail {
@@ -180,7 +172,12 @@ export interface CouponRedemptionDetail {
   createdAt: Date;
 }
 
-export async function listCouponRedemptionsAdmin(db: Db, couponId: string): Promise<CouponRedemptionDetail[]> {
+export async function listCouponRedemptionsAdmin(
+  db: Db,
+  couponId: string,
+  limit = 40,
+): Promise<CouponRedemptionDetail[]> {
+  const boundedLimit = Number.isFinite(limit) ? Math.min(40, Math.max(1, Math.trunc(limit))) : 40;
   return db
     .select({
       id: couponRedemptions.id,
@@ -194,7 +191,8 @@ export async function listCouponRedemptionsAdmin(db: Db, couponId: string): Prom
     .from(couponRedemptions)
     .innerJoin(users, eq(users.id, couponRedemptions.userId))
     .where(eq(couponRedemptions.couponId, couponId))
-    .orderBy(desc(couponRedemptions.createdAt));
+    .orderBy(desc(couponRedemptions.createdAt))
+    .limit(boundedLimit);
 }
 
 export type CouponErrorReason =
@@ -218,7 +216,7 @@ export interface CouponPreviewSummary {
 
 export type ValidateCouponPreviewResult =
   | { valid: true; coupon: CouponPreviewSummary }
-  | { valid: false; reason: CouponErrorReason; coupon?: CouponPreviewSummary };
+  | { valid: false; reason: CouponErrorReason; coupon?: CouponPreviewSummary | null };
 
 function toSummary(c: AccessCouponRow): CouponPreviewSummary {
   return {
@@ -233,16 +231,19 @@ function toSummary(c: AccessCouponRow): CouponPreviewSummary {
   };
 }
 
-/** Previsualización de solo lectura para `/canjear?codigo=...` (sin consumir usos). */
 export async function validateCouponPreview(
   db: Db,
   input: { code: string; userId?: string | null; now?: Date },
 ): Promise<ValidateCouponPreviewResult> {
   const code = normalizeCouponCode(input.code);
-  if (!/^[A-Z0-9_-]{3,32}$/.test(code)) return { valid: false, reason: "no_existe" };
+  if (!/^[A-Z0-9_-]{3,32}$/.test(code)) return { valid: false, reason: "no_existe", coupon: null };
 
   const [coupon] = await db.select().from(accessCoupons).where(eq(accessCoupons.code, code)).limit(1);
-  if (!coupon) return { valid: false, reason: "no_existe" };
+  if (!coupon) return { valid: false, reason: "no_existe", coupon: null };
+
+  if (coupon.restrictedToUserId && coupon.restrictedToUserId !== input.userId) {
+    return { valid: false, reason: "cuenta_distinta", coupon: null };
+  }
 
   const summary = toSummary(coupon);
   if (!coupon.active) return { valid: false, reason: "inactivo", coupon: summary };
@@ -254,10 +255,6 @@ export async function validateCouponPreview(
       .where(and(eq(couponRedemptions.couponId, coupon.id), eq(couponRedemptions.userId, input.userId)))
       .limit(1);
     if (existing) return { valid: false, reason: "ya_canjeado", coupon: summary };
-
-    if (coupon.restrictedToUserId && coupon.restrictedToUserId !== input.userId) {
-      return { valid: false, reason: "cuenta_distinta", coupon: summary };
-    }
   }
 
   const now = input.now ?? new Date();
@@ -286,7 +283,6 @@ export type RedeemCouponResult =
     }
   | { ok: false; reason: CouponErrorReason };
 
-/** Canjea un cupón en transacción con bloqueo de fila (`FOR UPDATE`), activando el periodo correspondiente. */
 export async function redeemAccessCoupon(
   db: Db,
   input: { userId: string; code: string; now?: Date },
@@ -429,10 +425,6 @@ export type CreateCouponBatchResult =
   | { ok: true; coupons: AccessCouponRow[] }
   | { ok: false; reason: "cantidad_invalida" | "dias_invalidos" | "prefijo_invalido" };
 
-/**
- * Genera un lote de `count` (1–50) cupones únicos de un solo uso (`maxRedemptions = 1`)
- * con duración configurable en días (1–365) dentro de una misma transacción auditada.
- */
 export async function createAccessCouponBatch(
   db: Db,
   input: {

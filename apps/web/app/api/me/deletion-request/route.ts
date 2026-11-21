@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createSanitizedErrorPayload } from "@pitchlab/contracts";
 import { adminAuditLogs, eq, users } from "@pitchlab/db";
 import { supportEmail } from "@pitchlab/emails";
+import { withMemberMutation } from "../../../../src/server/api-guards";
 import { getMailer } from "../../../../src/server/mailer";
-import {
-  checkEndpointRateLimit,
-  rateLimitResponse,
-  verifySameOriginMutation,
-} from "../../../../src/server/request-security";
-import { requireMember } from "../../../../src/server/session-user";
+import { logSecurityEvent } from "../../../../src/server/safe-logger";
 import { trialHashes } from "../../../../src/server/signup";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const DeletionRequestBodySchema = z
+  .object({
+    reason: z.string().max(2000).nullable().optional(),
+  })
+  .strict();
 
 function escapeHtml(raw: string): string {
   return raw
@@ -22,81 +26,82 @@ function escapeHtml(raw: string): string {
     .replace(/'/g, "&#39;");
 }
 
-/** POST /api/me/deletion-request — registra la solicitud formal de baja y borrado de datos. */
-export async function POST(request: Request): Promise<NextResponse> {
-  const csrfError = verifySameOriginMutation(request);
-  if (csrfError) return csrfError;
+export const POST = withMemberMutation(
+  { bucket: "me-deletion-request", limit: 3, windowMs: 86_400_000 },
+  async ({ request, user }) => {
+    const raw: unknown = await request.json().catch(() => null);
+    const parsed = DeletionRequestBodySchema.safeParse(raw);
+    if (!parsed.success) {
+      const sanitized = createSanitizedErrorPayload(
+        "VALIDATION_ERROR",
+        "Datos de solicitud inválidos.",
+      );
+      return NextResponse.json(
+        { ok: false, error: sanitized.message, code: sanitized.code },
+        { status: 400 },
+      );
+    }
 
-  const member = await requireMember(request);
-  if ("error" in member) return member.error;
+    const reason = parsed.data.reason ? parsed.data.reason.trim().slice(0, 500) : "";
 
-  const rl = await checkEndpointRateLimit({
-    bucket: "me-deletion-request",
-    key: member.userId,
-    limit: 3,
-    windowMs: 86_400_000,
-  });
-  if (!rl.allowed) return rateLimitResponse(rl.retryAfterSeconds);
+    const [profile] = await user.db
+      .select({
+        email: users.email,
+        handle: users.handle,
+        displayName: users.displayName,
+      })
+      .from(users)
+      .where(eq(users.id, user.userId))
+      .limit(1);
 
-  const body = (await request.json().catch(() => null)) as { reason?: unknown } | null;
-  const reason = typeof body?.reason === "string" ? body.reason.trim().slice(0, 500) : "";
+    const now = new Date();
+    const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
 
-  const [user] = await member.db
-    .select({
-      email: users.email,
-      handle: users.handle,
-      displayName: users.displayName,
-    })
-    .from(users)
-    .where(eq(users.id, member.userId))
-    .limit(1);
+    await user.db.insert(adminAuditLogs).values({
+      actorUserId: user.userId,
+      actorEmail: user.email,
+      action: "member_deletion_request",
+      targetKey: user.userId,
+      payloadJson: {
+        handle: profile?.handle ?? null,
+        displayName: profile?.displayName ?? null,
+        reason: reason || null,
+        requestedAtIso: now.toISOString(),
+      },
+      ipSubnetHash,
+    });
 
-  const now = new Date();
-  const { ipSubnetHash } = trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? "");
-
-  await member.db.insert(adminAuditLogs).values({
-    actorUserId: member.userId,
-    actorEmail: member.email,
-    action: "member_deletion_request",
-    targetKey: member.userId,
-    payloadJson: {
-      handle: user?.handle ?? null,
-      displayName: user?.displayName ?? null,
-      reason: reason || null,
-      requestedAtIso: now.toISOString(),
-    },
-    ipSubnetHash,
-  });
-
-  const adminRecipient = process.env.PITCHLAB_SUPPORT_EMAIL?.trim() || supportEmail();
-  const handleText = user?.handle ? `@${user.handle}` : member.userId;
-  try {
-    await getMailer().send({
-      to: adminRecipient,
-      replyTo: member.email,
-      subject: `Solicitud de baja y borrado de datos · ${handleText}`,
-      html: `<p>Un socio solicitó la baja y eliminación de su cuenta en PitchLab:</p>
+    const adminRecipient = process.env.PITCHLAB_SUPPORT_EMAIL?.trim() || supportEmail();
+    const handleText = profile?.handle ? `@${profile.handle}` : user.userId;
+    try {
+      await getMailer().send({
+        to: adminRecipient,
+        replyTo: user.email,
+        subject: `Solicitud de baja y borrado de datos · ${handleText}`,
+        html: `<p>Un socio solicitó la baja y eliminación de su cuenta en PitchLab:</p>
 <ul>
-  <li><strong>Usuario:</strong> ${escapeHtml(handleText)} (${escapeHtml(member.email)})</li>
-  <li><strong>ID:</strong> ${escapeHtml(member.userId)}</li>
+  <li><strong>Usuario:</strong> ${escapeHtml(handleText)} (${escapeHtml(user.email)})</li>
+  <li><strong>ID:</strong> ${escapeHtml(user.userId)}</li>
   <li><strong>Fecha:</strong> ${escapeHtml(now.toISOString())}</li>
   <li><strong>Motivo indicado:</strong> ${escapeHtml(reason || "Sin especificar")}</li>
 </ul>
 <p>Plazo operativo: máximo 72 horas hábiles.</p>`,
-      text: `Solicitud de baja y borrado de datos\nUsuario: ${handleText} (${member.email})\nID: ${member.userId}\nFecha: ${now.toISOString()}\nMotivo: ${reason || "Sin especificar"}\nPlazo máximo: 72 horas hábiles.`,
-      idempotencyKey: `deletion-req:${member.userId}:${now.toISOString().slice(0, 13)}`,
-      tags: [{ name: "tipo", value: "member_deletion_request" }],
-    });
-  } catch (err) {
-    console.error("[correo] no se pudo enviar aviso de baja:", err);
-  }
+        text: `Solicitud de baja y borrado de datos\nUsuario: ${handleText} (${user.email})\nID: ${user.userId}\nFecha: ${now.toISOString()}\nMotivo: ${reason || "Sin especificar"}\nPlazo máximo: 72 horas hábiles.`,
+        idempotencyKey: `deletion-req:${user.userId}:${now.toISOString().slice(0, 13)}`,
+        tags: [{ name: "tipo", value: "member_deletion_request" }],
+      });
+    } catch (err) {
+      logSecurityEvent("warn", "deletion_request_email_failed", {
+        userId: user.userId,
+        error: err,
+      });
+    }
 
-  return NextResponse.json(
-    {
+    return NextResponse.json({
       ok: true,
       requestedAtIso: now.toISOString(),
-      message: "Solicitud registrada; procesamos la baja y borrado en un máximo de 72 horas hábiles.",
-    },
-    { headers: { "Cache-Control": "no-store" } },
-  );
-}
+      message:
+        "Solicitud registrada; procesamos la baja y borrado en un máximo de 72 horas hábiles.",
+    });
+  },
+);

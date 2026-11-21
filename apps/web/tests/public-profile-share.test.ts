@@ -25,6 +25,7 @@ let counter = 0;
 beforeAll(async () => {
   const client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client) as unknown as Db;
 });
 

@@ -1,12 +1,23 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { siteUrl } from "@pitchlab/emails";
-import { processUnsubscribeToken, type UnsubscribeScope } from "../../../../../src/server/lifecycle-emails";
+import { withPublicRead } from "../../../../../src/server/api-guards";
+import {
+  processUnsubscribeToken,
+  type UnsubscribeScope,
+} from "../../../../../src/server/lifecycle-emails";
 import { serverDb } from "../../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
+const MAX_UNSUBSCRIBE_BODY_BYTES = 8_192;
+const MAX_TOKEN_LENGTH = 2_048;
+
+const UnsubscribeJsonBodySchema = z.object({
+  token: z.string().min(1).max(MAX_TOKEN_LENGTH),
+});
 
 const SCOPE_COPY: Record<UnsubscribeScope, string> = {
   weekly_digest: "resumen semanal",
@@ -47,45 +58,76 @@ function confirmationHtml(ok: boolean, scope?: UnsubscribeScope): string {
 </html>`;
 }
 
-/** GET /api/me/email-preferences/unsubscribe?token=... — baja en un clic desde enlaces de correo. */
-export async function GET(request: Request): Promise<Response> {
-  const db = serverDb();
-  if (!db) {
-    return new Response(confirmationHtml(false), {
-      status: 503,
-      headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
-    });
-  }
-  const url = new URL(request.url);
-  const res = await processUnsubscribeToken(db, url.searchParams.get("token"));
-  return new Response(confirmationHtml(res.ok, res.ok ? res.scope : undefined), {
-    status: res.ok ? 200 : 400,
-    headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
-  });
-}
-
-/** POST /api/me/email-preferences/unsubscribe — soporta baja en un clic RFC 8058. */
-export async function POST(request: Request): Promise<NextResponse> {
-  const db = serverDb();
-  if (!db) {
-    return NextResponse.json({ error: "Base de datos no disponible" }, { status: 503, headers: NO_STORE });
-  }
-  const url = new URL(request.url);
-  let token = url.searchParams.get("token");
-  if (!token) {
-    const raw = await request.text().catch(() => "");
-    if (raw) {
-      if (raw.trim().startsWith("{")) {
-        const json = JSON.parse(raw) as { token?: unknown };
-        if (typeof json.token === "string") token = json.token;
-      } else {
-        token = new URLSearchParams(raw).get("token");
-      }
+function extractTokenFromBody(raw: string): string | null {
+  if (!raw || raw.length > MAX_UNSUBSCRIBE_BODY_BYTES) return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  if (trimmed.startsWith("{")) {
+    try {
+      const parsedJson: unknown = JSON.parse(trimmed);
+      const validated = UnsubscribeJsonBodySchema.safeParse(parsedJson);
+      return validated.success ? validated.data.token : null;
+    } catch (err) {
+      void err;
+      return null;
     }
   }
-  const res = await processUnsubscribeToken(db, token);
-  if (!res.ok) {
-    return NextResponse.json({ ok: false, error: "Token inválido o caducado" }, { status: 400, headers: NO_STORE });
-  }
-  return NextResponse.json({ ok: true, scope: res.scope }, { headers: NO_STORE });
+  const formToken = new URLSearchParams(raw).get("token");
+  return formToken && formToken.length <= MAX_TOKEN_LENGTH ? formToken : null;
 }
+
+export const GET = withPublicRead(
+  {
+    bucket: "email-unsubscribe",
+    limit: 30,
+    windowMs: 60_000,
+    cacheControl: "no-store",
+  },
+  async ({ request }) => {
+    const db = serverDb();
+    if (!db) {
+      return new Response(confirmationHtml(false), {
+        status: 503,
+        headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
+      });
+    }
+    const url = new URL(request.url);
+    const res = await processUnsubscribeToken(db, url.searchParams.get("token"));
+    return new Response(confirmationHtml(res.ok, res.ok ? res.scope : undefined), {
+      status: res.ok ? 200 : 400,
+      headers: { ...NO_STORE, "Content-Type": "text/html; charset=utf-8" },
+    });
+  },
+);
+
+export const POST = withPublicRead(
+  {
+    bucket: "email-unsubscribe",
+    limit: 30,
+    windowMs: 60_000,
+    cacheControl: "no-store",
+  },
+  async ({ request }) => {
+    const db = serverDb();
+    if (!db) {
+      return NextResponse.json(
+        { error: "Base de datos no disponible" },
+        { status: 503, headers: NO_STORE },
+      );
+    }
+    const url = new URL(request.url);
+    let token = url.searchParams.get("token");
+    if (!token) {
+      const raw = await request.text().catch(() => "");
+      token = extractTokenFromBody(raw);
+    }
+    const res = await processUnsubscribeToken(db, token);
+    if (!res.ok) {
+      return NextResponse.json(
+        { ok: false, error: "Token inválido o caducado" },
+        { status: 400, headers: NO_STORE },
+      );
+    }
+    return NextResponse.json({ ok: true, scope: res.scope }, { headers: NO_STORE });
+  },
+);

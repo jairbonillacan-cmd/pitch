@@ -46,11 +46,15 @@ let sharedDb: Db;
 beforeAll(async () => {
   pgClient = new PGlite();
   await applyMigrations((sql) => pgClient.exec(sql));
+  await pgClient.exec("SET pitchlab.allow_historical_seed = 'on'");
   sharedDb = drizzle(pgClient) as unknown as Db;
 });
 
 beforeEach(async () => {
-  await pgClient.exec("TRUNCATE TABLE users, auth_user, auth_verification, platform_runtime_flags, admin_audit_logs CASCADE");
+  await pgClient.exec("SET pitchlab.allow_historical_seed = 'on'");
+  await pgClient.exec(
+    "TRUNCATE TABLE users, auth_user, auth_verification, platform_runtime_flags, admin_audit_logs, security_rate_buckets, security_abuse_events CASCADE",
+  );
 });
 
 afterAll(async () => {
@@ -97,19 +101,25 @@ async function signInWithMagicLink(db: Db, email: string) {
 }
 
 describe("Ola 2 · SEC-07 Integridad de bitácora sellada y trigger pick_immutable", () => {
-  it("impide alterar o borrar picks sellados en PostgreSQL, pero permite calificar pendientes y borrado en cascada de usuario", async () => {
-    async function expectImmutableRejected(promise: Promise<unknown>): Promise<void> {
-      let caught: unknown = null;
-      try {
-        await promise;
-      } catch (err) {
-        caught = err;
-      }
-      expect(caught).not.toBeNull();
-      const detail = `${String(caught)} ${String((caught as { cause?: unknown })?.cause ?? "")}`;
-      expect(detail).toMatch(/sealed_picks_immutable/);
+  async function expectImmutableRejected(
+    promise: Promise<unknown>,
+    codePattern?: RegExp,
+  ): Promise<void> {
+    let caught: unknown = null;
+    try {
+      await promise;
+    } catch (err) {
+      caught = err;
     }
+    expect(caught).not.toBeNull();
+    const detail = `${String(caught)} ${String((caught as { cause?: unknown })?.cause ?? "")}`;
+    expect(detail).toMatch(/sealed_picks_immutable/);
+    if (codePattern) {
+      expect(detail).toMatch(codePattern);
+    }
+  }
 
+  it("impide alterar o borrar picks sellados en PostgreSQL, pero permite calificar pendientes y borrado en cascada de usuario", async () => {
     const [u] = await sharedDb.insert(users).values({ email: "bitacora@example.com" }).returning();
     const [sealed] = await sharedDb
       .insert(sealedPicks)
@@ -156,6 +166,85 @@ describe("Ola 2 · SEC-07 Integridad de bitácora sellada y trigger pick_immutab
     // Borrado ARCO de la cuenta en users: cascada permitida.
     await sharedDb.delete(users).where(eq(users.id, u!.id));
     expect(await sharedDb.select().from(sealedPicks)).toHaveLength(0);
+  });
+
+  it("sin GUC histórico (0025) rechaza inserciones retroactivas post-kickoff, borrado directo y edición de liquidadas, preservando ON DELETE CASCADE ARCO", async () => {
+    await pgClient.exec("SET pitchlab.allow_historical_seed = 'off'");
+    try {
+      const [u] = await sharedDb.insert(users).values({ email: "retroactivo-0025@example.com" }).returning();
+
+      await expectImmutableRejected(
+        sharedDb.insert(sealedPicks).values({
+          userId: u!.id,
+          pickId: "g-retro__p1",
+          gameId: "g-retro",
+          leagueLabel: "Liga MX",
+          matchLabel: "América vs Cruz Azul",
+          pickLabel: "América gana",
+          origin: "Spacetime Suite",
+          units: "1.00",
+          userDecimal: "2.000",
+          fairDecimal: "1.900",
+          sealHash: "e".repeat(64),
+          sealedAt: new Date("2020-01-01T10:00:00Z"),
+          kickoffAt: new Date("2020-01-01T12:00:00Z"),
+        }),
+        /RETROACTIVE_SEALED_PICK_FORBIDDEN/,
+      );
+
+      const futureKickoff = new Date(Date.now() + 24 * 3_600_000);
+      const [inserted] = await sharedDb
+        .insert(sealedPicks)
+        .values({
+          userId: u!.id,
+          pickId: "g-future__p1",
+          gameId: "g-future",
+          leagueLabel: "Liga MX",
+          matchLabel: "Monterrey vs Tigres",
+          pickLabel: "Monterrey gana",
+          origin: "Spacetime Suite",
+          units: "1.50",
+          userDecimal: "2.150",
+          fairDecimal: "2.000",
+          sealHash: "a".repeat(64),
+          sealedAt: new Date("2020-01-01T10:00:00Z"),
+          kickoffAt: futureKickoff,
+        })
+        .returning();
+
+      expect(inserted).toBeDefined();
+      expect(inserted!.sealedAt.getTime()).toBeGreaterThan(new Date("2025-01-01T00:00:00Z").getTime());
+
+      await expectImmutableRejected(
+        sharedDb.delete(sealedPicks).where(eq(sealedPicks.id, inserted!.id)),
+        /IMMUTABLE_SEALED_PICK_DELETE/,
+      );
+
+      await sharedDb
+        .update(sealedPicks)
+        .set({
+          status: "won",
+          clvPct: "2.80",
+          closingDecimal: "2.050",
+          settledAt: new Date(Date.now() + 26 * 3_600_000),
+        })
+        .where(eq(sealedPicks.id, inserted!.id));
+
+      await expectImmutableRejected(
+        sharedDb.update(sealedPicks).set({ status: "lost" }).where(eq(sealedPicks.id, inserted!.id)),
+        /IMMUTABLE_SETTLED_PICK_UPDATE/,
+      );
+
+      await expectImmutableRejected(
+        sharedDb.update(sealedPicks).set({ clvPct: "0.00" }).where(eq(sealedPicks.id, inserted!.id)),
+        /IMMUTABLE_SETTLED_PICK_UPDATE/,
+      );
+
+      await sharedDb.delete(users).where(eq(users.id, u!.id));
+      expect(await sharedDb.select().from(sealedPicks).where(eq(sealedPicks.userId, u!.id))).toHaveLength(0);
+    } finally {
+      await pgClient.exec("SET pitchlab.allow_historical_seed = 'on'");
+    }
   });
 
   it("deriva fairDecimal y etiquetas exclusivamente del catálogo del servidor en POST /api/me/journal", async () => {

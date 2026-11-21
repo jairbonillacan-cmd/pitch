@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import manifest from "../app/manifest";
 import OfflinePage from "../app/offline/page";
+import { resetScrapingVelocityForTests } from "../src/server/api-guards";
 import {
   buildServerRawPlatformDataset,
   loadExtendedShellPayload,
@@ -12,6 +13,7 @@ import {
   upcomingPlusRecentFinished,
   withoutGameDetail,
 } from "../src/server/platform-data";
+import { resetRateLimitsForTests } from "../src/server/request-security";
 
 const viewerAccessMock = vi.fn();
 
@@ -22,6 +24,8 @@ vi.mock("../src/server/viewer-access", () => ({
 describe("ADR-053 · Shell RSC progresivo, Cero-Fuga en /api/shell/extend y PWA /offline", () => {
   afterEach(() => {
     viewerAccessMock.mockReset();
+    resetRateLimitsForTests();
+    resetScrapingVelocityForTests();
   });
 
   it("recorta el tramo 1 del shell por debajo de 500 KB preservando LIVE/hoy y omitiendo parlayCandidates", () => {
@@ -38,7 +42,6 @@ describe("ADR-053 · Shell RSC progresivo, Cero-Fuga en /api/shell/extend y PWA 
     expect(stage1.games.length).toBeLessThanOrEqual(52);
     expect(stage1.games.every((g) => g.parlayCandidates === undefined)).toBe(true);
 
-    // Todos los partidos LIVE deben conservarse en el tramo 1
     const liveIds = fullSlim.games.filter((g) => g.status === "LIVE").map((g) => g.id);
     const stage1Ids = new Set(stage1.games.map((g) => g.id));
     for (const id of liveIds) {
@@ -49,14 +52,29 @@ describe("ADR-053 · Shell RSC progresivo, Cero-Fuga en /api/shell/extend y PWA 
   it("GET /api/shell/extend exige sesión (401) y aplica Cero-Fuga estricta entre visitante y socio", async () => {
     const { GET } = await import("../app/api/shell/extend/route");
 
-    viewerAccessMock.mockResolvedValueOnce({ via: "none", fullAccess: false });
-    const unauth = await GET();
+    viewerAccessMock.mockResolvedValueOnce({
+      via: "none",
+      signupComplete: false,
+      fullAccess: false,
+      isAdmin: false,
+      isTipster: false,
+      profile: null,
+    });
+    const unauth = await GET(new Request("http://localhost:9990/api/shell/extend"));
     expect(unauth.status).toBe(401);
+    expect(unauth.headers.get("Cache-Control")).toBe("private, no-store");
 
-    viewerAccessMock.mockResolvedValueOnce({ via: "account", fullAccess: false });
-    const visitorRes = await GET();
+    viewerAccessMock.mockResolvedValueOnce({
+      via: "account",
+      signupComplete: true,
+      fullAccess: false,
+      isAdmin: false,
+      isTipster: false,
+      profile: null,
+    });
+    const visitorRes = await GET(new Request("http://localhost:9990/api/shell/extend"));
     expect(visitorRes.status).toBe(200);
-    expect(visitorRes.headers.get("Cache-Control")).toContain("private");
+    expect(visitorRes.headers.get("Cache-Control")).toBe("private, no-store");
     const visitorBody = (await visitorRes.json()) as {
       games: Array<{ status: string; picks: Array<{ label: string; rationale: string }> }>;
       teams: unknown[];
@@ -69,7 +87,6 @@ describe("ADR-053 · Shell RSC progresivo, Cero-Fuga en /api/shell/extend y PWA 
     expect(memberPayload.games.length).toBeGreaterThan(0);
     expect(visitorPayload.games.length).toBe(memberPayload.games.length);
 
-    // Visitante nunca recibe `parlayCandidates` desbloqueados del tramo 2 si hay picks bloqueados
     const sampleMember = memberPayload.games.find((g) => g.status === "NS" && g.picks.length > 1);
     if (sampleMember) {
       const sampleVisitor = visitorPayload.games.find((g) => g.id === sampleMember.id);
@@ -97,14 +114,11 @@ describe("ADR-053 · Shell RSC progresivo, Cero-Fuga en /api/shell/extend y PWA 
 
     const swPath = path.resolve(process.cwd(), "public/sw.js");
     const swSource = fs.readFileSync(swPath, "utf8");
-    // Bloqueo y purga en desarrollo local intactos
     expect(swSource).toContain("isLocalDevHost");
     expect(swSource).toContain("127.0.0.1");
     expect(swSource).toContain("localhost");
-    // Precachea únicamente /offline y escucha SKIP_WAITING
     expect(swSource).toContain('"/offline"');
     expect(swSource).toContain("SKIP_WAITING");
-    // Nunca cachea HTML de /app en caché
     expect(swSource).not.toContain('cache.put("/app"');
   });
 });
