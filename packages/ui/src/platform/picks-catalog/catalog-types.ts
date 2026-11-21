@@ -11,7 +11,11 @@
  *   ligada a probabilidad calibrada `p`, `fairOdds = 1 / p` y análisis propio.
  * - ADR-054: cero etiquetas «Confianza N» ni chips de «Datos completos / parciales».
  */
-import type { LeagueId, PlatformSport } from "@pitchlab/contracts";
+import type {
+  LeagueId,
+  MarketFamilyId,
+  PlatformSport,
+} from "@pitchlab/contracts";
 import type {
   BookQuoteItem,
   MatchIntelligenceV5View,
@@ -20,77 +24,22 @@ import type {
   PlayerPropItem,
 } from "../types";
 
-export const FOOTBALL_MARKET_FAMILY_IDS = [
-  "1x2",
-  "double_chance",
-  "dnb",
-  "btts",
-  "totals",
-  "team_totals",
-  "half_time_result",
-  "second_half_result",
-  "combo_1x2_over",
-  "combo_1x2_btts",
-  "asian_handicap",
-  "clean_sheet",
-  "win_to_nil",
-  "corners_total",
-  "corners_team",
-  "shots_total",
-  "shots_on_target",
-  "fouls_total",
-  "cards_total",
-  "player_props_football",
-] as const;
-
-export const NBA_MARKET_FAMILY_IDS = [
-  "nba_moneyline",
-  "nba_spread",
-  "nba_totals",
-  "nba_player_props",
-] as const;
-
-export const MLB_MARKET_FAMILY_IDS = [
-  "mlb_moneyline",
-  "mlb_run_line",
-  "mlb_f5",
-  "mlb_totals",
-] as const;
-
-export const NHL_MARKET_FAMILY_IDS = [
-  "nhl_moneyline",
-  "nhl_puck_line",
-  "nhl_totals",
-] as const;
-
-export const NFL_MARKET_FAMILY_IDS = [
-  "nfl_moneyline",
-  "nfl_spread",
-  "nfl_totals",
-] as const;
-
-export type FootballMarketFamilyId = (typeof FOOTBALL_MARKET_FAMILY_IDS)[number];
-export type NbaMarketFamilyId = (typeof NBA_MARKET_FAMILY_IDS)[number];
-export type MlbMarketFamilyId = (typeof MLB_MARKET_FAMILY_IDS)[number];
-export type NhlMarketFamilyId = (typeof NHL_MARKET_FAMILY_IDS)[number];
-export type NflMarketFamilyId = (typeof NFL_MARKET_FAMILY_IDS)[number];
-export type UsMarketFamilyId =
-  | NbaMarketFamilyId
-  | MlbMarketFamilyId
-  | NhlMarketFamilyId
-  | NflMarketFamilyId;
-
-export type MarketFamilyId = FootballMarketFamilyId | UsMarketFamilyId;
-
-export const MARKET_FAMILY_IDS: readonly MarketFamilyId[] = [
-  ...FOOTBALL_MARKET_FAMILY_IDS,
-  ...NBA_MARKET_FAMILY_IDS,
-  ...MLB_MARKET_FAMILY_IDS,
-  ...NHL_MARKET_FAMILY_IDS,
-  ...NFL_MARKET_FAMILY_IDS,
-] as const;
-
-export const MARKET_FAMILY_COUNT = MARKET_FAMILY_IDS.length;
+export {
+  FOOTBALL_MARKET_FAMILY_IDS,
+  MARKET_FAMILY_COUNT,
+  MARKET_FAMILY_IDS,
+  MLB_MARKET_FAMILY_IDS,
+  NBA_MARKET_FAMILY_IDS,
+  NFL_MARKET_FAMILY_IDS,
+  NHL_MARKET_FAMILY_IDS,
+  type FootballMarketFamilyId,
+  type MarketFamilyId,
+  type MlbMarketFamilyId,
+  type NbaMarketFamilyId,
+  type NflMarketFamilyId,
+  type NhlMarketFamilyId,
+  type UsMarketFamilyId,
+} from "@pitchlab/contracts";
 
 export type CatalogCategoryKey =
   | "resultado"
@@ -174,7 +123,7 @@ export type NbaPlayerPropStatKey = "PTS" | "REB" | "AST" | "3PM";
 
 export type PlayerPropStatKey = FootballPlayerPropStatKey | NbaPlayerPropStatKey;
 
-export type DeVigMethod = "proportional" | "shin" | "none";
+export type DeVigMethod = "proportional" | "shin" | "power" | "none";
 
 export type EvidenceTone = "high" | "mid" | "low" | "neutral";
 
@@ -458,7 +407,8 @@ export interface CatalogBuildContext {
   readonly awayHistory?: readonly TeamMatchEvidenceRecord[];
   readonly f5Score?: { readonly home: number; readonly away: number } | null;
   readonly finalStats?: MatchFinalCountStats | null;
-  readonly deVigPreference?: "auto" | "proportional" | "shin";
+  readonly allowedFamilies?: ReadonlySet<MarketFamilyId>;
+  readonly deVigPreference?: "auto" | "proportional" | "shin" | "power";
   readonly nowIso?: string;
 }
 

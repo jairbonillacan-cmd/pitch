@@ -65,6 +65,7 @@ export {
   buildNumericSeriesEvidenceWindows,
   computeAdaptiveDeVig,
   computePickPricing,
+  computePowerDeVig,
   computeProportionalDeVig,
   computeShinDeVig,
   gradeCatalogPick,
@@ -75,6 +76,14 @@ export {
   type ComputePickPricingInput,
   type DeVigComputationResult,
 } from "./evidence-engine";
+
+export {
+  catalogCategoryToEvidenceGroup,
+  catalogCategoryToLegacyFilter,
+  catalogEvidenceToWindowItems,
+  catalogPickItemToMatchPick,
+  type LegacyScreenerMarketFilter,
+} from "./catalog-adapters";
 
 export {
   bivariateNormalJointProb,

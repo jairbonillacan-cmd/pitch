@@ -82,6 +82,7 @@ export interface DeVigComputationResult {
   readonly method: Exclude<DeVigMethod, "none">;
   readonly overroundPct: number;
   readonly shinZ?: number;
+  readonly powerAlpha?: number;
 }
 
 /**
@@ -181,6 +182,72 @@ export function computeShinDeVig(
   };
 }
 
+export function computePowerDeVig(
+  decimals: readonly number[],
+  tolerance = 1e-12,
+): DeVigComputationResult | null {
+  if (decimals.length < 2) return null;
+  const q: number[] = [];
+  let sumQ = 0;
+  for (const d of decimals) {
+    if (!Number.isFinite(d) || d < 1.01) return null;
+    const qi = 1 / d;
+    q.push(qi);
+    sumQ += qi;
+  }
+  if (sumQ < MIN_DE_VIG_IMPLIED_SUM || sumQ > MAX_DE_VIG_IMPLIED_SUM) return null;
+
+  const overroundPct = round2((sumQ - 1) * 100);
+  if (Math.abs(sumQ - 1) <= 1e-12) {
+    const probs = q.map((qi) => qi / sumQ);
+    if (probs.some((p) => !Number.isFinite(p) || p <= 0 || p >= 1)) return null;
+    return {
+      probs,
+      method: "power",
+      overroundPct,
+      powerAlpha: 1,
+    };
+  }
+
+  const evalSum = (alpha: number): number => {
+    let acc = 0;
+    for (const qi of q) {
+      acc += Math.pow(qi, alpha);
+    }
+    return acc;
+  };
+
+  let lo = 1e-6;
+  let hi = 5;
+  while (evalSum(hi) > 1 && hi < 64) {
+    hi *= 2;
+  }
+  let alpha = 1;
+  for (let iter = 0; iter < 120; iter += 1) {
+    alpha = (lo + hi) * 0.5;
+    const total = evalSum(alpha);
+    if (Math.abs(total - 1) <= tolerance) {
+      break;
+    }
+    if (total > 1) lo = alpha;
+    else hi = alpha;
+  }
+
+  const rawProbs = q.map((qi) => Math.pow(qi, alpha));
+  const normSum = rawProbs.reduce((acc, v) => acc + v, 0);
+  if (!Number.isFinite(normSum) || normSum <= 0) return null;
+
+  const probs = rawProbs.map((p) => p / normSum);
+  if (probs.some((p) => !Number.isFinite(p) || p <= 0 || p >= 1)) return null;
+
+  return {
+    probs,
+    method: "power",
+    overroundPct,
+    powerAlpha: round4(alpha),
+  };
+}
+
 /**
  * Selecciona el método de de-vig óptimo:
  * - `"auto"`: Shin cuando el overround es >= 3.5 % (casas recreativas) y proporcional en
@@ -189,7 +256,7 @@ export function computeShinDeVig(
  */
 export function computeAdaptiveDeVig(
   decimals: readonly number[],
-  preference: "auto" | "proportional" | "shin" = "auto",
+  preference: "auto" | "proportional" | "shin" | "power" = "auto",
   targetProbSum = 1,
 ): DeVigComputationResult | null {
   if (decimals.length < 2) return null;
@@ -198,6 +265,7 @@ export function computeAdaptiveDeVig(
   }
   if (preference === "proportional") return computeProportionalDeVig(decimals);
   if (preference === "shin") return computeShinDeVig(decimals) ?? computeProportionalDeVig(decimals);
+  if (preference === "power") return computePowerDeVig(decimals) ?? computeProportionalDeVig(decimals);
 
   const prop = computeProportionalDeVig(decimals);
   if (!prop) return null;
@@ -216,7 +284,7 @@ export interface ComputePickPricingInput {
   readonly companionProbSum?: number;
   readonly marketBookLabel?: string | null;
   readonly marketCapturedAtUtc?: string | null;
-  readonly deVigPreference?: "auto" | "proportional" | "shin";
+  readonly deVigPreference?: "auto" | "proportional" | "shin" | "power";
 }
 
 /**

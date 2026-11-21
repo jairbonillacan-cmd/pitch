@@ -4,8 +4,10 @@ import { asLeagueId } from "@pitchlab/contracts";
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import {
   bivariateNormalJointProb,
+  catalogPickItemToMatchPick,
   computeAdaptiveDeVig,
   computePickPricing,
+  computePowerDeVig,
   computeProportionalDeVig,
   computeShinDeVig,
   evaluateBetBuilder,
@@ -210,9 +212,11 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
           const results = [
             computeProportionalDeVig(decimals),
             computeShinDeVig(decimals),
+            computePowerDeVig(decimals),
             computeAdaptiveDeVig(decimals, "auto"),
             computeAdaptiveDeVig(decimals, "proportional"),
             computeAdaptiveDeVig(decimals, "shin"),
+            computeAdaptiveDeVig(decimals, "power"),
           ];
 
           for (const res of results) {
@@ -250,13 +254,15 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
 
             const prop = computeProportionalDeVig(pair);
             const shin = computeShinDeVig(pair);
+            const power = computePowerDeVig(pair);
             const adaptive = computeAdaptiveDeVig(pair, "auto");
 
             expect(prop).not.toBeNull();
             expect(shin).not.toBeNull();
+            expect(power).not.toBeNull();
             expect(adaptive).not.toBeNull();
 
-            for (const res of [prop!, shin!, adaptive!]) {
+            for (const res of [prop!, shin!, power!, adaptive!]) {
               expect(res.probs).toHaveLength(2);
               const [p0, p1] = res.probs;
               expect(Number.isFinite(p0)).toBe(true);
@@ -308,6 +314,7 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
             for (const res of [
               computeProportionalDeVig(trio),
               computeShinDeVig(trio),
+              computePowerDeVig(trio),
               computeAdaptiveDeVig(trio, "auto"),
             ]) {
               expect(res).not.toBeNull();
@@ -720,6 +727,20 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
             expect(serialized).not.toContain(secretBook);
             expect(serialized).not.toContain(secretPlayer);
             expect(serialized).not.toContain(secretRef);
+
+            const adaptedRedacted = catalogPickItemToMatchPick(redacted, null, slotIdx);
+            const adaptedSerialized = JSON.stringify(adaptedRedacted);
+            expect(adaptedRedacted.isRedacted).toBe(true);
+            expect(adaptedRedacted.p).toBe(0);
+            expect(adaptedRedacted.fairDecimal).toBe(0);
+            expect(adaptedRedacted.marketDecimal).toBeNull();
+            expect(adaptedRedacted.edgePts).toBeNull();
+            expect(adaptedRedacted.selectionKey).toBe("locked");
+            expect(adaptedSerialized).not.toContain(secretLabel);
+            expect(adaptedSerialized).not.toContain(secretSelection);
+            expect(adaptedSerialized).not.toContain(secretBook);
+            expect(adaptedSerialized).not.toContain(secretPlayer);
+            expect(adaptedSerialized).not.toContain(secretRef);
           },
         ),
         { numRuns: NUM_RUNS },

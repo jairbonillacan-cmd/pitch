@@ -27,6 +27,13 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import {
+  catalogCategoryToLegacyFilter,
+  catalogEvidenceToWindowItems,
+  catalogPickItemToMatchPick,
+  type MarketFamilyId,
+  type MatchPicksCatalog,
+} from "../picks-catalog";
+import {
   MAX_SAVED_SCREENER_VIEWS,
   sliderStepToOdds,
   smoothOddsWeight,
@@ -265,6 +272,7 @@ function matchesMarketFamily(
   pick: MatchPick,
   game: PlatformGame,
   filter: MarketFamilyFilter,
+  resolvedFamily?: Exclude<MarketFamilyFilter, "all">,
 ): boolean {
   if (filter === "all") return true;
   if (filter === "nba") return game.sport === "basketball" || (pick.market ?? "").startsWith("nba_");
@@ -273,7 +281,7 @@ function matchesMarketFamily(
   if (filter === "nfl") {
     return game.sport === "american-football" || (pick.market ?? "").startsWith("nfl_");
   }
-  const fam = primaryFamilyOf(pick, game);
+  const fam = resolvedFamily ?? primaryFamilyOf(pick, game);
   if (filter === "resultado") {
     const m = normText(pick.market ?? "");
     const g = normText(`${pick.marketGroup} ${pick.label}`);
@@ -287,6 +295,7 @@ function matchesMarketFamily(
       m === "half_time_result" ||
       m === "second_half_result" ||
       m === "win_to_nil" ||
+      m === "mlb_f5" ||
       m.startsWith("combo_1x2") ||
       g.includes("gana") ||
       g.includes("empate")
@@ -381,6 +390,7 @@ interface ScreenerItem {
   readonly liveEntry?: LiveScoreboardEntry;
   readonly liveProgress: LivePickProgressItem | null;
   readonly family: Exclude<MarketFamilyFilter, "all">;
+  readonly catalogFamilyId?: MarketFamilyId;
   readonly houseDecimal: number | null;
   readonly houseLabel: string | null;
   readonly openDecimal: number | null;
@@ -454,7 +464,12 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
       : null;
 
   return (
-    <article className="pl-scr-row" role="listitem" data-screener-pick={pick.id}>
+    <article
+      className="pl-scr-row"
+      role="listitem"
+      data-screener-pick={pick.id}
+      data-market-family={item.catalogFamilyId ?? pick.market ?? ""}
+    >
       {/* Columna 1: Pick, partido (si aplica), probabilidad y barra en vivo */}
       <div className="pl-scr-col-pick">
         {showMatchMeta ? (
@@ -824,6 +839,10 @@ function MobileFiltersSheet({
   );
 }
 
+export interface PicksFinderClubViewProps {
+  readonly initialCatalogs?: Readonly<Record<string, MatchPicksCatalog>> | null;
+}
+
 /**
  * Screener editorial de Picks (`/app/picks`) en Desktop (terminal editorial con `@container`)
  * y Mobile (tarjetas táctiles `>= 44 px` + bottom sheet nativo con `useSheetSwipeDismiss`).
@@ -832,7 +851,9 @@ function MobileFiltersSheet({
  * `document.visibilityState`, filtro de 24+ familias de mercado, selector rápido de casas preferidas,
  * slider no lineal, vistas guardadas con toast `Deshacer` y Bet Builder 1-clic.
  */
-export function PicksFinderClubView(): React.JSX.Element {
+export function PicksFinderClubView({
+  initialCatalogs = null,
+}: PicksFinderClubViewProps = {}): React.JSX.Element {
   const {
     dataset,
     viewerRole,
@@ -940,6 +961,135 @@ export function PicksFinderClubView(): React.JSX.Element {
       const marketByKey = new Map<string, PlatformMarketRow>();
       for (const m of game.markets) {
         marketByKey.set(`${m.market}::${m.selection}`, m);
+        if (m.market === "h2h") {
+          marketByKey.set(`1x2::${m.selection}`, m);
+        } else if (m.market === "1x2") {
+          marketByKey.set(`h2h::${m.selection}`, m);
+        }
+      }
+
+      const liveDetail = isLiveGame ? liveMatchStore(game.id).getSnapshot().data : null;
+      const serverCatalog = initialCatalogs?.[game.id] ?? null;
+
+      if (serverCatalog && serverCatalog.picks.length > 0) {
+        for (let idx = 0; idx < serverCatalog.picks.length; idx += 1) {
+          const catItem = serverCatalog.picks[idx]!;
+          const pick = catalogPickItemToMatchPick(catItem, game, idx);
+          const legacyFamily = catalogCategoryToLegacyFilter(catItem.category, catItem.sport);
+
+          if (catItem.isRedacted) {
+            out.push({
+              game,
+              pick,
+              isLiveGame,
+              liveEntry,
+              liveProgress: null,
+              family: legacyFamily,
+              catalogFamilyId: catItem.family,
+              houseDecimal: null,
+              houseLabel: null,
+              openDecimal: null,
+              movementDir: null,
+              movement: null,
+              movementScore: 0,
+              capturedAtUtc: null,
+              valuePct: null,
+              edgePts: null,
+              evidenceWindows: [],
+            });
+            continue;
+          }
+
+          const matchedRow = marketByKey.get(`${catItem.family}::${catItem.selectionKey}`);
+          const quotes = pick.bookQuotes ?? matchedRow?.bookQuotes;
+          const prefQuote = resolvePreferredBookQuote(quotes, preferredBooks);
+          const houseDecimal =
+            prefQuote?.decimal ?? catItem.pricing.marketDecimal ?? matchedRow?.currentDecimal ?? null;
+          const houseLabel =
+            prefQuote?.bookLabel ??
+            catItem.pricing.marketBookLabel ??
+            matchedRow?.quoteBookLabel ??
+            null;
+          const openDecimal = prefQuote?.openingDecimal ?? matchedRow?.openDecimal ?? null;
+          const movementDir = prefQuote?.movementDirection ?? matchedRow?.movementDirection ?? null;
+          const capturedAtUtc =
+            prefQuote?.capturedAtUtc ??
+            catItem.pricing.marketCapturedAtUtc ??
+            matchedRow?.quoteCapturedAtUtc ??
+            null;
+          const valuePct =
+            prefQuote != null
+              ? computeExpectedValuePct(pick.p, houseDecimal)
+              : (catItem.pricing.evPct ?? computeExpectedValuePct(pick.p, houseDecimal));
+          const edgePts =
+            prefQuote != null && houseDecimal !== null && houseDecimal > 1
+              ? Math.round((pick.p - 1 / houseDecimal) * 1000) / 10
+              : (catItem.pricing.edgePts ??
+                  (houseDecimal !== null && houseDecimal > 1
+                    ? Math.round((pick.p - 1 / houseDecimal) * 1000) / 10
+                    : null));
+
+          const movement = classifyOddsMovement(openDecimal, houseDecimal, movementDir);
+          const movementScore = !movement
+            ? 0
+            : movement.kind === "steam"
+              ? 100 + Math.abs(movement.deltaPct ?? 8)
+              : movement.kind === "shortening"
+                ? 50 + Math.abs(movement.deltaPct ?? 2)
+                : movement.kind === "drifting"
+                  ? 10 + Math.abs(movement.deltaPct ?? 1)
+                  : 0;
+
+          let liveProgress: LivePickProgressItem | null = null;
+          if (isLiveGame) {
+            const synthEntry: JournalEntry = {
+              id: pick.id,
+              pickId: pick.id,
+              gameId: game.id,
+              leagueLabel: game.leagueLabel,
+              matchLabel: pick.matchLabel,
+              pickLabel: pick.label,
+              origin: "Spacetime Suite",
+              units: 1,
+              userDecimal: houseDecimal ?? pick.fairDecimal,
+              fairDecimal: pick.fairDecimal,
+              clvPct: 0,
+              status: "pending",
+              sealedAt: "",
+            };
+            liveProgress = computeLivePickProgress({
+              entry: synthEntry,
+              game,
+              scoreboardEntry: liveEntry,
+              detail: liveDetail,
+            });
+          }
+
+          const catalogWindows = catalogEvidenceToWindowItems(catItem.evidence, catItem.sport);
+          const evidenceWindows =
+            catalogWindows.length > 0 ? catalogWindows : extractEvidenceWindows({ game, pick });
+
+          out.push({
+            game,
+            pick: quotes && !pick.bookQuotes ? { ...pick, bookQuotes: quotes } : pick,
+            isLiveGame,
+            liveEntry,
+            liveProgress,
+            family: legacyFamily,
+            catalogFamilyId: catItem.family,
+            houseDecimal,
+            houseLabel,
+            openDecimal,
+            movementDir,
+            movement,
+            movementScore,
+            capturedAtUtc,
+            valuePct,
+            edgePts,
+            evidenceWindows,
+          });
+        }
+        continue;
       }
 
       const seenIds = new Set<string>();
@@ -969,8 +1119,6 @@ export function PicksFinderClubView(): React.JSX.Element {
         seenLabels.add(lblKey);
         gamePicks.push(marketRowToScreenerPick(game, m, idx));
       });
-
-      const liveDetail = isLiveGame ? liveMatchStore(game.id).getSnapshot().data : null;
 
       for (const pick of gamePicks) {
         const matchedRow = pick.market
@@ -1052,7 +1200,7 @@ export function PicksFinderClubView(): React.JSX.Element {
       }
     }
     return out;
-  }, [dataset.games, liveBoard.data?.entries, preferredBooks]);
+  }, [dataset.games, initialCatalogs, liveBoard.data?.entries, preferredBooks]);
 
   const timingCounts = useMemo(() => {
     let upcoming = 0;
@@ -1220,7 +1368,9 @@ export function PicksFinderClubView(): React.JSX.Element {
       if (league !== "all" && item.game.league !== league) return false;
       if (!matchesWindow(item.game)) return false;
       if (band !== "all" && bandOf(item.pick.p) !== band) return false;
-      if (family !== "all" && !matchesMarketFamily(item.pick, item.game, family)) return false;
+      if (family !== "all" && !matchesMarketFamily(item.pick, item.game, family, item.family)) {
+        return false;
+      }
       if (onlyPositiveEdge) {
         const hasVal = (item.valuePct !== null && item.valuePct > 0) || (item.edgePts !== null && item.edgePts > 0);
         if (!hasVal) return false;
@@ -1284,7 +1434,9 @@ export function PicksFinderClubView(): React.JSX.Element {
       if (sport !== "all" && !matchesSportFilter(item.game, sport)) continue;
       if (league !== "all" && item.game.league !== league) continue;
       if (!matchesWindow(item.game)) continue;
-      if (family !== "all" && !matchesMarketFamily(item.pick, item.game, family)) continue;
+      if (family !== "all" && !matchesMarketFamily(item.pick, item.game, family, item.family)) {
+        continue;
+      }
       if (onlyPositiveEdge) {
         const hasVal = (item.valuePct !== null && item.valuePct > 0) || (item.edgePts !== null && item.edgePts > 0);
         if (!hasVal) continue;
@@ -1529,7 +1681,12 @@ export function PicksFinderClubView(): React.JSX.Element {
   return (
     <AtmosphereStage activePath="/app/picks">
       <ClubWorkspaceShell activePath="/app/picks">
-        <div className="pl-scr-root space-y-3.5">
+        <div
+          className="pl-scr-root space-y-3.5"
+          data-catalog-wired={
+            initialCatalogs && Object.keys(initialCatalogs).length > 0 ? "true" : "false"
+          }
+        >
           {/* Cabecera editorial */}
           <header className="pl-scr-header">
             <div className="min-w-0">

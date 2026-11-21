@@ -7,8 +7,14 @@ import {
   classifyPickGroup,
 } from "../src/platform/match-evidence";
 import { MatchPicksEvidenceBoard } from "../src/platform/club/match/MatchPicksEvidenceBoard";
+import { PicksFinderClubView } from "../src/platform/club/PicksFinderView";
 import { HomeMatchCard } from "../src/platform/components/HomeMatchCard";
 import { buildPlatformDataset } from "../src/platform/match-picks-engine";
+import {
+  buildMatchPicksCatalog,
+  type FootballPlayerPropCandidateInput,
+  type TeamMatchEvidenceRecord,
+} from "../src/platform/picks-catalog/index";
 import { PlatformProvider } from "../src/platform/platform-provider";
 
 function buildEvidenceDataset() {
@@ -132,5 +138,98 @@ describe("ADR-054 · Evidencia verificable en picks y retiro de Conf. N", () => 
     expect(html).not.toContain("Conf.");
     expect(html).not.toContain("Datos completos");
     expect(html).not.toContain("Datos parciales");
+  });
+
+  it("MatchPicksEvidenceBoard consume el catálogo de 34 familias con ventana home_away, categorías extendidas y liquidación FT", () => {
+    const dataset = buildEvidenceDataset();
+    const game = dataset.games[0]!;
+    const homeHistory: TeamMatchEvidenceRecord[] = Array.from({ length: 12 }, (_, idx) => ({
+      isHome: idx % 2 === 0,
+      goalsFor: 2,
+      goalsAgainst: 1,
+      cornersFor: 6,
+      cornersAgainst: 4,
+    }));
+    const playerCandidate: FootballPlayerPropCandidateInput = {
+      playerName: "Sergio Canales",
+      teamSide: "away",
+      teamName: "Rayados de Monterrey",
+      position: "MID",
+      lineupStatus: "confirmed",
+      matchLogs: [
+        { minutesPlayed: 88, isHome: false, shots: 3, shotsOnTarget: 2, goals: 1 },
+        { minutesPlayed: 90, isHome: true, shots: 4, shotsOnTarget: 2, goals: 0, assists: 1 },
+        { minutesPlayed: 79, isHome: false, shots: 2, shotsOnTarget: 1, goals: 1 },
+      ],
+    };
+
+    const catalog = buildMatchPicksCatalog(game, {
+      markets: game.markets,
+      homeHistory,
+      footballPlayers: [playerCandidate],
+    });
+    const html = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="member">
+        <MatchPicksEvidenceBoard game={game} markets={game.markets} catalog={catalog} />
+      </PlatformProvider>,
+    );
+
+    expect(html).toContain('data-catalog-source="server-catalog"');
+    expect(html).toContain('data-evidence-group="resultado"');
+    expect(html).toContain('data-evidence-group="conteos_arbitro"');
+    expect(html).toContain('data-evidence-group="player_props"');
+    expect(html).toContain('data-market-family="corners_total"');
+    expect(html).toContain('data-market-family="player_props_football"');
+    expect(html).toContain('data-evidence-window="home_away"');
+    expect(html).not.toContain("Conf.");
+    expect(html).not.toContain("Datos completos");
+    expect(html).not.toContain("Datos parciales");
+
+    const ftGame = {
+      ...game,
+      status: "FT" as const,
+      score: { home: 1, away: 1 },
+    };
+    const ftCatalog = buildMatchPicksCatalog(ftGame, { markets: ftGame.markets });
+    const ftHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={{ ...dataset, games: [ftGame] }} initialRole="visitor">
+        <MatchPicksEvidenceBoard game={ftGame} markets={ftGame.markets} catalog={ftCatalog} />
+      </PlatformProvider>,
+    );
+    expect(ftHtml).toContain('data-settlement="hit"');
+    expect(ftHtml).toContain('data-settlement="miss"');
+    expect(ftHtml).toContain('data-settlement="push"');
+  });
+
+  it("PicksFinderClubView consume initialCatalogs de 34 familias y conserva fallback sin prop", () => {
+    const dataset = buildEvidenceDataset();
+    const game = dataset.games[0]!;
+    const homeHistory: TeamMatchEvidenceRecord[] = Array.from({ length: 10 }, (_, idx) => ({
+      isHome: idx % 2 === 0,
+      goalsFor: 2,
+      goalsAgainst: 1,
+      cornersFor: 6,
+      cornersAgainst: 5,
+    }));
+    const catalog = buildMatchPicksCatalog(game, {
+      markets: game.markets,
+      homeHistory,
+    });
+
+    const wiredHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="member">
+        <PicksFinderClubView initialCatalogs={{ [game.id]: catalog }} />
+      </PlatformProvider>,
+    );
+    expect(wiredHtml).toContain('data-catalog-wired="true"');
+    expect(wiredHtml).toContain('data-evidence-window="home_away"');
+
+    const fallbackHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="member">
+        <PicksFinderClubView />
+      </PlatformProvider>,
+    );
+    expect(fallbackHtml).toContain('data-catalog-wired="false"');
+    expect(fallbackHtml).toContain("Explorar picks");
   });
 });

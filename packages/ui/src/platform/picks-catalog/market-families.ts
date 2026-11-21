@@ -1175,6 +1175,7 @@ export function buildMatchPicksCatalog(
   const markets = context.markets ?? game.markets ?? [];
   const v5 = context.v5 ?? null;
   const deVigPref = context.deVigPreference ?? "auto";
+  const allowedFamilies = context.allowedFamilies;
 
   const hasForecast =
     game.hasForecast !== false &&
@@ -1218,6 +1219,7 @@ export function buildMatchPicksCatalog(
   const claimedPrimaryIds = new Set<string>();
 
   const emit = (args: EmitPickArgs) => {
+    if (allowedFamilies && !allowedFamilies.has(args.family)) return;
     const spec = MARKET_FAMILIES[args.family];
     const dedupKey = `${args.family}|${args.selectionKey.toLowerCase()}|${args.line ?? ""}`;
     if (seenKeys.has(dedupKey)) return;

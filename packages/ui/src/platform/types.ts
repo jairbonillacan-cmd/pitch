@@ -6,6 +6,7 @@ import type {
   PlatformSport,
   StandingRow,
 } from "@pitchlab/contracts";
+import type { MatchPicksCatalog } from "./picks-catalog/catalog-types";
 
 export type ViewerRole = "visitor" | "member" | "tipster" | "admin";
 export type ViewerVia = "beta" | "account" | "none";
@@ -455,6 +456,7 @@ export type PlatformGameDetail = Pick<PlatformGame, "markets" | "headToHead" | "
   v5?: MatchIntelligenceV5View | null;
   /** Pick principal congelado 60 min antes del inicio (persistido en servidor si ya cruzó el umbral). */
   frozenMainPick?: FrozenMainPickSnapshot | null;
+  picksCatalog?: MatchPicksCatalog | null;
 };
 
 /**

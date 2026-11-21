@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { asLeagueId } from "@pitchlab/contracts";
+import {
+  MARKET_FAMILY_IDS,
+  TIER1_LEAGUE_IDS,
+  asLeagueId,
+  getLeagueCapability,
+} from "@pitchlab/contracts";
 import type {
   FootballPlayerPropCandidateInput,
+  NbaPlayerPropCandidateInput,
   TeamMatchEvidenceRecord,
 } from "@pitchlab/ui/picks-catalog";
 import type { MatchPick, PlatformGame, PlatformMarketRow } from "@pitchlab/ui/types";
@@ -10,7 +16,12 @@ import {
   buildServerMatchPicksCatalogsBatch,
   redactCatalogPickForVisitor,
 } from "../src/server/picks-catalog";
-import { loadShellPlayerProps } from "../src/server/platform-data";
+import {
+  buildServerRawPlatformDataset,
+  loadGameDetail,
+  loadServerPicksCatalogsForScreener,
+  loadShellPlayerProps,
+} from "../src/server/platform-data";
 
 const FIXED_NOW_ISO = "2026-11-22T12:00:00Z";
 
@@ -704,5 +715,204 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
     }
 
     expect(loadShellPlayerProps()).toEqual(memberProps);
+  });
+
+  it("respeta supportedMarketFamilies de LeagueCapabilityContract y cubre las 34 familias en producción", () => {
+    const footballPlayers = makeSampleFootballPlayers();
+    const premierCat = buildServerMatchPicksCatalog(makeFootballGame(), {
+      fullAccess: true,
+      markets: makeSampleMarkets(),
+      footballPlayers,
+      maxPicksPerFamily: 2,
+      maxTotalPicks: 60,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(premierCat.availableFamilies).toHaveLength(20);
+    expect(premierCat.availableFamilies).toContain("player_props_football");
+
+    const brasileiraoGame = makeFootballGame({
+      id: "bra-fla-pal",
+      league: asLeagueId("brasileirao"),
+      leagueLabel: "Brasileirão",
+    });
+    const brasileiraoCap = getLeagueCapability("brasileirao");
+    const brasileiraoCat = buildServerMatchPicksCatalog(brasileiraoGame, {
+      fullAccess: true,
+      markets: makeSampleMarkets(),
+      footballPlayers,
+      maxPicksPerFamily: 2,
+      maxTotalPicks: 60,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(brasileiraoCat.availableFamilies).not.toContain("player_props_football");
+    expect(
+      brasileiraoCat.availableFamilies.every((fam) =>
+        brasileiraoCap.supportedMarketFamilies.includes(fam),
+      ),
+    ).toBe(true);
+
+    const wcGame = makeFootballGame({
+      id: "wc-mex-bra",
+      league: asLeagueId("copa-del-mundo"),
+      leagueLabel: "Copa del Mundo",
+    });
+    const wcCap = getLeagueCapability("copa-del-mundo");
+    const wcCat = buildServerMatchPicksCatalog(wcGame, {
+      fullAccess: true,
+      markets: makeSampleMarkets(),
+      footballPlayers,
+      maxPicksPerFamily: 2,
+      maxTotalPicks: 60,
+      nowIso: FIXED_NOW_ISO,
+    });
+    expect(wcCat.availableFamilies).not.toContain("corners_total");
+    expect(wcCat.availableFamilies).not.toContain("cards_total");
+    expect(wcCat.availableFamilies).not.toContain("player_props_football");
+    expect(
+      wcCat.availableFamilies.every((fam) => wcCap.supportedMarketFamilies.includes(fam)),
+    ).toBe(true);
+
+    const nbaPlayer: NbaPlayerPropCandidateInput = {
+      playerName: "Luka Doncic",
+      teamSide: "home",
+      teamName: "Lakers",
+      position: "G",
+      lineupStatus: "confirmed",
+      matchLogs: [
+        { minutesPlayed: 36, PTS: 31, REB: 9, AST: 10, "3PM": 4 },
+        { minutesPlayed: 35, PTS: 28, REB: 8, AST: 9, "3PM": 3 },
+        { minutesPlayed: 37, PTS: 34, REB: 10, AST: 8, "3PM": 4 },
+      ],
+    };
+    const nbaCat = buildServerMatchPicksCatalog(
+      makeFootballGame({
+        id: "nba-lal-bos",
+        league: asLeagueId("nba"),
+        leagueLabel: "NBA",
+        sport: "basketball",
+        x12: [0.58, 0, 0.42],
+        projection: { home: 116.5, away: 112.0, total: 228.5 },
+        markets: [],
+      }),
+      {
+        fullAccess: true,
+        nbaPlayers: [nbaPlayer],
+        maxPicksPerFamily: 2,
+        maxTotalPicks: 30,
+        nowIso: FIXED_NOW_ISO,
+      },
+    );
+    const mlbCat = buildServerMatchPicksCatalog(
+      makeFootballGame({
+        id: "mlb-lad-nyy",
+        league: asLeagueId("mlb"),
+        leagueLabel: "MLB",
+        sport: "baseball",
+        x12: [0.56, 0, 0.44],
+        projection: { home: 4.8, away: 4.0, total: 8.8 },
+        markets: [],
+      }),
+      { fullAccess: true, maxPicksPerFamily: 2, maxTotalPicks: 30, nowIso: FIXED_NOW_ISO },
+    );
+    const nhlCat = buildServerMatchPicksCatalog(
+      makeFootballGame({
+        id: "nhl-col-edm",
+        league: asLeagueId("nhl"),
+        leagueLabel: "NHL",
+        sport: "ice-hockey",
+        x12: [0.55, 0, 0.45],
+        projection: { home: 3.3, away: 2.8, total: 6.1 },
+        markets: [],
+      }),
+      { fullAccess: true, maxPicksPerFamily: 2, maxTotalPicks: 30, nowIso: FIXED_NOW_ISO },
+    );
+    const nflCat = buildServerMatchPicksCatalog(
+      makeFootballGame({
+        id: "nfl-kc-buf",
+        league: asLeagueId("nfl"),
+        leagueLabel: "NFL",
+        sport: "american-football",
+        x12: [0.6, 0, 0.4],
+        projection: { home: 25.5, away: 21.0, total: 46.5 },
+        markets: [],
+      }),
+      { fullAccess: true, maxPicksPerFamily: 2, maxTotalPicks: 30, nowIso: FIXED_NOW_ISO },
+    );
+
+    const covered = new Set([
+      ...premierCat.availableFamilies,
+      ...nbaCat.availableFamilies,
+      ...mlbCat.availableFamilies,
+      ...nhlCat.availableFamilies,
+      ...nflCat.availableFamilies,
+    ]);
+    expect(covered.size).toBe(34);
+    for (const fam of MARKET_FAMILY_IDS) {
+      expect(covered.has(fam)).toBe(true);
+    }
+  });
+
+  it("loadGameDetail y loadServerPicksCatalogsForScreener cablean picksCatalog con Cero-Fuga en NS/LIVE y auditoría en FT", async () => {
+    const raw = buildServerRawPlatformDataset();
+    const upcoming = raw.games.find((g) => g.status !== "FT" && g.hasForecast !== false);
+    if (upcoming) {
+      const visitorDetail = await loadGameDetail(upcoming.id);
+      expect(visitorDetail).not.toBeNull();
+      expect(visitorDetail!.markets).toEqual([]);
+      expect(visitorDetail!.factors).toEqual([]);
+      expect(visitorDetail!.picksCatalog).toBeDefined();
+      expect(visitorDetail!.picksCatalog?.isRedactedForVisitor).toBe(true);
+      for (const item of visitorDetail!.picksCatalog?.picks ?? []) {
+        const isPromo = Boolean(item.isDailyOpenPromo || item.isTipsterWeeklyOpen);
+        if (!isPromo) {
+          expect(item.isRedacted).toBe(true);
+          expect(item.pricing.p).toBe(0);
+          expect(item.pricing.fairOdds).toBe(0);
+          expect(item.pricing.marketDecimal).toBeNull();
+          expect(item.evidence.windows).toEqual([]);
+        }
+      }
+    }
+
+    const finished = raw.games.find(
+      (g) => g.status === "FT" && g.score !== undefined && g.hasForecast !== false,
+    );
+    if (finished) {
+      const ftDetail = await loadGameDetail(finished.id);
+      expect(ftDetail?.picksCatalog).toBeDefined();
+      expect(ftDetail?.picksCatalog?.isRedactedForVisitor).toBe(false);
+      expect(ftDetail?.picksCatalog?.picks.length ?? 0).toBeGreaterThan(0);
+      expect(ftDetail?.picksCatalog?.picks.every((p) => !p.isRedacted)).toBe(true);
+    }
+
+    const visitorScreener = await loadServerPicksCatalogsForScreener({
+      fullAccess: false,
+      maxGames: 8,
+    });
+    expect(visitorScreener instanceof Map).toBe(false);
+    expect(() => JSON.stringify(visitorScreener)).not.toThrow();
+    for (const catalog of Object.values(visitorScreener)) {
+      expect(catalog.isRedactedForVisitor).toBe(true);
+      for (const item of catalog.picks) {
+        const isPromo = Boolean(item.isDailyOpenPromo || item.isTipsterWeeklyOpen);
+        if (!isPromo) {
+          expect(item.isRedacted).toBe(true);
+          expect(item.pricing.p).toBe(0);
+          expect(item.pricing.fairOdds).toBe(0);
+        }
+      }
+    }
+
+    const memberScreener = await loadServerPicksCatalogsForScreener({
+      fullAccess: true,
+      maxGames: 8,
+    });
+    const memberCatalogs = Object.values(memberScreener);
+    expect(TIER1_LEAGUE_IDS).toHaveLength(15);
+    expect(memberCatalogs.length).toBeGreaterThan(0);
+    for (const catalog of memberCatalogs) {
+      expect(catalog.isRedactedForVisitor).toBe(false);
+      expect(catalog.picks.every((p) => !p.isRedacted)).toBe(true);
+    }
   });
 });

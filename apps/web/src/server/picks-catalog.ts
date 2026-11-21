@@ -10,6 +10,7 @@
  * - Compacta el payload por familia y límite global para rutas de partido/picks sin inflar
  *   el shell RSC inicial (`ADR-051` / `ADR-053`).
  */
+import { getLeagueCapability } from "@pitchlab/contracts";
 import type {
   MatchIntelligenceV5View,
   PlatformGame,
@@ -52,7 +53,7 @@ export interface ServerMatchPicksCatalogOptions {
   /** Subconjunto opcional de familias solicitadas por la vista. */
   readonly families?: readonly MarketFamilyId[];
   /** Método preferido de de-vig (`auto` usa Shin en overround >= 3.5 % y proporcional en sharp). */
-  readonly deVigPreference?: "auto" | "proportional" | "shin";
+  readonly deVigPreference?: "auto" | "proportional" | "shin" | "power";
   /** Tope de selecciones por familia para mantener el payload ligero (por defecto `4`). */
   readonly maxPicksPerFamily?: number;
   /** Tope global de selecciones por partido (por defecto `48`). */
@@ -255,6 +256,11 @@ export function buildServerMatchPicksCatalog(
   game: PlatformGame,
   options: ServerMatchPicksCatalogOptions,
 ): MatchPicksCatalog {
+  const leagueCapability = getLeagueCapability(game.league);
+  const allowedFamilies = leagueCapability
+    ? new Set<MarketFamilyId>(leagueCapability.supportedMarketFamilies)
+    : undefined;
+
   const ctx: CatalogBuildContext = {
     markets: options.markets ?? game.markets,
     v5: options.v5 ?? null,
@@ -265,6 +271,7 @@ export function buildServerMatchPicksCatalog(
     awayHistory: options.awayHistory,
     f5Score: options.f5Score ?? null,
     finalStats: options.finalStats ?? null,
+    allowedFamilies,
     deVigPreference: options.deVigPreference ?? "auto",
     nowIso: options.nowIso,
   };

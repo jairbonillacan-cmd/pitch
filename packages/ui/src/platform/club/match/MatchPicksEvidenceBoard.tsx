@@ -9,9 +9,19 @@ import {
   MATCH_PICK_GROUP_LABELS,
   MATCH_PICK_GROUP_ORDER,
   buildEnrichedMatchPicks,
-  type EnrichedMatchPick,
   type MatchPickMarketGroupKey,
+  type PickEvidenceBullet,
 } from "../../match-evidence";
+import {
+  CATALOG_CATEGORY_LABELS,
+  CATALOG_CATEGORY_ORDER,
+  catalogEvidenceToWindowItems,
+  catalogPickItemToMatchPick,
+  type CatalogCategoryKey,
+  type MarketFamilyId,
+  type MatchPicksCatalog,
+  type PickSettlementStatus,
+} from "../../picks-catalog";
 import {
   useIsPickInParlay,
   usePlatformActions,
@@ -31,9 +41,18 @@ import {
   classifyOddsMovement,
   computeExpectedValuePct,
   extractEvidenceWindows,
+  type EvidenceWindowItem,
 } from "../picks";
 
 type SortKey = "recomendados" | "tasa" | "valor" | "prob" | "movimiento";
+type BoardGroupKey = MatchPickMarketGroupKey | CatalogCategoryKey;
+
+function settlementBadgeLabel(status: PickSettlementStatus): string {
+  if (status === "hit") return "Acertado";
+  if (status === "miss") return "Fallado";
+  if (status === "push") return "Push";
+  return "Pendiente";
+}
 
 function EvidenceParlayButton({ pick }: { readonly pick: MatchPick }): React.JSX.Element {
   const { addPickToParlay, removePickFromParlay } = usePlatformActions();
@@ -52,7 +71,18 @@ function EvidenceParlayButton({ pick }: { readonly pick: MatchPick }): React.JSX
   );
 }
 
-interface ResolvedEvidenceItem extends EnrichedMatchPick {
+interface ResolvedEvidenceItem {
+  readonly id: string;
+  readonly pick: MatchPick;
+  readonly groupKey: BoardGroupKey;
+  readonly groupLabel: string;
+  readonly isPrimaryModelPick: boolean;
+  readonly evidence: readonly PickEvidenceBullet[];
+  readonly evidenceAvgPct: number | null;
+  readonly houseDecimal: number | null;
+  readonly houseBookLabel: string | null;
+  readonly valuePct: number | null;
+  readonly edgePts: number | null;
   readonly effectiveHouseDecimal: number | null;
   readonly effectiveHouseLabel: string | null;
   readonly effectiveOpenDecimal: number | null;
@@ -61,6 +91,9 @@ interface ResolvedEvidenceItem extends EnrichedMatchPick {
   readonly effectiveValuePct: number | null;
   readonly effectiveEdgePts: number | null;
   readonly movementScore: number;
+  readonly catalogWindows?: readonly EvidenceWindowItem[];
+  readonly settlement?: PickSettlementStatus;
+  readonly familyId?: MarketFamilyId;
 }
 
 /**
@@ -73,27 +106,146 @@ export function MatchPicksEvidenceBoard({
   game,
   markets,
   v5 = null,
+  catalog = null,
 }: {
   readonly game: PlatformGame;
   readonly markets: readonly PlatformMarketRow[];
   readonly v5?: MatchIntelligenceV5View | null;
+  readonly catalog?: MatchPicksCatalog | null;
 }): React.JSX.Element {
   const { viewerRole, oddsFormat, preferredBooks, hasAccountSession, upgradeHref } =
     usePlatformCore();
   const { openComposer, navigateTo, setSelectedTipsterPickId, pushToast } = usePlatformActions();
 
-  const [marketFilter, setMarketFilter] = useState<MatchPickMarketGroupKey | "all">("all");
+  const [marketFilter, setMarketFilter] = useState<BoardGroupKey | "all">("all");
   const [sortBy, setSortBy] = useState<SortKey>("recomendados");
   const [onlyValue, setOnlyValue] = useState<boolean>(false);
   const [collapsed, setCollapsed] = useState<ReadonlySet<string>>(() => new Set());
   const [builderPick, setBuilderPick] = useState<MatchPick | null>(null);
 
+  const useCatalog = Boolean(catalog && catalog.picks.length > 0);
+  const groupOrder: readonly BoardGroupKey[] = useCatalog
+    ? CATALOG_CATEGORY_ORDER
+    : MATCH_PICK_GROUP_ORDER;
+
   const enriched = useMemo<ResolvedEvidenceItem[]>(() => {
-    const base = buildEnrichedMatchPicks(game, markets, v5);
     const marketByKey = new Map<string, PlatformMarketRow>();
     for (const m of markets) {
       marketByKey.set(`${m.market}::${m.selection}`, m);
+      if (m.market === "h2h") {
+        marketByKey.set(`1x2::${m.selection}`, m);
+      } else if (m.market === "1x2") {
+        marketByKey.set(`h2h::${m.selection}`, m);
+      }
     }
+
+    if (useCatalog && catalog) {
+      return catalog.picks.map((catItem, idx): ResolvedEvidenceItem => {
+        const pick = catalogPickItemToMatchPick(catItem, game, idx);
+        if (catItem.isRedacted) {
+          return {
+            id: catItem.id,
+            pick,
+            groupKey: catItem.category,
+            groupLabel: CATALOG_CATEGORY_LABELS[catItem.category],
+            isPrimaryModelPick: catItem.isPrimaryModelPick,
+            evidence: [],
+            evidenceAvgPct: null,
+            houseDecimal: null,
+            houseBookLabel: null,
+            valuePct: null,
+            edgePts: null,
+            effectiveHouseDecimal: null,
+            effectiveHouseLabel: null,
+            effectiveOpenDecimal: null,
+            effectiveMoveDir: null,
+            effectiveCapturedAtUtc: null,
+            effectiveValuePct: null,
+            effectiveEdgePts: null,
+            movementScore: 0,
+            catalogWindows: [],
+            settlement: catItem.settlement,
+            familyId: catItem.family,
+          };
+        }
+
+        const matchedRow = marketByKey.get(`${catItem.family}::${catItem.selectionKey}`);
+        const quotes = pick.bookQuotes ?? matchedRow?.bookQuotes;
+        const prefQuote = resolvePreferredBookQuote(quotes, preferredBooks);
+        const effectiveHouseDecimal =
+          prefQuote?.decimal ?? catItem.pricing.marketDecimal ?? matchedRow?.currentDecimal ?? null;
+        const effectiveHouseLabel =
+          prefQuote?.bookLabel ??
+          catItem.pricing.marketBookLabel ??
+          matchedRow?.quoteBookLabel ??
+          null;
+        const effectiveOpenDecimal =
+          prefQuote?.openingDecimal ?? matchedRow?.openDecimal ?? null;
+        const effectiveMoveDir =
+          prefQuote?.movementDirection ?? matchedRow?.movementDirection ?? null;
+        const effectiveCapturedAtUtc =
+          prefQuote?.capturedAtUtc ??
+          catItem.pricing.marketCapturedAtUtc ??
+          matchedRow?.quoteCapturedAtUtc ??
+          null;
+
+        const effectiveValuePct =
+          prefQuote != null
+            ? computeExpectedValuePct(pick.p, effectiveHouseDecimal)
+            : (catItem.pricing.evPct ?? computeExpectedValuePct(pick.p, effectiveHouseDecimal));
+        const effectiveEdgePts =
+          prefQuote != null && effectiveHouseDecimal !== null && effectiveHouseDecimal > 1
+            ? Math.round((pick.p - 1 / effectiveHouseDecimal) * 1000) / 10
+            : (catItem.pricing.edgePts ??
+                (effectiveHouseDecimal !== null && effectiveHouseDecimal > 1
+                  ? Math.round((pick.p - 1 / effectiveHouseDecimal) * 1000) / 10
+                  : null));
+
+        const mv = classifyOddsMovement(
+          effectiveOpenDecimal,
+          effectiveHouseDecimal,
+          effectiveMoveDir,
+        );
+        const movementScore = !mv
+          ? 0
+          : mv.kind === "steam"
+            ? 100 + Math.abs(mv.deltaPct ?? 8)
+            : mv.kind === "shortening"
+              ? 50 + Math.abs(mv.deltaPct ?? 2)
+              : mv.kind === "drifting"
+                ? 10 + Math.abs(mv.deltaPct ?? 1)
+                : 0;
+
+        const catalogWindows = catalogEvidenceToWindowItems(catItem.evidence, catItem.sport);
+
+        return {
+          id: catItem.id,
+          pick: quotes && !pick.bookQuotes ? { ...pick, bookQuotes: quotes } : pick,
+          groupKey: catItem.category,
+          groupLabel: CATALOG_CATEGORY_LABELS[catItem.category],
+          isPrimaryModelPick: catItem.isPrimaryModelPick,
+          evidence: catItem.evidence.bullets,
+          evidenceAvgPct: catItem.evidence.avgObservedRatePct,
+          houseDecimal: catItem.pricing.marketDecimal,
+          houseBookLabel: catItem.pricing.marketBookLabel,
+          valuePct: catItem.pricing.evPct,
+          edgePts: catItem.pricing.edgePts,
+          effectiveHouseDecimal,
+          effectiveHouseLabel,
+          effectiveOpenDecimal,
+          effectiveMoveDir,
+          effectiveCapturedAtUtc,
+          effectiveValuePct,
+          effectiveEdgePts,
+          movementScore,
+          catalogWindows,
+          settlement: catItem.settlement,
+          familyId: catItem.family,
+        };
+      });
+    }
+
+    const base = buildEnrichedMatchPicks(game, markets, v5);
 
     return base.map((item) => {
       const matchedRow = item.pick.market
@@ -149,19 +301,25 @@ export function MatchPicksEvidenceBoard({
         movementScore,
       };
     });
-  }, [game, markets, preferredBooks, v5]);
+  }, [catalog, game, markets, preferredBooks, useCatalog, v5]);
 
   const availableGroups = useMemo(() => {
-    const counts = new Map<MatchPickMarketGroupKey, number>();
+    const counts = new Map<BoardGroupKey, number>();
+    const labels = new Map<BoardGroupKey, string>();
     for (const item of enriched) {
       counts.set(item.groupKey, (counts.get(item.groupKey) ?? 0) + 1);
+      if (!labels.has(item.groupKey)) {
+        labels.set(item.groupKey, item.groupLabel);
+      }
     }
-    return MATCH_PICK_GROUP_ORDER.filter((k) => (counts.get(k) ?? 0) > 0).map((k) => ({
-      key: k,
-      label: MATCH_PICK_GROUP_LABELS[k],
-      count: counts.get(k) ?? 0,
-    }));
-  }, [enriched]);
+    return groupOrder
+      .filter((k) => (counts.get(k) ?? 0) > 0)
+      .map((k) => ({
+        key: k,
+        label: labels.get(k) ?? k,
+        count: counts.get(k) ?? 0,
+      }));
+  }, [enriched, groupOrder]);
 
   const filtered = useMemo(() => {
     let list = enriched;
@@ -204,18 +362,24 @@ export function MatchPicksEvidenceBoard({
   }, [enriched, marketFilter, onlyValue, sortBy]);
 
   const grouped = useMemo(() => {
-    const map = new Map<MatchPickMarketGroupKey, ResolvedEvidenceItem[]>();
+    const map = new Map<BoardGroupKey, ResolvedEvidenceItem[]>();
+    const labels = new Map<BoardGroupKey, string>();
     for (const item of filtered) {
       const arr = map.get(item.groupKey) ?? [];
       arr.push(item);
       map.set(item.groupKey, arr);
+      if (!labels.has(item.groupKey)) {
+        labels.set(item.groupKey, item.groupLabel);
+      }
     }
-    return MATCH_PICK_GROUP_ORDER.filter((k) => map.has(k)).map((k) => ({
-      key: k,
-      label: MATCH_PICK_GROUP_LABELS[k],
-      items: map.get(k)!,
-    }));
-  }, [filtered]);
+    return groupOrder
+      .filter((k) => map.has(k))
+      .map((k) => ({
+        key: k,
+        label: labels.get(k) ?? k,
+        items: map.get(k)!,
+      }));
+  }, [filtered, groupOrder]);
 
   const toggleGroup = (key: string) => {
     setCollapsed((prev) => {
@@ -243,7 +407,12 @@ export function MatchPicksEvidenceBoard({
   }
 
   return (
-    <section className="pl-ev-board space-y-3.5 min-w-0" data-picks="" data-evidence-board="">
+    <section
+      className="pl-ev-board space-y-3.5 min-w-0"
+      data-picks=""
+      data-evidence-board=""
+      data-catalog-source={useCatalog ? "server-catalog" : "legacy"}
+    >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="min-w-0">
           <h2 className="m-0 text-lg font-extrabold">Picks y evidencia del modelo</h2>
@@ -360,12 +529,14 @@ export function MatchPicksEvidenceBoard({
                       const unlocked = isPickUnlocked(item.pick, game.status, viewerRole);
                       const isFinished = game.status === "FT";
                       const windows = unlocked
-                        ? extractEvidenceWindows({
-                            game,
-                            pick: item.pick,
-                            bullets: item.evidence,
-                            v5,
-                          })
+                        ? item.catalogWindows && item.catalogWindows.length > 0
+                          ? item.catalogWindows
+                          : extractEvidenceWindows({
+                              game,
+                              pick: item.pick,
+                              bullets: item.evidence,
+                              v5,
+                            })
                         : [];
 
                       return (
@@ -374,6 +545,7 @@ export function MatchPicksEvidenceBoard({
                           role="listitem"
                           className="pl-ev-row"
                           data-evidence-pick={item.id}
+                          data-market-family={item.familyId ?? item.pick.market ?? ""}
                         >
                           {/* Columna 1: Pick + probabilidad */}
                           <div className="pl-ev-col-pick">
@@ -381,6 +553,11 @@ export function MatchPicksEvidenceBoard({
                               <span className="pl-ev-cat">{item.pick.categoryLabel}</span>
                               {item.isPrimaryModelPick ? (
                                 <span className="pl-pill pl-pill--brand text-[10px]">Modelo</span>
+                              ) : null}
+                              {isFinished && unlocked && item.settlement ? (
+                                <span className="pl-pill text-[10px]" data-settlement={item.settlement}>
+                                  {settlementBadgeLabel(item.settlement)}
+                                </span>
                               ) : null}
                             </div>
                             {unlocked ? (

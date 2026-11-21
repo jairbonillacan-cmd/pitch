@@ -1,7 +1,8 @@
 import { cache } from "react";
-import { COMPETITION_BY_ID, type StandingRow } from "@pitchlab/contracts";
+import { COMPETITION_BY_ID, TIER1_LEAGUE_IDS, type StandingRow } from "@pitchlab/contracts";
 import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import { ALLOWED_BOOKMAKER_IDS } from "@pitchlab/ui/bookmakers";
+import type { MatchPicksCatalog } from "@pitchlab/ui/picks-catalog";
 import { buildPlatformDataset, type RawLeagueInput } from "@pitchlab/ui/picks-engine";
 import type { ViewerIdentity } from "@pitchlab/ui/platform-provider";
 import type {
@@ -27,6 +28,10 @@ import {
   enrichDatasetWithBookQuotes,
   enrichMarketRowsWithBookQuotes,
 } from "./book-quotes";
+import {
+  buildServerMatchPicksCatalog,
+  buildServerMatchPicksCatalogsBatch,
+} from "./picks-catalog";
 import {
   createDb,
   eq,
@@ -120,6 +125,8 @@ interface DatasetMemoBundle {
   slimVisitorShell: PlatformDataset | null;
   initialMemberShell: PlatformDataset | null;
   initialVisitorShell: PlatformDataset | null;
+  screenerMemberCatalogs: Record<string, MatchPicksCatalog> | null;
+  screenerVisitorCatalogs: Record<string, MatchPicksCatalog> | null;
   at: number;
 }
 
@@ -140,6 +147,8 @@ function getDatasetMemoBundle(): DatasetMemoBundle {
     slimVisitorShell: null,
     initialMemberShell: null,
     initialVisitorShell: null,
+    screenerMemberCatalogs: null,
+    screenerVisitorCatalogs: null,
     at: now,
   };
   return datasetMemo;
@@ -455,18 +464,7 @@ export function upcomingOnly(dataset: PlatformDataset): PlatformDataset {
   return upcoming.length > 0 ? { ...dataset, games: upcoming } : dataset;
 }
 
-const CORE_SHELL_LEAGUES = new Set<string>([
-  "liga-mx",
-  "premier-league",
-  "laliga",
-  "bundesliga",
-  "serie-a",
-  "ligue-1",
-  "nfl",
-  "nba",
-  "nhl",
-  "mlb",
-]);
+const CORE_SHELL_LEAGUES = new Set<string>(TIER1_LEAGUE_IDS);
 
 export function upcomingPlusRecentFinished(
   dataset: PlatformDataset,
@@ -777,6 +775,71 @@ export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
   };
 }
 
+function collectOpenPromoPickIds(dataset: PlatformDataset): ReadonlySet<string> {
+  const ids = new Set<string>();
+  if (dataset.dailyPromoPickId) ids.add(dataset.dailyPromoPickId);
+  if (dataset.tipsterWeeklyPickId) ids.add(dataset.tipsterWeeklyPickId);
+  return ids;
+}
+
+const DEFAULT_SCREENER_CATALOG_MAX_GAMES = 60;
+
+function buildScreenerCatalogsRecord(
+  bundle: DatasetMemoBundle,
+  fullAccess: boolean,
+  maxGames: number,
+): Record<string, MatchPicksCatalog> {
+  const horizon = upcomingPlusRecentFinished(bundle.value, 0);
+  const upcomingGames = horizon.games
+    .filter((g) => g.status !== "FT")
+    .slice()
+    .sort(compareShellGamePriority)
+    .slice(0, Math.max(1, maxGames));
+
+  const batch = buildServerMatchPicksCatalogsBatch(upcomingGames, {
+    fullAccess,
+    playerProps: fullAccess ? bundle.value.playerProps : [],
+    unlockedPickIds: collectOpenPromoPickIds(bundle.value),
+    maxPicksPerFamily: 2,
+    maxTotalPicks: 18,
+    compact: true,
+  });
+  return Object.fromEntries(batch);
+}
+
+export async function loadServerPicksCatalogsForScreener(options?: {
+  readonly fullAccess?: boolean;
+  readonly maxGames?: number;
+}): Promise<Record<string, MatchPicksCatalog>> {
+  const bundle = getDatasetMemoBundle();
+  const fullAccess = options?.fullAccess ?? (await hasAuthenticatedBetaSession());
+  const maxGames = options?.maxGames;
+
+  if (maxGames !== undefined) {
+    return buildScreenerCatalogsRecord(bundle, fullAccess, maxGames);
+  }
+
+  if (fullAccess) {
+    if (!bundle.screenerMemberCatalogs) {
+      bundle.screenerMemberCatalogs = buildScreenerCatalogsRecord(
+        bundle,
+        true,
+        DEFAULT_SCREENER_CATALOG_MAX_GAMES,
+      );
+    }
+    return bundle.screenerMemberCatalogs;
+  }
+
+  if (!bundle.screenerVisitorCatalogs) {
+    bundle.screenerVisitorCatalogs = buildScreenerCatalogsRecord(
+      bundle,
+      false,
+      DEFAULT_SCREENER_CATALOG_MAX_GAMES,
+    );
+  }
+  return bundle.screenerVisitorCatalogs;
+}
+
 /**
  * Detalle bajo demanda de un partido (`/app/[league]/g/[gameSlug]`) con redacción Cero-Fuga.
  * Toda carga enriquecida (mercados extendidos, `outlook`, `v5`, shotmap, posiciones medias o
@@ -786,12 +849,18 @@ export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
 export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail | null> {
   const bundle = getDatasetMemoBundle();
   const hasSession = await hasAuthenticatedBetaSession();
+  const rawGame = bundle.gamesById.get(gameId);
   const game = hasSession
-    ? bundle.gamesById.get(gameId)
+    ? rawGame
     : getRedactedMemo(bundle).gamesById.get(gameId);
-  if (!game) return null;
+  if (!game || !rawGame) return null;
   if (!hasSession && game.status !== "FT") {
-    return { markets: [], headToHead: game.headToHead, factors: [] };
+    const picksCatalog = buildServerMatchPicksCatalog(rawGame, {
+      fullAccess: false,
+      markets: rawGame.markets,
+      unlockedPickIds: collectOpenPromoPickIds(bundle.value),
+    });
+    return { markets: [], headToHead: game.headToHead, factors: [], picksCatalog };
   }
   // Partido por jugar en el panorama v3.2: sus mercados y su resumen reemplazan a los del snapshot,
   // conservando los grupos de conteos (corners_total, fouls_total, yellow_total) cuando existen.
@@ -831,6 +900,16 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
   const markets = enrichMarketRowsWithBookQuotes(game, rawMarkets);
   const frozenMainPick =
     game.status !== "FT" ? await resolveServerFrozenMainPick(game) : null;
+  const gamePlayerProps = (bundle.value.playerProps ?? []).filter(
+    (prop) => prop.gameId === rawGame.id,
+  );
+  const picksCatalog = buildServerMatchPicksCatalog(rawGame, {
+    fullAccess: hasSession,
+    markets,
+    v5: v5Detail?.v5 ?? null,
+    playerProps: gamePlayerProps,
+    unlockedPickIds: collectOpenPromoPickIds(bundle.value),
+  });
   return {
     markets,
     headToHead: game.headToHead,
@@ -838,6 +917,7 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
     outlook: v32?.outlook ?? v5Detail?.fallbackOutlook ?? null,
     v5: v5Detail?.v5 ?? null,
     frozenMainPick,
+    picksCatalog,
   };
 }
 

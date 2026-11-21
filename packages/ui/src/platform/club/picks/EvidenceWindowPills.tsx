@@ -8,7 +8,16 @@ import type {
   PlatformGame,
 } from "../../types";
 
-export type EvidenceWindowKey = "l5" | "l10" | "l20" | "h2h" | "xg" | "ref" | "custom";
+export type EvidenceWindowKey =
+  | "l5"
+  | "l10"
+  | "l20"
+  | "home_away"
+  | "h2h"
+  | "xg"
+  | "ref"
+  | "custom";
+export type EvidenceWindowPillKey = EvidenceWindowKey;
 export type EvidenceWindowTone = "high" | "mid" | "low" | "info" | "neutral";
 
 export interface EvidenceWindowItem {

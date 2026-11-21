@@ -2623,6 +2623,7 @@ export function MatchStudioClubView({
                 game={game}
                 markets={activeMarkets}
                 v5={detail?.v5 ?? null}
+                catalog={detail?.picksCatalog ?? null}
               />
 
               {isFinished ? null : <PreMatchModule game={game} detail={detail} />}
