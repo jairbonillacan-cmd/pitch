@@ -1,6 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { asLeagueId } from "@pitchlab/contracts";
+import { SofascoreCard } from "../../../components/ui/primitives";
 import { PBar } from "../../../sports";
 import type { MatchIntelligenceV5View, PlatformGame } from "../../types";
 import {
@@ -43,7 +44,7 @@ const FULL_WINDOWS: readonly EvidenceWindowItem[] = [
     detail: "13/20 en ventana amplia de temporada",
   },
   {
-    key: "custom",
+    key: "home_away",
     label: "Local",
     value: "83 %",
     ratePct: 83,
@@ -83,21 +84,21 @@ const RATE_BAR_WINDOWS = FULL_WINDOWS.filter(
 const TONE_HIGH_WINDOWS: readonly EvidenceWindowItem[] = [
   { key: "l5", label: "L5", value: "100 %", ratePct: 100, tone: "high", detail: "5/5 recientes" },
   { key: "l10", label: "L10", value: "80 %", ratePct: 80, tone: "high", detail: "8/10 recientes" },
-  { key: "custom", label: "Local", value: "88 %", ratePct: 88, tone: "high", detail: "7/8 en casa" },
+  { key: "home_away", label: "Local", value: "88 %", ratePct: 88, tone: "high", detail: "7/8 en casa" },
   { key: "h2h", label: "H2H", value: "75 %", ratePct: 75, tone: "high", detail: "3/4 directos" },
 ];
 
 const TONE_MIXED_WINDOWS: readonly EvidenceWindowItem[] = [
   { key: "l5", label: "L5", value: "60 %", ratePct: 60, tone: "mid", detail: "3/5 recientes" },
   { key: "l10", label: "L10", value: "50 %", ratePct: 50, tone: "mid", detail: "5/10 recientes" },
-  { key: "custom", label: "Visita", value: "50 %", ratePct: 50, tone: "mid", detail: "3/6 fuera" },
+  { key: "home_away", label: "Visita", value: "50 %", ratePct: 50, tone: "mid", detail: "3/6 fuera" },
   { key: "h2h", label: "H2H", value: "40 %", ratePct: 40, tone: "low", detail: "2/5 directos" },
 ];
 
 const TONE_LOW_WINDOWS: readonly EvidenceWindowItem[] = [
   { key: "l5", label: "L5", value: "20 %", ratePct: 20, tone: "low", detail: "1/5 recientes" },
   { key: "l20", label: "L20", value: "35 %", ratePct: 35, tone: "low", detail: "7/20 temporada" },
-  { key: "custom", label: "Visita", value: "33 %", ratePct: 33, tone: "low", detail: "2/6 fuera" },
+  { key: "home_away", label: "Visita", value: "33 %", ratePct: 33, tone: "low", detail: "2/6 fuera" },
   { key: "xg", label: "xG", value: "1.94", tone: "info", detail: "Ritmo proyectado contenido" },
 ];
 
@@ -216,33 +217,30 @@ export const VentanasCompletasYTasasOscuro: Story = {
   globals: { theme: "dark" },
   render: () => (
     <div style={{ display: "grid", gap: 16, maxWidth: 720 }}>
-      <section className="glass-card glass-ring rounded-2xl p-4" style={{ display: "grid", gap: 12 }}>
-        <div style={{ display: "grid", gap: 4 }}>
-          <strong className="text-sm">Tamaño estándar · Todas las ventanas</strong>
+      <SofascoreCard title="Tamaño estándar · Todas las ventanas" meta="Tokens planos">
+        <div style={{ display: "grid", gap: 12 }}>
           <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
             L5, L10, L20, Local/Visita, H2H y proyección xG sobre tokens planos.
           </span>
-        </div>
-        <EvidenceWindowPills
-          windows={FULL_WINDOWS}
-          size="md"
-          ariaLabel="Ventanas de evidencia completas"
-        />
-
-        <div style={{ display: "grid", gap: 4, paddingTop: 4 }}>
-          <strong className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Densidad compacta · Filas del tablero
-          </strong>
           <EvidenceWindowPills
             windows={FULL_WINDOWS}
-            size="sm"
-            ariaLabel="Ventanas de evidencia compactas"
+            size="md"
+            ariaLabel="Ventanas de evidencia completas"
           />
+          <div style={{ display: "grid", gap: 4, paddingTop: 4 }}>
+            <strong className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Densidad compacta · Filas del tablero
+            </strong>
+            <EvidenceWindowPills
+              windows={FULL_WINDOWS}
+              size="sm"
+              ariaLabel="Ventanas de evidencia compactas"
+            />
+          </div>
         </div>
-      </section>
+      </SofascoreCard>
 
-      <section className="glass-card glass-ring rounded-2xl p-4" style={{ display: "grid", gap: 10 }}>
-        <strong className="text-sm">Tasas de acierto por ventana con barras planas</strong>
+      <SofascoreCard title="Tasas de acierto por ventana con barras planas">
         <div style={{ display: "grid", gap: 10 }}>
           {RATE_BAR_WINDOWS.map((win) => (
             <div
@@ -281,7 +279,7 @@ export const VentanasCompletasYTasasOscuro: Story = {
             </div>
           ))}
         </div>
-      </section>
+      </SofascoreCard>
     </div>
   ),
 };
@@ -294,34 +292,38 @@ export const VentanasCompletasYTasasClaro: Story = {
 export const EscalaDeTonosYArbitrajeOscuro: Story = {
   globals: { theme: "dark" },
   render: () => (
-    <div className="glass-card glass-ring rounded-2xl p-4" style={{ display: "grid", gap: 14, maxWidth: 640 }}>
-      <div style={{ display: "grid", gap: 6 }}>
-        <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
-          Tendencia alta (tasa ≥ 70 %)
-        </span>
-        <EvidenceWindowPills windows={TONE_HIGH_WINDOWS} size="md" />
-      </div>
+    <div style={{ maxWidth: 640 }}>
+      <SofascoreCard title="Escala semántica y rigor arbitral">
+        <div style={{ display: "grid", gap: 14 }}>
+          <div style={{ display: "grid", gap: 6 }}>
+            <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
+              Tendencia alta (tasa ≥ 70 %)
+            </span>
+            <EvidenceWindowPills windows={TONE_HIGH_WINDOWS} size="md" />
+          </div>
 
-      <div style={{ display: "grid", gap: 6 }}>
-        <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
-          Tendencia mixta (45–69 %)
-        </span>
-        <EvidenceWindowPills windows={TONE_MIXED_WINDOWS} size="md" />
-      </div>
+          <div style={{ display: "grid", gap: 6 }}>
+            <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
+              Tendencia mixta (45–69 %)
+            </span>
+            <EvidenceWindowPills windows={TONE_MIXED_WINDOWS} size="md" />
+          </div>
 
-      <div style={{ display: "grid", gap: 6 }}>
-        <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
-          Tendencia fría (&lt; 45 %) + referencia xG
-        </span>
-        <EvidenceWindowPills windows={TONE_LOW_WINDOWS} size="md" />
-      </div>
+          <div style={{ display: "grid", gap: 6 }}>
+            <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
+              Tendencia fría (&lt; 45 %) + referencia xG
+            </span>
+            <EvidenceWindowPills windows={TONE_LOW_WINDOWS} size="md" />
+          </div>
 
-      <div style={{ display: "grid", gap: 6 }}>
-        <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
-          Disciplina y rigor arbitral
-        </span>
-        <EvidenceWindowPills windows={CARDS_REF_WINDOWS} size="md" />
-      </div>
+          <div style={{ display: "grid", gap: 6 }}>
+            <span className="text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
+              Disciplina y rigor arbitral
+            </span>
+            <EvidenceWindowPills windows={CARDS_REF_WINDOWS} size="md" />
+          </div>
+        </div>
+      </SofascoreCard>
     </div>
   ),
 };
@@ -368,19 +370,23 @@ export const ExtraccionDesdePartidoRealOscuro: Story = {
     });
 
     return (
-      <div className="glass-card glass-ring rounded-2xl p-4" style={{ display: "grid", gap: 14, maxWidth: 640 }}>
-        <div style={{ display: "grid", gap: 6 }}>
-          <strong className="text-xs">América gana · extracción automática (L5 / L20 / H2H / xG)</strong>
-          <EvidenceWindowPills windows={winResult} size="sm" />
-        </div>
-        <div style={{ display: "grid", gap: 6 }}>
-          <strong className="text-xs">Más de 2.5 goles · extracción automática (H2H / xG)</strong>
-          <EvidenceWindowPills windows={winTotals} size="sm" />
-        </div>
-        <div style={{ display: "grid", gap: 6 }}>
-          <strong className="text-xs">Más de 4.5 tarjetas amarillas · extracción automática (xG / Árb.)</strong>
-          <EvidenceWindowPills windows={winCards} size="sm" />
-        </div>
+      <div style={{ maxWidth: 640 }}>
+        <SofascoreCard title="Extracción automática desde partido">
+          <div style={{ display: "grid", gap: 14 }}>
+            <div style={{ display: "grid", gap: 6 }}>
+              <strong className="text-xs">América gana · extracción automática (L5 / L20 / H2H / xG)</strong>
+              <EvidenceWindowPills windows={winResult} size="sm" />
+            </div>
+            <div style={{ display: "grid", gap: 6 }}>
+              <strong className="text-xs">Más de 2.5 goles · extracción automática (H2H / xG)</strong>
+              <EvidenceWindowPills windows={winTotals} size="sm" />
+            </div>
+            <div style={{ display: "grid", gap: 6 }}>
+              <strong className="text-xs">Más de 4.5 tarjetas amarillas · extracción automática (xG / Árb.)</strong>
+              <EvidenceWindowPills windows={winCards} size="sm" />
+            </div>
+          </div>
+        </SofascoreCard>
       </div>
     );
   },

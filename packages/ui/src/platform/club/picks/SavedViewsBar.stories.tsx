@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Button, SofascoreCard } from "../../../components/ui/primitives";
 import { oddsToSliderStep, type SavedScreenerView } from "../../screener-views";
 import { SavedViewsBar } from "./SavedViewsBar";
 
@@ -148,33 +149,31 @@ function InteractiveSavedViewsDemo({
         onDelete={handleDelete}
       />
 
-      <div
-        className="glass-card glass-ring rounded-xl px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs"
-        style={{ color: "var(--pl-text-secondary)" }}
-      >
-        <span>
-          {activeView ? (
-            <>
-              Vista activa: <strong style={{ color: "var(--pl-text)" }}>{activeView.name}</strong>
-              {activeView.onlyPositiveEdge ? " · Solo EV+" : ""} · Orden: {activeView.sort}
-            </>
-          ) : (
-            "Sin vista activa · usando filtros manuales"
-          )}
-        </span>
+      <SofascoreCard density="compact">
+        <div
+          className="flex flex-wrap items-center justify-between gap-2 text-xs"
+          style={{ color: "var(--pl-text-secondary)" }}
+        >
+          <span>
+            {activeView ? (
+              <>
+                Vista activa: <strong style={{ color: "var(--pl-text)" }}>{activeView.name}</strong>
+                {activeView.onlyPositiveEdge ? " · Solo EV+" : ""} · Orden: {activeView.sort}
+              </>
+            ) : (
+              "Sin vista activa · usando filtros manuales"
+            )}
+          </span>
 
-        {lastDeleted ? (
-          <button
-            type="button"
-            className="pl-btn-glass text-xs min-h-9 px-3"
-            onClick={handleUndoDelete}
-          >
-            Deshacer
-          </button>
-        ) : feedback ? (
-          <span style={{ color: "var(--pl-text-muted)" }}>{feedback}</span>
-        ) : null}
-      </div>
+          {lastDeleted ? (
+            <Button type="button" variant="secondary" size="sm" onClick={handleUndoDelete}>
+              Deshacer
+            </Button>
+          ) : feedback ? (
+            <span style={{ color: "var(--pl-text-muted)" }}>{feedback}</span>
+          ) : null}
+        </div>
+      </SofascoreCard>
     </div>
   );
 }

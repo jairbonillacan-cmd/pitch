@@ -1,3 +1,4 @@
+import "../../atomic-kit.css";
 import "../../picks-screener.css";
 import React from "react";
 import { PicksFinderClubView } from "@pitchlab/ui/picks";

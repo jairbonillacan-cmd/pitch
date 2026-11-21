@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type { PickEvidenceBullet } from "../../match-evidence";
 import type {
   MatchIntelligenceV5View,
@@ -22,14 +23,10 @@ export type EvidenceWindowTone = "high" | "mid" | "low" | "info" | "neutral";
 
 export interface EvidenceWindowItem {
   readonly key: EvidenceWindowKey;
-  /** Etiqueta corta de ventana: `L5`, `L10`, `L20`, `H2H`, `xG`, `Árb.`. */
   readonly label: string;
-  /** Valor numérico compacto: `80 %`, `3/3`, `2.96`. */
   readonly value: string;
-  /** Porcentaje opcional para accesibilidad u ordenación. */
   readonly ratePct?: number | null;
   readonly tone: EvidenceWindowTone;
-  /** Descripción completa accesible (`title` / `aria-label`). */
   readonly detail?: string;
 }
 
@@ -57,32 +54,32 @@ function parseFormList(raw: string | undefined): Array<"G" | "E" | "P"> {
     .map((ch) => (ch === "W" || ch === "G" ? "G" : ch === "D" || ch === "E" ? "E" : "P"));
 }
 
-function parseSeasonRecord(raw: string | undefined): { won: number; drawn: number; lost: number; played: number } | null {
+function parseSeasonRecord(
+  raw: string | undefined,
+): { won: number; drawn: number; lost: number; played: number } | null {
   if (!raw) return null;
   const gMatch = /(\d+)\s*[GW]/i.exec(raw);
   const eMatch = /(\d+)\s*[ED]/i.exec(raw);
   const pMatch = /(\d+)\s*[PL]/i.exec(raw);
-  if (!gMatch || !pMatch) return null;
-  const won = Number(gMatch[1]);
-  const drawn = eMatch ? Number(eMatch[1]) : 0;
-  const lost = Number(pMatch[1]);
+  if (!gMatch?.[1] || !pMatch?.[1]) return null;
+  const won = parseStrictFiniteNumber(gMatch[1]);
+  const drawn = eMatch?.[1] ? parseStrictFiniteNumber(eMatch[1]) : 0;
+  const lost = parseStrictFiniteNumber(pMatch[1]);
+  if (won === null || drawn === null || lost === null) return null;
   const played = won + drawn + lost;
   if (!Number.isFinite(played) || played < 10) return null;
   return { won, drawn, lost, played };
 }
 
-function extractLine(pick: Pick<MatchPick, "line" | "label" | "selectionKey">): number | null {
+function extractLine(
+  pick: Pick<MatchPick, "line" | "label" | "selectionKey">,
+): number | null {
   if (typeof pick.line === "number" && Number.isFinite(pick.line)) return pick.line;
-  const m = /(\d+(?:\.\d+)?)/.exec(`${pick.label} ${pick.selectionKey}`);
-  if (!m?.[1]) return null;
-  const n = Number(m[1]);
-  return Number.isFinite(n) ? n : null;
+  const match = /(\d+(?:\.\d+)?)/.exec(`${pick.label} ${pick.selectionKey}`);
+  if (!match?.[1]) return null;
+  return parseStrictFiniteNumber(match[1]);
 }
 
-/**
- * Extrae píldoras verificables multi-ventana (`L5 / L10 / L20 / H2H` + `xG` + rigor arbitral)
- * estrictamente a partir de datos reales presentes en el partido (cero números inventados).
- */
 export function extractEvidenceWindows(params: {
   readonly game: PlatformGame;
   readonly pick: Pick<MatchPick, "label" | "selectionKey" | "market" | "marketGroup" | "line">;
@@ -113,8 +110,9 @@ export function extractEvidenceWindows(params: {
     !hay.includes("menos de") &&
     !hay.includes("total");
 
-  // 1) L5 desde racha real de game.factors o bullets de forma
-  const formBullet = bullets?.find((b) => norm(b.label).includes("racha reciente") && b.ratePct !== null);
+  const formBullet = bullets?.find(
+    (b) => norm(b.label).includes("racha reciente") && b.ratePct !== null,
+  );
   if (formBullet && formBullet.ratePct !== null) {
     out.push({
       key: "l5",
@@ -143,7 +141,6 @@ export function extractEvidenceWindows(params: {
     }
   }
 
-  // 2) L10 / L20 desde récord real acumulado si cuenta con muestra real >= 10 / >= 20 PJ
   if (isResultMarket && (picksHome || picksAway)) {
     const rec = parseSeasonRecord(picksHome ? game.home.record : game.away.record);
     if (rec) {
@@ -162,7 +159,6 @@ export function extractEvidenceWindows(params: {
     }
   }
 
-  // 3) H2H desde bullets verificados o evaluación directa sobre game.headToHead
   const h2hBullet = bullets?.find((b) => norm(b.label).includes("h2h") && b.ratePct !== null);
   if (h2hBullet && h2hBullet.ratePct !== null) {
     out.push({
@@ -228,7 +224,6 @@ export function extractEvidenceWindows(params: {
     }
   }
 
-  // 4) xG / Proyección del modelo (solo si existe proyección real)
   if (game.projection && Number.isFinite(game.projection.total)) {
     const isFootball = game.sport === "football";
     out.push({
@@ -242,7 +237,6 @@ export function extractEvidenceWindows(params: {
     });
   }
 
-  // 5) Rigor arbitral si el mercado es de tarjetas/faltas y hay perfil Bzzoiro/v5
   const ref = v5?.microCounts?.refereeProfile;
   if (
     ref &&
@@ -263,16 +257,11 @@ export function extractEvidenceWindows(params: {
 }
 
 export interface EvidenceWindowPillsProps {
-  /** Lista explícita de ventanas (`L5 / L10 / L20 / H2H / xG`). */
   readonly windows: readonly EvidenceWindowItem[];
-  /** Variante de tamaño para filas densas o tarjetas móviles. */
   readonly size?: "sm" | "md";
   readonly ariaLabel?: string;
 }
 
-/**
- * Píldoras planas multi-ventana (`L5 / L10 / L20 / H2H` + `xG`) con tono semántico sobre `--pl-*`.
- */
 export function EvidenceWindowPills({
   windows,
   size = "md",

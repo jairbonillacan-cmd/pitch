@@ -14,10 +14,6 @@ export interface OddsMovementInfo {
   readonly deltaPct: number | null;
 }
 
-/**
- * Calcula el valor esperado porcentual `(p * cuotaCasa - 1) * 100` con 1 decimal.
- * Devuelve `null` si la cuota no es válida (`<= 1`).
- */
 export function computeExpectedValuePct(
   probability: number,
   houseDecimal: number | null | undefined,
@@ -33,10 +29,6 @@ export function computeExpectedValuePct(
   return Math.round((probability * houseDecimal - 1) * 1000) / 10;
 }
 
-/**
- * Clasifica el movimiento de línea entre apertura y cuota vigente (`Steam`, `Bajando`, `Subiendo`).
- * Sin números inventados: solo emite señal si hay delta real (`>= 0.01`) o dirección explícita.
- */
 export function classifyOddsMovement(
   openingDecimal: number | null | undefined,
   currentDecimal: number | null | undefined,
@@ -79,42 +71,23 @@ export function classifyOddsMovement(
 }
 
 export interface BookmakerComparePillProps {
-  /** Probabilidad calibrada Spacetime del pick (0..1). */
   readonly probability: number;
-  /** Momio justo del modelo (`1 / p`). */
   readonly fairDecimal: number;
-  /** Mejor cuota vigente de casa (o cuota manual capturada). */
   readonly houseDecimal: number | null;
-  /** Nombre visible de la casa (p. ej. `Pinnacle`, `Bet365`, `Codere`, `Tu momio`). */
   readonly houseBookLabel?: string | null;
-  /** Momio de apertura para calcular movimiento de línea. */
   readonly openingDecimal?: number | null;
-  /** Dirección explícita de movimiento si el payload ya la entrega. */
   readonly movementDirection?: "shortening" | "drifting" | "stable" | null;
-  /** Señal explícita (`STEAM`, `SHORTENING`, `DRIFTING`, `STABLE`). */
   readonly movementSignal?: "STEAM" | "SHORTENING" | "DRIFTING" | "STABLE" | null;
-  /** Captura UTC ISO para sello transparente de frescura. */
   readonly capturedAtUtc?: string | null;
-  /** Cotizaciones multi-casa para píldoras rápidas de comparación. */
   readonly bookQuotes?: readonly BookQuoteItem[];
   readonly oddsFormat: OddsFormat;
-  /** Variante de densidad visual. */
   readonly variant?: "box" | "inline" | "compact";
-  /** Muestra prefijo `"Casa"` delante del valor en modo `inline` (compatibilidad MatchMarketsGrid). */
   readonly showCasaPrefix?: boolean;
-  /** Muestra las mejores casas adicionales cuando hay `> 1` cotización. */
   readonly showMultiBookQuotes?: boolean;
-  /** Muestra el sello de captura `<time dateTime=...>`. */
   readonly showCaptureStamp?: boolean;
-  /** Ventaja ya calculada en puntos porcentuales (fallback si se desea). */
   readonly edgePtsOverride?: number | null;
 }
 
-/**
- * Comparativa editorial plana `Momio justo` vs mejor casa + insignia `Valor +X.X %`
- * + indicador de movimiento (`Steam` / `↓ Bajando` / `↑ Subiendo`).
- * 100 % tokens `--pl-*`, cifras tabulares `.num`, cero enlaces de afiliado.
- */
 export function BookmakerComparePill({
   probability,
   fairDecimal,
@@ -137,7 +110,6 @@ export function BookmakerComparePill({
       ? houseDecimal
       : null;
 
-  // Resolver cuota de apertura desde prop explícita o desde la mejor cotización con openingDecimal
   const quoteWithOpening = bookQuotes?.find(
     (q) => q.openingDecimal != null && Number.isFinite(q.openingDecimal),
   );
@@ -175,7 +147,9 @@ export function BookmakerComparePill({
 
         {houseFormatted !== null ? (
           <span className="pl-mkt-row-fair num" data-market-house-quote="">
-            {showCasaPrefix ? `Casa ${houseFormatted}` : `${houseBookLabel ?? "Casa"} ${houseFormatted}`}
+            {showCasaPrefix
+              ? `Casa ${houseFormatted}`
+              : `${houseBookLabel ?? "Casa"} ${houseFormatted}`}
             {effectiveOpen !== null &&
             effectiveHouse !== null &&
             Math.abs(effectiveOpen - effectiveHouse) >= 0.01 &&
@@ -222,15 +196,9 @@ export function BookmakerComparePill({
                 : `Movimiento de línea: ${movement.label}`
             }
           >
-            {movement.kind === "steam" ? (
-              <>
-                <span aria-hidden="true">⚡</span> Steam
-              </>
-            ) : (
-              <>
-                {movement.arrow} {movement.label}
-              </>
-            )}
+            {movement.kind === "steam"
+              ? "↓↓ Steam"
+              : `${movement.arrow} ${movement.label}`}
           </span>
         ) : null}
 
@@ -239,9 +207,10 @@ export function BookmakerComparePill({
             {bookQuotes.slice(0, 3).map((q) => (
               <span
                 key={q.book}
-                className={`pl-pill text-[10px] num ${q.isBest ? "pl-pill--brand" : ""}`.trim()}
+                className={`pl-bk-quote-tag num ${q.isBest ? "is-best" : ""}`.trim()}
               >
-                {q.bookLabel} {formatOddsValue(q.decimal, oddsFormat)}
+                <span>{q.bookLabel}</span>
+                <strong>{formatOddsValue(q.decimal, oddsFormat)}</strong>
               </span>
             ))}
           </span>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { SofascoreCard } from "../../../components/ui/primitives";
 import { oddsToSliderStep } from "../../screener-views";
 import type { OddsFormat } from "../../types";
 import { NonLinearOddsSlider } from "./NonLinearOddsSlider";
@@ -28,19 +29,16 @@ function InteractiveOddsSlider({
   const [range, setRange] = useState<[number, number]>([initialMinStep, initialMaxStep]);
 
   return (
-    <div style={{ display: "grid", gap: 8, maxWidth: compact ? 360 : 560 }}>
-      {caption ? (
-        <p className="m-0 text-xs font-bold" style={{ color: "var(--pl-text-muted)" }}>
-          {caption}
-        </p>
-      ) : null}
-      <NonLinearOddsSlider
-        minStep={range[0]}
-        maxStep={range[1]}
-        oddsFormat={oddsFormat}
-        compact={compact}
-        onChange={(nextMin, nextMax) => setRange([nextMin, nextMax])}
-      />
+    <div style={{ maxWidth: compact ? 360 : 560 }}>
+      <SofascoreCard title={caption} density="compact">
+        <NonLinearOddsSlider
+          minStep={range[0]}
+          maxStep={range[1]}
+          oddsFormat={oddsFormat}
+          compact={compact}
+          onChange={(nextMin, nextMax) => setRange([nextMin, nextMax])}
+        />
+      </SofascoreCard>
     </div>
   );
 }
