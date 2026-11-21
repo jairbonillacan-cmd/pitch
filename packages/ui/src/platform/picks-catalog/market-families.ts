@@ -2519,7 +2519,7 @@ function emitFootballPlayerProps(
         isDerived: !quote?.overDecimal,
         precomputedWindows: windows,
         contextBullets: [
-          `Proyección EB ${mean.toFixed(2)} · Guardia >= ${minMinutesGuard} min (${nObs} PJ, ${lineupText})`,
+          `Proyección ajustada ${mean.toFixed(2)} · Guardia >= ${minMinutesGuard} min (${nObs} PJ, ${lineupText})`,
         ],
         playerMeta: meta,
       });

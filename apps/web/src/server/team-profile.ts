@@ -16,6 +16,7 @@ import {
   type TeamSquadEntry,
 } from "@pitchlab/contracts";
 import type { NbaPlayerPropSeed } from "@pitchlab/ingest/providers/bzzoiro-nba-rich";
+import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import type { PlatformGame, PlayerPropItem } from "@pitchlab/ui/types";
 import { resolveTeamVenueGeo } from "@pitchlab/ui/team-venues";
 import type {
@@ -1421,8 +1422,11 @@ function mapSquadEntryToSummary(
       preferredFoot: p.preferredFoot ?? null,
       nationality: p.nationality,
       nationalityCode: p.nationalityCode,
-      photoKey: p.photoKey ?? null,
-      fallbackPhotoKey: p.fallbackPhotoKey ?? null,
+      photoKey: p.photoKey && resolvePersonPhotoUrl(p.photoKey) ? p.photoKey : null,
+      fallbackPhotoKey:
+        p.fallbackPhotoKey && resolvePersonPhotoUrl(p.fallbackPhotoKey)
+          ? p.fallbackPhotoKey
+          : null,
       availability: fullAccess ? (p.availability ?? null) : null,
       injuryDetail: fullAccess ? (p.injuryDetail ?? null) : null,
       expectedReturn: fullAccess ? (p.expectedReturn ?? null) : null,
@@ -1439,7 +1443,10 @@ function mapSquadEntryToSummary(
       ? {
           name: entry.coach.name,
           shortName: entry.coach.shortName ?? null,
-          photoKey: entry.coach.photoKey ?? null,
+          photoKey:
+            entry.coach.photoKey && resolvePersonPhotoUrl(entry.coach.photoKey)
+              ? entry.coach.photoKey
+              : null,
           nationality: entry.coach.nationality ?? null,
           nationalityCode: entry.coach.nationalityCode ?? null,
           birthDate: entry.coach.birthDate ?? null,
@@ -1534,8 +1541,11 @@ export function loadPlayerProfile(
       shortName: p.shortName,
       jersey: p.jersey,
       positionGroup: p.positionGroup,
-      photoKey: p.photoKey ?? null,
-      fallbackPhotoKey: p.fallbackPhotoKey ?? null,
+      photoKey: p.photoKey && resolvePersonPhotoUrl(p.photoKey) ? p.photoKey : null,
+      fallbackPhotoKey:
+        p.fallbackPhotoKey && resolvePersonPhotoUrl(p.fallbackPhotoKey)
+          ? p.fallbackPhotoKey
+          : null,
       href: canonicalPlayerHref(teamProfile.league, teamProfile.team.slug, p.slug),
     }));
 

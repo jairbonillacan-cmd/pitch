@@ -1,4 +1,6 @@
 import {
+  isBlockedMarketQuoteBook,
+  isPermittedMarketQuoteBook,
   parseStrictFiniteNumber,
   type SpacetimeAnchoredQuote,
   type StandingRow,
@@ -742,14 +744,42 @@ export function parseBzzoiroNbaOdds(params: {
   return out;
 }
 
+const MAX_NBA_ODDS_AGE_MS = 72 * 3_600_000;
+const MAX_NBA_FUTURE_SKEW_MS = 6 * 3_600_000;
+const NBA_STRICT_ISO_TS_RE =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/;
+
+function normalizeNbaCapturedAtIso(raw: unknown): string | undefined {
+  if (typeof raw !== "string") return undefined;
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+  const ms = Date.parse(trimmed);
+  if (!Number.isFinite(ms)) return undefined;
+  return NBA_STRICT_ISO_TS_RE.test(trimmed) ? trimmed : new Date(ms).toISOString();
+}
+
+function isFreshNbaTimestamp(
+  capturedAtIso: string | undefined,
+  nowMs: number,
+): capturedAtIso is string {
+  if (!capturedAtIso || !Number.isFinite(nowMs)) return false;
+  const ms = Date.parse(capturedAtIso);
+  if (!Number.isFinite(ms)) return false;
+  const ageMs = nowMs - ms;
+  return ageMs >= -MAX_NBA_FUTURE_SKEW_MS && ageMs <= MAX_NBA_ODDS_AGE_MS;
+}
+
 export function parseBzzoiroNbaOddsComparison(
   odds: readonly BzNbaOddsRowRaw[] | null | undefined,
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+    capturedAtUtc?: string;
+    nowMs?: number;
     requireSpacetimeAnchor?: boolean;
   } = {},
 ): NbaSelectionOddsComparison[] {
   if (!odds || odds.length === 0) return [];
+  const nowMs = options.nowMs ?? Date.now();
   const grouped = new Map<
     string,
     {
@@ -765,7 +795,7 @@ export function parseBzzoiroNbaOddsComparison(
           openingDecimal: number | null;
           currentDecimal: number;
           rawMovement: string | null;
-          capturedAtUtc?: string;
+          capturedAtUtc: string;
         }
       >;
     }
@@ -777,12 +807,15 @@ export function parseBzzoiroNbaOddsComparison(
       .trim()
       .toLowerCase()
       .replace(/\s+/g, "_");
+    if (!slug || isBlockedMarketQuoteBook(slug)) continue;
     const bookMeta = BZZOIRO_COMPARISON_BOOK_META[slug] ?? BZZOIRO_COMPARISON_BOOK_META[slug.replace(/_/g, "-")];
-    if (!bookMeta) continue;
+    if (!bookMeta || !isPermittedMarketQuoteBook(bookMeta.canonical, bookMeta.label)) continue;
     const mapped = mapNbaMarket(row);
     if (!mapped) continue;
     const price = num(row.decimal_odds ?? row.odds);
     if (price === null || price < 1.01 || price > 1000) continue;
+    const capturedAtUtc = normalizeNbaCapturedAtIso(row.updated_at ?? options.capturedAtUtc);
+    if (!isFreshNbaTimestamp(capturedAtUtc, nowMs)) continue;
     const openRaw = num(row.opening_odds ?? row.opening_decimal_odds ?? row.opening_price);
     const openingDecimal = openRaw !== null && openRaw >= 1.01 && openRaw <= 1000 ? round3(openRaw) : null;
     const rawMovement =
@@ -795,17 +828,10 @@ export function parseBzzoiroNbaOddsComparison(
       bucket = { ...mapped, byBook: new Map() };
       grouped.set(key, bucket);
     }
-    const rawUpdatedAt = typeof row.updated_at === "string" ? row.updated_at.trim() : "";
-    const parsedUpdatedMs = rawUpdatedAt ? Date.parse(rawUpdatedAt) : Number.NaN;
-    const capturedAtUtc = Number.isFinite(parsedUpdatedMs)
-      ? /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/.test(rawUpdatedAt)
-        ? rawUpdatedAt
-        : new Date(parsedUpdatedMs).toISOString()
-      : undefined;
     const existing = bucket.byBook.get(bookMeta.canonical);
     if (existing?.capturedAtUtc) {
       const existingMs = Date.parse(existing.capturedAtUtc);
-      const incomingMs = capturedAtUtc ? Date.parse(capturedAtUtc) : Number.NaN;
+      const incomingMs = Date.parse(capturedAtUtc);
       if (Number.isFinite(existingMs) && (!Number.isFinite(incomingMs) || existingMs > incomingMs)) {
         continue;
       }
@@ -817,7 +843,7 @@ export function parseBzzoiroNbaOddsComparison(
       openingDecimal,
       currentDecimal: round3(price),
       rawMovement,
-      ...(capturedAtUtc ? { capturedAtUtc } : {}),
+      capturedAtUtc,
     });
   }
 
@@ -890,6 +916,8 @@ export function parseBzzoiroNbaOddsComparison(
         ? rawProb
         : null;
     if (validRawProb === null) continue;
+    const bestCapturedAtIso = sorted[0]!.capturedAtUtc;
+    if (!isFreshNbaTimestamp(bestCapturedAtIso, nowMs)) continue;
     const modelProb = round3(validRawProb);
     const anchoredQuote = toSpacetimeAnchoredQuote({
       bookLabel: sorted[0]!.bookLabel,
@@ -899,7 +927,7 @@ export function parseBzzoiroNbaOddsComparison(
       bookDecimal: bestDecimal,
       modelProb: validRawProb,
       movement: consensusMv.signal,
-      capturedAtIso: sorted[0]!.capturedAtUtc,
+      capturedAtIso: bestCapturedAtIso,
     });
 
     out.push({
@@ -1144,6 +1172,7 @@ export async function fetchBzzoiroNbaOdds(
     awayTeamRaw: string;
     kickoffUtc: string;
     capturedAtUtc?: string;
+    nowMs?: number;
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
     requireSpacetimeAnchor?: boolean;
   },
@@ -1167,6 +1196,8 @@ export async function fetchBzzoiroNbaOdds(
     }),
     comparison: parseBzzoiroNbaOddsComparison(listRaw, {
       modelProbsByKey: params.modelProbsByKey,
+      capturedAtUtc,
+      ...(params.nowMs !== undefined ? { nowMs: params.nowMs } : {}),
       requireSpacetimeAnchor: true,
     }),
   };

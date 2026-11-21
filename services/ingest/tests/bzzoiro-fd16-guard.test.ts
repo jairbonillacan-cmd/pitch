@@ -359,6 +359,8 @@ describe("Guardia recursiva FD-16 · detección exhaustiva de fugas", () => {
     expect(scoreboardEntry.referee).toBe("César Ramos");
     assertFd16Strict(scoreboardEntry);
 
+    const freshCapturedAt = new Date(Date.now() - 30 * 60_000).toISOString();
+    const staleCapturedAt = new Date(Date.now() - 80 * 3_600_000).toISOString();
     const poisonedOdds = {
       event_id: RAW_EVENT_ID,
       api_key: SECRET_API_KEY,
@@ -369,9 +371,10 @@ describe("Guardia recursiva FD-16 · detección exhaustiva de fugas", () => {
           home_team: `América ${POISON_BZ_URL}`,
           away_team: `Guadalajara ${POISON_ESPN_URL}`,
           bookmakers: [
-            { bookmaker_id: RAW_BOOKMAKER_ID, bookmaker_slug: "pinnacle", decimal_odds: 1.9, opening_odds: 2.02, url: POISON_BZ_URL, api_key: SECRET_API_KEY },
-            { bookmaker_id: RAW_BOOKMAKER_ID + 1, bookmaker_slug: "codere", decimal_odds: 1.93, opening_odds: 2.04, photo_url: POISON_ESPN_URL },
-            { bookmaker_id: RAW_BOOKMAKER_ID + 2, bookmaker_slug: "caliente", decimal_odds: 1.95, opening_odds: 2.05 },
+            { bookmaker_id: RAW_BOOKMAKER_ID, bookmaker_slug: "pinnacle", decimal_odds: 1.9, opening_odds: 2.02, updated_at: freshCapturedAt, url: POISON_BZ_URL, api_key: SECRET_API_KEY },
+            { bookmaker_id: RAW_BOOKMAKER_ID + 1, bookmaker_slug: "codere", decimal_odds: 1.93, opening_odds: 2.04, updated_at: freshCapturedAt, photo_url: POISON_ESPN_URL },
+            { bookmaker_id: RAW_BOOKMAKER_ID + 2, bookmaker_slug: "caliente", decimal_odds: 1.95, opening_odds: 2.05, updated_at: freshCapturedAt },
+            { bookmaker_id: RAW_BOOKMAKER_ID + 3, bookmaker_slug: "betfair", decimal_odds: 1.97, opening_odds: 2.05, updated_at: freshCapturedAt },
           ],
         },
       ],
@@ -386,7 +389,7 @@ describe("Guardia recursiva FD-16 · detección exhaustiva de fugas", () => {
           event_date: "2026-11-22T02:00:00Z",
           market: "1x2",
           best_odds: {
-            home: { bookmaker_id: RAW_BOOKMAKER_ID, bookmaker_slug: "betcris", decimal_odds: 1.96, opening_odds: 2.1, url: POISON_BZ_URL, api_key: SECRET_API_KEY },
+            home: { bookmaker_id: RAW_BOOKMAKER_ID, bookmaker_slug: "betcris", decimal_odds: 1.96, opening_odds: 2.1, updated_at: freshCapturedAt, url: POISON_BZ_URL, api_key: SECRET_API_KEY },
           },
         },
       ],
@@ -395,12 +398,42 @@ describe("Guardia recursiva FD-16 · detección exhaustiva de fugas", () => {
       modelProbsByKey: { "1x2|null|home": 0.55 },
     });
     expect(oddsComparison).toHaveLength(1);
+    expect(oddsComparison[0]?.books.map((b) => b.book)).toEqual(["codere", "pinnacle"]);
     expect(bestOdds).toHaveLength(1);
     expect(bestOdds[0]?.matchLabel).toBe("América vs Guadalajara");
     expect(bestOdds[0]?.fairOdds).toBeCloseTo(1 / 0.55, 2);
-    // Licencia Bzzoiro v4.0: sin probabilidad Spacetime válida las cuotas se descartan.
+    // Licencia Bzzoiro v4.0 + frescura <= 72h: sin probabilidad Spacetime válida o sin/con timestamp obsoleto se descarta fail-closed.
     expect(parseBzzoiroOddsComparison(poisonedOdds)).toEqual([]);
     expect(parseBzzoiroBestOdds(poisonedBestOddsPayload)).toEqual([]);
+    expect(
+      parseBzzoiroOddsComparison(
+        {
+          comparisons: [
+            {
+              market: "1x2",
+              outcome: "home",
+              bookmakers: [{ bookmaker_slug: "pinnacle", decimal_odds: 1.9, opening_odds: 2.02 }],
+            },
+          ],
+        },
+        { modelProbsByKey: { "1x2|null|home": 0.55 } },
+      ),
+    ).toEqual([]);
+    expect(
+      parseBzzoiroBestOdds(
+        {
+          results: [
+            {
+              home_team: "América",
+              away_team: "Guadalajara",
+              market: "1x2",
+              best_odds: { home: { bookmaker_slug: "betcris", decimal_odds: 1.96, updated_at: staleCapturedAt } },
+            },
+          ],
+        },
+        { modelProbsByKey: { "1x2|null|home": 0.55 } },
+      ),
+    ).toEqual([]);
     assertFd16Strict({ oddsComparison, bestOdds });
 
     const poisonedReferee = withRawNoise(
@@ -637,6 +670,8 @@ describe("Guardia recursiva FD-16 · detección exhaustiva de fugas", () => {
     expect(pregame?.notes).toEqual(["Back-to-back visitante"]);
     assertFd16Strict(pregame);
 
+    const freshNbaCapturedAt = new Date(Date.now() - 30 * 60_000).toISOString();
+    const staleNbaCapturedAt = new Date(Date.now() - 80 * 3_600_000).toISOString();
     const poisonedNbaOdds: BzNbaOddsRowRaw[] = [
       withRawNoise(
         {
@@ -646,11 +681,38 @@ describe("Guardia recursiva FD-16 · detección exhaustiva de fugas", () => {
           bookmaker_slug: "pinnacle",
           decimal_odds: 1.54,
           opening_odds: 1.65,
+          updated_at: freshNbaCapturedAt,
         },
         { bookmaker_id: RAW_BOOKMAKER_ID, api_key: SECRET_API_KEY, url: POISON_BZ_URL },
       ),
+      withRawNoise(
+        {
+          event_id: RAW_EVENT_ID,
+          market: "moneyline",
+          outcome: "home",
+          bookmaker_slug: "betfair",
+          decimal_odds: 1.6,
+          updated_at: freshNbaCapturedAt,
+        },
+        { bookmaker_id: RAW_BOOKMAKER_ID + 1, api_key: SECRET_API_KEY, url: POISON_BZ_URL },
+      ),
     ];
     const nbaOddsComp = parseBzzoiroNbaOddsComparison(poisonedNbaOdds, { modelProbsByKey: { "moneyline|null|home": 0.67 } });
+    expect(nbaOddsComp).toHaveLength(1);
+    expect(nbaOddsComp[0]?.books.map((b) => b.book)).toEqual(["pinnacle"]);
+    // Fail-closed ante timestamp ausente o > 72h (sin lanzar RangeError):
+    expect(
+      parseBzzoiroNbaOddsComparison(
+        [{ market: "moneyline", outcome: "home", bookmaker_slug: "pinnacle", decimal_odds: 1.54 }],
+        { modelProbsByKey: { "moneyline|null|home": 0.67 } },
+      ),
+    ).toEqual([]);
+    expect(
+      parseBzzoiroNbaOddsComparison(
+        [{ market: "moneyline", outcome: "home", bookmaker_slug: "pinnacle", decimal_odds: 1.54, updated_at: staleNbaCapturedAt }],
+        { modelProbsByKey: { "moneyline|null|home": 0.67 } },
+      ),
+    ).toEqual([]);
     assertFd16Strict(nbaOddsComp);
 
     const poisonedPlayerGames: BzNbaPlayerGameRaw[] = [

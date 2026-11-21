@@ -335,6 +335,7 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
 
     const parsed = parseBzzoiroComparisonPayload(rawComparisonPayload, {
       modelProbsByKey: { "1x2|null|home": 0.56 },
+      nowMs: Date.parse("2026-11-21T12:00:00Z"),
     });
 
     expect(parsed).toHaveLength(1);
@@ -379,6 +380,8 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
   });
 
   it("limpia URLs inyectadas en /odds/best/ y ancla cada cuota al modelo PitchLab vía fetch server-side", async () => {
+    const freshCapturedAtUtc = new Date(Date.now() - 30 * 60_000).toISOString();
+    const staleCapturedAtUtc = new Date(Date.now() - 80 * 3_600_000).toISOString();
     const rawBestPayload = {
       results: [
         {
@@ -394,6 +397,7 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
               bookmaker_slug: "pinnacle",
               decimal_odds: 1.98,
               opening_odds: 2.08,
+              updated_at: freshCapturedAtUtc,
               bookmaker_url: "https://pinnacle.example/redirect",
             },
           },
@@ -418,6 +422,61 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
       bookDecimal: 1.98,
       modelProb: 0.55,
     });
+
+    // Fail-closed ante timestamp ausente, obsoleto (> 72h) o casa bloqueada (caliente_mx / betfair):
+    expect(
+      parseBzzoiroBestOddsPayload(
+        {
+          results: [
+            {
+              home_team: "Club América",
+              away_team: "Guadalajara",
+              market: "totals",
+              line: 2.5,
+              best_odds: { over: { bookmaker_slug: "pinnacle", decimal_odds: 1.98 } },
+            },
+          ],
+        },
+        { modelProbsByKey: { "totals|2.5|over": 0.55 } },
+      ),
+    ).toEqual([]);
+    expect(
+      parseBzzoiroBestOddsPayload(
+        {
+          results: [
+            {
+              home_team: "Club América",
+              away_team: "Guadalajara",
+              market: "totals",
+              line: 2.5,
+              best_odds: {
+                over: { bookmaker_slug: "pinnacle", decimal_odds: 1.98, updated_at: staleCapturedAtUtc },
+              },
+            },
+          ],
+        },
+        { modelProbsByKey: { "totals|2.5|over": 0.55 } },
+      ),
+    ).toEqual([]);
+    expect(
+      parseBzzoiroBestOddsPayload(
+        {
+          results: [
+            {
+              home_team: "Club América",
+              away_team: "Guadalajara",
+              market: "totals",
+              line: 2.5,
+              best_odds: {
+                over: { bookmaker_slug: "caliente_mx", decimal_odds: 1.98, updated_at: freshCapturedAtUtc },
+                under: { bookmaker_slug: "betfair", decimal_odds: 1.98, updated_at: freshCapturedAtUtc },
+              },
+            },
+          ],
+        },
+        { modelProbsByKey: { "totals|2.5|over": 0.55, "totals|2.5|under": 0.45 } },
+      ),
+    ).toEqual([]);
 
     const directSerialized = JSON.stringify(bestDirect);
     expect(directSerialized).not.toMatch(FORBIDDEN_FD16_RE);
@@ -499,8 +558,15 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
         },
       ],
     };
-    const rowComparison = buildMarketRowComparison(row);
+    const rowComparison = buildMarketRowComparison(row, {
+      nowMs: Date.parse("2026-11-21T12:00:00Z"),
+    });
     expect(rowComparison).not.toBeNull();
+    expect(
+      buildMarketRowComparison(row, {
+        nowMs: Date.parse("2026-11-25T12:00:00Z"),
+      }),
+    ).toBeNull();
     expect(rowComparison!.modelProb).toBe(0.57);
     expect(rowComparison!.fairDecimal).toBeCloseTo(1 / 0.57, 2);
     expect(rowComparison!.signal).toBe("STEAM");
@@ -520,6 +586,7 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
   });
 
   it("Licencia Bzzoiro v4.0: descarta cualquier cuota sin probabilidad Spacetime en comparison y best-odds", () => {
+    const freshCapturedAtUtc = new Date(Date.now() - 30 * 60_000).toISOString();
     const rawMixedComparison = {
       comparisons: [
         {
@@ -529,6 +596,7 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
           bookmaker_slug: "pinnacle",
           decimal_odds: 1.96,
           opening_odds: 2.04,
+          updated_at: freshCapturedAtUtc,
         },
         {
           market: "1x2",
@@ -537,6 +605,7 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
           bookmaker_slug: "bet365",
           decimal_odds: 3.85,
           opening_odds: 3.7,
+          updated_at: freshCapturedAtUtc,
         },
       ],
     };
@@ -568,8 +637,18 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
           event_date: "2026-11-22T03:00:00Z",
           market: "1x2",
           best_odds: {
-            home: { bookmaker_slug: "pinnacle", decimal_odds: 1.92, opening_odds: 2.0 },
-            draw: { bookmaker_slug: "betcris", decimal_odds: 3.55, opening_odds: 3.5 },
+            home: {
+              bookmaker_slug: "pinnacle",
+              decimal_odds: 1.92,
+              opening_odds: 2.0,
+              updated_at: freshCapturedAtUtc,
+            },
+            draw: {
+              bookmaker_slug: "betcris",
+              decimal_odds: 3.55,
+              opening_odds: 3.5,
+              updated_at: freshCapturedAtUtc,
+            },
           },
         },
       ],
@@ -601,26 +680,29 @@ describe("Licencia Bzzoiro v4.0 y FD-16 · book-quotes.ts (valoración PitchLab 
       }),
     ).toEqual([]);
     expect(
-      buildMarketRowComparison({
-        group: "Resultado 1X2",
-        market: "1x2",
-        selection: "home",
-        label: "Sin ancla Spacetime",
-        p: 0.001,
-        fairDecimal: 1000,
-        fairAmerican: 99900,
-        openDecimal: null,
-        currentDecimal: 2.0,
-        edgePts: null,
-        bookQuotes: [
-          {
-            book: "pinnacle",
-            bookLabel: "Pinnacle",
-            decimal: 2.0,
-            capturedAtUtc: "2026-11-20T15:00:00Z",
-          },
-        ],
-      }),
+      buildMarketRowComparison(
+        {
+          group: "Resultado 1X2",
+          market: "1x2",
+          selection: "home",
+          label: "Sin ancla Spacetime",
+          p: 0.001,
+          fairDecimal: 1000,
+          fairAmerican: 99900,
+          openDecimal: null,
+          currentDecimal: 2.0,
+          edgePts: null,
+          bookQuotes: [
+            {
+              book: "pinnacle",
+              bookLabel: "Pinnacle",
+              decimal: 2.0,
+              capturedAtUtc: "2026-11-20T15:00:00Z",
+            },
+          ],
+        },
+        { nowMs: Date.parse("2026-11-21T12:00:00Z") },
+      ),
     ).toBeNull();
   });
 });

@@ -723,7 +723,9 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
     });
   });
 
-  it("parsea /events/{id}/odds/comparison/ en las 8 casas relevantes con STEAM coordinado y anclaje Spacetime fairOdds", () => {
+  it("parsea /events/{id}/odds/comparison/ en las 7 casas legales relevantes (bloqueando Caliente) con STEAM coordinado y anclaje Spacetime fairOdds", () => {
+    const freshCapturedAt = new Date(Date.now() - 30 * 60_000).toISOString();
+    const staleCapturedAt = new Date(Date.now() - 80 * 3_600_000).toISOString();
     const rawComparison = {
       event_id: 987654321,
       comparisons: [
@@ -757,11 +759,12 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
         "1x2|null|home": 0.56,
         "win_to_nil_home|null|yes": 0.36,
       },
+      capturedAtUtc: freshCapturedAt,
       priorityBooksOnly: true,
     });
 
     const homeRow = parsed.find((r) => r.market === "1x2" && r.selection === "home")!;
-    expect(homeRow.books).toHaveLength(8);
+    expect(homeRow.books).toHaveLength(7);
     expect(homeRow.books.map((b) => b.bookLabel)).toEqual(
       expect.arrayContaining([
         "Pinnacle",
@@ -771,9 +774,9 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
         "DraftKings",
         "FanDuel",
         "BetMGM",
-        "Caliente",
       ]),
     );
+    expect(homeRow.books.some((b) => b.book.includes("caliente"))).toBe(false);
     expect(homeRow.bestBook).toBe("betcris");
     expect(homeRow.bestDecimal).toBe(1.92);
     expect(homeRow.pinnacleDecimal).toBe(1.88);
@@ -802,10 +805,25 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
       modelProb: 0.36,
       movement: "DRIFTING",
     });
+    // Fail-closed ante timestamp ausente o > 72h:
+    expect(
+      parseBzzoiroOddsComparison(rawComparison, {
+        modelProbsByKey: { "1x2|null|home": 0.56 },
+        priorityBooksOnly: true,
+      }),
+    ).toEqual([]);
+    expect(
+      parseBzzoiroOddsComparison(rawComparison, {
+        modelProbsByKey: { "1x2|null|home": 0.56 },
+        capturedAtUtc: staleCapturedAt,
+        priorityBooksOnly: true,
+      }),
+    ).toEqual([]);
     assertFd16Clean(parsed, ["987654321"]);
   });
 
   it("parsea /api/v2/odds/best/ en formato anidado y plano, y BzzoiroOddsAdapter consulta endpoints v2 con BZZOIRO_UNLIMITED=1", async () => {
+    const freshCapturedAt = new Date(Date.now() - 30 * 60_000).toISOString();
     const nestedBest = {
       results: [
         {
@@ -824,6 +842,7 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
     };
 
     const bestParsed = parseBzzoiroBestOdds(nestedBest, {
+      capturedAtUtc: freshCapturedAt,
       modelProbsByKey: {
         "1x2|null|home": 0.58,
         "1x2|null|draw": 0.24,
@@ -840,13 +859,15 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
     });
     assertFd16Clean(bestParsed, ["987654321"]);
 
-    // Licencia Bzzoiro v4.0: las selecciones sin probabilidad Spacetime válida se descartan por defecto.
+    // Licencia Bzzoiro v4.0 + frescura <= 72h: sin probabilidad Spacetime válida o sin timestamp se descarta fail-closed.
     const partialBestParsed = parseBzzoiroBestOdds(nestedBest, {
+      capturedAtUtc: freshCapturedAt,
       modelProbsByKey: { "1x2|null|home": 0.58 },
     });
     expect(partialBestParsed).toHaveLength(1);
     expect(partialBestParsed[0]?.selection).toBe("home");
-    expect(parseBzzoiroBestOdds(nestedBest)).toEqual([]);
+    expect(parseBzzoiroBestOdds(nestedBest, { capturedAtUtc: freshCapturedAt })).toEqual([]);
+    expect(parseBzzoiroBestOdds(nestedBest, { modelProbsByKey: { "1x2|null|home": 0.58 } })).toEqual([]);
 
     const calledPaths: string[] = [];
     const requester: HttpRequesterFn = async ({ url }) => {
@@ -969,12 +990,12 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
     });
   });
 
-  it("valida casas MX prioritarias (Caliente/Codere/Betcris/Bet365 + Pinnacle), filtra secundarias/live/no autorizadas y resuelve empates de mejor cuota", () => {
+  it("valida casas MX legales prioritarias (Codere/Betcris/Bet365 + Pinnacle), bloquea Caliente/Betfair y filtra secundarias/live/no autorizadas", () => {
+    const freshCapturedAt = new Date(Date.now() - 30 * 60_000).toISOString();
     expect([...PRIORITY_COMPARISON_BOOKS].sort()).toEqual([
       "bet365",
       "betcris",
       "betmgm",
-      "caliente_mx",
       "codere",
       "draftkings",
       "fanduel",
@@ -987,6 +1008,7 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
         "1x2": {
           home: [
             { bookmaker_slug: "caliente-mx", decimal_odds: 1.99, opening_odds: 2.08 },
+            { bookmaker_slug: "betfair", decimal_odds: 2.04, opening_odds: 2.1 },
             { bookmaker_slug: "codere", decimal_odds: 1.98, opening_odds: 2.06 },
             { bookmaker_slug: "betcris", decimal_odds: 2.02, opening_odds: 2.1 },
             { bookmaker_slug: "bet365", decimal_odds: 1.97, opening_odds: 2.05 },
@@ -1004,13 +1026,14 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
 
     const priorityOnly = parseBzzoiroOddsComparison(nestedMarketsPayload, {
       priorityBooksOnly: true,
+      capturedAtUtc: freshCapturedAt,
       modelProbsByKey: new Map([["1x2|null|home", 0.52]]),
     });
     expect(priorityOnly).toHaveLength(1);
     const mxRow = priorityOnly[0]!;
-    expect(mxRow.books).toHaveLength(5);
-    expect(mxRow.books.map((b) => b.book)).toEqual(["betcris", "caliente_mx", "codere", "bet365", "pinnacle"]);
-    expect(mxRow.books.find((b) => b.book === "caliente_mx")?.bookLabel).toBe("Caliente");
+    expect(mxRow.books).toHaveLength(4);
+    expect(mxRow.books.map((b) => b.book)).toEqual(["betcris", "codere", "bet365", "pinnacle"]);
+    expect(mxRow.books.some((b) => b.book.includes("caliente") || b.book.includes("betfair"))).toBe(false);
     expect(mxRow.bestBook).toBe("betcris");
     expect(mxRow.bestDecimal).toBe(2.02);
     expect(mxRow.pinnacleDecimal).toBe(1.96);
@@ -1021,10 +1044,12 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
 
     const allBooks = parseBzzoiroOddsComparison(nestedMarketsPayload, {
       priorityBooksOnly: false,
+      capturedAtUtc: freshCapturedAt,
       modelProbsByKey: { "1x2|null|home": 0.52 },
     });
-    expect(allBooks[0]?.books).toHaveLength(9);
+    expect(allBooks[0]?.books).toHaveLength(8);
     expect(allBooks[0]?.books.some((b) => b.book === "1xbet")).toBe(false);
+    expect(allBooks[0]?.books.some((b) => b.book.includes("caliente") || b.book.includes("betfair"))).toBe(false);
     expect(allBooks[0]?.modelProb).toBe(0.52);
     expect(allBooks[0]?.fairOdds).toBe(1.923);
     expect(allBooks[0]?.evPct).toBe(5.04);
@@ -1033,32 +1058,46 @@ describe("Bzzoiro Unlimited · 2. Comparativa multi-casa, movimiento (SHORTENING
     expect(
       parseBzzoiroOddsComparison(nestedMarketsPayload, {
         priorityBooksOnly: false,
+        capturedAtUtc: freshCapturedAt,
         modelProbsByKey: { "1x2|null|home": 1.2 },
       }),
     ).toEqual([]);
-    expect(parseBzzoiroOddsComparison(nestedMarketsPayload, { priorityBooksOnly: false })).toEqual([]);
+    expect(
+      parseBzzoiroOddsComparison(nestedMarketsPayload, {
+        priorityBooksOnly: false,
+        capturedAtUtc: freshCapturedAt,
+      }),
+    ).toEqual([]);
 
     const bestMxPayload = {
       odds: [
         { market: "1x2", outcome: "home", bookmaker_slug: "caliente_mx", decimal_odds: 2.1, opening_odds: 2.2 },
+        { market: "1x2", outcome: "home", bookmaker_slug: "codere", decimal_odds: 2.06, opening_odds: 2.16 },
         { market: "1x2", outcome: "home", bookmaker_slug: "bwin", decimal_odds: 2.15, opening_odds: 2.15 },
         { market: "1x2", outcome: "home", bookmaker_slug: "codere", decimal_odds: 2.12, is_live: true },
       ],
     };
     const bestMxOnly = parseBzzoiroBestOdds(bestMxPayload, {
       priorityBooksOnly: true,
+      capturedAtUtc: freshCapturedAt,
       modelProbsByKey: { "1x2|null|home": 0.51 },
     });
     expect(bestMxOnly).toHaveLength(1);
     expect(bestMxOnly[0]).toMatchObject({
-      book: "caliente_mx",
-      bookLabel: "Caliente",
+      book: "codere",
+      bookLabel: "Codere",
       signal: "SHORTENING",
       modelProb: 0.51,
       fairOdds: 1.961,
     });
     assertFd16Clean(bestMxOnly);
-    expect(parseBzzoiroBestOdds(bestMxPayload, { priorityBooksOnly: true })).toEqual([]);
+    expect(parseBzzoiroBestOdds(bestMxPayload, { priorityBooksOnly: true, capturedAtUtc: freshCapturedAt })).toEqual([]);
+    expect(
+      parseBzzoiroBestOdds(bestMxPayload, {
+        priorityBooksOnly: true,
+        modelProbsByKey: { "1x2|null|home": 0.51 },
+      }),
+    ).toEqual([]);
 
     // En snapshots canónicos (parseBzzoiroOdds), casas MX legales api_only (codere/betcris/bet365) pasan y caliente/1xbet se descartan
     const capturedAtIso = "2026-11-18T18:00:00Z";
@@ -1849,6 +1888,7 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
     expect(detail.players.away[0]).toMatchObject({ playerName: "Bam Adebayo", minutes: 34, rebounds: 11 });
     assertFd16Clean(detail, ["88776655", "77665544"]);
 
+    const freshNbaCapturedAt = new Date(Date.now() - 30 * 60_000).toISOString();
     const nbaComp = parseBzzoiroNbaOddsComparison(
       [
         { market: "moneyline", outcome: "home", bookmaker_slug: "pinnacle", decimal_odds: 1.5, opening_odds: 1.66 },
@@ -1857,6 +1897,7 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
         { market: "totals", outcome: "over", line: 224.5, bookmaker_slug: "betmgm", decimal_odds: 1.95, opening_odds: 1.88 },
       ],
       {
+        capturedAtUtc: freshNbaCapturedAt,
         modelProbsByKey: {
           "moneyline|null|home": 0.68,
           "totals|224.5|over": 0.53,
@@ -1953,6 +1994,7 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
       awayTeamRaw: "Miami Heat",
       kickoffUtc: "2026-11-22T00:30:00Z",
       capturedAtUtc: "2026-11-21T18:00:00Z",
+      nowMs: Date.parse("2026-11-21T20:00:00Z"),
       modelProbsByKey: { "moneyline|null|home": 0.6 },
     });
 
@@ -2148,11 +2190,26 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
     ).toEqual([]);
 
     expect(parseBzzoiroNbaOddsComparison(null)).toEqual([]);
+    const freshMapCapturedAt = new Date(Date.now() - 30 * 60_000).toISOString();
+    const staleMapCapturedAt = new Date(Date.now() - 80 * 3_600_000).toISOString();
     const mapComp = parseBzzoiroNbaOddsComparison(
       [{ market: "spread", outcome: "home", line: -5.5, bookmaker_slug: "betcris", decimal_odds: 1.92, opening_odds: 1.92 }],
-      { modelProbsByKey: new Map([["spread|-5.5|home", 0.56]]) },
+      { capturedAtUtc: freshMapCapturedAt, modelProbsByKey: new Map([["spread|-5.5|home", 0.56]]) },
     );
     expect(mapComp[0]).toMatchObject({ market: "spread", line: -5.5, fairOdds: 1.786, signal: "STABLE" });
+    // Fail-closed ante timestamp ausente o > 72h (sin lanzar RangeError):
+    expect(
+      parseBzzoiroNbaOddsComparison(
+        [{ market: "spread", outcome: "home", line: -5.5, bookmaker_slug: "betcris", decimal_odds: 1.92 }],
+        { modelProbsByKey: new Map([["spread|-5.5|home", 0.56]]) },
+      ),
+    ).toEqual([]);
+    expect(
+      parseBzzoiroNbaOddsComparison(
+        [{ market: "spread", outcome: "home", line: -5.5, bookmaker_slug: "betcris", decimal_odds: 1.92, updated_at: staleMapCapturedAt }],
+        { modelProbsByKey: new Map([["spread|-5.5|home", 0.56]]) },
+      ),
+    ).toEqual([]);
     assertFd16Clean(mapComp);
 
     expect(parseBzzoiroNbaPlayerGames(null)).toEqual([]);
@@ -2439,7 +2496,11 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
           updated_at: "2026-11-21T18:00:00Z",
         },
       ],
-      { modelProbsByKey: { "moneyline|null|home": 0.62 }, requireSpacetimeAnchor: true },
+      {
+        modelProbsByKey: { "moneyline|null|home": 0.62 },
+        nowMs: Date.parse("2026-11-21T20:00:00Z"),
+        requireSpacetimeAnchor: true,
+      },
     );
     expect(anchoredNbaComp).toHaveLength(1);
     expect(anchoredNbaComp[0]!.anchoredQuote).toMatchObject({
@@ -2499,11 +2560,13 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
       },
     ];
 
-    expect(parseBzzoiroNbaOddsComparison(rawNbaOdds)).toEqual([]);
-    expect(parseBzzoiroNbaOddsComparison(rawNbaOdds, { requireSpacetimeAnchor: false })).toEqual([]);
+    const nbaNowMs = Date.parse("2026-11-21T20:00:00Z");
+    expect(parseBzzoiroNbaOddsComparison(rawNbaOdds, { nowMs: nbaNowMs })).toEqual([]);
+    expect(parseBzzoiroNbaOddsComparison(rawNbaOdds, { nowMs: nbaNowMs, requireSpacetimeAnchor: false })).toEqual([]);
 
     const partial = parseBzzoiroNbaOddsComparison(rawNbaOdds, {
       modelProbsByKey: { "moneyline|null|home": 0.62 },
+      nowMs: nbaNowMs,
       requireSpacetimeAnchor: false,
     });
     expect(partial).toHaveLength(1);
@@ -2524,6 +2587,7 @@ describe("Bzzoiro Unlimited · 4. NBA /basketball/api/v2/ (odds, box-score, play
       awayTeamRaw: "Miami Heat",
       kickoffUtc: "2026-11-22T00:30:00Z",
       capturedAtUtc: "2026-11-21T18:00:00Z",
+      nowMs: nbaNowMs,
       requireSpacetimeAnchor: false,
     });
     expect(unanchoredFetch.comparison).toEqual([]);

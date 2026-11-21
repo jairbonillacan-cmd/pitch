@@ -181,7 +181,8 @@ describe("ficha en vivo", () => {
     expect(detail?.momentum.length).toBeGreaterThan(80);
     expect(detail?.xgTimeline.at(-1)?.home).toBeCloseTo(1.815);
     expect(detail?.nextPollSeconds).toBe(20);
-    expect(detail?.attribution).toMatch(/Bzzoiro/);
+    expect(detail?.attribution).toBe("Datos en vivo · PitchLab");
+    expect(detail?.attribution ?? "").not.toMatch(/bzzoiro/i);
     expect(p.calls.sort()).toEqual(["/events/602407/incidents/", "/events/602407/stats/", "/events/live/"]);
   });
 

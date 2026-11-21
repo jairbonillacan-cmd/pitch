@@ -16,6 +16,7 @@ import {
   type PlatformSport,
   type SquadPlayerStats,
 } from "@pitchlab/contracts";
+import { resolvePersonPhotoUrl } from "@pitchlab/sports-assets";
 import type {
   NbaPropStatCode,
   PropsLabPlayerPropItem,
@@ -966,7 +967,7 @@ export function loadPlayerPropStreakCards(maxCards = 36): ExplorerStreakCard[] {
           playerName: player.name,
           teamName: team.teamName,
           teamSlug: team.teamSlug,
-          photoKey: player.photoKey,
+          photoKey: player.photoKey && resolvePersonPhotoUrl(player.photoKey) ? player.photoKey : null,
           positionLabel: player.positionLabel,
           series,
           playerHref: canonicalPlayerHref(leagueId, team.teamSlug, player.slug),

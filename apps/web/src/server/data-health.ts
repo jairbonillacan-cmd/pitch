@@ -217,7 +217,7 @@ export function loadServerDataHealthReport(nowMs: number = Date.now()): DataHeal
     if (!prev || Date.parse(tick.ts_captured) > Date.parse(prev.updatedAtUtc)) {
       latestOddsByV3.set(v3League, {
         updatedAtUtc: tick.ts_captured,
-        sourceLabel: tick.book ?? tick.source_id ?? "the_odds_api",
+        sourceLabel: tick.book ?? "Flujo de mercado PitchLab",
         count: nextCount,
       });
     } else {

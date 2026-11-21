@@ -1007,8 +1007,13 @@ export function enrichMarketRowsWithBookQuotes(
   return rows.map((row) => {
     if (!isValidSpacetimeProb(row.p)) return row;
     const key = buildLookupKey(row.market, row.selection, row.line, row.label);
-    const quotes = ev.bySelectionKey.get(key);
-    if (!quotes || quotes.length === 0) return row;
+    const rawQuotes = ev.bySelectionKey.get(key);
+    const quotes = (rawQuotes ?? []).filter(
+      (q) =>
+        isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
+        isMarketFresh(q.capturedAtUtc, nowMs),
+    );
+    if (quotes.length === 0) return row;
 
     const top = quotes[0]!;
     const refQuote = quotes.find((q) => q.openingDecimal != null || q.movementDirection != null) ?? top;
