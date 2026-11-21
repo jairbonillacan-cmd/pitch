@@ -6,6 +6,21 @@
 
 const SCROLL_STORAGE_KEY = "pl-route-scroll-v1";
 const MAX_SCROLL_ENTRIES = 40;
+const CONTROL_CHAR_RE = /[\u0000-\u001f\u007f]/;
+
+export function sanitizeInternalHref(raw: string | null | undefined): string | null {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (
+    !trimmed.startsWith("/") ||
+    trimmed.startsWith("//") ||
+    trimmed.includes("\\") ||
+    CONTROL_CHAR_RE.test(trimmed)
+  ) {
+    return null;
+  }
+  return trimmed;
+}
 
 type ScrollMap = Record<string, number>;
 

@@ -1477,7 +1477,7 @@ function ClubWorkspaceShellImpl({
 
               <button
                 type="button"
-                className="pl-btn-glass pl-header-search text-[13px] min-h-11 sm:min-h-10 px-2.5 sm:px-3 inline-flex items-center justify-between gap-2 min-w-0"
+                className="pl-btn-glass pl-header-search text-[13px] min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-2.5 sm:px-3 inline-flex items-center justify-between gap-2 min-w-0"
                 aria-label="Buscar partido, liga o @socio"
                 onClick={() => {
                   requestFullShell();

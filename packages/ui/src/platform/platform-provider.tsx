@@ -19,6 +19,7 @@ import {
   redactDatasetForVisitor,
 } from "./access-guard";
 import { sanitizeCsvCell } from "./club/account/account-helpers";
+import { sanitizeInternalHref } from "./navigation-helpers";
 import type {
   DaySelection,
   LeagueFilter,
@@ -2476,12 +2477,14 @@ export function PlatformProvider({
 
   const navigateTo = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (onNavigate) {
-        onNavigate(href);
+        onNavigate(safeHref);
         return;
       }
       if (typeof window !== "undefined") {
-        window.location.assign(href);
+        window.location.assign(safeHref);
       }
     },
     [onNavigate],
@@ -2489,8 +2492,10 @@ export function PlatformProvider({
 
   const prefetchRoute = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (onPrefetchRoute) {
-        onPrefetchRoute(href);
+        onPrefetchRoute(safeHref);
       }
     },
     [onPrefetchRoute],

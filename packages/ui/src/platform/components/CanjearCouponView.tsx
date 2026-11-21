@@ -5,7 +5,7 @@ import { Button, SofascoreCard } from "../../components/ui/primitives";
 import { useSafeEffect } from "../hooks";
 import { usePlatformActions, usePlatformCore } from "../platform-provider";
 import { lookupPreviewCoupon, redeemPreviewCoupon } from "../preview-spei-store";
-import { ExampleNotice, MaestroIcon } from "./MaestroPrimitives";
+import { MaestroIcon } from "./MaestroPrimitives";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
@@ -438,10 +438,26 @@ export function CanjearCouponView({
   const content = (
     <div className="max-w-2xl mx-auto space-y-5 min-w-0">
       {!accountsEnabled ? (
-        <ExampleNotice>
-          Vista previa del canje de cupones. Con cuentas activas valida disponibilidad y suma días
-          reales al socio.
-        </ExampleNotice>
+        <div
+          role="note"
+          data-example-notice=""
+          className="flex flex-col gap-1.5 rounded-xl border border-[var(--pl-border)] bg-[var(--pl-surface)] px-3.5 py-3 min-w-0"
+          style={{ borderInlineStart: "3px solid var(--pl-warning)" }}
+        >
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="pl-pill pl-pill--warning" data-example-badge="">
+              <MaestroIcon name="eye" size={13} />
+              <span>Ejemplo</span>
+            </span>
+            <strong className="text-[13px] font-bold text-[var(--pl-text)]">
+              Contenido de ejemplo
+            </strong>
+          </div>
+          <p className="m-0 text-[13px] leading-relaxed text-[var(--pl-text-secondary)]">
+            Vista previa del canje de cupones. Con cuentas activas valida disponibilidad y suma días
+            reales al socio.
+          </p>
+        </div>
       ) : null}
 
       <SofascoreCard as="section" className="min-w-0">

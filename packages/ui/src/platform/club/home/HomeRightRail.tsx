@@ -230,7 +230,7 @@ function LabRail(): React.JSX.Element {
             e.preventDefault();
             navigateTo("/app/lab");
           }}
-          className="text-sm font-bold min-h-11 sm:min-h-8 inline-flex items-center px-1"
+          className="text-sm font-bold min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-8 inline-flex items-center px-1"
         >
           Abrir
         </a>

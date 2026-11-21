@@ -16,7 +16,7 @@ import {
 } from "../../components/ui/primitives";
 import { LeagueBadge } from "../../sports";
 import { useOptionalPlatformActions } from "../platform-provider";
-import { runWithViewTransition } from "../navigation-helpers";
+import { runWithViewTransition, sanitizeInternalHref } from "../navigation-helpers";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 
 export type RefereeProfileTier = "estricto" | "promedio" | "permisivo";
@@ -237,8 +237,15 @@ function RefereeBackLink({
 }): React.JSX.Element {
   const handleBack = () => {
     if (typeof window !== "undefined") {
-      const sameOrigin =
-        Boolean(document.referrer) && document.referrer.startsWith(window.location.origin);
+      let sameOrigin = false;
+      if (document.referrer) {
+        try {
+          sameOrigin = new URL(document.referrer).origin === window.location.origin;
+        } catch (err) {
+          void err;
+          sameOrigin = false;
+        }
+      }
       if (window.history.length > 1 && (sameOrigin || window.history.state !== null)) {
         runWithViewTransition(() => {
           window.history.back();
@@ -317,16 +324,18 @@ export function RefereesDirectoryClubView({
 
   const navigateSafe = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (onNavigate) {
-        onNavigate(href);
+        onNavigate(safeHref);
         return;
       }
       if (platformActions) {
-        platformActions.navigateTo(href);
+        platformActions.navigateTo(safeHref);
         return;
       }
       if (typeof window !== "undefined") {
-        window.location.assign(href);
+        window.location.assign(safeHref);
       }
     },
     [onNavigate, platformActions],
@@ -360,7 +369,7 @@ export function RefereesDirectoryClubView({
         id: "total",
         label: "Árbitros",
         value: String(ranking.totalReferees),
-        delta: `κ = ${ranking.kappa}`,
+        delta: "Índice de rigor PitchLab",
         tone: "brand",
       },
       {
@@ -439,19 +448,24 @@ export function RefereesDirectoryClubView({
         render: (row) => {
           const cleanName = safeText(row.name, "Árbitro");
           const cleanCountry = row.country ? safeText(row.country, "") : "";
+          const safeHref = sanitizeInternalHref(row.href);
           return (
             <div className="pl-rf-name-cell">
-              <a
-                href={row.href}
-                className="pl-rf-name-link"
-                onClick={(event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  navigateSafe(row.href);
-                }}
-              >
-                {cleanName}
-              </a>
+              {safeHref ? (
+                <a
+                  href={safeHref}
+                  className="pl-rf-name-link"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    navigateSafe(safeHref);
+                  }}
+                >
+                  {cleanName}
+                </a>
+              ) : (
+                <span className="pl-rf-name-link">{cleanName}</span>
+              )}
               <span className="pl-rf-name-sub">
                 {cleanCountry || safeText(row.leagueLabel, row.league)}
                 {row.nextAssignment ? " · Próximo asignado" : ""}
@@ -480,24 +494,24 @@ export function RefereesDirectoryClubView({
       },
       {
         key: "ebYellow",
-        header: "Amar. EB",
+        header: "Amar. ajust.",
         numeric: true,
         render: (row) => (
           <div className="pl-rf-metric-cell num">
             <strong>{formatRate(row.ebYellow, 2)}</strong>
-            {row.avgYellow !== null ? <small>crudo {row.avgYellow.toFixed(2)}</small> : null}
+            {row.avgYellow !== null ? <small>real {row.avgYellow.toFixed(2)}</small> : null}
           </div>
         ),
       },
       {
         key: "ebRed",
-        header: "Rojas EB",
+        header: "Rojas ajust.",
         numeric: true,
         render: (row) => <span className="num">{formatRate(row.ebRed, 2)}</span>,
       },
       {
         key: "ebPenalties",
-        header: "Penales EB",
+        header: "Penales ajust.",
         numeric: true,
         render: (row) => <span className="num">{formatRate(row.ebPenalties, 2)}</span>,
       },
@@ -517,21 +531,30 @@ export function RefereesDirectoryClubView({
               nextAssign.awayTeam,
               "Visita",
             )}`;
-            return (
-              <a
-                href={nextAssign.href}
-                className="pl-rf-match-link"
-                onClick={(event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  navigateSafe(nextAssign.href);
-                }}
-              >
+            const safeNextHref = sanitizeInternalHref(nextAssign.href);
+            const nextContent = (
+              <>
                 <span className="pl-rf-next-dot" aria-hidden="true" />
                 <span className="pl-rf-match-copy">
                   <strong>{matchText}</strong>
                   <small className="num">{nextAssign.dateLabel}</small>
                 </span>
+              </>
+            );
+            if (!safeNextHref) {
+              return <span className="pl-rf-match-link">{nextContent}</span>;
+            }
+            return (
+              <a
+                href={safeNextHref}
+                className="pl-rf-match-link"
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  navigateSafe(safeNextHref);
+                }}
+              >
+                {nextContent}
               </a>
             );
           }
@@ -541,24 +564,31 @@ export function RefereesDirectoryClubView({
               lastMatch.awayTeam,
               "Visita",
             )}`;
+            const safeLastHref = sanitizeInternalHref(lastMatch.href);
+            const lastContent = (
+              <span className="pl-rf-match-copy">
+                <span>{matchText}</span>
+                <small className="num">
+                  {lastMatch.score
+                    ? `${lastMatch.score.home}–${lastMatch.score.away}`
+                    : lastMatch.dateLabel}
+                </small>
+              </span>
+            );
+            if (!safeLastHref) {
+              return <span className="pl-rf-match-link is-past">{lastContent}</span>;
+            }
             return (
               <a
-                href={lastMatch.href}
+                href={safeLastHref}
                 className="pl-rf-match-link is-past"
                 onClick={(event) => {
                   event.preventDefault();
                   event.stopPropagation();
-                  navigateSafe(lastMatch.href);
+                  navigateSafe(safeLastHref);
                 }}
               >
-                <span className="pl-rf-match-copy">
-                  <span>{matchText}</span>
-                  <small className="num">
-                    {lastMatch.score
-                      ? `${lastMatch.score.home}–${lastMatch.score.away}`
-                      : lastMatch.dateLabel}
-                  </small>
-                </span>
+                {lastContent}
               </a>
             );
           }
@@ -613,8 +643,8 @@ export function RefereesDirectoryClubView({
           <div className="pl-rf-hero-copy">
             <h1 className="pl-rf-title">Árbitros · {safeLeagueLabel}</h1>
             <p className="pl-rf-subtitle num">
-              Temporada {safeText(ranking.season, "2026")} · Tasas suavizadas Empirical Bayes (κ ={" "}
-              {ranking.kappa}) frente a la media de la liga.
+              Temporada {safeText(ranking.season, "2026")} · Promedio ajustado por muestra e Índice
+              de rigor PitchLab frente a la media de la liga.
             </p>
           </div>
         </div>
@@ -671,9 +701,9 @@ export function RefereesDirectoryClubView({
             }}
             className="pl-al-select pl-al-filter-select"
           >
-            <option value="ebYellow">Ordenar: Amarillas EB</option>
-            <option value="ebRed">Ordenar: Rojas EB</option>
-            <option value="ebPenalties">Ordenar: Penales EB</option>
+            <option value="ebYellow">Ordenar: Amarillas ajustadas</option>
+            <option value="ebRed">Ordenar: Rojas ajustadas</option>
+            <option value="ebPenalties">Ordenar: Penales ajustados</option>
             <option value="avgFouls">Ordenar: Faltas / p</option>
             <option value="matches">Ordenar: Partidos</option>
             <option value="name">Ordenar: Nombre A–Z</option>
@@ -737,16 +767,18 @@ export function RefereeProfileClubView({
 
   const navigateSafe = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (onNavigate) {
-        onNavigate(href);
+        onNavigate(safeHref);
         return;
       }
       if (platformActions) {
-        platformActions.navigateTo(href);
+        platformActions.navigateTo(safeHref);
         return;
       }
       if (typeof window !== "undefined") {
-        window.location.assign(href);
+        window.location.assign(safeHref);
       }
     },
     [onNavigate, platformActions],
@@ -761,7 +793,7 @@ export function RefereeProfileClubView({
     () => [
       {
         id: "eb-yellow",
-        label: `Amarillas EB (κ=${profile.kappa})`,
+        label: "Amarillas ajustadas / p",
         value: formatRate(profile.ebYellow, 2),
         delta: formatSignedDelta(profile.ebYellow, profile.leagueMeanYellow),
         tone:
@@ -773,14 +805,14 @@ export function RefereeProfileClubView({
       },
       {
         id: "eb-red",
-        label: "Rojas EB / p",
+        label: "Rojas ajustadas / p",
         value: formatRate(profile.ebRed, 2),
         delta: formatSignedDelta(profile.ebRed, profile.leagueMeanRed),
         tone: "default",
       },
       {
         id: "eb-pen",
-        label: "Penales EB / p",
+        label: "Penales ajustados / p",
         value: formatRate(profile.ebPenalties, 2),
         delta: formatSignedDelta(profile.ebPenalties, profile.leagueMeanPenalties),
         tone: "default",
@@ -816,24 +848,32 @@ export function RefereeProfileClubView({
         key: "player",
         header: "Jugador",
         sticky: true,
-        render: (row) => (
-          <div className="pl-rf-name-cell">
-            <a
-              href={row.href}
-              className="pl-rf-name-link"
-              onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                navigateSafe(row.href);
-              }}
-            >
-              {safeText(row.name, row.shortName)}
-            </a>
-            <span className="pl-rf-name-sub">
-              {safeText(row.teamName, row.teamSlug)} · {safeText(row.positionLabel, row.positionGroup)}
-            </span>
-          </div>
-        ),
+        render: (row) => {
+          const safeHref = sanitizeInternalHref(row.href);
+          const cleanName = safeText(row.name, row.shortName);
+          return (
+            <div className="pl-rf-name-cell">
+              {safeHref ? (
+                <a
+                  href={safeHref}
+                  className="pl-rf-name-link"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    navigateSafe(safeHref);
+                  }}
+                >
+                  {cleanName}
+                </a>
+              ) : (
+                <span className="pl-rf-name-link">{cleanName}</span>
+              )}
+              <span className="pl-rf-name-sub">
+                {safeText(row.teamName, row.teamSlug)} · {safeText(row.positionLabel, row.positionGroup)}
+              </span>
+            </div>
+          );
+        },
       },
       {
         key: "side",
@@ -894,19 +934,29 @@ export function RefereeProfileClubView({
         key: "match",
         header: "Partido",
         sticky: true,
-        render: (row) => (
-          <a
-            href={row.href}
-            className="pl-rf-name-link"
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-              navigateSafe(row.href);
-            }}
-          >
-            {safeText(row.homeTeam, row.homeSlug)} vs {safeText(row.awayTeam, row.awaySlug)}
-          </a>
-        ),
+        render: (row) => {
+          const safeHref = sanitizeInternalHref(row.href);
+          const label = `${safeText(row.homeTeam, row.homeSlug)} vs ${safeText(
+            row.awayTeam,
+            row.awaySlug,
+          )}`;
+          if (!safeHref) {
+            return <span className="pl-rf-name-link">{label}</span>;
+          }
+          return (
+            <a
+              href={safeHref}
+              className="pl-rf-name-link"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                navigateSafe(safeHref);
+              }}
+            >
+              {label}
+            </a>
+          );
+        },
       },
       {
         key: "league",
@@ -939,19 +989,27 @@ export function RefereeProfileClubView({
         header: "Competición",
         sticky: true,
         render: (row) => {
-          const href = `/app/${encodeURIComponent(row.league)}/arbitros`;
+          const safeHref = sanitizeInternalHref(`/app/${encodeURIComponent(row.league)}/arbitros`);
+          const content = (
+            <>
+              <LeagueBadge league={row.league} label={safeText(row.leagueLabel, row.league)} size={18} />
+              <span>{safeText(row.leagueLabel, row.league)}</span>
+            </>
+          );
+          if (!safeHref) {
+            return <span className="pl-rf-comp-cell pl-rf-name-link">{content}</span>;
+          }
           return (
             <a
-              href={href}
+              href={safeHref}
               className="pl-rf-comp-cell pl-rf-name-link"
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                navigateSafe(href);
+                navigateSafe(safeHref);
               }}
             >
-              <LeagueBadge league={row.league} label={safeText(row.leagueLabel, row.league)} size={18} />
-              <span>{safeText(row.leagueLabel, row.league)}</span>
+              {content}
             </a>
           );
         },
@@ -973,19 +1031,19 @@ export function RefereeProfileClubView({
       },
       {
         key: "ebYellow",
-        header: "Amar. EB",
+        header: "Amar. ajust.",
         numeric: true,
         render: (row) => <strong className="num">{formatRate(row.ebYellow, 2)}</strong>,
       },
       {
         key: "ebRed",
-        header: "Rojas EB",
+        header: "Rojas ajust.",
         numeric: true,
         render: (row) => <span className="num">{formatRate(row.ebRed, 2)}</span>,
       },
       {
         key: "ebPenalties",
-        header: "Penales EB",
+        header: "Penales ajust.",
         numeric: true,
         render: (row) => <span className="num">{formatRate(row.ebPenalties, 2)}</span>,
       },
@@ -1168,16 +1226,18 @@ export function RefereesClubView({
 
   const navigateSafe = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (onNavigate) {
-        onNavigate(href);
+        onNavigate(safeHref);
         return;
       }
       if (platformActions) {
-        platformActions.navigateTo(href);
+        platformActions.navigateTo(safeHref);
         return;
       }
       if (typeof window !== "undefined") {
-        window.location.assign(href);
+        window.location.assign(safeHref);
       }
     },
     [onNavigate, platformActions],

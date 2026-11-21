@@ -22,8 +22,15 @@ export function ContextualBackButton({
 
   const handleBack = () => {
     if (typeof window !== "undefined") {
-      const sameOriginReferrer =
-        Boolean(document.referrer) && document.referrer.startsWith(window.location.origin);
+      let sameOriginReferrer = false;
+      if (document.referrer) {
+        try {
+          sameOriginReferrer = new URL(document.referrer).origin === window.location.origin;
+        } catch (err) {
+          void err;
+          sameOriginReferrer = false;
+        }
+      }
       const canUseHistoryBack = window.history.length > 1 && (sameOriginReferrer || window.history.state !== null);
       if (canUseHistoryBack) {
         runWithViewTransition(() => {

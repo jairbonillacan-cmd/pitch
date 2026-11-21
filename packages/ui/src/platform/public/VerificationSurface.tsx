@@ -69,24 +69,38 @@ export const EXAMPLE_VERIFICATION_RECEIPT_JSON = JSON.stringify(
 );
 
 const SHA256_HEX_RE = /^[0-9a-f]{64}$/;
-const TRAILING_HASH_FOOTER_RE =
-  /^([\s\S]*?)\r?\n(?:SHA-256|sha256|Hash):\s*([0-9a-fA-F]{64})\s*$/;
+const TRAILING_HASH_FOOTER_LINE_RE = /^(?:SHA-256|sha256|Hash):\s*([0-9a-fA-F]{64})$/;
 const PROFILE_RECORD_PREFIX = "pitchlab-record-v1|";
 const HASH_FIELD_KEYS = new Set(["sha256", "sealHash", "seal_hash", "expectedHash", "hash"]);
+const MAX_CANONICAL_DEPTH = 32;
 
 function isPlainRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-export function canonicalizeReceiptValue(value: unknown): unknown {
+export function canonicalizeReceiptValue(value: unknown, depth = 0): unknown {
+  if (depth > MAX_CANONICAL_DEPTH) {
+    throw new Error("RECEIPT_DEPTH_EXCEEDED");
+  }
   if (Array.isArray(value)) {
-    return value.map((item) => canonicalizeReceiptValue(item));
+    return value.map((item) => canonicalizeReceiptValue(item, depth + 1));
   }
   if (isPlainRecord(value)) {
     const sortedKeys = Object.keys(value).sort();
-    const out: Record<string, unknown> = {};
+    const out: Record<string, unknown> = Object.create(null);
     for (const key of sortedKeys) {
-      out[key] = canonicalizeReceiptValue(value[key]);
+      if (key === "__proto__" || !Object.prototype.hasOwnProperty.call(value, key)) {
+        continue;
+      }
+      const entry = value[key];
+      if (entry !== undefined) {
+        Object.defineProperty(out, key, {
+          value: canonicalizeReceiptValue(entry, depth + 1),
+          enumerable: true,
+          writable: true,
+          configurable: true,
+        });
+      }
     }
     return out;
   }
@@ -95,6 +109,7 @@ export function canonicalizeReceiptValue(value: unknown): unknown {
 
 function readOptionalString(record: Record<string, unknown>, keys: readonly string[]): string | null {
   for (const key of keys) {
+    if (!Object.prototype.hasOwnProperty.call(record, key)) continue;
     const val = record[key];
     if (typeof val === "string" && val.trim().length > 0) {
       return val.trim();
@@ -132,7 +147,7 @@ function parseJsonReceiptInput(
     }
 
     if (isPlainRecord(parsed)) {
-      const embeddedHash =
+      const rawEmbeddedHash =
         readOptionalString(parsed, [
           "sha256",
           "sealHash",
@@ -140,13 +155,18 @@ function parseJsonReceiptInput(
           "expectedHash",
           "hash",
         ]) ?? fallbackHash;
+      const embeddedHash = rawEmbeddedHash ? rawEmbeddedHash.toLowerCase() : null;
       if ("payload" in parsed && parsed.payload !== undefined) {
         const inner = parsed.payload;
         const innerRecord = isPlainRecord(inner) ? inner : null;
+        const innerVersion = innerRecord ? readOptionalString(innerRecord, ["version"]) : null;
         return {
           canonicalPayload: JSON.stringify(canonicalizeReceiptValue(inner)),
           embeddedHash,
-          formatLabel: "Recibo JSON con payload",
+          formatLabel:
+            innerVersion === "pitchlab-profile-receipt-v1"
+              ? "Recibo de perfil (pitchlab-profile-receipt-v1)"
+              : "Recibo JSON con payload",
           kickoffUtc: innerRecord
             ? readOptionalString(innerRecord, ["kickoffUtc", "kickoffAt", "kickoff_at"])
             : null,
@@ -156,16 +176,30 @@ function parseJsonReceiptInput(
         };
       }
 
-      const stripped: Record<string, unknown> = {};
-      for (const [key, val] of Object.entries(parsed)) {
-        if (!HASH_FIELD_KEYS.has(key)) {
-          stripped[key] = val;
+      const stripped: Record<string, unknown> = Object.create(null);
+      for (const key of Object.keys(parsed)) {
+        if (
+          key === "__proto__" ||
+          HASH_FIELD_KEYS.has(key) ||
+          !Object.prototype.hasOwnProperty.call(parsed, key)
+        ) {
+          continue;
         }
+        Object.defineProperty(stripped, key, {
+          value: parsed[key],
+          enumerable: true,
+          writable: true,
+          configurable: true,
+        });
       }
+      const rootVersion = readOptionalString(stripped, ["version"]);
       return {
         canonicalPayload: JSON.stringify(canonicalizeReceiptValue(stripped)),
         embeddedHash,
-        formatLabel: "Objeto JSON canónico",
+        formatLabel:
+          rootVersion === "pitchlab-profile-receipt-v1"
+            ? "Recibo de perfil (pitchlab-profile-receipt-v1)"
+            : "Objeto JSON canónico",
         kickoffUtc: readOptionalString(stripped, ["kickoffUtc", "kickoffAt", "kickoff_at"]),
         sealedAtUtc: readOptionalString(stripped, ["sealedAtUtc", "sealedAt", "sealed_at"]),
       };
@@ -177,8 +211,8 @@ function parseJsonReceiptInput(
 }
 
 export function extractReceiptInput(rawText: string): ExtractedReceiptInput {
-  const trimmed = rawText.trim();
-  if (trimmed.length === 0) {
+  const normalized = rawText.replace(/\r\n?/g, "\n").trim();
+  if (normalized.length === 0) {
     return {
       canonicalPayload: "",
       embeddedHash: null,
@@ -188,37 +222,48 @@ export function extractReceiptInput(rawText: string): ExtractedReceiptInput {
     };
   }
 
-  const directJson = parseJsonReceiptInput(trimmed, null);
+  const directJson = parseJsonReceiptInput(normalized, null);
   if (directJson) {
     return directJson;
   }
 
-  const footerMatch = TRAILING_HASH_FOOTER_RE.exec(trimmed);
-  if (footerMatch) {
-    const body = footerMatch[1] ?? "";
-    const footerHash = (footerMatch[2] ?? "").toLowerCase();
-    const trimmedBody = body.trim();
-    if (trimmedBody.startsWith("{") || trimmedBody.startsWith("[")) {
-      const jsonWithFooter = parseJsonReceiptInput(trimmedBody, footerHash);
-      if (jsonWithFooter) {
-        return jsonWithFooter;
+  const lastNewlineIdx = normalized.lastIndexOf("\n");
+  if (lastNewlineIdx !== -1) {
+    const lastLine = normalized.slice(lastNewlineIdx + 1).trim();
+    const footerMatch = TRAILING_HASH_FOOTER_LINE_RE.exec(lastLine);
+    if (footerMatch) {
+      let bodyEnd = lastNewlineIdx;
+      while (bodyEnd > 0) {
+        const prevNl = normalized.lastIndexOf("\n", bodyEnd - 1);
+        const lineSlice = normalized.slice(prevNl + 1, bodyEnd);
+        if (lineSlice.trim().length > 0) break;
+        bodyEnd = prevNl === -1 ? 0 : prevNl;
       }
+      const body = normalized.slice(0, bodyEnd);
+      const footerHash = (footerMatch[1] ?? "").toLowerCase();
+      const trimmedBody = body.trim();
+      if (trimmedBody.startsWith("{") || trimmedBody.startsWith("[")) {
+        const jsonWithFooter = parseJsonReceiptInput(trimmedBody, footerHash);
+        if (jsonWithFooter) {
+          return jsonWithFooter;
+        }
+      }
+      return {
+        canonicalPayload: body,
+        embeddedHash: footerHash,
+        formatLabel: body.startsWith(PROFILE_RECORD_PREFIX)
+          ? "Recibo de perfil (pitchlab-record-v1)"
+          : "Texto con pie SHA-256",
+        kickoffUtc: null,
+        sealedAtUtc: null,
+      };
     }
-    return {
-      canonicalPayload: body,
-      embeddedHash: footerHash,
-      formatLabel: body.startsWith(PROFILE_RECORD_PREFIX)
-        ? "Recibo de perfil (pitchlab-record-v1)"
-        : "Texto con pie SHA-256",
-      kickoffUtc: null,
-      sealedAtUtc: null,
-    };
   }
 
   return {
-    canonicalPayload: trimmed,
+    canonicalPayload: normalized,
     embeddedHash: null,
-    formatLabel: trimmed.startsWith(PROFILE_RECORD_PREFIX)
+    formatLabel: normalized.startsWith(PROFILE_RECORD_PREFIX)
       ? "Recibo de perfil (pitchlab-record-v1)"
       : "Texto UTF-8 directo",
     kickoffUtc: null,
@@ -499,6 +544,13 @@ export function VerificationSurface({
     ) {
       setExpectedHashInput(extracted.embeddedHash);
       setLastAutoHash(extracted.embeddedHash);
+    } else if (
+      !extracted.embeddedHash &&
+      lastAutoHash !== null &&
+      currentHash === lastAutoHash
+    ) {
+      setExpectedHashInput("");
+      setLastAutoHash(null);
     }
   };
 
@@ -581,8 +633,9 @@ export function VerificationSurface({
                   Recibo JSON, tupla canónica o recibo de perfil
                 </label>
                 <p id={receiptHintId} className="pl-ver-hint">
-                  Pega un recibo JSON o el texto copiado desde un perfil público
-                  (pitchlab-record-v1|… + SHA-256). El cálculo corre solo en memoria local.
+                  Pega un recibo JSON (pitchlab-receipt-v1 o pitchlab-profile-receipt-v1 copiado
+                  desde un perfil público) o texto plano con pie SHA-256. El cálculo corre solo en
+                  memoria local.
                 </p>
                 <textarea
                   id={receiptId}
@@ -592,7 +645,7 @@ export function VerificationSurface({
                   spellCheck={false}
                   autoCapitalize="none"
                   autoCorrect="off"
-                  placeholder='{"payload": {"league": "Liga MX", ...}, "sha256": "..."} o pitchlab-record-v1|@usuario|...'
+                  placeholder='{"payload": {"version": "pitchlab-profile-receipt-v1", "handle": "usuario", ...}, "sha256": "..."}'
                   aria-invalid={showReceiptError ? "true" : "false"}
                   aria-describedby={
                     showReceiptError ? `${receiptHintId} ${receiptErrorId}` : receiptHintId

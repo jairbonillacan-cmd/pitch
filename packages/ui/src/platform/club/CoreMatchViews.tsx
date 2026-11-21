@@ -1917,8 +1917,8 @@ export function LeagueHubClubView({
                           Árbitros y rigurosidad · {leagueSummary.label}
                         </h2>
                         <p className="m-0 text-xs mt-0.5" style={{ color: "var(--pl-text-muted)" }}>
-                          Promedio de amarillas ajustado con contracción bayesiana (κ = 15) frente a la
-                          media de la competición ({leagueReferees[0]!.leagueMeanYellow.toFixed(2)} amar./p).
+                          Promedio de amarillas ajustado por muestra frente a la media de la
+                          competición ({leagueReferees[0]!.leagueMeanYellow.toFixed(2)} amar./p).
                         </p>
                       </div>
                       <span className="pl-pill pl-pill--brand num text-xs shrink-0">

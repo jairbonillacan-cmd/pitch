@@ -12,6 +12,7 @@ import {
 } from "../../components/ui/primitives";
 import { AtomicFormStrip, AtomicStatComparisonBar } from "../atomic";
 import { TeamBadge } from "../../sports";
+import { sanitizeInternalHref } from "../navigation-helpers";
 import { useOptionalPlatformActions } from "../platform-provider";
 
 export type StandingsSplitKey = "total" | "home" | "away";
@@ -343,16 +344,18 @@ export function StandingsSplitsPanel({
 
   const navigateSafe = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (onNavigate) {
-        onNavigate(href);
+        onNavigate(safeHref);
         return;
       }
       if (platformActions) {
-        platformActions.navigateTo(href);
+        platformActions.navigateTo(safeHref);
         return;
       }
       if (typeof window !== "undefined") {
-        window.location.assign(href);
+        window.location.assign(safeHref);
       }
     },
     [onNavigate, platformActions],
@@ -425,16 +428,10 @@ export function StandingsSplitsPanel({
         render: (row) => {
           const isHighlighted = Boolean(highlightTeamSlug && row.teamSlug === highlightTeamSlug);
           const cleanName = safeLabel(row.shortName || row.name, row.teamSlug);
-          return (
-            <a
-              href={row.teamHref}
-              className={`pl-sb-team-link${isHighlighted ? " is-highlighted" : ""}`}
-              onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                navigateSafe(row.teamHref);
-              }}
-            >
+          const safeHref = sanitizeInternalHref(row.teamHref);
+          const linkClass = `pl-sb-team-link${isHighlighted ? " is-highlighted" : ""}`;
+          const content = (
+            <>
               <TeamBadge
                 league={standings.league}
                 slug={row.teamSlug}
@@ -442,6 +439,22 @@ export function StandingsSplitsPanel({
                 size={20}
               />
               <span className="pl-sb-team-name">{cleanName}</span>
+            </>
+          );
+          if (!safeHref) {
+            return <span className={linkClass}>{content}</span>;
+          }
+          return (
+            <a
+              href={safeHref}
+              className={linkClass}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                navigateSafe(safeHref);
+              }}
+            >
+              {content}
             </a>
           );
         },
@@ -950,16 +963,18 @@ export function KnockoutBracketSvgPanel({
 
   const navigateSafe = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (onNavigate) {
-        onNavigate(href);
+        onNavigate(safeHref);
         return;
       }
       if (platformActions) {
-        platformActions.navigateTo(href);
+        platformActions.navigateTo(safeHref);
         return;
       }
       if (typeof window !== "undefined") {
-        window.location.assign(href);
+        window.location.assign(safeHref);
       }
     },
     [onNavigate, platformActions],
@@ -1099,6 +1114,7 @@ export function KnockoutBracketSvgPanel({
             <div className="pl-sb-details-list">
               {allDisplayTies.map(({ roundLabel, tie }) => {
                 const latestLeg = tie.legs[tie.legs.length - 1] ?? null;
+                const latestLegHref = latestLeg ? sanitizeInternalHref(latestLeg.href) : null;
                 return (
                   <div key={`detail-${tie.id}`} className="pl-sb-detail-row">
                     <span className="pl-sb-detail-round">{roundLabel}</span>
@@ -1112,13 +1128,13 @@ export function KnockoutBracketSvgPanel({
                       {tieStatusLabelEs(tie.status)}
                       {tie.bestOf && tie.bestOf > 1 ? ` · BO${tie.bestOf}` : ""}
                     </span>
-                    {latestLeg ? (
+                    {latestLegHref ? (
                       <a
-                        href={latestLeg.href}
+                        href={latestLegHref}
                         className="pl-sb-detail-link"
                         onClick={(event) => {
                           event.preventDefault();
-                          navigateSafe(latestLeg.href);
+                          navigateSafe(latestLegHref);
                         }}
                       >
                         Ver partido

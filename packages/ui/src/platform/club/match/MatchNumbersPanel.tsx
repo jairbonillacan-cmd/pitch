@@ -448,12 +448,12 @@ export function MatchNumbersPanel({
               value={globalHouseOddRaw}
               onChange={(e) => onGlobalHouseOddChange(e.target.value)}
               placeholder="Ej. -110 o 2.05"
-              className="glass-input px-3 py-1.5 text-base sm:text-xs font-bold num min-h-11 sm:min-h-9 w-36"
+              className="glass-input px-3 py-1.5 text-base sm:text-xs font-bold num min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 w-36"
             />
             {globalHouseOddRaw ? (
               <button
                 type="button"
-                className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3 sm:px-2.5"
+                className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3 sm:px-2.5"
                 onClick={() => onGlobalHouseOddChange("")}
               >
                 Limpiar

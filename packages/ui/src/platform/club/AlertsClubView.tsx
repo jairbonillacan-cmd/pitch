@@ -23,6 +23,7 @@ import {
   type SofascoreTableColumn,
 } from "../../components/ui/primitives";
 import { useAbortableJson } from "../hooks";
+import { sanitizeInternalHref } from "../navigation-helpers";
 import { useOptionalPlatformActions, useOptionalPlatformCore } from "../platform-provider";
 import { BOOKMAKER_OPTIONS, formatCanonicalBookLabel } from "../bookmakers";
 import { MARKET_FAMILIES } from "../picks-catalog";
@@ -875,12 +876,14 @@ export function AlertsClubView({
 
   const navigateSafe = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (platformActions) {
-        platformActions.navigateTo(href);
+        platformActions.navigateTo(safeHref);
         return;
       }
       if (typeof window !== "undefined") {
-        window.location.assign(href);
+        window.location.assign(safeHref);
       }
     },
     [platformActions],

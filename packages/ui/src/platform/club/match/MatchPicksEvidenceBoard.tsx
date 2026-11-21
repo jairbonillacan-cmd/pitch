@@ -60,7 +60,7 @@ function EvidenceParlayButton({ pick }: { readonly pick: MatchPick }): React.JSX
   return (
     <button
       type="button"
-      className={`pl-home-parlay-btn is-sm min-h-11 sm:min-h-9 ${inParlay ? "is-on" : ""}`.trim()}
+      className={`pl-home-parlay-btn is-sm min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 ${inParlay ? "is-on" : ""}`.trim()}
       aria-pressed={inParlay}
       aria-label={`${inParlay ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}`}
       onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
@@ -575,7 +575,7 @@ export function MatchPicksEvidenceBoard({
                                 </strong>
                                 <button
                                   type="button"
-                                  className="pl-acct-text-link text-xs min-h-11 sm:min-h-9 inline-flex items-center"
+                                  className="pl-acct-text-link text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 inline-flex items-center"
                                   onClick={() => navigateTo(upgradeHref)}
                                 >
                                   {hasAccountSession
@@ -644,7 +644,7 @@ export function MatchPicksEvidenceBoard({
                                     />
                                     <button
                                       type="button"
-                                      className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-3"
+                                      className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-3"
                                       onClick={() => openComposer(item.pick)}
                                     >
                                       Sellar
@@ -652,7 +652,7 @@ export function MatchPicksEvidenceBoard({
                                     {canTipsterFeature ? (
                                       <button
                                         type="button"
-                                        className="pl-btn-glass text-xs min-h-11 sm:min-h-9 px-2.5"
+                                        className="pl-btn-glass text-xs min-w-11 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 px-2.5"
                                         title="Usar como Pick abierto semanal"
                                         aria-label={`Usar ${item.pick.label} como Pick abierto semanal`}
                                         onClick={() => {

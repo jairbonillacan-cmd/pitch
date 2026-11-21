@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   isDetailRoutePath,
   runWithViewTransition,
+  sanitizeInternalHref,
   saveRouteScroll,
 } from "@pitchlab/ui/navigation-helpers";
 import { PlatformProvider, type ViewerIdentity } from "@pitchlab/ui/platform-provider";
@@ -154,8 +155,9 @@ export function PlatformClientBridge({
 
   const handlePrefetchRoute = useCallback(
     (href: string) => {
-      if (!href || !href.startsWith("/")) return;
-      const normalized = href.split("#", 1)[0] || "/";
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
+      const normalized = safeHref.split("#", 1)[0] || "/";
       if (normalized === pathname) return;
       if (prefetchedRef.current.has(normalized)) return;
       if (prefetchedRef.current.size >= MAX_PREFETCHED_ROUTES) {
@@ -174,15 +176,17 @@ export function PlatformClientBridge({
 
   const handleNavigate = useCallback(
     (href: string) => {
+      const safeHref = sanitizeInternalHref(href);
+      if (!safeHref) return;
       if (typeof window !== "undefined") {
         const currentPath = window.location.pathname;
-        const nextPath = href.split("?")[0] || "/";
+        const nextPath = safeHref.split("?")[0] || "/";
         if (nextPath !== currentPath) {
           // Guarda scroll de la vista actual antes de entrar a detalle (/g/, /t/, /p/)
           if (isDetailRoutePath(nextPath) || !isDetailRoutePath(currentPath)) {
             saveRouteScroll(currentPath, window.scrollY);
           }
-          if (!href.includes("#")) {
+          if (!safeHref.includes("#")) {
             setNavPending(true);
             window.scrollTo({ top: 0, left: 0, behavior: "instant" });
             document.documentElement.scrollTop = 0;
@@ -192,7 +196,7 @@ export function PlatformClientBridge({
       }
       runWithViewTransition(() => {
         startTransition(() => {
-          router.push(href, { scroll: !href.includes("#") });
+          router.push(safeHref, { scroll: !safeHref.includes("#") });
         });
       });
     },

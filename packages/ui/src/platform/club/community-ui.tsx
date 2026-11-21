@@ -377,12 +377,20 @@ function encodeUtf8Bytes(input: string): number[] {
   const bytes: number[] = [];
   for (let i = 0; i < input.length; i += 1) {
     let code = input.charCodeAt(i);
-    if (code >= 0xd800 && code <= 0xdbff && i + 1 < input.length) {
-      const low = input.charCodeAt(i + 1);
-      if (low >= 0xdc00 && low <= 0xdfff) {
-        code = ((code - 0xd800) << 10) + (low - 0xdc00) + 0x10000;
-        i += 1;
+    if (code >= 0xd800 && code <= 0xdbff) {
+      if (i + 1 < input.length) {
+        const low = input.charCodeAt(i + 1);
+        if (low >= 0xdc00 && low <= 0xdfff) {
+          code = ((code - 0xd800) << 10) + (low - 0xdc00) + 0x10000;
+          i += 1;
+        } else {
+          code = 0xfffd;
+        }
+      } else {
+        code = 0xfffd;
       }
+    } else if (code >= 0xdc00 && code <= 0xdfff) {
+      code = 0xfffd;
     }
     if (code < 0x80) {
       bytes.push(code);
@@ -505,18 +513,53 @@ export interface LocalProfileReceiptMetrics {
   readonly avgClvPct: number | null;
 }
 
+const MAX_RECEIPT_CANONICAL_DEPTH = 32;
+
+function isReceiptPlainRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function canonicalizeReceiptNode(value: unknown, depth: number): unknown {
+  if (depth > MAX_RECEIPT_CANONICAL_DEPTH) {
+    throw new Error("RECEIPT_DEPTH_EXCEEDED");
+  }
+  if (Array.isArray(value)) {
+    return value.map((item) => canonicalizeReceiptNode(item, depth + 1));
+  }
+  if (isReceiptPlainRecord(value)) {
+    const sortedKeys = Object.keys(value).sort();
+    const out: Record<string, unknown> = Object.create(null);
+    for (const key of sortedKeys) {
+      if (key === "__proto__" || !Object.prototype.hasOwnProperty.call(value, key)) {
+        continue;
+      }
+      const entry = value[key];
+      if (entry !== undefined) {
+        Object.defineProperty(out, key, {
+          value: canonicalizeReceiptNode(entry, depth + 1),
+          enumerable: true,
+          writable: true,
+          configurable: true,
+        });
+      }
+    }
+    return out;
+  }
+  return value;
+}
+
 export function sortReceiptPayloadKeys(
   record: Readonly<Record<string, string | number>>,
-): ProfileReceiptPayloadObject {
-  const sortedKeys = Object.keys(record).sort();
-  const out: Record<string, string | number> = {};
-  for (const key of sortedKeys) {
-    const value = record[key];
-    if (value !== undefined) {
-      out[key] = value;
-    }
-  }
-  return out;
+): ProfileReceiptPayloadObject;
+export function sortReceiptPayloadKeys(
+  record: Readonly<Record<string, unknown>>,
+): Readonly<Record<string, unknown>>;
+export function sortReceiptPayloadKeys(
+  record: Readonly<Record<string, unknown>>,
+): Readonly<Record<string, unknown>> {
+  const result = canonicalizeReceiptNode(record, 0);
+  const empty: Record<string, unknown> = Object.create(null);
+  return isReceiptPlainRecord(result) ? result : empty;
 }
 
 export function buildPublicProfileReceipt(

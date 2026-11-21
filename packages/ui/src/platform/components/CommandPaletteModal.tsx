@@ -22,6 +22,7 @@ import {
   useDebouncedValue,
   useSafeEffect,
 } from "../hooks";
+import { sanitizeInternalHref } from "../navigation-helpers";
 import {
   ExampleBadge,
   MaestroIcon,
@@ -343,12 +344,24 @@ export function CommandPaletteModal({
 
   const matchingPlayers: readonly CommandPlayerHit[] =
     shouldFetchPlayers && !playersRemote.error && Array.isArray(playersRemote.data?.items)
-      ? playersRemote.data.items
+      ? playersRemote.data.items.reduce<CommandPlayerHit[]>((acc, item) => {
+          const safeHref = sanitizeInternalHref(item.href);
+          if (safeHref) {
+            acc.push({ ...item, href: safeHref });
+          }
+          return acc;
+        }, [])
       : [];
 
   const matchingReferees: readonly CommandRefereeHit[] =
     shouldFetchReferees && !refereesRemote.error && Array.isArray(refereesRemote.data?.items)
-      ? refereesRemote.data.items.filter((item) => isSafePublicLabel(item.name))
+      ? refereesRemote.data.items.reduce<CommandRefereeHit[]>((acc, item) => {
+          const safeHref = sanitizeInternalHref(item.href);
+          if (safeHref && isSafePublicLabel(item.name)) {
+            acc.push({ ...item, href: safeHref });
+          }
+          return acc;
+        }, [])
       : [];
 
   const showGroup = (group: Exclude<CommandScope, "all">): boolean =>
@@ -448,8 +461,10 @@ export function CommandPaletteModal({
   const routesOffset = tipstersOffset + matchingTipsters.length;
 
   const selectHref = (href: string) => {
+    const safeHref = sanitizeInternalHref(href);
+    if (!safeHref) return;
     setCmdkOpen(false);
-    navigateTo(href);
+    navigateTo(safeHref);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
