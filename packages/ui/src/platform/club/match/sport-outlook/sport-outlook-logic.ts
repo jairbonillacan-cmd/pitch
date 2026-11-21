@@ -1,8 +1,4 @@
-/**
- * Lógica pura del «Panorama por deporte»: valida lo que manda el motor y lo traduce a
- * texto claro. Sin React, sin datos inventados y sin nombres de fórmulas ni proveedores
- * (FD-16): las etiquetas técnicas de `MultiSportDriver.label` nunca llegan a la UI.
- */
+import { FORBIDDEN_PROVIDER_TOKENS } from "@pitchlab/contracts";
 import type {
   ConfirmationKind,
   ConfirmationStatus,
@@ -19,6 +15,7 @@ export const SPORT_LABEL: Record<OutlookSport, string> = {
   nhl: "Hockey · NHL",
   mlb: "Béisbol · MLB",
   nba: "Basquetbol · NBA",
+  nfl: "Futbol americano · NFL",
   ncaaf: "Futbol americano colegial",
 };
 
@@ -26,18 +23,20 @@ const UNIT: Record<OutlookSport, { one: string; many: string }> = {
   nhl: { one: "gol", many: "goles" },
   mlb: { one: "carrera", many: "carreras" },
   nba: { one: "punto", many: "puntos" },
+  nfl: { one: "punto", many: "puntos" },
   ncaaf: { one: "punto", many: "puntos" },
 };
 
-/** Debajo de este margen esperado un factor se lee como «sin ventaja clara». */
-const NEUTRAL_UNITS: Record<OutlookSport, number> = {
+const NEUTRAL_MARGIN: Record<OutlookSport, number> = {
   nhl: 0.05,
   mlb: 0.05,
   nba: 0.3,
+  nfl: 0.3,
   ncaaf: 0.3,
 };
 
-/** Nombres claros de cada factor de los motores multideporte. */
+const NEUTRAL_LOGIT = 0.03;
+
 export const DRIVER_COPY: Readonly<Record<string, string>> = {
   even_strength_xg_possession: "Calidad de sus tiros a 5 contra 5",
   starting_goalie_matchup: "Duelo de porteros",
@@ -50,6 +49,13 @@ export const DRIVER_COPY: Readonly<Record<string, string>> = {
   net_rtg_srs_four_factors: "Nivel de juego en la temporada",
   nba_hca_and_altitude: "Localía y altura",
   rotation_injuries: "Bajas en la rotación",
+  sumersports_epa_success: "Eficiencia por jugada",
+  injuries_qb_depth: "Lesiones en quarterback y titulares",
+  referee_penalties: "Disciplina y arbitraje",
+  weather_stadium_physics: "Clima y estadio",
+  clubelo_and_xg_elo: "Fuerza estructural del equipo",
+  lineup_availability_delta: "Disponibilidad de la plantilla",
+  stadium_altitude_physics: "Altitud del estadio",
   fpi_srs_sos_ypp_power: "Nivel del equipo y dificultad de su calendario",
   cfb_hfa_and_altitude_shock: "Localía y altura",
   open_meteo_wind_precip: "Viento y lluvia",
@@ -58,16 +64,29 @@ export const DRIVER_COPY: Readonly<Record<string, string>> = {
 
 const FALLBACK_DRIVER = "Otro factor del modelo";
 
+const TECHNICAL_JARGON_RE =
+  /Corsi|Fenwick|Pythag|FIP|wOBA|SRS|Four Factors|Open-Meteo|Log5|xG%|SumerSports|Ourlads|NFLPenalties|\bEPA\b|\bClubElo\b/i;
+
+export function isSafeDriverLabel(raw: string | undefined): raw is string {
+  if (!raw) return false;
+  const trimmed = raw.trim();
+  if (!trimmed || trimmed.includes("_")) return false;
+  if (TECHNICAL_JARGON_RE.test(trimmed)) return false;
+  const lowered = trimmed.toLowerCase();
+  for (const token of FORBIDDEN_PROVIDER_TOKENS) {
+    if (lowered.includes(token)) return false;
+  }
+  return true;
+}
+
 export function unitWord(sport: OutlookSport, value: number): string {
   return Math.abs(value) === 1 ? UNIT[sport].one : UNIT[sport].many;
 }
 
-/** «55.8 %» con espacio, como pide el sistema de diseño. */
 export function pctText(p: number, decimals = 1): string {
   return `${(p * 100).toFixed(decimals)} %`;
 }
 
-/** Números con signo tipográfico real: «−1.5», «+1.5». */
 export function signedText(value: number, decimals = 1): string {
   const abs = Math.abs(value).toFixed(decimals);
   if (value > 0) return `+${abs}`;
@@ -80,10 +99,6 @@ const isProb = (p: unknown): p is number =>
 
 const SUM_TOLERANCE = 0.02;
 
-/**
- * `true` si el panorama se puede mostrar: probabilidades entre 0 y 1 que suman 1,
- * marcador esperado finito y no negativo. Si no, la tarjeta muestra su estado vacío.
- */
 export function isValidOutlook(input: SportOutlookInput): boolean {
   if (!isProb(input.pHome) || !isProb(input.pAway)) return false;
   if (Math.abs(input.pHome + input.pAway - 1) > SUM_TOLERANCE) return false;
@@ -98,10 +113,6 @@ export interface WinnerSegment {
   readonly p: number;
 }
 
-/**
- * Segmentos de la barra de ganador. En NHL, si el motor manda el reparto en tiempo
- * regular, son tres: local en regular · tiempo extra o penales · visita en regular.
- */
 export function winnerSegments(input: SportOutlookInput): WinnerSegment[] {
   const { pHomeReg, pOtReg, pAwayReg } = input;
   if (
@@ -133,7 +144,6 @@ export function favoriteOf(input: SportOutlookInput): {
     : { side: "away", team: input.awayTeam, p: input.pAway };
 }
 
-/** Marcador esperado: un decimal en NHL y MLB, enteros en NBA y NCAAF. */
 export function projectedScore(input: SportOutlookInput): {
   home: string;
   away: string;
@@ -145,10 +155,9 @@ export function projectedScore(input: SportOutlookInput): {
   };
 }
 
-/** «Edmonton por 0.4 goles» o «Partido parejo» si la diferencia es mínima. */
 export function marginText(input: SportOutlookInput): string {
   const margin = input.expectedHome - input.expectedAway;
-  if (Math.abs(margin) < NEUTRAL_UNITS[input.sport]) return "Partido parejo";
+  if (Math.abs(margin) < NEUTRAL_MARGIN[input.sport]) return "Partido parejo";
   const team = margin > 0 ? input.homeTeam : input.awayTeam;
   const value = Math.abs(margin);
   return `${team} por ${value.toFixed(1)} ${unitWord(input.sport, value)}`;
@@ -163,33 +172,46 @@ export function totalText(input: SportOutlookInput): string {
 export interface DriverView {
   readonly factor: string;
   readonly label: string;
-  /** `null` cuando el factor no inclina el partido. */
   readonly favors: TeamSide | null;
   readonly text: string;
 }
 
-/** Los factores que más pesan, en lenguaje claro, ordenados por impacto. */
 export function topDrivers(input: SportOutlookInput, limit = 3): DriverView[] {
   return [...input.drivers]
     .filter(
       (d: SportOutlookDriver) =>
-        Number.isFinite(d.impactLogit) && Number.isFinite(d.impactUnits),
+        Number.isFinite(d.impactLogit) &&
+        (d.impactUnits === undefined || Number.isFinite(d.impactUnits)),
     )
     .sort((a, b) => Math.abs(b.impactLogit) - Math.abs(a.impactLogit))
     .slice(0, limit)
     .map((d) => {
-      const label = DRIVER_COPY[d.factor] ?? FALLBACK_DRIVER;
-      const units = Math.abs(d.impactUnits);
-      if (units < NEUTRAL_UNITS[input.sport]) {
+      const label =
+        DRIVER_COPY[d.factor] ?? (isSafeDriverLabel(d.label) ? d.label.trim() : FALLBACK_DRIVER);
+      if (typeof d.impactUnits === "number") {
+        const units = Math.abs(d.impactUnits);
+        if (units < NEUTRAL_MARGIN[input.sport]) {
+          return { factor: d.factor, label, favors: null, text: "Sin ventaja clara" };
+        }
+        const favors: TeamSide = d.impactUnits > 0 ? "home" : "away";
+        const team = favors === "home" ? input.homeTeam : input.awayTeam;
+        return {
+          factor: d.factor,
+          label,
+          favors,
+          text: `${team} · ${signedText(units)} ${unitWord(input.sport, units)}`,
+        };
+      }
+      if (Math.abs(d.impactLogit) < NEUTRAL_LOGIT) {
         return { factor: d.factor, label, favors: null, text: "Sin ventaja clara" };
       }
-      const favors: TeamSide = d.impactUnits > 0 ? "home" : "away";
+      const favors: TeamSide = d.impactLogit > 0 ? "home" : "away";
       const team = favors === "home" ? input.homeTeam : input.awayTeam;
       return {
         factor: d.factor,
         label,
         favors,
-        text: `${team} · ${signedText(units)} ${unitWord(input.sport, units)}`,
+        text: `Favorece a ${team}`,
       };
     });
 }
@@ -218,10 +240,6 @@ function lineTitle(sport: OutlookSport, kind: SportOutlookLine["kind"]): string 
   }
 }
 
-/**
- * Convierte las líneas del motor en opciones legibles. Descarta las que no tienen
- * sentido para el deporte (primeras 5 entradas fuera de MLB) o con probabilidad inválida.
- */
 export function lineViews(input: SportOutlookInput): LineView[] {
   const lines = input.lines ?? [];
   const views: LineView[] = [];
@@ -254,14 +272,81 @@ export function lineViews(input: SportOutlookInput): LineView[] {
         ];
         break;
       case "first5_winner":
-        options = [
-          { label: input.homeTeam, p: line.p },
-          { label: input.awayTeam, p: 1 - line.p },
-        ];
+        if (
+          isProb(line.pTie) &&
+          isProb(line.pAway) &&
+          line.pTie > 0.001 &&
+          Math.abs(line.p + line.pTie + line.pAway - 1) <= SUM_TOLERANCE
+        ) {
+          options = [
+            { label: input.homeTeam, p: line.p },
+            { label: "Empate", p: line.pTie },
+            { label: input.awayTeam, p: line.pAway },
+          ];
+        } else {
+          options = [
+            { label: input.homeTeam, p: line.p },
+            { label: input.awayTeam, p: 1 - line.p },
+          ];
+        }
         break;
     }
     views.push({ kind: line.kind, title, options });
   }
+  return views;
+}
+
+export interface NflSpecialView {
+  readonly key: "overtime" | "key_margin_3" | "key_margin_7";
+  readonly title: string;
+  readonly subtitle: string;
+  readonly p: number;
+  readonly fairDecimal: number | null;
+}
+
+export function nflSpecialViews(input: SportOutlookInput): NflSpecialView[] {
+  if (input.sport !== "nfl" || !input.nflSpecials) return [];
+  const specials = input.nflSpecials;
+  const views: NflSpecialView[] = [];
+
+  if (isProb(specials.pOvertime)) {
+    const fairDecimal =
+      typeof specials.fairOvertimeDecimal === "number" &&
+      Number.isFinite(specials.fairOvertimeDecimal) &&
+      specials.fairOvertimeDecimal > 1
+        ? specials.fairOvertimeDecimal
+        : 1 / Math.max(specials.pOvertime, 0.01);
+    views.push({
+      key: "overtime",
+      title: "Tiempo extra (OT)",
+      subtitle: "El partido se define en tiempo extra",
+      p: specials.pOvertime,
+      fairDecimal,
+    });
+  }
+
+  if (isProb(specials.pExactPlus3) && isProb(specials.pExactMinus3)) {
+    const combined = Math.min(1, specials.pExactPlus3 + specials.pExactMinus3);
+    views.push({
+      key: "key_margin_3",
+      title: "Margen clave ±3 puntos",
+      subtitle: `+3 (${pctText(specials.pExactPlus3)}) · −3 (${pctText(specials.pExactMinus3)})`,
+      p: combined,
+      fairDecimal: null,
+    });
+  }
+
+  if (isProb(specials.pExactPlus7) && isProb(specials.pExactMinus7)) {
+    const combined = Math.min(1, specials.pExactPlus7 + specials.pExactMinus7);
+    views.push({
+      key: "key_margin_7",
+      title: "Margen clave ±7 puntos",
+      subtitle: `+7 (${pctText(specials.pExactPlus7)}) · −7 (${pctText(specials.pExactMinus7)})`,
+      p: combined,
+      fairDecimal: null,
+    });
+  }
+
   return views;
 }
 
@@ -281,7 +366,6 @@ const KIND_NOUN: Record<Exclude<ConfirmationKind, "key_player">, string> = {
   lineup: "Lineup",
 };
 
-/** Cuándo suele confirmarse cada dato, para el estado «por confirmar». */
 const PENDING_HINT: Record<ConfirmationKind, string> = {
   goalie: "Suele confirmarse la mañana del partido",
   starting_pitcher: "Suele anunciarse uno o dos días antes",
@@ -298,7 +382,6 @@ const STATUS_TONE: Record<ConfirmationStatus, ConfirmationTone> = {
 };
 
 function statusWord(kind: ConfirmationKind, status: ConfirmationStatus): string {
-  // Portero, Abridor y Lineup son masculinos: no hace falta concordancia de género.
   switch (status) {
     case "confirmed":
       return kind === "key_player" ? "Juega" : "confirmado";
@@ -337,7 +420,6 @@ export function confirmationViews(input: SportOutlookInput): ConfirmationView[] 
   });
 }
 
-/** Avisos de descanso: segundo juego en dos noches o días sin jugar. */
 export function restNotes(input: SportOutlookInput): string[] {
   const notes: string[] = [];
   const sides: TeamSide[] = ["home", "away"];
