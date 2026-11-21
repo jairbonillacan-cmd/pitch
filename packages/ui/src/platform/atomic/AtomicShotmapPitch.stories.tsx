@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   AtomicShotmapPitch,
@@ -124,6 +124,29 @@ const HOME_ONLY_SHOTS: readonly AtomicShotItem[] = MATCH_SHOTS.filter(
   (shot) => shot.side === "home",
 );
 
+function InteractiveShotmapShowcase(props: AtomicShotmapPitchProps): React.JSX.Element {
+  const [selectedShot, setSelectedShot] = useState<AtomicShotItem | null>(null);
+
+  return (
+    <div style={{ display: "grid", gap: 12, maxWidth: 720 }}>
+      <AtomicShotmapPitch {...props} onSelectShot={setSelectedShot} />
+      <div className="pl-atom-card num" role="status" aria-live="polite">
+        {selectedShot ? (
+          <span>
+            Remate activo: <strong>{selectedShot.player ?? "Jugador"}</strong> · {selectedShot.minute}
+            {selectedShot.addedTime ? `+${selectedShot.addedTime}` : ""}&apos; · xG{" "}
+            {selectedShot.xg != null ? selectedShot.xg.toFixed(2) : "—"}
+          </span>
+        ) : (
+          <span className="pl-atom-sub">
+            Haz clic o usa Tab + Enter sobre cualquier remate del mapa para ver su detalle.
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 const meta = {
   title: "Platform v4 / Atomic Kit / AtomicShotmapPitch",
   component: AtomicShotmapPitch,
@@ -146,17 +169,24 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Partido con goles, atajadas, poste, bloqueos y tiros fuera con escala xG (tema oscuro). */
 export const PartidoCompletoOscuro: Story = {
   globals: { theme: "dark" },
 };
 
-/** Partido completo en tema claro sobre tokens `--pl-*`. */
 export const PartidoCompletoClaro: Story = {
   globals: { theme: "light" },
 };
 
-/** Media cancha ofensiva centrada en los remates del equipo local (tema oscuro). */
+export const SeleccionInteractivaOscuro: Story = {
+  globals: { theme: "dark" },
+  render: (args: AtomicShotmapPitchProps) => <InteractiveShotmapShowcase {...args} />,
+};
+
+export const SeleccionInteractivaClaro: Story = {
+  globals: { theme: "light" },
+  render: SeleccionInteractivaOscuro.render,
+};
+
 export const MediaCanchaOfensivaOscuro: Story = {
   globals: { theme: "dark" },
   args: {
@@ -166,7 +196,6 @@ export const MediaCanchaOfensivaOscuro: Story = {
   },
 };
 
-/** Media cancha ofensiva en tema claro. */
 export const MediaCanchaOfensivaClaro: Story = {
   globals: { theme: "light" },
   args: {
@@ -176,7 +205,6 @@ export const MediaCanchaOfensivaClaro: Story = {
   },
 };
 
-/** Estado vacío explícito cuando el partido aún no tiene coordenadas registradas (tema oscuro). */
 export const EstadoVacioOscuro: Story = {
   globals: { theme: "dark" },
   args: {
@@ -185,7 +213,6 @@ export const EstadoVacioOscuro: Story = {
   },
 };
 
-/** Estado vacío explícito en tema claro. */
 export const EstadoVacioClaro: Story = {
   globals: { theme: "light" },
   args: {
@@ -194,7 +221,6 @@ export const EstadoVacioClaro: Story = {
   },
 };
 
-/** Vista compacta de 375 px sin desbordamiento horizontal (tema oscuro). */
 export const MovilOscuro: Story = {
   globals: { theme: "dark" },
   render: (args: AtomicShotmapPitchProps) => (
@@ -204,7 +230,6 @@ export const MovilOscuro: Story = {
   ),
 };
 
-/** Vista compacta de 375 px en tema claro. */
 export const MovilClaro: Story = {
   globals: { theme: "light" },
   render: MovilOscuro.render,

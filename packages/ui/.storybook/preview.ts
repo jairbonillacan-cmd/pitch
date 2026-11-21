@@ -18,9 +18,14 @@ import "../../../apps/web/app/sport-outlook.css";
 import "../../../apps/web/app/picks-screener.css";
 import "../../../apps/web/app/atomic-kit.css";
 import "../../../apps/web/app/shell-ergonomics.css";
+import "../../../apps/web/app/sofascore-kit.css";
+import "../../../apps/web/app/parlays-builder.css";
+import "../../../apps/web/app/props-betlab.css";
+import "../../../apps/web/app/momios-compare.css";
+import "../../../apps/web/app/tipster-admin.css";
+import "../../../apps/web/app/editorial-verificacion.css";
+import "../../../apps/web/app/alerts-referees.css";
 
-/* Tema de PitchLab en la barra de Storybook: cambia data-theme en <html>
-   sobre el modo sólido unificado, que leen los tokens, shadcn y HeroUI a la vez. */
 export const globalTypes = {
   theme: {
     description: "Tema de PitchLab",
