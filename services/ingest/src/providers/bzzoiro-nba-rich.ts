@@ -10,13 +10,18 @@
  *
  * Cumple licencia Bzzoiro v4.0 + `FD-16`: salidas normalizadas sin IDs crudos de proveedor ni URLs externas.
  */
-import type { StandingRow } from "@pitchlab/contracts";
+import {
+  parseStrictFiniteNumber,
+  type SpacetimeAnchoredQuote,
+  type StandingRow,
+} from "@pitchlab/contracts";
 import type { OddsLineMovement, OddsSnapshotRow } from "@pitchlab/spacetime";
 import { normalizeLine } from "@pitchlab/spacetime";
 import { resolveCanonicalTeam } from "../mappings.js";
 import {
   BZZOIRO_COMPARISON_BOOK_META,
   classifyLineMovement,
+  toSpacetimeAnchoredQuote,
   type ComparisonBookQuote,
   type LineMovementSignal,
 } from "../odds/bzzoiro-odds.js";
@@ -248,6 +253,7 @@ export interface NbaSelectionOddsComparison {
   readonly fairOdds: number | null;
   readonly edgePts: number | null;
   readonly evPct: number | null;
+  readonly anchoredQuote?: SpacetimeAnchoredQuote;
   readonly books: readonly ComparisonBookQuote[];
 }
 
@@ -313,10 +319,7 @@ export interface NbaPlayerPropSeed {
 }
 
 function num(v: unknown): number | null {
-  if (v === null || v === undefined || typeof v === "boolean") return null;
-  if (typeof v === "string" && v.trim() === "") return null;
-  const n = typeof v === "number" ? v : Number(v);
-  return Number.isFinite(n) ? n : null;
+  return parseStrictFiniteNumber(v);
 }
 
 function round2(v: number): number {
@@ -327,7 +330,6 @@ function round3(v: number): number {
   return Math.round(v * 1000) / 1000;
 }
 
-/** Convierte minutos NBA numéricos (`34.5`) o reloj `"34:30"` a minutos decimales finitos. */
 export function parseNbaMinutes(raw: number | string | null | undefined): number | null {
   if (raw === null || raw === undefined) return null;
   if (typeof raw === "number") {
@@ -337,15 +339,15 @@ export function parseNbaMinutes(raw: number | string | null | undefined): number
   if (!s) return null;
   const clockMatch = /^(\d{1,2}):(\d{1,2})$/.exec(s);
   if (clockMatch) {
-    const mins = Number(clockMatch[1]);
-    const secs = Number(clockMatch[2]);
-    if (Number.isFinite(mins) && Number.isFinite(secs) && secs < 60 && mins <= 70) {
+    const mins = parseStrictFiniteNumber(clockMatch[1]);
+    const secs = parseStrictFiniteNumber(clockMatch[2]);
+    if (mins !== null && secs !== null && secs < 60 && mins <= 70) {
       return round2(mins + secs / 60);
     }
     return null;
   }
-  const direct = Number(s);
-  return Number.isFinite(direct) && direct >= 0 && direct <= 70 ? round2(direct) : null;
+  const direct = parseStrictFiniteNumber(s);
+  return direct !== null && direct >= 0 && direct <= 70 ? round2(direct) : null;
 }
 
 function mapConferenceEs(raw: string | null | undefined, fallback?: string): string | undefined {
@@ -764,7 +766,10 @@ export function parseBzzoiroNbaOdds(params: {
  */
 export function parseBzzoiroNbaOddsComparison(
   odds: readonly BzNbaOddsRowRaw[] | null | undefined,
-  options: { modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>> } = {},
+  options: {
+    modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+    requireSpacetimeAnchor?: boolean;
+  } = {},
 ): NbaSelectionOddsComparison[] {
   if (!odds || odds.length === 0) return [];
   const grouped = new Map<
@@ -812,8 +817,13 @@ export function parseBzzoiroNbaOddsComparison(
       bucket = { ...mapped, byBook: new Map() };
       grouped.set(key, bucket);
     }
-    const capturedAtUtc =
-      row.updated_at && Number.isFinite(Date.parse(row.updated_at)) ? row.updated_at : undefined;
+    const rawUpdatedAt = typeof row.updated_at === "string" ? row.updated_at.trim() : "";
+    const parsedUpdatedMs = rawUpdatedAt ? Date.parse(rawUpdatedAt) : Number.NaN;
+    const capturedAtUtc = Number.isFinite(parsedUpdatedMs)
+      ? /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/.test(rawUpdatedAt)
+        ? rawUpdatedAt
+        : new Date(parsedUpdatedMs).toISOString()
+      : undefined;
     const existing = bucket.byBook.get(bookMeta.canonical);
     if (existing?.capturedAtUtc) {
       const existingMs = Date.parse(existing.capturedAtUtc);
@@ -897,10 +907,25 @@ export function parseBzzoiroNbaOddsComparison(
         ? options.modelProbsByKey.get(key)
         : (options.modelProbsByKey as Readonly<Record<string, number>>)[key]
       : undefined;
-    const modelProb =
+    const validRawProb =
       typeof rawProb === "number" && Number.isFinite(rawProb) && rawProb > 0.001 && rawProb < 0.999
-        ? round3(rawProb)
+        ? rawProb
         : null;
+    if (options.requireSpacetimeAnchor === true && validRawProb === null) continue;
+    const modelProb = validRawProb !== null ? round3(validRawProb) : null;
+    const anchoredQuote =
+      validRawProb !== null
+        ? toSpacetimeAnchoredQuote({
+            bookLabel: sorted[0]!.bookLabel,
+            marketKey: bucket.market,
+            selection: bucket.selection,
+            line: bucket.line,
+            bookDecimal: bestDecimal,
+            modelProb: validRawProb,
+            movement: consensusMv.signal,
+            capturedAtIso: sorted[0]!.capturedAtUtc,
+          })
+        : undefined;
 
     out.push({
       market: bucket.market,
@@ -915,9 +940,10 @@ export function parseBzzoiroNbaOddsComparison(
       deltaPct: consensusMv.deltaPct,
       signal: consensusMv.signal,
       modelProb,
-      fairOdds: modelProb !== null ? round3(1 / modelProb) : null,
-      edgePts: modelProb !== null ? round2((modelProb - 1 / bestDecimal) * 100) : null,
-      evPct: modelProb !== null ? round2((modelProb * bestDecimal - 1) * 100) : null,
+      fairOdds: validRawProb !== null ? round3(1 / validRawProb) : null,
+      edgePts: validRawProb !== null ? round2((validRawProb - 1 / bestDecimal) * 100) : null,
+      evPct: validRawProb !== null ? round2((validRawProb * bestDecimal - 1) * 100) : null,
+      ...(anchoredQuote ? { anchoredQuote } : {}),
       books,
     });
   }
@@ -1152,6 +1178,7 @@ export async function fetchBzzoiroNbaOdds(
     kickoffUtc: string;
     capturedAtUtc?: string;
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+    requireSpacetimeAnchor?: boolean;
   },
 ): Promise<{
   snapshotRows: OddsSnapshotRow[];
@@ -1171,7 +1198,10 @@ export async function fetchBzzoiroNbaOdds(
       capturedAtUtc,
       odds: listRaw,
     }),
-    comparison: parseBzzoiroNbaOddsComparison(listRaw, { modelProbsByKey: params.modelProbsByKey }),
+    comparison: parseBzzoiroNbaOddsComparison(listRaw, {
+      modelProbsByKey: params.modelProbsByKey,
+      requireSpacetimeAnchor: params.requireSpacetimeAnchor,
+    }),
   };
 }
 
@@ -1185,4 +1215,290 @@ export async function fetchBzzoiroNbaPlayerGames(
   );
   if (!raw) return [];
   return Array.isArray(raw) ? raw : (raw.results ?? []);
+}
+
+export interface BzNbaPlayerListItemRaw {
+  id?: number | null;
+  player_id?: number | null;
+  name?: string | null;
+  player_name?: string | null;
+  position?: string | null;
+  status?: string | null;
+  availability?: string | null;
+}
+
+export interface NormalizedNbaRosterPlayer {
+  readonly providerPlayerId: number;
+  readonly name: string;
+  readonly position: string;
+  readonly availabilityStatus: string | null;
+}
+
+export function parseBzzoiroNbaTeamPlayers(
+  raw:
+    | readonly BzNbaPlayerListItemRaw[]
+    | BzList<BzNbaPlayerListItemRaw>
+    | { players?: readonly BzNbaPlayerListItemRaw[] }
+    | null
+    | undefined,
+): NormalizedNbaRosterPlayer[] {
+  if (!raw) return [];
+  const list: readonly BzNbaPlayerListItemRaw[] = Array.isArray(raw)
+    ? raw
+    : "results" in raw && Array.isArray(raw.results)
+      ? raw.results
+      : "players" in raw && Array.isArray(raw.players)
+        ? raw.players
+        : [];
+  const seen = new Set<number>();
+  const out: NormalizedNbaRosterPlayer[] = [];
+  for (const item of list) {
+    if (!item || typeof item !== "object") continue;
+    const pid = num(item.id ?? item.player_id);
+    if (pid === null || !Number.isInteger(pid) || pid <= 0 || seen.has(pid)) continue;
+    const name = sanitizeClientText(item.name ?? item.player_name);
+    if (!name) continue;
+    seen.add(pid);
+    const position = sanitizeClientText(item.position)?.slice(0, 16) ?? "NBA";
+    const availabilityStatus = sanitizeClientText(item.availability ?? item.status) ?? null;
+    out.push({
+      providerPlayerId: pid,
+      name: name.slice(0, 120),
+      position,
+      availabilityStatus,
+    });
+  }
+  return out;
+}
+
+export async function fetchBzzoiroNbaTeamPlayers(
+  client: ProviderClient,
+  providerTeamId: number,
+): Promise<NormalizedNbaRosterPlayer[]> {
+  const raw = await client.get<
+    BzList<BzNbaPlayerListItemRaw> | { players?: readonly BzNbaPlayerListItemRaw[] }
+  >(`/basketball/api/v2/players/?team_id=${providerTeamId}&limit=30`, { cache: false });
+  return parseBzzoiroNbaTeamPlayers(raw);
+}
+
+export interface NbaPlayerPropsSnapshotFile {
+  readonly schemaVersion: 1;
+  readonly league: "nba";
+  readonly updatedAt: string;
+  readonly minMinutesGuard: number;
+  readonly seeds: readonly NbaPlayerPropSeed[];
+}
+
+export function buildNbaPlayerPropsSnapshotFile(
+  seeds: readonly NbaPlayerPropSeed[],
+  updatedAtIso: string,
+  minMinutesGuard: number = DEFAULT_NBA_PROP_MIN_MINUTES,
+): NbaPlayerPropsSnapshotFile {
+  return {
+    schemaVersion: 1,
+    league: "nba",
+    updatedAt: updatedAtIso,
+    minMinutesGuard,
+    seeds: [...seeds],
+  };
+}
+
+export interface NbaCompactMarketLine {
+  readonly gameId: string;
+  readonly homeName: string;
+  readonly awayName: string;
+  readonly market: string;
+  readonly outcome: string;
+  readonly line: number | null;
+  readonly book: string;
+  readonly decimal: number;
+  readonly openingDecimal?: number;
+  readonly movement?: OddsLineMovement;
+  readonly capturedAtUtc: string;
+}
+
+export interface NbaRichEventTarget {
+  readonly providerMatchId: number;
+  readonly gameId: string;
+  readonly homeTeamId: string;
+  readonly homeTeamName: string;
+  readonly homeProviderTeamId: number;
+  readonly awayTeamId: string;
+  readonly awayTeamName: string;
+  readonly awayProviderTeamId: number;
+  readonly kickoffUtc: string;
+}
+
+export interface CollectNbaRichOptions {
+  readonly client: ProviderClient;
+  readonly upcomingEvents: readonly NbaRichEventTarget[];
+  readonly nowIso: string;
+  readonly includeStandings?: boolean;
+  readonly includePregame?: boolean;
+  readonly includeOdds?: boolean;
+  readonly includePlayerProps?: boolean;
+  readonly maxEvents?: number;
+  readonly maxTeamsForProps?: number;
+  readonly maxPlayersPerTeam?: number;
+  readonly minMinutes?: number;
+}
+
+export interface NbaRichCollectionResult {
+  readonly standings: StandingRow[];
+  readonly standingsOk: boolean;
+  readonly pregameByGameId: ReadonlyMap<string, NormalizedNbaPregame>;
+  readonly marketLines: NbaCompactMarketLine[];
+  readonly propSeeds: NbaPlayerPropSeed[];
+}
+
+export async function collectBzzoiroNbaRichBundle(
+  options: CollectNbaRichOptions,
+): Promise<NbaRichCollectionResult> {
+  const { client, upcomingEvents, nowIso } = options;
+  const maxEvents = Math.max(0, options.maxEvents ?? 12);
+  const maxTeamsForProps = Math.max(0, options.maxTeamsForProps ?? 16);
+  const maxPlayersPerTeam = Math.max(0, options.maxPlayersPerTeam ?? 8);
+  const minMinutes = options.minMinutes ?? DEFAULT_NBA_PROP_MIN_MINUTES;
+
+  let standings: StandingRow[] = [];
+  let standingsOk = false;
+  if (options.includeStandings !== false) {
+    try {
+      const fetched = await fetchBzzoiroNbaStandings(client);
+      if (fetched.length > 0) {
+        standings = fetched;
+        standingsOk = true;
+      }
+    } catch (err) {
+      void err;
+    }
+  }
+
+  const pregameByGameId = new Map<string, NormalizedNbaPregame>();
+  const injuryStatusByTeamPlayer = new Map<string, NbaInjuryRawStatus>();
+  const marketLines: NbaCompactMarketLine[] = [];
+  const seenLineKeys = new Set<string>();
+  const targetEvents = upcomingEvents.slice(0, maxEvents);
+
+  for (const ev of targetEvents) {
+    if (options.includePregame !== false) {
+      try {
+        const pregame = await fetchBzzoiroNbaPregame(client, ev.providerMatchId);
+        if (pregame) {
+          pregameByGameId.set(ev.gameId, pregame);
+          const homeSlug = teamSlugOf(ev.homeTeamId);
+          const awaySlug = teamSlugOf(ev.awayTeamId);
+          for (const inj of pregame.injuries.home) {
+            injuryStatusByTeamPlayer.set(`${homeSlug}|${inj.playerName.toLowerCase()}`, inj.rawStatus);
+          }
+          for (const inj of pregame.injuries.away) {
+            injuryStatusByTeamPlayer.set(`${awaySlug}|${inj.playerName.toLowerCase()}`, inj.rawStatus);
+          }
+        }
+      } catch (err) {
+        void err;
+      }
+    }
+
+    if (options.includeOdds !== false) {
+      try {
+        const { snapshotRows } = await fetchBzzoiroNbaOdds(client, {
+          providerEventId: ev.providerMatchId,
+          homeTeamRaw: ev.homeTeamName,
+          awayTeamRaw: ev.awayTeamName,
+          kickoffUtc: ev.kickoffUtc,
+          capturedAtUtc: nowIso,
+        });
+        for (const row of snapshotRows) {
+          const dedupKey = `${ev.gameId}|${row.market}|${row.selection}|${row.line ?? ""}|${row.book}`;
+          if (seenLineKeys.has(dedupKey)) continue;
+          seenLineKeys.add(dedupKey);
+          marketLines.push({
+            gameId: ev.gameId,
+            homeName: ev.homeTeamName,
+            awayName: ev.awayTeamName,
+            market: row.market,
+            outcome: row.selection,
+            line: row.line,
+            book: row.book,
+            decimal: row.price_decimal,
+            ...(row.opening_price !== undefined ? { openingDecimal: row.opening_price } : {}),
+            ...(row.movement_direction !== undefined ? { movement: row.movement_direction } : {}),
+            capturedAtUtc: row.ts_captured,
+          });
+        }
+      } catch (err) {
+        void err;
+      }
+    }
+  }
+
+  const propSeeds: NbaPlayerPropSeed[] = [];
+  if (options.includePlayerProps !== false && maxTeamsForProps > 0 && maxPlayersPerTeam > 0) {
+    const activeTeams = new Map<
+      number,
+      { providerTeamId: number; teamSlug: string; teamName: string }
+    >();
+    for (const ev of upcomingEvents) {
+      if (ev.homeProviderTeamId > 0 && !activeTeams.has(ev.homeProviderTeamId)) {
+        activeTeams.set(ev.homeProviderTeamId, {
+          providerTeamId: ev.homeProviderTeamId,
+          teamSlug: teamSlugOf(ev.homeTeamId),
+          teamName: ev.homeTeamName,
+        });
+      }
+      if (ev.awayProviderTeamId > 0 && !activeTeams.has(ev.awayProviderTeamId)) {
+        activeTeams.set(ev.awayProviderTeamId, {
+          providerTeamId: ev.awayProviderTeamId,
+          teamSlug: teamSlugOf(ev.awayTeamId),
+          teamName: ev.awayTeamName,
+        });
+      }
+    }
+
+    for (const team of [...activeTeams.values()].slice(0, maxTeamsForProps)) {
+      let roster: NormalizedNbaRosterPlayer[] = [];
+      try {
+        roster = await fetchBzzoiroNbaTeamPlayers(client, team.providerTeamId);
+      } catch (err) {
+        void err;
+        continue;
+      }
+
+      let processedForTeam = 0;
+      for (const player of roster) {
+        if (processedForTeam >= maxPlayersPerTeam) break;
+        const pregameStatus = injuryStatusByTeamPlayer.get(
+          `${team.teamSlug}|${player.name.toLowerCase()}`,
+        );
+        const effectiveAvailability = pregameStatus ?? player.availabilityStatus;
+        if (mapNbaInjuryStatus(effectiveAvailability) === "out") continue;
+
+        processedForTeam += 1;
+        try {
+          const games = await fetchBzzoiroNbaPlayerGames(client, player.providerPlayerId);
+          const seeds = buildGuardedNbaPlayerPropSeeds({
+            player: player.name,
+            teamSlug: team.teamSlug,
+            teamName: team.teamName,
+            position: player.position,
+            games,
+            minMinutes,
+            availabilityStatus: effectiveAvailability,
+          });
+          propSeeds.push(...seeds);
+        } catch (err) {
+          void err;
+        }
+      }
+    }
+  }
+
+  return {
+    standings,
+    standingsOk,
+    pregameByGameId,
+    marketLines,
+    propSeeds,
+  };
 }

@@ -7,11 +7,12 @@
  * por props para Storybook y pruebas; los contenedores (`LiveMatchPanel`, `LiveScoreboardStrip`)
  * los leen del sondeo compartido (`live-store.ts`).
  */
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   canonicalGameHref,
   LIVE_PHASE_LABEL_ES,
   isLivePhaseActive,
+  type LiveAveragePosition,
   type LiveIncident,
   type LiveMatchDetail,
   type LiveScoreboard,
@@ -414,6 +415,23 @@ function LiveDetailRightColumn({
   );
 }
 
+function toAtomicAveragePositions(
+  positions: readonly LiveAveragePosition[] | undefined,
+): readonly AtomicAveragePositionPlayer[] {
+  if (!positions || positions.length === 0) return [];
+  return positions.map((p) => ({
+    side: p.side,
+    name: p.name,
+    ...(p.shortName ? { shortName: p.shortName } : {}),
+    number: p.number ?? null,
+    position: p.position ?? null,
+    x: p.x,
+    y: p.y,
+    touches: p.touches ?? null,
+    rating: p.rating ?? null,
+  }));
+}
+
 export function LiveMatchPanelView({
   game,
   detail,
@@ -430,6 +448,10 @@ export function LiveMatchPanelView({
   const home = game.home.shortName;
   const away = game.away.shortName;
   const live = Boolean(detail && isLivePhaseActive(detail.entry.phase));
+  const effectiveAveragePositions = useMemo<readonly AtomicAveragePositionPlayer[]>(() => {
+    if (averagePositions !== undefined) return averagePositions;
+    return toAtomicAveragePositions(detail?.averagePositions);
+  }, [averagePositions, detail?.averagePositions]);
 
   // Screen Wake Lock opcional: mantiene la pantalla encendida solo mientras el partido en vivo
   // esté activo y visible, liberando el bloqueo al cambiar de pestaña/app o desmontar (ADR-053).
@@ -595,9 +617,9 @@ export function LiveMatchPanelView({
           {detail.shots.length > 0 ? (
             <AtomicShotmapPitch shots={detail.shots} homeLabel={home} awayLabel={away} />
           ) : null}
-          {averagePositions && averagePositions.length > 0 ? (
+          {effectiveAveragePositions.length > 0 ? (
             <AtomicAveragePositionsPitch
-              players={averagePositions}
+              players={effectiveAveragePositions}
               homeLabel={home}
               awayLabel={away}
             />

@@ -63,7 +63,7 @@ export async function loadPublicRecord(
   if (!db) {
     const url = process.env.DATABASE_URL;
     if (!url) return null;
-    recordDb ??= createDb(url) as unknown as Db;
+    recordDb ??= createDb(url);
     db = recordDb;
   }
   const [user] = await db

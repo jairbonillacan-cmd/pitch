@@ -4,8 +4,11 @@ import { describe, expect, it } from "vitest";
 import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
 import { buildPlatformDataset } from "@pitchlab/ui/picks-engine";
 import {
+  buildMarketRowComparison,
   enrichDatasetWithBookQuotes,
   enrichMarketRowsWithBookQuotes,
+  parseBzzoiroBestOddsPayload,
+  parseBzzoiroComparisonPayload,
   parseQuotesLedgerTicks,
 } from "../src/server/book-quotes";
 
@@ -358,5 +361,197 @@ describe("book-quotes · Integración de las 9 casas Bzzoiro desde quotes_latest
     );
     expect(rows[0]!.currentDecimal).toBeGreaterThan(1.01);
     expect(rows[0]!.bookQuotes?.length ?? 0).toBeGreaterThan(0);
+  });
+
+  it("ancla cuotas con SpacetimeAnchoredQuote y descarta filas sin probabilidad Spacetime válida (Licencia v4.0)", () => {
+    const comparisons = parseBzzoiroComparisonPayload(
+      {
+        comparisons: [
+          {
+            market: "1x2",
+            outcome: "home",
+            line: null,
+            bookmaker_slug: "pinnacle",
+            decimal_odds: 1.94,
+            opening_odds: 2.15,
+            updated_at: "2026-11-20T15:00:00Z",
+          },
+          {
+            market: "1x2",
+            outcome: "home",
+            line: null,
+            bookmaker_slug: "bet365",
+            decimal_odds: 2.02,
+            opening_odds: 2.18,
+            updated_at: "2026-11-20T15:05:00Z",
+          },
+        ],
+      },
+      { modelProbsByKey: { "1x2|null|home": 0.56 } },
+    );
+
+    expect(comparisons).toHaveLength(1);
+    const anchored = comparisons[0]!.anchoredQuote;
+    expect(anchored).toBeDefined();
+    expect(Object.isFrozen(anchored)).toBe(true);
+    expect(anchored).toMatchObject({
+      bookLabel: "Bet365",
+      marketKey: "1x2",
+      selection: "home",
+      line: null,
+      bookDecimal: 2.02,
+      modelProb: 0.56,
+      edgePts: 6.5,
+      evPct: 13.1,
+      movement: "STEAM",
+      capturedAtIso: "2026-11-20T15:05:00Z",
+    });
+    expect(anchored!.fairDecimal).toBeCloseTo(1 / 0.56, 4);
+
+    const bestQuotes = parseBzzoiroBestOddsPayload(
+      {
+        results: [
+          {
+            home_team: "Club América",
+            away_team: "Guadalajara",
+            event_date: "2026-11-22T03:00:00Z",
+            market: "totals",
+            line: 2.5,
+            best_odds: {
+              over: {
+                bookmaker_slug: "pinnacle",
+                decimal_odds: 1.98,
+                opening_odds: 2.08,
+                updated_at: "2026-11-20T15:10:00Z",
+              },
+            },
+          },
+        ],
+      },
+      { modelProbsByKey: { "totals|2.5|over": 0.55 } },
+    );
+    expect(bestQuotes).toHaveLength(1);
+    expect(bestQuotes[0]!.anchoredQuote).toMatchObject({
+      bookLabel: "Pinnacle",
+      marketKey: "totals",
+      selection: "over",
+      line: 2.5,
+      bookDecimal: 1.98,
+      modelProb: 0.55,
+      capturedAtIso: "2026-11-20T15:10:00Z",
+    });
+
+    const validRowComp = buildMarketRowComparison({
+      group: "Resultado 1X2",
+      market: "1x2",
+      selection: "home",
+      label: "Gana América",
+      p: 0.57,
+      fairDecimal: 1.75,
+      fairAmerican: -133,
+      openDecimal: 2.1,
+      currentDecimal: 1.94,
+      edgePts: 5.5,
+      bookQuotes: [
+        {
+          book: "bet365",
+          bookLabel: "Bet365",
+          decimal: 1.94,
+          openingDecimal: 2.12,
+          capturedAtUtc: "2026-11-20T15:05:00Z",
+        },
+      ],
+    });
+    expect(validRowComp?.anchoredQuote).toMatchObject({
+      bookLabel: "Bet365",
+      marketKey: "1x2",
+      selection: "home",
+      bookDecimal: 1.94,
+      modelProb: 0.57,
+      movement: "STEAM",
+      capturedAtIso: "2026-11-20T15:05:00Z",
+    });
+
+    for (const invalidP of [0, 0.001, 0.999, 1, Number.NaN]) {
+      expect(
+        buildMarketRowComparison({
+          group: "Resultado 1X2",
+          market: "1x2",
+          selection: "home",
+          label: "Sin ancla",
+          p: invalidP,
+          fairDecimal: 2,
+          fairAmerican: 100,
+          openDecimal: null,
+          currentDecimal: 2.05,
+          edgePts: null,
+          bookQuotes: [
+            {
+              book: "pinnacle",
+              bookLabel: "Pinnacle",
+              decimal: 2.05,
+              capturedAtUtc: "2026-11-20T15:05:00Z",
+            },
+          ],
+        }),
+      ).toBeNull();
+    }
+
+    const byLeague = parseQuotesLedgerTicks(
+      [
+        {
+          event_id: "ws:football:MEX:20261120:america:chivas",
+          sport: "football",
+          league: "MEX",
+          market: "1x2",
+          line: null,
+          selection: "home",
+          book: "pinnacle",
+          price_decimal: 1.95,
+          ts_captured: "2026-11-17T10:00:00Z",
+        },
+      ],
+      nowMs,
+    );
+    const unanchoredRows = enrichMarketRowsWithBookQuotes(
+      {
+        league: asLeagueId("liga-mx"),
+        home: { slug: "america", name: "Club América", shortName: "América", code: "AME", record: "7G" },
+        away: { slug: "chivas", name: "Guadalajara", shortName: "Chivas", code: "GDL", record: "5G" },
+        status: "NS",
+      },
+      [
+        {
+          group: "Resultado 1X2",
+          market: "1x2",
+          selection: "home",
+          label: "Sin probabilidad Spacetime",
+          p: 0,
+          fairDecimal: 0,
+          fairAmerican: 0,
+          openDecimal: null,
+          currentDecimal: null,
+          edgePts: null,
+        },
+      ],
+      nowMs,
+      byLeague,
+    );
+    expect(unanchoredRows[0]!.currentDecimal).toBeNull();
+    expect(unanchoredRows[0]!.bookQuotes).toBeUndefined();
+  });
+
+  it("delega el parseo canónico de Bzzoiro a @pitchlab/ingest/odds/bzzoiro-odds sin duplicar la lógica", () => {
+    const source = readFileSync(
+      path.resolve(import.meta.dirname, "..", "src", "server", "book-quotes.ts"),
+      "utf8",
+    );
+    expect(source).toContain('from "@pitchlab/ingest/odds/bzzoiro-odds"');
+    expect(source).toContain("parseBzzoiroOddsComparison");
+    expect(source).toContain("parseBzzoiroBestOdds");
+    expect(source).toContain("toSpacetimeAnchoredQuote");
+    expect(source).not.toContain("function flattenBzzoiroOddsPayload");
+    expect(source).not.toContain("function lookupSpacetimeProb");
+    expect(source).not.toContain("function computeAnalyticsForPrice");
   });
 });

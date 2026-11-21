@@ -14,10 +14,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
+  LIVE_CAPABLE_BZZOIRO_LEAGUES,
   canonicalGameHref,
+  type LiveAveragePosition,
   type LiveMatchDetail,
   type LiveScoreboard,
   type LiveScoreboardEntry,
+  type LiveShotmapSummary,
+  type LiveXgPoint,
   isLivePhaseActive,
 } from "@pitchlab/contracts";
 import {
@@ -34,7 +38,6 @@ import {
   type Db,
   type LiveMomentInput,
 } from "@pitchlab/db";
-import { BZZOIRO_LEAGUE_IDS } from "@pitchlab/sports-assets";
 import { serverDb } from "./session-user";
 import { loadLeagueSnapshotEnvelope, PRODUCT_LEAGUES, resolveSnapshotsRoot, type ProductLeague } from "./snapshots";
 import { evaluateLiveInPlaySoccerV5 } from "./spacetime-v5";
@@ -42,10 +45,13 @@ import { isWebPushConfigured, sendPushToUsers } from "./web-push";
 import {
   BZZOIRO_ATTRIBUTION,
   detectMoments,
+  extractBzzoiroMatchTelemetry,
   linkLiveEvents,
   list,
   mergeCommentary,
   nextPollSeconds,
+  normalizedAvgPositionsToLive,
+  normalizedShotToLiveShot,
   parseBroadcastsMx,
   parseCommentary,
   parseIncidents,
@@ -57,21 +63,15 @@ import {
   type BzLiveCommentaryRaw,
   type BzLiveEvent,
   type BzLiveIncident,
-  type BzLivePlayerStatRaw,
   type BzLiveStats,
+  type BzPlayerStatsPayload,
   type LinkCandidate,
 } from "@pitchlab/ingest/providers/bzzoiro-live";
 import { readProviderConfigs } from "@pitchlab/ingest/providers/config";
 
 /** Ligas de fútbol con marcador en vivo y su id en Bzzoiro (núcleo + expansión ADR-043). */
-export const LIVE_LEAGUES: Readonly<Record<string, readonly number[]>> = {
-  ...Object.fromEntries(
-    Object.entries(BZZOIRO_LEAGUE_IDS)
-      .filter(([slug]) => slug !== "nba" && slug !== "la-liga")
-      .map(([slug, id]) => [slug, [id] as const]),
-  ),
-  "liga-mx": [19, 20] as const,
-};
+export const LIVE_LEAGUES: Readonly<Record<string, readonly number[]>> =
+  LIVE_CAPABLE_BZZOIRO_LEAGUES;
 export type LiveLeague = string;
 
 const TTL = {
@@ -614,13 +614,13 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
   const finished = entry.phase === "final";
   const wantRich = deps.includeRich ?? Boolean(deps.budget.unlimited);
   const commentaryKey = `live:commentary:${gameId}`;
-  const [inc, st, comm, pstats, bcasts] = await Promise.all([
+  const [inc, stRaw, comm, pstatsRaw, bcasts] = await Promise.all([
     cached(deps, `live:incidents:${gameId}`, finished ? TTL.finished : TTL.incidentsLive, async () =>
       parseIncidents(await providerGet<BzList<BzLiveIncident>>(deps, `/events/${eventId}/incidents/`)),
     ),
-    cached(deps, `live:stats:${gameId}`, finished ? TTL.finished : TTL.statsLive, async () =>
-      parseLiveStats(await providerGet<BzLiveStats>(deps, `/events/${eventId}/stats/`)),
-    ),
+    cached(deps, `live:stats-raw:${gameId}`, finished ? TTL.finished : TTL.statsLive, async () => ({
+      raw: await providerGet<BzLiveStats>(deps, `/events/${eventId}/stats/`),
+    })),
     wantRich
       ? cached(deps, commentaryKey, finished ? TTL.finished : TTL.commentaryLive, async () => {
           const prev = await deps.store.read<NonNullable<LiveMatchDetail["commentary"]>>(commentaryKey, now);
@@ -636,13 +636,9 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
         })
       : Promise.resolve(null),
     wantRich
-      ? cached(deps, `live:player-stats:${gameId}`, finished ? TTL.finished : TTL.playerStatsLive, async () =>
-          parsePlayerStats(
-            await providerGet<
-              BzList<BzLivePlayerStatRaw> | { home?: BzLivePlayerStatRaw[]; away?: BzLivePlayerStatRaw[] }
-            >(deps, `/events/${eventId}/player-stats/`),
-          ),
-        )
+      ? cached(deps, `live:player-stats-raw:${gameId}`, finished ? TTL.finished : TTL.playerStatsLive, async () => ({
+          raw: await providerGet<BzPlayerStatsPayload>(deps, `/events/${eventId}/player-stats/`),
+        }))
       : Promise.resolve(null),
     wantRich
       ? cached(deps, `live:broadcasts-mx:${gameId}`, TTL.broadcasts, async () =>
@@ -652,6 +648,44 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
         )
       : Promise.resolve(null),
   ]);
+
+  const statsRaw = stRaw.value?.raw ?? null;
+  const playerStatsRaw = pstatsRaw?.value?.raw ?? null;
+  const parsedStats = parseLiveStats(statsRaw);
+  const playerStats = playerStatsRaw ? parsePlayerStats(playerStatsRaw) : [];
+  const telemetry =
+    statsRaw || playerStatsRaw
+      ? extractBzzoiroMatchTelemetry(statsRaw, playerStatsRaw)
+      : null;
+  const telemetryShots = telemetry ? telemetry.shotmap.shots.map(normalizedShotToLiveShot) : [];
+  const shots = telemetryShots.length > 0 ? telemetryShots : parsedStats.shots;
+  const telemetryXgTimeline: LiveXgPoint[] = telemetry
+    ? telemetry.shotmap.xgTimeline.map((pt) => ({
+        minute: pt.minute,
+        home: pt.cumHome,
+        away: pt.cumAway,
+      }))
+    : [];
+  const xgTimeline = telemetryXgTimeline.length > 0 ? telemetryXgTimeline : parsedStats.xgTimeline;
+  const shotmapSummary: LiveShotmapSummary | undefined =
+    telemetry &&
+    (telemetry.shotmap.shots.length > 0 ||
+      telemetry.shotmap.xgTimeline.length > 0 ||
+      telemetry.shotmap.shotsHome > 0 ||
+      telemetry.shotmap.shotsAway > 0 ||
+      telemetry.shotmap.xgHome > 0 ||
+      telemetry.shotmap.xgAway > 0 ||
+      parsedStats.stats !== null)
+      ? {
+          xgHome: telemetry.shotmap.xgHome,
+          xgAway: telemetry.shotmap.xgAway,
+          shotsHome: telemetry.shotmap.shotsHome,
+          shotsAway: telemetry.shotmap.shotsAway,
+        }
+      : undefined;
+  const averagePositions: LiveAveragePosition[] = telemetry
+    ? normalizedAvgPositionsToLive(telemetry.averagePositions)
+    : [];
 
   const incidents = inc.value ?? [];
   let inPlayWinProb: LiveMatchDetail["inPlayWinProb"] = null;
@@ -700,13 +734,19 @@ export async function getLiveMatchDetail(gameId: string, deps: LiveDeps = defaul
     ...empty,
     entry,
     incidents,
-    ...(st.value ?? {}),
+    stats: parsedStats.stats,
+    xgEstimated: telemetry?.shotmap.xgEstimated ?? parsedStats.xgEstimated,
+    momentum: parsedStats.momentum,
+    xgTimeline,
+    shots,
+    ...(shotmapSummary ? { shotmapSummary } : {}),
+    ...(averagePositions.length > 0 ? { averagePositions } : {}),
     ...(comm?.value && comm.value.length > 0 ? { commentary: comm.value } : {}),
-    ...(pstats?.value && pstats.value.length > 0 ? { playerStats: pstats.value } : {}),
+    ...(playerStats.length > 0 ? { playerStats } : {}),
     ...(bcasts?.value && bcasts.value.length > 0 ? { broadcastsMx: bcasts.value } : {}),
     ...(inPlayWinProb ? { inPlayWinProb } : {}),
-    sourceFetchedAt: sourceFetchedAt ?? inc.fetchedAt?.toISOString() ?? null,
-    notice: notice ?? inc.notice ?? st.notice ?? comm?.notice ?? pstats?.notice ?? bcasts?.notice ?? null,
+    sourceFetchedAt: sourceFetchedAt ?? inc.fetchedAt?.toISOString() ?? stRaw.fetchedAt?.toISOString() ?? null,
+    notice: notice ?? inc.notice ?? stRaw.notice ?? comm?.notice ?? pstatsRaw?.notice ?? bcasts?.notice ?? null,
     nextPollSeconds: finished ? null : livePoll(entry, now),
   };
 }

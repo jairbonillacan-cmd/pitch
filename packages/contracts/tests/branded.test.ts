@@ -14,12 +14,14 @@ import {
   assertStrictFiniteNumber,
   assertUnitProbability,
   clampToUnitProbability,
+  containsForbiddenFd16Term,
   createRedactedVisitorPick,
   createSanitizedErrorPayload,
   createSpacetimeAnchoredQuote,
   isCanonicalPublicSlug,
   isOpaqueResourceId,
   isPositiveDecimalOdds,
+  isSafePublicLabel,
   isUnitProbability,
   parseCanonicalPublicSlug,
   parseOpaqueResourceId,
@@ -730,6 +732,145 @@ describe("@pitchlab/contracts · Branded types & Level 1 constructors", () => {
         message: "raw",
       };
       expect(rawPayload.code).toBe("INTERNAL_ERROR");
+    });
+  });
+
+  describe("FD-16 · containsForbiddenFd16Term & isSafePublicLabel", () => {
+    it("blocks all normalized providers/competitors, FD-16 algorithms, URLs/domains, raw 5+ digit IDs, and forbidden editorial jargon", () => {
+      const forbiddenSamples = [
+        "Bzzoiro",
+        "bzzoiro",
+        "SportMonks",
+        "Sport Monks",
+        "SofaScore",
+        "Sofa-Score",
+        "ESPN",
+        "a.espncdn.com",
+        "oddsapi",
+        "odds-api",
+        "Odds API",
+        "The Odds API",
+        "the_odds_api",
+        "theoddsapi",
+        "API-Football",
+        "API Football",
+        "apifootball",
+        "ScoutPicks",
+        "Scout Picks",
+        "AstraAnalisis",
+        "Astra Análisis",
+        "nflverse",
+        "NFL-verse",
+        "openfootball",
+        "Open Football",
+        "Polymarket",
+        "Poly-Market",
+        "Kalshi",
+        "Understat",
+        "Betfair",
+        "Betfair Exchange",
+        "FlashScore",
+        "Flash Score",
+        "WhoScored",
+        "Who-Scored",
+        "FBref",
+        "FB-Ref",
+        "Dixon-Coles",
+        "DixonColes",
+        "Dixon Coles",
+        "dixon_coles",
+        "Poisson",
+        "Modelo Poisson bivariado",
+        "LightGBM",
+        "Light GBM",
+        "Platt",
+        "Calibración Platt",
+        "Pitágoras",
+        "Pitagoras",
+        "Venn-Abers",
+        "VennAbers",
+        "CatBoost",
+        "XGBoost",
+        "Elo",
+        "Rating Elo",
+        "ClubElo",
+        "xG-Elo",
+        "Brier",
+        "Brier score",
+        "log-loss",
+        "Log Loss",
+        "logloss",
+        "ECE",
+        "ECE 0.03",
+        "mc ",
+        "MC 10000",
+        "Simulación MC",
+        "Monte Carlo",
+        "monte-carlo",
+        "HGB",
+        "PAVA",
+        "Log5",
+        "xG",
+        "Diferencia de xG",
+        "xG%",
+        "xGA",
+        "xGOT",
+        "https://example.com/feed",
+        "http://caliente.mx/odds",
+        "www.ejemplo.org",
+        "example.com",
+        "api.datos.io",
+        "tracker.app",
+        "feed.net/live",
+        "12345",
+        "Evento 602407",
+        "fixture_19621792",
+        "match-987654",
+        "Confianza 82",
+        "Confianza: 78 %",
+        "Confianza-90",
+        "Datos completos",
+        "Datos parciales",
+        "Datos completos / parciales",
+      ];
+
+      for (const sample of forbiddenSamples) {
+        expect(containsForbiddenFd16Term(sample), sample).toBe(true);
+        expect(isSafePublicLabel(sample), sample).toBe(false);
+      }
+    });
+
+    it("accepts clean Spanish/English public labels without false positives and rejects empty/control strings", () => {
+      expect(containsForbiddenFd16Term("")).toBe(false);
+      expect(containsForbiddenFd16Term("   ")).toBe(false);
+      expect(isSafePublicLabel("")).toBe(false);
+      expect(isSafePublicLabel("   ")).toBe(false);
+      expect(isSafePublicLabel("Línea\nrota")).toBe(false);
+
+      const safeSamples = [
+        "Calidad de sus tiros a 5 contra 5",
+        "Duelo de porteros",
+        "Duelo de abridores",
+        "Otro factor del modelo",
+        "Hielo local y altura",
+        "Real Espanyol",
+        "Forma reciente",
+        "Connor McDavid",
+        "Christian McCaffrey",
+        "Temporada 2026",
+        "Más de 225.5 puntos",
+        "Abridores confirmados",
+        "J.R. Smith",
+        "St. Louis Blues",
+        "Confianza del equipo en casa",
+        "Datos de localía y descanso",
+        "Ritmo ofensivo reciente",
+      ];
+
+      for (const sample of safeSamples) {
+        expect(containsForbiddenFd16Term(sample), sample).toBe(false);
+        expect(isSafePublicLabel(sample), sample).toBe(true);
+      }
     });
   });
 });

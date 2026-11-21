@@ -8,6 +8,9 @@ import {
   SOURCE_LEGAL_REGISTRY,
   SourceBlockedError,
 } from "../src/odds/legal-registry.js";
+import { selectExpansionOddsTargets } from "../src/bzzoiro-expansion-cli.js";
+import { parseOddsRefreshCliFlags } from "../src/odds-refresh-cli.js";
+import { BZZOIRO_TIER1_CUP_ODDS_LEAGUES } from "../src/odds/bzzoiro-odds.js";
 import { parseTheOddsApiEvents } from "../src/odds/the-odds-api.js";
 import { parseBetfairCatalogueAndBooks } from "../src/odds/betfair-exchange.js";
 import { buildOddsCadencePlan } from "../src/odds/cadence-scheduler.js";
@@ -309,5 +312,65 @@ describe("Parte 1 · Compuerta legal, adaptadores grabados, cadencia y armado de
       "utf8",
     );
     expect(afterBytes).toBe(beforeBytes);
+  });
+
+  it("parseOddsRefreshCliFlags y selectExpansionOddsTargets soportan --odds-only, copas Tier 1 y workflows periódicos", () => {
+    expect(
+      parseOddsRefreshCliFlags([
+        "--odds-only",
+        "--tier1-cups-only",
+        "--force",
+        "--dry-run",
+        "--window=prekickoff",
+      ]),
+    ).toEqual({
+      windowMode: "prekickoff",
+      force: true,
+      dryRun: true,
+      oddsOnly: true,
+      includeExpansion: false,
+      tier1CupsOnly: true,
+      skipTier1Cups: false,
+      skipNba: false,
+    });
+
+    expect(
+      parseOddsRefreshCliFlags(["--include-expansion", "--skip-tier1-cups", "--skip-nba"]),
+    ).toEqual({
+      windowMode: "auto",
+      force: false,
+      dryRun: false,
+      oddsOnly: false,
+      includeExpansion: true,
+      tier1CupsOnly: false,
+      skipTier1Cups: true,
+      skipNba: true,
+    });
+
+    expect(() => parseOddsRefreshCliFlags(["--window=invalido"])).toThrow();
+
+    const tier1Targets = selectExpansionOddsTargets({ tier1CupsOnly: true });
+    expect(tier1Targets.map((c) => c.id)).toEqual([...BZZOIRO_TIER1_CUP_ODDS_LEAGUES]);
+
+    const allTargets = selectExpansionOddsTargets();
+    expect(allTargets.length).toBeGreaterThan(tier1Targets.length);
+    const leadingIds = allTargets.slice(0, BZZOIRO_TIER1_CUP_ODDS_LEAGUES.length).map((c) => c.id);
+    expect(new Set(leadingIds)).toEqual(new Set(BZZOIRO_TIER1_CUP_ODDS_LEAGUES));
+
+    const oddsRefreshWorkflow = readFileSync(
+      resolve(REPO_ROOT, ".github/workflows/odds-refresh.yml"),
+      "utf8",
+    );
+    expect(oddsRefreshWorkflow).toContain("--odds-only");
+    expect(oddsRefreshWorkflow).toContain("--tier1-cups-only");
+    expect(oddsRefreshWorkflow).toContain("data/snapshots");
+
+    const preMvpWorkflow = readFileSync(
+      resolve(REPO_ROOT, ".github/workflows/pre-mvp-snapshot.yml"),
+      "utf8",
+    );
+    expect(preMvpWorkflow).toContain("--odds-only");
+    expect(preMvpWorkflow).toContain("snapshot:us");
+    expect(preMvpWorkflow).toContain("snapshot:us-standings");
   });
 });

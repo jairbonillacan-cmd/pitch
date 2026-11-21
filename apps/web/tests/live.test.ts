@@ -3,8 +3,16 @@ import { join } from "node:path";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  LIVE_CAPABLE_BZZOIRO_LEAGUES,
+  LiveAveragePositionSchema,
+  LiveMatchDetailSchema,
+  LiveShotSchema,
+  LiveShotmapSummarySchema,
+} from "@pitchlab/contracts";
 import { applyMigrations, type Db } from "@pitchlab/db";
 import {
+  LIVE_LEAGUES,
   dbLiveStore,
   getLiveMatchDetail,
   getLiveScoreboard,
@@ -410,5 +418,228 @@ describe("cabeceras, cuota y cierre anti-scraping en rutas live/search", () => {
     const body = (await ok.json()) as { items: unknown[] };
     expect(Array.isArray(body.items)).toBe(true);
     expect(body.items.length).toBeLessThanOrEqual(40);
+  });
+});
+
+describe("telemetría Bzzoiro en vivo (LIVE_LEAGUES, shotmap, posiciones medias y FD-16)", () => {
+  it("LIVE_LEAGUES se deriva directamente desde LIVE_CAPABLE_BZZOIRO_LEAGUES de @pitchlab/contracts", () => {
+    expect(LIVE_LEAGUES).toBe(LIVE_CAPABLE_BZZOIRO_LEAGUES);
+    expect(LIVE_LEAGUES["liga-mx"]).toEqual([19, 20]);
+    expect(LIVE_LEAGUES["champions-league"]).toEqual([7]);
+    expect(LIVE_LEAGUES["nba"]).toBeUndefined();
+  });
+
+  it("en modo estándar puebla shots normalizados, xgTimeline y shotmapSummary desde stats.json sin duplicar requests", async () => {
+    const p = fakeProvider();
+    const d = deps("2026-11-14T23:34:00Z", p.fetch);
+    const first = await getLiveMatchDetail(QRO_MTY, d);
+    const second = await getLiveMatchDetail(QRO_MTY, d);
+
+    expect(p.calls.filter((c) => c === "/events/602407/stats/")).toHaveLength(1);
+    expect(first?.shots).toHaveLength(6);
+    expect(first?.shots.map((s) => s.minute)).toEqual([71, 73, 75, 81, 82, 84]);
+    expect(first?.shots.find((s) => s.minute === 81)?.outcome).toBe("save");
+    expect(first?.shots.find((s) => s.minute === 84)?.outcome).toBe("goal");
+    expect(first?.shotmapSummary).toEqual({
+      xgHome: 1.81,
+      xgAway: 0.35,
+      shotsHome: 20,
+      shotsAway: 8,
+    });
+    expect(first?.xgTimeline.at(-1)).toEqual({ minute: 84, home: 1.815, away: 0.348 });
+    expect(second?.shots).toEqual(first?.shots);
+    expect(() => LiveMatchDetailSchema.parse(first)).not.toThrow();
+
+    const serialized = JSON.stringify(first);
+    expect(serialized).not.toContain("602407");
+    expect(serialized).not.toContain("654339");
+  });
+
+  it("en modo enriquecido reutiliza statsRaw y playerStatsRaw sin duplicar requests, puebla shotmap + averagePositions y cumple FD-16", async () => {
+    const p = fakeProvider({
+      "/events/602407/stats/": {
+        event_id: 602407,
+        xg_estimated: false,
+        shotmap: [
+          {
+            min: 24,
+            added_time: 2,
+            home: true,
+            type: "save",
+            xg: 0.312,
+            pos: { x: 0.88, y: 0.49 },
+            player_id: 88776655,
+            body_part: "right_foot",
+          },
+          {
+            minute: 41,
+            is_home: false,
+            outcome: "block",
+            expected_goals: 0.145,
+            coordinates: { x: 0.78, y: 0.54 },
+            player: {
+              id: 77665544,
+              name: "Sergio Canales https://sports.bzzoiro.com/img/player/77665544/",
+            },
+            bodyPart: "head",
+          },
+        ],
+        average_positions: {
+          home: [
+            {
+              id: 88776656,
+              player_id: 88776656,
+              external_id: "ext-secret-602407",
+              player: {
+                id: 88776656,
+                name: "Álvaro Fidalgo https://sports.bzzoiro.com/img/player/88776656/",
+                shirt_number: 8,
+              },
+              average_x: 56.4,
+              average_y: 41.2,
+              touches: 78,
+              photo_url: "https://sports.bzzoiro.com/img/player/88776656/",
+            },
+          ],
+          away: [],
+        },
+      },
+      "/events/602407/player-stats/": {
+        home: [
+          {
+            player_id: 88776655,
+            player: { id: 88776655, name: "Henry Martín" },
+            position: "ST",
+            minutes_played: 41,
+            rating: 8.1,
+            photo_url: "https://a.espncdn.com/headshots/88776655.png",
+          },
+          {
+            player_id: 88776656,
+            player: { id: 88776656, name: "Álvaro Fidalgo" },
+            position: "CM",
+            minutes_played: 41,
+            rating: 8.35,
+            touches: 78,
+          },
+        ],
+        away: [
+          {
+            player_id: 77665544,
+            player: {
+              id: 77665544,
+              name: "Sergio Canales www.bzzoiro.com/player/77665544",
+              jersey_number: 10,
+            },
+            position: "AM",
+            minutes_played: 41,
+            avg_x: 64.5,
+            avg_y: 53.1,
+            touches: 69,
+            rating: 7.9,
+            image_url: "https://sports.bzzoiro.com/img/player/77665544/",
+          },
+        ],
+      },
+      "/events/602407/commentary/": { results: [] },
+      "/events/602407/broadcasts/": { results: [] },
+    });
+
+    const d = deps("2026-11-14T23:34:00Z", p.fetch, {
+      budget: { dailyMax: 0, reserve: 0, unlimited: true },
+      includeRich: true,
+    });
+
+    const detail = await getLiveMatchDetail(QRO_MTY, d);
+    await getLiveMatchDetail(QRO_MTY, d);
+
+    expect(p.calls.filter((c) => c === "/events/602407/stats/")).toHaveLength(1);
+    expect(p.calls.filter((c) => c === "/events/602407/player-stats/")).toHaveLength(1);
+
+    expect(detail?.shots).toEqual([
+      {
+        minute: 24,
+        addedTime: 2,
+        side: "home",
+        outcome: "save",
+        xg: 0.312,
+        x: 88,
+        y: 49,
+        player: "Henry Martín",
+        bodyPart: "right_foot",
+      },
+      {
+        minute: 41,
+        side: "away",
+        outcome: "block",
+        xg: 0.145,
+        x: 78,
+        y: 54,
+        player: "Sergio Canales",
+        bodyPart: "head",
+      },
+    ]);
+    expect(detail?.xgTimeline).toEqual([
+      { minute: 24, home: 0.312, away: 0 },
+      { minute: 41, home: 0.312, away: 0.145 },
+    ]);
+    expect(detail?.shotmapSummary).toEqual({
+      xgHome: 0.312,
+      xgAway: 0.145,
+      shotsHome: 1,
+      shotsAway: 1,
+    });
+    expect(detail?.averagePositions).toEqual([
+      {
+        side: "home",
+        name: "Álvaro Fidalgo",
+        number: 8,
+        position: "CM",
+        x: 56.4,
+        y: 41.2,
+        touches: 78,
+        rating: 8.35,
+      },
+      {
+        side: "away",
+        name: "Sergio Canales",
+        number: 10,
+        position: "AM",
+        x: 64.5,
+        y: 53.1,
+        touches: 69,
+        rating: 7.9,
+      },
+    ]);
+
+    expect(() => LiveMatchDetailSchema.parse(detail)).not.toThrow();
+    for (const shot of detail?.shots ?? []) {
+      expect(() => LiveShotSchema.parse(shot)).not.toThrow();
+    }
+    for (const pos of detail?.averagePositions ?? []) {
+      expect(() => LiveAveragePositionSchema.parse(pos)).not.toThrow();
+    }
+    expect(() => LiveShotmapSummarySchema.parse(detail?.shotmapSummary)).not.toThrow();
+
+    const serialized = JSON.stringify(detail);
+    for (const forbidden of [
+      "602407",
+      "88776655",
+      "88776656",
+      "77665544",
+      "ext-secret-602407",
+      "bzzoiro.com",
+      "espncdn",
+      "https://",
+      "http://",
+      "www.",
+      "photo_url",
+      "image_url",
+      "player_id",
+      "external_id",
+      "event_id",
+    ]) {
+      expect(serialized).not.toContain(forbidden);
+    }
   });
 });

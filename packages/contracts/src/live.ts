@@ -1,48 +1,82 @@
-/**
- * EN-VIVO-1: estado en vivo de un partido tal como lo sirve nuestra API (`/api/live/*`).
- *
- * Todo va con el id propio del partido (`gameId`); el id del proveedor nunca sale del servidor.
- * Es dato derivado y normalizado (no el JSON crudo de Bzzoiro, que la licencia no deja
- * redistribuir).
- */
+import { z } from "zod";
 
-export type LivePhase =
-  /** Aún no empieza. */
-  | "scheduled"
-  /** Primer o segundo tiempo, o tiempo extra. */
-  | "live"
-  | "halftime"
-  /** Penales en curso. */
-  | "penalties"
-  | "final"
-  | "postponed"
-  | "cancelled"
-  /** Pasó la hora y el proveedor no tiene resultado. */
-  | "unknown";
+export const LivePhaseSchema = z.enum([
+  "scheduled",
+  "live",
+  "halftime",
+  "penalties",
+  "final",
+  "postponed",
+  "cancelled",
+  "unknown",
+]);
+export type LivePhase = z.infer<typeof LivePhaseSchema>;
 
-export type LiveSide = "home" | "away";
+export const LiveSideSchema = z.enum(["home", "away"]);
+export type LiveSide = z.infer<typeof LiveSideSchema>;
+
+export const LiveScoreSchema = z.object({
+  home: z.number(),
+  away: z.number(),
+});
 
 export interface LiveScore {
   home: number;
   away: number;
 }
 
+export const LiveIncidentKindSchema = z.enum([
+  "goal",
+  "own_goal",
+  "penalty_goal",
+  "penalty_missed",
+  "yellow",
+  "second_yellow",
+  "red",
+  "sub",
+  "var",
+  "period",
+]);
+
+export const LiveIncidentSchema = z.object({
+  order: z.number(),
+  kind: LiveIncidentKindSchema,
+  side: LiveSideSchema.nullable(),
+  minute: z.number().nullable(),
+  addedTime: z.number().nullable(),
+  player: z.string().nullable(),
+  secondary: z.string().nullable(),
+  score: LiveScoreSchema.nullable(),
+  note: z.string().nullable(),
+});
+
 export interface LiveIncident {
-  /** Orden estable dentro del partido (segundo del partido o posición). */
   order: number;
   kind: "goal" | "own_goal" | "penalty_goal" | "penalty_missed" | "yellow" | "second_yellow" | "red" | "sub" | "var" | "period";
   side: LiveSide | null;
   minute: number | null;
   addedTime: number | null;
-  /** Jugador principal (anotador, amonestado, quien entra). */
   player: string | null;
-  /** Asistencia, o quien sale en un cambio. */
   secondary: string | null;
-  /** Marcador después del gol, si aplica. */
   score: LiveScore | null;
-  /** Texto corto para periodos y VAR («Medio tiempo», «Gol anulado»). */
   note: string | null;
 }
+
+export const LiveTeamStatsSchema = z.object({
+  xg: z.number().nullable(),
+  shots: z.number().nullable(),
+  shotsOnTarget: z.number().nullable(),
+  corners: z.number().nullable(),
+  possessionPct: z.number().nullable(),
+  fouls: z.number().nullable(),
+  yellowCards: z.number().nullable(),
+  redCards: z.number().nullable(),
+  offsides: z.number().nullable(),
+  bigChances: z.number().nullable(),
+  goalsPrevented: z.number().nullable().optional(),
+  touchesInBox: z.number().nullable().optional(),
+  passAccuracyPct: z.number().nullable().optional(),
+});
 
 export interface LiveTeamStats {
   xg: number | null;
@@ -55,13 +89,20 @@ export interface LiveTeamStats {
   redCards: number | null;
   offsides: number | null;
   bigChances: number | null;
-  /** Goles evitados respecto al xGOT/calidad de remates recibidos. */
   goalsPrevented?: number | null;
-  /** Toques dentro del área rival. */
   touchesInBox?: number | null;
-  /** Porcentaje de precisión de pase. */
   passAccuracyPct?: number | null;
 }
+
+export const LiveCommentaryItemSchema = z.object({
+  id: z.string(),
+  order: z.number(),
+  minute: z.number().nullable(),
+  addedTime: z.number().nullable(),
+  text: z.string(),
+  isImportant: z.boolean().optional(),
+  side: LiveSideSchema.nullable().optional(),
+});
 
 export interface LiveCommentaryItem {
   id: string;
@@ -72,6 +113,23 @@ export interface LiveCommentaryItem {
   isImportant?: boolean;
   side?: LiveSide | null;
 }
+
+export const LivePlayerStatRowSchema = z.object({
+  player: z.string(),
+  side: LiveSideSchema,
+  position: z.string().nullable().optional(),
+  minutes: z.number().nullable().optional(),
+  rating: z.number().nullable().optional(),
+  goals: z.number().optional(),
+  assists: z.number().optional(),
+  shots: z.number().optional(),
+  shotsOnTarget: z.number().optional(),
+  keyPasses: z.number().optional(),
+  xg: z.number().nullable().optional(),
+  xa: z.number().nullable().optional(),
+  tackles: z.number().optional(),
+  saves: z.number().optional(),
+});
 
 export interface LivePlayerStatRow {
   player: string;
@@ -90,12 +148,21 @@ export interface LivePlayerStatRow {
   saves?: number;
 }
 
+export const LiveMomentumPointSchema = z.object({
+  minute: z.number(),
+  value: z.number().min(-100).max(100),
+});
+
 export interface LiveMomentumPoint {
-  /** Minuto del partido (45.5 = medio tiempo, 90.5 = final). */
   minute: number;
-  /** −100 (domina la visita) a +100 (domina el local). */
   value: number;
 }
+
+export const LiveXgPointSchema = z.object({
+  minute: z.number().min(0),
+  home: z.number().nonnegative(),
+  away: z.number().nonnegative(),
+});
 
 export interface LiveXgPoint {
   minute: number;
@@ -103,22 +170,88 @@ export interface LiveXgPoint {
   away: number;
 }
 
+export const LiveShotOutcomeSchema = z.enum(["goal", "save", "miss", "block", "post"]);
+export type LiveShotOutcome = z.infer<typeof LiveShotOutcomeSchema>;
+
+export const LiveShotSchema = z.object({
+  minute: z.number().min(0).max(130),
+  addedTime: z.number().int().nonnegative().nullable().optional(),
+  side: LiveSideSchema,
+  outcome: LiveShotOutcomeSchema,
+  xg: z.number().nonnegative().nullable(),
+  x: z.number().min(0).max(100).nullable(),
+  y: z.number().min(0).max(100).nullable(),
+  player: z.string().min(1).max(120).nullable().optional(),
+  bodyPart: z.string().min(1).max(32).nullable().optional(),
+});
+
 export interface LiveShot {
   minute: number;
+  addedTime?: number | null;
   side: LiveSide;
-  outcome: "goal" | "save" | "miss" | "block" | "post";
+  outcome: LiveShotOutcome;
   xg: number | null;
-  /** Posición en la cancha 0–100 (x hacia la portería rival). */
   x: number | null;
   y: number | null;
+  player?: string | null;
+  bodyPart?: string | null;
 }
 
-/** Fila del marcador en vivo (lista de partidos del día). */
+export const LiveAveragePositionSchema = z.object({
+  side: LiveSideSchema,
+  name: z.string().min(1).max(120),
+  shortName: z.string().min(1).max(60).nullable().optional(),
+  number: z.number().int().min(1).max(99).nullable().optional(),
+  position: z.string().min(1).max(32).nullable().optional(),
+  x: z.number().min(0).max(100),
+  y: z.number().min(0).max(100),
+  touches: z.number().int().nonnegative().nullable().optional(),
+  rating: z.number().min(0).max(10).nullable().optional(),
+});
+
+export interface LiveAveragePosition {
+  side: LiveSide;
+  name: string;
+  shortName?: string | null;
+  number?: number | null;
+  position?: string | null;
+  x: number;
+  y: number;
+  touches?: number | null;
+  rating?: number | null;
+}
+
+export const LiveShotmapSummarySchema = z.object({
+  xgHome: z.number().nonnegative(),
+  xgAway: z.number().nonnegative(),
+  shotsHome: z.number().int().nonnegative(),
+  shotsAway: z.number().int().nonnegative(),
+});
+
+export interface LiveShotmapSummary {
+  xgHome: number;
+  xgAway: number;
+  shotsHome: number;
+  shotsAway: number;
+}
+
+export const LiveScoreboardEntrySchema = z.object({
+  gameId: z.string().min(1),
+  league: z.string().min(1),
+  phase: LivePhaseSchema,
+  clock: z.string().nullable(),
+  minute: z.number().nullable(),
+  score: LiveScoreSchema.nullable(),
+  htScore: LiveScoreSchema.nullable(),
+  redCards: LiveScoreSchema.nullable(),
+  referee: z.string().nullable().optional(),
+  kickoffUtc: z.string(),
+});
+
 export interface LiveScoreboardEntry {
   gameId: string;
   league: string;
   phase: LivePhase;
-  /** Minuto mostrado («67», «45+2»); `null` fuera de juego. */
   clock: string | null;
   minute: number | null;
   score: LiveScore | null;
@@ -128,20 +261,40 @@ export interface LiveScoreboardEntry {
   kickoffUtc: string;
 }
 
+export const LiveScoreboardSchema = z.object({
+  generatedAt: z.string(),
+  sourceFetchedAt: z.string().nullable(),
+  active: z.boolean(),
+  nextPollSeconds: z.number().nullable(),
+  notice: z.string().nullable(),
+  entries: z.array(LiveScoreboardEntrySchema),
+});
+
 export interface LiveScoreboard {
   generatedAt: string;
-  /** Cuándo leyó el servidor al proveedor por última vez (`null` si no hizo falta). */
   sourceFetchedAt: string | null;
-  /** `true` si hay al menos un partido en juego o por empezar en minutos. */
   active: boolean;
-  /** Segundos sugeridos para volver a preguntar; `null` = no volver a preguntar. */
   nextPollSeconds: number | null;
-  /** Aviso honesto cuando la fuente no respondió o se cuidó la cuota. */
   notice: string | null;
   entries: LiveScoreboardEntry[];
 }
 
-/** Probabilidades en vivo minuto a minuto (motor determinista In-Play v5.1, sin stake ni EV). */
+export const LiveInPlayWinProbSchema = z.object({
+  minute: z.number(),
+  pHome: z.number(),
+  pDraw: z.number().nullable(),
+  pAway: z.number(),
+  fairHomeDecimal: z.number(),
+  fairDrawDecimal: z.number().nullable(),
+  fairAwayDecimal: z.number(),
+  pNextGoalHome: z.number().optional(),
+  pNextGoalAway: z.number().optional(),
+  pNoMoreGoals: z.number().optional(),
+  expectedFinalTotal: z.number().optional(),
+  redCardsHome: z.number().optional(),
+  redCardsAway: z.number().optional(),
+});
+
 export interface LiveInPlayWinProb {
   readonly minute: number;
   readonly pHome: number;
@@ -158,7 +311,33 @@ export interface LiveInPlayWinProb {
   readonly redCardsAway?: number;
 }
 
-/** Ficha en vivo de un partido. */
+export const LiveMatchDetailSchema = z.object({
+  gameId: z.string().min(1),
+  generatedAt: z.string(),
+  sourceFetchedAt: z.string().nullable(),
+  entry: LiveScoreboardEntrySchema,
+  incidents: z.array(LiveIncidentSchema),
+  stats: z
+    .object({
+      home: LiveTeamStatsSchema,
+      away: LiveTeamStatsSchema,
+    })
+    .nullable(),
+  xgEstimated: z.boolean().nullable(),
+  momentum: z.array(LiveMomentumPointSchema),
+  xgTimeline: z.array(LiveXgPointSchema),
+  shots: z.array(LiveShotSchema),
+  averagePositions: z.array(LiveAveragePositionSchema).optional(),
+  shotmapSummary: LiveShotmapSummarySchema.optional(),
+  commentary: z.array(LiveCommentaryItemSchema).optional(),
+  playerStats: z.array(LivePlayerStatRowSchema).optional(),
+  broadcastsMx: z.array(z.string()).optional(),
+  inPlayWinProb: LiveInPlayWinProbSchema.nullable().optional(),
+  nextPollSeconds: z.number().nullable(),
+  notice: z.string().nullable(),
+  attribution: z.string(),
+});
+
 export interface LiveMatchDetail {
   gameId: string;
   generatedAt: string;
@@ -170,17 +349,14 @@ export interface LiveMatchDetail {
   momentum: LiveMomentumPoint[];
   xgTimeline: LiveXgPoint[];
   shots: LiveShot[];
-  /** Narración minuto a minuto incremental (`?since=`). */
+  averagePositions?: readonly LiveAveragePosition[];
+  shotmapSummary?: LiveShotmapSummary;
   commentary?: LiveCommentaryItem[];
-  /** Estadísticas individuales por jugador en vivo y al cierre. */
   playerStats?: LivePlayerStatRow[];
-  /** Canales de transmisión para México (`country_code=MX`). */
   broadcastsMx?: string[];
-  /** Probabilidad dinámica en vivo según minuto, marcador y tarjetas rojas. */
   inPlayWinProb?: LiveInPlayWinProb | null;
   nextPollSeconds: number | null;
   notice: string | null;
-  /** Atribución exigida por la licencia de la fuente. */
   attribution: string;
 }
 

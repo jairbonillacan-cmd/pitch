@@ -7,6 +7,7 @@ import {
   DRIVER_COPY,
   SPORT_LABEL,
   confirmationViews,
+  isSafeDriverLabel,
   isValidOutlook,
   lineViews,
   marginText,
@@ -655,5 +656,112 @@ describe("platformGameToSportOutlook", () => {
         projection: null,
       }),
     ).toBeNull();
+  });
+});
+
+describe("FD-16 · isSafeDriverLabel y blindaje en SportOutlookCard", () => {
+  it("acepta todas las etiquetas curadas de DRIVER_COPY y etiquetas limpias", () => {
+    for (const label of Object.values(DRIVER_COPY)) {
+      expect(isSafeDriverLabel(label), label).toBe(true);
+    }
+    expect(isSafeDriverLabel("Ritmo ofensivo reciente")).toBe(true);
+    expect(isSafeDriverLabel("Ventaja en rebotes defensivos")).toBe(true);
+    expect(isSafeDriverLabel("Hielo local y descanso")).toBe(true);
+  });
+
+  it("rechaza toda la matriz FD-16 de proveedores, algoritmos, URLs, IDs crudos y jerga editorial", () => {
+    const forbiddenLabels = [
+      undefined,
+      "",
+      "   ",
+      "snake_case_driver",
+      "Bzzoiro",
+      "SportMonks",
+      "SofaScore",
+      "ESPN",
+      "Odds API",
+      "The Odds API",
+      "API-Football",
+      "ScoutPicks",
+      "Astra Análisis",
+      "nflverse",
+      "openfootball",
+      "Polymarket",
+      "Kalshi",
+      "Understat",
+      "Betfair",
+      "FlashScore",
+      "WhoScored",
+      "FBref",
+      "Dixon-Coles",
+      "DixonColes",
+      "Poisson",
+      "LightGBM",
+      "Platt",
+      "Pitágoras",
+      "Pitagoras",
+      "Venn-Abers",
+      "CatBoost",
+      "XGBoost",
+      "Elo",
+      "Rating Elo",
+      "Brier",
+      "log-loss",
+      "ECE",
+      "mc ",
+      "Monte Carlo",
+      "HGB",
+      "PAVA",
+      "Diferencia de xG",
+      "xG%",
+      "Corsi",
+      "Fenwick",
+      "EPA",
+      "https://sports.bzzoiro.com/events/602407",
+      "http://example.com",
+      "www.datos.org",
+      "modelo.io",
+      "radar.app",
+      "cuotas.net",
+      "Evento 602407",
+      "12345",
+      "Confianza 85",
+      "Datos completos",
+      "Datos parciales",
+    ];
+
+    for (const label of forbiddenLabels) {
+      expect(isSafeDriverLabel(label), String(label)).toBe(false);
+    }
+  });
+
+  it("sanitiza drivers hostiles FD-16 antes de renderizar SportOutlookCard", () => {
+    const hostileGame: PlatformGame = {
+      ...SAMPLE_NBA_GAME,
+      spacetime: makeSpacetimeSignal({
+        probs: { home: 0.54, draw: 0, away: 0.46 },
+        drivers: [
+          { label: "Modelo Dixon-Coles", impactLogit: 0.31 },
+          { label: "The Odds API https://sports.bzzoiro.com/602407", impactLogit: -0.25 },
+          { label: "Diferencia de xG y Pitágoras", impactLogit: 0.22 },
+          { label: "Confianza 88 · Datos parciales", impactLogit: 0.19 },
+          { label: "Ritmo ofensivo reciente", impactLogit: 0.14 },
+        ],
+      }),
+    };
+
+    const mapped = platformGameToSportOutlook(hostileGame);
+    expect(mapped).not.toBeNull();
+    const views = topDrivers(mapped!, 5);
+    expect(views.slice(0, 4).every((v) => v.label === "Otro factor del modelo")).toBe(true);
+    expect(views[4]?.label).toBe("Ritmo ofensivo reciente");
+
+    const html = renderToStaticMarkup(
+      <SportOutlookCard outlook={mapped!} oddsFormat="decimal" />,
+    );
+    expect(html).not.toMatch(
+      /Dixon-Coles|Odds API|bzzoiro|602407|Pitágoras|Confianza 88|Datos parciales|\bxG\b|https?:\/\//i,
+    );
+    expect(html).toContain("Otro factor del modelo");
   });
 });

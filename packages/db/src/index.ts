@@ -2,7 +2,12 @@ export * as schema from "./schema";
 export * from "./schema";
 export { applyMigrations, MIGRATIONS_DIR } from "./migrate";
 export * from "./billing";
-export { createDb } from "./client";
+export {
+  createDb,
+  withDbTransaction,
+  type DbExecutor,
+  type DbTransaction,
+} from "./client";
 export { and, desc, eq, inArray, isNotNull, isNull, lte, sql } from "drizzle-orm";
 export * from "./admin";
 export * from "./payouts";

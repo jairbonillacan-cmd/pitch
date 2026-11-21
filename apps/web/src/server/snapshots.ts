@@ -122,6 +122,7 @@ const matchContext = new Set([
   "Visitante",
   "Descanso",
   "Tiempo extra",
+  "Abridores",
 ]);
 
 function matchForClient({ steps: _steps, why: _why, ...match }: MatchAnalysis): MatchAnalysis {

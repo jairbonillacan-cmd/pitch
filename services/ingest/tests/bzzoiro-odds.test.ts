@@ -1,9 +1,13 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { TIER1_MAJOR_CUP_IDS } from "@pitchlab/contracts";
 import {
+  BZZOIRO_ODDS_LEAGUES,
+  BZZOIRO_TIER1_CUP_ODDS_LEAGUES,
   BzzoiroOddsAdapter,
   parseBzzoiroOdds,
+  toSpacetimeAnchoredQuote,
   type BzOddsEvent,
   type BzOddsRow,
 } from "../src/odds/bzzoiro-odds.js";
@@ -144,5 +148,87 @@ describe("Momios de fútbol desde Bzzoiro", () => {
     expect(soloTheOdds.map((a) => a.metadata.sourceId)).toEqual(["the_odds_api"]);
     expect((soloTheOdds[0] as unknown as { options: { excludeLeagues?: string[] } }).options.excludeLeagues)
       .toBeUndefined();
+  });
+
+  it("conserva intacto BZZOIRO_ODDS_LEAGUES (6 ligas canónicas) y exporta aparte BZZOIRO_TIER1_CUP_ODDS_LEAGUES desde TIER1_MAJOR_CUP_IDS", () => {
+    expect(BZZOIRO_ODDS_LEAGUES).toEqual([
+      "liga-mx",
+      "premier-league",
+      "laliga",
+      "bundesliga",
+      "serie-a",
+      "ligue-1",
+    ]);
+    expect(BZZOIRO_TIER1_CUP_ODDS_LEAGUES).toEqual([
+      "champions-league",
+      "europa-league",
+      "libertadores",
+      "mls",
+    ]);
+    expect(BZZOIRO_TIER1_CUP_ODDS_LEAGUES.every((id) => TIER1_MAJOR_CUP_IDS.includes(id))).toBe(true);
+    expect(BZZOIRO_TIER1_CUP_ODDS_LEAGUES).not.toContain("concacaf-champions");
+  });
+
+  it("toSpacetimeAnchoredQuote construye SpacetimeAnchoredQuote congelado y rechaza probabilidades fuera de (0.001, 0.999) o fugas FD-16", () => {
+    const anchored = toSpacetimeAnchoredQuote({
+      bookLabel: "Pinnacle",
+      marketKey: "1x2",
+      selection: "home",
+      line: null,
+      bookDecimal: 2.05,
+      modelProb: 0.55,
+      movement: "STEAM",
+      capturedAtIso: "2026-11-20T15:00:00Z",
+    });
+
+    expect(Object.isFrozen(anchored)).toBe(true);
+    expect(anchored).toMatchObject({
+      bookLabel: "Pinnacle",
+      marketKey: "1x2",
+      selection: "home",
+      line: null,
+      bookDecimal: 2.05,
+      modelProb: 0.55,
+      edgePts: 6.2,
+      evPct: 12.8,
+      movement: "STEAM",
+      capturedAtIso: "2026-11-20T15:00:00Z",
+    });
+    expect(anchored.fairDecimal).toBeCloseTo(1 / 0.55, 4);
+
+    for (const badProb of [0, 0.001, 0.999, 1, Number.NaN]) {
+      expect(() =>
+        toSpacetimeAnchoredQuote({
+          bookLabel: "Pinnacle",
+          marketKey: "1x2",
+          selection: "home",
+          bookDecimal: 2.05,
+          modelProb: badProb,
+          capturedAtIso: "2026-11-20T15:00:00Z",
+        }),
+      ).toThrow(RangeError);
+    }
+
+    expect(() =>
+      toSpacetimeAnchoredQuote({
+        bookLabel: "Bzzoiro Feed",
+        marketKey: "1x2",
+        selection: "home",
+        bookDecimal: 2.05,
+        modelProb: 0.55,
+        capturedAtIso: "2026-11-20T15:00:00Z",
+      }),
+    ).toThrow(RangeError);
+
+    expect(() =>
+      toSpacetimeAnchoredQuote({
+        bookLabel: "Pinnacle",
+        marketKey: "1x2",
+        selection: "home",
+        bookDecimal: 1.0,
+        modelProb: 0.55,
+        capturedAtIso: "2026-11-20T15:00:00Z",
+      }),
+    ).toThrow(RangeError);
   });
 });

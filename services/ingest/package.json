@@ -8,7 +8,8 @@
     "./providers/config": "./src/providers/config.ts",
     "./providers/bzzoiro-live": "./src/providers/bzzoiro-live.ts",
     "./providers/bzzoiro-enrichment": "./src/providers/bzzoiro-enrichment.ts",
-    "./providers/bzzoiro-nba-rich": "./src/providers/bzzoiro-nba-rich.ts"
+    "./providers/bzzoiro-nba-rich": "./src/providers/bzzoiro-nba-rich.ts",
+    "./odds/bzzoiro-odds": "./src/odds/bzzoiro-odds.ts"
   },
   "scripts": {
     "build": "tsc --noEmit",
@@ -33,6 +34,7 @@
     "snapshot:us-standings": "tsx src/us-standings-cli.ts",
     "snapshot:mlb": "tsx src/us-standings-cli.ts --leagues=mlb",
     "snapshot:expansion": "tsx src/bzzoiro-expansion-cli.ts",
+    "snapshot:expansion:odds": "tsx src/bzzoiro-expansion-cli.ts --odds-only",
     "snapshot:referees": "tsx src/bzzoiro-expansion-cli.ts --referees-only",
     "snapshot:shell-index": "tsx src/build-shell-index-cli.ts",
     "history": "tsx src/history/cli.ts",

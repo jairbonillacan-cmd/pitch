@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { and, count, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
 import { accessUntil, grantDays, revokeGrant, type Db } from "./billing";
+import { withDbTransaction, type DbExecutor } from "./client";
 import {
   adminAuditLogs,
   entitlementGrants,
@@ -44,7 +45,7 @@ export interface AdminAuditInput {
   ipSubnetHash?: string | null;
 }
 
-export async function recordAdminAudit(db: Db, entry: AdminAuditInput): Promise<void> {
+export async function recordAdminAudit(db: DbExecutor, entry: AdminAuditInput): Promise<void> {
   await db.insert(adminAuditLogs).values({
     actorUserId: entry.actorUserId,
     actorEmail: entry.actorEmail.trim().toLowerCase(),
@@ -476,12 +477,11 @@ export async function adminGrantAccessDays(
   const cleanReason = input.reason.trim().replace(/\s+/g, " ").slice(0, 280);
   if (cleanReason.length < 3) return { ok: false, reason: "motivo_requerido" };
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
-    const [target] = await t.select({ id: users.id, email: users.email }).from(users).where(eq(users.id, input.targetUserId));
+  return withDbTransaction(db, async (tx) => {
+    const [target] = await tx.select({ id: users.id, email: users.email }).from(users).where(eq(users.id, input.targetUserId));
     if (!target) return { ok: false, reason: "usuario_no_encontrado" } as const;
 
-    const grantId = await grantDays(t, {
+    const grantId = await grantDays(tx, {
       userId: target.id,
       sourceKind: "admin_grant",
       days,
@@ -489,9 +489,9 @@ export async function adminGrantAccessDays(
       now: input.now,
       note: cleanReason,
     });
-    const newAccessUntil = await accessUntil(t, target.id, input.now);
+    const newAccessUntil = await accessUntil(tx, target.id, input.now);
 
-    await recordAdminAudit(t, {
+    await recordAdminAudit(tx, {
       actorUserId: input.adminUserId,
       actorEmail: input.adminEmail,
       action: "admin_grant_access",
@@ -522,13 +522,12 @@ export async function adminRevokeGrant(
   const cleanReason = input.reason.trim().replace(/\s+/g, " ").slice(0, 280);
   if (cleanReason.length < 3) return { ok: false, reason: "motivo_requerido" };
 
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
-    const revoked = await revokeGrant(t, input.grantId, cleanReason, input.now);
+  return withDbTransaction(db, async (tx) => {
+    const revoked = await revokeGrant(tx, input.grantId, cleanReason, input.now);
     if (!revoked) return { ok: false, reason: "no_encontrada_o_revocada" } as const;
 
-    const newAccessUntil = await accessUntil(t, revoked.userId, input.now);
-    await recordAdminAudit(t, {
+    const newAccessUntil = await accessUntil(tx, revoked.userId, input.now);
+    await recordAdminAudit(tx, {
       actorUserId: input.adminUserId,
       actorEmail: input.adminEmail,
       action: "admin_revoke_grant",
@@ -604,28 +603,55 @@ export async function recordMemberInboxMessage(
   return { id: inserted!.id, createdAt: inserted!.createdAt };
 }
 
-export async function listAdminInbox(db: Db, limit = 80): Promise<AdminInboxItem[]> {
-  const safeLimit = Math.max(1, Math.min(200, Math.trunc(limit)));
+export async function listAdminInbox(
+  db: Db,
+  limit: number = MAX_ADMIN_LIST_LIMIT,
+): Promise<AdminInboxItem[]> {
+  const safeLimit = clampAdminLimit(limit, MAX_ADMIN_LIST_LIMIT, MAX_ADMIN_LIST_LIMIT);
   const rows = await db
-    .select()
+    .select({
+      id: adminAuditLogs.id,
+      action: adminAuditLogs.action,
+      actorUserId: adminAuditLogs.actorUserId,
+      actorEmail: adminAuditLogs.actorEmail,
+      payloadJson: adminAuditLogs.payloadJson,
+      createdAt: adminAuditLogs.createdAt,
+    })
     .from(adminAuditLogs)
     .where(inArray(adminAuditLogs.action, ["member_feedback", "member_support_contact", "member_deletion_request"]))
-    .orderBy(desc(adminAuditLogs.createdAt))
+    .orderBy(desc(adminAuditLogs.createdAt), desc(adminAuditLogs.id))
     .limit(safeLimit);
 
   if (rows.length === 0) return [];
 
   const itemIds = rows.map((r) => r.id);
-  const resolutions = await db
-    .select()
+  const rankedResolutions = db
+    .select({
+      targetKey: adminAuditLogs.targetKey,
+      actorEmail: adminAuditLogs.actorEmail,
+      payloadJson: adminAuditLogs.payloadJson,
+      createdAt: adminAuditLogs.createdAt,
+      rn: sql<number>`row_number() over (partition by ${adminAuditLogs.targetKey} order by ${adminAuditLogs.createdAt} desc, ${adminAuditLogs.id} desc)::int`.as(
+        "rn",
+      ),
+    })
     .from(adminAuditLogs)
     .where(and(eq(adminAuditLogs.action, "admin_inbox_resolved"), inArray(adminAuditLogs.targetKey, itemIds)))
-    .orderBy(desc(adminAuditLogs.createdAt));
+    .as("ranked_inbox_resolutions");
 
-  const resByTarget = new Map<string, (typeof resolutions)[number]>();
-  for (const r of resolutions) {
-    if (!resByTarget.has(r.targetKey)) resByTarget.set(r.targetKey, r);
-  }
+  const resolutions = await db
+    .select({
+      targetKey: rankedResolutions.targetKey,
+      actorEmail: rankedResolutions.actorEmail,
+      payloadJson: rankedResolutions.payloadJson,
+      createdAt: rankedResolutions.createdAt,
+    })
+    .from(rankedResolutions)
+    .where(sql`${rankedResolutions.rn} = 1`)
+    .orderBy(desc(rankedResolutions.createdAt))
+    .limit(itemIds.length);
+
+  const resByTarget = new Map(resolutions.map((r) => [r.targetKey, r]));
 
   return rows.map((r) => {
     const payload = (r.payloadJson ?? {}) as Record<string, unknown>;
@@ -688,12 +714,22 @@ export async function markAdminInboxResolved(
   return { ok: true };
 }
 
-export async function listAdminAuditLogs(db: Db, limit = 60): Promise<AdminAuditEntryItem[]> {
-  const safeLimit = Math.max(1, Math.min(200, Math.trunc(limit)));
+export async function listAdminAuditLogs(
+  db: Db,
+  limit: number = MAX_ADMIN_LIST_LIMIT,
+): Promise<AdminAuditEntryItem[]> {
+  const safeLimit = clampAdminLimit(limit, MAX_ADMIN_LIST_LIMIT, MAX_ADMIN_LIST_LIMIT);
   const rows = await db
-    .select()
+    .select({
+      id: adminAuditLogs.id,
+      action: adminAuditLogs.action,
+      actorEmail: adminAuditLogs.actorEmail,
+      targetKey: adminAuditLogs.targetKey,
+      payloadJson: adminAuditLogs.payloadJson,
+      createdAt: adminAuditLogs.createdAt,
+    })
     .from(adminAuditLogs)
-    .orderBy(desc(adminAuditLogs.createdAt))
+    .orderBy(desc(adminAuditLogs.createdAt), desc(adminAuditLogs.id))
     .limit(safeLimit);
 
   return rows.map((r) => ({

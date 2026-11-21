@@ -1,12 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { asLeagueId } from "@pitchlab/contracts";
-import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/platform";
+import { buildPlatformDataset } from "@pitchlab/ui/picks-engine";
+import { platformGameToSportOutlook } from "@pitchlab/ui/sport-outlook";
+import type { PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
 import { buildDerivedUsSportRows } from "../src/server/outlook-derived-rows";
 import {
   detectSignificantLineMoves,
   findPreMatchPushGames,
 } from "../src/server/push-alerts";
-import { loadAllActiveLeagueSnapshots, PRODUCT_LEAGUES } from "../src/server/snapshots";
+import {
+  loadAllActiveLeagueSnapshots,
+  loadLeagueSnapshotEnvelope,
+  PRODUCT_LEAGUES,
+} from "../src/server/snapshots";
 import { loadPlayerPropStreakCards } from "../src/server/props-explorer";
 
 describe("Paridad US/MLB, despachador Push y shell-index (ADR-045 / ADR-047)", () => {
@@ -112,5 +118,45 @@ describe("Paridad US/MLB, despachador Push y shell-index (ADR-045 / ADR-047)", (
 
     const streakCards = loadPlayerPropStreakCards(12);
     expect(Array.isArray(streakCards)).toBe(true);
+  });
+
+  it("conserva el factor «Abridores» en loadLeagueSnapshotEnvelope('mlb') y devuelve abridores probables reales en platformGameToSportOutlook", () => {
+    const mlbEnvelope = loadLeagueSnapshotEnvelope("mlb");
+    expect(mlbEnvelope.state).toBe("ready");
+    expect(mlbEnvelope.data).toBeDefined();
+
+    const mlbData = mlbEnvelope.data!;
+    const rawGamesWithPitchers = mlbData.games.filter(
+      (g) =>
+        g.hasForecast !== false &&
+        g.factors.some((f) => f.label === "Abridores"),
+    );
+    expect(rawGamesWithPitchers.length).toBeGreaterThan(0);
+
+    const dataset = buildPlatformDataset([mlbData]);
+    const targetRaw = rawGamesWithPitchers[0]!;
+    const targetPlatformGame = dataset.games.find((g) => g.id === targetRaw.id);
+    expect(targetPlatformGame).toBeDefined();
+    expect(
+      targetPlatformGame!.factors.some((f) => f.label === "Abridores"),
+    ).toBe(true);
+
+    const outlook = platformGameToSportOutlook(targetPlatformGame!);
+    expect(outlook).not.toBeNull();
+    expect(outlook!.sport).toBe("mlb");
+
+    const probablePitchers = (outlook!.confirmations ?? []).filter(
+      (c) =>
+        c.kind === "starting_pitcher" &&
+        c.status === "probable" &&
+        typeof c.playerName === "string" &&
+        c.playerName.trim().length > 0,
+    );
+    expect(probablePitchers.length).toBeGreaterThanOrEqual(1);
+    expect(
+      probablePitchers.every(
+        (c) => !/por confirmar|por definir|tbd/i.test(c.playerName ?? ""),
+      ),
+    ).toBe(true);
   });
 });

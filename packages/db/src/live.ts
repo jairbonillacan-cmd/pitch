@@ -5,6 +5,7 @@ import { liveFeedCache, liveMatchEvents, providerMatchLinks, providerQuota, watc
 const GAME_ID_RE = /^[a-zA-Z0-9._-]{1,128}$/;
 const CACHE_KEY_RE = /^[a-z0-9:._-]{1,160}$/;
 const MAX_FOLLOWED_GAMES_LIMIT = 40;
+const MAX_LIVE_ALERTS_LIMIT = 40;
 
 export type LiveProvider = "bzzoiro";
 
@@ -215,7 +216,15 @@ export interface LiveAlert {
   occurredAtIso: string;
 }
 
-export async function listLiveAlertsForUser(db: Db, userId: string, since: Date, limit = 50): Promise<LiveAlert[]> {
+export async function listLiveAlertsForUser(
+  db: Db,
+  userId: string,
+  since: Date,
+  limit: number = MAX_LIVE_ALERTS_LIMIT,
+): Promise<LiveAlert[]> {
+  const safeLimit = Number.isFinite(limit)
+    ? Math.min(MAX_LIVE_ALERTS_LIMIT, Math.max(1, Math.trunc(limit)))
+    : MAX_LIVE_ALERTS_LIMIT;
   const rows = await db
     .select({
       id: liveMatchEvents.id,
@@ -240,8 +249,8 @@ export async function listLiveAlertsForUser(db: Db, userId: string, since: Date,
         ),
       ),
     )
-    .orderBy(desc(liveMatchEvents.occurredAt))
-    .limit(Math.min(Math.max(limit, 1), 100));
+    .orderBy(desc(liveMatchEvents.occurredAt), desc(liveMatchEvents.id))
+    .limit(safeLimit);
   return rows.map((r) => ({
     id: r.id,
     gameId: r.gameId,

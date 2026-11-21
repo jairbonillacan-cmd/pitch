@@ -1,15 +1,12 @@
-/**
- * Adaptador `api_only` de momios de fútbol desde Bzzoiro Sports Data (`/api/v2/`).
- *
- * Por cada liga de fútbol activa lista los partidos por jugar (`/events/`) y baja los momios
- * prepartido de cada uno (`/odds/?event_id=`, `/odds/best/` y `/events/{id}/odds/comparison/`).
- * Emite filas canónicas (`1x2`, `totals`, `btts`, `ah`, `corners_total`, `double_chance`, `dnb`,
- * `clean_sheet_*`, `win_to_nil_*`) con apertura, delta porcentual y señal de movimiento
- * (`SHORTENING` | `DRIFTING` | `STEAM` | `STABLE`).
- *
- * Licencia Bzzoiro v4.0 + FD-16: toda comparativa multi-casa se ancla al análisis propio de
- * Spacetime v5.1 (`fairOdds`, `edgePts`, `evPct`), jamás como feed crudo ni con IDs de proveedor.
- */
+import {
+  TIER1_MAJOR_CUP_IDS,
+  createSpacetimeAnchoredQuote,
+  getLeagueCapability,
+  parseStrictFiniteNumber,
+  type ProductLeagueId,
+  type QuoteMovement,
+  type SpacetimeAnchoredQuote,
+} from "@pitchlab/contracts";
 import { normalizeLine, type OddsLineMovement, type OddsSnapshotRow } from "@pitchlab/spacetime";
 import type { CanonicalLeague } from "../mappings.js";
 import { BZZOIRO_LEAGUES } from "../providers/bzzoiro.js";
@@ -25,7 +22,6 @@ import {
 
 export const BZZOIRO_ODDS_BASE_URL_DEFAULT = "https://sports.bzzoiro.com/api/v2";
 
-/** Ligas de PitchLab que Bzzoiro cubre (todas las de fútbol). */
 export const BZZOIRO_ODDS_LEAGUES: readonly CanonicalLeague[] = [
   "liga-mx",
   "premier-league",
@@ -35,7 +31,19 @@ export const BZZOIRO_ODDS_LEAGUES: readonly CanonicalLeague[] = [
   "ligue-1",
 ];
 
-/** Mercados de Bzzoiro consultables vía `/api/v2/odds/best/?market=`. */
+export const BZZOIRO_TIER1_CUP_ODDS_LEAGUES: readonly ProductLeagueId[] = Object.freeze(
+  TIER1_MAJOR_CUP_IDS.filter((id) => {
+    const capability = getLeagueCapability(id);
+    return Boolean(
+      capability &&
+        capability.hasOddsIngest &&
+        capability.providers.odds === "bzzoiro" &&
+        capability.bzzoiroId !== null &&
+        id in BZZOIRO_LEAGUES,
+    );
+  }),
+);
+
 export const BZZOIRO_EXTENDED_ODDS_MARKETS = [
   "1x2",
   "over_under",
@@ -48,7 +56,6 @@ export const BZZOIRO_EXTENDED_ODDS_MARKETS = [
   "win_to_nil",
 ] as const;
 
-/** `bookmaker_slug` de Bzzoiro → casa canónica permitida por el validador de snapshots. */
 const BZZOIRO_BOOK_MAP: Readonly<Record<string, string>> = {
   pinnacle: "pinnacle",
   bet365: "bet365",
@@ -65,7 +72,6 @@ const BZZOIRO_BOOK_MAP: Readonly<Record<string, string>> = {
   betmgm: "betmgm",
 };
 
-/** Casas relevantes para comparativa analítica multi-casa (MX + US + sharp global). */
 export const BZZOIRO_COMPARISON_BOOK_META: Readonly<
   Record<string, { readonly canonical: string; readonly label: string; readonly isSharp?: boolean }>
 > = {
@@ -99,11 +105,12 @@ export const PRIORITY_COMPARISON_BOOKS = new Set([
   "caliente_mx",
 ]);
 
-/** Días hacia adelante que se consultan; más allá casi no hay casas con precio. */
 const LOOKAHEAD_DAYS = 8;
 const PAGE_LIMIT = 200;
 const MAX_PAGES = 10;
 const MAX_PAGES_UNLIMITED = 30;
+const STRICT_ISO_TIMESTAMP_RE =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/;
 
 export type LineMovementSignal = "SHORTENING" | "DRIFTING" | "STEAM" | "STABLE";
 
@@ -176,11 +183,11 @@ export interface SelectionOddsComparison {
   readonly deltaPct: number | null;
   readonly impliedProbDeltaPts: number | null;
   readonly signal: LineMovementSignal;
-  /** Ancla analítica Spacetime v5.1 (probabilidad y momio justo `1/p`). */
   readonly modelProb: number | null;
   readonly fairOdds: number | null;
   readonly edgePts: number | null;
   readonly evPct: number | null;
+  readonly anchoredQuote?: SpacetimeAnchoredQuote;
   readonly books: readonly ComparisonBookQuote[];
 }
 
@@ -201,6 +208,18 @@ export interface BestOddsComparisonEntry {
   readonly fairOdds: number | null;
   readonly edgePts: number | null;
   readonly evPct: number | null;
+  readonly anchoredQuote?: SpacetimeAnchoredQuote;
+}
+
+export interface ToSpacetimeAnchoredQuoteInput {
+  readonly bookLabel: string;
+  readonly marketKey: string;
+  readonly selection: string;
+  readonly line?: number | null;
+  readonly bookDecimal: number;
+  readonly modelProb: number;
+  readonly movement?: LineMovementSignal;
+  readonly capturedAtIso?: string;
 }
 
 const URL_STRIP_RE = /https?:\/\/\S+|www\.\S+/gi;
@@ -226,20 +245,23 @@ function round3(v: number): number {
   return Math.round(v * 1000) / 1000;
 }
 
-function parseFiniteNumber(raw: unknown): number | null {
-  if (raw == null || typeof raw === "boolean") return null;
-  if (typeof raw === "string" && raw.trim() === "") return null;
-  const n = typeof raw === "number" ? raw : Number(raw);
-  return Number.isFinite(n) ? n : null;
+function normalizeCapturedAtIso(raw: unknown): string | undefined {
+  if (typeof raw !== "string") return undefined;
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+  const ms = Date.parse(trimmed);
+  if (!Number.isFinite(ms)) return undefined;
+  if (STRICT_ISO_TIMESTAMP_RE.test(trimmed)) return trimmed;
+  return new Date(ms).toISOString();
 }
 
 function parseExplicitLine(raw: unknown): number | null {
-  const n = parseFiniteNumber(raw);
+  const n = parseStrictFiniteNumber(raw);
   return n !== null ? normalizeLine(n) : null;
 }
 
 function parseDecimalOdds(raw: unknown): number | null {
-  const n = parseFiniteNumber(raw);
+  const n = parseStrictFiniteNumber(raw);
   if (n === null || n < 1.01 || n > 1000) return null;
   return round3(n);
 }
@@ -253,10 +275,33 @@ function inferLineFromMarketSlug(
   if (explicit !== null && (!requirePositive || explicit > 0)) return explicit;
   const suffix = /(\d{2,3})$/.exec(rawMarket);
   if (suffix?.[1]) {
-    const val = Number(suffix[1]) / 10;
+    const parsedSuffix = parseStrictFiniteNumber(suffix[1]);
+    const val = parsedSuffix !== null ? parsedSuffix / 10 : Number.NaN;
     if (Number.isFinite(val) && val > 0 && val <= 30) return normalizeLine(val);
   }
   return null;
+}
+
+export function toSpacetimeAnchoredQuote(
+  input: ToSpacetimeAnchoredQuoteInput,
+): SpacetimeAnchoredQuote {
+  const prob = parseStrictFiniteNumber(input.modelProb);
+  if (prob === null || prob <= 0.001 || prob >= 0.999) {
+    throw new RangeError("Expected Spacetime modelProb strictly within (0.001, 0.999)");
+  }
+  const movement: QuoteMovement = input.movement ?? "STABLE";
+  const capturedAtIso =
+    input.capturedAtIso === undefined ? new Date().toISOString() : input.capturedAtIso;
+  return createSpacetimeAnchoredQuote({
+    bookLabel: input.bookLabel,
+    marketKey: input.marketKey,
+    selection: input.selection,
+    line: input.line ?? null,
+    bookDecimal: input.bookDecimal,
+    modelProb: prob,
+    movement,
+    capturedAtIso,
+  });
 }
 
 export type MappedQuote = { market: string; line: number | null; selection: string };
@@ -282,15 +327,21 @@ function mapYesNoMarket(baseMarket: string, outcome: string): MappedQuote | null
   return null;
 }
 
-/** Mapea cualquier mercado soportado de Bzzoiro (core + extendidos) a `(market, line, selection)`. */
 export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
   const market = String(row.market ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
   const outcome = String(row.outcome ?? row.selection ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
 
-  if (market === "1x2" || market === "h2h" || market === "match_winner" || market === "full_time_result") {
-    if (outcome === "home" || outcome === "1") return { market: "1x2", line: null, selection: "home" };
-    if (outcome === "draw" || outcome === "x") return { market: "1x2", line: null, selection: "draw" };
-    if (outcome === "away" || outcome === "2") return { market: "1x2", line: null, selection: "away" };
+  if (
+    market === "1x2" ||
+    market === "h2h" ||
+    market === "match_winner" ||
+    market === "full_time_result" ||
+    market === "moneyline" ||
+    market === "ml"
+  ) {
+    if (outcome === "home" || outcome === "1" || outcome === "local") return { market: "1x2", line: null, selection: "home" };
+    if (outcome === "draw" || outcome === "x" || outcome === "empate") return { market: "1x2", line: null, selection: "draw" };
+    if (outcome === "away" || outcome === "2" || outcome === "visita") return { market: "1x2", line: null, selection: "away" };
     return null;
   }
   if (market === "double_chance" || market === "dc") {
@@ -300,8 +351,8 @@ export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
     return null;
   }
   if (market === "draw_no_bet" || market === "dnb") {
-    if (outcome === "home" || outcome === "1") return { market: "dnb", line: null, selection: "home" };
-    if (outcome === "away" || outcome === "2") return { market: "dnb", line: null, selection: "away" };
+    if (outcome === "home" || outcome === "1" || outcome === "local") return { market: "dnb", line: null, selection: "home" };
+    if (outcome === "away" || outcome === "2" || outcome === "visita") return { market: "dnb", line: null, selection: "away" };
     return null;
   }
   if (
@@ -312,8 +363,9 @@ export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
     /^corners_\d+$/.test(market)
   ) {
     const line = inferLineFromMarketSlug(market, row.line, true);
-    if (line === null || line <= 0 || (outcome !== "over" && outcome !== "under")) return null;
-    return { market: "corners_total", line, selection: outcome };
+    const side = outcome === "over" || outcome === "mas" ? "over" : outcome === "under" || outcome === "menos" ? "under" : null;
+    if (line === null || line <= 0 || side === null) return null;
+    return { market: "corners_total", line, selection: side };
   }
   if (
     /^over_under_\d+$/.test(market) ||
@@ -323,13 +375,18 @@ export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
     market === "total_goals"
   ) {
     const line = inferLineFromMarketSlug(market, row.line, true);
-    if (line === null || line <= 0 || (outcome !== "over" && outcome !== "under")) return null;
-    return { market: "totals", line, selection: outcome };
+    const side = outcome === "over" || outcome === "mas" ? "over" : outcome === "under" || outcome === "menos" ? "under" : null;
+    if (line === null || line <= 0 || side === null) return null;
+    return { market: "totals", line, selection: side };
   }
   if (market === "btts" || market === "both_teams_to_score") {
-    return outcome === "yes" || outcome === "no"
-      ? { market: "btts", line: null, selection: outcome }
-      : null;
+    if (outcome === "yes" || outcome === "si" || outcome === "sí" || outcome === "btts_yes") {
+      return { market: "btts", line: null, selection: "yes" };
+    }
+    if (outcome === "no" || outcome === "btts_no") {
+      return { market: "btts", line: null, selection: "no" };
+    }
+    return null;
   }
   if (market === "clean_sheet" || market === "clean_sheet_home" || market === "clean_sheet_away") {
     return market === "clean_sheet"
@@ -345,6 +402,13 @@ export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
         ? { market, line: null, selection: outcome }
         : null;
   }
+  if (market === "spread" || market === "spreads") {
+    const line = parseExplicitLine(row.line);
+    if (line === null) return null;
+    if (outcome === "home" || outcome === "1" || outcome === "local") return { market: "spread", line, selection: "home" };
+    if (outcome === "away" || outcome === "2" || outcome === "visita") return { market: "spread", line, selection: "away" };
+    return null;
+  }
   if (
     market === "asian_handicap" ||
     market === "ah" ||
@@ -352,20 +416,15 @@ export function mapBzzoiroMarketQuote(row: BzOddsRow): MappedQuote | null {
     market.startsWith("asian_handicap_") ||
     market.startsWith("ah_")
   ) {
-    // Bzzoiro publica la línea del local para ambos lados («Home -1.25» / «Away +1.25»).
     const line = parseExplicitLine(row.line);
     if (line === null) return null;
-    if (outcome === "home" || outcome === "1") return { market: "ah", line, selection: "home" };
-    if (outcome === "away" || outcome === "2") return { market: "ah", line, selection: "away" };
+    if (outcome === "home" || outcome === "1" || outcome === "local") return { market: "ah", line, selection: "home" };
+    if (outcome === "away" || outcome === "2" || outcome === "visita") return { market: "ah", line, selection: "away" };
     return null;
   }
   return null;
 }
 
-/**
- * Clasifica el movimiento de línea entre apertura y cuota actual (`SHORTENING` | `DRIFTING` | `STEAM` | `STABLE`)
- * con delta porcentual y cambio en probabilidad implícita (pts).
- */
 export function classifyLineMovement(params: {
   openingDecimal?: number | null;
   currentDecimal: number;
@@ -485,10 +544,6 @@ function selectionPriorKey(market: string, line: number | null, selection: strin
   return `${market}|${line === null ? "null" : String(line)}|${normSel}`;
 }
 
-/**
- * Convierte la línea publicada por Bzzoiro (perspectiva local para ambos lados en `ah`/`spread`)
- * a la línea del lado elegido al cruzar contra probabilidades Spacetime (`Away -1.5` en vez de `+1.5`).
- */
 function sidePerspectiveLine(market: string, selection: string, line: number | null): number | null {
   if (line === null) return null;
   if ((market === "ah" || market === "spread") && selection === "away") {
@@ -507,6 +562,13 @@ function isOlderCapture(existingUtc: string | undefined, incomingUtc: string | u
   return existingMs > incomingMs;
 }
 
+function readPriorEntry(
+  priors: ReadonlyMap<string, number> | Readonly<Record<string, number>>,
+  key: string,
+): unknown {
+  return priors instanceof Map ? priors.get(key) : (priors as Readonly<Record<string, number>>)[key];
+}
+
 function lookupModelProb(
   priors: ReadonlyMap<string, number> | Readonly<Record<string, number>> | undefined,
   market: string,
@@ -514,10 +576,22 @@ function lookupModelProb(
   selection: string,
 ): number | null {
   if (!priors) return null;
-  const key = selectionPriorKey(market, line, selection);
-  const raw = priors instanceof Map ? priors.get(key) : (priors as Readonly<Record<string, number>>)[key];
-  if (typeof raw !== "number" || !Number.isFinite(raw) || raw <= 0.001 || raw >= 0.999) return null;
-  return raw;
+  const candidateKeys = [selectionPriorKey(market, line, selection)];
+  const lineToken = line === null ? "null" : String(line);
+  if (market === "double_chance") {
+    candidateKeys.push(`double_chance|${lineToken}|${selection.toLowerCase()}`);
+  } else if (market === "ah") {
+    candidateKeys.push(`spread|${lineToken}|${selection.toLowerCase()}`);
+  } else if (market === "spread") {
+    candidateKeys.push(`ah|${lineToken}|${selection.toLowerCase()}`);
+  }
+  for (const key of candidateKeys) {
+    const raw = readPriorEntry(priors, key);
+    if (typeof raw === "number" && Number.isFinite(raw) && raw > 0.001 && raw < 0.999) {
+      return raw;
+    }
+  }
+  return null;
 }
 
 function computeSpacetimeAnalytics(modelProb: number | null, currentDecimal: number): {
@@ -535,7 +609,6 @@ function computeSpacetimeAnalytics(modelProb: number | null, currentDecimal: num
   return { modelProb: round3(modelProb), fairOdds, edgePts, evPct };
 }
 
-/** Aplana respuestas heterogéneas de `/events/{id}/odds/comparison/` o `/api/v2/odds/best/`. */
 function flattenComparisonRows(raw: unknown): BzOddsRow[] {
   if (!raw) return [];
   if (Array.isArray(raw)) return raw.flatMap(flattenComparisonRows);
@@ -546,7 +619,6 @@ function flattenComparisonRows(raw: unknown): BzOddsRow[] {
   if (Array.isArray(obj.odds)) return flattenComparisonRows(obj.odds);
   if (Array.isArray(obj.comparisons)) return flattenComparisonRows(obj.comparisons);
 
-  // Formato agrupado: { market, line, outcome, bookmakers: [{ bookmaker_slug, decimal_odds, ... }] }
   if (Array.isArray(obj.bookmakers) || Array.isArray(obj.books)) {
     const booksList = (obj.bookmakers ?? obj.books) as Record<string, unknown>[];
     return booksList.map((b) => ({
@@ -560,7 +632,6 @@ function flattenComparisonRows(raw: unknown): BzOddsRow[] {
     }));
   }
 
-  // Formato `/odds/best/` anidado: { market, line, home_team, away_team, best_odds: { home: { ... }, draw: { ... } } }
   if (obj.best_odds && typeof obj.best_odds === "object" && !Array.isArray(obj.best_odds)) {
     const bestMap = obj.best_odds as Record<string, Record<string, unknown>>;
     const out: BzOddsRow[] = [];
@@ -579,7 +650,6 @@ function flattenComparisonRows(raw: unknown): BzOddsRow[] {
     return out;
   }
 
-  // Formato `{ markets: { "1x2": { home: [...], draw: [...] } } }`
   if (obj.markets && typeof obj.markets === "object" && !Array.isArray(obj.markets)) {
     const out: BzOddsRow[] = [];
     for (const [mktKey, selMap] of Object.entries(obj.markets as Record<string, unknown>)) {
@@ -600,18 +670,12 @@ function flattenComparisonRows(raw: unknown): BzOddsRow[] {
     return out;
   }
 
-  // Fila plana individual
   if ("market" in obj && ("decimal_odds" in obj || "odds" in obj || "price" in obj || "price_decimal" in obj)) {
     return [obj as BzOddsRow];
   }
   return [];
 }
 
-/**
- * Parsea `/events/{id}/odds/comparison/` en comparativas multi-casa por `(mercado, línea, selección)`
- * con detección coordinada de `STEAM`, apertura/delta% y anclaje Spacetime v5.1 (`fairOdds`, `evPct`, `edgePts`).
- * Cero IDs crudos de proveedor ni URLs externas (`FD-16`).
- */
 export function parseBzzoiroOddsComparison(
   raw: unknown,
   options: {
@@ -659,9 +723,7 @@ export function parseBzzoiroOddsComparison(
       typeof (row.movement ?? row.movement_direction) === "string"
         ? String(row.movement ?? row.movement_direction).trim()
         : null;
-    const rawTs = row.updated_at ?? row.captured_at ?? options.capturedAtUtc;
-    const capturedAtUtc =
-      typeof rawTs === "string" && Number.isFinite(Date.parse(rawTs)) ? rawTs.trim() : undefined;
+    const capturedAtUtc = normalizeCapturedAtIso(row.updated_at ?? row.captured_at ?? options.capturedAtUtc);
 
     const key = selectionPriorKey(quote.market, selectionLine, quote.selection);
     let bucket = grouped.get(key);
@@ -694,7 +756,6 @@ export function parseBzzoiroOddsComparison(
     const entries = [...bucket.byBook.values()];
     if (entries.length === 0) continue;
 
-    // Detecta acortamiento coordinado y movimiento de casa sharp (Pinnacle)
     let coordinatedShorteningBooks = 0;
     let sharpShortened = false;
     for (const e of entries) {
@@ -771,6 +832,20 @@ export function parseBzzoiroOddsComparison(
     const modelProb = lookupModelProb(options.modelProbsByKey, bucket.market, bucket.line, bucket.selection);
     if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, bestDecimal);
+    const bestCapturedAtIso = sorted[0]!.capturedAtUtc ?? normalizeCapturedAtIso(options.capturedAtUtc);
+    const anchoredQuote =
+      modelProb !== null
+        ? toSpacetimeAnchoredQuote({
+            bookLabel: sorted[0]!.bookLabel,
+            marketKey: bucket.market,
+            selection: bucket.selection,
+            line: bucket.line,
+            bookDecimal: bestDecimal,
+            modelProb,
+            movement: consensusMovement.signal,
+            capturedAtIso: bestCapturedAtIso,
+          })
+        : undefined;
 
     out.push({
       market: bucket.market,
@@ -786,6 +861,7 @@ export function parseBzzoiroOddsComparison(
       impliedProbDeltaPts: consensusMovement.impliedProbDeltaPts,
       signal: consensusMovement.signal,
       ...analytics,
+      ...(anchoredQuote ? { anchoredQuote } : {}),
       books,
     });
   }
@@ -798,13 +874,11 @@ export function parseBzzoiroOddsComparison(
   );
 }
 
-/**
- * Parsea `/api/v2/odds/best/` a entradas analíticas sin IDs de proveedor ni URLs (`FD-16`).
- */
 export function parseBzzoiroBestOdds(
   raw: unknown,
   options: {
     modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+    capturedAtUtc?: string;
     priorityBooksOnly?: boolean;
     requireSpacetimeAnchor?: boolean;
   } = {},
@@ -839,6 +913,20 @@ export function parseBzzoiroBestOdds(
     const modelProb = lookupModelProb(options.modelProbsByKey, quote.market, selectionLine, quote.selection);
     if (options.requireSpacetimeAnchor !== false && modelProb === null) continue;
     const analytics = computeSpacetimeAnalytics(modelProb, currentDecimal);
+    const capturedAtIso = normalizeCapturedAtIso(row.updated_at ?? row.captured_at ?? options.capturedAtUtc);
+    const anchoredQuote =
+      modelProb !== null
+        ? toSpacetimeAnchoredQuote({
+            bookLabel: bookMeta.label,
+            marketKey: quote.market,
+            selection: quote.selection,
+            line: selectionLine,
+            bookDecimal: mv.currentDecimal,
+            modelProb,
+            movement: mv.signal,
+            capturedAtIso,
+          })
+        : undefined;
 
     out.push({
       ...(matchLabel ? { matchLabel } : {}),
@@ -854,13 +942,13 @@ export function parseBzzoiroBestOdds(
       impliedProbDeltaPts: mv.impliedProbDeltaPts,
       signal: mv.signal,
       ...analytics,
+      ...(anchoredQuote ? { anchoredQuote } : {}),
     });
   }
 
   return out;
 }
 
-/** Marca `is_best_odds: true` en la mejor cuota disponible por evento, mercado, línea y selección. */
 export function annotateBestOddsBySelection(rows: readonly OddsSnapshotRow[]): OddsSnapshotRow[] {
   const bestByKey = new Map<string, number>();
   for (const r of rows) {
@@ -879,10 +967,6 @@ export function annotateBestOddsBySelection(rows: readonly OddsSnapshotRow[]): O
   });
 }
 
-/**
- * Convierte los partidos y momios de Bzzoiro a filas canónicas validadas.
- * Descarta momios en vivo, casas no autorizadas, mercados que no usamos y equipos sin mapeo.
- */
 export function parseBzzoiroOdds(params: {
   events: readonly BzOddsEvent[];
   oddsByEvent: ReadonlyMap<number, readonly BzOddsRow[]>;
@@ -894,7 +978,7 @@ export function parseBzzoiroOdds(params: {
   const candidates: OddsSnapshotRow[] = [];
 
   for (const ev of params.events) {
-    const bzId = parseFiniteNumber(ev.id);
+    const bzId = parseStrictFiniteNumber(ev.id);
     if (bzId === null) continue;
     const rows = params.oddsByEvent.get(bzId);
     if (!rows || rows.length === 0) continue;
@@ -1015,18 +1099,17 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     return out;
   }
 
-  /** Consulta `/odds/best/?market=` para conocer el mejor precio vigente sin exponer un feed crudo. */
   async fetchBestOddsByMarket(market: string = "1x2"): Promise<BzOddsRow[]> {
     assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
     const raw = await this.getRawJson("/odds/best/", { market, limit: String(PAGE_LIMIT) });
     return flattenComparisonRows(raw);
   }
 
-  /** Consulta `/odds/best/?market=` y devuelve salidas analíticas ancladas a Spacetime v5.1 (`FD-16`). */
   async fetchBestOddsAnalyzed(
     market: string = "1x2",
     options: {
       modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+      capturedAtUtc?: string;
       priorityBooksOnly?: boolean;
       requireSpacetimeAnchor?: boolean;
     } = {},
@@ -1036,11 +1119,11 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     return parseBzzoiroBestOdds(raw, options);
   }
 
-  /** Consulta `/odds/best/` en todos los mercados extendidos (`BZZOIRO_UNLIMITED=1`). */
   async fetchBestOddsExtendedMarkets(
     markets: readonly string[] = BZZOIRO_EXTENDED_ODDS_MARKETS,
     options: {
       modelProbsByKey?: ReadonlyMap<string, number> | Readonly<Record<string, number>>;
+      capturedAtUtc?: string;
       priorityBooksOnly?: boolean;
       requireSpacetimeAnchor?: boolean;
     } = {},
@@ -1054,14 +1137,12 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
     return all;
   }
 
-  /** Consulta `/events/{id}/odds/comparison/` para comparar casas en un partido concreto. */
   async fetchEventOddsComparison(providerEventId: number): Promise<BzOddsRow[]> {
     assertSourceLegallyAllowed(this.metadata.sourceId, this.env);
     const raw = await this.getRawJson(`/events/${providerEventId}/odds/comparison/`, {});
     return flattenComparisonRows(raw);
   }
 
-  /** Consulta `/events/{id}/odds/comparison/` y clasifica movimiento (`SHORTENING`/`DRIFTING`/`STEAM`) con `fairOdds`. */
   async fetchEventOddsComparisonAnalyzed(
     providerEventId: number,
     options: {
@@ -1106,8 +1187,8 @@ export class BzzoiroOddsAdapter implements OddsSourceAdapter {
 
         const oddsByEvent = new Map<number, BzOddsRow[]>();
         for (const ev of events) {
-          const id = Number(ev.id);
-          if (!Number.isFinite(id)) continue;
+          const id = parseStrictFiniteNumber(ev.id);
+          if (id === null) continue;
           const evOdds = await this.getAll<BzOddsRow>("/odds/", { event_id: String(id) });
           oddsByEvent.set(id, evOdds);
         }
