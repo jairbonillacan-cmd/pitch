@@ -39,7 +39,7 @@ interface RuntimeMonitors {
   readonly assertClean: (label: string) => void;
 }
 
-const ORIGIN = "http://127.0.0.1:3100";
+const ORIGIN = (process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3100").replace(/\/+$/, "");
 const THEMES: readonly ThemeMode[] = ["dark", "light"];
 const ADVERSARIAL_INPUTS = [
   "",
@@ -72,13 +72,13 @@ const REDESIGNED_BATCH_B: readonly RouteEntry[] = [
   { id: "verificacion", path: "/verificacion", group: "redesign" },
   { id: "account-plan", path: "/app/account?tab=plan", group: "redesign" },
   { id: "account-prefs", path: "/app/account?tab=prefs", group: "redesign" },
+  { id: "canjear", path: "/app/canjear", group: "redesign" },
   { id: "tipster", path: "/app/tipster", group: "redesign" },
   { id: "admin", path: "/app/admin", group: "redesign" },
   { id: "motores", path: "/motores", group: "redesign" },
   { id: "tech", path: "/app/tech", group: "redesign" },
   { id: "juego-responsable", path: "/legal/juego-responsable", group: "redesign" },
   { id: "alertas", path: "/app/alertas", group: "ola4" },
-  { id: "arbitros-ligamx", path: "/app/liga-mx/arbitros", group: "ola4" },
 ];
 
 const RESIZE_REPRESENTATIVE_ROUTES: readonly RouteEntry[] = [
@@ -400,6 +400,26 @@ async function discoverFirstMatchPath(page: Page): Promise<string> {
   return fromPicks!;
 }
 
+async function discoverFirstRefereePath(page: Page): Promise<string> {
+  const discovered = await page.evaluate(() => {
+    const links = Array.from(document.querySelectorAll('a[href^="/app/liga-mx/r/"]'));
+    for (const el of links) {
+      const href = el.getAttribute("href");
+      if (!href || !/^\/app\/[a-z0-9-]+\/r\/[a-z0-9-]+/.test(href)) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        return href;
+      }
+    }
+    return null;
+  });
+  expect(
+    discovered,
+    "No se descubrió ningún perfil arbitral /app/liga-mx/r/<slug> en /app/liga-mx/arbitros",
+  ).not.toBeNull();
+  return discovered!;
+}
+
 async function exerciseSafeRouteControls(
   page: Page,
   routeLabel: string,
@@ -572,6 +592,23 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
       await sweepRouteBothThemes(page, route, monitors, { exerciseControls: true });
     }
 
+    await navigateAndCheckStatus(page, "/app/liga-mx/arbitros");
+    const discoveredRefereePath = await discoverFirstRefereePath(page);
+
+    await sweepRouteBothThemes(
+      page,
+      { id: "arbitros-ligamx", path: "/app/liga-mx/arbitros", group: "ola4" },
+      monitors,
+      { exerciseControls: true },
+    );
+
+    await sweepRouteBothThemes(
+      page,
+      { id: "referee-profile", path: discoveredRefereePath, group: "ola4" },
+      monitors,
+      { exerciseControls: true },
+    );
+
     monitors.assertClean(`Batch B final (${testInfo.project.name})`);
   });
 
@@ -732,6 +769,7 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
     await navigateAndCheckStatus(page, "/app/picks");
     const timingTabs = page.locator('[data-screener-timing] [role="tab"]:not([disabled])');
     const timingCount = await timingTabs.count();
+    expect(timingCount, "Debe haber al menos 2 pestañas activas en /app/picks").toBeGreaterThanOrEqual(2);
     for (let idx = 0; idx < timingCount; idx += 1) {
       const tab = timingTabs.nth(idx);
       if (!(await tab.isVisible())) continue;
@@ -743,6 +781,7 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
     await navigateAndCheckStatus(page, "/app/admin");
     const adminTabs = page.locator('#main [role="tablist"]').first().locator('[role="tab"]');
     const adminTabCount = await adminTabs.count();
+    expect(adminTabCount, "Debe haber al menos 4 pestañas en /app/admin").toBeGreaterThanOrEqual(4);
     for (let idx = 0; idx < adminTabCount; idx += 1) {
       const tab = adminTabs.nth(idx);
       await tab.dblclick();
