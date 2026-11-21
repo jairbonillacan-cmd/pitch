@@ -6,10 +6,12 @@ import { GET as getBadges } from "../app/api/me/badges/route";
 import { PUT as putPreferences } from "../app/api/me/preferences/route";
 import { loadProfileBadges, withAuthorBadges } from "../src/server/badges";
 import { resetRankingCacheForTests } from "../src/server/ranking";
+import { resetRateLimitsForTests } from "../src/server/request-security";
 
 const mocks = vi.hoisted(() => ({ requireMember: vi.fn(), serverDb: vi.fn() }));
 
-vi.mock("../src/server/session-user", () => ({
+vi.mock("../src/server/session-user", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../src/server/session-user")>()),
   requireMember: mocks.requireMember,
   serverDb: mocks.serverDb,
 }));
@@ -21,12 +23,14 @@ let userId: string;
 beforeAll(async () => {
   client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
+  await client.exec("SET pitchlab.allow_historical_seed = 'on'");
   db = drizzle(client) as unknown as Db;
 });
 
 beforeEach(async () => {
-  await client.exec("TRUNCATE TABLE users CASCADE;");
+  await client.exec("TRUNCATE TABLE users, security_rate_buckets CASCADE;");
   resetRankingCacheForTests();
+  resetRateLimitsForTests();
   const [u] = await db
     .insert(users)
     .values({ email: "ana@example.com", authUserId: "auth_ana", handle: "ana_mx", displayName: "Ana", isAdult: true })
@@ -54,7 +58,13 @@ beforeEach(async () => {
       settledAt: new Date(base + i * 86_400_000 + 3 * 3_600_000),
     })),
   );
-  mocks.requireMember.mockResolvedValue({ db, userId });
+  mocks.requireMember.mockResolvedValue({
+    db,
+    userId,
+    email: "ana@example.com",
+    emailVerified: true,
+    authUserId: "auth_ana",
+  });
   mocks.serverDb.mockReturnValue(db);
 });
 
@@ -114,5 +124,53 @@ describe("Insignias", () => {
     expect(await loadProfileBadges("ana_mx")).toEqual({ public: [], featured: [] });
     const [hidden] = await withAuthorBadges(db, [{ authorHandle: "ana_mx" }]);
     expect(hidden?.authorBadge).toBeNull();
+  });
+
+  it("PUT /api/me/preferences valida preferredBookmakers (máx. 12), savedViews (máx. 20) y sanitiza errores", async () => {
+    const okRes = await put({
+      preferredBookmakers: ["Bet365", "Pinnacle", "Caliente MX"],
+      savedViews: [
+        {
+          id: "vista-alta",
+          name: "Alta Liga MX",
+          sport: "futbol",
+          league: "liga-mx",
+          band: "alta",
+          kind: "resultado",
+          sort: "p",
+          onlyPositiveEdge: true,
+          minOddsStep: 10,
+          maxOddsStep: 90,
+          window: "today",
+          pinToHomeHub: true,
+        },
+      ],
+    });
+    expect(okRes.status).toBe(200);
+    const okJson = (await okRes.json()) as {
+      ok: boolean;
+      preferences: { preferredBookmakers: string[]; savedViews: Array<{ id: string; pinToHomeHub: boolean }> };
+    };
+    expect(okJson.preferences.preferredBookmakers).toEqual(["bet365", "pinnacle", "caliente_mx"]);
+    expect(okJson.preferences.savedViews).toHaveLength(1);
+    expect(okJson.preferences.savedViews[0]).toMatchObject({ id: "vista-alta", pinToHomeHub: true });
+
+    const tooManyBooks = await put({
+      preferredBookmakers: Array.from({ length: 13 }, (_, i) => `casa_${i}`),
+    });
+    expect(tooManyBooks.status).toBe(400);
+
+    const tooManyViews = await put({
+      savedViews: Array.from({ length: 21 }, (_, i) => ({
+        id: `vista-${i}`,
+        name: `Vista ${i}`,
+      })),
+    });
+    expect(tooManyViews.status).toBe(400);
+
+    const badBool = await put({ showMxnBalance: "si" });
+    expect(badBool.status).toBe(400);
+    const badBoolJson = (await badBool.json()) as { error?: string };
+    expect(badBoolJson.error).not.toContain("showMxnBalance");
   });
 });
