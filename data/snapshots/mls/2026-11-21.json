@@ -5,7 +5,7 @@
   "season": "mls-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 0.8833764452302028,
-      "adjustedAgainst": 1.6653330508717985
+      "adjustedFor": 0.8825692457942248,
+      "adjustedAgainst": 1.665176443477913
     },
     "mls.toronto": {
       "teamId": "mls.toronto",
@@ -29,8 +29,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.5750892531751508,
-      "adjustedAgainst": 1.7627440117240811
+      "adjustedFor": 1.5793701003559077,
+      "adjustedAgainst": 1.761815180848633
     },
     "mls.st-louis-city": {
       "teamId": "mls.st-louis-city",
@@ -40,8 +40,8 @@
       "forPerGame": 2.15,
       "againstPerGame": 1.4,
       "gamesPlayed": 20,
-      "adjustedFor": 1.881197949332702,
-      "adjustedAgainst": 1.4147142864425444
+      "adjustedFor": 1.8771848734412693,
+      "adjustedAgainst": 1.4132556207321751
     },
     "mls.sporting-kansas-city": {
       "teamId": "mls.sporting-kansas-city",
@@ -51,8 +51,8 @@
       "forPerGame": 1.3,
       "againstPerGame": 2.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.3626676722440272,
-      "adjustedAgainst": 2.0291744637205396
+      "adjustedFor": 1.358683202450937,
+      "adjustedAgainst": 2.0326604036857425
     },
     "mls.chicago-fire": {
       "teamId": "mls.chicago-fire",
@@ -62,8 +62,8 @@
       "forPerGame": 1.85,
       "againstPerGame": 1.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8672086026363728,
-      "adjustedAgainst": 1.6465622954772654
+      "adjustedFor": 1.8723540272391455,
+      "adjustedAgainst": 1.645449259281886
     },
     "mls.vancouver-whitecaps": {
       "teamId": "mls.vancouver-whitecaps",
@@ -73,8 +73,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.1,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8269575297729332,
-      "adjustedAgainst": 1.2073942571099001
+      "adjustedFor": 1.8240441713460709,
+      "adjustedAgainst": 1.2059975770767943
     },
     "mls.seattle-sounders": {
       "teamId": "mls.seattle-sounders",
@@ -84,8 +84,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 22,
-      "adjustedFor": 1.2609301796706214,
-      "adjustedAgainst": 1.5732762481376792
+      "adjustedFor": 1.2592088328858746,
+      "adjustedAgainst": 1.5736320622599553
     },
     "mls.portland-timbers": {
       "teamId": "mls.portland-timbers",
@@ -95,8 +95,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.65,
       "gamesPlayed": 20,
-      "adjustedFor": 1.7831717868705754,
-      "adjustedAgainst": 1.6197031594303042
+      "adjustedFor": 1.7793770527737025,
+      "adjustedAgainst": 1.6185327456763672
     },
     "mls.nashville": {
       "teamId": "mls.nashville",
@@ -106,8 +106,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.7,
       "gamesPlayed": 20,
-      "adjustedFor": 1.7934626721369826,
-      "adjustedAgainst": 0.8132635223571739
+      "adjustedFor": 1.7880768213917615,
+      "adjustedAgainst": 0.812927489362134
     },
     "mls.atlanta-united": {
       "teamId": "mls.atlanta-united",
@@ -117,8 +117,8 @@
       "forPerGame": 1.45,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.4340853254370949,
-      "adjustedAgainst": 1.6509998931192673
+      "adjustedFor": 1.4329073503661254,
+      "adjustedAgainst": 1.6504764153797222
     },
     "mls.la-galaxy": {
       "teamId": "mls.la-galaxy",
@@ -128,8 +128,8 @@
       "forPerGame": 1.4736842105263157,
       "againstPerGame": 1.8421052631578947,
       "gamesPlayed": 19,
-      "adjustedFor": 1.4556822412198112,
-      "adjustedAgainst": 1.8174592709510784
+      "adjustedFor": 1.456297922039585,
+      "adjustedAgainst": 1.8154904018021905
     },
     "mls.los-angeles": {
       "teamId": "mls.los-angeles",
@@ -139,30 +139,30 @@
       "forPerGame": 1.4736842105263157,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3586406688295758,
-      "adjustedAgainst": 1.3229857388843376
+      "adjustedFor": 1.355704921482937,
+      "adjustedAgainst": 1.3214969649969501
     },
     "mls.new-england-revolution": {
       "teamId": "mls.new-england-revolution",
       "name": "New England Revolution",
       "shortName": "New England Revolution",
       "code": "NEW",
-      "forPerGame": 1.65,
-      "againstPerGame": 1.45,
-      "gamesPlayed": 20,
-      "adjustedFor": 1.5733275305010326,
-      "adjustedAgainst": 1.4075869333042579
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 1.380952380952381,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.5949277224456944,
+      "adjustedAgainst": 1.3230224471259182
     },
     "mls.philadelphia-union": {
       "teamId": "mls.philadelphia-union",
       "name": "Philadelphia Union",
       "shortName": "Philadelphia Union",
       "code": "PHI",
-      "forPerGame": 2.526315789473684,
-      "againstPerGame": 1.1578947368421053,
-      "gamesPlayed": 19,
-      "adjustedFor": 2.1891899565188644,
-      "adjustedAgainst": 1.1798441831864606
+      "forPerGame": 2.4,
+      "againstPerGame": 1.2,
+      "gamesPlayed": 20,
+      "adjustedFor": 2.111327242805214,
+      "adjustedAgainst": 1.2103774168295542
     },
     "mls.new-york-red-bulls": {
       "teamId": "mls.new-york-red-bulls",
@@ -172,8 +172,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.5789473684210527,
       "gamesPlayed": 19,
-      "adjustedFor": 1.3048506984859403,
-      "adjustedAgainst": 1.406423487315064
+      "adjustedFor": 1.3030446274864018,
+      "adjustedAgainst": 1.4085103185657863
     },
     "mls.columbus-crew": {
       "teamId": "mls.columbus-crew",
@@ -183,8 +183,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 1.8821431291143567,
-      "adjustedAgainst": 1.448289977540652
+      "adjustedFor": 1.8834616222514062,
+      "adjustedAgainst": 1.444808555803266
     },
     "mls.new-york-city": {
       "teamId": "mls.new-york-city",
@@ -194,8 +194,8 @@
       "forPerGame": 1.263157894736842,
       "againstPerGame": 1.263157894736842,
       "gamesPlayed": 19,
-      "adjustedFor": 1.274414894450624,
-      "adjustedAgainst": 1.2278825486336908
+      "adjustedFor": 1.277139972462864,
+      "adjustedAgainst": 1.2259714547086036
     },
     "mls.cincinnati": {
       "teamId": "mls.cincinnati",
@@ -205,8 +205,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 1.95,
       "gamesPlayed": 20,
-      "adjustedFor": 1.7238799056549616,
-      "adjustedAgainst": 1.7206047528717616
+      "adjustedFor": 1.7235437670132896,
+      "adjustedAgainst": 1.72400680225508
     },
     "mls.inter-miami": {
       "teamId": "mls.inter-miami",
@@ -216,8 +216,8 @@
       "forPerGame": 2.1578947368421053,
       "againstPerGame": 1.631578947368421,
       "gamesPlayed": 19,
-      "adjustedFor": 2.004795669623145,
-      "adjustedAgainst": 1.5216342659156676
+      "adjustedFor": 2.0036057460785655,
+      "adjustedAgainst": 1.520879884888526
     },
     "mls.charlotte": {
       "teamId": "mls.charlotte",
@@ -227,8 +227,8 @@
       "forPerGame": 2.210526315789474,
       "againstPerGame": 1.4736842105263157,
       "gamesPlayed": 19,
-      "adjustedFor": 2.033042645902006,
-      "adjustedAgainst": 1.4270877603730987
+      "adjustedFor": 2.029567222275779,
+      "adjustedAgainst": 1.4271732107882056
     },
     "mls.houston-dynamo": {
       "teamId": "mls.houston-dynamo",
@@ -238,8 +238,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 1,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1233557991180085,
-      "adjustedAgainst": 1.0667285910537176
+      "adjustedFor": 1.1225736029918008,
+      "adjustedAgainst": 1.0651161115363357
     },
     "mls.dc-united": {
       "teamId": "mls.dc-united",
@@ -249,8 +249,8 @@
       "forPerGame": 0.9473684210526315,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0403227957668841,
-      "adjustedAgainst": 1.696517035992312
+      "adjustedFor": 1.0406255531362196,
+      "adjustedAgainst": 1.6926753959848797
     },
     "mls.minnesota-united": {
       "teamId": "mls.minnesota-united",
@@ -260,8 +260,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.831867838533542,
-      "adjustedAgainst": 1.841044108732921
+      "adjustedFor": 1.8282504171327314,
+      "adjustedAgainst": 1.8397466781951364
     },
     "mls.colorado-rapids": {
       "teamId": "mls.colorado-rapids",
@@ -271,8 +271,8 @@
       "forPerGame": 1.1578947368421053,
       "againstPerGame": 1.368421052631579,
       "gamesPlayed": 19,
-      "adjustedFor": 1.1129984554119994,
-      "adjustedAgainst": 1.4134306370135599
+      "adjustedFor": 1.1098887936638462,
+      "adjustedAgainst": 1.4120297121126062
     },
     "mls.san-diego": {
       "teamId": "mls.san-diego",
@@ -282,8 +282,8 @@
       "forPerGame": 1.4210526315789473,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.4073018936323662,
-      "adjustedAgainst": 1.7972557930034123
+      "adjustedFor": 1.4038472777963953,
+      "adjustedAgainst": 1.7996616047920488
     },
     "mls.austin": {
       "teamId": "mls.austin",
@@ -293,8 +293,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.7894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2545849137640004,
-      "adjustedAgainst": 1.734087610312915
+      "adjustedFor": 1.2506720256968715,
+      "adjustedAgainst": 1.7367384936243313
     },
     "mls.dallas": {
       "teamId": "mls.dallas",
@@ -304,8 +304,8 @@
       "forPerGame": 1.6842105263157894,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 1.5666546010536921,
-      "adjustedAgainst": 1.4842950735600497
+      "adjustedFor": 1.5639490378802403,
+      "adjustedAgainst": 1.4833637347461999
     },
     "mls.san-jose-earthquakes": {
       "teamId": "mls.san-jose-earthquakes",
@@ -315,8 +315,8 @@
       "forPerGame": 1.2105263157894737,
       "againstPerGame": 1.894736842105263,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2426608092313702,
-      "adjustedAgainst": 1.788494315535261
+      "adjustedFor": 1.2401504409263033,
+      "adjustedAgainst": 1.787014369672472
     },
     "mls.orlando-city": {
       "teamId": "mls.orlando-city",
@@ -326,8 +326,8 @@
       "forPerGame": 2.05,
       "againstPerGame": 1.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.8580766947985694,
-      "adjustedAgainst": 1.6816969582213521
+      "adjustedFor": 1.8615635477784516,
+      "adjustedAgainst": 1.6798519546443085
     },
     "mls.real-salt-lake": {
       "teamId": "mls.real-salt-lake",
@@ -337,45 +337,11 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.619047619047619,
       "gamesPlayed": 21,
-      "adjustedFor": 1.3551075763029308,
-      "adjustedAgainst": 1.5509315287449725
+      "adjustedFor": 1.3555923958519747,
+      "adjustedAgainst": 1.5519250930598225
     }
   },
   "games": [
-    {
-      "id": "mls-2026-11-07-orlando-city-new-england-re-iykqsf",
-      "league": "mls",
-      "season": "mls-2026",
-      "round": "League phase",
-      "phase": "League phase",
-      "startTime": "2026-11-07T21:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "mls.orlando-city",
-        "league": "mls",
-        "name": "Orlando City SC",
-        "shortName": "Orlando City",
-        "code": "ORL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/280/?bg=transparent"
-      },
-      "away": {
-        "id": "mls.new-england-revolution",
-        "league": "mls",
-        "name": "New England Revolution",
-        "shortName": "New England Revolution",
-        "code": "NEW",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/285/?bg=transparent"
-      },
-      "venue": "Inter&Co Stadium, Orlando",
-      "referee": "Guido Gonzales Jr",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-21T19:03:13.555Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "mls-2026-11-07-chicago-fire-columbus-crew-j3godp",
       "league": "mls",
@@ -406,7 +372,7 @@
       "result": {
         "home": 3,
         "away": 4,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -440,7 +406,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -474,7 +440,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -508,7 +474,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -542,7 +508,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -576,7 +542,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -610,7 +576,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -644,7 +610,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -678,7 +644,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -712,7 +678,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -746,7 +712,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -780,7 +746,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -814,7 +780,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -849,7 +815,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -884,7 +850,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -892,10 +858,10 @@
       "id": "mls-2026-11-21-new-england-re-philadelphia-u-er171r",
       "league": "mls",
       "season": "mls-2026",
-      "round": "League phase",
-      "phase": "League phase",
+      "round": "Round 1",
+      "phase": "Round 1",
       "startTime": "2026-11-21T19:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "mls.new-england-revolution",
         "league": "mls",
@@ -914,7 +880,13 @@
       },
       "venue": "Gillette Stadium, Foxborough",
       "referee": "Lorenzo Hernandez",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 0,
+        "observedAt": "2026-11-21T21:48:13.141Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "mls-2026-11-21-dallas-portland-timbe-3lxmia",
@@ -1328,307 +1300,6 @@
     }
   ],
   "analyses": {
-    "mls-2026-11-07-orlando-city-new-england-re-iykqsf": {
-      "game": "mls-2026-11-07-orlando-city-new-england-re-iykqsf",
-      "model": {
-        "id": "pitchlab-statistical-mls",
-        "version": "1.0.0",
-        "status": "reference",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.0109251548717744,
-        "away": 1.8301033537278482,
-        "total": 3.8410285085996225
-      },
-      "x12": [
-        0.42373812309489084,
-        0.2235202039744667,
-        0.35274163172456746
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Orlando City gana",
-          "p": 0.42373812309489084,
-          "fairOdds": 2.35994815074985
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2235202039744667,
-          "fairOdds": 4.47386850145427
-        },
-        {
-          "market": "h2h",
-          "selection": "New England Revolution gana",
-          "p": 0.35274163172456746,
-          "fairOdds": 2.8349361404010107
-        },
-        {
-          "market": "double_chance",
-          "selection": "Orlando City o empate",
-          "p": 0.6472583270693575,
-          "fairOdds": 1.544978192135092
-        },
-        {
-          "market": "double_chance",
-          "selection": "New England Revolution o empate",
-          "p": 0.5762618356990341,
-          "fairOdds": 1.7353222754842867
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7764797548194583,
-          "fairOdds": 1.2878635840705377
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8960558256096687,
-          "fairOdds": 1.1160018956627045
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.7376658910589472,
-          "fairOdds": 1.3556272726185865
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.2623341089410528,
-          "fairOdds": 3.8119328212279964
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.5348724730307641,
-          "fairOdds": 1.8696045327097686
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.46512752696923587,
-          "fairOdds": 2.1499480078420325
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7272097453467564,
-          "fairOdds": 1.375119085516612
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.2727902546532436,
-          "fairOdds": 3.6658201051615524
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Orlando City gana",
-              "p": 0.42373812309489084,
-              "fairOdds": 2.35994815074985
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2235202039744667,
-              "fairOdds": 4.47386850145427
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "New England Revolution gana",
-              "p": 0.35274163172456746,
-              "fairOdds": 2.8349361404010107
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Orlando City o empate",
-              "p": 0.6472583270693575,
-              "fairOdds": 1.544978192135092
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "New England Revolution o empate",
-              "p": 0.5762618356990341,
-              "fairOdds": 1.7353222754842867
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7764797548194583,
-              "fairOdds": 1.2878635840705377
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8960558256096687,
-              "fairOdds": 1.1160018956627045
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.7376658910589472,
-              "fairOdds": 1.3556272726185865
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.2623341089410528,
-              "fairOdds": 3.8119328212279964
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.5348724730307641,
-              "fairOdds": 1.8696045327097686
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.46512752696923587,
-              "fairOdds": 2.1499480078420325
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7272097453467564,
-              "fairOdds": 1.375119085516612
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.2727902546532436,
-              "fairOdds": 3.6658201051615524
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.08534101288055312
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.11 goles/partido",
-          "detail": "19 partidos · ajustado a 1.95"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.45 recibidos/partido",
-          "detail": "ajustado a 1.45"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.65 goles/partido",
-          "detail": "ajustado a 1.60"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.79 recibidos/partido",
-          "detail": "ajustado a 1.71"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
-        },
-        {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "19 y 20 partidos",
-          "detail": "Temporada actual"
-        }
-      ],
-      "steps": [
-        "Sincronizando MLS · corte 7 nov 2026, 14:00",
-        "Fuerza de ataque y defensa · ORL 2.11 / 1.79 · NEW 1.65 / 1.45",
-        "Ajuste por localía y tamaño de muestra (19 partidos)",
-        "Proyección de goles 2.01 – 1.83",
-        "Evaluando 196 marcadores posibles",
-        "13 mercados listos · marcador más probable 1–1"
-      ],
-      "inputsAsOf": "2026-11-07T20:00:00.000Z",
-      "publishedAt": "2026-11-07T20:00:00.000Z",
-      "source": "pitchlab-football-v1",
-      "matchContext": {
-        "referee": "Guido Gonzales Jr",
-        "refereeStats": {
-          "country": "USA",
-          "matches": 49,
-          "avgYellow": 4.33,
-          "avgRed": 0.27,
-          "avgFouls": 24.2,
-          "avgGoals": 2.82
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 28,
-          "windSpeedKmh": 57
-        },
-        "travelDistanceKm": 1765,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "League phase",
-        "venueCity": "Orlando",
-        "venueCountry": "USA",
-        "venueCapacity": 25500
-      }
-    },
     "mls-2026-11-07-chicago-fire-columbus-crew-j3godp": {
       "game": "mls-2026-11-07-chicago-fire-columbus-crew-j3godp",
       "model": {
@@ -6635,19 +6306,23 @@
         "referee": "Lorenzo Hernandez",
         "refereeStats": {
           "country": "USA",
-          "matches": 31,
-          "avgYellow": 4.16,
+          "matches": 32,
+          "avgYellow": 4.12,
           "avgRed": 0.19,
-          "avgFouls": 23.1,
-          "avgGoals": 3.1
+          "avgFouls": 23,
+          "avgGoals": 3.06
         },
         "weather": {
-          "description": "rain",
+          "description": "clear",
           "temperatureC": 14,
           "windSpeedKmh": 63
         },
         "travelDistanceKm": 428,
-        "stageName": "League phase",
+        "halfTimeScore": {
+          "home": 1,
+          "away": 0
+        },
+        "stageName": "Round 1",
         "venueCity": "Foxborough",
         "venueCountry": "USA",
         "venueCapacity": 66829
@@ -7012,6 +6687,10 @@
           "windSpeedKmh": 93
         },
         "travelDistanceKm": 2602,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "League phase",
         "venueCity": "Frisco",
         "venueCountry": "USA",
@@ -12803,19 +12482,19 @@
       "name": "Philadelphia Union",
       "shortName": "Philadelphia Union",
       "code": "PHI",
-      "played": 19,
+      "played": 20,
       "won": 13,
       "drawn": 4,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 48,
-      "goalsAgainst": 22,
+      "goalsAgainst": 24,
       "points": 43,
       "form": [
-        "D",
         "L",
         "D",
         "L",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -12839,6 +12518,26 @@
       ]
     },
     {
+      "teamId": "mls.new-england-revolution",
+      "name": "New England Revolution",
+      "shortName": "New England Revolution",
+      "code": "NEW",
+      "played": 21,
+      "won": 11,
+      "drawn": 3,
+      "lost": 7,
+      "goalsFor": 35,
+      "goalsAgainst": 29,
+      "points": 36,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "mls.charlotte",
       "name": "Charlotte FC",
       "shortName": "Charlotte",
@@ -12856,26 +12555,6 @@
         "W",
         "W",
         "D"
-      ]
-    },
-    {
-      "teamId": "mls.new-england-revolution",
-      "name": "New England Revolution",
-      "shortName": "New England Revolution",
-      "code": "NEW",
-      "played": 20,
-      "won": 10,
-      "drawn": 3,
-      "lost": 7,
-      "goalsFor": 33,
-      "goalsAgainst": 29,
-      "points": 33,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "L",
-        "L"
       ]
     },
     {

@@ -5,7 +5,7 @@
   "season": "eredivisie-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -15,22 +15,22 @@
       "name": "SC Cambuur",
       "shortName": "Cambuur",
       "code": "CAM",
-      "forPerGame": 2.0833333333333335,
-      "againstPerGame": 2.25,
-      "gamesPlayed": 12,
-      "adjustedFor": 2.0645570568403753,
-      "adjustedAgainst": 2.1291579915013092
+      "forPerGame": 2.1538461538461537,
+      "againstPerGame": 2.230769230769231,
+      "gamesPlayed": 13,
+      "adjustedFor": 2.0754978500386767,
+      "adjustedAgainst": 2.1415782189565484
     },
     "eredivisie.excelsior": {
       "teamId": "eredivisie.excelsior",
       "name": "Excelsior",
       "shortName": "Excelsior",
       "code": "EXC",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 2.4166666666666665,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.3974545175078907,
-      "adjustedAgainst": 2.1958836733270095
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 2.3846153846153846,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.5153398520543662,
+      "adjustedAgainst": 2.1519870746883636
     },
     "eredivisie.nec-nijmegen": {
       "teamId": "eredivisie.nec-nijmegen",
@@ -40,19 +40,19 @@
       "forPerGame": 1.6153846153846154,
       "againstPerGame": 1.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.6045380499543667,
-      "adjustedAgainst": 1.8429350570414913
+      "adjustedFor": 1.615751483651112,
+      "adjustedAgainst": 1.856880100248649
     },
     "eredivisie.telstar": {
       "teamId": "eredivisie.telstar",
       "name": "SC Telstar",
       "shortName": "Telstar",
       "code": "TEL",
-      "forPerGame": 1.5,
-      "againstPerGame": 2.0833333333333335,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.6615361346731603,
-      "adjustedAgainst": 1.9438414961872315
+      "forPerGame": 1.4615384615384615,
+      "againstPerGame": 2.1538461538461537,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.6362290154516859,
+      "adjustedAgainst": 2.064857862545369
     },
     "eredivisie.go-ahead-eagles": {
       "teamId": "eredivisie.go-ahead-eagles",
@@ -62,8 +62,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7798588902758643,
-      "adjustedAgainst": 2.238101076396298
+      "adjustedFor": 1.7852292314534326,
+      "adjustedAgainst": 2.252962024820144
     },
     "eredivisie.willem-ii-tilburg": {
       "teamId": "eredivisie.willem-ii-tilburg",
@@ -73,8 +73,8 @@
       "forPerGame": 0.9166666666666666,
       "againstPerGame": 3.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1690260424611163,
-      "adjustedAgainst": 2.9008939244437304
+      "adjustedFor": 1.1864266766660532,
+      "adjustedAgainst": 2.905436287155592
     },
     "eredivisie.psv-eindhoven": {
       "teamId": "eredivisie.psv-eindhoven",
@@ -84,8 +84,8 @@
       "forPerGame": 3.3846153846153846,
       "againstPerGame": 1.2307692307692308,
       "gamesPlayed": 13,
-      "adjustedFor": 2.8854794853100794,
-      "adjustedAgainst": 1.3595133199307214
+      "adjustedFor": 2.8995331607915635,
+      "adjustedAgainst": 1.3746804338478298
     },
     "eredivisie.fortuna-sittard": {
       "teamId": "eredivisie.fortuna-sittard",
@@ -95,8 +95,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7075086666409245,
-      "adjustedAgainst": 1.615904436408858
+      "adjustedFor": 1.710126381115053,
+      "adjustedAgainst": 1.6350463873565952
     },
     "eredivisie.az-alkmaar": {
       "teamId": "eredivisie.az-alkmaar",
@@ -106,8 +106,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.884658787653816,
-      "adjustedAgainst": 1.4329541764355491
+      "adjustedFor": 1.8893778004475432,
+      "adjustedAgainst": 1.4554087530449917
     },
     "eredivisie.ado-den-haag": {
       "teamId": "eredivisie.ado-den-haag",
@@ -117,8 +117,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5408713042401325,
-      "adjustedAgainst": 1.8724255401077206
+      "adjustedFor": 1.5466785298268162,
+      "adjustedAgainst": 1.8930310753580035
     },
     "eredivisie.sparta-rotterdam": {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -128,30 +128,30 @@
       "forPerGame": 1.75,
       "againstPerGame": 2.4166666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7044915747608078,
-      "adjustedAgainst": 2.223327621098447
+      "adjustedFor": 1.713914796549456,
+      "adjustedAgainst": 2.237851041322936
     },
     "eredivisie.feyenoord": {
       "teamId": "eredivisie.feyenoord",
       "name": "Feyenoord",
       "shortName": "Feyenoord",
       "code": "FEY",
-      "forPerGame": 3,
-      "againstPerGame": 1.4166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 2.644213361247497,
-      "adjustedAgainst": 1.5712157243961198
+      "forPerGame": 2.923076923076923,
+      "againstPerGame": 1.5384615384615385,
+      "gamesPlayed": 13,
+      "adjustedFor": 2.5974253718267994,
+      "adjustedAgainst": 1.6957437202411705
     },
     "eredivisie.pec-zwolle": {
       "teamId": "eredivisie.pec-zwolle",
       "name": "PEC Zwolle",
       "shortName": "PEC Zwolle",
       "code": "PEC",
-      "forPerGame": 1.0833333333333333,
-      "againstPerGame": 2,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.2350080196017068,
-      "adjustedAgainst": 1.8670098377009587
+      "forPerGame": 1.2307692307692308,
+      "againstPerGame": 1.9230769230769231,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.3371098363258278,
+      "adjustedAgainst": 1.8487071259131154
     },
     "eredivisie.ajax": {
       "teamId": "eredivisie.ajax",
@@ -161,41 +161,41 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 2.4247821105356073,
-      "adjustedAgainst": 1.426329063264904
+      "adjustedFor": 2.4405160896351807,
+      "adjustedAgainst": 1.437170743068134
     },
     "eredivisie.groningen": {
       "teamId": "eredivisie.groningen",
       "name": "FC Groningen",
       "shortName": "Groningen",
       "code": "GRO",
-      "forPerGame": 2.4166666666666665,
-      "againstPerGame": 2.3333333333333335,
-      "gamesPlayed": 12,
-      "adjustedFor": 2.2950436551154167,
-      "adjustedAgainst": 2.214222381772436
+      "forPerGame": 2.3076923076923075,
+      "againstPerGame": 2.3846153846153846,
+      "gamesPlayed": 13,
+      "adjustedFor": 2.27201402475348,
+      "adjustedAgainst": 2.255212874629556
     },
     "eredivisie.utrecht": {
       "teamId": "eredivisie.utrecht",
       "name": "FC Utrecht",
       "shortName": "Utrecht",
       "code": "UTR",
-      "forPerGame": 1.75,
-      "againstPerGame": 2.8333333333333335,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.7382992229469696,
-      "adjustedAgainst": 2.5138024055941286
+      "forPerGame": 1.7692307692307692,
+      "againstPerGame": 2.8461538461538463,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.751241935443995,
+      "adjustedAgainst": 2.540322500103996
     },
     "eredivisie.heerenveen": {
       "teamId": "eredivisie.heerenveen",
       "name": "SC Heerenveen",
       "shortName": "Heerenveen",
       "code": "HEE",
-      "forPerGame": 2,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 2.015030117585744,
-      "adjustedAgainst": 1.4604266380501116
+      "forPerGame": 2.076923076923077,
+      "againstPerGame": 1.3076923076923077,
+      "gamesPlayed": 13,
+      "adjustedFor": 2.0514724087680976,
+      "adjustedAgainst": 1.4233095095955348
     },
     "eredivisie.twente": {
       "teamId": "eredivisie.twente",
@@ -205,151 +205,11 @@
       "forPerGame": 2.5,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 2.3579652310850276,
-      "adjustedAgainst": 1.2086736269198632
+      "adjustedFor": 2.373107341191704,
+      "adjustedAgainst": 1.2194143037356417
     }
   },
   "games": [
-    {
-      "id": "eredivisie-2026-10-31-cambuur-go-ahead-eagle-lp98wd",
-      "league": "eredivisie",
-      "season": "eredivisie-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T20:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "eredivisie.cambuur",
-        "league": "eredivisie",
-        "name": "SC Cambuur",
-        "shortName": "Cambuur",
-        "code": "CAM",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1324/?bg=transparent"
-      },
-      "away": {
-        "id": "eredivisie.go-ahead-eagles",
-        "league": "eredivisie",
-        "name": "Go Ahead Eagles",
-        "shortName": "Go Ahead Eagles",
-        "code": "GOA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/139/?bg=transparent"
-      },
-      "venue": "Kooi Stadion, Leeuwarden",
-      "referee": "Serdar Gozubuyuk",
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 0,
-        "observedAt": "2026-11-21T19:03:13.555Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "eredivisie-2026-10-31-ajax-az-alkmaar-ff4y9w",
-      "league": "eredivisie",
-      "season": "eredivisie-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-10-31T20:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "eredivisie.ajax",
-        "league": "eredivisie",
-        "name": "AFC Ajax",
-        "shortName": "AFC Ajax",
-        "code": "AJA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/122/?bg=transparent"
-      },
-      "away": {
-        "id": "eredivisie.az-alkmaar",
-        "league": "eredivisie",
-        "name": "AZ Alkmaar",
-        "shortName": "AZ Alkmaar",
-        "code": "AZA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/180/?bg=transparent"
-      },
-      "venue": "Johan Cruijff Arena, Amsterdam",
-      "referee": "Allard Lindhout",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-21T19:03:13.555Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "eredivisie-2026-11-01-pec-zwolle-ado-den-haag-xa3i6h",
-      "league": "eredivisie",
-      "season": "eredivisie-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T11:15:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "eredivisie.pec-zwolle",
-        "league": "eredivisie",
-        "name": "PEC Zwolle",
-        "shortName": "PEC Zwolle",
-        "code": "PEC",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/177/?bg=transparent"
-      },
-      "away": {
-        "id": "eredivisie.ado-den-haag",
-        "league": "eredivisie",
-        "name": "ADO Den Haag",
-        "shortName": "ADO Den Haag",
-        "code": "ADO",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/1319/?bg=transparent"
-      },
-      "venue": "Mac3Park Stadion, Zwolle",
-      "referee": "Jeroen Manschot",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-21T19:03:13.555Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "eredivisie-2026-11-01-telstar-utrecht-jhmw5x",
-      "league": "eredivisie",
-      "season": "eredivisie-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T13:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "eredivisie.telstar",
-        "league": "eredivisie",
-        "name": "SC Telstar",
-        "shortName": "Telstar",
-        "code": "TEL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/179/?bg=transparent"
-      },
-      "away": {
-        "id": "eredivisie.utrecht",
-        "league": "eredivisie",
-        "name": "FC Utrecht",
-        "shortName": "Utrecht",
-        "code": "UTR",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/142/?bg=transparent"
-      },
-      "venue": "BUKO Stadion, Velsen",
-      "referee": "Richard Martens",
-      "neutralSite": false,
-      "result": {
-        "home": 4,
-        "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "eredivisie-2026-11-01-excelsior-twente-07txjg",
       "league": "eredivisie",
@@ -381,7 +241,7 @@
       "result": {
         "home": 0,
         "away": 9,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +276,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +311,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +346,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +381,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +416,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +451,7 @@
       "result": {
         "home": 5,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +486,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +521,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +556,7 @@
       "result": {
         "home": 2,
         "away": 5,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +591,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +626,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -778,7 +638,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-21T17:45:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "eredivisie.feyenoord",
         "league": "eredivisie",
@@ -797,7 +657,13 @@
       },
       "venue": "De Kuip, Rotterdam",
       "referee": "Robin Hensgens",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 3,
+        "observedAt": "2026-11-21T21:48:13.141Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "eredivisie-2026-11-21-utrecht-cambuur-c40780",
@@ -807,7 +673,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-21T17:45:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "eredivisie.utrecht",
         "league": "eredivisie",
@@ -826,7 +692,13 @@
       },
       "venue": "Stadion Galgenwaard, Utrecht",
       "referee": "Allard Lindhout",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 3,
+        "observedAt": "2026-11-21T21:48:13.141Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "eredivisie-2026-11-21-telstar-pec-zwolle-402olj",
@@ -836,7 +708,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-21T20:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "eredivisie.telstar",
         "league": "eredivisie",
@@ -855,7 +727,13 @@
       },
       "venue": "BUKO Stadion, Velsen",
       "referee": "Joey Kooij",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 3,
+        "observedAt": "2026-11-21T21:48:13.141Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "eredivisie-2026-11-21-groningen-heerenveen-gtagm0",
@@ -865,7 +743,7 @@
       "round": "Regular season · Matchday 13",
       "phase": "Regular season",
       "startTime": "2026-11-21T20:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "eredivisie.groningen",
         "league": "eredivisie",
@@ -884,7 +762,13 @@
       },
       "venue": "Euroborg Stadium, Groningen",
       "referee": "Alex Bos",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 3,
+        "observedAt": "2026-11-21T21:48:13.141Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "eredivisie-2026-11-22-twente-willem-ii-tilb-bw201g",
@@ -1673,1812 +1557,121 @@
       },
       "venue": "Koning Willem II Stadion, Tilburg",
       "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-12-13-groningen-feyenoord-oyb7t0",
+      "league": "eredivisie",
+      "season": "eredivisie-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-13T13:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "eredivisie.groningen",
+        "league": "eredivisie",
+        "name": "FC Groningen",
+        "shortName": "Groningen",
+        "code": "GRO",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/181/?bg=transparent"
+      },
+      "away": {
+        "id": "eredivisie.feyenoord",
+        "league": "eredivisie",
+        "name": "Feyenoord",
+        "shortName": "Feyenoord",
+        "code": "FEY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/138/?bg=transparent"
+      },
+      "venue": "Euroborg Stadium, Groningen",
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-12-13-az-alkmaar-nec-nijmegen-g4lw5k",
+      "league": "eredivisie",
+      "season": "eredivisie-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-13T15:45:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "eredivisie.az-alkmaar",
+        "league": "eredivisie",
+        "name": "AZ Alkmaar",
+        "shortName": "AZ Alkmaar",
+        "code": "AZA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/180/?bg=transparent"
+      },
+      "away": {
+        "id": "eredivisie.nec-nijmegen",
+        "league": "eredivisie",
+        "name": "NEC Nijmegen",
+        "shortName": "NEC Nijmegen",
+        "code": "NEC",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/171/?bg=transparent"
+      },
+      "venue": "AFAS Stadion, Alkmaar",
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-12-13-ajax-cambuur-kimyd2",
+      "league": "eredivisie",
+      "season": "eredivisie-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-13T19:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "eredivisie.ajax",
+        "league": "eredivisie",
+        "name": "AFC Ajax",
+        "shortName": "AFC Ajax",
+        "code": "AJA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/122/?bg=transparent"
+      },
+      "away": {
+        "id": "eredivisie.cambuur",
+        "league": "eredivisie",
+        "name": "SC Cambuur",
+        "shortName": "Cambuur",
+        "code": "CAM",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1324/?bg=transparent"
+      },
+      "venue": "Johan Cruijff Arena, Amsterdam",
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-12-18-telstar-willem-ii-tilb-aq02an",
+      "league": "eredivisie",
+      "season": "eredivisie-2026-27",
+      "week": 17,
+      "round": "Regular season · Matchday 17",
+      "phase": "Regular season",
+      "startTime": "2026-12-18T19:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "eredivisie.telstar",
+        "league": "eredivisie",
+        "name": "SC Telstar",
+        "shortName": "Telstar",
+        "code": "TEL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/179/?bg=transparent"
+      },
+      "away": {
+        "id": "eredivisie.willem-ii-tilburg",
+        "league": "eredivisie",
+        "name": "Willem II Tilburg",
+        "shortName": "Willem II Tilburg",
+        "code": "WIL",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/2053/?bg=transparent"
+      },
+      "venue": "BUKO Stadion, Velsen",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "eredivisie-2026-10-31-cambuur-go-ahead-eagle-lp98wd": {
-      "game": "eredivisie-2026-10-31-cambuur-go-ahead-eagle-lp98wd",
-      "model": {
-        "id": "pitchlab-statistical-eredivisie",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.340690760473967,
-        "away": 2.0650950109925508,
-        "total": 4.405785771466517,
-        "margin": 0.2755957494814161
-      },
-      "x12": [
-        0.4561675957641616,
-        0.18905315438978867,
-        0.3547792498460491
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Cambuur gana",
-          "p": 0.4561675957641616,
-          "fairOdds": 2.1921767553980303
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.18905315438978867,
-          "fairOdds": 5.2895176662231504
-        },
-        {
-          "market": "h2h",
-          "selection": "Go Ahead Eagles gana",
-          "p": 0.3547792498460491,
-          "fairOdds": 2.818654136153494
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cambuur o empate",
-          "p": 0.6452207501539503,
-          "fairOdds": 1.5498571609195753
-        },
-        {
-          "market": "double_chance",
-          "selection": "Go Ahead Eagles o empate",
-          "p": 0.5438324042358378,
-          "fairOdds": 1.8388017929993392
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8109468456102107,
-          "fairOdds": 1.2331264439995855
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9310609107087376,
-          "fairOdds": 1.0740435867281604
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.8155358234250409,
-          "fairOdds": 1.2261877054036165
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.18446417657495906,
-          "fairOdds": 5.421106789228742
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.6415434388960906,
-          "fairOdds": 1.5587409041556233
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.35845656110390944,
-          "fairOdds": 2.7897383072592716
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7861846774640436,
-          "fairOdds": 1.2719657717390902
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.21381532253595636,
-          "fairOdds": 4.676933290558886
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cambuur más de 1.5",
-          "line": 1.5,
-          "p": 0.6784102730428783,
-          "fairOdds": 1.4740342824036157
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cambuur menos de 1.5",
-          "line": 1.5,
-          "p": 0.32158972695712174,
-          "fairOdds": 3.1095520664232295
-        },
-        {
-          "market": "team_totals",
-          "selection": "Go Ahead Eagles más de 1.5",
-          "line": 1.5,
-          "p": 0.6113224893735386,
-          "fairOdds": 1.6357978274687133
-        },
-        {
-          "market": "team_totals",
-          "selection": "Go Ahead Eagles menos de 1.5",
-          "line": 1.5,
-          "p": 0.3886775106264614,
-          "fairOdds": 2.5728270163823557
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–2",
-          "p": 0.07130492503934507,
-          "fairOdds": 14.024276716485065
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.06905728274949793,
-          "fairOdds": 14.480731939996152
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.060926395099629924,
-          "fairOdds": 16.41324746630339
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Cambuur gana",
-              "p": 0.4561675957641616,
-              "fairOdds": 2.1921767553980303
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.18905315438978867,
-              "fairOdds": 5.2895176662231504
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Go Ahead Eagles gana",
-              "p": 0.3547792498460491,
-              "fairOdds": 2.818654136153494
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Cambuur o empate",
-              "p": 0.6452207501539503,
-              "fairOdds": 1.5498571609195753
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Go Ahead Eagles o empate",
-              "p": 0.5438324042358378,
-              "fairOdds": 1.8388017929993392
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8109468456102107,
-              "fairOdds": 1.2331264439995855
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9310609107087376,
-              "fairOdds": 1.0740435867281604
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.8155358234250409,
-              "fairOdds": 1.2261877054036165
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.18446417657495906,
-              "fairOdds": 5.421106789228742
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.6415434388960906,
-              "fairOdds": 1.5587409041556233
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.35845656110390944,
-              "fairOdds": 2.7897383072592716
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7861846774640436,
-              "fairOdds": 1.2719657717390902
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.21381532253595636,
-              "fairOdds": 4.676933290558886
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Cambuur más de 1.5",
-              "line": 1.5,
-              "p": 0.6784102730428783,
-              "fairOdds": 1.4740342824036157
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Cambuur menos de 1.5",
-              "line": 1.5,
-              "p": 0.32158972695712174,
-              "fairOdds": 3.1095520664232295
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Go Ahead Eagles más de 1.5",
-              "line": 1.5,
-              "p": 0.6113224893735386,
-              "fairOdds": 1.6357978274687133
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Go Ahead Eagles menos de 1.5",
-              "line": 1.5,
-              "p": 0.3886775106264614,
-              "fairOdds": 2.5728270163823557
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-2",
-              "label": "2–2",
-              "p": 0.07130492503934507,
-              "fairOdds": 14.024276716485065
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.06905728274949793,
-              "fairOdds": 14.480731939996152
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.060926395099629924,
-              "fairOdds": 16.41324746630339
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 2,
-        "p": 0.07130492503934507
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.51 goles/partido",
-          "detail": "12 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "2.23 concedidos/partido",
-          "detail": "22 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.07 goles/partido",
-          "detail": "3 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "2.13 concedidos/partido",
-          "detail": "16 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×0.93",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 3.2–6.0",
-          "detail": "local 23%–72% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "10.º · 15 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "8.º · 17 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-G-E-G · 11 pts",
-          "detail": "13 goles a favor · 4 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-E-P-G · 6 pts",
-          "detail": "9 goles a favor · 11 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Eredivisie · corte 31 oct 2026, 13:00",
-        "Fuerza ajustada por rival · CAM 1.12 / 1.16 · GOA 0.97 / 1.22",
-        "Ponderando 96.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.34 – 2.07 · total 4.41",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-10-31T19:00:00.000Z",
-      "publishedAt": "2026-10-31T19:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.06905728274949793
-      },
-      "insights": {
-        "why": [
-          "Se esperan 4.4 goles: 2.3 de Cambuur y 2.1 de Go Ahead Eagles.",
-          "Go Ahead Eagles concede 22 % más que la media.",
-          "Cambuur concede 16 % más que la media."
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 8
-        }
-      },
-      "matchContext": {
-        "referee": "Serdar Gozubuyuk",
-        "refereeStats": {
-          "country": "Netherlands",
-          "matches": 90,
-          "avgYellow": 3.98,
-          "avgRed": 0.13,
-          "avgFouls": 23.3,
-          "avgGoals": 3.2
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 7,
-          "windSpeedKmh": 37
-        },
-        "travelDistanceKm": 108,
-        "halfTimeScore": {
-          "home": 3,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Leeuwarden",
-        "venueCountry": "Netherlands",
-        "venueCapacity": 15000
-      }
-    },
-    "eredivisie-2026-10-31-ajax-az-alkmaar-ff4y9w": {
-      "game": "eredivisie-2026-10-31-ajax-az-alkmaar-ff4y9w",
-      "model": {
-        "id": "pitchlab-statistical-eredivisie",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.7587419873731407,
-        "away": 1.4591352914927511,
-        "total": 3.217877278865892,
-        "margin": 0.2996066958803896
-      },
-      "x12": [
-        0.4533364761949126,
-        0.22058380661317134,
-        0.32607971719191603
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "AFC Ajax gana",
-          "p": 0.4533364761949126,
-          "fairOdds": 2.2058670601437522
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.22058380661317134,
-          "fairOdds": 4.533424349474839
-        },
-        {
-          "market": "h2h",
-          "selection": "AZ Alkmaar gana",
-          "p": 0.32607971719191603,
-          "fairOdds": 3.0667347500532958
-        },
-        {
-          "market": "double_chance",
-          "selection": "AFC Ajax o empate",
-          "p": 0.6739202828080839,
-          "fairOdds": 1.4838550278279363
-        },
-        {
-          "market": "double_chance",
-          "selection": "AZ Alkmaar o empate",
-          "p": 0.5466635238050874,
-          "fairOdds": 1.829278809457478
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7794161933868287,
-          "fairOdds": 1.283011577748545
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8259782315316079,
-          "fairOdds": 1.2106856595308866
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6238136702180057,
-          "fairOdds": 1.6030427798264304
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.3761863297819943,
-          "fairOdds": 2.6582571476733756
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.40145600229103784,
-          "fairOdds": 2.4909329896506174
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5985439977089622,
-          "fairOdds": 1.6707209558991234
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.630203307690955,
-          "fairOdds": 1.5867895134729908
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.369796692309045,
-          "fairOdds": 2.7041886009198914
-        },
-        {
-          "market": "team_totals",
-          "selection": "AFC Ajax más de 1.5",
-          "line": 1.5,
-          "p": 0.5247739533610258,
-          "fairOdds": 1.9055823818908855
-        },
-        {
-          "market": "team_totals",
-          "selection": "AFC Ajax menos de 1.5",
-          "line": 1.5,
-          "p": 0.47522604663897416,
-          "fairOdds": 2.104261765684937
-        },
-        {
-          "market": "team_totals",
-          "selection": "AZ Alkmaar más de 1.5",
-          "line": 1.5,
-          "p": 0.4284052903480362,
-          "fairOdds": 2.3342382144431517
-        },
-        {
-          "market": "team_totals",
-          "selection": "AZ Alkmaar menos de 1.5",
-          "line": 1.5,
-          "p": 0.5715947096519638,
-          "fairOdds": 1.7494913495768467
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.09761492567926285,
-          "fairOdds": 10.244335003498737
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09035761494022536,
-          "fairOdds": 11.067135854145045
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.07555779634234858,
-          "fairOdds": 13.23490160391987
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "AFC Ajax gana",
-              "p": 0.4533364761949126,
-              "fairOdds": 2.2058670601437522
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.22058380661317134,
-              "fairOdds": 4.533424349474839
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "AZ Alkmaar gana",
-              "p": 0.32607971719191603,
-              "fairOdds": 3.0667347500532958
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "AFC Ajax o empate",
-              "p": 0.6739202828080839,
-              "fairOdds": 1.4838550278279363
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "AZ Alkmaar o empate",
-              "p": 0.5466635238050874,
-              "fairOdds": 1.829278809457478
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7794161933868287,
-              "fairOdds": 1.283011577748545
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8259782315316079,
-              "fairOdds": 1.2106856595308866
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6238136702180057,
-              "fairOdds": 1.6030427798264304
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.3761863297819943,
-              "fairOdds": 2.6582571476733756
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.40145600229103784,
-              "fairOdds": 2.4909329896506174
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5985439977089622,
-              "fairOdds": 1.6707209558991234
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.630203307690955,
-              "fairOdds": 1.5867895134729908
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.369796692309045,
-              "fairOdds": 2.7041886009198914
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "AFC Ajax más de 1.5",
-              "line": 1.5,
-              "p": 0.5247739533610258,
-              "fairOdds": 1.9055823818908855
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "AFC Ajax menos de 1.5",
-              "line": 1.5,
-              "p": 0.47522604663897416,
-              "fairOdds": 2.104261765684937
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "AZ Alkmaar más de 1.5",
-              "line": 1.5,
-              "p": 0.4284052903480362,
-              "fairOdds": 2.3342382144431517
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "AZ Alkmaar menos de 1.5",
-              "line": 1.5,
-              "p": 0.5715947096519638,
-              "fairOdds": 1.7494913495768467
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.09761492567926285,
-              "fairOdds": 10.244335003498737
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09035761494022536,
-              "fairOdds": 11.067135854145045
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.07555779634234858,
-              "fairOdds": 13.23490160391987
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.09761492567926285
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.89 goles/partido",
-          "detail": "32 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.43 concedidos/partido",
-          "detail": "22 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.46 goles/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.43 concedidos/partido",
-          "detail": "22 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×0.93",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.3–4.6",
-          "detail": "local 26%–69% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "3.º · 25 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "5.º · 23 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-E-G-G · 11 pts",
-          "detail": "15 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-G-P-E-P · 5 pts",
-          "detail": "4 goles a favor · 7 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Eredivisie · corte 31 oct 2026, 13:00",
-        "Fuerza ajustada por rival · AJA 1.32 / 0.78 · AZA 1.02 / 0.78",
-        "Ponderando 96.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.76 – 1.46 · total 3.22",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-10-31T19:00:00.000Z",
-      "publishedAt": "2026-10-31T19:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09035761494022536
-      },
-      "insights": {
-        "why": [
-          "AFC Ajax gana en 45% de los escenarios; el empate, en 22%.",
-          "AFC Ajax anota 32 % más que la media.",
-          "AFC Ajax concede 22 % menos que la media."
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Allard Lindhout",
-        "refereeStats": {
-          "country": "Netherlands",
-          "matches": 70,
-          "avgYellow": 3.31,
-          "avgRed": 0.16,
-          "avgFouls": 21.1,
-          "avgGoals": 3.09
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 8,
-          "windSpeedKmh": 54
-        },
-        "travelDistanceKm": 36,
-        "isLocalDerby": true,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Amsterdam",
-        "venueCountry": "Netherlands",
-        "venueCapacity": 55865
-      }
-    },
-    "eredivisie-2026-11-01-pec-zwolle-ado-den-haag-xa3i6h": {
-      "game": "eredivisie-2026-11-01-pec-zwolle-ado-den-haag-xa3i6h",
-      "model": {
-        "id": "pitchlab-statistical-eredivisie",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.1719559758589202,
-        "away": 1.5581896476313668,
-        "total": 2.730145623490287,
-        "margin": -0.3862336717724466
-      },
-      "x12": [
-        0.2924075359905523,
-        0.23913449364139827,
-        0.46845797036804987
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "PEC Zwolle gana",
-          "p": 0.2924075359905523,
-          "fairOdds": 3.4198844999408977
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.23913449364139827,
-          "fairOdds": 4.181747203310543
-        },
-        {
-          "market": "h2h",
-          "selection": "ADO Den Haag gana",
-          "p": 0.46845797036804987,
-          "fairOdds": 2.1346632211515955
-        },
-        {
-          "market": "double_chance",
-          "selection": "PEC Zwolle o empate",
-          "p": 0.5315420296319506,
-          "fairOdds": 1.8813187749093296
-        },
-        {
-          "market": "double_chance",
-          "selection": "ADO Den Haag o empate",
-          "p": 0.7075924640094482,
-          "fairOdds": 1.413242863460806
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7608655063586022,
-          "fairOdds": 1.3142927253804193
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7508036890276898,
-          "fairOdds": 1.3319060822610314
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5137306079079833,
-          "fairOdds": 1.946545494091165
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.4862693920920167,
-          "fairOdds": 2.0564732559000345
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2925640927334039,
-          "fairOdds": 3.418054453152732
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7074359072665961,
-          "fairOdds": 1.4135556164569287
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5389782829303844,
-          "fairOdds": 1.8553623247361195
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4610217170696156,
-          "fairOdds": 2.169095213900731
-        },
-        {
-          "market": "team_totals",
-          "selection": "PEC Zwolle más de 1.5",
-          "line": 1.5,
-          "p": 0.327213875273873,
-          "fairOdds": 3.0561051213461385
-        },
-        {
-          "market": "team_totals",
-          "selection": "PEC Zwolle menos de 1.5",
-          "line": 1.5,
-          "p": 0.672786124726127,
-          "fairOdds": 1.4863564560090667
-        },
-        {
-          "market": "team_totals",
-          "selection": "ADO Den Haag más de 1.5",
-          "line": 1.5,
-          "p": 0.4614575808430612,
-          "fairOdds": 2.1670464231469495
-        },
-        {
-          "market": "team_totals",
-          "selection": "ADO Den Haag menos de 1.5",
-          "line": 1.5,
-          "p": 0.5385424191569388,
-          "fairOdds": 1.8568639431698806
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11312755621292013,
-          "fairOdds": 8.839579263233404
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.1075633919583869,
-          "fairOdds": 9.296843301361028
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.09277588786989878,
-          "fairOdds": 10.778662677982853
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "PEC Zwolle gana",
-              "p": 0.2924075359905523,
-              "fairOdds": 3.4198844999408977
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.23913449364139827,
-              "fairOdds": 4.181747203310543
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "ADO Den Haag gana",
-              "p": 0.46845797036804987,
-              "fairOdds": 2.1346632211515955
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "PEC Zwolle o empate",
-              "p": 0.5315420296319506,
-              "fairOdds": 1.8813187749093296
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "ADO Den Haag o empate",
-              "p": 0.7075924640094482,
-              "fairOdds": 1.413242863460806
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7608655063586022,
-              "fairOdds": 1.3142927253804193
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7508036890276898,
-              "fairOdds": 1.3319060822610314
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5137306079079833,
-              "fairOdds": 1.946545494091165
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.4862693920920167,
-              "fairOdds": 2.0564732559000345
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2925640927334039,
-              "fairOdds": 3.418054453152732
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7074359072665961,
-              "fairOdds": 1.4135556164569287
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5389782829303844,
-              "fairOdds": 1.8553623247361195
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4610217170696156,
-              "fairOdds": 2.169095213900731
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "PEC Zwolle más de 1.5",
-              "line": 1.5,
-              "p": 0.327213875273873,
-              "fairOdds": 3.0561051213461385
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "PEC Zwolle menos de 1.5",
-              "line": 1.5,
-              "p": 0.672786124726127,
-              "fairOdds": 1.4863564560090667
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "ADO Den Haag más de 1.5",
-              "line": 1.5,
-              "p": 0.4614575808430612,
-              "fairOdds": 2.1670464231469495
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "ADO Den Haag menos de 1.5",
-              "line": 1.5,
-              "p": 0.5385424191569388,
-              "fairOdds": 1.8568639431698806
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11312755621292013,
-              "fairOdds": 8.839579263233404
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.1075633919583869,
-              "fairOdds": 9.296843301361028
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.09277588786989878,
-              "fairOdds": 10.778662677982853
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11312755621292013
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.26 goles/partido",
-          "detail": "33 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.87 concedidos/partido",
-          "detail": "en la media de la liga · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.56 goles/partido",
-          "detail": "16 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.86 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×0.93",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.0–4.0",
-          "detail": "local 14%–51% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "13.º · 12 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "17.º · 9 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-P-G-E · 4 pts",
-          "detail": "5 goles a favor · 13 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-E-E-G-P · 5 pts",
-          "detail": "7 goles a favor · 9 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Eredivisie · corte 1 nov 2026, 04:15",
-        "Fuerza ajustada por rival · PEC 0.67 / 1.01 · ADO 0.84 / 1.02",
-        "Ponderando 96.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.17 – 1.56 · total 2.73",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-01T10:15:00.000Z",
-      "publishedAt": "2026-11-01T10:15:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.09277588786989878
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.7 goles: 1.2 de PEC Zwolle y 1.6 de ADO Den Haag.",
-          "PEC Zwolle anota 33 % menos que la media.",
-          "ADO Den Haag anota 16 % menos que la media."
-        ],
-        "restDays": {
-          "home": 8,
-          "away": 8
-        }
-      },
-      "matchContext": {
-        "referee": "Jeroen Manschot",
-        "refereeStats": {
-          "country": "Netherlands",
-          "matches": 52,
-          "avgYellow": 3.63,
-          "avgRed": 0.15,
-          "avgFouls": 19.8,
-          "avgGoals": 3.19
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 11,
-          "windSpeedKmh": 35
-        },
-        "travelDistanceKm": 129,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Zwolle",
-        "venueCountry": "Netherlands",
-        "venueCapacity": 14000
-      }
-    },
-    "eredivisie-2026-11-01-telstar-utrecht-jhmw5x": {
-      "game": "eredivisie-2026-11-01-telstar-utrecht-jhmw5x",
-      "model": {
-        "id": "pitchlab-statistical-eredivisie",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.1200611114603145,
-        "away": 1.83586504731303,
-        "total": 3.9559261587733445,
-        "margin": 0.2841960641472845
-      },
-      "x12": [
-        0.45545604277289303,
-        0.19898620572017597,
-        0.34555775150693085
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Telstar gana",
-          "p": 0.45545604277289303,
-          "fairOdds": 2.1956015643394076
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.19898620572017597,
-          "fairOdds": 5.025473983891367
-        },
-        {
-          "market": "h2h",
-          "selection": "Utrecht gana",
-          "p": 0.34555775150693085,
-          "fairOdds": 2.8938722851365206
-        },
-        {
-          "market": "double_chance",
-          "selection": "Telstar o empate",
-          "p": 0.654442248493069,
-          "fairOdds": 1.5280187095234434
-        },
-        {
-          "market": "double_chance",
-          "selection": "Utrecht o empate",
-          "p": 0.5445439572271068,
-          "fairOdds": 1.8363990394680687
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8010137942798239,
-          "fairOdds": 1.2484179512777065
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.90141221913215,
-          "fairOdds": 1.1093703621665647
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.7553629730234358,
-          "fairOdds": 1.3238668503929623
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.2446370269765642,
-          "fairOdds": 4.087688655960482
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.5578643113767687,
-          "fairOdds": 1.7925505891066458
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.44213568862323127,
-          "fairOdds": 2.2617491094507782
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7359141637028255,
-          "fairOdds": 1.3588541290853817
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.2640858362971745,
-          "fairOdds": 3.786647606783064
-        },
-        {
-          "market": "team_totals",
-          "selection": "Telstar más de 1.5",
-          "line": 1.5,
-          "p": 0.6255115685079438,
-          "fairOdds": 1.598691455675772
-        },
-        {
-          "market": "team_totals",
-          "selection": "Telstar menos de 1.5",
-          "line": 1.5,
-          "p": 0.37448843149205624,
-          "fairOdds": 2.670309456598561
-        },
-        {
-          "market": "team_totals",
-          "selection": "Utrecht más de 1.5",
-          "line": 1.5,
-          "p": 0.5477473377912501,
-          "fairOdds": 1.8256592611338374
-        },
-        {
-          "market": "team_totals",
-          "selection": "Utrecht menos de 1.5",
-          "line": 1.5,
-          "p": 0.45225266220874993,
-          "fairOdds": 2.2111533741252405
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.07897295620597662,
-          "fairOdds": 12.662562578913827
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–2",
-          "p": 0.07249184499076755,
-          "fairOdds": 13.794655110893626
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.07077560924081142,
-          "fairOdds": 14.129161313151494
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Telstar gana",
-              "p": 0.45545604277289303,
-              "fairOdds": 2.1956015643394076
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.19898620572017597,
-              "fairOdds": 5.025473983891367
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Utrecht gana",
-              "p": 0.34555775150693085,
-              "fairOdds": 2.8938722851365206
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Telstar o empate",
-              "p": 0.654442248493069,
-              "fairOdds": 1.5280187095234434
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Utrecht o empate",
-              "p": 0.5445439572271068,
-              "fairOdds": 1.8363990394680687
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8010137942798239,
-              "fairOdds": 1.2484179512777065
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.90141221913215,
-              "fairOdds": 1.1093703621665647
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.7553629730234358,
-              "fairOdds": 1.3238668503929623
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.2446370269765642,
-              "fairOdds": 4.087688655960482
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.5578643113767687,
-              "fairOdds": 1.7925505891066458
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.44213568862323127,
-              "fairOdds": 2.2617491094507782
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7359141637028255,
-              "fairOdds": 1.3588541290853817
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.2640858362971745,
-              "fairOdds": 3.786647606783064
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Telstar más de 1.5",
-              "line": 1.5,
-              "p": 0.6255115685079438,
-              "fairOdds": 1.598691455675772
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Telstar menos de 1.5",
-              "line": 1.5,
-              "p": 0.37448843149205624,
-              "fairOdds": 2.670309456598561
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Utrecht más de 1.5",
-              "line": 1.5,
-              "p": 0.5477473377912501,
-              "fairOdds": 1.8256592611338374
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Utrecht menos de 1.5",
-              "line": 1.5,
-              "p": 0.45225266220874993,
-              "fairOdds": 2.2111533741252405
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.07897295620597662,
-              "fairOdds": 12.662562578913827
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-2",
-              "label": "2–2",
-              "p": 0.07249184499076755,
-              "fairOdds": 13.794655110893626
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.07077560924081142,
-              "fairOdds": 14.129161313151494
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.07897295620597662
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "2.27 goles/partido",
-          "detail": "10 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "2.52 concedidos/partido",
-          "detail": "37 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.84 goles/partido",
-          "detail": "5 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.94 concedidos/partido",
-          "detail": "6 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×0.93",
-          "detail": "estimada de 108 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.9–5.6",
-          "detail": "local 26%–69% · 108 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "16.º · 10 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "14.º · 12 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-P-E-P-P · 2 pts",
-          "detail": "7 goles a favor · 10 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-G-G-E · 10 pts",
-          "detail": "8 goles a favor · 9 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Eredivisie · corte 1 nov 2026, 06:30",
-        "Fuerza ajustada por rival · TEL 0.90 / 1.06 · UTR 0.95 / 1.37",
-        "Ponderando 96.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.12 – 1.84 · total 3.96",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-01T12:30:00.000Z",
-      "publishedAt": "2026-11-01T12:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.07897295620597662
-      },
-      "insights": {
-        "why": [
-          "Telstar gana en 46% de los escenarios; el empate, en 20%.",
-          "Utrecht concede 37 % más que la media.",
-          "Telstar anota 10 % menos que la media."
-        ],
-        "restDays": {
-          "home": 9,
-          "away": 8
-        }
-      },
-      "matchContext": {
-        "referee": "Richard Martens",
-        "refereeStats": {
-          "country": "Netherlands",
-          "matches": 20,
-          "avgYellow": 3.45,
-          "avgRed": 0.2,
-          "avgFouls": 22.4,
-          "avgGoals": 3.75
-        },
-        "weather": {
-          "temperatureC": 12,
-          "windSpeedKmh": 42
-        },
-        "halfTimeScore": {
-          "home": 3,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Velsen",
-        "venueCountry": "Netherlands",
-        "venueCapacity": 5336
-      }
-    },
     "eredivisie-2026-11-01-excelsior-twente-07txjg": {
       "game": "eredivisie-2026-11-01-excelsior-twente-07txjg",
       "model": {
@@ -4808,11 +3001,11 @@
         "referee": "Allard Lindhout",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 70,
-          "avgYellow": 3.31,
-          "avgRed": 0.16,
-          "avgFouls": 21.1,
-          "avgGoals": 3.09
+          "matches": 71,
+          "avgYellow": 3.34,
+          "avgRed": 0.15,
+          "avgFouls": 21.3,
+          "avgGoals": 3.11
         },
         "weather": {
           "description": "clear",
@@ -5710,11 +3903,11 @@
         "referee": "Alex Bos",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 39,
+          "matches": 40,
           "avgYellow": 2.92,
           "avgRed": 0.23,
-          "avgFouls": 22.2,
-          "avgGoals": 3.49
+          "avgFouls": 22.1,
+          "avgGoals": 3.5
         },
         "weather": {
           "description": "cloudy",
@@ -7064,11 +5257,11 @@
         "referee": "Joey Kooij",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 56,
-          "avgYellow": 3.43,
+          "matches": 57,
+          "avgYellow": 3.39,
           "avgRed": 0.14,
           "avgFouls": 24.6,
-          "avgGoals": 2.8
+          "avgGoals": 2.82
         },
         "halfTimeScore": {
           "home": 0,
@@ -9391,14 +7584,14 @@
         "referee": "Robin Hensgens",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 33,
-          "avgYellow": 3.06,
+          "matches": 34,
+          "avgYellow": 3.03,
           "avgRed": 0.15,
-          "avgFouls": 22.5,
-          "avgGoals": 2.55
+          "avgFouls": 22.4,
+          "avgGoals": 2.62
         },
         "weather": {
-          "description": "unknown",
+          "description": "cloudy",
           "temperatureC": 5,
           "windSpeedKmh": 31
         },
@@ -9880,14 +8073,14 @@
         "referee": "Allard Lindhout",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 70,
-          "avgYellow": 3.31,
-          "avgRed": 0.16,
-          "avgFouls": 21.1,
-          "avgGoals": 3.09
+          "matches": 71,
+          "avgYellow": 3.34,
+          "avgRed": 0.15,
+          "avgFouls": 21.3,
+          "avgGoals": 3.11
         },
         "weather": {
-          "description": "unknown",
+          "description": "cloudy",
           "temperatureC": 4,
           "windSpeedKmh": 26
         },
@@ -10368,18 +8561,22 @@
         "referee": "Joey Kooij",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 56,
-          "avgYellow": 3.43,
+          "matches": 57,
+          "avgYellow": 3.39,
           "avgRed": 0.14,
           "avgFouls": 24.6,
-          "avgGoals": 2.8
+          "avgGoals": 2.82
         },
         "weather": {
-          "description": "unknown",
+          "description": "cloudy",
           "temperatureC": 4,
           "windSpeedKmh": 17
         },
         "travelDistanceKm": 101,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 2
+        },
         "stageName": "Regular season",
         "venueCity": "Velsen",
         "venueCountry": "Netherlands",
@@ -10853,18 +9050,22 @@
         "referee": "Alex Bos",
         "refereeStats": {
           "country": "Netherlands",
-          "matches": 39,
+          "matches": 40,
           "avgYellow": 2.92,
           "avgRed": 0.23,
-          "avgFouls": 22.2,
-          "avgGoals": 3.49
+          "avgFouls": 22.1,
+          "avgGoals": 3.5
         },
         "weather": {
-          "description": "clear",
+          "description": "cloudy",
           "temperatureC": 2,
           "windSpeedKmh": 13
         },
         "travelDistanceKm": 52,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Groningen",
         "venueCountry": "Netherlands",
@@ -19873,6 +18074,10 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 6,
+          "windSpeedKmh": 134
+        },
         "stageName": "Regular season",
         "venueCity": "Heerenveen",
         "venueCountry": "Netherlands",
@@ -20342,6 +18547,10 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 6,
+          "windSpeedKmh": 122
+        },
         "stageName": "Regular season",
         "venueCity": "Deventer",
         "venueCountry": "Netherlands",
@@ -20813,6 +19022,10 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "temperatureC": 7,
+          "windSpeedKmh": 95
+        },
         "stageName": "Regular season",
         "venueCity": "Amsterdam",
         "venueCountry": "Netherlands",
@@ -24081,6 +22294,1882 @@
         "venueCountry": "Netherlands",
         "venueCapacity": 14637
       }
+    },
+    "eredivisie-2026-12-13-groningen-feyenoord-oyb7t0": {
+      "game": "eredivisie-2026-12-13-groningen-feyenoord-oyb7t0",
+      "model": {
+        "id": "pitchlab-statistical-eredivisie",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.8665636238258656,
+        "away": 3.1473331365886072,
+        "total": 5.013896760414473,
+        "margin": -1.2807695127627416
+      },
+      "x12": [
+        0.2103093159877552,
+        0.1541685221765046,
+        0.6355221618357404
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Groningen gana",
+          "p": 0.2103093159877552,
+          "fairOdds": 4.754901109840625
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.1541685221765046,
+          "fairOdds": 6.486408417764549
+        },
+        {
+          "market": "h2h",
+          "selection": "Feyenoord gana",
+          "p": 0.6355221618357404,
+          "fairOdds": 1.5735092496403988
+        },
+        {
+          "market": "double_chance",
+          "selection": "Groningen o empate",
+          "p": 0.3644778381642598,
+          "fairOdds": 2.7436510407234374
+        },
+        {
+          "market": "double_chance",
+          "selection": "Feyenoord o empate",
+          "p": 0.789690684012245,
+          "fairOdds": 1.266318598212682
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8458314778234957,
+          "fairOdds": 1.1822686034021963
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9580676565700492,
+          "fairOdds": 1.043767622403695
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.8764593765796761,
+          "fairOdds": 1.1409541921981974
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.1235406234203239,
+          "fairOdds": 8.094503429836895
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.7368039799043871,
+          "fairOdds": 1.3572130814626804
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.26319602009561294,
+          "fairOdds": 3.799449549566606
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.8070550604639402,
+          "fairOdds": 1.2390728328066543
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.19294493953605985,
+          "fairOdds": 5.182825745026125
+        },
+        {
+          "market": "team_totals",
+          "selection": "Groningen más de 1.5",
+          "line": 1.5,
+          "p": 0.5566719525060277,
+          "fairOdds": 1.7963901279706953
+        },
+        {
+          "market": "team_totals",
+          "selection": "Groningen menos de 1.5",
+          "line": 1.5,
+          "p": 0.44332804749397225,
+          "fairOdds": 2.2556659919280126
+        },
+        {
+          "market": "team_totals",
+          "selection": "Feyenoord más de 1.5",
+          "line": 1.5,
+          "p": 0.8217259584616006,
+          "fairOdds": 1.216950723903327
+        },
+        {
+          "market": "team_totals",
+          "selection": "Feyenoord menos de 1.5",
+          "line": 1.5,
+          "p": 0.17827404153839943,
+          "fairOdds": 5.6093416145760315
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–3",
+          "p": 0.064476655432992,
+          "fairOdds": 15.509489338187834
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.06145837059645825,
+          "fairOdds": 16.271176575215428
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–3",
+          "p": 0.060174889808588615,
+          "fairOdds": 16.618227356641913
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Groningen gana",
+              "p": 0.2103093159877552,
+              "fairOdds": 4.754901109840625
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.1541685221765046,
+              "fairOdds": 6.486408417764549
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Feyenoord gana",
+              "p": 0.6355221618357404,
+              "fairOdds": 1.5735092496403988
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Groningen o empate",
+              "p": 0.3644778381642598,
+              "fairOdds": 2.7436510407234374
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Feyenoord o empate",
+              "p": 0.789690684012245,
+              "fairOdds": 1.266318598212682
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8458314778234957,
+              "fairOdds": 1.1822686034021963
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.9580676565700492,
+              "fairOdds": 1.043767622403695
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.8764593765796761,
+              "fairOdds": 1.1409541921981974
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.1235406234203239,
+              "fairOdds": 8.094503429836895
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.7368039799043871,
+              "fairOdds": 1.3572130814626804
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.26319602009561294,
+              "fairOdds": 3.799449549566606
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.8070550604639402,
+              "fairOdds": 1.2390728328066543
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.19294493953605985,
+              "fairOdds": 5.182825745026125
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Groningen más de 1.5",
+              "line": 1.5,
+              "p": 0.5566719525060277,
+              "fairOdds": 1.7963901279706953
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Groningen menos de 1.5",
+              "line": 1.5,
+              "p": 0.44332804749397225,
+              "fairOdds": 2.2556659919280126
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Feyenoord más de 1.5",
+              "line": 1.5,
+              "p": 0.8217259584616006,
+              "fairOdds": 1.216950723903327
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Feyenoord menos de 1.5",
+              "line": 1.5,
+              "p": 0.17827404153839943,
+              "fairOdds": 5.6093416145760315
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-3",
+              "label": "1–3",
+              "p": 0.064476655432992,
+              "fairOdds": 15.509489338187834
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.06145837059645825,
+              "fairOdds": 16.271176575215428
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-3",
+              "label": "2–3",
+              "p": 0.060174889808588615,
+              "fairOdds": 16.618227356641913
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 3,
+        "p": 0.064476655432992
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "2.07 goles/partido",
+          "detail": "22 % más que la media · 13 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.70 concedidos/partido",
+          "detail": "9 % menos que la media · 13 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "3.15 goles/partido",
+          "detail": "40 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "2.26 concedidos/partido",
+          "detail": "21 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×0.90",
+          "detail": "estimada de 113 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.9–6.9",
+          "detail": "local 8%–42% · 113 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "10.º · 15 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "2.º · 25 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-P-P-P · 1 pts",
+          "detail": "10 goles a favor · 17 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-E-E-P-P · 5 pts",
+          "detail": "11 goles a favor · 13 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Eredivisie · corte 21 nov 2026, 21:48",
+        "Fuerza ajustada por rival · GRO 1.22 / 1.21 · FEY 1.40 / 0.91",
+        "Ponderando 101.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.87 – 3.15 · total 5.01",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–3"
+      ],
+      "inputsAsOf": "2026-11-21T21:48:13.141Z",
+      "publishedAt": "2026-11-21T21:48:13.141Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9580676565700492,
+          "fairOdds": 1.043767622403695
+        },
+        {
+          "profile": "intermedia",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Feyenoord gana",
+          "p": 0.6355221618357404,
+          "fairOdds": 1.5735092496403988
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "Groningen menos de 1.5",
+          "line": 1.5,
+          "p": 0.44332804749397225,
+          "fairOdds": 2.2556659919280126
+        }
+      ],
+      "confidence": {
+        "score": 74,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 3,
+        "p": 0.064476655432992
+      },
+      "insights": {
+        "why": [
+          "Feyenoord gana en 64% de los escenarios; el empate, en 15%.",
+          "Feyenoord anota 40 % más que la media.",
+          "Groningen anota 22 % más que la media."
+        ],
+        "restDays": {
+          "home": 22,
+          "away": 22
+        }
+      },
+      "picksAt": "2026-11-21T21:48:13.141Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Groningen",
+        "venueCountry": "Netherlands",
+        "venueCapacity": 22525
+      }
+    },
+    "eredivisie-2026-12-13-az-alkmaar-nec-nijmegen-g4lw5k": {
+      "game": "eredivisie-2026-12-13-az-alkmaar-nec-nijmegen-g4lw5k",
+      "model": {
+        "id": "pitchlab-statistical-eredivisie",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.699707703890785,
+        "away": 1.2634895068341923,
+        "total": 2.963197210724977,
+        "margin": 0.4362181970565928
+      },
+      "x12": [
+        0.4820729232220621,
+        0.22733990524730943,
+        0.2905871715306287
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "AZ Alkmaar gana",
+          "p": 0.4820729232220621,
+          "fairOdds": 2.0743749582868816
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.22733990524730943,
+          "fairOdds": 4.398699818723686
+        },
+        {
+          "market": "h2h",
+          "selection": "NEC Nijmegen gana",
+          "p": 0.2905871715306287,
+          "fairOdds": 3.4413081442399367
+        },
+        {
+          "market": "double_chance",
+          "selection": "AZ Alkmaar o empate",
+          "p": 0.7094128284693715,
+          "fairOdds": 1.4096164600767076
+        },
+        {
+          "market": "double_chance",
+          "selection": "NEC Nijmegen o empate",
+          "p": 0.5179270767779381,
+          "fairOdds": 1.9307737417805464
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7726600947526907,
+          "fairOdds": 1.2942301625141843
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7897401080048376,
+          "fairOdds": 1.2662393486970709
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5685133622775628,
+          "fairOdds": 1.7589736079268694
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4314866377224372,
+          "fairOdds": 2.3175688713755043
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3445221106484754,
+          "fairOdds": 2.9025713273315144
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6554778893515246,
+          "fairOdds": 1.5256044730804221
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5807039066246823,
+          "fairOdds": 1.7220479982861818
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4192960933753177,
+          "fairOdds": 2.3849494803303264
+        },
+        {
+          "market": "team_totals",
+          "selection": "AZ Alkmaar más de 1.5",
+          "line": 1.5,
+          "p": 0.5066628052842139,
+          "fairOdds": 1.9736992523835397
+        },
+        {
+          "market": "team_totals",
+          "selection": "AZ Alkmaar menos de 1.5",
+          "line": 1.5,
+          "p": 0.4933371947157861,
+          "fairOdds": 2.0270111613540607
+        },
+        {
+          "market": "team_totals",
+          "selection": "NEC Nijmegen más de 1.5",
+          "line": 1.5,
+          "p": 0.3601885472973494,
+          "fairOdds": 2.7763236990832523
+        },
+        {
+          "market": "team_totals",
+          "selection": "NEC Nijmegen menos de 1.5",
+          "line": 1.5,
+          "p": 0.6398114527026506,
+          "fairOdds": 1.562960456202939
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10538289522819518,
+          "fairOdds": 9.489205983899085
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09427374677772568,
+          "fairOdds": 10.607406984234478
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.09334249876460739,
+          "fairOdds": 10.713233663497867
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "AZ Alkmaar gana",
+              "p": 0.4820729232220621,
+              "fairOdds": 2.0743749582868816
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.22733990524730943,
+              "fairOdds": 4.398699818723686
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "NEC Nijmegen gana",
+              "p": 0.2905871715306287,
+              "fairOdds": 3.4413081442399367
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "AZ Alkmaar o empate",
+              "p": 0.7094128284693715,
+              "fairOdds": 1.4096164600767076
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "NEC Nijmegen o empate",
+              "p": 0.5179270767779381,
+              "fairOdds": 1.9307737417805464
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7726600947526907,
+              "fairOdds": 1.2942301625141843
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7897401080048376,
+              "fairOdds": 1.2662393486970709
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5685133622775628,
+              "fairOdds": 1.7589736079268694
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.4314866377224372,
+              "fairOdds": 2.3175688713755043
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3445221106484754,
+              "fairOdds": 2.9025713273315144
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6554778893515246,
+              "fairOdds": 1.5256044730804221
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5807039066246823,
+              "fairOdds": 1.7220479982861818
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4192960933753177,
+              "fairOdds": 2.3849494803303264
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "AZ Alkmaar más de 1.5",
+              "line": 1.5,
+              "p": 0.5066628052842139,
+              "fairOdds": 1.9736992523835397
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "AZ Alkmaar menos de 1.5",
+              "line": 1.5,
+              "p": 0.4933371947157861,
+              "fairOdds": 2.0270111613540607
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "NEC Nijmegen más de 1.5",
+              "line": 1.5,
+              "p": 0.3601885472973494,
+              "fairOdds": 2.7763236990832523
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "NEC Nijmegen menos de 1.5",
+              "line": 1.5,
+              "p": 0.6398114527026506,
+              "fairOdds": 1.562960456202939
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10538289522819518,
+              "fairOdds": 9.489205983899085
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09427374677772568,
+              "fairOdds": 10.607406984234478
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.09334249876460739,
+              "fairOdds": 10.713233663497867
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10538289522819518
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.89 goles/partido",
+          "detail": "en la media de la liga · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.86 concedidos/partido",
+          "detail": "en la media de la liga · 13 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.26 goles/partido",
+          "detail": "13 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.46 concedidos/partido",
+          "detail": "22 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×0.90",
+          "detail": "estimada de 113 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.2–4.3",
+          "detail": "local 27%–70% · 113 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "6.º · 23 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "12.º · 14 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-P-P-G · 4 pts",
+          "detail": "6 goles a favor · 10 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-E-P-G-P · 5 pts",
+          "detail": "8 goles a favor · 11 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Eredivisie · corte 21 nov 2026, 21:48",
+        "Fuerza ajustada por rival · AZA 1.02 / 0.78 · NEC 0.87 / 1.00",
+        "Ponderando 101.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.70 – 1.26 · total 2.96",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-21T21:48:13.141Z",
+      "publishedAt": "2026-11-21T21:48:13.141Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7897401080048376,
+          "fairOdds": 1.2662393486970709
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6554778893515246,
+          "fairOdds": 1.5256044730804221
+        },
+        {
+          "profile": "arriesgada",
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "NEC Nijmegen o empate",
+          "p": 0.5179270767779381,
+          "fairOdds": 1.9307737417805464
+        }
+      ],
+      "confidence": {
+        "score": 48,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09427374677772568
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.0 goles: 1.7 de AZ Alkmaar y 1.3 de NEC Nijmegen.",
+          "AZ Alkmaar concede 22 % menos que la media.",
+          "NEC Nijmegen anota 13 % menos que la media."
+        ],
+        "restDays": {
+          "away": 22
+        }
+      },
+      "picksAt": "2026-11-21T21:48:13.141Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Alkmaar",
+        "venueCountry": "Netherlands",
+        "venueCapacity": 19500
+      }
+    },
+    "eredivisie-2026-12-13-ajax-cambuur-kimyd2": {
+      "game": "eredivisie-2026-12-13-ajax-cambuur-kimyd2",
+      "model": {
+        "id": "pitchlab-statistical-eredivisie",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.5321369399329567,
+        "away": 1.6026649865802562,
+        "total": 4.134801926513213,
+        "margin": 0.9294719533527005
+      },
+      "x12": [
+        0.5823393674348499,
+        0.17900058107950562,
+        0.2386600514856446
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "AFC Ajax gana",
+          "p": 0.5823393674348499,
+          "fairOdds": 1.7172117427075313
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.17900058107950562,
+          "fairOdds": 5.586574043331379
+        },
+        {
+          "market": "h2h",
+          "selection": "Cambuur gana",
+          "p": 0.2386600514856446,
+          "fairOdds": 4.19006027097983
+        },
+        {
+          "market": "double_chance",
+          "selection": "AFC Ajax o empate",
+          "p": 0.7613399485143555,
+          "fairOdds": 1.3134737011388342
+        },
+        {
+          "market": "double_chance",
+          "selection": "Cambuur o empate",
+          "p": 0.4176606325651502,
+          "fairOdds": 2.3942883815941443
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8209994189204946,
+          "fairOdds": 1.2180276586734586
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9145595130217328,
+          "fairOdds": 1.0934225556256796
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7809753110458267,
+          "fairOdds": 1.2804502086767262
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.21902468895417326,
+          "fairOdds": 4.5656953322245375
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5923840361444743,
+          "fairOdds": 1.688094106162094
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4076159638555257,
+          "fairOdds": 2.453289587928007
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.7319051644256639,
+          "fairOdds": 1.3662972316703268
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.2680948355743361,
+          "fairOdds": 3.730023362284144
+        },
+        {
+          "market": "team_totals",
+          "selection": "AFC Ajax más de 1.5",
+          "line": 1.5,
+          "p": 0.7192147064320051,
+          "fairOdds": 1.390405383895665
+        },
+        {
+          "market": "team_totals",
+          "selection": "AFC Ajax menos de 1.5",
+          "line": 1.5,
+          "p": 0.28078529356799486,
+          "fairOdds": 3.5614400857423836
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cambuur más de 1.5",
+          "line": 1.5,
+          "p": 0.47592895947821867,
+          "fairOdds": 2.101153922418049
+        },
+        {
+          "market": "team_totals",
+          "selection": "Cambuur menos de 1.5",
+          "line": 1.5,
+          "p": 0.5240710405217813,
+          "fairOdds": 1.9081382535550315
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.0822424137811788,
+          "fairOdds": 12.159176196611709
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.06941635132152471,
+          "fairOdds": 14.405827747531275
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.0659035184894704,
+          "fairOdds": 15.17369668449148
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "AFC Ajax gana",
+              "p": 0.5823393674348499,
+              "fairOdds": 1.7172117427075313
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.17900058107950562,
+              "fairOdds": 5.586574043331379
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Cambuur gana",
+              "p": 0.2386600514856446,
+              "fairOdds": 4.19006027097983
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "AFC Ajax o empate",
+              "p": 0.7613399485143555,
+              "fairOdds": 1.3134737011388342
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Cambuur o empate",
+              "p": 0.4176606325651502,
+              "fairOdds": 2.3942883815941443
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8209994189204946,
+              "fairOdds": 1.2180276586734586
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.9145595130217328,
+              "fairOdds": 1.0934225556256796
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7809753110458267,
+              "fairOdds": 1.2804502086767262
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.21902468895417326,
+              "fairOdds": 4.5656953322245375
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5923840361444743,
+              "fairOdds": 1.688094106162094
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4076159638555257,
+              "fairOdds": 2.453289587928007
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.7319051644256639,
+              "fairOdds": 1.3662972316703268
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.2680948355743361,
+              "fairOdds": 3.730023362284144
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "AFC Ajax más de 1.5",
+              "line": 1.5,
+              "p": 0.7192147064320051,
+              "fairOdds": 1.390405383895665
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "AFC Ajax menos de 1.5",
+              "line": 1.5,
+              "p": 0.28078529356799486,
+              "fairOdds": 3.5614400857423836
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Cambuur más de 1.5",
+              "line": 1.5,
+              "p": 0.47592895947821867,
+              "fairOdds": 2.101153922418049
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Cambuur menos de 1.5",
+              "line": 1.5,
+              "p": 0.5240710405217813,
+              "fairOdds": 1.9081382535550315
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.0822424137811788,
+              "fairOdds": 12.159176196611709
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.06941635132152471,
+              "fairOdds": 14.405827747531275
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.0659035184894704,
+              "fairOdds": 15.17369668449148
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.0822424137811788
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "2.81 goles/partido",
+          "detail": "31 % más que la media · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "2.14 concedidos/partido",
+          "detail": "15 % más que la media · 13 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.60 goles/partido",
+          "detail": "12 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.44 concedidos/partido",
+          "detail": "23 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×0.90",
+          "detail": "estimada de 113 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.1–5.8",
+          "detail": "local 34%–79% · 113 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "3.º · 25 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "8.º · 18 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-G-G-G-E · 11 pts",
+          "detail": "11 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-G-G-P-G · 10 pts",
+          "detail": "17 goles a favor · 10 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Eredivisie · corte 21 nov 2026, 21:48",
+        "Fuerza ajustada por rival · AJA 1.31 / 0.77 · CAM 1.12 / 1.15",
+        "Ponderando 101.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.53 – 1.60 · total 4.13",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-21T21:48:13.141Z",
+      "publishedAt": "2026-11-21T21:48:13.141Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9145595130217328,
+          "fairOdds": 1.0934225556256796
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "over_3.5",
+          "label": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5923840361444743,
+          "fairOdds": 1.688094106162094
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_over",
+          "label": "Cambuur más de 1.5",
+          "line": 1.5,
+          "p": 0.47592895947821867,
+          "fairOdds": 2.101153922418049
+        }
+      ],
+      "confidence": {
+        "score": 60,
+        "level": "media",
+        "reasons": [
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.0822424137811788
+      },
+      "insights": {
+        "why": [
+          "Se esperan 4.1 goles: 2.5 de AFC Ajax y 1.6 de Cambuur.",
+          "AFC Ajax anota 31 % más que la media.",
+          "AFC Ajax concede 23 % menos que la media."
+        ],
+        "restDays": {
+          "away": 22
+        }
+      },
+      "picksAt": "2026-11-21T21:48:13.141Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Amsterdam",
+        "venueCountry": "Netherlands",
+        "venueCapacity": 55865
+      }
+    },
+    "eredivisie-2026-12-18-telstar-willem-ii-tilb-aq02an": {
+      "game": "eredivisie-2026-12-18-telstar-willem-ii-tilb-aq02an",
+      "model": {
+        "id": "pitchlab-statistical-eredivisie",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.3031754289361706,
+        "away": 1.3162644700488175,
+        "total": 3.619439898984988,
+        "margin": 0.986910958887353
+      },
+      "x12": [
+        0.5994606547041551,
+        0.1866788116323283,
+        0.2138605336635167
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Telstar gana",
+          "p": 0.5994606547041551,
+          "fairOdds": 1.6681661959841525
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.1866788116323283,
+          "fairOdds": 5.356794331697063
+        },
+        {
+          "market": "h2h",
+          "selection": "Willem II Tilburg gana",
+          "p": 0.2138605336635167,
+          "fairOdds": 4.675944564757223
+        },
+        {
+          "market": "double_chance",
+          "selection": "Telstar o empate",
+          "p": 0.7861394663364834,
+          "fairOdds": 1.2720389228900257
+        },
+        {
+          "market": "double_chance",
+          "selection": "Willem II Tilburg o empate",
+          "p": 0.400539345295845,
+          "fairOdds": 2.496633630989194
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8133211883676719,
+          "fairOdds": 1.229526556423534
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.872143906823353,
+          "fairOdds": 1.146599766593959
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7006712976800951,
+          "fairOdds": 1.427202745868105
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.29932870231990494,
+          "fairOdds": 3.3408089242683405
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.48889218964930226,
+          "fairOdds": 2.0454407355481203
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5111078103506977,
+          "fairOdds": 1.9565343744480206
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6546573184857581,
+          "fairOdds": 1.527516720217884
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.34534268151424186,
+          "fairOdds": 2.8956745097803966
+        },
+        {
+          "market": "team_totals",
+          "selection": "Telstar más de 1.5",
+          "line": 1.5,
+          "p": 0.669867542547302,
+          "fairOdds": 1.4928324429592528
+        },
+        {
+          "market": "team_totals",
+          "selection": "Telstar menos de 1.5",
+          "line": 1.5,
+          "p": 0.33013245745269804,
+          "fairOdds": 3.0290871964423
+        },
+        {
+          "market": "team_totals",
+          "selection": "Willem II Tilburg más de 1.5",
+          "line": 1.5,
+          "p": 0.3789281910800495,
+          "fairOdds": 2.639022441560036
+        },
+        {
+          "market": "team_totals",
+          "selection": "Willem II Tilburg menos de 1.5",
+          "line": 1.5,
+          "p": 0.6210718089199505,
+          "fairOdds": 1.6101197730082275
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09355725195306794,
+          "fairOdds": 10.6886422925466
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.07717986935668869,
+          "fairOdds": 12.956746472042795
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.07182625463236555,
+          "fairOdds": 13.922485658181472
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Telstar gana",
+              "p": 0.5994606547041551,
+              "fairOdds": 1.6681661959841525
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.1866788116323283,
+              "fairOdds": 5.356794331697063
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Willem II Tilburg gana",
+              "p": 0.2138605336635167,
+              "fairOdds": 4.675944564757223
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Telstar o empate",
+              "p": 0.7861394663364834,
+              "fairOdds": 1.2720389228900257
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Willem II Tilburg o empate",
+              "p": 0.400539345295845,
+              "fairOdds": 2.496633630989194
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8133211883676719,
+              "fairOdds": 1.229526556423534
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.872143906823353,
+              "fairOdds": 1.146599766593959
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7006712976800951,
+              "fairOdds": 1.427202745868105
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.29932870231990494,
+              "fairOdds": 3.3408089242683405
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.48889218964930226,
+              "fairOdds": 2.0454407355481203
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5111078103506977,
+              "fairOdds": 1.9565343744480206
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6546573184857581,
+              "fairOdds": 1.527516720217884
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.34534268151424186,
+              "fairOdds": 2.8956745097803966
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Telstar más de 1.5",
+              "line": 1.5,
+              "p": 0.669867542547302,
+              "fairOdds": 1.4928324429592528
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Telstar menos de 1.5",
+              "line": 1.5,
+              "p": 0.33013245745269804,
+              "fairOdds": 3.0290871964423
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Willem II Tilburg más de 1.5",
+              "line": 1.5,
+              "p": 0.3789281910800495,
+              "fairOdds": 2.639022441560036
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Willem II Tilburg menos de 1.5",
+              "line": 1.5,
+              "p": 0.6210718089199505,
+              "fairOdds": 1.6101197730082275
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09355725195306794,
+              "fairOdds": 10.6886422925466
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.07717986935668869,
+              "fairOdds": 12.956746472042795
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.07182625463236555,
+              "fairOdds": 13.922485658181472
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09355725195306794
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "2.55 goles/partido",
+          "detail": "12 % menos que la media · 13 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "2.91 concedidos/partido",
+          "detail": "56 % más que la media · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.32 goles/partido",
+          "detail": "36 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "2.06 concedidos/partido",
+          "detail": "11 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×0.90",
+          "detail": "estimada de 113 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.6–5.0",
+          "detail": "local 33%–81% · 113 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "16.º · 10 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "18.º · 3 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-G-E-P · 4 pts",
+          "detail": "12 goles a favor · 14 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-P-P-E · 1 pts",
+          "detail": "5 goles a favor · 20 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Eredivisie · corte 21 nov 2026, 21:48",
+        "Fuerza ajustada por rival · TEL 0.88 / 1.11 · WIL 0.64 / 1.56",
+        "Ponderando 101.6 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.30 – 1.32 · total 3.62",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-21T21:48:13.141Z",
+      "publishedAt": "2026-11-21T21:48:13.141Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.872143906823353,
+          "fairOdds": 1.146599766593959
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "Telstar más de 1.5",
+          "line": 1.5,
+          "p": 0.669867542547302,
+          "fairOdds": 1.4928324429592528
+        },
+        {
+          "profile": "arriesgada",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5111078103506977,
+          "fairOdds": 1.9565343744480206
+        }
+      ],
+      "confidence": {
+        "score": 62,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09355725195306794
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.6 goles: 2.3 de Telstar y 1.3 de Willem II Tilburg.",
+          "Willem II Tilburg anota 36 % menos que la media.",
+          "Willem II Tilburg concede 56 % más que la media."
+        ],
+        "restDays": {
+          "home": 27
+        }
+      },
+      "picksAt": "2026-11-21T21:48:13.141Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Velsen",
+        "venueCountry": "Netherlands",
+        "venueCapacity": 5336
+      }
     }
   },
   "standings": [
@@ -24109,18 +24198,18 @@
       "name": "Feyenoord",
       "shortName": "Feyenoord",
       "code": "FEY",
-      "played": 12,
+      "played": 13,
       "won": 7,
       "drawn": 4,
-      "lost": 1,
-      "goalsFor": 36,
-      "goalsAgainst": 17,
+      "lost": 2,
+      "goalsFor": 38,
+      "goalsAgainst": 20,
       "points": 25,
       "form": [
         "W",
-        "W",
         "D",
         "D",
+        "L",
         "L"
       ]
     },
@@ -24165,6 +24254,26 @@
       ]
     },
     {
+      "teamId": "eredivisie.heerenveen",
+      "name": "SC Heerenveen",
+      "shortName": "Heerenveen",
+      "code": "HEE",
+      "played": 13,
+      "won": 7,
+      "drawn": 3,
+      "lost": 3,
+      "goalsFor": 27,
+      "goalsAgainst": 17,
+      "points": 24,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "eredivisie.az-alkmaar",
       "name": "AZ Alkmaar",
       "shortName": "AZ Alkmaar",
@@ -24181,26 +24290,6 @@
         "D",
         "L",
         "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "eredivisie.heerenveen",
-      "name": "SC Heerenveen",
-      "shortName": "Heerenveen",
-      "code": "HEE",
-      "played": 12,
-      "won": 6,
-      "drawn": 3,
-      "lost": 3,
-      "goalsFor": 24,
-      "goalsAgainst": 16,
-      "points": 21,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "W",
         "W"
       ]
     },
@@ -24222,6 +24311,26 @@
         "W",
         "D",
         "D"
+      ]
+    },
+    {
+      "teamId": "eredivisie.cambuur",
+      "name": "SC Cambuur",
+      "shortName": "Cambuur",
+      "code": "CAM",
+      "played": 13,
+      "won": 5,
+      "drawn": 3,
+      "lost": 5,
+      "goalsFor": 28,
+      "goalsAgainst": 29,
+      "points": 18,
+      "form": [
+        "D",
+        "W",
+        "W",
+        "L",
+        "W"
       ]
     },
     {
@@ -24249,39 +24358,39 @@
       "name": "FC Groningen",
       "shortName": "Groningen",
       "code": "GRO",
-      "played": 12,
+      "played": 13,
       "won": 4,
       "drawn": 3,
-      "lost": 5,
-      "goalsFor": 29,
-      "goalsAgainst": 28,
+      "lost": 6,
+      "goalsFor": 30,
+      "goalsAgainst": 31,
       "points": 15,
       "form": [
-        "W",
         "L",
         "D",
+        "L",
         "L",
         "L"
       ]
     },
     {
-      "teamId": "eredivisie.cambuur",
-      "name": "SC Cambuur",
-      "shortName": "Cambuur",
-      "code": "CAM",
-      "played": 12,
+      "teamId": "eredivisie.pec-zwolle",
+      "name": "PEC Zwolle",
+      "shortName": "PEC Zwolle",
+      "code": "PEC",
+      "played": 13,
       "won": 4,
       "drawn": 3,
-      "lost": 5,
-      "goalsFor": 25,
-      "goalsAgainst": 27,
+      "lost": 6,
+      "goalsFor": 16,
+      "goalsAgainst": 25,
       "points": 15,
       "form": [
         "W",
         "D",
         "W",
-        "W",
-        "L"
+        "D",
+        "W"
       ]
     },
     {
@@ -24305,6 +24414,26 @@
       ]
     },
     {
+      "teamId": "eredivisie.excelsior",
+      "name": "Excelsior",
+      "shortName": "Excelsior",
+      "code": "EXC",
+      "played": 13,
+      "won": 4,
+      "drawn": 2,
+      "lost": 7,
+      "goalsFor": 19,
+      "goalsAgainst": 31,
+      "points": 14,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "eredivisie.sparta-rotterdam",
       "name": "Sparta Rotterdam",
       "shortName": "Sparta Rotterdam",
@@ -24325,60 +24454,20 @@
       ]
     },
     {
-      "teamId": "eredivisie.pec-zwolle",
-      "name": "PEC Zwolle",
-      "shortName": "PEC Zwolle",
-      "code": "PEC",
-      "played": 12,
-      "won": 3,
-      "drawn": 3,
-      "lost": 6,
-      "goalsFor": 13,
-      "goalsAgainst": 24,
-      "points": 12,
-      "form": [
-        "L",
-        "W",
-        "D",
-        "W",
-        "D"
-      ]
-    },
-    {
       "teamId": "eredivisie.utrecht",
       "name": "FC Utrecht",
       "shortName": "Utrecht",
       "code": "UTR",
-      "played": 12,
+      "played": 13,
       "won": 3,
       "drawn": 3,
-      "lost": 6,
-      "goalsFor": 21,
-      "goalsAgainst": 34,
+      "lost": 7,
+      "goalsFor": 23,
+      "goalsAgainst": 37,
       "points": 12,
       "form": [
         "W",
-        "W",
         "D",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "eredivisie.excelsior",
-      "name": "Excelsior",
-      "shortName": "Excelsior",
-      "code": "EXC",
-      "played": 12,
-      "won": 3,
-      "drawn": 2,
-      "lost": 7,
-      "goalsFor": 16,
-      "goalsAgainst": 29,
-      "points": 11,
-      "form": [
-        "L",
-        "L",
         "L",
         "L",
         "L"
@@ -24389,19 +24478,19 @@
       "name": "SC Telstar",
       "shortName": "Telstar",
       "code": "TEL",
-      "played": 12,
+      "played": 13,
       "won": 2,
       "drawn": 4,
-      "lost": 6,
-      "goalsFor": 18,
-      "goalsAgainst": 25,
+      "lost": 7,
+      "goalsFor": 19,
+      "goalsAgainst": 28,
       "points": 10,
       "form": [
-        "D",
         "L",
         "L",
         "W",
-        "D"
+        "D",
+        "L"
       ]
     },
     {

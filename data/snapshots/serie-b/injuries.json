@@ -1,28 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "serie-b",
-  "observedAt": "2026-11-21T19:03:13.555Z",
+  "observedAt": "2026-11-21T21:48:13.141Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "serie-b.sudtirol",
-      "player": "Aljoša Vasić",
-      "position": "M",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
-    {
-      "teamId": "serie-b.sudtirol",
-      "player": "Bjarki Bjarkason",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Broken Foot",
-      "injuryType": "Broken Foot",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
     {
       "teamId": "serie-b.arezzo",
       "player": "Luca Chierico",
@@ -30,7 +12,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "serie-b.arezzo",
@@ -39,7 +21,16 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
+    },
+    {
+      "teamId": "serie-b.hellas-verona",
+      "player": "Davide De Battisti",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "championship",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-21T19:03:13.555Z",
+  "observedAt": "2026-11-21T21:48:13.141Z",
   "teams": [
     {
       "teamId": "championship.preston-north-end",
@@ -24,7 +24,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "championship.preston-north-end.alfie-devine",
@@ -116,8 +116,8 @@
           "nationality": "Wales",
           "nationalityCode": null,
           "photoKey": "pl-p:6365",
-          "availability": "doubtful",
-          "injuryDetail": "Muscle Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -190,8 +190,8 @@
           "nationality": "Montenegro",
           "nationalityCode": null,
           "photoKey": "pl-p:6372",
-          "availability": "doubtful",
-          "injuryDetail": "Muscle Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -1232,7 +1232,7 @@
           "winPct": 40.6
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "championship.southampton.aaron-ramsdale",
@@ -2292,7 +2292,7 @@
           "winPct": 41.7
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "championship.charlton-athletic.alan-mwamba",
@@ -3500,7 +3500,7 @@
           "winPct": 47.2
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "championship.sheffield-united.adam-davies",
@@ -4147,8 +4147,8 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:6076",
-          "availability": "injured",
-          "injuryDetail": "Shoulder Injury",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -4523,7 +4523,7 @@
           "winPct": 42.5
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "championship.cardiff-city.alex-robertson",
@@ -5657,7 +5657,7 @@
           "winPct": 42.4
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "championship.burnley.aaron-ramsey",
@@ -6865,7 +6865,7 @@
           "winPct": 40.7
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "championship.blackburn-rovers.adam-forshaw",
@@ -8036,7 +8036,7 @@
           "winPct": 22.2
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "championship.west-ham-united.adama-boiro",

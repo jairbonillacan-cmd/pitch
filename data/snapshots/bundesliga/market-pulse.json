@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga",
-  "observedAt": "2026-11-21T19:09:30.757Z",
+  "observedAt": "2026-11-21T21:56:14.155Z",
   "entries": [
     {
       "gameId": "bundesliga-2026-27-md10-augsburg-mainz",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T19:09:30.757Z",
+      "observedAt": "2026-11-21T21:56:14.155Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 863.717885,
+          "volume": 881.51476,
           "price": 0.365
         },
         {
           "side": "draw",
-          "volume": 473.921574,
+          "volume": 479.731574,
           "price": 0.245
         },
         {
@@ -191,11 +191,11 @@
       "gameId": "bundesliga-2026-27-md10-werder-bremen-hamburger",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T19:09:30.757Z",
+      "observedAt": "2026-11-21T21:56:14.155Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 3124.662353,
+          "volume": 3162.662353,
           "price": 0.595
         },
         {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nba",
-  "observedAt": "2026-11-21T19:03:09.826Z",
+  "observedAt": "2026-11-21T21:47:58.657Z",
   "source": "espn-public-nba",
   "coverageStatus": "ok",
   "entries": [
@@ -67,23 +67,33 @@
     },
     {
       "teamId": "nba.boston-celtics",
-      "player": "Jayson Tatum",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Rest",
-      "injuryType": "Rest",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-21T01:07:00.000Z"
+      "player": "Mitchell Robinson",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T20:55:00.000Z"
     },
     {
       "teamId": "nba.boston-celtics",
       "player": "Derrick White",
       "position": "G",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Hombro",
       "injuryType": "Shoulder",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-21T01:00:00.000Z"
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T20:53:00.000Z"
+    },
+    {
+      "teamId": "nba.boston-celtics",
+      "player": "Jayson Tatum",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Rest",
+      "injuryType": "Rest",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T20:51:00.000Z"
     },
     {
       "teamId": "nba.brooklyn-nets",
@@ -207,6 +217,16 @@
     },
     {
       "teamId": "nba.dallas-mavericks",
+      "player": "P.J. Washington",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-21",
+      "reportedAt": "2026-11-21T19:22:00.000Z"
+    },
+    {
+      "teamId": "nba.dallas-mavericks",
       "player": "Tobi Lawal",
       "position": "F",
       "status": "Baja",
@@ -214,16 +234,6 @@
       "injuryType": "Groin",
       "returnDate": "2026-11-22",
       "reportedAt": "2026-11-21T15:08:00.000Z"
-    },
-    {
-      "teamId": "nba.dallas-mavericks",
-      "player": "P.J. Washington",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Hombro",
-      "injuryType": "Shoulder",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-20T22:40:00.000Z"
     },
     {
       "teamId": "nba.dallas-mavericks",
@@ -517,15 +527,6 @@
     },
     {
       "teamId": "nba.memphis-grizzlies",
-      "player": "Ty Jerome",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Jerome (hip) is probable for Saturday's game in Minnesota.",
-      "injuryType": "Jerome (hip) is probable for Saturday's game in Minnesota.",
-      "reportedAt": "2026-11-20T23:11:00.000Z"
-    },
-    {
-      "teamId": "nba.memphis-grizzlies",
       "player": "GG Jackson",
       "position": "F",
       "status": "Baja",
@@ -562,7 +563,17 @@
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
       "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-19T14:45:00.000Z"
+      "reportedAt": "2026-11-21T20:35:00.000Z"
+    },
+    {
+      "teamId": "nba.miami-heat",
+      "player": "Giannis Antetokounmpo",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Ingle",
+      "injuryType": "Groin",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T20:33:00.000Z"
     },
     {
       "teamId": "nba.milwaukee-bucks",
@@ -746,6 +757,16 @@
     },
     {
       "teamId": "nba.orlando-magic",
+      "player": "Jonathan Isaac",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Rodilla",
+      "injuryType": "Knee",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-21T21:09:00.000Z"
+    },
+    {
+      "teamId": "nba.orlando-magic",
       "player": "Izaiyah Nelson",
       "position": "F",
       "status": "Baja",
@@ -756,22 +777,12 @@
     },
     {
       "teamId": "nba.orlando-magic",
-      "player": "Jonathan Isaac",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Rodilla",
-      "injuryType": "Knee",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-15T18:22:00.000Z"
-    },
-    {
-      "teamId": "nba.orlando-magic",
       "player": "Noah Penda",
       "position": "F",
       "status": "Baja",
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
-      "returnDate": "2026-11-22",
+      "returnDate": "2026-11-29",
       "reportedAt": "2026-11-14T17:33:00.000Z"
     },
     {
@@ -902,7 +913,7 @@
       "detail": "Lower Leg",
       "injuryType": "Lower Leg",
       "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-21T14:55:00.000Z"
+      "reportedAt": "2026-11-21T21:19:00.000Z"
     },
     {
       "teamId": "nba.sacramento-kings",

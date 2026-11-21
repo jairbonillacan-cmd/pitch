@@ -5,7 +5,7 @@
   "season": "liga-f-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,19 +18,19 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2929212281238784,
-      "adjustedAgainst": 1.531064737346115
+      "adjustedFor": 1.2911055059791772,
+      "adjustedAgainst": 1.5294801711251447
     },
     "liga-f.logrono-united": {
       "teamId": "liga-f.logrono-united",
       "name": "Logroño United",
       "shortName": "Logroño United",
       "code": "LOG",
-      "forPerGame": 1.2727272727272727,
-      "againstPerGame": 1.4545454545454546,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.2804241352735128,
-      "adjustedAgainst": 1.3219861351475442
+      "forPerGame": 1.4166666666666667,
+      "againstPerGame": 1.4166666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.387390668118559,
+      "adjustedAgainst": 1.3314065398201516
     },
     "liga-f.real-deportivo-a-coruna": {
       "teamId": "liga-f.real-deportivo-a-coruna",
@@ -40,8 +40,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1127966895515586,
-      "adjustedAgainst": 1.2380381697042624
+      "adjustedFor": 1.1117770320743279,
+      "adjustedAgainst": 1.2435981437901613
     },
     "liga-f.sevilla": {
       "teamId": "liga-f.sevilla",
@@ -51,8 +51,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1546806438782418,
-      "adjustedAgainst": 1.3741416461444145
+      "adjustedFor": 1.1533150783396326,
+      "adjustedAgainst": 1.3728464989668325
     },
     "liga-f.sd-eibar": {
       "teamId": "liga-f.sd-eibar",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0364728160915315,
-      "adjustedAgainst": 1.4802548942834797
+      "adjustedFor": 1.0357514189886545,
+      "adjustedAgainst": 1.4867484004777543
     },
     "liga-f.espanyol-barcelona": {
       "teamId": "liga-f.espanyol-barcelona",
@@ -73,8 +73,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2835263979488425,
-      "adjustedAgainst": 1.2904630628799725
+      "adjustedFor": 1.2816664032704876,
+      "adjustedAgainst": 1.2880863717601108
     },
     "liga-f.madrid-cff": {
       "teamId": "liga-f.madrid-cff",
@@ -84,8 +84,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 2.1818181818181817,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6027084296461784,
-      "adjustedAgainst": 1.916546889679256
+      "adjustedFor": 1.5989700461646557,
+      "adjustedAgainst": 1.915155755623354
     },
     "liga-f.granada": {
       "teamId": "liga-f.granada",
@@ -95,8 +95,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9366741496450465,
-      "adjustedAgainst": 1.3310905361328982
+      "adjustedFor": 0.9367373086550971,
+      "adjustedAgainst": 1.331205843710026
     },
     "liga-f.athletic": {
       "teamId": "liga-f.athletic",
@@ -106,8 +106,8 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.371942703102406,
-      "adjustedAgainst": 1.1035856889486324
+      "adjustedFor": 1.3779595466286172,
+      "adjustedAgainst": 1.1037091292499628
     },
     "liga-f.badalona-women": {
       "teamId": "liga-f.badalona-women",
@@ -117,19 +117,19 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.244067276427554,
-      "adjustedAgainst": 1.658622749696047
+      "adjustedFor": 1.2503291085225727,
+      "adjustedAgainst": 1.6590602693342198
     },
     "liga-f.deportivo-alaves": {
       "teamId": "liga-f.deportivo-alaves",
       "name": "Deportivo Alavés",
       "shortName": "Alavés",
       "code": "DEP",
-      "forPerGame": 0.8,
-      "againstPerGame": 1.4,
-      "gamesPlayed": 10,
-      "adjustedFor": 0.950208695333609,
-      "adjustedAgainst": 1.3139971072378458
+      "forPerGame": 0.8181818181818182,
+      "againstPerGame": 1.5454545454545454,
+      "gamesPlayed": 11,
+      "adjustedFor": 0.9612684360299658,
+      "adjustedAgainst": 1.4324544533237225
     },
     "liga-f.valencia": {
       "teamId": "liga-f.valencia",
@@ -139,8 +139,8 @@
       "forPerGame": 0.7272727272727273,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 0.875108528256798,
-      "adjustedAgainst": 1.537779250878522
+      "adjustedFor": 0.8746146540884968,
+      "adjustedAgainst": 1.5365993891939225
     },
     "liga-f.barcelona": {
       "teamId": "liga-f.barcelona",
@@ -150,8 +150,8 @@
       "forPerGame": 3.8181818181818183,
       "againstPerGame": 0.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 2.927817772672711,
-      "adjustedAgainst": 0.7471906539283967
+      "adjustedFor": 2.9262243785498576,
+      "adjustedAgainst": 0.7468592392771825
     },
     "liga-f.costa-adeje-tenerife": {
       "teamId": "liga-f.costa-adeje-tenerife",
@@ -161,8 +161,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.6229847959474113,
-      "adjustedAgainst": 1.3319225143984212
+      "adjustedFor": 1.6316405494697532,
+      "adjustedAgainst": 1.3310702628494064
     },
     "liga-f.real-madrid": {
       "teamId": "liga-f.real-madrid",
@@ -172,8 +172,8 @@
       "forPerGame": 2.3636363636363638,
       "againstPerGame": 1.9090909090909092,
       "gamesPlayed": 11,
-      "adjustedFor": 2.0881796868282048,
-      "adjustedAgainst": 1.6439728817494101
+      "adjustedFor": 2.097179422631802,
+      "adjustedAgainst": 1.6517280098198297
     },
     "liga-f.atletico-madrid": {
       "teamId": "liga-f.atletico-madrid",
@@ -183,46 +183,11 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.9644945787046595,
-      "adjustedAgainst": 1.157457663913167
+      "adjustedFor": 1.9627129114506212,
+      "adjustedAgainst": 1.1572752473033043
     }
   },
   "games": [
-    {
-      "id": "liga-f-2026-11-07-athletic-real-madrid-u6mdps",
-      "league": "liga-f",
-      "season": "liga-f-2026-27",
-      "week": 10,
-      "round": "Regular season · Matchday 10",
-      "phase": "Regular season",
-      "startTime": "2026-11-07T15:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-f.athletic",
-        "league": "liga-f",
-        "name": "Athletic Club",
-        "shortName": "Athletic",
-        "code": "ATH",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/911/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-f.real-madrid",
-        "league": "liga-f",
-        "name": "Real Madrid",
-        "shortName": "Real Madrid",
-        "code": "REA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/926/?bg=transparent"
-      },
-      "venue": "Instalaciones de Lezama, Lezama",
-      "referee": "Beatriz Cuesta",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-f-2026-11-07-sd-eibar-real-sociedad-8o1nwi",
       "league": "liga-f",
@@ -254,7 +219,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -323,7 +288,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -358,7 +323,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -393,7 +358,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -428,7 +393,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -462,7 +427,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -497,7 +462,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -532,7 +497,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -567,7 +532,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -602,7 +567,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -637,7 +602,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -671,7 +636,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -706,7 +671,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -741,7 +706,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T19:03:13.555Z",
+        "observedAt": "2026-11-21T21:48:13.141Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +718,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-21T18:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-f.logrono-united",
         "league": "liga-f",
@@ -772,7 +737,13 @@
       },
       "venue": "Estadio Las Gaunas, Logrono",
       "referee": "Ylenia Sanchez Miguel",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 1,
+        "observedAt": "2026-11-21T21:48:13.141Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
@@ -1392,451 +1363,6 @@
     }
   ],
   "analyses": {
-    "liga-f-2026-11-07-athletic-real-madrid-u6mdps": {
-      "game": "liga-f-2026-11-07-athletic-real-madrid-u6mdps",
-      "model": {
-        "id": "pitchlab-statistical-liga-f",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.8431355621293282,
-        "away": 1.724705736115247,
-        "total": 3.5678412982445753,
-        "margin": 0.11842982601408125
-      },
-      "x12": [
-        0.41537309404518513,
-        0.21738436594482544,
-        0.36724254000998957
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Athletic gana",
-          "p": 0.41537309404518513,
-          "fairOdds": 2.407474182454432
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.21738436594482544,
-          "fairOdds": 4.600146821293539
-        },
-        {
-          "market": "h2h",
-          "selection": "Real Madrid gana",
-          "p": 0.36724254000998957,
-          "fairOdds": 2.7229960885598885
-        },
-        {
-          "market": "double_chance",
-          "selection": "Athletic o empate",
-          "p": 0.6327574599900105,
-          "fairOdds": 1.58038437036489
-        },
-        {
-          "market": "double_chance",
-          "selection": "Real Madrid o empate",
-          "p": 0.584626905954815,
-          "fairOdds": 1.710492606163577
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7826156340551746,
-          "fairOdds": 1.2777664494362755
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8697643583628243,
-          "fairOdds": 1.1497366963648878
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6915166295793341,
-          "fairOdds": 1.446096821429043
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.30848337042066587,
-          "fairOdds": 3.2416658267067744
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.4779299585298754,
-          "fairOdds": 2.092356802816934
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5220700414701246,
-          "fairOdds": 1.9154517987357542
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6903247003335767,
-          "fairOdds": 1.4485936828231452
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.30967529966642326,
-          "fairOdds": 3.229188769905712
-        },
-        {
-          "market": "team_totals",
-          "selection": "Athletic más de 1.5",
-          "line": 1.5,
-          "p": 0.5498723858309198,
-          "fairOdds": 1.8186037811098408
-        },
-        {
-          "market": "team_totals",
-          "selection": "Athletic menos de 1.5",
-          "line": 1.5,
-          "p": 0.4501276141690802,
-          "fairOdds": 2.221592207458689
-        },
-        {
-          "market": "team_totals",
-          "selection": "Real Madrid más de 1.5",
-          "line": 1.5,
-          "p": 0.5143869717696147,
-          "fairOdds": 1.944061679011348
-        },
-        {
-          "market": "team_totals",
-          "selection": "Real Madrid menos de 1.5",
-          "line": 1.5,
-          "p": 0.4856130282303853,
-          "fairOdds": 2.0592528245053145
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.08835219216958981,
-          "fairOdds": 11.318338294091506
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.0826624707511956,
-          "fairOdds": 12.097388221190284
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.07735103179352698,
-          "fairOdds": 12.928075771106698
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Athletic gana",
-              "p": 0.41537309404518513,
-              "fairOdds": 2.407474182454432
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.21738436594482544,
-              "fairOdds": 4.600146821293539
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Real Madrid gana",
-              "p": 0.36724254000998957,
-              "fairOdds": 2.7229960885598885
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Athletic o empate",
-              "p": 0.6327574599900105,
-              "fairOdds": 1.58038437036489
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Real Madrid o empate",
-              "p": 0.584626905954815,
-              "fairOdds": 1.710492606163577
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7826156340551746,
-              "fairOdds": 1.2777664494362755
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8697643583628243,
-              "fairOdds": 1.1497366963648878
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6915166295793341,
-              "fairOdds": 1.446096821429043
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.30848337042066587,
-              "fairOdds": 3.2416658267067744
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.4779299585298754,
-              "fairOdds": 2.092356802816934
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5220700414701246,
-              "fairOdds": 1.9154517987357542
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6903247003335767,
-              "fairOdds": 1.4485936828231452
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.30967529966642326,
-              "fairOdds": 3.229188769905712
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Athletic más de 1.5",
-              "line": 1.5,
-              "p": 0.5498723858309198,
-              "fairOdds": 1.8186037811098408
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Athletic menos de 1.5",
-              "line": 1.5,
-              "p": 0.4501276141690802,
-              "fairOdds": 2.221592207458689
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Real Madrid más de 1.5",
-              "line": 1.5,
-              "p": 0.5143869717696147,
-              "fairOdds": 1.944061679011348
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Real Madrid menos de 1.5",
-              "line": 1.5,
-              "p": 0.4856130282303853,
-              "fairOdds": 2.0592528245053145
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.08835219216958981,
-              "fairOdds": 11.318338294091506
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.0826624707511956,
-              "fairOdds": 12.097388221190284
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.07735103179352698,
-              "fairOdds": 12.928075771106698
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.08835219216958981
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.68 goles/partido",
-          "detail": "en la media de la liga · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.65 concedidos/partido",
-          "detail": "23 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.72 goles/partido",
-          "detail": "56 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.11 concedidos/partido",
-          "detail": "18 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.10",
-          "detail": "estimada de 87 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.6–5.3",
-          "detail": "local 20%–69% · 87 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "4.º · 19 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "2.º · 24 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-G-E-P · 8 pts",
-          "detail": "6 goles a favor · 6 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-G-G-G · 12 pts",
-          "detail": "14 goles a favor · 14 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga F · corte 7 nov 2026, 08:00",
-        "Fuerza ajustada por rival · ATH 1.02 / 0.82 · REA 1.56 / 1.23",
-        "Ponderando 80.2 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.84 – 1.72 · total 3.57",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-07T14:00:00.000Z",
-      "publishedAt": "2026-11-07T14:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.0826624707511956
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.6 goles: 1.8 de Athletic y 1.7 de Real Madrid.",
-          "Real Madrid anota 56 % más que la media.",
-          "Real Madrid concede 23 % más que la media."
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Beatriz Cuesta",
-        "refereeStats": {
-          "country": "Spain",
-          "matches": 8,
-          "avgYellow": 4.12,
-          "avgRed": 0.12,
-          "avgFouls": 18.6,
-          "avgGoals": 3
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Lezama",
-        "venueCountry": "Spain",
-        "venueCapacity": 1500
-      }
-    },
     "liga-f-2026-11-07-sd-eibar-real-sociedad-8o1nwi": {
       "game": "liga-f-2026-11-07-sd-eibar-real-sociedad-8o1nwi",
       "model": {
@@ -9086,11 +8612,14 @@
         "referee": "Ylenia Sanchez Miguel",
         "refereeStats": {
           "country": "Spain",
-          "matches": 22,
-          "avgYellow": 3.86,
-          "avgRed": 0.32,
-          "avgFouls": 21.2,
-          "avgGoals": 3
+          "matches": 23,
+          "avgYellow": 3.87,
+          "avgRed": 0.3,
+          "avgFouls": 21.3,
+          "avgGoals": 3.04
+        },
+        "weather": {
+          "description": "rain"
         },
         "halfTimeScore": {
           "home": 1,
@@ -19558,6 +19087,26 @@
       ]
     },
     {
+      "teamId": "liga-f.logrono-united",
+      "name": "Logroño United",
+      "shortName": "Logroño United",
+      "code": "LOG",
+      "played": 12,
+      "won": 5,
+      "drawn": 1,
+      "lost": 6,
+      "goalsFor": 17,
+      "goalsAgainst": 17,
+      "points": 16,
+      "form": [
+        "W",
+        "L",
+        "D",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "liga-f.espanyol-barcelona",
       "name": "RCD Espanyol de Barcelona",
       "shortName": "Espanyol de Barcelona",
@@ -19575,26 +19124,6 @@
         "W",
         "W",
         "L"
-      ]
-    },
-    {
-      "teamId": "liga-f.logrono-united",
-      "name": "Logroño United",
-      "shortName": "Logroño United",
-      "code": "LOG",
-      "played": 11,
-      "won": 4,
-      "drawn": 1,
-      "lost": 6,
-      "goalsFor": 14,
-      "goalsAgainst": 16,
-      "points": 13,
-      "form": [
-        "L",
-        "W",
-        "L",
-        "D",
-        "W"
       ]
     },
     {
@@ -19702,19 +19231,19 @@
       "name": "Deportivo Alavés",
       "shortName": "Alavés",
       "code": "DEP",
-      "played": 10,
+      "played": 11,
       "won": 3,
       "drawn": 2,
-      "lost": 5,
-      "goalsFor": 8,
-      "goalsAgainst": 14,
+      "lost": 6,
+      "goalsFor": 9,
+      "goalsAgainst": 17,
       "points": 11,
       "form": [
-        "L",
         "D",
         "L",
         "D",
-        "W"
+        "W",
+        "L"
       ]
     },
     {

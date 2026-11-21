@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "eredivisie",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "matches": [
     {
       "id": "eredivisie-2026-08-07-cambuur-excelsior-dhnxi3",
@@ -1201,6 +1201,50 @@
       "awayTeam": "eredivisie.psv-eindhoven",
       "homeScore": 1,
       "awayScore": 4,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-21-feyenoord-excelsior-1o2q8c",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T17:45:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.feyenoord",
+      "awayTeam": "eredivisie.excelsior",
+      "homeScore": 2,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-21-utrecht-cambuur-c40780",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T17:45:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.utrecht",
+      "awayTeam": "eredivisie.cambuur",
+      "homeScore": 2,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-21-telstar-pec-zwolle-402olj",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T20:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.telstar",
+      "awayTeam": "eredivisie.pec-zwolle",
+      "homeScore": 1,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-21-groningen-heerenveen-gtagm0",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T20:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.groningen",
+      "awayTeam": "eredivisie.heerenveen",
+      "homeScore": 1,
+      "awayScore": 3,
       "neutralSite": false
     }
   ]

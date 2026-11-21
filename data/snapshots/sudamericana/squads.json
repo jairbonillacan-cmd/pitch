@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "sudamericana",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-21T19:03:13.555Z",
+  "observedAt": "2026-11-21T21:48:13.141Z",
   "teams": [
     {
       "teamId": "sudamericana.olimpia",
@@ -24,7 +24,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "sudamericana.olimpia.alan-rodriguez",
@@ -96,7 +96,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -753,7 +753,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -762,7 +762,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1232,7 +1232,7 @@
           "winPct": 38.2
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "sudamericana.vasco-gama.adson",
@@ -2440,7 +2440,7 @@
           "winPct": 50
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "sudamericana.macara.agustin-campana",
@@ -2464,9 +2464,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 3,
+            "shots": 1,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2475,7 +2475,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2651,8 +2651,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2660,7 +2660,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2723,10 +2723,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 2,
+            "goals": 1,
             "assists": 0,
-            "shots": 6,
-            "shotsOnTarget": 4,
+            "shots": 5,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2734,7 +2734,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2836,7 +2836,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2845,7 +2845,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3104,7 +3104,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3354,8 +3354,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3363,7 +3363,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3389,10 +3389,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3400,7 +3400,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3583,9 +3583,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3622,7 +3622,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         }
@@ -3648,7 +3648,7 @@
           "winPct": 34.4
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "sudamericana.santos.alexis-duarte",
@@ -3822,7 +3822,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3831,7 +3831,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3903,9 +3903,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 5,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4856,7 +4856,7 @@
           "winPct": 66.7
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "sudamericana.botafogo.alex-telles",
@@ -4891,7 +4891,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5326,7 +5326,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5335,7 +5335,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5446,7 +5446,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6064,7 +6064,7 @@
           "winPct": 39.3
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "sudamericana.cienciano.ademar-robles",
@@ -6210,7 +6210,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6236,10 +6236,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 3,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 5,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6247,7 +6247,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6395,7 +6395,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6467,9 +6467,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 5,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6719,8 +6719,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6728,7 +6728,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6830,7 +6830,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6839,7 +6839,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7087,7 +7087,7 @@
           "winPct": 40
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "sudamericana.river-plate.agustin-ruberto",
@@ -7577,15 +7577,15 @@
           "shortName": "L. Pereyra",
           "jersey": "25",
           "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 18,
-          "birthDate": "2008-03-28",
+          "positionLabel": "F",
+          "age": null,
+          "birthDate": null,
           "heightCm": 176,
           "weightKg": null,
-          "preferredFoot": "R",
+          "preferredFoot": null,
           "nationality": "Argentina",
           "nationalityCode": null,
-          "photoKey": "pl-p:37120",
+          "photoKey": "pl-p:23018",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -7608,21 +7608,21 @@
           "candidatePicks": []
         },
         {
-          "id": "sudamericana.river-plate.lautaro-pereyra-29",
-          "slug": "lautaro-pereyra-29",
+          "id": "sudamericana.river-plate.lautaro-pereyra-66",
+          "slug": "lautaro-pereyra-66",
           "name": "Lautaro Pereyra",
           "shortName": "L. Pereyra",
           "jersey": "25",
           "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": null,
-          "birthDate": null,
+          "positionLabel": "M",
+          "age": 18,
+          "birthDate": "2008-03-28",
           "heightCm": 176,
           "weightKg": null,
-          "preferredFoot": null,
+          "preferredFoot": "R",
           "nationality": "Argentina",
           "nationalityCode": null,
-          "photoKey": "pl-p:23018",
+          "photoKey": "pl-p:37120",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -8121,7 +8121,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8258,7 +8258,7 @@
           "winPct": 43.2
         }
       },
-      "updatedAt": "2026-11-21T19:03:13.555Z",
+      "updatedAt": "2026-11-21T21:48:13.141Z",
       "players": [
         {
           "id": "sudamericana.independiente-santa-fe.alexis-zapata",
@@ -8328,7 +8328,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 7,
+            "saves": 2,
             "shotsFaced": 0,
             "goalsConceded": 0
           },
@@ -8504,10 +8504,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,

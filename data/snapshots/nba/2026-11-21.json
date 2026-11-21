@@ -5,7 +5,7 @@
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "20 nov – 23 nov",
-  "updatedAt": "2026-11-21T19:03:09.826Z",
+  "updatedAt": "2026-11-21T21:47:58.657Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -52,11 +52,11 @@
       "shortName": "76ers",
       "code": "PHI",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/4/?bg=transparent",
-      "forPerGame": 114.5,
-      "againstPerGame": 111.5625,
-      "gamesPlayed": 16,
-      "adjustedFor": 114.5,
-      "adjustedAgainst": 111.5625
+      "forPerGame": 115.52941176470588,
+      "againstPerGame": 112.58823529411765,
+      "gamesPlayed": 17,
+      "adjustedFor": 115.52941176470588,
+      "adjustedAgainst": 112.58823529411765
     },
     "nba.san-antonio-spurs": {
       "teamId": "nba.san-antonio-spurs",
@@ -100,11 +100,11 @@
       "shortName": "Bucks",
       "code": "MIL",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/28/?bg=transparent",
-      "forPerGame": 108.125,
-      "againstPerGame": 121.0625,
-      "gamesPlayed": 16,
-      "adjustedFor": 108.125,
-      "adjustedAgainst": 121.0625
+      "forPerGame": 109.3529411764706,
+      "againstPerGame": 121.70588235294117,
+      "gamesPlayed": 17,
+      "adjustedFor": 109.3529411764706,
+      "adjustedAgainst": 121.70588235294117
     },
     "nba.orlando-magic": {
       "teamId": "nba.orlando-magic",
@@ -398,7 +398,7 @@
       "result": {
         "home": 111,
         "away": 97,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -428,7 +428,7 @@
       "result": {
         "home": 128,
         "away": 119,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -458,7 +458,7 @@
       "result": {
         "home": 102,
         "away": 105,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 111,
         "away": 113,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -518,7 +518,7 @@
       "result": {
         "home": 126,
         "away": 120,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -548,7 +548,7 @@
       "result": {
         "home": 94,
         "away": 98,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -578,7 +578,7 @@
       "result": {
         "home": 101,
         "away": 111,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -608,7 +608,7 @@
       "result": {
         "home": 106,
         "away": 104,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -638,7 +638,7 @@
       "result": {
         "home": 133,
         "away": 124,
-        "observedAt": "2026-11-21T19:02:55.882Z",
+        "observedAt": "2026-11-21T21:47:46.099Z",
         "source": "bzzoiro"
       }
     },
@@ -647,7 +647,7 @@
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T18:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nba.philadelphia-76ers",
         "league": "nba",
@@ -664,8 +664,14 @@
         "code": "MIL",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/28/?bg=transparent"
       },
-      "referee": "Tre Maddox",
-      "neutralSite": false
+      "referee": "Jason Goldenberg",
+      "neutralSite": false,
+      "result": {
+        "home": 132,
+        "away": 129,
+        "observedAt": "2026-11-21T21:47:46.099Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-22-por-nyk",
@@ -3759,7 +3765,7 @@
         ]
       },
       "matchContext": {
-        "referee": "Tre Maddox"
+        "referee": "Jason Goldenberg"
       }
     },
     "nba-2026-11-22-por-nyk": {
@@ -9397,6 +9403,32 @@
       ]
     },
     {
+      "teamId": "nba.philadelphia-76ers",
+      "name": "Philadelphia 76ers",
+      "shortName": "76ers",
+      "code": "PHI",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/4/?bg=transparent",
+      "played": 17,
+      "won": 14,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 1964,
+      "goalsAgainst": 1914,
+      "points": 28,
+      "conference": "Este",
+      "division": "Atlántico",
+      "winPct": 0.824,
+      "gamesBehind": "-",
+      "seed": 1,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "nba.san-antonio-spurs",
       "name": "San Antonio Spurs",
       "shortName": "Spurs",
@@ -9419,32 +9451,6 @@
         "W",
         "W",
         "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "nba.philadelphia-76ers",
-      "name": "Philadelphia 76ers",
-      "shortName": "76ers",
-      "code": "PHI",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/4/?bg=transparent",
-      "played": 16,
-      "won": 13,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 1832,
-      "goalsAgainst": 1785,
-      "points": 26,
-      "conference": "Este",
-      "division": "Atlántico",
-      "winPct": 0.813,
-      "gamesBehind": "-",
-      "seed": 1,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "W",
         "W"
       ]
     },
@@ -9490,7 +9496,7 @@
       "conference": "Este",
       "division": "Atlántico",
       "winPct": 0.733,
-      "gamesBehind": "1.5",
+      "gamesBehind": "2",
       "seed": 2,
       "form": [
         "W",
@@ -9594,7 +9600,7 @@
       "conference": "Este",
       "division": "Central",
       "winPct": 0.667,
-      "gamesBehind": "2.5",
+      "gamesBehind": "3",
       "seed": 3,
       "form": [
         "W",
@@ -9672,7 +9678,7 @@
       "conference": "Este",
       "division": "Sureste",
       "winPct": 0.625,
-      "gamesBehind": "3",
+      "gamesBehind": "3.5",
       "seed": 4,
       "form": [
         "L",
@@ -9698,7 +9704,7 @@
       "conference": "Este",
       "division": "Atlántico",
       "winPct": 0.6,
-      "gamesBehind": "3.5",
+      "gamesBehind": "4",
       "seed": 6,
       "form": [
         "L",
@@ -9724,7 +9730,7 @@
       "conference": "Este",
       "division": "Sureste",
       "winPct": 0.6,
-      "gamesBehind": "3.5",
+      "gamesBehind": "4",
       "seed": 5,
       "form": [
         "W",
@@ -9802,7 +9808,7 @@
       "conference": "Este",
       "division": "Central",
       "winPct": 0.529,
-      "gamesBehind": "4.5",
+      "gamesBehind": "5",
       "seed": 7,
       "form": [
         "L",
@@ -9854,7 +9860,7 @@
       "conference": "Este",
       "division": "Sureste",
       "winPct": 0.467,
-      "gamesBehind": "5.5",
+      "gamesBehind": "6",
       "seed": 8,
       "form": [
         "W",
@@ -9880,7 +9886,7 @@
       "conference": "Este",
       "division": "Atlántico",
       "winPct": 0.375,
-      "gamesBehind": "7",
+      "gamesBehind": "7.5",
       "seed": 9,
       "form": [
         "L",
@@ -9906,7 +9912,7 @@
       "conference": "Este",
       "division": "Sureste",
       "winPct": 0.353,
-      "gamesBehind": "7.5",
+      "gamesBehind": "8",
       "seed": 10,
       "form": [
         "L",
@@ -9932,7 +9938,7 @@
       "conference": "Este",
       "division": "Central",
       "winPct": 0.313,
-      "gamesBehind": "8",
+      "gamesBehind": "8.5",
       "seed": 11,
       "form": [
         "W",
@@ -10010,7 +10016,7 @@
       "conference": "Este",
       "division": "Central",
       "winPct": 0.267,
-      "gamesBehind": "8.5",
+      "gamesBehind": "9",
       "seed": 13,
       "form": [
         "W",
@@ -10036,7 +10042,7 @@
       "conference": "Este",
       "division": "Sureste",
       "winPct": 0.267,
-      "gamesBehind": "8.5",
+      "gamesBehind": "9",
       "seed": 12,
       "form": [
         "W",
@@ -10062,7 +10068,7 @@
       "conference": "Este",
       "division": "Atlántico",
       "winPct": 0.2,
-      "gamesBehind": "9.5",
+      "gamesBehind": "10",
       "seed": 14,
       "form": [
         "W",
@@ -10130,17 +10136,17 @@
       "shortName": "Bucks",
       "code": "MIL",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/28/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 1,
       "drawn": 0,
-      "lost": 15,
-      "goalsFor": 1730,
-      "goalsAgainst": 1937,
+      "lost": 16,
+      "goalsFor": 1859,
+      "goalsAgainst": 2069,
       "points": 2,
       "conference": "Este",
       "division": "Central",
-      "winPct": 0.063,
-      "gamesBehind": "12",
+      "winPct": 0.059,
+      "gamesBehind": "13",
       "seed": 15,
       "form": [
         "L",

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "bundesliga-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "matches": [
     {
       "id": "bundesliga-2-2026-08-07-bochum-hertha-bsc-1qv1vj",
@@ -1146,6 +1146,17 @@
       "awayTeam": "bundesliga-2.eintracht-braunschweig",
       "homeScore": 1,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-21-st-pauli-bochum-gqe0af",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T19:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.st-pauli",
+      "awayTeam": "bundesliga-2.bochum",
+      "homeScore": 2,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

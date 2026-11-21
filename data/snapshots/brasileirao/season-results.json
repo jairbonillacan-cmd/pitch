@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao",
   "season": "2026",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "matches": [
     {
       "id": "brasileirao-2026-07-16-vitoria-vasco-gama-a31ng3",
@@ -1904,6 +1904,17 @@
       "homeTeam": "brasileirao.sao-paulo",
       "awayTeam": "brasileirao.fluminense",
       "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-2026-11-21-palmeiras-flamengo-vx7rjd",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T19:30:00.000Z",
+      "round": "Regular season · Matchday 36",
+      "homeTeam": "brasileirao.palmeiras",
+      "awayTeam": "brasileirao.flamengo",
+      "homeScore": 1,
       "awayScore": 1,
       "neutralSite": false
     }

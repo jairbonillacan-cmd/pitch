@@ -5,7 +5,7 @@
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "21 nov – 23 nov",
-  "updatedAt": "2026-11-21T19:03:09.826Z",
+  "updatedAt": "2026-11-21T21:47:58.657Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -392,7 +392,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-21T20:30:00.000Z",
-      "status": "scheduled",
+      "status": "in_progress",
       "home": {
         "id": "nhl.calgary-flames",
         "league": "nhl",
@@ -430,6 +430,7 @@
         "shortName": "Sabres",
         "code": "BUF"
       },
+      "referee": "Francis Charron",
       "neutralSite": false
     },
     {
@@ -452,6 +453,7 @@
         "shortName": "Penguins",
         "code": "PIT"
       },
+      "referee": "Chris Schlenker",
       "neutralSite": false
     },
     {
@@ -1724,6 +1726,9 @@
           "Panthers gana en 59 % de los escenarios.",
           "Se esperan 6.19 goles: 3.37 de Panthers y 2.82 de Sabres."
         ]
+      },
+      "matchContext": {
+        "referee": "Francis Charron"
       }
     },
     "nhl-2026-11-21-pit-nsh": {
@@ -1983,6 +1988,9 @@
           "Predators gana en 66 % de los escenarios.",
           "Se esperan 6.18 goles: 3.60 de Predators y 2.58 de Penguins."
         ]
+      },
+      "matchContext": {
+        "referee": "Chris Schlenker"
       }
     },
     "nhl-2026-11-22-wsh-bos": {
@@ -7822,54 +7830,54 @@
       ]
     },
     {
-      "teamId": "nhl.edmonton-oilers",
-      "name": "Edmonton Oilers",
-      "shortName": "Oilers",
-      "code": "EDM",
-      "logoUrl": "/brand/official/nhl/edmonton-oilers.png",
-      "played": 24,
-      "won": 17,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 93,
-      "goalsAgainst": 65,
-      "points": 37,
-      "conference": "Oeste",
-      "division": "Pacífico",
-      "otLosses": 3,
-      "winPct": 0.708,
-      "seed": 2,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "W",
-        "L"
-      ]
-    },
-    {
       "teamId": "nhl.carolina-hurricanes",
       "name": "Carolina Hurricanes",
       "shortName": "Hurricanes",
       "code": "CAR",
       "logoUrl": "/brand/official/nhl/carolina-hurricanes.png",
-      "played": 22,
-      "won": 16,
+      "played": 23,
+      "won": 17,
       "drawn": 0,
       "lost": 3,
-      "goalsFor": 88,
-      "goalsAgainst": 49,
-      "points": 35,
+      "goalsFor": 95,
+      "goalsAgainst": 53,
+      "points": 37,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 3,
-      "winPct": 0.727,
+      "winPct": 0.739,
       "seed": 1,
       "form": [
         "W",
         "W",
         "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "nhl.edmonton-oilers",
+      "name": "Edmonton Oilers",
+      "shortName": "Oilers",
+      "code": "EDM",
+      "logoUrl": "/brand/official/nhl/edmonton-oilers.png",
+      "played": 25,
+      "won": 17,
+      "drawn": 0,
+      "lost": 5,
+      "goalsFor": 97,
+      "goalsAgainst": 72,
+      "points": 37,
+      "conference": "Oeste",
+      "division": "Pacífico",
+      "otLosses": 3,
+      "winPct": 0.68,
+      "seed": 2,
+      "form": [
         "W",
+        "W",
+        "W",
+        "L",
         "L"
       ]
     },

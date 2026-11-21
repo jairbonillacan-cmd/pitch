@@ -1,64 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "liga-argentina",
-  "observedAt": "2026-11-21T19:03:13.555Z",
+  "observedAt": "2026-11-21T21:48:13.141Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "liga-argentina.aldosivi",
-      "player": "Nicolás Cordero",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Leg Injury",
-      "injuryType": "Leg Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
-    {
-      "teamId": "liga-argentina.river-plate",
-      "player": "Agustín Ruberto",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
-    {
-      "teamId": "liga-argentina.river-plate",
-      "player": "Aníbal Moreno",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Back Injury",
-      "injuryType": "Back Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
-    {
-      "teamId": "liga-argentina.river-plate",
-      "player": "Gonzalo Montiel",
-      "position": "D",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
-    {
-      "teamId": "liga-argentina.river-plate",
-      "player": "Juan Cruz Meza",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
-    {
-      "teamId": "liga-argentina.river-plate",
-      "player": "Juan Portillo",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
     {
       "teamId": "liga-argentina.gimnasia-y-esgrima",
       "player": "Agustín Colazo",
@@ -66,7 +12,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.gimnasia-y-esgrima",
@@ -75,7 +21,7 @@
       "status": "Baja",
       "detail": "Dislocated Shoulder",
       "injuryType": "Dislocated Shoulder",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.gimnasia-y-esgrima",
@@ -84,7 +30,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.gimnasia-y-esgrima",
@@ -93,7 +39,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.atletico-belgrano",
@@ -102,7 +48,7 @@
       "status": "Baja",
       "detail": "Bruised Knee",
       "injuryType": "Bruised Knee",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.barracas-central",
@@ -111,7 +57,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.barracas-central",
@@ -120,7 +66,7 @@
       "status": "Baja",
       "detail": "Groin Injury",
       "injuryType": "Groin Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.barracas-central",
@@ -129,7 +75,7 @@
       "status": "Baja",
       "detail": "Knee Surgery",
       "injuryType": "Knee Surgery",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.barracas-central",
@@ -138,16 +84,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
-    },
-    {
-      "teamId": "liga-argentina.barracas-central",
-      "player": "Marcelo Agustín Miño",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Sprained Knee Injury",
-      "injuryType": "Sprained Knee Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.racing",
@@ -156,7 +93,7 @@
       "status": "Baja",
       "detail": "Broken Ankle",
       "injuryType": "Broken Ankle",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.atletico-platense",
@@ -165,7 +102,7 @@
       "status": "Baja",
       "detail": "Sprained Knee Injury",
       "injuryType": "Sprained Knee Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     },
     {
       "teamId": "liga-argentina.atletico-platense",
@@ -174,7 +111,52 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T19:03:13.555Z"
+      "reportedAt": "2026-11-21T21:48:13.141Z"
+    },
+    {
+      "teamId": "liga-argentina.atletico-union-santa-fe",
+      "player": "Lautaro Vargas",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Sprained Knee Injury",
+      "injuryType": "Sprained Knee Injury",
+      "reportedAt": "2026-11-21T21:48:13.141Z"
+    },
+    {
+      "teamId": "liga-argentina.velez-sarsfield",
+      "player": "Juan Cruz Policella",
+      "position": "M",
+      "status": "Baja",
+      "detail": "national_team",
+      "injuryType": "national_team",
+      "reportedAt": "2026-11-21T21:48:13.141Z"
+    },
+    {
+      "teamId": "liga-argentina.velez-sarsfield",
+      "player": "Lucas Robertone",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-21T21:48:13.141Z"
+    },
+    {
+      "teamId": "liga-argentina.velez-sarsfield",
+      "player": "Simon Escobar",
+      "position": "D",
+      "status": "Baja",
+      "detail": "national_team",
+      "injuryType": "national_team",
+      "reportedAt": "2026-11-21T21:48:13.141Z"
+    },
+    {
+      "teamId": "liga-argentina.velez-sarsfield",
+      "player": "Thiago Silvero",
+      "position": "D",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-21T21:48:13.141Z"
     }
   ]
 }

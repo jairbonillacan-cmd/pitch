@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-argentina",
   "season": "2026",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "matches": [
     {
       "id": "liga-argentina-2026-07-23-sarmiento-argentinos-jun-q7ein3",
@@ -2652,6 +2652,17 @@
       "homeTeam": "liga-argentina.velez-sarsfield",
       "awayTeam": "liga-argentina.atletico-belgrano",
       "homeScore": 1,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-argentina-2026-11-21-defensa-y-just-barracas-centr-qv46h6",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T18:00:00.000Z",
+      "round": "Round of 16",
+      "homeTeam": "liga-argentina.defensa-y-justicia",
+      "awayTeam": "liga-argentina.barracas-central",
+      "homeScore": 0,
       "awayScore": 1,
       "neutralSite": false
     }

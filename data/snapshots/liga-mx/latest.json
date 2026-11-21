@@ -5,7 +5,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 17",
-  "updatedAt": "2026-11-21T19:08:59.437Z",
+  "updatedAt": "2026-11-21T21:55:44.156Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -4024,19 +4024,19 @@
     "mx-2026-j17-pumas-unam-monterrey-401877049": {
       "game": "mx-2026-j17-pumas-unam-monterrey-401877049",
       "cortex": {
-        "headline": "Pumas y Monterrey llegan parejos, con la localía como única ventaja",
+        "headline": "Pumas y Monterrey llegan casi iguales, con un partido de goles",
         "headlineOrigin": "ia",
         "sections": [
           {
             "key": "lectura",
             "title": "La lectura",
-            "text": "Partido de margen corto: Pumas gana en 38 % de los escenarios, Monterrey en 36 % y el empate queda en 26 %.",
-            "origin": "plantilla"
+            "text": "Monterrey llega un poco mejor: 36 % de probabilidad frente al 38 % de Pumas en casa, y es octavo con 24 puntos contra el undécimo con 21. La diferencia de goles lo confirma, +2 para el visitante y -2 para el local, aunque el margen es mínimo.",
+            "origin": "ia"
           },
           {
             "key": "goles",
             "title": "Goles",
-            "text": "Se ve abierto: el total esperado es de 3.53 goles, con 68 % de que se superen los 2.5 y 70 % de que ambos anoten. El reparto es casi idéntico, 1.74 para Pumas y 1.79 para Monterrey, así que ninguno carga el peso del gol.",
+            "text": "Se ve abierto: 3.53 goles esperados en total, con 68 % de que se superen los 2.5 y 70 % de que anoten ambos. El reparto es casi idéntico, 1.74 para Pumas y 1.79 para Monterrey, así que ninguno carga con la producción.",
             "origin": "ia",
             "stats": [
               {
@@ -4057,7 +4057,7 @@
           {
             "key": "ritmo",
             "title": "Ritmo del partido",
-            "text": "Impulso parejo por las bandas: 5.1 tiros de esquina de Pumas y 5.0 de Monterrey, 10.0 en total. Las faltas suman 21.7, con 11.3 del local, y 3.7 amarillas. Partido con contacto, pero sin un equipo que arrincone al otro.",
+            "text": "Los dos empujan parecido desde los costados: 5.1 tiros de esquina de Pumas y 5.0 de Monterrey, 10.0 en total. Con 21.7 faltas y 3.7 amarillas, el partido se juega cortado, con más interrupciones que fluidez.",
             "origin": "ia",
             "stats": [
               {
@@ -4080,7 +4080,7 @@
           {
             "key": "tabla",
             "title": "Tabla y descanso",
-            "text": "Pumas es undécimo con 21 puntos en 16 jornadas y diferencia de -2. Monterrey es séptimo con 24 unidades y +2. Ambos llegan con 14 días de descanso, así que el desgaste no separa a ninguno de los dos.",
+            "text": "Monterrey es octavo con 24 puntos en 16 partidos y diferencia de +2; Pumas es undécimo con 21 y -2. El descanso está parejo: 14 días para los dos, sin ventaja física de un lado.",
             "origin": "ia",
             "stats": [
               {
@@ -4093,12 +4093,12 @@
           {
             "key": "cambia",
             "title": "Qué podría cambiarlo",
-            "text": "Las alineaciones confirmadas pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con 21.7 faltas en el pronóstico. El primer gol cambia quién empuja y quién espera.",
+            "text": "Las alineaciones pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define qué tan cortado se vuelve con ese volumen de faltas, y el primer gol cambia quién empuja y quién espera.",
             "origin": "ia"
           }
         ],
-        "fingerprint": "c9f18f478428270c",
-        "generatedAt": "2026-11-20T23:27:46.349Z",
+        "fingerprint": "6f2165a3ac11683a",
+        "generatedAt": "2026-11-21T21:56:13.542Z",
         "version": "2"
       },
       "counts": {

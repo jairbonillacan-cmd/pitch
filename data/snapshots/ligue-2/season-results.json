@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "ligue-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "matches": [
     {
       "id": "ligue-2-2026-08-08-usl-dunkerque-grenoble-foot-mzlpsj",
@@ -1256,6 +1256,17 @@
       "awayTeam": "ligue-2.montpellier",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "ligue-2-2026-11-21-stade-reims-saint-etienne-5wcyvz",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T19:00:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "ligue-2.stade-reims",
+      "awayTeam": "ligue-2.saint-etienne",
+      "homeScore": 0,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

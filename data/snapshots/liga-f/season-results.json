@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-f",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T19:03:13.555Z",
+  "updatedAt": "2026-11-21T21:48:13.141Z",
   "matches": [
     {
       "id": "liga-f-2026-08-29-real-sociedad-logrono-united-3z20hf",
@@ -981,6 +981,17 @@
       "awayTeam": "liga-f.atletico-madrid",
       "homeScore": 1,
       "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-f-2026-11-21-logrono-united-deportivo-alav-whqe6y",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T18:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "liga-f.logrono-united",
+      "awayTeam": "liga-f.deportivo-alaves",
+      "homeScore": 3,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]
