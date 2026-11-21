@@ -279,7 +279,7 @@ function ThreadCardStory({ initialPost = STORY_POST }: { initialPost?: SocialPos
           highlighted
           onShare={() => undefined}
           onCopyToParlay={() => undefined}
-          onCopyToJournal={() => undefined}
+          onCopy={() => undefined}
           goProfile={() => (e) => e.preventDefault()}
           toggleSocialLike={() =>
             setPost((prev) => ({

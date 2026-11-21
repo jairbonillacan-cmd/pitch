@@ -499,6 +499,7 @@ export function EditProfileDialog({
             </span>
           </div>
           <Switch
+            className="pl-acct-switch"
             aria-labelledby={`${id}-public`}
             aria-describedby={`${id}-public-desc`}
             isSelected={privacy.publicRecordVisible}
@@ -526,6 +527,7 @@ export function EditProfileDialog({
             </span>
           </div>
           <Switch
+            className="pl-acct-switch"
             aria-labelledby={`${id}-ranking`}
             aria-describedby={`${id}-ranking-desc`}
             isSelected={privacy.showInRanking}

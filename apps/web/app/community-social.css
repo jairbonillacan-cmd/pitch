@@ -460,7 +460,7 @@
   white-space: nowrap;
 }
 
-.pl-com-filter-panel .pl-sf-card-body {
+.pl-com-filter-panel {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -2295,6 +2295,7 @@
   .pl-com-more-comments,
   .pl-com-preview-btn,
   .pl-com-follow,
+  .pl-com-match-chip,
   .pl-com-reply--inline button {
     min-block-size: 44px;
     min-inline-size: 44px;

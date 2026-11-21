@@ -77,6 +77,8 @@ import {
   SocialReportDialog,
   TabPanel,
   UnderlineTabs,
+  buildLocalProfileReceipt,
+  buildPublicProfileReceipt,
   isOwnProfileHandle,
   outcomeOf,
   ownIdentityFor,
@@ -243,39 +245,6 @@ function TeamPair({
       </span>
     </span>
   );
-}
-
-function buildPublicRecordReceiptPayload(
-  handle: string,
-  payload: PublicRecordPayload | null | undefined,
-): { canonical: string | null; settled: number; isPrivate: boolean } {
-  if (!payload) return { canonical: null, settled: 0, isPrivate: false };
-  if (payload.hidden) return { canonical: null, settled: 0, isPrivate: true };
-  if (payload.settled <= 0) return { canonical: null, settled: 0, isPrivate: false };
-  const parts: string[] = [`pitchlab-record-v1`, `@${handle}`, `cerrados:${payload.settled}`];
-  const view = payload.view;
-  if (view.wonLost) parts.push(`gp:${view.wonLost.won}-${view.wonLost.lost}`);
-  if (view.hitRatePct !== null) parts.push(`acierto:${view.hitRatePct.toFixed(1)}%`);
-  if (view.yieldPct !== null) parts.push(`rend:${view.yieldPct.toFixed(1)}%`);
-  if (view.avgClvPct !== null) parts.push(`clv:${view.avgClvPct.toFixed(1)}%`);
-  if (view.netUnits !== null) parts.push(`u:${view.netUnits.toFixed(2)}`);
-  return { canonical: parts.join("|"), settled: payload.settled, isPrivate: false };
-}
-
-function buildLocalRecordReceiptPayload(
-  handle: string,
-  record: ReturnType<typeof profileRecord>,
-): { canonical: string | null; settled: number; isPrivate: boolean } {
-  if (record.settled <= 0) return { canonical: null, settled: 0, isPrivate: false };
-  const parts: string[] = [
-    "pitchlab-record-v1",
-    `@${handle}`,
-    `cerrados:${record.settled}`,
-    `gp:${record.won}-${Math.max(0, record.settled - record.won)}`,
-    `u:${record.netUnits.toFixed(2)}`,
-  ];
-  if (record.avgClvPct !== null) parts.push(`clv:${record.avgClvPct.toFixed(1)}%`);
-  return { canonical: parts.join("|"), settled: record.settled, isPrivate: false };
 }
 
 export function AnalystProfileClubView({
@@ -699,8 +668,8 @@ function ProfileContent({
   const receiptInfo = useMemo(
     () =>
       !isOwn && !profile.isExample
-        ? buildPublicRecordReceiptPayload(profile.handle, publicRecord)
-        : buildLocalRecordReceiptPayload(profile.handle, record),
+        ? buildPublicProfileReceipt(profile.handle, publicRecord)
+        : buildLocalProfileReceipt(profile.handle, record),
     [isOwn, profile.handle, profile.isExample, publicRecord, record],
   );
 
@@ -936,7 +905,7 @@ function ProfileContent({
 
       <ProfileVerificationReceipt
         handle={profile.handle}
-        canonicalPayload={receiptInfo.canonical}
+        receiptPayload={receiptInfo.payload}
         settledCount={receiptInfo.settled}
         isPrivate={receiptInfo.isPrivate}
         onNavigate={navigateTo}

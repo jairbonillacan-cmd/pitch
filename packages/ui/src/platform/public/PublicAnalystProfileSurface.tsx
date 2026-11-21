@@ -16,6 +16,7 @@ import {
   Avatar,
   ProfileVerificationReceipt,
   ShareIcon,
+  buildPublicProfileReceipt,
   shareUrl,
   shortDate,
 } from "../club/community-ui";
@@ -40,23 +41,6 @@ export interface PublicAnalystProfileSurfaceProps {
   hasSession?: boolean;
   signupHref?: string;
   oddsFormat?: OddsFormat;
-}
-
-function buildPublicReceipt(
-  handle: string,
-  payload: PublicRecordPayload | null,
-): { canonical: string | null; settled: number; isPrivate: boolean } {
-  if (!payload) return { canonical: null, settled: 0, isPrivate: false };
-  if (payload.hidden) return { canonical: null, settled: 0, isPrivate: true };
-  if (payload.settled <= 0) return { canonical: null, settled: 0, isPrivate: false };
-  const parts: string[] = ["pitchlab-record-v1", `@${handle}`, `cerrados:${payload.settled}`];
-  const view = payload.view;
-  if (view.wonLost) parts.push(`gp:${view.wonLost.won}-${view.wonLost.lost}`);
-  if (view.hitRatePct !== null) parts.push(`acierto:${view.hitRatePct.toFixed(1)}%`);
-  if (view.yieldPct !== null) parts.push(`rend:${view.yieldPct.toFixed(1)}%`);
-  if (view.avgClvPct !== null) parts.push(`clv:${view.avgClvPct.toFixed(1)}%`);
-  if (view.netUnits !== null) parts.push(`u:${view.netUnits.toFixed(2)}`);
-  return { canonical: parts.join("|"), settled: payload.settled, isPrivate: false };
 }
 
 export function PublicAnalystProfileSurface({
@@ -85,7 +69,7 @@ export function PublicAnalystProfileSurface({
     [badges?.featured],
   );
   const receipt = useMemo(
-    () => buildPublicReceipt(profile.handle, publicRecord),
+    () => buildPublicProfileReceipt(profile.handle, publicRecord),
     [profile.handle, publicRecord],
   );
 
@@ -222,7 +206,7 @@ export function PublicAnalystProfileSurface({
 
         <ProfileVerificationReceipt
           handle={profile.handle}
-          canonicalPayload={receipt.canonical}
+          receiptPayload={receipt.payload}
           settledCount={receipt.settled}
           isPrivate={receipt.isPrivate}
           onNavigate={navigateTo}

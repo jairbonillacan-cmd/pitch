@@ -527,7 +527,7 @@ button.pl-prof-badges-btn:hover {
 
 .pl-prof-receipt-payload {
   display: block;
-  margin-block-start: 6px;
+  margin: 6px 0 0;
   padding: 8px 10px;
   border-radius: var(--radius-control, 8px);
   border: 1px solid var(--pl-border);
@@ -536,6 +536,7 @@ button.pl-prof-badges-btn:hover {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 11.5px;
   line-height: 1.45;
+  white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 

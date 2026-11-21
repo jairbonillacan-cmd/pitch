@@ -21,6 +21,7 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
+import type { PublicRecordPayload } from "../record-stats";
 import type {
   JournalEntry,
   PlatformDataset,
@@ -489,9 +490,87 @@ export function computeSha256Hex(message: string): string {
     .join("");
 }
 
+export type ProfileReceiptPayloadObject = Readonly<Record<string, string | number>>;
+
+export interface ProfileReceiptSummary {
+  readonly payload: ProfileReceiptPayloadObject | null;
+  readonly settled: number;
+  readonly isPrivate: boolean;
+}
+
+export interface LocalProfileReceiptMetrics {
+  readonly settled: number;
+  readonly won: number;
+  readonly netUnits: number;
+  readonly avgClvPct: number | null;
+}
+
+export function sortReceiptPayloadKeys(
+  record: Readonly<Record<string, string | number>>,
+): ProfileReceiptPayloadObject {
+  const sortedKeys = Object.keys(record).sort();
+  const out: Record<string, string | number> = {};
+  for (const key of sortedKeys) {
+    const value = record[key];
+    if (value !== undefined) {
+      out[key] = value;
+    }
+  }
+  return out;
+}
+
+export function buildPublicProfileReceipt(
+  handle: string,
+  publicRecord: PublicRecordPayload | null | undefined,
+): ProfileReceiptSummary {
+  if (!publicRecord) return { payload: null, settled: 0, isPrivate: false };
+  if (publicRecord.hidden) return { payload: null, settled: 0, isPrivate: true };
+  if (publicRecord.settled <= 0) return { payload: null, settled: 0, isPrivate: false };
+  const raw: Record<string, string | number> = {
+    version: "pitchlab-profile-receipt-v1",
+    handle,
+    settled: publicRecord.settled,
+  };
+  const view = publicRecord.view;
+  if (view.wonLost) {
+    raw.won = view.wonLost.won;
+    raw.lost = view.wonLost.lost;
+  }
+  if (view.hitRatePct !== null) raw.hitRatePct = view.hitRatePct.toFixed(1);
+  if (view.yieldPct !== null) raw.yieldPct = view.yieldPct.toFixed(1);
+  if (view.avgClvPct !== null) raw.avgClvPct = view.avgClvPct.toFixed(1);
+  if (view.netUnits !== null) raw.netUnits = view.netUnits.toFixed(2);
+  return {
+    payload: sortReceiptPayloadKeys(raw),
+    settled: publicRecord.settled,
+    isPrivate: false,
+  };
+}
+
+export function buildLocalProfileReceipt(
+  handle: string,
+  record: LocalProfileReceiptMetrics,
+): ProfileReceiptSummary {
+  if (record.settled <= 0) return { payload: null, settled: 0, isPrivate: false };
+  const raw: Record<string, string | number> = {
+    version: "pitchlab-profile-receipt-v1",
+    handle,
+    settled: record.settled,
+    won: record.won,
+    lost: Math.max(0, record.settled - record.won),
+    netUnits: record.netUnits.toFixed(2),
+  };
+  if (record.avgClvPct !== null) raw.avgClvPct = record.avgClvPct.toFixed(1);
+  return {
+    payload: sortReceiptPayloadKeys(raw),
+    settled: record.settled,
+    isPrivate: false,
+  };
+}
+
 export interface ProfileVerificationReceiptProps {
   readonly handle: string;
-  readonly canonicalPayload: string | null;
+  readonly receiptPayload: ProfileReceiptPayloadObject | null;
   readonly settledCount: number;
   readonly isPrivate?: boolean;
   readonly onNavigate?: (href: string) => void;
@@ -500,7 +579,7 @@ export interface ProfileVerificationReceiptProps {
 
 export function ProfileVerificationReceipt({
   handle,
-  canonicalPayload,
+  receiptPayload,
   settledCount,
   isPrivate = false,
   onNavigate,
@@ -514,23 +593,40 @@ export function ProfileVerificationReceipt({
     return () => window.clearTimeout(timer);
   }, [copied]);
 
+  const sortedPayload = useMemo(
+    () => (receiptPayload ? sortReceiptPayloadKeys(receiptPayload) : null),
+    [receiptPayload],
+  );
+
+  const canonicalJson = useMemo(
+    () => (sortedPayload ? JSON.stringify(sortedPayload) : null),
+    [sortedPayload],
+  );
+
   const digest = useMemo(
-    () => (canonicalPayload ? computeSha256Hex(canonicalPayload) : null),
-    [canonicalPayload],
+    () => (canonicalJson ? computeSha256Hex(canonicalJson) : null),
+    [canonicalJson],
+  );
+
+  const verifiableJson = useMemo(
+    () =>
+      sortedPayload && digest
+        ? JSON.stringify({ payload: sortedPayload, sha256: digest }, null, 2)
+        : null,
+    [digest, sortedPayload],
   );
 
   const handleCopy = (): void => {
-    if (!canonicalPayload || !digest) return;
-    const text = `${canonicalPayload}\nSHA-256: ${digest}`;
+    if (!verifiableJson) return;
     if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) {
       onNotify?.("No pudimos copiar el recibo en este navegador.", "warning");
       return;
     }
     void navigator.clipboard
-      .writeText(text)
+      .writeText(verifiableJson)
       .then(() => {
         setCopied(true);
-        onNotify?.("Recibo SHA-256 copiado para auditar en /verificacion.", "success");
+        onNotify?.("Recibo JSON + SHA-256 copiado para auditar en /verificacion.", "success");
       })
       .catch((err: unknown) => {
         void err;
@@ -558,7 +654,7 @@ export function ProfileVerificationReceipt({
               El récord de @{handle} está en privado. Todos los picks cerrados en PitchLab se
               sellan antes del inicio del partido con huella verificable SHA-256.
             </p>
-          ) : digest && canonicalPayload ? (
+          ) : digest && verifiableJson ? (
             <>
               <p className="pl-prof-receipt-desc">
                 Huella verificable del corte público ({settledCount}{" "}
@@ -571,8 +667,8 @@ export function ProfileVerificationReceipt({
                 </code>
               </div>
               <details className="pl-prof-receipt-details">
-                <summary className="pl-prof-receipt-summary">Ver cadena canónica sellada</summary>
-                <code className="pl-prof-receipt-payload num">{canonicalPayload}</code>
+                <summary className="pl-prof-receipt-summary">Ver JSON verificable</summary>
+                <pre className="pl-prof-receipt-payload num">{verifiableJson}</pre>
               </details>
             </>
           ) : (

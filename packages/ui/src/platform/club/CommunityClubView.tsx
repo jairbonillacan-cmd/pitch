@@ -2399,7 +2399,7 @@ function RankingTab({
             role="region"
             aria-labelledby="pl-com-ranking-caption"
           >
-            <table className="pl-com-table pl-sf-table num">
+            <table className="pl-com-table pl-com-ranking-table pl-sf-table num">
               <caption id="pl-com-ranking-caption" className="sr-only">
                 Ranking de Comunidad, {windowLabel}, ordenado por {sortLabel}, del 4.º lugar en
                 adelante
