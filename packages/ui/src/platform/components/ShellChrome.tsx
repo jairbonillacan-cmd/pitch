@@ -14,6 +14,7 @@ import React, {
 import {
   canonicalGameHref,
   competitionPrestigeScore,
+  getLeagueCapability,
   isLeagueActiveInWindow,
   isNationalCompetition,
   type LeagueId,
@@ -77,7 +78,7 @@ const LazyShareTicketModal = lazy(() =>
   import("./PlatformOverlays").then((m) => ({ default: m.ShareTicketModal })),
 );
 const LazyCommandPaletteModal = lazy(() =>
-  import("./PlatformOverlays").then((m) => ({ default: m.CommandPaletteModal })),
+  import("./CommandPaletteModal").then((m) => ({ default: m.CommandPaletteModal })),
 );
 const LazyBetaPinModal = lazy(() =>
   import("./PlatformOverlays").then((m) => ({ default: m.BetaPinModal })),
@@ -798,6 +799,7 @@ function ClubWorkspaceShellImpl({
     normalizedPath.includes("/team/") ||
     normalizedPath.includes("/p/") ||
     normalizedPath.includes("/player/") ||
+    normalizedPath.includes("/r/") ||
     normalizedPath.startsWith("/app/u/");
   const shellContext: "home" | "detail" | "section" = isHomeRoute
     ? "home"
@@ -1029,22 +1031,33 @@ function ClubWorkspaceShellImpl({
     scrollContainerRef: moreSheetScrollRef,
   });
 
-  // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
-  // El portal de tipsters y la consola solo aparecen para quien los usa.
+  const activeRefereesHref = useMemo(() => {
+    const match = /^\/app\/([a-z0-9-]+)(?:\/|$)/.exec(normalizedPath);
+    const segment = match?.[1];
+    if (segment) {
+      const cap = getLeagueCapability(segment);
+      if (cap?.sport === "football" && cap.providers.referees) {
+        return `/app/${segment}/arbitros`;
+      }
+    }
+    return "/app/liga-mx/arbitros";
+  }, [normalizedPath]);
+
   const railGroups: RailNavGroup[] = useMemo(() => {
-    // Cuenta, «Cómo calculamos», Portal tipster y Consola viven en el menú del perfil.
     const explore: RailNavItem[] = [
       { href: "/app/picks", label: "Buscar picks", shortLabel: "Buscar picks", icon: "search" },
       { href: "/app/props", label: "Tendencias de jugadores", shortLabel: "Player Props", icon: "users" },
       { href: "/app/momios", label: "Compara tu momio", shortLabel: "Momios", icon: "activity" },
       { href: "/app/comparar", label: "Comparar H2H", shortLabel: "Comparar H2H", icon: "layers" },
+      { href: "/app/alertas", label: "Alertas de mercado", shortLabel: "Alertas", icon: "bell" },
+      { href: activeRefereesHref, label: "Árbitros", shortLabel: "Árbitros", icon: "whistle" },
       { href: "/app/historial", label: "Resultados", shortLabel: "Resultados", icon: "shield" },
     ];
     return [
       { title: "Club", items: primaryNavItems(parlayLegs.length, journal.length) },
       { title: "Explorar", items: explore },
     ];
-  }, [journal.length, parlayLegs.length]);
+  }, [activeRefereesHref, journal.length, parlayLegs.length]);
 
   const allClubItems = useMemo(
     () => railGroups.flatMap((g) => g.items),
@@ -1127,6 +1140,8 @@ function ClubWorkspaceShellImpl({
     "/app/props": "Rachas U5/U10/U20 contra línea deslizable",
     "/app/momios": "Calcula tu ventaja real frente a tu casa",
     "/app/comparar": "Cara a cara entre clubes y jugadores",
+    "/app/alertas": "Copiloto NL, apertura de líneas, steam y EV+",
+    [activeRefereesHref]: "Rigor arbitral, tarjetas ajustadas y tendencias",
     "/app/historial": "Balance verificado, calibración y marcadores finales",
   };
 

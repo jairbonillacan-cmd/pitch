@@ -1,8 +1,14 @@
-import { canonicalPlayerHref, canonicalTeamHref } from "@pitchlab/contracts";
+import {
+  canonicalPlayerHref,
+  canonicalTeamHref,
+  getLeagueCapability,
+  parseCanonicalPublicSlug,
+} from "@pitchlab/contracts";
 
 const STATIC_CLUB_SEGMENTS = new Set([
   "account",
   "admin",
+  "alertas",
   "canjear",
   "comparar",
   "historial",
@@ -26,6 +32,7 @@ const CLUB_ALIASES: Record<string, AliasTarget> = {
   "/app/account/notifications": { pathname: "/app/account", defaultParams: { tab: "prefs" } },
   "/app/settings": { pathname: "/app/account", defaultParams: { tab: "prefs" } },
   "/app/cuenta": { pathname: "/app/account" },
+  "/app/alerts": { pathname: "/app/alertas" },
   "/app/journal": { pathname: "/app/lab" },
   "/app/bitacora": { pathname: "/app/lab" },
   "/app/resultados": { pathname: "/app/historial" },
@@ -38,6 +45,11 @@ const CLUB_ALIASES: Record<string, AliasTarget> = {
   "/app/h2h": { pathname: "/app/comparar" },
   "/app/compare": { pathname: "/app/comparar" },
 };
+
+function hasFootballRefereesCapability(league: string): boolean {
+  const capability = getLeagueCapability(league);
+  return capability?.sport === "football" && capability.providers.referees === true;
+}
 
 export type ClubRouteResolution =
   | { kind: "ok"; pathname: string }
@@ -125,6 +137,28 @@ export function resolveClubRoute(
 
   if (segments.length === 2 && segments[0] === "u") {
     return { kind: "ok", pathname };
+  }
+
+  if (segments.length === 2 && segments[1] === "arbitros") {
+    const league = segments[0]!;
+    if (options.isLeague(league) && hasFootballRefereesCapability(league)) {
+      return { kind: "ok", pathname };
+    }
+    return { kind: "not_found", pathname };
+  }
+
+  if (segments.length === 3 && segments[1] === "r") {
+    const league = segments[0]!;
+    const refereeSlug = safeDecodeSegment(segments[2]!);
+    if (
+      refereeSlug &&
+      options.isLeague(league) &&
+      hasFootballRefereesCapability(league) &&
+      parseCanonicalPublicSlug(refereeSlug) !== null
+    ) {
+      return { kind: "ok", pathname };
+    }
+    return { kind: "not_found", pathname };
   }
 
   if (
