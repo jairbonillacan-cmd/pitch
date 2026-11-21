@@ -1282,7 +1282,9 @@ export function PicksFinderClubView({
     () => dataset.games.some((g) => g.status === "LIVE"),
     [dataset.games],
   );
-  const liveBoard = useLiveScoreboard((timing === "live" || hasDatasetLiveGames) && isPageVisible);
+  const liveBoard = useLiveScoreboard(
+    viewerRole !== "visitor" && (timing === "live" || hasDatasetLiveGames) && isPageVisible,
+  );
 
   const today = useMemo(() => todayId(userTimezone || "America/Mexico_City"), [userTimezone]);
   const plus2Days = useMemo(() => addDays(today, 2), [today]);
@@ -1354,11 +1356,17 @@ export function PicksFinderClubView({
             catItem.family,
             catItem.settlement,
           );
-          const searchHaystack = normText(
-            `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel} ${pick.label} ${pick.categoryLabel} ${catItem.familyLabel} ${playerName ?? ""}`,
-          );
+          const isCatalogLocked =
+            catItem.isRedacted || !isPickUnlocked(pick, game.status, viewerRole);
+          const searchHaystack = isCatalogLocked
+            ? normText(
+                `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel}`,
+              )
+            : normText(
+                `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel} ${pick.label} ${pick.categoryLabel} ${catItem.familyLabel} ${playerName ?? ""}`,
+              );
 
-          if (catItem.isRedacted) {
+          if (isCatalogLocked) {
             out.push({
               game,
               pick,
@@ -1585,9 +1593,14 @@ export function PicksFinderClubView({
         const sideBucket = resolveSideBucket(pick, game, null);
         const settlement = resolveSettlementStatus(game, pick, resolvedFamilyId);
         const evidenceWindows = extractEvidenceWindows({ game, pick });
-        const searchHaystack = normText(
-          `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel} ${pick.label} ${pick.categoryLabel} ${pick.marketGroup}`,
-        );
+        const isFallbackLocked = !isPickUnlocked(pick, game.status, viewerRole);
+        const searchHaystack = isFallbackLocked
+          ? normText(
+              `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel}`,
+            )
+          : normText(
+              `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel} ${pick.label} ${pick.categoryLabel} ${pick.marketGroup}`,
+            );
 
         out.push({
           game,
@@ -1597,7 +1610,7 @@ export function PicksFinderClubView({
           isSettled,
           settlement,
           liveEntry,
-          liveProgress,
+          liveProgress: isFallbackLocked ? null : liveProgress,
           family: primaryFamilyOf(pick, game),
           catalogFamilyId: resolvedFamilyId,
           period,
@@ -1605,22 +1618,22 @@ export function PicksFinderClubView({
           playerPositionBucket: null,
           playerPositionRaw: null,
           playerName: null,
-          houseDecimal,
-          houseLabel,
-          openDecimal,
-          movementDir,
-          movement,
-          movementScore,
-          capturedAtUtc,
-          valuePct,
-          edgePts,
-          evidenceWindows,
+          houseDecimal: isFallbackLocked ? null : houseDecimal,
+          houseLabel: isFallbackLocked ? null : houseLabel,
+          openDecimal: isFallbackLocked ? null : openDecimal,
+          movementDir: isFallbackLocked ? null : movementDir,
+          movement: isFallbackLocked ? null : movement,
+          movementScore: isFallbackLocked ? 0 : movementScore,
+          capturedAtUtc: isFallbackLocked ? null : capturedAtUtc,
+          valuePct: isFallbackLocked ? null : valuePct,
+          edgePts: isFallbackLocked ? null : edgePts,
+          evidenceWindows: isFallbackLocked ? [] : evidenceWindows,
           searchHaystack,
         });
       }
     }
     return out;
-  }, [dataset.games, initialCatalogs, liveBoard.data?.entries, preferredBooks]);
+  }, [dataset.games, initialCatalogs, liveBoard.data?.entries, preferredBooks, viewerRole]);
 
   const timingCounts = useMemo(() => {
     let live = 0;

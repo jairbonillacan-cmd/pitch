@@ -207,10 +207,9 @@ export function BookmakerComparePill({
             {bookQuotes.slice(0, 3).map((q) => (
               <span
                 key={q.book}
-                className={`pl-bk-quote-tag num ${q.isBest ? "is-best" : ""}`.trim()}
+                className={`pl-pill text-[10px] num ${q.isBest ? "pl-pill--brand" : ""}`.trim()}
               >
-                <span>{q.bookLabel}</span>
-                <strong>{formatOddsValue(q.decimal, oddsFormat)}</strong>
+                {q.bookLabel} {formatOddsValue(q.decimal, oddsFormat)}
               </span>
             ))}
           </span>
