@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-mx",
   "season": "liga-mx-2026-apertura",
-  "updatedAt": "2026-11-21T04:21:09.888Z",
+  "updatedAt": "2026-11-21T13:02:18.077Z",
   "matches": [
     {
       "id": "mx-2026-j1-necaxa-atlante-401877045",
@@ -1597,6 +1597,28 @@
       "awayTeam": "liga-mx.atletico-san-luis",
       "homeScore": 1,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-fc-juarez-atlas-401877053",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T03:00Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.fc-juarez",
+      "awayTeam": "liga-mx.atlas",
+      "homeScore": 3,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-tijuana-atlante-401877052",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T03:10Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.tijuana",
+      "awayTeam": "liga-mx.atlante",
+      "homeScore": 1,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]

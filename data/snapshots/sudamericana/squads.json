@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "sudamericana",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-21T04:14:45.246Z",
+  "observedAt": "2026-11-21T12:53:07.742Z",
   "teams": [
     {
       "teamId": "sudamericana.olimpia",
@@ -24,7 +24,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "sudamericana.olimpia.alan-rodriguez",
@@ -96,7 +96,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1232,7 +1232,7 @@
           "winPct": 38.2
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "sudamericana.vasco-gama.adson",
@@ -2440,7 +2440,7 @@
           "winPct": 50
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "sudamericana.macara.agustin-campana",
@@ -3648,7 +3648,7 @@
           "winPct": 34.4
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "sudamericana.santos.alexis-duarte",
@@ -4856,7 +4856,7 @@
           "winPct": 66.7
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "sudamericana.botafogo.alex-telles",
@@ -4891,7 +4891,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5622,7 +5622,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5631,7 +5631,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6064,7 +6064,7 @@
           "winPct": 39.3
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "sudamericana.cienciano.ademar-robles",
@@ -7087,7 +7087,7 @@
           "winPct": 40
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "sudamericana.river-plate.agustin-ruberto",
@@ -7631,7 +7631,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7666,10 +7666,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7677,7 +7677,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8258,7 +8258,7 @@
           "winPct": 43.2
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "sudamericana.independiente-santa-fe.alexis-zapata",
@@ -8328,7 +8328,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 2,
+            "saves": 7,
             "shotsFaced": 0,
             "goalsConceded": 0
           },
@@ -8504,10 +8504,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8541,7 +8541,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 1,
             "shotsOnTarget": 1,
@@ -8652,10 +8652,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 5,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8726,10 +8726,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 3,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 6,
+            "shotsOnTarget": 3,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8802,8 +8802,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8950,8 +8950,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,

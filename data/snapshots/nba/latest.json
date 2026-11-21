@@ -5,7 +5,7 @@
   "season": "nba-2026-27",
   "seasonLabel": "Temporada 2026-27",
   "periodLabel": "19 nov – 23 nov",
-  "updatedAt": "2026-11-21T04:14:41.646Z",
+  "updatedAt": "2026-11-21T12:53:03.494Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -76,11 +76,11 @@
       "shortName": "Thunder",
       "code": "OKC",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/15/?bg=transparent",
-      "forPerGame": 112.13333333333334,
-      "againstPerGame": 107.73333333333333,
-      "gamesPlayed": 15,
-      "adjustedFor": 112.13333333333334,
-      "adjustedAgainst": 107.73333333333333
+      "forPerGame": 113,
+      "againstPerGame": 108.5,
+      "gamesPlayed": 16,
+      "adjustedFor": 113,
+      "adjustedAgainst": 108.5
     },
     "nba.washington-wizards": {
       "teamId": "nba.washington-wizards",
@@ -88,11 +88,11 @@
       "shortName": "Wizards",
       "code": "WAS",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/24/?bg=transparent",
-      "forPerGame": 110.75,
-      "againstPerGame": 117.9375,
-      "gamesPlayed": 16,
-      "adjustedFor": 110.75,
-      "adjustedAgainst": 117.9375
+      "forPerGame": 110,
+      "againstPerGame": 116.52941176470588,
+      "gamesPlayed": 17,
+      "adjustedFor": 110,
+      "adjustedAgainst": 116.52941176470588
     },
     "nba.milwaukee-bucks": {
       "teamId": "nba.milwaukee-bucks",
@@ -172,11 +172,11 @@
       "shortName": "Bulls",
       "code": "CHI",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/30/?bg=transparent",
-      "forPerGame": 116.21428571428571,
-      "againstPerGame": 124.57142857142857,
-      "gamesPlayed": 14,
-      "adjustedFor": 116.21428571428571,
-      "adjustedAgainst": 124.57142857142857
+      "forPerGame": 114.73333333333333,
+      "againstPerGame": 122.8,
+      "gamesPlayed": 15,
+      "adjustedFor": 114.73333333333333,
+      "adjustedAgainst": 122.8
     },
     "nba.brooklyn-nets": {
       "teamId": "nba.brooklyn-nets",
@@ -220,11 +220,11 @@
       "shortName": "Jazz",
       "code": "UTA",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/18/?bg=transparent",
-      "forPerGame": 108.75,
-      "againstPerGame": 116,
-      "gamesPlayed": 16,
-      "adjustedFor": 108.75,
-      "adjustedAgainst": 116
+      "forPerGame": 108.29411764705883,
+      "againstPerGame": 115.70588235294117,
+      "gamesPlayed": 17,
+      "adjustedFor": 108.29411764705883,
+      "adjustedAgainst": 115.70588235294117
     },
     "nba.new-orleans-pelicans": {
       "teamId": "nba.new-orleans-pelicans",
@@ -232,11 +232,11 @@
       "shortName": "Pelicans",
       "code": "NOP",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/29/?bg=transparent",
-      "forPerGame": 115.375,
-      "againstPerGame": 122.8125,
-      "gamesPlayed": 16,
-      "adjustedFor": 115.375,
-      "adjustedAgainst": 122.8125
+      "forPerGame": 115.6470588235294,
+      "againstPerGame": 123,
+      "gamesPlayed": 17,
+      "adjustedFor": 115.6470588235294,
+      "adjustedAgainst": 123
     },
     "nba.indiana-pacers": {
       "teamId": "nba.indiana-pacers",
@@ -256,11 +256,11 @@
       "shortName": "Rockets",
       "code": "HOU",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/14/?bg=transparent",
-      "forPerGame": 117.875,
-      "againstPerGame": 109.1875,
-      "gamesPlayed": 16,
-      "adjustedFor": 117.875,
-      "adjustedAgainst": 109.1875
+      "forPerGame": 118.23529411764706,
+      "againstPerGame": 110.58823529411765,
+      "gamesPlayed": 17,
+      "adjustedFor": 118.23529411764706,
+      "adjustedAgainst": 110.58823529411765
     },
     "nba.dallas-mavericks": {
       "teamId": "nba.dallas-mavericks",
@@ -280,11 +280,11 @@
       "shortName": "Lakers",
       "code": "LAL",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/13/?bg=transparent",
-      "forPerGame": 120.875,
-      "againstPerGame": 114.4375,
-      "gamesPlayed": 16,
-      "adjustedFor": 120.875,
-      "adjustedAgainst": 114.4375
+      "forPerGame": 120,
+      "againstPerGame": 113.82352941176471,
+      "gamesPlayed": 17,
+      "adjustedFor": 120,
+      "adjustedAgainst": 113.82352941176471
     },
     "nba.golden-state-warriors": {
       "teamId": "nba.golden-state-warriors",
@@ -316,11 +316,11 @@
       "shortName": "Suns",
       "code": "PHX",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/16/?bg=transparent",
-      "forPerGame": 114.07142857142857,
-      "againstPerGame": 115.71428571428571,
-      "gamesPlayed": 14,
-      "adjustedFor": 114.07142857142857,
-      "adjustedAgainst": 115.71428571428571
+      "forPerGame": 113.86666666666666,
+      "againstPerGame": 114.73333333333333,
+      "gamesPlayed": 15,
+      "adjustedFor": 113.86666666666666,
+      "adjustedAgainst": 114.73333333333333
     },
     "nba.los-angeles-clippers": {
       "teamId": "nba.los-angeles-clippers",
@@ -340,11 +340,11 @@
       "shortName": "Kings",
       "code": "SAC",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/21/?bg=transparent",
-      "forPerGame": 107.71428571428571,
-      "againstPerGame": 121.71428571428571,
-      "gamesPlayed": 14,
-      "adjustedFor": 107.71428571428571,
-      "adjustedAgainst": 121.71428571428571
+      "forPerGame": 107.46666666666667,
+      "againstPerGame": 120.66666666666667,
+      "gamesPlayed": 15,
+      "adjustedFor": 107.46666666666667,
+      "adjustedAgainst": 120.66666666666667
     },
     "nba.cleveland-cavaliers": {
       "teamId": "nba.cleveland-cavaliers",
@@ -364,11 +364,11 @@
       "shortName": "Nuggets",
       "code": "DEN",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/1/?bg=transparent",
-      "forPerGame": 113.15384615384616,
-      "againstPerGame": 112.23076923076923,
-      "gamesPlayed": 13,
-      "adjustedFor": 113.15384615384616,
-      "adjustedAgainst": 112.23076923076923
+      "forPerGame": 114.57142857142857,
+      "againstPerGame": 113.07142857142857,
+      "gamesPlayed": 14,
+      "adjustedFor": 114.57142857142857,
+      "adjustedAgainst": 113.07142857142857
     }
   },
   "games": [
@@ -398,7 +398,7 @@
       "result": {
         "home": 126,
         "away": 98,
-        "observedAt": "2026-11-21T04:14:29.405Z",
+        "observedAt": "2026-11-21T12:52:51.111Z",
         "source": "bzzoiro"
       }
     },
@@ -428,7 +428,7 @@
       "result": {
         "home": 99,
         "away": 102,
-        "observedAt": "2026-11-21T04:14:29.405Z",
+        "observedAt": "2026-11-21T12:52:51.111Z",
         "source": "bzzoiro"
       }
     },
@@ -458,7 +458,7 @@
       "result": {
         "home": 124,
         "away": 112,
-        "observedAt": "2026-11-21T04:14:29.405Z",
+        "observedAt": "2026-11-21T12:52:51.111Z",
         "source": "bzzoiro"
       }
     },
@@ -488,7 +488,7 @@
       "result": {
         "home": 114,
         "away": 124,
-        "observedAt": "2026-11-21T04:14:29.405Z",
+        "observedAt": "2026-11-21T12:52:51.111Z",
         "source": "bzzoiro"
       }
     },
@@ -519,7 +519,7 @@
       "result": {
         "home": 111,
         "away": 97,
-        "observedAt": "2026-11-21T04:14:29.405Z",
+        "observedAt": "2026-11-21T12:52:51.111Z",
         "source": "bzzoiro"
       }
     },
@@ -550,7 +550,7 @@
       "result": {
         "home": 128,
         "away": 119,
-        "observedAt": "2026-11-21T04:14:29.405Z",
+        "observedAt": "2026-11-21T12:52:51.111Z",
         "source": "bzzoiro"
       }
     },
@@ -581,7 +581,7 @@
       "result": {
         "home": 102,
         "away": 105,
-        "observedAt": "2026-11-21T04:14:29.405Z",
+        "observedAt": "2026-11-21T12:52:51.111Z",
         "source": "bzzoiro"
       }
     },
@@ -612,7 +612,7 @@
       "result": {
         "home": 111,
         "away": 113,
-        "observedAt": "2026-11-21T04:14:29.405Z",
+        "observedAt": "2026-11-21T12:52:51.111Z",
         "source": "bzzoiro"
       }
     },
@@ -621,7 +621,7 @@
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T01:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nba.oklahoma-city-thunder",
         "league": "nba",
@@ -638,14 +638,20 @@
         "code": "NOP",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/29/?bg=transparent"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 126,
+        "away": 120,
+        "observedAt": "2026-11-21T12:52:51.111Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-was-chi",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T01:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nba.chicago-bulls",
         "league": "nba",
@@ -662,14 +668,20 @@
         "code": "WAS",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/24/?bg=transparent"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 94,
+        "away": 98,
+        "observedAt": "2026-11-21T12:52:51.111Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-phx-uta",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T02:30:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nba.utah-jazz",
         "league": "nba",
@@ -686,14 +698,20 @@
         "code": "PHX",
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/16/?bg=transparent"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 101,
+        "away": 111,
+        "observedAt": "2026-11-21T12:52:51.111Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-sac-lal",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T03:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nba.los-angeles-lakers",
         "league": "nba",
@@ -711,14 +729,20 @@
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/21/?bg=transparent"
       },
       "referee": "John Goble",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 106,
+        "away": 104,
+        "observedAt": "2026-11-21T12:52:51.111Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-hou-den",
       "league": "nba",
       "season": "nba-2026-27",
       "startTime": "2026-11-21T03:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nba.denver-nuggets",
         "league": "nba",
@@ -736,7 +760,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/14/?bg=transparent"
       },
       "referee": "Zach Zarba",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 133,
+        "away": 124,
+        "observedAt": "2026-11-21T12:52:51.111Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nba-2026-11-21-mil-phi",
@@ -9463,6 +9493,32 @@
   },
   "standings": [
     {
+      "teamId": "nba.los-angeles-lakers",
+      "name": "Los Angeles Lakers",
+      "shortName": "Lakers",
+      "code": "LAL",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/13/?bg=transparent",
+      "played": 17,
+      "won": 14,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 2040,
+      "goalsAgainst": 1935,
+      "points": 28,
+      "conference": "Oeste",
+      "division": "Pacífico",
+      "winPct": 0.824,
+      "gamesBehind": "-",
+      "seed": 1,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "nba.san-antonio-spurs",
       "name": "San Antonio Spurs",
       "shortName": "Spurs",
@@ -9478,40 +9534,14 @@
       "conference": "Oeste",
       "division": "Suroeste",
       "winPct": 0.813,
-      "gamesBehind": "-",
-      "seed": 1,
+      "gamesBehind": "0.5",
+      "seed": 2,
       "form": [
         "W",
         "W",
         "W",
         "L",
         "W"
-      ]
-    },
-    {
-      "teamId": "nba.los-angeles-lakers",
-      "name": "Los Angeles Lakers",
-      "shortName": "Lakers",
-      "code": "LAL",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/13/?bg=transparent",
-      "played": 16,
-      "won": 13,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 1934,
-      "goalsAgainst": 1831,
-      "points": 26,
-      "conference": "Oeste",
-      "division": "Pacífico",
-      "winPct": 0.813,
-      "gamesBehind": "-",
-      "seed": 2,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "W",
-        "L"
       ]
     },
     {
@@ -9556,39 +9586,13 @@
       "conference": "Oeste",
       "division": "Suroeste",
       "winPct": 0.75,
-      "gamesBehind": "1",
-      "seed": 4,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "nba.houston-rockets",
-      "name": "Houston Rockets",
-      "shortName": "Rockets",
-      "code": "HOU",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/14/?bg=transparent",
-      "played": 16,
-      "won": 12,
-      "drawn": 0,
-      "lost": 4,
-      "goalsFor": 1886,
-      "goalsAgainst": 1747,
-      "points": 24,
-      "conference": "Oeste",
-      "division": "Suroeste",
-      "winPct": 0.75,
-      "gamesBehind": "1",
+      "gamesBehind": "1.5",
       "seed": 3,
       "form": [
         "W",
         "W",
         "W",
-        "L",
+        "W",
         "W"
       ]
     },
@@ -9619,6 +9623,32 @@
       ]
     },
     {
+      "teamId": "nba.houston-rockets",
+      "name": "Houston Rockets",
+      "shortName": "Rockets",
+      "code": "HOU",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/14/?bg=transparent",
+      "played": 17,
+      "won": 12,
+      "drawn": 0,
+      "lost": 5,
+      "goalsFor": 2010,
+      "goalsAgainst": 1880,
+      "points": 24,
+      "conference": "Oeste",
+      "division": "Suroeste",
+      "winPct": 0.706,
+      "gamesBehind": "2",
+      "seed": 4,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
       "teamId": "nba.minnesota-timberwolves",
       "name": "Minnesota Timberwolves",
       "shortName": "Timberwolves",
@@ -9634,7 +9664,7 @@
       "conference": "Oeste",
       "division": "Noroeste",
       "winPct": 0.688,
-      "gamesBehind": "2",
+      "gamesBehind": "2.5",
       "seed": 5,
       "form": [
         "W",
@@ -9660,7 +9690,7 @@
       "conference": "Oeste",
       "division": "Noroeste",
       "winPct": 0.667,
-      "gamesBehind": "2.5",
+      "gamesBehind": "3",
       "seed": 6,
       "form": [
         "W",
@@ -9697,6 +9727,32 @@
       ]
     },
     {
+      "teamId": "nba.denver-nuggets",
+      "name": "Denver Nuggets",
+      "shortName": "Nuggets",
+      "code": "DEN",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/1/?bg=transparent",
+      "played": 14,
+      "won": 9,
+      "drawn": 0,
+      "lost": 5,
+      "goalsFor": 1604,
+      "goalsAgainst": 1583,
+      "points": 18,
+      "conference": "Oeste",
+      "division": "Noroeste",
+      "winPct": 0.643,
+      "gamesBehind": "3.5",
+      "seed": 7,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "nba.oklahoma-city-thunder",
       "name": "Oklahoma City Thunder",
       "shortName": "Thunder",
@@ -9712,8 +9768,8 @@
       "conference": "Oeste",
       "division": "Noroeste",
       "winPct": 0.625,
-      "gamesBehind": "3",
-      "seed": 7,
+      "gamesBehind": "3.5",
+      "seed": 8,
       "form": [
         "L",
         "L",
@@ -9745,32 +9801,6 @@
         "L",
         "W",
         "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "nba.denver-nuggets",
-      "name": "Denver Nuggets",
-      "shortName": "Nuggets",
-      "code": "DEN",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/1/?bg=transparent",
-      "played": 13,
-      "won": 8,
-      "drawn": 0,
-      "lost": 5,
-      "goalsFor": 1471,
-      "goalsAgainst": 1459,
-      "points": 16,
-      "conference": "Oeste",
-      "division": "Noroeste",
-      "winPct": 0.615,
-      "gamesBehind": "3.5",
-      "seed": 8,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "L",
         "W"
       ]
     },
@@ -9827,6 +9857,32 @@
       ]
     },
     {
+      "teamId": "nba.phoenix-suns",
+      "name": "Phoenix Suns",
+      "shortName": "Suns",
+      "code": "PHX",
+      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/16/?bg=transparent",
+      "played": 15,
+      "won": 8,
+      "drawn": 0,
+      "lost": 7,
+      "goalsFor": 1708,
+      "goalsAgainst": 1721,
+      "points": 16,
+      "conference": "Oeste",
+      "division": "Pacífico",
+      "winPct": 0.533,
+      "gamesBehind": "5",
+      "seed": 9,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
       "teamId": "nba.dallas-mavericks",
       "name": "Dallas Mavericks",
       "shortName": "Mavericks",
@@ -9842,8 +9898,8 @@
       "conference": "Oeste",
       "division": "Suroeste",
       "winPct": 0.533,
-      "gamesBehind": "4.5",
-      "seed": 9,
+      "gamesBehind": "5",
+      "seed": 10,
       "form": [
         "W",
         "L",
@@ -9894,40 +9950,14 @@
       "conference": "Oeste",
       "division": "Pacífico",
       "winPct": 0.5,
-      "gamesBehind": "5",
-      "seed": 10,
+      "gamesBehind": "5.5",
+      "seed": 11,
       "form": [
         "L",
         "L",
         "L",
         "L",
         "L"
-      ]
-    },
-    {
-      "teamId": "nba.phoenix-suns",
-      "name": "Phoenix Suns",
-      "shortName": "Suns",
-      "code": "PHX",
-      "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/16/?bg=transparent",
-      "played": 14,
-      "won": 7,
-      "drawn": 0,
-      "lost": 7,
-      "goalsFor": 1597,
-      "goalsAgainst": 1620,
-      "points": 14,
-      "conference": "Oeste",
-      "division": "Pacífico",
-      "winPct": 0.5,
-      "gamesBehind": "5",
-      "seed": 11,
-      "form": [
-        "W",
-        "W",
-        "L",
-        "W",
-        "W"
       ]
     },
     {
@@ -10050,7 +10080,7 @@
       "conference": "Oeste",
       "division": "Suroeste",
       "winPct": 0.294,
-      "gamesBehind": "8.5",
+      "gamesBehind": "9",
       "seed": 12,
       "form": [
         "L",
@@ -10076,7 +10106,7 @@
       "conference": "Oeste",
       "division": "Pacífico",
       "winPct": 0.286,
-      "gamesBehind": "8",
+      "gamesBehind": "8.5",
       "seed": 13,
       "form": [
         "L",
@@ -10170,24 +10200,24 @@
       "shortName": "Jazz",
       "code": "UTA",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/18/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 3,
       "drawn": 0,
-      "lost": 13,
-      "goalsFor": 1740,
-      "goalsAgainst": 1856,
+      "lost": 14,
+      "goalsFor": 1841,
+      "goalsAgainst": 1967,
       "points": 6,
       "conference": "Oeste",
       "division": "Noroeste",
-      "winPct": 0.188,
-      "gamesBehind": "10",
+      "winPct": 0.176,
+      "gamesBehind": "11",
       "seed": 14,
       "form": [
         "L",
         "L",
-        "L",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -10196,17 +10226,17 @@
       "shortName": "Kings",
       "code": "SAC",
       "logoUrl": "https://sports.bzzoiro.com/img/basketball/team/21/?bg=transparent",
-      "played": 14,
+      "played": 15,
       "won": 1,
       "drawn": 0,
-      "lost": 13,
-      "goalsFor": 1508,
-      "goalsAgainst": 1704,
+      "lost": 14,
+      "goalsFor": 1612,
+      "goalsAgainst": 1810,
       "points": 2,
       "conference": "Oeste",
       "division": "Pacífico",
-      "winPct": 0.071,
-      "gamesBehind": "11",
+      "winPct": 0.067,
+      "gamesBehind": "12",
       "seed": 15,
       "form": [
         "L",

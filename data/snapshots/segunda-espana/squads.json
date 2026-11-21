@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "segunda-espana",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-21T04:14:45.246Z",
+  "observedAt": "2026-11-21T12:53:07.742Z",
   "teams": [
     {
       "teamId": "segunda-espana.girona",
@@ -24,7 +24,7 @@
           "winPct": 28.8
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "segunda-espana.girona.abdul-mumin",
@@ -59,7 +59,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -198,7 +198,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -273,7 +273,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -346,8 +346,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -420,7 +420,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -605,7 +605,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -614,7 +614,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -827,7 +827,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -836,7 +836,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -982,7 +982,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 4,
+            "saves": 2,
             "shotsFaced": 0,
             "goalsConceded": 1
           },
@@ -1095,7 +1095,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1232,7 +1232,7 @@
           "winPct": 68
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "segunda-espana.almeria.adrian-embarba",
@@ -2403,7 +2403,7 @@
           "winPct": 52.2
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "segunda-espana.sporting-gijon.aimar-dunabeitia",
@@ -2549,7 +2549,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2910,7 +2910,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 3,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2919,7 +2919,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3030,7 +3030,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3280,8 +3280,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3289,7 +3289,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3317,7 +3317,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3428,7 +3428,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3437,7 +3437,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3472,9 +3472,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 5,
+            "saves": 4,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         }
@@ -3500,7 +3500,7 @@
           "winPct": 26.7
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "segunda-espana.real-valladolid.adrian-arnu",
@@ -4275,7 +4275,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4488,7 +4488,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4708,7 +4708,7 @@
           "winPct": 34.9
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "segunda-espana.las-palmas.aboubacar-bassinga",
@@ -5509,7 +5509,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 2,
             "shotsOnTarget": 1,
@@ -5520,7 +5520,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5916,7 +5916,7 @@
           "winPct": 47.6
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "segunda-espana.eldense.aingeru-olabarrieta",
@@ -5942,8 +5942,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5951,7 +5951,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6469,7 +6469,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -6985,7 +6985,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 1,
             "shotsFaced": 0,
             "goalsConceded": 2
           },
@@ -7061,7 +7061,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         }
@@ -7087,7 +7087,7 @@
           "winPct": 34.8
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "segunda-espana.ce-sabadell.alain-ribeiro",
@@ -7344,7 +7344,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7483,7 +7483,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7492,7 +7492,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -7520,7 +7520,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7529,7 +7529,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -7603,7 +7603,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8186,7 +8186,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8195,7 +8195,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8260,7 +8260,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8295,7 +8295,7 @@
           "winPct": 26.2
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "segunda-espana.real-sociedad-b.aitor-fraga",
@@ -8543,8 +8543,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8987,7 +8987,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,

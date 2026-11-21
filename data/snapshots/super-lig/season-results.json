@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "super-lig",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T04:14:45.246Z",
+  "updatedAt": "2026-11-21T12:53:07.742Z",
   "matches": [
     {
       "id": "super-lig-2026-08-14-galatasaray-corum-55kt5k",
@@ -1090,6 +1090,17 @@
       "homeTeam": "super-lig.besiktas-jk",
       "awayTeam": "super-lig.genclerbirligi",
       "homeScore": 3,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-11-21-genclerbirligi-gaziantep-trd5ox",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T10:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "super-lig.genclerbirligi",
+      "awayTeam": "super-lig.gaziantep",
+      "homeScore": 1,
       "awayScore": 0,
       "neutralSite": false
     }

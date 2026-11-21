@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/36/?bg=transparent",
   "season": "liga-f-2026-27",
   "seasonLabel": "2026/27",
-  "periodLabel": "Regular season · Matchday 9",
-  "updatedAt": "2026-11-21T04:14:45.246Z",
+  "periodLabel": "Regular season · Matchday 10",
+  "updatedAt": "2026-11-21T12:53:07.742Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2895171890247805,
-      "adjustedAgainst": 1.5302560226375999
+      "adjustedFor": 1.2914870546484825,
+      "adjustedAgainst": 1.5267489229636706
     },
     "liga-f.logrono-united": {
       "teamId": "liga-f.logrono-united",
@@ -29,19 +29,19 @@
       "forPerGame": 1.2727272727272727,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2736396419993363,
-      "adjustedAgainst": 1.324664741487603
+      "adjustedFor": 1.2753925452293544,
+      "adjustedAgainst": 1.3212762045301316
     },
     "liga-f.real-deportivo-a-coruna": {
       "teamId": "liga-f.real-deportivo-a-coruna",
       "name": "Real Club Deportivo de A Coruña",
       "shortName": "Real de A Coruña",
       "code": "REA",
-      "forPerGame": 1.0909090909090908,
-      "againstPerGame": 1.2727272727272727,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.1347014291687687,
-      "adjustedAgainst": 1.182525763828208
+      "forPerGame": 1.0833333333333333,
+      "againstPerGame": 1.3333333333333333,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.110885318931216,
+      "adjustedAgainst": 1.2374341995548106
     },
     "liga-f.sevilla": {
       "teamId": "liga-f.sevilla",
@@ -51,8 +51,8 @@
       "forPerGame": 1.0909090909090908,
       "againstPerGame": 1.6363636363636365,
       "gamesPlayed": 11,
-      "adjustedFor": 1.1544619400686003,
-      "adjustedAgainst": 1.3760137674886055
+      "adjustedFor": 1.1538447334548727,
+      "adjustedAgainst": 1.3743496911822564
     },
     "liga-f.sd-eibar": {
       "teamId": "liga-f.sd-eibar",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.3636363636363635,
       "gamesPlayed": 11,
-      "adjustedFor": 1.0302168314199416,
-      "adjustedAgainst": 1.416935252649486
+      "adjustedFor": 1.0278191138727504,
+      "adjustedAgainst": 1.415104745247667
     },
     "liga-f.espanyol-barcelona": {
       "teamId": "liga-f.espanyol-barcelona",
@@ -73,8 +73,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.2727272727272727,
       "gamesPlayed": 11,
-      "adjustedFor": 1.2823516602557758,
-      "adjustedAgainst": 1.2880065031128276
+      "adjustedFor": 1.2813498970508566,
+      "adjustedAgainst": 1.286016229459926
     },
     "liga-f.madrid-cff": {
       "teamId": "liga-f.madrid-cff",
@@ -84,8 +84,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 2.1818181818181817,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6065755497841472,
-      "adjustedAgainst": 1.9148489926306695
+      "adjustedFor": 1.601847050624369,
+      "adjustedAgainst": 1.9182650628331297
     },
     "liga-f.granada": {
       "teamId": "liga-f.granada",
@@ -95,8 +95,8 @@
       "forPerGame": 0.8181818181818182,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 0.9371088091421459,
-      "adjustedAgainst": 1.333073809791923
+      "adjustedFor": 0.9357559187928377,
+      "adjustedAgainst": 1.3314099183575396
     },
     "liga-f.athletic": {
       "teamId": "liga-f.athletic",
@@ -106,19 +106,19 @@
       "forPerGame": 1.5454545454545454,
       "againstPerGame": 1.0909090909090908,
       "gamesPlayed": 11,
-      "adjustedFor": 1.368724638822351,
-      "adjustedAgainst": 1.1057637668479356
+      "adjustedFor": 1.37033553327523,
+      "adjustedAgainst": 1.1029269017439016
     },
     "liga-f.badalona-women": {
       "teamId": "liga-f.badalona-women",
       "name": "FC Badalona Women",
       "shortName": "Badalona Women",
       "code": "BAD",
-      "forPerGame": 1.0909090909090908,
-      "againstPerGame": 2.090909090909091,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.184391140401293,
-      "adjustedAgainst": 1.683456432135549
+      "forPerGame": 1.1666666666666667,
+      "againstPerGame": 2,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.2435913098464886,
+      "adjustedAgainst": 1.6591581456580167
     },
     "liga-f.deportivo-alaves": {
       "teamId": "liga-f.deportivo-alaves",
@@ -128,8 +128,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 1.4,
       "gamesPlayed": 10,
-      "adjustedFor": 0.9527063192638611,
-      "adjustedAgainst": 1.3118968611696789
+      "adjustedFor": 0.9490296423362844,
+      "adjustedAgainst": 1.3139209963767544
     },
     "liga-f.valencia": {
       "teamId": "liga-f.valencia",
@@ -139,8 +139,8 @@
       "forPerGame": 0.7272727272727273,
       "againstPerGame": 1.7272727272727273,
       "gamesPlayed": 11,
-      "adjustedFor": 0.8763063772415999,
-      "adjustedAgainst": 1.5358431938739854
+      "adjustedFor": 0.8738981128678515,
+      "adjustedAgainst": 1.538249926428395
     },
     "liga-f.barcelona": {
       "teamId": "liga-f.barcelona",
@@ -150,8 +150,8 @@
       "forPerGame": 3.8181818181818183,
       "againstPerGame": 0.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 2.9203689166644997,
-      "adjustedAgainst": 0.7474356275597548
+      "adjustedFor": 2.9194451064936113,
+      "adjustedAgainst": 0.7456394217379317
     },
     "liga-f.costa-adeje-tenerife": {
       "teamId": "liga-f.costa-adeje-tenerife",
@@ -161,8 +161,8 @@
       "forPerGame": 1.7,
       "againstPerGame": 1.5,
       "gamesPlayed": 10,
-      "adjustedFor": 1.6170665248095561,
-      "adjustedAgainst": 1.329884311053659
+      "adjustedFor": 1.617596715389554,
+      "adjustedAgainst": 1.3270937691455083
     },
     "liga-f.real-madrid": {
       "teamId": "liga-f.real-madrid",
@@ -172,8 +172,8 @@
       "forPerGame": 2.3636363636363638,
       "againstPerGame": 1.9090909090909092,
       "gamesPlayed": 11,
-      "adjustedFor": 2.0900031220876274,
-      "adjustedAgainst": 1.6470036825816639
+      "adjustedFor": 2.0881678344757,
+      "adjustedAgainst": 1.644227556982369
     },
     "liga-f.atletico-madrid": {
       "teamId": "liga-f.atletico-madrid",
@@ -183,46 +183,11 @@
       "forPerGame": 2.1818181818181817,
       "againstPerGame": 1.1818181818181819,
       "gamesPlayed": 11,
-      "adjustedFor": 1.8954077429419056,
-      "adjustedAgainst": 1.1482859027970989
+      "adjustedFor": 1.8935147735486,
+      "adjustedAgainst": 1.1463291341139878
     }
   },
   "games": [
-    {
-      "id": "liga-f-2026-11-02-costa-adeje-te-athletic-9khag2",
-      "league": "liga-f",
-      "season": "liga-f-2026-27",
-      "week": 9,
-      "round": "Regular season · Matchday 9",
-      "phase": "Regular season",
-      "startTime": "2026-11-02T20:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "liga-f.costa-adeje-tenerife",
-        "league": "liga-f",
-        "name": "Costa Adeje Tenerife",
-        "shortName": "Costa Adeje Tenerife",
-        "code": "COS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/912/?bg=transparent"
-      },
-      "away": {
-        "id": "liga-f.athletic",
-        "league": "liga-f",
-        "name": "Athletic Club",
-        "shortName": "Athletic",
-        "code": "ATH",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/911/?bg=transparent"
-      },
-      "venue": "Estadio Francisco Suarez, Granadilla de Abona",
-      "referee": "Elisabet Calvo Valentin",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 0,
-        "observedAt": "2026-11-21T04:14:45.246Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "liga-f-2026-11-07-granada-espanyol-barce-jtjhvp",
       "league": "liga-f",
@@ -254,7 +219,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +324,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -393,7 +358,7 @@
       "result": {
         "home": 5,
         "away": 1,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -428,7 +393,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -463,7 +428,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -498,7 +463,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -532,7 +497,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -567,7 +532,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -602,7 +567,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -637,7 +602,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -672,7 +637,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -707,7 +672,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -741,7 +706,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T04:14:45.246Z",
+        "observedAt": "2026-11-21T12:53:07.742Z",
         "source": "pitchlab-feed"
       }
     },
@@ -753,7 +718,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-21T11:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-f.badalona-women",
         "league": "liga-f",
@@ -771,7 +736,14 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/915/?bg=transparent"
       },
       "venue": "Municipal Les Planes, Sant Joan Despi",
-      "neutralSite": false
+      "referee": "Alicia Espinosa Rios",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-21T12:53:07.742Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "liga-f-2026-11-21-sd-eibar-atletico-madri-0y8cz7",
@@ -799,6 +771,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/920/?bg=transparent"
       },
       "venue": "Unbe Sports Complex, Eibar",
+      "referee": "Lorena Del Mar Trujillano Gallardo",
       "neutralSite": false
     },
     {
@@ -827,6 +800,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/3884/?bg=transparent"
       },
       "venue": "Estadio Las Gaunas, Logrono",
+      "referee": "Ylenia Sanchez Miguel",
       "neutralSite": false
     },
     {
@@ -855,6 +829,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/922/?bg=transparent"
       },
       "venue": "Instalaciones de Zubieta, San Sebastian",
+      "referee": "Maria Gloria Planes Terol",
       "neutralSite": false
     },
     {
@@ -883,6 +858,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/926/?bg=transparent"
       },
       "venue": "Estadio Miguel Prieto, Granada",
+      "referee": "Arantza Gallastegui Perez",
       "neutralSite": false
     },
     {
@@ -911,6 +887,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/923/?bg=transparent"
       },
       "venue": "Estadio Francisco Suarez, Granadilla de Abona",
+      "referee": "Zulema Gonzalez Gonzalez",
       "neutralSite": false
     },
     {
@@ -938,6 +915,7 @@
         "code": "ATH",
         "logoUrl": "https://sports.bzzoiro.com/img/team/911/?bg=transparent"
       },
+      "referee": "Paola Cebollada Lopez",
       "neutralSite": false
     },
     {
@@ -1443,451 +1421,6 @@
     }
   ],
   "analyses": {
-    "liga-f-2026-11-02-costa-adeje-te-athletic-9khag2": {
-      "game": "liga-f-2026-11-02-costa-adeje-te-athletic-9khag2",
-      "model": {
-        "id": "pitchlab-statistical-liga-f",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.461722159051308,
-        "away": 1.3580710695704874,
-        "total": 2.8197932286217955,
-        "margin": 0.10365108948082069
-      },
-      "x12": [
-        0.39949687762489117,
-        0.24784945212400675,
-        0.35265367025110167
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Costa Adeje Tenerife gana",
-          "p": 0.39949687762489117,
-          "fairOdds": 2.503148475014999
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.24784945212400675,
-          "fairOdds": 4.034707325072759
-        },
-        {
-          "market": "h2h",
-          "selection": "Athletic gana",
-          "p": 0.35265367025110167,
-          "fairOdds": 2.835643251034266
-        },
-        {
-          "market": "double_chance",
-          "selection": "Costa Adeje Tenerife o empate",
-          "p": 0.6473463297488979,
-          "fairOdds": 1.5447681620252554
-        },
-        {
-          "market": "double_chance",
-          "selection": "Athletic o empate",
-          "p": 0.6005031223751084,
-          "fairOdds": 1.6652702754397055
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7521505478759929,
-          "fairOdds": 1.3295210683870566
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7704951500988907,
-          "fairOdds": 1.2978667028230522
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5352508445838629,
-          "fairOdds": 1.8682828997261312
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.46474915541613715,
-          "fairOdds": 2.15169836963899
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.31246880366240737,
-          "fairOdds": 3.2003194823903263
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6875311963375926,
-          "fairOdds": 1.4544794553714744
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5688499018599654,
-          "fairOdds": 1.7579329744635719
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4311500981400346,
-          "fairOdds": 2.31937787864125
-        },
-        {
-          "market": "team_totals",
-          "selection": "Costa Adeje Tenerife más de 1.5",
-          "line": 1.5,
-          "p": 0.42928228409912284,
-          "fairOdds": 2.3294695286542417
-        },
-        {
-          "market": "team_totals",
-          "selection": "Costa Adeje Tenerife menos de 1.5",
-          "line": 1.5,
-          "p": 0.5707177159008772,
-          "fairOdds": 1.752179706602416
-        },
-        {
-          "market": "team_totals",
-          "selection": "Athletic más de 1.5",
-          "line": 1.5,
-          "p": 0.3936069573055275,
-          "fairOdds": 2.540605498555187
-        },
-        {
-          "market": "team_totals",
-          "selection": "Athletic menos de 1.5",
-          "line": 1.5,
-          "p": 0.6063930426944725,
-          "fairOdds": 1.64909543743536
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11657440236366318,
-          "fairOdds": 8.578212538293098
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.0889206450621101,
-          "fairOdds": 11.245982294679834
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.08649715081884755,
-          "fairOdds": 11.561074446189759
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Costa Adeje Tenerife gana",
-              "p": 0.39949687762489117,
-              "fairOdds": 2.503148475014999
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.24784945212400675,
-              "fairOdds": 4.034707325072759
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Athletic gana",
-              "p": 0.35265367025110167,
-              "fairOdds": 2.835643251034266
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Costa Adeje Tenerife o empate",
-              "p": 0.6473463297488979,
-              "fairOdds": 1.5447681620252554
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Athletic o empate",
-              "p": 0.6005031223751084,
-              "fairOdds": 1.6652702754397055
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7521505478759929,
-              "fairOdds": 1.3295210683870566
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7704951500988907,
-              "fairOdds": 1.2978667028230522
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5352508445838629,
-              "fairOdds": 1.8682828997261312
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.46474915541613715,
-              "fairOdds": 2.15169836963899
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.31246880366240737,
-              "fairOdds": 3.2003194823903263
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6875311963375926,
-              "fairOdds": 1.4544794553714744
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5688499018599654,
-              "fairOdds": 1.7579329744635719
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4311500981400346,
-              "fairOdds": 2.31937787864125
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Costa Adeje Tenerife más de 1.5",
-              "line": 1.5,
-              "p": 0.42928228409912284,
-              "fairOdds": 2.3294695286542417
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Costa Adeje Tenerife menos de 1.5",
-              "line": 1.5,
-              "p": 0.5707177159008772,
-              "fairOdds": 1.752179706602416
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Athletic más de 1.5",
-              "line": 1.5,
-              "p": 0.3936069573055275,
-              "fairOdds": 2.540605498555187
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Athletic menos de 1.5",
-              "line": 1.5,
-              "p": 0.6063930426944725,
-              "fairOdds": 1.64909543743536
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11657440236366318,
-              "fairOdds": 8.578212538293098
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.0889206450621101,
-              "fairOdds": 11.245982294679834
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.08649715081884755,
-              "fairOdds": 11.561074446189759
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11657440236366318
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.33 goles/partido",
-          "detail": "21 % más que la media · 10 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.11 concedidos/partido",
-          "detail": "18 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.36 goles/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.33 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.10",
-          "detail": "estimada de 87 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.0–4.4",
-          "detail": "local 20%–68% · 87 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "5.º · 17 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "4.º · 19 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-G-G-G-P · 9 pts",
-          "detail": "11 goles a favor · 8 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-E-G-E · 8 pts",
-          "detail": "6 goles a favor · 5 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga F · corte 2 nov 2026, 13:00",
-        "Fuerza ajustada por rival · COS 1.21 / 0.99 · ATH 1.02 / 0.82",
-        "Ponderando 80.2 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.46 – 1.36 · total 2.82",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-02T19:00:00.000Z",
-      "publishedAt": "2026-11-02T19:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.08649715081884755
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.8 goles: 1.5 de Costa Adeje Tenerife y 1.4 de Athletic.",
-          "Athletic concede 18 % menos que la media.",
-          "Costa Adeje Tenerife anota 21 % más que la media."
-        ],
-        "restDays": {
-          "home": 9,
-          "away": 9
-        }
-      },
-      "matchContext": {
-        "referee": "Elisabet Calvo Valentin",
-        "refereeStats": {
-          "country": "Spain",
-          "matches": 22,
-          "avgYellow": 3.05,
-          "avgRed": 0,
-          "avgFouls": 21.4,
-          "avgGoals": 3
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Granadilla de Abona",
-        "venueCountry": "Spain",
-        "venueCapacity": 2000
-      }
-    },
     "liga-f-2026-11-07-granada-espanyol-barce-jtjhvp": {
       "game": "liga-f-2026-11-07-granada-espanyol-barce-jtjhvp",
       "model": {
@@ -9060,6 +8593,22 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Alicia Espinosa Rios",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 24,
+          "avgYellow": 3.29,
+          "avgRed": 0.08,
+          "avgFouls": 17,
+          "avgGoals": 2.5
+        },
+        "weather": {
+          "description": "clear"
+        },
+        "halfTimeScore": {
+          "home": 1,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Sant Joan Despi",
         "venueCountry": "Spain"
@@ -9527,6 +9076,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Lorena Del Mar Trujillano Gallardo",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 8,
+          "avgYellow": 3.38,
+          "avgRed": 0.12,
+          "avgFouls": 14,
+          "avgGoals": 4.25
+        },
         "travelDistanceKm": 306,
         "stageName": "Regular season",
         "venueCity": "Eibar",
@@ -9995,6 +9553,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Ylenia Sanchez Miguel",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 22,
+          "avgYellow": 3.86,
+          "avgRed": 0.32,
+          "avgFouls": 21.2,
+          "avgGoals": 3
+        },
         "stageName": "Regular season",
         "venueCity": "Logrono",
         "venueCountry": "Spain",
@@ -10466,6 +10033,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Maria Gloria Planes Terol",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 24,
+          "avgYellow": 4.08,
+          "avgRed": 0.17,
+          "avgFouls": 19.8,
+          "avgGoals": 3.12
+        },
         "travelDistanceKm": 749,
         "stageName": "Regular season",
         "venueCity": "San Sebastian",
@@ -10935,6 +10511,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Arantza Gallastegui Perez",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 7,
+          "avgYellow": 2.57,
+          "avgRed": 0.14,
+          "avgFouls": 17.9,
+          "avgGoals": 3.57
+        },
         "stageName": "Regular season",
         "venueCity": "Granada",
         "venueCountry": "Spain",
@@ -11405,6 +10990,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Zulema Gonzalez Gonzalez",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 10,
+          "avgYellow": 4.5,
+          "avgRed": 0.5,
+          "avgFouls": 20.5,
+          "avgGoals": 2.5
+        },
         "travelDistanceKm": 1824,
         "stageName": "Regular season",
         "venueCity": "Granadilla de Abona",
@@ -11874,6 +11468,15 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Paola Cebollada Lopez",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 23,
+          "avgYellow": 4.09,
+          "avgRed": 0.09,
+          "avgFouls": 16.4,
+          "avgGoals": 2.39
+        },
         "stageName": "Regular season"
       }
     },
@@ -20485,19 +20088,19 @@
       "name": "Real Club Deportivo de A Coruña",
       "shortName": "Real de A Coruña",
       "code": "REA",
-      "played": 11,
+      "played": 12,
       "won": 3,
       "drawn": 3,
-      "lost": 5,
-      "goalsFor": 12,
-      "goalsAgainst": 14,
+      "lost": 6,
+      "goalsFor": 13,
+      "goalsAgainst": 16,
       "points": 12,
       "form": [
         "W",
-        "W",
         "L",
         "L",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -20541,6 +20144,26 @@
       ]
     },
     {
+      "teamId": "liga-f.badalona-women",
+      "name": "FC Badalona Women",
+      "shortName": "Badalona Women",
+      "code": "BAD",
+      "played": 12,
+      "won": 3,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 14,
+      "goalsAgainst": 24,
+      "points": 12,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "D",
+        "W"
+      ]
+    },
+    {
       "teamId": "liga-f.deportivo-alaves",
       "name": "Deportivo Alavés",
       "shortName": "Alavés",
@@ -20578,26 +20201,6 @@
         "L",
         "D",
         "L"
-      ]
-    },
-    {
-      "teamId": "liga-f.badalona-women",
-      "name": "FC Badalona Women",
-      "shortName": "Badalona Women",
-      "code": "BAD",
-      "played": 11,
-      "won": 2,
-      "drawn": 3,
-      "lost": 6,
-      "goalsFor": 12,
-      "goalsAgainst": 23,
-      "points": 9,
-      "form": [
-        "L",
-        "L",
-        "L",
-        "L",
-        "D"
       ]
     },
     {

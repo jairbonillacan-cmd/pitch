@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "saudi-pro-league",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-21T04:14:45.246Z",
+  "observedAt": "2026-11-21T12:53:07.742Z",
   "teams": [
     {
       "teamId": "saudi-pro-league.al-qadsiah",
@@ -24,7 +24,7 @@
           "winPct": 64.8
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "saudi-pro-league.al-qadsiah.abdulaziz-al-aliwa",
@@ -124,7 +124,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -568,7 +568,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -577,7 +577,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -603,9 +603,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 4,
+            "shots": 3,
             "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -614,7 +614,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -686,9 +686,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 6,
+            "saves": 2,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -790,8 +790,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -799,7 +799,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1232,7 +1232,7 @@
           "winPct": 70.8
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "saudi-pro-league.al-hilal.abdullah-al-anazi",
@@ -1998,8 +1998,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2007,7 +2007,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2220,7 +2220,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2255,10 +2255,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2266,7 +2266,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2340,7 +2340,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -2368,8 +2368,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2377,7 +2377,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2440,7 +2440,7 @@
           "winPct": 59
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "saudi-pro-league.al-ahli.abdullah-abdo",
@@ -2473,9 +2473,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 1,
+            "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 5
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2549,7 +2549,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 6
           },
           "candidatePicks": []
         },
@@ -2947,8 +2947,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2956,7 +2956,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3104,7 +3104,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3215,7 +3215,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3252,7 +3252,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 6
           },
           "candidatePicks": []
         },
@@ -3317,7 +3317,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3326,7 +3326,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 3
           },
           "candidatePicks": []
         },
@@ -3611,7 +3611,7 @@
           "winPct": 22.9
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "saudi-pro-league.al-khaleej.abdoulie-mboge",
@@ -4819,7 +4819,7 @@
           "winPct": 58.8
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "saudi-pro-league.neom.abbas-sadiq-alhassan",
@@ -4965,7 +4965,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5585,7 +5585,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5594,7 +5594,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5629,9 +5629,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 0,
+            "saves": 1,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -5668,7 +5668,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5770,7 +5770,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5779,7 +5779,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5853,7 +5853,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5879,9 +5879,9 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 4,
+            "shots": 3,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5890,7 +5890,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5990,7 +5990,7 @@
           "winPct": 0
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "saudi-pro-league.abha.abdou-diallo",
@@ -6062,7 +6062,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -6090,7 +6090,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6099,7 +6099,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6460,7 +6460,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6469,7 +6469,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -6571,7 +6571,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6608,8 +6608,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7052,7 +7052,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7061,7 +7061,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7161,7 +7161,7 @@
           "winPct": 32.4
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "saudi-pro-league.al-kholood.abdullah-al-ajyan",
@@ -8258,7 +8258,7 @@
           "winPct": 40.6
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "saudi-pro-league.al-ettifaq.abdalellah-hawsawi",
@@ -8441,7 +8441,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -8543,7 +8543,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -8811,7 +8811,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -9061,8 +9061,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -9070,7 +9070,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -9098,7 +9098,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -9107,7 +9107,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -9172,7 +9172,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 2,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -9181,7 +9181,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -9255,7 +9255,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },

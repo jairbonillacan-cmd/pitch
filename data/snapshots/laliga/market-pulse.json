@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "laliga",
-  "observedAt": "2026-11-21T04:21:39.228Z",
+  "observedAt": "2026-11-21T13:03:02.160Z",
   "entries": [
     {
       "gameId": "laliga-2026-27-md13-alaves-deportivo-la-coruna",
@@ -53,21 +53,21 @@
       "gameId": "laliga-2026-27-md13-barcelona-villarreal",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T04:21:39.228Z",
+      "observedAt": "2026-11-21T13:03:02.160Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 52590.210693999994,
+          "volume": 53421.84966299999,
           "price": 0.815
         },
         {
           "side": "draw",
-          "volume": 4619.022385,
+          "volume": 5035.022385,
           "price": 0.115
         },
         {
           "side": "away",
-          "volume": 14144.592666,
+          "volume": 16284.544382999999,
           "price": 0.075
         }
       ]
@@ -76,7 +76,7 @@
       "gameId": "laliga-2026-27-md13-getafe-atletico-madrid",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T04:21:39.228Z",
+      "observedAt": "2026-11-21T13:03:02.160Z",
       "outcomes": [
         {
           "side": "home",
@@ -90,7 +90,7 @@
         },
         {
           "side": "away",
-          "volume": 1976.521842,
+          "volume": 2920.1524520000003,
           "price": 0.625
         }
       ]
@@ -99,17 +99,17 @@
       "gameId": "laliga-2026-27-md13-levante-elche",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T04:21:39.228Z",
+      "observedAt": "2026-11-21T13:03:02.160Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 140.979135,
-          "price": 0.445
+          "price": 0.435
         },
         {
           "side": "draw",
-          "volume": 90.383593,
-          "price": 0.265
+          "volume": 97.043593,
+          "price": 0.275
         },
         {
           "side": "away",
@@ -122,11 +122,11 @@
       "gameId": "laliga-2026-27-md13-osasuna-malaga",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T04:21:39.228Z",
+      "observedAt": "2026-11-21T13:03:02.160Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 3011.542433,
+          "volume": 3519.221679,
           "price": 0.525
         },
         {
@@ -136,7 +136,7 @@
         },
         {
           "side": "away",
-          "volume": 67.42013299999999,
+          "volume": 76.28089299999999,
           "price": 0.215
         }
       ]
@@ -145,21 +145,21 @@
       "gameId": "laliga-2026-27-md13-rayo-vallecano-valencia",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T04:21:39.228Z",
+      "observedAt": "2026-11-21T13:03:02.160Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 32938.799664000006,
-          "price": 0.505
+          "volume": 210558.36241400003,
+          "price": 0.495
         },
         {
           "side": "draw",
-          "volume": 979.345345,
+          "volume": 1898.126776,
           "price": 0.275
         },
         {
           "side": "away",
-          "volume": 562.143958,
+          "volume": 1208.291366,
           "price": 0.225
         }
       ]
@@ -168,21 +168,21 @@
       "gameId": "laliga-2026-27-md13-real-madrid-celta-vigo",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T04:21:39.228Z",
+      "observedAt": "2026-11-21T13:03:02.160Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 104880.77165800001,
+          "volume": 306385.60270199995,
           "price": 0.845
         },
         {
           "side": "draw",
-          "volume": 1076.667066,
-          "price": 0.115
+          "volume": 1273.1941299999999,
+          "price": 0.105
         },
         {
           "side": "away",
-          "volume": 9288.593755,
+          "volume": 21424.38024,
           "price": 0.045
         }
       ]
@@ -191,21 +191,21 @@
       "gameId": "laliga-2026-27-md13-sevilla-real-betis",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-21T04:21:39.228Z",
+      "observedAt": "2026-11-21T13:03:02.160Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 1113.682844,
-          "price": 0.315
+          "volume": 1777.911734,
+          "price": 0.325
         },
         {
           "side": "draw",
-          "volume": 559.03995,
+          "volume": 779.699122,
           "price": 0.285
         },
         {
           "side": "away",
-          "volume": 5690.986674,
+          "volume": 46514.006414999996,
           "price": 0.395
         }
       ]

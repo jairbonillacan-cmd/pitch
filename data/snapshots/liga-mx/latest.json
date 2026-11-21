@@ -5,7 +5,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 17",
-  "updatedAt": "2026-11-21T04:21:09.888Z",
+  "updatedAt": "2026-11-21T13:02:18.077Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -19,8 +19,8 @@
       "forPerGame": 2.375,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 2.1403642458567913,
-      "adjustedAgainst": 1.3723288043488755
+      "adjustedFor": 2.137094320563095,
+      "adjustedAgainst": 1.3722955523350369
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
@@ -28,11 +28,11 @@
       "shortName": "Atlante",
       "code": "ATE",
       "logoUrl": "https://sports.bzzoiro.com/img/team/3840/?bg=transparent",
-      "forPerGame": 1,
-      "againstPerGame": 1.625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.073780564027035,
-      "adjustedAgainst": 1.5274425514989425
+      "forPerGame": 0.9411764705882353,
+      "againstPerGame": 1.588235294117647,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.020782697277581,
+      "adjustedAgainst": 1.4921278929591082
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
@@ -40,11 +40,11 @@
       "shortName": "Atlas",
       "code": "ATS",
       "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent",
-      "forPerGame": 1.6875,
-      "againstPerGame": 1.875,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.6413249247530712,
-      "adjustedAgainst": 1.7212568516442859
+      "forPerGame": 1.7647058823529411,
+      "againstPerGame": 1.9411764705882353,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.6914807638643305,
+      "adjustedAgainst": 1.812209761808616
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
@@ -55,8 +55,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.2019328086453303,
-      "adjustedAgainst": 1.384304784148405
+      "adjustedFor": 1.1996777041072548,
+      "adjustedAgainst": 1.3845722590838498
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
@@ -67,8 +67,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.509363099178372,
-      "adjustedAgainst": 1.0327952369473814
+      "adjustedFor": 1.5065787345952955,
+      "adjustedAgainst": 1.032439116624248
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
@@ -79,8 +79,8 @@
       "forPerGame": 2.3125,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 2.086127910659397,
-      "adjustedAgainst": 1.5057437310298887
+      "adjustedFor": 2.0824543282417136,
+      "adjustedAgainst": 1.5056340157084187
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
@@ -88,11 +88,11 @@
       "shortName": "Juárez",
       "code": "JUA",
       "logoUrl": "https://sports.bzzoiro.com/img/team/306/?bg=transparent",
-      "forPerGame": 0.8125,
-      "againstPerGame": 2.125,
-      "gamesPlayed": 16,
-      "adjustedFor": 0.9672345244309742,
-      "adjustedAgainst": 1.8243351016889549
+      "forPerGame": 0.9411764705882353,
+      "againstPerGame": 2.176470588235294,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.0541153903259253,
+      "adjustedAgainst": 1.8718148844602243
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
@@ -103,8 +103,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.3810367813769804,
-      "adjustedAgainst": 1.293408890489487
+      "adjustedFor": 1.3788575167192345,
+      "adjustedAgainst": 1.2937460215623702
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
@@ -115,8 +115,8 @@
       "forPerGame": 1.6875,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.622392453459798,
-      "adjustedAgainst": 1.456942905425447
+      "adjustedFor": 1.6217281434079038,
+      "adjustedAgainst": 1.4584249336130737
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
@@ -127,8 +127,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1500812867862409,
-      "adjustedAgainst": 1.579951289706276
+      "adjustedFor": 1.1476587047855165,
+      "adjustedAgainst": 1.5794343608448047
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
@@ -139,8 +139,8 @@
       "forPerGame": 1.8125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.7381259637765638,
-      "adjustedAgainst": 1.2777264915820568
+      "adjustedFor": 1.7366622148935604,
+      "adjustedAgainst": 1.2781353454516255
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
@@ -151,8 +151,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1582947036305231,
-      "adjustedAgainst": 1.3619498663693888
+      "adjustedFor": 1.1568869388654026,
+      "adjustedAgainst": 1.3622722337220217
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
@@ -163,8 +163,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.464679967836113,
-      "adjustedAgainst": 1.5335887390385041
+      "adjustedFor": 1.4625677793573155,
+      "adjustedAgainst": 1.5338117183321605
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
@@ -175,8 +175,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1546507448149101,
-      "adjustedAgainst": 1.4181108993133034
+      "adjustedFor": 1.1522709840162326,
+      "adjustedAgainst": 1.4172608426829545
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
@@ -187,8 +187,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.394409346421901,
-      "adjustedAgainst": 1.2794726941964218
+      "adjustedFor": 1.3931278040845478,
+      "adjustedAgainst": 1.2806970456413598
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
@@ -199,8 +199,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1258519515251992,
-      "adjustedAgainst": 1.4492361787380574
+      "adjustedFor": 1.1245293816194564,
+      "adjustedAgainst": 1.4494419196490114
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
@@ -208,11 +208,11 @@
       "shortName": "Tijuana",
       "code": "TIJ",
       "logoUrl": "https://sports.bzzoiro.com/img/team/308/?bg=transparent",
-      "forPerGame": 1.5625,
-      "againstPerGame": 1.375,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.5366998164329537,
-      "adjustedAgainst": 1.32748298544446
+      "forPerGame": 1.5294117647058822,
+      "againstPerGame": 1.2941176470588236,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.4953203570471527,
+      "adjustedAgainst": 1.277594929575036
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
@@ -223,8 +223,8 @@
       "forPerGame": 2.1875,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.9995310713280856,
-      "adjustedAgainst": 1.31839634491678
+      "adjustedFor": 1.9956012303033381,
+      "adjustedAgainst": 1.318433614580334
     }
   },
   "games": [
@@ -268,7 +268,7 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-21T03:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.fc-juarez",
         "league": "liga-mx",
@@ -286,7 +286,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent"
       },
       "venue": "Estadio Olímpico Benito Juárez",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 3,
+        "observedAt": "2026-11-21T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-tijuana-atlante-401877052",
@@ -295,7 +301,7 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-21T03:10Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.tijuana",
         "league": "liga-mx",
@@ -313,7 +319,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/3840/?bg=transparent"
       },
       "venue": "Estadio Caliente",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-21T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-pachuca-toluca-401877050",
@@ -1978,11 +1990,11 @@
         "referee": "Adonai Escobedo Gonzalez",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 47,
-          "avgYellow": 3.85,
-          "avgRed": 0.47,
-          "avgFouls": 21.6,
-          "avgGoals": 2.87
+          "matches": 48,
+          "avgYellow": 3.83,
+          "avgRed": 0.46,
+          "avgFouls": 21.8,
+          "avgGoals": 2.94
         }
       }
     },
@@ -2514,11 +2526,11 @@
         "referee": "Jesus Rafael Lopez Valle",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 33,
-          "avgYellow": 4.79,
-          "avgRed": 0.45,
-          "avgFouls": 24.4,
-          "avgGoals": 2.76
+          "matches": 34,
+          "avgYellow": 4.85,
+          "avgRed": 0.44,
+          "avgFouls": 24.7,
+          "avgGoals": 2.71
         }
       }
     },
@@ -2531,13 +2543,13 @@
           {
             "key": "lectura",
             "title": "La lectura",
-            "text": "El Toluca se presenta cuarto con 27 puntos y una diferencia de 14, mientras el Pachuca es noveno con 22 y 9. La probabilidad más alta es la del visitante con 38 por ciento, apenas dos puntos arriba del 36 del local, así que la ventaja es mínima y el estadio la atenúa.",
+            "text": "Toluca es quinto con 27 puntos y diferencia de 14; Pachuca es décimo con 22 y diferencia de 9. La probabilidad favorece al visitante con 38 por ciento frente al 36 del local, una distancia mínima que deja el partido casi parejo.",
             "origin": "ia"
           },
           {
             "key": "goles",
             "title": "Goles",
-            "text": "Se proyecta un partido abierto: 3.60 goles esperados en total, con 88 por ciento de superar 1.5 y 71 por ciento de que ambos anoten. El reparto es casi idéntico, 1.79 para el Pachuca y 1.81 para el Toluca, sin un atacante claramente por encima.",
+            "text": "El total esperado es 3.60, con 69 por ciento de más de 2.5 y 71 por ciento de ambos anotan. El reparto es casi idéntico: 1.79 para Pachuca y 1.81 para Toluca, así que el aporte llega por los dos lados.",
             "origin": "ia",
             "stats": [
               {
@@ -2558,7 +2570,7 @@
           {
             "key": "ritmo",
             "title": "Ritmo del partido",
-            "text": "Los tiros de esquina suman 10.3, con 5.4 del Pachuca y 5.0 del Toluca, así que ambos empujan parecido. Las faltas llegan a 25.5, con 14.3 del local frente a 11.2 del visitante: el Pachuca corta más y el juego tiende a trabarse.",
+            "text": "Los corners se inclinan apenas al local, 5.4 contra 5.0, con 10.3 de total: nadie empuja de forma clara. Las faltas suman 25.5, con Pachuca en 14.3, y 4.3 amarillas anticipan un juego cortado.",
             "origin": "ia",
             "stats": [
               {
@@ -2581,7 +2593,7 @@
           {
             "key": "tabla",
             "title": "Tabla y descanso",
-            "text": "El Toluca está cuarto con 27 puntos en 16 partidos y diferencia de 14; el Pachuca es noveno con 22 y 9. El descanso es casi el mismo, 14 días para el local y 13 para el visitante, sin ventaja física clara.",
+            "text": "Toluca está quinto con 27 puntos en 16 partidos y llega con 13 días de descanso. Pachuca es décimo con 22 unidades y tuvo 14 días, un descanso casi igual para ambos.",
             "origin": "ia",
             "stats": [
               {
@@ -2594,12 +2606,12 @@
           {
             "key": "cambia",
             "title": "Qué podría cambiarlo",
-            "text": "Las alineaciones pueden inclinar la balanza si alguna reserva titulares. El criterio del árbitro importa con un partido de muchas faltas, y el primer gol definiría si el Pachuca se suelta o el Toluca administra.",
+            "text": "Las alineaciones confirmadas pueden ajustar el peso ofensivo de cada lado. El criterio del árbitro define cuánto se corta el juego con faltas. El primer gol cambia quién empuja y quién espera.",
             "origin": "ia"
           }
         ],
-        "fingerprint": "55d33787ff6011ae",
-        "generatedAt": "2026-11-20T19:07:33.810Z",
+        "fingerprint": "5686ffb42c51664e",
+        "generatedAt": "2026-11-21T13:02:50.512Z",
         "version": "2"
       },
       "counts": {
@@ -7047,6 +7059,27 @@
       ]
     },
     {
+      "teamId": "liga-mx.atlas",
+      "name": "Atlas",
+      "shortName": "Atlas",
+      "code": "ATS",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent",
+      "played": 17,
+      "won": 8,
+      "drawn": 4,
+      "lost": 5,
+      "goalsFor": 30,
+      "goalsAgainst": 33,
+      "points": 28,
+      "form": [
+        "L",
+        "W",
+        "W",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "liga-mx.toluca",
       "name": "Deportivo Toluca",
       "shortName": "Toluca",
@@ -7068,24 +7101,24 @@
       ]
     },
     {
-      "teamId": "liga-mx.atlas",
-      "name": "Atlas",
-      "shortName": "Atlas",
-      "code": "ATS",
-      "logoUrl": "https://sports.bzzoiro.com/img/team/305/?bg=transparent",
-      "played": 16,
-      "won": 8,
-      "drawn": 3,
-      "lost": 5,
-      "goalsFor": 27,
-      "goalsAgainst": 30,
-      "points": 27,
+      "teamId": "liga-mx.tijuana",
+      "name": "Xolos de Tijuana",
+      "shortName": "Tijuana",
+      "code": "TIJ",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/308/?bg=transparent",
+      "played": 17,
+      "won": 6,
+      "drawn": 7,
+      "lost": 4,
+      "goalsFor": 26,
+      "goalsAgainst": 22,
+      "points": 25,
       "form": [
         "W",
+        "D",
+        "D",
         "L",
-        "W",
-        "W",
-        "L"
+        "W"
       ]
     },
     {
@@ -7170,27 +7203,6 @@
         "W",
         "W",
         "W"
-      ]
-    },
-    {
-      "teamId": "liga-mx.tijuana",
-      "name": "Xolos de Tijuana",
-      "shortName": "Tijuana",
-      "code": "TIJ",
-      "logoUrl": "https://sports.bzzoiro.com/img/team/308/?bg=transparent",
-      "played": 16,
-      "won": 5,
-      "drawn": 7,
-      "lost": 4,
-      "goalsFor": 25,
-      "goalsAgainst": 22,
-      "points": 22,
-      "form": [
-        "D",
-        "W",
-        "D",
-        "D",
-        "L"
       ]
     },
     {
@@ -7304,16 +7316,16 @@
       "shortName": "Atlante",
       "code": "ATE",
       "logoUrl": "https://sports.bzzoiro.com/img/team/3840/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 3,
       "drawn": 5,
-      "lost": 8,
+      "lost": 9,
       "goalsFor": 16,
-      "goalsAgainst": 26,
+      "goalsAgainst": 27,
       "points": 14,
       "form": [
-        "L",
         "W",
+        "L",
         "L",
         "L",
         "L"
@@ -7346,19 +7358,19 @@
       "shortName": "Juárez",
       "code": "JUA",
       "logoUrl": "https://sports.bzzoiro.com/img/team/306/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 3,
-      "drawn": 2,
+      "drawn": 3,
       "lost": 11,
-      "goalsFor": 13,
-      "goalsAgainst": 34,
-      "points": 11,
+      "goalsFor": 16,
+      "goalsAgainst": 37,
+      "points": 12,
       "form": [
-        "L",
         "L",
         "D",
         "W",
-        "W"
+        "W",
+        "D"
       ]
     }
   ]

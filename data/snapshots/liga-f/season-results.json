@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-f",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T04:14:45.246Z",
+  "updatedAt": "2026-11-21T12:53:07.742Z",
   "matches": [
     {
       "id": "liga-f-2026-08-29-real-sociedad-logrono-united-3z20hf",
@@ -959,6 +959,17 @@
       "awayTeam": "liga-f.granada",
       "homeScore": 0,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-f-2026-11-21-badalona-women-real-deportivo-xkasud",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T11:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "liga-f.badalona-women",
+      "awayTeam": "liga-f.real-deportivo-a-coruna",
+      "homeScore": 2,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "europa-league",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-21T04:14:45.246Z",
+  "observedAt": "2026-11-21T12:53:07.742Z",
   "teams": [
     {
       "teamId": "europa-league.rsc-anderlecht",
@@ -24,7 +24,7 @@
           "winPct": 46.7
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "europa-league.rsc-anderlecht.adriano-bertaccini",
@@ -170,7 +170,7 @@
             "offsides": 0,
             "saves": 3,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -346,8 +346,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -355,7 +355,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -603,10 +603,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -614,7 +614,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -1121,7 +1121,7 @@
           "winPct": 45
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "europa-league.red-bull-salzburg.aboubacar-camara",
@@ -1361,8 +1361,8 @@
           "nationality": "Hungary",
           "nationalityCode": null,
           "photoKey": "pl-p:16958",
-          "availability": "available",
-          "injuryDetail": null,
+          "availability": "injured",
+          "injuryDetail": "Hip Injury",
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -1443,8 +1443,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2144,7 +2144,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
             "shots": 1,
             "shotsOnTarget": 1,
@@ -2155,7 +2155,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -2292,7 +2292,7 @@
           "winPct": 37.3
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "europa-league.nec-nijmegen.adam-tahaui",
@@ -2538,10 +2538,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 1,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -2843,7 +2843,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 1,
+            "saves": 2,
             "shotsFaced": 0,
             "goalsConceded": 1
           },
@@ -3021,7 +3021,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3030,7 +3030,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3169,8 +3169,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 5,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3215,7 +3215,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3317,7 +3317,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
+            "shots": 4,
             "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3363,7 +3363,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3463,7 +3463,7 @@
           "winPct": 45.5
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "europa-league.omonia-nicosia.andreas-christou",
@@ -3572,7 +3572,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -3785,8 +3785,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3794,7 +3794,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4053,7 +4053,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4155,7 +4155,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4164,7 +4164,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 4
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4201,7 +4201,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -4266,7 +4266,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4275,7 +4275,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4597,7 +4597,7 @@
           "winPct": 41.3
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "europa-league.lillestr-m.camil-jebara",
@@ -4697,7 +4697,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4706,7 +4706,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4780,7 +4780,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4919,7 +4919,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4928,7 +4928,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4954,10 +4954,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 2,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -4965,7 +4965,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -4993,7 +4993,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5141,7 +5141,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 3,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5150,7 +5150,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5222,9 +5222,9 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 9,
+            "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -5289,7 +5289,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5474,8 +5474,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 7,
-            "shotsOnTarget": 2,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5548,8 +5548,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 1,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5557,7 +5557,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         }
@@ -5583,7 +5583,7 @@
           "winPct": 39.4
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "europa-league.viktoria-plzen.adam-gabriel",
@@ -5684,7 +5684,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5942,7 +5942,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6125,10 +6125,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 4,
-            "shotsOnTarget": 3,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6312,8 +6312,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
-            "shotsOnTarget": 0,
+            "shots": 1,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -6347,7 +6347,7 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 1,
             "shotsOnTarget": 1,
@@ -6643,7 +6643,7 @@
           "winPct": 60.2
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "europa-league.levski-sofia.adrian-raychev",
@@ -7703,7 +7703,7 @@
           "winPct": 47.2
         }
       },
-      "updatedAt": "2026-11-21T04:14:45.246Z",
+      "updatedAt": "2026-11-21T12:53:07.742Z",
       "players": [
         {
           "id": "europa-league.jagiellonia-bia-ystok.adrian-damasiewicz",
@@ -7775,7 +7775,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7949,10 +7949,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 3,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7960,7 +7960,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8145,7 +8145,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 1
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -8393,10 +8393,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 3,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8729,7 +8729,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 2,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8839,7 +8839,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,

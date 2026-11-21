@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "nhl",
   "season": "nhl-2026-27",
-  "updatedAt": "2026-11-21T04:14:41.646Z",
+  "updatedAt": "2026-11-21T12:53:03.494Z",
   "matches": [
     {
       "id": "nhl-2026-09-29-florida-panthers-carolina-hurricanes",
@@ -93,17 +93,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-01-philadelphia-flyers-new-jersey-devils",
-      "date": "2026-10-01",
-      "startTime": "2026-10-01T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.new-jersey-devils",
-      "awayTeam": "nhl.philadelphia-flyers",
-      "homeScore": 3,
-      "awayScore": 2,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-01-tampa-bay-lightning-new-york-rangers",
       "date": "2026-10-01",
       "startTime": "2026-10-01T23:00:00.000Z",
@@ -112,6 +101,17 @@
       "awayTeam": "nhl.tampa-bay-lightning",
       "homeScore": 5,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-01-philadelphia-flyers-new-jersey-devils",
+      "date": "2026-10-01",
+      "startTime": "2026-10-01T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.new-jersey-devils",
+      "awayTeam": "nhl.philadelphia-flyers",
+      "homeScore": 3,
+      "awayScore": 2,
       "neutralSite": false
     },
     {
@@ -247,6 +247,17 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-10-03-washington-capitals-tampa-bay-lightning",
+      "date": "2026-10-03",
+      "startTime": "2026-10-03T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.tampa-bay-lightning",
+      "awayTeam": "nhl.washington-capitals",
+      "homeScore": 3,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-10-03-montreal-canadiens-pittsburgh-penguins",
       "date": "2026-10-03",
       "startTime": "2026-10-03T23:00:00.000Z",
@@ -258,23 +269,23 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-03-ottawa-senators-toronto-maple-leafs",
-      "date": "2026-10-03",
-      "startTime": "2026-10-03T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.toronto-maple-leafs",
-      "awayTeam": "nhl.ottawa-senators",
-      "homeScore": 2,
-      "awayScore": 3,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-03-carolina-hurricanes-philadelphia-flyers",
       "date": "2026-10-03",
       "startTime": "2026-10-03T23:00:00.000Z",
       "round": "Temporada regular",
       "homeTeam": "nhl.philadelphia-flyers",
       "awayTeam": "nhl.carolina-hurricanes",
+      "homeScore": 2,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-03-ottawa-senators-toronto-maple-leafs",
+      "date": "2026-10-03",
+      "startTime": "2026-10-03T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.toronto-maple-leafs",
+      "awayTeam": "nhl.ottawa-senators",
       "homeScore": 2,
       "awayScore": 3,
       "neutralSite": false
@@ -299,17 +310,6 @@
       "awayTeam": "nhl.chicago-blackhawks",
       "homeScore": 4,
       "awayScore": 3,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-10-03-washington-capitals-tampa-bay-lightning",
-      "date": "2026-10-03",
-      "startTime": "2026-10-03T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.tampa-bay-lightning",
-      "awayTeam": "nhl.washington-capitals",
-      "homeScore": 3,
-      "awayScore": 1,
       "neutralSite": false
     },
     {
@@ -632,17 +632,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-08-philadelphia-flyers-ottawa-senators",
-      "date": "2026-10-08",
-      "startTime": "2026-10-08T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.ottawa-senators",
-      "awayTeam": "nhl.philadelphia-flyers",
-      "homeScore": 2,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-08-vancouver-canucks-carolina-hurricanes",
       "date": "2026-10-08",
       "startTime": "2026-10-08T23:00:00.000Z",
@@ -654,14 +643,14 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-08-dallas-stars-buffalo-sabres",
+      "id": "nhl-2026-10-08-philadelphia-flyers-ottawa-senators",
       "date": "2026-10-08",
       "startTime": "2026-10-08T23:00:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nhl.buffalo-sabres",
-      "awayTeam": "nhl.dallas-stars",
-      "homeScore": 0,
-      "awayScore": 4,
+      "homeTeam": "nhl.ottawa-senators",
+      "awayTeam": "nhl.philadelphia-flyers",
+      "homeScore": 2,
+      "awayScore": 1,
       "neutralSite": false
     },
     {
@@ -673,6 +662,17 @@
       "awayTeam": "nhl.utah-mammoth",
       "homeScore": 6,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-08-dallas-stars-buffalo-sabres",
+      "date": "2026-10-08",
+      "startTime": "2026-10-08T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.buffalo-sabres",
+      "awayTeam": "nhl.dallas-stars",
+      "homeScore": 0,
+      "awayScore": 4,
       "neutralSite": false
     },
     {
@@ -819,17 +819,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-10-nashville-predators-ottawa-senators",
-      "date": "2026-10-10",
-      "startTime": "2026-10-10T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.ottawa-senators",
-      "awayTeam": "nhl.nashville-predators",
-      "homeScore": 3,
-      "awayScore": 2,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-10-carolina-hurricanes-chicago-blackhawks",
       "date": "2026-10-10",
       "startTime": "2026-10-10T23:00:00.000Z",
@@ -841,14 +830,14 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-10-dallas-stars-pittsburgh-penguins",
+      "id": "nhl-2026-10-10-nashville-predators-ottawa-senators",
       "date": "2026-10-10",
       "startTime": "2026-10-10T23:00:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nhl.pittsburgh-penguins",
-      "awayTeam": "nhl.dallas-stars",
-      "homeScore": 2,
-      "awayScore": 1,
+      "homeTeam": "nhl.ottawa-senators",
+      "awayTeam": "nhl.nashville-predators",
+      "homeScore": 3,
+      "awayScore": 2,
       "neutralSite": false
     },
     {
@@ -860,6 +849,17 @@
       "awayTeam": "nhl.toronto-maple-leafs",
       "homeScore": 3,
       "awayScore": 6,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-10-dallas-stars-pittsburgh-penguins",
+      "date": "2026-10-10",
+      "startTime": "2026-10-10T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.pittsburgh-penguins",
+      "awayTeam": "nhl.dallas-stars",
+      "homeScore": 2,
+      "awayScore": 1,
       "neutralSite": false
     },
     {
@@ -1182,6 +1182,17 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-10-15-seattle-kraken-tampa-bay-lightning",
+      "date": "2026-10-15",
+      "startTime": "2026-10-15T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.tampa-bay-lightning",
+      "awayTeam": "nhl.seattle-kraken",
+      "homeScore": 4,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-10-15-new-york-islanders-ottawa-senators",
       "date": "2026-10-15",
       "startTime": "2026-10-15T23:00:00.000Z",
@@ -1223,17 +1234,6 @@
       "awayTeam": "nhl.buffalo-sabres",
       "homeScore": 4,
       "awayScore": 5,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-10-15-seattle-kraken-tampa-bay-lightning",
-      "date": "2026-10-15",
-      "startTime": "2026-10-15T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.tampa-bay-lightning",
-      "awayTeam": "nhl.seattle-kraken",
-      "homeScore": 4,
-      "awayScore": 3,
       "neutralSite": false
     },
     {
@@ -1391,17 +1391,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-17-dallas-stars-chicago-blackhawks",
-      "date": "2026-10-17",
-      "startTime": "2026-10-17T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.chicago-blackhawks",
-      "awayTeam": "nhl.dallas-stars",
-      "homeScore": 0,
-      "awayScore": 4,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-17-new-york-rangers-columbus-blue-jackets",
       "date": "2026-10-17",
       "startTime": "2026-10-17T23:00:00.000Z",
@@ -1410,6 +1399,17 @@
       "awayTeam": "nhl.new-york-rangers",
       "homeScore": 1,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-17-dallas-stars-chicago-blackhawks",
+      "date": "2026-10-17",
+      "startTime": "2026-10-17T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.chicago-blackhawks",
+      "awayTeam": "nhl.dallas-stars",
+      "homeScore": 0,
+      "awayScore": 4,
       "neutralSite": false
     },
     {
@@ -1501,17 +1501,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-19-colorado-avalanche-philadelphia-flyers",
-      "date": "2026-10-19",
-      "startTime": "2026-10-19T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.philadelphia-flyers",
-      "awayTeam": "nhl.colorado-avalanche",
-      "homeScore": 3,
-      "awayScore": 2,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-19-anaheim-ducks-new-york-rangers",
       "date": "2026-10-19",
       "startTime": "2026-10-19T23:00:00.000Z",
@@ -1519,6 +1508,17 @@
       "homeTeam": "nhl.new-york-rangers",
       "awayTeam": "nhl.anaheim-ducks",
       "homeScore": 5,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-19-colorado-avalanche-philadelphia-flyers",
+      "date": "2026-10-19",
+      "startTime": "2026-10-19T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.philadelphia-flyers",
+      "awayTeam": "nhl.colorado-avalanche",
+      "homeScore": 3,
       "awayScore": 2,
       "neutralSite": false
     },
@@ -1699,17 +1699,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-22-anaheim-ducks-new-jersey-devils",
-      "date": "2026-10-22",
-      "startTime": "2026-10-22T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.new-jersey-devils",
-      "awayTeam": "nhl.anaheim-ducks",
-      "homeScore": 4,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-22-new-york-rangers-toronto-maple-leafs",
       "date": "2026-10-22",
       "startTime": "2026-10-22T23:00:00.000Z",
@@ -1729,6 +1718,17 @@
       "awayTeam": "nhl.nashville-predators",
       "homeScore": 6,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-22-anaheim-ducks-new-jersey-devils",
+      "date": "2026-10-22",
+      "startTime": "2026-10-22T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.new-jersey-devils",
+      "awayTeam": "nhl.anaheim-ducks",
+      "homeScore": 4,
+      "awayScore": 1,
       "neutralSite": false
     },
     {
@@ -1754,17 +1754,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-23-winnipeg-jets-dallas-stars",
-      "date": "2026-10-23",
-      "startTime": "2026-10-23T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.dallas-stars",
-      "awayTeam": "nhl.winnipeg-jets",
-      "homeScore": 3,
-      "awayScore": 2,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-23-vegas-golden-knights-st-louis-blues",
       "date": "2026-10-23",
       "startTime": "2026-10-23T00:00:00.000Z",
@@ -1772,6 +1761,17 @@
       "homeTeam": "nhl.st-louis-blues",
       "awayTeam": "nhl.vegas-golden-knights",
       "homeScore": 6,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-23-winnipeg-jets-dallas-stars",
+      "date": "2026-10-23",
+      "startTime": "2026-10-23T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.dallas-stars",
+      "awayTeam": "nhl.winnipeg-jets",
+      "homeScore": 3,
       "awayScore": 2,
       "neutralSite": false
     },
@@ -1875,6 +1875,17 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-10-24-carolina-hurricanes-st-louis-blues",
+      "date": "2026-10-24",
+      "startTime": "2026-10-24T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.st-louis-blues",
+      "awayTeam": "nhl.carolina-hurricanes",
+      "homeScore": 0,
+      "awayScore": 4,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-10-24-new-york-rangers-ottawa-senators",
       "date": "2026-10-24",
       "startTime": "2026-10-24T23:00:00.000Z",
@@ -1886,14 +1897,14 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-24-carolina-hurricanes-st-louis-blues",
+      "id": "nhl-2026-10-24-vegas-golden-knights-columbus-blue-jackets",
       "date": "2026-10-24",
       "startTime": "2026-10-24T23:00:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nhl.st-louis-blues",
-      "awayTeam": "nhl.carolina-hurricanes",
-      "homeScore": 0,
-      "awayScore": 4,
+      "homeTeam": "nhl.columbus-blue-jackets",
+      "awayTeam": "nhl.vegas-golden-knights",
+      "homeScore": 2,
+      "awayScore": 1,
       "neutralSite": false
     },
     {
@@ -1916,17 +1927,6 @@
       "awayTeam": "nhl.nashville-predators",
       "homeScore": 3,
       "awayScore": 2,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-10-24-vegas-golden-knights-columbus-blue-jackets",
-      "date": "2026-10-24",
-      "startTime": "2026-10-24T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.columbus-blue-jackets",
-      "awayTeam": "nhl.vegas-golden-knights",
-      "homeScore": 2,
-      "awayScore": 1,
       "neutralSite": false
     },
     {
@@ -2227,6 +2227,17 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-10-29-winnipeg-jets-tampa-bay-lightning",
+      "date": "2026-10-29",
+      "startTime": "2026-10-29T23:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.tampa-bay-lightning",
+      "awayTeam": "nhl.winnipeg-jets",
+      "homeScore": 6,
+      "awayScore": 4,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-10-29-columbus-blue-jackets-carolina-hurricanes",
       "date": "2026-10-29",
       "startTime": "2026-10-29T23:00:00.000Z",
@@ -2245,17 +2256,6 @@
       "homeTeam": "nhl.pittsburgh-penguins",
       "awayTeam": "nhl.utah-mammoth",
       "homeScore": 3,
-      "awayScore": 4,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-10-29-winnipeg-jets-tampa-bay-lightning",
-      "date": "2026-10-29",
-      "startTime": "2026-10-29T23:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.tampa-bay-lightning",
-      "awayTeam": "nhl.winnipeg-jets",
-      "homeScore": 6,
       "awayScore": 4,
       "neutralSite": false
     },
@@ -2326,17 +2326,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-10-30-buffalo-sabres-anaheim-ducks",
-      "date": "2026-10-30",
-      "startTime": "2026-10-30T02:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.anaheim-ducks",
-      "awayTeam": "nhl.buffalo-sabres",
-      "homeScore": 6,
-      "awayScore": 7,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-10-30-vancouver-canucks-san-jose-sharks",
       "date": "2026-10-30",
       "startTime": "2026-10-30T02:00:00.000Z",
@@ -2345,6 +2334,17 @@
       "awayTeam": "nhl.vancouver-canucks",
       "homeScore": 3,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-10-30-buffalo-sabres-anaheim-ducks",
+      "date": "2026-10-30",
+      "startTime": "2026-10-30T02:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.anaheim-ducks",
+      "awayTeam": "nhl.buffalo-sabres",
+      "homeScore": 6,
+      "awayScore": 7,
       "neutralSite": false
     },
     {
@@ -2601,6 +2601,17 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-11-04-detroit-red-wings-tampa-bay-lightning",
+      "date": "2026-11-04",
+      "startTime": "2026-11-04T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.tampa-bay-lightning",
+      "awayTeam": "nhl.detroit-red-wings",
+      "homeScore": 4,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-11-04-winnipeg-jets-montreal-canadiens",
       "date": "2026-11-04",
       "startTime": "2026-11-04T00:00:00.000Z",
@@ -2609,28 +2620,6 @@
       "awayTeam": "nhl.winnipeg-jets",
       "homeScore": 4,
       "awayScore": 5,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-11-04-dallas-stars-washington-capitals",
-      "date": "2026-11-04",
-      "startTime": "2026-11-04T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.washington-capitals",
-      "awayTeam": "nhl.dallas-stars",
-      "homeScore": 5,
-      "awayScore": 6,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-11-04-colorado-avalanche-columbus-blue-jackets",
-      "date": "2026-11-04",
-      "startTime": "2026-11-04T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.columbus-blue-jackets",
-      "awayTeam": "nhl.colorado-avalanche",
-      "homeScore": 7,
-      "awayScore": 2,
       "neutralSite": false
     },
     {
@@ -2656,6 +2645,28 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-11-04-colorado-avalanche-columbus-blue-jackets",
+      "date": "2026-11-04",
+      "startTime": "2026-11-04T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.columbus-blue-jackets",
+      "awayTeam": "nhl.colorado-avalanche",
+      "homeScore": 7,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-11-04-dallas-stars-washington-capitals",
+      "date": "2026-11-04",
+      "startTime": "2026-11-04T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.washington-capitals",
+      "awayTeam": "nhl.dallas-stars",
+      "homeScore": 5,
+      "awayScore": 6,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-11-04-utah-mammoth-toronto-maple-leafs",
       "date": "2026-11-04",
       "startTime": "2026-11-04T00:00:00.000Z",
@@ -2664,17 +2675,6 @@
       "awayTeam": "nhl.utah-mammoth",
       "homeScore": 2,
       "awayScore": 3,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-11-04-detroit-red-wings-tampa-bay-lightning",
-      "date": "2026-11-04",
-      "startTime": "2026-11-04T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.tampa-bay-lightning",
-      "awayTeam": "nhl.detroit-red-wings",
-      "homeScore": 4,
-      "awayScore": 2,
       "neutralSite": false
     },
     {
@@ -2755,6 +2755,17 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-11-06-chicago-blackhawks-tampa-bay-lightning",
+      "date": "2026-11-06",
+      "startTime": "2026-11-06T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.tampa-bay-lightning",
+      "awayTeam": "nhl.chicago-blackhawks",
+      "homeScore": 4,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-11-06-utah-mammoth-montreal-canadiens",
       "date": "2026-11-06",
       "startTime": "2026-11-06T00:00:00.000Z",
@@ -2777,28 +2788,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-11-06-st-louis-blues-new-jersey-devils",
-      "date": "2026-11-06",
-      "startTime": "2026-11-06T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.new-jersey-devils",
-      "awayTeam": "nhl.st-louis-blues",
-      "homeScore": 5,
-      "awayScore": 4,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-11-06-dallas-stars-columbus-blue-jackets",
-      "date": "2026-11-06",
-      "startTime": "2026-11-06T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.columbus-blue-jackets",
-      "awayTeam": "nhl.dallas-stars",
-      "homeScore": 2,
-      "awayScore": 1,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-11-06-philadelphia-flyers-new-york-rangers",
       "date": "2026-11-06",
       "startTime": "2026-11-06T00:00:00.000Z",
@@ -2806,6 +2795,17 @@
       "homeTeam": "nhl.new-york-rangers",
       "awayTeam": "nhl.philadelphia-flyers",
       "homeScore": 3,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-11-06-vegas-golden-knights-detroit-red-wings",
+      "date": "2026-11-06",
+      "startTime": "2026-11-06T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.detroit-red-wings",
+      "awayTeam": "nhl.vegas-golden-knights",
+      "homeScore": 1,
       "awayScore": 2,
       "neutralSite": false
     },
@@ -2821,14 +2821,25 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-11-06-vegas-golden-knights-detroit-red-wings",
+      "id": "nhl-2026-11-06-dallas-stars-columbus-blue-jackets",
       "date": "2026-11-06",
       "startTime": "2026-11-06T00:00:00.000Z",
       "round": "Temporada regular",
-      "homeTeam": "nhl.detroit-red-wings",
-      "awayTeam": "nhl.vegas-golden-knights",
-      "homeScore": 1,
-      "awayScore": 2,
+      "homeTeam": "nhl.columbus-blue-jackets",
+      "awayTeam": "nhl.dallas-stars",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-11-06-st-louis-blues-new-jersey-devils",
+      "date": "2026-11-06",
+      "startTime": "2026-11-06T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.new-jersey-devils",
+      "awayTeam": "nhl.st-louis-blues",
+      "homeScore": 5,
+      "awayScore": 4,
       "neutralSite": false
     },
     {
@@ -2840,17 +2851,6 @@
       "awayTeam": "nhl.vancouver-canucks",
       "homeScore": 6,
       "awayScore": 2,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-11-06-chicago-blackhawks-tampa-bay-lightning",
-      "date": "2026-11-06",
-      "startTime": "2026-11-06T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.tampa-bay-lightning",
-      "awayTeam": "nhl.chicago-blackhawks",
-      "homeScore": 4,
-      "awayScore": 1,
       "neutralSite": false
     },
     {
@@ -3162,17 +3162,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-11-11-new-jersey-devils-winnipeg-jets",
-      "date": "2026-11-11",
-      "startTime": "2026-11-11T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.winnipeg-jets",
-      "awayTeam": "nhl.new-jersey-devils",
-      "homeScore": 4,
-      "awayScore": 2,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-11-11-colorado-avalanche-toronto-maple-leafs",
       "date": "2026-11-11",
       "startTime": "2026-11-11T00:00:00.000Z",
@@ -3181,6 +3170,17 @@
       "awayTeam": "nhl.colorado-avalanche",
       "homeScore": 3,
       "awayScore": 6,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-11-11-new-jersey-devils-winnipeg-jets",
+      "date": "2026-11-11",
+      "startTime": "2026-11-11T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.winnipeg-jets",
+      "awayTeam": "nhl.new-jersey-devils",
+      "homeScore": 4,
+      "awayScore": 2,
       "neutralSite": false
     },
     {
@@ -3305,6 +3305,17 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-11-13-tampa-bay-lightning-columbus-blue-jackets",
+      "date": "2026-11-13",
+      "startTime": "2026-11-13T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.columbus-blue-jackets",
+      "awayTeam": "nhl.tampa-bay-lightning",
+      "homeScore": 1,
+      "awayScore": 3,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-11-13-montreal-canadiens-boston-bruins",
       "date": "2026-11-13",
       "startTime": "2026-11-13T00:00:00.000Z",
@@ -3335,17 +3346,6 @@
       "awayTeam": "nhl.washington-capitals",
       "homeScore": 5,
       "awayScore": 2,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-11-13-tampa-bay-lightning-columbus-blue-jackets",
-      "date": "2026-11-13",
-      "startTime": "2026-11-13T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.columbus-blue-jackets",
-      "awayTeam": "nhl.tampa-bay-lightning",
-      "homeScore": 1,
-      "awayScore": 3,
       "neutralSite": false
     },
     {
@@ -3470,6 +3470,17 @@
       "neutralSite": false
     },
     {
+      "id": "nhl-2026-11-15-detroit-red-wings-tampa-bay-lightning",
+      "date": "2026-11-15",
+      "startTime": "2026-11-15T00:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.tampa-bay-lightning",
+      "awayTeam": "nhl.detroit-red-wings",
+      "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
       "id": "nhl-2026-11-15-colorado-avalanche-montreal-canadiens",
       "date": "2026-11-15",
       "startTime": "2026-11-15T00:00:00.000Z",
@@ -3522,17 +3533,6 @@
       "awayTeam": "nhl.philadelphia-flyers",
       "homeScore": 3,
       "awayScore": 4,
-      "neutralSite": false
-    },
-    {
-      "id": "nhl-2026-11-15-detroit-red-wings-tampa-bay-lightning",
-      "date": "2026-11-15",
-      "startTime": "2026-11-15T00:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.tampa-bay-lightning",
-      "awayTeam": "nhl.detroit-red-wings",
-      "homeScore": 0,
-      "awayScore": 2,
       "neutralSite": false
     },
     {
@@ -3613,17 +3613,6 @@
       "neutralSite": false
     },
     {
-      "id": "nhl-2026-11-16-nashville-predators-san-jose-sharks",
-      "date": "2026-11-16",
-      "startTime": "2026-11-16T02:00:00.000Z",
-      "round": "Temporada regular",
-      "homeTeam": "nhl.san-jose-sharks",
-      "awayTeam": "nhl.nashville-predators",
-      "homeScore": 4,
-      "awayScore": 2,
-      "neutralSite": false
-    },
-    {
       "id": "nhl-2026-11-16-vancouver-canucks-vegas-golden-knights",
       "date": "2026-11-16",
       "startTime": "2026-11-16T02:00:00.000Z",
@@ -3632,6 +3621,17 @@
       "awayTeam": "nhl.vancouver-canucks",
       "homeScore": 3,
       "awayScore": 6,
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-11-16-nashville-predators-san-jose-sharks",
+      "date": "2026-11-16",
+      "startTime": "2026-11-16T02:00:00.000Z",
+      "round": "Temporada regular",
+      "homeTeam": "nhl.san-jose-sharks",
+      "awayTeam": "nhl.nashville-predators",
+      "homeScore": 4,
+      "awayScore": 2,
       "neutralSite": false
     },
     {

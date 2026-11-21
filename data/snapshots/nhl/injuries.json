@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-21T04:14:41.646Z",
+  "observedAt": "2026-11-21T12:53:03.494Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
@@ -224,16 +224,6 @@
       "injuryType": "Lower Body",
       "returnDate": "2026-11-27",
       "reportedAt": "2026-11-14T15:10:00.000Z"
-    },
-    {
-      "teamId": "nhl.dallas-stars",
-      "player": "Matt Duchene",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Abdomen",
-      "injuryType": "Abdomen",
-      "returnDate": "2027-01-12",
-      "reportedAt": "2026-10-12T16:46:00.000Z"
     },
     {
       "teamId": "nhl.detroit-red-wings",

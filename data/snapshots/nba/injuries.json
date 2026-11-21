@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nba",
-  "observedAt": "2026-11-21T04:14:41.646Z",
+  "observedAt": "2026-11-21T12:53:03.494Z",
   "source": "espn-public-nba",
   "coverageStatus": "ok",
   "entries": [
@@ -92,7 +92,7 @@
       "status": "Baja",
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
-      "returnDate": "2026-11-20",
+      "returnDate": "2026-11-23",
       "reportedAt": "2026-11-21T02:25:00.000Z"
     },
     {
@@ -407,6 +407,16 @@
     },
     {
       "teamId": "nba.indiana-pacers",
+      "player": "T.J. McConnell",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T04:58:00.000Z"
+    },
+    {
+      "teamId": "nba.indiana-pacers",
       "player": "Tyrese Haliburton",
       "position": "G",
       "status": "Baja",
@@ -477,6 +487,16 @@
     },
     {
       "teamId": "nba.memphis-grizzlies",
+      "player": "Jerami Grant",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Gemelo",
+      "injuryType": "Calf",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-21T08:08:00.000Z"
+    },
+    {
+      "teamId": "nba.memphis-grizzlies",
       "player": "Javon Small",
       "position": "G",
       "status": "Baja",
@@ -504,16 +524,6 @@
       "injuryType": "Hip",
       "returnDate": "2026-11-21",
       "reportedAt": "2026-11-20T23:11:00.000Z"
-    },
-    {
-      "teamId": "nba.memphis-grizzlies",
-      "player": "Jerami Grant",
-      "position": "F",
-      "status": "Duda",
-      "detail": "Gemelo",
-      "injuryType": "Calf",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-20T02:08:00.000Z"
     },
     {
       "teamId": "nba.memphis-grizzlies",
