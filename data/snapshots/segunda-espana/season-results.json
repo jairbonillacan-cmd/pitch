@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "segunda-espana",
   "season": "2026/27",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "matches": [
     {
       "id": "segunda-espana-2026-08-14-real-sociedad--castellon-ifica8",
@@ -1706,6 +1706,17 @@
       "homeTeam": "segunda-espana.castellon",
       "awayTeam": "segunda-espana.eldense",
       "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-21-tenerife-mallorca-l948en",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T20:00:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.tenerife",
+      "awayTeam": "segunda-espana.mallorca",
+      "homeScore": 0,
       "awayScore": 0,
       "neutralSite": false
     }

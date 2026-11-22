@@ -1,64 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "mls",
-  "observedAt": "2026-11-21T21:48:13.141Z",
+  "observedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "mls.chicago-fire",
-      "player": "Robin Lod",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "mls.chicago-fire",
-      "player": "Samuel Rogers",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "mls.montreal",
-      "player": "Jalen Neal",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "mls.vancouver-whitecaps",
-      "player": "Emmanuel Sabbi",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knock Injury",
-      "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "mls.vancouver-whitecaps",
-      "player": "Kenji Cabrera",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Foot Injury",
-      "injuryType": "Foot Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "mls.vancouver-whitecaps",
-      "player": "Sam Adekugbe",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
     {
       "teamId": "mls.new-york-red-bulls",
       "player": "Justin Che",
@@ -66,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "mls.atlanta-united",
@@ -75,7 +21,7 @@
       "status": "Baja",
       "detail": "Hip Injury",
       "injuryType": "Hip Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "mls.philadelphia-union",
@@ -84,7 +30,7 @@
       "status": "Baja",
       "detail": "Concussion",
       "injuryType": "Concussion",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "mls.toronto",
@@ -93,7 +39,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "mls.toronto",
@@ -102,7 +48,7 @@
       "status": "Baja",
       "detail": "Shoulder Injury",
       "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "mls.toronto",
@@ -111,7 +57,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "mls.toronto",
@@ -120,7 +66,61 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "mls.cincinnati",
+      "player": "Tah Anunga",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "mls.cincinnati",
+      "player": "Teenage Hadebe",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Leg Injury",
+      "injuryType": "Leg Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "mls.nashville",
+      "player": "Jeisson Palacios",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Knock Injury",
+      "injuryType": "Knock Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "mls.inter-miami",
+      "player": "Ezequiel Abadia-Reda",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Groin Injury",
+      "injuryType": "Groin Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "mls.charlotte",
+      "player": "Aron John",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Shoulder Injury",
+      "injuryType": "Shoulder Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "mls.charlotte",
+      "player": "Nimfasha Berchimas",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Broken Foot",
+      "injuryType": "Broken Foot",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     }
   ]
 }

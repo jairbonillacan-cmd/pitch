@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "carabao-cup",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-21T21:48:13.141Z",
+  "observedAt": "2026-11-22T12:45:51.462Z",
   "teams": [
     {
       "teamId": "carabao-cup.liverpool",
@@ -24,7 +24,7 @@
           "winPct": 48
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "carabao-cup.liverpool.alexander-isak",
@@ -1195,7 +1195,7 @@
           "winPct": 35.4
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "carabao-cup.tottenham-hotspur.andy-robertson",
@@ -2329,7 +2329,7 @@
           "winPct": 41.7
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "carabao-cup.reading.andy-rinomhota",
@@ -2450,7 +2450,7 @@
           "jersey": "42",
           "positionGroup": "MID",
           "positionLabel": "D",
-          "age": 20,
+          "age": 21,
           "birthDate": "2005-11-22",
           "heightCm": null,
           "weightKg": null,
@@ -2924,43 +2924,6 @@
           "candidatePicks": []
         },
         {
-          "id": "carabao-cup.reading.joe-barough",
-          "slug": "joe-barough",
-          "name": "Joe Barough",
-          "shortName": "J. Barough",
-          "jersey": "34",
-          "positionGroup": "MID",
-          "positionLabel": "F",
-          "age": 20,
-          "birthDate": "2006-04-03",
-          "heightCm": 170,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "England",
-          "nationalityCode": null,
-          "photoKey": "pl-p:78665",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "carabao-cup.reading.joel-pereira",
           "slug": "joel-pereira",
           "name": "Joel Pereira",
@@ -3050,43 +3013,6 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:6318",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "carabao-cup.reading.kevin-mfuamba",
-          "slug": "kevin-mfuamba",
-          "name": "Kevin Mfuamba",
-          "shortName": "K. Mfuamba",
-          "jersey": "65",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 20,
-          "birthDate": "2006-08-25",
-          "heightCm": 191,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "England",
-          "nationalityCode": null,
-          "photoKey": "pl-p:8368",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -3331,43 +3257,6 @@
           "candidatePicks": []
         },
         {
-          "id": "carabao-cup.reading.philip-duah",
-          "slug": "philip-duah",
-          "name": "Philip Duah",
-          "shortName": "P. Duah",
-          "jersey": "38",
-          "positionGroup": "MID",
-          "positionLabel": "D",
-          "age": 20,
-          "birthDate": "2006-11-13",
-          "heightCm": 191,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Ghana",
-          "nationalityCode": null,
-          "photoKey": "pl-p:33560",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "carabao-cup.reading.randell-williams",
           "slug": "randell-williams",
           "name": "Randell Williams",
@@ -3405,21 +3294,21 @@
           "candidatePicks": []
         },
         {
-          "id": "carabao-cup.reading.torin-ntege",
-          "slug": "torin-ntege",
-          "name": "Torin Ntege",
-          "shortName": "T. Ntege",
-          "jersey": "64",
+          "id": "carabao-cup.reading.sean-patton",
+          "slug": "sean-patton",
+          "name": "Sean Patton",
+          "shortName": "S. Patton",
+          "jersey": "22",
           "positionGroup": "MID",
           "positionLabel": "F",
           "age": 20,
-          "birthDate": "2006-04-13",
-          "heightCm": 185,
+          "birthDate": "2006-07-25",
+          "heightCm": 178,
           "weightKg": null,
           "preferredFoot": "R",
-          "nationality": "England",
+          "nationality": "Ireland",
           "nationalityCode": null,
-          "photoKey": "pl-p:229879",
+          "photoKey": "pl-p:33561",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -3500,7 +3389,7 @@
           "winPct": 40.5
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "carabao-cup.brentford.aaron-hickey",
@@ -4597,7 +4486,7 @@
           "winPct": 37.2
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "carabao-cup.ipswich-town.abdoul-ouattara",
@@ -4623,7 +4512,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4660,7 +4549,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4669,7 +4558,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -4852,7 +4741,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 1,
             "shotsFaced": 0,
             "goalsConceded": 2
           },
@@ -4919,7 +4808,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 2,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -4928,7 +4817,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 0
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -5213,10 +5102,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 0,
+            "goals": 1,
             "assists": 0,
             "shots": 1,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5361,10 +5250,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 5,
-            "shotsOnTarget": 2,
+            "shots": 4,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -5384,7 +5273,7 @@
           "jersey": "20",
           "positionGroup": "MID",
           "positionLabel": "M",
-          "age": 24,
+          "age": 25,
           "birthDate": "2001-11-22",
           "heightCm": 177,
           "weightKg": null,
@@ -5657,7 +5546,7 @@
           "winPct": 65.6
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "carabao-cup.arsenal.ben-white",
@@ -6378,8 +6267,8 @@
           "nationality": "England",
           "nationalityCode": null,
           "photoKey": "pl-p:3840",
-          "availability": "suspended",
-          "injuryDetail": "red_card_suspension",
+          "availability": "available",
+          "injuryDetail": null,
           "expectedReturn": null,
           "stats": {
             "appearances": 0,
@@ -6680,7 +6569,7 @@
           "winPct": 38.2
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "carabao-cup.everton.ainsley-maitland-niles",
@@ -7518,7 +7407,7 @@
           "winPct": 44.8
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "carabao-cup.wolverhampton.adam-armstrong",

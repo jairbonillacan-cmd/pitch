@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "championship",
   "seasonLabel": "2026/27",
-  "observedAt": "2026-11-21T21:48:13.141Z",
+  "observedAt": "2026-11-22T12:45:51.462Z",
   "teams": [
     {
       "teamId": "championship.preston-north-end",
@@ -24,7 +24,7 @@
           "winPct": 33.3
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "championship.preston-north-end.alfie-devine",
@@ -1232,7 +1232,7 @@
           "winPct": 40.6
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "championship.southampton.aaron-ramsdale",
@@ -2292,7 +2292,7 @@
           "winPct": 41.7
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "championship.charlton-athletic.alan-mwamba",
@@ -3500,7 +3500,7 @@
           "winPct": 47.2
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "championship.sheffield-united.adam-davies",
@@ -4523,7 +4523,7 @@
           "winPct": 42.5
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "championship.cardiff-city.alex-robertson",
@@ -5657,7 +5657,7 @@
           "winPct": 42.4
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "championship.burnley.aaron-ramsey",
@@ -6865,7 +6865,7 @@
           "winPct": 40.7
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "championship.blackburn-rovers.adam-forshaw",
@@ -7068,80 +7068,6 @@
           "nationality": "Belgium",
           "nationalityCode": null,
           "photoKey": "pl-p:6457",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "championship.blackburn-rovers.felix-goddard",
-          "slug": "felix-goddard",
-          "name": "Felix Goddard",
-          "shortName": "F. Goddard",
-          "jersey": "37",
-          "positionGroup": "MID",
-          "positionLabel": "G",
-          "age": 22,
-          "birthDate": "2004-03-09",
-          "heightCm": 190,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "England",
-          "nationalityCode": null,
-          "photoKey": "pl-p:7077",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "championship.blackburn-rovers.frank-vare",
-          "slug": "frank-vare",
-          "name": "Frank Vare",
-          "shortName": "F. Vare",
-          "jersey": "53",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 19,
-          "birthDate": "2007-09-12",
-          "heightCm": 177,
-          "weightKg": null,
-          "preferredFoot": "L",
-          "nationality": "England",
-          "nationalityCode": null,
-          "photoKey": "pl-p:13718",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -7386,43 +7312,6 @@
           "candidatePicks": []
         },
         {
-          "id": "championship.blackburn-rovers.james-edmondson",
-          "slug": "james-edmondson",
-          "name": "James Edmondson",
-          "shortName": "J. Edmondson",
-          "jersey": "36",
-          "positionGroup": "MID",
-          "positionLabel": "M",
-          "age": 21,
-          "birthDate": "2005-11-01",
-          "heightCm": null,
-          "weightKg": null,
-          "preferredFoot": null,
-          "nationality": "England",
-          "nationalityCode": null,
-          "photoKey": "pl-p:42679",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
           "id": "championship.blackburn-rovers.jayden-fevrier",
           "slug": "jayden-fevrier",
           "name": "Jayden Fevrier",
@@ -7549,43 +7438,6 @@
           "nationality": "Denmark",
           "nationalityCode": null,
           "photoKey": "pl-p:3680",
-          "availability": "available",
-          "injuryDetail": null,
-          "expectedReturn": null,
-          "stats": {
-            "appearances": 0,
-            "subIns": 0,
-            "goals": 0,
-            "assists": 0,
-            "shots": 0,
-            "shotsOnTarget": 0,
-            "foulsCommitted": 0,
-            "foulsSuffered": 0,
-            "yellowCards": 0,
-            "redCards": 0,
-            "offsides": 0,
-            "saves": 0,
-            "shotsFaced": 0,
-            "goalsConceded": 0
-          },
-          "candidatePicks": []
-        },
-        {
-          "id": "championship.blackburn-rovers.michael-decandia",
-          "slug": "michael-decandia",
-          "name": "Michael Decandia",
-          "shortName": "M. Decandia",
-          "jersey": "46",
-          "positionGroup": "MID",
-          "positionLabel": "D",
-          "age": 19,
-          "birthDate": "2007-10-17",
-          "heightCm": 188,
-          "weightKg": null,
-          "preferredFoot": "R",
-          "nationality": "Italy",
-          "nationalityCode": null,
-          "photoKey": "pl-p:65718",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -8036,7 +7888,7 @@
           "winPct": 22.2
         }
       },
-      "updatedAt": "2026-11-21T21:48:13.141Z",
+      "updatedAt": "2026-11-22T12:45:51.462Z",
       "players": [
         {
           "id": "championship.west-ham-united.adama-boiro",

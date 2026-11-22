@@ -5,7 +5,7 @@
   "season": "primera-chile-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 26",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9260031566309966,
-      "adjustedAgainst": 1.0799725788801766
+      "adjustedFor": 0.9271912466371444,
+      "adjustedAgainst": 1.0836336594741602
     },
     "primera-chile.everton-vina-mar": {
       "teamId": "primera-chile.everton-vina-mar",
@@ -29,8 +29,8 @@
       "forPerGame": 1.9230769230769231,
       "againstPerGame": 1.6923076923076923,
       "gamesPlayed": 13,
-      "adjustedFor": 1.7239692436374139,
-      "adjustedAgainst": 1.51635874522182
+      "adjustedFor": 1.7130182419788085,
+      "adjustedAgainst": 1.516712910429713
     },
     "primera-chile.colo-colo": {
       "teamId": "primera-chile.colo-colo",
@@ -40,8 +40,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 2.1811516336893475,
-      "adjustedAgainst": 1.4626170141132837
+      "adjustedFor": 2.1742468687773666,
+      "adjustedAgainst": 1.4660235416657394
     },
     "primera-chile.deportes-limache": {
       "teamId": "primera-chile.deportes-limache",
@@ -51,8 +51,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3380979264486386,
-      "adjustedAgainst": 1.2964131772647753
+      "adjustedFor": 1.3351457177272266,
+      "adjustedAgainst": 1.2996067915233493
     },
     "primera-chile.coquimbo-unido": {
       "teamId": "primera-chile.coquimbo-unido",
@@ -62,19 +62,19 @@
       "forPerGame": 1.4615384615384615,
       "againstPerGame": 1.4615384615384615,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3627399938167073,
-      "adjustedAgainst": 1.309583010472797
+      "adjustedFor": 1.3550383279655038,
+      "adjustedAgainst": 1.3094658407521627
     },
     "primera-chile.universidad-concepcion": {
       "teamId": "primera-chile.universidad-concepcion",
       "name": "Universidad de Concepción",
       "shortName": "Universidad de Concepc",
       "code": "UNI",
-      "forPerGame": 0.75,
-      "againstPerGame": 1.9166666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 0.8782052232116894,
-      "adjustedAgainst": 1.6080803668853945
+      "forPerGame": 0.8461538461538461,
+      "againstPerGame": 2,
+      "gamesPlayed": 13,
+      "adjustedFor": 0.9292960035808822,
+      "adjustedAgainst": 1.713675787834568
     },
     "primera-chile.huachipato": {
       "teamId": "primera-chile.huachipato",
@@ -84,8 +84,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 0.9966564992430251,
-      "adjustedAgainst": 1.3465557968047392
+      "adjustedFor": 1.0005640289257922,
+      "adjustedAgainst": 1.3587498436504417
     },
     "primera-chile.cobresal": {
       "teamId": "primera-chile.cobresal",
@@ -95,8 +95,8 @@
       "forPerGame": 1.7692307692307692,
       "againstPerGame": 1.7692307692307692,
       "gamesPlayed": 13,
-      "adjustedFor": 1.610665446553163,
-      "adjustedAgainst": 1.612385318684942
+      "adjustedFor": 1.6120748679090715,
+      "adjustedAgainst": 1.6265978851125307
     },
     "primera-chile.universidad-catolica": {
       "teamId": "primera-chile.universidad-catolica",
@@ -106,8 +106,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5597171428828303,
-      "adjustedAgainst": 1.296074816493203
+      "adjustedFor": 1.5676388827621022,
+      "adjustedAgainst": 1.3047123187287728
     },
     "primera-chile.deportes-la-serena": {
       "teamId": "primera-chile.deportes-la-serena",
@@ -117,19 +117,19 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4499579531645643,
-      "adjustedAgainst": 1.3172460019797032
+      "adjustedFor": 1.4491946451389461,
+      "adjustedAgainst": 1.3214176402422524
     },
     "primera-chile.nublense": {
       "teamId": "primera-chile.nublense",
       "name": "Ñublense",
       "shortName": "Ñublense",
       "code": "NUB",
-      "forPerGame": 1.0833333333333333,
-      "againstPerGame": 1.8333333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.1186385510541852,
-      "adjustedAgainst": 1.550064747754614
+      "forPerGame": 1.2307692307692308,
+      "againstPerGame": 1.8461538461538463,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.2367155570433184,
+      "adjustedAgainst": 1.6216577994356534
     },
     "primera-chile.palestino": {
       "teamId": "primera-chile.palestino",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1836996428453046,
-      "adjustedAgainst": 1.2670839235472764
+      "adjustedFor": 1.1808615647098628,
+      "adjustedAgainst": 1.271279490810863
     },
     "primera-chile.audax-italiano": {
       "teamId": "primera-chile.audax-italiano",
@@ -150,19 +150,19 @@
       "forPerGame": 0.9230769230769231,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9708917546222389,
-      "adjustedAgainst": 1.2712011074722098
+      "adjustedFor": 0.9713407472104686,
+      "adjustedAgainst": 1.2759152625579027
     },
     "primera-chile.universidad-chile": {
       "teamId": "primera-chile.universidad-chile",
       "name": "Universidad de Chile",
       "shortName": "Universidad de Chile",
       "code": "UNI",
-      "forPerGame": 2.5,
-      "againstPerGame": 1,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.9728324929947898,
-      "adjustedAgainst": 0.9945685778619515
+      "forPerGame": 2.3846153846153846,
+      "againstPerGame": 0.9230769230769231,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.9021615566980115,
+      "adjustedAgainst": 0.9429832039117786
     },
     "primera-chile.deportes-concepcion": {
       "teamId": "primera-chile.deportes-concepcion",
@@ -172,92 +172,22 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 0.5833333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1983984867351787,
-      "adjustedAgainst": 0.7373094039282122
+      "adjustedFor": 1.195290600902246,
+      "adjustedAgainst": 0.7387084297537266
     },
     "primera-chile.o-higgins": {
       "teamId": "primera-chile.o-higgins",
       "name": "O'Higgins",
       "shortName": "O'Higgins",
       "code": "OHI",
-      "forPerGame": 1.0833333333333333,
-      "againstPerGame": 1.6666666666666667,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.1051531629692062,
-      "adjustedAgainst": 1.5322133138704608
+      "forPerGame": 1,
+      "againstPerGame": 1.6153846153846154,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.0346779319427086,
+      "adjustedAgainst": 1.4471332940592334
     }
   },
   "games": [
-    {
-      "id": "primera-chile-2026-11-01-huachipato-deportes-la-se-ex7ehe",
-      "league": "primera-chile",
-      "season": "primera-chile-2026",
-      "week": 26,
-      "round": "Regular season · Matchday 26",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T15:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-chile.huachipato",
-        "league": "primera-chile",
-        "name": "Huachipato",
-        "shortName": "Huachipato",
-        "code": "HUA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/804/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-chile.deportes-la-serena",
-        "league": "primera-chile",
-        "name": "Deportes La Serena",
-        "shortName": "Deportes La Serena",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/4577/?bg=transparent"
-      },
-      "venue": "Estadio Huachipato, Talcahuano",
-      "referee": "Miguel Araos",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "primera-chile-2026-11-01-universidad-ca-universidad-ch-8rux2g",
-      "league": "primera-chile",
-      "season": "primera-chile-2026",
-      "week": 26,
-      "round": "Regular season · Matchday 26",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T15:30:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-chile.universidad-catolica",
-        "league": "primera-chile",
-        "name": "Universidad Católica",
-        "shortName": "Universidad Católica",
-        "code": "UNI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/779/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-chile.universidad-chile",
-        "league": "primera-chile",
-        "name": "Universidad de Chile",
-        "shortName": "Universidad de Chile",
-        "code": "UNI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/765/?bg=transparent"
-      },
-      "venue": "Claro Arena, Santiago",
-      "referee": "Diego Flores Seguel",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "primera-chile-2026-11-01-cobresal-everton-vina-m-y2uuvq",
       "league": "primera-chile",
@@ -289,7 +219,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +254,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +324,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +359,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +394,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +429,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +464,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +534,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +569,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +604,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +639,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +674,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -756,7 +686,7 @@
       "round": "Regular season · Matchday 28",
       "phase": "Regular season",
       "startTime": "2026-11-21T21:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-chile.o-higgins",
         "league": "primera-chile",
@@ -775,7 +705,13 @@
       },
       "venue": "El Teniente, Rancagua",
       "referee": "Juan Ignacio Lara Luco",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 1,
+        "observedAt": "2026-11-22T12:45:51.462Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-chile-2026-11-21-universidad-co-nublense-0tpikb",
@@ -785,7 +721,7 @@
       "round": "Regular season · Matchday 28",
       "phase": "Regular season",
       "startTime": "2026-11-21T23:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-chile.universidad-concepcion",
         "league": "primera-chile",
@@ -804,7 +740,13 @@
       },
       "venue": "Municipal de Collao, Concepción",
       "referee": "Franco Esteban Jimenez Lazo",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 3,
+        "observedAt": "2026-11-22T12:45:51.462Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-chile-2026-11-22-huachipato-deportes-conce-l2h1aw",
@@ -1340,896 +1282,6 @@
     }
   ],
   "analyses": {
-    "primera-chile-2026-11-01-huachipato-deportes-la-se-ex7ehe": {
-      "game": "primera-chile-2026-11-01-huachipato-deportes-la-se-ex7ehe",
-      "model": {
-        "id": "pitchlab-statistical-primera-chile",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.3543484530553975,
-        "away": 1.497362565250203,
-        "total": 2.8517110183056005,
-        "margin": -0.14301411219480542
-      },
-      "x12": [
-        0.34899217944990857,
-        0.23772985433027438,
-        0.41327796621981766
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Huachipato gana",
-          "p": 0.34899217944990857,
-          "fairOdds": 2.8653937219344816
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.23772985433027438,
-          "fairOdds": 4.206455275956698
-        },
-        {
-          "market": "h2h",
-          "selection": "Deportes La Serena gana",
-          "p": 0.41327796621981766,
-          "fairOdds": 2.4196789612251233
-        },
-        {
-          "market": "double_chance",
-          "selection": "Huachipato o empate",
-          "p": 0.586722033780183,
-          "fairOdds": 1.7043846019504576
-        },
-        {
-          "market": "double_chance",
-          "selection": "Deportes La Serena o empate",
-          "p": 0.651007820550092,
-          "fairOdds": 1.536079857159035
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7622701456697263,
-          "fairOdds": 1.3118708710825944
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7717258651661307,
-          "fairOdds": 1.2957969210799074
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5427806250993539,
-          "fairOdds": 1.8423649514331022
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.4572193749006461,
-          "fairOdds": 2.1871339118498647
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3195862446560507,
-          "fairOdds": 3.1290458107051298
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6804137553439493,
-          "fairOdds": 1.4696939797968953
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5700552107958337,
-          "fairOdds": 1.7542160497119845
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.42994478920416634,
-          "fairOdds": 2.3258800318315607
-        },
-        {
-          "market": "team_totals",
-          "selection": "Huachipato más de 1.5",
-          "line": 1.5,
-          "p": 0.39230624995850594,
-          "fairOdds": 2.549028979542818
-        },
-        {
-          "market": "team_totals",
-          "selection": "Huachipato menos de 1.5",
-          "line": 1.5,
-          "p": 0.6076937500414941,
-          "fairOdds": 1.6455657145259743
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportes La Serena más de 1.5",
-          "line": 1.5,
-          "p": 0.4412911720033519,
-          "fairOdds": 2.266077509459909
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportes La Serena menos de 1.5",
-          "line": 1.5,
-          "p": 0.5587088279966481,
-          "fairOdds": 1.789841058330296
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11124972803270186,
-          "fairOdds": 8.988786019378402
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.09232116285018169,
-          "fairOdds": 10.831752646170575
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.08767430428970203,
-          "fairOdds": 11.405850415370299
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Huachipato gana",
-              "p": 0.34899217944990857,
-              "fairOdds": 2.8653937219344816
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.23772985433027438,
-              "fairOdds": 4.206455275956698
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Deportes La Serena gana",
-              "p": 0.41327796621981766,
-              "fairOdds": 2.4196789612251233
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Huachipato o empate",
-              "p": 0.586722033780183,
-              "fairOdds": 1.7043846019504576
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Deportes La Serena o empate",
-              "p": 0.651007820550092,
-              "fairOdds": 1.536079857159035
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7622701456697263,
-              "fairOdds": 1.3118708710825944
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7717258651661307,
-              "fairOdds": 1.2957969210799074
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5427806250993539,
-              "fairOdds": 1.8423649514331022
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.4572193749006461,
-              "fairOdds": 2.1871339118498647
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3195862446560507,
-              "fairOdds": 3.1290458107051298
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6804137553439493,
-              "fairOdds": 1.4696939797968953
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5700552107958337,
-              "fairOdds": 1.7542160497119845
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.42994478920416634,
-              "fairOdds": 2.3258800318315607
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Huachipato más de 1.5",
-              "line": 1.5,
-              "p": 0.39230624995850594,
-              "fairOdds": 2.549028979542818
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Huachipato menos de 1.5",
-              "line": 1.5,
-              "p": 0.6076937500414941,
-              "fairOdds": 1.6455657145259743
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Deportes La Serena más de 1.5",
-              "line": 1.5,
-              "p": 0.4412911720033519,
-              "fairOdds": 2.266077509459909
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Deportes La Serena menos de 1.5",
-              "line": 1.5,
-              "p": 0.5587088279966481,
-              "fairOdds": 1.789841058330296
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11124972803270186,
-              "fairOdds": 8.988786019378402
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.09232116285018169,
-              "fairOdds": 10.831752646170575
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.08767430428970203,
-              "fairOdds": 11.405850415370299
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11124972803270186
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.01 goles/partido",
-          "detail": "23 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.31 concedidos/partido",
-          "detail": "en la media de la liga · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.50 goles/partido",
-          "detail": "11 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.34 concedidos/partido",
-          "detail": "4 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.35",
-          "detail": "estimada de 96 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.0–4.4",
-          "detail": "local 16%–60% · 96 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "12.º · 13 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "5.º · 19 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-G-G-G-E · 11 pts",
-          "detail": "6 goles a favor · 1 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-P-P-G · 9 pts",
-          "detail": "8 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga de Primera · corte 1 nov 2026, 08:00",
-        "Fuerza ajustada por rival · HUA 0.77 / 1.04 · DEP 1.11 / 1.01",
-        "Ponderando 84.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.35 – 1.50 · total 2.85",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-01T14:00:00.000Z",
-      "publishedAt": "2026-11-01T14:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.08767430428970203
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.9 goles: 1.4 de Huachipato y 1.5 de Deportes La Serena.",
-          "Huachipato anota 23 % menos que la media.",
-          "Deportes La Serena anota 11 % más que la media."
-        ],
-        "restDays": {
-          "home": 9,
-          "away": 8
-        }
-      },
-      "matchContext": {
-        "referee": "Miguel Araos",
-        "refereeStats": {
-          "country": "Chile",
-          "matches": 6,
-          "avgYellow": 4.67,
-          "avgRed": 0.17,
-          "avgFouls": 18.2,
-          "avgGoals": 1.5
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Talcahuano",
-        "venueCountry": "Chile",
-        "venueCapacity": 10500
-      }
-    },
-    "primera-chile-2026-11-01-universidad-ca-universidad-ch-8rux2g": {
-      "game": "primera-chile-2026-11-01-universidad-ca-universidad-ch-8rux2g",
-      "model": {
-        "id": "pitchlab-statistical-primera-chile",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6091725506663335,
-        "away": 1.97371140528746,
-        "total": 3.5828839559537933,
-        "margin": -0.36453885462112656
-      },
-      "x12": [
-        0.3225345827601589,
-        0.20767221301029515,
-        0.46979320422954574
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Universidad Católica gana",
-          "p": 0.3225345827601589,
-          "fairOdds": 3.1004427228927995
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.20767221301029515,
-          "fairOdds": 4.81528070368483
-        },
-        {
-          "market": "h2h",
-          "selection": "Universidad de Chile gana",
-          "p": 0.46979320422954574,
-          "fairOdds": 2.128596137613327
-        },
-        {
-          "market": "double_chance",
-          "selection": "Universidad Católica o empate",
-          "p": 0.530206795770454,
-          "fairOdds": 1.8860565499672257
-        },
-        {
-          "market": "double_chance",
-          "selection": "Universidad de Chile o empate",
-          "p": 0.6774654172398409,
-          "fairOdds": 1.476090106671782
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7923277869897046,
-          "fairOdds": 1.2621039125729838
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8682017237161144,
-          "fairOdds": 1.1518060523074718
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6942085142117495,
-          "fairOdds": 1.4404893911960537
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.30579148578825055,
-          "fairOdds": 3.2702022341212715
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.4811377274019881,
-          "fairOdds": 2.0784069571923323
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5188622725980119,
-          "fairOdds": 1.9272937209191718
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6843870949164542,
-          "fairOdds": 1.4611613915982355
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.3156129050835458,
-          "fairOdds": 3.1684382479077984
-        },
-        {
-          "market": "team_totals",
-          "selection": "Universidad Católica más de 1.5",
-          "line": 1.5,
-          "p": 0.4780264315843774,
-          "fairOdds": 2.0919345331712855
-        },
-        {
-          "market": "team_totals",
-          "selection": "Universidad Católica menos de 1.5",
-          "line": 1.5,
-          "p": 0.5219735684156226,
-          "fairOdds": 1.9158058195079868
-        },
-        {
-          "market": "team_totals",
-          "selection": "Universidad de Chile más de 1.5",
-          "line": 1.5,
-          "p": 0.5868288006560656,
-          "fairOdds": 1.7040745084120197
-        },
-        {
-          "market": "team_totals",
-          "selection": "Universidad de Chile menos de 1.5",
-          "line": 1.5,
-          "p": 0.4131711993439344,
-          "fairOdds": 2.4203042264027075
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.08711979699021868,
-          "fairOdds": 11.478447316770886
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.08386616900423054,
-          "fairOdds": 11.923759149527339
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.07102901952165866,
-          "fairOdds": 14.078752694806283
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Universidad Católica gana",
-              "p": 0.3225345827601589,
-              "fairOdds": 3.1004427228927995
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.20767221301029515,
-              "fairOdds": 4.81528070368483
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Universidad de Chile gana",
-              "p": 0.46979320422954574,
-              "fairOdds": 2.128596137613327
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Universidad Católica o empate",
-              "p": 0.530206795770454,
-              "fairOdds": 1.8860565499672257
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Universidad de Chile o empate",
-              "p": 0.6774654172398409,
-              "fairOdds": 1.476090106671782
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7923277869897046,
-              "fairOdds": 1.2621039125729838
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8682017237161144,
-              "fairOdds": 1.1518060523074718
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6942085142117495,
-              "fairOdds": 1.4404893911960537
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.30579148578825055,
-              "fairOdds": 3.2702022341212715
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.4811377274019881,
-              "fairOdds": 2.0784069571923323
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5188622725980119,
-              "fairOdds": 1.9272937209191718
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6843870949164542,
-              "fairOdds": 1.4611613915982355
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.3156129050835458,
-              "fairOdds": 3.1684382479077984
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Universidad Católica más de 1.5",
-              "line": 1.5,
-              "p": 0.4780264315843774,
-              "fairOdds": 2.0919345331712855
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Universidad Católica menos de 1.5",
-              "line": 1.5,
-              "p": 0.5219735684156226,
-              "fairOdds": 1.9158058195079868
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Universidad de Chile más de 1.5",
-              "line": 1.5,
-              "p": 0.5868288006560656,
-              "fairOdds": 1.7040745084120197
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Universidad de Chile menos de 1.5",
-              "line": 1.5,
-              "p": 0.4131711993439344,
-              "fairOdds": 2.4203042264027075
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.08711979699021868,
-              "fairOdds": 11.478447316770886
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.08386616900423054,
-              "fairOdds": 11.923759149527339
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.07102901952165866,
-              "fairOdds": 14.078752694806283
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.08711979699021868
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.19 goles/partido",
-          "detail": "20 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.99 concedidos/partido",
-          "detail": "23 % menos que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.97 goles/partido",
-          "detail": "53 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.29 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.35",
-          "detail": "estimada de 96 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.7–5.4",
-          "detail": "local 12%–61% · 96 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "4.º · 23 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "1.º · 27 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-G-G-P-E · 10 pts",
-          "detail": "9 goles a favor · 8 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "P-G-G-G-G · 12 pts",
-          "detail": "18 goles a favor · 5 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga de Primera · corte 1 nov 2026, 08:30",
-        "Fuerza ajustada por rival · UNI 1.20 / 1.00 · UNI 1.53 / 0.77",
-        "Ponderando 84.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.61 – 1.97 · total 3.58",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-01T14:30:00.000Z",
-      "publishedAt": "2026-11-01T14:30:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.08711979699021868
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.6 goles: 1.6 de Universidad Católica y 2.0 de Universidad de Chile.",
-          "Universidad de Chile anota 53 % más que la media.",
-          "Universidad de Chile concede 23 % menos que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Diego Flores Seguel",
-        "refereeStats": {
-          "country": "Chile",
-          "matches": 17,
-          "avgYellow": 5.29,
-          "avgRed": 0.71,
-          "avgFouls": 19.8,
-          "avgGoals": 2.47
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Santiago",
-        "venueCountry": "Chile",
-        "venueCapacity": 20249
-      }
-    },
     "primera-chile-2026-11-01-cobresal-everton-vina-m-y2uuvq": {
       "game": "primera-chile-2026-11-01-cobresal-everton-vina-m-y2uuvq",
       "model": {
@@ -4881,11 +3933,11 @@
         "referee": "Franco Esteban Jimenez Lazo",
         "refereeStats": {
           "country": "Chile",
-          "matches": 12,
-          "avgYellow": 4.67,
-          "avgRed": 0.33,
+          "matches": 13,
+          "avgYellow": 4.54,
+          "avgRed": 0.31,
           "avgFouls": 21.2,
-          "avgGoals": 3
+          "avgGoals": 3.15
         },
         "halfTimeScore": {
           "home": 3,
@@ -5771,11 +4823,11 @@
         "referee": "Juan Ignacio Lara Luco",
         "refereeStats": {
           "country": "Chile",
-          "matches": 15,
-          "avgYellow": 5.33,
-          "avgRed": 0.33,
-          "avgFouls": 21.7,
-          "avgGoals": 2.53
+          "matches": 16,
+          "avgYellow": 5.31,
+          "avgRed": 0.38,
+          "avgFouls": 21.8,
+          "avgGoals": 2.44
         },
         "halfTimeScore": {
           "home": 1,
@@ -9051,13 +8103,14 @@
         "referee": "Juan Ignacio Lara Luco",
         "refereeStats": {
           "country": "Chile",
-          "matches": 15,
-          "avgYellow": 5.33,
-          "avgRed": 0.33,
-          "avgFouls": 21.7,
-          "avgGoals": 2.53
+          "matches": 16,
+          "avgYellow": 5.31,
+          "avgRed": 0.38,
+          "avgFouls": 21.8,
+          "avgGoals": 2.44
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 17,
           "windSpeedKmh": 16
         },
@@ -9540,18 +8593,22 @@
         "referee": "Franco Esteban Jimenez Lazo",
         "refereeStats": {
           "country": "Chile",
-          "matches": 12,
-          "avgYellow": 4.67,
-          "avgRed": 0.33,
+          "matches": 13,
+          "avgYellow": 4.54,
+          "avgRed": 0.31,
           "avgFouls": 21.2,
-          "avgGoals": 3
+          "avgGoals": 3.15
         },
         "weather": {
-          "description": "unknown",
+          "description": "clear",
           "temperatureC": 16,
           "windSpeedKmh": 69
         },
         "travelDistanceKm": 85,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 2
+        },
         "stageName": "Regular season",
         "venueCity": "Concepción",
         "venueCountry": "Chile",
@@ -15690,6 +14747,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 26,
+          "windSpeedKmh": 77
+        },
         "stageName": "Regular season",
         "venueCity": "Santiago",
         "venueCountry": "Chile",
@@ -16159,6 +15221,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 28,
+          "windSpeedKmh": 78
+        },
         "stageName": "Regular season",
         "venueCity": "La Cisterna",
         "venueCountry": "Chile",
@@ -16629,6 +15696,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 31,
+          "windSpeedKmh": 73
+        },
         "stageName": "Regular season",
         "venueCity": "Rancagua",
         "venueCountry": "Chile",
@@ -17097,6 +16169,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 19,
+          "windSpeedKmh": 29
+        },
         "stageName": "Regular season",
         "venueCity": "Talcahuano",
         "venueCountry": "Chile",
@@ -18500,6 +17577,11 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "weather": {
+          "description": "unknown",
+          "temperatureC": 22,
+          "windSpeedKmh": 69
+        },
         "stageName": "Regular season",
         "venueCity": "El Salvador",
         "venueCountry": "Chile",
@@ -18513,18 +17595,18 @@
       "name": "Universidad de Chile",
       "shortName": "Universidad de Chile",
       "code": "UNI",
-      "played": 12,
-      "won": 9,
+      "played": 13,
+      "won": 10,
       "drawn": 0,
       "lost": 3,
-      "goalsFor": 30,
+      "goalsFor": 31,
       "goalsAgainst": 12,
-      "points": 27,
+      "points": 30,
       "form": [
         "W",
         "W",
-        "W",
         "L",
+        "W",
         "W"
       ]
     },
@@ -18689,6 +17771,26 @@
       ]
     },
     {
+      "teamId": "primera-chile.nublense",
+      "name": "Ñublense",
+      "shortName": "Ñublense",
+      "code": "NUB",
+      "played": 13,
+      "won": 5,
+      "drawn": 1,
+      "lost": 7,
+      "goalsFor": 16,
+      "goalsAgainst": 24,
+      "points": 16,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "primera-chile.union-la-calera",
       "name": "Unión La Calera",
       "shortName": "Unión La Calera",
@@ -18769,42 +17871,22 @@
       ]
     },
     {
-      "teamId": "primera-chile.nublense",
-      "name": "Ñublense",
-      "shortName": "Ñublense",
-      "code": "NUB",
-      "played": 12,
-      "won": 4,
-      "drawn": 1,
-      "lost": 7,
-      "goalsFor": 13,
-      "goalsAgainst": 22,
-      "points": 13,
-      "form": [
-        "L",
-        "L",
-        "W",
-        "L",
-        "L"
-      ]
-    },
-    {
       "teamId": "primera-chile.o-higgins",
       "name": "O'Higgins",
       "shortName": "O'Higgins",
       "code": "OHI",
-      "played": 12,
+      "played": 13,
       "won": 3,
       "drawn": 2,
-      "lost": 7,
+      "lost": 8,
       "goalsFor": 13,
-      "goalsAgainst": 20,
+      "goalsAgainst": 21,
       "points": 11,
       "form": [
         "L",
-        "L",
         "D",
         "W",
+        "L",
         "L"
       ]
     },
@@ -18813,19 +17895,19 @@
       "name": "Universidad de Concepción",
       "shortName": "Universidad de Concepc",
       "code": "UNI",
-      "played": 12,
+      "played": 13,
       "won": 2,
       "drawn": 1,
-      "lost": 9,
-      "goalsFor": 9,
-      "goalsAgainst": 23,
+      "lost": 10,
+      "goalsFor": 11,
+      "goalsAgainst": 26,
       "points": 7,
       "form": [
-        "L",
         "D",
         "L",
         "L",
-        "W"
+        "W",
+        "L"
       ]
     }
   ]

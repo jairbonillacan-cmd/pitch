@@ -5,7 +5,7 @@
   "season": "sudamericana-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9882422757420755,
-      "adjustedAgainst": 1.2470781946362002
+      "adjustedFor": 0.9934291398187707,
+      "adjustedAgainst": 1.2583342805209348
     },
     "sudamericana.tigre": {
       "teamId": "sudamericana.tigre",
@@ -29,8 +29,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.0710248861484701,
-      "adjustedAgainst": 1.0936905051320538
+      "adjustedFor": 1.0706924249432552,
+      "adjustedAgainst": 1.1037531972582537
     },
     "sudamericana.universidad-central": {
       "teamId": "sudamericana.universidad-central",
@@ -40,8 +40,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 4,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1181293667626424,
-      "adjustedAgainst": 1.6070019430997453
+      "adjustedFor": 1.113844858663185,
+      "adjustedAgainst": 1.6221893145225021
     },
     "sudamericana.santos": {
       "teamId": "sudamericana.santos",
@@ -51,8 +51,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.539164812524359,
-      "adjustedAgainst": 1.128920096379489
+      "adjustedFor": 1.5287547765594256,
+      "adjustedAgainst": 1.1657460020404578
     },
     "sudamericana.independiente-medellin": {
       "teamId": "sudamericana.independiente-medellin",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0758572279254264,
-      "adjustedAgainst": 1.0532622428525407
+      "adjustedFor": 1.0847459289622867,
+      "adjustedAgainst": 1.0560902612276546
     },
     "sudamericana.vasco-gama": {
       "teamId": "sudamericana.vasco-gama",
@@ -73,8 +73,8 @@
       "forPerGame": 1.375,
       "againstPerGame": 0.75,
       "gamesPlayed": 8,
-      "adjustedFor": 1.2625534048024007,
-      "adjustedAgainst": 0.8163230155730258
+      "adjustedFor": 1.29190292457727,
+      "adjustedAgainst": 0.8122941360138307
     },
     "sudamericana.sporting-cristal": {
       "teamId": "sudamericana.sporting-cristal",
@@ -84,8 +84,8 @@
       "forPerGame": 0,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7534858625388455,
-      "adjustedAgainst": 0.8707843955109915
+      "adjustedFor": 0.7538105936802226,
+      "adjustedAgainst": 0.883429055948588
     },
     "sudamericana.red-bull-bragantino": {
       "teamId": "sudamericana.red-bull-bragantino",
@@ -95,8 +95,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8934720950576015,
-      "adjustedAgainst": 0.8616765619659013
+      "adjustedFor": 0.8876878378882186,
+      "adjustedAgainst": 0.895734749288963
     },
     "sudamericana.lanus": {
       "teamId": "sudamericana.lanus",
@@ -106,8 +106,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9856362947579542,
-      "adjustedAgainst": 1.148916375017886
+      "adjustedFor": 0.9913899522354749,
+      "adjustedAgainst": 1.159880204379342
     },
     "sudamericana.cienciano": {
       "teamId": "sudamericana.cienciano",
@@ -117,8 +117,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.1666666666666667,
       "gamesPlayed": 6,
-      "adjustedFor": 1.4060599415947093,
-      "adjustedAgainst": 1.089170756481883
+      "adjustedFor": 1.4051862987880805,
+      "adjustedAgainst": 1.0973451393261575
     },
     "sudamericana.bolivar": {
       "teamId": "sudamericana.bolivar",
@@ -128,8 +128,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1888932223719364,
-      "adjustedAgainst": 1.2110546312420045
+      "adjustedFor": 1.1975597913266436,
+      "adjustedAgainst": 1.2104280876809046
     },
     "sudamericana.gremio": {
       "teamId": "sudamericana.gremio",
@@ -139,8 +139,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9492529844557986,
-      "adjustedAgainst": 1.209129698776803
+      "adjustedFor": 0.9579291977758271,
+      "adjustedAgainst": 1.2173569178792567
     },
     "sudamericana.independiente-santa-fe": {
       "teamId": "sudamericana.independiente-santa-fe",
@@ -150,8 +150,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.5,
       "gamesPlayed": 6,
-      "adjustedFor": 0.9471899165724453,
-      "adjustedAgainst": 0.7305721588066124
+      "adjustedFor": 0.9547133175776858,
+      "adjustedAgainst": 0.7330143073023263
     },
     "sudamericana.caracas-f-c": {
       "teamId": "sudamericana.caracas-f-c",
@@ -161,19 +161,19 @@
       "forPerGame": 0,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7867853087101386,
-      "adjustedAgainst": 1.440310945859643
+      "adjustedFor": 0.7946414274403747,
+      "adjustedAgainst": 1.4486201371116918
     },
     "sudamericana.boca-juniors": {
       "teamId": "sudamericana.boca-juniors",
       "name": "Boca Juniors",
       "shortName": "Boca Juniors",
       "code": "BOC",
-      "forPerGame": 1.625,
-      "againstPerGame": 0.625,
-      "gamesPlayed": 8,
-      "adjustedFor": 1.357306757882936,
-      "adjustedAgainst": 0.7421029168749083
+      "forPerGame": 1.6666666666666667,
+      "againstPerGame": 0.5555555555555556,
+      "gamesPlayed": 9,
+      "adjustedFor": 1.4254076973185021,
+      "adjustedAgainst": 0.6644485593545536
     },
     "sudamericana.o-higgins": {
       "teamId": "sudamericana.o-higgins",
@@ -183,8 +183,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9453596619094897,
-      "adjustedAgainst": 0.7670332377444364
+      "adjustedFor": 0.9790343951352862,
+      "adjustedAgainst": 0.7643391257237762
     },
     "sudamericana.recoleta": {
       "teamId": "sudamericana.recoleta",
@@ -194,8 +194,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.94039233565461,
-      "adjustedAgainst": 1.5657527725196858
+      "adjustedFor": 0.974674681557797,
+      "adjustedAgainst": 1.5498098639873612
     },
     "sudamericana.sao-paulo": {
       "teamId": "sudamericana.sao-paulo",
@@ -205,19 +205,19 @@
       "forPerGame": 1.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.117631649449341,
-      "adjustedAgainst": 0.8889567927769212
+      "adjustedFor": 1.1501978665171166,
+      "adjustedAgainst": 0.8842876377078382
     },
     "sudamericana.atletico-mineiro": {
       "teamId": "sudamericana.atletico-mineiro",
       "name": "Atlético Mineiro",
       "shortName": "Mineiro",
       "code": "ATL",
-      "forPerGame": 1.6666666666666667,
-      "againstPerGame": 1.3333333333333333,
-      "gamesPlayed": 6,
-      "adjustedFor": 1.3949007048710664,
-      "adjustedAgainst": 1.089707547071726
+      "forPerGame": 1.4285714285714286,
+      "againstPerGame": 1.4285714285714286,
+      "gamesPlayed": 7,
+      "adjustedFor": 1.2671171854800867,
+      "adjustedAgainst": 1.145862181880788
     },
     "sudamericana.montevideo-city-torque": {
       "teamId": "sudamericana.montevideo-city-torque",
@@ -227,8 +227,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 6,
-      "adjustedFor": 1.1042958762933608,
-      "adjustedAgainst": 0.8706500112780771
+      "adjustedFor": 1.0990669109267666,
+      "adjustedAgainst": 0.8984200024969327
     },
     "sudamericana.river-plate": {
       "teamId": "sudamericana.river-plate",
@@ -238,8 +238,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.945086121803447,
-      "adjustedAgainst": 0.8532359407595778
+      "adjustedFor": 0.9521813778201145,
+      "adjustedAgainst": 0.8623582526445166
     },
     "sudamericana.olimpia": {
       "teamId": "sudamericana.olimpia",
@@ -249,8 +249,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9180761975274363,
-      "adjustedAgainst": 1.1974961862893845
+      "adjustedFor": 0.9274786661383169,
+      "adjustedAgainst": 1.1990648286530379
     },
     "sudamericana.macara": {
       "teamId": "sudamericana.macara",
@@ -260,8 +260,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8265436019251197,
-      "adjustedAgainst": 0.8547783902120162
+      "adjustedFor": 0.8258787491311512,
+      "adjustedAgainst": 0.867147086760779
     },
     "sudamericana.botafogo": {
       "teamId": "sudamericana.botafogo",
@@ -271,46 +271,11 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 0.984915240991789,
-      "adjustedAgainst": 1.4098454618601641
+      "adjustedFor": 0.9907263199074822,
+      "adjustedAgainst": 1.4211110438230292
     }
   },
   "games": [
-    {
-      "id": "sudamericana-2026-08-20-olimpia-vasco-gama-j0dvvx",
-      "league": "sudamericana",
-      "season": "sudamericana-2026",
-      "week": 5,
-      "round": "Round of 16",
-      "phase": "Round of 16",
-      "startTime": "2026-08-20T22:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "sudamericana.olimpia",
-        "league": "sudamericana",
-        "name": "Olimpia",
-        "shortName": "Olimpia",
-        "code": "OLI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/746/?bg=transparent"
-      },
-      "away": {
-        "id": "sudamericana.vasco-gama",
-        "league": "sudamericana",
-        "name": "Vasco da Gama",
-        "shortName": "Vasco da Gama",
-        "code": "VAS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/164/?bg=transparent"
-      },
-      "venue": "Estadio Defensores del Chaco, Asuncion",
-      "referee": "Esteban Ostojich",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 4,
-        "observedAt": "2026-11-21T21:48:13.141Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "sudamericana-2026-08-20-macara-santos-v0vz58",
       "league": "sudamericana",
@@ -342,7 +307,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -377,7 +342,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -412,7 +377,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -447,7 +412,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -482,7 +447,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -517,7 +482,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -552,7 +517,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -587,7 +552,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -622,7 +587,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -657,7 +622,7 @@
       "result": {
         "home": 4,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -692,7 +657,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -727,7 +692,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -762,7 +727,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -797,7 +762,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -832,7 +797,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -844,7 +809,7 @@
       "round": "Final",
       "phase": "Final",
       "startTime": "2026-11-21T22:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "sudamericana.atletico-mineiro",
         "league": "sudamericana",
@@ -863,470 +828,16 @@
       },
       "venue": "Estadio Metropolitano Roberto Melendez, Barranquilla",
       "referee": "Andres Matonte",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 2,
+        "observedAt": "2026-11-22T12:45:51.462Z",
+        "source": "pitchlab-feed"
+      }
     }
   ],
   "analyses": {
-    "sudamericana-2026-08-20-olimpia-vasco-gama-j0dvvx": {
-      "game": "sudamericana-2026-08-20-olimpia-vasco-gama-j0dvvx",
-      "model": {
-        "id": "pitchlab-statistical-sudamericana",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.0161272456049804,
-        "away": 1.4482912717271872,
-        "total": 2.4644185173321675,
-        "margin": -0.43216402612220683
-      },
-      "x12": [
-        0.27119523038080523,
-        0.252036070915687,
-        0.47676869870350747
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Olimpia gana",
-          "p": 0.27119523038080523,
-          "fairOdds": 3.687380484515993
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.252036070915687,
-          "fairOdds": 3.967686039410317
-        },
-        {
-          "market": "h2h",
-          "selection": "Vasco da Gama gana",
-          "p": 0.47676869870350747,
-          "fairOdds": 2.097453131296858
-        },
-        {
-          "market": "double_chance",
-          "selection": "Olimpia o empate",
-          "p": 0.5232313012964922,
-          "fairOdds": 1.9112006440022669
-        },
-        {
-          "market": "double_chance",
-          "selection": "Vasco da Gama o empate",
-          "p": 0.7288047696191945,
-          "fairOdds": 1.3721095712950766
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7479639290843128,
-          "fairOdds": 1.3369628682819503
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.6990635765343498,
-          "fairOdds": 1.4304850568206697
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4470275249622435,
-          "fairOdds": 2.23699871743795
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5529724750377565,
-          "fairOdds": 1.8084082755325586
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.23484532283974713,
-          "fairOdds": 4.258121847640016
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7651546771602529,
-          "fairOdds": 1.3069252921662027
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.4818338382079574,
-          "fairOdds": 2.0754042591097646
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5181661617920426,
-          "fairOdds": 1.9298828710496412
-        },
-        {
-          "market": "team_totals",
-          "selection": "Olimpia más de 1.5",
-          "line": 1.5,
-          "p": 0.27017373602636274,
-          "fairOdds": 3.70132202599598
-        },
-        {
-          "market": "team_totals",
-          "selection": "Olimpia menos de 1.5",
-          "line": 1.5,
-          "p": 0.7298262639736373,
-          "fairOdds": 1.370189111248704
-        },
-        {
-          "market": "team_totals",
-          "selection": "Vasco da Gama más de 1.5",
-          "line": 1.5,
-          "p": 0.4247212295419205,
-          "fairOdds": 2.354485555333652
-        },
-        {
-          "market": "team_totals",
-          "selection": "Vasco da Gama menos de 1.5",
-          "line": 1.5,
-          "p": 0.5752787704580795,
-          "fairOdds": 1.7382876812988006
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.12944802229572916,
-          "fairOdds": 7.725108366008561
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11891713232111774,
-          "fairOdds": 8.40921724633967
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.09268887525061559,
-          "fairOdds": 10.788781256608878
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Olimpia gana",
-              "p": 0.27119523038080523,
-              "fairOdds": 3.687380484515993
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.252036070915687,
-              "fairOdds": 3.967686039410317
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Vasco da Gama gana",
-              "p": 0.47676869870350747,
-              "fairOdds": 2.097453131296858
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Olimpia o empate",
-              "p": 0.5232313012964922,
-              "fairOdds": 1.9112006440022669
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Vasco da Gama o empate",
-              "p": 0.7288047696191945,
-              "fairOdds": 1.3721095712950766
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7479639290843128,
-              "fairOdds": 1.3369628682819503
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.6990635765343498,
-              "fairOdds": 1.4304850568206697
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4470275249622435,
-              "fairOdds": 2.23699871743795
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5529724750377565,
-              "fairOdds": 1.8084082755325586
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.23484532283974713,
-              "fairOdds": 4.258121847640016
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7651546771602529,
-              "fairOdds": 1.3069252921662027
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.4818338382079574,
-              "fairOdds": 2.0754042591097646
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5181661617920426,
-              "fairOdds": 1.9298828710496412
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Olimpia más de 1.5",
-              "line": 1.5,
-              "p": 0.27017373602636274,
-              "fairOdds": 3.70132202599598
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Olimpia menos de 1.5",
-              "line": 1.5,
-              "p": 0.7298262639736373,
-              "fairOdds": 1.370189111248704
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Vasco da Gama más de 1.5",
-              "line": 1.5,
-              "p": 0.4247212295419205,
-              "fairOdds": 2.354485555333652
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Vasco da Gama menos de 1.5",
-              "line": 1.5,
-              "p": 0.5752787704580795,
-              "fairOdds": 1.7382876812988006
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.12944802229572916,
-              "fairOdds": 7.725108366008561
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11891713232111774,
-              "fairOdds": 8.40921724633967
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.09268887525061559,
-              "fairOdds": 10.788781256608878
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.12944802229572916
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.72 goles/partido",
-          "detail": "12 % menos que la media · 2 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.82 concedidos/partido",
-          "detail": "22 % menos que la media · 8 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.45 goles/partido",
-          "detail": "21 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.20 concedidos/partido",
-          "detail": "15 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.42",
-          "detail": "estimada de 44 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.5–5.0",
-          "detail": "local 7%–65% · 44 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "20.º · 1 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "2.º · 15 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E · 1 pts",
-          "detail": "0 goles a favor · 0 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-G-E · 5 pts",
-          "detail": "3 goles a favor · 2 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Copa Sudamericana · corte 20 ago 2026, 15:00",
-        "Fuerza ajustada por rival · OLI 0.88 / 1.15 · VAS 1.21 / 0.78",
-        "Ponderando 37.0 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.02 – 1.45 · total 2.46",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-08-20T21:00:00.000Z",
-      "publishedAt": "2026-08-20T21:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.12944802229572916
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.5 goles: 1.0 de Olimpia y 1.4 de Vasco da Gama.",
-          "Vasco da Gama concede 22 % menos que la media.",
-          "Vasco da Gama anota 21 % más que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2026-08-13",
-            "homeTeamId": "sudamericana.vasco-gama",
-            "awayTeamId": "sudamericana.olimpia",
-            "homeGoals": 0,
-            "awayGoals": 0
-          }
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Esteban Ostojich",
-        "refereeStats": {
-          "country": "Uruguay",
-          "matches": 30,
-          "avgYellow": 5.2,
-          "avgRed": 0.33,
-          "avgFouls": 24.4,
-          "avgGoals": 2.27
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 14,
-          "windSpeedKmh": 24
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 2
-        },
-        "groupName": "Group G",
-        "stageName": "Round of 16",
-        "venueCity": "Asuncion",
-        "venueCountry": "Paraguay",
-        "venueCapacity": 42354
-      }
-    },
     "sudamericana-2026-08-20-macara-santos-v0vz58": {
       "game": "sudamericana-2026-08-20-macara-santos-v0vz58",
       "model": {
@@ -3138,11 +2649,11 @@
         "referee": "Dario Herrera",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 93,
-          "avgYellow": 5.52,
-          "avgRed": 0.3,
+          "matches": 94,
+          "avgYellow": 5.53,
+          "avgRed": 0.31,
           "avgFouls": 24.6,
-          "avgGoals": 2.04
+          "avgGoals": 2.05
         },
         "weather": {
           "description": "cloudy",
@@ -4489,11 +4000,11 @@
         "referee": "Wilton Pereira Sampaio",
         "refereeStats": {
           "country": "Brazil",
-          "matches": 82,
-          "avgYellow": 4.77,
+          "matches": 83,
+          "avgYellow": 4.8,
           "avgRed": 0.22,
           "avgFouls": 26.7,
-          "avgGoals": 2.41
+          "avgGoals": 2.47
         },
         "weather": {
           "description": "cloudy",
@@ -8632,15 +8143,20 @@
         "referee": "Andres Matonte",
         "refereeStats": {
           "country": "Uruguay",
-          "matches": 31,
-          "avgYellow": 4.58,
-          "avgRed": 0.45,
-          "avgFouls": 21.1,
+          "matches": 32,
+          "avgYellow": 4.56,
+          "avgRed": 0.44,
+          "avgFouls": 21,
           "avgGoals": 2.06
         },
         "weather": {
+          "description": "clear",
           "temperatureC": 29,
           "windSpeedKmh": 39
+        },
+        "halfTimeScore": {
+          "home": 0,
+          "away": 1
         },
         "stageName": "Final",
         "venueCity": "Barranquilla",
@@ -8655,18 +8171,18 @@
       "name": "Boca Juniors",
       "shortName": "Boca Juniors",
       "code": "BOC",
-      "played": 8,
-      "won": 5,
+      "played": 9,
+      "won": 6,
       "drawn": 1,
       "lost": 2,
-      "goalsFor": 13,
+      "goalsFor": 15,
       "goalsAgainst": 5,
-      "points": 16,
+      "points": 19,
       "form": [
-        "W",
         "W",
         "D",
         "L",
+        "W",
         "W"
       ]
     },
@@ -8735,18 +8251,18 @@
       "name": "Atlético Mineiro",
       "shortName": "Mineiro",
       "code": "ATL",
-      "played": 6,
+      "played": 7,
       "won": 3,
       "drawn": 1,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 10,
-      "goalsAgainst": 8,
+      "goalsAgainst": 10,
       "points": 10,
       "form": [
-        "D",
         "L",
         "W",
         "W",
+        "L",
         "L"
       ]
     },

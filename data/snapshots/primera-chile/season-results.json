@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "primera-chile",
   "season": "2026",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "matches": [
     {
       "id": "primera-chile-2026-07-25-colo-colo-deportes-limac-rsqzqv",
@@ -1091,6 +1091,28 @@
       "awayTeam": "primera-chile.everton-vina-mar",
       "homeScore": 2,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-chile-2026-11-21-o-higgins-universidad-ch-pm82xz",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T21:00:00.000Z",
+      "round": "Regular season · Matchday 28",
+      "homeTeam": "primera-chile.o-higgins",
+      "awayTeam": "primera-chile.universidad-chile",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "primera-chile-2026-11-21-universidad-co-nublense-0tpikb",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T23:30:00.000Z",
+      "round": "Regular season · Matchday 28",
+      "homeTeam": "primera-chile.universidad-concepcion",
+      "awayTeam": "primera-chile.nublense",
+      "homeScore": 2,
+      "awayScore": 3,
       "neutralSite": false
     }
   ]

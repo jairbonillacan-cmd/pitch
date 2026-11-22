@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao",
   "season": "2026",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "matches": [
     {
       "id": "brasileirao-2026-07-16-vitoria-vasco-gama-a31ng3",
@@ -1916,6 +1916,28 @@
       "awayTeam": "brasileirao.flamengo",
       "homeScore": 1,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-2026-11-21-bahia-coritiba-xhl3km",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T20:30:00.000Z",
+      "round": "Regular season · Matchday 36",
+      "homeTeam": "brasileirao.bahia",
+      "awayTeam": "brasileirao.coritiba",
+      "homeScore": 0,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "brasileirao-2026-11-22-chapecoense-cruzeiro-gx9qf5",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T00:00:00.000Z",
+      "round": "Regular season · Matchday 36",
+      "homeTeam": "brasileirao.chapecoense",
+      "awayTeam": "brasileirao.cruzeiro",
+      "homeScore": 1,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

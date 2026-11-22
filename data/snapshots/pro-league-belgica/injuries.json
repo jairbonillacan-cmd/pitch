@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "pro-league-belgica",
-  "observedAt": "2026-11-21T21:48:13.141Z",
+  "observedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
@@ -12,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.raal-la-louviere",
@@ -21,16 +21,16 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.kv-kortrijk",
       "player": "Anthony Philips",
-      "position": "F",
+      "position": "M",
       "status": "Baja",
       "detail": "national_team",
       "injuryType": "national_team",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.kv-mechelen",
@@ -39,16 +39,16 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
-      "teamId": "pro-league-belgica.kv-mechelen",
-      "player": "Fredrik Hammar",
-      "position": "M",
+      "teamId": "pro-league-belgica.standard-liege",
+      "player": "Andi Zeqiri",
+      "position": "F",
       "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.standard-liege",
@@ -57,7 +57,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.standard-liege",
@@ -66,7 +66,7 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.standard-liege",
@@ -75,7 +75,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.beveren",
@@ -84,7 +84,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.beveren",
@@ -93,7 +93,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.kvc-westerlo",
@@ -102,7 +102,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
@@ -111,7 +111,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     }
   ]
 }

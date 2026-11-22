@@ -869,6 +869,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/20/?bg=transparent"
       },
       "venue": "Gtech Community Stadium",
+      "referee": "Craig Pawson",
       "neutralSite": false
     }
   ],
@@ -1308,11 +1309,11 @@
         "referee": "Stuart Attwell",
         "refereeStats": {
           "country": "England",
-          "matches": 60,
-          "avgYellow": 4.5,
-          "avgRed": 0.12,
+          "matches": 61,
+          "avgYellow": 4.46,
+          "avgRed": 0.11,
           "avgFouls": 21.9,
-          "avgGoals": 2.72
+          "avgGoals": 2.7
         }
       }
     },
@@ -3229,8 +3230,8 @@
         "referee": "Samuel Barrott",
         "refereeStats": {
           "country": "England",
-          "matches": 69,
-          "avgYellow": 4.06,
+          "matches": 70,
+          "avgYellow": 4.07,
           "avgRed": 0.04,
           "avgFouls": 20.9,
           "avgGoals": 3.07
@@ -5611,7 +5612,7 @@
           "matches": 90,
           "avgYellow": 4.46,
           "avgRed": 0.16,
-          "avgFouls": 23.3,
+          "avgFouls": 23.4,
           "avgGoals": 2.69
         }
       }
@@ -7867,11 +7868,11 @@
         "referee": "Andy Madley",
         "refereeStats": {
           "country": "England",
-          "matches": 64,
-          "avgYellow": 3.81,
-          "avgRed": 0.11,
+          "matches": 65,
+          "avgYellow": 3.82,
+          "avgRed": 0.12,
           "avgFouls": 23.4,
-          "avgGoals": 2.91
+          "avgGoals": 2.94
         }
       }
     },
@@ -10063,11 +10064,11 @@
         "referee": "Darren England",
         "refereeStats": {
           "country": "England",
-          "matches": 58,
-          "avgYellow": 4.12,
-          "avgRed": 0.09,
+          "matches": 59,
+          "avgYellow": 4.17,
+          "avgRed": 0.12,
           "avgFouls": 22.2,
-          "avgGoals": 2.66
+          "avgGoals": 2.68
         }
       }
     },
@@ -10816,7 +10817,7 @@
           "matches": 90,
           "avgYellow": 4.46,
           "avgRed": 0.16,
-          "avgFouls": 23.3,
+          "avgFouls": 23.4,
           "avgGoals": 2.69
         }
       }
@@ -12284,8 +12285,8 @@
         "referee": "Samuel Barrott",
         "refereeStats": {
           "country": "England",
-          "matches": 69,
-          "avgYellow": 4.06,
+          "matches": 70,
+          "avgYellow": 4.07,
           "avgRed": 0.04,
           "avgFouls": 20.9,
           "avgGoals": 3.07
@@ -13033,7 +13034,18 @@
           "away": 17
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Craig Pawson",
+        "refereeStats": {
+          "country": "England",
+          "matches": 58,
+          "avgYellow": 3.53,
+          "avgRed": 0.12,
+          "avgFouls": 23.3,
+          "avgGoals": 2.78
+        }
+      }
     }
   },
   "standings": [

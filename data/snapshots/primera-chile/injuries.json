@@ -1,10 +1,28 @@
 {
   "schemaVersion": 1,
   "league": "primera-chile",
-  "observedAt": "2026-11-21T21:48:13.141Z",
+  "observedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
+    {
+      "teamId": "primera-chile.audax-italiano",
+      "player": "Cristóbal Muñoz",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Achilles Tendon Injury",
+      "injuryType": "Achilles Tendon Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "primera-chile.palestino",
+      "player": "Ian Garguez",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Foot Injury",
+      "injuryType": "Foot Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
     {
       "teamId": "primera-chile.deportes-la-serena",
       "player": "Andrés Zanini",
@@ -12,7 +30,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "primera-chile.deportes-la-serena",
@@ -21,7 +39,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "primera-chile.deportes-la-serena",
@@ -30,7 +48,7 @@
       "status": "Baja",
       "detail": "Knock Injury",
       "injuryType": "Knock Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
@@ -39,7 +57,7 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
@@ -48,7 +66,7 @@
       "status": "Baja",
       "detail": "Ligament Injury",
       "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
@@ -57,7 +75,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "primera-chile.universidad-catolica",
@@ -66,16 +84,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "primera-chile.audax-italiano",
-      "player": "Cristóbal Muñoz",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Achilles Tendon Injury",
-      "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     }
   ]
 }

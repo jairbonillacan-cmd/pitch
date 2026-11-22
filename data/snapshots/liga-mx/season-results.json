@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-mx",
   "season": "liga-mx-2026-apertura",
-  "updatedAt": "2026-11-21T21:55:44.156Z",
+  "updatedAt": "2026-11-22T12:52:52.715Z",
   "matches": [
     {
       "id": "mx-2026-j1-necaxa-atlante-401877045",
@@ -1617,6 +1617,50 @@
       "round": "Jornada 17",
       "homeTeam": "liga-mx.tijuana",
       "awayTeam": "liga-mx.atlante",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-pachuca-toluca-401877050",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T22:50Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.pachuca",
+      "awayTeam": "liga-mx.toluca",
+      "homeScore": 2,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-santos-laguna-leon-401877051",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T23:00Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.santos-laguna",
+      "awayTeam": "liga-mx.leon",
+      "homeScore": 1,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-pumas-unam-monterrey-401877049",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T01:00Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.pumas-unam",
+      "awayTeam": "liga-mx.monterrey",
+      "homeScore": 0,
+      "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "mx-2026-j17-tigres-uanl-america-401877048",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T03:00Z",
+      "round": "Jornada 17",
+      "homeTeam": "liga-mx.tigres-uanl",
+      "awayTeam": "liga-mx.america",
       "homeScore": 1,
       "awayScore": 0,
       "neutralSite": false

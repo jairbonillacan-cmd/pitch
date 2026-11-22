@@ -869,6 +869,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/68/?bg=transparent"
       },
       "venue": "Italia",
+      "referee": "Daniele Doveri",
       "neutralSite": false
     }
   ],
@@ -5641,11 +5642,11 @@
         "referee": "Andrea Colombo",
         "refereeStats": {
           "country": "Italy",
-          "matches": 63,
-          "avgYellow": 4,
+          "matches": 64,
+          "avgYellow": 3.94,
           "avgRed": 0.25,
           "avgFouls": 26.7,
-          "avgGoals": 2.9
+          "avgGoals": 2.89
         }
       }
     },
@@ -8625,11 +8626,11 @@
         "referee": "Antonio Rapuano",
         "refereeStats": {
           "country": "Italy",
-          "matches": 43,
-          "avgYellow": 2.67,
+          "matches": 44,
+          "avgYellow": 2.61,
           "avgRed": 0.3,
           "avgFouls": 27.7,
-          "avgGoals": 2.33
+          "avgGoals": 2.36
         }
       }
     },
@@ -13096,7 +13097,18 @@
           }
         ]
       },
-      "picksAt": "2026-11-14T05:44:28.107Z"
+      "picksAt": "2026-11-14T05:44:28.107Z",
+      "matchContext": {
+        "referee": "Daniele Doveri",
+        "refereeStats": {
+          "country": "Italy",
+          "matches": 45,
+          "avgYellow": 2.91,
+          "avgRed": 0.11,
+          "avgFouls": 22.9,
+          "avgGoals": 2.33
+        }
+      }
     }
   },
   "standings": [

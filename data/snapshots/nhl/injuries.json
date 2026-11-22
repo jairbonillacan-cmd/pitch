@@ -1,10 +1,20 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-21T21:47:58.657Z",
+  "observedAt": "2026-11-22T12:45:46.947Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
+    {
+      "teamId": "nhl.anaheim-ducks",
+      "player": "Leo Carlsson",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-22T04:05:00.000Z"
+    },
     {
       "teamId": "nhl.anaheim-ducks",
       "player": "Beckett Sennecke",
@@ -77,6 +87,16 @@
     },
     {
       "teamId": "nhl.calgary-flames",
+      "player": "Martin Pospisil",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-21T22:54:00.000Z"
+    },
+    {
+      "teamId": "nhl.calgary-flames",
       "player": "Jonathan Huberdeau",
       "position": "LW",
       "status": "Baja",
@@ -117,6 +137,26 @@
     },
     {
       "teamId": "nhl.chicago-blackhawks",
+      "player": "Connor Bedard",
+      "position": "C",
+      "status": "Baja",
+      "detail": "Hombro",
+      "injuryType": "Shoulder",
+      "returnDate": "2027-03-01",
+      "reportedAt": "2026-11-22T00:07:00.000Z"
+    },
+    {
+      "teamId": "nhl.chicago-blackhawks",
+      "player": "Anton Frondell",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Parte médico reservado",
+      "injuryType": "Undisclosed",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-21T22:45:00.000Z"
+    },
+    {
+      "teamId": "nhl.chicago-blackhawks",
       "player": "Bowen Byram",
       "position": "D",
       "status": "Baja",
@@ -124,16 +164,6 @@
       "injuryType": "Upper Body",
       "returnDate": "2026-11-27",
       "reportedAt": "2026-11-21T19:21:00.000Z"
-    },
-    {
-      "teamId": "nhl.chicago-blackhawks",
-      "player": "Connor Bedard",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Hombro",
-      "injuryType": "Shoulder",
-      "returnDate": "2026-11-27",
-      "reportedAt": "2026-11-19T16:45:00.000Z"
     },
     {
       "teamId": "nhl.colorado-avalanche",
@@ -239,11 +269,11 @@
       "teamId": "nhl.detroit-red-wings",
       "player": "William Wallinder",
       "position": "D",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-19T17:54:00.000Z"
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-21T21:44:00.000Z"
     },
     {
       "teamId": "nhl.detroit-red-wings",
@@ -354,6 +384,16 @@
       "injuryType": "Neck",
       "returnDate": "2026-11-28",
       "reportedAt": "2026-11-19T16:20:00.000Z"
+    },
+    {
+      "teamId": "nhl.los-angeles-kings",
+      "player": "Erik Gustafsson",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Upper Body",
+      "injuryType": "Upper Body",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-22T02:05:00.000Z"
     },
     {
       "teamId": "nhl.los-angeles-kings",
@@ -527,16 +567,6 @@
     },
     {
       "teamId": "nhl.new-york-islanders",
-      "player": "Logan Stanley",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Lower Body",
-      "injuryType": "Lower Body",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-20T14:41:00.000Z"
-    },
-    {
-      "teamId": "nhl.new-york-islanders",
       "player": "Alexander Romanov",
       "position": "D",
       "status": "Baja",
@@ -627,6 +657,16 @@
     },
     {
       "teamId": "nhl.ottawa-senators",
+      "player": "Hayden Hodgson",
+      "position": "RW",
+      "status": "Baja",
+      "detail": "Ingle",
+      "injuryType": "Groin",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-22T00:00:00.000Z"
+    },
+    {
+      "teamId": "nhl.ottawa-senators",
       "player": "Andre Burakovsky",
       "position": "LW",
       "status": "Baja",
@@ -634,16 +674,6 @@
       "injuryType": "Lower Body",
       "returnDate": "2026-11-27",
       "reportedAt": "2026-11-20T17:06:00.000Z"
-    },
-    {
-      "teamId": "nhl.ottawa-senators",
-      "player": "Hayden Hodgson",
-      "position": "RW",
-      "status": "Duda",
-      "detail": "Ingle",
-      "injuryType": "Groin",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-20T14:41:00.000Z"
     },
     {
       "teamId": "nhl.ottawa-senators",
@@ -957,6 +987,16 @@
     },
     {
       "teamId": "nhl.utah-mammoth",
+      "player": "Clayton Keller",
+      "position": "RW",
+      "status": "Baja",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-22T01:31:00.000Z"
+    },
+    {
+      "teamId": "nhl.utah-mammoth",
       "player": "John Marino",
       "position": "D",
       "status": "Baja",
@@ -972,7 +1012,7 @@
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-11-21",
+      "returnDate": "2026-11-23",
       "reportedAt": "2026-11-20T19:59:00.000Z"
     },
     {

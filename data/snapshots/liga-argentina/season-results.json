@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-argentina",
   "season": "2026",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "matches": [
     {
       "id": "liga-argentina-2026-07-23-sarmiento-argentinos-jun-q7ein3",
@@ -2664,6 +2664,17 @@
       "awayTeam": "liga-argentina.barracas-central",
       "homeScore": 0,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-argentina-2026-11-21-argentinos-jun-independiente-rh9bem",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T20:00:00.000Z",
+      "round": "Round of 16",
+      "homeTeam": "liga-argentina.argentinos-juniors",
+      "awayTeam": "liga-argentina.independiente",
+      "homeScore": 1,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

@@ -5,7 +5,7 @@
   "season": "europa-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "League phase · Matchday 4",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1940720199330004,
-      "adjustedAgainst": 0.668529983854297
+      "adjustedFor": 1.194274066911878,
+      "adjustedAgainst": 0.6691656737017204
     },
     "europa-league.if-vestri": {
       "teamId": "europa-league.if-vestri",
@@ -29,8 +29,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9733424380966653,
-      "adjustedAgainst": 1.653570044841573
+      "adjustedFor": 0.9736551591020951,
+      "adjustedAgainst": 1.653011210463483
     },
     "europa-league.sheriff-tiraspol": {
       "teamId": "europa-league.sheriff-tiraspol",
@@ -40,8 +40,8 @@
       "forPerGame": 0.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7754634002213446,
-      "adjustedAgainst": 1.2839047483347223
+      "adjustedFor": 0.7760035675283742,
+      "adjustedAgainst": 1.2838869515033113
     },
     "europa-league.nk-aluminij-kidricevo": {
       "teamId": "europa-league.nk-aluminij-kidricevo",
@@ -51,8 +51,8 @@
       "forPerGame": 0,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8252956084691097,
-      "adjustedAgainst": 1.0694573859596683
+      "adjustedFor": 0.8259224971810594,
+      "adjustedAgainst": 1.0696073133444257
     },
     "europa-league.dynamo-kyiv": {
       "teamId": "europa-league.dynamo-kyiv",
@@ -62,8 +62,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9036607547631643,
-      "adjustedAgainst": 1.190078787292132
+      "adjustedFor": 0.9040200281267573,
+      "adjustedAgainst": 1.190171466443551
     },
     "europa-league.universitatea-cluj": {
       "teamId": "europa-league.universitatea-cluj",
@@ -73,8 +73,8 @@
       "forPerGame": 0,
       "againstPerGame": 0,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8448893072118976,
-      "adjustedAgainst": 0.8857058545539487
+      "adjustedFor": 0.8454797338247317,
+      "adjustedAgainst": 0.8861820994757328
     },
     "europa-league.cska-sofia": {
       "teamId": "europa-league.cska-sofia",
@@ -84,8 +84,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.375,
       "gamesPlayed": 8,
-      "adjustedFor": 1.185811200139615,
-      "adjustedAgainst": 1.1600280105618932
+      "adjustedFor": 1.1858212171237124,
+      "adjustedAgainst": 1.1602748653372612
     },
     "europa-league.derry-city": {
       "teamId": "europa-league.derry-city",
@@ -95,8 +95,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2776968796750827,
-      "adjustedAgainst": 1.5175433273748051
+      "adjustedFor": 1.2776525470892388,
+      "adjustedAgainst": 1.5172368307681592
     },
     "europa-league.vojvodina": {
       "teamId": "europa-league.vojvodina",
@@ -106,8 +106,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0952006405435812,
-      "adjustedAgainst": 1.3387537285563964
+      "adjustedFor": 1.0954102221192352,
+      "adjustedAgainst": 1.338762945375096
     },
     "europa-league.ferencvaros-tc": {
       "teamId": "europa-league.ferencvaros-tc",
@@ -117,8 +117,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 12,
-      "adjustedFor": 1.7586042400641633,
-      "adjustedAgainst": 0.7945037642789872
+      "adjustedFor": 1.7584394857667744,
+      "adjustedAgainst": 0.7947915581251692
     },
     "europa-league.hnk-hajduk-split": {
       "teamId": "europa-league.hnk-hajduk-split",
@@ -128,8 +128,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1516413141379496,
-      "adjustedAgainst": 1.0873801261091605
+      "adjustedFor": 1.1518272531759588,
+      "adjustedAgainst": 1.0875635255214415
     },
     "europa-league.msk-zilina": {
       "teamId": "europa-league.msk-zilina",
@@ -139,8 +139,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.1595908973929778,
-      "adjustedAgainst": 1.2509630361336186
+      "adjustedFor": 1.159731099678045,
+      "adjustedAgainst": 1.2509544905686338
     },
     "europa-league.troms-il": {
       "teamId": "europa-league.troms-il",
@@ -150,8 +150,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0618826086435478,
-      "adjustedAgainst": 1.4303663326062845
+      "adjustedFor": 1.0620930002664233,
+      "adjustedAgainst": 1.4300609702010878
     },
     "europa-league.viktoria-plzen": {
       "teamId": "europa-league.viktoria-plzen",
@@ -162,8 +162,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 1.1805242146437074,
-      "adjustedAgainst": 1.4328072335146662
+      "adjustedFor": 1.1805637168921839,
+      "adjustedAgainst": 1.4327762143686813
     },
     "europa-league.maccabi-tel-aviv": {
       "teamId": "europa-league.maccabi-tel-aviv",
@@ -173,8 +173,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.6115202214156823,
-      "adjustedAgainst": 1.1709120188490445
+      "adjustedFor": 1.6111828577901919,
+      "adjustedAgainst": 1.170938579320498
     },
     "europa-league.paok": {
       "teamId": "europa-league.paok",
@@ -184,8 +184,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.5341365960467295,
-      "adjustedAgainst": 1.2769147753084036
+      "adjustedFor": 1.5337657265011266,
+      "adjustedAgainst": 1.2768927060189756
     },
     "europa-league.hradec-kralove": {
       "teamId": "europa-league.hradec-kralove",
@@ -195,8 +195,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.0580883057695096,
-      "adjustedAgainst": 0.9031541005097029
+      "adjustedFor": 1.0583925695019918,
+      "adjustedAgainst": 0.9035885949018317
     },
     "europa-league.hammarby-if": {
       "teamId": "europa-league.hammarby-if",
@@ -206,8 +206,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2557194228399349,
-      "adjustedAgainst": 1.2719465467589928
+      "adjustedFor": 1.255653223903088,
+      "adjustedAgainst": 1.2719876904972538
     },
     "europa-league.rsc-anderlecht": {
       "teamId": "europa-league.rsc-anderlecht",
@@ -217,8 +217,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.7,
       "gamesPlayed": 10,
-      "adjustedFor": 1.5609289817845564,
-      "adjustedAgainst": 0.7905073247759992
+      "adjustedFor": 1.560906690695001,
+      "adjustedAgainst": 0.7908584138982429
     },
     "europa-league.twente": {
       "teamId": "europa-league.twente",
@@ -228,8 +228,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.4157278857284121,
-      "adjustedAgainst": 1.217228627794492
+      "adjustedFor": 1.415435630917178,
+      "adjustedAgainst": 1.217373891802856
     },
     "europa-league.besiktas-jk": {
       "teamId": "europa-league.besiktas-jk",
@@ -239,8 +239,8 @@
       "forPerGame": 1.9,
       "againstPerGame": 0.9,
       "gamesPlayed": 10,
-      "adjustedFor": 1.687981621561483,
-      "adjustedAgainst": 1.0449971997338723
+      "adjustedFor": 1.687557042193009,
+      "adjustedAgainst": 1.0451247615623382
     },
     "europa-league.midtjylland": {
       "teamId": "europa-league.midtjylland",
@@ -250,8 +250,8 @@
       "forPerGame": 0,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.8706456343588392,
-      "adjustedAgainst": 1.1106626679254978
+      "adjustedFor": 0.8712070493868358,
+      "adjustedAgainst": 1.1109878489802696
     },
     "europa-league.st-gallen": {
       "teamId": "europa-league.st-gallen",
@@ -261,8 +261,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2090323554304876,
-      "adjustedAgainst": 1.3313816745506788
+      "adjustedFor": 1.209063511390466,
+      "adjustedAgainst": 1.3314878799987244
     },
     "europa-league.benfica": {
       "teamId": "europa-league.benfica",
@@ -273,8 +273,8 @@
       "forPerGame": 3.2,
       "againstPerGame": 0.9,
       "gamesPlayed": 10,
-      "adjustedFor": 2.246254247205849,
-      "adjustedAgainst": 0.9188664201969923
+      "adjustedFor": 2.2458158420229912,
+      "adjustedAgainst": 0.9191577070766461
     },
     "europa-league.pafos": {
       "teamId": "europa-league.pafos",
@@ -284,8 +284,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.1810369147597082,
-      "adjustedAgainst": 1.2963245316979186
+      "adjustedFor": 1.1811767423736397,
+      "adjustedAgainst": 1.2963010890582223
     },
     "europa-league.larne": {
       "teamId": "europa-league.larne",
@@ -295,8 +295,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9205253804294236,
-      "adjustedAgainst": 1.0418703094353492
+      "adjustedFor": 0.9210569337653017,
+      "adjustedAgainst": 1.0420812740600731
     },
     "europa-league.iberia": {
       "teamId": "europa-league.iberia",
@@ -306,8 +306,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8620834301462681,
-      "adjustedAgainst": 1.4363466324183831
+      "adjustedFor": 0.8625324126618836,
+      "adjustedAgainst": 1.4361122937310387
     },
     "europa-league.shamrock-rovers": {
       "teamId": "europa-league.shamrock-rovers",
@@ -317,8 +317,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3931908923648229,
-      "adjustedAgainst": 1.6611542894883555
+      "adjustedFor": 1.3930891120980757,
+      "adjustedAgainst": 1.6605938302807268
     },
     "europa-league.kf-egnatia": {
       "teamId": "europa-league.kf-egnatia",
@@ -328,8 +328,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.234080319670355,
-      "adjustedAgainst": 1.2517652272714823
+      "adjustedFor": 1.2342993194639378,
+      "adjustedAgainst": 1.2517454970776762
     },
     "europa-league.gornik-zabrze": {
       "teamId": "europa-league.gornik-zabrze",
@@ -339,8 +339,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0924976331690672,
-      "adjustedAgainst": 0.966455910022569
+      "adjustedFor": 1.0927053076419415,
+      "adjustedAgainst": 0.9668738595654915
     },
     "europa-league.kuopion-palloseura": {
       "teamId": "europa-league.kuopion-palloseura",
@@ -350,8 +350,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.145006633127883,
-      "adjustedAgainst": 1.3349358569719227
+      "adjustedFor": 1.1451878394746926,
+      "adjustedAgainst": 1.334694100866634
     },
     "europa-league.universitatea-craiova": {
       "teamId": "europa-league.universitatea-craiova",
@@ -361,8 +361,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9148726011511182,
-      "adjustedAgainst": 1.1233745861921194
+      "adjustedFor": 0.9153447263008365,
+      "adjustedAgainst": 1.12347753478269
     },
     "europa-league.jagiellonia-bia-ystok": {
       "teamId": "europa-league.jagiellonia-bia-ystok",
@@ -372,8 +372,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 1.25,
       "gamesPlayed": 8,
-      "adjustedFor": 1.3854089585451588,
-      "adjustedAgainst": 1.300344833018045
+      "adjustedFor": 1.38536377819481,
+      "adjustedAgainst": 1.300209838691658
     },
     "europa-league.rangers": {
       "teamId": "europa-league.rangers",
@@ -383,8 +383,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.092882038656284,
-      "adjustedAgainst": 1.1865724488477272
+      "adjustedFor": 1.093193369060245,
+      "adjustedAgainst": 1.18671981994024
     },
     "europa-league.red-bull-salzburg": {
       "teamId": "europa-league.red-bull-salzburg",
@@ -394,8 +394,8 @@
       "forPerGame": 1.375,
       "againstPerGame": 1.375,
       "gamesPlayed": 8,
-      "adjustedFor": 1.239474445512474,
-      "adjustedAgainst": 1.3586016036397042
+      "adjustedFor": 1.239532062826226,
+      "adjustedAgainst": 1.3584708806744852
     },
     "europa-league.lincoln-red-imps": {
       "teamId": "europa-league.lincoln-red-imps",
@@ -405,8 +405,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9747507188102701,
-      "adjustedAgainst": 1.0713855464620774
+      "adjustedFor": 0.9751397268825506,
+      "adjustedAgainst": 1.0716622674258864
     },
     "europa-league.omonia-nicosia": {
       "teamId": "europa-league.omonia-nicosia",
@@ -416,8 +416,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.375,
       "gamesPlayed": 8,
-      "adjustedFor": 1.301789217021541,
-      "adjustedAgainst": 1.1999844746787682
+      "adjustedFor": 1.3017962892011197,
+      "adjustedAgainst": 1.200152288551077
     },
     "europa-league.lech-poznan": {
       "teamId": "europa-league.lech-poznan",
@@ -428,8 +428,8 @@
       "forPerGame": 2.125,
       "againstPerGame": 1.75,
       "gamesPlayed": 8,
-      "adjustedFor": 1.5872695269957577,
-      "adjustedAgainst": 1.4515055867337119
+      "adjustedFor": 1.587173604989305,
+      "adjustedAgainst": 1.4514376829315978
     },
     "europa-league.klaksvikar-itrottarfelag": {
       "teamId": "europa-league.klaksvikar-itrottarfelag",
@@ -439,8 +439,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7775346987734019,
-      "adjustedAgainst": 1.5308020672878204
+      "adjustedFor": 0.7781973086788446,
+      "adjustedAgainst": 1.5305705849198163
     },
     "europa-league.thun": {
       "teamId": "europa-league.thun",
@@ -450,8 +450,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 3,
       "gamesPlayed": 4,
-      "adjustedFor": 1.267546762266134,
-      "adjustedAgainst": 1.872810312189801
+      "adjustedFor": 1.26770843915177,
+      "adjustedAgainst": 1.8722328963964698
     },
     "europa-league.vikingur-reykjavik": {
       "teamId": "europa-league.vikingur-reykjavik",
@@ -461,8 +461,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0804358691804101,
-      "adjustedAgainst": 1.501866067882783
+      "adjustedFor": 1.0808402047180916,
+      "adjustedAgainst": 1.5015428182720496
     },
     "europa-league.heart-of-midlothian": {
       "teamId": "europa-league.heart-of-midlothian",
@@ -472,8 +472,8 @@
       "forPerGame": 1,
       "againstPerGame": 3.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2107305632552348,
-      "adjustedAgainst": 1.4414367928828744
+      "adjustedFor": 1.2107570556239262,
+      "adjustedAgainst": 1.44144659850782
     },
     "europa-league.kairat-almaty": {
       "teamId": "europa-league.kairat-almaty",
@@ -483,8 +483,8 @@
       "forPerGame": 0,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9231426766885237,
-      "adjustedAgainst": 1.5423414623108256
+      "adjustedFor": 0.9235911600588931,
+      "adjustedAgainst": 1.5420732697182984
     },
     "europa-league.mjallby-aif": {
       "teamId": "europa-league.mjallby-aif",
@@ -494,8 +494,8 @@
       "forPerGame": 0,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7890840238891125,
-      "adjustedAgainst": 1.3772804494148552
+      "adjustedFor": 0.7897543252204733,
+      "adjustedAgainst": 1.3771538707153357
     },
     "europa-league.ararat-armenia": {
       "teamId": "europa-league.ararat-armenia",
@@ -506,8 +506,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.5,
       "gamesPlayed": 6,
-      "adjustedFor": 1.0087483706920704,
-      "adjustedAgainst": 1.9163240924106857
+      "adjustedFor": 1.0090212089928956,
+      "adjustedAgainst": 1.9158480470118169
     },
     "europa-league.trabzonspor": {
       "teamId": "europa-league.trabzonspor",
@@ -517,8 +517,8 @@
       "forPerGame": 0,
       "againstPerGame": 2.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.922040734302322,
-      "adjustedAgainst": 1.3502591816455365
+      "adjustedFor": 0.9225079170178953,
+      "adjustedAgainst": 1.3502652731265246
     },
     "europa-league.kauno-zalgiris": {
       "teamId": "europa-league.kauno-zalgiris",
@@ -528,8 +528,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 1.0139437044260058,
-      "adjustedAgainst": 1.1059479811347028
+      "adjustedFor": 1.0142982830613374,
+      "adjustedAgainst": 1.106280271109147
     },
     "europa-league.lillestr-m": {
       "teamId": "europa-league.lillestr-m",
@@ -539,8 +539,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 0.6984490492359754,
-      "adjustedAgainst": 1.4453570551713517
+      "adjustedFor": 0.6989111002844941,
+      "adjustedAgainst": 1.4453698560312995
     },
     "europa-league.ofi-crete": {
       "teamId": "europa-league.ofi-crete",
@@ -551,8 +551,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.6666666666666666,
       "gamesPlayed": 6,
-      "adjustedFor": 1.5033613961132233,
-      "adjustedAgainst": 0.8767761247274848
+      "adjustedFor": 1.5029838854994328,
+      "adjustedAgainst": 0.8771403098294115
     },
     "europa-league.sint-truidense-vv": {
       "teamId": "europa-league.sint-truidense-vv",
@@ -562,8 +562,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2704702610943979,
-      "adjustedAgainst": 1.3583752964602511
+      "adjustedFor": 1.2704616621794613,
+      "adjustedAgainst": 1.3582940179619192
     },
     "europa-league.crvena-zvezda": {
       "teamId": "europa-league.crvena-zvezda",
@@ -573,8 +573,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 1.3337784321067458,
-      "adjustedAgainst": 1.399500874097832
+      "adjustedFor": 1.3337646733157813,
+      "adjustedAgainst": 1.3993469469613746
     },
     "europa-league.agf": {
       "teamId": "europa-league.agf",
@@ -584,8 +584,8 @@
       "forPerGame": 1,
       "againstPerGame": 3,
       "gamesPlayed": 2,
-      "adjustedFor": 1.2107659786783993,
-      "adjustedAgainst": 1.3339041385661958
+      "adjustedFor": 1.21079036169176,
+      "adjustedAgainst": 1.3340160609846017
     },
     "europa-league.celta-vigo": {
       "teamId": "europa-league.celta-vigo",
@@ -596,8 +596,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.107198235955902,
-      "adjustedAgainst": 1.123972048957704
+      "adjustedFor": 1.1072894274659377,
+      "adjustedAgainst": 1.1243151133029992
     },
     "europa-league.sparta-praha": {
       "teamId": "europa-league.sparta-praha",
@@ -608,8 +608,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.2876262270257846,
-      "adjustedAgainst": 1.3220442919035567
+      "adjustedFor": 1.2875803819950402,
+      "adjustedAgainst": 1.322036556115586
     },
     "europa-league.sunderland": {
       "teamId": "europa-league.sunderland",
@@ -620,8 +620,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.0213857634178174,
-      "adjustedAgainst": 1.0044912242055557
+      "adjustedFor": 1.0216690697700186,
+      "adjustedAgainst": 1.0047992163786872
     },
     "europa-league.az-alkmaar": {
       "teamId": "europa-league.az-alkmaar",
@@ -632,8 +632,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.359955789728522,
-      "adjustedAgainst": 1.0712149217771936
+      "adjustedFor": 1.3599066645930673,
+      "adjustedAgainst": 1.0714388287496632
     },
     "europa-league.sturm-graz": {
       "teamId": "europa-league.sturm-graz",
@@ -644,8 +644,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9513871911389808,
-      "adjustedAgainst": 1.2510310194687033
+      "adjustedFor": 0.9516717981590063,
+      "adjustedAgainst": 1.2511887545154456
     },
     "europa-league.stade-rennais": {
       "teamId": "europa-league.stade-rennais",
@@ -655,8 +655,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.20324045986401,
-      "adjustedAgainst": 0.8921258040055642
+      "adjustedFor": 1.2031548752416692,
+      "adjustedAgainst": 0.8925689605471605
     },
     "europa-league.olympique-lyonnais": {
       "teamId": "europa-league.olympique-lyonnais",
@@ -666,8 +666,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4365354485256319,
-      "adjustedAgainst": 1.2327621473148649
+      "adjustedFor": 1.4362083242318093,
+      "adjustedAgainst": 1.2330104582838275
     },
     "europa-league.olympiacos": {
       "teamId": "europa-league.olympiacos",
@@ -678,8 +678,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.0595681762993396,
-      "adjustedAgainst": 0.7015518231838583
+      "adjustedFor": 1.059786479872886,
+      "adjustedAgainst": 0.7021286684191884
     },
     "europa-league.hapoel-be-er-sheva": {
       "teamId": "europa-league.hapoel-be-er-sheva",
@@ -689,8 +689,8 @@
       "forPerGame": 0.25,
       "againstPerGame": 2,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7950154701115181,
-      "adjustedAgainst": 1.4066383545950971
+      "adjustedFor": 0.7954377810824638,
+      "adjustedAgainst": 1.4067285589885292
     },
     "europa-league.gnk-dinamo-zagreb": {
       "teamId": "europa-league.gnk-dinamo-zagreb",
@@ -700,8 +700,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.2081753647331304,
-      "adjustedAgainst": 1.0430731391386194
+      "adjustedFor": 1.2082189357248625,
+      "adjustedAgainst": 1.0433325353099374
     },
     "europa-league.bayer-leverkusen": {
       "teamId": "europa-league.bayer-leverkusen",
@@ -712,8 +712,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4670666000958095,
-      "adjustedAgainst": 0.6818189255134751
+      "adjustedFor": 1.4669555945076858,
+      "adjustedAgainst": 0.6824106251565215
     },
     "europa-league.nk-celje": {
       "teamId": "europa-league.nk-celje",
@@ -723,8 +723,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.2320958860061888,
-      "adjustedAgainst": 1.6356501573213487
+      "adjustedFor": 1.2321058736133406,
+      "adjustedAgainst": 1.6353549273562835
     },
     "europa-league.milan": {
       "teamId": "europa-league.milan",
@@ -734,8 +734,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.191861985380306,
-      "adjustedAgainst": 1.1507846793210863
+      "adjustedFor": 1.1918656980596851,
+      "adjustedAgainst": 1.1510755784215174
     },
     "europa-league.hoffenheim": {
       "teamId": "europa-league.hoffenheim",
@@ -746,8 +746,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.3793665583483208,
-      "adjustedAgainst": 1.1280665231161888
+      "adjustedFor": 1.3791770315537402,
+      "adjustedAgainst": 1.1284074982131642
     },
     "europa-league.levski-sofia": {
       "teamId": "europa-league.levski-sofia",
@@ -758,8 +758,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.75,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9911148018874925,
-      "adjustedAgainst": 0.8813298574751385
+      "adjustedFor": 0.9914578132670371,
+      "adjustedAgainst": 0.8817725202910452
     },
     "europa-league.real-sociedad": {
       "teamId": "europa-league.real-sociedad",
@@ -770,8 +770,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.760904222636518,
-      "adjustedAgainst": 0.9627332325273553
+      "adjustedFor": 1.7602536852651918,
+      "adjustedAgainst": 0.9631539534124504
     },
     "europa-league.bournemouth": {
       "teamId": "europa-league.bournemouth",
@@ -781,8 +781,8 @@
       "forPerGame": 2.75,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.9220145320008961,
-      "adjustedAgainst": 0.7977337906962055
+      "adjustedFor": 1.9213140667385797,
+      "adjustedAgainst": 0.7982435084034109
     },
     "europa-league.torreense": {
       "teamId": "europa-league.torreense",
@@ -793,8 +793,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.3617945672619312,
-      "adjustedAgainst": 1.7171510970133756
+      "adjustedFor": 1.3617776437898943,
+      "adjustedAgainst": 1.716650887453849
     },
     "europa-league.juventus": {
       "teamId": "europa-league.juventus",
@@ -805,8 +805,8 @@
       "forPerGame": 2.75,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 1.9173117443447596,
-      "adjustedAgainst": 1.0190464538833583
+      "adjustedFor": 1.9165971346030393,
+      "adjustedAgainst": 1.0193903363900618
     },
     "europa-league.nec-nijmegen": {
       "teamId": "europa-league.nec-nijmegen",
@@ -817,8 +817,8 @@
       "forPerGame": 2,
       "againstPerGame": 2.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.6764235171072839,
-      "adjustedAgainst": 1.5437443193962495
+      "adjustedFor": 1.6758619049743717,
+      "adjustedAgainst": 1.5436308916858985
     },
     "europa-league.royale-union-saint-gilloise": {
       "teamId": "europa-league.royale-union-saint-gilloise",
@@ -828,8 +828,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.7580627853522326,
-      "adjustedAgainst": 0.8303595557266038
+      "adjustedFor": 1.757538476259358,
+      "adjustedAgainst": 0.8308304673396765
     },
     "europa-league.crystal-palace": {
       "teamId": "europa-league.crystal-palace",
@@ -840,8 +840,8 @@
       "forPerGame": 2.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.6328150835703306,
-      "adjustedAgainst": 1.1599512289651144
+      "adjustedFor": 1.6324458512251252,
+      "adjustedAgainst": 1.160227575207872
     },
     "europa-league.celtic": {
       "teamId": "europa-league.celtic",
@@ -852,8 +852,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4207867024293404,
-      "adjustedAgainst": 1.5731957612256002
+      "adjustedFor": 1.4205266749108254,
+      "adjustedAgainst": 1.5731888818523696
     },
     "europa-league.olympique-marseille": {
       "teamId": "europa-league.olympique-marseille",
@@ -863,8 +863,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9675201041971123,
-      "adjustedAgainst": 1.2358979036623376
+      "adjustedFor": 0.9677297049895272,
+      "adjustedAgainst": 1.236001642263703
     }
   },
   "games": [
@@ -899,7 +899,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -934,7 +934,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -969,7 +969,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1004,7 +1004,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1039,7 +1039,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1074,7 +1074,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1109,7 +1109,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1144,7 +1144,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1179,7 +1179,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1214,7 +1214,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1249,7 +1249,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1284,7 +1284,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1319,7 +1319,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1354,7 +1354,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1389,7 +1389,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1424,7 +1424,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -6355,11 +6355,11 @@
         "referee": "Andrea Colombo",
         "refereeStats": {
           "country": "Italy",
-          "matches": 63,
-          "avgYellow": 4,
+          "matches": 64,
+          "avgYellow": 3.94,
           "avgRed": 0.25,
           "avgFouls": 26.7,
-          "avgGoals": 2.9
+          "avgGoals": 2.89
         },
         "weather": {
           "description": "cloudy",
@@ -9507,11 +9507,11 @@
         "referee": "Damian Sylwestrzak",
         "refereeStats": {
           "country": "Poland",
-          "matches": 67,
-          "avgYellow": 4.7,
+          "matches": 68,
+          "avgYellow": 4.69,
           "avgRed": 0.22,
           "avgFouls": 28.2,
-          "avgGoals": 2.7
+          "avgGoals": 2.76
         },
         "weather": {
           "description": "cloudy",

@@ -4,8 +4,8 @@
   "logoUrl": "/brand/official/nhl/nhl.png",
   "season": "nhl-2026-27",
   "seasonLabel": "Temporada 2026-27",
-  "periodLabel": "21 nov – 23 nov",
-  "updatedAt": "2026-11-21T21:47:58.657Z",
+  "periodLabel": "21 nov – 24 nov",
+  "updatedAt": "2026-11-22T12:45:46.947Z",
   "source": "bzzoiro",
   "provenance": "derived",
   "isDemo": false,
@@ -15,55 +15,55 @@
       "name": "Carolina Hurricanes",
       "shortName": "Hurricanes",
       "code": "CAR",
-      "forPerGame": 4,
-      "againstPerGame": 2.227272727272727,
-      "gamesPlayed": 22,
-      "adjustedFor": 4,
-      "adjustedAgainst": 2.227272727272727
+      "forPerGame": 4.130434782608695,
+      "againstPerGame": 2.3043478260869565,
+      "gamesPlayed": 23,
+      "adjustedFor": 4.130434782608695,
+      "adjustedAgainst": 2.3043478260869565
     },
     "nhl.florida-panthers": {
       "teamId": "nhl.florida-panthers",
       "name": "Florida Panthers",
       "shortName": "Panthers",
       "code": "FLA",
-      "forPerGame": 3.130434782608696,
-      "againstPerGame": 2.9565217391304346,
-      "gamesPlayed": 23,
-      "adjustedFor": 3.130434782608696,
-      "adjustedAgainst": 2.9565217391304346
+      "forPerGame": 3.1666666666666665,
+      "againstPerGame": 2.9583333333333335,
+      "gamesPlayed": 24,
+      "adjustedFor": 3.1666666666666665,
+      "adjustedAgainst": 2.9583333333333335
     },
     "nhl.toronto-maple-leafs": {
       "teamId": "nhl.toronto-maple-leafs",
       "name": "Toronto Maple Leafs",
       "shortName": "Maple Leafs",
       "code": "TOR",
-      "forPerGame": 3.125,
-      "againstPerGame": 3.5833333333333335,
-      "gamesPlayed": 24,
-      "adjustedFor": 3.125,
-      "adjustedAgainst": 3.5833333333333335
+      "forPerGame": 3.12,
+      "againstPerGame": 3.6,
+      "gamesPlayed": 25,
+      "adjustedFor": 3.12,
+      "adjustedAgainst": 3.6
     },
     "nhl.montreal-canadiens": {
       "teamId": "nhl.montreal-canadiens",
       "name": "Montréal Canadiens",
       "shortName": "Canadiens",
       "code": "MTL",
-      "forPerGame": 3.217391304347826,
-      "againstPerGame": 2.9130434782608696,
-      "gamesPlayed": 23,
-      "adjustedFor": 3.217391304347826,
-      "adjustedAgainst": 2.9130434782608696
+      "forPerGame": 3.2083333333333335,
+      "againstPerGame": 2.9583333333333335,
+      "gamesPlayed": 24,
+      "adjustedFor": 3.2083333333333335,
+      "adjustedAgainst": 2.9583333333333335
     },
     "nhl.boston-bruins": {
       "teamId": "nhl.boston-bruins",
       "name": "Boston Bruins",
       "shortName": "Bruins",
       "code": "BOS",
-      "forPerGame": 3.4545454545454546,
-      "againstPerGame": 2.5454545454545454,
-      "gamesPlayed": 22,
-      "adjustedFor": 3.4545454545454546,
-      "adjustedAgainst": 2.5454545454545454
+      "forPerGame": 3.608695652173913,
+      "againstPerGame": 2.652173913043478,
+      "gamesPlayed": 23,
+      "adjustedFor": 3.608695652173913,
+      "adjustedAgainst": 2.652173913043478
     },
     "nhl.new-york-rangers": {
       "teamId": "nhl.new-york-rangers",
@@ -81,77 +81,77 @@
       "name": "Edmonton Oilers",
       "shortName": "Oilers",
       "code": "EDM",
-      "forPerGame": 3.875,
-      "againstPerGame": 2.7083333333333335,
-      "gamesPlayed": 24,
-      "adjustedFor": 3.875,
-      "adjustedAgainst": 2.7083333333333335
+      "forPerGame": 3.88,
+      "againstPerGame": 2.88,
+      "gamesPlayed": 25,
+      "adjustedFor": 3.88,
+      "adjustedAgainst": 2.88
     },
     "nhl.vancouver-canucks": {
       "teamId": "nhl.vancouver-canucks",
       "name": "Vancouver Canucks",
       "shortName": "Canucks",
       "code": "VAN",
-      "forPerGame": 2.7916666666666665,
-      "againstPerGame": 4.375,
-      "gamesPlayed": 24,
-      "adjustedFor": 2.7916666666666665,
-      "adjustedAgainst": 4.375
+      "forPerGame": 2.84,
+      "againstPerGame": 4.32,
+      "gamesPlayed": 25,
+      "adjustedFor": 2.84,
+      "adjustedAgainst": 4.32
     },
     "nhl.vegas-golden-knights": {
       "teamId": "nhl.vegas-golden-knights",
       "name": "Vegas Golden Knights",
       "shortName": "Golden Knights",
       "code": "VGK",
-      "forPerGame": 3.3333333333333335,
-      "againstPerGame": 2.9583333333333335,
-      "gamesPlayed": 24,
-      "adjustedFor": 3.3333333333333335,
-      "adjustedAgainst": 2.9583333333333335
+      "forPerGame": 3.4,
+      "againstPerGame": 3,
+      "gamesPlayed": 25,
+      "adjustedFor": 3.4,
+      "adjustedAgainst": 3
     },
     "nhl.chicago-blackhawks": {
       "teamId": "nhl.chicago-blackhawks",
       "name": "Chicago Blackhawks",
       "shortName": "Blackhawks",
       "code": "CHI",
-      "forPerGame": 2.4545454545454546,
-      "againstPerGame": 4.090909090909091,
-      "gamesPlayed": 22,
-      "adjustedFor": 2.4545454545454546,
-      "adjustedAgainst": 4.090909090909091
+      "forPerGame": 2.5217391304347827,
+      "againstPerGame": 4.043478260869565,
+      "gamesPlayed": 23,
+      "adjustedFor": 2.5217391304347827,
+      "adjustedAgainst": 4.043478260869565
     },
     "nhl.new-york-islanders": {
       "teamId": "nhl.new-york-islanders",
       "name": "New York Islanders",
       "shortName": "Islanders",
       "code": "NYI",
-      "forPerGame": 3.238095238095238,
-      "againstPerGame": 2.9047619047619047,
-      "gamesPlayed": 21,
-      "adjustedFor": 3.238095238095238,
-      "adjustedAgainst": 2.9047619047619047
+      "forPerGame": 3.227272727272727,
+      "againstPerGame": 2.8636363636363638,
+      "gamesPlayed": 22,
+      "adjustedFor": 3.227272727272727,
+      "adjustedAgainst": 2.8636363636363638
     },
     "nhl.philadelphia-flyers": {
       "teamId": "nhl.philadelphia-flyers",
       "name": "Philadelphia Flyers",
       "shortName": "Flyers",
       "code": "PHI",
-      "forPerGame": 2.52,
-      "againstPerGame": 3.4,
-      "gamesPlayed": 25,
-      "adjustedFor": 2.52,
-      "adjustedAgainst": 3.4
+      "forPerGame": 2.576923076923077,
+      "againstPerGame": 3.3846153846153846,
+      "gamesPlayed": 26,
+      "adjustedFor": 2.576923076923077,
+      "adjustedAgainst": 3.3846153846153846
     },
     "nhl.pittsburgh-penguins": {
       "teamId": "nhl.pittsburgh-penguins",
       "name": "Pittsburgh Penguins",
       "shortName": "Penguins",
       "code": "PIT",
-      "forPerGame": 3.0476190476190474,
-      "againstPerGame": 3.619047619047619,
-      "gamesPlayed": 21,
-      "adjustedFor": 3.0476190476190474,
-      "adjustedAgainst": 3.619047619047619
+      "forPerGame": 3.0454545454545454,
+      "againstPerGame": 3.6363636363636362,
+      "gamesPlayed": 22,
+      "adjustedFor": 3.0454545454545454,
+      "adjustedAgainst": 3.6363636363636362
     },
     "nhl.colorado-avalanche": {
       "teamId": "nhl.colorado-avalanche",
@@ -169,11 +169,11 @@
       "name": "Los Angeles Kings",
       "shortName": "Kings",
       "code": "LAK",
-      "forPerGame": 2.8,
-      "againstPerGame": 3.3,
-      "gamesPlayed": 20,
-      "adjustedFor": 2.8,
-      "adjustedAgainst": 3.3
+      "forPerGame": 2.761904761904762,
+      "againstPerGame": 3.3333333333333335,
+      "gamesPlayed": 21,
+      "adjustedFor": 2.761904761904762,
+      "adjustedAgainst": 3.3333333333333335
     },
     "nhl.tampa-bay-lightning": {
       "teamId": "nhl.tampa-bay-lightning",
@@ -191,43 +191,43 @@
       "name": "New Jersey Devils",
       "shortName": "Devils",
       "code": "NJD",
-      "forPerGame": 3.727272727272727,
-      "againstPerGame": 2.909090909090909,
-      "gamesPlayed": 22,
-      "adjustedFor": 3.727272727272727,
-      "adjustedAgainst": 2.909090909090909
+      "forPerGame": 3.8260869565217392,
+      "againstPerGame": 3.1739130434782608,
+      "gamesPlayed": 23,
+      "adjustedFor": 3.8260869565217392,
+      "adjustedAgainst": 3.1739130434782608
     },
     "nhl.columbus-blue-jackets": {
       "teamId": "nhl.columbus-blue-jackets",
       "name": "Columbus Blue Jackets",
       "shortName": "Blue Jackets",
       "code": "CBJ",
-      "forPerGame": 2.5,
-      "againstPerGame": 3.25,
-      "gamesPlayed": 20,
-      "adjustedFor": 2.5,
-      "adjustedAgainst": 3.25
+      "forPerGame": 2.5714285714285716,
+      "againstPerGame": 3.238095238095238,
+      "gamesPlayed": 21,
+      "adjustedFor": 2.5714285714285716,
+      "adjustedAgainst": 3.238095238095238
     },
     "nhl.buffalo-sabres": {
       "teamId": "nhl.buffalo-sabres",
       "name": "Buffalo Sabres",
       "shortName": "Sabres",
       "code": "BUF",
-      "forPerGame": 2.909090909090909,
-      "againstPerGame": 3.5,
-      "gamesPlayed": 22,
-      "adjustedFor": 2.909090909090909,
-      "adjustedAgainst": 3.5
+      "forPerGame": 2.9130434782608696,
+      "againstPerGame": 3.5217391304347827,
+      "gamesPlayed": 23,
+      "adjustedFor": 2.9130434782608696,
+      "adjustedAgainst": 3.5217391304347827
     },
     "nhl.nashville-predators": {
       "teamId": "nhl.nashville-predators",
       "name": "Nashville Predators",
       "shortName": "Predators",
       "code": "NSH",
-      "forPerGame": 3.0454545454545454,
+      "forPerGame": 3.0869565217391304,
       "againstPerGame": 3,
-      "gamesPlayed": 22,
-      "adjustedFor": 3.0454545454545454,
+      "gamesPlayed": 23,
+      "adjustedFor": 3.0869565217391304,
       "adjustedAgainst": 3
     },
     "nhl.minnesota-wild": {
@@ -235,88 +235,88 @@
       "name": "Minnesota Wild",
       "shortName": "Wild",
       "code": "MIN",
-      "forPerGame": 3.625,
-      "againstPerGame": 2.1666666666666665,
-      "gamesPlayed": 24,
-      "adjustedFor": 3.625,
-      "adjustedAgainst": 2.1666666666666665
+      "forPerGame": 3.6,
+      "againstPerGame": 2.24,
+      "gamesPlayed": 25,
+      "adjustedFor": 3.6,
+      "adjustedAgainst": 2.24
     },
     "nhl.calgary-flames": {
       "teamId": "nhl.calgary-flames",
       "name": "Calgary Flames",
       "shortName": "Flames",
       "code": "CGY",
-      "forPerGame": 2.4782608695652173,
-      "againstPerGame": 3.4782608695652173,
-      "gamesPlayed": 23,
-      "adjustedFor": 2.4782608695652173,
-      "adjustedAgainst": 3.4782608695652173
+      "forPerGame": 2.5,
+      "againstPerGame": 3.5,
+      "gamesPlayed": 24,
+      "adjustedFor": 2.5,
+      "adjustedAgainst": 3.5
     },
     "nhl.seattle-kraken": {
       "teamId": "nhl.seattle-kraken",
       "name": "Seattle Kraken",
       "shortName": "Kraken",
       "code": "SEA",
-      "forPerGame": 3.3684210526315788,
-      "againstPerGame": 3.526315789473684,
-      "gamesPlayed": 19,
-      "adjustedFor": 3.3684210526315788,
-      "adjustedAgainst": 3.526315789473684
+      "forPerGame": 3.35,
+      "againstPerGame": 3.55,
+      "gamesPlayed": 20,
+      "adjustedFor": 3.35,
+      "adjustedAgainst": 3.55
     },
     "nhl.utah-mammoth": {
       "teamId": "nhl.utah-mammoth",
       "name": "Utah Mammoth",
       "shortName": "Mammoth",
       "code": "UTA",
-      "forPerGame": 3.347826086956522,
-      "againstPerGame": 3.4347826086956523,
-      "gamesPlayed": 23,
-      "adjustedFor": 3.347826086956522,
-      "adjustedAgainst": 3.4347826086956523
+      "forPerGame": 3.3333333333333335,
+      "againstPerGame": 3.375,
+      "gamesPlayed": 24,
+      "adjustedFor": 3.3333333333333335,
+      "adjustedAgainst": 3.375
     },
     "nhl.san-jose-sharks": {
       "teamId": "nhl.san-jose-sharks",
       "name": "San Jose Sharks",
       "shortName": "Sharks",
       "code": "SJS",
-      "forPerGame": 2.7083333333333335,
-      "againstPerGame": 3.5833333333333335,
-      "gamesPlayed": 24,
-      "adjustedFor": 2.7083333333333335,
-      "adjustedAgainst": 3.5833333333333335
+      "forPerGame": 2.76,
+      "againstPerGame": 3.56,
+      "gamesPlayed": 25,
+      "adjustedFor": 2.76,
+      "adjustedAgainst": 3.56
     },
     "nhl.detroit-red-wings": {
       "teamId": "nhl.detroit-red-wings",
       "name": "Detroit Red Wings",
       "shortName": "Red Wings",
       "code": "DET",
-      "forPerGame": 2.6363636363636362,
-      "againstPerGame": 3.090909090909091,
-      "gamesPlayed": 22,
-      "adjustedFor": 2.6363636363636362,
-      "adjustedAgainst": 3.090909090909091
+      "forPerGame": 2.608695652173913,
+      "againstPerGame": 3.0869565217391304,
+      "gamesPlayed": 23,
+      "adjustedFor": 2.608695652173913,
+      "adjustedAgainst": 3.0869565217391304
     },
     "nhl.washington-capitals": {
       "teamId": "nhl.washington-capitals",
       "name": "Washington Capitals",
       "shortName": "Capitals",
       "code": "WSH",
-      "forPerGame": 3.35,
-      "againstPerGame": 3.8,
-      "gamesPlayed": 20,
-      "adjustedFor": 3.35,
-      "adjustedAgainst": 3.8
+      "forPerGame": 3.4285714285714284,
+      "againstPerGame": 3.9523809523809526,
+      "gamesPlayed": 21,
+      "adjustedFor": 3.4285714285714284,
+      "adjustedAgainst": 3.9523809523809526
     },
     "nhl.winnipeg-jets": {
       "teamId": "nhl.winnipeg-jets",
       "name": "Winnipeg Jets",
       "shortName": "Jets",
       "code": "WPG",
-      "forPerGame": 3.0869565217391304,
-      "againstPerGame": 3.347826086956522,
-      "gamesPlayed": 23,
-      "adjustedFor": 3.0869565217391304,
-      "adjustedAgainst": 3.347826086956522
+      "forPerGame": 3.125,
+      "againstPerGame": 3.4166666666666665,
+      "gamesPlayed": 24,
+      "adjustedFor": 3.125,
+      "adjustedAgainst": 3.4166666666666665
     },
     "nhl.dallas-stars": {
       "teamId": "nhl.dallas-stars",
@@ -334,33 +334,33 @@
       "name": "St. Louis Blues",
       "shortName": "Blues",
       "code": "STL",
-      "forPerGame": 3.090909090909091,
-      "againstPerGame": 3.0454545454545454,
-      "gamesPlayed": 22,
-      "adjustedFor": 3.090909090909091,
-      "adjustedAgainst": 3.0454545454545454
+      "forPerGame": 3.347826086956522,
+      "againstPerGame": 3.1739130434782608,
+      "gamesPlayed": 23,
+      "adjustedFor": 3.347826086956522,
+      "adjustedAgainst": 3.1739130434782608
     },
     "nhl.anaheim-ducks": {
       "teamId": "nhl.anaheim-ducks",
       "name": "Anaheim Ducks",
       "shortName": "Ducks",
       "code": "ANA",
-      "forPerGame": 3.6956521739130435,
-      "againstPerGame": 3.869565217391304,
-      "gamesPlayed": 23,
-      "adjustedFor": 3.6956521739130435,
-      "adjustedAgainst": 3.869565217391304
+      "forPerGame": 3.625,
+      "againstPerGame": 3.8333333333333335,
+      "gamesPlayed": 24,
+      "adjustedFor": 3.625,
+      "adjustedAgainst": 3.8333333333333335
     },
     "nhl.ottawa-senators": {
       "teamId": "nhl.ottawa-senators",
       "name": "Ottawa Senators",
       "shortName": "Senators",
       "code": "OTT",
-      "forPerGame": 3.260869565217391,
-      "againstPerGame": 2.9565217391304346,
-      "gamesPlayed": 23,
-      "adjustedFor": 3.260869565217391,
-      "adjustedAgainst": 2.9565217391304346
+      "forPerGame": 3.2916666666666665,
+      "againstPerGame": 2.9166666666666665,
+      "gamesPlayed": 24,
+      "adjustedFor": 3.2916666666666665,
+      "adjustedAgainst": 2.9166666666666665
     }
   },
   "games": [
@@ -369,7 +369,7 @@
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-21T18:00:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.carolina-hurricanes",
         "league": "nhl",
@@ -385,14 +385,20 @@
         "code": "EDM"
       },
       "referee": "Peter MacDougall",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 7,
+        "away": 4,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-21-chi-cgy",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-21T20:30:00.000Z",
-      "status": "in_progress",
+      "status": "final",
       "home": {
         "id": "nhl.calgary-flames",
         "league": "nhl",
@@ -408,14 +414,20 @@
         "code": "CHI"
       },
       "referee": "TJ Luxmore",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 4,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-21-buf-fla",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-21T23:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.florida-panthers",
         "league": "nhl",
@@ -431,14 +443,20 @@
         "code": "BUF"
       },
       "referee": "Francis Charron",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 3,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-21-pit-nsh",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-21T23:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.nashville-predators",
         "league": "nhl",
@@ -454,14 +472,20 @@
         "code": "PIT"
       },
       "referee": "Chris Schlenker",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 3,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-wsh-bos",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.boston-bruins",
         "league": "nhl",
@@ -476,14 +500,21 @@
         "shortName": "Capitals",
         "code": "WSH"
       },
-      "neutralSite": false
+      "referee": "Riley Brace",
+      "neutralSite": false,
+      "result": {
+        "home": 7,
+        "away": 5,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-phi-mtl",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.montreal-canadiens",
         "league": "nhl",
@@ -498,14 +529,21 @@
         "shortName": "Flyers",
         "code": "PHI"
       },
-      "neutralSite": false
+      "referee": "Francois St. Laurent",
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 4,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-cbj-tor",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.toronto-maple-leafs",
         "league": "nhl",
@@ -520,14 +558,21 @@
         "shortName": "Blue Jackets",
         "code": "CBJ"
       },
-      "neutralSite": false
+      "referee": "Kendrick Nicholson",
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 4,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-vgk-wpg",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.winnipeg-jets",
         "league": "nhl",
@@ -542,14 +587,21 @@
         "shortName": "Golden Knights",
         "code": "VGK"
       },
-      "neutralSite": false
+      "referee": "Cody Beach",
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 5,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-nyi-det",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.detroit-red-wings",
         "league": "nhl",
@@ -564,14 +616,21 @@
         "shortName": "Islanders",
         "code": "NYI"
       },
-      "neutralSite": false
+      "referee": "Frederick L'Ecuyer",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 3,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-lak-ott",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.ottawa-senators",
         "league": "nhl",
@@ -586,14 +645,20 @@
         "shortName": "Kings",
         "code": "LAK"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 2,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-njd-stl",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T00:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.st-louis-blues",
         "league": "nhl",
@@ -608,14 +673,20 @@
         "shortName": "Devils",
         "code": "NJD"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 9,
+        "away": 6,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-ana-uta",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T02:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.utah-mammoth",
         "league": "nhl",
@@ -630,14 +701,21 @@
         "shortName": "Ducks",
         "code": "ANA"
       },
-      "neutralSite": false
+      "referee": "Kelly Sutherland",
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 2,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-min-van",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T03:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.vancouver-canucks",
         "league": "nhl",
@@ -652,14 +730,21 @@
         "shortName": "Wild",
         "code": "MIN"
       },
-      "neutralSite": false
+      "referee": "Tom Chmielewski",
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 3,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-sea-sjs",
       "league": "nhl",
       "season": "nhl-2026-27",
       "startTime": "2026-11-22T03:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nhl.san-jose-sharks",
         "league": "nhl",
@@ -674,7 +759,13 @@
         "shortName": "Kraken",
         "code": "SEA"
       },
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 3,
+        "observedAt": "2026-11-22T12:45:34.619Z",
+        "source": "bzzoiro"
+      }
     },
     {
       "id": "nhl-2026-11-22-car-nyr",
@@ -937,6 +1028,28 @@
         "name": "Minnesota Wild",
         "shortName": "Wild",
         "code": "MIN"
+      },
+      "neutralSite": false
+    },
+    {
+      "id": "nhl-2026-11-25-vgk-edm",
+      "league": "nhl",
+      "season": "nhl-2026-27",
+      "startTime": "2026-11-25T01:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "nhl.edmonton-oilers",
+        "league": "nhl",
+        "name": "Edmonton Oilers",
+        "shortName": "Oilers",
+        "code": "EDM"
+      },
+      "away": {
+        "id": "nhl.vegas-golden-knights",
+        "league": "nhl",
+        "name": "Vegas Golden Knights",
+        "shortName": "Golden Knights",
+        "code": "VGK"
       },
       "neutralSite": false
     }
@@ -2250,6 +2363,9 @@
           "Bruins gana en 63 % de los escenarios.",
           "Se esperan 6.49 goles: 3.66 de Bruins y 2.83 de Capitals."
         ]
+      },
+      "matchContext": {
+        "referee": "Riley Brace"
       }
     },
     "nhl-2026-11-22-phi-mtl": {
@@ -2510,6 +2626,9 @@
           "Canadiens gana en 60 % de los escenarios.",
           "Se esperan 5.38 goles: 2.99 de Canadiens y 2.39 de Flyers."
         ]
+      },
+      "matchContext": {
+        "referee": "Francois St. Laurent"
       }
     },
     "nhl-2026-11-22-cbj-tor": {
@@ -2779,6 +2898,9 @@
           "Maple Leafs gana en 51 % de los escenarios.",
           "Se esperan 6.06 goles: 3.05 de Maple Leafs y 3.01 de Blue Jackets."
         ]
+      },
+      "matchContext": {
+        "referee": "Kendrick Nicholson"
       }
     },
     "nhl-2026-11-22-vgk-wpg": {
@@ -3039,6 +3161,9 @@
           "Golden Knights gana en 57 % de los escenarios.",
           "Se esperan 6.01 goles: 2.78 de Jets y 3.23 de Golden Knights."
         ]
+      },
+      "matchContext": {
+        "referee": "Cody Beach"
       }
     },
     "nhl-2026-11-22-nyi-det": {
@@ -3309,6 +3434,9 @@
           "Islanders gana en 54 % de los escenarios.",
           "Se esperan 5.51 goles: 2.63 de Red Wings y 2.89 de Islanders."
         ]
+      },
+      "matchContext": {
+        "referee": "Frederick L'Ecuyer"
       }
     },
     "nhl-2026-11-22-lak-ott": {
@@ -4098,6 +4226,9 @@
           "Mammoth gana en 57 % de los escenarios.",
           "Se esperan 7.47 goles: 3.99 de Mammoth y 3.49 de Ducks."
         ]
+      },
+      "matchContext": {
+        "referee": "Kelly Sutherland"
       }
     },
     "nhl-2026-11-22-min-van": {
@@ -4367,6 +4498,9 @@
           "Wild gana en 82 % de los escenarios.",
           "Se esperan 6.89 goles: 2.24 de Canucks y 4.64 de Wild."
         ]
+      },
+      "matchContext": {
+        "referee": "Tom Chmielewski"
       }
     },
     "nhl-2026-11-22-sea-sjs": {
@@ -7800,6 +7934,266 @@
           "Se esperan 6.33 goles: 2.31 de Sharks y 4.02 de Wild."
         ]
       }
+    },
+    "nhl-2026-11-25-vgk-edm": {
+      "game": "nhl-2026-11-25-vgk-edm",
+      "model": {
+        "id": "pitchlab-ratings-nhl",
+        "version": "1.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 3.2374523722702913,
+        "away": 3.0028784390777044,
+        "total": 6.240330811347995,
+        "margin": 0.2345739331925869
+      },
+      "x12": [
+        0.5366051999520833,
+        0,
+        0.46339480004791667
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Oilers gana",
+          "p": 0.5366051999520833,
+          "fairOdds": 1.8635674795721249
+        },
+        {
+          "market": "h2h",
+          "selection": "Golden Knights gana",
+          "p": 0.46339480004791667,
+          "fairOdds": 2.1579870984667857
+        },
+        {
+          "market": "spreads",
+          "selection": "EDM cubre",
+          "line": -1.5,
+          "p": 0.3006809290568695,
+          "fairOdds": 3.325784588788683
+        },
+        {
+          "market": "spreads",
+          "selection": "VGK cubre",
+          "line": 1.5,
+          "p": 0.6993190709431305,
+          "fairOdds": 1.4299624328153369
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 5.5,
+          "p": 0.5920597840738046,
+          "fairOdds": 1.6890186209224822
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 5.5,
+          "p": 0.40794021592619545,
+          "fairOdds": 2.4513395859478586
+        },
+        {
+          "market": "team_totals",
+          "selection": "EDM más de 2.5",
+          "line": 2.5,
+          "p": 0.6508401579402202,
+          "fairOdds": 1.5364755659282017
+        },
+        {
+          "market": "team_totals",
+          "selection": "EDM menos de 2.5",
+          "line": 2.5,
+          "p": 0.3491598420597798,
+          "fairOdds": 2.864017792254556
+        },
+        {
+          "market": "team_totals",
+          "selection": "VGK más de 2.5",
+          "line": 2.5,
+          "p": 0.6004457031377741,
+          "fairOdds": 1.6654295213942882
+        },
+        {
+          "market": "team_totals",
+          "selection": "VGK menos de 2.5",
+          "line": 2.5,
+          "p": 0.3995542968622259,
+          "fairOdds": 2.5027887519998804
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador (incluye tiempo extra)",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Oilers gana",
+              "p": 0.5366051999520833,
+              "fairOdds": 1.8635674795721249
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Golden Knights gana",
+              "p": 0.46339480004791667,
+              "fairOdds": 2.1579870984667857
+            }
+          ]
+        },
+        {
+          "group": "Puck line EDM -1.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "EDM cubre",
+              "line": -1.5,
+              "p": 0.3006809290568695,
+              "fairOdds": 3.325784588788683
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "VGK cubre",
+              "line": 1.5,
+              "p": 0.6993190709431305,
+              "fairOdds": 1.4299624328153369
+            }
+          ]
+        },
+        {
+          "group": "Total 5.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 5.5,
+              "p": 0.5920597840738046,
+              "fairOdds": 1.6890186209224822
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 5.5,
+              "p": 0.40794021592619545,
+              "fairOdds": 2.4513395859478586
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "EDM más de 2.5",
+              "line": 2.5,
+              "p": 0.6508401579402202,
+              "fairOdds": 1.5364755659282017
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "EDM menos de 2.5",
+              "line": 2.5,
+              "p": 0.3491598420597798,
+              "fairOdds": 2.864017792254556
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "VGK más de 2.5",
+              "line": 2.5,
+              "p": 0.6004457031377741,
+              "fairOdds": 1.6654295213942882
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "VGK menos de 2.5",
+              "line": 2.5,
+              "p": 0.3995542968622259,
+              "fairOdds": 2.5027887519998804
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_projection",
+          "label": "Local",
+          "value": "3.24 goles proyectados",
+          "detail": "25 partidos esta temporada"
+        },
+        {
+          "key": "away_projection",
+          "label": "Visitante",
+          "value": "3.00 goles proyectados",
+          "detail": "25 partidos esta temporada"
+        },
+        {
+          "key": "rest",
+          "label": "Descanso",
+          "value": "EDM: 3 días de descanso",
+          "detail": "VGK: 2 días de descanso"
+        },
+        {
+          "key": "overtime",
+          "label": "Tiempo extra",
+          "value": "16 % de llegar empatados al final",
+          "detail": "se define en tiempo extra o penales"
+        }
+      ],
+      "steps": [
+        "Sincronizando NHL · corte 22 nov 2026, 12:45",
+        "Ataque y defensa actualizados partido a partido (1766 partidos)",
+        "Goles de tiempo regular separados del tiempo extra",
+        "Proyección 3.24 – 3.00 · margen +0.23",
+        "Simulando marcadores y tiempo extra",
+        "10 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-22T12:45:34.619Z",
+      "publishedAt": "2026-11-22T12:45:34.619Z",
+      "source": "bzzoiro",
+      "picks": [
+        {
+          "profile": "intermedia",
+          "market": "spreads",
+          "selection": "away",
+          "label": "VGK cubre",
+          "line": 1.5,
+          "p": 0.6993190709431305,
+          "fairOdds": 1.4299624328153369
+        },
+        {
+          "profile": "arriesgada",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Golden Knights gana",
+          "p": 0.46339480004791667,
+          "fairOdds": 2.1579870984667857
+        }
+      ],
+      "confidence": {
+        "score": 36,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Oilers gana en 54 % de los escenarios.",
+          "Se esperan 6.24 goles: 3.24 de Oilers y 3.00 de Golden Knights."
+        ]
+      }
     }
   },
   "standings": [
@@ -7809,24 +8203,24 @@
       "shortName": "Wild",
       "code": "MIN",
       "logoUrl": "/brand/official/nhl/minnesota-wild.png",
-      "played": 24,
+      "played": 25,
       "won": 17,
       "drawn": 0,
       "lost": 3,
-      "goalsFor": 87,
-      "goalsAgainst": 52,
-      "points": 38,
+      "goalsFor": 90,
+      "goalsAgainst": 56,
+      "points": 39,
       "conference": "Oeste",
       "division": "Central",
-      "otLosses": 4,
-      "winPct": 0.708,
+      "otLosses": 5,
+      "winPct": 0.68,
       "seed": 1,
       "form": [
         "W",
         "W",
         "W",
         "W",
-        "W"
+        "L"
       ]
     },
     {
@@ -7882,6 +8276,58 @@
       ]
     },
     {
+      "teamId": "nhl.ottawa-senators",
+      "name": "Ottawa Senators",
+      "shortName": "Senators",
+      "code": "OTT",
+      "logoUrl": "/brand/official/nhl/ottawa-senators.png",
+      "played": 24,
+      "won": 15,
+      "drawn": 0,
+      "lost": 6,
+      "goalsFor": 79,
+      "goalsAgainst": 70,
+      "points": 33,
+      "conference": "Este",
+      "division": "Atlántico",
+      "otLosses": 3,
+      "winPct": 0.625,
+      "seed": 2,
+      "form": [
+        "W",
+        "W",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "nhl.vegas-golden-knights",
+      "name": "Vegas Golden Knights",
+      "shortName": "Golden Knights",
+      "code": "VGK",
+      "logoUrl": "/brand/official/nhl/vegas-golden-knights.png",
+      "played": 25,
+      "won": 14,
+      "drawn": 0,
+      "lost": 6,
+      "goalsFor": 85,
+      "goalsAgainst": 75,
+      "points": 33,
+      "conference": "Oeste",
+      "division": "Pacífico",
+      "otLosses": 5,
+      "winPct": 0.56,
+      "seed": 3,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "nhl.tampa-bay-lightning",
       "name": "Tampa Bay Lightning",
       "shortName": "Lightning",
@@ -7898,7 +8344,7 @@
       "division": "Atlántico",
       "otLosses": 2,
       "winPct": 0.682,
-      "seed": 2,
+      "seed": 3,
       "form": [
         "W",
         "W",
@@ -7913,76 +8359,50 @@
       "shortName": "Canadiens",
       "code": "MTL",
       "logoUrl": "/brand/official/nhl/montreal-canadiens.png",
-      "played": 23,
+      "played": 24,
       "won": 14,
       "drawn": 0,
-      "lost": 5,
-      "goalsFor": 74,
-      "goalsAgainst": 67,
+      "lost": 6,
+      "goalsFor": 77,
+      "goalsAgainst": 71,
       "points": 32,
       "conference": "Este",
       "division": "Atlántico",
       "otLosses": 4,
-      "winPct": 0.609,
-      "seed": 3,
+      "winPct": 0.583,
+      "seed": 4,
       "form": [
+        "L",
+        "L",
         "W",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "nhl.boston-bruins",
+      "name": "Boston Bruins",
+      "shortName": "Bruins",
+      "code": "BOS",
+      "logoUrl": "/brand/official/nhl/boston-bruins.png",
+      "played": 23,
+      "won": 15,
+      "drawn": 0,
+      "lost": 7,
+      "goalsFor": 83,
+      "goalsAgainst": 61,
+      "points": 31,
+      "conference": "Este",
+      "division": "Atlántico",
+      "otLosses": 1,
+      "winPct": 0.652,
+      "seed": 5,
+      "form": [
+        "L",
         "L",
         "L",
         "W",
         "W"
-      ]
-    },
-    {
-      "teamId": "nhl.ottawa-senators",
-      "name": "Ottawa Senators",
-      "shortName": "Senators",
-      "code": "OTT",
-      "logoUrl": "/brand/official/nhl/ottawa-senators.png",
-      "played": 23,
-      "won": 14,
-      "drawn": 0,
-      "lost": 6,
-      "goalsFor": 75,
-      "goalsAgainst": 68,
-      "points": 31,
-      "conference": "Este",
-      "division": "Atlántico",
-      "otLosses": 3,
-      "winPct": 0.609,
-      "seed": 4,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "W",
-        "L"
-      ]
-    },
-    {
-      "teamId": "nhl.vegas-golden-knights",
-      "name": "Vegas Golden Knights",
-      "shortName": "Golden Knights",
-      "code": "VGK",
-      "logoUrl": "/brand/official/nhl/vegas-golden-knights.png",
-      "played": 24,
-      "won": 13,
-      "drawn": 0,
-      "lost": 6,
-      "goalsFor": 80,
-      "goalsAgainst": 71,
-      "points": 31,
-      "conference": "Oeste",
-      "division": "Pacífico",
-      "otLosses": 5,
-      "winPct": 0.542,
-      "seed": 3,
-      "form": [
-        "W",
-        "L",
-        "L",
-        "L",
-        "L"
       ]
     },
     {
@@ -7991,23 +8411,23 @@
       "shortName": "Devils",
       "code": "NJD",
       "logoUrl": "/brand/official/nhl/new-jersey-devils.png",
-      "played": 22,
+      "played": 23,
       "won": 15,
       "drawn": 0,
-      "lost": 7,
-      "goalsFor": 82,
-      "goalsAgainst": 64,
+      "lost": 8,
+      "goalsFor": 88,
+      "goalsAgainst": 73,
       "points": 30,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 0,
-      "winPct": 0.682,
-      "seed": 5,
+      "winPct": 0.652,
+      "seed": 6,
       "form": [
-        "W",
         "L",
         "W",
         "W",
+        "L",
         "L"
       ]
     },
@@ -8038,32 +8458,6 @@
       ]
     },
     {
-      "teamId": "nhl.boston-bruins",
-      "name": "Boston Bruins",
-      "shortName": "Bruins",
-      "code": "BOS",
-      "logoUrl": "/brand/official/nhl/boston-bruins.png",
-      "played": 22,
-      "won": 14,
-      "drawn": 0,
-      "lost": 7,
-      "goalsFor": 76,
-      "goalsAgainst": 56,
-      "points": 29,
-      "conference": "Este",
-      "division": "Atlántico",
-      "otLosses": 1,
-      "winPct": 0.636,
-      "seed": 6,
-      "form": [
-        "W",
-        "L",
-        "L",
-        "L",
-        "W"
-      ]
-    },
-    {
       "teamId": "nhl.colorado-avalanche",
       "name": "Colorado Avalanche",
       "shortName": "Avalanche",
@@ -8090,6 +8484,58 @@
       ]
     },
     {
+      "teamId": "nhl.florida-panthers",
+      "name": "Florida Panthers",
+      "shortName": "Panthers",
+      "code": "FLA",
+      "logoUrl": "/brand/official/nhl/florida-panthers.png",
+      "played": 24,
+      "won": 13,
+      "drawn": 0,
+      "lost": 8,
+      "goalsFor": 76,
+      "goalsAgainst": 71,
+      "points": 29,
+      "conference": "Este",
+      "division": "Atlántico",
+      "otLosses": 3,
+      "winPct": 0.542,
+      "seed": 7,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "teamId": "nhl.nashville-predators",
+      "name": "Nashville Predators",
+      "shortName": "Predators",
+      "code": "NSH",
+      "logoUrl": "/brand/official/nhl/nashville-predators.png",
+      "played": 23,
+      "won": 12,
+      "drawn": 0,
+      "lost": 6,
+      "goalsFor": 71,
+      "goalsAgainst": 69,
+      "points": 29,
+      "conference": "Oeste",
+      "division": "Central",
+      "otLosses": 5,
+      "winPct": 0.522,
+      "seed": 6,
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ]
+    },
+    {
       "teamId": "nhl.new-york-rangers",
       "name": "New York Rangers",
       "shortName": "Rangers",
@@ -8106,65 +8552,13 @@
       "division": "Metropolitana",
       "otLosses": 1,
       "winPct": 0.591,
-      "seed": 7,
+      "seed": 8,
       "form": [
         "W",
         "L",
         "W",
         "W",
         "W"
-      ]
-    },
-    {
-      "teamId": "nhl.florida-panthers",
-      "name": "Florida Panthers",
-      "shortName": "Panthers",
-      "code": "FLA",
-      "logoUrl": "/brand/official/nhl/florida-panthers.png",
-      "played": 23,
-      "won": 12,
-      "drawn": 0,
-      "lost": 8,
-      "goalsFor": 72,
-      "goalsAgainst": 68,
-      "points": 27,
-      "conference": "Este",
-      "division": "Atlántico",
-      "otLosses": 3,
-      "winPct": 0.522,
-      "seed": 8,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "teamId": "nhl.nashville-predators",
-      "name": "Nashville Predators",
-      "shortName": "Predators",
-      "code": "NSH",
-      "logoUrl": "/brand/official/nhl/nashville-predators.png",
-      "played": 22,
-      "won": 11,
-      "drawn": 0,
-      "lost": 6,
-      "goalsFor": 67,
-      "goalsAgainst": 66,
-      "points": 27,
-      "conference": "Oeste",
-      "division": "Central",
-      "otLosses": 5,
-      "winPct": 0.5,
-      "seed": 6,
-      "form": [
-        "W",
-        "W",
-        "W",
-        "L",
-        "L"
       ]
     },
     {
@@ -8173,49 +8567,23 @@
       "shortName": "Mammoth",
       "code": "UTA",
       "logoUrl": "/brand/official/nhl/utah-mammoth.png",
-      "played": 23,
-      "won": 11,
+      "played": 24,
+      "won": 12,
       "drawn": 0,
       "lost": 9,
-      "goalsFor": 77,
-      "goalsAgainst": 79,
-      "points": 25,
+      "goalsFor": 80,
+      "goalsAgainst": 81,
+      "points": 27,
       "conference": "Oeste",
       "division": "Central",
       "otLosses": 3,
-      "winPct": 0.478,
+      "winPct": 0.5,
       "seed": 7,
       "form": [
         "L",
         "L",
         "L",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "nhl.winnipeg-jets",
-      "name": "Winnipeg Jets",
-      "shortName": "Jets",
-      "code": "WPG",
-      "logoUrl": "/brand/official/nhl/winnipeg-jets.png",
-      "played": 23,
-      "won": 11,
-      "drawn": 0,
-      "lost": 9,
-      "goalsFor": 71,
-      "goalsAgainst": 77,
-      "points": 25,
-      "conference": "Oeste",
-      "division": "Central",
-      "otLosses": 3,
-      "winPct": 0.478,
-      "seed": 8,
-      "form": [
         "W",
-        "W",
-        "W",
-        "L",
         "W"
       ]
     },
@@ -8225,24 +8593,24 @@
       "shortName": "Islanders",
       "code": "NYI",
       "logoUrl": "/brand/official/nhl/new-york-islanders.png",
-      "played": 21,
-      "won": 10,
+      "played": 22,
+      "won": 11,
       "drawn": 0,
       "lost": 6,
-      "goalsFor": 68,
-      "goalsAgainst": 61,
-      "points": 25,
+      "goalsFor": 71,
+      "goalsAgainst": 63,
+      "points": 27,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 5,
-      "winPct": 0.476,
+      "winPct": 0.5,
       "seed": 9,
       "form": [
+        "W",
+        "W",
+        "W",
         "L",
-        "W",
-        "W",
-        "W",
-        "L"
+        "W"
       ]
     },
     {
@@ -8251,49 +8619,49 @@
       "shortName": "Blues",
       "code": "STL",
       "logoUrl": "/brand/official/nhl/st-louis-blues.png",
-      "played": 22,
-      "won": 11,
+      "played": 23,
+      "won": 12,
       "drawn": 0,
       "lost": 9,
-      "goalsFor": 68,
-      "goalsAgainst": 67,
-      "points": 24,
+      "goalsFor": 77,
+      "goalsAgainst": 73,
+      "points": 26,
       "conference": "Oeste",
       "division": "Central",
       "otLosses": 2,
-      "winPct": 0.5,
+      "winPct": 0.522,
+      "seed": 8,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "nhl.winnipeg-jets",
+      "name": "Winnipeg Jets",
+      "shortName": "Jets",
+      "code": "WPG",
+      "logoUrl": "/brand/official/nhl/winnipeg-jets.png",
+      "played": 24,
+      "won": 11,
+      "drawn": 0,
+      "lost": 9,
+      "goalsFor": 75,
+      "goalsAgainst": 82,
+      "points": 26,
+      "conference": "Oeste",
+      "division": "Central",
+      "otLosses": 4,
+      "winPct": 0.458,
       "seed": 9,
       "form": [
         "W",
         "W",
         "L",
         "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "nhl.anaheim-ducks",
-      "name": "Anaheim Ducks",
-      "shortName": "Ducks",
-      "code": "ANA",
-      "logoUrl": "/brand/official/nhl/anaheim-ducks.png",
-      "played": 23,
-      "won": 11,
-      "drawn": 0,
-      "lost": 11,
-      "goalsFor": 85,
-      "goalsAgainst": 89,
-      "points": 23,
-      "conference": "Oeste",
-      "division": "Pacífico",
-      "otLosses": 1,
-      "winPct": 0.478,
-      "seed": 10,
-      "form": [
-        "L",
-        "L",
-        "W",
-        "L",
         "L"
       ]
     },
@@ -8303,48 +8671,22 @@
       "shortName": "Sharks",
       "code": "SJS",
       "logoUrl": "/brand/official/nhl/san-jose-sharks.png",
-      "played": 24,
-      "won": 10,
+      "played": 25,
+      "won": 11,
       "drawn": 0,
       "lost": 12,
-      "goalsFor": 65,
-      "goalsAgainst": 86,
-      "points": 22,
+      "goalsFor": 69,
+      "goalsAgainst": 89,
+      "points": 24,
       "conference": "Oeste",
       "division": "Pacífico",
       "otLosses": 2,
-      "winPct": 0.417,
-      "seed": 11,
-      "form": [
-        "W",
-        "L",
-        "W",
-        "W",
-        "L"
-      ]
-    },
-    {
-      "teamId": "nhl.buffalo-sabres",
-      "name": "Buffalo Sabres",
-      "shortName": "Sabres",
-      "code": "BUF",
-      "logoUrl": "/brand/official/nhl/buffalo-sabres.png",
-      "played": 22,
-      "won": 9,
-      "drawn": 0,
-      "lost": 9,
-      "goalsFor": 64,
-      "goalsAgainst": 77,
-      "points": 22,
-      "conference": "Este",
-      "division": "Atlántico",
-      "otLosses": 4,
-      "winPct": 0.409,
+      "winPct": 0.44,
       "seed": 10,
       "form": [
         "L",
-        "L",
-        "L",
+        "W",
+        "W",
         "L",
         "W"
       ]
@@ -8355,50 +8697,50 @@
       "shortName": "Flyers",
       "code": "PHI",
       "logoUrl": "/brand/official/nhl/philadelphia-flyers.png",
-      "played": 25,
-      "won": 8,
+      "played": 26,
+      "won": 9,
       "drawn": 0,
       "lost": 11,
-      "goalsFor": 63,
-      "goalsAgainst": 85,
-      "points": 22,
+      "goalsFor": 67,
+      "goalsAgainst": 88,
+      "points": 24,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 6,
-      "winPct": 0.32,
-      "seed": 11,
+      "winPct": 0.346,
+      "seed": 10,
       "form": [
-        "L",
         "W",
         "L",
+        "W",
         "W",
         "W"
       ]
     },
     {
-      "teamId": "nhl.seattle-kraken",
-      "name": "Seattle Kraken",
-      "shortName": "Kraken",
-      "code": "SEA",
-      "logoUrl": "/brand/official/nhl/seattle-kraken.png",
-      "played": 19,
-      "won": 10,
+      "teamId": "nhl.anaheim-ducks",
+      "name": "Anaheim Ducks",
+      "shortName": "Ducks",
+      "code": "ANA",
+      "logoUrl": "/brand/official/nhl/anaheim-ducks.png",
+      "played": 24,
+      "won": 11,
       "drawn": 0,
-      "lost": 8,
-      "goalsFor": 64,
-      "goalsAgainst": 67,
-      "points": 21,
+      "lost": 12,
+      "goalsFor": 87,
+      "goalsAgainst": 92,
+      "points": 23,
       "conference": "Oeste",
       "division": "Pacífico",
       "otLosses": 1,
-      "winPct": 0.526,
-      "seed": 12,
+      "winPct": 0.458,
+      "seed": 11,
       "form": [
+        "L",
         "W",
         "L",
         "L",
-        "L",
-        "W"
+        "L"
       ]
     },
     {
@@ -8407,21 +8749,73 @@
       "shortName": "Flames",
       "code": "CGY",
       "logoUrl": "/brand/official/nhl/calgary-flames.png",
-      "played": 23,
+      "played": 24,
       "won": 10,
       "drawn": 0,
       "lost": 12,
-      "goalsFor": 57,
-      "goalsAgainst": 80,
+      "goalsFor": 60,
+      "goalsAgainst": 84,
+      "points": 22,
+      "conference": "Oeste",
+      "division": "Pacífico",
+      "otLosses": 2,
+      "winPct": 0.417,
+      "seed": 12,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "teamId": "nhl.buffalo-sabres",
+      "name": "Buffalo Sabres",
+      "shortName": "Sabres",
+      "code": "BUF",
+      "logoUrl": "/brand/official/nhl/buffalo-sabres.png",
+      "played": 23,
+      "won": 9,
+      "drawn": 0,
+      "lost": 10,
+      "goalsFor": 67,
+      "goalsAgainst": 81,
+      "points": 22,
+      "conference": "Este",
+      "division": "Atlántico",
+      "otLosses": 4,
+      "winPct": 0.391,
+      "seed": 11,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "nhl.seattle-kraken",
+      "name": "Seattle Kraken",
+      "shortName": "Kraken",
+      "code": "SEA",
+      "logoUrl": "/brand/official/nhl/seattle-kraken.png",
+      "played": 20,
+      "won": 10,
+      "drawn": 0,
+      "lost": 9,
+      "goalsFor": 67,
+      "goalsAgainst": 71,
       "points": 21,
       "conference": "Oeste",
       "division": "Pacífico",
       "otLosses": 1,
-      "winPct": 0.435,
+      "winPct": 0.5,
       "seed": 13,
       "form": [
         "L",
-        "W",
+        "L",
         "L",
         "W",
         "L"
@@ -8433,20 +8827,20 @@
       "shortName": "Capitals",
       "code": "WSH",
       "logoUrl": "/brand/official/nhl/washington-capitals.png",
-      "played": 20,
+      "played": 21,
       "won": 10,
       "drawn": 0,
-      "lost": 10,
-      "goalsFor": 67,
-      "goalsAgainst": 76,
+      "lost": 11,
+      "goalsFor": 72,
+      "goalsAgainst": 83,
       "points": 20,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 0,
-      "winPct": 0.5,
+      "winPct": 0.476,
       "seed": 12,
       "form": [
-        "W",
+        "L",
         "L",
         "L",
         "L",
@@ -8459,23 +8853,23 @@
       "shortName": "Red Wings",
       "code": "DET",
       "logoUrl": "/brand/official/nhl/detroit-red-wings.png",
-      "played": 22,
+      "played": 23,
       "won": 8,
       "drawn": 0,
-      "lost": 11,
-      "goalsFor": 58,
-      "goalsAgainst": 68,
+      "lost": 12,
+      "goalsFor": 60,
+      "goalsAgainst": 71,
       "points": 19,
       "conference": "Este",
       "division": "Atlántico",
       "otLosses": 3,
-      "winPct": 0.364,
+      "winPct": 0.348,
       "seed": 13,
       "form": [
         "L",
         "L",
-        "L",
         "W",
+        "L",
         "L"
       ]
     },
@@ -8485,17 +8879,17 @@
       "shortName": "Maple Leafs",
       "code": "TOR",
       "logoUrl": "/brand/official/nhl/toronto-maple-leafs.png",
-      "played": 24,
+      "played": 25,
       "won": 8,
       "drawn": 0,
-      "lost": 13,
-      "goalsFor": 75,
-      "goalsAgainst": 86,
+      "lost": 14,
+      "goalsFor": 78,
+      "goalsAgainst": 90,
       "points": 19,
       "conference": "Este",
       "division": "Atlántico",
       "otLosses": 3,
-      "winPct": 0.333,
+      "winPct": 0.32,
       "seed": 14,
       "form": [
         "L",
@@ -8511,23 +8905,23 @@
       "shortName": "Blue Jackets",
       "code": "CBJ",
       "logoUrl": "/brand/official/nhl/columbus-blue-jackets.png",
-      "played": 20,
-      "won": 8,
+      "played": 21,
+      "won": 9,
       "drawn": 0,
       "lost": 12,
-      "goalsFor": 50,
-      "goalsAgainst": 65,
-      "points": 16,
+      "goalsFor": 54,
+      "goalsAgainst": 68,
+      "points": 18,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 0,
-      "winPct": 0.4,
+      "winPct": 0.429,
       "seed": 15,
       "form": [
         "L",
         "L",
         "L",
-        "L",
+        "W",
         "W"
       ]
     },
@@ -8537,24 +8931,24 @@
       "shortName": "Kings",
       "code": "LAK",
       "logoUrl": "/brand/official/nhl/los-angeles-kings.png",
-      "played": 20,
+      "played": 21,
       "won": 7,
       "drawn": 0,
-      "lost": 11,
-      "goalsFor": 56,
-      "goalsAgainst": 66,
+      "lost": 12,
+      "goalsFor": 58,
+      "goalsAgainst": 70,
       "points": 16,
       "conference": "Oeste",
       "division": "Pacífico",
       "otLosses": 2,
-      "winPct": 0.35,
+      "winPct": 0.333,
       "seed": 14,
       "form": [
         "L",
         "L",
-        "L",
         "W",
-        "W"
+        "W",
+        "L"
       ]
     },
     {
@@ -8563,22 +8957,22 @@
       "shortName": "Penguins",
       "code": "PIT",
       "logoUrl": "/brand/official/nhl/pittsburgh-penguins.png",
-      "played": 21,
+      "played": 22,
       "won": 7,
       "drawn": 0,
-      "lost": 12,
-      "goalsFor": 64,
-      "goalsAgainst": 76,
+      "lost": 13,
+      "goalsFor": 67,
+      "goalsAgainst": 80,
       "points": 16,
       "conference": "Este",
       "division": "Metropolitana",
       "otLosses": 2,
-      "winPct": 0.333,
+      "winPct": 0.318,
       "seed": 16,
       "form": [
-        "W",
         "L",
         "W",
+        "L",
         "L",
         "L"
       ]
@@ -8589,24 +8983,24 @@
       "shortName": "Blackhawks",
       "code": "CHI",
       "logoUrl": "/brand/official/nhl/chicago-blackhawks.png",
-      "played": 22,
-      "won": 6,
+      "played": 23,
+      "won": 7,
       "drawn": 0,
       "lost": 14,
-      "goalsFor": 54,
-      "goalsAgainst": 90,
-      "points": 14,
+      "goalsFor": 58,
+      "goalsAgainst": 93,
+      "points": 16,
       "conference": "Oeste",
       "division": "Central",
       "otLosses": 2,
-      "winPct": 0.273,
+      "winPct": 0.304,
       "seed": 15,
       "form": [
-        "L",
         "W",
         "L",
         "W",
-        "L"
+        "L",
+        "W"
       ]
     },
     {
@@ -8615,24 +9009,24 @@
       "shortName": "Canucks",
       "code": "VAN",
       "logoUrl": "/brand/official/nhl/vancouver-canucks.png",
-      "played": 24,
-      "won": 5,
+      "played": 25,
+      "won": 6,
       "drawn": 0,
       "lost": 18,
-      "goalsFor": 67,
-      "goalsAgainst": 105,
-      "points": 11,
+      "goalsFor": 71,
+      "goalsAgainst": 108,
+      "points": 13,
       "conference": "Oeste",
       "division": "Pacífico",
       "otLosses": 1,
-      "winPct": 0.208,
+      "winPct": 0.24,
       "seed": 16,
       "form": [
         "L",
+        "W",
+        "W",
         "L",
-        "W",
-        "W",
-        "L"
+        "W"
       ]
     }
   ]

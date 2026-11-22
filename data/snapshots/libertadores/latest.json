@@ -5,7 +5,7 @@
   "season": "libertadores-2026",
   "seasonLabel": "2026",
   "periodLabel": "Round of 16",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 6,
-      "adjustedFor": 0.8803031884245329,
-      "adjustedAgainst": 0.7956554677749609
+      "adjustedFor": 0.880293378205178,
+      "adjustedAgainst": 0.7957106019169745
     },
     "libertadores.independiente-rivadavia": {
       "teamId": "libertadores.independiente-rivadavia",
@@ -29,8 +29,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7005610472080843,
-      "adjustedAgainst": 0.6826870493017378
+      "adjustedFor": 0.7007333598932983,
+      "adjustedAgainst": 0.6828943045736073
     },
     "libertadores.deportes-tolima": {
       "teamId": "libertadores.deportes-tolima",
@@ -40,8 +40,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6753463921117763,
-      "adjustedAgainst": 1.070651492480022
+      "adjustedFor": 0.6755786989033726,
+      "adjustedAgainst": 1.0704330722344102
     },
     "libertadores.independiente-valle": {
       "teamId": "libertadores.independiente-valle",
@@ -51,8 +51,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.9772037154677609,
-      "adjustedAgainst": 0.8911319142080568
+      "adjustedFor": 0.9770789782323474,
+      "adjustedAgainst": 0.8910540383750718
     },
     "libertadores.estudiantes-la-plata": {
       "teamId": "libertadores.estudiantes-la-plata",
@@ -62,8 +62,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.3333333333333333,
       "gamesPlayed": 6,
-      "adjustedFor": 0.8911882207081049,
-      "adjustedAgainst": 0.5168919706962279
+      "adjustedFor": 0.8911555333107501,
+      "adjustedAgainst": 0.5171687265830944
     },
     "libertadores.universidad-catolica": {
       "teamId": "libertadores.universidad-catolica",
@@ -73,8 +73,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 2,
-      "adjustedFor": 0.7795383705928113,
-      "adjustedAgainst": 1.1013095825301398
+      "adjustedFor": 0.7795349324320848,
+      "adjustedAgainst": 1.1010051645672057
     },
     "libertadores.atletico-platense": {
       "teamId": "libertadores.atletico-platense",
@@ -84,8 +84,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.7858313006702525,
-      "adjustedAgainst": 0.8918204278822122
+      "adjustedFor": 0.7858551240711067,
+      "adjustedAgainst": 0.8917387509671459
     },
     "libertadores.coquimbo-unido": {
       "teamId": "libertadores.coquimbo-unido",
@@ -95,8 +95,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6743451622352566,
-      "adjustedAgainst": 0.7047302586431315
+      "adjustedFor": 0.6745799199172208,
+      "adjustedAgainst": 0.7049046029568777
     },
     "libertadores.palmeiras": {
       "teamId": "libertadores.palmeiras",
@@ -106,8 +106,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1,
       "gamesPlayed": 6,
-      "adjustedFor": 0.9695182332586655,
-      "adjustedAgainst": 0.8916222269448014
+      "adjustedFor": 0.9694368100383051,
+      "adjustedAgainst": 0.8915991255080856
     },
     "libertadores.cerro-porteno": {
       "teamId": "libertadores.cerro-porteno",
@@ -117,8 +117,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 1,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6743932639101172,
-      "adjustedAgainst": 0.7966459950477527
+      "adjustedFor": 0.6746137707050619,
+      "adjustedAgainst": 0.7967317062721901
     },
     "libertadores.cruzeiro": {
       "teamId": "libertadores.cruzeiro",
@@ -128,8 +128,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.9276467155454917,
-      "adjustedAgainst": 0.9619285375735614
+      "adjustedFor": 0.9274155959569133,
+      "adjustedAgainst": 0.9617907210156327
     },
     "libertadores.flamengo": {
       "teamId": "libertadores.flamengo",
@@ -139,8 +139,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.5,
       "gamesPlayed": 6,
-      "adjustedFor": 0.8868482375880047,
-      "adjustedAgainst": 0.5540209097855784
+      "adjustedFor": 0.8868306213421286,
+      "adjustedAgainst": 0.5543019599264878
     },
     "libertadores.mirassol": {
       "teamId": "libertadores.mirassol",
@@ -150,8 +150,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.6798627687491364,
-      "adjustedAgainst": 0.6790883664953685
+      "adjustedFor": 0.6800797158076777,
+      "adjustedAgainst": 0.6793145213545789
     },
     "libertadores.ldu": {
       "teamId": "libertadores.ldu",
@@ -161,8 +161,8 @@
       "forPerGame": 1,
       "againstPerGame": 1,
       "gamesPlayed": 4,
-      "adjustedFor": 0.8861554340831653,
-      "adjustedAgainst": 0.8686982206792979
+      "adjustedFor": 0.8860850199451986,
+      "adjustedAgainst": 0.8686673670675271
     },
     "libertadores.rosario-central": {
       "teamId": "libertadores.rosario-central",
@@ -172,8 +172,8 @@
       "forPerGame": 0,
       "againstPerGame": 0.5,
       "gamesPlayed": 2,
-      "adjustedFor": 0.5794509692700094,
-      "adjustedAgainst": 0.723220507048015
+      "adjustedFor": 0.5797775874130909,
+      "adjustedAgainst": 0.7233668541649261
     },
     "libertadores.corinthians": {
       "teamId": "libertadores.corinthians",
@@ -183,8 +183,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 0.723963937347369,
-      "adjustedAgainst": 0.680215947924554
+      "adjustedFor": 0.7240069413664507,
+      "adjustedAgainst": 0.6803406981620352
     }
   },
   "games": [
@@ -219,7 +219,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -254,7 +254,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +324,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +359,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +394,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +429,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +464,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +534,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +569,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +604,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +639,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +674,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +709,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +744,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1676,11 +1676,11 @@
         "referee": "Yael Falcon Perez",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 90,
-          "avgYellow": 5.49,
+          "matches": 91,
+          "avgYellow": 5.46,
           "avgRed": 0.3,
           "avgFouls": 25.2,
-          "avgGoals": 2.46
+          "avgGoals": 2.45
         },
         "halfTimeScore": {
           "home": 0,
@@ -2594,11 +2594,11 @@
         "referee": "Dario Herrera",
         "refereeStats": {
           "country": "Argentina",
-          "matches": 93,
-          "avgYellow": 5.52,
-          "avgRed": 0.3,
+          "matches": 94,
+          "avgYellow": 5.53,
+          "avgRed": 0.31,
           "avgFouls": 24.6,
-          "avgGoals": 2.04
+          "avgGoals": 2.05
         },
         "weather": {
           "description": "cloudy",
@@ -3044,10 +3044,10 @@
         "referee": "Andres Matonte",
         "refereeStats": {
           "country": "Uruguay",
-          "matches": 31,
-          "avgYellow": 4.58,
-          "avgRed": 0.45,
-          "avgFouls": 21.1,
+          "matches": 32,
+          "avgYellow": 4.56,
+          "avgRed": 0.44,
+          "avgFouls": 21,
           "avgGoals": 2.06
         },
         "weather": {
@@ -6229,10 +6229,10 @@
         "referee": "Andres Matonte",
         "refereeStats": {
           "country": "Uruguay",
-          "matches": 31,
-          "avgYellow": 4.58,
-          "avgRed": 0.45,
-          "avgFouls": 21.1,
+          "matches": 32,
+          "avgYellow": 4.56,
+          "avgRed": 0.44,
+          "avgFouls": 21,
           "avgGoals": 2.06
         },
         "weather": {

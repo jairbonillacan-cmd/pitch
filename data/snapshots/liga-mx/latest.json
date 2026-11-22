@@ -5,7 +5,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 17",
-  "updatedAt": "2026-11-21T21:55:44.156Z",
+  "updatedAt": "2026-11-22T12:52:52.715Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -16,11 +16,11 @@
       "shortName": "América",
       "code": "AME",
       "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent",
-      "forPerGame": 2.375,
-      "againstPerGame": 1.4375,
-      "gamesPlayed": 16,
-      "adjustedFor": 2.137094320563095,
-      "adjustedAgainst": 1.3722955523350369
+      "forPerGame": 2.235294117647059,
+      "againstPerGame": 1.411764705882353,
+      "gamesPlayed": 17,
+      "adjustedFor": 2.0331367281114723,
+      "adjustedAgainst": 1.3630364090056206
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
@@ -31,8 +31,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 1.588235294117647,
       "gamesPlayed": 17,
-      "adjustedFor": 1.020782697277581,
-      "adjustedAgainst": 1.4921278929591082
+      "adjustedFor": 1.0174438221931719,
+      "adjustedAgainst": 1.491130631340711
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
@@ -43,8 +43,8 @@
       "forPerGame": 1.7647058823529411,
       "againstPerGame": 1.9411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.6914807638643305,
-      "adjustedAgainst": 1.812209761808616
+      "adjustedFor": 1.6882623979357643,
+      "adjustedAgainst": 1.8140180504168735
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
@@ -55,8 +55,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.4705882352941178,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1996777041072548,
-      "adjustedAgainst": 1.3845722590838498
+      "adjustedFor": 1.1950638874134494,
+      "adjustedAgainst": 1.3841185602995456
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
@@ -67,8 +67,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.5065787345952955,
-      "adjustedAgainst": 1.032439116624248
+      "adjustedFor": 1.5041178840584617,
+      "adjustedAgainst": 1.0309551868228446
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
@@ -79,8 +79,8 @@
       "forPerGame": 2.3125,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 2.0824543282417136,
-      "adjustedAgainst": 1.5056340157084187
+      "adjustedFor": 2.0788794695528683,
+      "adjustedAgainst": 1.5073216177764253
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
@@ -91,8 +91,8 @@
       "forPerGame": 0.9411764705882353,
       "againstPerGame": 2.176470588235294,
       "gamesPlayed": 17,
-      "adjustedFor": 1.0541153903259253,
-      "adjustedAgainst": 1.8718148844602243
+      "adjustedFor": 1.0503581238884967,
+      "adjustedAgainst": 1.8711535810014104
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
@@ -100,11 +100,11 @@
       "shortName": "León",
       "code": "LEO",
       "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent",
-      "forPerGame": 1.4375,
-      "againstPerGame": 1.3125,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.3788575167192345,
-      "adjustedAgainst": 1.2937460215623702
+      "forPerGame": 1.4705882352941178,
+      "againstPerGame": 1.2941176470588236,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.4146685222167674,
+      "adjustedAgainst": 1.2817537566615704
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
@@ -112,11 +112,11 @@
       "shortName": "Monterrey",
       "code": "MTY",
       "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent",
-      "forPerGame": 1.6875,
-      "againstPerGame": 1.5625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.6217281434079038,
-      "adjustedAgainst": 1.4584249336130737
+      "forPerGame": 1.7058823529411764,
+      "againstPerGame": 1.4705882352941178,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.6318147710675603,
+      "adjustedAgainst": 1.3870163992431022
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
@@ -127,8 +127,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1476587047855165,
-      "adjustedAgainst": 1.5794343608448047
+      "adjustedFor": 1.1441126420530952,
+      "adjustedAgainst": 1.5782956375262782
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
@@ -136,11 +136,11 @@
       "shortName": "Pachuca",
       "code": "PAC",
       "logoUrl": "https://sports.bzzoiro.com/img/team/316/?bg=transparent",
-      "forPerGame": 1.8125,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.7366622148935604,
-      "adjustedAgainst": 1.2781353454516255
+      "forPerGame": 1.8235294117647058,
+      "againstPerGame": 1.1764705882352942,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.7439360915037205,
+      "adjustedAgainst": 1.19141803760691
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
@@ -151,8 +151,8 @@
       "forPerGame": 1.1764705882352942,
       "againstPerGame": 1.411764705882353,
       "gamesPlayed": 17,
-      "adjustedFor": 1.1568869388654026,
-      "adjustedAgainst": 1.3622722337220217
+      "adjustedFor": 1.1538395186150334,
+      "adjustedAgainst": 1.3615381184436313
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
@@ -160,11 +160,11 @@
       "shortName": "Pumas",
       "code": "PUM",
       "logoUrl": "https://sports.bzzoiro.com/img/team/313/?bg=transparent",
-      "forPerGame": 1.5,
-      "againstPerGame": 1.625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.4625677793573155,
-      "adjustedAgainst": 1.5338117183321605
+      "forPerGame": 1.411764705882353,
+      "againstPerGame": 1.6470588235294117,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.3816519513675736,
+      "adjustedAgainst": 1.5408947452579527
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
@@ -175,8 +175,8 @@
       "forPerGame": 1.125,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1522709840162326,
-      "adjustedAgainst": 1.4172608426829545
+      "adjustedFor": 1.1486365077167502,
+      "adjustedAgainst": 1.415475026325659
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
@@ -184,11 +184,11 @@
       "shortName": "Santos Laguna",
       "code": "SAN",
       "logoUrl": "https://sports.bzzoiro.com/img/team/312/?bg=transparent",
-      "forPerGame": 1.4375,
-      "againstPerGame": 1.25,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.3931278040845478,
-      "adjustedAgainst": 1.2806970456413598
+      "forPerGame": 1.411764705882353,
+      "againstPerGame": 1.2941176470588236,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.3737134266447324,
+      "adjustedAgainst": 1.3164084293251692
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
@@ -196,11 +196,11 @@
       "shortName": "Tigres",
       "code": "TIG",
       "logoUrl": "https://sports.bzzoiro.com/img/team/321/?bg=transparent",
-      "forPerGame": 1.0625,
-      "againstPerGame": 1.5625,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.1245293816194564,
-      "adjustedAgainst": 1.4494419196490114
+      "forPerGame": 1.0588235294117647,
+      "againstPerGame": 1.4705882352941178,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.1104058559775405,
+      "adjustedAgainst": 1.3452601459588691
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
@@ -211,8 +211,8 @@
       "forPerGame": 1.5294117647058822,
       "againstPerGame": 1.2941176470588236,
       "gamesPlayed": 17,
-      "adjustedFor": 1.4953203570471527,
-      "adjustedAgainst": 1.277594929575036
+      "adjustedFor": 1.4913362303016948,
+      "adjustedAgainst": 1.2769426890325464
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
@@ -220,11 +220,11 @@
       "shortName": "Toluca",
       "code": "TOL",
       "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent",
-      "forPerGame": 2.1875,
-      "againstPerGame": 1.3125,
-      "gamesPlayed": 16,
-      "adjustedFor": 1.9956012303033381,
-      "adjustedAgainst": 1.318433614580334
+      "forPerGame": 2.0588235294117645,
+      "againstPerGame": 1.3529411764705883,
+      "gamesPlayed": 17,
+      "adjustedFor": 1.9080238071597266,
+      "adjustedAgainst": 1.332376098350229
     }
   },
   "games": [
@@ -257,7 +257,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T12:00:00.000Z",
+        "observedAt": "2026-11-22T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -290,7 +290,7 @@
       "result": {
         "home": 3,
         "away": 3,
-        "observedAt": "2026-11-21T12:00:00.000Z",
+        "observedAt": "2026-11-22T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -323,7 +323,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T12:00:00.000Z",
+        "observedAt": "2026-11-22T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -334,7 +334,7 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-21T22:50Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.pachuca",
         "league": "liga-mx",
@@ -352,7 +352,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent"
       },
       "venue": "Estadio Hidalgo",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 0,
+        "observedAt": "2026-11-22T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-santos-laguna-leon-401877051",
@@ -361,7 +367,7 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-21T23:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.santos-laguna",
         "league": "liga-mx",
@@ -379,7 +385,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent"
       },
       "venue": "Estadio Corona",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 2,
+        "observedAt": "2026-11-22T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-pumas-unam-monterrey-401877049",
@@ -388,7 +400,7 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-22T01:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.pumas-unam",
         "league": "liga-mx",
@@ -406,7 +418,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent"
       },
       "venue": "Estadio Olímpico Universitario",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 2,
+        "observedAt": "2026-11-22T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-tigres-uanl-america-401877048",
@@ -415,7 +433,7 @@
       "week": 17,
       "round": "Jornada 17",
       "startTime": "2026-11-22T03:00Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "liga-mx.tigres-uanl",
         "league": "liga-mx",
@@ -433,7 +451,13 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent"
       },
       "venue": "Estadio Universitario",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-22T12:00:00.000Z",
+        "source": "espn"
+      }
     },
     {
       "id": "mx-2026-j17-chivas-cruz-azul-401877047",
@@ -1990,9 +2014,9 @@
         "referee": "Adonai Escobedo Gonzalez",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 48,
-          "avgYellow": 3.83,
-          "avgRed": 0.46,
+          "matches": 49,
+          "avgYellow": 3.88,
+          "avgRed": 0.45,
           "avgFouls": 21.8,
           "avgGoals": 2.94
         }
@@ -2526,11 +2550,11 @@
         "referee": "Jesus Rafael Lopez Valle",
         "refereeStats": {
           "country": "Mexico",
-          "matches": 34,
-          "avgYellow": 4.85,
-          "avgRed": 0.44,
-          "avgFouls": 24.7,
-          "avgGoals": 2.71
+          "matches": 35,
+          "avgYellow": 4.86,
+          "avgRed": 0.46,
+          "avgFouls": 24.4,
+          "avgGoals": 2.69
         }
       }
     },
@@ -3276,7 +3300,18 @@
           "away": 13
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Jesus Rafael Lopez Valle",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 35,
+          "avgYellow": 4.86,
+          "avgRed": 0.46,
+          "avgFouls": 24.4,
+          "avgGoals": 2.69
+        }
+      }
     },
     "mx-2026-j17-santos-laguna-leon-401877051": {
       "game": "mx-2026-j17-santos-laguna-leon-401877051",
@@ -4019,7 +4054,18 @@
           "away": 12
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Luis Santander",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 39,
+          "avgYellow": 4.49,
+          "avgRed": 0.44,
+          "avgFouls": 26.6,
+          "avgGoals": 3.18
+        }
+      }
     },
     "mx-2026-j17-pumas-unam-monterrey-401877049": {
       "game": "mx-2026-j17-pumas-unam-monterrey-401877049",
@@ -4760,7 +4806,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Fernando Hernandez",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 46,
+          "avgYellow": 4.33,
+          "avgRed": 0.7,
+          "avgFouls": 26.2,
+          "avgGoals": 2.59
+        }
+      }
     },
     "mx-2026-j17-tigres-uanl-america-401877048": {
       "game": "mx-2026-j17-tigres-uanl-america-401877048",
@@ -5503,7 +5560,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-11T02:38:42.517Z"
+      "picksAt": "2026-11-11T02:38:42.517Z",
+      "matchContext": {
+        "referee": "Guillermo Pacheco Larios",
+        "refereeStats": {
+          "country": "Mexico",
+          "matches": 31,
+          "avgYellow": 4.06,
+          "avgRed": 0.48,
+          "avgFouls": 22.3,
+          "avgGoals": 2.71
+        }
+      }
     },
     "mx-2026-j17-chivas-cruz-azul-401877047": {
       "game": "mx-2026-j17-chivas-cruz-azul-401877047",
@@ -7022,19 +7090,19 @@
       "shortName": "América",
       "code": "AME",
       "logoUrl": "https://sports.bzzoiro.com/img/team/307/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 8,
       "drawn": 6,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 38,
-      "goalsAgainst": 23,
+      "goalsAgainst": 24,
       "points": 30,
       "form": [
-        "W",
         "L",
         "D",
         "D",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -7085,18 +7153,81 @@
       "shortName": "Toluca",
       "code": "TOL",
       "logoUrl": "https://sports.bzzoiro.com/img/team/310/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 7,
       "drawn": 6,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 35,
-      "goalsAgainst": 21,
+      "goalsAgainst": 23,
       "points": 27,
       "form": [
         "D",
         "D",
         "D",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "teamId": "liga-mx.monterrey",
+      "name": "Rayados de Monterrey",
+      "shortName": "Monterrey",
+      "code": "MTY",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent",
+      "played": 17,
+      "won": 8,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 29,
+      "goalsAgainst": 25,
+      "points": 27,
+      "form": [
+        "L",
         "D",
+        "L",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "liga-mx.leon",
+      "name": "Club León",
+      "shortName": "León",
+      "code": "LEO",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent",
+      "played": 17,
+      "won": 7,
+      "drawn": 5,
+      "lost": 5,
+      "goalsFor": 25,
+      "goalsAgainst": 22,
+      "points": 26,
+      "form": [
+        "W",
+        "D",
+        "L",
+        "D",
+        "W"
+      ]
+    },
+    {
+      "teamId": "liga-mx.pachuca",
+      "name": "Pachuca",
+      "shortName": "Pachuca",
+      "code": "PAC",
+      "logoUrl": "https://sports.bzzoiro.com/img/team/316/?bg=transparent",
+      "played": 17,
+      "won": 7,
+      "drawn": 4,
+      "lost": 6,
+      "goalsFor": 31,
+      "goalsAgainst": 20,
+      "points": 25,
+      "form": [
+        "L",
+        "W",
+        "W",
+        "W",
         "W"
       ]
     },
@@ -7127,82 +7258,19 @@
       "shortName": "Santos Laguna",
       "code": "SAN",
       "logoUrl": "https://sports.bzzoiro.com/img/team/312/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 8,
       "drawn": 1,
-      "lost": 7,
-      "goalsFor": 23,
-      "goalsAgainst": 20,
+      "lost": 8,
+      "goalsFor": 24,
+      "goalsAgainst": 22,
       "points": 25,
       "form": [
         "W",
-        "W",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "teamId": "liga-mx.monterrey",
-      "name": "Rayados de Monterrey",
-      "shortName": "Monterrey",
-      "code": "MTY",
-      "logoUrl": "https://sports.bzzoiro.com/img/team/317/?bg=transparent",
-      "played": 16,
-      "won": 7,
-      "drawn": 3,
-      "lost": 6,
-      "goalsFor": 27,
-      "goalsAgainst": 25,
-      "points": 24,
-      "form": [
-        "W",
-        "L",
-        "D",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "teamId": "liga-mx.leon",
-      "name": "Club León",
-      "shortName": "León",
-      "code": "LEO",
-      "logoUrl": "https://sports.bzzoiro.com/img/team/318/?bg=transparent",
-      "played": 16,
-      "won": 6,
-      "drawn": 5,
-      "lost": 5,
-      "goalsFor": 23,
-      "goalsAgainst": 21,
-      "points": 23,
-      "form": [
-        "L",
-        "W",
-        "D",
-        "L",
-        "D"
-      ]
-    },
-    {
-      "teamId": "liga-mx.pachuca",
-      "name": "Pachuca",
-      "shortName": "Pachuca",
-      "code": "PAC",
-      "logoUrl": "https://sports.bzzoiro.com/img/team/316/?bg=transparent",
-      "played": 16,
-      "won": 6,
-      "drawn": 4,
-      "lost": 6,
-      "goalsFor": 29,
-      "goalsAgainst": 20,
-      "points": 22,
-      "form": [
-        "L",
         "L",
         "W",
         "W",
-        "W"
+        "L"
       ]
     },
     {
@@ -7211,19 +7279,19 @@
       "shortName": "Pumas",
       "code": "PUM",
       "logoUrl": "https://sports.bzzoiro.com/img/team/313/?bg=transparent",
-      "played": 16,
+      "played": 17,
       "won": 5,
       "drawn": 6,
-      "lost": 5,
+      "lost": 6,
       "goalsFor": 24,
-      "goalsAgainst": 26,
+      "goalsAgainst": 28,
       "points": 21,
       "form": [
-        "W",
         "L",
         "D",
         "W",
-        "D"
+        "D",
+        "L"
       ]
     },
     {
@@ -7295,19 +7363,19 @@
       "shortName": "Tigres",
       "code": "TIG",
       "logoUrl": "https://sports.bzzoiro.com/img/team/321/?bg=transparent",
-      "played": 16,
-      "won": 3,
+      "played": 17,
+      "won": 4,
       "drawn": 6,
       "lost": 7,
-      "goalsFor": 17,
+      "goalsFor": 18,
       "goalsAgainst": 25,
-      "points": 15,
+      "points": 18,
       "form": [
-        "D",
         "L",
         "D",
         "L",
-        "L"
+        "L",
+        "W"
       ]
     },
     {

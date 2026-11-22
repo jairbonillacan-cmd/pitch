@@ -1,46 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "eredivisie",
-  "observedAt": "2026-11-21T21:48:13.141Z",
+  "observedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "eredivisie.excelsior",
-      "player": "Nesto Groen",
-      "position": "F",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "eredivisie.groningen",
-      "player": "Etienne Vaessen",
-      "position": "G",
-      "status": "Baja",
-      "detail": "yellow_or_red_card_suspension",
-      "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "eredivisie.groningen",
-      "player": "Hans Hateboer",
-      "position": "D",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "eredivisie.groningen",
-      "player": "Ryan Metu",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
     {
       "teamId": "eredivisie.groningen",
       "player": "Travis Hernes",
@@ -48,7 +12,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -57,7 +21,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "eredivisie.willem-ii-tilburg",
@@ -66,7 +30,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "eredivisie.pec-zwolle",
@@ -75,7 +39,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "eredivisie.telstar",
@@ -84,7 +48,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     }
   ]
 }

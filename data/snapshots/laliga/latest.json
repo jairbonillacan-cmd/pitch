@@ -757,6 +757,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/41/?bg=transparent"
       },
       "venue": "Spotify Camp Nou",
+      "referee": "Alejandro Hernandez",
       "neutralSite": false
     },
     {
@@ -784,6 +785,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/48/?bg=transparent"
       },
       "venue": "El Sardinero",
+      "referee": "Manuel Jesus Orellana Cid",
       "neutralSite": false
     },
     {
@@ -811,6 +813,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/1259/?bg=transparent"
       },
       "venue": "El Sadar",
+      "referee": "Ricardo De Burgos Bengoetxea",
       "neutralSite": false
     },
     {
@@ -838,6 +841,7 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/54/?bg=transparent"
       },
       "venue": "Coliseum",
+      "referee": "Jesus Gil Manzano",
       "neutralSite": false
     },
     {
@@ -6531,11 +6535,11 @@
         "referee": "Mateo Busquets Ferrer",
         "refereeStats": {
           "country": "Spain",
-          "matches": 48,
-          "avgYellow": 5.42,
+          "matches": 49,
+          "avgYellow": 5.41,
           "avgRed": 0.29,
           "avgFouls": 24.4,
-          "avgGoals": 2.81
+          "avgGoals": 2.86
         }
       }
     },
@@ -9530,10 +9534,10 @@
         "referee": "Adrian Cordero Vega",
         "refereeStats": {
           "country": "Spain",
-          "matches": 43,
-          "avgYellow": 4.63,
-          "avgRed": 0.12,
-          "avgFouls": 24.3,
+          "matches": 44,
+          "avgYellow": 4.59,
+          "avgRed": 0.11,
+          "avgFouls": 24.1,
           "avgGoals": 2.77
         }
       }
@@ -10279,7 +10283,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Alejandro Hernandez",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 71,
+          "avgYellow": 4.63,
+          "avgRed": 0.23,
+          "avgFouls": 23.7,
+          "avgGoals": 3.41
+        }
+      }
     },
     "laliga-2026-27-md13-racing-santander-real-sociedad": {
       "game": "laliga-2026-27-md13-racing-santander-real-sociedad",
@@ -10984,7 +10999,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Manuel Jesus Orellana Cid",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 51,
+          "avgYellow": 5.86,
+          "avgRed": 0.33,
+          "avgFouls": 28.4,
+          "avgGoals": 2.31
+        }
+      }
     },
     "laliga-2026-27-md13-osasuna-malaga": {
       "game": "laliga-2026-27-md13-osasuna-malaga",
@@ -11726,7 +11752,18 @@
           "away": 15
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Ricardo De Burgos Bengoetxea",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 67,
+          "avgYellow": 3.72,
+          "avgRed": 0.25,
+          "avgFouls": 22.8,
+          "avgGoals": 3.15
+        }
+      }
     },
     "laliga-2026-27-md13-getafe-atletico-madrid": {
       "game": "laliga-2026-27-md13-getafe-atletico-madrid",
@@ -12466,7 +12503,18 @@
           "away": 14
         }
       },
-      "picksAt": "2026-11-14T14:07:39.275Z"
+      "picksAt": "2026-11-14T14:07:39.275Z",
+      "matchContext": {
+        "referee": "Jesus Gil Manzano",
+        "refereeStats": {
+          "country": "Spain",
+          "matches": 73,
+          "avgYellow": 4.75,
+          "avgRed": 0.3,
+          "avgFouls": 25.2,
+          "avgGoals": 3.01
+        }
+      }
     },
     "laliga-2026-27-md13-levante-elche": {
       "game": "laliga-2026-27-md13-levante-elche",

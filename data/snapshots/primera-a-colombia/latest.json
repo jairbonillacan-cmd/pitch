@@ -5,7 +5,7 @@
   "season": "primera-a-colombia-2026",
   "seasonLabel": "2026",
   "periodLabel": "League phase · Matchday 18",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.263157894736842,
       "gamesPlayed": 19,
-      "adjustedFor": 1.057594141354379,
-      "adjustedAgainst": 1.1873161258238019
+      "adjustedFor": 1.055281864396578,
+      "adjustedAgainst": 1.1870720720512258
     },
     "primera-a-colombia.deportivo-pereira": {
       "teamId": "primera-a-colombia.deportivo-pereira",
@@ -29,8 +29,8 @@
       "forPerGame": 0.8421052631578947,
       "againstPerGame": 1.4736842105263157,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8747945120195264,
-      "adjustedAgainst": 1.3517811237032502
+      "adjustedFor": 0.8724859260672209,
+      "adjustedAgainst": 1.351844751809466
     },
     "primera-a-colombia.deportivo-cali": {
       "teamId": "primera-a-colombia.deportivo-cali",
@@ -40,8 +40,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 0.6,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2748302225003714,
-      "adjustedAgainst": 0.6530293862478592
+      "adjustedFor": 1.2710509461868302,
+      "adjustedAgainst": 0.6522280356714182
     },
     "primera-a-colombia.jaguares-cordoba": {
       "teamId": "primera-a-colombia.jaguares-cordoba",
@@ -51,8 +51,8 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 1.9473684210526316,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9122895977226971,
-      "adjustedAgainst": 1.7291099934342715
+      "adjustedFor": 0.9103944656391927,
+      "adjustedAgainst": 1.7284515008024595
     },
     "primera-a-colombia.boyaca-chico": {
       "teamId": "primera-a-colombia.boyaca-chico",
@@ -62,19 +62,19 @@
       "forPerGame": 0.7894736842105263,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 0.8094773636637851,
-      "adjustedAgainst": 1.3522455632917207
+      "adjustedFor": 0.8077942420725543,
+      "adjustedAgainst": 1.3519789813257035
     },
     "primera-a-colombia.atletico-nacional": {
       "teamId": "primera-a-colombia.atletico-nacional",
       "name": "Atlético Nacional",
       "shortName": "Nacional",
       "code": "ATL",
-      "forPerGame": 2,
-      "againstPerGame": 0.9473684210526315,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.7561509595593967,
-      "adjustedAgainst": 0.9643798141314744
+      "forPerGame": 1.9,
+      "againstPerGame": 0.9,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.6958992872833072,
+      "adjustedAgainst": 0.9204657779274437
     },
     "primera-a-colombia.independiente-medellin": {
       "teamId": "primera-a-colombia.independiente-medellin",
@@ -84,8 +84,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.3785515066698115,
-      "adjustedAgainst": 1.1691206889826278
+      "adjustedFor": 1.376074864707912,
+      "adjustedAgainst": 1.1688526076602543
     },
     "primera-a-colombia.deportivo-pasto": {
       "teamId": "primera-a-colombia.deportivo-pasto",
@@ -95,8 +95,8 @@
       "forPerGame": 0.6842105263157895,
       "againstPerGame": 1.5789473684210527,
       "gamesPlayed": 19,
-      "adjustedFor": 0.7240709137019126,
-      "adjustedAgainst": 1.4077987443617037
+      "adjustedFor": 0.7223044900002312,
+      "adjustedAgainst": 1.4076703100822794
     },
     "primera-a-colombia.millonarios": {
       "teamId": "primera-a-colombia.millonarios",
@@ -106,8 +106,8 @@
       "forPerGame": 1.35,
       "againstPerGame": 0.8,
       "gamesPlayed": 20,
-      "adjustedFor": 1.2745980557286243,
-      "adjustedAgainst": 0.8200095487494286
+      "adjustedFor": 1.2722567160096216,
+      "adjustedAgainst": 0.8195283581546198
     },
     "primera-a-colombia.atletico-bucaramanga": {
       "teamId": "primera-a-colombia.atletico-bucaramanga",
@@ -117,8 +117,8 @@
       "forPerGame": 1.65,
       "againstPerGame": 0.95,
       "gamesPlayed": 20,
-      "adjustedFor": 1.4873860840527446,
-      "adjustedAgainst": 0.9423057539497399
+      "adjustedFor": 1.484121376871333,
+      "adjustedAgainst": 0.941891218593303
     },
     "primera-a-colombia.deportes-tolima": {
       "teamId": "primera-a-colombia.deportes-tolima",
@@ -128,8 +128,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.2105263157894737,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2405881624774615,
-      "adjustedAgainst": 1.1556005655483248
+      "adjustedFor": 1.2375188972352937,
+      "adjustedAgainst": 1.1553451490605067
     },
     "primera-a-colombia.junior-barranquilla": {
       "teamId": "primera-a-colombia.junior-barranquilla",
@@ -139,8 +139,8 @@
       "forPerGame": 1.368421052631579,
       "againstPerGame": 1.4210526315789473,
       "gamesPlayed": 19,
-      "adjustedFor": 1.283419079154022,
-      "adjustedAgainst": 1.3056203545764284
+      "adjustedFor": 1.2808100053512765,
+      "adjustedAgainst": 1.305303787644988
     },
     "primera-a-colombia.internacional-bogota": {
       "teamId": "primera-a-colombia.internacional-bogota",
@@ -150,8 +150,8 @@
       "forPerGame": 1.3157894736842106,
       "againstPerGame": 1.3157894736842106,
       "gamesPlayed": 19,
-      "adjustedFor": 1.2136252520529753,
-      "adjustedAgainst": 1.244374360122593
+      "adjustedFor": 1.2117657004048277,
+      "adjustedAgainst": 1.2441807280257238
     },
     "primera-a-colombia.america-cali": {
       "teamId": "primera-a-colombia.america-cali",
@@ -161,8 +161,8 @@
       "forPerGame": 1.65,
       "againstPerGame": 0.85,
       "gamesPlayed": 20,
-      "adjustedFor": 1.4733168606448708,
-      "adjustedAgainst": 0.8561808367941768
+      "adjustedFor": 1.469473800949355,
+      "adjustedAgainst": 0.8552861502553327
     },
     "primera-a-colombia.rionegro-aguilas-doradas": {
       "teamId": "primera-a-colombia.rionegro-aguilas-doradas",
@@ -172,8 +172,8 @@
       "forPerGame": 1.1578947368421053,
       "againstPerGame": 1.1578947368421053,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0838946589223735,
-      "adjustedAgainst": 1.09026709166792
+      "adjustedFor": 1.0810960126262585,
+      "adjustedAgainst": 1.089992927027785
     },
     "primera-a-colombia.independiente-santa-fe": {
       "teamId": "primera-a-colombia.independiente-santa-fe",
@@ -183,8 +183,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 0.95,
       "gamesPlayed": 20,
-      "adjustedFor": 1.3674153690528597,
-      "adjustedAgainst": 0.9280584863936634
+      "adjustedFor": 1.364364795292619,
+      "adjustedAgainst": 0.9274098655114575
     },
     "primera-a-colombia.alianza-valledupar": {
       "teamId": "primera-a-colombia.alianza-valledupar",
@@ -194,8 +194,8 @@
       "forPerGame": 0.9473684210526315,
       "againstPerGame": 1.736842105263158,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9446524329342697,
-      "adjustedAgainst": 1.5421291583726118
+      "adjustedFor": 0.9424543243721931,
+      "adjustedAgainst": 1.5420104700631196
     },
     "primera-a-colombia.fortaleza": {
       "teamId": "primera-a-colombia.fortaleza",
@@ -205,19 +205,19 @@
       "forPerGame": 0.8947368421052632,
       "againstPerGame": 1.5263157894736843,
       "gamesPlayed": 19,
-      "adjustedFor": 0.9088771698573287,
-      "adjustedAgainst": 1.3849412539071493
+      "adjustedFor": 0.9072483081875503,
+      "adjustedAgainst": 1.3844358288401426
     },
     "primera-a-colombia.once-caldas": {
       "teamId": "primera-a-colombia.once-caldas",
       "name": "Once Caldas",
       "shortName": "Once Caldas",
       "code": "ONC",
-      "forPerGame": 1.2105263157894737,
-      "againstPerGame": 1,
-      "gamesPlayed": 19,
-      "adjustedFor": 1.1335783046591137,
-      "adjustedAgainst": 0.9626822977917868
+      "forPerGame": 1.15,
+      "againstPerGame": 0.95,
+      "gamesPlayed": 20,
+      "adjustedFor": 1.0804502753862406,
+      "adjustedAgainst": 0.8975812206114836
     },
     "primera-a-colombia.cucuta-deportivo": {
       "teamId": "primera-a-colombia.cucuta-deportivo",
@@ -227,46 +227,11 @@
       "forPerGame": 1.105263157894737,
       "againstPerGame": 1.368421052631579,
       "gamesPlayed": 19,
-      "adjustedFor": 1.0519054624793522,
-      "adjustedAgainst": 1.2440008769848738
+      "adjustedFor": 1.0491977504918346,
+      "adjustedAgainst": 1.24358686656754
     }
   },
   "games": [
-    {
-      "id": "primera-a-colombia-2026-11-08-deportes-tolim-millonarios-0cg7y8",
-      "league": "primera-a-colombia",
-      "season": "primera-a-colombia-2026",
-      "week": 18,
-      "round": "League phase · Matchday 18",
-      "phase": "League phase",
-      "startTime": "2026-11-08T23:10:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-a-colombia.deportes-tolima",
-        "league": "primera-a-colombia",
-        "name": "Deportes Tolima",
-        "shortName": "Deportes Tolima",
-        "code": "DEP",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/781/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-a-colombia.millonarios",
-        "league": "primera-a-colombia",
-        "name": "Millonarios",
-        "shortName": "Millonarios",
-        "code": "MIL",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/736/?bg=transparent"
-      },
-      "venue": "Estadio Manuel Murillo Toro, Ibague",
-      "referee": "Edwin Ferney Trujillo Castro",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "primera-a-colombia-2026-11-09-alianza-valled-llaneros-col2hz",
       "league": "primera-a-colombia",
@@ -298,7 +263,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -333,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -368,7 +333,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -403,7 +368,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -437,7 +402,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -472,7 +437,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -507,7 +472,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -542,7 +507,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -577,7 +542,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -612,7 +577,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -647,7 +612,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -682,7 +647,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -717,7 +682,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -752,7 +717,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -787,7 +752,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-21T21:48:13.141Z",
+        "observedAt": "2026-11-22T12:45:51.462Z",
         "source": "pitchlab-feed"
       }
     },
@@ -799,7 +764,7 @@
       "round": "Group A · Matchday 1",
       "phase": "Group stage",
       "startTime": "2026-11-22T01:15:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-a-colombia.once-caldas",
         "league": "primera-a-colombia",
@@ -818,7 +783,13 @@
       },
       "venue": "Estadio Palogrande, Manizales",
       "referee": "Jhon Alexander Ospina Londono",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 0,
+        "observedAt": "2026-11-22T12:45:51.462Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-a-colombia-2026-11-24-millonarios-atletico-bucar-9oarno",
@@ -1158,457 +1129,6 @@
     }
   ],
   "analyses": {
-    "primera-a-colombia-2026-11-08-deportes-tolim-millonarios-0cg7y8": {
-      "game": "primera-a-colombia-2026-11-08-deportes-tolim-millonarios-0cg7y8",
-      "model": {
-        "id": "pitchlab-statistical-primera-a-colombia",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.223320168464702,
-        "away": 1.3282533284531248,
-        "total": 2.5515734969178268,
-        "margin": -0.1049331599884229
-      },
-      "x12": [
-        0.3413979886473963,
-        0.26765476933570614,
-        0.39094724201689773
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Deportes Tolima gana",
-          "p": 0.3413979886473963,
-          "fairOdds": 2.929132664084975
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.26765476933570614,
-          "fairOdds": 3.7361561031843578
-        },
-        {
-          "market": "h2h",
-          "selection": "Millonarios gana",
-          "p": 0.39094724201689773,
-          "fairOdds": 2.557889895426804
-        },
-        {
-          "market": "double_chance",
-          "selection": "Deportes Tolima o empate",
-          "p": 0.6090527579831024,
-          "fairOdds": 1.6418938866832027
-        },
-        {
-          "market": "double_chance",
-          "selection": "Millonarios o empate",
-          "p": 0.6586020113526039,
-          "fairOdds": 1.5183676678214966
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.732345230664294,
-          "fairOdds": 1.3654762236833609
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7237565335013091,
-          "fairOdds": 1.3816801005751354
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4693463241870637,
-          "fairOdds": 2.1306228438713366
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5306536758129363,
-          "fairOdds": 1.8844682428102422
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2535029043100695,
-          "fairOdds": 3.9447279814075036
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7464970956899305,
-          "fairOdds": 1.3395899405017457
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5194010241584013,
-          "fairOdds": 1.9252946249390352
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4805989758415987,
-          "fairOdds": 2.0807368518604403
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportes Tolima más de 1.5",
-          "line": 1.5,
-          "p": 0.34578448171898324,
-          "fairOdds": 2.89197477870824
-        },
-        {
-          "market": "team_totals",
-          "selection": "Deportes Tolima menos de 1.5",
-          "line": 1.5,
-          "p": 0.6542155182810168,
-          "fairOdds": 1.528548272024407
-        },
-        {
-          "market": "team_totals",
-          "selection": "Millonarios más de 1.5",
-          "line": 1.5,
-          "p": 0.38315334376556276,
-          "fairOdds": 2.6099211093192567
-        },
-        {
-          "market": "team_totals",
-          "selection": "Millonarios menos de 1.5",
-          "line": 1.5,
-          "p": 0.6168466562344372,
-          "fairOdds": 1.6211484489589945
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12730718840963365,
-          "fairOdds": 7.855015985290015
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.10291582642765072,
-          "fairOdds": 9.716678519828966
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.09473535055918876,
-          "fairOdds": 10.555721745867398
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Deportes Tolima gana",
-              "p": 0.3413979886473963,
-              "fairOdds": 2.929132664084975
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.26765476933570614,
-              "fairOdds": 3.7361561031843578
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Millonarios gana",
-              "p": 0.39094724201689773,
-              "fairOdds": 2.557889895426804
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Deportes Tolima o empate",
-              "p": 0.6090527579831024,
-              "fairOdds": 1.6418938866832027
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Millonarios o empate",
-              "p": 0.6586020113526039,
-              "fairOdds": 1.5183676678214966
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.732345230664294,
-              "fairOdds": 1.3654762236833609
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7237565335013091,
-              "fairOdds": 1.3816801005751354
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4693463241870637,
-              "fairOdds": 2.1306228438713366
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5306536758129363,
-              "fairOdds": 1.8844682428102422
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2535029043100695,
-              "fairOdds": 3.9447279814075036
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7464970956899305,
-              "fairOdds": 1.3395899405017457
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5194010241584013,
-              "fairOdds": 1.9252946249390352
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4805989758415987,
-              "fairOdds": 2.0807368518604403
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Deportes Tolima más de 1.5",
-              "line": 1.5,
-              "p": 0.34578448171898324,
-              "fairOdds": 2.89197477870824
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Deportes Tolima menos de 1.5",
-              "line": 1.5,
-              "p": 0.6542155182810168,
-              "fairOdds": 1.528548272024407
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Millonarios más de 1.5",
-              "line": 1.5,
-              "p": 0.38315334376556276,
-              "fairOdds": 2.6099211093192567
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Millonarios menos de 1.5",
-              "line": 1.5,
-              "p": 0.6168466562344372,
-              "fairOdds": 1.6211484489589945
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12730718840963365,
-              "fairOdds": 7.855015985290015
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.10291582642765072,
-              "fairOdds": 9.716678519828966
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.09473535055918876,
-              "fairOdds": 10.555721745867398
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.12730718840963365
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.94 goles/partido",
-          "detail": "9 % más que la media · 19 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.87 concedidos/partido",
-          "detail": "24 % menos que la media · 19 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.33 goles/partido",
-          "detail": "15 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.16 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.30",
-          "detail": "estimada de 190 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.8–3.7",
-          "detail": "local 17%–58% · 190 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "9.º · 27 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "7.º · 30 pts",
-          "detail": "de 20 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-P-P-P-G · 4 pts",
-          "detail": "6 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-G-E-E · 7 pts",
-          "detail": "8 goles a favor · 5 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Categoría Primera A · corte 8 nov 2026, 16:10",
-        "Fuerza ajustada por rival · DEP 1.09 / 1.01 · MIL 1.15 / 0.76",
-        "Ponderando 170.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.22 – 1.33 · total 2.55",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-11-08T22:10:00.000Z",
-      "publishedAt": "2026-11-08T22:10:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.10291582642765072
-      },
-      "insights": {
-        "why": [
-          "Millonarios gana en 39% de los escenarios; el empate, en 27%.",
-          "Millonarios concede 24 % menos que la media.",
-          "Millonarios anota 15 % más que la media."
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 3
-        }
-      },
-      "matchContext": {
-        "referee": "Edwin Ferney Trujillo Castro",
-        "refereeStats": {
-          "country": "Colombia",
-          "matches": 26,
-          "avgYellow": 6.23,
-          "avgRed": 0.54,
-          "avgFouls": 25.8,
-          "avgGoals": 2.27
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 23,
-          "windSpeedKmh": 20
-        },
-        "travelDistanceKm": 129,
-        "halfTimeScore": {
-          "home": 2,
-          "away": 1
-        },
-        "stageName": "League phase",
-        "venueCity": "Ibague",
-        "venueCountry": "Colombia",
-        "venueCapacity": 28100
-      }
-    },
     "primera-a-colombia-2026-11-09-alianza-valled-llaneros-col2hz": {
       "game": "primera-a-colombia-2026-11-09-alianza-valled-llaneros-col2hz",
       "model": {
@@ -2041,7 +1561,7 @@
           "matches": 30,
           "avgYellow": 5.67,
           "avgRed": 0.33,
-          "avgFouls": 24.6,
+          "avgFouls": 24.5,
           "avgGoals": 2.03
         },
         "weather": {
@@ -3393,7 +2913,7 @@
           "matches": 6,
           "avgYellow": 5.67,
           "avgRed": 0.5,
-          "avgFouls": 18.2,
+          "avgFouls": 18.3,
           "avgGoals": 2.17
         },
         "weather": {
@@ -4288,7 +3808,7 @@
           "matches": 30,
           "avgYellow": 5.67,
           "avgRed": 0.33,
-          "avgFouls": 24.6,
+          "avgFouls": 24.5,
           "avgGoals": 2.03
         },
         "weather": {
@@ -5638,11 +5158,11 @@
         "referee": "Jhon Alexander Ospina Londono",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 43,
-          "avgYellow": 5.79,
-          "avgRed": 0.49,
+          "matches": 44,
+          "avgYellow": 5.75,
+          "avgRed": 0.5,
           "avgFouls": 21.6,
-          "avgGoals": 2.42
+          "avgGoals": 2.36
         },
         "weather": {
           "description": "clear",
@@ -7991,7 +7511,7 @@
           "matches": 6,
           "avgYellow": 5.67,
           "avgRed": 0.5,
-          "avgFouls": 18.2,
+          "avgFouls": 18.3,
           "avgGoals": 2.17
         },
         "weather": {
@@ -8489,7 +8009,7 @@
           "matches": 30,
           "avgYellow": 5.67,
           "avgRed": 0.33,
-          "avgFouls": 24.6,
+          "avgFouls": 24.5,
           "avgGoals": 2.03
         },
         "weather": {
@@ -8983,17 +8503,22 @@
         "referee": "Jhon Alexander Ospina Londono",
         "refereeStats": {
           "country": "Colombia",
-          "matches": 43,
-          "avgYellow": 5.79,
-          "avgRed": 0.49,
+          "matches": 44,
+          "avgYellow": 5.75,
+          "avgRed": 0.5,
           "avgFouls": 21.6,
-          "avgGoals": 2.42
+          "avgGoals": 2.36
         },
         "weather": {
+          "description": "cloudy",
           "temperatureC": 17,
           "windSpeedKmh": 2
         },
         "travelDistanceKm": 134,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "groupName": "Group A",
         "stageName": "Group stage",
         "venueCity": "Manizales",
@@ -14811,18 +14336,18 @@
       "name": "Atlético Nacional",
       "shortName": "Nacional",
       "code": "ATL",
-      "played": 19,
+      "played": 20,
       "won": 12,
-      "drawn": 4,
+      "drawn": 5,
       "lost": 3,
       "goalsFor": 38,
       "goalsAgainst": 18,
-      "points": 40,
+      "points": 41,
       "form": [
-        "W",
         "W",
         "D",
         "W",
+        "D",
         "D"
       ]
     },
@@ -14951,18 +14476,18 @@
       "name": "Once Caldas",
       "shortName": "Once Caldas",
       "code": "ONC",
-      "played": 19,
+      "played": 20,
       "won": 7,
-      "drawn": 7,
+      "drawn": 8,
       "lost": 5,
       "goalsFor": 23,
       "goalsAgainst": 19,
-      "points": 28,
+      "points": 29,
       "form": [
         "D",
+        "W",
+        "W",
         "D",
-        "W",
-        "W",
         "D"
       ]
     },

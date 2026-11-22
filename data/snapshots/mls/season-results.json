@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "mls",
   "season": "2026",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "matches": [
     {
       "id": "mls-2026-07-16-montreal-toronto-uyevum",
@@ -3242,11 +3242,33 @@
       "id": "mls-2026-11-21-new-england-re-philadelphia-u-er171r",
       "date": "2026-11-21",
       "startTime": "2026-11-21T19:00:00.000Z",
-      "round": "Round 1",
+      "round": "League phase",
       "homeTeam": "mls.new-england-revolution",
       "awayTeam": "mls.philadelphia-union",
       "homeScore": 2,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-21-dallas-portland-timbe-3lxmia",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T21:00:00.000Z",
+      "round": "League phase",
+      "homeTeam": "mls.dallas",
+      "awayTeam": "mls.portland-timbers",
+      "homeScore": 3,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "mls-2026-11-21-inter-miami-columbus-crew-2poqfc",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T23:00:00.000Z",
+      "round": "Round 1",
+      "homeTeam": "mls.inter-miami",
+      "awayTeam": "mls.columbus-crew",
+      "homeScore": 0,
+      "awayScore": 3,
       "neutralSite": false
     }
   ]

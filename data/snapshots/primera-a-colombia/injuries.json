@@ -1,37 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "primera-a-colombia",
-  "observedAt": "2026-11-21T21:48:13.141Z",
+  "observedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "primera-a-colombia.deportes-tolima",
-      "player": "Cristian Arrieta",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "primera-a-colombia.deportes-tolima",
-      "player": "Neto Volpi",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "primera-a-colombia.millonarios",
-      "player": "Sebastián Valencia",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
     {
       "teamId": "primera-a-colombia.alianza-valledupar",
       "player": "Johan Wallens",
@@ -39,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "primera-a-colombia.cucuta-deportivo",
@@ -48,7 +21,7 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "primera-a-colombia.cucuta-deportivo",
@@ -57,7 +30,25 @@
       "status": "Baja",
       "detail": "Ankle Injury",
       "injuryType": "Ankle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "primera-a-colombia.independiente-santa-fe",
+      "player": "Christian Mafla",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "primera-a-colombia.independiente-santa-fe",
+      "player": "Jeison Angulo",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     }
   ]
 }

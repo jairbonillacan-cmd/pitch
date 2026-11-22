@@ -1,46 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "segunda-espana",
-  "observedAt": "2026-11-21T21:48:13.141Z",
+  "observedAt": "2026-11-22T12:45:51.462Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "segunda-espana.ce-sabadell",
-      "player": "Arthur Bonaldo",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "segunda-espana.ce-sabadell",
-      "player": "José Luis Català",
-      "position": "D",
-      "status": "Baja",
-      "detail": "red_card_suspension",
-      "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "segunda-espana.ce-sabadell",
-      "player": "Nicholas Gioacchini",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "segunda-espana.real-sociedad-b",
-      "player": "Jon Balda",
-      "position": "D",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
     {
       "teamId": "segunda-espana.leganes",
       "player": "Álvaro Morata",
@@ -48,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.burgos",
@@ -57,7 +21,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.burgos",
@@ -66,7 +30,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.real-valladolid",
@@ -75,7 +39,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.castellon",
@@ -84,7 +48,25 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "segunda-espana.real-sociedad-b",
+      "player": "Gorka Carrera Zarranz",
+      "position": "F",
+      "status": "Baja",
+      "detail": "yellow_or_red_card_suspension",
+      "injuryType": "yellow_or_red_card_suspension",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "segunda-espana.real-sociedad-b",
+      "player": "Iñaki Rupérez",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -93,7 +75,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -102,7 +84,7 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -111,16 +93,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
-    },
-    {
-      "teamId": "segunda-espana.sporting-gijon",
-      "player": "César Gelabert",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -129,7 +102,7 @@
       "status": "Baja",
       "detail": "yellow_or_red_card_suspension",
       "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.sporting-gijon",
@@ -138,7 +111,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.mallorca",
@@ -147,7 +120,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.mallorca",
@@ -156,7 +129,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.mallorca",
@@ -165,7 +138,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.mallorca",
@@ -174,7 +147,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.mallorca",
@@ -183,7 +156,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     },
     {
       "teamId": "segunda-espana.mallorca",
@@ -192,7 +165,16 @@
       "status": "Baja",
       "detail": "Ligament Injury",
       "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-21T21:48:13.141Z"
+      "reportedAt": "2026-11-22T12:45:51.462Z"
+    },
+    {
+      "teamId": "segunda-espana.cordoba",
+      "player": "Jacobo Martí",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Anterior Cruciate Ligament",
+      "injuryType": "Anterior Cruciate Ligament",
+      "reportedAt": "2026-11-22T12:45:51.462Z"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "saudi-pro-league",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "lines": [
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -11,12 +11,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "1xbet",
-      "decimal": 2.08,
+      "decimal": 2.11,
       "openingDecimal": 2.06,
-      "deltaPct": 0.97,
+      "deltaPct": 2.43,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -26,12 +26,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "pinnacle",
-      "decimal": 2.16,
+      "decimal": 2.06,
       "openingDecimal": 2.11,
-      "deltaPct": 2.37,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -2.37,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -46,7 +46,22 @@
       "deltaPct": 5,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -61,7 +76,7 @@
       "deltaPct": 4.88,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -76,7 +91,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -86,12 +101,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "sbo",
-      "decimal": 1.97,
+      "decimal": 1.98,
       "openingDecimal": 1.97,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.51,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -101,12 +116,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "macauslot",
-      "decimal": 2.08,
+      "decimal": 2.11,
       "openingDecimal": 2.08,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 1.44,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -116,12 +131,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.61,
+      "decimal": 3.55,
       "openingDecimal": 3.6,
-      "deltaPct": 0.28,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -1.39,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -131,12 +146,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "pinnacle",
-      "decimal": 3.02,
+      "decimal": 3.77,
       "openingDecimal": 3.74,
-      "deltaPct": -19.25,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.8,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -151,7 +166,22 @@
       "deltaPct": -3.03,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3.5,
+      "openingDecimal": 3.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -166,7 +196,7 @@
       "deltaPct": -4,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -181,7 +211,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -191,12 +221,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.17,
+      "decimal": 3.13,
       "openingDecimal": 3.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -1.26,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -206,12 +236,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "macauslot",
-      "decimal": 3.61,
+      "decimal": 3.55,
       "openingDecimal": 3.61,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -1.66,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -221,12 +251,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.2,
+      "decimal": 3.18,
       "openingDecimal": 3.26,
-      "deltaPct": -1.84,
+      "deltaPct": -2.45,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -236,12 +266,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "pinnacle",
-      "decimal": 3.03,
+      "decimal": 3.19,
       "openingDecimal": 3.1,
-      "deltaPct": -2.26,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 2.9,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -256,7 +286,22 @@
       "deltaPct": -3.33,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 3,
+      "openingDecimal": 3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -271,7 +316,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -286,7 +331,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -296,12 +341,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sbo",
-      "decimal": 2.87,
+      "decimal": 2.89,
       "openingDecimal": 2.87,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.7,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -311,12 +356,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "macauslot",
-      "decimal": 3.2,
+      "decimal": 3.17,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -0.94,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -326,12 +371,12 @@
       "outcome": "1X",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.31,
+      "decimal": 1.32,
       "openingDecimal": 1.3,
-      "deltaPct": 0.77,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 1.54,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -341,12 +386,12 @@
       "outcome": "1X",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.35,
+      "decimal": 1.33,
       "openingDecimal": 1.33,
-      "deltaPct": 1.5,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -361,7 +406,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -371,12 +416,12 @@
       "outcome": "1X",
       "line": null,
       "book": "sbo",
-      "decimal": 1.27,
+      "decimal": 1.26,
       "openingDecimal": 1.27,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -0.79,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -386,12 +431,12 @@
       "outcome": "X2",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.68,
+      "decimal": 1.66,
       "openingDecimal": 1.7,
-      "deltaPct": -1.18,
+      "deltaPct": -2.35,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -401,12 +446,12 @@
       "outcome": "X2",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.62,
+      "decimal": 1.65,
       "openingDecimal": 1.67,
-      "deltaPct": -2.99,
+      "deltaPct": -1.2,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -421,7 +466,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -436,7 +481,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -446,12 +491,12 @@
       "outcome": "12",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.25,
+      "decimal": 1.26,
       "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.8,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -466,7 +511,7 @@
       "deltaPct": 3.2,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -481,7 +526,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -491,12 +536,12 @@
       "outcome": "12",
       "line": null,
       "book": "sbo",
-      "decimal": 1.21,
+      "decimal": 1.22,
       "openingDecimal": 1.21,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.83,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -506,27 +551,27 @@
       "outcome": "over",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 1.19,
+      "decimal": 1.2,
       "openingDecimal": 1.19,
-      "deltaPct": 0,
+      "deltaPct": 0.84,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "over_under_15",
+      "outcome": "over",
+      "line": 1.5,
+      "book": "pinnacle",
+      "decimal": 1.22,
+      "openingDecimal": 1.21,
+      "deltaPct": 0.83,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
-      "homeName": "Al-Fateh",
-      "awayName": "Al-Riyadh",
-      "market": "over_under_15",
-      "outcome": "over",
-      "line": 1.5,
-      "book": "pinnacle",
-      "decimal": 1.25,
-      "openingDecimal": 1.21,
-      "deltaPct": 3.31,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -536,42 +581,42 @@
       "outcome": "under",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 4.08,
+      "decimal": 3.72,
       "openingDecimal": 3.9,
-      "deltaPct": 4.62,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
-      "homeName": "Al-Fateh",
-      "awayName": "Al-Riyadh",
-      "market": "over_under_15",
-      "outcome": "under",
-      "line": 1.5,
-      "book": "pinnacle",
-      "decimal": 3.08,
-      "openingDecimal": 4.08,
-      "deltaPct": -24.51,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
-      "homeName": "Al-Fateh",
-      "awayName": "Al-Riyadh",
-      "market": "over_under_25",
-      "outcome": "over",
-      "line": 2.5,
-      "book": "1xbet",
-      "decimal": 1.68,
-      "openingDecimal": 1.69,
-      "deltaPct": -0.59,
+      "deltaPct": -4.62,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "over_under_15",
+      "outcome": "under",
+      "line": 1.5,
+      "book": "pinnacle",
+      "decimal": 4.03,
+      "openingDecimal": 4.08,
+      "deltaPct": -1.23,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "1xbet",
+      "decimal": 1.73,
+      "openingDecimal": 1.69,
+      "deltaPct": 2.37,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -581,12 +626,27 @@
       "outcome": "over",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.88,
+      "decimal": 1.71,
       "openingDecimal": 1.7,
-      "deltaPct": 10.59,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.59,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 1.72,
+      "openingDecimal": 1.72,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -601,7 +661,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -611,12 +671,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "1xbet",
-      "decimal": 2.1,
+      "decimal": 2.03,
       "openingDecimal": 2.09,
-      "deltaPct": 0.48,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -2.87,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -626,12 +686,27 @@
       "outcome": "under",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.74,
+      "decimal": 2.09,
       "openingDecimal": 2.11,
-      "deltaPct": -17.54,
+      "deltaPct": -0.95,
       "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "bet365",
+      "decimal": 2.07,
+      "openingDecimal": 2.07,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -646,7 +721,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -656,27 +731,42 @@
       "outcome": "over",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 2.6,
+      "decimal": 2.72,
       "openingDecimal": 2.63,
-      "deltaPct": -1.14,
+      "deltaPct": 3.42,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "over_under_35",
+      "outcome": "over",
+      "line": 3.5,
+      "book": "pinnacle",
+      "decimal": 2.76,
+      "openingDecimal": 2.73,
+      "deltaPct": 1.1,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "over_under_35",
+      "outcome": "under",
+      "line": 3.5,
+      "book": "1xbet",
+      "decimal": 1.37,
+      "openingDecimal": 1.41,
+      "deltaPct": -2.84,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
-      "homeName": "Al-Fateh",
-      "awayName": "Al-Riyadh",
-      "market": "over_under_35",
-      "outcome": "over",
-      "line": 3.5,
-      "book": "pinnacle",
-      "decimal": 3.18,
-      "openingDecimal": 2.73,
-      "deltaPct": 16.48,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -685,28 +775,13 @@
       "market": "over_under_35",
       "outcome": "under",
       "line": 3.5,
-      "book": "1xbet",
+      "book": "pinnacle",
       "decimal": 1.42,
-      "openingDecimal": 1.41,
-      "deltaPct": 0.71,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
-      "homeName": "Al-Fateh",
-      "awayName": "Al-Riyadh",
-      "market": "over_under_35",
-      "outcome": "under",
-      "line": 3.5,
-      "book": "pinnacle",
-      "decimal": 1.23,
       "openingDecimal": 1.43,
-      "deltaPct": -13.99,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -0.7,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -716,12 +791,12 @@
       "outcome": "yes",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.56,
+      "decimal": 1.6,
       "openingDecimal": 1.57,
-      "deltaPct": -0.64,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 1.91,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -736,7 +811,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.61,
+      "openingDecimal": 1.61,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -746,12 +836,12 @@
       "outcome": "no",
       "line": null,
       "book": "1xbet",
-      "decimal": 2.25,
+      "decimal": 2.18,
       "openingDecimal": 2.23,
-      "deltaPct": 0.9,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -2.24,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -761,12 +851,27 @@
       "outcome": "no",
       "line": null,
       "book": "william-hill",
+      "decimal": 2.3,
+      "openingDecimal": 2.2,
+      "deltaPct": 4.55,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
+      "homeName": "Al-Fateh",
+      "awayName": "Al-Riyadh",
+      "market": "btts",
+      "outcome": "no",
+      "line": null,
+      "book": "bet365",
       "decimal": 2.2,
       "openingDecimal": 2.2,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-fateh-al-riyadh-z76cdc",
@@ -776,12 +881,12 @@
       "outcome": "under",
       "line": 0.5,
       "book": "1xbet",
-      "decimal": 9.95,
+      "decimal": 8.6,
       "openingDecimal": 11.7,
-      "deltaPct": -14.96,
+      "deltaPct": -26.5,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -791,12 +896,27 @@
       "outcome": "HOME",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.82,
+      "decimal": 4.03,
       "openingDecimal": 4.08,
-      "deltaPct": -6.37,
+      "deltaPct": -1.23,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
+      "homeName": "Abha",
+      "awayName": "Al-Shabab",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "pinnacle",
+      "decimal": 4.2,
+      "openingDecimal": 4.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -806,12 +926,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "william-hill",
-      "decimal": 3.5,
+      "decimal": 3.4,
       "openingDecimal": 3.9,
-      "deltaPct": -10.26,
+      "deltaPct": -12.82,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -821,12 +941,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bet365",
-      "decimal": 3.8,
+      "decimal": 3.4,
       "openingDecimal": 4.5,
-      "deltaPct": -15.56,
+      "deltaPct": -24.44,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -841,7 +961,7 @@
       "deltaPct": -6.25,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -856,22 +976,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
-      "homeName": "Abha",
-      "awayName": "Al-Shabab",
-      "market": "1x2",
-      "outcome": "HOME",
-      "line": null,
-      "book": "melbet",
-      "decimal": 3.15,
-      "openingDecimal": 4.07,
-      "deltaPct": -22.6,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -886,7 +991,7 @@
       "deltaPct": -33.33,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -896,12 +1001,27 @@
       "outcome": "HOME",
       "line": null,
       "book": "sbo",
-      "decimal": 4.16,
+      "decimal": 3.58,
       "openingDecimal": 4.16,
+      "deltaPct": -13.94,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
+      "homeName": "Abha",
+      "awayName": "Al-Shabab",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "macauslot",
+      "decimal": 4.02,
+      "openingDecimal": 4.02,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -911,12 +1031,27 @@
       "outcome": "DRAW",
       "line": null,
       "book": "1xbet",
-      "decimal": 3.82,
+      "decimal": 3.91,
       "openingDecimal": 3.86,
-      "deltaPct": -1.04,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 1.3,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
+      "homeName": "Abha",
+      "awayName": "Al-Shabab",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "pinnacle",
+      "decimal": 3.97,
+      "openingDecimal": 3.97,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -931,7 +1066,7 @@
       "deltaPct": -2.86,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -941,12 +1076,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bet365",
-      "decimal": 3.5,
+      "decimal": 3.6,
       "openingDecimal": 3.75,
-      "deltaPct": -6.67,
+      "deltaPct": -4,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -961,7 +1096,7 @@
       "deltaPct": -3.85,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -976,22 +1111,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
-      "homeName": "Abha",
-      "awayName": "Al-Shabab",
-      "market": "1x2",
-      "outcome": "DRAW",
-      "line": null,
-      "book": "melbet",
-      "decimal": 3.82,
-      "openingDecimal": 3.86,
-      "deltaPct": -1.04,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1006,7 +1126,7 @@
       "deltaPct": -12.35,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1016,12 +1136,27 @@
       "outcome": "DRAW",
       "line": null,
       "book": "sbo",
-      "decimal": 3.55,
+      "decimal": 3.36,
       "openingDecimal": 3.55,
+      "deltaPct": -5.35,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
+      "homeName": "Abha",
+      "awayName": "Al-Shabab",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "macauslot",
+      "decimal": 3.91,
+      "openingDecimal": 3.91,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1031,12 +1166,27 @@
       "outcome": "AWAY",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.83,
+      "decimal": 1.77,
       "openingDecimal": 1.77,
-      "deltaPct": 3.39,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
+      "homeName": "Abha",
+      "awayName": "Al-Shabab",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "pinnacle",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1046,12 +1196,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.8,
+      "decimal": 1.85,
       "openingDecimal": 1.7,
-      "deltaPct": 5.88,
+      "deltaPct": 8.82,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1061,12 +1211,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bet365",
-      "decimal": 1.83,
+      "decimal": 1.8,
       "openingDecimal": 1.65,
-      "deltaPct": 10.91,
+      "deltaPct": 9.09,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1081,7 +1231,7 @@
       "deltaPct": 6.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1096,22 +1246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
-      "homeName": "Abha",
-      "awayName": "Al-Shabab",
-      "market": "1x2",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "melbet",
-      "decimal": 1.9,
-      "openingDecimal": 1.76,
-      "deltaPct": 7.95,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1126,7 +1261,7 @@
       "deltaPct": 26.25,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1136,12 +1271,27 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sbo",
-      "decimal": 1.55,
+      "decimal": 1.69,
       "openingDecimal": 1.55,
+      "deltaPct": 9.03,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
+    },
+    {
+      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
+      "homeName": "Abha",
+      "awayName": "Al-Shabab",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "macauslot",
+      "decimal": 1.76,
+      "openingDecimal": 1.76,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1151,12 +1301,12 @@
       "outcome": "1X",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.89,
+      "decimal": 1.96,
       "openingDecimal": 1.96,
-      "deltaPct": -3.57,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1166,12 +1316,12 @@
       "outcome": "1X",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.85,
+      "decimal": 1.83,
       "openingDecimal": 2,
-      "deltaPct": -7.5,
+      "deltaPct": -8.5,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1186,7 +1336,7 @@
       "deltaPct": -4.5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1196,12 +1346,12 @@
       "outcome": "1X",
       "line": null,
       "book": "sbo",
-      "decimal": 2.06,
+      "decimal": 1.85,
       "openingDecimal": 2.06,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -10.19,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1211,12 +1361,12 @@
       "outcome": "X2",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.23,
+      "decimal": 1.21,
       "openingDecimal": 1.2,
-      "deltaPct": 2.5,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.83,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1226,12 +1376,12 @@
       "outcome": "X2",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.22,
+      "decimal": 1.25,
       "openingDecimal": 1.2,
-      "deltaPct": 1.67,
+      "deltaPct": 4.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1246,7 +1396,7 @@
       "deltaPct": 2.46,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1256,12 +1406,12 @@
       "outcome": "X2",
       "line": null,
       "book": "sbo",
-      "decimal": 1.11,
+      "decimal": 1.16,
       "openingDecimal": 1.11,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 4.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1271,12 +1421,12 @@
       "outcome": "12",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.23,
+      "decimal": 1.22,
       "openingDecimal": 1.22,
-      "deltaPct": 0.82,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1291,7 +1441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1306,7 +1456,7 @@
       "deltaPct": 2.46,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1316,12 +1466,12 @@
       "outcome": "12",
       "line": null,
       "book": "sbo",
-      "decimal": 1.16,
+      "decimal": 1.19,
       "openingDecimal": 1.16,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 2.59,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1331,12 +1481,12 @@
       "outcome": "over",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 1.17,
+      "decimal": 1.16,
       "openingDecimal": 1.18,
-      "deltaPct": -0.85,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -1.69,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1346,12 +1496,12 @@
       "outcome": "over",
       "line": 1.5,
       "book": "pinnacle",
-      "decimal": 1.18,
+      "decimal": 1.2,
       "openingDecimal": 1.2,
-      "deltaPct": -1.67,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1366,7 +1516,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1376,12 +1526,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 4.38,
+      "decimal": 4.1,
       "openingDecimal": 4.18,
-      "deltaPct": 4.78,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -1.91,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1391,12 +1541,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "pinnacle",
-      "decimal": 3.62,
+      "decimal": 4.25,
       "openingDecimal": 4.24,
-      "deltaPct": -14.62,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.24,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1411,7 +1561,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1421,12 +1571,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "1xbet",
-      "decimal": 1.64,
+      "decimal": 1.66,
       "openingDecimal": 1.65,
-      "deltaPct": -0.61,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.61,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1436,12 +1586,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.71,
+      "decimal": 1.65,
       "openingDecimal": 1.66,
-      "deltaPct": 3.01,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -0.6,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1451,12 +1601,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "bet365",
-      "decimal": 1.7,
+      "decimal": 1.66,
       "openingDecimal": 1.65,
-      "deltaPct": 3.03,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.61,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1471,7 +1621,7 @@
       "deltaPct": 3.12,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1481,12 +1631,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "1xbet",
-      "decimal": 2.17,
+      "decimal": 2.14,
       "openingDecimal": 2.15,
-      "deltaPct": 0.93,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -0.47,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1496,12 +1646,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "pinnacle",
-      "decimal": 1.9,
+      "decimal": 2.19,
       "openingDecimal": 2.18,
-      "deltaPct": -12.84,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.46,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1511,12 +1661,12 @@
       "outcome": "under",
       "line": 2.5,
       "book": "bet365",
-      "decimal": 2.1,
+      "decimal": 2.15,
       "openingDecimal": 2.2,
-      "deltaPct": -4.55,
+      "deltaPct": -2.27,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1531,7 +1681,7 @@
       "deltaPct": -4.35,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1541,12 +1691,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 2.53,
+      "decimal": 2.58,
       "openingDecimal": 2.56,
-      "deltaPct": -1.17,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0.78,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1556,12 +1706,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 2.47,
+      "decimal": 2.61,
       "openingDecimal": 2.62,
-      "deltaPct": -5.73,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -0.38,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1576,7 +1726,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1586,12 +1736,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 1.44,
+      "decimal": 1.41,
       "openingDecimal": 1.43,
-      "deltaPct": 0.7,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -1.4,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1601,12 +1751,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 1.4,
+      "decimal": 1.46,
       "openingDecimal": 1.46,
-      "deltaPct": -4.11,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1621,7 +1771,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1631,12 +1781,12 @@
       "outcome": "yes",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.57,
+      "decimal": 1.6,
       "openingDecimal": 1.6,
-      "deltaPct": -1.88,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1646,12 +1796,12 @@
       "outcome": "yes",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.57,
+      "decimal": 1.6,
       "openingDecimal": 1.57,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 1.91,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1666,7 +1816,7 @@
       "deltaPct": -3.01,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1681,7 +1831,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1691,12 +1841,12 @@
       "outcome": "no",
       "line": null,
       "book": "1xbet",
-      "decimal": 2.23,
+      "decimal": 2.18,
       "openingDecimal": 2.18,
-      "deltaPct": 2.29,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1706,12 +1856,12 @@
       "outcome": "no",
       "line": null,
       "book": "william-hill",
-      "decimal": 2.2,
+      "decimal": 2.25,
       "openingDecimal": 2.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": 2.27,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1726,7 +1876,7 @@
       "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1741,22 +1891,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
-    },
-    {
-      "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
-      "homeName": "Abha",
-      "awayName": "Al-Shabab",
-      "market": "over_under_05",
-      "outcome": "over",
-      "line": 0.5,
-      "book": "1xbet",
-      "decimal": 1.03,
-      "openingDecimal": 1.02,
-      "deltaPct": 0.98,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1771,7 +1906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1781,12 +1916,12 @@
       "outcome": "under",
       "line": 0.5,
       "book": "1xbet",
-      "decimal": 11.9,
+      "decimal": 8.6,
       "openingDecimal": 11.8,
-      "deltaPct": 0.85,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "deltaPct": -27.12,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1801,7 +1936,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1816,7 +1951,7 @@
       "deltaPct": -1.38,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1831,7 +1966,7 @@
       "deltaPct": 2.75,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1846,7 +1981,7 @@
       "deltaPct": -2.78,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1861,7 +1996,7 @@
       "deltaPct": 3.16,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1876,7 +2011,7 @@
       "deltaPct": -3.02,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1891,7 +2026,7 @@
       "deltaPct": 1.95,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1906,7 +2041,7 @@
       "deltaPct": -3.23,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-abha-al-shabab-do91n9",
@@ -1921,7 +2056,7 @@
       "deltaPct": 1.52,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -1936,7 +2071,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -1951,7 +2086,7 @@
       "deltaPct": -11.55,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -1966,7 +2101,7 @@
       "deltaPct": -1.52,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -1981,7 +2116,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -1996,7 +2131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2011,7 +2146,7 @@
       "deltaPct": -2.24,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2026,7 +2161,7 @@
       "deltaPct": 1.11,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2041,7 +2176,7 @@
       "deltaPct": -20.55,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2056,7 +2191,7 @@
       "deltaPct": -12.5,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2071,7 +2206,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2086,7 +2221,7 @@
       "deltaPct": -6.11,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2101,7 +2236,7 @@
       "deltaPct": -2.51,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2116,7 +2251,7 @@
       "deltaPct": -0.5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2131,7 +2266,7 @@
       "deltaPct": 9.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2146,7 +2281,7 @@
       "deltaPct": 9.95,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2161,7 +2296,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2176,7 +2311,7 @@
       "deltaPct": -0.5,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-26-al-faisaly-diriyah-aqcznk",
@@ -2191,7 +2326,7 @@
       "deltaPct": 3.05,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2206,7 +2341,7 @@
       "deltaPct": 15.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2221,7 +2356,7 @@
       "deltaPct": 15,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2236,7 +2371,7 @@
       "deltaPct": 6.98,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2251,7 +2386,7 @@
       "deltaPct": 19,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2266,7 +2401,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2281,7 +2416,7 @@
       "deltaPct": 12.38,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2296,7 +2431,7 @@
       "deltaPct": 21.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2311,7 +2446,7 @@
       "deltaPct": 7.89,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2326,7 +2461,7 @@
       "deltaPct": -2,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2341,7 +2476,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2356,7 +2491,7 @@
       "deltaPct": -4.62,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2371,7 +2506,7 @@
       "deltaPct": -5.71,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2386,7 +2521,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2401,7 +2536,7 @@
       "deltaPct": -2,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2416,7 +2551,7 @@
       "deltaPct": -1.47,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2431,7 +2566,7 @@
       "deltaPct": -1.63,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2446,7 +2581,7 @@
       "deltaPct": -17.49,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2461,7 +2596,7 @@
       "deltaPct": -16.92,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2476,7 +2611,7 @@
       "deltaPct": -3.23,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2491,7 +2626,7 @@
       "deltaPct": -15.29,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2506,7 +2641,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2521,7 +2656,7 @@
       "deltaPct": -25.66,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2536,7 +2671,7 @@
       "deltaPct": -15.67,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2551,7 +2686,7 @@
       "deltaPct": -9.27,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2566,7 +2701,7 @@
       "deltaPct": 7.81,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2581,7 +2716,7 @@
       "deltaPct": 8.53,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2596,7 +2731,7 @@
       "deltaPct": 8.53,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2611,7 +2746,7 @@
       "deltaPct": 4.1,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2626,7 +2761,7 @@
       "deltaPct": -10.47,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2641,7 +2776,7 @@
       "deltaPct": -11.76,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2656,7 +2791,7 @@
       "deltaPct": -9.25,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2671,7 +2806,7 @@
       "deltaPct": -5.49,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2686,7 +2821,7 @@
       "deltaPct": 0.79,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2701,7 +2836,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2716,7 +2851,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2731,7 +2866,7 @@
       "deltaPct": 0.81,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2746,7 +2881,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2761,7 +2896,7 @@
       "deltaPct": 4.72,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2776,7 +2911,7 @@
       "deltaPct": 3.2,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2791,7 +2926,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2806,7 +2941,7 @@
       "deltaPct": -10.17,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2821,7 +2956,7 @@
       "deltaPct": -2.78,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2836,7 +2971,7 @@
       "deltaPct": 0.54,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2851,7 +2986,7 @@
       "deltaPct": 3.19,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2866,7 +3001,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2881,7 +3016,7 @@
       "deltaPct": 2.7,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2896,7 +3031,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2911,7 +3046,7 @@
       "deltaPct": -0.53,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2926,7 +3061,7 @@
       "deltaPct": -3.16,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2941,7 +3076,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2956,7 +3091,7 @@
       "deltaPct": 1.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2971,7 +3106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -2986,7 +3121,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3001,7 +3136,7 @@
       "deltaPct": -5.06,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3016,7 +3151,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3031,7 +3166,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3046,7 +3181,7 @@
       "deltaPct": 2.26,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3061,7 +3196,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3076,7 +3211,7 @@
       "deltaPct": -1.18,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3091,7 +3226,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3106,7 +3241,7 @@
       "deltaPct": -3.49,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3121,7 +3256,7 @@
       "deltaPct": -3.47,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3136,7 +3271,7 @@
       "deltaPct": 1.48,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3151,7 +3286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3166,7 +3301,7 @@
       "deltaPct": 5,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3181,7 +3316,7 @@
       "deltaPct": 2.38,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3196,7 +3331,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3211,7 +3346,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3226,7 +3361,7 @@
       "deltaPct": -3.11,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3241,7 +3376,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3256,7 +3391,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3271,7 +3406,7 @@
       "deltaPct": 1.29,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3286,7 +3421,7 @@
       "deltaPct": -2.17,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3301,7 +3436,7 @@
       "deltaPct": 1.03,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3316,7 +3451,7 @@
       "deltaPct": -1.13,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3331,7 +3466,7 @@
       "deltaPct": 1.96,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-kholood-al-khaleej-mdv5xa",
@@ -3346,7 +3481,7 @@
       "deltaPct": -0.69,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3361,7 +3496,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3376,7 +3511,7 @@
       "deltaPct": 8.77,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3391,7 +3526,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3406,7 +3541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3421,7 +3556,7 @@
       "deltaPct": -23.08,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3436,7 +3571,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3451,7 +3586,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3466,7 +3601,7 @@
       "deltaPct": -25.38,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3481,7 +3616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3496,7 +3631,7 @@
       "deltaPct": 4.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3511,7 +3646,7 @@
       "deltaPct": 6.8,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3526,7 +3661,7 @@
       "deltaPct": -28,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3541,7 +3676,7 @@
       "deltaPct": -40,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3556,7 +3691,7 @@
       "deltaPct": -56.17,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3571,7 +3706,7 @@
       "deltaPct": 2.94,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3586,7 +3721,7 @@
       "deltaPct": 5.66,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3601,7 +3736,7 @@
       "deltaPct": 14.29,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3616,7 +3751,7 @@
       "deltaPct": 0.98,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3631,7 +3766,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3646,7 +3781,7 @@
       "deltaPct": 19.75,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3661,7 +3796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3676,7 +3811,7 @@
       "deltaPct": 2.48,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3691,7 +3826,7 @@
       "deltaPct": 6.61,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3706,7 +3841,7 @@
       "deltaPct": 3.91,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3721,7 +3856,7 @@
       "deltaPct": 6.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3736,7 +3871,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3751,7 +3886,7 @@
       "deltaPct": -28.68,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3766,7 +3901,7 @@
       "deltaPct": -5.56,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3781,7 +3916,7 @@
       "deltaPct": -17.07,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3796,7 +3931,7 @@
       "deltaPct": 2.44,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3811,7 +3946,7 @@
       "deltaPct": -0.61,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3826,7 +3961,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3841,7 +3976,7 @@
       "deltaPct": -3.23,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3856,7 +3991,7 @@
       "deltaPct": -9.91,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3871,7 +4006,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3886,7 +4021,7 @@
       "deltaPct": -9.55,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3901,7 +4036,7 @@
       "deltaPct": -17.71,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3916,7 +4051,7 @@
       "deltaPct": -15,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3931,7 +4066,7 @@
       "deltaPct": -30,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3946,7 +4081,7 @@
       "deltaPct": 13.09,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3961,7 +4096,7 @@
       "deltaPct": 28.27,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3976,7 +4111,7 @@
       "deltaPct": 24.74,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -3991,7 +4126,7 @@
       "deltaPct": 60,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4006,7 +4141,7 @@
       "deltaPct": -18.42,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4021,7 +4156,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4036,7 +4171,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4051,7 +4186,7 @@
       "deltaPct": 0.66,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4066,7 +4201,7 @@
       "deltaPct": -0.85,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4081,7 +4216,7 @@
       "deltaPct": 1.06,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4096,7 +4231,7 @@
       "deltaPct": -1.1,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4111,7 +4246,7 @@
       "deltaPct": 1.27,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-qadsiah-al-fayha-7lu6ci",
@@ -4126,7 +4261,7 @@
       "deltaPct": -0.66,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4141,7 +4276,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4156,7 +4291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4171,7 +4306,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4186,7 +4321,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4201,7 +4336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4216,7 +4351,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4231,7 +4366,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4246,7 +4381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4261,7 +4396,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4276,7 +4411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4291,7 +4426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4306,7 +4441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4321,7 +4456,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4336,7 +4471,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4351,7 +4486,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4366,7 +4501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4381,7 +4516,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4396,7 +4531,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4411,7 +4546,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4426,7 +4561,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4441,7 +4576,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4456,7 +4591,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4471,7 +4606,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4486,7 +4621,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4501,7 +4636,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4516,7 +4651,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4531,7 +4666,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4546,7 +4681,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4561,7 +4696,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4576,7 +4711,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4591,7 +4726,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4606,7 +4741,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4621,7 +4756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4636,7 +4771,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4651,7 +4786,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4666,7 +4801,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4681,7 +4816,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4696,7 +4831,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4711,7 +4846,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4726,7 +4861,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4741,7 +4876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4756,7 +4891,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4771,7 +4906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4786,7 +4921,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4801,7 +4936,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4816,7 +4951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4831,7 +4966,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4846,7 +4981,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4861,7 +4996,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4876,7 +5011,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4891,7 +5026,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-27-al-ittihad-neom-howint",
@@ -4906,7 +5041,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -4921,7 +5056,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -4936,7 +5071,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -4951,7 +5086,7 @@
       "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -4966,7 +5101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -4981,7 +5116,7 @@
       "deltaPct": -25.21,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -4996,7 +5131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5011,7 +5146,7 @@
       "deltaPct": -1.38,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5026,7 +5161,7 @@
       "deltaPct": -16.67,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5041,7 +5176,7 @@
       "deltaPct": -14.29,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5056,7 +5191,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5071,7 +5206,7 @@
       "deltaPct": -18.51,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5086,7 +5221,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5101,7 +5236,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5116,7 +5251,7 @@
       "deltaPct": 1.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5131,7 +5266,7 @@
       "deltaPct": 1.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5146,7 +5281,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5161,7 +5296,7 @@
       "deltaPct": 1.71,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5176,7 +5311,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5191,7 +5326,7 @@
       "deltaPct": -0.91,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5206,7 +5341,7 @@
       "deltaPct": -9.93,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5221,7 +5356,7 @@
       "deltaPct": -6.67,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5236,7 +5371,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5251,7 +5386,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5266,7 +5401,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5281,7 +5416,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5296,7 +5431,7 @@
       "deltaPct": 1.82,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5311,7 +5446,7 @@
       "deltaPct": 2.78,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5326,7 +5461,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5341,7 +5476,7 @@
       "deltaPct": 0.93,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5356,7 +5491,7 @@
       "deltaPct": 0.91,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5371,7 +5506,7 @@
       "deltaPct": 14.24,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5386,7 +5521,7 @@
       "deltaPct": -26.62,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5401,7 +5536,7 @@
       "deltaPct": 2.24,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5416,7 +5551,7 @@
       "deltaPct": 4.44,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5431,7 +5566,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5446,7 +5581,7 @@
       "deltaPct": 1.75,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5461,7 +5596,7 @@
       "deltaPct": -20.79,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5476,7 +5611,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5491,7 +5626,7 @@
       "deltaPct": 2.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5506,7 +5641,7 @@
       "deltaPct": 0.52,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5521,7 +5656,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5536,7 +5671,7 @@
       "deltaPct": -1.65,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5551,7 +5686,7 @@
       "deltaPct": -9.84,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5566,7 +5701,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5581,7 +5716,7 @@
       "deltaPct": 1.12,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5596,7 +5731,7 @@
       "deltaPct": -2.86,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5611,7 +5746,7 @@
       "deltaPct": -1.05,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5626,7 +5761,7 @@
       "deltaPct": 4.71,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-hazem-al-nassr-4z51t3",
@@ -5641,7 +5776,7 @@
       "deltaPct": -10.81,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5656,7 +5791,7 @@
       "deltaPct": -21.05,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5671,7 +5806,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5686,7 +5821,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5701,7 +5836,7 @@
       "deltaPct": -16.67,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5716,7 +5851,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5731,7 +5866,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5746,7 +5881,7 @@
       "deltaPct": 5.93,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5761,7 +5896,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5776,7 +5911,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5791,7 +5926,7 @@
       "deltaPct": 6.06,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5806,7 +5941,7 @@
       "deltaPct": -7.14,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5821,7 +5956,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5836,7 +5971,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5851,7 +5986,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5866,7 +6001,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5881,7 +6016,7 @@
       "deltaPct": -0.94,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5896,7 +6031,7 @@
       "deltaPct": 0.91,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5911,7 +6046,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5926,7 +6061,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5941,7 +6076,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5956,7 +6091,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5971,7 +6106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -5986,7 +6121,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6001,7 +6136,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6016,7 +6151,7 @@
       "deltaPct": 25.4,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6031,7 +6166,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6046,7 +6181,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6061,7 +6196,7 @@
       "deltaPct": -41.62,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6076,7 +6211,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6091,7 +6226,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6106,7 +6241,7 @@
       "deltaPct": 35.06,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6121,7 +6256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6136,7 +6271,7 @@
       "deltaPct": -29.27,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6151,7 +6286,7 @@
       "deltaPct": 1.84,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6166,7 +6301,7 @@
       "deltaPct": 14.2,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6181,7 +6316,7 @@
       "deltaPct": -2.36,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6196,7 +6331,7 @@
       "deltaPct": -14.29,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ettifaq-al-hilal-uep6v5",
@@ -6211,7 +6346,7 @@
       "deltaPct": -9.52,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6226,7 +6361,7 @@
       "deltaPct": 2.78,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6241,7 +6376,7 @@
       "deltaPct": 2.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6256,7 +6391,7 @@
       "deltaPct": 6.25,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6271,7 +6406,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6286,7 +6421,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6301,7 +6436,7 @@
       "deltaPct": -4.72,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6316,7 +6451,7 @@
       "deltaPct": -13.39,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6331,7 +6466,7 @@
       "deltaPct": -11.58,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6346,7 +6481,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6361,7 +6496,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6376,7 +6511,7 @@
       "deltaPct": -4.57,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6391,7 +6526,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6406,7 +6541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6421,7 +6556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6436,7 +6571,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6451,7 +6586,7 @@
       "deltaPct": 0.91,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6466,7 +6601,7 @@
       "deltaPct": -0.89,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6481,7 +6616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6496,7 +6631,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6511,7 +6646,7 @@
       "deltaPct": -4.6,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6526,7 +6661,7 @@
       "deltaPct": -6.49,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6541,7 +6676,7 @@
       "deltaPct": -11.11,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6556,7 +6691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6571,7 +6706,7 @@
       "deltaPct": 1.72,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6586,7 +6721,7 @@
       "deltaPct": 3.39,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6601,7 +6736,7 @@
       "deltaPct": 2.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6616,7 +6751,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6631,7 +6766,7 @@
       "deltaPct": 2.68,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6646,7 +6781,7 @@
       "deltaPct": 9.48,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6661,7 +6796,7 @@
       "deltaPct": -2.08,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6676,7 +6811,7 @@
       "deltaPct": -40,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6691,7 +6826,7 @@
       "deltaPct": 6.04,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6706,7 +6841,7 @@
       "deltaPct": 19.74,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6721,7 +6856,7 @@
       "deltaPct": -3.78,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6736,7 +6871,7 @@
       "deltaPct": -27.82,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6751,7 +6886,7 @@
       "deltaPct": 3.93,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6766,7 +6901,7 @@
       "deltaPct": 5.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6781,7 +6916,7 @@
       "deltaPct": -5.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6796,7 +6931,7 @@
       "deltaPct": -11.61,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6811,7 +6946,7 @@
       "deltaPct": 2.44,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6826,7 +6961,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6841,7 +6976,7 @@
       "deltaPct": -2.86,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6856,7 +6991,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6871,7 +7006,7 @@
       "deltaPct": 0.98,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6886,7 +7021,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6901,7 +7036,7 @@
       "deltaPct": -26.45,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     },
     {
       "gameId": "saudi-pro-league-2026-11-28-al-ahli-al-taawoun-nliidj",
@@ -6916,7 +7051,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-21T21:50:05Z"
+      "capturedAtUtc": "2026-11-22T12:35:05Z"
     }
   ]
 }

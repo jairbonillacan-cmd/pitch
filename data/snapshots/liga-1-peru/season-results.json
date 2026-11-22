@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-1-peru",
   "season": "2026",
-  "updatedAt": "2026-11-21T21:48:13.141Z",
+  "updatedAt": "2026-11-22T12:45:51.462Z",
   "matches": [
     {
       "id": "liga-1-peru-2026-07-17-cajamarca-acd-juan-pablo-8g5jl2",
@@ -1652,6 +1652,17 @@
       "awayTeam": "liga-1-peru.melgar",
       "homeScore": 1,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-1-peru-2026-11-21-alianza-lima-cajamarca-i1tw8c",
+      "date": "2026-11-21",
+      "startTime": "2026-11-21T20:30:00.000Z",
+      "round": "Regular season · Matchday 17",
+      "homeTeam": "liga-1-peru.alianza-lima",
+      "awayTeam": "liga-1-peru.cajamarca",
+      "homeScore": 5,
+      "awayScore": 0,
       "neutralSite": false
     }
   ]
