@@ -24,6 +24,8 @@ import type { MatchPick, PlatformGame, SgpCopulaAuditView } from "../../types";
 import { BookmakerComparePill } from "./BookmakerComparePill";
 import { EvidenceWindowPills, extractEvidenceWindows } from "./EvidenceWindowPills";
 
+const MAX_PARLAY_LEGS = 6;
+
 export interface BetBuilderQuickButtonProps {
   readonly pick: MatchPick;
   readonly onInspect: (pick: MatchPick) => void;
@@ -325,9 +327,17 @@ export function BetBuilderDrawer({
   const risk = assessParlayRisk({ ...parlaySummary, combinedProbability: effectiveJointProb });
   const isFinished = pick.gameStatus === "FT";
   const isLive = pick.gameStatus === "LIVE";
-  const canSealSlip = parlayLegs.length >= 2;
+  const exceedsMaxLegs = parlayLegs.length > MAX_PARLAY_LEGS;
+  const atMaxLegs = parlayLegs.length >= MAX_PARLAY_LEGS;
+  const canSealSlip = parlayLegs.length >= 2 && parlayLegs.length <= MAX_PARLAY_LEGS;
 
   const handleEnableSgpAndAdd = () => {
+    if (parlayLegs.length >= MAX_PARLAY_LEGS) {
+      setInlineNotice(
+        `El máximo por parlay es de ${MAX_PARLAY_LEGS} selecciones. Quita una para agregar esta.`,
+      );
+      return;
+    }
     setInlineNotice(null);
     setAllowSgp(true);
     loadParlayPicks([...parlayLegs.map((l) => l.pick), pick], {
@@ -344,6 +354,12 @@ export function BetBuilderDrawer({
     if (inSlip) {
       setInlineNotice(null);
       removePickFromParlay(candidate.id);
+      return;
+    }
+    if (parlayLegs.length >= MAX_PARLAY_LEGS) {
+      setInlineNotice(
+        `El máximo por parlay es de ${MAX_PARLAY_LEGS} selecciones. Quita una para agregar esta.`,
+      );
       return;
     }
     if (!allowSgp) {
@@ -429,6 +445,17 @@ export function BetBuilderDrawer({
                 <MaestroIcon name="check" size={14} />
                 <span>Esta selección ya forma parte de tu boleto combinado.</span>
               </div>
+            ) : atMaxLegs ? (
+              <div className="pl-bb-compat is-warn" role="alert" data-builder-compat="max_legs">
+                <MaestroIcon name="shield" size={14} />
+                <div className="pl-bb-compat-copy">
+                  <strong>Límite de {MAX_PARLAY_LEGS} selecciones alcanzado</strong>
+                  <p>
+                    Los parlays aceptan hasta {MAX_PARLAY_LEGS} selecciones. Quita una del boleto
+                    para agregar otra.
+                  </p>
+                </div>
+              </div>
             ) : !compat.allowed && compat.reason ? (
               <div
                 className={`pl-bb-compat ${compat.code === "same_game_disabled" ? "is-warn" : "is-conflict"}`}
@@ -445,7 +472,7 @@ export function BetBuilderDrawer({
               <div className="pl-bb-compat is-ready" role="status" data-builder-compat="allowed">
                 <MaestroIcon name="layers" size={14} />
                 <span>
-                  Compatible con tu boleto actual ({parlayLegs.length}{" "}
+                  Compatible con tu boleto actual ({parlayLegs.length}/{MAX_PARLAY_LEGS}{" "}
                   {parlayLegs.length === 1 ? "selección" : "selecciones"}).
                 </span>
               </div>
@@ -464,6 +491,15 @@ export function BetBuilderDrawer({
                 >
                   <MaestroIcon name="minus" size={14} />
                   <span>Quitar del boleto</span>
+                </Button>
+              ) : atMaxLegs ? (
+                <Button
+                  variant="secondary"
+                  size="default"
+                  className="pl-bb-action-main"
+                  disabled
+                >
+                  <span>Máximo {MAX_PARLAY_LEGS} picks</span>
                 </Button>
               ) : compat.allowed ? (
                 <Button
@@ -541,7 +577,7 @@ export function BetBuilderDrawer({
 
               <ul className="pl-bb-sgp-list">
                 {sgpSuggestions.map(({ candidate, inSlip, check }) => {
-                  const canAdd = inSlip || (allowSgp && check.allowed);
+                  const canAdd = inSlip || (allowSgp && check.allowed && !atMaxLegs);
                   return (
                     <li key={candidate.id} className="pl-bb-sgp-row">
                       <div className="min-w-0">
@@ -549,22 +585,26 @@ export function BetBuilderDrawer({
                         <span className="pl-bb-sgp-meta num">
                           {(candidate.p * 100).toFixed(1)} % · Justo{" "}
                           {formatOddsValue(candidate.fairDecimal, oddsFormat)}
-                          {!check.allowed && !inSlip
-                            ? check.code === "sgp_limit"
-                              ? " · Máx. 2 SGP"
-                              : " · Conflicto de eje"
-                            : ""}
+                          {!inSlip && atMaxLegs
+                            ? ` · Máx. ${MAX_PARLAY_LEGS} picks`
+                            : !check.allowed && !inSlip
+                              ? check.code === "sgp_limit"
+                                ? " · Máx. 2 SGP"
+                                : " · Conflicto de eje"
+                              : ""}
                         </span>
                       </div>
                       <Button
                         variant={inSlip ? "secondary" : "ghost"}
                         size="sm"
                         className="min-w-11"
-                        disabled={!canAdd && allowSgp}
+                        disabled={!canAdd && (allowSgp || atMaxLegs)}
                         title={
-                          !allowSgp && !inSlip
-                            ? "Activa SGP para combinar del mismo partido"
-                            : check.reason
+                          !inSlip && atMaxLegs
+                            ? `Máximo ${MAX_PARLAY_LEGS} selecciones por parlay`
+                            : !allowSgp && !inSlip
+                              ? "Activa SGP para combinar del mismo partido"
+                              : check.reason
                         }
                         onClick={() => handleToggleSuggestion(candidate, inSlip, check)}
                       >
@@ -572,11 +612,13 @@ export function BetBuilderDrawer({
                         <span>
                           {inSlip
                             ? "En boleto"
-                            : check.allowed
-                              ? "Unir"
-                              : check.code === "sgp_limit"
-                                ? "Límite"
-                                : "Choca"}
+                            : atMaxLegs
+                              ? "Límite"
+                              : check.allowed
+                                ? "Unir"
+                                : check.code === "sgp_limit"
+                                  ? "Límite"
+                                  : "Choca"}
                         </span>
                       </Button>
                     </li>
@@ -626,6 +668,23 @@ export function BetBuilderDrawer({
                     },
                   ]}
                 />
+
+                {exceedsMaxLegs ? (
+                  <div
+                    className="pl-bb-compat is-conflict"
+                    role="alert"
+                    data-builder-max-legs-alert=""
+                  >
+                    <MaestroIcon name="shield" size={14} />
+                    <div className="pl-bb-compat-copy">
+                      <strong>Máximo {MAX_PARLAY_LEGS} selecciones por parlay</strong>
+                      <p>
+                        Tienes {parlayLegs.length} selecciones en tu boleto. Quita{" "}
+                        {parlayLegs.length - MAX_PARLAY_LEGS} para poder sellarlo.
+                      </p>
+                    </div>
+                  </div>
+                ) : null}
 
                 {parlaySummary.hasSgpCorrelation ? (
                   <SgpCopulaAuditCard
@@ -679,13 +738,25 @@ export function BetBuilderDrawer({
             className="pl-bb-footer-btn num"
             disabled={!canSealSlip}
             onClick={() => {
+              if (!canSealSlip) {
+                setInlineNotice(
+                  exceedsMaxLegs
+                    ? `Reduce tu boleto a máximo ${MAX_PARLAY_LEGS} selecciones para sellar.`
+                    : "Agrega al menos 2 selecciones compatibles para sellar.",
+                );
+                return;
+              }
               sealParlayToJournal();
               onClose();
             }}
           >
             <MaestroIcon name="check" size={14} />
             <span>
-              {canSealSlip ? `Sellar (${parlayLegs.length})` : "Agrega 2+ picks"}
+              {exceedsMaxLegs
+                ? `Máx. ${MAX_PARLAY_LEGS} (${parlayLegs.length})`
+                : canSealSlip
+                  ? `Sellar (${parlayLegs.length})`
+                  : "Agrega 2+ picks"}
             </span>
           </Button>
         </footer>

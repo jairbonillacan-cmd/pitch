@@ -360,7 +360,175 @@ const FLAT_PICKS_STEP = 20;
 const TRIVIAL_ODDS_FLOOR = 1.25;
 const DEFAULT_LIVE_TRACKER_POLL_MS = 30_000;
 const MAX_AUDITABLE_EV_PCT = 20;
+const MAX_SHARP_AUDITABLE_EV_PCT = 18;
+const MAX_SOFT_AUDITABLE_EV_PCT = 22;
+const MAX_DEVIG_DIVERGENCE_PROB = 0.12;
 const MAX_AUDITABLE_EDGE_PTS = 15;
+
+const SHARP_BOOK_TOKENS = new Set([
+  "pinnacle",
+  "betfair",
+  "betfairexchange",
+  "matchbook",
+  "smarkets",
+  "circa",
+  "circasports",
+  "betcris",
+  "bookmaker",
+  "lowvig",
+]);
+
+const LINE_SENSITIVE_MARKETS = new Set([
+  "totals",
+  "over_under",
+  "team_totals",
+  "combo_1x2_over",
+  "spread",
+  "asian_handicap",
+  "corners_total",
+  "corners_team",
+  "shots_total",
+  "shots_on_target",
+  "sot_total",
+  "fouls_total",
+  "cards_total",
+  "yellow_total",
+  "nba_spread",
+  "nba_totals",
+  "mlb_run_line",
+  "mlb_totals",
+  "mlb_f5",
+  "nhl_puck_line",
+  "nhl_puckline",
+  "nhl_totals",
+  "nfl_spread",
+  "nfl_totals",
+  "player_props_football",
+  "nba_player_props",
+]);
+
+function isLineSensitiveMarket(market: string): boolean {
+  const norm = market.toLowerCase();
+  return LINE_SENSITIVE_MARKETS.has(norm) || norm.startsWith("totals_");
+}
+
+function isSharpQuoteBook(
+  bookId?: string | null,
+  bookLabel?: string | null,
+): boolean {
+  const raw = `${bookId ?? ""} ${bookLabel ?? ""}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+  if (!raw) return false;
+  for (const token of raw.split(/\s+/)) {
+    if (SHARP_BOOK_TOKENS.has(token)) return true;
+  }
+  return false;
+}
+
+function buildMarketLookupKey(
+  market: string,
+  selection: string,
+  line: number | null | undefined,
+): string {
+  const lineStr =
+    typeof line === "number" && Number.isFinite(line) ? String(line) : "";
+  return `${market.toLowerCase()}::${selection.toLowerCase()}::${lineStr}`;
+}
+
+function sameMarketGroup(a: string, b: string): boolean {
+  const na = a.toLowerCase();
+  const nb = b.toLowerCase();
+  if (na === nb) return true;
+  if ((na === "h2h" && nb === "1x2") || (na === "1x2" && nb === "h2h")) {
+    return true;
+  }
+  const aTotals = na === "totals" || na === "over_under" || na.startsWith("totals_");
+  const bTotals = nb === "totals" || nb === "over_under" || nb.startsWith("totals_");
+  return aTotals && bTotals;
+}
+
+function resolveSameBookDeVigProbForMarket(
+  markets: readonly PlatformMarketRow[],
+  market: string,
+  selection: string,
+  line: number | null | undefined,
+  bookKey: string,
+): number | null {
+  if (!bookKey) return null;
+  const normalizedLine =
+    typeof line === "number" && Number.isFinite(line) ? line : null;
+  const needsLine = isLineSensitiveMarket(market);
+  const bySelection = new Map<string, number>();
+
+  for (const row of markets) {
+    if (!sameMarketGroup(row.market, market)) continue;
+    const rowLine =
+      typeof row.line === "number" && Number.isFinite(row.line) ? row.line : null;
+    if (needsLine) {
+      if (normalizedLine === null || rowLine === null || Math.abs(rowLine - normalizedLine) > 1e-6) {
+        continue;
+      }
+    } else if (normalizedLine !== null && rowLine !== null && Math.abs(rowLine - normalizedLine) > 1e-6) {
+      continue;
+    }
+    const matchingQuote = (row.bookQuotes ?? []).find(
+      (q) =>
+        normalizeBookKey(q.book) === bookKey &&
+        Number.isFinite(q.decimal) &&
+        q.decimal > 1.01,
+    );
+    const selKey = row.selection.toLowerCase();
+    if (matchingQuote && !bySelection.has(selKey)) {
+      bySelection.set(selKey, matchingQuote.decimal);
+    }
+  }
+
+  const targetDec = bySelection.get(selection.toLowerCase());
+  if (targetDec == null || bySelection.size < 2) return null;
+  let invSum = 0;
+  for (const dec of bySelection.values()) {
+    invSum += 1 / dec;
+  }
+  if (!Number.isFinite(invSum) || invSum < 0.92 || invSum > 1.32) return null;
+  return Math.round((1 / targetDec / invSum) * 10000) / 10000;
+}
+
+function evaluateAuditableQuotePricing(params: {
+  readonly p: number;
+  readonly houseDecimal: number | null;
+  readonly bookId?: string | null;
+  readonly bookLabel?: string | null;
+  readonly deVigProb: number | null;
+}): {
+  readonly valuePct: number | null;
+  readonly edgePts: number | null;
+  readonly isAnomalous: boolean;
+} {
+  const { p, houseDecimal, bookId, bookLabel, deVigProb } = params;
+  if (houseDecimal === null || !Number.isFinite(houseDecimal) || houseDecimal <= 1.01) {
+    return { valuePct: null, edgePts: null, isAnomalous: false };
+  }
+  const rawEvPct = computeExpectedValuePct(p, houseDecimal);
+  const rawEdgePts =
+    Number.isFinite(p) && p > 0 && p < 1
+      ? Math.round((p - 1 / houseDecimal) * 1000) / 10
+      : null;
+  const evCap = isSharpQuoteBook(bookId, bookLabel)
+    ? MAX_SHARP_AUDITABLE_EV_PCT
+    : MAX_SOFT_AUDITABLE_EV_PCT;
+  const exceedsEvCap = rawEvPct !== null && rawEvPct > evCap;
+  const divergesFromDeVig =
+    deVigProb !== null &&
+    Number.isFinite(deVigProb) &&
+    Math.abs(p - deVigProb) > MAX_DEVIG_DIVERGENCE_PROB;
+
+  if (exceedsEvCap || divergesFromDeVig) {
+    return { valuePct: null, edgePts: null, isAnomalous: true };
+  }
+  return { valuePct: rawEvPct, edgePts: rawEdgePts, isAnomalous: false };
+}
 
 type QuickPresetId =
   | "mejor-valor"
@@ -1293,6 +1461,7 @@ interface ScreenerItem {
   readonly capturedAtUtc: string | null;
   readonly valuePct: number | null;
   readonly edgePts: number | null;
+  readonly isPricingAnomalous: boolean;
   readonly evidenceWindows: readonly EvidenceWindowItem[];
   readonly searchHaystack: string;
 }
@@ -1442,9 +1611,17 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
   const effectiveHouseLabel = manualDec !== null ? "Tu momio" : item.houseLabel;
   const effectiveValuePct =
     manualDec !== null ? computeExpectedValuePct(pick.p, manualDec) : item.valuePct;
-  const isOutlierEv = effectiveValuePct !== null && effectiveValuePct > MAX_AUDITABLE_EV_PCT;
+  const rowEvCap =
+    manualDec !== null
+      ? MAX_AUDITABLE_EV_PCT
+      : isSharpQuoteBook(undefined, item.houseLabel)
+        ? MAX_SHARP_AUDITABLE_EV_PCT
+        : MAX_SOFT_AUDITABLE_EV_PCT;
+  const isOutlierEv =
+    (manualDec === null && item.isPricingAnomalous) ||
+    (effectiveValuePct !== null && effectiveValuePct > rowEvCap);
   const auditablePositiveEv =
-    effectiveValuePct !== null && effectiveValuePct > 0 && !isOutlierEv
+    !isOutlierEv && effectiveValuePct !== null && effectiveValuePct > 0
       ? effectiveValuePct
       : null;
   const effectiveMovement = manualDec !== null ? null : (item.movement ?? null);
@@ -2315,11 +2492,21 @@ export function PicksFinderClubView({
 
       const marketByKey = new Map<string, PlatformMarketRow>();
       for (const m of game.markets) {
-        marketByKey.set(`${m.market}::${m.selection}`, m);
-        if (m.market === "h2h") {
-          marketByKey.set(`1x2::${m.selection}`, m);
-        } else if (m.market === "1x2") {
-          marketByKey.set(`h2h::${m.selection}`, m);
+        const normMarket = m.market.toLowerCase();
+        marketByKey.set(buildMarketLookupKey(normMarket, m.selection, m.line), m);
+        if (normMarket === "h2h") {
+          marketByKey.set(buildMarketLookupKey("1x2", m.selection, m.line), m);
+        } else if (normMarket === "1x2") {
+          marketByKey.set(buildMarketLookupKey("h2h", m.selection, m.line), m);
+        } else if (
+          (normMarket.startsWith("totals_") || normMarket === "over_under") &&
+          typeof m.line === "number" &&
+          Number.isFinite(m.line)
+        ) {
+          const aliasKey = buildMarketLookupKey("totals", m.selection, m.line);
+          if (!marketByKey.has(aliasKey)) {
+            marketByKey.set(aliasKey, m);
+          }
         }
       }
 
@@ -2399,13 +2586,18 @@ export function PicksFinderClubView({
               capturedAtUtc: null,
               valuePct: null,
               edgePts: null,
+              isPricingAnomalous: false,
               evidenceWindows: [],
               searchHaystack,
             });
             continue;
           }
 
-          const matchedRow = marketByKey.get(`${catItem.family}::${catItem.selectionKey}`);
+          const matchedRow =
+            marketByKey.get(buildMarketLookupKey(catItem.family, catItem.selectionKey, catItem.line)) ??
+            (!isLineSensitiveMarket(catItem.family)
+              ? marketByKey.get(buildMarketLookupKey(catItem.family, catItem.selectionKey, null))
+              : undefined);
           const quotes = pick.bookQuotes ?? matchedRow?.bookQuotes;
           const prefQuote = resolvePreferredBookQuote(quotes, preferredBooks);
           const houseDecimal =
@@ -2422,17 +2614,66 @@ export function PicksFinderClubView({
             catItem.pricing.marketCapturedAtUtc ??
             matchedRow?.quoteCapturedAtUtc ??
             null;
-          const valuePct =
-            prefQuote != null
-              ? computeExpectedValuePct(pick.p, houseDecimal)
-              : (catItem.pricing.evPct ?? computeExpectedValuePct(pick.p, houseDecimal));
-          const edgePts =
-            prefQuote != null && houseDecimal !== null && houseDecimal > 1
-              ? Math.round((pick.p - 1 / houseDecimal) * 1000) / 10
-              : (catItem.pricing.edgePts ??
-                  (houseDecimal !== null && houseDecimal > 1
-                    ? Math.round((pick.p - 1 / houseDecimal) * 1000) / 10
-                    : null));
+
+          const serverSuppressedPricing =
+            (catItem.pricing.marketDecimal !== null && catItem.pricing.evPct === null) ||
+            (catItem.pricing.deVigMarketProb !== null &&
+              Math.abs(pick.p - catItem.pricing.deVigMarketProb) > MAX_DEVIG_DIVERGENCE_PROB);
+
+          let valuePct: number | null = null;
+          let edgePts: number | null = null;
+          let isPricingAnomalous = false;
+
+          if (prefQuote != null) {
+            const sameAsSuppressedServerQuote =
+              serverSuppressedPricing &&
+              catItem.pricing.marketDecimal !== null &&
+              Math.abs(prefQuote.decimal - catItem.pricing.marketDecimal) < 0.005;
+            if (sameAsSuppressedServerQuote) {
+              isPricingAnomalous = true;
+            } else {
+              const sameBookDeVig =
+                resolveSameBookDeVigProbForMarket(
+                  game.markets,
+                  catItem.family,
+                  catItem.selectionKey,
+                  catItem.line,
+                  normalizeBookKey(prefQuote.book),
+                ) ?? catItem.pricing.deVigMarketProb;
+              const evaluated = evaluateAuditableQuotePricing({
+                p: pick.p,
+                houseDecimal,
+                bookId: prefQuote.book,
+                bookLabel: prefQuote.bookLabel,
+                deVigProb: sameBookDeVig,
+              });
+              valuePct = evaluated.valuePct;
+              edgePts = evaluated.edgePts;
+              isPricingAnomalous = evaluated.isAnomalous;
+            }
+          } else if (serverSuppressedPricing) {
+            isPricingAnomalous = true;
+          } else if (catItem.pricing.evPct !== null) {
+            const evCap = isSharpQuoteBook(undefined, houseLabel)
+              ? MAX_SHARP_AUDITABLE_EV_PCT
+              : MAX_SOFT_AUDITABLE_EV_PCT;
+            if (catItem.pricing.evPct > evCap) {
+              isPricingAnomalous = true;
+            } else {
+              valuePct = catItem.pricing.evPct;
+              edgePts = catItem.pricing.edgePts;
+            }
+          } else if (catItem.pricing.marketDecimal === null && houseDecimal !== null) {
+            const evaluated = evaluateAuditableQuotePricing({
+              p: pick.p,
+              houseDecimal,
+              bookLabel: houseLabel,
+              deVigProb: catItem.pricing.deVigMarketProb,
+            });
+            valuePct = evaluated.valuePct;
+            edgePts = evaluated.edgePts;
+            isPricingAnomalous = evaluated.isAnomalous;
+          }
 
           const movement = classifyOddsMovement(openDecimal, houseDecimal, movementDir);
           const movementScore = !movement
@@ -2515,6 +2756,7 @@ export function PicksFinderClubView({
             capturedAtUtc,
             valuePct,
             edgePts,
+            isPricingAnomalous,
             evidenceWindows,
             searchHaystack,
           });
@@ -2554,7 +2796,10 @@ export function PicksFinderClubView({
 
       for (const pick of gamePicks) {
         const matchedRow = pick.market
-          ? marketByKey.get(`${pick.market}::${pick.selectionKey}`)
+          ? (marketByKey.get(buildMarketLookupKey(pick.market, pick.selectionKey, pick.line)) ??
+            (!isLineSensitiveMarket(pick.market)
+              ? marketByKey.get(buildMarketLookupKey(pick.market, pick.selectionKey, null))
+              : undefined))
           : undefined;
         const quotes = pick.bookQuotes ?? matchedRow?.bookQuotes;
         const prefQuote = resolvePreferredBookQuote(quotes, preferredBooks);
@@ -2569,11 +2814,30 @@ export function PicksFinderClubView({
           pick.marketCapturedAtUtc ??
           matchedRow?.quoteCapturedAtUtc ??
           null;
-        const valuePct = computeExpectedValuePct(pick.p, houseDecimal);
+        const fallbackDeVig =
+          prefQuote && pick.market
+            ? resolveSameBookDeVigProbForMarket(
+                game.markets,
+                pick.market,
+                pick.selectionKey,
+                pick.line,
+                normalizeBookKey(prefQuote.book),
+              )
+            : null;
+        const fallbackPricing = evaluateAuditableQuotePricing({
+          p: pick.p,
+          houseDecimal,
+          bookId: prefQuote?.book,
+          bookLabel: houseLabel,
+          deVigProb: fallbackDeVig,
+        });
+        const valuePct = fallbackPricing.valuePct;
         const edgePts =
           houseDecimal !== null && houseDecimal > 1
-            ? Math.round((pick.p - 1 / houseDecimal) * 1000) / 10
-            : pick.edgePts;
+            ? fallbackPricing.edgePts
+            : fallbackPricing.isAnomalous
+              ? null
+              : pick.edgePts;
 
         const movement = classifyOddsMovement(openDecimal, houseDecimal, movementDir);
         const movementScore = !movement
@@ -2694,6 +2958,7 @@ export function PicksFinderClubView({
           capturedAtUtc: isFallbackLocked ? null : capturedAtUtc,
           valuePct: isFallbackLocked ? null : valuePct,
           edgePts: isFallbackLocked ? null : edgePts,
+          isPricingAnomalous: isFallbackLocked ? false : fallbackPricing.isAnomalous,
           evidenceWindows: isFallbackLocked ? [] : evidenceWindows,
           searchHaystack,
         });
@@ -2762,6 +3027,14 @@ export function PicksFinderClubView({
       const matchPick = catalogPickItemToMatchPick(safeCatPick, game, 0);
       const scored = scoreRecommendedCatalogPick(safeCatPick);
       const baseWindows = catalogEvidenceToWindowItems(safeCatPick.evidence, safeCatPick.sport);
+      const potdEvCap = isSharpQuoteBook(undefined, catPick.pricing.marketBookLabel)
+        ? MAX_SHARP_AUDITABLE_EV_PCT
+        : MAX_SOFT_AUDITABLE_EV_PCT;
+      const potdAnomalous =
+        (catPick.pricing.marketDecimal !== null && catPick.pricing.evPct === null) ||
+        (catPick.pricing.evPct !== null && catPick.pricing.evPct > potdEvCap) ||
+        (catPick.pricing.deVigMarketProb !== null &&
+          Math.abs(catPick.pricing.p - catPick.pricing.deVigMarketProb) > MAX_DEVIG_DIVERGENCE_PROB);
       resolved.push({
         game,
         pick: matchPick,
@@ -2793,8 +3066,9 @@ export function PicksFinderClubView({
         movement: null,
         movementScore: 0,
         capturedAtUtc: catPick.pricing.marketCapturedAtUtc,
-        valuePct: catPick.pricing.evPct,
-        edgePts: catPick.pricing.edgePts,
+        valuePct: potdAnomalous ? null : catPick.pricing.evPct,
+        edgePts: potdAnomalous ? null : catPick.pricing.edgePts,
+        isPricingAnomalous: potdAnomalous,
         evidenceWindows: buildCompactEvidenceBullets(baseWindows, catPick.evidence.bullets),
         searchHaystack: normText(`${game.home.name} ${game.away.name} ${matchPick.label}`),
       });
@@ -3135,8 +3409,12 @@ export function PicksFinderClubView({
       if (periodFilter !== "all" && item.period !== periodFilter) return false;
       if (!matchesPosition(item)) return false;
       if (onlyPositiveEdge) {
+        if (item.isPricingAnomalous) return false;
+        const itemEvCap = isSharpQuoteBook(undefined, item.houseLabel)
+          ? MAX_SHARP_AUDITABLE_EV_PCT
+          : MAX_SOFT_AUDITABLE_EV_PCT;
         const hasAuditableEv =
-          item.valuePct !== null && item.valuePct > 0 && item.valuePct <= MAX_AUDITABLE_EV_PCT;
+          item.valuePct !== null && item.valuePct > 0 && item.valuePct <= itemEvCap;
         const hasAuditableEdge =
           item.valuePct === null &&
           item.edgePts !== null &&
@@ -3168,10 +3446,16 @@ export function PicksFinderClubView({
         );
       }
       if (sort === "recomendados") {
+        const aCap = isSharpQuoteBook(undefined, a.houseLabel)
+          ? MAX_SHARP_AUDITABLE_EV_PCT
+          : MAX_SOFT_AUDITABLE_EV_PCT;
+        const bCap = isSharpQuoteBook(undefined, b.houseLabel)
+          ? MAX_SHARP_AUDITABLE_EV_PCT
+          : MAX_SOFT_AUDITABLE_EV_PCT;
         const aEv =
-          a.valuePct !== null && a.valuePct <= MAX_AUDITABLE_EV_PCT ? a.valuePct : -999;
+          !a.isPricingAnomalous && a.valuePct !== null && a.valuePct <= aCap ? a.valuePct : -999;
         const bEv =
-          b.valuePct !== null && b.valuePct <= MAX_AUDITABLE_EV_PCT ? b.valuePct : -999;
+          !b.isPricingAnomalous && b.valuePct !== null && b.valuePct <= bCap ? b.valuePct : -999;
         return (
           b.recommendationScore - a.recommendationScore ||
           b.convergenceCount - a.convergenceCount ||
@@ -3180,10 +3464,16 @@ export function PicksFinderClubView({
         );
       }
       if (sort === "ev") {
+        const aCap = isSharpQuoteBook(undefined, a.houseLabel)
+          ? MAX_SHARP_AUDITABLE_EV_PCT
+          : MAX_SOFT_AUDITABLE_EV_PCT;
+        const bCap = isSharpQuoteBook(undefined, b.houseLabel)
+          ? MAX_SHARP_AUDITABLE_EV_PCT
+          : MAX_SOFT_AUDITABLE_EV_PCT;
         const aEv =
-          a.valuePct !== null && a.valuePct <= MAX_AUDITABLE_EV_PCT ? a.valuePct : -999;
+          !a.isPricingAnomalous && a.valuePct !== null && a.valuePct <= aCap ? a.valuePct : -999;
         const bEv =
-          b.valuePct !== null && b.valuePct <= MAX_AUDITABLE_EV_PCT ? b.valuePct : -999;
+          !b.isPricingAnomalous && b.valuePct !== null && b.valuePct <= bCap ? b.valuePct : -999;
         return (
           bEv - aEv ||
           (b.edgePts ?? -999) - (a.edgePts ?? -999) ||
@@ -3264,8 +3554,12 @@ export function PicksFinderClubView({
       if (periodFilter !== "all" && item.period !== periodFilter) continue;
       if (!matchesPosition(item)) continue;
       if (onlyPositiveEdge) {
+        if (item.isPricingAnomalous) continue;
+        const itemEvCap = isSharpQuoteBook(undefined, item.houseLabel)
+          ? MAX_SHARP_AUDITABLE_EV_PCT
+          : MAX_SOFT_AUDITABLE_EV_PCT;
         const hasAuditableEv =
-          item.valuePct !== null && item.valuePct > 0 && item.valuePct <= MAX_AUDITABLE_EV_PCT;
+          item.valuePct !== null && item.valuePct > 0 && item.valuePct <= itemEvCap;
         const hasAuditableEdge =
           item.valuePct === null &&
           item.edgePts !== null &&
@@ -4707,17 +5001,19 @@ export function PicksFinderClubView({
                                 {game.home.name} vs {game.away.name}
                               </strong>
                               <span className="pl-scr-group-sub num">
-                                <LeagueBadge
-                                  league={game.league}
-                                  label={game.leagueLabel}
-                                  logoUrl={game.leagueLogoUrl}
-                                  size={13}
-                                />
-                                <span>{game.leagueLabel}</span>
+                                <span className="pl-scr-sub-piece">
+                                  <LeagueBadge
+                                    league={game.league}
+                                    label={game.leagueLabel}
+                                    logoUrl={game.leagueLogoUrl}
+                                    size={13}
+                                  />
+                                  <span>{game.leagueLabel}</span>
+                                </span>
                                 <span className="pl-scr-meta-sep" aria-hidden="true">
                                   ·
                                 </span>
-                                <span>
+                                <span className="pl-scr-sub-piece">
                                   {liveScore && liveClock
                                     ? `${liveScore.home}–${liveScore.away} · ${liveClock}`
                                     : `${game.dayLabel} ${game.kickoffLocal}`}
@@ -4727,34 +5023,47 @@ export function PicksFinderClubView({
                                     <span className="pl-scr-meta-sep" aria-hidden="true">
                                       ·
                                     </span>
-                                    <span className="pl-scr-group-proj">{projLabel}</span>
+                                    <span className="pl-scr-sub-piece pl-scr-group-proj">
+                                      {projLabel}
+                                    </span>
                                   </>
                                 ) : null}
                               </span>
                             </div>
-                            <span className="pl-scr-group-count num">
-                              {items.length} {items.length === 1 ? "pick" : "picks"}
-                            </span>
-                            <MaestroIcon
-                              name="chevronDown"
-                              size={15}
-                              className={`pl-scr-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
-                            />
                           </button>
 
-                          <a
-                            href={href}
-                            className="pl-scr-group-ficha"
-                            onPointerEnter={() => prefetchRoute(href)}
-                            onTouchStart={() => prefetchRoute(href)}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              navigateTo(href);
-                            }}
-                          >
-                            <span>Ficha</span>
-                            <MaestroIcon name="arrowRight" size={12} />
-                          </a>
+                          <div className="pl-scr-group-actions">
+                            <button
+                              type="button"
+                              className="pl-scr-group-count-btn num"
+                              aria-expanded={!isCollapsed}
+                              aria-label={`${isCollapsed ? "Mostrar" : "Ocultar"} ${items.length} ${items.length === 1 ? "pick" : "picks"} de ${game.home.shortName} vs ${game.away.shortName}`}
+                              onClick={() => toggleGroupCollapse(`m:${game.id}`)}
+                            >
+                              <span className="pl-scr-group-count">
+                                {items.length} {items.length === 1 ? "pick" : "picks"}
+                              </span>
+                              <MaestroIcon
+                                name="chevronDown"
+                                size={15}
+                                className={`pl-scr-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
+                              />
+                            </button>
+
+                            <a
+                              href={href}
+                              className="pl-scr-group-ficha"
+                              onPointerEnter={() => prefetchRoute(href)}
+                              onTouchStart={() => prefetchRoute(href)}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo(href);
+                              }}
+                            >
+                              <span>Ficha</span>
+                              <MaestroIcon name="arrowRight" size={12} />
+                            </a>
+                          </div>
                         </header>
 
                         {!isCollapsed ? (

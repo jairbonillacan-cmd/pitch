@@ -3,7 +3,7 @@
 import React from "react";
 import {
   formatOddsCaptureEs,
-  isBlockedMarketQuoteBook,
+  isPermittedMarketQuoteBook,
   isSafePublicLabel,
 } from "@pitchlab/contracts";
 import { formatOddsValue } from "../../access-guard";
@@ -12,8 +12,32 @@ import type { BookQuoteItem, OddsFormat } from "../../types";
 
 const MAX_QUOTE_AGE_MS = 72 * 60 * 60 * 1000;
 const MAX_FUTURE_SKEW_MS = 6 * 60 * 60 * 1000;
-const MAX_AUDITABLE_EV_PCT = 20;
+const MAX_SHARP_AUDITABLE_EV_PCT = 18;
+const MAX_SOFT_AUDITABLE_EV_PCT = 20;
 const MAX_AUDITABLE_EDGE_PTS = 15;
+
+const SHARP_BOOK_TOKENS = new Set([
+  "pinnacle",
+  "betfair",
+  "betfairexchange",
+  "matchbook",
+  "smarkets",
+  "circa",
+  "circasports",
+  "betcris",
+  "bookmaker",
+  "lowvig",
+]);
+
+function isSharpHouseLabel(label: string | null | undefined): boolean {
+  if (!label) return false;
+  const cleaned = label.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  if (!cleaned) return false;
+  for (const token of cleaned.split(/\s+/)) {
+    if (SHARP_BOOK_TOKENS.has(token)) return true;
+  }
+  return false;
+}
 
 function isFreshQuoteTimestamp(
   capturedAtUtc: string | null | undefined,
@@ -33,7 +57,12 @@ function isFreshQuoteTimestamp(
 function isAllowedHouseBookLabel(label: string | null | undefined): boolean {
   if (label == null || label.trim().length === 0) return true;
   const trimmed = label.trim();
-  return isSafePublicLabel(trimmed) && !isBlockedMarketQuoteBook(trimmed, trimmed);
+  if (trimmed.toLowerCase() === "tu momio") return true;
+  const primary = trimmed.split(/[·|]/)[0]?.trim() ?? trimmed;
+  return (
+    isSafePublicLabel(trimmed) &&
+    isPermittedMarketQuoteBook(primary, trimmed)
+  );
 }
 
 export type OddsMovementKind = "steam" | "shortening" | "drifting" | "stable";
@@ -158,7 +187,7 @@ export function BookmakerComparePill({
         (q) =>
           Number.isFinite(q.decimal) &&
           q.decimal > 1.01 &&
-          !isBlockedMarketQuoteBook(q.book, q.bookLabel) &&
+          isPermittedMarketQuoteBook(q.book, q.bookLabel) &&
           isFreshQuoteTimestamp(q.capturedAtUtc, anchorMs),
       )
     : [];
@@ -199,7 +228,10 @@ export function BookmakerComparePill({
       ? Math.round((probability - 1 / effectiveHouse) * 1000) / 10
       : (edgePtsOverride ?? null);
 
-  const isOutlierEv = valuePct !== null && valuePct > MAX_AUDITABLE_EV_PCT;
+  const evCapPct = isSharpHouseLabel(houseBookLabel)
+    ? MAX_SHARP_AUDITABLE_EV_PCT
+    : MAX_SOFT_AUDITABLE_EV_PCT;
+  const isOutlierEv = valuePct !== null && valuePct > evCapPct;
   const auditablePositiveEv =
     valuePct !== null && valuePct > 0 && !isOutlierEv ? valuePct : null;
   const isOutlierEdgePts =
