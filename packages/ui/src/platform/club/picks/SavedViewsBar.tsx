@@ -12,6 +12,7 @@ export interface SavedViewsBarProps {
   readonly views: readonly SavedScreenerView[];
   readonly activeViewId: string | null;
   readonly maxViews?: number;
+  readonly compact?: boolean;
   readonly onApply: (view: SavedScreenerView) => void;
   readonly onSave: (cleanName: string) => boolean;
   readonly onDelete: (viewId: string) => void;
@@ -21,6 +22,7 @@ export function SavedViewsBar({
   views,
   activeViewId,
   maxViews = MAX_SAVED_SCREENER_VIEWS,
+  compact = false,
   onApply,
   onSave,
   onDelete,
@@ -42,7 +44,7 @@ export function SavedViewsBar({
 
   return (
     <section
-      className="pl-scr-saved-bar"
+      className={`pl-scr-saved-bar ${compact ? "is-compact" : ""}`.trim()}
       aria-label="Vistas guardadas de filtros"
       data-saved-views-bar=""
     >

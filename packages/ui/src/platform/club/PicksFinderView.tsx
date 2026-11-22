@@ -1,6 +1,7 @@
 "use client";
 
 import React, {
+  memo,
   useCallback,
   useId,
   useMemo,
@@ -18,17 +19,12 @@ import {
   Button,
   SofascoreCard,
   SofascoreEmptyState,
-  SofascoreFilterBar,
   SofascoreKpiStrip,
-  SofascoreSignalPair,
-  SofascoreTable,
   SofascoreTabs,
-  SofascoreValueCell,
   type SofascoreKpiItem,
   type SofascoreTabItem,
-  type SofascoreTableColumn,
 } from "../../components/ui/primitives";
-import { LeagueBadge } from "../../sports";
+import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue, isPickUnlocked } from "../access-guard";
 import {
   LivePickProgressBar,
@@ -44,6 +40,7 @@ import { MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { useSheetSwipeDismiss } from "../components/use-sheet-swipe-dismiss";
 import {
+  useAbortableJson,
   useDebouncedValue,
   useSafeEffect,
   useVisibilityPolling,
@@ -60,9 +57,15 @@ import {
   catalogEvidenceToWindowItems,
   catalogPickItemToMatchPick,
   gradeCatalogPick,
+  scoreRecommendedCatalogPick,
+  selectPicksOfTheDay,
+  type CatalogPickItem,
   type MarketFamilyId,
   type MatchPicksCatalog,
+  type PickDirection,
   type PickSettlementStatus,
+  type PlayerPropMeta,
+  type ScreenerApiResponse,
 } from "../picks-catalog";
 import {
   useIsPickInParlay,
@@ -83,6 +86,7 @@ import {
 import type {
   JournalEntry,
   MatchPick,
+  OddsFormat,
   PlatformGame,
   PlatformMarketRow,
 } from "../types";
@@ -97,14 +101,28 @@ import {
   computeExpectedValuePct,
   extractEvidenceWindows,
   type EvidenceWindowItem,
+  type EvidenceWindowTone,
   type OddsMovementInfo,
 } from "./picks";
+import {
+  PickEvidenceLabDrawer,
+  type PickLabCustomSelection,
+} from "./picks/PickEvidenceLabDrawer";
+import { PersonAvatar } from "./team/PersonAvatar";
 
 type Band = ScreenerBandFilter;
 type GroupMode = "match" | "market" | "flat";
-type TimingMode = "live" | "upcoming" | "settled";
-type ScreenerSortExtended = "ev" | "p" | "movimiento" | "hora" | "relevancia" | "momio";
-type QuickPreset = "todos" | "probables" | "valor" | "goles" | "conteos";
+type TimingMode = "upcoming" | "live" | "settled";
+type PickTypeFilter = "all" | "team_match" | "player";
+type DirectionFilter = "all" | "over" | "under" | "side" | "yes_no";
+type ScreenerSortExtended =
+  | "recomendados"
+  | "ev"
+  | "p"
+  | "movimiento"
+  | "hora"
+  | "relevancia"
+  | "momio";
 type PeriodFilter = "all" | "ft" | "1h" | "2h" | "f5";
 type PositionFilter =
   | "all"
@@ -190,15 +208,29 @@ const WINDOW_OPTIONS: ReadonlyArray<{ id: ScreenerWindowFilter; label: string }>
   { id: "next48h", label: "Próx. 48 h" },
 ];
 
+const PICK_TYPE_OPTIONS: ReadonlyArray<{ id: PickTypeFilter; label: string }> = [
+  { id: "all", label: "Todos" },
+  { id: "team_match", label: "Equipo y partido" },
+  { id: "player", label: "Props de jugador" },
+];
+
+const DIRECTION_OPTIONS: ReadonlyArray<{ id: DirectionFilter; label: string }> = [
+  { id: "all", label: "Todas" },
+  { id: "over", label: "Más de (Over)" },
+  { id: "under", label: "Menos de (Under)" },
+  { id: "side", label: "Resultado / Hándicap / Combo" },
+  { id: "yes_no", label: "Sí / No" },
+];
+
 const BANDS: ReadonlyArray<{ id: Band; label: string; hint: string }> = [
   { id: "all", label: "Todas", hint: "" },
-  { id: "alta", label: "≥ 70 %", hint: "70 % o más" },
-  { id: "media", label: "55–69 %", hint: "55 a 69 %" },
-  { id: "baja", label: "< 55 %", hint: "menos de 55 %" },
+  { id: "alta", label: "≥ 70 %", hint: "Probabilidad Spacetime 70 % o más" },
+  { id: "media", label: "55–69 %", hint: "Probabilidad Spacetime 55 a 69 %" },
+  { id: "baja", label: "< 55 %", hint: "Probabilidad Spacetime menor a 55 %" },
 ];
 
 const PERIOD_OPTIONS: ReadonlyArray<{ id: PeriodFilter; label: string }> = [
-  { id: "all", label: "Todos los periodos" },
+  { id: "all", label: "Todos" },
   { id: "ft", label: "Partido completo" },
   { id: "1h", label: "1.ª mitad (1T)" },
   { id: "2h", label: "2.ª mitad (2T)" },
@@ -206,7 +238,7 @@ const PERIOD_OPTIONS: ReadonlyArray<{ id: PeriodFilter; label: string }> = [
 ];
 
 const POSITION_OPTIONS: ReadonlyArray<{ id: PositionFilter; label: string }> = [
-  { id: "all", label: "Todas las posiciones" },
+  { id: "all", label: "Todas" },
   { id: "home", label: "Local" },
   { id: "away", label: "Visitante" },
   { id: "total", label: "Total / Neutral" },
@@ -218,7 +250,7 @@ const POSITION_OPTIONS: ReadonlyArray<{ id: PositionFilter; label: string }> = [
 ];
 
 const MARKET_FAMILY_GROUPS: ReadonlyArray<{ id: LegacyFamilyGroup; label: string }> = [
-  { id: "all", label: "Mercados (34)" },
+  { id: "all", label: "Todos (34 familias)" },
   { id: "resultado", label: "Resultado (1X2 / DC / DNB)" },
   { id: "goles", label: "Goles y totales" },
   { id: "ambos", label: "Ambos anotan y portería" },
@@ -249,23 +281,25 @@ const QUICK_BOOKS: ReadonlyArray<{ id: string; label: string }> = [
   { id: "bet365", label: "Bet365" },
   { id: "codere", label: "Codere" },
   { id: "betcris", label: "Betcris" },
-  { id: "caliente_mx", label: "Caliente" },
+  { id: "novibet", label: "Novibet" },
   { id: "draftkings", label: "DraftKings" },
   { id: "fanduel", label: "FanDuel" },
 ];
 
-const QUICK_CHIPS: ReadonlyArray<{ id: QuickPreset; label: string }> = [
-  { id: "todos", label: "Todos" },
-  { id: "probables", label: "Muy probables (≥ 70 %)" },
-  { id: "valor", label: "Valor EV+" },
-  { id: "goles", label: "Goles y totales" },
-  { id: "conteos", label: "Córners y tarjetas" },
+const GROUP_MODES: ReadonlyArray<{ id: GroupMode; label: string; shortLabel: string }> = [
+  { id: "match", label: "Por partido", shortLabel: "Partidos" },
+  { id: "market", label: "Por mercado", shortLabel: "Mercados" },
+  { id: "flat", label: "Lista plana", shortLabel: "Lista plana" },
 ];
 
-const GROUP_MODES: ReadonlyArray<{ id: GroupMode; label: string }> = [
-  { id: "match", label: "Por partido" },
-  { id: "market", label: "Por mercado" },
-  { id: "flat", label: "Lista plana" },
+const SORT_OPTIONS: ReadonlyArray<{ id: ScreenerSortExtended; label: string }> = [
+  { id: "recomendados", label: "Recomendados" },
+  { id: "ev", label: "Valor real EV+" },
+  { id: "p", label: "Probabilidad Spacetime" },
+  { id: "movimiento", label: "Movimiento de línea" },
+  { id: "hora", label: "Próximo inicio" },
+  { id: "relevancia", label: "Balance prob. y momio" },
+  { id: "momio", label: "Mayor momio" },
 ];
 
 const EXTENDED_SYNTH_MARKETS = new Set([
@@ -311,8 +345,13 @@ const CATALOG_FAMILY_ID_SET: ReadonlySet<string> = new Set(MARKET_FAMILY_IDS);
 const LEGACY_FAMILY_GROUP_SET: ReadonlySet<string> = new Set(
   MARKET_FAMILY_GROUPS.map((item) => item.id),
 );
-const INITIAL_VISIBLE_PICKS = 12;
-const PICKS_PAGE_STEP = 16;
+const INITIAL_GAMES_SHOWN = 4;
+const GAMES_PAGE_STEP = 6;
+const PER_MATCH_INITIAL_PICKS = 5;
+const PER_MATCH_LOAD_STEP = 6;
+const INITIAL_FLAT_PICKS = 18;
+const FLAT_PICKS_STEP = 20;
+const TRIVIAL_ODDS_FLOOR = 1.25;
 const DEFAULT_LIVE_TRACKER_POLL_MS = 30_000;
 
 function subscribePageVisibility(onStoreChange: () => void): () => void {
@@ -333,7 +372,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function parseDirection(value: unknown): "over" | "under" | "handicap" {
+function parseLiveDirectionValue(value: unknown): "over" | "under" | "handicap" {
   if (value === "under" || value === "handicap") return value;
   return "over";
 }
@@ -378,7 +417,7 @@ function parseLiveTrackedLeg(raw: unknown): LiveTrackedLegView | null {
     actualValue,
     targetLine,
     unitLabel: typeof raw.unitLabel === "string" ? raw.unitLabel : "",
-    direction: parseDirection(raw.direction),
+    direction: parseLiveDirectionValue(raw.direction),
     projectedFinal: projectedFinal ?? actualValue,
     asianState: parseAsianState(raw.asianState),
     starterAlert: parseStarterAlert(raw.starterAlert),
@@ -418,7 +457,7 @@ function parseLiveTrackedPick(raw: unknown): LiveTrackedPickView | null {
     actualValue,
     targetLine,
     unitLabel: typeof raw.unitLabel === "string" ? raw.unitLabel : "",
-    direction: parseDirection(raw.direction),
+    direction: parseLiveDirectionValue(raw.direction),
     projectedFinal: projectedFinal ?? actualValue,
     asianState: parseAsianState(raw.asianState),
     starterAlert: parseStarterAlert(raw.starterAlert),
@@ -494,8 +533,19 @@ function parsePositionFilter(raw: string): PositionFilter {
   return "all";
 }
 
+function parsePickTypeFilter(raw: string): PickTypeFilter {
+  if (raw === "team_match" || raw === "player") return raw;
+  return "all";
+}
+
+function parseDirectionFilter(raw: string): DirectionFilter {
+  if (raw === "over" || raw === "under" || raw === "side" || raw === "yes_no") return raw;
+  return "all";
+}
+
 function parseSortExtended(raw: string): ScreenerSortExtended {
   if (
+    raw === "recomendados" ||
     raw === "ev" ||
     raw === "p" ||
     raw === "movimiento" ||
@@ -505,7 +555,7 @@ function parseSortExtended(raw: string): ScreenerSortExtended {
   ) {
     return raw;
   }
-  return "ev";
+  return "recomendados";
 }
 
 function isCatalogFamilyId(raw: string): raw is MarketFamilyId {
@@ -527,6 +577,14 @@ function parseTimingMode(raw: string): TimingMode {
   return "upcoming";
 }
 
+function defaultFamilyForSport(sport: PlatformGame["sport"]): MarketFamilyId {
+  if (sport === "basketball") return "nba_moneyline";
+  if (sport === "baseball") return "mlb_moneyline";
+  if (sport === "ice-hockey") return "nhl_moneyline";
+  if (sport === "american-football") return "nfl_moneyline";
+  return "1x2";
+}
+
 function resolveMarketFamilyIdFromRaw(
   rawMarket: string | undefined,
   sport: PlatformGame["sport"],
@@ -534,13 +592,7 @@ function resolveMarketFamilyIdFromRaw(
   if (!rawMarket) return null;
   const lowered = rawMarket.toLowerCase();
   if (isCatalogFamilyId(lowered)) return lowered;
-  if (lowered === "h2h") {
-    if (sport === "basketball") return "nba_moneyline";
-    if (sport === "baseball") return "mlb_moneyline";
-    if (sport === "ice-hockey") return "nhl_moneyline";
-    if (sport === "american-football") return "nfl_moneyline";
-    return "1x2";
-  }
+  if (lowered === "h2h") return defaultFamilyForSport(sport);
   if (lowered === "ou") return "totals";
   if (lowered === "yellow_total") return "cards_total";
   if (lowered === "sot_total") return "shots_on_target";
@@ -683,6 +735,7 @@ function resolvePickPeriod(
     hay.includes("half_time") ||
     hay.includes("1t") ||
     hay.includes("1.a mitad") ||
+    hay.includes("1a parte") ||
     hay.includes("1er tiempo") ||
     hay.includes("primera mitad")
   ) {
@@ -692,12 +745,18 @@ function resolvePickPeriod(
     hay.includes("second_half") ||
     hay.includes("2t") ||
     hay.includes("2.a mitad") ||
+    hay.includes("2a parte") ||
     hay.includes("2o tiempo") ||
     hay.includes("segunda mitad")
   ) {
     return "2h";
   }
-  if (hay.includes("mlb_f5") || hay.includes(" f5") || hay.startsWith("f5 ") || hay.includes("5 entradas")) {
+  if (
+    hay.includes("mlb_f5") ||
+    hay.includes(" f5") ||
+    hay.startsWith("f5 ") ||
+    hay.includes("5 entradas")
+  ) {
     return "f5";
   }
   return "ft";
@@ -708,6 +767,29 @@ function periodShortTag(period: Exclude<PeriodFilter, "all">): string | null {
   if (period === "2h") return "2T";
   if (period === "f5") return "F5";
   return null;
+}
+
+function inferCatalogDirection(pick: MatchPick): PickDirection {
+  const lbl = normText(pick.label);
+  const sel = normText(pick.selectionKey);
+  if (lbl.includes("+") && (lbl.includes("mas de") || lbl.includes("menos de") || lbl.includes("ambos"))) {
+    return "combo";
+  }
+  if (lbl.includes("mas de") || lbl.includes("over") || sel.includes("over")) return "over";
+  if (lbl.includes("menos de") || lbl.includes("under") || sel.includes("under")) return "under";
+  if (pick.conflictGroup === "btts_yes" || sel === "yes" || lbl.includes("si")) return "yes";
+  if (pick.conflictGroup === "btts_no" || sel === "no") return "no";
+  if (pick.conflictGroup === "home_side" || sel === "home" || sel === "1") return "home";
+  if (pick.conflictGroup === "away_side" || sel === "away" || sel === "2") return "away";
+  if (pick.conflictGroup === "draw_side" || sel === "draw" || sel === "x") return "draw";
+  return "combo";
+}
+
+function directionToFilterBucket(direction: PickDirection): Exclude<DirectionFilter, "all"> {
+  if (direction === "over") return "over";
+  if (direction === "under") return "under";
+  if (direction === "yes" || direction === "no") return "yes_no";
+  return "side";
 }
 
 function resolvePlayerPositionBucket(
@@ -723,13 +805,38 @@ function resolvePlayerPositionBucket(
     }
     return null;
   }
-  if (pos.includes("FWD") || pos === "ST" || pos === "CF" || pos === "LW" || pos === "RW" || pos === "F") {
+  if (
+    pos.includes("FWD") ||
+    pos.includes("DELANTER") ||
+    pos === "ST" ||
+    pos === "CF" ||
+    pos === "LW" ||
+    pos === "RW" ||
+    pos === "F"
+  ) {
     return "fwd";
   }
-  if (pos.includes("MID") || pos === "CM" || pos === "CAM" || pos === "CDM" || pos === "LM" || pos === "RM" || pos === "M") {
+  if (
+    pos.includes("MID") ||
+    pos.includes("MEDIO") ||
+    pos === "CM" ||
+    pos === "CAM" ||
+    pos === "CDM" ||
+    pos === "LM" ||
+    pos === "RM" ||
+    pos === "M"
+  ) {
     return "mid";
   }
-  if (pos.includes("DEF") || pos === "GK" || pos === "CB" || pos === "LB" || pos === "RB" || pos === "D") {
+  if (
+    pos.includes("DEF") ||
+    pos.includes("PORTER") ||
+    pos === "GK" ||
+    pos === "CB" ||
+    pos === "LB" ||
+    pos === "RB" ||
+    pos === "D"
+  ) {
     return "def_gk";
   }
   return null;
@@ -764,6 +871,17 @@ function resolveSideBucket(
   return "total";
 }
 
+function formatProjectedScore(game: PlatformGame): string | null {
+  if (!game.projection) return null;
+  const h = game.projection.home;
+  const a = game.projection.away;
+  if (!Number.isFinite(h) || !Number.isFinite(a)) return null;
+  if (game.sport === "football") {
+    return `Proy. ${h.toFixed(1)}–${a.toFixed(1)}`;
+  }
+  return `Proy. ${Math.round(h)}–${Math.round(a)}`;
+}
+
 function toSavedKind(filter: MarketFamilyFilter): ScreenerKindFilter {
   if (
     filter === "resultado" ||
@@ -779,6 +897,7 @@ function toSavedKind(filter: MarketFamilyFilter): ScreenerKindFilter {
 
 function toSavedSort(sort: ScreenerSortExtended): ScreenerSortKey {
   if (sort === "ev" || sort === "movimiento") return "ventaja";
+  if (sort === "recomendados") return "relevancia";
   return sort;
 }
 
@@ -786,35 +905,59 @@ function bandOf(p: number): Exclude<Band, "all"> {
   return p >= 0.7 ? "alta" : p >= 0.55 ? "media" : "baja";
 }
 
-function selectCompactEvidenceWindows(
+function buildCompactEvidenceBullets(
   windows: readonly EvidenceWindowItem[],
+  catalogBullets?: readonly { readonly label: string; readonly ratePct: number | null; readonly tone: EvidenceWindowTone }[],
 ): readonly EvidenceWindowItem[] {
-  if (windows.length <= 4) return windows;
+  const out: EvidenceWindowItem[] = [];
+  const seenText = new Set<string>();
+
   const priorityOrder: readonly EvidenceWindowItem["key"][] = [
     "home_away",
     "l5",
+    "l10",
     "h2h",
+    "l20",
     "xg",
     "ref",
-    "l10",
-    "l20",
     "custom",
   ];
-  const picked: EvidenceWindowItem[] = [];
-  const used = new Set<number>();
+
   for (const key of priorityOrder) {
-    for (let idx = 0; idx < windows.length; idx += 1) {
-      if (used.has(idx)) continue;
-      const item = windows[idx]!;
-      if (item.key === key) {
-        picked.push(item);
-        used.add(idx);
-        break;
-      }
+    for (const w of windows) {
+      if (w.key !== key) continue;
+      const text = (w.detail && w.detail.trim().length > 0 ? w.detail : w.label).trim();
+      const normKey = normText(text);
+      if (seenText.has(normKey)) continue;
+      seenText.add(normKey);
+      out.push({
+        ...w,
+        detail: text,
+      });
+      if (out.length >= 5) return out;
     }
-    if (picked.length >= 4) break;
   }
-  return picked;
+
+  if (catalogBullets && out.length < 4) {
+    for (const bullet of catalogBullets) {
+      const text = bullet.label.trim();
+      if (!text) continue;
+      const normKey = normText(text);
+      if (seenText.has(normKey)) continue;
+      seenText.add(normKey);
+      out.push({
+        key: "custom",
+        label: text,
+        detail: text,
+        value: bullet.ratePct !== null ? `${Math.round(bullet.ratePct)} %` : "—",
+        ratePct: bullet.ratePct,
+        tone: bullet.tone,
+      });
+      if (out.length >= 5) break;
+    }
+  }
+
+  return out;
 }
 
 function resolveSettlementStatus(
@@ -838,8 +981,8 @@ function resolveSettlementStatus(
 }
 
 function settlementLabel(status: PickSettlementStatus): string {
-  if (status === "hit") return "Acertado";
-  if (status === "miss") return "Fallado";
+  if (status === "hit") return "Ganado";
+  if (status === "miss") return "Perdido";
   if (status === "push") return "Push";
   return "Pendiente";
 }
@@ -899,9 +1042,120 @@ function marketRowToScreenerPick(game: PlatformGame, m: PlatformMarketRow, idx: 
   };
 }
 
+function buildFallbackCatalogPickItem(params: {
+  readonly pick: MatchPick;
+  readonly game: PlatformGame;
+  readonly familyId: MarketFamilyId;
+  readonly settlement: PickSettlementStatus;
+  readonly houseDecimal: number | null;
+  readonly houseLabel: string | null;
+  readonly capturedAtUtc: string | null;
+  readonly valuePct: number | null;
+  readonly edgePts: number | null;
+  readonly evidenceWindows: readonly EvidenceWindowItem[];
+  readonly isLocked: boolean;
+}): CatalogPickItem {
+  const {
+    pick,
+    game,
+    familyId,
+    settlement,
+    houseDecimal,
+    houseLabel,
+    capturedAtUtc,
+    valuePct,
+    edgePts,
+    evidenceWindows,
+    isLocked,
+  } = params;
+  const spec = MARKET_FAMILIES[familyId];
+  const projectedScoreLabel = formatProjectedScore(game);
+  const bullets = isLocked
+    ? []
+    : evidenceWindows.map((w) => ({
+        label: w.detail ?? `${w.label} ${w.value}`,
+        ratePct: w.ratePct ?? null,
+        tone: w.tone === "info" ? ("neutral" as const) : w.tone,
+      }));
+  const rates = evidenceWindows
+    .map((w) => w.ratePct)
+    .filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+  const avgObservedRatePct =
+    rates.length > 0 ? Math.round(rates.reduce((a, b) => a + b, 0) / rates.length) : null;
+
+  return {
+    id: pick.id,
+    gameId: game.id,
+    league: game.league,
+    leagueLabel: game.leagueLabel,
+    sport: game.sport,
+    matchLabel: `${game.home.shortName} vs ${game.away.shortName}`,
+    kickoffUtc: game.kickoffUtc,
+    kickoffLocal: game.kickoffLocal,
+    gameStatus: game.status,
+    family: familyId,
+    familyLabel: spec.label,
+    category: spec.category,
+    axis: spec.axis,
+    selectionKey: pick.selectionKey,
+    label: pick.label,
+    line: pick.line ?? null,
+    direction: inferCatalogDirection(pick),
+    pricing: {
+      p: isLocked ? 0 : pick.p,
+      fairOdds: isLocked ? 0 : pick.fairDecimal,
+      fairAmerican: isLocked ? 0 : pick.fairAmerican,
+      marketDecimal: isLocked ? null : houseDecimal,
+      marketAmerican: isLocked ? null : pick.marketAmerican,
+      marketBookLabel: isLocked ? null : houseLabel,
+      marketCapturedAtUtc: isLocked ? null : capturedAtUtc,
+      deVigMarketProb: null,
+      deVigMethod: "none",
+      overroundPct: null,
+      evPct: isLocked ? null : valuePct,
+      edgePts: isLocked ? null : edgePts,
+      noVigEdgePts: null,
+      valueLabel:
+        !isLocked && valuePct !== null && valuePct > 0
+          ? `Valor +${valuePct.toFixed(1)} %`
+          : null,
+      hasPositiveValue: !isLocked && valuePct !== null && valuePct > 0,
+    },
+    evidence: {
+      windows: [],
+      xgSignal:
+        !isLocked && game.projection
+          ? {
+              homeXg: game.projection.home,
+              awayXg: game.projection.away,
+              totalXg: game.projection.total,
+              marginXg: game.projection.home - game.projection.away,
+              source: "projection",
+              summary: projectedScoreLabel ?? `Total ${game.projection.total.toFixed(2)}`,
+            }
+          : null,
+      refereeSignal: null,
+      bullets,
+      avgObservedRatePct: isLocked ? null : avgObservedRatePct,
+    },
+    settlement,
+    engineName: pick.engineName,
+    isPrimaryModelPick: pick.category === "principal",
+    isDerived: false,
+    conflictGroup: pick.conflictGroup,
+    playerMeta: null,
+    bookQuotes: pick.bookQuotes,
+    isDailyOpenPromo: pick.isDailyOpenPromo,
+    isTipsterWeeklyOpen: pick.isTipsterWeeklyOpen,
+    isRedacted: isLocked,
+    projectedScoreLabel,
+  };
+}
+
 interface ScreenerItem {
   readonly game: PlatformGame;
   readonly pick: MatchPick;
+  readonly catalogPick: CatalogPickItem;
   readonly tabBucket: TimingMode;
   readonly isLiveGame: boolean;
   readonly isSettled: boolean;
@@ -909,12 +1163,17 @@ interface ScreenerItem {
   readonly liveEntry?: LiveScoreboardEntry;
   readonly liveProgress: LivePickProgressItem | null;
   readonly family: Exclude<LegacyFamilyGroup, "all">;
-  readonly catalogFamilyId?: MarketFamilyId;
+  readonly catalogFamilyId: MarketFamilyId;
+  readonly directionBucket: Exclude<DirectionFilter, "all">;
   readonly period: Exclude<PeriodFilter, "all">;
   readonly sideBucket: "home" | "away" | "total";
   readonly playerPositionBucket: Exclude<PositionFilter, "all" | "home" | "away" | "total"> | null;
-  readonly playerPositionRaw: string | null;
-  readonly playerName: string | null;
+  readonly playerMeta: PlayerPropMeta | null;
+  readonly recommendationScore: number;
+  readonly isRecommended: boolean;
+  readonly convergenceCount: number;
+  readonly valueThresholdLabel: string | null;
+  readonly projectedScoreLabel: string | null;
   readonly houseDecimal: number | null;
   readonly houseLabel: string | null;
   readonly openDecimal: number | null;
@@ -926,24 +1185,6 @@ interface ScreenerItem {
   readonly edgePts: number | null;
   readonly evidenceWindows: readonly EvidenceWindowItem[];
   readonly searchHaystack: string;
-}
-
-function ParlayToggle({ pick }: { readonly pick: MatchPick }): React.JSX.Element {
-  const { addPickToParlay, removePickFromParlay } = usePlatformActions();
-  const on = useIsPickInParlay(pick.id);
-  return (
-    <Button
-      type="button"
-      variant={on ? "primary" : "secondary"}
-      size="sm"
-      aria-pressed={on}
-      aria-label={`${on ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}, ${pick.matchLabel}`}
-      onClick={() => (on ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
-    >
-      <MaestroIcon name={on ? "check" : "plus"} size={13} />
-      <span>{on ? "En parlay" : "Parlay"}</span>
-    </Button>
-  );
 }
 
 function inferLiveDirection(pick: MatchPick): "over" | "under" | "handicap" {
@@ -960,6 +1201,486 @@ function inferLiveUnitLabel(liveProgress: LivePickProgressItem, sport: PlatformG
   if (tail && !/^\d/.test(tail) && tail !== "/") return tail;
   return sport === "football" ? "goles" : "pts";
 }
+
+function estimateResidualProjection(
+  actualValue: number,
+  clockLabel: string,
+  sport: PlatformGame["sport"],
+): number | null {
+  if (sport !== "football") return null;
+  const match = /(\d{1,3})/.exec(clockLabel);
+  if (!match?.[1]) return null;
+  const minute = parseStrictFiniteNumber(match[1]);
+  if (minute === null || minute < 10 || minute >= 90) return null;
+  const rate = actualValue / minute;
+  const projected = actualValue + rate * (90 - minute) * 0.85;
+  return Math.round(projected * 10) / 10;
+}
+
+function resolveLiveStatusPill(params: {
+  readonly tracked?: LiveTrackedPickView | null;
+  readonly liveProgress?: LivePickProgressItem | null;
+  readonly direction: "over" | "under" | "handicap";
+}): { readonly label: string; readonly tone: "pos" | "warn" | "neg" | "brand" } {
+  const { tracked, liveProgress, direction } = params;
+  if (tracked) {
+    if (tracked.asianState === "lost_full") return { label: "Fallado", tone: "neg" };
+    if (tracked.asianState === "lost_half") return { label: "En riesgo", tone: "warn" };
+    if (tracked.hitLocked || tracked.asianState === "won_full") {
+      return { label: "Ya cumplido", tone: "pos" };
+    }
+    if (direction === "under" && tracked.actualValue > tracked.targetLine) {
+      return { label: "Fallado", tone: "neg" };
+    }
+    if (direction === "over" && tracked.actualValue > tracked.targetLine) {
+      return { label: "Ya cumplido", tone: "pos" };
+    }
+    if (direction === "under" && tracked.projectedFinal > tracked.targetLine) {
+      return { label: "En riesgo", tone: "warn" };
+    }
+    if (direction === "over") {
+      const remaining = Math.max(0, Math.floor(tracked.targetLine) + 1 - tracked.actualValue);
+      if (remaining > 0) {
+        return {
+          label: remaining === 1 ? "Falta 1" : `Faltan ${remaining}`,
+          tone: tracked.projectedFinal > tracked.targetLine ? "brand" : "warn",
+        };
+      }
+    }
+    return { label: "Cumpliéndose", tone: "pos" };
+  }
+
+  if (liveProgress) {
+    if (liveProgress.lineReached) return { label: "Ya cumplido", tone: "pos" };
+    if (liveProgress.statusText.toLowerCase().includes("superada")) {
+      return { label: "Fallado", tone: "neg" };
+    }
+    if (liveProgress.statusText.startsWith("Falta")) {
+      return { label: liveProgress.statusText, tone: "brand" };
+    }
+    if (liveProgress.tone === "warning") return { label: "En riesgo", tone: "warn" };
+    if (liveProgress.tone === "success") return { label: "Cumpliéndose", tone: "pos" };
+    return { label: "Cumpliéndose", tone: "brand" };
+  }
+
+  return { label: "En vivo", tone: "brand" };
+}
+
+function ParlayRowButton({
+  pick,
+  compact = false,
+}: {
+  readonly pick: MatchPick;
+  readonly compact?: boolean;
+}): React.JSX.Element {
+  const { addPickToParlay, removePickFromParlay } = usePlatformActions();
+  const on = useIsPickInParlay(pick.id);
+  return (
+    <button
+      type="button"
+      className={`pl-scr-row-action ${on ? "is-on" : ""} ${compact ? "is-compact" : ""}`.trim()}
+      aria-pressed={on}
+      aria-label={`${on ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}, ${pick.matchLabel}`}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (on) removePickFromParlay(pick.id);
+        else addPickToParlay(pick);
+      }}
+    >
+      <MaestroIcon name={on ? "check" : "plus"} size={12} />
+      <span>{on ? "En parlay" : "Parlay"}</span>
+    </button>
+  );
+}
+
+interface ScreenerPickRowProps {
+  readonly item: ScreenerItem;
+  readonly timing: TimingMode;
+  readonly showMatchMeta: boolean;
+  readonly unlocked: boolean;
+  readonly oddsFormat: OddsFormat;
+  readonly manualRaw: string;
+  readonly isManualOpen: boolean;
+  readonly trackedLive: LiveTrackedPickView | null;
+  readonly onOpenLab: (item: ScreenerItem) => void;
+  readonly onOpenBuilder: (pick: MatchPick, game: PlatformGame) => void;
+  readonly onOpenComposer: (pick: MatchPick) => void;
+  readonly onOpenManual: (pickId: string) => void;
+  readonly onManualChange: (pickId: string, value: string) => void;
+}
+
+const ScreenerPickRow = memo(function ScreenerPickRow({
+  item,
+  timing,
+  showMatchMeta,
+  unlocked,
+  oddsFormat,
+  manualRaw,
+  isManualOpen,
+  trackedLive,
+  onOpenLab,
+  onOpenBuilder,
+  onOpenComposer,
+  onOpenManual,
+  onManualChange,
+}: ScreenerPickRowProps): React.JSX.Element {
+  const { game, pick, playerMeta, liveProgress } = item;
+  const periodTag = periodShortTag(item.period);
+  const manualDec = parseManualOddsInput(manualRaw);
+  const effectiveHouseDec = manualDec ?? item.houseDecimal;
+  const effectiveHouseLabel = manualDec !== null ? "Tu momio" : item.houseLabel;
+  const effectiveValuePct =
+    manualDec !== null ? computeExpectedValuePct(pick.p, manualDec) : item.valuePct;
+  const effectiveMovement = manualDec !== null ? null : (item.movement ?? null);
+  const oddsDisplay =
+    effectiveHouseDec !== null
+      ? formatOddsValue(effectiveHouseDec, oddsFormat)
+      : formatOddsValue(pick.fairDecimal, oddsFormat);
+
+  const timeOrClock =
+    item.isSettled && game.score
+      ? `FT ${game.score.home}–${game.score.away}`
+      : trackedLive
+        ? trackedLive.clockLabel
+        : liveProgress
+          ? `${liveProgress.scoreLabel} · ${liveProgress.clockLabel}`
+          : `${game.dayLabel} ${game.kickoffLocal}`;
+
+  const sideTeam = item.sideBucket === "away" ? game.away : game.home;
+  const isPlayerPick = Boolean(playerMeta);
+  const isSideTeamPick = !isPlayerPick && (item.sideBucket === "home" || item.sideBucket === "away");
+  const playerTeam = playerMeta?.teamSide === "away" ? game.away : game.home;
+  const entityTitle = isPlayerPick
+    ? playerMeta!.playerName
+    : isSideTeamPick
+      ? sideTeam.name
+      : `${game.home.shortName} vs ${game.away.shortName}`;
+
+  const liveDirection = trackedLive?.direction ?? inferLiveDirection(pick);
+  const liveStatus = item.isLiveGame
+    ? resolveLiveStatusPill({ tracked: trackedLive, liveProgress, direction: liveDirection })
+    : null;
+  const hasNumericLiveBar =
+    unlocked &&
+    item.isLiveGame &&
+    (Boolean(trackedLive) ||
+      (liveProgress !== null &&
+        liveProgress.currentValue !== null &&
+        liveProgress.targetValue !== null &&
+        liveProgress.targetValue > 0));
+
+  const liveActual = trackedLive?.actualValue ?? liveProgress?.currentValue ?? 0;
+  const liveTarget = trackedLive?.targetLine ?? liveProgress?.targetValue ?? 1;
+  const liveClock =
+    trackedLive?.clockLabel ??
+    (liveProgress ? `${liveProgress.scoreLabel} · ${liveProgress.clockLabel}` : "En vivo");
+  const liveUnit =
+    trackedLive?.unitLabel ??
+    (liveProgress ? inferLiveUnitLabel(liveProgress, game.sport) : "goles");
+  const liveProjected =
+    trackedLive?.projectedFinal ??
+    (liveProgress
+      ? estimateResidualProjection(liveActual, liveProgress.clockLabel, game.sport)
+      : null);
+
+  const handleRowClick = (event: React.MouseEvent<HTMLTableRowElement>) => {
+    if (!unlocked) return;
+    const target = event.target instanceof Element ? event.target : null;
+    if (target?.closest("button, a, input, select, label")) return;
+    onOpenLab(item);
+  };
+
+  const handleRowKeyDown = (event: React.KeyboardEvent<HTMLTableRowElement>) => {
+    if (!unlocked || event.target !== event.currentTarget) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onOpenLab(item);
+    }
+  };
+
+  return (
+    <tr
+      className={`pl-scr-row ${unlocked ? "is-clickable" : ""}`.trim()}
+      data-picks-row=""
+      data-pick-id={pick.id}
+      data-pick-recommended={item.isRecommended ? "true" : "false"}
+      tabIndex={unlocked ? 0 : undefined}
+      onClick={handleRowClick}
+      onKeyDown={handleRowKeyDown}
+    >
+      <th scope="row" className="pl-scr-td pl-scr-col-pick" data-label="Pick">
+        <div className="pl-scr-entity">
+          <div className="pl-scr-entity-media">
+            {isPlayerPick ? (
+              <PersonAvatar photoKey={playerMeta!.photoKey ?? null} size={34} />
+            ) : isSideTeamPick ? (
+              <TeamBadge
+                league={game.league}
+                slug={sideTeam.slug}
+                name={sideTeam.name}
+                logoUrl={sideTeam.logoUrl}
+                size={30}
+              />
+            ) : (
+              <span className="pl-scr-dual-badges" aria-hidden="true">
+                <TeamBadge
+                  league={game.league}
+                  slug={game.home.slug}
+                  name={game.home.name}
+                  logoUrl={game.home.logoUrl}
+                  size={22}
+                />
+                <TeamBadge
+                  league={game.league}
+                  slug={game.away.slug}
+                  name={game.away.name}
+                  logoUrl={game.away.logoUrl}
+                  size={22}
+                />
+              </span>
+            )}
+          </div>
+
+          <div className="pl-scr-entity-copy">
+            <strong className="pl-scr-entity-name">{entityTitle}</strong>
+            <span className="pl-scr-entity-meta">
+              {isPlayerPick ? (
+                <>
+                  <TeamBadge
+                    league={game.league}
+                    slug={playerMeta!.teamSlug ?? playerTeam.slug}
+                    name={playerMeta!.teamName}
+                    logoUrl={playerTeam.logoUrl}
+                    size={13}
+                  />
+                  <span>{playerMeta!.teamName}</span>
+                </>
+              ) : (
+                <span>{game.leagueLabel}</span>
+              )}
+              <span className="pl-scr-meta-sep" aria-hidden="true">
+                ·
+              </span>
+              <span className="num">{timeOrClock}</span>
+            </span>
+            {isPlayerPick && playerMeta!.position ? (
+              <span className="pl-scr-entity-pos">{playerMeta!.position}</span>
+            ) : showMatchMeta && isSideTeamPick ? (
+              <span className="pl-scr-entity-pos">
+                {game.home.shortName} vs {game.away.shortName}
+              </span>
+            ) : null}
+          </div>
+        </div>
+      </th>
+
+      <td
+        className="pl-scr-td pl-scr-col-bet"
+        data-label="Apuesta"
+        data-screener-pick={pick.id}
+        data-market-family={item.catalogFamilyId}
+      >
+        <div className="pl-scr-bet-cell">
+          <div className="pl-scr-bet-main">
+            <MaestroIcon name="chart" size={13} className="pl-scr-bet-icon" />
+            <strong className={`pl-scr-pick-title ${unlocked ? "" : "locked-redact"}`.trim()}>
+              {unlocked ? pick.label : "Pick reservado Pase PitchLab Ultra"}
+            </strong>
+          </div>
+          <div className="pl-scr-bet-sub">
+            <span>
+              {game.home.shortName} vs {game.away.shortName}
+            </span>
+            {periodTag ? <span className="pl-scr-period-tag">{periodTag}</span> : null}
+            <span className="pl-scr-cat-tag">{pick.categoryLabel}</span>
+          </div>
+        </div>
+      </td>
+
+      <td className="pl-scr-td pl-scr-col-evidence" data-label="Evidencia">
+        {!unlocked ? (
+          <span className="pl-scr-ev-fallback">Evidencia disponible con Pase PitchLab Ultra</span>
+        ) : item.isLiveGame ? (
+          <div className="pl-scr-live-cell" data-picks-live-progress="" data-live-progress-bar="">
+            {hasNumericLiveBar ? (
+              <LivePickProgressBar
+                pickLabel={pick.label}
+                matchLabel={`${game.home.shortName} vs ${game.away.shortName}`}
+                clockLabel={liveClock}
+                actualValue={liveActual}
+                targetLine={liveTarget}
+                unitLabel={liveUnit}
+                direction={liveDirection}
+                projectedFinal={liveProjected}
+                asianState={trackedLive?.asianState ?? null}
+                starterAlert={trackedLive?.starterAlert ?? null}
+                starterAlertDetail={trackedLive?.starterAlertDetail ?? null}
+                compact
+              />
+            ) : (
+              <div className="pl-scr-live-fallback num">
+                <span className="pl-scr-live-badge">{liveClock}</span>
+                <span>{liveProgress?.statusText ?? "Seguimiento en vivo"}</span>
+              </div>
+            )}
+            {liveStatus ? (
+              <span className={`pl-scr-live-status-pill is-${liveStatus.tone}`}>
+                {liveStatus.label}
+              </span>
+            ) : null}
+          </div>
+        ) : item.evidenceWindows.length > 0 ? (
+          <EvidenceWindowPills
+            windows={item.evidenceWindows}
+            layout="bullets"
+            ariaLabel={`Evidencia histórica observada para ${pick.label}`}
+          />
+        ) : (
+          <span className="pl-scr-ev-fallback">
+            {pick.rationale ? pick.rationale.slice(0, 76) : "Modelo calibrado Spacetime v5.1"}
+          </span>
+        )}
+      </td>
+
+      <td
+        className="pl-scr-td pl-scr-col-odds"
+        data-label={timing === "settled" ? "Liquidación" : "Cuotas"}
+      >
+        <div className="pl-scr-odds-cell">
+          {unlocked && !item.isSettled && item.convergenceCount > 0 ? (
+            <span
+              className="pl-scr-conv-badge num"
+              data-picks-convergence={item.convergenceCount}
+              title={`${item.convergenceCount} ventanas históricas alineadas (≥ 65 %)`}
+            >
+              <span>{item.convergenceCount}</span>
+              <MaestroIcon name="flame" size={11} />
+            </span>
+          ) : null}
+
+          {item.isSettled ? (
+            <div className="pl-scr-settlement-cell num">
+              <span
+                className={`pl-scr-settlement-badge is-${item.settlement}`}
+                data-settlement={item.settlement}
+              >
+                {settlementLabel(item.settlement)}
+              </span>
+              {game.score ? (
+                <span className="pl-scr-settlement-score">
+                  {game.score.home}–{game.score.away} · FT
+                </span>
+              ) : null}
+              {unlocked ? (
+                <span className="pl-scr-spacetime-line">
+                  Prob {(pick.p * 100).toFixed(1)} % · Justo{" "}
+                  {formatOddsValue(pick.fairDecimal, oddsFormat)}
+                </span>
+              ) : null}
+            </div>
+          ) : !unlocked ? (
+            <span className="pl-scr-locked-tag">
+              <MaestroIcon name="lock" size={12} />
+              <span>Ultra</span>
+            </span>
+          ) : (
+            <>
+              <div className="pl-scr-odds-pill-wrap num">
+                <div
+                  className={`pl-scr-odds-pill ${effectiveValuePct !== null && effectiveValuePct > 0 ? "is-ev-pos" : ""}`.trim()}
+                  data-bookmaker-compare="compact"
+                >
+                  <strong className="pl-scr-odds-val">{oddsDisplay}</strong>
+                  <span className="pl-scr-odds-book">
+                    {effectiveHouseLabel ?? "Justo"}
+                  </span>
+                  {effectiveMovement && effectiveMovement.kind !== "stable" ? (
+                    <span
+                      className={`pl-scr-move-dot is-${effectiveMovement.kind}`}
+                      title={`Movimiento de línea: ${effectiveMovement.label}`}
+                    >
+                      {effectiveMovement.arrow}
+                    </span>
+                  ) : null}
+                </div>
+
+                <div className="pl-scr-odds-sub">
+                  {effectiveValuePct !== null && effectiveValuePct > 0 ? (
+                    <span
+                      className="pl-scr-ev-tag"
+                      data-ev-positive="true"
+                      title="Valor esperado positivo calculado con probabilidad calibrada Spacetime"
+                    >
+                      +{effectiveValuePct.toFixed(1)} % EV+
+                    </span>
+                  ) : null}
+                  <span className="pl-scr-spacetime-line">
+                    Spacetime {(pick.p * 100).toFixed(1)} % · Justo{" "}
+                    {formatOddsValue(pick.fairDecimal, oddsFormat)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="pl-scr-row-actions">
+                {!item.isLiveGame ? <ParlayRowButton pick={pick} compact /> : null}
+                {!item.isLiveGame ? (
+                  <button
+                    type="button"
+                    className="pl-scr-row-action is-compact"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenComposer(pick);
+                    }}
+                  >
+                    Sellar
+                  </button>
+                ) : null}
+                {isManualOpen ? (
+                  <label
+                    className="pl-scr-manual-wrap"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span className="sr-only">Tu momio para {pick.label}</span>
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      enterKeyHint="done"
+                      autoComplete="off"
+                      placeholder={oddsFormat === "american" ? "-110" : "1.91"}
+                      value={manualRaw}
+                      onChange={(e) => onManualChange(pick.id, e.target.value)}
+                      data-manual-odds-input={pick.id}
+                      className="pl-scr-manual-input num"
+                    />
+                  </label>
+                ) : (
+                  <button
+                    type="button"
+                    className="pl-scr-row-action is-compact is-ghost"
+                    data-open-manual-odds={pick.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenManual(pick.id);
+                    }}
+                  >
+                    Mi momio
+                  </button>
+                )}
+                <span className="pl-scr-builder-inline">
+                  <BetBuilderQuickButton
+                    pick={pick}
+                    onInspect={(pk) => onOpenBuilder(pk, game)}
+                    compact
+                  />
+                </span>
+              </div>
+            </>
+          )}
+        </div>
+      </td>
+    </tr>
+  );
+});
 
 function MobileFiltersSheet({
   resultCount,
@@ -1129,7 +1850,7 @@ function MobileFiltersSheet({
 
         <footer className="pl-scr-sheet-footer">
           <Button type="button" variant="secondary" size="default" onClick={onReset}>
-            Limpiar
+            Restablecer
           </Button>
           <Button
             type="button"
@@ -1148,10 +1869,12 @@ function MobileFiltersSheet({
 
 export interface PicksFinderClubViewProps {
   readonly initialCatalogs?: Readonly<Record<string, MatchPicksCatalog>> | null;
+  readonly initialPicksOfTheDay?: readonly CatalogPickItem[] | null;
 }
 
 export function PicksFinderClubView({
   initialCatalogs = null,
+  initialPicksOfTheDay = null,
 }: PicksFinderClubViewProps = {}): React.JSX.Element {
   const {
     dataset,
@@ -1167,6 +1890,7 @@ export function PicksFinderClubView({
     setPreferredBooks,
     pushToast,
     openComposer,
+    addPickToParlay,
     navigateTo,
     prefetchRoute,
     requestFullShell,
@@ -1185,28 +1909,47 @@ export function PicksFinderClubView({
   const [timing, setTiming] = useState<TimingMode>("upcoming");
   const [groupMode, setGroupMode] = useState<GroupMode>("match");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [preset, setPreset] = useState<QuickPreset>("todos");
   const [sport, setSport] = useState<ScreenerSportFilter>("all");
+  const [league, setLeague] = useState<string>("all");
+  const [teamFilter, setTeamFilter] = useState<string>("all");
   const [windowFilter, setWindowFilter] = useState<ScreenerWindowFilter>("all");
   const [band, setBand] = useState<Band>("all");
   const [family, setFamily] = useState<MarketFamilyFilter>("all");
+  const [pickTypeFilter, setPickTypeFilter] = useState<PickTypeFilter>("all");
+  const [directionFilter, setDirectionFilter] = useState<DirectionFilter>("all");
   const [periodFilter, setPeriodFilter] = useState<PeriodFilter>("all");
   const [positionFilter, setPositionFilter] = useState<PositionFilter>("all");
+  const [onlyRecommended, setOnlyRecommended] = useState<boolean>(true);
+  const [includeTrivialOdds, setIncludeTrivialOdds] = useState<boolean>(false);
   const [onlyPositiveEdge, setOnlyPositiveEdge] = useState<boolean>(false);
-  const [league, setLeague] = useState<string>("all");
-  const [sort, setSort] = useState<ScreenerSortExtended>("ev");
+  const [sort, setSort] = useState<ScreenerSortExtended>("recomendados");
   const [minOddsStep, setMinOddsStep] = useState<number>(0);
   const [maxOddsStep, setMaxOddsStep] = useState<number>(100);
   const [activeViewId, setActiveViewId] = useState<string | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<ReadonlySet<string>>(() => new Set());
   const [mobileSheetOpen, setMobileSheetOpen] = useState<boolean>(false);
-  const [shown, setShown] = useState(INITIAL_VISIBLE_PICKS);
-  const [manualOddsByPick, setManualOddsByPick] = useState<Record<string, string>>({});
+  const [potdExpanded, setPotdExpanded] = useState<boolean>(false);
+  const [visibleGamesCount, setVisibleGamesCount] = useState<number>(INITIAL_GAMES_SHOWN);
+  const [perMatchVisibleCounts, setPerMatchVisibleCounts] = useState<
+    Readonly<Record<string, number>>
+  >({});
+  const [flatShown, setFlatShown] = useState<number>(INITIAL_FLAT_PICKS);
+  const [manualOddsByPick, setManualOddsByPick] = useState<Readonly<Record<string, string>>>({});
   const [openManualPickId, setOpenManualPickId] = useState<string | null>(null);
   const [builderTarget, setBuilderTarget] = useState<{
-    pick: MatchPick;
-    game: PlatformGame;
+    readonly pick: MatchPick;
+    readonly game: PlatformGame;
   } | null>(null);
+  const [activeLabPickId, setActiveLabPickId] = useState<string | null>(null);
+
+  const [extraCatalogs, setExtraCatalogs] = useState<Readonly<Record<string, MatchPicksCatalog>>>(
+    {},
+  );
+  const [apiPicksOfTheDay, setApiPicksOfTheDay] = useState<readonly CatalogPickItem[]>([]);
+  const [loadedApiPage, setLoadedApiPage] = useState<number>(1);
+  const [apiHasMore, setApiHasMore] = useState<boolean>(true);
+  const [screenerFetchUrl, setScreenerFetchUrl] = useState<string | null>(null);
+  const lastMergedApiStampRef = useRef<string>("");
 
   const [liveTrackedItems, setLiveTrackedItems] = useState<readonly LiveTrackedPickView[]>([]);
   const [liveTrackerLoaded, setLiveTrackerLoaded] = useState<boolean>(false);
@@ -1214,6 +1957,40 @@ export function PicksFinderClubView({
   const [liveTrackerPollMs, setLiveTrackerPollMs] = useState<number | null>(
     DEFAULT_LIVE_TRACKER_POLL_MS,
   );
+
+  const screenerPageFetch = useAbortableJson<ScreenerApiResponse>(screenerFetchUrl, {
+    enabled: screenerFetchUrl !== null,
+  });
+
+  useSafeEffect(() => {
+    const payload = screenerPageFetch.data;
+    if (!payload || !payload.ok) return;
+    const stamp = `${payload.page}:${payload.generatedAtUtc}`;
+    if (lastMergedApiStampRef.current === stamp) return;
+    lastMergedApiStampRef.current = stamp;
+    setExtraCatalogs((prev) => ({ ...prev, ...payload.catalogs }));
+    setLoadedApiPage(payload.page);
+    setApiHasMore(payload.hasMore);
+    if (payload.picksOfTheDay.length > 0) {
+      setApiPicksOfTheDay(payload.picksOfTheDay);
+    }
+    setVisibleGamesCount((count) => count + GAMES_PAGE_STEP);
+  }, [screenerPageFetch.data]);
+
+  useSafeEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const labId = params.get("lab");
+    if (labId && labId.trim().length > 0) {
+      setActiveLabPickId(labId.trim());
+    }
+  }, []);
+
+  const mergedCatalogs = useMemo<Readonly<Record<string, MatchPicksCatalog>>>(() => {
+    if (!initialCatalogs) return extraCatalogs;
+    if (Object.keys(extraCatalogs).length === 0) return initialCatalogs;
+    return { ...initialCatalogs, ...extraCatalogs };
+  }, [extraCatalogs, initialCatalogs]);
 
   const debouncedSearch = useDebouncedValue(searchQuery, 150);
   const normalizedSearch = useMemo(() => normText(debouncedSearch.trim()), [debouncedSearch]);
@@ -1286,6 +2063,39 @@ export function PicksFinderClubView({
     viewerRole !== "visitor" && (timing === "live" || hasDatasetLiveGames) && isPageVisible,
   );
 
+  const liveTrackedByPickId = useMemo(() => {
+    const map = new Map<string, LiveTrackedPickView>();
+    for (const entry of liveTrackedItems) {
+      map.set(entry.pickId, entry);
+      for (const leg of entry.legs) {
+        if (!map.has(leg.pickId)) {
+          map.set(leg.pickId, {
+            ...entry,
+            id: leg.pickId,
+            pickId: leg.pickId,
+            gameId: leg.gameId,
+            pickKind: "single",
+            leagueLabel: leg.leagueLabel,
+            matchLabel: leg.matchLabel,
+            pickLabel: leg.pickLabel,
+            href: leg.href,
+            clockLabel: leg.clockLabel,
+            actualValue: leg.actualValue,
+            targetLine: leg.targetLine,
+            unitLabel: leg.unitLabel,
+            direction: leg.direction,
+            projectedFinal: leg.projectedFinal,
+            asianState: leg.asianState,
+            starterAlert: leg.starterAlert,
+            starterAlertDetail: leg.starterAlertDetail,
+            legs: [],
+          });
+        }
+      }
+    }
+    return map;
+  }, [liveTrackedItems]);
+
   const today = useMemo(() => todayId(userTimezone || "America/Mexico_City"), [userTimezone]);
   const plus2Days = useMemo(() => addDays(today, 2), [today]);
 
@@ -1326,6 +2136,7 @@ export function PicksFinderClubView({
         !isSettled &&
         (game.status === "LIVE" || Boolean(liveEntry && isLivePhaseActive(liveEntry.phase)));
       const tabBucket: TimingMode = isSettled ? "settled" : isLiveGame ? "live" : "upcoming";
+      const gameProjectedLabel = formatProjectedScore(game);
 
       const marketByKey = new Map<string, PlatformMarketRow>();
       for (const m of game.markets) {
@@ -1338,7 +2149,7 @@ export function PicksFinderClubView({
       }
 
       const liveDetail = isLiveGame ? liveMatchStore(game.id).getSnapshot().data : null;
-      const serverCatalog = initialCatalogs?.[game.id] ?? null;
+      const serverCatalog = mergedCatalogs[game.id] ?? null;
 
       if (serverCatalog && serverCatalog.picks.length > 0) {
         for (let idx = 0; idx < serverCatalog.picks.length; idx += 1) {
@@ -1347,9 +2158,11 @@ export function PicksFinderClubView({
           const legacyFamily = catalogCategoryToLegacyFilter(catItem.category, catItem.sport);
           const period = resolvePickPeriod(pick, catItem.family);
           const sideBucket = resolveSideBucket(pick, game, catItem.playerMeta?.teamSide ?? null);
-          const playerPosRaw = catItem.playerMeta?.position ?? null;
-          const playerPositionBucket = resolvePlayerPositionBucket(playerPosRaw, game.sport);
-          const playerName = catItem.playerMeta?.playerName ?? null;
+          const playerMeta = catItem.playerMeta ?? null;
+          const playerPositionBucket = resolvePlayerPositionBucket(
+            playerMeta?.position ?? null,
+            game.sport,
+          );
           const settlement = resolveSettlementStatus(
             game,
             pick,
@@ -1358,18 +2171,20 @@ export function PicksFinderClubView({
           );
           const isCatalogLocked =
             catItem.isRedacted || !isPickUnlocked(pick, game.status, viewerRole);
+          const directionBucket = directionToFilterBucket(catItem.direction);
           const searchHaystack = isCatalogLocked
             ? normText(
                 `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel}`,
               )
             : normText(
-                `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel} ${pick.label} ${pick.categoryLabel} ${catItem.familyLabel} ${playerName ?? ""}`,
+                `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel} ${pick.label} ${pick.categoryLabel} ${catItem.familyLabel} ${playerMeta?.playerName ?? ""}`,
               );
 
           if (isCatalogLocked) {
             out.push({
               game,
               pick,
+              catalogPick: catItem,
               tabBucket,
               isLiveGame,
               isSettled,
@@ -1378,11 +2193,16 @@ export function PicksFinderClubView({
               liveProgress: null,
               family: legacyFamily,
               catalogFamilyId: catItem.family,
+              directionBucket,
               period,
               sideBucket,
               playerPositionBucket,
-              playerPositionRaw: playerPosRaw,
-              playerName,
+              playerMeta,
+              recommendationScore: catItem.recommendationScore ?? 0,
+              isRecommended: catItem.isRecommendedByModel !== false,
+              convergenceCount: 0,
+              valueThresholdLabel: null,
+              projectedScoreLabel: catItem.projectedScoreLabel ?? gameProjectedLabel,
               houseDecimal: null,
               houseLabel: null,
               openDecimal: null,
@@ -1464,12 +2284,23 @@ export function PicksFinderClubView({
           }
 
           const catalogWindows = catalogEvidenceToWindowItems(catItem.evidence, catItem.sport);
-          const evidenceWindows =
+          const baseWindows =
             catalogWindows.length > 0 ? catalogWindows : extractEvidenceWindows({ game, pick });
+          const evidenceWindows = buildCompactEvidenceBullets(
+            baseWindows,
+            catItem.evidence.bullets,
+          );
+
+          const scored = scoreRecommendedCatalogPick(catItem);
+          const recommendationScore = catItem.recommendationScore ?? scored.score;
+          const isRecommended = catItem.isRecommendedByModel ?? scored.isRecommended;
+          const convergenceCount = catItem.convergenceCount ?? scored.convergenceCount;
+          const valueThresholdLabel = catItem.pickOfTheDayReason ?? scored.valueThresholdLabel;
 
           out.push({
             game,
             pick: quotes && !pick.bookQuotes ? { ...pick, bookQuotes: quotes } : pick,
+            catalogPick: catItem,
             tabBucket,
             isLiveGame,
             isSettled,
@@ -1478,11 +2309,16 @@ export function PicksFinderClubView({
             liveProgress,
             family: legacyFamily,
             catalogFamilyId: catItem.family,
+            directionBucket,
             period,
             sideBucket,
             playerPositionBucket,
-            playerPositionRaw: playerPosRaw,
-            playerName,
+            playerMeta,
+            recommendationScore,
+            isRecommended,
+            convergenceCount,
+            valueThresholdLabel,
+            projectedScoreLabel: catItem.projectedScoreLabel ?? gameProjectedLabel,
             houseDecimal,
             houseLabel,
             openDecimal,
@@ -1588,12 +2424,38 @@ export function PicksFinderClubView({
           });
         }
 
-        const resolvedFamilyId = resolveMarketFamilyIdFromRaw(pick.market, game.sport) ?? undefined;
+        const resolvedFamilyId =
+          resolveMarketFamilyIdFromRaw(pick.market, game.sport) ??
+          defaultFamilyForSport(game.sport);
         const period = resolvePickPeriod(pick, resolvedFamilyId);
         const sideBucket = resolveSideBucket(pick, game, null);
         const settlement = resolveSettlementStatus(game, pick, resolvedFamilyId);
-        const evidenceWindows = extractEvidenceWindows({ game, pick });
+        const baseWindows = extractEvidenceWindows({ game, pick });
+        const evidenceWindows = buildCompactEvidenceBullets(baseWindows);
         const isFallbackLocked = !isPickUnlocked(pick, game.status, viewerRole);
+        const catalogPick = buildFallbackCatalogPickItem({
+          pick,
+          game,
+          familyId: resolvedFamilyId,
+          settlement,
+          houseDecimal,
+          houseLabel,
+          capturedAtUtc,
+          valuePct,
+          edgePts,
+          evidenceWindows,
+          isLocked: isFallbackLocked,
+        });
+        const scored = isFallbackLocked
+          ? {
+              score: 0,
+              tier: "playable" as const,
+              isRecommended: true,
+              convergenceCount: 0,
+              valueThresholdLabel: null,
+            }
+          : scoreRecommendedCatalogPick(catalogPick);
+
         const searchHaystack = isFallbackLocked
           ? normText(
               `${game.home.name} ${game.home.shortName} ${game.away.name} ${game.away.shortName} ${game.leagueLabel}`,
@@ -1605,6 +2467,7 @@ export function PicksFinderClubView({
         out.push({
           game,
           pick: quotes && !pick.bookQuotes ? { ...pick, bookQuotes: quotes } : pick,
+          catalogPick,
           tabBucket,
           isLiveGame,
           isSettled,
@@ -1613,11 +2476,16 @@ export function PicksFinderClubView({
           liveProgress: isFallbackLocked ? null : liveProgress,
           family: primaryFamilyOf(pick, game),
           catalogFamilyId: resolvedFamilyId,
+          directionBucket: directionToFilterBucket(catalogPick.direction),
           period,
           sideBucket,
           playerPositionBucket: null,
-          playerPositionRaw: null,
-          playerName: null,
+          playerMeta: null,
+          recommendationScore: scored.score,
+          isRecommended: scored.isRecommended,
+          convergenceCount: scored.convergenceCount,
+          valueThresholdLabel: scored.valueThresholdLabel,
+          projectedScoreLabel: gameProjectedLabel,
           houseDecimal: isFallbackLocked ? null : houseDecimal,
           houseLabel: isFallbackLocked ? null : houseLabel,
           openDecimal: isFallbackLocked ? null : openDecimal,
@@ -1633,7 +2501,101 @@ export function PicksFinderClubView({
       }
     }
     return out;
-  }, [dataset.games, initialCatalogs, liveBoard.data?.entries, preferredBooks, viewerRole]);
+  }, [dataset.games, liveBoard.data?.entries, mergedCatalogs, preferredBooks, viewerRole]);
+
+  const itemByPickId = useMemo(() => {
+    const map = new Map<string, ScreenerItem>();
+    for (const item of all) {
+      map.set(item.pick.id, item);
+    }
+    return map;
+  }, [all]);
+
+  const gameById = useMemo(() => {
+    const map = new Map<string, PlatformGame>();
+    for (const game of dataset.games) {
+      map.set(game.id, game);
+    }
+    return map;
+  }, [dataset.games]);
+
+  const picksOfTheDay = useMemo<readonly ScreenerItem[]>(() => {
+    const candidateCatalogs: CatalogPickItem[] = [];
+    for (const item of all) {
+      if (item.tabBucket !== "upcoming") continue;
+      if (sport !== "all" && !matchesSportFilter(item.game, sport)) continue;
+      if (league !== "all" && item.game.league !== league) continue;
+      if (item.catalogPick.isRedacted) continue;
+      candidateCatalogs.push(item.catalogPick);
+    }
+
+    const useServerSeed =
+      sport === "all" &&
+      league === "all" &&
+      ((apiPicksOfTheDay.length > 0 && apiPicksOfTheDay) ||
+        (initialPicksOfTheDay && initialPicksOfTheDay.length > 0 && initialPicksOfTheDay));
+
+    const selectedRaw = useServerSeed
+      ? useServerSeed
+      : selectPicksOfTheDay(candidateCatalogs, 3);
+
+    const resolved: ScreenerItem[] = [];
+    for (const catPick of selectedRaw) {
+      const existing = itemByPickId.get(catPick.id);
+      if (existing) {
+        resolved.push(existing);
+        continue;
+      }
+      const game = gameById.get(catPick.gameId);
+      if (!game) continue;
+      const matchPick = catalogPickItemToMatchPick(catPick, game, 0);
+      const scored = scoreRecommendedCatalogPick(catPick);
+      const baseWindows = catalogEvidenceToWindowItems(catPick.evidence, catPick.sport);
+      resolved.push({
+        game,
+        pick: matchPick,
+        catalogPick: catPick,
+        tabBucket: "upcoming",
+        isLiveGame: false,
+        isSettled: false,
+        settlement: catPick.settlement,
+        liveProgress: null,
+        family: catalogCategoryToLegacyFilter(catPick.category, catPick.sport),
+        catalogFamilyId: catPick.family,
+        directionBucket: directionToFilterBucket(catPick.direction),
+        period: resolvePickPeriod(matchPick, catPick.family),
+        sideBucket: resolveSideBucket(matchPick, game, catPick.playerMeta?.teamSide ?? null),
+        playerPositionBucket: resolvePlayerPositionBucket(
+          catPick.playerMeta?.position ?? null,
+          game.sport,
+        ),
+        playerMeta: catPick.playerMeta ?? null,
+        recommendationScore: catPick.recommendationScore ?? scored.score,
+        isRecommended: catPick.isRecommendedByModel ?? scored.isRecommended,
+        convergenceCount: catPick.convergenceCount ?? scored.convergenceCount,
+        valueThresholdLabel: catPick.pickOfTheDayReason ?? scored.valueThresholdLabel,
+        projectedScoreLabel: catPick.projectedScoreLabel ?? formatProjectedScore(game),
+        houseDecimal: catPick.pricing.marketDecimal,
+        houseLabel: catPick.pricing.marketBookLabel,
+        openDecimal: null,
+        movementDir: null,
+        movement: null,
+        movementScore: 0,
+        capturedAtUtc: catPick.pricing.marketCapturedAtUtc,
+        valuePct: catPick.pricing.evPct,
+        edgePts: catPick.pricing.edgePts,
+        evidenceWindows: buildCompactEvidenceBullets(baseWindows, catPick.evidence.bullets),
+        searchHaystack: normText(`${game.home.name} ${game.away.name} ${matchPick.label}`),
+      });
+    }
+
+    if (resolved.length > 0) return resolved.slice(0, 3);
+    const derivedFallback = selectPicksOfTheDay(candidateCatalogs, 3);
+    return derivedFallback
+      .map((c) => itemByPickId.get(c.id))
+      .filter((x): x is ScreenerItem => Boolean(x))
+      .slice(0, 3);
+  }, [all, apiPicksOfTheDay, gameById, initialPicksOfTheDay, itemByPickId, league, sport]);
 
   const timingCounts = useMemo(() => {
     let live = 0;
@@ -1642,22 +2604,22 @@ export function PicksFinderClubView({
     for (const item of all) {
       if (item.tabBucket === "live") live += 1;
       else if (item.tabBucket === "settled") settled += 1;
-      else upcoming += 1;
+      else if (!onlyRecommended || item.isRecommended) upcoming += 1;
     }
     return { live, upcoming, settled };
-  }, [all]);
+  }, [all, onlyRecommended]);
 
   const tabItems = useMemo<readonly SofascoreTabItem[]>(
     () => [
       {
+        id: "upcoming",
+        label: "Recomendados / Próximos",
+        count: timingCounts.upcoming,
+      },
+      {
         id: "live",
         label: "Activos / En vivo",
         count: timingCounts.live + liveTrackedItems.length,
-      },
-      {
-        id: "upcoming",
-        label: "Próximos",
-        count: timingCounts.upcoming,
       },
       {
         id: "settled",
@@ -1678,53 +2640,42 @@ export function PicksFinderClubView({
     return Array.from(seen.entries());
   }, [all, sport, timing]);
 
-  const applyQuickPreset = (next: QuickPreset) => {
-    setActiveViewId(null);
-    setPreset(next);
-    setShown(INITIAL_VISIBLE_PICKS);
-    if (next === "todos") {
-      setBand("all");
-      setFamily("all");
-      setOnlyPositiveEdge(false);
-      setSort("ev");
-    } else if (next === "probables") {
-      setBand("alta");
-      setFamily("all");
-      setOnlyPositiveEdge(false);
-      setSort("p");
-    } else if (next === "valor") {
-      setBand("all");
-      setFamily("all");
-      setOnlyPositiveEdge(true);
-      setSort("ev");
-    } else if (next === "goles") {
-      setBand("all");
-      setFamily("goles");
-      setOnlyPositiveEdge(false);
-      setSort("p");
-    } else if (next === "conteos") {
-      setBand("all");
-      setFamily("conteos");
-      setOnlyPositiveEdge(false);
-      setSort("p");
+  const teams = useMemo(() => {
+    const seen = new Map<string, string>();
+    for (const { game, tabBucket } of all) {
+      if (tabBucket !== timing) continue;
+      if (sport !== "all" && !matchesSportFilter(game, sport)) continue;
+      if (league !== "all" && game.league !== league) continue;
+      seen.set(game.home.slug, game.home.name);
+      seen.set(game.away.slug, game.away.name);
     }
-  };
+    return Array.from(seen.entries()).sort((a, b) => a[1].localeCompare(b[1], "es"));
+  }, [all, league, sport, timing]);
 
   const applySavedView = (view: SavedScreenerView) => {
     setActiveViewId(view.id);
-    setPreset("todos");
     setSport(view.sport);
     setLeague(view.league);
+    setTeamFilter("all");
     setBand(view.band);
     setFamily(view.kind);
-    setSort(view.sort === "ventaja" ? "ev" : view.sort);
+    setSort(
+      view.sort === "ventaja"
+        ? "ev"
+        : view.sort === "relevancia"
+          ? "recomendados"
+          : view.sort,
+    );
     setOnlyPositiveEdge(view.onlyPositiveEdge);
     setMinOddsStep(view.minOddsStep);
     setMaxOddsStep(view.maxOddsStep);
     setWindowFilter(view.window);
+    setPickTypeFilter("all");
+    setDirectionFilter("all");
     setPeriodFilter("all");
     setPositionFilter("all");
-    setShown(INITIAL_VISIBLE_PICKS);
+    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+    setFlatShown(INITIAL_FLAT_PICKS);
   };
 
   const handleSaveView = (cleanName: string): boolean => {
@@ -1779,30 +2730,45 @@ export function PicksFinderClubView({
   const resetAllFilters = () => {
     setActiveViewId(null);
     setSearchQuery("");
-    setPreset("todos");
+    setGroupMode("match");
+    setSort("recomendados");
     setSport("all");
+    setLeague("all");
+    setTeamFilter("all");
     setWindowFilter("all");
     setBand("all");
     setFamily("all");
+    setPickTypeFilter("all");
+    setDirectionFilter("all");
     setPeriodFilter("all");
     setPositionFilter("all");
+    setOnlyRecommended(true);
+    setIncludeTrivialOdds(false);
     setOnlyPositiveEdge(false);
-    setLeague("all");
-    setSort("ev");
     setMinOddsStep(0);
     setMaxOddsStep(100);
-    setShown(INITIAL_VISIBLE_PICKS);
+    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+    setPerMatchVisibleCounts({});
+    setFlatShown(INITIAL_FLAT_PICKS);
   };
+
+  const effectiveIncludeTrivial =
+    includeTrivialOdds || (minOddsStep > 0 && minOddsVal < TRIVIAL_ODDS_FLOOR);
 
   const activeAdvancedCount =
     (sport !== "all" ? 1 : 0) +
     (league !== "all" ? 1 : 0) +
+    (teamFilter !== "all" ? 1 : 0) +
     (windowFilter !== "all" ? 1 : 0) +
     (band !== "all" ? 1 : 0) +
     (family !== "all" ? 1 : 0) +
+    (pickTypeFilter !== "all" ? 1 : 0) +
+    (directionFilter !== "all" ? 1 : 0) +
     (periodFilter !== "all" ? 1 : 0) +
     (positionFilter !== "all" ? 1 : 0) +
     (onlyPositiveEdge ? 1 : 0) +
+    (includeTrivialOdds ? 1 : 0) +
+    (!onlyRecommended ? 1 : 0) +
     (minOddsStep > 0 || maxOddsStep < 100 ? 1 : 0) +
     (normalizedSearch.length > 0 ? 1 : 0);
 
@@ -1842,6 +2808,13 @@ export function PicksFinderClubView({
       if (normalizedSearch && !item.searchHaystack.includes(normalizedSearch)) return false;
       if (sport !== "all" && !matchesSportFilter(item.game, sport)) return false;
       if (league !== "all" && item.game.league !== league) return false;
+      if (
+        teamFilter !== "all" &&
+        item.game.home.slug !== teamFilter &&
+        item.game.away.slug !== teamFilter
+      ) {
+        return false;
+      }
       if (!matchesWindow(item.game)) return false;
       if (band !== "all" && bandOf(item.pick.p) !== band) return false;
       if (
@@ -1850,6 +2823,9 @@ export function PicksFinderClubView({
       ) {
         return false;
       }
+      if (pickTypeFilter === "player" && !item.playerMeta) return false;
+      if (pickTypeFilter === "team_match" && Boolean(item.playerMeta)) return false;
+      if (directionFilter !== "all" && item.directionBucket !== directionFilter) return false;
       if (periodFilter !== "all" && item.period !== periodFilter) return false;
       if (!matchesPosition(item)) return false;
       if (onlyPositiveEdge) {
@@ -1858,7 +2834,17 @@ export function PicksFinderClubView({
           (item.edgePts !== null && item.edgePts > 0);
         if (!hasVal) return false;
       }
+
       const effectiveDec = item.houseDecimal ?? item.pick.fairDecimal;
+      if (timing === "upcoming") {
+        if (!effectiveIncludeTrivial && effectiveDec > 0 && effectiveDec < TRIVIAL_ODDS_FLOOR) {
+          return false;
+        }
+        if (onlyRecommended && !item.isRecommended) {
+          return false;
+        }
+      }
+
       if (effectiveDec > 0 && !matchesOddsRange(effectiveDec)) return false;
       return true;
     });
@@ -1867,6 +2853,15 @@ export function PicksFinderClubView({
       if (timing === "settled") {
         return (
           safeParseTimestamp(b.game.kickoffUtc) - safeParseTimestamp(a.game.kickoffUtc) ||
+          b.recommendationScore - a.recommendationScore ||
+          b.pick.p - a.pick.p
+        );
+      }
+      if (sort === "recomendados") {
+        return (
+          b.recommendationScore - a.recommendationScore ||
+          b.convergenceCount - a.convergenceCount ||
+          (b.valuePct ?? -999) - (a.valuePct ?? -999) ||
           b.pick.p - a.pick.p
         );
       }
@@ -1906,6 +2901,8 @@ export function PicksFinderClubView({
   }, [
     all,
     band,
+    directionFilter,
+    effectiveIncludeTrivial,
     family,
     league,
     matchesOddsRange,
@@ -1913,9 +2910,12 @@ export function PicksFinderClubView({
     matchesWindow,
     normalizedSearch,
     onlyPositiveEdge,
+    onlyRecommended,
     periodFilter,
+    pickTypeFilter,
     sort,
     sport,
+    teamFilter,
     timing,
   ]);
 
@@ -1926,6 +2926,13 @@ export function PicksFinderClubView({
       if (normalizedSearch && !item.searchHaystack.includes(normalizedSearch)) continue;
       if (sport !== "all" && !matchesSportFilter(item.game, sport)) continue;
       if (league !== "all" && item.game.league !== league) continue;
+      if (
+        teamFilter !== "all" &&
+        item.game.home.slug !== teamFilter &&
+        item.game.away.slug !== teamFilter
+      ) {
+        continue;
+      }
       if (!matchesWindow(item.game)) continue;
       if (
         family !== "all" &&
@@ -1933,6 +2940,9 @@ export function PicksFinderClubView({
       ) {
         continue;
       }
+      if (pickTypeFilter === "player" && !item.playerMeta) continue;
+      if (pickTypeFilter === "team_match" && Boolean(item.playerMeta)) continue;
+      if (directionFilter !== "all" && item.directionBucket !== directionFilter) continue;
       if (periodFilter !== "all" && item.period !== periodFilter) continue;
       if (!matchesPosition(item)) continue;
       if (onlyPositiveEdge) {
@@ -1942,6 +2952,12 @@ export function PicksFinderClubView({
         if (!hasVal) continue;
       }
       const effectiveDec = item.houseDecimal ?? item.pick.fairDecimal;
+      if (timing === "upcoming") {
+        if (!effectiveIncludeTrivial && effectiveDec > 0 && effectiveDec < TRIVIAL_ODDS_FLOOR) {
+          continue;
+        }
+        if (onlyRecommended && !item.isRecommended) continue;
+      }
       if (effectiveDec > 0 && !matchesOddsRange(effectiveDec)) continue;
       c.all += 1;
       c[bandOf(item.pick.p)] += 1;
@@ -1949,6 +2965,8 @@ export function PicksFinderClubView({
     return c;
   }, [
     all,
+    directionFilter,
+    effectiveIncludeTrivial,
     family,
     league,
     matchesOddsRange,
@@ -1956,8 +2974,11 @@ export function PicksFinderClubView({
     matchesWindow,
     normalizedSearch,
     onlyPositiveEdge,
+    onlyRecommended,
     periodFilter,
+    pickTypeFilter,
     sport,
+    teamFilter,
     timing,
   ]);
 
@@ -1982,13 +3003,13 @@ export function PicksFinderClubView({
       },
       {
         id: "settled-hits",
-        label: "Acertados",
+        label: "Ganados",
         value: String(hits),
         tone: "positive",
       },
       {
         id: "settled-misses",
-        label: "Fallados",
+        label: "Perdidos",
         value: String(misses),
         tone: misses > 0 ? "negative" : "default",
       },
@@ -2001,14 +3022,12 @@ export function PicksFinderClubView({
     ];
   }, [rows, timing]);
 
-  const visibleRows = useMemo(() => rows.slice(0, shown), [rows, shown]);
-
-  const groupedByMatch = useMemo(() => {
+  const allGroupedByMatch = useMemo(() => {
     const map = new Map<
       string,
       { game: PlatformGame; liveEntry?: LiveScoreboardEntry; items: ScreenerItem[] }
     >();
-    for (const item of visibleRows) {
+    for (const item of rows) {
       const existing = map.get(item.game.id);
       if (existing) {
         existing.items.push(item);
@@ -2017,11 +3036,18 @@ export function PicksFinderClubView({
       }
     }
     return Array.from(map.values());
-  }, [visibleRows]);
+  }, [rows]);
+
+  const visibleMatchGroups = useMemo(
+    () => allGroupedByMatch.slice(0, visibleGamesCount),
+    [allGroupedByMatch, visibleGamesCount],
+  );
+
+  const visibleFlatRows = useMemo(() => rows.slice(0, flatShown), [flatShown, rows]);
 
   const groupedByMarket = useMemo(() => {
     const map = new Map<Exclude<LegacyFamilyGroup, "all">, ScreenerItem[]>();
-    for (const item of visibleRows) {
+    for (const item of visibleFlatRows) {
       const arr = map.get(item.family) ?? [];
       arr.push(item);
       map.set(item.family, arr);
@@ -2031,7 +3057,36 @@ export function PicksFinderClubView({
       label: MARKET_FAMILY_SHORT_LABELS[key],
       items,
     }));
-  }, [visibleRows]);
+  }, [visibleFlatRows]);
+
+  const activeLabItem = useMemo<ScreenerItem | null>(() => {
+    if (!activeLabPickId) return null;
+    const direct = itemByPickId.get(activeLabPickId);
+    if (direct) return direct;
+    const inPotd = picksOfTheDay.find((p) => p.pick.id === activeLabPickId);
+    return inPotd ?? null;
+  }, [activeLabPickId, itemByPickId, picksOfTheDay]);
+
+  const activeLabRelatedPicks = useMemo<readonly CatalogPickItem[]>(() => {
+    if (!activeLabItem) return [];
+    const targetGameId = activeLabItem.game.id;
+    const targetPlayer = activeLabItem.playerMeta?.playerName ?? null;
+    return all
+      .filter(
+        (candidate) =>
+          candidate.game.id === targetGameId &&
+          candidate.pick.id !== activeLabItem.pick.id &&
+          !candidate.catalogPick.isRedacted &&
+          isPickUnlocked(candidate.pick, candidate.game.status, viewerRole),
+      )
+      .sort((a, b) => {
+        const aSamePlayer = targetPlayer && a.playerMeta?.playerName === targetPlayer ? 1 : 0;
+        const bSamePlayer = targetPlayer && b.playerMeta?.playerName === targetPlayer ? 1 : 0;
+        return bSamePlayer - aSamePlayer || b.recommendationScore - a.recommendationScore;
+      })
+      .slice(0, 8)
+      .map((candidate) => candidate.catalogPick);
+  }, [activeLabItem, all, viewerRole]);
 
   const toggleGroupCollapse = useCallback((groupKey: string) => {
     setCollapsedGroups((prev) => {
@@ -2041,6 +3096,91 @@ export function PicksFinderClubView({
       return next;
     });
   }, []);
+
+  const handleLoadMorePicksForGame = useCallback((gameId: string) => {
+    setPerMatchVisibleCounts((prev) => ({
+      ...prev,
+      [gameId]: (prev[gameId] ?? PER_MATCH_INITIAL_PICKS) + PER_MATCH_LOAD_STEP,
+    }));
+  }, []);
+
+  const handleLoadMoreMatches = useCallback(() => {
+    const remainingLocal = allGroupedByMatch.length - visibleGamesCount;
+    if (remainingLocal > 0) {
+      setVisibleGamesCount((count) => count + GAMES_PAGE_STEP);
+    }
+    if (remainingLocal <= GAMES_PAGE_STEP && apiHasMore && !screenerPageFetch.loading) {
+      const nextPage = loadedApiPage + 1;
+      const params = new URLSearchParams({
+        page: String(nextPage),
+        pageSize: "20",
+        onlyRecommended: onlyRecommended ? "1" : "0",
+        includeTrivial: effectiveIncludeTrivial ? "1" : "0",
+      });
+      if (sport !== "all") params.set("sport", sport);
+      if (league !== "all") params.set("league", league);
+      if (normalizedSearch.length > 0) params.set("q", normalizedSearch);
+      setScreenerFetchUrl(`/api/picks/screener?${params.toString()}`);
+    }
+  }, [
+    allGroupedByMatch.length,
+    apiHasMore,
+    effectiveIncludeTrivial,
+    league,
+    loadedApiPage,
+    normalizedSearch,
+    onlyRecommended,
+    screenerPageFetch.loading,
+    sport,
+    visibleGamesCount,
+  ]);
+
+  const handleOpenLab = useCallback((item: ScreenerItem) => {
+    setActiveLabPickId(item.pick.id);
+  }, []);
+
+  const handleCloseLab = useCallback(() => {
+    setActiveLabPickId(null);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has("lab")) {
+        url.searchParams.delete("lab");
+        window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+      }
+    }
+  }, []);
+
+  const handleSelectRelatedPick = useCallback((relatedPick: CatalogPickItem) => {
+    setActiveLabPickId(relatedPick.id);
+  }, []);
+
+  const handleLabAddToParlay = useCallback(
+    (catPick: CatalogPickItem) => {
+      const game = gameById.get(catPick.gameId) ?? activeLabItem?.game ?? null;
+      const matchPick = catalogPickItemToMatchPick(catPick, game, 0);
+      addPickToParlay(matchPick);
+    },
+    [activeLabItem?.game, addPickToParlay, gameById],
+  );
+
+  const handleLabSealPick = useCallback(
+    (catPick: CatalogPickItem, customSpec?: PickLabCustomSelection) => {
+      const game = gameById.get(catPick.gameId) ?? activeLabItem?.game ?? null;
+      const basePick = catalogPickItemToMatchPick(catPick, game, 0);
+      const finalPick: MatchPick = customSpec
+        ? {
+            ...basePick,
+            label: customSpec.label,
+            line: customSpec.line,
+            selectionKey: `${customSpec.metricKey}_${customSpec.direction}_${customSpec.line}`,
+            marketDecimal: customSpec.oddsDecimal ?? basePick.marketDecimal,
+          }
+        : basePick;
+      handleCloseLab();
+      openComposer(finalPick);
+    },
+    [activeLabItem?.game, gameById, handleCloseLab, openComposer],
+  );
 
   const handleOpenManual = useCallback((pickId: string) => {
     setOpenManualPickId(pickId);
@@ -2054,511 +3194,515 @@ export function PicksFinderClubView({
     setBuilderTarget({ pick, game });
   }, []);
 
-  const buildTableColumns = useCallback(
-    (showMatchMeta: boolean): readonly SofascoreTableColumn<ScreenerItem>[] => [
-      {
-        key: "pick",
-        header: showMatchMeta ? "Partido · Pick" : "Pick",
-        sticky: true,
-        render: (item) => {
-          const { game, pick, liveProgress } = item;
-          const unlocked = isPickUnlocked(pick, game.status, viewerRole);
-          const periodTag = periodShortTag(item.period);
-          const hasNumericLiveBar =
-            unlocked &&
-            item.isLiveGame &&
-            liveProgress !== null &&
-            liveProgress.currentValue !== null &&
-            liveProgress.targetValue !== null &&
-            liveProgress.targetValue > 0;
+  const currentGroupLabel =
+    GROUP_MODES.find((m) => m.id === groupMode)?.shortLabel ?? "Partidos";
+  const currentSortLabel =
+    SORT_OPTIONS.find((s) => s.id === sort)?.label ?? "Recomendados";
+  const currentTypeLabel =
+    PICK_TYPE_OPTIONS.find((t) => t.id === pickTypeFilter)?.label ?? "Todos";
+  const currentDirectionLabel =
+    DIRECTION_OPTIONS.find((d) => d.id === directionFilter)?.label ?? "Todas";
+  const currentPeriodLabel =
+    PERIOD_OPTIONS.find((p) => p.id === periodFilter)?.label ?? "Todos";
+  const currentMarketLabel = isCatalogFamilyId(family)
+    ? MARKET_FAMILIES[family].shortLabel
+    : (MARKET_FAMILY_GROUPS.find((g) => g.id === family)?.label ?? "Todos");
+  const currentPosLabel =
+    POSITION_OPTIONS.find((p) => p.id === positionFilter)?.label ?? "Todas";
+  const currentCompLabel =
+    league !== "all"
+      ? (leagues.find(([id]) => id === league)?.[1] ?? league)
+      : sport !== "all"
+        ? (SPORT_OPTIONS.find((s) => s.id === sport)?.label ?? sport)
+        : "Todas";
+  const currentTeamLabel =
+    teamFilter === "all"
+      ? "Todos"
+      : (teams.find(([slug]) => slug === teamFilter)?.[1] ?? teamFilter);
+  const currentBandLabel = BANDS.find((b) => b.id === band)?.label ?? "Todas";
+  const currentWindowLabel =
+    WINDOW_OPTIONS.find((w) => w.id === windowFilter)?.label ?? "Toda la agenda";
+  const currentOddsSummary =
+    minOddsStep === 0 && maxOddsStep === 100
+      ? "Sin límite"
+      : `${formatOddsValue(minOddsVal, oddsFormat)} – ${maxOddsVal !== null ? formatOddsValue(maxOddsVal, oddsFormat) : "10.0+"}`;
 
-          return (
-            <div
-              className="pl-scr-cell-pick"
-              data-screener-pick={pick.id}
-              data-market-family={item.catalogFamilyId ?? pick.market ?? ""}
-            >
-              {showMatchMeta ? (
-                <div className="pl-scr-match-meta">
-                  <LeagueBadge
-                    league={game.league}
-                    label={game.leagueLabel}
-                    logoUrl={game.leagueLogoUrl}
-                    size={14}
-                  />
-                  <span className="truncate">
-                    {game.home.shortName} vs {game.away.shortName}
-                  </span>
-                  <span className="pl-scr-meta-sep" aria-hidden="true">
-                    ·
-                  </span>
-                  <span className="num shrink-0">
-                    {item.isSettled && game.score ? (
-                      <span className="pl-scr-ft-meta">
-                        FT {game.score.home}–{game.score.away}
-                      </span>
-                    ) : liveProgress ? (
-                      <span className="pl-scr-live-badge">
-                        {liveProgress.scoreLabel} · {liveProgress.clockLabel}
-                      </span>
-                    ) : (
-                      `${game.dayLabel} ${game.kickoffLocal}`
-                    )}
-                  </span>
-                </div>
-              ) : null}
-
-              <div className="pl-scr-pick-head">
-                <span className="pl-scr-cat-tag">
-                  {pick.categoryLabel}
-                  {periodTag ? ` · ${periodTag}` : ""}
-                  {item.playerPositionRaw ? ` · ${item.playerPositionRaw}` : ""}
-                </span>
-                <strong className={`pl-scr-pick-title ${unlocked ? "" : "locked-redact"}`.trim()}>
-                  {unlocked ? pick.label : "Pick reservado Pase PitchLab Ultra"}
-                </strong>
-              </div>
-
-              {hasNumericLiveBar && liveProgress ? (
-                <div className="pl-scr-inline-livebar" data-live-progress-bar="">
-                  <LivePickProgressBar
-                    pickLabel={pick.label}
-                    matchLabel={`${game.home.shortName} vs ${game.away.shortName}`}
-                    clockLabel={`${liveProgress.scoreLabel} · ${liveProgress.clockLabel}`}
-                    actualValue={liveProgress.currentValue ?? 0}
-                    targetLine={liveProgress.targetValue ?? 1}
-                    unitLabel={inferLiveUnitLabel(liveProgress, game.sport)}
-                    direction={inferLiveDirection(pick)}
-                    compact
-                  />
-                </div>
-              ) : unlocked && item.isLiveGame && liveProgress ? (
-                <span className="pl-scr-live-inline-status num">
-                  {liveProgress.scoreLabel} · {liveProgress.clockLabel} · {liveProgress.statusText}
-                </span>
-              ) : null}
-            </div>
-          );
-        },
-      },
-      {
-        key: "evidence",
-        header: "Evidencia",
-        render: (item) => {
-          const unlocked = isPickUnlocked(item.pick, item.game.status, viewerRole);
-          if (!unlocked) {
-            return <span className="pl-scr-ev-fallback">Disponible con Pase Ultra</span>;
-          }
-          const compactWindows = selectCompactEvidenceWindows(item.evidenceWindows);
-          if (compactWindows.length > 0) {
-            return <EvidenceWindowPills windows={compactWindows} size="sm" />;
-          }
-          return (
-            <span className="pl-scr-ev-fallback">
-              {item.pick.rationale ? item.pick.rationale.slice(0, 68) : "Modelo calibrado Spacetime"}
-            </span>
-          );
-        },
-      },
-      {
-        key: "value",
-        header: "Prob · Justo · Casa",
-        align: "end",
-        numeric: true,
-        render: (item) => {
-          const unlocked = isPickUnlocked(item.pick, item.game.status, viewerRole);
-          if (!unlocked) {
-            return (
-              <span className="pl-scr-locked-tag">
-                <MaestroIcon name="lock" size={12} />
-                <span>Ultra</span>
-              </span>
-            );
-          }
-          const manualRaw = manualOddsByPick[item.pick.id] ?? "";
-          const manualDec = parseManualOddsInput(manualRaw);
-          const effectiveHouseDec = manualDec ?? item.houseDecimal;
-          const effectiveHouseLabel = manualDec !== null ? "Tu momio" : item.houseLabel;
-
-          return (
-            <SofascoreValueCell
-              probPct={item.pick.p * 100}
-              fairLabel={formatOddsValue(item.pick.fairDecimal, oddsFormat)}
-              bestBookLabel={effectiveHouseLabel}
-              bestOddsLabel={
-                effectiveHouseDec !== null ? formatOddsValue(effectiveHouseDec, oddsFormat) : null
-              }
-              evPct={null}
-            />
-          );
-        },
-      },
-      {
-        key: "signal",
-        header: timing === "settled" ? "Liquidación" : "Señal",
-        align: "end",
-        render: (item) => {
-          const unlocked = isPickUnlocked(item.pick, item.game.status, viewerRole);
-          if (item.isSettled) {
-            return (
-              <div className="pl-scr-settlement-cell num">
-                <span
-                  className={`pl-scr-settlement-badge is-${item.settlement}`}
-                  data-settlement={item.settlement}
-                >
-                  {settlementLabel(item.settlement)}
-                </span>
-                {item.game.score ? (
-                  <span className="pl-scr-settlement-score">
-                    {item.game.score.home}–{item.game.score.away} · FT
-                  </span>
-                ) : null}
-              </div>
-            );
-          }
-          if (!unlocked) {
-            return <span className="pl-scr-signal-muted num">—</span>;
-          }
-          const manualRaw = manualOddsByPick[item.pick.id] ?? "";
-          const manualDec = parseManualOddsInput(manualRaw);
-          const effectiveValuePct =
-            manualDec !== null
-              ? computeExpectedValuePct(item.pick.p, manualDec)
-              : item.valuePct;
-          const effectiveMovement = manualDec !== null ? null : (item.movement?.kind ?? null);
-
-          return (
-            <SofascoreSignalPair
-              evPct={effectiveValuePct}
-              movement={effectiveMovement}
-              compact
-            />
-          );
-        },
-      },
-      {
-        key: "actions",
-        header: "Acciones",
-        align: "end",
-        render: (item) => {
-          const { game, pick } = item;
-          const unlocked = isPickUnlocked(pick, game.status, viewerRole);
-          const href = canonicalGameHref(game.league, game);
-          const isManualOpen = openManualPickId === pick.id;
-          const manualRaw = manualOddsByPick[pick.id] ?? "";
-
-          return (
-            <div className="pl-scr-col-actions">
-              {unlocked && !item.isSettled ? (
-                <>
-                  <BetBuilderQuickButton
-                    pick={pick}
-                    onInspect={(pk) => handleOpenBuilder(pk, game)}
-                    compact
-                  />
-                  {!item.isLiveGame ? <ParlayToggle pick={pick} /> : null}
-                  {!item.isLiveGame ? (
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => openComposer(pick)}
-                    >
-                      Sellar
-                    </Button>
-                  ) : null}
-                  {isManualOpen ? (
-                    <label className="inline-flex items-center">
-                      <span className="sr-only">Tu momio para {pick.label}</span>
-                      <input
-                        type="text"
-                        inputMode="decimal"
-                        enterKeyHint="done"
-                        autoComplete="off"
-                        placeholder={oddsFormat === "american" ? "-110" : "1.91"}
-                        value={manualRaw}
-                        onChange={(e) => handleManualChange(pick.id, e.target.value)}
-                        data-manual-odds-input={pick.id}
-                        className="pl-scr-manual-input num"
-                      />
-                    </label>
-                  ) : (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      data-open-manual-odds={pick.id}
-                      onClick={() => handleOpenManual(pick.id)}
-                    >
-                      Mi momio
-                    </Button>
-                  )}
-                </>
-              ) : null}
-              <Button
-                variant="ghost"
-                size="sm"
-                nativeButton={false}
-                render={
-                  <a
-                    href={href}
-                    onPointerEnter={() => prefetchRoute(href)}
-                    onTouchStart={() => prefetchRoute(href)}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateTo(href);
-                    }}
-                  />
-                }
-              >
-                <span>Partido</span>
-                <MaestroIcon name="arrowRight" size={12} />
-              </Button>
-            </div>
-          );
-        },
-      },
-    ],
-    [
-      handleManualChange,
-      handleOpenBuilder,
-      handleOpenManual,
-      manualOddsByPick,
-      navigateTo,
-      oddsFormat,
-      openComposer,
-      openManualPickId,
-      prefetchRoute,
-      timing,
-      viewerRole,
-    ],
-  );
-
-  const matchColumns = useMemo(() => buildTableColumns(false), [buildTableColumns]);
-  const fullColumns = useMemo(() => buildTableColumns(true), [buildTableColumns]);
-
-  const renderFilterControls = (inSheet: boolean) => (
-    <div className={`pl-scr-filter-body ${inSheet ? "is-sheet" : ""}`.trim()}>
-      <div className="pl-scr-books-row">
-        <span className="pl-scr-sub-label">Casas de referencia</span>
-        <div className="pl-scr-books-pills" role="group" aria-label="Casas preferidas">
-          {QUICK_BOOKS.map((book) => {
-            const active = preferredBookSet.has(normalizeBookKey(book.id));
-            return (
-              <button
-                key={book.id}
-                type="button"
-                className={`pl-scr-book-chip ${active ? "is-on" : ""}`.trim()}
-                aria-pressed={active}
-                data-quick-book={book.id}
-                onClick={() => togglePreferredBook(book.id)}
-              >
-                {book.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="pl-scr-band-row">
-        <div className="pl-scr-band-group" role="group" aria-label="Probabilidad Spacetime">
-          {BANDS.map((b) => (
-            <button
-              key={b.id}
-              type="button"
-              className={`pl-scr-band-btn ${band === b.id ? "is-on" : ""}`.trim()}
-              aria-pressed={band === b.id}
-              title={b.hint || undefined}
-              onClick={() => {
-                setActiveViewId(null);
-                setPreset("todos");
-                setBand(b.id);
-                setShown(INITIAL_VISIBLE_PICKS);
-              }}
-            >
-              <span>{b.label}</span>
-              <span className="num pl-scr-band-count">{counts[b.id]}</span>
-            </button>
-          ))}
-        </div>
-
-        <button
-          type="button"
-          className={`pl-scr-ev-toggle ${onlyPositiveEdge ? "is-on" : ""}`.trim()}
-          aria-pressed={onlyPositiveEdge}
-          onClick={() => {
-            setActiveViewId(null);
-            setOnlyPositiveEdge((v) => !v);
-            setShown(INITIAL_VISIBLE_PICKS);
-          }}
-        >
-          Solo EV+ (casa paga más)
-        </button>
-      </div>
-
-      <div className="pl-scr-selects-grid">
-        <label className="pl-scr-field">
-          <span>Deporte</span>
-          <select
-            value={sport}
-            onChange={(e) => {
-              setActiveViewId(null);
-              setSport(parseSportFilter(e.target.value));
-              setLeague("all");
-              setShown(INITIAL_VISIBLE_PICKS);
-            }}
-            className="pl-scr-select"
-          >
-            {SPORT_OPTIONS.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="pl-scr-field">
-          <span>Familia de mercado</span>
-          <select
-            value={family}
-            onChange={(e) => {
-              setActiveViewId(null);
-              setPreset("todos");
-              setFamily(parseFamilyFilter(e.target.value));
-              setShown(INITIAL_VISIBLE_PICKS);
-            }}
-            className="pl-scr-select"
-          >
-            <optgroup label="Agrupaciones">
-              {MARKET_FAMILY_GROUPS.map((f) => (
-                <option key={f.id} value={f.id}>
-                  {f.label}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="34 familias del catálogo">
-              {MARKET_FAMILY_IDS.map((famId) => (
-                <option key={famId} value={famId}>
-                  {MARKET_FAMILIES[famId].label}
-                </option>
-              ))}
-            </optgroup>
-          </select>
-        </label>
-
-        <label className="pl-scr-field">
-          <span>Periodo</span>
-          <select
-            value={periodFilter}
-            onChange={(e) => {
-              setActiveViewId(null);
-              setPeriodFilter(parsePeriodFilter(e.target.value));
-              setShown(INITIAL_VISIBLE_PICKS);
-            }}
-            className="pl-scr-select"
-            data-screener-period-filter=""
-          >
-            {PERIOD_OPTIONS.map((opt) => (
-              <option key={opt.id} value={opt.id}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="pl-scr-field">
-          <span>Posición</span>
-          <select
-            value={positionFilter}
-            onChange={(e) => {
-              setActiveViewId(null);
-              setPositionFilter(parsePositionFilter(e.target.value));
-              setShown(INITIAL_VISIBLE_PICKS);
-            }}
-            className="pl-scr-select"
-            data-screener-position-filter=""
-          >
-            {POSITION_OPTIONS.map((opt) => (
-              <option key={opt.id} value={opt.id}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="pl-scr-field">
-          <span>Liga</span>
-          <select
-            value={league}
-            onChange={(e) => {
-              setActiveViewId(null);
-              setLeague(e.target.value);
-              setShown(INITIAL_VISIBLE_PICKS);
-            }}
-            className="pl-scr-select"
-          >
-            <option value="all">Todas ({leagues.length})</option>
-            {leagues.map(([id, label]) => (
-              <option key={id} value={id}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-
+  const renderFilterRailContent = (inSheet: boolean) => (
+    <div className={`pl-scr-rail-content ${inSheet ? "is-sheet" : ""}`.trim()}>
+      <div className="pl-scr-rail-toggles">
         {timing === "upcoming" ? (
-          <label className="pl-scr-field">
-            <span>Agenda</span>
-            <select
-              value={windowFilter}
+          <label className="pl-scr-toggle-row">
+            <span className="pl-scr-toggle-copy">
+              <strong>Solo recomendados</strong>
+              <span>Filtro Spacetime (excluye ruido)</span>
+            </span>
+            <input
+              type="checkbox"
+              checked={onlyRecommended}
               onChange={(e) => {
                 setActiveViewId(null);
-                setWindowFilter(parseWindowFilter(e.target.value));
-                setShown(INITIAL_VISIBLE_PICKS);
+                setOnlyRecommended(e.target.checked);
+                setVisibleGamesCount(INITIAL_GAMES_SHOWN);
               }}
-              className="pl-scr-select"
-            >
-              {WINDOW_OPTIONS.map((w) => (
-                <option key={w.id} value={w.id}>
-                  {w.label}
-                </option>
-              ))}
-            </select>
+              data-picks-only-recommended=""
+            />
           </label>
         ) : null}
 
-        <label className="pl-scr-field">
-          <span>Ordenar por</span>
-          <select
-            value={sort}
+        <label className="pl-scr-toggle-row">
+          <span className="pl-scr-toggle-copy">
+            <strong>Solo EV+</strong>
+            <span>Casa paga arriba del momio justo</span>
+          </span>
+          <input
+            type="checkbox"
+            checked={onlyPositiveEdge}
             onChange={(e) => {
               setActiveViewId(null);
-              setSort(parseSortExtended(e.target.value));
+              setOnlyPositiveEdge(e.target.checked);
+              setVisibleGamesCount(INITIAL_GAMES_SHOWN);
             }}
-            className="pl-scr-select"
-          >
-            <option value="ev">Valor real EV+</option>
-            <option value="p">Probabilidad Spacetime</option>
-            <option value="movimiento">Movimiento de línea</option>
-            <option value="hora">Próximo inicio</option>
-            <option value="relevancia">Balance prob. y momio</option>
-            <option value="momio">Mayor momio</option>
-          </select>
+            data-picks-only-ev=""
+          />
         </label>
+
+        {timing === "upcoming" ? (
+          <label className="pl-scr-toggle-row">
+            <span className="pl-scr-toggle-copy">
+              <strong>Incluir cuotas &lt; 1.25</strong>
+              <span>Muestra líneas muy bajas</span>
+            </span>
+            <input
+              type="checkbox"
+              checked={includeTrivialOdds}
+              onChange={(e) => {
+                setActiveViewId(null);
+                setIncludeTrivialOdds(e.target.checked);
+                setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+              }}
+              data-picks-include-trivial=""
+            />
+          </label>
+        ) : null}
       </div>
 
-      <NonLinearOddsSlider
-        minStep={minOddsStep}
-        maxStep={maxOddsStep}
-        oddsFormat={oddsFormat}
-        compact={inSheet}
-        onChange={(nextMin, nextMax) => {
-          setActiveViewId(null);
-          setMinOddsStep(nextMin);
-          setMaxOddsStep(nextMax);
-          setShown(INITIAL_VISIBLE_PICKS);
-        }}
-      />
+      <div className="pl-scr-acc-list">
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Agrupar por</span>
+            <span className="pl-scr-acc-val">{currentGroupLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <div
+              className="pl-scr-group-seg is-rail"
+              role="group"
+              aria-label="Modo de agrupación"
+              data-screener-group-mode=""
+            >
+              {GROUP_MODES.map((m) => (
+                <button
+                  key={m.id}
+                  type="button"
+                  className={`pl-scr-seg-btn ${groupMode === m.id ? "is-on" : ""}`.trim()}
+                  aria-pressed={groupMode === m.id}
+                  onClick={() => setGroupMode(m.id)}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Ordenar por</span>
+            <span className="pl-scr-acc-val">{currentSortLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <label className="pl-scr-field">
+              <span className="sr-only">Ordenar por</span>
+              <select
+                value={sort}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setSort(parseSortExtended(e.target.value));
+                }}
+                className="pl-scr-select"
+              >
+                {SORT_OPTIONS.map((opt) => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Tipo de pick</span>
+            <span className="pl-scr-acc-val">{currentTypeLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <label className="pl-scr-field">
+              <span className="sr-only">Tipo de pick</span>
+              <select
+                value={pickTypeFilter}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setPickTypeFilter(parsePickTypeFilter(e.target.value));
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+                className="pl-scr-select"
+              >
+                {PICK_TYPE_OPTIONS.map((opt) => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Dirección</span>
+            <span className="pl-scr-acc-val">{currentDirectionLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <label className="pl-scr-field">
+              <span className="sr-only">Dirección</span>
+              <select
+                value={directionFilter}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setDirectionFilter(parseDirectionFilter(e.target.value));
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+                className="pl-scr-select"
+              >
+                {DIRECTION_OPTIONS.map((opt) => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Periodo</span>
+            <span className="pl-scr-acc-val">{currentPeriodLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <label className="pl-scr-field">
+              <span className="sr-only">Periodo</span>
+              <select
+                value={periodFilter}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setPeriodFilter(parsePeriodFilter(e.target.value));
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+                className="pl-scr-select"
+                data-screener-period-filter=""
+              >
+                {PERIOD_OPTIONS.map((opt) => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Mercados</span>
+            <span className="pl-scr-acc-val truncate">{currentMarketLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <label className="pl-scr-field">
+              <span className="sr-only">Familia de mercado</span>
+              <select
+                value={family}
+                aria-label="Familia de mercado"
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setFamily(parseFamilyFilter(e.target.value));
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+                className="pl-scr-select"
+              >
+                <optgroup label="Agrupaciones">
+                  {MARKET_FAMILY_GROUPS.map((f) => (
+                    <option key={f.id} value={f.id}>
+                      {f.label}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="34 familias del catálogo">
+                  {MARKET_FAMILY_IDS.map((famId) => (
+                    <option key={famId} value={famId}>
+                      {MARKET_FAMILIES[famId].label}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Posiciones</span>
+            <span className="pl-scr-acc-val">{currentPosLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <label className="pl-scr-field">
+              <span className="sr-only">Posición</span>
+              <select
+                value={positionFilter}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setPositionFilter(parsePositionFilter(e.target.value));
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+                className="pl-scr-select"
+                data-screener-position-filter=""
+              >
+                {POSITION_OPTIONS.map((opt) => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Competiciones</span>
+            <span className="pl-scr-acc-val truncate">{currentCompLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body space-y-2">
+            <label className="pl-scr-field">
+              <span>Deporte</span>
+              <select
+                value={sport}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setSport(parseSportFilter(e.target.value));
+                  setLeague("all");
+                  setTeamFilter("all");
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+                className="pl-scr-select"
+              >
+                {SPORT_OPTIONS.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="pl-scr-field">
+              <span>Liga</span>
+              <select
+                value={league}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setLeague(e.target.value);
+                  setTeamFilter("all");
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+                className="pl-scr-select"
+              >
+                <option value="all">Todas ({leagues.length})</option>
+                {leagues.map(([id, label]) => (
+                  <option key={id} value={id}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Equipos</span>
+            <span className="pl-scr-acc-val truncate">{currentTeamLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <label className="pl-scr-field">
+              <span className="sr-only">Equipo</span>
+              <select
+                value={teamFilter}
+                onChange={(e) => {
+                  setActiveViewId(null);
+                  setTeamFilter(e.target.value);
+                  setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                }}
+                className="pl-scr-select"
+              >
+                <option value="all">Todos ({teams.length})</option>
+                {teams.map(([slug, name]) => (
+                  <option key={slug} value={slug}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Cuotas</span>
+            <span className="pl-scr-acc-val num">{currentOddsSummary}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <NonLinearOddsSlider
+              minStep={minOddsStep}
+              maxStep={maxOddsStep}
+              oddsFormat={oddsFormat}
+              compact
+              onChange={(nextMin, nextMax) => {
+                setActiveViewId(null);
+                setMinOddsStep(nextMin);
+                setMaxOddsStep(nextMax);
+                setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+              }}
+            />
+          </div>
+        </details>
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Acierto / Probabilidad</span>
+            <span className="pl-scr-acc-val">{currentBandLabel}</span>
+          </summary>
+          <div className="pl-scr-acc-body">
+            <div
+              className="pl-scr-band-group is-rail"
+              role="group"
+              aria-label="Probabilidad calibrada Spacetime"
+            >
+              {BANDS.map((b) => (
+                <button
+                  key={b.id}
+                  type="button"
+                  className={`pl-scr-band-btn ${band === b.id ? "is-on" : ""}`.trim()}
+                  aria-pressed={band === b.id}
+                  title={b.hint || undefined}
+                  onClick={() => {
+                    setActiveViewId(null);
+                    setBand(b.id);
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                >
+                  <span>{b.label}</span>
+                  <span className="num pl-scr-band-count">{counts[b.id]}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </details>
+
+        {timing === "upcoming" ? (
+          <details className="pl-scr-acc">
+            <summary className="pl-scr-acc-summary">
+              <span className="pl-scr-acc-key">Fechas</span>
+              <span className="pl-scr-acc-val">{currentWindowLabel}</span>
+            </summary>
+            <div className="pl-scr-acc-body">
+              <label className="pl-scr-field">
+                <span className="sr-only">Fechas de los partidos</span>
+                <select
+                  value={windowFilter}
+                  onChange={(e) => {
+                    setActiveViewId(null);
+                    setWindowFilter(parseWindowFilter(e.target.value));
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                  }}
+                  className="pl-scr-select"
+                >
+                  {WINDOW_OPTIONS.map((w) => (
+                    <option key={w.id} value={w.id}>
+                      {w.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          </details>
+        ) : null}
+
+        <details className="pl-scr-acc">
+          <summary className="pl-scr-acc-summary">
+            <span className="pl-scr-acc-key">Casas</span>
+            <span className="pl-scr-acc-val num">{preferredBooks.length} activas</span>
+          </summary>
+          <div className="pl-scr-acc-body space-y-2">
+            <div className="pl-scr-books-pills" role="group" aria-label="Casas preferidas">
+              {QUICK_BOOKS.map((book) => {
+                const active = preferredBookSet.has(normalizeBookKey(book.id));
+                return (
+                  <button
+                    key={book.id}
+                    type="button"
+                    className={`pl-scr-book-chip ${active ? "is-on" : ""}`.trim()}
+                    aria-pressed={active}
+                    data-quick-book={book.id}
+                    onClick={() => togglePreferredBook(book.id)}
+                  >
+                    {book.label}
+                  </button>
+                );
+              })}
+            </div>
+            <a
+              href="/app/account?tab=prefs#pl-prefs-picks"
+              className="pl-scr-rail-prefs-link"
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("/app/account?tab=prefs#pl-prefs-picks");
+              }}
+            >
+              Configurar todas mis casas →
+            </a>
+          </div>
+        </details>
+      </div>
+
+      <button
+        type="button"
+        className="pl-scr-reset-btn"
+        onClick={resetAllFilters}
+        data-picks-reset-filters=""
+      >
+        Restablecer criterios{activeAdvancedCount > 0 ? ` (${activeAdvancedCount})` : ""}
+      </button>
+
+      <div className="pl-scr-rail-saved">
+        <SavedViewsBar
+          views={savedScreenerViews}
+          activeViewId={activeViewId}
+          compact
+          onApply={applySavedView}
+          onSave={handleSaveView}
+          onDelete={handleDeleteSavedView}
+        />
+      </div>
     </div>
   );
 
@@ -2575,7 +3719,7 @@ export function PicksFinderClubView({
               size="sm"
               onClick={() => {
                 setTiming("live");
-                setShown(INITIAL_VISIBLE_PICKS);
+                setVisibleGamesCount(INITIAL_GAMES_SHOWN);
               }}
             >
               Ver tablero en vivo ({liveTrackedItems.length})
@@ -2589,7 +3733,11 @@ export function PicksFinderClubView({
         {displayed.length > 0 ? (
           <div className="pl-scr-live-tracker-grid" data-live-tracker-strip="">
             {displayed.map((tracked) => (
-              <div key={tracked.id} className="pl-scr-live-tracker-card">
+              <div
+                key={tracked.id}
+                className="pl-scr-live-tracker-card"
+                data-picks-live-progress=""
+              >
                 <LivePickProgressBar
                   pickLabel={tracked.pickLabel}
                   matchLabel={
@@ -2652,357 +3800,571 @@ export function PicksFinderClubView({
     );
   };
 
+  const renderPickTable = (
+    itemsToRender: readonly ScreenerItem[],
+    caption: string,
+    showMatchMeta: boolean,
+    tableKey: string,
+  ) => (
+    <div
+      className="pl-scr-table-wrap"
+      role="region"
+      tabIndex={0}
+      aria-labelledby={`pl-scr-cap-${tableKey}`}
+    >
+      <table className="pl-scr-table">
+        <caption id={`pl-scr-cap-${tableKey}`} className="sr-only">
+          {caption}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" className="pl-scr-th pl-scr-th-pick">
+              Pick
+            </th>
+            <th scope="col" className="pl-scr-th pl-scr-th-bet">
+              Apuesta
+            </th>
+            <th scope="col" className="pl-scr-th pl-scr-th-evidence">
+              {timing === "live" ? "Avance en vivo" : "Evidencia"}
+            </th>
+            <th scope="col" className="pl-scr-th pl-scr-th-odds is-end">
+              {timing === "settled" ? "Liquidación" : "Cuotas"}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {itemsToRender.map((item) => {
+            const unlocked = isPickUnlocked(item.pick, item.game.status, viewerRole);
+            const tracked = item.isLiveGame ? (liveTrackedByPickId.get(item.pick.id) ?? null) : null;
+            return (
+              <ScreenerPickRow
+                key={item.pick.id}
+                item={item}
+                timing={timing}
+                showMatchMeta={showMatchMeta}
+                unlocked={unlocked}
+                oddsFormat={oddsFormat}
+                manualRaw={manualOddsByPick[item.pick.id] ?? ""}
+                isManualOpen={openManualPickId === item.pick.id}
+                trackedLive={tracked}
+                onOpenLab={handleOpenLab}
+                onOpenBuilder={handleOpenBuilder}
+                onOpenComposer={openComposer}
+                onOpenManual={handleOpenManual}
+                onManualChange={handleManualChange}
+              />
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const featuredPotd = picksOfTheDay[0] ?? null;
+  const secondaryPotds = picksOfTheDay.slice(1, 3);
+  const canLoadMoreMatches =
+    visibleGamesCount < allGroupedByMatch.length || (apiHasMore && timing === "upcoming");
+
   return (
     <AtmosphereStage activePath="/app/picks">
       <ClubWorkspaceShell activePath="/app/picks">
         <div
-          className="pl-scr-root space-y-3.5"
-          data-catalog-wired={
-            initialCatalogs && Object.keys(initialCatalogs).length > 0 ? "true" : "false"
-          }
+          className="pl-scr-root"
+          data-catalog-wired={Object.keys(mergedCatalogs).length > 0 ? "true" : "false"}
         >
-          <header className="pl-scr-header">
-            <div className="min-w-0">
+          <header className="pl-scr-topbar">
+            <div className="pl-scr-topbar-left">
               <h1 className="pl-scr-h1">Explorar picks</h1>
-              <p className="pl-scr-lead">
-                Screener cuantitativo de 34 familias con probabilidad Spacetime, momio justo, mejor casa, evidencia real y liquidación auditable en FT.
-              </p>
-            </div>
-            <Button
-              variant="secondary"
-              size="sm"
-              nativeButton={false}
-              render={
-                <a
-                  href="/app/account?tab=prefs#pl-prefs-picks"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigateTo("/app/account?tab=prefs#pl-prefs-picks");
+              <div className="pl-scr-tabs-bar" data-screener-timing="">
+                <SofascoreTabs
+                  items={tabItems}
+                  value={timing}
+                  onChange={(nextId) => {
+                    setTiming(parseTimingMode(nextId));
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                    setFlatShown(INITIAL_FLAT_PICKS);
                   }}
+                  variant="underline"
+                  ariaLabel="Estado de los picks"
                 />
-              }
-            >
-              <MaestroIcon name="sliders" size={13} />
-              <span>Mis casas ({preferredBooks.length})</span>
-            </Button>
-          </header>
-
-          {timing !== "live" && liveTrackedItems.length > 0
-            ? renderLiveTrackerCard(true)
-            : null}
-
-          <SavedViewsBar
-            views={savedScreenerViews}
-            activeViewId={activeViewId}
-            onApply={applySavedView}
-            onSave={handleSaveView}
-            onDelete={handleDeleteSavedView}
-          />
-
-          <div className="pl-scr-tabs-bar" data-screener-timing="">
-            <SofascoreTabs
-              items={tabItems}
-              value={timing}
-              onChange={(nextId) => {
-                setTiming(parseTimingMode(nextId));
-                setShown(INITIAL_VISIBLE_PICKS);
-              }}
-              variant="underline"
-              ariaLabel="Estado de los picks"
-            />
-          </div>
-
-          <SofascoreFilterBar
-            searchValue={searchQuery}
-            onSearchChange={(next) => {
-              setSearchQuery(next);
-              setShown(INITIAL_VISIBLE_PICKS);
-            }}
-            searchPlaceholder="Buscar equipo, liga, mercado o jugador…"
-            trailing={
-              <div className="pl-scr-command-right">
-                <span className="pl-scr-count-badge num" data-screener-result-count="">
-                  {rows.length} {rows.length === 1 ? "pick" : "picks"}
-                </span>
-                <button
-                  type="button"
-                  className="pl-scr-mobile-filter-btn"
-                  aria-haspopup="dialog"
-                  aria-expanded={mobileSheetOpen}
-                  data-mobile-filters-toggle=""
-                  onClick={() => setMobileSheetOpen(true)}
-                >
-                  <MaestroIcon name="sliders" size={14} />
-                  <span>Filtros{activeAdvancedCount > 0 ? ` (${activeAdvancedCount})` : ""}</span>
-                </button>
               </div>
-            }
-          >
-            <div
-              className="pl-scr-group-seg"
-              role="group"
-              aria-label="Modo de agrupación"
-              data-screener-group-mode=""
-            >
-              {GROUP_MODES.map((m) => (
-                <button
-                  key={m.id}
-                  type="button"
-                  className={`pl-scr-seg-btn ${groupMode === m.id ? "is-on" : ""}`.trim()}
-                  aria-pressed={groupMode === m.id}
-                  onClick={() => setGroupMode(m.id)}
-                >
-                  {m.label}
-                </button>
-              ))}
             </div>
-          </SofascoreFilterBar>
 
-          <div
-            className="pl-scr-quick-strip"
-            role="group"
-            aria-label="Atajos de exploración"
-            data-finder-quick-chips=""
-          >
-            {QUICK_CHIPS.map((chip) => {
-              const active = preset === chip.id && activeViewId === null;
-              return (
-                <button
-                  key={chip.id}
-                  type="button"
-                  data-finder-chip={chip.id}
-                  aria-pressed={active}
-                  onClick={() => applyQuickPreset(chip.id)}
-                  className={`pl-scr-quick-chip ${active ? "is-on" : ""}`.trim()}
-                >
-                  {chip.label}
-                </button>
-              );
-            })}
+            <div className="pl-scr-topbar-right">
+              <label className="pl-scr-search-box">
+                <MaestroIcon name="search" size={14} className="pl-scr-search-icon" />
+                <span className="sr-only">Buscar equipo, liga, mercado o jugador</span>
+                <input
+                  type="search"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setVisibleGamesCount(INITIAL_GAMES_SHOWN);
+                    setFlatShown(INITIAL_FLAT_PICKS);
+                  }}
+                  placeholder="Buscar equipo, mercado o jugador…"
+                  className="pl-scr-search-input"
+                  autoComplete="off"
+                />
+              </label>
 
-            {activeAdvancedCount > 0 ? (
+              <span className="pl-scr-count-badge num" data-screener-result-count="">
+                {rows.length} {rows.length === 1 ? "pick" : "picks"}
+              </span>
+
               <button
                 type="button"
-                className="pl-scr-clear-chip"
-                onClick={resetAllFilters}
+                className="pl-scr-mobile-filter-btn"
+                aria-haspopup="dialog"
+                aria-expanded={mobileSheetOpen}
+                data-picks-mobile-filters-trigger=""
+                data-mobile-filters-toggle=""
+                onClick={() => setMobileSheetOpen(true)}
               >
-                <MaestroIcon name="x" size={12} />
-                <span>Limpiar ({activeAdvancedCount})</span>
+                <MaestroIcon name="sliders" size={14} />
+                <span>Filtros{activeAdvancedCount > 0 ? ` (${activeAdvancedCount})` : ""}</span>
               </button>
-            ) : null}
-          </div>
+            </div>
+          </header>
 
-          <section
-            id="pl-finder-advanced-panel"
-            className="pl-scr-desktop-filters"
-            aria-label="Filtros avanzados del buscador"
-          >
-            <SofascoreCard density="compact">{renderFilterControls(false)}</SofascoreCard>
-          </section>
+          {timing === "upcoming" && featuredPotd ? (
+            <section
+              className="pl-scr-potd"
+              aria-label="Pick del día seleccionado por Spacetime"
+              data-picks-potd=""
+            >
+              <div className="pl-scr-potd-row">
+                <div className="pl-scr-potd-left">
+                  <div className="pl-scr-potd-eyebrow num">
+                    <span className="pl-scr-potd-star" aria-hidden="true">
+                      ★
+                    </span>
+                    <span>PICK DEL DÍA</span>
+                    <span className="pl-scr-meta-sep" aria-hidden="true">
+                      ·
+                    </span>
+                    <span>{featuredPotd.game.leagueLabel}</span>
+                    <span className="pl-scr-meta-sep" aria-hidden="true">
+                      ·
+                    </span>
+                    <span>{featuredPotd.game.kickoffLocal}</span>
+                    {featuredPotd.projectedScoreLabel ? (
+                      <>
+                        <span className="pl-scr-meta-sep" aria-hidden="true">
+                          ·
+                        </span>
+                        <span className="pl-scr-potd-proj">{featuredPotd.projectedScoreLabel}</span>
+                      </>
+                    ) : null}
+                  </div>
 
-          <div
-            role="tabpanel"
-            aria-label={
-              timing === "live"
-                ? "Picks activos y en vivo"
-                : timing === "settled"
-                  ? "Picks liquidados FT"
-                  : "Próximos picks"
-            }
-            className="space-y-3.5"
-          >
-            {timing === "live" ? renderLiveTrackerCard(false) : null}
+                  <div className="pl-scr-potd-headline">
+                    <TeamBadge
+                      league={featuredPotd.game.league}
+                      slug={featuredPotd.game.home.slug}
+                      name={featuredPotd.game.home.name}
+                      logoUrl={featuredPotd.game.home.logoUrl}
+                      size={20}
+                    />
+                    <span className="pl-scr-potd-match">
+                      {featuredPotd.game.home.shortName} vs {featuredPotd.game.away.shortName}
+                    </span>
+                    <span className="pl-scr-meta-sep" aria-hidden="true">
+                      —
+                    </span>
+                    <strong className="pl-scr-potd-pick">{featuredPotd.pick.label}</strong>
+                  </div>
 
-            {timing === "settled" && settledKpis.length > 0 ? (
-              <SofascoreKpiStrip items={settledKpis} />
-            ) : null}
+                  <p className="pl-scr-potd-reason">
+                    {featuredPotd.valueThresholdLabel ??
+                      `Tiene valor si tu casa paga ${formatOddsValue(featuredPotd.pick.fairDecimal, oddsFormat)} o más.`}
+                    {featuredPotd.evidenceWindows.length > 0 ? (
+                      <span className="pl-scr-potd-ev num">
+                        {" · "}
+                        {featuredPotd.evidenceWindows
+                          .slice(0, 2)
+                          .map((w) => `${w.label} ${w.value}`)
+                          .join(" · ")}
+                      </span>
+                    ) : null}
+                  </p>
+                </div>
 
-            {rows.length === 0 ? (
-              <div data-screener-empty="">
-                <SofascoreEmptyState
-                  title={
-                    timing === "live"
-                      ? "No hay partidos en vivo con picks activos en este momento"
-                      : timing === "settled"
-                        ? "No hay picks liquidados FT con estos filtros"
-                        : "No hay picks que coincidan con los filtros seleccionados"
-                  }
-                  description={
-                    timing === "live"
-                      ? "Explora los próximos partidos o revisa los picks liquidados FT auditables."
-                      : "Ajusta la liga, familia de mercado, periodo o rango de momios para ampliar resultados."
-                  }
-                  actionLabel={
-                    activeAdvancedCount > 0
-                      ? "Quitar filtros"
-                      : timing !== "upcoming"
-                        ? "Ver próximos picks"
-                        : undefined
-                  }
-                  onAction={
-                    activeAdvancedCount > 0
-                      ? resetAllFilters
-                      : timing !== "upcoming"
-                        ? () => setTiming("upcoming")
-                        : undefined
-                  }
-                />
-              </div>
-            ) : groupMode === "match" ? (
-              <div className="pl-scr-groups" data-screener-view="match">
-                {groupedByMatch.map(({ game, liveEntry, items }) => {
-                  const isCollapsed = collapsedGroups.has(`m:${game.id}`);
-                  const href = canonicalGameHref(game.league, game);
-                  const liveScore = liveEntry?.score ?? game.score;
-                  const liveClock =
-                    game.status === "FT"
-                      ? "FT"
-                      : (liveEntry?.clock ?? (game.status === "LIVE" ? "En vivo" : null));
+                <div className="pl-scr-potd-metrics num">
+                  <div className="pl-scr-potd-prob-wrap">
+                    <strong className="pl-scr-potd-prob">
+                      {(featuredPotd.pick.p * 100).toFixed(1)} %
+                    </strong>
+                    <span className="pl-scr-potd-prob-lbl">
+                      Prob. Spacetime ·{" "}
+                      {featuredPotd.houseDecimal !== null
+                        ? `${featuredPotd.houseLabel ?? "Casa"} ${formatOddsValue(featuredPotd.houseDecimal, oddsFormat)}`
+                        : `Justo ${formatOddsValue(featuredPotd.pick.fairDecimal, oddsFormat)}`}
+                    </span>
+                  </div>
 
-                  return (
-                    <section
-                      key={game.id}
-                      className="pl-scr-group"
-                      data-screener-match-group={game.id}
+                  <div className="pl-scr-potd-actions">
+                    <button
+                      type="button"
+                      className="pl-scr-potd-cta"
+                      data-picks-potd-analyze=""
+                      onClick={() => handleOpenLab(featuredPotd)}
                     >
-                      <header className="pl-scr-group-head">
+                      <span>Analizar</span>
+                      <MaestroIcon name="arrowRight" size={12} />
+                    </button>
+                    <ParlayRowButton pick={featuredPotd.pick} />
+                    {secondaryPotds.length > 0 ? (
+                      <button
+                        type="button"
+                        className="pl-scr-potd-toggle"
+                        aria-expanded={potdExpanded}
+                        data-picks-potd-toggle=""
+                        onClick={() => setPotdExpanded((v) => !v)}
+                      >
+                        <span>{potdExpanded ? "Solo Top 1" : `Top ${picksOfTheDay.length}`}</span>
+                        <MaestroIcon
+                          name="chevronDown"
+                          size={12}
+                          className={`pl-scr-chev ${potdExpanded ? "is-open" : ""}`.trim()}
+                        />
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+
+              {potdExpanded && secondaryPotds.length > 0 ? (
+                <div className="pl-scr-potd-more">
+                  {secondaryPotds.map((candidate, idx) => (
+                    <div key={candidate.pick.id} className="pl-scr-potd-subcard">
+                      <div className="pl-scr-potd-subhead">
+                        <span className="pl-scr-potd-rank num">#{idx + 2}</span>
+                        <strong className="pl-scr-potd-subpick">{candidate.pick.label}</strong>
+                        <span className="pl-scr-potd-subprob num">
+                          {(candidate.pick.p * 100).toFixed(1)} %
+                        </span>
+                      </div>
+                      <span className="pl-scr-potd-submatch num">
+                        {candidate.game.home.shortName} vs {candidate.game.away.shortName} ·{" "}
+                        {candidate.game.leagueLabel}
+                        {candidate.projectedScoreLabel ? ` · ${candidate.projectedScoreLabel}` : ""}
+                      </span>
+                      <div className="pl-scr-potd-subfoot">
+                        <span className="pl-scr-potd-subreason">
+                          {candidate.valueThresholdLabel ??
+                            `Justo ${formatOddsValue(candidate.pick.fairDecimal, oddsFormat)}`}
+                        </span>
                         <button
                           type="button"
-                          className="pl-scr-group-toggle"
-                          aria-expanded={!isCollapsed}
-                          onClick={() => toggleGroupCollapse(`m:${game.id}`)}
+                          className="pl-scr-row-action is-compact"
+                          onClick={() => handleOpenLab(candidate)}
                         >
-                          <LeagueBadge
-                            league={game.league}
-                            label={game.leagueLabel}
-                            logoUrl={game.leagueLogoUrl}
-                            size={16}
-                          />
-                          <div className="pl-scr-group-meta min-w-0">
-                            <strong className="pl-scr-group-title truncate">
-                              {game.home.shortName} vs {game.away.shortName}
-                            </strong>
-                            <span className="pl-scr-group-sub num">
-                              {game.leagueLabel} ·{" "}
-                              {liveScore && liveClock
-                                ? `${liveScore.home}–${liveScore.away} · ${liveClock}`
-                                : `${game.dayLabel} ${game.kickoffLocal}`}
+                          Analizar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </section>
+          ) : null}
+
+          <div className="pl-scr-layout" data-picks-layout="">
+            <div
+              className="pl-scr-main"
+              role="tabpanel"
+              aria-label={
+                timing === "live"
+                  ? "Picks activos y en vivo"
+                  : timing === "settled"
+                    ? "Picks liquidados FT"
+                    : "Picks recomendados y próximos"
+              }
+              data-picks-main=""
+            >
+              {timing === "live" ? renderLiveTrackerCard(false) : null}
+
+              {timing === "settled" && settledKpis.length > 0 ? (
+                <SofascoreKpiStrip items={settledKpis} />
+              ) : null}
+
+              {rows.length === 0 ? (
+                <div data-screener-empty="">
+                  <SofascoreEmptyState
+                    title={
+                      timing === "live"
+                        ? "No hay partidos en vivo con picks activos en este momento"
+                        : timing === "settled"
+                          ? "No hay picks liquidados FT con estos filtros"
+                          : "No hay picks que coincidan con los criterios seleccionados"
+                    }
+                    description={
+                      timing === "live"
+                        ? "Explora los picks recomendados próximos o revisa los picks liquidados FT auditables."
+                        : "Ajusta los filtros del panel derecho o incluye cuotas menores a 1.25 para ampliar resultados."
+                    }
+                    actionLabel={
+                      activeAdvancedCount > 0
+                        ? "Restablecer criterios"
+                        : timing === "upcoming" && onlyRecommended
+                          ? "Mostrar todos los picks"
+                          : timing !== "upcoming"
+                            ? "Ver recomendados"
+                            : undefined
+                    }
+                    onAction={
+                      activeAdvancedCount > 0
+                        ? resetAllFilters
+                        : timing === "upcoming" && onlyRecommended
+                          ? () => {
+                              setOnlyRecommended(false);
+                              setIncludeTrivialOdds(true);
+                            }
+                          : timing !== "upcoming"
+                            ? () => setTiming("upcoming")
+                            : undefined
+                    }
+                  />
+                </div>
+              ) : groupMode === "match" ? (
+                <div className="pl-scr-groups" data-screener-view="match">
+                  {visibleMatchGroups.map(({ game, liveEntry, items }) => {
+                    const isCollapsed = collapsedGroups.has(`m:${game.id}`);
+                    const href = canonicalGameHref(game.league, game);
+                    const liveScore = liveEntry?.score ?? game.score;
+                    const liveClock =
+                      game.status === "FT"
+                        ? "FT"
+                        : (liveEntry?.clock ?? (game.status === "LIVE" ? "En vivo" : null));
+                    const projLabel = formatProjectedScore(game);
+                    const matchCap = perMatchVisibleCounts[game.id] ?? PER_MATCH_INITIAL_PICKS;
+                    const displayedItems = items.slice(0, matchCap);
+                    const remainingInMatch = Math.max(0, items.length - displayedItems.length);
+
+                    return (
+                      <section
+                        key={game.id}
+                        className="pl-scr-group"
+                        data-screener-match-group={game.id}
+                      >
+                        <header className="pl-scr-group-head">
+                          <button
+                            type="button"
+                            className="pl-scr-group-toggle"
+                            aria-expanded={!isCollapsed}
+                            onClick={() => toggleGroupCollapse(`m:${game.id}`)}
+                          >
+                            <span className="pl-scr-group-crests" aria-hidden="true">
+                              <TeamBadge
+                                league={game.league}
+                                slug={game.home.slug}
+                                name={game.home.name}
+                                logoUrl={game.home.logoUrl}
+                                size={22}
+                              />
+                              <TeamBadge
+                                league={game.league}
+                                slug={game.away.slug}
+                                name={game.away.name}
+                                logoUrl={game.away.logoUrl}
+                                size={22}
+                              />
                             </span>
-                          </div>
-                          <span className="pl-scr-group-count num">
-                            {items.length} {items.length === 1 ? "pick" : "picks"}
-                          </span>
-                          <MaestroIcon
-                            name="chevronDown"
-                            size={15}
-                            className={`pl-ev-group-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
-                          />
-                        </button>
-
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          nativeButton={false}
-                          render={
-                            <a
-                              href={href}
-                              onPointerEnter={() => prefetchRoute(href)}
-                              onTouchStart={() => prefetchRoute(href)}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                navigateTo(href);
-                              }}
+                            <div className="pl-scr-group-meta min-w-0">
+                              <strong className="pl-scr-group-title truncate">
+                                {game.home.name} vs {game.away.name}
+                              </strong>
+                              <span className="pl-scr-group-sub num">
+                                <LeagueBadge
+                                  league={game.league}
+                                  label={game.leagueLabel}
+                                  logoUrl={game.leagueLogoUrl}
+                                  size={13}
+                                />
+                                <span>{game.leagueLabel}</span>
+                                <span className="pl-scr-meta-sep" aria-hidden="true">
+                                  ·
+                                </span>
+                                <span>
+                                  {liveScore && liveClock
+                                    ? `${liveScore.home}–${liveScore.away} · ${liveClock}`
+                                    : `${game.dayLabel} ${game.kickoffLocal}`}
+                                </span>
+                                {projLabel && game.status !== "FT" ? (
+                                  <>
+                                    <span className="pl-scr-meta-sep" aria-hidden="true">
+                                      ·
+                                    </span>
+                                    <span className="pl-scr-group-proj">{projLabel}</span>
+                                  </>
+                                ) : null}
+                              </span>
+                            </div>
+                            <span className="pl-scr-group-count num">
+                              {items.length} {items.length === 1 ? "pick" : "picks"}
+                            </span>
+                            <MaestroIcon
+                              name="chevronDown"
+                              size={15}
+                              className={`pl-scr-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
                             />
-                          }
-                        >
-                          <span>Ficha</span>
-                          <MaestroIcon name="arrowRight" size={12} />
-                        </Button>
-                      </header>
+                          </button>
 
-                      {!isCollapsed ? (
-                        <SofascoreTable
-                          caption={`Picks de ${game.home.shortName} vs ${game.away.shortName}`}
-                          columns={matchColumns}
-                          rows={items}
-                          rowKey={(item) => item.pick.id}
-                          density="compact"
-                          className="pl-scr-table-wrap is-grouped"
-                        />
-                      ) : null}
-                    </section>
-                  );
-                })}
-              </div>
-            ) : groupMode === "market" ? (
-              <div className="pl-scr-groups" data-screener-view="market">
-                {groupedByMarket.map((grp) => {
-                  const isCollapsed = collapsedGroups.has(`k:${grp.key}`);
-                  return (
-                    <section
-                      key={grp.key}
-                      className="pl-scr-group"
-                      data-screener-market-group={grp.key}
-                    >
-                      <header className="pl-scr-group-head">
-                        <button
-                          type="button"
-                          className="pl-scr-group-toggle"
-                          aria-expanded={!isCollapsed}
-                          onClick={() => toggleGroupCollapse(`k:${grp.key}`)}
-                        >
-                          <strong className="pl-scr-group-title">{grp.label}</strong>
-                          <span className="pl-scr-group-count num">
-                            {grp.items.length} {grp.items.length === 1 ? "pick" : "picks"}
-                          </span>
-                          <MaestroIcon
-                            name="chevronDown"
-                            size={15}
-                            className={`pl-ev-group-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
-                          />
-                        </button>
-                      </header>
+                          <a
+                            href={href}
+                            className="pl-scr-group-ficha"
+                            onPointerEnter={() => prefetchRoute(href)}
+                            onTouchStart={() => prefetchRoute(href)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              navigateTo(href);
+                            }}
+                          >
+                            <span>Ficha</span>
+                            <MaestroIcon name="arrowRight" size={12} />
+                          </a>
+                        </header>
 
-                      {!isCollapsed ? (
-                        <SofascoreTable
-                          caption={`Picks de ${grp.label}`}
-                          columns={fullColumns}
-                          rows={grp.items}
-                          rowKey={(item) => item.pick.id}
-                          density="compact"
-                          className="pl-scr-table-wrap is-grouped"
-                        />
-                      ) : null}
-                    </section>
-                  );
-                })}
-              </div>
-            ) : (
-              <div data-screener-view="flat">
-                <SofascoreTable
-                  caption={`${rows.length} picks filtrados`}
-                  columns={fullColumns}
-                  rows={visibleRows}
-                  rowKey={(item) => item.pick.id}
-                  density="compact"
-                  className="pl-scr-table-wrap"
-                />
-              </div>
-            )}
+                        {!isCollapsed ? (
+                          <>
+                            {renderPickTable(
+                              displayedItems,
+                              `Picks de ${game.home.name} vs ${game.away.name}`,
+                              false,
+                              `m-${game.id}`,
+                            )}
+                            {remainingInMatch > 0 ? (
+                              <div className="pl-scr-group-more">
+                                <button
+                                  type="button"
+                                  className="pl-scr-load-more-game num"
+                                  data-picks-load-more-game={game.id}
+                                  onClick={() => handleLoadMorePicksForGame(game.id)}
+                                >
+                                  Cargar más picks (+{remainingInMatch})
+                                </button>
+                              </div>
+                            ) : null}
+                          </>
+                        ) : null}
+                      </section>
+                    );
+                  })}
 
-            {rows.length > shown ? (
-              <div className="flex justify-center pt-1">
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="default"
-                  className="num"
-                  onClick={() => setShown((n) => n + PICKS_PAGE_STEP)}
-                >
-                  Ver más ({rows.length - shown})
-                </Button>
+                  {canLoadMoreMatches ? (
+                    <div className="pl-scr-more-matches">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="default"
+                        className="num"
+                        disabled={screenerPageFetch.loading}
+                        data-picks-load-more-matches=""
+                        onClick={handleLoadMoreMatches}
+                      >
+                        {screenerPageFetch.loading
+                          ? "Cargando más partidos…"
+                          : visibleGamesCount < allGroupedByMatch.length
+                            ? `Cargar más partidos (+${allGroupedByMatch.length - visibleGamesCount})`
+                            : "Cargar más partidos"}
+                      </Button>
+                    </div>
+                  ) : null}
+                </div>
+              ) : groupMode === "market" ? (
+                <div className="pl-scr-groups" data-screener-view="market">
+                  {groupedByMarket.map((grp) => {
+                    const isCollapsed = collapsedGroups.has(`k:${grp.key}`);
+                    return (
+                      <section
+                        key={grp.key}
+                        className="pl-scr-group"
+                        data-screener-market-group={grp.key}
+                      >
+                        <header className="pl-scr-group-head">
+                          <button
+                            type="button"
+                            className="pl-scr-group-toggle"
+                            aria-expanded={!isCollapsed}
+                            onClick={() => toggleGroupCollapse(`k:${grp.key}`)}
+                          >
+                            <strong className="pl-scr-group-title">{grp.label}</strong>
+                            <span className="pl-scr-group-count num">
+                              {grp.items.length} {grp.items.length === 1 ? "pick" : "picks"}
+                            </span>
+                            <MaestroIcon
+                              name="chevronDown"
+                              size={15}
+                              className={`pl-scr-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
+                            />
+                          </button>
+                        </header>
+
+                        {!isCollapsed
+                          ? renderPickTable(grp.items, `Picks de ${grp.label}`, true, `k-${grp.key}`)
+                          : null}
+                      </section>
+                    );
+                  })}
+
+                  {rows.length > flatShown ? (
+                    <div className="pl-scr-more-matches">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="default"
+                        className="num"
+                        onClick={() => setFlatShown((n) => n + FLAT_PICKS_STEP)}
+                      >
+                        Ver más picks (+{rows.length - flatShown})
+                      </Button>
+                    </div>
+                  ) : null}
+                </div>
+              ) : (
+                <div className="pl-scr-groups" data-screener-view="flat">
+                  <div className="pl-scr-group">
+                    {renderPickTable(
+                      visibleFlatRows,
+                      `${rows.length} picks filtrados`,
+                      true,
+                      "flat",
+                    )}
+                  </div>
+                  {rows.length > flatShown ? (
+                    <div className="pl-scr-more-matches">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="default"
+                        className="num"
+                        onClick={() => setFlatShown((n) => n + FLAT_PICKS_STEP)}
+                      >
+                        Ver más picks (+{rows.length - flatShown})
+                      </Button>
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            </div>
+
+            <aside
+              id="pl-finder-advanced-panel"
+              className="pl-scr-filter-rail"
+              aria-label="Filtros del screener"
+              data-picks-filter-rail=""
+            >
+              <div className="pl-scr-rail-card">
+                <div className="pl-scr-rail-head">
+                  <span className="pl-scr-rail-title">Filtros</span>
+                  {activeAdvancedCount > 0 ? (
+                    <span className="pl-scr-rail-badge num">{activeAdvancedCount}</span>
+                  ) : null}
+                </div>
+                {!mobileSheetOpen ? renderFilterRailContent(false) : null}
               </div>
-            ) : null}
+            </aside>
           </div>
         </div>
 
@@ -3012,7 +4374,7 @@ export function PicksFinderClubView({
             onReset={resetAllFilters}
             onClose={() => setMobileSheetOpen(false)}
           >
-            {renderFilterControls(true)}
+            {renderFilterRailContent(true)}
           </MobileFiltersSheet>
         ) : null}
 
@@ -3024,6 +4386,17 @@ export function PicksFinderClubView({
             onClose={() => setBuilderTarget(null)}
           />
         ) : null}
+
+        <PickEvidenceLabDrawer
+          open={Boolean(activeLabItem)}
+          pick={activeLabItem?.catalogPick ?? null}
+          game={activeLabItem?.game ?? null}
+          relatedPicks={activeLabRelatedPicks}
+          onClose={handleCloseLab}
+          onSelectRelatedPick={handleSelectRelatedPick}
+          onAddToParlay={handleLabAddToParlay}
+          onSealPick={handleLabSealPick}
+        />
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

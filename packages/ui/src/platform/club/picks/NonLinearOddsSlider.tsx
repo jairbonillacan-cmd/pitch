@@ -111,10 +111,12 @@ export function NonLinearOddsSlider({
       <div className="pl-nlos-head">
         <div className="pl-nlos-title-wrap">
           <span className="pl-nlos-title">Rango de momios</span>
-          <span className="pl-nlos-sub">
-            Curva C¹ · precisión 1.30–3.00 · amplia hasta 10.00+
-            {!isUnrestricted ? ` · liquidez ${midpointLiquidityPct} %` : ""}
-          </span>
+          {!compact ? (
+            <span className="pl-nlos-sub">
+              Curva C¹ · precisión 1.30–3.00 · amplia hasta 10.00+
+              {!isUnrestricted ? ` · liquidez ${midpointLiquidityPct} %` : ""}
+            </span>
+          ) : null}
         </div>
         <div className="pl-nlos-readout-row">
           <span className="pl-nlos-readout num" data-odds-range-readout="">

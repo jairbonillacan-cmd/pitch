@@ -28,3 +28,8 @@ export {
   type OddsRangePreset,
 } from "./NonLinearOddsSlider";
 export { SavedViewsBar, type SavedViewsBarProps } from "./SavedViewsBar";
+export {
+  PickEvidenceLabDrawer,
+  type PickEvidenceLabDrawerProps,
+  type PickLabCustomSelection,
+} from "./PickEvidenceLabDrawer";

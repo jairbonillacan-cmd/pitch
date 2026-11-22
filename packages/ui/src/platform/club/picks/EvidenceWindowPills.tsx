@@ -259,15 +259,40 @@ export function extractEvidenceWindows(params: {
 export interface EvidenceWindowPillsProps {
   readonly windows: readonly EvidenceWindowItem[];
   readonly size?: "sm" | "md";
+  readonly layout?: "pills" | "bullets";
   readonly ariaLabel?: string;
 }
 
 export function EvidenceWindowPills({
   windows,
   size = "md",
+  layout = "pills",
   ariaLabel = "Ventanas de evidencia real",
 }: EvidenceWindowPillsProps): React.JSX.Element | null {
   if (windows.length === 0) return null;
+
+  if (layout === "bullets") {
+    return (
+      <ul
+        className="pl-scr-ev-list"
+        aria-label={ariaLabel}
+        data-evidence-windows=""
+      >
+        {windows.map((w, idx) => (
+          <li
+            key={`${w.key}-${w.label}-${idx}`}
+            className="pl-scr-ev-row"
+            data-evidence-window={w.key}
+            title={w.detail ?? `${w.label}: ${w.value}`}
+          >
+            <span className={`pl-scr-ev-dot is-${w.tone}`} aria-hidden="true" />
+            <span className="pl-scr-ev-text">{w.detail ?? w.label}</span>
+            <strong className={`pl-scr-ev-pct is-${w.tone} num`}>{w.value}</strong>
+          </li>
+        ))}
+      </ul>
+    );
+  }
 
   return (
     <div
