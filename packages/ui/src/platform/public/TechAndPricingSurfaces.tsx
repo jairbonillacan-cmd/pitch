@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import {
   Button,
-  SofascoreCard,
-  SofascoreKpiStrip,
-  SofascoreTable,
-  SofascoreTabs,
-  type SofascoreKpiItem,
-  type SofascoreTabItem,
-  type SofascoreTableColumn,
+  EditorialCard,
+  EditorialKpiStrip,
+  EditorialTable,
+  EditorialTabs,
+  type EditorialKpiItem,
+  type EditorialTabItem,
+  type EditorialTableColumn,
 } from "../../components/ui/primitives";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import {
@@ -38,7 +38,7 @@ import type {
 
 export { PublicSharedPickSurface as PublicTipsterPickSurface } from "./AuthAndOnboardingSurfaces";
 
-const ENGINE_COLUMNS: readonly SofascoreTableColumn<SpacetimeEngineSpec>[] = [
+const ENGINE_COLUMNS: readonly EditorialTableColumn<SpacetimeEngineSpec>[] = [
   {
     key: "engine",
     header: "Motor",
@@ -84,7 +84,7 @@ const ENGINE_COLUMNS: readonly SofascoreTableColumn<SpacetimeEngineSpec>[] = [
   },
 ];
 
-const PRECISION_COLUMNS: readonly SofascoreTableColumn<PrecisionBucket>[] = [
+const PRECISION_COLUMNS: readonly EditorialTableColumn<PrecisionBucket>[] = [
   {
     key: "band",
     header: "Banda",
@@ -150,7 +150,7 @@ const PRECISION_COLUMNS: readonly SofascoreTableColumn<PrecisionBucket>[] = [
   },
 ];
 
-const VS_TIPSTER_COLUMNS: readonly SofascoreTableColumn<SpacetimeVsTipsterRow>[] = [
+const VS_TIPSTER_COLUMNS: readonly EditorialTableColumn<SpacetimeVsTipsterRow>[] = [
   {
     key: "criterion",
     header: "Criterio",
@@ -182,7 +182,7 @@ export function TechPrecisionSection({
   const isPrimaryHeading = isStandalone || inClub;
   const PrimaryHeadingTag = isPrimaryHeading ? "h1" : "h2";
 
-  const kpiItems: SofascoreKpiItem[] = [
+  const kpiItems: EditorialKpiItem[] = [
     {
       id: "matches",
       label: "Partidos históricos en los motores",
@@ -221,7 +221,7 @@ export function TechPrecisionSection({
 
   return (
     <section id="motores" className="pl-ed-stack" data-tech-precision-section="">
-      <SofascoreCard>
+      <EditorialCard>
         <div className="pl-ed-stack">
           <div className="pl-ed-head-row">
             <div className="pl-ed-head-copy">
@@ -247,7 +247,7 @@ export function TechPrecisionSection({
             </span>
           </div>
 
-          <SofascoreKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
+          <EditorialKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
 
           <div className="pl-ed-actions">
             <Button
@@ -265,24 +265,24 @@ export function TechPrecisionSection({
             </a>
           </div>
         </div>
-      </SofascoreCard>
+      </EditorialCard>
 
       <div className="pl-ed-table-stack">
-        <SofascoreCard
+        <EditorialCard
           title="Cinco motores propietarios de PitchLab"
           meta="Sin datos posteriores al partido"
         >
-          <SofascoreTable
+          <EditorialTable
             caption="Motores estadísticos de PitchLab, alcance y evidencia fuera de muestra"
             columns={ENGINE_COLUMNS}
             rows={SPACETIME_ENGINES}
             rowKey={(eng) => eng.key}
           />
-        </SofascoreCard>
+        </EditorialCard>
       </div>
 
       <div className="pl-ed-table-stack">
-        <SofascoreCard
+        <EditorialCard
           title="Probabilidad anunciada contra resultado real"
           meta="Bandas de calibración públicas"
         >
@@ -291,29 +291,29 @@ export function TechPrecisionSection({
               Si decimos 70 %, esos picks deberían cumplirse cerca de 7 de cada 10 veces. Aquí
               publicamos la banda de referencia y su seguimiento auditado.
             </p>
-            <SofascoreTable
+            <EditorialTable
               caption="Bandas de calibración anunciada contra resultado auditado"
               columns={PRECISION_COLUMNS}
               rows={PRECISION_BUCKETS}
               rowKey={(bucket) => bucket.id}
             />
           </div>
-        </SofascoreCard>
+        </EditorialCard>
       </div>
 
       <div className="pl-ed-split">
         <div className="pl-ed-table-stack">
-          <SofascoreCard title="PitchLab contra un tipster típico" meta="Comparativa directa">
-            <SofascoreTable
+          <EditorialCard title="PitchLab contra un tipster típico" meta="Comparativa directa">
+            <EditorialTable
               caption="Comparativa estructural entre PitchLab y un tipster típico"
               columns={VS_TIPSTER_COLUMNS}
               rows={SPACETIME_VS_TIPSTER_ROWS}
               rowKey={(row) => row.criterion}
             />
-          </SofascoreCard>
+          </EditorialCard>
         </div>
 
-        <SofascoreCard title="Cortex IA lo explica en claro" meta="Trazabilidad total">
+        <EditorialCard title="Cortex IA lo explica en claro" meta="Trazabilidad total">
           <div className="pl-ed-stack">
             <blockquote className="pl-ed-quote">{CORTEX_SAMPLE_QUOTE}</blockquote>
             <p className="pl-ed-subcopy">
@@ -325,13 +325,13 @@ export function TechPrecisionSection({
               apuestas ni garantizamos resultados futuros.
             </p>
           </div>
-        </SofascoreCard>
+        </EditorialCard>
       </div>
     </section>
   );
 }
 
-const BILLING_TABS: readonly SofascoreTabItem[] = [
+const BILLING_TABS: readonly EditorialTabItem[] = [
   { id: "monthly", label: `Mensual · $${MEMBERSHIP_SPEC.monthlyMxn}` },
   {
     id: "annual",
@@ -427,7 +427,7 @@ export function PlansAndReferralsSection({
           </p>
         </div>
 
-        <SofascoreTabs
+        <EditorialTabs
           items={BILLING_TABS}
           value={billing}
           onChange={(next) => setBilling(next === "annual" ? "annual" : "monthly")}
@@ -437,7 +437,7 @@ export function PlansAndReferralsSection({
       </div>
 
       <div className="pl-ed-pricing-grid">
-        <SofascoreCard
+        <EditorialCard
           title={MEMBERSHIP_SPEC.name}
           meta={month1NoCardMode ? "7 días gratis, sin tarjeta" : "7 días gratis"}
         >
@@ -489,9 +489,9 @@ export function PlansAndReferralsSection({
               </Button>
             </div>
           </div>
-        </SofascoreCard>
+        </EditorialCard>
 
-        <SofascoreCard title="Invita a un amigo y los dos suman días" meta="Referidos Doble Vía">
+        <EditorialCard title="Invita a un amigo y los dos suman días" meta="Referidos Doble Vía">
           <div className="pl-ed-stack">
             <ol className="pl-ver-steps">
               <li className="pl-ver-step">
@@ -535,7 +535,7 @@ export function PlansAndReferralsSection({
               <span>Solicitar perfil Tipster Oficial</span>
             </Button>
           </div>
-        </SofascoreCard>
+        </EditorialCard>
       </div>
     </section>
   );
@@ -589,7 +589,7 @@ export function PricingSurface(): React.JSX.Element {
         <PlansAndReferralsSection isStandalone />
         <TechPrecisionSection />
 
-        <SofascoreCard title="Preguntas frecuentes">
+        <EditorialCard title="Preguntas frecuentes">
           <div className="pl-ed-stack">
             {faqs.map((f, idx) => {
               const isOpen = openFaq === idx;
@@ -609,7 +609,7 @@ export function PricingSurface(): React.JSX.Element {
               );
             })}
           </div>
-        </SofascoreCard>
+        </EditorialCard>
       </main>
       <PublicFooterV4 />
     </AtmosphereStage>

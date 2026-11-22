@@ -4,14 +4,14 @@ import React, { useCallback, useId, useMemo, useRef, useState } from "react";
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   Button,
-  SofascoreCard,
-  SofascoreEmptyState,
-  SofascoreFilterBar,
-  SofascoreTable,
-  SofascoreTabs,
-  SofascoreValueCell,
-  type SofascoreTabItem,
-  type SofascoreTableColumn,
+  EditorialCard,
+  EditorialEmptyState,
+  EditorialFilterBar,
+  EditorialTable,
+  EditorialTabs,
+  EditorialValueCell,
+  type EditorialTabItem,
+  type EditorialTableColumn,
 } from "../../components/ui/primitives";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { DailyResultsCalendar } from "../components/DailyResultsCalendar";
@@ -358,7 +358,7 @@ function evaluatePreKickoffTiming(
   return sealed < ko ? "valid" : "late";
 }
 
-const VERIFIER_MODE_TABS: readonly SofascoreTabItem[] = [
+const VERIFIER_MODE_TABS: readonly EditorialTabItem[] = [
   { id: "json", label: "Recibo JSON" },
   { id: "fields", label: "Por campos" },
 ];
@@ -588,7 +588,7 @@ export function VerificationSurface({
 
   return (
     <div className={className ? `pl-ver-grid ${className}` : "pl-ver-grid"} data-verification-surface="">
-      <SofascoreCard title={title} meta="WebCrypto SHA-256 · 100 % local">
+      <EditorialCard title={title} meta="WebCrypto SHA-256 · 100 % local">
         <div className="pl-ed-stack">
           <p className="pl-ed-subcopy">
             Calcula la huella criptográfica <strong>SHA-256</strong> directamente en tu navegador
@@ -597,7 +597,7 @@ export function VerificationSurface({
           </p>
 
           <div className="pl-ed-head-row">
-            <SofascoreTabs
+            <EditorialTabs
               items={VERIFIER_MODE_TABS}
               value={mode}
               onChange={(next) => {
@@ -938,9 +938,9 @@ export function VerificationSurface({
             ) : null}
           </div>
         </div>
-      </SofascoreCard>
+      </EditorialCard>
 
-      <SofascoreCard title="Cómo funciona el registro previo inmutable" meta="Sin servidor externo">
+      <EditorialCard title="Cómo funciona el registro previo inmutable" meta="Sin servidor externo">
         <div className="pl-ed-stack">
           <ol className="pl-ver-steps">
             <li className="pl-ver-step">
@@ -990,20 +990,20 @@ export function VerificationSurface({
             </a>
           </div>
         </div>
-      </SofascoreCard>
+      </EditorialCard>
     </div>
   );
 }
 
 const RESULTS_PAGE_SIZE = 20;
 
-const OUTCOME_FILTER_TABS: readonly SofascoreTabItem[] = [
+const OUTCOME_FILTER_TABS: readonly EditorialTabItem[] = [
   { id: "all", label: "Todos" },
   { id: "hit", label: "Cumplidos" },
   { id: "miss", label: "No cumplidos" },
 ];
 
-const VIEW_MODE_TABS: readonly SofascoreTabItem[] = [
+const VIEW_MODE_TABS: readonly EditorialTabItem[] = [
   { id: "list", label: "Lista" },
   { id: "calendar", label: "Calendario" },
 ];
@@ -1015,7 +1015,7 @@ function formatScoreShort(item: LandingFinishedResultItem): string {
   return item.scoreLabel;
 }
 
-const RESULTS_TABLE_COLUMNS: readonly SofascoreTableColumn<LandingFinishedResultItem>[] = [
+const RESULTS_TABLE_COLUMNS: readonly EditorialTableColumn<LandingFinishedResultItem>[] = [
   {
     key: "match",
     header: "Partido",
@@ -1064,7 +1064,7 @@ const RESULTS_TABLE_COLUMNS: readonly SofascoreTableColumn<LandingFinishedResult
     numeric: true,
     align: "end",
     render: (item) => (
-      <SofascoreValueCell probPct={item.p * 100} fairLabel={item.fairAmerican} />
+      <EditorialValueCell probPct={item.p * 100} fairLabel={item.fairAmerican} />
     ),
   },
   {
@@ -1197,7 +1197,7 @@ export function ResultadosEditorialBoard({
         </div>
       ) : null}
 
-      <SofascoreFilterBar
+      <EditorialFilterBar
         searchValue={searchQuery}
         onSearchChange={(next) => {
           setSearchQuery(next);
@@ -1208,7 +1208,7 @@ export function ResultadosEditorialBoard({
         trailing={
           hasCalendarDates ? (
             <div data-public-results-view-toggle="">
-              <SofascoreTabs
+              <EditorialTabs
                 items={VIEW_MODE_TABS}
                 value={viewMode}
                 onChange={(next) => setViewMode(next === "calendar" ? "calendar" : "list")}
@@ -1219,7 +1219,7 @@ export function ResultadosEditorialBoard({
           ) : undefined
         }
       >
-        <SofascoreTabs
+        <EditorialTabs
           items={OUTCOME_FILTER_TABS}
           value={outcomeFilter}
           onChange={(next) => {
@@ -1229,23 +1229,23 @@ export function ResultadosEditorialBoard({
           variant="segmented"
           ariaLabel="Filtrar por calificación final"
         />
-      </SofascoreFilterBar>
+      </EditorialFilterBar>
 
       {viewMode === "calendar" && hasCalendarDates ? (
-        <SofascoreCard
+        <EditorialCard
           title="Calendario diario de partidos FT"
           meta={`${hitsCount} cumplidos · ${missesCount} no cumplidos`}
         >
           <DailyResultsCalendar buildMonth={buildPublicCalendar} mode="model" />
-        </SofascoreCard>
+        </EditorialCard>
       ) : (
         <div className="pl-ed-table-stack">
-          <SofascoreCard
+          <EditorialCard
             title="Registro público de partidos finalizados (FT)"
             meta={`${hitsCount} cumplidos · ${missesCount} no cumplidos`}
           >
             {filtered.length === 0 ? (
-              <SofascoreEmptyState
+              <EditorialEmptyState
                 title="Sin resultados para este filtro"
                 description="Ajusta la liga, el texto de búsqueda o vuelve a mostrar todos los resultados publicados."
                 actionLabel={
@@ -1261,7 +1261,7 @@ export function ResultadosEditorialBoard({
               />
             ) : (
               <>
-                <SofascoreTable
+                <EditorialTable
                   caption="Partidos finalizados calificados públicamente sin omitir fallos"
                   columns={RESULTS_TABLE_COLUMNS}
                   rows={visibleItems}
@@ -1284,7 +1284,7 @@ export function ResultadosEditorialBoard({
                 </div>
               </>
             )}
-          </SofascoreCard>
+          </EditorialCard>
         </div>
       )}
     </div>

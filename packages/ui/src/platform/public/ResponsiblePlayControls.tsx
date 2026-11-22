@@ -5,7 +5,7 @@ import {
   Button,
   SettingsGroup,
   SettingsRow,
-  SofascoreCard,
+  EditorialCard,
 } from "../../components/ui/primitives";
 import {
   readStoredPrefs,
@@ -202,7 +202,7 @@ export function ResponsiblePlayControls({
       className={className ? `pl-rp-root ${className}` : "pl-rp-root"}
       data-responsible-play-controls=""
     >
-      <SofascoreCard
+      <EditorialCard
         title="Controles inmediatos de descanso y autocontrol"
         meta={hasSession ? "Sesión detectada" : "Disponible sin registro"}
       >
@@ -305,9 +305,9 @@ export function ResponsiblePlayControls({
             />
           </SettingsGroup>
         </div>
-      </SofascoreCard>
+      </EditorialCard>
 
-      <SofascoreCard
+      <EditorialCard
         title="Ayuda gratuita y confidencial en México"
         meta="Atención inmediata"
       >
@@ -337,7 +337,7 @@ export function ResponsiblePlayControls({
             </a>
           </div>
         </div>
-      </SofascoreCard>
+      </EditorialCard>
     </div>
   );
 }

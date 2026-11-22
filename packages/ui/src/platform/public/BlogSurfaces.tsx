@@ -45,7 +45,7 @@ function Breadcrumbs({ items }: { items: ReadonlyArray<{ label: string; href?: s
         {items.map((item, index) => (
           <li key={`${item.label}-${index}`}>
             {item.href ? (
-              <a href={item.href} className="inline-flex min-h-11 items-center sm:min-h-8">
+              <a href={item.href} className="inline-flex min-h-11 min-w-11 items-center justify-center px-1.5 sm:min-h-8 sm:min-w-0 sm:justify-start sm:px-0">
                 {item.label}
               </a>
             ) : (
@@ -277,7 +277,7 @@ export function BlogPostSurface({
                 <p>
                   <strong>Información para decidir, no una garantía.</strong> PitchLab no acepta apuestas y es solo
                   para mayores de 18. Si el juego deja de ser un pasatiempo, llama sin costo a la Línea de la Vida:{" "}
-                  <a href="tel:8009112000" className="num">800 911 2000</a>.
+                  <a href="tel:8009112000" className="inline-flex min-h-11 items-center sm:inline sm:min-h-0 num">800 911 2000</a>.
                 </p>
               </aside>
             </footer>

@@ -543,7 +543,7 @@ export function PublicSharedPickSurface({
                       "success",
                     );
                   }}
-                  className="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold cursor-pointer"
+                  className="inline-flex min-h-11 sm:min-h-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold cursor-pointer"
                   style={{
                     background: "var(--share-card-surface)",
                     border: "1px solid var(--share-card-border)",

@@ -11,7 +11,7 @@ function joinClasses(
     .join(" ");
 }
 
-export interface SofascoreCardProps {
+export interface EditorialCardProps {
   title?: string;
   meta?: React.ReactNode;
   density?: "default" | "compact";
@@ -21,7 +21,7 @@ export interface SofascoreCardProps {
   children: React.ReactNode;
 }
 
-export function SofascoreCard({
+export function EditorialCard({
   title,
   meta,
   density = "default",
@@ -29,7 +29,7 @@ export function SofascoreCard({
   id,
   className,
   children,
-}: SofascoreCardProps): React.JSX.Element {
+}: EditorialCardProps): React.JSX.Element {
   const autoHeadingId = useId();
   const headingId = title ? (id ? `${id}-title` : autoHeadingId) : undefined;
   const regionLabelledBy = Component === "div" ? undefined : headingId;
@@ -62,7 +62,7 @@ export function SofascoreCard({
   );
 }
 
-export interface SofascoreTableColumn<T> {
+export interface EditorialTableColumn<T> {
   key: string;
   header: string;
   align?: "start" | "end";
@@ -71,9 +71,9 @@ export interface SofascoreTableColumn<T> {
   render: (row: T, index: number) => React.ReactNode;
 }
 
-export interface SofascoreTableProps<T> {
+export interface EditorialTableProps<T> {
   caption: string;
-  columns: readonly SofascoreTableColumn<T>[];
+  columns: readonly EditorialTableColumn<T>[];
   rows: readonly T[];
   rowKey: (row: T, index: number) => string;
   density?: "default" | "compact";
@@ -82,7 +82,7 @@ export interface SofascoreTableProps<T> {
   className?: string;
 }
 
-export function SofascoreTable<T>({
+export function EditorialTable<T>({
   caption,
   columns,
   rows,
@@ -91,7 +91,7 @@ export function SofascoreTable<T>({
   onRowClick,
   emptyState,
   className,
-}: SofascoreTableProps<T>): React.JSX.Element {
+}: EditorialTableProps<T>): React.JSX.Element {
   const captionId = useId();
   const firstStickyIndex = columns.findIndex((col) => col.sticky);
 
@@ -101,7 +101,7 @@ export function SofascoreTable<T>({
         className={joinClasses("pl-sf-table-empty-wrap", className)}
         data-pl-sf-table="empty"
       >
-        {emptyState ?? <SofascoreEmptyState title="Sin datos para mostrar" />}
+        {emptyState ?? <EditorialEmptyState title="Sin datos para mostrar" />}
       </div>
     );
   }
@@ -200,7 +200,7 @@ export function SofascoreTable<T>({
   );
 }
 
-export interface SofascoreSignalPairProps {
+export interface EditorialSignalPairProps {
   evPct?: number | null;
   movement?: "steam" | "shortening" | "drifting" | "stable" | null;
   compact?: boolean;
@@ -214,11 +214,11 @@ const MOVEMENT_META: Readonly<
   drifting: { label: "↑ Subiendo", shortLabel: "↑ Sube" },
 };
 
-export function SofascoreSignalPair({
+export function EditorialSignalPair({
   evPct,
   movement,
   compact = false,
-}: SofascoreSignalPairProps): React.JSX.Element | null {
+}: EditorialSignalPairProps): React.JSX.Element | null {
   const validEvPct =
     typeof evPct === "number" && Number.isFinite(evPct) ? evPct : null;
   const movementSpec =
@@ -265,7 +265,7 @@ export function SofascoreSignalPair({
   );
 }
 
-export interface SofascoreValueCellProps {
+export interface EditorialValueCellProps {
   probPct: number;
   fairLabel: string;
   bestBookLabel?: string | null;
@@ -273,13 +273,13 @@ export interface SofascoreValueCellProps {
   evPct?: number | null;
 }
 
-export function SofascoreValueCell({
+export function EditorialValueCell({
   probPct,
   fairLabel,
   bestBookLabel,
   bestOddsLabel,
   evPct,
-}: SofascoreValueCellProps): React.JSX.Element {
+}: EditorialValueCellProps): React.JSX.Element {
   const formattedProb = Number.isFinite(probPct) ? `${probPct.toFixed(1)}%` : "—";
   const validEvPct =
     typeof evPct === "number" && Number.isFinite(evPct) ? evPct : null;
@@ -320,7 +320,7 @@ export function SofascoreValueCell({
   );
 }
 
-export interface SofascoreKpiItem {
+export interface EditorialKpiItem {
   id: string;
   label: string;
   value: string;
@@ -328,15 +328,15 @@ export interface SofascoreKpiItem {
   tone?: "default" | "positive" | "negative" | "brand";
 }
 
-export interface SofascoreKpiStripProps {
-  items: readonly SofascoreKpiItem[];
+export interface EditorialKpiStripProps {
+  items: readonly EditorialKpiItem[];
   className?: string;
 }
 
-export function SofascoreKpiStrip({
+export function EditorialKpiStrip({
   items,
   className,
-}: SofascoreKpiStripProps): React.JSX.Element | null {
+}: EditorialKpiStripProps): React.JSX.Element | null {
   if (items.length === 0) {
     return null;
   }
@@ -368,15 +368,15 @@ export function SofascoreKpiStrip({
   );
 }
 
-export interface SofascoreTabItem {
+export interface EditorialTabItem {
   id: string;
   label: string;
   count?: number;
   disabled?: boolean;
 }
 
-export interface SofascoreTabsProps {
-  items: readonly SofascoreTabItem[];
+export interface EditorialTabsProps {
+  items: readonly EditorialTabItem[];
   value: string;
   onChange: (id: string) => void;
   variant?: "underline" | "segmented";
@@ -403,21 +403,21 @@ function scrollTabIntoView(element: HTMLButtonElement | null): void {
   }
 }
 
-export function SofascoreTabs({
+export function EditorialTabs({
   items,
   value,
   onChange,
   variant = "underline",
   ariaLabel,
   className,
-}: SofascoreTabsProps): React.JSX.Element {
+}: EditorialTabsProps): React.JSX.Element {
   const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const enabledItems = items.filter((item) => !item.disabled);
   const focusableId = enabledItems.some((item) => item.id === value)
     ? value
     : (enabledItems[0]?.id ?? "");
 
-  const activateTab = (target: SofascoreTabItem): void => {
+  const activateTab = (target: EditorialTabItem): void => {
     const node = buttonRefs.current[target.id] ?? null;
     node?.focus();
     scrollTabIntoView(node);
@@ -505,7 +505,7 @@ export function SofascoreTabs({
   );
 }
 
-export interface SofascoreFilterBarProps {
+export interface EditorialFilterBarProps {
   searchValue?: string;
   onSearchChange?: (next: string) => void;
   searchPlaceholder?: string;
@@ -515,7 +515,7 @@ export interface SofascoreFilterBarProps {
   className?: string;
 }
 
-export function SofascoreFilterBar({
+export function EditorialFilterBar({
   searchValue = "",
   onSearchChange,
   searchPlaceholder = "Buscar…",
@@ -523,7 +523,7 @@ export function SofascoreFilterBar({
   trailing,
   children,
   className,
-}: SofascoreFilterBarProps): React.JSX.Element {
+}: EditorialFilterBarProps): React.JSX.Element {
   const searchInputId = useId();
   const validCount =
     typeof resultCount === "number" && Number.isFinite(resultCount)
@@ -585,7 +585,7 @@ export function SofascoreFilterBar({
   );
 }
 
-export interface SofascoreEmptyStateProps {
+export interface EditorialEmptyStateProps {
   title: string;
   description?: string;
   actionLabel?: string;
@@ -593,13 +593,13 @@ export interface SofascoreEmptyStateProps {
   className?: string;
 }
 
-export function SofascoreEmptyState({
+export function EditorialEmptyState({
   title,
   description,
   actionLabel,
   onAction,
   className,
-}: SofascoreEmptyStateProps): React.JSX.Element {
+}: EditorialEmptyStateProps): React.JSX.Element {
   return (
     <div className={joinClasses("pl-sf-empty", className)} data-pl-sf-empty="">
       <p className="pl-sf-empty-title">{title}</p>

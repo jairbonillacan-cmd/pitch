@@ -4,8 +4,8 @@ import React, { useMemo } from "react";
 import type { PublicMemberProfile } from "@pitchlab/contracts";
 import {
   Button,
-  SofascoreCard,
-  SofascoreEmptyState,
+  EditorialCard,
+  EditorialEmptyState,
 } from "../../components/ui/primitives";
 import type { BadgeView } from "../badges";
 import {
@@ -98,7 +98,7 @@ export function PublicAnalystProfileSurface({
         className="pl-page-enter pl-prof pl-prof--public"
         data-public-profile-page={profile.handle}
       >
-        <SofascoreCard as="section" className="pl-prof-head-card">
+        <EditorialCard as="section" className="pl-prof-head-card">
           <div className="pl-prof-editorial-head">
             <div className="pl-prof-editorial-identity">
               <Avatar
@@ -182,16 +182,16 @@ export function PublicAnalystProfileSurface({
               </Button>
             </div>
           </div>
-        </SofascoreCard>
+        </EditorialCard>
 
         <section aria-label="Récord sellado">
           {publicRecord === null ? (
-            <SofascoreCard title="Récord sellado" meta="En unidades">
-              <SofascoreEmptyState
+            <EditorialCard title="Récord sellado" meta="En unidades">
+              <EditorialEmptyState
                 title={`@${profile.handle} todavía no tiene picks cerrados publicados`}
                 description="Todas las cifras públicas se expresan en unidades, sin montos en pesos."
               />
-            </SofascoreCard>
+            </EditorialCard>
           ) : (
             <PublicRecordPreviewCard
               handle={profile.handle}
@@ -217,7 +217,7 @@ export function PublicAnalystProfileSurface({
           <ProfileBadgesSection isOwn={false} publicBadges={badges.public} />
         ) : null}
 
-        <SofascoreCard as="section" className="pl-prof-public-cta">
+        <EditorialCard as="section" className="pl-prof-public-cta">
           <div className="pl-prof-public-cta-row">
             <div className="pl-prof-public-cta-copy">
               <h2 className="pl-prof-public-cta-title">
@@ -239,7 +239,7 @@ export function PublicAnalystProfileSurface({
               </span>
             </Button>
           </div>
-        </SofascoreCard>
+        </EditorialCard>
       </div>
     </PublicSiteShell>
   );

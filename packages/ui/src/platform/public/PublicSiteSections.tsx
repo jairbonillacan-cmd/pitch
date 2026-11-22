@@ -7,9 +7,9 @@ import {
   type LeagueId,
 } from "@pitchlab/contracts";
 import {
-  SofascoreCard,
-  SofascoreKpiStrip,
-  type SofascoreKpiItem,
+  EditorialCard,
+  EditorialKpiStrip,
+  type EditorialKpiItem,
 } from "../../components/ui/primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
@@ -942,7 +942,7 @@ export function EnginesSection({
 }: {
   variant?: "teaser" | "page";
 }): React.JSX.Element {
-  const kpiItems: SofascoreKpiItem[] = [
+  const kpiItems: EditorialKpiItem[] = [
     {
       id: "historical",
       label: "Partidos históricos en los motores",
@@ -994,10 +994,10 @@ export function EnginesSection({
           </span>
         </div>
 
-        <SofascoreKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
+        <EditorialKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
 
         <div className="pl-ed-table-stack">
-          <SofascoreCard
+          <EditorialCard
             title="Cinco motores propietarios de PitchLab"
             meta={`${SPACETIME_ENGINES.length} modelos activos`}
           >
@@ -1075,12 +1075,12 @@ export function EnginesSection({
                 aprender. El acierto pasado no garantiza resultados futuros.
               </p>
             </div>
-          </SofascoreCard>
+          </EditorialCard>
         </div>
 
         <div className="pl-ed-split">
           <div className="pl-ed-table-stack">
-            <SofascoreCard title="PitchLab contra un tipster típico" meta="Comparativa directa">
+            <EditorialCard title="PitchLab contra un tipster típico" meta="Comparativa directa">
               <div
                 className="pl-sf-table-wrap"
                 tabIndex={0}
@@ -1122,10 +1122,10 @@ export function EnginesSection({
                   </tbody>
                 </table>
               </div>
-            </SofascoreCard>
+            </EditorialCard>
           </div>
 
-          <SofascoreCard title="Cortex IA lo explica en claro" meta="Cero datos inventados">
+          <EditorialCard title="Cortex IA lo explica en claro" meta="Cero datos inventados">
             <div className="pl-ed-stack">
               <blockquote className="pl-ed-quote">{CORTEX_SAMPLE_QUOTE}</blockquote>
               <p className="pl-ed-subcopy">
@@ -1149,7 +1149,7 @@ export function EnginesSection({
                 )}
               </div>
             </div>
-          </SofascoreCard>
+          </EditorialCard>
         </div>
       </div>
     </section>
@@ -1215,7 +1215,7 @@ export function CalibrationCard({
   const hasPending = rows.some((row) => row.actualPct === null);
 
   return (
-    <SofascoreCard
+    <EditorialCard
       title="Probabilidad anunciada contra resultado real"
       meta={hasObserved ? `${validResults.length} picks FT` : "Bandas calibradas"}
     >
@@ -1278,7 +1278,7 @@ export function CalibrationCard({
           ) : null}
         </div>
       </div>
-    </SofascoreCard>
+    </EditorialCard>
   );
 }
 
@@ -1872,7 +1872,7 @@ export function ResultadosPageSurface({
   hasSession?: boolean;
 }): React.JSX.Element {
   const stats = computePublicResultsSummary(results);
-  const kpiItems: SofascoreKpiItem[] = [
+  const kpiItems: EditorialKpiItem[] = [
     {
       id: "settled",
       label: "Partidos FT auditados",
@@ -1928,7 +1928,7 @@ export function ResultadosPageSurface({
               </div>
             </div>
 
-            <SofascoreKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
+            <EditorialKpiStrip items={kpiItems} className="pl-ed-kpi-4" />
           </div>
 
           <ResultadosEditorialBoard results={results} />
