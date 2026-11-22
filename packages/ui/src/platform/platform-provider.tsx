@@ -1473,7 +1473,12 @@ export function PlatformProvider({
         sealedAtIso: new Date().toISOString(),
         note: sanitizeJournalDisplayNote(note) ?? undefined,
       };
+      const hadInParlay = parlayLegs.some((leg) => leg.pick.id === pick.id);
+      const previousLegs = parlayLegs;
       setJournal((prev) => [entry, ...prev]);
+      if (hadInParlay) {
+        setParlayLegs((prev) => prev.filter((leg) => leg.pick.id !== pick.id));
+      }
       setComposerPick(null);
       triggerHaptic(10);
       pushToast(`Pick registrado en tu bitácora (${entry.units}u).`, "success");
@@ -1483,12 +1488,15 @@ export function PlatformProvider({
             setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
           } else if (res.reason && res.reason !== "sin_sesion") {
             setJournal((prev) => prev.filter((j) => j.id !== entry.id));
+            if (hadInParlay) {
+              setParlayLegs(previousLegs);
+            }
             pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el pick.", "warning");
           }
         });
       }
     },
-    [dataset.games, pushToast, hasAccountSessionAuth],
+    [dataset.games, pushToast, hasAccountSessionAuth, parlayLegs],
   );
 
   const sealParlayToJournal = useCallback(
@@ -1600,10 +1608,13 @@ export function PlatformProvider({
         sealedAtIso: new Date().toISOString(),
         note: cleanNote,
       };
+      const previousLegs = parlayLegs;
+      const sealedLegsCount = previousLegs.length;
       setJournal((prev) => [entry, ...prev]);
+      setParlayLegs([]);
       triggerHaptic(10);
       pushToast(
-        `Boleto combinado de ${parlaySummary.legs.length} selecciones sellado en Bitácora.`,
+        `Boleto combinado de ${sealedLegsCount} selecciones sellado en Mi récord.`,
         "success",
       );
       if (hasAccountSessionAuth) {
@@ -1612,12 +1623,13 @@ export function PlatformProvider({
             setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
           } else if (res.reason && res.reason !== "sin_sesion") {
             setJournal((prev) => prev.filter((j) => j.id !== entry.id));
+            setParlayLegs(previousLegs);
             pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el parlay.", "warning");
           }
         });
       }
     },
-    [parlaySummary, dataset.games, hasAccountSessionAuth, pushToast],
+    [parlayLegs, parlaySummary, dataset.games, hasAccountSessionAuth, pushToast],
   );
 
   const exportJournalCsv = useCallback((): string => {

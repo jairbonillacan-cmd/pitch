@@ -195,6 +195,16 @@ export function MobileParlaySheet({
 
   useSafeEffect(() => {
     const dialog = dialogRef.current;
+    if (!hasLegs) {
+      if (dialog?.open) {
+        dialog.returnValue = "";
+        dialog.close();
+      }
+      if (open) {
+        setOpen(false);
+      }
+      return;
+    }
     if (!dialog) return;
     if (open && !dialog.open) {
       dialog.removeAttribute("data-closing");

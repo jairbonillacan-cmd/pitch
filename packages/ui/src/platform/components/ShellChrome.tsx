@@ -1610,8 +1610,9 @@ function ClubWorkspaceShellImpl({
               aria-label="Menú de tu cuenta"
               onKeyDown={onProfileMenuKeyDown}
               style={profileSheetSwipe.sheetStyle}
+              {...profileSheetSwipe.handleProps}
             >
-              <div className="pl-profile-menu-sheet-top" {...profileSheetSwipe.handleProps}>
+              <div className="pl-profile-menu-sheet-top">
                 <span className="pl-profile-menu-grab" aria-hidden="true" />
                 <button
                   type="button"

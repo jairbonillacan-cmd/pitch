@@ -23185,7 +23185,20 @@ dialog::backdrop {
     display: grid;
     grid-template-columns: 44px minmax(0, 1fr) 44px;
     align-items: center;
+    min-height: 44px;
     padding: 2px 0 4px;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .pl-profile-menu-head,
+  .pl-notif-head {
+    touch-action: none;
+    user-select: none;
+  }
+
+  .pl-notif-menu > .pl-profile-menu-sheet-top {
+    padding: 8px 12px 2px;
   }
 
   .pl-profile-menu-sheet-top .pl-profile-menu-grab {

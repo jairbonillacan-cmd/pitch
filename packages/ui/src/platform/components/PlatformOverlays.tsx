@@ -321,7 +321,7 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
                   title: `Combinada PitchLab (${parlaySummary.legs.length} picks)`,
                   subtitle: parlaySummary.hasSgpCorrelation
                     ? "Mismo partido, con ajuste por correlación"
-                    : "Multi-liga calibrada con Spacetime Suite v3.0",
+                    : "Multi-liga calibrada con Spacetime Suite",
                   leagueLabel: "Parlay Inteligente",
                   pickLabel: parlaySummary.legs
                     .map((l) => l.pick.label)

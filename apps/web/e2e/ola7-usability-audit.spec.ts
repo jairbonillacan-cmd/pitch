@@ -1269,6 +1269,11 @@ test.describe("Ola 7 · Auditoría E2E de Usabilidad, Íconos WebP, Logos, Ligas
       )
       .toBeGreaterThan(0);
 
+    await expect(page.locator("[data-parlay-dock]")).toHaveCount(0);
+    if ((await page.getByText("Tu boleto combinado está vacío").count()) > 0) {
+      await expect(page.getByText("Tu boleto combinado está vacío")).toBeVisible();
+    }
+
     monitors.assertClean(`/app/parlays (${testInfo.project.name})`);
   });
 
@@ -1359,6 +1364,11 @@ test.describe("Ola 7 · Auditoría E2E de Usabilidad, Íconos WebP, Logos, Ligas
         }),
       )
       .toBeGreaterThan(0);
+
+    await expect(page.locator("[data-parlay-dock]")).toHaveCount(0);
+    if ((await page.getByText("Tu boleto combinado está vacío").count()) > 0) {
+      await expect(page.getByText("Tu boleto combinado está vacío")).toBeVisible();
+    }
 
     await navigateClean(page, "/app/lab");
     await expect(page.getByRole("heading", { level: 1, name: /Mi r[eé]cord/i })).toBeVisible();
