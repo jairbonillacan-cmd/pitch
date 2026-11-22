@@ -506,17 +506,29 @@ export function resolveMarketCategoryIconKey(familyOrMetric: string): MarketCate
 function PackAssetImg({
   assetPath,
   size,
+  variantClass,
   className,
   label,
 }: {
   readonly assetPath: string;
   readonly size: number;
-  readonly className: string;
+  readonly variantClass: string;
+  readonly className?: string;
   readonly label?: string;
 }): React.JSX.Element {
   const iconBase = usePackIconBase();
   const sources = buildPackIconSources(iconBase, assetPath);
   const accessibleLabel = label?.trim() ?? "";
+  const resolvedClassName = [
+    "pl-maestro-icon",
+    "pl-pack-icon",
+    variantClass,
+    "inline-block",
+    "shrink-0",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <img
@@ -528,7 +540,7 @@ function PackAssetImg({
       aria-hidden={accessibleLabel ? undefined : true}
       decoding="async"
       draggable={false}
-      className={className}
+      className={resolvedClassName}
     />
   );
 }
@@ -548,22 +560,13 @@ export function MarketCategoryIcon({
 }): React.JSX.Element {
   const resolvedKey: MarketCategoryIconName =
     name ?? (family ? resolveMarketCategoryIconKey(family) : "result-1x2");
-  const cls = [
-    "pl-maestro-icon",
-    "pl-pack-icon",
-    "pl-pack-icon--market",
-    "inline-block",
-    "shrink-0",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
 
   return (
     <PackAssetImg
       assetPath={`mercados/${resolvedKey}`}
       size={size}
-      className={cls}
+      variantClass="pl-pack-icon--market"
+      className={className}
       label={label}
     />
   );
@@ -580,22 +583,12 @@ export function PlayerMetaIcon({
   readonly className?: string;
   readonly label?: string;
 }): React.JSX.Element {
-  const cls = [
-    "pl-maestro-icon",
-    "pl-pack-icon",
-    "pl-pack-icon--player",
-    "inline-block",
-    "shrink-0",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <PackAssetImg
       assetPath={`jugador/${name}`}
       size={size}
-      className={cls}
+      variantClass="pl-pack-icon--player"
+      className={className}
       label={label}
     />
   );
@@ -612,22 +605,12 @@ export function MatchContextIcon({
   readonly className?: string;
   readonly label?: string;
 }): React.JSX.Element {
-  const cls = [
-    "pl-maestro-icon",
-    "pl-pack-icon",
-    "pl-pack-icon--context",
-    "inline-block",
-    "shrink-0",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <PackAssetImg
       assetPath={`contexto/${name}`}
       size={size}
-      className={cls}
+      variantClass="pl-pack-icon--context"
+      className={className}
       label={label}
     />
   );

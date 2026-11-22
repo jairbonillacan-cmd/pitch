@@ -8,12 +8,12 @@ const themeListeners = new Set<() => void>();
 let sharedObserver: MutationObserver | null = null;
 
 function readCurrentPackBase(): PackIconBase {
-  if (typeof document === "undefined") return "/icons";
+  if (typeof document === "undefined") return "/icons-dark";
   return document.documentElement.dataset.theme === "light" ? "/icons" : "/icons-dark";
 }
 
 function readServerPackBase(): PackIconBase {
-  return "/icons";
+  return "/icons-dark";
 }
 
 function ensureSharedObserver(): void {
@@ -67,7 +67,7 @@ export function buildPackIconSources(
 }
 
 export function resolveThemedPackUrl(url: string, base: PackIconBase): string {
-  if (base === "/icons") return url;
+  if (base === "/icons") return url.replace(/^\/icons-dark\//, "/icons/");
   return url.replace(/^\/icons\//, "/icons-dark/");
 }
 
@@ -76,6 +76,6 @@ export function resolveThemedPackSrcSet(
   base: PackIconBase,
 ): string | undefined {
   if (!srcSet) return undefined;
-  if (base === "/icons") return srcSet;
+  if (base === "/icons") return srcSet.replace(/\/icons-dark\//g, "/icons/");
   return srcSet.replace(/\/icons\//g, "/icons-dark/");
 }

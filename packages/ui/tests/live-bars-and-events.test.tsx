@@ -9,7 +9,10 @@ import {
   type LiveTeamStats,
   type MatchAnalysis,
 } from "@pitchlab/contracts";
-import { SportEventIcon } from "../src/platform/components/SportEventIcons";
+import {
+  SportEventIcon,
+  resolveSportEventAssetPath,
+} from "../src/platform/components/SportEventIcons";
 import {
   LiveStatBars,
   MomentumChart,
@@ -158,7 +161,7 @@ describe("ADR-054 · Barras estadísticas planas, métricas negativas, iconos y 
     expect(html).toContain('data-negative="true"');
   });
 
-  it("SportEventIcon renderiza SVG planos sin colores hex literales para cada incidente deportivo", () => {
+  it("SportEventIcon renderiza WebP del pack con srcSet 1x/2x, dimensiones explícitas y sin hex literales para cada incidente deportivo", () => {
     const kinds = [
       "goal",
       "own_goal",
@@ -173,8 +176,17 @@ describe("ADR-054 · Barras estadísticas planas, métricas negativas, iconos y 
       "whistle",
     ] as const;
     for (const kind of kinds) {
-      const html = renderToStaticMarkup(<SportEventIcon kind={kind} size={15} />);
-      expect(html).toContain("<svg");
+      const asset = resolveSportEventAssetPath(kind);
+      const html = renderToStaticMarkup(<SportEventIcon kind={kind} size={14} />);
+      expect(html).toContain("<img");
+      expect(html).not.toContain("<svg");
+      expect(html).toContain(`src="/icons-dark/32/${asset}.webp"`);
+      expect(html).toContain(`srcset="/icons-dark/32/${asset}.webp 1x, /icons-dark/64/${asset}.webp 2x"`);
+      expect(html).toContain('width="14"');
+      expect(html).toContain('height="14"');
+      expect(html).toContain('aria-hidden="true"');
+      expect(html).toContain('alt=""');
+      expect(html).toContain("pl-sport-evt-ico");
       expect(html).not.toMatch(/#[0-9a-fA-F]{3,6}\b/);
     }
   });

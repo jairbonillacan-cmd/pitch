@@ -225,7 +225,7 @@ export function MaestroIcon({
       aria-hidden={accessibleLabel ? undefined : true}
       decoding="async"
       draggable={false}
-      className={["pl-maestro-icon inline-block shrink-0", className].filter(Boolean).join(" ")}
+      className={["pl-maestro-icon", "pl-pack-icon", "inline-block", "shrink-0", className].filter(Boolean).join(" ")}
       style={style}
     />
   );
@@ -673,7 +673,7 @@ export function VerifiedBadge({
     <img
       src={sources.src}
       srcSet={sources.srcSet}
-      className={`pl-verified pl-maestro-icon inline-block shrink-0 ${className ?? ""}`.trim()}
+      className={["pl-verified", "pl-maestro-icon", "pl-pack-icon", "inline-block", "shrink-0", className].filter(Boolean).join(" ")}
       width={size}
       height={size}
       alt="Verificado"
@@ -707,7 +707,7 @@ export function VerifiedSeal({
     <img
       src={sources.src}
       srcSet={sources.srcSet}
-      className={["pl-seal pl-maestro-icon inline-block shrink-0", className].filter(Boolean).join(" ")}
+      className={["pl-seal", "pl-maestro-icon", "pl-pack-icon", "inline-block", "shrink-0", className].filter(Boolean).join(" ")}
       width={size}
       height={size}
       alt={decorative ? "" : "Verificado"}
