@@ -24,24 +24,36 @@
   }
 
   .pl-ta-notice {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 12px 14px;
+    padding: 12px 14px 12px 18px;
     border-radius: var(--radius-panel, 12px);
     border: 1px solid var(--pl-border);
-    border-inline-start: 3px solid var(--pl-brand);
     background: var(--pl-surface);
     min-inline-size: 0;
     max-inline-size: 100%;
+    --pl-ta-notice-accent: var(--pl-brand);
+  }
+
+  .pl-ta-notice::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 6px;
+    inset-block: 10px;
+    inline-size: 3px;
+    border-radius: 1.5px;
+    background: var(--pl-ta-notice-accent);
+    pointer-events: none;
   }
 
   .pl-ta-notice[data-tone="warning"] {
-    border-inline-start-color: var(--pl-warning);
+    --pl-ta-notice-accent: var(--pl-warning);
   }
 
   .pl-ta-notice[data-tone="success"] {
-    border-inline-start-color: var(--pl-success);
+    --pl-ta-notice-accent: var(--pl-success);
   }
 
   .pl-ta-notice-head {
@@ -411,15 +423,27 @@
   }
 
   .pl-ta-quote {
+    position: relative;
     margin: 0;
-    padding: 10px 12px;
+    padding: 10px 12px 10px 16px;
     border-radius: var(--radius-control, 8px);
-    border-inline-start: 3px solid var(--pl-brand);
+    border: 1px solid var(--pl-border);
     background: var(--pl-surface);
     font-size: 0.8125rem;
     line-height: 1.45;
     color: var(--pl-text);
     overflow-wrap: break-word;
+  }
+
+  .pl-ta-quote::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 5px;
+    inset-block: 8px;
+    inline-size: 3px;
+    border-radius: 1.5px;
+    background: var(--pl-brand);
+    pointer-events: none;
   }
 
   .pl-ta-alert-text {
@@ -604,12 +628,12 @@
   }
 
   .pl-ta-pick-option {
+    position: relative;
     inline-size: 100%;
     min-block-size: 52px;
-    padding: 10px 14px;
+    padding: 10px 14px 10px 18px;
     border: 0;
     border-block-start: 1px solid var(--pl-row-rule, var(--pl-border));
-    border-inline-start: 3px solid transparent;
     background: transparent;
     color: var(--pl-text);
     display: flex;
@@ -634,7 +658,17 @@
 
   .pl-ta-pick-option[aria-pressed="true"] {
     background: var(--pl-surface-active);
-    border-inline-start-color: var(--pl-brand);
+  }
+
+  .pl-ta-pick-option[aria-pressed="true"]::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 6px;
+    inset-block: 8px;
+    inline-size: 3px;
+    border-radius: 1.5px;
+    background: var(--pl-brand);
+    pointer-events: none;
   }
 
   .pl-ta-pick-option:focus-visible {

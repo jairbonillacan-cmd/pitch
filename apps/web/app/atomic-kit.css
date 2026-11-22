@@ -7,6 +7,10 @@
   --pl-atom-pitch-bg: color-mix(in oklab, var(--pl-success) 10%, var(--pl-surface-elevated));
   --pl-atom-pitch-stroke: color-mix(in oklab, var(--pl-text) 24%, var(--pl-border-strong));
   --pl-atom-rating-mix: 18%;
+  --pl-form-win-bg: color-mix(in oklab, var(--pl-orb-emerald) 72%, var(--pl-surface));
+  --pl-form-draw-bg: var(--pl-border-strong);
+  --pl-form-loss-bg: color-mix(in oklab, var(--pl-google-red) 84%, var(--pl-surface));
+  --pl-form-fg: var(--pl-on-solid);
 }
 
 html[data-theme="light"] {
@@ -15,6 +19,10 @@ html[data-theme="light"] {
   --pl-atom-pitch-bg: color-mix(in oklab, var(--pl-success) 11%, var(--pl-surface));
   --pl-atom-pitch-stroke: color-mix(in oklab, var(--pl-text) 28%, var(--pl-border-strong));
   --pl-atom-rating-mix: 12%;
+  --pl-form-win-bg: color-mix(in oklab, var(--pl-success) 55%, var(--pl-orb-emerald));
+  --pl-form-draw-bg: var(--pl-text-muted);
+  --pl-form-loss-bg: color-mix(in oklab, var(--pl-danger) 58%, var(--pl-google-red));
+  --pl-form-fg: var(--pl-on-solid);
 }
 
 .pl-atom-card {
@@ -1016,62 +1024,70 @@ html[data-theme="light"] .pl-atom-jersey {
   align-items: center;
   gap: 4px;
   vertical-align: middle;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .pl-atom-form-cell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  font-weight: 800;
+  border-radius: 5px;
+  font-weight: 700;
   line-height: 1;
-  border: 1px solid transparent;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums lining-nums;
+  border: 0;
+  color: var(--pl-form-fg, var(--pl-on-solid));
   user-select: none;
   flex: none;
+  flex-shrink: 0;
 }
 
 .pl-atom-form-cell.has-tooltip {
   cursor: help;
-  text-decoration: underline dotted;
-  text-underline-offset: 2px;
 }
 
 .pl-atom-form--xs .pl-atom-form-cell {
-  inline-size: 18px;
-  block-size: 18px;
+  inline-size: 20px;
+  block-size: 20px;
   border-radius: 5px;
-  font-size: 0.6rem;
+  font-size: 0.6875rem;
 }
 
 .pl-atom-form--sm .pl-atom-form-cell {
   inline-size: 22px;
   block-size: 22px;
-  font-size: 0.66rem;
+  border-radius: 5px;
+  font-size: 0.6875rem;
 }
 
 .pl-atom-form--md .pl-atom-form-cell {
-  inline-size: 26px;
-  block-size: 26px;
-  border-radius: 7px;
-  font-size: 0.72rem;
+  inline-size: 24px;
+  block-size: 24px;
+  border-radius: 5px;
+  font-size: 0.75rem;
 }
 
 .pl-atom-form-cell.is-win {
-  background: var(--pl-pill-success-bg);
-  color: var(--pl-pill-success-fg);
-  border-color: var(--pl-pill-success-border);
+  background: var(--pl-form-win-bg);
+  color: var(--pl-form-fg, var(--pl-on-solid));
 }
 
 .pl-atom-form-cell.is-draw {
-  background: var(--pl-pill-warning-bg);
-  color: var(--pl-pill-warning-fg);
-  border-color: var(--pl-pill-warning-border);
+  background: var(--pl-form-draw-bg);
+  color: var(--pl-form-fg, var(--pl-on-solid));
 }
 
 .pl-atom-form-cell.is-loss {
-  background: var(--pl-pill-danger-bg);
-  color: var(--pl-pill-danger-fg);
-  border-color: var(--pl-pill-danger-border);
+  background: var(--pl-form-loss-bg);
+  color: var(--pl-form-fg, var(--pl-on-solid));
+}
+
+@media (forced-colors: active) {
+  .pl-atom-form-cell {
+    border: 1px solid ButtonText;
+  }
 }
 
 .pl-atom-form-empty {

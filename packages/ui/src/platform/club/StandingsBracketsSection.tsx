@@ -408,6 +408,7 @@ export function StandingsSplitsPanel({
       {
         key: "rank",
         header: "#",
+        align: "start",
         numeric: true,
         render: (row) => {
           const tone = resolveZoneToneForRow(row, standings.hasRelegationZones);
@@ -551,15 +552,17 @@ export function StandingsSplitsPanel({
 
     cols.push({
       key: "form",
-      header: "Forma",
+      header: "Últimos 5",
       align: "end",
       render: (row) => (
-        <AtomicFormStrip
-          form={row.form}
-          sport={standings.sport}
-          size="xs"
-          teamName={safeLabel(row.shortName, row.teamSlug)}
-        />
+        <span className="pl-sb-form-cell">
+          <AtomicFormStrip
+            form={row.form}
+            sport={standings.sport}
+            size="xs"
+            teamName={safeLabel(row.shortName, row.teamSlug)}
+          />
+        </span>
       ),
     });
 
@@ -602,6 +605,7 @@ export function StandingsSplitsPanel({
             }}
             variant="segmented"
             ariaLabel="Seleccionar desglose de tabla general, local o visitante"
+            className="pl-sb-split-tabs"
           />
 
           {standings.hasConferences && standings.conferences.length > 1 ? (
@@ -636,6 +640,7 @@ export function StandingsSplitsPanel({
           rowKey={(row) => `${split}:${row.teamSlug}`}
           density="compact"
           onRowClick={(row) => navigateSafe(row.teamHref)}
+          className="pl-sb-table-wrap"
           emptyState={
             <SofascoreEmptyState
               title="Sin partidos registrados en este desglose"

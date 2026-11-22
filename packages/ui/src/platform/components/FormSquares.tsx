@@ -19,25 +19,20 @@ export function normalizeFormLetter(raw: string): FormLetter | null {
 }
 
 export interface FormSquaresProps {
-  /** Racha de resultados (`"GGPEG"`, `["G","P","E"]` o `["W","L"]`). */
   form?: string | readonly string[] | null;
-  /** Máximo de cuadros visibles (por defecto 5). */
   max?: number;
   size?: "sm" | "md";
-  /** Muestra guión limpio si no hay racha disponible. */
   emptyFallback?: string;
+  tooltips?: readonly string[];
   className?: string;
 }
 
-/**
- * Componente atómico «Últimas 5»: cuadros redondeados individuales sin contenedor gris
- * de fondo, con paleta viva de alto contraste en tema oscuro y claro (ADR-044).
- */
 export function FormSquares({
   form,
   max = 5,
   size = "md",
   emptyFallback = "—",
+  tooltips,
   className = "",
 }: FormSquaresProps): React.JSX.Element {
   const rawList = Array.isArray(form)
@@ -46,10 +41,10 @@ export function FormSquares({
       ? form.replace(/[^A-Za-z]/g, "").split("")
       : [];
 
-  const letters = rawList
+  const normalized = rawList
     .map((item) => normalizeFormLetter(String(item)))
-    .filter((v): v is FormLetter => v !== null)
-    .slice(-max);
+    .filter((v): v is FormLetter => v !== null);
+  const letters = max > 0 ? normalized.slice(-max) : normalized;
 
   if (letters.length === 0) {
     return (
@@ -63,7 +58,19 @@ export function FormSquares({
     );
   }
 
-  const ariaLabel = `Últimos ${letters.length}: ${letters.map((l) => FORM_LABEL_ES[l]).join(", ")}`;
+  const alignedTooltips =
+    tooltips && tooltips.length > 0
+      ? tooltips.length >= normalized.length && max > 0
+        ? tooltips.slice(-letters.length)
+        : tooltips
+      : undefined;
+
+  const ariaLabel = `Últimos ${letters.length}: ${letters
+    .map((l, idx) => {
+      const tip = alignedTooltips?.[idx]?.trim();
+      return tip ? `${FORM_LABEL_ES[l]} (${tip})` : FORM_LABEL_ES[l];
+    })
+    .join(", ")}`;
 
   return (
     <span
@@ -72,16 +79,21 @@ export function FormSquares({
       aria-label={ariaLabel}
       data-form-squares=""
     >
-      {letters.map((letter, idx) => (
-        <span
-          key={`${letter}-${idx}`}
-          className={`pl-form-sq is-${letter}`}
-          aria-hidden="true"
-          title={FORM_LABEL_ES[letter]}
-        >
-          {letter}
-        </span>
-      ))}
+      {letters.map((letter, idx) => {
+        const rawTip = alignedTooltips?.[idx];
+        const tip = typeof rawTip === "string" && rawTip.trim().length > 0 ? rawTip.trim() : undefined;
+        return (
+          <span
+            key={`${letter}-${idx}`}
+            className={`pl-form-sq is-${letter} num${tip ? " has-tooltip" : ""}`}
+            aria-hidden="true"
+            title={tip ?? FORM_LABEL_ES[letter]}
+            data-tooltip={tip}
+          >
+            {letter}
+          </span>
+        );
+      })}
     </span>
   );
 }

@@ -163,8 +163,8 @@ export function AtomicFormStrip({
       {entries.map((entry, idx) => (
         <span
           key={`${entry.glyph}-${idx}`}
-          className={`pl-atom-form-cell is-${entry.outcome}${entry.tooltip ? " has-tooltip" : ""}`}
-          title={entry.tooltip ?? undefined}
+          className={`pl-atom-form-cell num is-${entry.outcome}${entry.tooltip ? " has-tooltip" : ""}`}
+          title={entry.tooltip ?? entry.spoken}
           data-tooltip={entry.tooltip ?? undefined}
           aria-hidden="true"
         >

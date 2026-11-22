@@ -566,10 +566,11 @@
   }
 
   .pl-mc-side-panel {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 12px 14px;
+    padding: 12px 14px 12px 18px;
     border-radius: 10px;
     border: 1px solid var(--pl-border);
     background: var(--pl-surface-elevated);
@@ -577,11 +578,23 @@
   }
 
   .pl-mc-side-panel.is-a {
-    border-inline-start: 3px solid var(--pl-atom-home, var(--pl-brand));
+    --pl-mc-side-accent: var(--pl-atom-home, var(--pl-brand));
   }
 
   .pl-mc-side-panel.is-b {
-    border-inline-start: 3px solid var(--pl-atom-away, var(--pl-info));
+    --pl-mc-side-accent: var(--pl-atom-away, var(--pl-info));
+  }
+
+  .pl-mc-side-panel.is-a::before,
+  .pl-mc-side-panel.is-b::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 6px;
+    inset-block: 10px;
+    inline-size: 3px;
+    border-radius: 1.5px;
+    background: var(--pl-mc-side-accent);
+    pointer-events: none;
   }
 
   .pl-mc-side-link {

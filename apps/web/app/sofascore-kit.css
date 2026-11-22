@@ -57,6 +57,14 @@
     white-space: nowrap;
   }
 
+  @container (max-width: 380px) {
+    .pl-sf-card-meta {
+      max-inline-size: 48%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   .pl-sf-card-body {
     padding: 14px;
     min-inline-size: 0;
@@ -75,11 +83,14 @@
     container-type: inline-size;
     position: relative;
     overflow: auto;
+    inline-size: 100%;
+    min-inline-size: 0;
     max-inline-size: 100%;
     border-radius: var(--radius-panel, 12px);
     border: 1px solid var(--pl-border);
     background: var(--pl-surface);
     overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .pl-sf-table-wrap:focus-visible {
@@ -132,6 +143,11 @@
   .pl-sf-table-wrap.is-compact .pl-sf-td {
     padding: 7px 10px;
     font-size: 0.75rem;
+  }
+
+  .pl-sf-th:last-child,
+  .pl-sf-td:last-child {
+    padding-inline-end: 14px;
   }
 
   .pl-sf-table tbody tr:last-child .pl-sf-td {
@@ -375,6 +391,8 @@
 
   .pl-sf-tabs.is-segmented {
     display: inline-flex;
+    min-inline-size: 0;
+    max-inline-size: 100%;
     padding: 3px;
     border-radius: 10px;
     border: 1px solid var(--pl-border);

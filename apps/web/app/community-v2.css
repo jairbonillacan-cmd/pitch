@@ -154,15 +154,26 @@
 }
 
 .pl-prof-example {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 12px 14px;
+  padding: 12px 14px 12px 18px;
   border-radius: var(--radius-panel, 12px);
   border: 1px solid var(--pl-border);
-  border-inline-start: 3px solid var(--pl-warning);
   background: var(--pl-surface);
   min-inline-size: 0;
+}
+
+.pl-prof-example::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 6px;
+  inset-block: 10px;
+  inline-size: 3px;
+  border-radius: 1.5px;
+  background: var(--pl-warning);
+  pointer-events: none;
 }
 
 .pl-prof-example-head {
