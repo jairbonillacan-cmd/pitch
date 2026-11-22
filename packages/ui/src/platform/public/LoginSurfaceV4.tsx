@@ -5,6 +5,7 @@ import { BrandLogo } from "../../primitives";
 import { isDisposableEmailDomain } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
+import { sanitizeInternalHref } from "../navigation-helpers";
 import {
   usePlatformActions,
   usePlatformCore,
@@ -96,8 +97,31 @@ export async function startLoginSocialSignIn(
     });
     if (!res.ok) return false;
     const json = (await res.json()) as { url?: string };
-    if (!json.url) return false;
-    window.location.assign(json.url);
+    const safeOauthUrl = (() => {
+      const internal = sanitizeInternalHref(json.url);
+      if (internal) return internal;
+      if (typeof json.url !== "string") return null;
+      const trimmed = json.url.trim();
+      if (!trimmed || /[\u0000-\u001f\u007f]/.test(trimmed)) return null;
+      try {
+        const parsed = new URL(trimmed);
+        const host = parsed.hostname.toLowerCase();
+        if (
+          parsed.protocol !== "https:" ||
+          parsed.username ||
+          parsed.password ||
+          host !== "accounts.google.com"
+        ) {
+          return null;
+        }
+        return parsed.toString();
+      } catch (err) {
+        void err;
+        return null;
+      }
+    })();
+    if (!safeOauthUrl) return false;
+    window.location.assign(safeOauthUrl);
     return true;
   } catch (err) {
     void err;

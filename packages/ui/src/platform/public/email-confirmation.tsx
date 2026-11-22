@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { sanitizeInternalHref } from "../navigation-helpers";
 
 const CHANNEL_NAME = "pitchlab-auth";
 const CHECK_INTERVAL_MS = 4_000;
@@ -111,8 +112,9 @@ export function useEmailConfirmation(
 
 export function useContinueAfterConfirmation(destination: string | null): void {
   useEffect(() => {
-    if (!destination) return;
-    const timer = window.setTimeout(() => window.location.replace(destination), 650);
+    const safeDestination = sanitizeInternalHref(destination);
+    if (!safeDestination) return;
+    const timer = window.setTimeout(() => window.location.replace(safeDestination), 650);
     return () => window.clearTimeout(timer);
   }, [destination]);
 }

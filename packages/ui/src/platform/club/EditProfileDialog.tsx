@@ -11,6 +11,7 @@ import {
 import { Button } from "../../components/ui/primitives";
 import { LeagueBadge } from "../../sports";
 import { useMediaQuery, useSafeEffect } from "../hooks";
+import { sanitizeInternalHref } from "../navigation-helpers";
 import { normalizeSignupHandle, useHandleAvailability } from "../public/use-handle-availability";
 import { Avatar } from "./community-ui";
 
@@ -336,8 +337,36 @@ export function EditProfileDialog({
         onChange({ ...profile, xUsername: null });
       } else {
         const result = (await response.json()) as { url?: string };
-        if (!result.url) throw new Error("missing_url");
-        window.location.assign(result.url);
+        const safeAuthUrl = (() => {
+          const internal = sanitizeInternalHref(result.url);
+          if (internal) return internal;
+          if (typeof result.url !== "string") return null;
+          const trimmed = result.url.trim();
+          if (!trimmed || /[\u0000-\u001f\u007f]/.test(trimmed)) return null;
+          try {
+            const parsed = new URL(trimmed);
+            const host = parsed.hostname.toLowerCase();
+            if (
+              parsed.protocol !== "https:" ||
+              parsed.username ||
+              parsed.password ||
+              !(
+                host === "x.com" ||
+                host.endsWith(".x.com") ||
+                host === "twitter.com" ||
+                host.endsWith(".twitter.com")
+              )
+            ) {
+              return null;
+            }
+            return parsed.toString();
+          } catch (err) {
+            void err;
+            return null;
+          }
+        })();
+        if (!safeAuthUrl) throw new Error("invalid_redirect_url");
+        window.location.assign(safeAuthUrl);
       }
     } catch (err: unknown) {
       void err;

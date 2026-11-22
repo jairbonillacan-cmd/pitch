@@ -4,6 +4,7 @@ import {
   asMarketKey,
   createSanitizedErrorPayload,
   parseStrictFiniteNumber,
+  sportScoringUnit,
 } from "@pitchlab/contracts";
 import type { SealedParlayLegSpec } from "@pitchlab/db";
 import { checkParlayCompatibility, computeParlaySummary } from "@pitchlab/ui/parlay";
@@ -30,6 +31,90 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const MAX_JOURNAL_OFFSET = 10_000;
+
+const LABEL_HAS_UNIT_RE =
+  /\b(?:goles?|puntos?|pts|carreras?|c[oó]rners?|esquinas?|faltas?|tarjetas?|amarillas?|tiros?|remates?|fueras?\s+de\s+juego|rebotes?|asistencias?|triples?)\b/i;
+
+const BARE_OVER_UNDER_RE = /^(?:m[aá]s|menos)\s+de\s+\d+(?:\.\d+)?$/i;
+
+function ensurePickLabelWithUnit(
+  rawLabel: string,
+  market: string | null,
+  sport: PlatformGame["sport"],
+): string {
+  const label = rawLabel.trim();
+  if (!label || LABEL_HAS_UNIT_RE.test(label)) return label;
+  const marketKey = (market ?? "").trim().toLowerCase();
+  const isCountOrTotalMarket =
+    marketKey.includes("total") ||
+    marketKey === "over_under" ||
+    marketKey.includes("corner") ||
+    marketKey.includes("card") ||
+    marketKey.includes("yellow") ||
+    marketKey.includes("foul") ||
+    marketKey.includes("shot") ||
+    marketKey.includes("sot") ||
+    marketKey.includes("offside") ||
+    BARE_OVER_UNDER_RE.test(label);
+  if (!isCountOrTotalMarket) return label;
+  const unit = marketKey.includes("corner")
+    ? "córners"
+    : marketKey.includes("card") || marketKey.includes("yellow")
+      ? "tarjetas"
+      : marketKey.includes("foul")
+        ? "faltas"
+        : marketKey.includes("sot")
+          ? "tiros a puerta"
+          : marketKey.includes("shot")
+            ? "tiros"
+            : marketKey.includes("offside")
+              ? "fueras de juego"
+              : sportScoringUnit(sport).plural;
+  return `${label} ${unit}`;
+}
+
+function compactGameMatchLabel(game: PlatformGame): string {
+  const home = game.home.shortName?.trim() || game.home.name.trim();
+  const away = game.away.shortName?.trim() || game.away.name.trim();
+  return `${home} vs ${away}`;
+}
+
+function formatParlayMatchLabel(
+  specs: readonly SealedParlayLegSpec[],
+  hasSgpCorrelation: boolean,
+): string {
+  const uniqueMatches: string[] = [];
+  for (const spec of specs) {
+    const clean = spec.matchLabel.trim();
+    if (clean && !uniqueMatches.includes(clean)) {
+      uniqueMatches.push(clean);
+    }
+  }
+  const suffix = hasSgpCorrelation ? " · SGP" : "";
+  if (uniqueMatches.length === 0) {
+    return `${specs.length} selecciones${suffix}`;
+  }
+  if (uniqueMatches.length === 1) {
+    return `${uniqueMatches[0]} · ${specs.length} selecciones${suffix}`;
+  }
+  if (uniqueMatches.length === 2) {
+    return `${uniqueMatches[0]} · ${uniqueMatches[1]}${suffix}`;
+  }
+  return `${uniqueMatches[0]} · ${uniqueMatches[1]} (+${uniqueMatches.length - 2})${suffix}`;
+}
+
+function formatParlayPickLabel(specs: readonly SealedParlayLegSpec[]): string {
+  return specs.map((spec) => `${spec.matchLabel}: ${spec.pickLabel}`).join(" · ");
+}
+
+function resolveParlayLeagueLabel(specs: readonly SealedParlayLegSpec[]): string {
+  const leagues = new Set(specs.map((spec) => spec.leagueLabel.trim()).filter(Boolean));
+  if (leagues.size === 1) {
+    const only = leagues.values().next().value;
+    if (only) return only;
+  }
+  return "Combinada Multi-Liga";
+}
 
 const JournalParlayLegSchema = z.object({
   gameId: z.string().trim().min(1).max(160),
@@ -297,12 +382,21 @@ export const POST = withActivePaseMutation(
         }
 
         acceptedLegs.push({ pick: resolved.matchPick });
+        const normalizedLegMatchLabel =
+          resolved.matchLabel?.trim() || compactGameMatchLabel(legGame);
+        const normalizedLegLeagueLabel =
+          resolved.leagueLabel?.trim() || legGame.leagueLabel;
+        const normalizedLegPickLabel = ensurePickLabelWithUnit(
+          resolved.pickLabel,
+          resolved.market,
+          legGame.sport,
+        );
         parlaySpecs.push({
           pickId: resolved.matchPick.id,
           gameId: legGame.id,
-          leagueLabel: resolved.leagueLabel,
-          matchLabel: resolved.matchLabel,
-          pickLabel: resolved.pickLabel,
+          leagueLabel: normalizedLegLeagueLabel,
+          matchLabel: normalizedLegMatchLabel,
+          pickLabel: normalizedLegPickLabel,
           market: resolved.market ?? "",
           selection: resolved.selection ?? "",
           line: resolved.line,
@@ -336,9 +430,9 @@ export const POST = withActivePaseMutation(
         {
           pickId: canonicalPickId,
           gameId: earliestGameId,
-          leagueLabel: "Combinada Multi-Liga",
-          matchLabel: `${acceptedLegs.length} selecciones${summary.hasSgpCorrelation ? " · SGP" : ""}`,
-          pickLabel: acceptedLegs.map((l) => l.pick.label).join(" + "),
+          leagueLabel: resolveParlayLeagueLabel(parlaySpecs),
+          matchLabel: formatParlayMatchLabel(parlaySpecs, summary.hasSgpCorrelation),
+          pickLabel: formatParlayPickLabel(parlaySpecs),
           origin: "Parlay Combinado",
           pickKind: "parlay",
           parlayLegs: parlaySpecs,

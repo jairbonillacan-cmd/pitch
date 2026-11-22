@@ -2,10 +2,11 @@ import "../../../../alerts-referees.css";
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getLeagueCapability, parseCanonicalPublicSlug } from "@pitchlab/contracts";
-import { RefereeProfileClubView } from "@pitchlab/ui/referees";
+import { COMPETITION_BY_ID, getLeagueCapability, parseCanonicalPublicSlug } from "@pitchlab/contracts";
+import { RefereeProfileClubView, RefereesClubView } from "@pitchlab/ui/referees";
 import { loadRefereeProfile } from "../../../../../src/server/referees";
 import { PRODUCT_LEAGUES, type ProductLeague } from "../../../../../src/server/snapshots";
+import { getViewerAccess } from "../../../../../src/server/viewer-access";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ league: string; refereeSlug: string }>;
 }): Promise<Metadata> {
-  const { league, refereeSlug } = await params;
+  const [{ league, refereeSlug }, access] = await Promise.all([params, getViewerAccess()]);
   const normalizedLeague = league.trim().toLowerCase();
   const normalizedSlug = refereeSlug.trim().toLowerCase();
   if (
@@ -32,6 +33,13 @@ export async function generateMetadata({
     parseCanonicalPublicSlug(normalizedSlug) === null
   ) {
     return { title: "Árbitro no encontrado | PitchLab" };
+  }
+  if (!access.fullAccess) {
+    const leagueLabel = COMPETITION_BY_ID[normalizedLeague]?.label ?? normalizedLeague;
+    return {
+      title: `Árbitros · ${leagueLabel} | PitchLab`,
+      description: `Perfil disciplinario y métricas arbitrales de ${leagueLabel} disponibles con Pase PitchLab Ultra.`,
+    };
   }
   const profile = loadRefereeProfile(normalizedSlug, normalizedLeague);
   if (!profile || profile.primaryLeague !== normalizedLeague) {
@@ -48,7 +56,7 @@ export default async function RefereeDetailProfilePage({
 }: {
   params: Promise<{ league: string; refereeSlug: string }>;
 }): Promise<React.JSX.Element> {
-  const { league, refereeSlug } = await params;
+  const [{ league, refereeSlug }, access] = await Promise.all([params, getViewerAccess()]);
   const normalizedLeague = league.trim().toLowerCase();
   const normalizedSlug = refereeSlug.trim().toLowerCase();
 
@@ -57,6 +65,17 @@ export default async function RefereeDetailProfilePage({
     parseCanonicalPublicSlug(normalizedSlug) === null
   ) {
     notFound();
+  }
+
+  if (!access.fullAccess) {
+    const leagueLabel = COMPETITION_BY_ID[normalizedLeague]?.label ?? normalizedLeague;
+    return (
+      <RefereesClubView
+        league={normalizedLeague}
+        title={`Árbitros · ${leagueLabel}`}
+        availableLeagues={[]}
+      />
+    );
   }
 
   const profile = loadRefereeProfile(normalizedSlug, normalizedLeague);

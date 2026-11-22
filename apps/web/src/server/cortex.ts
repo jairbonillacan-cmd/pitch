@@ -19,6 +19,7 @@ import {
 } from "@pitchlab/db";
 import type { PlatformGame } from "@pitchlab/ui/types";
 import { checkEndpointRateLimit } from "./request-security";
+import { logSecurityEvent } from "./safe-logger";
 import { auditCortexNarrativeV5 } from "./spacetime-v5";
 
 export { deterministicVerifiedSummaryV5 } from "./spacetime-v5";
@@ -191,10 +192,10 @@ export async function cortexSummary(game: PlatformGame, options: CortexOptions =
         return persisted.text;
       }
     } catch (err) {
-      console.warn(
-        `[cortex] ${game.id}: no se pudo leer caché Neon:`,
-        err instanceof Error ? err.message : err,
-      );
+      logSecurityEvent("warn", "cortex_cache_read_failed", {
+        gameId: game.id,
+        error: err,
+      });
     }
   }
 
@@ -245,18 +246,28 @@ export async function cortexSummary(game: PlatformGame, options: CortexOptions =
         if (v5Audit.passed) {
           result = checked.text;
         } else {
-          console.warn(
-            `[cortex] ${game.id}: texto rechazado por guardrail v5.1 (${v5Audit.reasons.join("; ")})`,
-          );
+          logSecurityEvent("warn", "cortex_v5_guardrail_rejected", {
+            gameId: game.id,
+            reasons: v5Audit.reasons,
+          });
         }
       } else {
-        console.warn(`[cortex] ${game.id}: texto rechazado (${checked.reason})`);
+        logSecurityEvent("warn", "cortex_validation_rejected", {
+          gameId: game.id,
+          reason: checked.reason,
+        });
       }
     } else {
-      console.warn(`[cortex] ${game.id}: OpenRouter respondió ${res.status}`);
+      logSecurityEvent("warn", "cortex_upstream_http_error", {
+        gameId: game.id,
+        status: res.status,
+      });
     }
   } catch (err) {
-    console.warn(`[cortex] ${game.id}:`, err instanceof Error ? err.message : err);
+    logSecurityEvent("warn", "cortex_request_failed", {
+      gameId: game.id,
+      error: err,
+    });
   } finally {
     clearTimeout(timer);
   }
@@ -272,10 +283,10 @@ export async function cortexSummary(game: PlatformGame, options: CortexOptions =
         expiresAt: new Date(Date.now() + PERSISTENT_CACHE_TTL_MS),
       });
     } catch (err) {
-      console.warn(
-        `[cortex] ${game.id}: no se pudo guardar caché Neon:`,
-        err instanceof Error ? err.message : err,
-      );
+      logSecurityEvent("warn", "cortex_cache_write_failed", {
+        gameId: game.id,
+        error: err,
+      });
     }
   }
   return result;

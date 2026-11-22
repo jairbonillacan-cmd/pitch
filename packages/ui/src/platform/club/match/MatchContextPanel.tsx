@@ -26,6 +26,7 @@ import {
 import { AtomicShotmapPitch, type AtomicShotItem } from "../../atomic/AtomicShotmapPitch";
 import { AtomicStatComparisonBar } from "../../atomic/AtomicStatComparisonBar";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { MatchContextIcon, type MatchContextIconName } from "../../components/PackSportIcons";
 import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
 import { useLiveMatch } from "../../live/live-store";
 import { useOptionalPlatformActions, useOptionalPlatformCore } from "../../platform-provider";
@@ -61,6 +62,26 @@ const SHOT_OUTCOME_LABEL_ES: Record<AtomicShotItem["outcome"], string> = {
   post: "Al poste",
   miss: "Desviado",
 };
+
+function resolveWeatherContextIcon(weather: {
+  readonly description?: string | null;
+  readonly windSpeedKmh?: number | null;
+}): MatchContextIconName {
+  const desc = (weather.description ?? "").toLowerCase();
+  if (/nieve|nevad|snow|granizo|aguanieve|sleet|blizzard|ice/.test(desc)) {
+    return "weather-snow";
+  }
+  if (/lluv|rain|torment|storm|chubasc|aguacero|drizzle|llovizn|shower/.test(desc)) {
+    return "weather-rain";
+  }
+  if (
+    /viento|ventos|wind|gale|breez|racha/.test(desc) ||
+    (weather.windSpeedKmh != null && weather.windSpeedKmh >= 28)
+  ) {
+    return "weather-wind";
+  }
+  return "weather-clear";
+}
 
 function sanitizeInternalHref(raw: string | null | undefined): string | null {
   if (typeof raw !== "string") return null;
@@ -679,7 +700,7 @@ export function MatchContextPanel({
             Sede y ficha del encuentro
           </h3>
           <p className="m-0 flex flex-wrap items-center gap-2 text-sm font-bold">
-            <MaestroIcon name="pin" size={15} />
+            <MatchContextIcon name="pitch-field" size={16} />
             <span>{stadium?.name ?? game.venue}</span>
             {stadiumLocation ? (
               <span className="text-xs font-normal" style={{ color: "var(--pl-text-muted)" }}>
@@ -690,8 +711,13 @@ export function MatchContextPanel({
           <dl className="pl-ctx-stats pl-ctx-facts-grid">
             <div>
               <dt>Condición</dt>
-              <dd className="text-sm font-bold">
-                {game.neutralSite ? "Sede neutral" : `Local: ${game.home.shortName}`}
+              <dd className="text-sm font-bold inline-flex items-center gap-1.5">
+                {isNationalCompetition(game.league) ? (
+                  <MatchContextIcon name="national-teams" size={15} />
+                ) : null}
+                <span>
+                  {game.neutralSite ? "Sede neutral" : `Local: ${game.home.shortName}`}
+                </span>
               </dd>
             </div>
             <div>
@@ -826,25 +852,31 @@ export function MatchContextPanel({
               preContext.weather.windSpeedKmh != null) ? (
               <div>
                 <dt>Clima previsto</dt>
-                <dd className="text-sm font-bold">
-                  {[
-                    preContext.weather.description,
-                    preContext.weather.temperatureC != null
-                      ? `${Math.round(preContext.weather.temperatureC)} °C`
-                      : null,
-                    preContext.weather.windSpeedKmh != null
-                      ? `Viento ${Math.round(preContext.weather.windSpeedKmh)} km/h`
-                      : null,
-                  ]
-                    .filter(Boolean)
-                    .join(" · ")}
+                <dd className="text-sm font-bold inline-flex items-center gap-1.5">
+                  <MatchContextIcon name={resolveWeatherContextIcon(preContext.weather)} size={16} />
+                  <span>
+                    {[
+                      preContext.weather.description,
+                      preContext.weather.temperatureC != null
+                        ? `${Math.round(preContext.weather.temperatureC)} °C`
+                        : null,
+                      preContext.weather.windSpeedKmh != null
+                        ? `Viento ${Math.round(preContext.weather.windSpeedKmh)} km/h`
+                        : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </span>
                 </dd>
               </div>
             ) : null}
             {preContext?.pitchCondition ? (
               <div>
                 <dt>Terreno</dt>
-                <dd className="text-sm font-bold">{preContext.pitchCondition}</dd>
+                <dd className="text-sm font-bold inline-flex items-center gap-1.5">
+                  <MatchContextIcon name="pitch-field" size={15} />
+                  <span>{preContext.pitchCondition}</span>
+                </dd>
               </div>
             ) : null}
             {preContext?.travelDistanceKm != null ? (
@@ -1053,8 +1085,11 @@ export function MatchContextPanel({
         data-ctx-standings=""
       >
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 id="ctx-standings" className="pl-cortex-label m-0">
-            Tabla de posiciones · {game.leagueLabel}
+          <h3 id="ctx-standings" className="pl-cortex-label m-0 inline-flex items-center gap-1.5">
+            {isNationalCompetition(game.league) ? (
+              <MatchContextIcon name="national-teams" size={15} />
+            ) : null}
+            <span>Tabla de posiciones · {game.leagueLabel}</span>
           </h3>
           {standings.length > 0 && (homeStandingIdx >= 0 || awayStandingIdx >= 0) ? (
             <div className="flex flex-wrap items-center gap-2 text-xs num">

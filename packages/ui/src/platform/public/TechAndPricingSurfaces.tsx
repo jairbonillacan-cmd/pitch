@@ -17,6 +17,7 @@ import {
   PublicFooterV4,
   PublicHeaderV4,
 } from "../components/ShellChrome";
+import { sanitizeInternalHref } from "../navigation-helpers";
 import {
   usePlatformActions,
   usePlatformCore,
@@ -368,8 +369,31 @@ export function PlansAndReferralsSection({
     setCheckoutBusy(true);
     const result = await startCheckout(billing);
     setCheckoutBusy(false);
-    if (result.url) {
-      window.location.assign(result.url);
+    const safeCheckoutUrl = (() => {
+      const internal = sanitizeInternalHref(result.url);
+      if (internal) return internal;
+      if (typeof result.url !== "string") return null;
+      const trimmed = result.url.trim();
+      if (!trimmed || /[\u0000-\u001f\u007f]/.test(trimmed)) return null;
+      try {
+        const parsed = new URL(trimmed);
+        const host = parsed.hostname.toLowerCase();
+        if (
+          parsed.protocol !== "https:" ||
+          parsed.username ||
+          parsed.password ||
+          !(host === "checkout.stripe.com" || host === "billing.stripe.com" || host.endsWith(".stripe.com"))
+        ) {
+          return null;
+        }
+        return parsed.toString();
+      } catch (err) {
+        void err;
+        return null;
+      }
+    })();
+    if (safeCheckoutUrl) {
+      window.location.assign(safeCheckoutUrl);
     } else if (result.status === 401) {
       navigateTo("/login?next=%2Fapp%2Faccount%3Ftab%3Dplan");
     } else {

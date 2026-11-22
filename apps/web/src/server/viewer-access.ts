@@ -21,6 +21,7 @@ import {
 import { getAuth } from "./auth";
 import { getBetaCookieName, isBetaPinEnabled, verifyBetaCookieToken } from "./beta-auth";
 import { profileIdForAuthUser } from "./member-data";
+import { logSecurityEvent } from "./safe-logger";
 import { isAdminEmail } from "./session-user";
 
 export interface ViewerAccess {
@@ -141,7 +142,7 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
         };
       }
     } catch (err) {
-      console.warn("[acceso] no se pudo leer la sesión:", err);
+      logSecurityEvent("warn", "viewer_access_session_read_failed", { error: err });
     }
   }
 

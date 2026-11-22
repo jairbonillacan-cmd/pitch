@@ -30,6 +30,7 @@ import {
   type Db,
 } from "@pitchlab/db";
 
+import { logSecurityEvent } from "./safe-logger";
 import { twitterCredentials, twitterUserInfo } from "./twitter";
 
 export type SendEmail = (to: string, subject: string, html: string, text?: string) => Promise<void>;
@@ -51,7 +52,11 @@ function localEmailLogLine(to: string, subject: string, html: string): string {
 }
 
 const consoleSender: SendEmail = async (to, subject, html) => {
-  console.info(localEmailLogLine(to, subject, html));
+  logSecurityEvent("info", "auth_local_email_dispatched", {
+    email: to,
+    subject,
+    hasMagicLink: /href="([^"]+)"/.test(html),
+  });
 };
 
 /**

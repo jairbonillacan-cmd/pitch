@@ -641,9 +641,18 @@ describe("correos de ciclo de vida, digests y baja en un clic", () => {
       );
       expect(monthUnsubHref).toBeTruthy();
 
-      // 3) Baja en un clic por GET y POST actualiza user_preferences y rechaza tokens manipulados
       const unsubGetRes = await getEmailUnsubscribe(new Request(unsubHref!));
       expect(unsubGetRes.status).toBe(200);
+      const unsubGetHtml = await unsubGetRes.text();
+      expect(unsubGetHtml).toContain('method="POST"');
+      expect(unsubGetHtml).toContain("/app/account");
+      expect(unsubGetHtml).not.toContain("/app/cuenta");
+      const beforeWeeklyPost = await getEmailPreferences(db, sub.id);
+      expect(beforeWeeklyPost.weeklyDigest).toBe(true);
+      expect(beforeWeeklyPost.monthlyRecord).toBe(true);
+
+      const unsubWeeklyPostRes = await postEmailUnsubscribe(new Request(unsubHref!, { method: "POST" }));
+      expect(unsubWeeklyPostRes.status).toBe(200);
       const afterWeekly = await getEmailPreferences(db, sub.id);
       expect(afterWeekly.weeklyDigest).toBe(false);
       expect(afterWeekly.monthlyRecord).toBe(true);

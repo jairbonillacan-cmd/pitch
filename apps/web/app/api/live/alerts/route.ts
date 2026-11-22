@@ -20,6 +20,7 @@ export const GET = withSessionRead(
   {
     bucket: "live-alerts",
     allowBetaPin: false,
+    requireFullAccess: true,
     cacheControl: "private, no-store",
   },
   async ({ request, user }) => {

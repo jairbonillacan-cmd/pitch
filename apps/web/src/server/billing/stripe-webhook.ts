@@ -30,6 +30,7 @@ import {
   type Db,
   type ReferralClawbackPlan,
 } from "@pitchlab/db";
+import { logSecurityEvent } from "../safe-logger";
 import { stripeRequest } from "./stripe-api";
 
 export const SIGNATURE_TOLERANCE_SECONDS = 300;
@@ -293,7 +294,13 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
         if ((status === "active" || status === "trialing_card") && deps.cancelScheduledTrialEmails) {
           await deps
             .cancelScheduledTrialEmails(userId)
-            .catch((e) => console.error("[stripe-webhook] no se pudieron cancelar correos de prueba:", e));
+            .catch((error) =>
+              logSecurityEvent("error", "stripe_webhook_cancel_trial_emails_failed", {
+                userId,
+                eventType: event.type,
+                error,
+              }),
+            );
         }
         const moved = await reconcileStripeRenewal(db, userId, deps, now);
         return moved ? `${message} · cobro recorrido al ${moved.toISOString()}` : message;
@@ -324,7 +331,13 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
         if (deps.cancelScheduledTrialEmails) {
           await deps
             .cancelScheduledTrialEmails(userId)
-            .catch((e) => console.error("[stripe-webhook] no se pudieron cancelar correos de prueba:", e));
+            .catch((error) =>
+              logSecurityEvent("error", "stripe_webhook_cancel_trial_emails_failed", {
+                userId,
+                eventType: event.type,
+                error,
+              }),
+            );
         }
         // Recorre el cobro de quien pagó y, si fue invitado, de su anfitrión (idempotente, sirve en reintentos).
         await reconcileStripeRenewal(db, userId, deps, now);

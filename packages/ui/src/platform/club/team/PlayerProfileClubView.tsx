@@ -25,6 +25,7 @@ import { decimalToAmericanInt, formatOddsValue } from "../../access-guard";
 import { PropBetLabChart, type PropBetLabPoint } from "../../atomic";
 import { ContextualBackButton } from "../../components/ContextualBackButton";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { PlayerMetaIcon } from "../../components/PackSportIcons";
 import {
   PlayerPropStreakCard,
   evaluatePropStreak,
@@ -397,65 +398,38 @@ function buildRecentGameSeries(
 function BioGlyph({
   kind,
 }: {
-  kind: "cake" | "position" | "height" | "weight" | "foot" | "jersey";
+  kind: "cake" | "position" | "height" | "weight" | "foot" | "jersey" | "minutes";
 }): React.JSX.Element {
-  const common = {
-    width: 15,
-    height: 15,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.85,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true as const,
-    className: "pl-player-bio-icon",
-  };
   switch (kind) {
     case "cake":
-      return (
-        <svg {...common}>
-          <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" />
-          <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1" />
-          <path d="M2 21h20" />
-          <path d="M12 11V7" />
-          <path d="M12 4.5c.8 0 1.3-.6 1.3-1.3 0-.8-.8-1.5-1.3-2-.5.5-1.3 1.2-1.3 2 0 .7.5 1.3 1.3 1.3Z" />
-        </svg>
-      );
+      return <PlayerMetaIcon name="birthday-cake" size={16} className="pl-player-bio-icon" />;
+    case "height":
+      return <PlayerMetaIcon name="height-ruler" size={16} className="pl-player-bio-icon" />;
+    case "weight":
+      return <PlayerMetaIcon name="weight-scale" size={16} className="pl-player-bio-icon" />;
+    case "foot":
+      return <PlayerMetaIcon name="boot-foot" size={16} className="pl-player-bio-icon" />;
+    case "jersey":
+      return <PlayerMetaIcon name="jersey" size={16} className="pl-player-bio-icon" />;
+    case "minutes":
+      return <PlayerMetaIcon name="player-minutes" size={16} className="pl-player-bio-icon" />;
     case "position":
       return (
-        <svg {...common}>
+        <svg
+          width={15}
+          height={15}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.85}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+          className="pl-player-bio-icon"
+        >
           <circle cx="12" cy="12" r="7" />
           <circle cx="12" cy="12" r="2.2" />
           <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
-        </svg>
-      );
-    case "height":
-      return (
-        <svg {...common}>
-          <circle cx="9" cy="5.5" r="2" />
-          <path d="M9 10v10M6.5 13.5 9 10l2.5 3.5" />
-          <path d="M17 4v16M15 6l2-2 2 2M15 18l2 2 2-2" />
-        </svg>
-      );
-    case "weight":
-      return (
-        <svg {...common}>
-          <path d="M6.5 8h11l1.5 12H5L6.5 8Z" />
-          <path d="M9 8a3 3 0 0 1 6 0" />
-        </svg>
-      );
-    case "foot":
-      return (
-        <svg {...common}>
-          <path d="M5 18h14a2 2 0 0 0 2-2v-1c0-1.4-1-2.5-2.4-2.7l-3.4-.5-2.6-4.2A1.5 1.5 0 0 0 11.3 7H8a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2Z" />
-          <path d="M8 18v2M12 18v2M16 18v2" />
-        </svg>
-      );
-    case "jersey":
-      return (
-        <svg {...common}>
-          <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23Z" />
         </svg>
       );
   }
@@ -1549,6 +1523,13 @@ export function PlayerProfileClubView({
                   <li className="pl-player-bio-item num">
                     <BioGlyph kind="jersey" />
                     <span>Número {profile.player.jersey}</span>
+                  </li>
+                ) : null}
+
+                {minutesGuard.avgMinutes !== null ? (
+                  <li className="pl-player-bio-item num">
+                    <BioGlyph kind="minutes" />
+                    <span>{minutesGuard.avgMinutes.toFixed(1)} min/p</span>
                   </li>
                 ) : null}
               </ul>

@@ -25,6 +25,7 @@ import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { downloadTicketPng } from "../components/share-ticket-raster";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { useAbortableJson } from "../hooks";
+import { sanitizeInternalHref } from "../navigation-helpers";
 import {
   useJournalEntries,
   usePlatformActions,
@@ -223,8 +224,31 @@ export function TipsterPortalClubView({
         credentials: "same-origin",
       });
       const json = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
-      if (res.ok && json.url) {
-        window.location.assign(json.url);
+      const safeConnectUrl = (() => {
+        const internal = sanitizeInternalHref(json.url);
+        if (internal) return internal;
+        if (typeof json.url !== "string") return null;
+        const trimmed = json.url.trim();
+        if (!trimmed || /[\u0000-\u001f\u007f]/.test(trimmed)) return null;
+        try {
+          const parsed = new URL(trimmed);
+          const host = parsed.hostname.toLowerCase();
+          if (
+            parsed.protocol !== "https:" ||
+            parsed.username ||
+            parsed.password ||
+            !(host === "connect.stripe.com" || host === "dashboard.stripe.com" || host.endsWith(".stripe.com"))
+          ) {
+            return null;
+          }
+          return parsed.toString();
+        } catch (err) {
+          void err;
+          return null;
+        }
+      })();
+      if (res.ok && safeConnectUrl) {
+        window.location.assign(safeConnectUrl);
         return;
       }
       pushToast(json.error ?? "No se pudo abrir el alta de pagos.", "warning");

@@ -189,6 +189,7 @@ export const GET = withSessionRead(
     bucket: "alerts-read",
     allowBeta: false,
     allowBetaPin: false,
+    requireFullAccess: true,
     limit: 60,
     windowMs: 60_000,
     cacheControl: "private, no-store",

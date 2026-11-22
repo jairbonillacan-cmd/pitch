@@ -16,7 +16,7 @@ import { ExampleBadge, MaestroIcon } from "../../components/MaestroPrimitives";
 import { ConfirmActionDialog } from "../../components/PlatformOverlays";
 import { ACCOUNT_TAB_EVENT } from "../../components/ShellChrome";
 import { useAbortableJson, useSafeEffect } from "../../hooks";
-import { triggerHaptic } from "../../navigation-helpers";
+import { sanitizeInternalHref, triggerHaptic } from "../../navigation-helpers";
 import { usePlatformActions, usePlatformCore } from "../../platform-provider";
 import {
   PREVIEW_SPEI_EVENT,
@@ -1091,8 +1091,31 @@ export function PlanTab({
           url?: string;
           error?: string;
         } | null;
-        if (res.ok && json?.url && typeof window !== "undefined") {
-          window.location.assign(json.url);
+        const safeCheckoutUrl = (() => {
+          const internal = sanitizeInternalHref(json?.url);
+          if (internal) return internal;
+          if (typeof json?.url !== "string") return null;
+          const trimmed = json.url.trim();
+          if (!trimmed || /[\u0000-\u001f\u007f]/.test(trimmed)) return null;
+          try {
+            const parsed = new URL(trimmed);
+            const host = parsed.hostname.toLowerCase();
+            if (
+              parsed.protocol !== "https:" ||
+              parsed.username ||
+              parsed.password ||
+              !(host === "checkout.stripe.com" || host === "billing.stripe.com" || host.endsWith(".stripe.com"))
+            ) {
+              return null;
+            }
+            return parsed.toString();
+          } catch (err) {
+            void err;
+            return null;
+          }
+        })();
+        if (res.ok && safeCheckoutUrl && typeof window !== "undefined") {
+          window.location.assign(safeCheckoutUrl);
           return;
         }
         setPortalNotice(
