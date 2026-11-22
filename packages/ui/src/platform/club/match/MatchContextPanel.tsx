@@ -29,6 +29,7 @@ import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { MatchContextIcon, type MatchContextIconName } from "../../components/PackSportIcons";
 import { RefereeRigorBadge } from "../../components/RefereeRigorBadge";
 import { useLiveMatch } from "../../live/live-store";
+import { sanitizeInternalHref } from "../../navigation-helpers";
 import { useOptionalPlatformActions, useOptionalPlatformCore } from "../../platform-provider";
 import { resolveMatchRefereeAnalytics } from "../../referee-stats";
 import type { MatchIntelligenceV5View, PlatformGame } from "../../types";
@@ -81,13 +82,6 @@ function resolveWeatherContextIcon(weather: {
     return "weather-wind";
   }
   return "weather-clear";
-}
-
-function sanitizeInternalHref(raw: string | null | undefined): string | null {
-  if (typeof raw !== "string") return null;
-  const trimmed = raw.trim();
-  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return null;
-  return trimmed;
 }
 
 function computeOrdinalRank(

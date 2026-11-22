@@ -3,6 +3,7 @@
 import React, { useId, useMemo, useState } from "react";
 import type { LiveIncident, LiveSide } from "@pitchlab/contracts";
 import { SportEventIcon, type SportEventIconKind } from "../components/SportEventIcons";
+import { sanitizeInternalHref } from "../navigation-helpers";
 
 export interface AtomicLineupPlayer {
   readonly name: string;
@@ -80,13 +81,6 @@ function normalizeNameKey(name: string): string {
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim();
-}
-
-function sanitizeInternalHref(href: string | null | undefined): string | null {
-  if (typeof href !== "string") return null;
-  const trimmed = href.trim();
-  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return null;
-  return trimmed;
 }
 
 function matchPlayerEvents(

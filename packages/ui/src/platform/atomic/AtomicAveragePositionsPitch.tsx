@@ -2,6 +2,7 @@
 
 import React, { useId, useMemo, useState } from "react";
 import type { LiveSide } from "@pitchlab/contracts";
+import { sanitizeInternalHref } from "../navigation-helpers";
 
 export interface AtomicAveragePositionPlayer {
   readonly id?: string;
@@ -40,13 +41,6 @@ export interface AtomicAveragePositionsPitchProps {
 
 interface AveragePositionNodeStyle extends React.CSSProperties {
   "--node-scale"?: number;
-}
-
-function sanitizeInternalHref(href: string | null | undefined): string | null {
-  if (typeof href !== "string") return null;
-  const trimmed = href.trim();
-  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return null;
-  return trimmed;
 }
 
 function abbreviatePlayerName(name: string, explicit?: string): string {

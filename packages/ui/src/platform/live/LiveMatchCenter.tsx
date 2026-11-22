@@ -21,6 +21,7 @@ import { AtomicShotmapPitch, type AtomicShotItem } from "../atomic/AtomicShotmap
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { SportEventIcon } from "../components/SportEventIcons";
 import { useSafeEffect } from "../hooks";
+import { sanitizeInternalHref } from "../navigation-helpers";
 import {
   DEFAULT_FOLLOW_ALERTS,
   type FollowAlerts,
@@ -46,13 +47,6 @@ const LIVE_SHOT_OUTCOME_ES: Record<AtomicShotItem["outcome"], string> = {
   post: "Al poste",
   miss: "Desviado",
 };
-
-function sanitizeInternalHref(raw: string | null | undefined): string | null {
-  if (typeof raw !== "string") return null;
-  const trimmed = raw.trim();
-  if (!trimmed.startsWith("/") || trimmed.startsWith("//")) return null;
-  return trimmed;
-}
 
 export function LivePhaseBadge({
   entry,

@@ -192,7 +192,7 @@ export function applyVisualStyle(_next?: VisualStyle): void {
   }
 }
 
-function MenuSegment({
+function MenuSegment<T extends string>({
   labelledBy,
   value,
   onChange,
@@ -200,9 +200,9 @@ function MenuSegment({
   dataAttr,
 }: {
   labelledBy: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: ReadonlyArray<{ value: string; label: string; hint?: string; icon?: MaestroIconName }>;
+  value: T;
+  onChange: (value: T) => void;
+  options: ReadonlyArray<{ value: T; label: string; hint?: string; icon?: MaestroIconName }>;
   dataAttr?: string;
 }): React.JSX.Element {
   return (
@@ -1766,10 +1766,10 @@ function ClubWorkspaceShellImpl({
               <div className="pl-profile-menu-group pl-profile-menu-settings">
                 <div className="pl-profile-menu-setting">
                   <span id={`${profileMenuId}-odds`}>Momio</span>
-                  <MenuSegment
+                  <MenuSegment<OddsFormat>
                     labelledBy={`${profileMenuId}-odds`}
                     value={oddsFormat}
-                    onChange={(v) => setOddsFormat(v as OddsFormat)}
+                    onChange={setOddsFormat}
                     options={[
                       { value: "american", label: "Americano", hint: "−150" },
                       { value: "decimal", label: "Decimal", hint: "1.67" },
@@ -1778,10 +1778,10 @@ function ClubWorkspaceShellImpl({
                 </div>
                 <div className="pl-profile-menu-setting">
                   <span id={`${profileMenuId}-theme`}>Tema</span>
-                  <MenuSegment
+                  <MenuSegment<"dark" | "light">
                     labelledBy={`${profileMenuId}-theme`}
                     value={docTheme}
-                    onChange={(v) => applyTheme(v as "dark" | "light")}
+                    onChange={applyTheme}
                     dataAttr="data-theme-option"
                     options={[
                       { value: "dark", label: "Oscuro", icon: "moon" },
@@ -1792,13 +1792,13 @@ function ClubWorkspaceShellImpl({
                 {allowRoleSimulation ? (
                   <div className="pl-profile-menu-setting pl-profile-menu-setting--mobile-only">
                     <span id={`${profileMenuId}-role`}>Rol</span>
-                    <MenuSegment
+                    <MenuSegment<ViewerRole>
                       labelledBy={`${profileMenuId}-role`}
                       value={viewerRole}
-                      onChange={(v) => setViewerRole(v as ViewerRole)}
+                      onChange={setViewerRole}
                       options={[
                         { value: "visitor", label: "Visita" },
-                        { value: "subscriber", label: "Socio" },
+                        { value: "member", label: "Socio" },
                         { value: "tipster", label: "Tipster" },
                         { value: "admin", label: "Admin" },
                       ]}
