@@ -19318,6 +19318,38 @@ dialog.pl-native-dialog.pl-more-sheet-dialog[open] {
   text-align: center;
 }
 
+.pl-error-card {
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+}
+
+.pl-error-digest {
+  margin: 14px auto 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  font-size: 12px;
+  color: var(--pl-text-muted);
+}
+
+.pl-error-debug {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--pl-surface-elevated);
+  border: 1px solid var(--pl-border);
+  color: var(--pl-text-secondary);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: start;
+  overflow-x: auto;
+  max-height: 140px;
+}
+
 .pl-notfound-logo {
   display: inline-flex;
   min-height: 44px;
