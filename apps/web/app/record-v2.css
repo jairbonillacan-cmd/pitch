@@ -337,6 +337,7 @@
     flex-direction: column;
     gap: 4px;
     min-inline-size: 0;
+    max-inline-size: 100%;
   }
 
   .pl-rec-parlay-preview-item {
@@ -346,16 +347,17 @@
     font-size: 0.78rem;
     line-height: 1.35;
     min-inline-size: 0;
+    max-inline-size: 100%;
+    padding-inline-end: 4px;
   }
 
   .pl-rec-parlay-preview-text {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 4px;
+    display: block;
     min-inline-size: 0;
-    flex: 1 1 auto;
-    overflow-wrap: break-word;
+    flex: 1 1 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .pl-rec-parlay-preview-match {
@@ -530,6 +532,7 @@
   .pl-rec-ledger-main {
     font-weight: 400;
     min-inline-size: 220px;
+    max-inline-size: 380px;
   }
 
   @container ledger (max-width: 639px) {
@@ -573,6 +576,7 @@
 
     .pl-rec-ledger-table .pl-rec-ledger-main {
       display: block;
+      max-inline-size: none;
       padding-block-end: 6px;
       border-block-end: 1px solid var(--pl-row-rule, var(--pl-border));
     }

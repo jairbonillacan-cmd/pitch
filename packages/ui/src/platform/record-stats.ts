@@ -11,12 +11,24 @@ export interface RecordEntry {
   units: number;
   userDecimal: number;
   fairDecimal: number;
-  clvPct: number;
+  clvPct?: number;
   leagueLabel: string;
   pickLabel: string;
   origin: string;
   sealedAtIso?: string;
   settledAtIso?: string | null;
+}
+
+const MAX_CREDIBLE_CLV_PCT = 50;
+const MIN_CREDIBLE_CLV_PCT = -60;
+
+function isCredibleClvPct(value: number | null | undefined): value is number {
+  return (
+    typeof value === "number" &&
+    Number.isFinite(value) &&
+    value <= MAX_CREDIBLE_CLV_PCT &&
+    value >= MIN_CREDIBLE_CLV_PCT
+  );
 }
 
 export interface RateRow {
@@ -166,7 +178,15 @@ export function computeRecordStats(entries: ReadonlyArray<RecordEntry>, starting
 
   const settled = settledEntries.length;
   const open = entries.filter((e) => e.status === "pending").length;
-  const clvAll = entries.length > 0 ? entries.reduce((s, e) => s + e.clvPct, 0) / entries.length : null;
+  let clvSum = 0;
+  let clvCount = 0;
+  for (const e of entries) {
+    if (isCredibleClvPct(e.clvPct)) {
+      clvSum += e.clvPct;
+      clvCount += 1;
+    }
+  }
+  const clvAll = clvCount > 0 ? clvSum / clvCount : null;
   const monthRows: MonthResult[] = Array.from(months.entries()).map(([key, value]) => ({
     key,
     label: `${MONTHS[Number(key.slice(5, 7)) - 1]} ${key.slice(0, 4)}`,
@@ -312,7 +332,10 @@ export function publicRecordView(
     streaks: on("record", "streaks") ? { current: stats.currentStreak, bestWin: stats.bestWinStreak } : null,
     yieldPct: on("performance", "yield") ? stats.yieldPct : null,
     roiPct: on("performance", "roi") ? stats.roiPct : null,
-    avgClvPct: on("performance", "clv") ? stats.avgClvPct : null,
+    avgClvPct:
+      on("performance", "clv") && isCredibleClvPct(stats.avgClvPct)
+        ? stats.avgClvPct
+        : null,
     avgOddsDecimal: on("performance", "avgOdds") ? stats.avgOddsDecimal : null,
     months: on("performance", "months") ? { best: stats.bestMonth, worst: stats.worstMonth } : null,
     netUnits: on("bank", "netUnits") ? stats.netUnits : null,

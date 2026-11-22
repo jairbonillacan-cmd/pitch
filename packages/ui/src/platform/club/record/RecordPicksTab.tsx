@@ -654,11 +654,9 @@ export function RecordPicksTab({
   const uid = useId();
   const kindLabelId = `${uid}-kind-label`;
   const statusLabelId = `${uid}-status-label`;
-  const familyLabelId = `${uid}-family-label`;
   const tableCaptionId = `${uid}-ledger-caption`;
   const [statusFilter, setStatusFilter] = useState<PickStatusFilter>("all");
   const [kindFilter, setKindFilter] = useState<PickKindFilter>("all");
-  const [familyFilter, setFamilyFilter] = useState<string>("all");
   const [expandedParlayIds, setExpandedParlayIds] = useState<Record<string, boolean>>({});
   const [viewMode, setViewMode] = useState<RecordViewMode>("list");
   const [shown, setShown] = useState<number>(PICKS_PAGE_SIZE);
@@ -938,38 +936,19 @@ export function RecordPicksTab({
     return enrichedJournal;
   }, [enrichedJournal, kindFilter]);
 
-  const familyOptions = useMemo(() => {
-    const counts = new Map<string, { key: string; shortLabel: string; count: number }>();
-    for (const r of kindFiltered) {
-      const cur = counts.get(r.family.key) ?? {
-        key: r.family.key,
-        shortLabel: r.family.shortLabel,
-        count: 0,
-      };
-      cur.count += 1;
-      counts.set(r.family.key, cur);
-    }
-    return Array.from(counts.values()).sort((a, b) => b.count - a.count);
-  }, [kindFiltered]);
-
-  const familyFiltered = useMemo(() => {
-    if (familyFilter === "all") return kindFiltered;
-    return kindFiltered.filter((r) => r.family.key === familyFilter);
-  }, [familyFilter, kindFiltered]);
-
   const statusCounts = useMemo(() => {
     let won = 0;
     let lost = 0;
     let push = 0;
     let pending = 0;
-    for (const r of familyFiltered) {
+    for (const r of kindFiltered) {
       if (r.auditStatus === "won") won += 1;
       else if (r.auditStatus === "lost") lost += 1;
       else if (r.auditStatus === "push") push += 1;
       else pending += 1;
     }
     return { won, lost, push, pending };
-  }, [familyFiltered]);
+  }, [kindFiltered]);
 
   const kindFilterButtons: ReadonlyArray<readonly [PickKindFilter, string]> = useMemo(() => {
     const showCounts = journal.length > 0;
@@ -983,7 +962,7 @@ export function RecordPicksTab({
   const statusFilterButtons: ReadonlyArray<readonly [PickStatusFilter, string]> = useMemo(() => {
     const showCounts = journal.length > 0;
     const items: Array<readonly [PickStatusFilter, string]> = [
-      ["all", showCounts ? `Todos · ${familyFiltered.length}` : "Todos"],
+      ["all", showCounts ? `Todos · ${kindFiltered.length}` : "Todos"],
       ["won", showCounts ? `Ganados · ${statusCounts.won}` : "Ganados"],
       ["lost", showCounts ? `Perdidos · ${statusCounts.lost}` : "Perdidos"],
     ];
@@ -993,8 +972,8 @@ export function RecordPicksTab({
     items.push(["pending", showCounts ? `Pendientes · ${statusCounts.pending}` : "Pendientes"]);
     return items;
   }, [
-    familyFiltered.length,
     journal.length,
+    kindFiltered.length,
     statusCounts.lost,
     statusCounts.pending,
     statusCounts.push,
@@ -1002,9 +981,9 @@ export function RecordPicksTab({
   ]);
 
   const filtered = useMemo(() => {
-    if (statusFilter === "all") return familyFiltered;
-    return familyFiltered.filter((r) => r.auditStatus === statusFilter);
-  }, [familyFiltered, statusFilter]);
+    if (statusFilter === "all") return kindFiltered;
+    return kindFiltered.filter((r) => r.auditStatus === statusFilter);
+  }, [kindFiltered, statusFilter]);
 
   const visibleRows = useMemo(() => filtered.slice(0, shown), [filtered, shown]);
 
@@ -1169,109 +1148,63 @@ export function RecordPicksTab({
       >
         <div className="space-y-3">
           {viewMode === "list" ? (
-            <div className="space-y-2.5">
-              <div className="pl-rec-filter-bar">
-                <div className="pl-rec-filter-group">
-                  <span id={kindLabelId} className="pl-rec-filter-label">
-                    Tipo
-                  </span>
-                  <div
-                    className="pl-rec-segmented num"
-                    role="group"
-                    aria-labelledby={kindLabelId}
-                    data-record-kind-filter=""
-                  >
-                    {kindFilterButtons.map(([key, label]) => (
-                      <button
-                        key={key}
-                        type="button"
-                        className="pl-rec-seg-btn"
-                        aria-pressed={kindFilter === key}
-                        data-kind-filter={key}
-                        onClick={() => {
-                          setKindFilter(key);
-                          setFamilyFilter("all");
-                          setShown(PICKS_PAGE_SIZE);
-                        }}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pl-rec-filter-group">
-                  <span id={statusLabelId} className="pl-rec-filter-label">
-                    Estado
-                  </span>
-                  <div
-                    className="pl-rec-segmented num"
-                    role="group"
-                    aria-labelledby={statusLabelId}
-                    data-record-status-filter=""
-                  >
-                    {statusFilterButtons.map(([key, label]) => (
-                      <button
-                        key={key}
-                        type="button"
-                        className="pl-rec-seg-btn"
-                        aria-pressed={statusFilter === key}
-                        data-status-filter={key}
-                        onClick={() => {
-                          setStatusFilter(key);
-                          setShown(PICKS_PAGE_SIZE);
-                        }}
-                      >
-                        {key === "push" ? <MaestroIcon name="push-void" size={12} /> : null}
-                        <span>{label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {familyOptions.length > 1 ? (
-                <div className="pl-rec-filter-group">
-                  <span id={familyLabelId} className="pl-rec-filter-label">
-                    Mercado
-                  </span>
-                  <div
-                    className="pl-rec-filter-row num"
-                    role="group"
-                    aria-labelledby={familyLabelId}
-                    data-record-family-filter=""
-                  >
+            <div className="pl-rec-filter-bar">
+              <div className="pl-rec-filter-group">
+                <span id={kindLabelId} className="pl-rec-filter-label">
+                  Tipo
+                </span>
+                <div
+                  className="pl-rec-segmented num"
+                  role="group"
+                  aria-labelledby={kindLabelId}
+                  data-record-kind-filter=""
+                >
+                  {kindFilterButtons.map(([key, label]) => (
                     <button
+                      key={key}
                       type="button"
-                      className="pl-rec-chip"
-                      aria-pressed={familyFilter === "all"}
+                      className="pl-rec-seg-btn"
+                      aria-pressed={kindFilter === key}
+                      data-kind-filter={key}
                       onClick={() => {
-                        setFamilyFilter("all");
+                        setKindFilter(key);
                         setShown(PICKS_PAGE_SIZE);
                       }}
                     >
-                      Todos
+                      {label}
                     </button>
-                    {familyOptions.map((opt) => (
-                      <button
-                        key={opt.key}
-                        type="button"
-                        className="pl-rec-chip"
-                        aria-pressed={familyFilter === opt.key}
-                        onClick={() => {
-                          setFamilyFilter(opt.key);
-                          setShown(PICKS_PAGE_SIZE);
-                        }}
-                      >
-                        <MarketCategoryIcon family={opt.key} size={14} />
-                        <span>
-                          {opt.shortLabel} · {opt.count}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
+                  ))}
                 </div>
-              ) : null}
+              </div>
+
+              <div className="pl-rec-filter-group">
+                <span id={statusLabelId} className="pl-rec-filter-label">
+                  Estado
+                </span>
+                <div
+                  className="pl-rec-segmented num"
+                  role="group"
+                  aria-labelledby={statusLabelId}
+                  data-record-status-filter=""
+                >
+                  {statusFilterButtons.map(([key, label]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      className="pl-rec-seg-btn"
+                      aria-pressed={statusFilter === key}
+                      data-status-filter={key}
+                      onClick={() => {
+                        setStatusFilter(key);
+                        setShown(PICKS_PAGE_SIZE);
+                      }}
+                    >
+                      {key === "push" ? <MaestroIcon name="push-void" size={12} /> : null}
+                      <span>{label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           ) : null}
 
@@ -1297,7 +1230,7 @@ export function RecordPicksTab({
                   ? "Sella tu primer pick o combina 2 a 6 selecciones antes del arranque para llevar registro inmutable y seguimiento en vivo."
                   : kindFilter === "parlay" && parlayCount === 0
                     ? "Combina selecciones en Parlays y séllalo antes del arranque con desglose pierna por pierna."
-                    : "Prueba cambiando el filtro de tipo, estado o mercado."}
+                    : "Prueba cambiando el filtro de tipo o estado."}
               </p>
               <div className="pl-rec-empty-actions">
                 {journal.length === 0 ? (
@@ -1323,7 +1256,6 @@ export function RecordPicksTab({
                     onClick={() => {
                       setKindFilter("all");
                       setStatusFilter("all");
-                      setFamilyFilter("all");
                       setShown(PICKS_PAGE_SIZE);
                     }}
                   >
@@ -1499,7 +1431,10 @@ export function RecordPicksTab({
                                             family={leg.marketFamilyKey}
                                             size={14}
                                           />
-                                          <span className="pl-rec-parlay-preview-text">
+                                          <span
+                                            className="pl-rec-parlay-preview-text"
+                                            title={`${leg.shortMatchLabel} · ${leg.pickLabel}`}
+                                          >
                                             <span className="pl-rec-parlay-preview-match">
                                               {leg.shortMatchLabel}
                                             </span>
@@ -1507,7 +1442,7 @@ export function RecordPicksTab({
                                               aria-hidden="true"
                                               className="pl-rec-parlay-preview-sep"
                                             >
-                                              ·
+                                              {" · "}
                                             </span>
                                             <strong className="pl-rec-parlay-preview-pick">
                                               {leg.pickLabel}
@@ -1612,18 +1547,28 @@ export function RecordPicksTab({
                               ) : null}
                             </th>
                             <td className="pl-sf-td" data-label="Familia">
-                              <div className="pl-rec-family-cell">
-                                <span className="pl-pill text-[11px]">
-                                  <MarketCategoryIcon family={family.key} size={13} />
-                                  <span>{family.shortLabel}</span>
-                                </span>
-                                <span
-                                  className="text-[11px]"
-                                  style={{ color: "var(--pl-text-muted)" }}
-                                >
-                                  {ORIGIN_SHORT_LABEL[item.origin] ?? item.origin}
-                                </span>
-                              </div>
+                              {(() => {
+                                const originShort = ORIGIN_SHORT_LABEL[item.origin] ?? item.origin;
+                                const showOriginSub =
+                                  originShort.trim().toLowerCase() !==
+                                  family.shortLabel.trim().toLowerCase();
+                                return (
+                                  <div className="pl-rec-family-cell">
+                                    <span className="pl-pill text-[11px]">
+                                      <MarketCategoryIcon family={family.key} size={13} />
+                                      <span>{family.shortLabel}</span>
+                                    </span>
+                                    {showOriginSub ? (
+                                      <span
+                                        className="text-[11px]"
+                                        style={{ color: "var(--pl-text-muted)" }}
+                                      >
+                                        {originShort}
+                                      </span>
+                                    ) : null}
+                                  </div>
+                                );
+                              })()}
                             </td>
                             <td
                               className="pl-sf-td is-end num font-bold whitespace-nowrap"

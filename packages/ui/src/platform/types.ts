@@ -667,7 +667,7 @@ export interface JournalEntry {
   units: number;
   userDecimal: number;
   fairDecimal: number;
-  clvPct: number;
+  clvPct?: number;
   closingDecimal?: number | null;
   status: "pending" | "won" | "lost" | "void";
   pickKind?: "single" | "parlay";

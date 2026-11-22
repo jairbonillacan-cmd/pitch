@@ -11,7 +11,7 @@ import React, {
   useState,
   useSyncExternalStore,
 } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, type LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
   containsExternalLink,
@@ -39,6 +39,10 @@ const STORAGE_KEYS = {
   followAlerts: "pl-follow-alerts-v1",
   ownPosts: "pl-own-posts-v1",
 } as const;
+
+const MAX_PARLAY_LEGS = 6;
+const MAX_EXPORT_CLV_PCT = 50;
+const MIN_EXPORT_CLV_PCT = -60;
 
 function readStoredArray<T>(key: string, isItem: (v: unknown) => v is T): T[] {
   try {
@@ -140,7 +144,8 @@ function fromServerRow(row: ServerJournalRow): JournalEntry {
     units: Number(row.units),
     userDecimal: Number(row.userDecimal),
     fairDecimal: Number(row.fairDecimal),
-    clvPct: row.clvPct === null ? 0 : Number(row.clvPct),
+    clvPct:
+      row.clvPct === null ? undefined : (parseStrictFiniteNumber(row.clvPct) ?? undefined),
     closingDecimal: row.closingDecimal ? Number(row.closingDecimal) : null,
     status,
     pickKind: row.pickKind === "parlay" ? "parlay" : "single",
@@ -423,7 +428,7 @@ export interface PlatformContextValue {
     userDecimal: number,
     note?: string,
   ) => void;
-  sealParlayToJournal: (note?: string) => void;
+  sealParlayToJournal: (note?: string, userDecimalOverride?: number | null) => void;
   exportJournalCsv: () => string;
 
   socialPosts: SocialPost[];
@@ -1409,6 +1414,14 @@ export function PlatformProvider({
 
   const addPickToParlay = useCallback(
     (pick: MatchPick): boolean => {
+      if (parlayLegs.some((l) => l.pick.id === pick.id)) {
+        pushToast("Esa selección ya está en tu parlay.", "warning");
+        return false;
+      }
+      if (parlayLegs.length >= MAX_PARLAY_LEGS) {
+        pushToast(`El parlay admite máximo ${MAX_PARLAY_LEGS} selecciones.`, "warning");
+        return false;
+      }
       const check = checkParlayCompatibility(parlayLegs, pick, allowSgp);
       if (!check.allowed) {
         pushToast(check.reason ?? "Selección no compatible.", "warning");
@@ -1433,7 +1446,9 @@ export function PlatformProvider({
         actionLabel: "Deshacer",
         onAction: () => {
           setParlayLegs((prev) => {
-            if (prev.some((l) => l.pick.id === removed.pick.id)) return prev;
+            if (prev.length >= MAX_PARLAY_LEGS || prev.some((l) => l.pick.id === removed.pick.id)) {
+              return prev;
+            }
             const copy = [...prev];
             copy.splice(Math.min(idx, copy.length), 0, removed);
             return copy;
@@ -1455,7 +1470,7 @@ export function PlatformProvider({
       {
         actionLabel: "Deshacer",
         onAction: () => {
-          setParlayLegs(snapshot);
+          setParlayLegs(snapshot.slice(0, MAX_PARLAY_LEGS));
         },
       },
     );
@@ -1471,10 +1486,12 @@ export function PlatformProvider({
     }): number => {
       setAllowSgp(opts.allowSgp);
       const { games, ...rest } = opts;
+      const clampedLegCount = Math.max(2, Math.min(MAX_PARLAY_LEGS, rest.legCount));
       const built = buildSmartAutoParlay(games ?? dataset.games, {
         ...rest,
+        legCount: clampedLegCount,
         viewerRole,
-      });
+      }).slice(0, MAX_PARLAY_LEGS);
       setParlayLegs(built);
       if (built.length > 0) {
         pushToast(
@@ -1499,7 +1516,12 @@ export function PlatformProvider({
     ): number => {
       const nextAllowSgp = options?.allowSgp ?? false;
       const accepted: ParlayLeg[] = [];
+      let truncatedByCap = false;
       for (const pick of picks) {
+        if (accepted.length >= MAX_PARLAY_LEGS) {
+          truncatedByCap = true;
+          break;
+        }
         if (checkParlayCompatibility(accepted, pick, nextAllowSgp).allowed) {
           accepted.push({ pick });
         }
@@ -1509,9 +1531,14 @@ export function PlatformProvider({
         setAllowSgp(nextAllowSgp);
         setParlayLegs(accepted);
         const skipped = picks.length - accepted.length;
+        const skippedNote = truncatedByCap
+          ? ` (máximo ${MAX_PARLAY_LEGS} selecciones por parlay)`
+          : skipped > 0
+            ? ` (${skipped} ya no se podían agregar)`
+            : "";
         pushToast(
           `${options?.label ?? "Parlay"} cargado con ${accepted.length} ${accepted.length === 1 ? "selección" : "selecciones"}` +
-            (skipped > 0 ? ` (${skipped} ya no se podían agregar)` : "") +
+            skippedNote +
             (replaced ? ". Reemplazó tu boleto anterior." : "."),
           "success",
         );
@@ -1531,13 +1558,20 @@ export function PlatformProvider({
       const pFair = 1 / Math.max(1.04, pick.fairDecimal);
       const pUser = 1 / Math.max(1.04, userDecimal);
       const clvPct = Math.round((pFair - pUser) * 1000) / 10;
+      const linkedGame = dataset.games.find((g) => g.id === pick.gameId);
+      const normalizedPickLabel = normalizePickLabelWithUnit({
+        pickLabel: pick.label,
+        market: pick.market,
+        leagueLabel: pick.leagueLabel,
+        sport: linkedGame?.sport ?? null,
+      });
       const entry: JournalEntry = {
         id: `j-${Date.now()}`,
         pickId: pick.id,
         gameId: pick.gameId,
         leagueLabel: pick.leagueLabel,
         matchLabel: pick.matchLabel,
-        pickLabel: pick.label,
+        pickLabel: normalizedPickLabel,
         origin: "Spacetime Suite",
         units: Math.max(0.25, Math.min(5, units)),
         userDecimal,
@@ -1551,13 +1585,12 @@ export function PlatformProvider({
             : "pending",
         sealedAt: "Sellado ahora",
         sealedAtIso: new Date().toISOString(),
-        note,
+        note: sanitizeJournalDisplayNote(note) ?? undefined,
       };
       setJournal((prev) => [entry, ...prev]);
       setComposerPick(null);
       triggerHaptic(10);
       pushToast(`Pick registrado en tu bitácora (${entry.units}u).`, "success");
-      // Con cuenta: el servidor sella con la hora de inicio oficial y una huella SHA-256.
       if (hasAccountSessionAuth && entry.status === "pending") {
         void sealOnServer(entry).then((res) => {
           if (res.ok && res.id) {
@@ -1569,13 +1602,20 @@ export function PlatformProvider({
         });
       }
     },
-    [pushToast, hasAccountSessionAuth],
+    [dataset.games, pushToast, hasAccountSessionAuth],
   );
 
   const sealParlayToJournal = useCallback(
-    (note?: string) => {
+    (note?: string, userDecimalOverride?: number | null) => {
       if (parlaySummary.legs.length < 2) {
         pushToast("Agrega al menos 2 selecciones para sellar un Parlay.", "warning");
+        return;
+      }
+      if (parlaySummary.legs.length > MAX_PARLAY_LEGS) {
+        pushToast(
+          `Un parlay admite máximo ${MAX_PARLAY_LEGS} selecciones. Quita alguna antes de sellar.`,
+          "warning",
+        );
         return;
       }
       const gamesById = new Map(dataset.games.map((g) => [g.id, g]));
@@ -1613,6 +1653,19 @@ export function PlatformProvider({
         normalizedLegs.map((l) => l.pick.leagueLabel.trim()).filter(Boolean),
       );
       const cleanNote = sanitizeJournalDisplayNote(note) ?? undefined;
+      const resolvedUserDecimal =
+        typeof userDecimalOverride === "number" &&
+        Number.isFinite(userDecimalOverride) &&
+        userDecimalOverride > 1.01
+          ? userDecimalOverride
+          : parlaySummary.bookDecimal;
+      const resolvedClvPct =
+        Number.isFinite(parlaySummary.fairDecimal) &&
+        parlaySummary.fairDecimal > 1 &&
+        Number.isFinite(resolvedUserDecimal) &&
+        resolvedUserDecimal > 1
+          ? Math.round((1 / parlaySummary.fairDecimal - 1 / resolvedUserDecimal) * 1000) / 10
+          : parlaySummary.edgePts;
       const entry: JournalEntry = {
         id: `j-parlay-${Date.now()}`,
         pickId: canonicalPickId,
@@ -1640,9 +1693,9 @@ export function PlatformProvider({
         ),
         origin: "Parlay Combinado",
         units: Math.max(0.25, Math.min(5, parlaySummary.stakeUnits)),
-        userDecimal: parlaySummary.bookDecimal,
+        userDecimal: resolvedUserDecimal,
         fairDecimal: parlaySummary.fairDecimal,
-        clvPct: parlaySummary.edgePts,
+        clvPct: resolvedClvPct,
         status: "pending",
         pickKind: "parlay",
         parlayLegs: normalizedLegs.map((l) => ({
@@ -1684,8 +1737,15 @@ export function PlatformProvider({
   const exportJournalCsv = useCallback((): string => {
     const header =
       "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,Ventaja_Pts,Estado";
-    const lines = journal.map((j) =>
-      [
+    const lines = journal.map((j) => {
+      const clvCell =
+        typeof j.clvPct === "number" &&
+        Number.isFinite(j.clvPct) &&
+        j.clvPct <= MAX_EXPORT_CLV_PCT &&
+        j.clvPct >= MIN_EXPORT_CLV_PCT
+          ? j.clvPct.toFixed(1)
+          : "";
+      return [
         `"${sanitizeCsvCell(j.sealedAt)}"`,
         `"${sanitizeCsvCell(j.leagueLabel)}"`,
         `"${sanitizeCsvCell(j.matchLabel)}"`,
@@ -1694,10 +1754,10 @@ export function PlatformProvider({
         j.units.toFixed(2),
         j.userDecimal.toFixed(2),
         j.fairDecimal.toFixed(2),
-        j.clvPct.toFixed(1),
+        clvCell,
         `"${sanitizeCsvCell(j.status)}"`,
-      ].join(","),
-    );
+      ].join(",");
+    });
     const csv = [header, ...lines].join("\n");
     try {
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -1824,13 +1884,20 @@ export function PlatformProvider({
         const pFair = 1 / Math.max(1.04, mp.fairDecimal);
         const pUser = 1 / Math.max(1.04, payload.pick.userDecimal);
         const clvPct = Math.round((pFair - pUser) * 1000) / 10;
+        const linkedSocialGame = rawDataset.games.find((g) => g.id === mp.gameId);
+        const normalizedSocialPickLabel = normalizePickLabelWithUnit({
+          pickLabel: mp.label,
+          market: mp.market,
+          leagueLabel: mp.leagueLabel,
+          sport: linkedSocialGame?.sport ?? null,
+        });
         sealedEntryToSync = {
           id: `j-${Date.now()}`,
           pickId: mp.id,
           gameId: mp.gameId,
           leagueLabel: mp.leagueLabel,
           matchLabel: mp.matchLabel,
-          pickLabel: mp.label,
+          pickLabel: normalizedSocialPickLabel,
           origin: payload.originType === "Spacetime Suite" ? "Spacetime Suite" : "Propio",
           units: Math.max(0.25, Math.min(5, payload.pick.units)),
           userDecimal: payload.pick.userDecimal,
