@@ -89,14 +89,17 @@ test("Club PitchLab v4 + Ola 6: Inicio Maestro-Detalle, Jornada, Buscador, Parla
       const targetGameId = await candidateSecondCard.getAttribute("data-game-id");
       expect(targetGameId).toBeTruthy();
 
-      const cardOpenTrigger = candidateSecondCard.locator("[data-card-open]").first();
+      const targetCard = page
+        .locator(`[data-home-master-list] [data-game-card][data-game-id="${targetGameId}"]`)
+        .first();
+      const cardOpenTrigger = targetCard.locator("[data-card-open]").first();
       if ((await cardOpenTrigger.count()) > 0 && (await cardOpenTrigger.isVisible())) {
         await cardOpenTrigger.click();
       } else {
-        await candidateSecondCard.click();
+        await targetCard.click();
       }
 
-      await expect(candidateSecondCard).toHaveAttribute("data-selected", "true");
+      await expect(targetCard).toHaveAttribute("data-selected", "true");
       await expect
         .poll(() => new URL(page.url()).searchParams.get("match"))
         .toBe(targetGameId);

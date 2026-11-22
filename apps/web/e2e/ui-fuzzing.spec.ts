@@ -864,13 +864,18 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
           .locator('[data-home-master-list] [data-game-card][data-game-id][data-selected="false"]')
           .first();
         if ((await secondMasterCard.count()) > 0 && (await secondMasterCard.isVisible())) {
-          const openTrigger = secondMasterCard.locator("[data-card-open]").first();
+          const targetGameId = await secondMasterCard.getAttribute("data-game-id");
+          expect(targetGameId).toBeTruthy();
+          const targetCard = page
+            .locator(`[data-home-master-list] [data-game-card][data-game-id="${targetGameId}"]`)
+            .first();
+          const openTrigger = targetCard.locator("[data-card-open]").first();
           if ((await openTrigger.count()) > 0 && (await openTrigger.isVisible())) {
             await openTrigger.click();
           } else {
-            await secondMasterCard.click();
+            await targetCard.click();
           }
-          await expect(secondMasterCard).toHaveAttribute("data-selected", "true");
+          await expect(targetCard).toHaveAttribute("data-selected", "true");
           await expect(page.locator("[data-home-detail-panel]")).toBeVisible();
           await auditPageInvariants(page, "/app Maestro-Detalle tras cambio de partido");
           monitors.assertClean("/app Maestro-Detalle tras cambio de partido");
