@@ -937,7 +937,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 compact
               />
               <Button
-                variant={row.inSlip ? "primary" : isBlocked ? "ghost" : "secondary"}
+                variant={isBlocked ? "ghost" : "secondary"}
                 tone={isBlocked ? "danger" : "default"}
                 size="sm"
                 className={`min-w-11 pl-pb-toggle-btn ${row.inSlip ? "is-selected" : ""}`.trim()}
@@ -1353,7 +1353,11 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
                       <div className="pl-pb-auto-cta-row">
                         <Button
-                          variant={allAutoPreviewInSlip ? "secondary" : "primary"}
+                          variant={
+                            allAutoPreviewInSlip || parlaySummary.legs.length >= 2
+                              ? "secondary"
+                              : "primary"
+                          }
                           size="default"
                           className="w-full"
                           data-generate-parlay=""
@@ -1521,9 +1525,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                                         compact
                                       />
                                       <Button
-                                        variant={
-                                          row.inSlip ? "primary" : isBlocked ? "ghost" : "secondary"
-                                        }
+                                        variant={isBlocked ? "ghost" : "secondary"}
                                         tone={isBlocked ? "danger" : "default"}
                                         size="sm"
                                         className={`min-w-11 pl-pb-toggle-btn ${row.inSlip ? "is-selected" : ""}`.trim()}
@@ -1938,7 +1940,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       size="default"
                       className="w-full num"
                       disabled={!canSealParlay}
-                      onClick={() => sealParlayToJournal()}
+                      onClick={() => sealParlayToJournal(undefined, parsedBookParlayDec)}
                     >
                       <MaestroIcon name="verified-seal" size={15} />
                       <span>Sellar en Mi récord ({parlaySummary.stakeUnits.toFixed(1)}u)</span>

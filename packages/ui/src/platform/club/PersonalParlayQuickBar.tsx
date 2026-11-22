@@ -370,10 +370,13 @@ export function PersonalParlayQuickBar(): React.JSX.Element {
           </div>
 
           {targetPreset !== "libre" && hasPreviewLegs ? (
-            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
               Regla activa: ≥ {risk === "conservador" ? 60 : 52} % por selección (momio mín.{" "}
-              {activePresetSpec.minLegDecimal.toFixed(2)}), máximo 1 por partido dentro del rango{" "}
-              {activePresetSpec.range?.min.toFixed(1)}–{activePresetSpec.range?.max.toFixed(1)}.
+              {formatQuickOdds(activePresetSpec.minLegDecimal, oddsFormat)}), máximo 1 por partido
+              {activePresetSpec.range
+                ? ` dentro del rango ${formatQuickOdds(activePresetSpec.range.min, oddsFormat)}–${formatQuickOdds(activePresetSpec.range.max, oddsFormat)}`
+                : ""}
+              .
             </p>
           ) : null}
 

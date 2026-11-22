@@ -104,33 +104,188 @@ const TAX_COPY: Readonly<
   },
 };
 
+export type SgpAuditSport = "soccer" | "nfl" | "basketball" | "baseball" | "ice-hockey";
+
 export function mapPickToSgpFactor(
   leg: ParlayLeg,
-  sport: "soccer" | "nfl",
+  sport: SgpAuditSport,
 ): MappedSgpLeg | null {
   const { pick } = leg;
   const m = (pick.market ?? "").toLowerCase();
   const s = pick.selectionKey.toLowerCase();
   const l = pick.label.toLowerCase();
   const p = Math.max(0.01, Math.min(0.99, pick.p));
+  const isUnderDir =
+    pick.conflictGroup === "under_total" ||
+    s.includes("under") ||
+    l.includes("menos de");
+  const isTotalLike =
+    m.includes("total") ||
+    pick.conflictGroup === "over_total" ||
+    pick.conflictGroup === "under_total" ||
+    l.includes("más de") ||
+    l.includes("menos de");
+  const isAwayDir =
+    pick.conflictGroup === "away_side" ||
+    s.includes("away") ||
+    s === "2";
 
   if (sport === "nfl") {
-    if (
-      m.includes("total") ||
-      pick.conflictGroup === "over_total" ||
-      pick.conflictGroup === "under_total" ||
-      l.includes("más de") ||
-      l.includes("menos de")
-    ) {
-      const dir: 1 | -1 =
-        pick.conflictGroup === "under_total" || s.includes("under") || l.includes("menos de")
-          ? -1
-          : 1;
-      return { legId: pick.id, factor: "total_points", marginalProbability: p, direction: dir };
+    if (isTotalLike) {
+      return {
+        legId: pick.id,
+        factor: "total_points",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
     }
-    const dir: 1 | -1 =
-      pick.conflictGroup === "away_side" || s.includes("away") ? -1 : 1;
-    return { legId: pick.id, factor: "home_margin", marginalProbability: p, direction: dir };
+    return {
+      legId: pick.id,
+      factor: "home_margin",
+      marginalProbability: p,
+      direction: isAwayDir ? -1 : 1,
+    };
+  }
+
+  if (sport === "basketball") {
+    if (m.includes("rebound") || l.includes("rebote")) {
+      return {
+        legId: pick.id,
+        factor: "player_rebounds",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (m.includes("assist") || l.includes("asistencia")) {
+      return {
+        legId: pick.id,
+        factor: "player_assists",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (m.includes("three") || m.includes("3pt") || l.includes("triple")) {
+      return {
+        legId: pick.id,
+        factor: "player_threes",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (m.includes("player_point")) {
+      return {
+        legId: pick.id,
+        factor: "player_points",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (m === "team_totals") {
+      return {
+        legId: pick.id,
+        factor: s.startsWith("away") ? "away_team_points" : "home_team_points",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (isTotalLike) {
+      return {
+        legId: pick.id,
+        factor: "total_points",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    return {
+      legId: pick.id,
+      factor: "home_margin",
+      marginalProbability: p,
+      direction: isAwayDir ? -1 : 1,
+    };
+  }
+
+  if (sport === "baseball") {
+    const isF5 =
+      m.includes("f5") ||
+      m.includes("first_five") ||
+      l.includes("primeras 5") ||
+      l.includes("5 entradas");
+    if (isF5) {
+      return {
+        legId: pick.id,
+        factor: isTotalLike ? "f5_total_runs" : "f5_margin",
+        marginalProbability: p,
+        direction: isTotalLike ? (isUnderDir ? -1 : 1) : isAwayDir ? -1 : 1,
+      };
+    }
+    if (m === "team_totals") {
+      return {
+        legId: pick.id,
+        factor: s.startsWith("away") ? "away_team_runs" : "home_team_runs",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (isTotalLike) {
+      return {
+        legId: pick.id,
+        factor: "total_runs",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    return {
+      legId: pick.id,
+      factor: "home_margin",
+      marginalProbability: p,
+      direction: isAwayDir ? -1 : 1,
+    };
+  }
+
+  if (sport === "ice-hockey") {
+    if (
+      m.includes("p1") ||
+      m.includes("period1") ||
+      l.includes("1er per") ||
+      l.includes("primer per")
+    ) {
+      return {
+        legId: pick.id,
+        factor: "period1_total_goals",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (m === "team_totals") {
+      return {
+        legId: pick.id,
+        factor: s.startsWith("away") ? "away_team_goals" : "home_team_goals",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (m.includes("sot") || l.includes("a puerta")) {
+      return {
+        legId: pick.id,
+        factor: "total_shots_on_target",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    if (isTotalLike) {
+      return {
+        legId: pick.id,
+        factor: "total_goals",
+        marginalProbability: p,
+        direction: isUnderDir ? -1 : 1,
+      };
+    }
+    return {
+      legId: pick.id,
+      factor: "goal_diff",
+      marginalProbability: p,
+      direction: isAwayDir ? -1 : 1,
+    };
   }
 
   if (m.includes("corner") || l.includes("córner") || l.includes("esquina")) {
@@ -161,33 +316,33 @@ export function mapPickToSgpFactor(
     return { legId: pick.id, factor: "ht_total_goals", marginalProbability: p, direction: dir };
   }
   if (
-    m.includes("total") ||
+    isTotalLike ||
     m.includes("btts") ||
-    pick.conflictGroup === "over_total" ||
-    pick.conflictGroup === "under_total" ||
     pick.conflictGroup === "btts_yes" ||
     pick.conflictGroup === "btts_no" ||
-    l.includes("más de") ||
-    l.includes("menos de") ||
     l.includes("ambos anotan")
   ) {
     const dir: 1 | -1 =
-      pick.conflictGroup === "under_total" ||
+      isUnderDir ||
       pick.conflictGroup === "btts_no" ||
-      s.includes("under") ||
-      s.includes("no") ||
-      l.includes("menos de")
+      s.includes("no")
         ? -1
         : 1;
     return { legId: pick.id, factor: "total_goals", marginalProbability: p, direction: dir };
   }
-  const dir: 1 | -1 =
-    pick.conflictGroup === "away_side" || s.includes("away") || s === "2" ? -1 : 1;
-  return { legId: pick.id, factor: "goal_diff", marginalProbability: p, direction: dir };
+  return { legId: pick.id, factor: "goal_diff", marginalProbability: p, direction: isAwayDir ? -1 : 1 };
+}
+
+function resolveSgpSportForLeague(league: string): SgpAuditSport {
+  if (league === "nfl") return "nfl";
+  if (league === "nba") return "basketball";
+  if (league === "mlb") return "baseball";
+  if (league === "nhl") return "ice-hockey";
+  return "soccer";
 }
 
 function findPrimarySgpCluster(legs: readonly ParlayLeg[]): {
-  sport: "soccer" | "nfl";
+  sport: SgpAuditSport;
   mapped: MappedSgpLeg[];
   matchLabel: string;
   probRange: JointProbabilityRange;
@@ -202,15 +357,7 @@ function findPrimarySgpCluster(legs: readonly ParlayLeg[]): {
     if (group.length < 2) continue;
     const first = group[0];
     if (!first) continue;
-    const sport: "soccer" | "nfl" | null =
-      first.pick.league === "nfl"
-        ? "nfl"
-        : first.pick.league !== "nba" &&
-            first.pick.league !== "nhl" &&
-            first.pick.league !== "mlb"
-          ? "soccer"
-          : null;
-    if (!sport) continue;
+    const sport = resolveSgpSportForLeague(first.pick.league);
     const mapped = group
       .slice(0, 6)
       .map((l) => mapPickToSgpFactor(l, sport))

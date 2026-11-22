@@ -795,6 +795,9 @@
   }
 
   .pl-pb-toggle-btn.is-selected {
+    border-color: var(--pl-brand);
+    background: var(--pl-surface-active);
+    color: var(--pl-text);
     font-weight: 800;
   }
 

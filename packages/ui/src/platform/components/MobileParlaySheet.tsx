@@ -49,7 +49,16 @@ function supportsTopLayerExit(): boolean {
   );
 }
 
-function computeSlipFrechetBounds(
+const MAX_PARLAY_LEGS = 6;
+
+function formatSheetOdds(decimalOdds: number | null | undefined, format: "american" | "decimal"): string {
+  if (decimalOdds == null || !Number.isFinite(decimalOdds) || decimalOdds <= 1.01) {
+    return "—";
+  }
+  return formatOddsValue(decimalOdds, format);
+}
+
+function computeSlipProbBounds(
   legs: readonly { readonly pick: { readonly gameId: string; readonly p: number } }[],
 ): { readonly lower: number; readonly upper: number } {
   if (legs.length === 0) return { lower: 0, upper: 0 };
@@ -99,7 +108,7 @@ export function MobileParlaySheet({
     () => computeParlaySummary(parlayLegs, parlayStakeUnits),
     [parlayLegs, parlayStakeUnits],
   );
-  const frechetBounds = useMemo(() => computeSlipFrechetBounds(parlayLegs), [parlayLegs]);
+  const probBounds = useMemo(() => computeSlipProbBounds(parlayLegs), [parlayLegs]);
 
   const effectiveProb = useMemo(() => {
     if (parlayLegs.length === 0) return 0;
@@ -107,20 +116,20 @@ export function MobileParlaySheet({
       summary.hasSgpCorrelation && resolvedAudit && resolvedAudit.nLegs === parlayLegs.length
         ? resolvedAudit.jointProbability
         : summary.combinedProbability;
-    return Math.min(frechetBounds.upper, Math.max(frechetBounds.lower, raw));
-  }, [frechetBounds.lower, frechetBounds.upper, parlayLegs.length, resolvedAudit, summary]);
+    return Math.min(probBounds.upper, Math.max(probBounds.lower, raw));
+  }, [probBounds.lower, probBounds.upper, parlayLegs.length, resolvedAudit, summary]);
 
   const effectiveFairDecimal = useMemo(() => {
-    if (parlayLegs.length === 0) return 1;
+    if (parlayLegs.length === 0) return 0;
     if (
       summary.hasSgpCorrelation &&
       resolvedAudit &&
       resolvedAudit.nLegs === parlayLegs.length &&
-      resolvedAudit.fairCombinedDecimal > 1
+      resolvedAudit.fairCombinedDecimal > 1.01
     ) {
       return resolvedAudit.fairCombinedDecimal;
     }
-    return Math.max(1.01, Math.round((1 / Math.max(effectiveProb, 0.0001)) * 100) / 100);
+    return Math.max(1.02, Math.round((1 / Math.max(effectiveProb, 0.0001)) * 100) / 100);
   }, [effectiveProb, parlayLegs.length, resolvedAudit, summary.hasSgpCorrelation]);
 
   const risk = useMemo(
@@ -227,7 +236,9 @@ export function MobileParlaySheet({
 
   if (!hasLegs) return null;
 
-  const oddsText = formatOddsValue(effectiveFairDecimal, oddsFormat);
+  const exceedsMaxLegs = parlayLegs.length > MAX_PARLAY_LEGS;
+  const canSeal = parlayLegs.length >= 2 && !exceedsMaxLegs;
+  const oddsText = formatSheetOdds(effectiveFairDecimal, oddsFormat);
 
   return (
     <>
@@ -292,6 +303,23 @@ export function MobileParlaySheet({
             </div>
           ) : null}
 
+          {exceedsMaxLegs ? (
+            <div
+              className="rounded-lg p-2.5 text-xs font-semibold"
+              role="alert"
+              style={{
+                background: "var(--pl-pill-danger-bg)",
+                border: "1px solid var(--pl-pill-danger-border)",
+                color: "var(--pl-pill-danger-fg)",
+              }}
+            >
+              Máximo {MAX_PARLAY_LEGS} selecciones por boleto. Quita{" "}
+              {parlayLegs.length - MAX_PARLAY_LEGS}{" "}
+              {parlayLegs.length - MAX_PARLAY_LEGS === 1 ? "selección" : "selecciones"} para
+              poder sellar en Mi récord.
+            </div>
+          ) : null}
+
           <ul ref={listRef} className="pl-bottom-sheet-legs pl-mps-scroll" role="list">
             {parlayLegs.map((leg) => (
               <li key={leg.pick.id} className="pl-bottom-sheet-leg">
@@ -302,7 +330,7 @@ export function MobileParlaySheet({
                     style={{ color: "var(--pl-text-muted)" }}
                   >
                     {leg.pick.matchLabel} · {(leg.pick.p * 100).toFixed(0)} % ·{" "}
-                    {formatOddsValue(leg.pick.fairDecimal, oddsFormat)}
+                    {formatSheetOdds(leg.pick.fairDecimal, oddsFormat)}
                   </span>
                 </div>
                 <Button
@@ -369,9 +397,9 @@ export function MobileParlaySheet({
                 variant="primary"
                 size="default"
                 className="pl-bottom-sheet-primary"
-                disabled={parlayLegs.length < 2}
+                disabled={!canSeal}
                 onClick={() => {
-                  sealParlayToJournal();
+                  sealParlayToJournal(undefined, offeredCombinedDecimalOdds);
                   void closeSheet();
                 }}
               >
