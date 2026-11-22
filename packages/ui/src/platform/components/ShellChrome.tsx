@@ -1521,14 +1521,14 @@ function ClubWorkspaceShellImpl({
               <button
                 type="button"
                 className="pl-btn-glass pl-header-search text-[13px] min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-2.5 sm:px-3 inline-flex items-center justify-between gap-2 min-w-0"
-                aria-label={isApplePlatform ? "Buscar partido, liga o @socio, K" : "Buscar partido, liga o @socio, Ctrl K"}
                 aria-keyshortcuts={isApplePlatform ? "Meta+K" : "Control+K"}
                 onClick={() => {
                   requestFullShell();
                   setCmdkOpen(true);
                 }}
               >
-                <span className="inline-flex items-center gap-1.5 sm:gap-2 min-w-0 sm:flex-1 overflow-hidden" style={{ color: "var(--pl-text-secondary)" }}>
+                <span className="sr-only">Buscar partido, liga o @socio</span>
+                <span className="inline-flex items-center gap-1.5 sm:gap-2 min-w-0 sm:flex-1 overflow-hidden" style={{ color: "var(--pl-text-secondary)" }} aria-hidden="true">
                   <MaestroIcon name="search" size={16} className="shrink-0" />
                   <span className="hidden sm:inline truncate">
                     Buscar partido, liga o @socio
@@ -1554,13 +1554,6 @@ function ClubWorkspaceShellImpl({
               className="pl-btn-glass pl-profile-chip"
               aria-haspopup="dialog"
               aria-expanded={profileMenuOpen}
-              aria-label={
-                viewerRole === "visitor"
-                  ? "Entrar · menú de cuenta"
-                  : showProfileAvatarImg
-                    ? `Menú de ${profileHandle}, Ultra`
-                    : `Menú de ${profileInitials} ${profileHandle}, Ultra`
-              }
               data-profile-menu-trigger=""
               onClick={() => {
                 const rect = profileTriggerRef.current?.getBoundingClientRect();
@@ -1575,9 +1568,13 @@ function ClubWorkspaceShellImpl({
               }}
             >
               {viewerRole === "visitor" ? (
-                <span className="pl-profile-chip-label">Entrar</span>
+                <>
+                  <span className="sr-only">Menú de cuenta, </span>
+                  <span className="pl-profile-chip-label">Entrar</span>
+                </>
               ) : (
                 <>
+                  <span className="sr-only">{`Menú de ${profileHandle}`}</span>
                   <span
                     className="pl-acct-avatar size-7 text-[10px]"
                     style={{ background: profileGrad }}
@@ -1597,7 +1594,7 @@ function ClubWorkspaceShellImpl({
                       profileInitials
                     )}
                   </span>
-                  <span className="hidden sm:inline font-bold truncate max-w-[92px]">{profileHandle}</span>
+                  <span className="hidden sm:inline font-bold truncate max-w-[92px]" aria-hidden="true">{profileHandle}</span>
                   <span className="hidden lg:inline-flex" aria-hidden="true">
                     <UltraTag />
                   </span>

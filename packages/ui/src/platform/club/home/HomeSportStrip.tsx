@@ -313,14 +313,14 @@ export function HomeSportStrip({
     const isEmpty = !def.soon && def.id !== ALL && count === 0;
     const badgeText = def.soon ? "Pronto" : String(count);
     const subtext = def.soon ? "Pronto" : countLabel(count, "partido", "partidos");
-    const extraName = def.a11yName.startsWith(`${def.label} · `)
-      ? def.a11yName.slice(def.label.length + 3)
-      : def.a11yName !== def.label
-        ? def.a11yName
-        : "";
-    const aria = isHeader
-      ? `${def.label} ${subtext}${extraName ? `, ${extraName}` : ""}`
-      : `${def.a11yName}, ${subtext}`;
+    const countUnit = count === 1 ? "partido" : "partidos";
+    const aria = `${def.a11yName}, ${subtext}`;
+    const srSuffixAfterLabel =
+      def.id === ALL
+        ? " los deportes, "
+        : def.a11yName.startsWith(`${def.label} · `)
+          ? ` · ${def.a11yName.slice(def.label.length + 3)}, `
+          : ", ";
     return (
       <button
         key={def.id}
@@ -328,7 +328,7 @@ export function HomeSportStrip({
         disabled={def.soon}
         className={`${classes.tab} ${on ? "is-on" : ""} ${isEmpty ? "is-empty" : ""} ${def.soon ? "is-soon" : ""}`.trim()}
         aria-pressed={def.soon ? undefined : on}
-        aria-label={aria}
+        aria-label={isHeader ? undefined : aria}
         data-sport-filter={def.id}
         onClick={(e) => {
           if (def.soon) return;
@@ -350,7 +350,9 @@ export function HomeSportStrip({
           <SportThumb def={def} size={isHeader ? 20 : 22} />
         </span>
         <strong className={classes.label}>{def.label}</strong>
-        <span className={`${classes.count} num`} aria-hidden="true">{badgeText}</span>
+        {isHeader ? <span className="sr-only">{srSuffixAfterLabel}</span> : null}
+        <span className={`${classes.count} num`}>{badgeText}</span>
+        {isHeader && !def.soon ? <span className="sr-only">{` ${countUnit}`}</span> : null}
       </button>
     );
   });
