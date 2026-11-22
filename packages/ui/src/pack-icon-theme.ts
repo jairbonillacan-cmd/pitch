@@ -1,15 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 export type PackIconBase = "/icons" | "/icons-dark";
 
-const themeListeners = new Set<(next: PackIconBase) => void>();
+const themeListeners = new Set<() => void>();
 let sharedObserver: MutationObserver | null = null;
 
 function readCurrentPackBase(): PackIconBase {
   if (typeof document === "undefined") return "/icons";
   return document.documentElement.dataset.theme === "light" ? "/icons" : "/icons-dark";
+}
+
+function readServerPackBase(): PackIconBase {
+  return "/icons";
 }
 
 function ensureSharedObserver(): void {
@@ -18,36 +22,48 @@ function ensureSharedObserver(): void {
   }
   const root = document.documentElement;
   sharedObserver = new MutationObserver(() => {
-    const next = readCurrentPackBase();
     for (const listener of themeListeners) {
-      listener(next);
+      listener();
     }
   });
   sharedObserver.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
 }
 
-/**
- * Devuelve `/icons` en modo claro y `/icons-dark` en modo oscuro usando un único
- * `MutationObserver` compartido en todo el documento y manteniendo `/icons` en SSR
- * para evitar cualquier desajuste de hidratación.
- */
+function subscribePackIconBase(listener: () => void): () => void {
+  ensureSharedObserver();
+  themeListeners.add(listener);
+  return () => {
+    themeListeners.delete(listener);
+    if (themeListeners.size === 0 && sharedObserver) {
+      sharedObserver.disconnect();
+      sharedObserver = null;
+    }
+  };
+}
+
 export function usePackIconBase(): PackIconBase {
-  const [base, setBase] = useState<PackIconBase>("/icons");
+  return useSyncExternalStore(
+    subscribePackIconBase,
+    readCurrentPackBase,
+    readServerPackBase,
+  );
+}
 
-  useEffect(() => {
-    setBase(readCurrentPackBase());
-    ensureSharedObserver();
-    themeListeners.add(setBase);
-    return () => {
-      themeListeners.delete(setBase);
-      if (themeListeners.size === 0 && sharedObserver) {
-        sharedObserver.disconnect();
-        sharedObserver = null;
-      }
-    };
-  }, []);
+function normalizePackRelativeAsset(relativeAsset: string): string {
+  return relativeAsset.replace(/^\/+/, "").replace(/\.webp$/i, "");
+}
 
-  return base;
+export function buildPackIconSources(
+  base: PackIconBase,
+  relativeAsset: string,
+): { readonly src: string; readonly srcSet: string } {
+  const normalized = normalizePackRelativeAsset(relativeAsset);
+  const src1x = `${base}/32/${normalized}.webp`;
+  const src2x = `${base}/64/${normalized}.webp`;
+  return {
+    src: src1x,
+    srcSet: `${src1x} 1x, ${src2x} 2x`,
+  };
 }
 
 export function resolveThemedPackUrl(url: string, base: PackIconBase): string {
