@@ -235,6 +235,7 @@ export function TipsterPortalClubView({
           const host = parsed.hostname.toLowerCase();
           if (
             parsed.protocol !== "https:" ||
+            parsed.port !== "" ||
             parsed.username ||
             parsed.password ||
             !(host === "connect.stripe.com" || host === "dashboard.stripe.com" || host.endsWith(".stripe.com"))
@@ -932,7 +933,7 @@ export function TipsterPortalClubView({
                         </div>
                         <div style={{ fontSize: "0.75rem", color: "var(--share-card-accent)" }}>
                           {isSpacetimeOrigin
-                            ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v5.1"}`
+                            ? `Respaldado por ${activePick?.engineName && !/geodesic/i.test(activePick.engineName) ? activePick.engineName : "Motor Spacetime"}`
                             : "Tesis propia auditada en Bitácora PitchLab"}
                         </div>
                       </div>
@@ -1033,7 +1034,7 @@ export function TipsterPortalClubView({
                           title: `${activeTipster.name} · @${activeTipster.handle}`,
                           subtitle: previewMatchTitle,
                           badge: isSpacetimeOrigin
-                            ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v5.1"}`
+                            ? `Respaldado por ${activePick?.engineName && !/geodesic/i.test(activePick.engineName) ? activePick.engineName : "Motor Spacetime"}`
                             : "Tesis propia auditada en Bitácora PitchLab",
                           badgeTone: "success",
                           units: "",
@@ -1107,7 +1108,9 @@ export function TipsterPortalClubView({
                   </h2>
                   <p className="pl-ta-muted-text">
                     {previewMatchTitle} ·{" "}
-                    {activePick?.engineName ?? "PitchLab Spacetime Suite v5.1"}
+                    {activePick?.engineName && !/geodesic/i.test(activePick.engineName)
+                      ? activePick.engineName
+                      : "Motor Spacetime"}
                   </p>
                 </div>
               </div>

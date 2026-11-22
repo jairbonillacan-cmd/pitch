@@ -348,6 +348,7 @@ export function EditProfileDialog({
             const host = parsed.hostname.toLowerCase();
             if (
               parsed.protocol !== "https:" ||
+              parsed.port !== "" ||
               parsed.username ||
               parsed.password ||
               !(

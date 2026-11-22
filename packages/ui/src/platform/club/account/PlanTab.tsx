@@ -1102,6 +1102,7 @@ export function PlanTab({
             const host = parsed.hostname.toLowerCase();
             if (
               parsed.protocol !== "https:" ||
+              parsed.port !== "" ||
               parsed.username ||
               parsed.password ||
               !(host === "checkout.stripe.com" || host === "billing.stripe.com" || host.endsWith(".stripe.com"))

@@ -9,6 +9,7 @@
  * Sin `RESEND_API_KEY` (desarrollo) los correos se imprimen en la consola del servidor.
  */
 import { noreplySender, supportEmail } from "@pitchlab/emails";
+import { logSecurityEvent, redactSensitiveValue } from "./safe-logger";
 
 export { noreplySender };
 
@@ -71,16 +72,30 @@ export function resendMailer(apiKey: string, defaultFrom: string, fetchImpl: typ
   };
 }
 
-export function consoleMailer(log: (line: string) => void = console.info): Mailer {
+export function consoleMailer(log?: (line: string) => void): Mailer {
   return {
     async send(email) {
-      const when = email.scheduledAt ? ` (programado para ${email.scheduledAt.toISOString()})` : "";
-      const sender = email.from ? ` [desde ${email.from}]` : "";
-      log(`[correo]${sender} ${email.subject} → ${email.to}${when}`);
+      if (log) {
+        const when = email.scheduledAt ? ` (programado para ${email.scheduledAt.toISOString()})` : "";
+        const sender = email.from ? ` [desde ${email.from}]` : "";
+        const redacted = redactSensitiveValue(`[correo]${sender} ${email.subject} → ${email.to}${when}`);
+        log(typeof redacted === "string" ? redacted : `[correo] ${email.subject}`);
+      } else {
+        logSecurityEvent("info", "mailer_console_dispatched", {
+          email: email.to,
+          subject: email.subject,
+          from: email.from ?? null,
+          scheduledAt: email.scheduledAt?.toISOString() ?? null,
+        });
+      }
       return { id: null };
     },
     async cancel(id) {
-      log(`[correo] cancelado ${id}`);
+      if (log) {
+        log(`[correo] cancelado ${id}`);
+      } else {
+        logSecurityEvent("info", "mailer_console_canceled", { emailId: id });
+      }
     },
   };
 }
@@ -98,7 +113,9 @@ export function getMailer(): Mailer {
   if (key) {
     cached = resendMailer(key, process.env.EMAIL_FROM ?? "PitchLab <hola@pitchlab.mx>");
   } else {
-    if (process.env.NODE_ENV === "production") console.warn("[correo] RESEND_API_KEY no existe: los correos solo se imprimen.");
+    if (process.env.NODE_ENV === "production") {
+      logSecurityEvent("warn", "mailer_resend_key_missing");
+    }
     cached = consoleMailer();
   }
   return cached;

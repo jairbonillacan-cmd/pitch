@@ -4,7 +4,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { NextResponse } from "next/server";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { asLeagueId, asMarketKey } from "@pitchlab/contracts";
+import { asLeagueId, asMarketKey, type LeagueId } from "@pitchlab/contracts";
 import type { Db } from "@pitchlab/db";
 import type { MatchPick, PlatformDataset, PlatformGame } from "@pitchlab/ui/types";
 import type { AuthenticatedMember } from "../src/server/session-user";
@@ -75,6 +75,7 @@ import {
 import { POST as postJournal } from "../app/api/me/journal/route";
 import { POST as postSgp } from "../app/api/parlays/sgp/route";
 import { signUnsubscribeToken } from "../src/server/lifecycle-emails";
+import { consoleMailer } from "../src/server/mailer";
 import { resetRateLimitsForTests, setRateLimitDbForTests } from "../src/server/request-security";
 
 const REPO_ROOT = resolve(import.meta.dirname, "../../..");
@@ -135,7 +136,7 @@ function sameOriginJsonPost(path: string, body: unknown): Request {
 function makeTotalPick(params: {
   readonly gameId: string;
   readonly pickId: string;
-  readonly league: string;
+  readonly league: LeagueId;
   readonly leagueLabel: string;
   readonly matchLabel: string;
   readonly rawLabel: string;
@@ -146,7 +147,7 @@ function makeTotalPick(params: {
   return {
     id: params.pickId,
     gameId: params.gameId,
-    league: asLeagueId(params.league),
+    league: params.league,
     leagueLabel: params.leagueLabel,
     matchLabel: params.matchLabel,
     kickoffLocal: "19:00",
@@ -177,7 +178,7 @@ function makeTotalPick(params: {
 
 function makeFootballGame(params: {
   readonly id: string;
-  readonly league: string;
+  readonly league: LeagueId;
   readonly leagueLabel: string;
   readonly homeName: string;
   readonly awayName: string;
@@ -186,7 +187,7 @@ function makeFootballGame(params: {
 }): PlatformGame {
   return {
     id: params.id,
-    league: asLeagueId(params.league),
+    league: params.league,
     leagueLabel: params.leagueLabel,
     sport: "football",
     round: "J14",
@@ -389,9 +390,12 @@ describe("Ola 7 · regresiones de seguridad, Cero-Fuga y APIs de parlays", () =>
     const kickoffA = new Date(Date.now() + 6 * 3_600_000).toISOString();
     const kickoffB = new Date(Date.now() + 8 * 3_600_000).toISOString();
 
+    const belLeague = asLeagueId("pro-league-belgica");
+    const engLeague = asLeagueId("championship");
+
     const gameA = makeFootballGame({
       id: "ola7-bel-charleroi",
-      league: "pro-league-belgica",
+      league: belLeague,
       leagueLabel: "Pro League Bélgica",
       homeName: "Charleroi",
       awayName: "Sint-Truidense",
@@ -400,7 +404,7 @@ describe("Ola 7 · regresiones de seguridad, Cero-Fuga y APIs de parlays", () =>
         makeTotalPick({
           gameId: "ola7-bel-charleroi",
           pickId: "pk-bel-over35",
-          league: "pro-league-belgica",
+          league: belLeague,
           leagueLabel: "Pro League Bélgica",
           matchLabel: "Charleroi vs Sint-Truidense",
           rawLabel: "Más de 3.5",
@@ -412,7 +416,7 @@ describe("Ola 7 · regresiones de seguridad, Cero-Fuga y APIs de parlays", () =>
 
     const gameB = makeFootballGame({
       id: "ola7-eng-norwich",
-      league: "championship",
+      league: engLeague,
       leagueLabel: "Championship",
       homeName: "Norwich",
       awayName: "Cardiff",
@@ -421,7 +425,7 @@ describe("Ola 7 · regresiones de seguridad, Cero-Fuga y APIs de parlays", () =>
         makeTotalPick({
           gameId: "ola7-eng-norwich",
           pickId: "pk-eng-over35",
-          league: "championship",
+          league: engLeague,
           leagueLabel: "Championship",
           matchLabel: "Norwich vs Cardiff",
           rawLabel: "Más de 3.5",
@@ -484,6 +488,33 @@ describe("Ola 7 · regresiones de seguridad, Cero-Fuga y APIs de parlays", () =>
       }),
     );
     expect(sevenLegsRes.status).toBe(400);
+
+    const extraFieldRes = await postJournal(
+      sameOriginJsonPost("/api/me/journal", {
+        gameId: gameA.id,
+        pickId: "pk-bel-over35",
+        units: 1,
+        userDecimal: 2.1,
+        status: "won",
+      }),
+    );
+    expect(extraFieldRes.status).toBe(400);
+
+    const singleRes = await postJournal(
+      sameOriginJsonPost("/api/me/journal", {
+        gameId: gameA.id,
+        pickId: "pk-bel-over35",
+        units: 1,
+        userDecimal: 2.1,
+      }),
+    );
+    expect(singleRes.status).toBe(201);
+    const savedRows = await testDb
+      .select()
+      .from(sealedPicks)
+      .where(eq(sealedPicks.userId, memberId));
+    const singleRow = savedRows.find((r) => r.pickKind === "single");
+    expect(singleRow?.pickLabel).toBe("Más de 3.5 goles");
   });
 
   it("POST /api/parlays/sgp soporta football, soccer, nfl, basketball, baseball y ice-hockey y rechaza deportes inválidos", async () => {
@@ -592,9 +623,43 @@ describe("Ola 7 · regresiones de seguridad, Cero-Fuga y APIs de parlays", () =>
     expect(unsupportedRes.status).toBe(400);
     const unsupportedJson = (await unsupportedRes.json()) as { code?: string };
     expect(unsupportedJson.code).toBe("INVALID_SGP_REQUEST");
+
+    const sevenLegSgpRes = await postSgp(
+      sameOriginJsonPost("/api/parlays/sgp", {
+        sport: "basketball",
+        legs: Array.from({ length: 7 }, (_, idx) => ({
+          legId: `b${idx + 1}`,
+          factor: "total_points",
+          marginalProbability: 0.52,
+          direction: 1,
+        })),
+      }),
+    );
+    expect(sevenLegSgpRes.status).toBe(400);
+
+    const strictExtraSgpRes = await postSgp(
+      sameOriginJsonPost("/api/parlays/sgp", {
+        sport: "basketball",
+        legs: [
+          { legId: "b1", factor: "home_margin", marginalProbability: 0.55, direction: 1 },
+          { legId: "b2", factor: "total_points", marginalProbability: 0.52, direction: 1 },
+        ],
+        unexpectedField: true,
+      }),
+    );
+    expect(strictExtraSgpRes.status).toBe(400);
   });
 
-  it("verifica Cero-Fuga RSC en árbitros, safeLogger en servidor y hardening de redirecciones cliente", () => {
+  it("verifica Cero-Fuga RSC en árbitros, safeLogger en servidor, beta/logout fail-closed y hardening de redirecciones cliente", async () => {
+    const loggedLines: string[] = [];
+    await consoleMailer((line) => loggedLines.push(line)).send({
+      to: "privado.ola7@pitchlab.mx",
+      subject: "Aviso de prueba",
+      html: "<p>Hola</p>",
+    });
+    expect(loggedLines[0]).toContain("Aviso de prueba");
+    expect(loggedLines[0]).not.toContain("privado.ola7@pitchlab.mx");
+
     const refereeDirSrc = readFileSync(
       resolve(REPO_ROOT, "apps/web/app/app/[league]/arbitros/page.tsx"),
       "utf8",
@@ -609,27 +674,48 @@ describe("Ola 7 · regresiones de seguridad, Cero-Fuga y APIs de parlays", () =>
     expect(refereeProfileSrc).toContain("getViewerAccess()");
     expect(refereeProfileSrc).toContain("if (!access.fullAccess)");
 
+    const betaLogoutSrc = readFileSync(
+      resolve(REPO_ROOT, "apps/web/app/api/beta/logout/route.ts"),
+      "utf8",
+    );
+    expect(betaLogoutSrc).toContain("withPublicRead");
+    expect(betaLogoutSrc).toContain("failClosed: true");
+
+    const lifecycleSrc = readFileSync(
+      resolve(REPO_ROOT, "apps/web/src/server/lifecycle-emails.ts"),
+      "utf8",
+    );
+    expect(lifecycleSrc).not.toContain("/app/cuenta");
+
     for (const serverFile of [
       "apps/web/src/server/auth.ts",
       "apps/web/src/server/viewer-access.ts",
       "apps/web/src/server/billing/stripe-webhook.ts",
       "apps/web/src/server/cortex.ts",
+      "apps/web/src/server/mailer.ts",
+      "apps/web/src/server/lifecycle-emails.ts",
     ]) {
       const src = readFileSync(resolve(REPO_ROOT, serverFile), "utf8");
       expect(src, serverFile).toContain("logSecurityEvent");
       expect(src, serverFile).not.toMatch(/\bconsole\.(?:info|warn|error|log)\s*\(/);
     }
 
-    for (const clientFile of [
+    for (const externalRedirectFile of [
       "packages/ui/src/platform/club/account/PlanTab.tsx",
       "packages/ui/src/platform/club/EditProfileDialog.tsx",
       "packages/ui/src/platform/club/SocialAndTipsterViews.tsx",
       "packages/ui/src/platform/public/LoginSurfaceV4.tsx",
       "packages/ui/src/platform/public/TechAndPricingSurfaces.tsx",
-      "packages/ui/src/platform/public/email-confirmation.tsx",
     ]) {
-      const src = readFileSync(resolve(REPO_ROOT, clientFile), "utf8");
-      expect(src, clientFile).toContain("sanitizeInternalHref");
+      const src = readFileSync(resolve(REPO_ROOT, externalRedirectFile), "utf8");
+      expect(src, externalRedirectFile).toContain("sanitizeInternalHref");
+      expect(src, externalRedirectFile).toContain('parsed.port !== ""');
     }
+
+    const emailConfirmSrc = readFileSync(
+      resolve(REPO_ROOT, "packages/ui/src/platform/public/email-confirmation.tsx"),
+      "utf8",
+    );
+    expect(emailConfirmSrc).toContain("sanitizeInternalHref");
   });
 });

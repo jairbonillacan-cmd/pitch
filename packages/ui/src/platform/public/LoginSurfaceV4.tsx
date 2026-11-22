@@ -108,6 +108,7 @@ export async function startLoginSocialSignIn(
         const host = parsed.hostname.toLowerCase();
         if (
           parsed.protocol !== "https:" ||
+          parsed.port !== "" ||
           parsed.username ||
           parsed.password ||
           host !== "accounts.google.com"

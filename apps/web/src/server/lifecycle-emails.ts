@@ -26,6 +26,7 @@ import { firstName, formatLongDate, formatOdds, formatPoints } from "./email-for
 import type { Mailer } from "./mailer";
 import { buildServerRawPlatformDataset } from "./platform-data";
 import { loadRankingRows } from "./ranking";
+import { logSecurityEvent } from "./safe-logger";
 import { isAdminEmail } from "./session-user";
 
 export type UnsubscribeScope = "weekly_digest" | "monthly_record" | "all";
@@ -122,7 +123,7 @@ export function verifyUnsubscribeToken(
 export function unsubscribeUrlFor(userId: string, scope: UnsubscribeScope, now: Date = new Date()): string {
   const base = siteUrl();
   const token = signUnsubscribeToken(userId, scope, now);
-  if (!token) return `${base}/app/cuenta`;
+  if (!token) return `${base}/app/account`;
   return `${base}/api/me/email-preferences/unsubscribe?token=${encodeURIComponent(token)}`;
 }
 
@@ -163,7 +164,11 @@ async function sendClaimedLifecycleEmail<T extends EmailTemplateId>(
     return "sent";
   } catch (error) {
     await releaseEmail(db, claimId);
-    console.error(`[correo] fallo ${input.kind} (${input.cycleKey}):`, error);
+    logSecurityEvent("error", "lifecycle_email_send_failed", {
+      kind: input.kind,
+      cycleKey: input.cycleKey,
+      error,
+    });
     return "error";
   }
 }
@@ -188,7 +193,7 @@ export async function sendReferralSignedUpEmail(
       name: firstName(referrer.referrerDisplayName),
       friendName: firstName(input.friendName) ?? input.friendName.trim(),
       status: input.status,
-      referralsUrl: `${siteUrl()}/app/cuenta`,
+      referralsUrl: `${siteUrl()}/app/account`,
     }),
   });
 }

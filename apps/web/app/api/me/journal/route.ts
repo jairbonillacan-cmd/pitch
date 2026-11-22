@@ -116,21 +116,30 @@ function resolveParlayLeagueLabel(specs: readonly SealedParlayLegSpec[]): string
   return "Combinada Multi-Liga";
 }
 
-const JournalParlayLegSchema = z.object({
-  gameId: z.string().trim().min(1).max(160),
-  pickId: z.string().trim().min(1).max(256),
-});
+const JournalParlayLegSchema = z
+  .object({
+    gameId: z.string().trim().min(1).max(160),
+    pickId: z.string().trim().min(1).max(256),
+  })
+  .strict();
 
-const JournalSealBodySchema = z.object({
-  gameId: z.string().trim().min(1).max(160),
-  pickId: z.string().trim().min(1).max(600),
-  units: z.number().finite().gt(0).lte(5),
-  userDecimal: z.number().finite().gte(1.01).lte(9999),
-  pickKind: z.enum(["single", "parlay"]).optional(),
-  parlayLegs: z.array(JournalParlayLegSchema).min(2).max(6).optional(),
-  allowSgp: z.boolean().optional(),
-  note: z.string().max(280).nullable().optional(),
-});
+const JournalSealBodySchema = z
+  .object({
+    gameId: z.string().trim().min(1).max(160),
+    pickId: z.string().trim().min(1).max(600),
+    units: z.number().finite().gt(0).lte(5),
+    userDecimal: z.number().finite().gte(1.01).lte(9999),
+    pickKind: z.enum(["single", "parlay"]).optional(),
+    parlayLegs: z.array(JournalParlayLegSchema).min(2).max(6).optional(),
+    allowSgp: z.boolean().optional(),
+    note: z.string().max(280).nullable().optional(),
+    leagueLabel: z.string().max(160).optional(),
+    matchLabel: z.string().max(240).optional(),
+    pickLabel: z.string().max(400).optional(),
+    origin: z.string().max(160).optional(),
+    fairDecimal: z.number().finite().optional(),
+  })
+  .strict();
 
 function parseBoundedInt(raw: string | null, fallback: number, min: number, max: number): number {
   if (raw === null) return fallback;
@@ -457,15 +466,20 @@ export const POST = withActivePaseMutation(
       const kickoffAt = resolveKickoff(catalogGame);
       if (!kickoffAt) return NextResponse.json({ error: "Partido desconocido" }, { status: 404 });
 
+      const normalizedSinglePickLabel = ensurePickLabelWithUnit(
+        resolved.pickLabel,
+        resolved.market,
+        catalogGame.sport,
+      );
       result = await sealPick(
         user.db,
         user.userId,
         {
           pickId: resolved.matchPick.id,
           gameId: catalogGame.id,
-          leagueLabel: resolved.leagueLabel,
-          matchLabel: resolved.matchLabel,
-          pickLabel: resolved.pickLabel,
+          leagueLabel: resolved.leagueLabel?.trim() || catalogGame.leagueLabel,
+          matchLabel: resolved.matchLabel?.trim() || compactGameMatchLabel(catalogGame),
+          pickLabel: normalizedSinglePickLabel,
           origin: "Spacetime Suite",
           pickKind: "single",
           pickMarket: resolved.market,

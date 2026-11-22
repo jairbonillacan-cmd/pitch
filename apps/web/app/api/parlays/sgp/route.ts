@@ -214,62 +214,76 @@ const OfferedOddsSchema = z
   .transform((value) => parseStrictFiniteNumber(value)!);
 
 const SgpRequestSchema = z.discriminatedUnion("sport", [
-  z.object({
-    sport: z.literal("soccer"),
-    legs: z
-      .array(z.object({ ...BaseSgpLegShape, factor: z.enum(SOCCER_FACTORS) }))
-      .min(2)
-      .max(8),
-    offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
-  }),
-  z.object({
-    sport: z.literal("football"),
-    legs: z
-      .array(z.object({ ...BaseSgpLegShape, factor: z.enum(SOCCER_FACTORS) }))
-      .min(2)
-      .max(8),
-    offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
-  }),
-  z.object({
-    sport: z.literal("nfl"),
-    legs: z
-      .array(z.object({ ...BaseSgpLegShape, factor: z.enum(NFL_FACTORS) }))
-      .min(2)
-      .max(8),
-    offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
-  }),
-  z.object({
-    sport: z.literal("american-football"),
-    legs: z
-      .array(z.object({ ...BaseSgpLegShape, factor: z.enum(NFL_FACTORS) }))
-      .min(2)
-      .max(8),
-    offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
-  }),
-  z.object({
-    sport: z.literal("basketball"),
-    legs: z
-      .array(z.object({ ...BaseSgpLegShape, factor: z.enum(BASKETBALL_FACTORS) }))
-      .min(2)
-      .max(8),
-    offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
-  }),
-  z.object({
-    sport: z.literal("baseball"),
-    legs: z
-      .array(z.object({ ...BaseSgpLegShape, factor: z.enum(BASEBALL_FACTORS) }))
-      .min(2)
-      .max(8),
-    offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
-  }),
-  z.object({
-    sport: z.literal("ice-hockey"),
-    legs: z
-      .array(z.object({ ...BaseSgpLegShape, factor: z.enum(ICE_HOCKEY_FACTORS) }))
-      .min(2)
-      .max(8),
-    offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
-  }),
+  z
+    .object({
+      sport: z.literal("soccer"),
+      legs: z
+        .array(z.object({ ...BaseSgpLegShape, factor: z.enum(SOCCER_FACTORS) }).strict())
+        .min(2)
+        .max(6),
+      offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      sport: z.literal("football"),
+      legs: z
+        .array(z.object({ ...BaseSgpLegShape, factor: z.enum(SOCCER_FACTORS) }).strict())
+        .min(2)
+        .max(6),
+      offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      sport: z.literal("nfl"),
+      legs: z
+        .array(z.object({ ...BaseSgpLegShape, factor: z.enum(NFL_FACTORS) }).strict())
+        .min(2)
+        .max(6),
+      offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      sport: z.literal("american-football"),
+      legs: z
+        .array(z.object({ ...BaseSgpLegShape, factor: z.enum(NFL_FACTORS) }).strict())
+        .min(2)
+        .max(6),
+      offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      sport: z.literal("basketball"),
+      legs: z
+        .array(z.object({ ...BaseSgpLegShape, factor: z.enum(BASKETBALL_FACTORS) }).strict())
+        .min(2)
+        .max(6),
+      offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      sport: z.literal("baseball"),
+      legs: z
+        .array(z.object({ ...BaseSgpLegShape, factor: z.enum(BASEBALL_FACTORS) }).strict())
+        .min(2)
+        .max(6),
+      offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      sport: z.literal("ice-hockey"),
+      legs: z
+        .array(z.object({ ...BaseSgpLegShape, factor: z.enum(ICE_HOCKEY_FACTORS) }).strict())
+        .min(2)
+        .max(6),
+      offeredCombinedDecimalOdds: OfferedOddsSchema.nullable().optional(),
+    })
+    .strict(),
 ]);
 
 function normalizeBaseballFactor(factor: (typeof BASEBALL_FACTORS)[number]): string {
