@@ -316,14 +316,50 @@
 
 .pl-acct-card-stage .pl-acct-card-placeholder {
   width: 100%;
-  max-width: 452px;
-  aspect-ratio: 1.66 / 1;
-  margin: 0 auto;
+  max-width: 344px;
+  aspect-ratio: 1.586 / 1;
+  margin: 10px auto;
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--share-card-border);
+  background: var(--pl-surface-elevated);
+  color: var(--share-card-fg);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.pl-acct-card-placeholder-row {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pl-acct-card-placeholder-brand {
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.pl-acct-card-placeholder-tier {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--pl-brand);
+  color: var(--pl-brand);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.pl-acct-card-placeholder-row--bottom {
+  color: var(--pl-text-secondary);
+  font-size: 0.74rem;
 }
 
 .pl-acct-card-stage .pl-referral-card-fallback {

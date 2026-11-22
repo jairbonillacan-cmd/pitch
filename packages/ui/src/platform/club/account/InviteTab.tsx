@@ -533,9 +533,11 @@ export function InviteTab({
             type="button"
             className="pl-acct-cardbtn"
             data-referrals-card=""
-            aria-label={`Tarjeta de invitación de ${identity.atHandle}, código ${ensuredCode}. Voltear`}
             onClick={() => setFlipped((prev) => !prev)}
           >
+            <span className="sr-only">
+              {`Tarjeta de invitación de ${identity.atHandle}, código ${ensuredCode}. Voltear`}
+            </span>
             <LazyReferralCard3D
               code={ensuredCode}
               bottomLeftLabel={identity.atHandle}

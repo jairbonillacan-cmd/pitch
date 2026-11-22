@@ -131,7 +131,7 @@
     max-inline-size: 230px;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .pl-pb-scope-bar .pl-pb-filter-bar.is-auto {
       flex-wrap: nowrap;
       min-block-size: 66px;
@@ -545,6 +545,11 @@
     align-items: center;
     min-block-size: 44px;
     flex: 0 0 auto;
+  }
+
+  .pl-pb-switch-wrap .switch__control:not([data-selected="true"]) {
+    background: var(--pl-border-strong);
+    border: 1px solid var(--pl-border-strong);
   }
 
   .pl-pb-switch-wrap .switch,

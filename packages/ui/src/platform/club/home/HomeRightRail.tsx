@@ -107,11 +107,13 @@ const TopPickRailItem = React.memo(function TopPickRailItem({
           type="button"
           className={`pl-home-parlay-btn is-sm ${inParlay ? "is-on" : ""}`.trim()}
           aria-pressed={inParlay}
-          aria-label={`${inParlay ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}`}
           onClick={() => (inParlay ? removePickFromParlay(pick.id) : addPickToParlay(pick))}
         >
           <MaestroIcon name={inParlay ? "check" : "plus"} size={13} />
-          <span>{inParlay ? "En parlay" : "+ Parlay"}</span>
+          <span>{inParlay ? "En parlay" : "Parlay"}</span>
+          <span className="sr-only">
+            {` — ${inParlay ? "quitar" : "agregar"} ${pick.label}`}
+          </span>
         </button>
       </div>
     </article>

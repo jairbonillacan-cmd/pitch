@@ -58,7 +58,12 @@
   }
 
   @container (max-width: 380px) {
-    .pl-sf-card-meta {
+    .pl-sf-card-head:has([role="tablist"], button) {
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
+
+    .pl-sf-card-meta:not(:has([role="tablist"], button)) {
       max-inline-size: 48%;
       overflow: hidden;
       text-overflow: ellipsis;

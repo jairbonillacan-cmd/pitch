@@ -2083,6 +2083,11 @@
     padding-block: 2px;
   }
 
+  .pl-com-league-chips > * {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
   .pl-com-filters::-webkit-scrollbar,
   .pl-com-league-chips::-webkit-scrollbar {
     display: none;

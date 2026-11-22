@@ -2501,6 +2501,7 @@ html[data-theme="light"] .pl-tipster-badge {
 
 :is(
   [data-hierarchy="primary"],
+  .button--primary,
   .pl-btn-primary,
   .btn-primary,
   .pl-home-md-full-cta,
@@ -2525,6 +2526,7 @@ html[data-theme="light"] :is(
 
 html[data-theme="light"] .share-ticket-card :is(
   [data-hierarchy="primary"],
+  .button--primary,
   .pl-btn-primary,
   .btn-primary
 ) :is(.pl-maestro-icon, .pl-pack-icon) {
@@ -2534,6 +2536,7 @@ html[data-theme="light"] .share-ticket-card :is(
 @media (forced-colors: active) {
   :is(
     [data-hierarchy="primary"],
+    .button--primary,
     .pl-btn-primary,
     .btn-primary,
     .pl-btn-accent,
@@ -3986,6 +3989,8 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
 
   .pl-lp-league-tabs .pl-lp-tab {
     flex: 0 0 auto;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .pl-lp-tab {

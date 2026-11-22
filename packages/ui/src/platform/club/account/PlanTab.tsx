@@ -1284,9 +1284,11 @@ export function PlanTab({
           <button
             type="button"
             className={`pl-acct-cardbtn ${isCancelled ? "pl-acct-cardbtn--muted" : ""}`}
-            aria-label={`Pase PitchLab Ultra de ${identity.atHandle}. Voltear`}
             onClick={() => setFlipped((prev) => !prev)}
           >
+            <span className="sr-only">
+              {`Pase PitchLab Ultra de ${identity.atHandle}. Voltear tarjeta`}
+            </span>
             <LazyReferralCard3D
               code={passCode}
               bottomLeftLabel={identity.atHandle}

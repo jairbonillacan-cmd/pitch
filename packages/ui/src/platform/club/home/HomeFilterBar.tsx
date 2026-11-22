@@ -1236,7 +1236,6 @@ export function HomeBoardBar({
             <input
               id={oddsSwitchId}
               type="checkbox"
-              {...({ switch: "" } as React.InputHTMLAttributes<HTMLInputElement>)}
               role="switch"
               checked={showOdds}
               onChange={(e) => onShowOddsChange(e.target.checked)}

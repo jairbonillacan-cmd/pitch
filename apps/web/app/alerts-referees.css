@@ -627,10 +627,18 @@
   }
 
   .pl-rf-name-link {
+    display: inline-flex;
+    align-items: center;
     color: var(--pl-text);
     font-weight: 750;
     text-decoration: none;
     white-space: nowrap;
+  }
+
+  @media (max-width: 767px), (pointer: coarse) {
+    .pl-rf-name-link {
+      min-block-size: 44px;
+    }
   }
 
   .pl-rf-name-link:hover {

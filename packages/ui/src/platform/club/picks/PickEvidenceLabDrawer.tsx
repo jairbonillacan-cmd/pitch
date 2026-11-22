@@ -1921,7 +1921,7 @@ export function PickEvidenceLabDrawer({
                   onClick={handleAddParlay}
                 >
                   <MaestroIcon name="plus" size={14} />
-                  <span>+ Parlay</span>
+                  <span>Parlay</span>
                 </Button>
               </div>
             </section>

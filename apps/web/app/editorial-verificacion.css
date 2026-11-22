@@ -13,6 +13,14 @@
     min-inline-size: 0;
   }
 
+  .pl-lp-section--top:has(.pl-ed-page-head) {
+    padding-block-end: 24px;
+  }
+
+  .pl-lp-section--top:has(.pl-ed-page-head) + .pl-lp-section {
+    padding-block-start: 24px;
+  }
+
   .pl-ed-head-row {
     display: flex;
     flex-wrap: wrap;

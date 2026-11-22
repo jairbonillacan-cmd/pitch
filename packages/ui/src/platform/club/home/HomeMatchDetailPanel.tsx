@@ -1691,7 +1691,7 @@ export function HomeMatchDetailPanel({
                                 onClick={() => handleParlayClick(item.pick)}
                               >
                                 <MaestroIcon name={inParlay ? "check" : "plus"} size={13} />
-                                <span>{inParlay ? "En parlay" : "+ Parlay"}</span>
+                                <span>{inParlay ? "En parlay" : "Parlay"}</span>
                               </button>
                               <button
                                 type="button"

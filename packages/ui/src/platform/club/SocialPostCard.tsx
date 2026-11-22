@@ -946,8 +946,10 @@ export const SocialPostCard = React.memo(function SocialPostCard({
                 type="button"
                 className="pl-com-preview-btn"
                 onClick={() => setThreadOpen(true)}
-                aria-label={`Abrir conversación con ${previewComment.authorName}`}
               >
+                <span className="sr-only">
+                  {`Abrir conversación con ${previewComment.authorName}: `}
+                </span>
                 {previewComment.replyToHandle ? (
                   <span className="pl-com-replying-tag">
                     En respuesta a @{previewComment.replyToHandle}

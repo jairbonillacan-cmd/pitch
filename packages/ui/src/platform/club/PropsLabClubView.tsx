@@ -979,7 +979,7 @@ export function PropsLabClubView({
         id: "props-streaks",
         label: "Rachas U5–U20",
         value: String(streakCards.length),
-        delta: "Beta(2,2)",
+        delta: "Tasa ajustada",
         tone: "default",
       },
     ];
@@ -1206,7 +1206,7 @@ export function PropsLabClubView({
         render: ({ entry, activeLine }) => (
           <div className="pl-pb-line-cell num">
             <strong className="pl-pb-line-main" data-prop-line={entry.prop.id}>
-              +{activeLine.toFixed(1)}
+              Más de {activeLine.toFixed(1)}
             </strong>
             <span className="pl-pb-line-sub">Proy. {entry.prop.projectionMean.toFixed(1)}</span>
           </div>

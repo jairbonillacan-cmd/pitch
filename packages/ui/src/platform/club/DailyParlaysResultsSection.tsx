@@ -136,6 +136,7 @@ export function DailyParlaysResultsSection({
                                           {pick.label}
                                         </span>
                                         <span
+                                          role="img"
                                           className={`pl-daily-hist-mark ${
                                             legHit
                                               ? "is-hit"

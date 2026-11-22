@@ -429,7 +429,7 @@ export function AccountReferralsClubView({
                 fallback={
                   <AccountTabFallback
                     label="Cargando programa de referidos"
-                    minBlockSize="360px"
+                    minBlockSize="100dvh"
                   />
                 }
               >
@@ -480,7 +480,7 @@ export function AccountReferralsClubView({
                 fallback={
                   <AccountTabFallback
                     label="Cargando preferencias de cuenta"
-                    minBlockSize="420px"
+                    minBlockSize="100dvh"
                   />
                 }
               >

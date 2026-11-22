@@ -340,6 +340,9 @@ input {
   position: absolute;
   left: -999px;
   top: 8px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   background: var(--brand-primary);
   color: var(--on-primary);
   padding: 8px 12px;

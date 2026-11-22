@@ -726,11 +726,13 @@ function ProfileContent({
                     className="pl-prof-badges-btn"
                     data-open-badges-modal=""
                     onClick={onOpenBadges}
-                    aria-label={isOwn ? "Elegir insignias destacadas" : "Ver insignias"}
                   >
                     <MaestroIcon name="star" size={13} />
                     <span>Insignias</span>
                     {badgeTotalCount > 0 ? <em className="num">{badgeTotalCount}</em> : null}
+                    <span className="sr-only">
+                      {isOwn ? " — elegir destacadas" : ` de ${profile.name}`}
+                    </span>
                   </button>
                 ) : null}
               </div>

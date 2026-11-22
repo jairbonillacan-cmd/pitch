@@ -1456,7 +1456,6 @@ function TeamMatchesRail({
                       onNavigate(fix.gameHref);
                     }}
                     className="pl-tmr-teams"
-                    aria-label={`${home.name} contra ${away.name}, ${fix.dateLabel}`}
                   >
                     <span className="pl-tmr-team-line">
                       <TeamBadge league={profile.league} slug={home.slug} name={home.name} size={16} />
@@ -1537,7 +1536,6 @@ function TeamMatchesRail({
                       onNavigate(m.gameHref!);
                     }}
                     className="pl-tmr-teams"
-                    aria-label={`${home.name} ${home.score} - ${away.score} ${away.name}`}
                   >
                     {content}
                   </a>
@@ -2077,7 +2075,6 @@ export function TeamProfileClubView({
                         navigateTo(liveMatchInfo.gameHref);
                       }}
                       className="pl-team-mini-card is-link is-live"
-                      aria-label={`En vivo (${liveMatchInfo.clockLabel}): ${liveMatchInfo.home.shortName} ${liveMatchInfo.home.score} - ${liveMatchInfo.away.score} ${liveMatchInfo.away.shortName}`}
                     >
                       <div className="pl-team-mini-head">
                         <LeagueBadge league={liveMatchInfo.league} label={liveMatchInfo.leagueLabel} size={15} />
@@ -2133,7 +2130,6 @@ export function TeamProfileClubView({
                             navigateTo(lastMatch.gameHref!);
                           }}
                           className="pl-team-mini-card is-link"
-                          aria-label={`Partido anterior: ${lastMatchSides.home.shortName} ${lastMatchSides.home.score} - ${lastMatchSides.away.score} ${lastMatchSides.away.shortName}`}
                         >
                           <div className="pl-team-mini-head">
                             <LeagueBadge league={profile.league} label={profile.leagueLabel} size={15} />
@@ -2238,7 +2234,6 @@ export function TeamProfileClubView({
                         navigateTo(nextUpcoming.gameHref);
                       }}
                       className="pl-team-mini-card is-link"
-                      aria-label={`Partido siguiente: ${nextMatchSides.home.shortName} contra ${nextMatchSides.away.shortName}, ${nextUpcoming.dateLabel} ${nextUpcoming.kickoffLocal}`}
                     >
                       <div className="pl-team-mini-head">
                         <LeagueBadge league={profile.league} label={profile.leagueLabel} size={15} />
