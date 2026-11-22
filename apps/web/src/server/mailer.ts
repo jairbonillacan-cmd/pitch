@@ -1,13 +1,3 @@
-/**
- * Envío de correos transaccionales por Resend (https://resend.com/docs/api-reference/emails).
- *
- * - `scheduledAt`: Resend guarda el correo y lo manda a esa hora (hasta 30 días después), así que
- *   los avisos del día 5 y del día 7 de la prueba no necesitan tarea programada propia.
- * - `idempotencyKey`: Resend ignora un segundo envío con la misma clave (24 h).
- * - `cancel`: cancela un correo programado que todavía no salió.
- *
- * Sin `RESEND_API_KEY` (desarrollo) los correos se imprimen en la consola del servidor.
- */
 import { noreplySender, supportEmail } from "@pitchlab/emails";
 import { logSecurityEvent, redactSensitiveValue } from "./safe-logger";
 
@@ -18,13 +8,10 @@ export interface OutgoingEmail {
   subject: string;
   html: string;
   text?: string;
-  /** Por defecto `EMAIL_FROM`. */
   from?: string;
   replyTo?: string;
-  /** Si va en el futuro, Resend lo programa. */
   scheduledAt?: Date;
   idempotencyKey?: string;
-  /** Etiquetas de Resend para ver en su panel qué tipo de correo es. */
   tags?: ReadonlyArray<{ name: string; value: string }>;
 }
 
@@ -66,7 +53,6 @@ export function resendMailer(apiKey: string, defaultFrom: string, fetchImpl: typ
         method: "POST",
         headers: headers(),
       });
-      // 404/422: ya salió o ya estaba cancelado. No es un error para quien llama.
       if (!res.ok && res.status !== 404 && res.status !== 422) throw new Error(`Resend respondió ${res.status}`);
     },
   };
@@ -106,7 +92,6 @@ export function setMailerForTests(mailer: Mailer | null): void {
   cached = mailer;
 }
 
-/** Resend si hay clave; si no, la consola (solo para desarrollo). */
 export function getMailer(): Mailer {
   if (cached) return cached;
   const key = process.env.RESEND_API_KEY;

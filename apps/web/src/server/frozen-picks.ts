@@ -6,22 +6,10 @@ import {
 } from "@pitchlab/ui/pre-match";
 import type { FrozenMainPickSnapshot, PlatformGame } from "@pitchlab/ui/types";
 
-/**
- * Caché en memoria del proceso para el modo beta sin `DATABASE_URL` y como primera capa
- * rápida antes de tocar PostgreSQL. Una vez sellado en `T - 60 min`, nunca se sobreescribe.
- */
 const memoryFrozenByGame = new Map<string, FrozenMainPickSnapshot>();
 
 let frozenDb: Db | null = null;
 
-/**
- * Resuelve y congela de forma determinista el pick principal del partido cuando faltan
- * 60 minutos o menos para el saque inicial (`now >= kickoff - 60 min`).
- *
- * - Antes del umbral: devuelve `null` (no persiste nada).
- * - En o después del umbral: guarda una sola vez en `match_frozen_picks` (si hay BD) y en
- *   memoria; llamadas posteriores devuelven el registro original aunque el motor se recalcule.
- */
 export async function resolveServerFrozenMainPick(
   game: Pick<PlatformGame, "id" | "kickoffUtc" | "status" | "picks">,
   now: Date = new Date(),
@@ -93,7 +81,6 @@ export async function resolveServerFrozenMainPick(
   return candidateSnapshot;
 }
 
-/** Limpia la caché en memoria (exclusivo para pruebas). */
 export function clearServerFrozenPicksCacheForTests(): void {
   memoryFrozenByGame.clear();
 }
