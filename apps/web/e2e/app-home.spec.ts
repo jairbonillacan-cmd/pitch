@@ -133,14 +133,15 @@ test("Club PitchLab v4 + Ola 6: Inicio Maestro-Detalle, Jornada, Buscador, Parla
     await expect(parlayModeBtn).toBeVisible();
     await parlayModeBtn.click();
     await expect(page.getByRole("heading", { name: "Tu boleto de parlay" })).toBeVisible();
-    const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
+    const parlayHubTabs = page.getByRole("tablist", { name: "Opciones de parlay" });
+    const dailyParlayTab = parlayHubTabs.getByRole("tab", { name: /Parlay del día/i });
     await expect(dailyParlayTab).toBeVisible();
     await dailyParlayTab.click();
     await expect(page.locator("[data-daily-parlay-card]")).toBeVisible();
     await page.locator('[data-daily-risk="conservador"]').click();
     await page.locator('[data-daily-risk="arriesgado"]').click();
     await page.locator('[data-daily-risk="medio"]').click();
-    await page.getByRole("tab", { name: /Tu parlay/i }).click();
+    await parlayHubTabs.getByRole("tab", { name: /Tu parlay/i }).click();
 
     const matchModeBtn = page.locator('[data-home-right-mode="match"]');
     await expect(matchModeBtn).toBeVisible();
@@ -151,14 +152,15 @@ test("Club PitchLab v4 + Ola 6: Inicio Maestro-Detalle, Jornada, Buscador, Parla
     const parlayHeading = page.getByRole("heading", { name: "Tu boleto de parlay" });
     if ((await parlayHeading.count()) > 0 && (await parlayHeading.isVisible())) {
       await expect(parlayHeading).toBeVisible();
-      const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
+      const parlayHubTabs = page.getByRole("tablist", { name: "Opciones de parlay" });
+      const dailyParlayTab = parlayHubTabs.getByRole("tab", { name: /Parlay del día/i });
       await expect(dailyParlayTab).toBeVisible();
       await dailyParlayTab.click();
       await expect(page.locator("[data-daily-parlay-card]")).toBeVisible();
       await page.locator('[data-daily-risk="conservador"]').click();
       await page.locator('[data-daily-risk="arriesgado"]').click();
       await page.locator('[data-daily-risk="medio"]').click();
-      await page.getByRole("tab", { name: /Tu parlay/i }).click();
+      await parlayHubTabs.getByRole("tab", { name: /Tu parlay/i }).click();
     }
   }
 
