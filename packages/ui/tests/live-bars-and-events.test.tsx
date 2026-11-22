@@ -181,7 +181,7 @@ describe("ADR-054 · Barras estadísticas planas, métricas negativas, iconos y 
       expect(html).toContain("<img");
       expect(html).not.toContain("<svg");
       expect(html).toContain(`src="/icons-dark/32/${asset}.webp"`);
-      expect(html).toContain(`srcset="/icons-dark/32/${asset}.webp 1x, /icons-dark/64/${asset}.webp 2x"`);
+      expect(html).toContain(`srcSet="/icons-dark/32/${asset}.webp 1x, /icons-dark/64/${asset}.webp 2x"`);
       expect(html).toContain('width="14"');
       expect(html).toContain('height="14"');
       expect(html).toContain('aria-hidden="true"');
