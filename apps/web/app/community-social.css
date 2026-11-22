@@ -2369,13 +2369,19 @@
   }
 }
 
-.pl-com-post:nth-of-type(n + 5):not(:focus-within) {
+.pl-com-post:nth-child(n + 6):not(:focus-within):not(:has(dialog[open], [aria-expanded="true"])) {
   content-visibility: auto;
   contain-intrinsic-size: auto none auto 280px;
 }
 
+.pl-com-mlist > li:nth-child(n + 6):not(:focus-within) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 64px;
+}
+
 @supports not (content-visibility: auto) {
-  .pl-com-post:nth-of-type(n + 5):not(:focus-within) {
+  .pl-com-post:nth-child(n + 6):not(:focus-within):not(:has(dialog[open], [aria-expanded="true"])),
+  .pl-com-mlist > li:nth-child(n + 6):not(:focus-within) {
     contain: layout style paint;
   }
 }

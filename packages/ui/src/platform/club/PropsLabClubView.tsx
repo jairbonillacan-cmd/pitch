@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useId, useMemo, useState } from "react";
+import React, { memo, useCallback, useId, useMemo, useState } from "react";
 import {
   sportForLeague,
   type PlatformSport,
@@ -39,7 +39,7 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import { resolveMatchRefereeAnalytics } from "../referee-stats";
-import type { MatchPick, PlayerPropItem } from "../types";
+import type { MatchPick, OddsFormat, PlayerPropItem } from "../types";
 import { PersonAvatar } from "./team/PersonAvatar";
 import {
   FOOTBALL_MIN_MINUTES_GUARD,
@@ -277,6 +277,395 @@ function buildBetLabPointsForEntry(
   return [];
 }
 
+interface EvaluatedPropRow {
+  readonly entry: EnrichedPropEntry;
+  readonly isSelected: boolean;
+  readonly activeLine: number;
+  readonly pOver: number;
+  readonly fairOverDecimal: number;
+  readonly hasUserOdds: boolean;
+  readonly hasComparable: boolean;
+  readonly activeBookDec: number;
+  readonly evPct: number | null;
+  readonly l10Hits: number | null;
+}
+
+interface SelectedBetLabViewData {
+  readonly entry: EnrichedPropEntry;
+  readonly activeLine: number;
+  readonly isAtBaseLine: boolean;
+  readonly evalRes: {
+    readonly pOver: number;
+    readonly pUnder: number;
+    readonly fairOverDecimal: number;
+    readonly fairUnderDecimal: number;
+  };
+  readonly points: readonly PropBetLabPoint[];
+  readonly rivalDefense: PropsRivalDefenseContext | null;
+  readonly rawOddsText: string;
+  readonly hasInvalidOdds: boolean;
+  readonly hasUserOdds: boolean;
+  readonly hasComparable: boolean;
+  readonly activeBookDec: number;
+  readonly edgePts: number;
+  readonly evPct: number;
+  readonly alreadySealed: boolean;
+  readonly chartSport: "football" | "basketball";
+}
+
+const PropsBetLabInspector = memo(function PropsBetLabInspector({
+  data,
+  oddsFormat,
+  comparatorInputId,
+  onNavigatePlayer,
+  onSetCustomLine,
+  onOddsInputChange,
+  onSealProp,
+}: {
+  readonly data: SelectedBetLabViewData;
+  readonly oddsFormat: OddsFormat;
+  readonly comparatorInputId: string;
+  readonly onNavigatePlayer: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+  readonly onSetCustomLine: (propId: string, nextLine: number) => void;
+  readonly onOddsInputChange: (propId: string, raw: string) => void;
+  readonly onSealProp: (
+    prop: PropsLabPlayerPropItem,
+    activeLine: number,
+    pOver: number,
+    fairOverDecimal: number,
+    userDecimal: number,
+  ) => void;
+}): React.JSX.Element {
+  const { prop } = data.entry;
+
+  const handleDecreaseLine = useCallback(() => {
+    const next = clampLine(data.activeLine - prop.step, prop.minLine, prop.maxLine);
+    onSetCustomLine(prop.id, next);
+  }, [data.activeLine, onSetCustomLine, prop.id, prop.maxLine, prop.minLine, prop.step]);
+
+  const handleResetBaseLine = useCallback(() => {
+    onSetCustomLine(prop.id, prop.baseLine);
+  }, [onSetCustomLine, prop.baseLine, prop.id]);
+
+  const handleIncreaseLine = useCallback(() => {
+    const next = clampLine(data.activeLine + prop.step, prop.minLine, prop.maxLine);
+    onSetCustomLine(prop.id, next);
+  }, [data.activeLine, onSetCustomLine, prop.id, prop.maxLine, prop.minLine, prop.step]);
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onOddsInputChange(prop.id, e.target.value);
+    },
+    [onOddsInputChange, prop.id],
+  );
+
+  const handleSealClick = useCallback(() => {
+    onSealProp(
+      prop,
+      data.activeLine,
+      data.evalRes.pOver,
+      data.evalRes.fairOverDecimal,
+      data.activeBookDec,
+    );
+  }, [
+    data.activeBookDec,
+    data.activeLine,
+    data.evalRes.fairOverDecimal,
+    data.evalRes.pOver,
+    onSealProp,
+    prop,
+  ]);
+
+  return (
+    <aside className="pl-pb-lab-col" aria-label="Inspector Bet Lab">
+      <SofascoreCard title="Bet Lab · Inspector de línea" meta={prop.engineName}>
+        <div className="pl-pb-lab-body">
+          <div className="pl-pb-lab-identity">
+            <div className="pl-pb-lab-person">
+              <PersonAvatar photoKey={data.entry.photoKey} size={44} />
+              <div className="pl-pb-player-copy">
+                <h2 className="pl-pb-lab-title">
+                  {prop.playerHref ? (
+                    <a
+                      href={prop.playerHref}
+                      onClick={(e) => onNavigatePlayer(e, prop.playerHref!)}
+                      className="pl-pb-player-name"
+                    >
+                      {prop.player}
+                    </a>
+                  ) : (
+                    prop.player
+                  )}
+                </h2>
+                <div className="pl-pb-lab-sub num">
+                  <TeamBadge
+                    league={prop.league}
+                    slug={prop.teamSlug}
+                    name={prop.teamName}
+                    size={15}
+                  />
+                  <span>{prop.leagueLabel}</span>
+                  <span>· {prop.matchLabel}</span>
+                  {prop.kickoffLocal ? <span>· {prop.kickoffLocal}</span> : null}
+                </div>
+              </div>
+            </div>
+
+            <div className="pl-pb-lab-badges num">
+              <span className={`pl-pb-status-pill is-${data.entry.lineupState}`}>
+                {data.entry.lineupLabel}
+              </span>
+              {data.entry.minMinutesMet ? (
+                <span className="pl-pb-status-pill is-guard">
+                  {data.entry.guardLabel}
+                  {prop.avgMinutes != null ? ` · ${prop.avgMinutes.toFixed(1)}m` : ""}
+                </span>
+              ) : null}
+              {data.entry.isDoubtful ? (
+                <span className="pl-pb-status-pill is-doubtful">En duda</span>
+              ) : null}
+            </div>
+          </div>
+
+          <PropBetLabChart
+            playerName={prop.player}
+            statLabel={prop.statLabel}
+            unitLabel={data.entry.unitLabel}
+            sport={data.chartSport}
+            line={data.activeLine}
+            points={data.points}
+            maxMinutes={data.chartSport === "basketball" ? 48 : 90}
+            rivalDefenseRank={data.rivalDefense?.defenseRank ?? null}
+            rivalLeagueSize={data.rivalDefense?.leagueSize ?? null}
+            rivalEbLabel={data.rivalDefense?.ebLabel ?? null}
+            calibratedProb={data.evalRes.pOver}
+            fairDecimal={data.evalRes.fairOverDecimal}
+          />
+
+          <div className="pl-pb-line-bar num">
+            <div className="pl-pb-line-readout">
+              <span className="pl-pb-line-readout-label">
+                Distribución Spacetime ({prop.statLabel})
+              </span>
+              <div className="pl-pb-line-readout-vals">
+                <strong>{data.activeLine.toFixed(1)}</strong>
+                <span className="pl-pb-line-sub">
+                  Proy. {prop.projectionMean.toFixed(2)} ± {prop.projectionSd.toFixed(2)}
+                </span>
+              </div>
+            </div>
+
+            <div
+              className="pl-pb-line-controls"
+              role="group"
+              aria-label={`Ajustar línea de ${prop.player}`}
+            >
+              <Button
+                variant="secondary"
+                size="icon-sm"
+                aria-label={`Bajar línea de ${prop.player}`}
+                disabled={data.activeLine <= prop.minLine}
+                onClick={handleDecreaseLine}
+              >
+                −
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                disabled={data.isAtBaseLine}
+                className="num"
+                onClick={handleResetBaseLine}
+              >
+                Base ({prop.baseLine.toFixed(1)})
+              </Button>
+              <Button
+                variant="secondary"
+                size="icon-sm"
+                aria-label={`Subir línea de ${prop.player}`}
+                disabled={data.activeLine >= prop.maxLine}
+                onClick={handleIncreaseLine}
+              >
+                +
+              </Button>
+            </div>
+          </div>
+
+          <div className="pl-pb-ou-grid num">
+            <div className="pl-pb-ou-tile is-primary">
+              <span className="pl-pb-ou-label">Más de {data.activeLine.toFixed(1)}</span>
+              <strong className="pl-pb-ou-val">
+                {(data.evalRes.pOver * 100).toFixed(1)} % · Justo{" "}
+                {formatOddsValue(data.evalRes.fairOverDecimal, oddsFormat)}
+              </strong>
+            </div>
+            <div className="pl-pb-ou-tile">
+              <span className="pl-pb-ou-label">Menos de {data.activeLine.toFixed(1)}</span>
+              <strong className="pl-pb-ou-val">
+                {(data.evalRes.pUnder * 100).toFixed(1)} % · Justo{" "}
+                {formatOddsValue(data.evalRes.fairUnderDecimal, oddsFormat)}
+              </strong>
+            </div>
+          </div>
+
+          {data.entry.refereeSummary ? (
+            <div className="pl-pb-ref-bar num" data-prop-referee-context="">
+              <span className="pl-pb-ref-name">
+                <MaestroIcon name="whistle" size={13} />
+                <span className="truncate">{data.entry.refereeSummary.name}</span>
+              </span>
+              <span className="pl-pb-ref-metrics">
+                {data.entry.refereeSummary.avgYellow !== null ? (
+                  <span className="inline-flex items-center gap-1">
+                    <SportEventIcon kind="yellow" size={11} />
+                    <span>{data.entry.refereeSummary.avgYellow.toFixed(1)} amar./p</span>
+                  </span>
+                ) : null}
+                {data.entry.refereeSummary.avgFouls !== null ? (
+                  <span>{data.entry.refereeSummary.avgFouls.toFixed(1)} faltas/p</span>
+                ) : null}
+                {data.entry.refereeSummary.rigorLabel ? (
+                  <span className="pl-pb-status-pill">{data.entry.refereeSummary.rigorLabel}</span>
+                ) : null}
+              </span>
+            </div>
+          ) : null}
+
+          <div className="pl-pb-comparator" data-prop-comparator="">
+            <div className="pl-pb-comparator-head">
+              <label htmlFor={comparatorInputId} className="pl-pb-comparator-label">
+                <MaestroIcon name="activity" size={13} style={{ color: "var(--pl-brand)" }} />
+                <span>Compara con tu casa</span>
+              </label>
+              <span className="pl-pb-line-readout-label num">
+                Momio justo{" "}
+                <strong>{formatOddsValue(data.evalRes.fairOverDecimal, oddsFormat)}</strong>
+              </span>
+            </div>
+
+            <div className="pl-pb-comparator-input-row">
+              <div className="pl-pb-comparator-field">
+                <input
+                  id={comparatorInputId}
+                  type="text"
+                  inputMode="decimal"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  value={data.rawOddsText}
+                  onChange={handleInputChange}
+                  placeholder={formatOddsValue(data.evalRes.fairOverDecimal, oddsFormat)}
+                  className="pl-pb-input num"
+                />
+              </div>
+
+              {data.hasComparable ? <SofascoreSignalPair evPct={data.evPct} /> : null}
+            </div>
+
+            {data.hasInvalidOdds ? (
+              <p className="pl-pb-comparator-hint is-error" role="alert">
+                Ingresa un momio decimal mayor a 1.01 (ej. 1.95) o americano (ej. -110 o +135).
+              </p>
+            ) : data.hasComparable ? (
+              <div className="pl-pb-comparator-result num">
+                <span>
+                  Tu casa: <strong>{formatOddsValue(data.activeBookDec, oddsFormat)}</strong>
+                </span>
+                <span>
+                  Ventaja:{" "}
+                  <strong>
+                    {data.edgePts >= 0 ? "+" : ""}
+                    {data.edgePts.toFixed(1)} pts
+                  </strong>
+                </span>
+              </div>
+            ) : (
+              <p className="pl-pb-comparator-hint">
+                Escribe el momio de tu casa (decimal o americano) para medir EV+ frente al momio
+                justo PitchLab.
+              </p>
+            )}
+          </div>
+
+          <p className="pl-pb-context-note">
+            {prop.contextNote}
+            {prop.injuryNote ? ` · Nota médica: ${prop.injuryNote}` : ""}
+          </p>
+
+          <div className="pl-pb-lab-foot num">
+            <span className="pl-pb-lab-stake">
+              1.00u ·{" "}
+              {data.hasComparable
+                ? `Casa ${formatOddsValue(data.activeBookDec, oddsFormat)}`
+                : `Justo ${formatOddsValue(data.evalRes.fairOverDecimal, oddsFormat)}`}
+            </span>
+            <Button
+              variant="primary"
+              size="sm"
+              disabled={data.alreadySealed}
+              onClick={handleSealClick}
+            >
+              <MaestroIcon name={data.alreadySealed ? "check" : "ticket"} size={13} />
+              <span>
+                {data.alreadySealed ? "Prop sellado en Bitácora" : "Sellar Prop en mi Bitácora"}
+              </span>
+            </Button>
+          </div>
+        </div>
+      </SofascoreCard>
+    </aside>
+  );
+});
+
+const PropsStreakGridSection = memo(function PropsStreakGridSection({
+  visibleStreaks,
+  totalFilteredStreaks,
+  streakVisibleCount,
+  oddsFormat,
+  onNavigate,
+  onLoadMore,
+  onResetFilters,
+}: {
+  readonly visibleStreaks: readonly PropsStreakExplorerItem[];
+  readonly totalFilteredStreaks: number;
+  readonly streakVisibleCount: number;
+  readonly oddsFormat: OddsFormat;
+  readonly onNavigate: (href: string) => void;
+  readonly onLoadMore: () => void;
+  readonly onResetFilters: () => void;
+}): React.JSX.Element {
+  return (
+    <section className="pl-pb-page" aria-label="Tendencias de jugadores contra línea">
+      {totalFilteredStreaks > 0 ? (
+        <>
+          <div className="pl-pb-streak-grid">
+            {visibleStreaks.map((card) => (
+              <PlayerPropStreakCard
+                key={card.id}
+                {...card}
+                oddsFormat={oddsFormat}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </div>
+          {totalFilteredStreaks > streakVisibleCount ? (
+            <div className="pl-pb-pagination">
+              <Button variant="secondary" size="sm" className="num" onClick={onLoadMore}>
+                Mostrar más tendencias ({totalFilteredStreaks - streakVisibleCount} restantes)
+              </Button>
+            </div>
+          ) : null}
+        </>
+      ) : (
+        <SofascoreEmptyState
+          title="Sin rachas para este filtro"
+          description="Ningún jugador en tendencias coincide con los criterios activos."
+          actionLabel="Limpiar filtros"
+          onAction={onResetFilters}
+        />
+      )}
+    </section>
+  );
+});
+
 export function PropsLabClubView({
   streakCards = [],
   playerProps,
@@ -459,8 +848,10 @@ export function PropsLabClubView({
   );
 
   const hasAnyLineupSignal = lineupSignalCount > 0;
-  const hasAnyMinGuardDiff =
-    minGuardCount > 0 || streakCards.some((card) => card.minMinutesGuard === true);
+  const hasAnyMinGuardDiff = useMemo(
+    () => minGuardCount > 0 || streakCards.some((card) => card.minMinutesGuard === true),
+    [minGuardCount, streakCards],
+  );
 
   const filteredCatalog = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -595,7 +986,7 @@ export function PropsLabClubView({
     return items;
   }, [enrichedCatalog.length, lineupSignalCount, minGuardCount, streakCards.length, totalNbaProps]);
 
-  const resetFilters = () => {
+  const resetFilters = useCallback(() => {
     setActiveSport("all");
     setNbaStatFilter("all");
     setOnlyMinMinutesGuard(false);
@@ -603,7 +994,52 @@ export function PropsLabClubView({
     setSearchQuery("");
     setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
     setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
-  };
+  }, []);
+
+  const handleSetCustomLine = useCallback((propId: string, nextLine: number) => {
+    setCustomLines((prev) => ({
+      ...prev,
+      [propId]: nextLine,
+    }));
+  }, []);
+
+  const handleOddsInputChange = useCallback((propId: string, raw: string) => {
+    setPropOddsInputs((prev) => ({
+      ...prev,
+      [propId]: raw,
+    }));
+  }, []);
+
+  const handleSearchChange = useCallback((next: string) => {
+    setSearchQuery(next);
+    setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+    setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
+  }, []);
+
+  const handleSportChange = useCallback((next: string) => {
+    setActiveSport(next);
+    if (next !== "basketball") setNbaStatFilter("all");
+    setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
+    setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
+  }, []);
+
+  const handleWorkspaceTabChange = useCallback((next: string) => {
+    if (next === "proyecciones" || next === "rachas") {
+      setRequestedTab(next);
+    }
+  }, []);
+
+  const handleSelectEvaluatedRow = useCallback((row: EvaluatedPropRow) => {
+    setSelectedPropId(row.entry.prop.id);
+  }, []);
+
+  const handleLoadMoreCatalog = useCallback(() => {
+    setCatalogVisibleCount((c) => c + INITIAL_CATALOG_PAGE_SIZE);
+  }, []);
+
+  const handleLoadMoreStreaks = useCallback(() => {
+    setStreakVisibleCount((c) => c + INITIAL_STREAK_PAGE_SIZE);
+  }, []);
 
   const navigateOnPlainClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -615,101 +1051,138 @@ export function PropsLabClubView({
     [navigateTo],
   );
 
-  const handleSealProp = (
-    prop: PropsLabPlayerPropItem,
-    activeLine: number,
-    pOver: number,
-    fairOverDecimal: number,
-    userDecimal: number,
-  ) => {
-    const propPickId = `${prop.id}-over-${activeLine.toFixed(1)}`;
-    const syntheticPropPick: MatchPick = {
-      id: propPickId,
-      gameId: prop.gameId,
-      league: prop.league,
-      leagueLabel: prop.leagueLabel,
-      matchLabel: prop.matchLabel,
-      kickoffLocal: prop.kickoffLocal,
-      gameStatus: "NS",
-      slotIndex: 99,
-      category: "valor",
-      categoryLabel: `Player Prop · ${prop.statLabel}`,
-      risk: pOver >= 0.66 ? "conservador" : pOver >= 0.52 ? "medio" : "arriesgado",
-      engineKey: prop.league === "nfl" ? "minkowski" : "tachyon",
-      engineName: prop.engineName,
-      marketGroup: "Player Props",
-      selectionKey: `over_${activeLine.toFixed(1)}`,
-      conflictGroup: "independent",
-      label: `${prop.player} · Más de ${activeLine.toFixed(1)} ${prop.statLabel}`,
-      rationale: prop.contextNote,
-      p: pOver,
-      fairDecimal: fairOverDecimal,
-      fairAmerican: decimalToAmericanInt(fairOverDecimal),
-      marketDecimal: userDecimal,
-      marketAmerican: decimalToAmericanInt(userDecimal),
-      edgePts: (pOver - 1 / userDecimal) * 100,
-      confidenceScore: Math.round(Math.min(94, Math.max(55, pOver * 100 + 8))),
-      suggestedUnits: 1.0,
-    };
+  const handleSealProp = useCallback(
+    (
+      prop: PropsLabPlayerPropItem,
+      activeLine: number,
+      pOver: number,
+      fairOverDecimal: number,
+      userDecimal: number,
+    ) => {
+      const propPickId = `${prop.id}-over-${activeLine.toFixed(1)}`;
+      const syntheticPropPick: MatchPick = {
+        id: propPickId,
+        gameId: prop.gameId,
+        league: prop.league,
+        leagueLabel: prop.leagueLabel,
+        matchLabel: prop.matchLabel,
+        kickoffLocal: prop.kickoffLocal,
+        gameStatus: "NS",
+        slotIndex: 99,
+        category: "valor",
+        categoryLabel: `Player Prop · ${prop.statLabel}`,
+        risk: pOver >= 0.66 ? "conservador" : pOver >= 0.52 ? "medio" : "arriesgado",
+        engineKey: prop.league === "nfl" ? "minkowski" : "tachyon",
+        engineName: prop.engineName,
+        marketGroup: "Player Props",
+        selectionKey: `over_${activeLine.toFixed(1)}`,
+        conflictGroup: "independent",
+        label: `${prop.player} · Más de ${activeLine.toFixed(1)} ${prop.statLabel}`,
+        rationale: prop.contextNote,
+        p: pOver,
+        fairDecimal: fairOverDecimal,
+        fairAmerican: decimalToAmericanInt(fairOverDecimal),
+        marketDecimal: userDecimal,
+        marketAmerican: decimalToAmericanInt(userDecimal),
+        edgePts: (pOver - 1 / userDecimal) * 100,
+        confidenceScore: Math.round(Math.min(94, Math.max(55, pOver * 100 + 8))),
+        suggestedUnits: 1.0,
+      };
 
-    sealPickToJournal(
-      syntheticPropPick,
-      1.0,
-      userDecimal,
-      `Props de jugadores · Media proyectada ${prop.projectionMean.toFixed(1)}`,
-    );
-  };
+      sealPickToJournal(
+        syntheticPropPick,
+        1.0,
+        userDecimal,
+        `Props de jugadores · Media proyectada ${prop.projectionMean.toFixed(1)}`,
+      );
+    },
+    [sealPickToJournal],
+  );
 
-  const tableColumns = useMemo<SofascoreTableColumn<EnrichedPropEntry>[]>(
+  const evaluatedVisibleCatalog = useMemo<readonly EvaluatedPropRow[]>(
+    () =>
+      visibleCatalog.map((entry) => {
+        const activeLine = clampLine(
+          customLines[entry.prop.id] ?? entry.prop.baseLine,
+          entry.prop.minLine,
+          entry.prop.maxLine,
+        );
+        const evalRes = resolvePropLineEvaluation(entry.prop, activeLine);
+        const parsedBook = parseManualBookOdds(propOddsInputs[entry.prop.id] ?? "");
+        const hasUserOdds = parsedBook !== null;
+        const hasComparable = hasUserOdds || entry.prop.hasVerifiedMarketQuote === true;
+        const activeBookDec =
+          hasUserOdds && parsedBook !== null
+            ? parsedBook
+            : entry.prop.hasVerifiedMarketQuote
+              ? entry.prop.marketOverDecimal
+              : evalRes.fairOverDecimal;
+        const evPct = hasComparable ? (evalRes.pOver * activeBookDec - 1) * 100 : null;
+        const l10Hits =
+          entry.prop.last10.length > 0
+            ? entry.prop.last10.filter((v) => v > activeLine).length
+            : null;
+        return {
+          entry,
+          isSelected: selectedEntry?.prop.id === entry.prop.id,
+          activeLine,
+          pOver: evalRes.pOver,
+          fairOverDecimal: evalRes.fairOverDecimal,
+          hasUserOdds,
+          hasComparable,
+          activeBookDec,
+          evPct,
+          l10Hits,
+        };
+      }),
+    [customLines, propOddsInputs, selectedEntry?.prop.id, visibleCatalog],
+  );
+
+  const tableColumns = useMemo<SofascoreTableColumn<EvaluatedPropRow>[]>(
     () => [
       {
         key: "player",
         header: "Jugador",
         sticky: true,
-        render: (entry) => {
-          const isSelected = selectedEntry?.prop.id === entry.prop.id;
-          return (
-            <div
-              className="pl-pb-player-cell"
-              data-prop-card={entry.prop.id}
-              data-selected={isSelected ? "true" : undefined}
-            >
-              <PersonAvatar photoKey={entry.photoKey} size={30} />
-              <div className="pl-pb-player-copy">
-                {entry.prop.playerHref ? (
-                  <a
-                    href={entry.prop.playerHref}
-                    onClick={(e) => navigateOnPlainClick(e, entry.prop.playerHref!)}
-                    className="pl-pb-player-name"
-                  >
-                    {entry.prop.player}
-                  </a>
-                ) : (
-                  <span className="pl-pb-player-name">{entry.prop.player}</span>
-                )}
-                <span className="pl-pb-player-sub">
-                  <TeamBadge
-                    league={entry.prop.league}
-                    slug={entry.prop.teamSlug}
-                    name={entry.prop.teamName}
-                    size={14}
-                  />
-                  <span className="truncate">{entry.prop.matchLabel}</span>
-                </span>
-              </div>
+        render: ({ entry, isSelected }) => (
+          <div
+            className="pl-pb-player-cell"
+            data-prop-card={entry.prop.id}
+            data-selected={isSelected ? "true" : undefined}
+          >
+            <PersonAvatar photoKey={entry.photoKey} size={30} />
+            <div className="pl-pb-player-copy">
+              {entry.prop.playerHref ? (
+                <a
+                  href={entry.prop.playerHref}
+                  onClick={(e) => navigateOnPlainClick(e, entry.prop.playerHref!)}
+                  className="pl-pb-player-name"
+                >
+                  {entry.prop.player}
+                </a>
+              ) : (
+                <span className="pl-pb-player-name">{entry.prop.player}</span>
+              )}
+              <span className="pl-pb-player-sub">
+                <TeamBadge
+                  league={entry.prop.league}
+                  slug={entry.prop.teamSlug}
+                  name={entry.prop.teamName}
+                  size={14}
+                />
+                <span className="truncate">{entry.prop.matchLabel}</span>
+              </span>
             </div>
-          );
-        },
+          </div>
+        ),
       },
       {
         key: "market",
         header: "Mercado",
-        render: (entry) => (
+        render: ({ entry }) => (
           <div className="pl-pb-market-cell">
             <span className="pl-pb-market-top">
-              {entry.statCode ? (
-                <span className="pl-pb-code num">{entry.statCode}</span>
-              ) : null}
+              {entry.statCode ? <span className="pl-pb-code num">{entry.statCode}</span> : null}
               <span>{entry.prop.statLabel}</span>
             </span>
             <span
@@ -730,102 +1203,61 @@ export function PropsLabClubView({
         header: "Línea / Proy.",
         numeric: true,
         align: "end",
-        render: (entry) => {
-          const activeLine = clampLine(
-            customLines[entry.prop.id] ?? entry.prop.baseLine,
-            entry.prop.minLine,
-            entry.prop.maxLine,
-          );
-          return (
-            <div className="pl-pb-line-cell num">
-              <strong className="pl-pb-line-main" data-prop-line={entry.prop.id}>
-                +{activeLine.toFixed(1)}
-              </strong>
-              <span className="pl-pb-line-sub">Proy. {entry.prop.projectionMean.toFixed(1)}</span>
-            </div>
-          );
-        },
+        render: ({ entry, activeLine }) => (
+          <div className="pl-pb-line-cell num">
+            <strong className="pl-pb-line-main" data-prop-line={entry.prop.id}>
+              +{activeLine.toFixed(1)}
+            </strong>
+            <span className="pl-pb-line-sub">Proy. {entry.prop.projectionMean.toFixed(1)}</span>
+          </div>
+        ),
       },
       {
         key: "value",
         header: "Valor PitchLab",
         numeric: true,
         align: "end",
-        render: (entry) => {
-          const activeLine = clampLine(
-            customLines[entry.prop.id] ?? entry.prop.baseLine,
-            entry.prop.minLine,
-            entry.prop.maxLine,
-          );
-          const evalRes = resolvePropLineEvaluation(entry.prop, activeLine);
-          const parsedBook = parseManualBookOdds(propOddsInputs[entry.prop.id] ?? "");
-          const hasUserOdds = parsedBook !== null;
-          const hasComparable = hasUserOdds || entry.prop.hasVerifiedMarketQuote === true;
-          const activeBookDec =
-            hasUserOdds && parsedBook !== null
-              ? parsedBook
-              : entry.prop.hasVerifiedMarketQuote
-                ? entry.prop.marketOverDecimal
-                : evalRes.fairOverDecimal;
-          const evPct = hasComparable ? (evalRes.pOver * activeBookDec - 1) * 100 : null;
-
-          return (
-            <SofascoreValueCell
-              probPct={evalRes.pOver * 100}
-              fairLabel={formatOddsValue(evalRes.fairOverDecimal, oddsFormat)}
-              bestBookLabel={
-                hasUserOdds ? "Tu casa" : entry.prop.hasVerifiedMarketQuote ? "Mercado" : null
-              }
-              bestOddsLabel={hasComparable ? formatOddsValue(activeBookDec, oddsFormat) : null}
-              evPct={evPct}
-            />
-          );
-        },
+        render: ({
+          entry,
+          pOver,
+          fairOverDecimal,
+          hasUserOdds,
+          hasComparable,
+          activeBookDec,
+          evPct,
+        }) => (
+          <SofascoreValueCell
+            probPct={pOver * 100}
+            fairLabel={formatOddsValue(fairOverDecimal, oddsFormat)}
+            bestBookLabel={
+              hasUserOdds ? "Tu casa" : entry.prop.hasVerifiedMarketQuote ? "Mercado" : null
+            }
+            bestOddsLabel={hasComparable ? formatOddsValue(activeBookDec, oddsFormat) : null}
+            evPct={evPct}
+          />
+        ),
       },
       {
         key: "signal",
         header: "Señal",
         align: "end",
-        render: (entry) => {
-          const isSelected = selectedEntry?.prop.id === entry.prop.id;
-          const activeLine = clampLine(
-            customLines[entry.prop.id] ?? entry.prop.baseLine,
-            entry.prop.minLine,
-            entry.prop.maxLine,
-          );
-          const evalRes = resolvePropLineEvaluation(entry.prop, activeLine);
-          const parsedBook = parseManualBookOdds(propOddsInputs[entry.prop.id] ?? "");
-          const hasComparable = parsedBook !== null || entry.prop.hasVerifiedMarketQuote === true;
-          const activeBookDec =
-            parsedBook !== null
-              ? parsedBook
-              : entry.prop.hasVerifiedMarketQuote
-                ? entry.prop.marketOverDecimal
-                : evalRes.fairOverDecimal;
-          const evPct = hasComparable ? (evalRes.pOver * activeBookDec - 1) * 100 : null;
-          const l10Hits =
-            entry.prop.last10.length > 0
-              ? entry.prop.last10.filter((v) => v > activeLine).length
-              : null;
-
-          return (
-            <div className="pl-pb-signal-cell num">
-              {evPct !== null ? (
-                <SofascoreSignalPair evPct={evPct} compact />
-              ) : l10Hits !== null ? (
-                <span className="pl-pb-hit-rate">
-                  L{entry.prop.last10.length} {l10Hits}/{entry.prop.last10.length}
-                </span>
-              ) : (
-                <span className="pl-pb-hit-rate">{entry.prop.leagueLabel}</span>
-              )}
-              {isSelected ? <span className="pl-pb-active-tag">En Bet Lab</span> : null}
-            </div>
-          );
-        },
+        render: ({ entry, isSelected, evPct, l10Hits }) => (
+          <div className="pl-pb-signal-cell num">
+            {evPct !== null ? (
+              <SofascoreSignalPair evPct={evPct} compact />
+            ) : l10Hits !== null ? (
+              <span className="pl-pb-hit-rate">
+                L{entry.prop.last10.length} {l10Hits}/{entry.prop.last10.length}
+              </span>
+            ) : (
+              <span className="pl-pb-hit-rate">{entry.prop.leagueLabel}</span>
+            )}
+            {isSelected ? <span className="pl-pb-active-tag">En Bet Lab</span> : null}
+          </div>
+        ),
       },
     ],
-    [customLines, navigateOnPlainClick, oddsFormat, propOddsInputs, selectedEntry?.prop.id],
+    [navigateOnPlainClick, oddsFormat],
   );
 
   const selectedBetLabData = useMemo(() => {
@@ -961,11 +1393,7 @@ export function PropsLabClubView({
                 <SofascoreTabs
                   items={workspaceTabs}
                   value={activeTab}
-                  onChange={(next) => {
-                    if (next === "proyecciones" || next === "rachas") {
-                      setRequestedTab(next);
-                    }
-                  }}
+                  onChange={handleWorkspaceTabChange}
                   variant="underline"
                   ariaLabel="Vistas de Player Props"
                 />
@@ -974,11 +1402,7 @@ export function PropsLabClubView({
               <div className="pl-pb-filter-stack" data-props-filter-bar="">
                 <SofascoreFilterBar
                   searchValue={searchQuery}
-                  onSearchChange={(next) => {
-                    setSearchQuery(next);
-                    setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                    setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
-                  }}
+                  onSearchChange={handleSearchChange}
                   searchPlaceholder="Buscar jugador, equipo o liga…"
                   resultCount={
                     activeTab === "proyecciones" ? filteredCatalog.length : filteredStreaks.length
@@ -987,12 +1411,7 @@ export function PropsLabClubView({
                   <SofascoreTabs
                     items={sportTabItems}
                     value={activeSport}
-                    onChange={(next) => {
-                      setActiveSport(next);
-                      if (next !== "basketball") setNbaStatFilter("all");
-                      setCatalogVisibleCount(INITIAL_CATALOG_PAGE_SIZE);
-                      setStreakVisibleCount(INITIAL_STREAK_PAGE_SIZE);
-                    }}
+                    onChange={handleSportChange}
                     variant="segmented"
                     ariaLabel="Filtrar por deporte"
                   />
@@ -1105,10 +1524,10 @@ export function PropsLabClubView({
                           <SofascoreTable
                             caption="Catálogo calibrado de player props con momio justo y señal"
                             columns={tableColumns}
-                            rows={visibleCatalog}
-                            rowKey={(entry) => entry.prop.id}
+                            rows={evaluatedVisibleCatalog}
+                            rowKey={(row) => row.entry.prop.id}
                             density="compact"
-                            onRowClick={(entry) => setSelectedPropId(entry.prop.id)}
+                            onRowClick={handleSelectEvaluatedRow}
                           />
                         </SofascoreCard>
 
@@ -1118,9 +1537,7 @@ export function PropsLabClubView({
                               variant="secondary"
                               size="sm"
                               className="num"
-                              onClick={() =>
-                                setCatalogVisibleCount((c) => c + INITIAL_CATALOG_PAGE_SIZE)
-                              }
+                              onClick={handleLoadMoreCatalog}
                             >
                               Mostrar más props ({filteredCatalog.length - catalogVisibleCount}{" "}
                               restantes)
@@ -1130,366 +1547,15 @@ export function PropsLabClubView({
                       </div>
 
                       {selectedBetLabData ? (
-                        <aside className="pl-pb-lab-col" aria-label="Inspector Bet Lab">
-                          <SofascoreCard
-                            title="Bet Lab · Inspector de línea"
-                            meta={selectedBetLabData.entry.prop.engineName}
-                          >
-                            <div className="pl-pb-lab-body">
-                              <div className="pl-pb-lab-identity">
-                                <div className="pl-pb-lab-person">
-                                  <PersonAvatar
-                                    photoKey={selectedBetLabData.entry.photoKey}
-                                    size={44}
-                                  />
-                                  <div className="pl-pb-player-copy">
-                                    <h2 className="pl-pb-lab-title">
-                                      {selectedBetLabData.entry.prop.playerHref ? (
-                                        <a
-                                          href={selectedBetLabData.entry.prop.playerHref}
-                                          onClick={(e) =>
-                                            navigateOnPlainClick(
-                                              e,
-                                              selectedBetLabData.entry.prop.playerHref!,
-                                            )
-                                          }
-                                          className="pl-pb-player-name"
-                                        >
-                                          {selectedBetLabData.entry.prop.player}
-                                        </a>
-                                      ) : (
-                                        selectedBetLabData.entry.prop.player
-                                      )}
-                                    </h2>
-                                    <div className="pl-pb-lab-sub num">
-                                      <TeamBadge
-                                        league={selectedBetLabData.entry.prop.league}
-                                        slug={selectedBetLabData.entry.prop.teamSlug}
-                                        name={selectedBetLabData.entry.prop.teamName}
-                                        size={15}
-                                      />
-                                      <span>{selectedBetLabData.entry.prop.leagueLabel}</span>
-                                      <span>· {selectedBetLabData.entry.prop.matchLabel}</span>
-                                      {selectedBetLabData.entry.prop.kickoffLocal ? (
-                                        <span>· {selectedBetLabData.entry.prop.kickoffLocal}</span>
-                                      ) : null}
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className="pl-pb-lab-badges num">
-                                  <span
-                                    className={`pl-pb-status-pill is-${selectedBetLabData.entry.lineupState}`}
-                                  >
-                                    {selectedBetLabData.entry.lineupLabel}
-                                  </span>
-                                  {selectedBetLabData.entry.minMinutesMet ? (
-                                    <span className="pl-pb-status-pill is-guard">
-                                      {selectedBetLabData.entry.guardLabel}
-                                      {selectedBetLabData.entry.prop.avgMinutes != null
-                                        ? ` · ${selectedBetLabData.entry.prop.avgMinutes.toFixed(1)}m`
-                                        : ""}
-                                    </span>
-                                  ) : null}
-                                  {selectedBetLabData.entry.isDoubtful ? (
-                                    <span className="pl-pb-status-pill is-doubtful">En duda</span>
-                                  ) : null}
-                                </div>
-                              </div>
-
-                              <PropBetLabChart
-                                playerName={selectedBetLabData.entry.prop.player}
-                                statLabel={selectedBetLabData.entry.prop.statLabel}
-                                unitLabel={selectedBetLabData.entry.unitLabel}
-                                sport={selectedBetLabData.chartSport}
-                                line={selectedBetLabData.activeLine}
-                                points={selectedBetLabData.points}
-                                maxMinutes={selectedBetLabData.chartSport === "basketball" ? 48 : 90}
-                                rivalDefenseRank={
-                                  selectedBetLabData.rivalDefense?.defenseRank ?? null
-                                }
-                                rivalLeagueSize={
-                                  selectedBetLabData.rivalDefense?.leagueSize ?? null
-                                }
-                                rivalEbLabel={selectedBetLabData.rivalDefense?.ebLabel ?? null}
-                                calibratedProb={selectedBetLabData.evalRes.pOver}
-                                fairDecimal={selectedBetLabData.evalRes.fairOverDecimal}
-                              />
-
-                              <div className="pl-pb-line-bar num">
-                                <div className="pl-pb-line-readout">
-                                  <span className="pl-pb-line-readout-label">
-                                    Distribución Spacetime ({selectedBetLabData.entry.prop.statLabel})
-                                  </span>
-                                  <div className="pl-pb-line-readout-vals">
-                                    <strong>{selectedBetLabData.activeLine.toFixed(1)}</strong>
-                                    <span className="pl-pb-line-sub">
-                                      Proy. {selectedBetLabData.entry.prop.projectionMean.toFixed(2)}{" "}
-                                      ± {selectedBetLabData.entry.prop.projectionSd.toFixed(2)}
-                                    </span>
-                                  </div>
-                                </div>
-
-                                <div
-                                  className="pl-pb-line-controls"
-                                  role="group"
-                                  aria-label={`Ajustar línea de ${selectedBetLabData.entry.prop.player}`}
-                                >
-                                  <Button
-                                    variant="secondary"
-                                    size="icon-sm"
-                                    aria-label={`Bajar línea de ${selectedBetLabData.entry.prop.player}`}
-                                    disabled={
-                                      selectedBetLabData.activeLine <=
-                                      selectedBetLabData.entry.prop.minLine
-                                    }
-                                    onClick={() => {
-                                      const next = clampLine(
-                                        selectedBetLabData.activeLine -
-                                          selectedBetLabData.entry.prop.step,
-                                        selectedBetLabData.entry.prop.minLine,
-                                        selectedBetLabData.entry.prop.maxLine,
-                                      );
-                                      setCustomLines((prev) => ({
-                                        ...prev,
-                                        [selectedBetLabData.entry.prop.id]: next,
-                                      }));
-                                    }}
-                                  >
-                                    −
-                                  </Button>
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    disabled={selectedBetLabData.isAtBaseLine}
-                                    className="num"
-                                    onClick={() =>
-                                      setCustomLines((prev) => ({
-                                        ...prev,
-                                        [selectedBetLabData.entry.prop.id]:
-                                          selectedBetLabData.entry.prop.baseLine,
-                                      }))
-                                    }
-                                  >
-                                    Base ({selectedBetLabData.entry.prop.baseLine.toFixed(1)})
-                                  </Button>
-                                  <Button
-                                    variant="secondary"
-                                    size="icon-sm"
-                                    aria-label={`Subir línea de ${selectedBetLabData.entry.prop.player}`}
-                                    disabled={
-                                      selectedBetLabData.activeLine >=
-                                      selectedBetLabData.entry.prop.maxLine
-                                    }
-                                    onClick={() => {
-                                      const next = clampLine(
-                                        selectedBetLabData.activeLine +
-                                          selectedBetLabData.entry.prop.step,
-                                        selectedBetLabData.entry.prop.minLine,
-                                        selectedBetLabData.entry.prop.maxLine,
-                                      );
-                                      setCustomLines((prev) => ({
-                                        ...prev,
-                                        [selectedBetLabData.entry.prop.id]: next,
-                                      }));
-                                    }}
-                                  >
-                                    +
-                                  </Button>
-                                </div>
-                              </div>
-
-                              <div className="pl-pb-ou-grid num">
-                                <div className="pl-pb-ou-tile is-primary">
-                                  <span className="pl-pb-ou-label">
-                                    Más de {selectedBetLabData.activeLine.toFixed(1)}
-                                  </span>
-                                  <strong className="pl-pb-ou-val">
-                                    {(selectedBetLabData.evalRes.pOver * 100).toFixed(1)} % · Justo{" "}
-                                    {formatOddsValue(
-                                      selectedBetLabData.evalRes.fairOverDecimal,
-                                      oddsFormat,
-                                    )}
-                                  </strong>
-                                </div>
-                                <div className="pl-pb-ou-tile">
-                                  <span className="pl-pb-ou-label">
-                                    Menos de {selectedBetLabData.activeLine.toFixed(1)}
-                                  </span>
-                                  <strong className="pl-pb-ou-val">
-                                    {(selectedBetLabData.evalRes.pUnder * 100).toFixed(1)} % ·
-                                    Justo{" "}
-                                    {formatOddsValue(
-                                      selectedBetLabData.evalRes.fairUnderDecimal,
-                                      oddsFormat,
-                                    )}
-                                  </strong>
-                                </div>
-                              </div>
-
-                              {selectedBetLabData.entry.refereeSummary ? (
-                                <div className="pl-pb-ref-bar num" data-prop-referee-context="">
-                                  <span className="pl-pb-ref-name">
-                                    <MaestroIcon name="whistle" size={13} />
-                                    <span className="truncate">
-                                      {selectedBetLabData.entry.refereeSummary.name}
-                                    </span>
-                                  </span>
-                                  <span className="pl-pb-ref-metrics">
-                                    {selectedBetLabData.entry.refereeSummary.avgYellow !== null ? (
-                                      <span className="inline-flex items-center gap-1">
-                                        <SportEventIcon kind="yellow" size={11} />
-                                        <span>
-                                          {selectedBetLabData.entry.refereeSummary.avgYellow.toFixed(
-                                            1,
-                                          )}{" "}
-                                          amar./p
-                                        </span>
-                                      </span>
-                                    ) : null}
-                                    {selectedBetLabData.entry.refereeSummary.avgFouls !== null ? (
-                                      <span>
-                                        {selectedBetLabData.entry.refereeSummary.avgFouls.toFixed(
-                                          1,
-                                        )}{" "}
-                                        faltas/p
-                                      </span>
-                                    ) : null}
-                                    {selectedBetLabData.entry.refereeSummary.rigorLabel ? (
-                                      <span className="pl-pb-status-pill">
-                                        {selectedBetLabData.entry.refereeSummary.rigorLabel}
-                                      </span>
-                                    ) : null}
-                                  </span>
-                                </div>
-                              ) : null}
-
-                              <div className="pl-pb-comparator" data-prop-comparator="">
-                                <div className="pl-pb-comparator-head">
-                                  <label
-                                    htmlFor={comparatorInputId}
-                                    className="pl-pb-comparator-label"
-                                  >
-                                    <MaestroIcon
-                                      name="activity"
-                                      size={13}
-                                      style={{ color: "var(--pl-brand)" }}
-                                    />
-                                    <span>Compara con tu casa</span>
-                                  </label>
-                                  <span className="pl-pb-line-readout-label num">
-                                    Momio justo{" "}
-                                    <strong>
-                                      {formatOddsValue(
-                                        selectedBetLabData.evalRes.fairOverDecimal,
-                                        oddsFormat,
-                                      )}
-                                    </strong>
-                                  </span>
-                                </div>
-
-                                <div className="pl-pb-comparator-input-row">
-                                  <div className="pl-pb-comparator-field">
-                                    <input
-                                      id={comparatorInputId}
-                                      type="text"
-                                      inputMode="decimal"
-                                      autoCorrect="off"
-                                      spellCheck={false}
-                                      value={selectedBetLabData.rawOddsText}
-                                      onChange={(e) =>
-                                        setPropOddsInputs((prev) => ({
-                                          ...prev,
-                                          [selectedBetLabData.entry.prop.id]: e.target.value,
-                                        }))
-                                      }
-                                      placeholder={formatOddsValue(
-                                        selectedBetLabData.evalRes.fairOverDecimal,
-                                        oddsFormat,
-                                      )}
-                                      className="pl-pb-input num"
-                                    />
-                                  </div>
-
-                                  {selectedBetLabData.hasComparable ? (
-                                    <SofascoreSignalPair evPct={selectedBetLabData.evPct} />
-                                  ) : null}
-                                </div>
-
-                                {selectedBetLabData.hasInvalidOdds ? (
-                                  <p className="pl-pb-comparator-hint is-error" role="alert">
-                                    Ingresa un momio decimal mayor a 1.01 (ej. 1.95) o americano
-                                    (ej. -110 o +135).
-                                  </p>
-                                ) : selectedBetLabData.hasComparable ? (
-                                  <div className="pl-pb-comparator-result num">
-                                    <span>
-                                      Tu casa:{" "}
-                                      <strong>
-                                        {formatOddsValue(
-                                          selectedBetLabData.activeBookDec,
-                                          oddsFormat,
-                                        )}
-                                      </strong>
-                                    </span>
-                                    <span>
-                                      Ventaja:{" "}
-                                      <strong>
-                                        {selectedBetLabData.edgePts >= 0 ? "+" : ""}
-                                        {selectedBetLabData.edgePts.toFixed(1)} pts
-                                      </strong>
-                                    </span>
-                                  </div>
-                                ) : (
-                                  <p className="pl-pb-comparator-hint">
-                                    Escribe el momio de tu casa (decimal o americano) para medir
-                                    EV+ frente al momio justo PitchLab.
-                                  </p>
-                                )}
-                              </div>
-
-                              <p className="pl-pb-context-note">
-                                {selectedBetLabData.entry.prop.contextNote}
-                                {selectedBetLabData.entry.prop.injuryNote
-                                  ? ` · Nota médica: ${selectedBetLabData.entry.prop.injuryNote}`
-                                  : ""}
-                              </p>
-
-                              <div className="pl-pb-lab-foot num">
-                                <span className="pl-pb-lab-stake">
-                                  1.00u ·{" "}
-                                  {selectedBetLabData.hasComparable
-                                    ? `Casa ${formatOddsValue(selectedBetLabData.activeBookDec, oddsFormat)}`
-                                    : `Justo ${formatOddsValue(selectedBetLabData.evalRes.fairOverDecimal, oddsFormat)}`}
-                                </span>
-                                <Button
-                                  variant="primary"
-                                  size="sm"
-                                  disabled={selectedBetLabData.alreadySealed}
-                                  onClick={() =>
-                                    handleSealProp(
-                                      selectedBetLabData.entry.prop,
-                                      selectedBetLabData.activeLine,
-                                      selectedBetLabData.evalRes.pOver,
-                                      selectedBetLabData.evalRes.fairOverDecimal,
-                                      selectedBetLabData.activeBookDec,
-                                    )
-                                  }
-                                >
-                                  <MaestroIcon
-                                    name={selectedBetLabData.alreadySealed ? "check" : "ticket"}
-                                    size={13}
-                                  />
-                                  <span>
-                                    {selectedBetLabData.alreadySealed
-                                      ? "Prop sellado en Bitácora"
-                                      : "Sellar Prop en mi Bitácora"}
-                                  </span>
-                                </Button>
-                              </div>
-                            </div>
-                          </SofascoreCard>
-                        </aside>
+                        <PropsBetLabInspector
+                          data={selectedBetLabData}
+                          oddsFormat={oddsFormat}
+                          comparatorInputId={comparatorInputId}
+                          onNavigatePlayer={navigateOnPlainClick}
+                          onSetCustomLine={handleSetCustomLine}
+                          onOddsInputChange={handleOddsInputChange}
+                          onSealProp={handleSealProp}
+                        />
                       ) : null}
                     </div>
                   )}
@@ -1497,47 +1563,15 @@ export function PropsLabClubView({
               ) : null}
 
               {activeTab === "rachas" && streakCards.length > 0 ? (
-                <section
-                  className="pl-pb-page"
-                  aria-label="Tendencias de jugadores contra línea"
-                >
-                  {filteredStreaks.length > 0 ? (
-                    <>
-                      <div className="pl-pb-streak-grid">
-                        {visibleStreaks.map((card) => (
-                          <PlayerPropStreakCard
-                            key={card.id}
-                            {...card}
-                            oddsFormat={oddsFormat}
-                            onNavigate={navigateTo}
-                          />
-                        ))}
-                      </div>
-                      {filteredStreaks.length > streakVisibleCount ? (
-                        <div className="pl-pb-pagination">
-                          <Button
-                            variant="secondary"
-                            size="sm"
-                            className="num"
-                            onClick={() =>
-                              setStreakVisibleCount((c) => c + INITIAL_STREAK_PAGE_SIZE)
-                            }
-                          >
-                            Mostrar más tendencias ({filteredStreaks.length - streakVisibleCount}{" "}
-                            restantes)
-                          </Button>
-                        </div>
-                      ) : null}
-                    </>
-                  ) : (
-                    <SofascoreEmptyState
-                      title="Sin rachas para este filtro"
-                      description="Ningún jugador en tendencias coincide con los criterios activos."
-                      actionLabel="Limpiar filtros"
-                      onAction={resetFilters}
-                    />
-                  )}
-                </section>
+                <PropsStreakGridSection
+                  visibleStreaks={visibleStreaks}
+                  totalFilteredStreaks={filteredStreaks.length}
+                  streakVisibleCount={streakVisibleCount}
+                  oddsFormat={oddsFormat}
+                  onNavigate={navigateTo}
+                  onLoadMore={handleLoadMoreStreaks}
+                  onResetFilters={resetFilters}
+                />
               ) : null}
             </>
           )}

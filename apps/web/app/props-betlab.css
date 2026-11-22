@@ -1047,4 +1047,27 @@
       transition-duration: 0ms;
     }
   }
+
+  .pl-pb-streak-card:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 248px;
+  }
+
+  .pl-pb-pick-tile:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 184px;
+  }
+
+  .pl-pb-teammate-link:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 48px;
+  }
+
+  @supports not (content-visibility: auto) {
+    .pl-pb-streak-card:nth-child(n + 6):not(:focus-within),
+    .pl-pb-pick-tile:nth-child(n + 6):not(:focus-within),
+    .pl-pb-teammate-link:nth-child(n + 6):not(:focus-within) {
+      contain: layout style paint;
+    }
+  }
 }

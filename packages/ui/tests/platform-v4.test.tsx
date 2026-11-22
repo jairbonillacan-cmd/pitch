@@ -472,7 +472,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
       </PlatformProvider>,
     );
 
-    const clubHtml = renderToStaticMarkup(
+    const clubHtml = await renderHtmlAsync(
       <PlatformProvider dataset={dataset} initialRole="member">
         <MatchStudioClubView leagueId={firstGame.league} gameId={firstGame.id} />
         <ParlayBuilderClubView />

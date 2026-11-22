@@ -1653,4 +1653,39 @@
       transition: none;
     }
   }
+
+  .pl-rec-live-link:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 112px;
+  }
+
+  .pl-rec-pub-pick:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 64px;
+  }
+
+  .pl-hist-ed-parlay-card:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 168px;
+  }
+
+  .pl-ticket-card:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 152px;
+  }
+
+  .pl-ticket-pick-row:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 76px;
+  }
+
+  @supports not (content-visibility: auto) {
+    .pl-rec-live-link:nth-child(n + 6):not(:focus-within),
+    .pl-rec-pub-pick:nth-child(n + 6):not(:focus-within),
+    .pl-hist-ed-parlay-card:nth-child(n + 6):not(:focus-within),
+    .pl-ticket-card:nth-child(n + 6):not(:focus-within),
+    .pl-ticket-pick-row:nth-child(n + 6):not(:focus-within) {
+      contain: layout style paint;
+    }
+  }
 }

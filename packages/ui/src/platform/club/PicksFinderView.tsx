@@ -1,6 +1,8 @@
 "use client";
 
 import React, {
+  Suspense,
+  lazy,
   memo,
   useCallback,
   useId,
@@ -95,26 +97,44 @@ import type {
   OddsFormat,
   PlatformGame,
   PlatformMarketRow,
+  ViewerRole,
 } from "../types";
 import { addDays, matchesSportFilter, todayId } from "./home/home-model";
 import {
-  BetBuilderDrawer,
-  BetBuilderQuickButton,
-  EvidenceWindowPills,
-  NonLinearOddsSlider,
-  SavedViewsBar,
   classifyOddsMovement,
   computeExpectedValuePct,
+  type OddsMovementInfo,
+} from "./picks/BookmakerComparePill";
+import {
+  EvidenceWindowPills,
   extractEvidenceWindows,
   type EvidenceWindowItem,
   type EvidenceWindowTone,
-  type OddsMovementInfo,
-} from "./picks";
-import {
-  PickEvidenceLabDrawer,
-  type PickLabCustomSelection,
-} from "./picks/PickEvidenceLabDrawer";
+} from "./picks/EvidenceWindowPills";
+import { NonLinearOddsSlider } from "./picks/NonLinearOddsSlider";
+import type { PickLabCustomSelection } from "./picks/PickEvidenceLabDrawer";
+import { SavedViewsBar } from "./picks/SavedViewsBar";
 import { PersonAvatar } from "./team/PersonAvatar";
+
+const loadPickEvidenceLabDrawer = () =>
+  import("./picks/PickEvidenceLabDrawer").then((mod) => ({
+    default: mod.PickEvidenceLabDrawer,
+  }));
+const LazyPickEvidenceLabDrawer = lazy(loadPickEvidenceLabDrawer);
+
+const loadBetBuilderDrawer = () =>
+  import("./picks/BetBuilderDrawer").then((mod) => ({
+    default: mod.BetBuilderDrawer,
+  }));
+const LazyBetBuilderDrawer = lazy(loadBetBuilderDrawer);
+
+function prefetchPickEvidenceLabDrawer(): void {
+  void loadPickEvidenceLabDrawer();
+}
+
+function prefetchBetBuilderDrawer(): void {
+  void loadBetBuilderDrawer();
+}
 
 type Band = ScreenerBandFilter;
 type GroupMode = "match" | "market" | "flat";
@@ -1545,7 +1565,7 @@ function resolveLiveStatusPill(params: {
   return { label: "En vivo", tone: "brand" };
 }
 
-function ParlayRowButton({
+const ParlayRowButton = memo(function ParlayRowButton({
   pick,
   compact = false,
 }: {
@@ -1554,23 +1574,59 @@ function ParlayRowButton({
 }): React.JSX.Element {
   const { addPickToParlay, removePickFromParlay } = usePlatformActions();
   const on = useIsPickInParlay(pick.id);
+  const handleToggle = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      if (on) removePickFromParlay(pick.id);
+      else addPickToParlay(pick);
+    },
+    [addPickToParlay, on, pick, removePickFromParlay],
+  );
   return (
     <button
       type="button"
       className={`pl-scr-row-action ${on ? "is-on" : ""} ${compact ? "is-compact" : ""}`.trim()}
       aria-pressed={on}
       aria-label={`${on ? "Quitar del parlay" : "Agregar al parlay"}: ${pick.label}, ${pick.matchLabel}`}
-      onClick={(e) => {
-        e.stopPropagation();
-        if (on) removePickFromParlay(pick.id);
-        else addPickToParlay(pick);
-      }}
+      onClick={handleToggle}
     >
       <MaestroIcon name={on ? "check" : "plus"} size={12} />
       <span>{on ? "En parlay" : "Parlay"}</span>
     </button>
   );
-}
+});
+
+const ScreenerBetBuilderButton = memo(function ScreenerBetBuilderButton({
+  pick,
+  game,
+  onOpenBuilder,
+  compact = false,
+}: {
+  readonly pick: MatchPick;
+  readonly game: PlatformGame;
+  readonly onOpenBuilder: (pick: MatchPick, game: PlatformGame) => void;
+  readonly compact?: boolean;
+}): React.JSX.Element {
+  const inParlay = useIsPickInParlay(pick.id);
+  const handleClick = useCallback(() => {
+    onOpenBuilder(pick, game);
+  }, [game, onOpenBuilder, pick]);
+  return (
+    <Button
+      variant={inParlay ? "secondary" : "ghost"}
+      size="sm"
+      className={`pl-scr-builder-btn min-w-11 ${compact ? "is-compact" : ""} ${inParlay ? "is-in-slip" : ""}`.trim()}
+      data-open-bet-builder={pick.id}
+      aria-label={`Abrir Bet Builder para ${pick.label}`}
+      onPointerEnter={prefetchBetBuilderDrawer}
+      onFocus={prefetchBetBuilderDrawer}
+      onClick={handleClick}
+    >
+      <MaestroIcon name="layers" size={13} />
+      <span>{inParlay ? "En boleto" : "Builder"}</span>
+    </Button>
+  );
+});
 
 interface ScreenerPickRowProps {
   readonly item: ScreenerItem;
@@ -1684,12 +1740,42 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
       ? estimateResidualProjection(liveActual, liveProgress.clockLabel, game.sport)
       : null);
 
-  const handleRowClick = (event: React.MouseEvent<HTMLTableRowElement>) => {
-    if (!unlocked) return;
-    const target = event.target instanceof Element ? event.target : null;
-    if (target?.closest("button, a, input, select, label")) return;
+  const handleRowClick = useCallback(
+    (event: React.MouseEvent<HTMLTableRowElement>) => {
+      if (!unlocked) return;
+      const target = event.target instanceof Element ? event.target : null;
+      if (target?.closest("button, a, input, select, label")) return;
+      onOpenLab(item);
+    },
+    [item, onOpenLab, unlocked],
+  );
+
+  const handleOpenLabClick = useCallback(() => {
     onOpenLab(item);
-  };
+  }, [item, onOpenLab]);
+
+  const handleComposerClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      onOpenComposer(pick);
+    },
+    [onOpenComposer, pick],
+  );
+
+  const handleOpenManualClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      onOpenManual(pick.id);
+    },
+    [onOpenManual, pick.id],
+  );
+
+  const handleManualInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onManualChange(pick.id, e.target.value);
+    },
+    [onManualChange, pick.id],
+  );
 
   return (
     <tr
@@ -1697,6 +1783,7 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
       data-picks-row=""
       data-pick-id={pick.id}
       data-pick-recommended={item.isRecommended ? "true" : "false"}
+      onPointerEnter={unlocked ? prefetchPickEvidenceLabDrawer : undefined}
       onClick={handleRowClick}
     >
       <th scope="row" className="pl-scr-td pl-scr-col-pick" data-label="Pick">
@@ -1777,7 +1864,9 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
               type="button"
               className="pl-scr-pick-open-btn"
               aria-label={`Analizar ${pick.label} (${game.home.shortName} vs ${game.away.shortName}) en Bet Lab`}
-              onClick={() => onOpenLab(item)}
+              onPointerEnter={prefetchPickEvidenceLabDrawer}
+              onFocus={prefetchPickEvidenceLabDrawer}
+              onClick={handleOpenLabClick}
             >
               <MarketCategoryIcon
                 family={item.catalogFamilyId}
@@ -1948,10 +2037,7 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
                   <button
                     type="button"
                     className="pl-scr-row-action is-compact"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenComposer(pick);
-                    }}
+                    onClick={handleComposerClick}
                   >
                     Sellar
                   </button>
@@ -1969,7 +2055,7 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
                       autoComplete="off"
                       placeholder={oddsFormat === "american" ? "-110" : "1.91"}
                       value={manualRaw}
-                      onChange={(e) => onManualChange(pick.id, e.target.value)}
+                      onChange={handleManualInputChange}
                       data-manual-odds-input={pick.id}
                       className="pl-scr-manual-input num"
                     />
@@ -1979,18 +2065,16 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
                     type="button"
                     className="pl-scr-row-action is-compact is-ghost"
                     data-open-manual-odds={pick.id}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenManual(pick.id);
-                    }}
+                    onClick={handleOpenManualClick}
                   >
                     Mi momio
                   </button>
                 )}
                 <span className="pl-scr-builder-inline">
-                  <BetBuilderQuickButton
+                  <ScreenerBetBuilderButton
                     pick={pick}
-                    onInspect={(pk) => onOpenBuilder(pk, game)}
+                    game={game}
+                    onOpenBuilder={onOpenBuilder}
                     compact
                   />
                 </span>
@@ -2000,6 +2084,449 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
         </div>
       </td>
     </tr>
+  );
+});
+
+interface ScreenerPickTableProps {
+  readonly items: readonly ScreenerItem[];
+  readonly caption: string;
+  readonly showMatchMeta: boolean;
+  readonly tableKey: string;
+  readonly timing: TimingMode;
+  readonly viewerRole: ViewerRole;
+  readonly oddsFormat: OddsFormat;
+  readonly manualOddsByPick: Readonly<Record<string, string>>;
+  readonly openManualPickId: string | null;
+  readonly liveTrackedByPickId: ReadonlyMap<string, LiveTrackedPickView>;
+  readonly onOpenLab: (item: ScreenerItem) => void;
+  readonly onOpenBuilder: (pick: MatchPick, game: PlatformGame) => void;
+  readonly onOpenComposer: (pick: MatchPick) => void;
+  readonly onOpenManual: (pickId: string) => void;
+  readonly onManualChange: (pickId: string, value: string) => void;
+}
+
+const ScreenerPickTable = memo(function ScreenerPickTable({
+  items,
+  caption,
+  showMatchMeta,
+  tableKey,
+  timing,
+  viewerRole,
+  oddsFormat,
+  manualOddsByPick,
+  openManualPickId,
+  liveTrackedByPickId,
+  onOpenLab,
+  onOpenBuilder,
+  onOpenComposer,
+  onOpenManual,
+  onManualChange,
+}: ScreenerPickTableProps): React.JSX.Element {
+  return (
+    <div
+      className="pl-scr-table-wrap"
+      role="region"
+      tabIndex={0}
+      aria-labelledby={`pl-scr-cap-${tableKey}`}
+    >
+      <table className="pl-scr-table">
+        <caption id={`pl-scr-cap-${tableKey}`} className="sr-only">
+          {caption}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" className="pl-scr-th pl-scr-th-pick">
+              Pick
+            </th>
+            <th scope="col" className="pl-scr-th pl-scr-th-bet">
+              Apuesta
+            </th>
+            <th scope="col" className="pl-scr-th pl-scr-th-evidence">
+              {timing === "live" ? "Avance en vivo" : "Evidencia"}
+            </th>
+            <th scope="col" className="pl-scr-th pl-scr-th-odds is-end">
+              {timing === "settled" ? "Liquidación" : "Cuotas"}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((item) => {
+            const unlocked = isPickUnlocked(item.pick, item.game.status, viewerRole);
+            const tracked = item.isLiveGame ? (liveTrackedByPickId.get(item.pick.id) ?? null) : null;
+            return (
+              <ScreenerPickRow
+                key={item.pick.id}
+                item={item}
+                timing={timing}
+                showMatchMeta={showMatchMeta}
+                unlocked={unlocked}
+                oddsFormat={oddsFormat}
+                manualRaw={manualOddsByPick[item.pick.id] ?? ""}
+                isManualOpen={openManualPickId === item.pick.id}
+                trackedLive={tracked}
+                onOpenLab={onOpenLab}
+                onOpenBuilder={onOpenBuilder}
+                onOpenComposer={onOpenComposer}
+                onOpenManual={onOpenManual}
+                onManualChange={onManualChange}
+              />
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+});
+
+const ScreenerMatchGroupHeader = memo(function ScreenerMatchGroupHeader({
+  game,
+  liveEntry,
+  itemsCount,
+  isCollapsed,
+  onToggleCollapse,
+  onPrefetchRoute,
+  onNavigateTo,
+}: {
+  readonly game: PlatformGame;
+  readonly liveEntry?: LiveScoreboardEntry;
+  readonly itemsCount: number;
+  readonly isCollapsed: boolean;
+  readonly onToggleCollapse: (groupKey: string) => void;
+  readonly onPrefetchRoute: (href: string) => void;
+  readonly onNavigateTo: (href: string) => void;
+}): React.JSX.Element {
+  const href = canonicalGameHref(game.league, game);
+  const liveScore = liveEntry?.score ?? game.score;
+  const liveClock =
+    game.status === "FT"
+      ? "FT"
+      : (liveEntry?.clock ?? (game.status === "LIVE" ? "En vivo" : null));
+  const projLabel = formatProjectedScore(game);
+  const groupKey = `m:${game.id}`;
+
+  const handleToggle = useCallback(() => {
+    onToggleCollapse(groupKey);
+  }, [groupKey, onToggleCollapse]);
+
+  const handlePrefetch = useCallback(() => {
+    onPrefetchRoute(href);
+  }, [href, onPrefetchRoute]);
+
+  const handleNavigate = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      onNavigateTo(href);
+    },
+    [href, onNavigateTo],
+  );
+
+  return (
+    <header className="pl-scr-group-head">
+      <button
+        type="button"
+        className="pl-scr-group-toggle"
+        aria-expanded={!isCollapsed}
+        onClick={handleToggle}
+      >
+        <span className="pl-scr-group-crests" aria-hidden="true">
+          <TeamBadge
+            league={game.league}
+            slug={game.home.slug}
+            name={game.home.name}
+            logoUrl={game.home.logoUrl}
+            size={22}
+          />
+          <TeamBadge
+            league={game.league}
+            slug={game.away.slug}
+            name={game.away.name}
+            logoUrl={game.away.logoUrl}
+            size={22}
+          />
+        </span>
+        <div className="pl-scr-group-meta min-w-0">
+          <strong className="pl-scr-group-title truncate">
+            {game.home.name} vs {game.away.name}
+          </strong>
+          <span className="pl-scr-group-sub num">
+            <span className="pl-scr-sub-piece">
+              <LeagueBadge
+                league={game.league}
+                label={game.leagueLabel}
+                logoUrl={game.leagueLogoUrl}
+                size={13}
+              />
+              <span>{game.leagueLabel}</span>
+            </span>
+            <span className="pl-scr-meta-sep" aria-hidden="true">
+              ·
+            </span>
+            <span className="pl-scr-sub-piece">
+              {liveScore && liveClock
+                ? `${liveScore.home}–${liveScore.away} · ${liveClock}`
+                : `${game.dayLabel} ${game.kickoffLocal}`}
+            </span>
+            {projLabel && game.status !== "FT" ? (
+              <>
+                <span className="pl-scr-meta-sep" aria-hidden="true">
+                  ·
+                </span>
+                <span className="pl-scr-sub-piece pl-scr-group-proj">
+                  {projLabel}
+                </span>
+              </>
+            ) : null}
+          </span>
+        </div>
+      </button>
+
+      <div className="pl-scr-group-actions">
+        <button
+          type="button"
+          className="pl-scr-group-count-btn num"
+          aria-expanded={!isCollapsed}
+          aria-label={`${isCollapsed ? "Mostrar" : "Ocultar"} ${itemsCount} ${itemsCount === 1 ? "pick" : "picks"} de ${game.home.shortName} vs ${game.away.shortName}`}
+          onClick={handleToggle}
+        >
+          <span className="pl-scr-group-count">
+            {itemsCount} {itemsCount === 1 ? "pick" : "picks"}
+          </span>
+          <MaestroIcon
+            name="chevronDown"
+            size={15}
+            className={`pl-scr-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
+          />
+        </button>
+
+        <a
+          href={href}
+          className="pl-scr-group-ficha"
+          onPointerEnter={handlePrefetch}
+          onTouchStart={handlePrefetch}
+          onClick={handleNavigate}
+        >
+          <span>Ficha</span>
+          <MaestroIcon name="arrowRight" size={12} />
+        </a>
+      </div>
+    </header>
+  );
+});
+
+const ScreenerMarketGroupHeader = memo(function ScreenerMarketGroupHeader({
+  groupKey,
+  label,
+  family,
+  itemsCount,
+  isCollapsed,
+  onToggleCollapse,
+}: {
+  readonly groupKey: string;
+  readonly label: string;
+  readonly family: string;
+  readonly itemsCount: number;
+  readonly isCollapsed: boolean;
+  readonly onToggleCollapse: (key: string) => void;
+}): React.JSX.Element {
+  const handleToggle = useCallback(() => {
+    onToggleCollapse(`k:${groupKey}`);
+  }, [groupKey, onToggleCollapse]);
+
+  return (
+    <header className="pl-scr-group-head">
+      <button
+        type="button"
+        className="pl-scr-group-toggle"
+        aria-expanded={!isCollapsed}
+        onClick={handleToggle}
+      >
+        <MarketCategoryIcon family={family} size={18} />
+        <strong className="pl-scr-group-title">{label}</strong>
+        <span className="pl-scr-group-count num">
+          {itemsCount} {itemsCount === 1 ? "pick" : "picks"}
+        </span>
+        <MaestroIcon
+          name="chevronDown"
+          size={15}
+          className={`pl-scr-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
+        />
+      </button>
+    </header>
+  );
+});
+
+const ScreenerPotdSection = memo(function ScreenerPotdSection({
+  featuredPotd,
+  secondaryPotds,
+  totalCount,
+  potdExpanded,
+  oddsFormat,
+  onToggleExpanded,
+  onOpenLab,
+}: {
+  readonly featuredPotd: ScreenerItem;
+  readonly secondaryPotds: readonly ScreenerItem[];
+  readonly totalCount: number;
+  readonly potdExpanded: boolean;
+  readonly oddsFormat: OddsFormat;
+  readonly onToggleExpanded: () => void;
+  readonly onOpenLab: (item: ScreenerItem) => void;
+}): React.JSX.Element {
+  const handleOpenFeatured = useCallback(() => {
+    onOpenLab(featuredPotd);
+  }, [featuredPotd, onOpenLab]);
+
+  return (
+    <section
+      className="pl-scr-potd"
+      aria-label="Pick del día seleccionado por Spacetime"
+      data-picks-potd=""
+    >
+      <div className="pl-scr-potd-row">
+        <div className="pl-scr-potd-left">
+          <div className="pl-scr-potd-eyebrow num">
+            <MaestroIcon name="target-picks" size={14} className="pl-scr-potd-icon" />
+            <span>PICK DEL DÍA</span>
+            <span className="pl-scr-meta-sep" aria-hidden="true">
+              ·
+            </span>
+            <span>{featuredPotd.game.leagueLabel}</span>
+            <span className="pl-scr-meta-sep" aria-hidden="true">
+              ·
+            </span>
+            <span>{featuredPotd.game.kickoffLocal}</span>
+            {featuredPotd.projectedScoreLabel ? (
+              <>
+                <span className="pl-scr-meta-sep" aria-hidden="true">
+                  ·
+                </span>
+                <span className="pl-scr-potd-proj">{featuredPotd.projectedScoreLabel}</span>
+              </>
+            ) : null}
+          </div>
+
+          <div className="pl-scr-potd-headline">
+            <TeamBadge
+              league={featuredPotd.game.league}
+              slug={featuredPotd.game.home.slug}
+              name={featuredPotd.game.home.name}
+              logoUrl={featuredPotd.game.home.logoUrl}
+              size={20}
+            />
+            <span className="pl-scr-potd-match">
+              {featuredPotd.game.home.shortName} vs {featuredPotd.game.away.shortName}
+            </span>
+            <span className="pl-scr-meta-sep" aria-hidden="true">
+              —
+            </span>
+            <MarketCategoryIcon
+              family={featuredPotd.catalogFamilyId}
+              size={18}
+              className="pl-scr-potd-mkt-icon"
+            />
+            <strong className="pl-scr-potd-pick">{featuredPotd.pick.label}</strong>
+          </div>
+
+          <p className="pl-scr-potd-reason">
+            {formatValueThresholdForOdds(featuredPotd, oddsFormat)}
+            {featuredPotd.evidenceWindows.length > 0 ? (
+              <span className="pl-scr-potd-ev num">
+                {" · "}
+                {featuredPotd.evidenceWindows
+                  .slice(0, 2)
+                  .map((w) => `${w.label} ${w.value}`)
+                  .join(" · ")}
+              </span>
+            ) : null}
+          </p>
+        </div>
+
+        <div className="pl-scr-potd-metrics num">
+          <div className="pl-scr-potd-prob-wrap">
+            <strong className="pl-scr-potd-prob">
+              {(featuredPotd.pick.p * 100).toFixed(1)} %
+            </strong>
+            <span className="pl-scr-potd-prob-lbl">
+              Prob. Spacetime ·{" "}
+              {featuredPotd.houseDecimal !== null
+                ? `${featuredPotd.houseLabel ?? "Casa"} ${formatOddsValue(featuredPotd.houseDecimal, oddsFormat)}`
+                : `Justo ${formatOddsValue(featuredPotd.pick.fairDecimal, oddsFormat)}`}
+            </span>
+          </div>
+
+          <div className="pl-scr-potd-actions">
+            <button
+              type="button"
+              className="pl-scr-potd-cta"
+              data-picks-potd-analyze=""
+              onPointerEnter={prefetchPickEvidenceLabDrawer}
+              onFocus={prefetchPickEvidenceLabDrawer}
+              onClick={handleOpenFeatured}
+            >
+              <span>Analizar</span>
+              <MaestroIcon name="arrowRight" size={12} />
+            </button>
+            <ParlayRowButton pick={featuredPotd.pick} />
+            {secondaryPotds.length > 0 ? (
+              <button
+                type="button"
+                className="pl-scr-potd-toggle"
+                aria-expanded={potdExpanded}
+                data-picks-potd-toggle=""
+                onClick={onToggleExpanded}
+              >
+                <span>{potdExpanded ? "Solo Top 1" : `Top ${totalCount}`}</span>
+                <MaestroIcon
+                  name="chevronDown"
+                  size={12}
+                  className={`pl-scr-chev ${potdExpanded ? "is-open" : ""}`.trim()}
+                />
+              </button>
+            ) : null}
+          </div>
+        </div>
+      </div>
+
+      {potdExpanded && secondaryPotds.length > 0 ? (
+        <div className="pl-scr-potd-more">
+          {secondaryPotds.map((candidate, idx) => (
+            <div key={candidate.pick.id} className="pl-scr-potd-subcard">
+              <div className="pl-scr-potd-subhead">
+                <span className="pl-scr-potd-rank num">#{idx + 2}</span>
+                <MarketCategoryIcon
+                  family={candidate.catalogFamilyId}
+                  size={16}
+                  className="pl-scr-potd-mkt-icon"
+                />
+                <strong className="pl-scr-potd-subpick">{candidate.pick.label}</strong>
+                <span className="pl-scr-potd-subprob num">
+                  {(candidate.pick.p * 100).toFixed(1)} %
+                </span>
+              </div>
+              <span className="pl-scr-potd-submatch num">
+                {candidate.game.home.shortName} vs {candidate.game.away.shortName} ·{" "}
+                {candidate.game.leagueLabel}
+                {candidate.projectedScoreLabel ? ` · ${candidate.projectedScoreLabel}` : ""}
+              </span>
+              <div className="pl-scr-potd-subfoot">
+                <span className="pl-scr-potd-subreason">
+                  {formatValueThresholdForOdds(candidate, oddsFormat, true)}
+                </span>
+                <button
+                  type="button"
+                  className="pl-scr-row-action is-compact"
+                  onPointerEnter={prefetchPickEvidenceLabDrawer}
+                  onFocus={prefetchPickEvidenceLabDrawer}
+                  onClick={() => onOpenLab(candidate)}
+                >
+                  Analizar
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </section>
   );
 });
 
@@ -3868,6 +4395,22 @@ export function PicksFinderClubView({
     setBuilderTarget({ pick, game });
   }, []);
 
+  const handleCloseBuilder = useCallback(() => {
+    setBuilderTarget(null);
+  }, []);
+
+  const handleTogglePotdExpanded = useCallback(() => {
+    setPotdExpanded((v) => !v);
+  }, []);
+
+  const handleCloseMobileSheet = useCallback(() => {
+    setMobileSheetOpen(false);
+  }, []);
+
+  const handleLoadMoreFlat = useCallback(() => {
+    setFlatShown((n) => n + FLAT_PICKS_STEP);
+  }, []);
+
   const currentGroupLabel =
     GROUP_MODES.find((m) => m.id === groupMode)?.shortLabel ?? "Partidos";
   const currentSortLabel =
@@ -4532,68 +5075,8 @@ export function PicksFinderClubView({
     </SofascoreCard>
   );
 
-  const renderPickTable = (
-    itemsToRender: readonly ScreenerItem[],
-    caption: string,
-    showMatchMeta: boolean,
-    tableKey: string,
-  ) => (
-    <div
-      className="pl-scr-table-wrap"
-      role="region"
-      tabIndex={0}
-      aria-labelledby={`pl-scr-cap-${tableKey}`}
-    >
-      <table className="pl-scr-table">
-        <caption id={`pl-scr-cap-${tableKey}`} className="sr-only">
-          {caption}
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col" className="pl-scr-th pl-scr-th-pick">
-              Pick
-            </th>
-            <th scope="col" className="pl-scr-th pl-scr-th-bet">
-              Apuesta
-            </th>
-            <th scope="col" className="pl-scr-th pl-scr-th-evidence">
-              {timing === "live" ? "Avance en vivo" : "Evidencia"}
-            </th>
-            <th scope="col" className="pl-scr-th pl-scr-th-odds is-end">
-              {timing === "settled" ? "Liquidación" : "Cuotas"}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {itemsToRender.map((item) => {
-            const unlocked = isPickUnlocked(item.pick, item.game.status, viewerRole);
-            const tracked = item.isLiveGame ? (liveTrackedByPickId.get(item.pick.id) ?? null) : null;
-            return (
-              <ScreenerPickRow
-                key={item.pick.id}
-                item={item}
-                timing={timing}
-                showMatchMeta={showMatchMeta}
-                unlocked={unlocked}
-                oddsFormat={oddsFormat}
-                manualRaw={manualOddsByPick[item.pick.id] ?? ""}
-                isManualOpen={openManualPickId === item.pick.id}
-                trackedLive={tracked}
-                onOpenLab={handleOpenLab}
-                onOpenBuilder={handleOpenBuilder}
-                onOpenComposer={openComposer}
-                onOpenManual={handleOpenManual}
-                onManualChange={handleManualChange}
-              />
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-
   const featuredPotd = picksOfTheDay[0] ?? null;
-  const secondaryPotds = picksOfTheDay.slice(1, 3);
+  const secondaryPotds = useMemo(() => picksOfTheDay.slice(1, 3), [picksOfTheDay]);
   const canLoadMoreMatches =
     visibleGamesCount < allGroupedByMatch.length || (apiHasMore && timing === "upcoming");
 
@@ -4720,152 +5203,15 @@ export function PicksFinderClubView({
           </header>
 
           {timing === "upcoming" && featuredPotd ? (
-            <section
-              className="pl-scr-potd"
-              aria-label="Pick del día seleccionado por Spacetime"
-              data-picks-potd=""
-            >
-              <div className="pl-scr-potd-row">
-                <div className="pl-scr-potd-left">
-                  <div className="pl-scr-potd-eyebrow num">
-                    <MaestroIcon name="target-picks" size={14} className="pl-scr-potd-icon" />
-                    <span>PICK DEL DÍA</span>
-                    <span className="pl-scr-meta-sep" aria-hidden="true">
-                      ·
-                    </span>
-                    <span>{featuredPotd.game.leagueLabel}</span>
-                    <span className="pl-scr-meta-sep" aria-hidden="true">
-                      ·
-                    </span>
-                    <span>{featuredPotd.game.kickoffLocal}</span>
-                    {featuredPotd.projectedScoreLabel ? (
-                      <>
-                        <span className="pl-scr-meta-sep" aria-hidden="true">
-                          ·
-                        </span>
-                        <span className="pl-scr-potd-proj">{featuredPotd.projectedScoreLabel}</span>
-                      </>
-                    ) : null}
-                  </div>
-
-                  <div className="pl-scr-potd-headline">
-                    <TeamBadge
-                      league={featuredPotd.game.league}
-                      slug={featuredPotd.game.home.slug}
-                      name={featuredPotd.game.home.name}
-                      logoUrl={featuredPotd.game.home.logoUrl}
-                      size={20}
-                    />
-                    <span className="pl-scr-potd-match">
-                      {featuredPotd.game.home.shortName} vs {featuredPotd.game.away.shortName}
-                    </span>
-                    <span className="pl-scr-meta-sep" aria-hidden="true">
-                      —
-                    </span>
-                    <MarketCategoryIcon
-                      family={featuredPotd.catalogFamilyId}
-                      size={18}
-                      className="pl-scr-potd-mkt-icon"
-                    />
-                    <strong className="pl-scr-potd-pick">{featuredPotd.pick.label}</strong>
-                  </div>
-
-                  <p className="pl-scr-potd-reason">
-                    {formatValueThresholdForOdds(featuredPotd, oddsFormat)}
-                    {featuredPotd.evidenceWindows.length > 0 ? (
-                      <span className="pl-scr-potd-ev num">
-                        {" · "}
-                        {featuredPotd.evidenceWindows
-                          .slice(0, 2)
-                          .map((w) => `${w.label} ${w.value}`)
-                          .join(" · ")}
-                      </span>
-                    ) : null}
-                  </p>
-                </div>
-
-                <div className="pl-scr-potd-metrics num">
-                  <div className="pl-scr-potd-prob-wrap">
-                    <strong className="pl-scr-potd-prob">
-                      {(featuredPotd.pick.p * 100).toFixed(1)} %
-                    </strong>
-                    <span className="pl-scr-potd-prob-lbl">
-                      Prob. Spacetime ·{" "}
-                      {featuredPotd.houseDecimal !== null
-                        ? `${featuredPotd.houseLabel ?? "Casa"} ${formatOddsValue(featuredPotd.houseDecimal, oddsFormat)}`
-                        : `Justo ${formatOddsValue(featuredPotd.pick.fairDecimal, oddsFormat)}`}
-                    </span>
-                  </div>
-
-                  <div className="pl-scr-potd-actions">
-                    <button
-                      type="button"
-                      className="pl-scr-potd-cta"
-                      data-picks-potd-analyze=""
-                      onClick={() => handleOpenLab(featuredPotd)}
-                    >
-                      <span>Analizar</span>
-                      <MaestroIcon name="arrowRight" size={12} />
-                    </button>
-                    <ParlayRowButton pick={featuredPotd.pick} />
-                    {secondaryPotds.length > 0 ? (
-                      <button
-                        type="button"
-                        className="pl-scr-potd-toggle"
-                        aria-expanded={potdExpanded}
-                        data-picks-potd-toggle=""
-                        onClick={() => setPotdExpanded((v) => !v)}
-                      >
-                        <span>{potdExpanded ? "Solo Top 1" : `Top ${picksOfTheDay.length}`}</span>
-                        <MaestroIcon
-                          name="chevronDown"
-                          size={12}
-                          className={`pl-scr-chev ${potdExpanded ? "is-open" : ""}`.trim()}
-                        />
-                      </button>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-
-              {potdExpanded && secondaryPotds.length > 0 ? (
-                <div className="pl-scr-potd-more">
-                  {secondaryPotds.map((candidate, idx) => (
-                    <div key={candidate.pick.id} className="pl-scr-potd-subcard">
-                      <div className="pl-scr-potd-subhead">
-                        <span className="pl-scr-potd-rank num">#{idx + 2}</span>
-                        <MarketCategoryIcon
-                          family={candidate.catalogFamilyId}
-                          size={16}
-                          className="pl-scr-potd-mkt-icon"
-                        />
-                        <strong className="pl-scr-potd-subpick">{candidate.pick.label}</strong>
-                        <span className="pl-scr-potd-subprob num">
-                          {(candidate.pick.p * 100).toFixed(1)} %
-                        </span>
-                      </div>
-                      <span className="pl-scr-potd-submatch num">
-                        {candidate.game.home.shortName} vs {candidate.game.away.shortName} ·{" "}
-                        {candidate.game.leagueLabel}
-                        {candidate.projectedScoreLabel ? ` · ${candidate.projectedScoreLabel}` : ""}
-                      </span>
-                      <div className="pl-scr-potd-subfoot">
-                        <span className="pl-scr-potd-subreason">
-                          {formatValueThresholdForOdds(candidate, oddsFormat, true)}
-                        </span>
-                        <button
-                          type="button"
-                          className="pl-scr-row-action is-compact"
-                          onClick={() => handleOpenLab(candidate)}
-                        >
-                          Analizar
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-            </section>
+            <ScreenerPotdSection
+              featuredPotd={featuredPotd}
+              secondaryPotds={secondaryPotds}
+              totalCount={picksOfTheDay.length}
+              potdExpanded={potdExpanded}
+              oddsFormat={oddsFormat}
+              onToggleExpanded={handleTogglePotdExpanded}
+              onOpenLab={handleOpenLab}
+            />
           ) : null}
 
           <div className="pl-scr-layout" data-picks-layout="">
@@ -4956,13 +5302,6 @@ export function PicksFinderClubView({
                 <div className="pl-scr-groups" data-screener-view="match">
                   {visibleMatchGroups.map(({ game, liveEntry, items }) => {
                     const isCollapsed = collapsedGroups.has(`m:${game.id}`);
-                    const href = canonicalGameHref(game.league, game);
-                    const liveScore = liveEntry?.score ?? game.score;
-                    const liveClock =
-                      game.status === "FT"
-                        ? "FT"
-                        : (liveEntry?.clock ?? (game.status === "LIVE" ? "En vivo" : null));
-                    const projLabel = formatProjectedScore(game);
                     const matchCap = perMatchVisibleCounts[game.id] ?? PER_MATCH_INITIAL_PICKS;
                     const displayedItems = items.slice(0, matchCap);
                     const remainingInMatch = Math.max(0, items.length - displayedItems.length);
@@ -4973,107 +5312,35 @@ export function PicksFinderClubView({
                         className="pl-scr-group"
                         data-screener-match-group={game.id}
                       >
-                        <header className="pl-scr-group-head">
-                          <button
-                            type="button"
-                            className="pl-scr-group-toggle"
-                            aria-expanded={!isCollapsed}
-                            onClick={() => toggleGroupCollapse(`m:${game.id}`)}
-                          >
-                            <span className="pl-scr-group-crests" aria-hidden="true">
-                              <TeamBadge
-                                league={game.league}
-                                slug={game.home.slug}
-                                name={game.home.name}
-                                logoUrl={game.home.logoUrl}
-                                size={22}
-                              />
-                              <TeamBadge
-                                league={game.league}
-                                slug={game.away.slug}
-                                name={game.away.name}
-                                logoUrl={game.away.logoUrl}
-                                size={22}
-                              />
-                            </span>
-                            <div className="pl-scr-group-meta min-w-0">
-                              <strong className="pl-scr-group-title truncate">
-                                {game.home.name} vs {game.away.name}
-                              </strong>
-                              <span className="pl-scr-group-sub num">
-                                <span className="pl-scr-sub-piece">
-                                  <LeagueBadge
-                                    league={game.league}
-                                    label={game.leagueLabel}
-                                    logoUrl={game.leagueLogoUrl}
-                                    size={13}
-                                  />
-                                  <span>{game.leagueLabel}</span>
-                                </span>
-                                <span className="pl-scr-meta-sep" aria-hidden="true">
-                                  ·
-                                </span>
-                                <span className="pl-scr-sub-piece">
-                                  {liveScore && liveClock
-                                    ? `${liveScore.home}–${liveScore.away} · ${liveClock}`
-                                    : `${game.dayLabel} ${game.kickoffLocal}`}
-                                </span>
-                                {projLabel && game.status !== "FT" ? (
-                                  <>
-                                    <span className="pl-scr-meta-sep" aria-hidden="true">
-                                      ·
-                                    </span>
-                                    <span className="pl-scr-sub-piece pl-scr-group-proj">
-                                      {projLabel}
-                                    </span>
-                                  </>
-                                ) : null}
-                              </span>
-                            </div>
-                          </button>
-
-                          <div className="pl-scr-group-actions">
-                            <button
-                              type="button"
-                              className="pl-scr-group-count-btn num"
-                              aria-expanded={!isCollapsed}
-                              aria-label={`${isCollapsed ? "Mostrar" : "Ocultar"} ${items.length} ${items.length === 1 ? "pick" : "picks"} de ${game.home.shortName} vs ${game.away.shortName}`}
-                              onClick={() => toggleGroupCollapse(`m:${game.id}`)}
-                            >
-                              <span className="pl-scr-group-count">
-                                {items.length} {items.length === 1 ? "pick" : "picks"}
-                              </span>
-                              <MaestroIcon
-                                name="chevronDown"
-                                size={15}
-                                className={`pl-scr-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
-                              />
-                            </button>
-
-                            <a
-                              href={href}
-                              className="pl-scr-group-ficha"
-                              onPointerEnter={() => prefetchRoute(href)}
-                              onTouchStart={() => prefetchRoute(href)}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                navigateTo(href);
-                              }}
-                            >
-                              <span>Ficha</span>
-                              <MaestroIcon name="arrowRight" size={12} />
-                            </a>
-                          </div>
-                        </header>
+                        <ScreenerMatchGroupHeader
+                          game={game}
+                          liveEntry={liveEntry}
+                          itemsCount={items.length}
+                          isCollapsed={isCollapsed}
+                          onToggleCollapse={toggleGroupCollapse}
+                          onPrefetchRoute={prefetchRoute}
+                          onNavigateTo={navigateTo}
+                        />
 
                         {!isCollapsed ? (
                           <>
-                            {renderPickTable(
-                              displayedItems,
-                              `Picks de ${game.home.name} vs ${game.away.name}`,
-                              false,
-                              `m-${game.id}`,
-                            )}
+                            <ScreenerPickTable
+                              items={displayedItems}
+                              caption={`Picks de ${game.home.name} vs ${game.away.name}`}
+                              showMatchMeta={false}
+                              tableKey={`m-${game.id}`}
+                              timing={timing}
+                              viewerRole={viewerRole}
+                              oddsFormat={oddsFormat}
+                              manualOddsByPick={manualOddsByPick}
+                              openManualPickId={openManualPickId}
+                              liveTrackedByPickId={liveTrackedByPickId}
+                              onOpenLab={handleOpenLab}
+                              onOpenBuilder={handleOpenBuilder}
+                              onOpenComposer={openComposer}
+                              onOpenManual={handleOpenManual}
+                              onManualChange={handleManualChange}
+                            />
                             {remainingInMatch > 0 ? (
                               <div className="pl-scr-group-more">
                                 <button
@@ -5122,32 +5389,34 @@ export function PicksFinderClubView({
                         className="pl-scr-group"
                         data-screener-market-group={grp.key}
                       >
-                        <header className="pl-scr-group-head">
-                          <button
-                            type="button"
-                            className="pl-scr-group-toggle"
-                            aria-expanded={!isCollapsed}
-                            onClick={() => toggleGroupCollapse(`k:${grp.key}`)}
-                          >
-                            <MarketCategoryIcon
-                              family={grp.items[0]?.catalogFamilyId ?? grp.key}
-                              size={18}
-                            />
-                            <strong className="pl-scr-group-title">{grp.label}</strong>
-                            <span className="pl-scr-group-count num">
-                              {grp.items.length} {grp.items.length === 1 ? "pick" : "picks"}
-                            </span>
-                            <MaestroIcon
-                              name="chevronDown"
-                              size={15}
-                              className={`pl-scr-chev ${isCollapsed ? "is-collapsed" : ""}`.trim()}
-                            />
-                          </button>
-                        </header>
+                        <ScreenerMarketGroupHeader
+                          groupKey={grp.key}
+                          label={grp.label}
+                          family={grp.items[0]?.catalogFamilyId ?? grp.key}
+                          itemsCount={grp.items.length}
+                          isCollapsed={isCollapsed}
+                          onToggleCollapse={toggleGroupCollapse}
+                        />
 
-                        {!isCollapsed
-                          ? renderPickTable(grp.items, `Picks de ${grp.label}`, true, `k-${grp.key}`)
-                          : null}
+                        {!isCollapsed ? (
+                          <ScreenerPickTable
+                            items={grp.items}
+                            caption={`Picks de ${grp.label}`}
+                            showMatchMeta
+                            tableKey={`k-${grp.key}`}
+                            timing={timing}
+                            viewerRole={viewerRole}
+                            oddsFormat={oddsFormat}
+                            manualOddsByPick={manualOddsByPick}
+                            openManualPickId={openManualPickId}
+                            liveTrackedByPickId={liveTrackedByPickId}
+                            onOpenLab={handleOpenLab}
+                            onOpenBuilder={handleOpenBuilder}
+                            onOpenComposer={openComposer}
+                            onOpenManual={handleOpenManual}
+                            onManualChange={handleManualChange}
+                          />
+                        ) : null}
                       </section>
                     );
                   })}
@@ -5159,7 +5428,7 @@ export function PicksFinderClubView({
                         variant="secondary"
                         size="default"
                         className="num"
-                        onClick={() => setFlatShown((n) => n + FLAT_PICKS_STEP)}
+                        onClick={handleLoadMoreFlat}
                       >
                         Ver más picks (+{rows.length - flatShown})
                       </Button>
@@ -5169,12 +5438,23 @@ export function PicksFinderClubView({
               ) : (
                 <div className="pl-scr-groups" data-screener-view="flat">
                   <div className="pl-scr-group">
-                    {renderPickTable(
-                      visibleFlatRows,
-                      `${rows.length} picks filtrados`,
-                      true,
-                      "flat",
-                    )}
+                    <ScreenerPickTable
+                      items={visibleFlatRows}
+                      caption={`${rows.length} picks filtrados`}
+                      showMatchMeta
+                      tableKey="flat"
+                      timing={timing}
+                      viewerRole={viewerRole}
+                      oddsFormat={oddsFormat}
+                      manualOddsByPick={manualOddsByPick}
+                      openManualPickId={openManualPickId}
+                      liveTrackedByPickId={liveTrackedByPickId}
+                      onOpenLab={handleOpenLab}
+                      onOpenBuilder={handleOpenBuilder}
+                      onOpenComposer={openComposer}
+                      onOpenManual={handleOpenManual}
+                      onManualChange={handleManualChange}
+                    />
                   </div>
                   {rows.length > flatShown ? (
                     <div className="pl-scr-more-matches">
@@ -5183,7 +5463,7 @@ export function PicksFinderClubView({
                         variant="secondary"
                         size="default"
                         className="num"
-                        onClick={() => setFlatShown((n) => n + FLAT_PICKS_STEP)}
+                        onClick={handleLoadMoreFlat}
                       >
                         Ver más picks (+{rows.length - flatShown})
                       </Button>
@@ -5216,32 +5496,38 @@ export function PicksFinderClubView({
           <MobileFiltersSheet
             resultCount={rows.length}
             onReset={resetAllFilters}
-            onClose={() => setMobileSheetOpen(false)}
+            onClose={handleCloseMobileSheet}
           >
             {renderFilterRailContent(true)}
           </MobileFiltersSheet>
         ) : null}
 
         {builderTarget ? (
-          <BetBuilderDrawer
-            open={Boolean(builderTarget)}
-            pick={builderTarget.pick}
-            game={builderTarget.game}
-            onClose={() => setBuilderTarget(null)}
-          />
+          <Suspense fallback={null}>
+            <LazyBetBuilderDrawer
+              open
+              pick={builderTarget.pick}
+              game={builderTarget.game}
+              onClose={handleCloseBuilder}
+            />
+          </Suspense>
         ) : null}
 
-        <PickEvidenceLabDrawer
-          open={Boolean(activeLabPickId && resolvedLabPick)}
-          pick={resolvedLabPick}
-          game={resolvedLabGame}
-          relatedPicks={activeLabRelatedPicks}
-          labDataOverride={resolvedLabDataOverride}
-          onClose={handleCloseLab}
-          onSelectRelatedPick={handleSelectRelatedPick}
-          onAddToParlay={handleLabAddToParlay}
-          onSealPick={handleLabSealPick}
-        />
+        {activeLabPickId && resolvedLabPick ? (
+          <Suspense fallback={null}>
+            <LazyPickEvidenceLabDrawer
+              open
+              pick={resolvedLabPick}
+              game={resolvedLabGame}
+              relatedPicks={activeLabRelatedPicks}
+              labDataOverride={resolvedLabDataOverride}
+              onClose={handleCloseLab}
+              onSelectRelatedPick={handleSelectRelatedPick}
+              onAddToParlay={handleLabAddToParlay}
+              onSealPick={handleLabSealPick}
+            />
+          </Suspense>
+        ) : null}
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { Suspense, lazy, useCallback, useMemo, useRef, useState } from "react";
 import { Button, SofascoreCard } from "../../components/ui/primitives";
 import { TipsterVerifiedBadge, UltraTag } from "../components/MaestroPrimitives";
 import {
@@ -15,18 +15,66 @@ import {
   resolveSessionIdentity,
   type ServerProfileSummary,
 } from "./account/account-helpers";
-import { BillingTab } from "./account/BillingTab";
-import {
-  InviteTab,
-  type InviteTabStoryOverride,
-  type ServerReferralsData,
+import type {
+  InviteTabStoryOverride,
+  ServerReferralsData,
 } from "./account/InviteTab";
 import {
   PlanTab,
   type PlanTabStoryOverride,
   type ServerPlanPayload,
 } from "./account/PlanTab";
-import { PrefsTab, type PrefsTabStoryOverride } from "./account/PrefsTab";
+import type { PrefsTabStoryOverride } from "./account/PrefsTab";
+
+const loadBillingTab = () =>
+  import("./account/BillingTab").then((mod) => ({ default: mod.BillingTab }));
+const LazyBillingTab = lazy(loadBillingTab);
+
+const loadInviteTab = () =>
+  import("./account/InviteTab").then((mod) => ({ default: mod.InviteTab }));
+const LazyInviteTab = lazy(loadInviteTab);
+
+const loadPrefsTab = () =>
+  import("./account/PrefsTab").then((mod) => ({ default: mod.PrefsTab }));
+const LazyPrefsTab = lazy(loadPrefsTab);
+
+function prefetchAccountTab(key: AccountTabKey): void {
+  if (key === "referrals") {
+    void loadInviteTab();
+  } else if (key === "prefs") {
+    void loadPrefsTab();
+  } else if (key === "cfdi" && BILLING_TAB_ENABLED) {
+    void loadBillingTab();
+  }
+}
+
+function AccountTabFallback({
+  label,
+  minBlockSize,
+}: {
+  readonly label: string;
+  readonly minBlockSize: string;
+}): React.JSX.Element {
+  return (
+    <div
+      className="pl-skel-card rounded-2xl p-5 space-y-4"
+      style={{ minBlockSize }}
+      role="status"
+      aria-busy="true"
+      aria-label={label}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div className="pl-skel-bar h-5 w-44 rounded-lg" />
+        <div className="pl-skel-bar h-6 w-24 rounded-full" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="pl-skel-bar h-32 rounded-xl" />
+        <div className="pl-skel-bar h-32 rounded-xl" />
+      </div>
+      <div className="pl-skel-bar h-20 rounded-xl" />
+    </div>
+  );
+}
 
 export type AccountTabKey = "referrals" | "plan" | "prefs" | "cfdi";
 
@@ -353,6 +401,8 @@ export function AccountReferralsClubView({
                       tabIndex={isSelected ? 0 : -1}
                       data-pl-sf-tab={item.key}
                       className="pl-sf-tab pl-acct-tab-btn"
+                      onPointerEnter={() => prefetchAccountTab(item.key)}
+                      onFocus={() => prefetchAccountTab(item.key)}
                       onClick={(event) => {
                         scrollAccountTabIntoView(event.currentTarget);
                         if (item.key !== accountTab) {
@@ -375,17 +425,26 @@ export function AccountReferralsClubView({
               role="tabpanel"
               aria-labelledby="pl-acct-tab-referrals"
             >
-              <InviteTab
-                identity={identity}
-                serverReferrals={serverPayload}
-                referralsLoading={referralsLoading}
-                storyOverride={
-                  storyOverride?.invite ??
-                  (storyOverride?.accountsEnabled !== undefined
-                    ? { accountsEnabled: storyOverride.accountsEnabled }
-                    : undefined)
+              <Suspense
+                fallback={
+                  <AccountTabFallback
+                    label="Cargando programa de referidos"
+                    minBlockSize="360px"
+                  />
                 }
-              />
+              >
+                <LazyInviteTab
+                  identity={identity}
+                  serverReferrals={serverPayload}
+                  referralsLoading={referralsLoading}
+                  storyOverride={
+                    storyOverride?.invite ??
+                    (storyOverride?.accountsEnabled !== undefined
+                      ? { accountsEnabled: storyOverride.accountsEnabled }
+                      : undefined)
+                  }
+                />
+              </Suspense>
             </div>
           ) : null}
 
@@ -417,17 +476,26 @@ export function AccountReferralsClubView({
               role="tabpanel"
               aria-labelledby="pl-acct-tab-prefs"
             >
-              <PrefsTab
-                identity={identity}
-                serverEmail={storyOverride?.profile?.email ?? serverPayload?.email}
-                onSaved={handlePrefsSaved}
-                storyOverride={
-                  storyOverride?.prefs ??
-                  (storyOverride?.accountsEnabled !== undefined
-                    ? { accountsEnabled: storyOverride.accountsEnabled }
-                    : undefined)
+              <Suspense
+                fallback={
+                  <AccountTabFallback
+                    label="Cargando preferencias de cuenta"
+                    minBlockSize="420px"
+                  />
                 }
-              />
+              >
+                <LazyPrefsTab
+                  identity={identity}
+                  serverEmail={storyOverride?.profile?.email ?? serverPayload?.email}
+                  onSaved={handlePrefsSaved}
+                  storyOverride={
+                    storyOverride?.prefs ??
+                    (storyOverride?.accountsEnabled !== undefined
+                      ? { accountsEnabled: storyOverride.accountsEnabled }
+                      : undefined)
+                  }
+                />
+              </Suspense>
             </div>
           ) : null}
 
@@ -437,7 +505,16 @@ export function AccountReferralsClubView({
               role="tabpanel"
               aria-labelledby="pl-acct-tab-cfdi"
             >
-              <BillingTab accountsEnabledOverride={storyOverride?.accountsEnabled} />
+              <Suspense
+                fallback={
+                  <AccountTabFallback
+                    label="Cargando facturación"
+                    minBlockSize="320px"
+                  />
+                }
+              >
+                <LazyBillingTab accountsEnabledOverride={storyOverride?.accountsEnabled} />
+              </Suspense>
             </div>
           ) : null}
         </div>

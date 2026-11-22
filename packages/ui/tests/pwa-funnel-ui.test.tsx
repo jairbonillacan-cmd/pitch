@@ -1,6 +1,31 @@
+import { Writable } from "node:stream";
 import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { renderToPipeableStream, renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it } from "vitest";
+
+async function renderHtmlAsync(element: React.ReactElement): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const writable = new Writable({
+      write(chunk, _enc, cb) {
+        chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+        cb();
+      },
+    });
+    const { pipe } = renderToPipeableStream(element, {
+      onAllReady() {
+        pipe(writable);
+      },
+      onError(err) {
+        reject(err);
+      },
+    });
+    writable.on("finish", () =>
+      resolve(Buffer.concat(chunks).toString("utf8").replace(/<!--\s*-->/g, "")),
+    );
+    writable.on("error", reject);
+  });
+}
 import { AccountReferralsClubView } from "../src/platform/club/AccountReferralsClubView";
 import { FounderAdminClubView, type AdminFunnelSummary } from "../src/platform/club/FounderAdminClubView";
 import {
@@ -45,8 +70,8 @@ afterEach(() => {
 });
 
 describe("Preferencias PWA/Push, embudo Admin y consentimiento local", () => {
-  it("oculta en Preferencias los envíos periódicos, Web Push e instalación PWA que aún no se ofrecen", () => {
-    const prefsHtml = renderToStaticMarkup(
+  it("oculta en Preferencias los envíos periódicos, Web Push e instalación PWA que aún no se ofrecen", async () => {
+    const prefsHtml = await renderHtmlAsync(
       <PlatformProvider
         dataset={EMPTY_DATASET}
         initialRole="member"

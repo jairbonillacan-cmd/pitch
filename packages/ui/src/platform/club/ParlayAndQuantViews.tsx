@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useId, useMemo, useState } from "react";
+import React, { Suspense, lazy, memo, useCallback, useId, useMemo, useState } from "react";
 import {
   parseStrictFiniteNumber,
   sportForLeague,
@@ -58,6 +58,7 @@ import {
   matchPickToBetBuilderLeg,
 } from "../picks-catalog/bet-builder-math";
 import {
+  useIsPickInParlay,
   useParlayState,
   usePlatformActions,
   usePlatformCore,
@@ -71,11 +72,52 @@ import type {
 } from "../types";
 import { ALL, SPORTS, shortDateLabel, sportOf, type SportFilter } from "./home/home-model";
 import { OddsCompareClubView } from "./OddsCompareView";
-import { BetBuilderDrawer, BetBuilderQuickButton } from "./picks/BetBuilderDrawer";
 import {
   classifyOddsMovement,
   computeExpectedValuePct,
 } from "./picks/BookmakerComparePill";
+
+const loadParlayBetBuilderDrawer = () =>
+  import("./picks/BetBuilderDrawer").then((mod) => ({
+    default: mod.BetBuilderDrawer,
+  }));
+const LazyBetBuilderDrawer = lazy(loadParlayBetBuilderDrawer);
+
+function prefetchParlayBetBuilderDrawer(): void {
+  void loadParlayBetBuilderDrawer();
+}
+
+const ParlayBetBuilderButton = memo(function ParlayBetBuilderButton({
+  pick,
+  game,
+  onInspect,
+  compact = false,
+}: {
+  readonly pick: MatchPick;
+  readonly game: PlatformGame;
+  readonly onInspect: (pick: MatchPick, game: PlatformGame) => void;
+  readonly compact?: boolean;
+}): React.JSX.Element {
+  const inParlay = useIsPickInParlay(pick.id);
+  const handleClick = useCallback(() => {
+    onInspect(pick, game);
+  }, [game, onInspect, pick]);
+  return (
+    <Button
+      variant={inParlay ? "secondary" : "ghost"}
+      size="sm"
+      className={`pl-scr-builder-btn min-w-11 ${compact ? "is-compact" : ""} ${inParlay ? "is-in-slip" : ""}`.trim()}
+      data-open-bet-builder={pick.id}
+      aria-label={`Abrir Bet Builder para ${pick.label}`}
+      onPointerEnter={prefetchParlayBetBuilderDrawer}
+      onFocus={prefetchParlayBetBuilderDrawer}
+      onClick={handleClick}
+    >
+      <MaestroIcon name="layers" size={13} />
+      <span>{inParlay ? "En boleto" : "Builder"}</span>
+    </Button>
+  );
+});
 
 type ManualCategoryFilter = "all" | "principal" | "totales" | "valor" | "tactico";
 
@@ -237,6 +279,238 @@ function isManualCategoryFilter(value: string): value is ManualCategoryFilter {
     value === "tactico"
   );
 }
+
+interface SlipLegViewItem {
+  readonly pick: MatchPick;
+  readonly game: PlatformGame | undefined;
+  readonly fullLabel: string;
+  readonly family: string;
+  readonly isSgpLeg: boolean;
+}
+
+const AutoPreviewRowItem = memo(function AutoPreviewRowItem({
+  row,
+  allowSgp,
+  oddsFormat,
+  hasAccountSession,
+  upgradeHref,
+  onInspect,
+  onPickAction,
+  onNavigateUpgrade,
+}: {
+  readonly row: PickerRow;
+  readonly allowSgp: boolean;
+  readonly oddsFormat: OddsFormat;
+  readonly hasAccountSession: boolean;
+  readonly upgradeHref: string;
+  readonly onInspect: (pick: MatchPick, game: PlatformGame) => void;
+  readonly onPickAction: (row: PickerRow) => void;
+  readonly onNavigateUpgrade: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+}): React.JSX.Element {
+  const isBlocked = !row.inSlip && (row.atMaxLegs || !row.compat.allowed);
+  const blockedLabel = isBlocked
+    ? getCompactBlockReason(row.sameGameExists, allowSgp, row.compat, row.atMaxLegs)
+    : null;
+  const toggleLabel = row.inSlip
+    ? "En boleto"
+    : isBlocked
+      ? (blockedLabel ?? "Bloqueado")
+      : "Agregar";
+
+  const handleToggle = useCallback(() => {
+    onPickAction(row);
+  }, [onPickAction, row]);
+
+  return (
+    <li
+      className={`pl-pb-preview-item ${row.inSlip ? "is-in-slip" : ""}`.trim()}
+      data-preview-in-slip={row.inSlip ? "true" : undefined}
+    >
+      <div className="pl-pb-preview-main">
+        <div className="pl-pb-preview-head">
+          <LeagueBadge
+            league={row.game.league}
+            label={row.game.leagueLabel}
+            logoUrl={row.game.leagueLogoUrl || undefined}
+            size={14}
+          />
+          <span className="pl-pb-preview-league">
+            {row.game.leagueLabel} · {shortDateLabel(row.game.dayId)} {row.game.kickoffLocal}
+          </span>
+          {row.inSlip ? (
+            <span className="pl-pb-in-slip-badge">
+              <MaestroIcon name="check" size={11} />
+              <span>En tu boleto</span>
+            </span>
+          ) : null}
+        </div>
+
+        <div className="pl-pb-preview-match">
+          <span className="pl-pb-crest-pair">
+            <TeamBadge
+              league={row.game.league}
+              slug={row.game.home.slug}
+              name={row.game.home.name}
+              logoUrl={row.game.home.logoUrl || undefined}
+              size={18}
+            />
+            <strong>{row.game.home.shortName}</strong>
+            <span className="pl-pb-vs" aria-hidden="true">
+              vs
+            </span>
+            <TeamBadge
+              league={row.game.league}
+              slug={row.game.away.slug}
+              name={row.game.away.name}
+              logoUrl={row.game.away.logoUrl || undefined}
+              size={18}
+            />
+            <strong>{row.game.away.shortName}</strong>
+          </span>
+        </div>
+
+        <div className="pl-pb-preview-pick">
+          <MarketCategoryIcon family={row.marketFamily} size={16} />
+          <span className="pl-pb-preview-pick-text">
+            {row.unlocked ? row.completeLabel : "Selección reservada Pase PitchLab Ultra"}
+          </span>
+        </div>
+      </div>
+
+      <div className="pl-pb-preview-side">
+        {row.unlocked ? (
+          <div className="pl-pb-preview-metrics num">
+            <strong className="pl-pb-preview-prob">{(row.pick.p * 100).toFixed(1)} %</strong>
+            <span className="pl-pb-preview-odds">
+              Justo {formatSafeOdds(row.pick.fairDecimal, oddsFormat)}
+              {row.bestOddsDecimal !== null
+                ? ` · ${row.bestBookLabel ?? "Casa"} ${formatSafeOdds(row.bestOddsDecimal, oddsFormat)}`
+                : ""}
+            </span>
+            {row.evPct !== null && row.evPct > 0 ? (
+              <SofascoreSignalPair evPct={row.evPct} movement={row.movement} compact />
+            ) : null}
+          </div>
+        ) : null}
+
+        <div className="pl-pb-row-actions">
+          {row.unlocked ? (
+            <>
+              <ParlayBetBuilderButton
+                pick={row.pick}
+                game={row.game}
+                onInspect={onInspect}
+                compact
+              />
+              <Button
+                variant={isBlocked ? "ghost" : "secondary"}
+                tone={isBlocked ? "danger" : "default"}
+                size="sm"
+                className={`min-w-11 pl-pb-toggle-btn ${row.inSlip ? "is-selected" : ""}`.trim()}
+                aria-pressed={!isBlocked ? row.inSlip : undefined}
+                aria-label={`${toggleLabel}: ${row.completeLabel} (${row.game.home.shortName} vs ${row.game.away.shortName})`}
+                data-pick-toggle={row.pick.id}
+                data-pick-blocked={
+                  isBlocked
+                    ? row.atMaxLegs
+                      ? "max_legs"
+                      : (row.compat.code ?? "blocked")
+                    : undefined
+                }
+                onClick={handleToggle}
+              >
+                <MaestroIcon
+                  name={row.inSlip ? "check" : isBlocked ? "alert-warning" : "plus"}
+                  size={13}
+                />
+                <span>{toggleLabel}</span>
+              </Button>
+            </>
+          ) : (
+            <a href={upgradeHref} onClick={onNavigateUpgrade} className="pl-pb-locked-link">
+              <MaestroIcon name="lock" size={12} />
+              <span>{hasAccountSession ? "Activar Pase" : "Pase Ultra"}</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+});
+
+const ParlaySlipLegRow = memo(function ParlaySlipLegRow({
+  item,
+  oddsFormat,
+  onRemove,
+}: {
+  readonly item: SlipLegViewItem;
+  readonly oddsFormat: OddsFormat;
+  readonly onRemove: (pickId: string) => void;
+}): React.JSX.Element {
+  const { pick, game: gm, fullLabel, family, isSgpLeg } = item;
+  const handleRemove = useCallback(() => {
+    onRemove(pick.id);
+  }, [onRemove, pick.id]);
+
+  return (
+    <li className="pl-pb-leg-row">
+      <div className="pl-pb-leg-copy">
+        <span className="pl-pb-leg-meta">
+          <LeagueBadge
+            league={pick.league}
+            label={pick.leagueLabel}
+            logoUrl={gm?.leagueLogoUrl || undefined}
+            size={13}
+          />
+          {gm ? (
+            <span className="pl-pb-crest-pair">
+              <TeamBadge
+                league={gm.league}
+                slug={gm.home.slug}
+                name={gm.home.name}
+                logoUrl={gm.home.logoUrl || undefined}
+                size={14}
+              />
+              <span className="truncate">{gm.home.shortName}</span>
+              <span className="pl-pb-vs" aria-hidden="true">
+                vs
+              </span>
+              <TeamBadge
+                league={gm.league}
+                slug={gm.away.slug}
+                name={gm.away.name}
+                logoUrl={gm.away.logoUrl || undefined}
+                size={14}
+              />
+              <span className="truncate">{gm.away.shortName}</span>
+            </span>
+          ) : (
+            <span className="truncate">{pick.matchLabel}</span>
+          )}
+        </span>
+        <span className="pl-pb-leg-pick-line">
+          <MarketCategoryIcon family={family} size={15} />
+          <strong className="pl-pb-leg-title">{fullLabel}</strong>
+        </span>
+        <span className="pl-pb-leg-odds num">
+          <span>
+            {(pick.p * 100).toFixed(1)} % · {formatSafeOdds(pickReferenceDecimal(pick), oddsFormat)}
+            {gm ? ` · ${shortDateLabel(gm.dayId)} ${gm.kickoffLocal}` : ` · ${pick.kickoffLocal}`}
+          </span>
+          {isSgpLeg ? <span className="pl-pb-sgp-tag">SGP</span> : null}
+        </span>
+      </div>
+      <Button
+        variant="ghost"
+        size="icon-sm"
+        aria-label={`Quitar ${fullLabel}`}
+        onClick={handleRemove}
+      >
+        <MaestroIcon name="x" size={14} />
+      </Button>
+    </li>
+  );
+});
 
 export function ParlayBuilderClubView(): React.JSX.Element {
   const {
@@ -658,29 +932,82 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     return null;
   }, [activeSgpAudit, betBuilderEval, bookOddsInvalid, hasSlipLegs, oddsFormat]);
 
-  const handleSelectLeague = (rawValue: string) => {
-    if (rawValue === ALL) {
-      setLeagueFilter(ALL);
-    } else {
-      const matched = activeLeagues.find((lg) => lg.league === rawValue);
-      setLeagueFilter(matched ? matched.league : ALL);
-    }
-    setCatalogLimit(INITIAL_MANUAL_ROWS);
-  };
+  const visibleSports = useMemo(
+    () => SPORTS.filter((sp) => (sportCounts[sp.id] ?? 0) > 0),
+    [sportCounts],
+  );
 
-  const handleModeChange = (nextId: string) => {
+  const slipLegItems = useMemo<readonly SlipLegViewItem[]>(
+    () =>
+      parlaySummary.legs.map(({ pick }) => {
+        const game = gamesById.get(pick.gameId);
+        const sport = game ? game.sport : sportForLeague(pick.league);
+        return {
+          pick,
+          game,
+          fullLabel: formatCompletePickLabel(pick, sport),
+          family: resolvePickMarketFamily(pick, sport),
+          isSgpLeg: sgpGameIds.has(pick.gameId),
+        };
+      }),
+    [gamesById, parlaySummary.legs, sgpGameIds],
+  );
+
+  const handleSelectLeague = useCallback(
+    (rawValue: string) => {
+      if (rawValue === ALL) {
+        setLeagueFilter(ALL);
+      } else {
+        const matched = activeLeagues.find((lg) => lg.league === rawValue);
+        setLeagueFilter(matched ? matched.league : ALL);
+      }
+      setCatalogLimit(INITIAL_MANUAL_ROWS);
+    },
+    [activeLeagues],
+  );
+
+  const handleModeChange = useCallback((nextId: string) => {
     if (nextId === "auto" || nextId === "manual") {
       setBuilderMode(nextId);
       setInlineAlert(null);
     }
-  };
+  }, []);
 
-  const handleCategoryChange = (nextId: string) => {
+  const handleCategoryChange = useCallback((nextId: string) => {
     if (isManualCategoryFilter(nextId)) {
       setCategoryFilter(nextId);
       setCatalogLimit(INITIAL_MANUAL_ROWS);
     }
-  };
+  }, []);
+
+  const handleInspectRow = useCallback((pick: MatchPick, game: PlatformGame) => {
+    setInspectedRow({ pick, game });
+  }, []);
+
+  const handleCloseInspect = useCallback(() => {
+    setInspectedRow(null);
+  }, []);
+
+  const handleNavigateUpgrade = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      navigateTo(upgradeHref);
+    },
+    [navigateTo, upgradeHref],
+  );
+
+  const handleManualQueryChange = useCallback((next: string) => {
+    setManualQuery(next);
+    setCatalogLimit(INITIAL_MANUAL_ROWS);
+  }, []);
+
+  const handleResetManualFilters = useCallback(() => {
+    setSportFilter(ALL);
+    setLeagueFilter(ALL);
+    setCategoryFilter("all");
+    setManualQuery("");
+    setCatalogLimit(INITIAL_MANUAL_ROWS);
+  }, []);
 
   const handlePickAction = useCallback(
     (row: PickerRow) => {
@@ -931,9 +1258,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               : "Agregar";
           return (
             <div className="pl-pb-row-actions">
-              <BetBuilderQuickButton
+              <ParlayBetBuilderButton
                 pick={row.pick}
-                onInspect={() => setInspectedRow({ pick: row.pick, game: row.game })}
+                game={row.game}
+                onInspect={handleInspectRow}
                 compact
               />
               <Button
@@ -969,6 +1297,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     ],
     [
       allowSgp,
+      handleInspectRow,
       handlePickAction,
       hasAccountSession,
       navigateTo,
@@ -1071,14 +1400,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               <div className="pl-pb-scope-bar" data-parlay-scope-bar="">
                 <SofascoreFilterBar
                   searchValue={builderMode === "manual" ? manualQuery : undefined}
-                  onSearchChange={
-                    builderMode === "manual"
-                      ? (next) => {
-                          setManualQuery(next);
-                          setCatalogLimit(INITIAL_MANUAL_ROWS);
-                        }
-                      : undefined
-                  }
+                  onSearchChange={builderMode === "manual" ? handleManualQueryChange : undefined}
                   searchPlaceholder="Buscar equipo, liga o mercado…"
                   resultCount={
                     builderMode === "manual" ? manualPickerRowsAll.length : allOpenGames.length
@@ -1121,7 +1443,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     >
                       Todos ({sportCounts[ALL] ?? 0})
                     </button>
-                    {SPORTS.filter((sp) => (sportCounts[sp.id] ?? 0) > 0).map((sp) => (
+                    {visibleSports.map((sp) => (
                       <button
                         key={sp.id}
                         type="button"
@@ -1417,163 +1739,19 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         role="list"
                         data-parlay-auto-preview=""
                       >
-                        {autoPreviewRows.map((row) => {
-                          const isBlocked = !row.inSlip && (row.atMaxLegs || !row.compat.allowed);
-                          const blockedLabel = isBlocked
-                            ? getCompactBlockReason(
-                                row.sameGameExists,
-                                allowSgp,
-                                row.compat,
-                                row.atMaxLegs,
-                              )
-                            : null;
-                          const toggleLabel = row.inSlip
-                            ? "En boleto"
-                            : isBlocked
-                              ? (blockedLabel ?? "Bloqueado")
-                              : "Agregar";
-                          return (
-                            <li
-                              key={row.id}
-                              className={`pl-pb-preview-item ${row.inSlip ? "is-in-slip" : ""}`.trim()}
-                              data-preview-in-slip={row.inSlip ? "true" : undefined}
-                            >
-                              <div className="pl-pb-preview-main">
-                                <div className="pl-pb-preview-head">
-                                  <LeagueBadge
-                                    league={row.game.league}
-                                    label={row.game.leagueLabel}
-                                    logoUrl={row.game.leagueLogoUrl || undefined}
-                                    size={14}
-                                  />
-                                  <span className="pl-pb-preview-league">
-                                    {row.game.leagueLabel} · {shortDateLabel(row.game.dayId)}{" "}
-                                    {row.game.kickoffLocal}
-                                  </span>
-                                  {row.inSlip ? (
-                                    <span className="pl-pb-in-slip-badge">
-                                      <MaestroIcon name="check" size={11} />
-                                      <span>En tu boleto</span>
-                                    </span>
-                                  ) : null}
-                                </div>
-
-                                <div className="pl-pb-preview-match">
-                                  <span className="pl-pb-crest-pair">
-                                    <TeamBadge
-                                      league={row.game.league}
-                                      slug={row.game.home.slug}
-                                      name={row.game.home.name}
-                                      logoUrl={row.game.home.logoUrl || undefined}
-                                      size={18}
-                                    />
-                                    <strong>{row.game.home.shortName}</strong>
-                                    <span className="pl-pb-vs" aria-hidden="true">
-                                      vs
-                                    </span>
-                                    <TeamBadge
-                                      league={row.game.league}
-                                      slug={row.game.away.slug}
-                                      name={row.game.away.name}
-                                      logoUrl={row.game.away.logoUrl || undefined}
-                                      size={18}
-                                    />
-                                    <strong>{row.game.away.shortName}</strong>
-                                  </span>
-                                </div>
-
-                                <div className="pl-pb-preview-pick">
-                                  <MarketCategoryIcon family={row.marketFamily} size={16} />
-                                  <span className="pl-pb-preview-pick-text">
-                                    {row.unlocked
-                                      ? row.completeLabel
-                                      : "Selección reservada Pase PitchLab Ultra"}
-                                  </span>
-                                </div>
-                              </div>
-
-                              <div className="pl-pb-preview-side">
-                                {row.unlocked ? (
-                                  <div className="pl-pb-preview-metrics num">
-                                    <strong className="pl-pb-preview-prob">
-                                      {(row.pick.p * 100).toFixed(1)} %
-                                    </strong>
-                                    <span className="pl-pb-preview-odds">
-                                      Justo {formatSafeOdds(row.pick.fairDecimal, oddsFormat)}
-                                      {row.bestOddsDecimal !== null
-                                        ? ` · ${row.bestBookLabel ?? "Casa"} ${formatSafeOdds(row.bestOddsDecimal, oddsFormat)}`
-                                        : ""}
-                                    </span>
-                                    {row.evPct !== null && row.evPct > 0 ? (
-                                      <SofascoreSignalPair
-                                        evPct={row.evPct}
-                                        movement={row.movement}
-                                        compact
-                                      />
-                                    ) : null}
-                                  </div>
-                                ) : null}
-
-                                <div className="pl-pb-row-actions">
-                                  {row.unlocked ? (
-                                    <>
-                                      <BetBuilderQuickButton
-                                        pick={row.pick}
-                                        onInspect={() =>
-                                          setInspectedRow({ pick: row.pick, game: row.game })
-                                        }
-                                        compact
-                                      />
-                                      <Button
-                                        variant={isBlocked ? "ghost" : "secondary"}
-                                        tone={isBlocked ? "danger" : "default"}
-                                        size="sm"
-                                        className={`min-w-11 pl-pb-toggle-btn ${row.inSlip ? "is-selected" : ""}`.trim()}
-                                        aria-pressed={!isBlocked ? row.inSlip : undefined}
-                                        aria-label={`${toggleLabel}: ${row.completeLabel} (${row.game.home.shortName} vs ${row.game.away.shortName})`}
-                                        data-pick-toggle={row.pick.id}
-                                        data-pick-blocked={
-                                          isBlocked
-                                            ? row.atMaxLegs
-                                              ? "max_legs"
-                                              : (row.compat.code ?? "blocked")
-                                            : undefined
-                                        }
-                                        onClick={() => handlePickAction(row)}
-                                      >
-                                        <MaestroIcon
-                                          name={
-                                            row.inSlip
-                                              ? "check"
-                                              : isBlocked
-                                                ? "alert-warning"
-                                                : "plus"
-                                          }
-                                          size={13}
-                                        />
-                                        <span>{toggleLabel}</span>
-                                      </Button>
-                                    </>
-                                  ) : (
-                                    <a
-                                      href={upgradeHref}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        navigateTo(upgradeHref);
-                                      }}
-                                      className="pl-pb-locked-link"
-                                    >
-                                      <MaestroIcon name="lock" size={12} />
-                                      <span>
-                                        {hasAccountSession ? "Activar Pase" : "Pase Ultra"}
-                                      </span>
-                                    </a>
-                                  )}
-                                </div>
-                              </div>
-                            </li>
-                          );
-                        })}
+                        {autoPreviewRows.map((row) => (
+                          <AutoPreviewRowItem
+                            key={row.id}
+                            row={row}
+                            allowSgp={allowSgp}
+                            oddsFormat={oddsFormat}
+                            hasAccountSession={hasAccountSession}
+                            upgradeHref={upgradeHref}
+                            onInspect={handleInspectRow}
+                            onPickAction={handlePickAction}
+                            onNavigateUpgrade={handleNavigateUpgrade}
+                          />
+                        ))}
                       </ul>
                     )}
                   </SofascoreCard>
@@ -1622,13 +1800,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                             title="Sin selecciones abiertas con ese filtro"
                             description="Prueba con otro deporte, mercado o limpia la búsqueda."
                             actionLabel="Restablecer filtros"
-                            onAction={() => {
-                              setSportFilter(ALL);
-                              setLeagueFilter(ALL);
-                              setCategoryFilter("all");
-                              setManualQuery("");
-                              setCatalogLimit(INITIAL_MANUAL_ROWS);
-                            }}
+                            onAction={handleResetManualFilters}
                           />
                         }
                       />
@@ -1687,74 +1859,14 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     />
                   ) : (
                     <ul className="pl-pb-legs" role="list">
-                      {parlaySummary.legs.map(({ pick }) => {
-                        const gm = gamesById.get(pick.gameId);
-                        const sport = gm ? gm.sport : sportForLeague(pick.league);
-                        const fullLabel = formatCompletePickLabel(pick, sport);
-                        const family = resolvePickMarketFamily(pick, sport);
-                        const isSgpLeg = sgpGameIds.has(pick.gameId);
-                        return (
-                          <li key={pick.id} className="pl-pb-leg-row">
-                            <div className="pl-pb-leg-copy">
-                              <span className="pl-pb-leg-meta">
-                                <LeagueBadge
-                                  league={pick.league}
-                                  label={pick.leagueLabel}
-                                  logoUrl={gm?.leagueLogoUrl || undefined}
-                                  size={13}
-                                />
-                                {gm ? (
-                                  <span className="pl-pb-crest-pair">
-                                    <TeamBadge
-                                      league={gm.league}
-                                      slug={gm.home.slug}
-                                      name={gm.home.name}
-                                      logoUrl={gm.home.logoUrl || undefined}
-                                      size={14}
-                                    />
-                                    <span className="truncate">{gm.home.shortName}</span>
-                                    <span className="pl-pb-vs" aria-hidden="true">
-                                      vs
-                                    </span>
-                                    <TeamBadge
-                                      league={gm.league}
-                                      slug={gm.away.slug}
-                                      name={gm.away.name}
-                                      logoUrl={gm.away.logoUrl || undefined}
-                                      size={14}
-                                    />
-                                    <span className="truncate">{gm.away.shortName}</span>
-                                  </span>
-                                ) : (
-                                  <span className="truncate">{pick.matchLabel}</span>
-                                )}
-                              </span>
-                              <span className="pl-pb-leg-pick-line">
-                                <MarketCategoryIcon family={family} size={15} />
-                                <strong className="pl-pb-leg-title">{fullLabel}</strong>
-                              </span>
-                              <span className="pl-pb-leg-odds num">
-                                <span>
-                                  {(pick.p * 100).toFixed(1)} % ·{" "}
-                                  {formatSafeOdds(pickReferenceDecimal(pick), oddsFormat)}
-                                  {gm
-                                    ? ` · ${shortDateLabel(gm.dayId)} ${gm.kickoffLocal}`
-                                    : ` · ${pick.kickoffLocal}`}
-                                </span>
-                                {isSgpLeg ? <span className="pl-pb-sgp-tag">SGP</span> : null}
-                              </span>
-                            </div>
-                            <Button
-                              variant="ghost"
-                              size="icon-sm"
-                              aria-label={`Quitar ${fullLabel}`}
-                              onClick={() => removePickFromParlay(pick.id)}
-                            >
-                              <MaestroIcon name="x" size={14} />
-                            </Button>
-                          </li>
-                        );
-                      })}
+                      {slipLegItems.map((item) => (
+                        <ParlaySlipLegRow
+                          key={item.pick.id}
+                          item={item}
+                          oddsFormat={oddsFormat}
+                          onRemove={removePickFromParlay}
+                        />
+                      ))}
                     </ul>
                   )}
 
@@ -1976,12 +2088,16 @@ export function ParlayBuilderClubView(): React.JSX.Element {
           />
         ) : null}
 
-        <BetBuilderDrawer
-          open={inspectedRow !== null}
-          pick={inspectedRow?.pick ?? null}
-          game={inspectedRow?.game ?? null}
-          onClose={() => setInspectedRow(null)}
-        />
+        {inspectedRow ? (
+          <Suspense fallback={null}>
+            <LazyBetBuilderDrawer
+              open
+              pick={inspectedRow.pick}
+              game={inspectedRow.game}
+              onClose={handleCloseInspect}
+            />
+          </Suspense>
+        ) : null}
 
         <ConfirmActionDialog
           open={confirmClearOpen}

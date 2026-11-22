@@ -1,6 +1,14 @@
 "use client";
 
-import React, { useCallback, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import React, {
+  Suspense,
+  lazy,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import {
   cleanTeamRouteSlug,
   competitionPrestigeScore,
@@ -41,11 +49,7 @@ import {
   HomeTrendingStrip,
   type CalendarEventDaysSummary,
 } from "./HomeFilterBar";
-import { HomeFiltersModal } from "./HomeFiltersModal";
-import {
-  HomeMatchDetailPanel,
-  type HomeMatchDetailPanelProps,
-} from "./HomeMatchDetailPanel";
+import type { HomeMatchDetailPanelProps } from "./HomeMatchDetailPanel";
 import { HomeParlayHubCard } from "./HomeParlayHubCard";
 import { HomeRightRail } from "./HomeRightRail";
 import {
@@ -74,12 +78,62 @@ import {
   type ModelSignalFilter,
 } from "./home-view-helpers";
 
+const loadHomeFiltersModal = () =>
+  import("./HomeFiltersModal").then((mod) => ({
+    default: mod.HomeFiltersModal,
+  }));
+const LazyHomeFiltersModal = lazy(loadHomeFiltersModal);
+
+const loadHomeMatchDetailPanel = () =>
+  import("./HomeMatchDetailPanel").then((mod) => ({
+    default: mod.HomeMatchDetailPanel,
+  }));
+const LazyHomeMatchDetailPanel = lazy(loadHomeMatchDetailPanel);
+
+if (
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(min-width: 1024px)").matches
+) {
+  void loadHomeMatchDetailPanel();
+}
+
+function HomeMatchDetailFallback(): React.JSX.Element {
+  return (
+    <div
+      className="pl-home-md-panel pl-skel-card p-4 space-y-4"
+      style={{ minBlockSize: "520px" }}
+      role="status"
+      aria-busy="true"
+      aria-label="Cargando detalle del partido"
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div className="pl-skel-bar h-4 w-36 rounded-md" />
+        <div className="pl-skel-bar h-4 w-20 rounded-md" />
+      </div>
+      <div className="grid grid-cols-3 items-center gap-3 py-2">
+        <div className="pl-skel-bar h-12 rounded-xl" />
+        <div className="pl-skel-bar h-10 rounded-xl" />
+        <div className="pl-skel-bar h-12 rounded-xl" />
+      </div>
+      <div className="flex gap-2">
+        <div className="pl-skel-bar h-8 w-20 rounded-lg" />
+        <div className="pl-skel-bar h-8 w-24 rounded-lg" />
+        <div className="pl-skel-bar h-8 w-20 rounded-lg" />
+      </div>
+      <div className="space-y-2.5">
+        <div className="pl-skel-bar h-20 rounded-xl" />
+        <div className="pl-skel-bar h-20 rounded-xl" />
+        <div className="pl-skel-bar h-16 rounded-xl" />
+      </div>
+    </div>
+  );
+}
+
 export {
   AstroMatchRow,
   HomeBoardBar,
   HomeFilterHeader,
-  HomeFiltersModal,
-  HomeMatchDetailPanel,
   HomeParlayHubCard,
   HomeRightRail,
   HomeTrendingStrip,
@@ -827,6 +881,36 @@ export function HomeClubView({
     void requestFullShell();
   }, [requestFullShell]);
 
+  const handleOpenFilters = useCallback(() => {
+    void loadHomeFiltersModal();
+    setFiltersOpen(true);
+  }, []);
+
+  const handleCloseFilters = useCallback(() => {
+    setFiltersOpen(false);
+  }, []);
+
+  const handleApplyFilters = useCallback(
+    ({
+      status,
+      signal,
+      countries,
+      leagues,
+    }: {
+      status: MatchStatusFilter;
+      signal: ModelSignalFilter;
+      countries: string[];
+      leagues: LeagueId[];
+    }) => {
+      setStatusFilter(status);
+      setSignalFilter(signal);
+      setSelectedCountries(countries);
+      setSelectedLeagues(leagues);
+      setActivePinnedViewId(null);
+    },
+    [],
+  );
+
   const selectedHomeForm = selectedGame
     ? (teamFormLookup.get(`${selectedGame.league}::${selectedGame.home.slug.toLowerCase()}`) ??
       teamFormLookup.get(`${selectedGame.league}::${selectedGame.home.code.toLowerCase()}`) ??
@@ -882,7 +966,7 @@ export function HomeClubView({
               liveVisibleCount={liveVisibleCount}
               activeModalFilterCount={activeModalFilterCount}
               filtersOpen={filtersOpen}
-              onOpenFilters={() => setFiltersOpen(true)}
+              onOpenFilters={handleOpenFilters}
               showOdds={showOdds}
               onShowOddsChange={setShowOdds}
               onRequestFullShell={handleRequestFullShell}
@@ -948,23 +1032,21 @@ export function HomeClubView({
               showRecommendedAccordion={showRecommendedAccordion}
             />
 
-            <HomeFiltersModal
-              open={filtersOpen}
-              onClose={() => setFiltersOpen(false)}
-              statusFilter={statusFilter}
-              signalFilter={signalFilter}
-              selectedCountries={selectedCountries}
-              selectedLeagues={selectedLeagues}
-              countryOptions={countryOptions}
-              leagueOptions={modalLeagueOptions}
-              onApply={({ status, signal, countries, leagues }) => {
-                setStatusFilter(status);
-                setSignalFilter(signal);
-                setSelectedCountries(countries);
-                setSelectedLeagues(leagues);
-                setActivePinnedViewId(null);
-              }}
-            />
+            {filtersOpen ? (
+              <Suspense fallback={null}>
+                <LazyHomeFiltersModal
+                  open={filtersOpen}
+                  onClose={handleCloseFilters}
+                  statusFilter={statusFilter}
+                  signalFilter={signalFilter}
+                  selectedCountries={selectedCountries}
+                  selectedLeagues={selectedLeagues}
+                  countryOptions={countryOptions}
+                  leagueOptions={modalLeagueOptions}
+                  onApply={handleApplyFilters}
+                />
+              </Suspense>
+            ) : null}
           </div>
 
           <aside
@@ -1043,17 +1125,19 @@ export function HomeClubView({
                     >
                       {effectiveRightMode === "match" ? (
                         <div className="pl-home-md-mode-panel-inner">
-                          <HomeMatchDetailPanel
-                            game={selectedGame}
-                            liveEntry={liveByGameId.get(selectedGame.id)}
-                            isWatched={watchlistSet.has(selectedGame.id)}
-                            onToggleWatchlist={toggleWatchlistGame}
-                            parlayPickIds={parlayPickIds}
-                            onToggleParlay={handleToggleParlayPick}
-                            onSealPick={handleSealPick}
-                            homeFormFallback={selectedHomeForm}
-                            awayFormFallback={selectedAwayForm}
-                          />
+                          <Suspense fallback={<HomeMatchDetailFallback />}>
+                            <LazyHomeMatchDetailPanel
+                              game={selectedGame}
+                              liveEntry={liveByGameId.get(selectedGame.id)}
+                              isWatched={watchlistSet.has(selectedGame.id)}
+                              onToggleWatchlist={toggleWatchlistGame}
+                              parlayPickIds={parlayPickIds}
+                              onToggleParlay={handleToggleParlayPick}
+                              onSealPick={handleSealPick}
+                              homeFormFallback={selectedHomeForm}
+                              awayFormFallback={selectedAwayForm}
+                            />
+                          </Suspense>
                         </div>
                       ) : null}
                     </div>

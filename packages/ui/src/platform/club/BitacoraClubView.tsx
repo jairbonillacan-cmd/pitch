@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { Suspense, lazy, useCallback, useMemo, useRef, useState } from "react";
 import { Button, SofascoreCard } from "../../components/ui/primitives";
 import { MaestroIcon, type MaestroIconName } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
@@ -36,10 +36,60 @@ import {
   formatSignedPctValue,
   formatSignedUnits,
 } from "./record/PublicRecordSections";
-import { RecordBankStatsTab } from "./record/RecordBankStatsTab";
 import { RecordPicksTab } from "./record/RecordPicksTab";
-import { RecordPrivacyTab } from "./record/RecordPrivacyTab";
 import { computeJournalAuditSummary } from "./record/record-audit-helpers";
+
+const loadRecordBankStatsTab = () =>
+  import("./record/RecordBankStatsTab").then((mod) => ({
+    default: mod.RecordBankStatsTab,
+  }));
+const LazyRecordBankStatsTab = lazy(loadRecordBankStatsTab);
+
+const loadRecordPrivacyTab = () =>
+  import("./record/RecordPrivacyTab").then((mod) => ({
+    default: mod.RecordPrivacyTab,
+  }));
+const LazyRecordPrivacyTab = lazy(loadRecordPrivacyTab);
+
+function prefetchRecordTab(key: RecordTabKey): void {
+  if (key === "banca") {
+    void loadRecordBankStatsTab();
+  } else if (key === "privacidad") {
+    void loadRecordPrivacyTab();
+  }
+}
+
+function RecordTabFallback({
+  label,
+  minBlockSize,
+}: {
+  readonly label: string;
+  readonly minBlockSize: string;
+}): React.JSX.Element {
+  return (
+    <div
+      className="pl-skel-card rounded-2xl p-5 space-y-4"
+      style={{ minBlockSize }}
+      role="status"
+      aria-busy="true"
+      aria-label={label}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div className="pl-skel-bar h-5 w-48 rounded-lg" />
+        <div className="pl-skel-bar h-6 w-24 rounded-full" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="pl-skel-bar h-36 rounded-xl" />
+        <div className="pl-skel-bar h-36 rounded-xl" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="pl-skel-bar h-24 rounded-xl" />
+        <div className="pl-skel-bar h-24 rounded-xl" />
+        <div className="pl-skel-bar h-24 rounded-xl" />
+      </div>
+    </div>
+  );
+}
 
 export type RecordTabKey = "picks" | "banca" | "privacidad";
 
@@ -544,6 +594,26 @@ export function BitacoraClubView({
     [navigateTo],
   );
 
+  const handleNavigateHome = useCallback(() => {
+    navigateTo("/app");
+  }, [navigateTo]);
+
+  const handleNavigatePicks = useCallback(() => {
+    navigateTo("/app/picks");
+  }, [navigateTo]);
+
+  const handleNavigateParlays = useCallback(() => {
+    navigateTo("/app/parlays");
+  }, [navigateTo]);
+
+  const handleNavigateVerify = useCallback(() => {
+    navigateTo("/verificacion");
+  }, [navigateTo]);
+
+  const handleCloseWinningEntry = useCallback(() => {
+    setWinningEntry(null);
+  }, []);
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/lab">
@@ -676,6 +746,8 @@ export function BitacoraClubView({
                   tabIndex={isSelected ? 0 : -1}
                   data-pl-sf-tab={item.key}
                   className="pl-sf-tab pl-rec-tab-btn"
+                  onPointerEnter={() => prefetchRecordTab(item.key)}
+                  onFocus={() => prefetchRecordTab(item.key)}
                   onClick={(event) => {
                     scrollRecordTabIntoView(event.currentTarget);
                     if (item.key !== tab) {
@@ -706,10 +778,10 @@ export function BitacoraClubView({
                 watchedGames={watchedGames}
                 suggestedUpcoming={suggestedUpcoming}
                 onToggleWatchlist={toggleWatchlistGame}
-                onNavigateHome={() => navigateTo("/app")}
-                onNavigatePicks={() => navigateTo("/app/picks")}
-                onNavigateParlays={() => navigateTo("/app/parlays")}
-                onNavigateVerify={() => navigateTo("/verificacion")}
+                onNavigateHome={handleNavigateHome}
+                onNavigatePicks={handleNavigatePicks}
+                onNavigateParlays={handleNavigateParlays}
+                onNavigateVerify={handleNavigateVerify}
                 onOpenWinningEntry={setWinningEntry}
                 onOpenShareTicket={openShareTicket}
               />
@@ -723,16 +795,25 @@ export function BitacoraClubView({
             hidden={tab !== "banca"}
           >
             {tab === "banca" ? (
-              <RecordBankStatsTab
-                stats={stats}
-                unitMxn={effectiveUnitMxn}
-                bankrollStartMxn={prefs.bankrollStartMxn}
-                oddsFormat={oddsFormat}
-                onSaveBankroll={handleSaveBankroll}
-                entries={journal}
-                pickById={pickById}
-                userTimezone={userTimezone || "America/Mexico_City"}
-              />
+              <Suspense
+                fallback={
+                  <RecordTabFallback
+                    label="Cargando banca y estadísticas"
+                    minBlockSize="420px"
+                  />
+                }
+              >
+                <LazyRecordBankStatsTab
+                  stats={stats}
+                  unitMxn={effectiveUnitMxn}
+                  bankrollStartMxn={prefs.bankrollStartMxn}
+                  oddsFormat={oddsFormat}
+                  onSaveBankroll={handleSaveBankroll}
+                  entries={journal}
+                  pickById={pickById}
+                  userTimezone={userTimezone || "America/Mexico_City"}
+                />
+              </Suspense>
             ) : null}
           </div>
 
@@ -743,25 +824,34 @@ export function BitacoraClubView({
             hidden={tab !== "privacidad"}
           >
             {tab === "privacidad" ? (
-              <RecordPrivacyTab
-                handle={ownHandle}
-                stats={stats}
-                entries={journal}
-                oddsFormat={oddsFormat}
-                publicRecordVisible={prefs.privacy.publicProfile}
-                showInRanking={prefs.privacy.showInRanking}
-                privacy={prefs.recordPrivacy}
-                onTogglePublicRecord={handleTogglePublicRecord}
-                onToggleShowInRanking={handleToggleShowInRanking}
-                onToggleBlock={handleToggleBlock}
-                onToggleField={handleToggleField}
-                onResetPrivacy={handleResetPrivacy}
-              />
+              <Suspense
+                fallback={
+                  <RecordTabFallback
+                    label="Cargando opciones de privacidad"
+                    minBlockSize="420px"
+                  />
+                }
+              >
+                <LazyRecordPrivacyTab
+                  handle={ownHandle}
+                  stats={stats}
+                  entries={journal}
+                  oddsFormat={oddsFormat}
+                  publicRecordVisible={prefs.privacy.publicProfile}
+                  showInRanking={prefs.privacy.showInRanking}
+                  privacy={prefs.recordPrivacy}
+                  onTogglePublicRecord={handleTogglePublicRecord}
+                  onToggleShowInRanking={handleToggleShowInRanking}
+                  onToggleBlock={handleToggleBlock}
+                  onToggleField={handleToggleField}
+                  onResetPrivacy={handleResetPrivacy}
+                />
+              </Suspense>
             ) : null}
           </div>
         </div>
 
-        <WinningTicketDialog entry={winningEntry} onClose={() => setWinningEntry(null)} />
+        <WinningTicketDialog entry={winningEntry} onClose={handleCloseWinningEntry} />
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useId, useMemo, useState } from "react";
+import React, { memo, useCallback, useId, useMemo, useState } from "react";
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   Button,
@@ -260,36 +260,56 @@ function CommunityContent(): React.JSX.Element {
     [own, seasonRanked],
   );
 
-  const goProfile = (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!isPlainClick(e)) return;
-    e.preventDefault();
-    navigateTo(`/app/u/${handle}`);
-  };
+  const goProfile = useCallback(
+    (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!isPlainClick(e)) return;
+      e.preventDefault();
+      navigateTo(`/app/u/${handle}`);
+    },
+    [navigateTo],
+  );
 
-  const onToggleFollow = (handle: string): void => {
-    const now = follows.toggle(handle);
-    pushToast(
-      now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`,
-      "default",
-    );
-  };
+  const onToggleFollow = useCallback(
+    (handle: string): void => {
+      const now = follows.toggle(handle);
+      pushToast(
+        now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`,
+        "default",
+      );
+    },
+    [follows, pushToast],
+  );
 
-  const onCopy = (post: SocialPost): void =>
-    copyPostPickToJournal(post, {
-      dataset,
-      sealPickToJournal,
-      recordSocialPostCopy,
-      pushToast,
-    });
+  const onCopy = useCallback(
+    (post: SocialPost): void =>
+      copyPostPickToJournal(post, {
+        dataset,
+        sealPickToJournal,
+        recordSocialPostCopy,
+        pushToast,
+      }),
+    [dataset, pushToast, recordSocialPostCopy, sealPickToJournal],
+  );
 
-  const onCopyToParlay = (post: SocialPost): void =>
-    copyPostPickToParlay(post, {
-      dataset,
-      addPickToParlay,
-      pushToast,
-    });
+  const onCopyToParlay = useCallback(
+    (post: SocialPost): void =>
+      copyPostPickToParlay(post, {
+        dataset,
+        addPickToParlay,
+        pushToast,
+      }),
+    [addPickToParlay, dataset, pushToast],
+  );
 
-  const onShare = (post: SocialPost): void => shareSocialPost(post, pushToast);
+  const onShare = useCallback(
+    (post: SocialPost): void => shareSocialPost(post, pushToast),
+    [pushToast],
+  );
+
+  const handleOpenRanking = useCallback(() => setTab("ranking"), [setTab]);
+  const handleOpenConsensus = useCallback(() => setTab("consenso"), [setTab]);
+  const handleOpenPrivacy = useCallback(() => navigateTo("/app/lab?tab=privacidad"), [navigateTo]);
+  const handleCloseReport = useCallback(() => setReportTarget(null), []);
 
   const [forYouLeague, setForYouLeague] = useState<string>("all");
   const [forYouOpenOnly, setForYouOpenOnly] = useState(false);
@@ -366,28 +386,51 @@ function CommunityContent(): React.JSX.Element {
     });
   }, [forYouLeague, forYouOpenOnly, forYouSort, socialPosts]);
 
-  const feedProps: FeedSharedProps = {
-    authorOf,
-    own,
-    dataset,
-    journal: ownJournal,
-    oddsFormat,
-    follows,
-    onToggleFollow,
-    onCopy,
-    onCopyToParlay,
-    onShare,
-    toggleSocialLike,
-    addSocialComment,
-    deleteSocialComment,
-    toggleSocialCommentHelpful,
-    loadAllPostComments,
-    onDelete: deleteSocialPost,
-    onOpenReport: setReportTarget,
-    navigateTo,
-    goProfile,
-    highlightedPostId,
-  };
+  const feedProps = useMemo<FeedSharedProps>(
+    () => ({
+      authorOf,
+      own,
+      dataset,
+      journal: ownJournal,
+      oddsFormat,
+      follows,
+      onToggleFollow,
+      onCopy,
+      onCopyToParlay,
+      onShare,
+      toggleSocialLike,
+      addSocialComment,
+      deleteSocialComment,
+      toggleSocialCommentHelpful,
+      loadAllPostComments,
+      onDelete: deleteSocialPost,
+      onOpenReport: setReportTarget,
+      navigateTo,
+      goProfile,
+      highlightedPostId,
+    }),
+    [
+      addSocialComment,
+      authorOf,
+      dataset,
+      deleteSocialComment,
+      deleteSocialPost,
+      follows,
+      goProfile,
+      highlightedPostId,
+      loadAllPostComments,
+      navigateTo,
+      oddsFormat,
+      onCopy,
+      onCopyToParlay,
+      onShare,
+      onToggleFollow,
+      own,
+      ownJournal,
+      toggleSocialCommentHelpful,
+      toggleSocialLike,
+    ],
+  );
 
   return (
     <div className="pl-com">
@@ -559,11 +602,11 @@ function CommunityContent(): React.JSX.Element {
               <TopCard
                 ranked={monthRanked}
                 monthName={monthName}
-                onRanking={() => setTab("ranking")}
+                onRanking={handleOpenRanking}
                 goProfile={goProfile}
               />
               {consensus[0] ? (
-                <HotCard item={consensus[0]} onConsensus={() => setTab("consenso")} />
+                <HotCard item={consensus[0]} onConsensus={handleOpenConsensus} />
               ) : null}
               <a
                 href="/app/account?tab=referrals"
@@ -603,11 +646,11 @@ function CommunityContent(): React.JSX.Element {
             follows={follows}
             onToggleFollow={onToggleFollow}
             goProfile={goProfile}
-            onPrivacy={() => navigateTo("/app/lab?tab=privacidad")}
+            onPrivacy={handleOpenPrivacy}
           />
         ) : null}
       </TabPanel>
-      <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
+      <SocialReportDialog target={reportTarget} onClose={handleCloseReport} />
     </div>
   );
 }
@@ -1175,7 +1218,9 @@ interface FeedSharedProps {
   highlightedPostId?: string | null;
 }
 
-function Feed({
+const MemoSocialPostItem = memo(SocialPostCard);
+
+const Feed = memo(function Feed({
   posts,
   scope,
   emptyText = "Todavía no hay publicaciones.",
@@ -1204,32 +1249,43 @@ function Feed({
     : -1;
   const effectiveLimit = targetIdx >= limit ? targetIdx + FEED_PAGE : limit;
 
-  if (displayPool.length === 0 && !hasMoreServer && !loadingOlder) {
-    return <SofascoreEmptyState title={emptyText} />;
-  }
+  const resolvedVisiblePosts = useMemo(
+    () =>
+      displayPool.slice(0, effectiveLimit).map((post) => ({
+        post,
+        author: shared.authorOf(post),
+        following: shared.follows.isFollowing(post.authorHandle),
+      })),
+    [displayPool, effectiveLimit, shared.authorOf, shared.follows],
+  );
 
-  const canShowMore = displayPool.length > effectiveLimit || hasMoreServer || loadingOlder;
-  const onShowMore = (): void => {
+  const onShowMore = useCallback((): void => {
     if (loadingOlder) return;
     const nextLimit = effectiveLimit + FEED_PAGE;
     setLimit(nextLimit);
     if (hasMoreServer && nextLimit >= realPosts.length) {
       void loadOlderSocialPosts(scope);
     }
-  };
+  }, [effectiveLimit, hasMoreServer, loadOlderSocialPosts, loadingOlder, realPosts.length, scope]);
+
+  if (displayPool.length === 0 && !hasMoreServer && !loadingOlder) {
+    return <SofascoreEmptyState title={emptyText} />;
+  }
+
+  const canShowMore = displayPool.length > effectiveLimit || hasMoreServer || loadingOlder;
 
   return (
     <div className="pl-com-feed">
-      {displayPool.slice(0, effectiveLimit).map((post) => (
-        <SocialPostCard
+      {resolvedVisiblePosts.map(({ post, author, following }) => (
+        <MemoSocialPostItem
           key={post.id}
           post={post}
-          author={shared.authorOf(post)}
+          author={author}
           own={shared.own}
           dataset={shared.dataset}
           journal={shared.journal}
           oddsFormat={shared.oddsFormat}
-          following={shared.follows.isFollowing(post.authorHandle)}
+          following={following}
           onToggleFollow={shared.onToggleFollow}
           onCopy={shared.onCopy}
           onCopyToParlay={shared.onCopyToParlay}
@@ -1261,9 +1317,9 @@ function Feed({
       ) : null}
     </div>
   );
-}
+});
 
-function YourMonthCard({
+const YourMonthCard = memo(function YourMonthCard({
   own,
   ranked,
   monthName,
@@ -1313,9 +1369,9 @@ function YourMonthCard({
       </div>
     </SofascoreCard>
   );
-}
+});
 
-function TopCard({
+const TopCard = memo(function TopCard({
   ranked,
   monthName,
   onRanking,
@@ -1369,9 +1425,9 @@ function TopCard({
       )}
     </SofascoreCard>
   );
-}
+});
 
-function HotCard({
+const HotCard = memo(function HotCard({
   item,
   onConsensus,
 }: {
@@ -1400,9 +1456,9 @@ function HotCard({
       </div>
     </SofascoreCard>
   );
-}
+});
 
-function BarsPair({
+const BarsPair = memo(function BarsPair({
   label,
   fans,
   model,
@@ -1434,9 +1490,9 @@ function BarsPair({
       <strong>{model} %</strong>
     </div>
   );
-}
+});
 
-function MobileTop({
+const MobileTop = memo(function MobileTop({
   ranked,
   monthName,
   goProfile,
@@ -1476,11 +1532,11 @@ function MobileTop({
       </ol>
     </section>
   );
-}
+});
 
 type FollowFilter = "all" | "tipsters" | "socios" | "open";
 
-function FollowingTab({
+const FollowingTab = memo(function FollowingTab({
   posts,
   seasonRanked,
   ...shared
@@ -1526,7 +1582,10 @@ function FollowingTab({
       }),
     [followed, posts],
   );
-  const tipsters = followedInfo.filter((f) => f.isTipster).length;
+  const tipsters = useMemo(
+    () => followedInfo.filter((f) => f.isTipster).length,
+    [followedInfo],
+  );
 
   const followedPosts = useMemo(() => {
     const base = posts.filter(isFollowedPost);
@@ -1726,7 +1785,7 @@ function FollowingTab({
       </aside>
     </div>
   );
-}
+});
 
 const plural = (n: number, one: string, many: string): string => `${n} ${n === 1 ? one : many}`;
 
@@ -1749,7 +1808,7 @@ function followSummary(people: number, tipsters: number, topics: FollowedTopics)
   return parts.join(" · ");
 }
 
-function TopicsPicker({
+const TopicsPicker = memo(function TopicsPicker({
   games,
   topics,
   onToggleLeague,
@@ -1983,7 +2042,7 @@ function TopicsPicker({
       </div>
     </details>
   );
-}
+});
 
 type ConsensusSort = "diff" | "picks" | "soon";
 
@@ -2007,7 +2066,11 @@ function sampleLabel(item: ConsensusGame): string {
 
 const sampleSize = (item: ConsensusGame): number => item.totalPicks + (item.votes?.total ?? 0);
 
-function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX.Element {
+const ConsensusTab = memo(function ConsensusTab({
+  items,
+}: {
+  items: readonly ConsensusGame[];
+}): React.JSX.Element {
   const { userTimezone } = usePlatformCore();
   const sortId = useId();
   const [league, setLeague] = useState("all");
@@ -2215,9 +2278,9 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
       <ConsensusNote />
     </div>
   );
-}
+});
 
-function ConsensusNote(): React.JSX.Element {
+const ConsensusNote = memo(function ConsensusNote(): React.JSX.Element {
   return (
     <p className="pl-com-footnote">
       Socios: % de picks publicados por resultado, o % de votos de «¿Quién gana?». Modelo:
@@ -2225,9 +2288,9 @@ function ConsensusNote(): React.JSX.Element {
       {CONSENSUS_MIN_VOTES} votos.
     </p>
   );
-}
+});
 
-function RankingTab({
+const RankingTab = memo(function RankingTab({
   rows,
   own,
   ownJournal,
@@ -2256,12 +2319,18 @@ function RankingTab({
     () => rankAnalysts(rows, { window: windowKey, sort, today }),
     [rows, windowKey, sort, today],
   );
-  const top = ranked.slice(0, TOP_N);
-  const podium = top.slice(0, 3);
-  const tableRows = top.slice(3);
-  const me = own ? (ranked.find((r) => r.handle === own.handle) ?? null) : null;
+  const top = useMemo(() => ranked.slice(0, TOP_N), [ranked]);
+  const podium = useMemo(() => top.slice(0, 3), [top]);
+  const tableRows = useMemo(() => top.slice(3), [top]);
+  const me = useMemo(
+    () => (own ? (ranked.find((r) => r.handle === own.handle) ?? null) : null),
+    [own, ranked],
+  );
   const meInTop = me !== null && me.rank <= TOP_N;
-  const ownSettled = own ? profileRecord(entriesInWindow(ownJournal, windowKey, today)).settled : 0;
+  const ownSettled = useMemo(
+    () => (own ? profileRecord(entriesInWindow(ownJournal, windowKey, today)).settled : 0),
+    [own, ownJournal, today, windowKey],
+  );
   const tenth = top[TOP_N - 1];
   const windowLabel = windowKey === "7d" ? "últimos 7 días" : "últimos 30 días";
   const sortLabel =
@@ -2546,6 +2615,6 @@ function RankingTab({
       </p>
     </div>
   );
-}
+});
 
 export { ConsensusTab as CommunityConsensusTab, TopicsPicker as CommunityTopicsPicker };

@@ -1197,4 +1197,21 @@
       transition-duration: 0ms;
     }
   }
+
+  .pl-pb-preview-item:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 116px;
+  }
+
+  .pl-pb-leg-row:nth-child(n + 6):not(:focus-within) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto none auto 84px;
+  }
+
+  @supports not (content-visibility: auto) {
+    .pl-pb-preview-item:nth-child(n + 6):not(:focus-within),
+    .pl-pb-leg-row:nth-child(n + 6):not(:focus-within) {
+      contain: layout style paint;
+    }
+  }
 }
