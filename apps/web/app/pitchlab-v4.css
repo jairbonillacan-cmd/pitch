@@ -23655,6 +23655,7 @@ body {
 /* Skeletons contextuales ultraligeros (100 % tokens, 0 backdrop-filter) */
 .pl-route-skel {
   width: 100%;
+  min-block-size: 100dvh;
   padding-block: 4px 16px;
 }
 
