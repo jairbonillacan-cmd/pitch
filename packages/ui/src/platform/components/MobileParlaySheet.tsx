@@ -50,6 +50,7 @@ function supportsTopLayerExit(): boolean {
 }
 
 const MAX_PARLAY_LEGS = 6;
+const FAB_DBLCLICK_GUARD_MS = 450;
 
 function formatSheetOdds(decimalOdds: number | null | undefined, format: "american" | "decimal"): string {
   if (decimalOdds == null || !Number.isFinite(decimalOdds) || decimalOdds <= 1.01) {
@@ -103,6 +104,8 @@ export function MobileParlaySheet({
   const [resolvedAudit, setResolvedAudit] = useState<SgpCopulaAuditView | null>(null);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const listRef = useRef<HTMLUListElement | null>(null);
+  const prevCountRef = useRef<number>(0);
+  const fabMountedAtRef = useRef<number>(0);
   const titleId = useId();
   const summary = useMemo(
     () => computeParlaySummary(parlayLegs, parlayStakeUnits),
@@ -170,6 +173,25 @@ export function MobileParlaySheet({
   });
 
   const hasLegs = parlayLegs.length > 0;
+
+  useSafeEffect(() => {
+    const prev = prevCountRef.current;
+    if (prev === 0 && parlayLegs.length > 0) {
+      fabMountedAtRef.current = Date.now();
+    } else if (parlayLegs.length === 0) {
+      fabMountedAtRef.current = 0;
+    }
+    prevCountRef.current = parlayLegs.length;
+  }, [parlayLegs.length]);
+
+  const handleFabClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    const mountedAt = fabMountedAtRef.current;
+    if (event.detail >= 2 && (mountedAt === 0 || Date.now() - mountedAt < FAB_DBLCLICK_GUARD_MS)) {
+      event.preventDefault();
+      return;
+    }
+    setOpen(true);
+  }, []);
 
   useSafeEffect(() => {
     const dialog = dialogRef.current;
@@ -248,7 +270,7 @@ export function MobileParlaySheet({
           className="pl-parlay-fab"
           aria-haspopup="dialog"
           aria-expanded={open}
-          onClick={() => setOpen(true)}
+          onClick={handleFabClick}
         >
           <span className="pl-parlay-fab-badge num">{parlayLegs.length}</span>
           <span className="pl-parlay-fab-label">

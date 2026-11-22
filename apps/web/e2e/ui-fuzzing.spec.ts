@@ -967,9 +967,15 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
 
       if (isMobile) {
         const parlayFabBtn = page.locator("[data-mobile-parlay-fab] button").first();
-        if ((await parlayFabBtn.count()) > 0 && (await parlayFabBtn.isVisible())) {
-          await parlayFabBtn.click();
-          const parlaySheet = page.locator("dialog[data-mobile-parlay-sheet][open]");
+        const parlaySheet = page.locator("dialog[data-mobile-parlay-sheet][open]");
+        const sheetAlreadyOpen =
+          (await parlaySheet.count()) > 0 && (await parlaySheet.isVisible());
+        const fabVisible =
+          (await parlayFabBtn.count()) > 0 && (await parlayFabBtn.isVisible());
+        if (sheetAlreadyOpen || fabVisible) {
+          if (!sheetAlreadyOpen) {
+            await parlayFabBtn.click();
+          }
           await expect(parlaySheet).toBeVisible();
           await auditPageInvariants(page, "/app/parlays mobile-parlay-sheet open", {
             allowOpenDialog: true,
@@ -977,6 +983,9 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
           await page.keyboard.press("Escape");
           await expect(page.locator("dialog[open]")).toHaveCount(0);
         }
+        await firstUnlockedToggle.evaluate((el) => {
+          el.scrollIntoView({ block: "center", inline: "nearest", behavior: "instant" });
+        });
       }
 
       await firstUnlockedToggle.click();
