@@ -1,5 +1,12 @@
 import type { MaestroIconName } from "../../components/MaestroPrimitives";
-import type { RateRow } from "../../record-stats";
+import {
+  isCredibleClvPct,
+  isParlayClvEntry,
+  MAX_CREDIBLE_PARLAY_CLV_PCT,
+  MAX_CREDIBLE_SINGLE_CLV_PCT,
+  MIN_CREDIBLE_CLV_PCT,
+  type RateRow,
+} from "../../record-stats";
 import type { JournalEntry, MatchPick, PlatformGame } from "../../types";
 
 export type AuditPickStatus = "won" | "lost" | "push" | "pending";
@@ -307,10 +314,10 @@ export function classifyMarketFamily(input: {
   return { key: "moneyline", label: "Resultado 1X2 / Ganador", shortLabel: "1X2 / ML" };
 }
 
-export const MAX_CREDIBLE_SINGLE_EV_PCT = 25;
-export const MAX_CREDIBLE_PARLAY_EV_PCT = 50;
-export const MIN_CREDIBLE_EV_PCT = -60;
-export const MAX_CREDIBLE_CLV_PCT = 25;
+export const MAX_CREDIBLE_SINGLE_EV_PCT = MAX_CREDIBLE_SINGLE_CLV_PCT;
+export const MAX_CREDIBLE_PARLAY_EV_PCT = MAX_CREDIBLE_PARLAY_CLV_PCT;
+export const MIN_CREDIBLE_EV_PCT = MIN_CREDIBLE_CLV_PCT;
+export const MAX_CREDIBLE_CLV_PCT = MAX_CREDIBLE_SINGLE_CLV_PCT;
 export const MAX_CREDIBLE_CLOSING_CLV_PCT = 35;
 
 const LEGACY_SYSTEM_NOTE_RE =
@@ -457,14 +464,11 @@ export function buildParlayPickSummary(legs: readonly ParlaySummaryLegInput[]): 
 }
 
 function isParlayEntryLike(
-  entry: Partial<Pick<JournalEntry, "pickKind" | "origin" | "parlayLegs" | "pickId">>,
+  entry: Partial<Pick<JournalEntry, "pickKind" | "origin" | "parlayLegs" | "pickId">> & {
+    readonly isParlay?: boolean;
+  },
 ): boolean {
-  return (
-    entry.pickKind === "parlay" ||
-    entry.origin === "Parlay Combinado" ||
-    (Array.isArray(entry.parlayLegs) && entry.parlayLegs.length > 0) ||
-    (typeof entry.pickId === "string" && entry.pickId.startsWith("parlay:"))
-  );
+  return isParlayClvEntry(entry);
 }
 
 export function computePickEvPct(
@@ -487,7 +491,9 @@ export function computePickEvPct(
 
 export function computeJournalEntryEvPct(
   entry: Pick<JournalEntry, "fairDecimal" | "userDecimal"> &
-    Partial<Pick<JournalEntry, "pickKind" | "origin" | "parlayLegs" | "pickId">>,
+    Partial<Pick<JournalEntry, "pickKind" | "origin" | "parlayLegs" | "pickId">> & {
+      readonly isParlay?: boolean;
+    },
 ): number | null {
   if (
     !Number.isFinite(entry.fairDecimal) ||
@@ -511,9 +517,13 @@ export function computeJournalEntryEvPct(
 
 export function computeJournalEntryClvPct(
   entry: Pick<JournalEntry, "fairDecimal" | "userDecimal" | "clvPct"> &
-    Partial<Pick<JournalEntry, "closingDecimal" | "pickKind" | "origin" | "parlayLegs" | "pickId">>,
+    Partial<Pick<JournalEntry, "closingDecimal" | "pickKind" | "origin" | "parlayLegs" | "pickId">> & {
+      readonly isParlay?: boolean;
+    },
 ): number | null {
-  if (typeof entry.clvPct !== "number" || !Number.isFinite(entry.clvPct)) {
+  const rawClv = entry.clvPct;
+  const isParlay = isParlayEntryLike(entry);
+  if (!isCredibleClvPct(rawClv, isParlay)) {
     return null;
   }
   const hasClosingLine =
@@ -521,8 +531,7 @@ export function computeJournalEntryClvPct(
     Number.isFinite(entry.closingDecimal) &&
     entry.closingDecimal > 1;
   if (hasClosingLine) {
-    if (Math.abs(entry.clvPct) > MAX_CREDIBLE_CLOSING_CLV_PCT) return null;
-    return Math.round(entry.clvPct * 10) / 10;
+    return Math.round(rawClv * 10) / 10;
   }
   const hasQuotePair =
     Number.isFinite(entry.fairDecimal) &&
@@ -532,10 +541,7 @@ export function computeJournalEntryClvPct(
   if (hasQuotePair && computeJournalEntryEvPct(entry) === null) {
     return null;
   }
-  if (Math.abs(entry.clvPct) > MAX_CREDIBLE_CLV_PCT) {
-    return null;
-  }
-  return Math.round(entry.clvPct * 10) / 10;
+  return Math.round(rawClv * 10) / 10;
 }
 
 export function computeJournalSettlementUnits(

@@ -1,6 +1,7 @@
 import {
   asMarketKey,
   isPermittedMarketQuoteBook,
+  parseStrictFiniteNumber,
   type AnalysisMarketGroup,
   type AnalysisMarketRow,
   type MatchAnalysis,
@@ -20,22 +21,57 @@ import {
   buildDerivedOutlookExtras,
 } from "./outlook-derived-rows";
 
-/**
- * Panorama por mercado del motor v3.2 (`MatchOutlook`) para la ficha del partido.
- *
- * Reglas de v3.2 (SYNC_NOTES §5): solo probabilidad y momio justo (1 / p); cero stake,
- * Kelly o EV; la cuota de casa solo existe con captura real de menos de 72 h. El snapshot
- * de hoy no trae ninguna (`market: null`), así que la columna «Casa» queda vacía.
- */
-
 interface OutlookSnapshot {
+  generated_at?: string;
   outlooks_meta?: { generated_at_utc?: string };
   outlooks?: MatchOutlook[];
 }
 
-const snapshot = liveSnapshotJson as unknown as OutlookSnapshot;
+function parseOutlookSnapshot(raw: unknown): OutlookSnapshot {
+  if (!raw || typeof raw !== "object") return {};
+  const obj = raw as {
+    generated_at?: unknown;
+    outlooks_meta?: unknown;
+    outlooks?: unknown;
+  };
+  const meta =
+    obj.outlooks_meta && typeof obj.outlooks_meta === "object"
+      ? (obj.outlooks_meta as { generated_at_utc?: unknown })
+      : null;
+  return {
+    ...(typeof obj.generated_at === "string" ? { generated_at: obj.generated_at } : {}),
+    ...(meta && typeof meta.generated_at_utc === "string"
+      ? { outlooks_meta: { generated_at_utc: meta.generated_at_utc } }
+      : {}),
+    ...(Array.isArray(obj.outlooks) ? { outlooks: obj.outlooks as MatchOutlook[] } : {}),
+  };
+}
 
-/** Grupo visible y clave de mercado para la tabla de la ficha (los filtros leen ambos). */
+const snapshot = parseOutlookSnapshot(liveSnapshotJson);
+
+export const OUTLOOK_SNAPSHOT_GENERATED_AT: string | null =
+  snapshot.generated_at ?? snapshot.outlooks_meta?.generated_at_utc ?? null;
+
+const STALE_OUTLOOK_DELTA_MS = 24 * 3_600_000;
+const MAX_OUTLOOK_TOTAL_INFLATION = 0.35;
+const MAX_OUTLOOK_OVER35_INFLATION = 0.06;
+
+const ES_SHORT_MONTH_INDEX: Readonly<Record<string, number>> = {
+  ene: 0,
+  feb: 1,
+  mar: 2,
+  abr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  ago: 7,
+  sep: 8,
+  sept: 8,
+  oct: 9,
+  nov: 10,
+  dic: 11,
+};
+
 const MARKET_GROUPS: Readonly<Record<string, { group: string; market: string }>> = {
   "1x2": { group: "Resultado 1X2", market: "1x2" },
   moneyline: { group: "Ganador", market: "moneyline" },
@@ -59,6 +95,23 @@ interface TeamNames {
   away: { name: string };
 }
 
+interface TotalRowLike {
+  readonly market: string;
+  readonly selection: string;
+  readonly line?: number | null;
+  readonly p: number;
+}
+
+export interface OutlookGameInput extends TeamNames {
+  projection?: { total: number } | null;
+  markets?: readonly TotalRowLike[];
+  marketGroups?: readonly AnalysisMarketGroup[];
+  generatedAt?: string | null;
+  inputsAsOf?: string | null;
+  updatedAt?: string | null;
+  updatedAtLabel?: string | null;
+}
+
 let byLeague: Map<string, MatchOutlook[]> | null = null;
 
 function outlooksByLeague(): Map<string, MatchOutlook[]> {
@@ -72,7 +125,6 @@ function outlooksByLeague(): Map<string, MatchOutlook[]> {
   return byLeague;
 }
 
-/** Panorama del partido, emparejado por liga y nombres de equipo; `null` si no está. */
 export function findOutlook(game: TeamNames): MatchOutlook | null {
   if (game.league === "nba" || game.league === "nhl" || game.league === "mlb") return null;
   const league = LEAGUE_TO_V3[game.league] ?? game.league;
@@ -90,7 +142,159 @@ export function findOutlook(game: TeamNames): MatchOutlook | null {
   return top;
 }
 
-/** Cambia los nombres de equipo del motor por los de la app en una etiqueta. */
+function parseTimestampMs(raw: string | null | undefined): number | null {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const direct = Date.parse(trimmed);
+  if (Number.isFinite(direct)) return direct;
+  const esMatch =
+    /^(\d{1,2})\s+([a-záéíóúñ]+)\.?\s+(?:de\s+)?(\d{4})(?:,?\s+(\d{1,2}):(\d{2}))?/i.exec(trimmed);
+  if (!esMatch) return null;
+  const day = Number.parseInt(esMatch[1] ?? "", 10);
+  const monthKey = (esMatch[2] ?? "").toLowerCase();
+  const month = ES_SHORT_MONTH_INDEX[monthKey];
+  const year = Number.parseInt(esMatch[3] ?? "", 10);
+  const hour = esMatch[4] ? Number.parseInt(esMatch[4], 10) : 0;
+  const minute = esMatch[5] ? Number.parseInt(esMatch[5], 10) : 0;
+  if (
+    month === undefined ||
+    !Number.isFinite(day) ||
+    !Number.isFinite(year) ||
+    !Number.isFinite(hour) ||
+    !Number.isFinite(minute)
+  ) {
+    return null;
+  }
+  return Date.UTC(year, month, day, hour + 6, minute);
+}
+
+function resolveOutlookGeneratedAtMs(o: MatchOutlook): number | null {
+  const candidates = [
+    o.tsDecision,
+    snapshot.generated_at,
+    snapshot.outlooks_meta?.generated_at_utc,
+  ];
+  for (const iso of candidates) {
+    const parsed = parseTimestampMs(iso);
+    if (parsed !== null) return parsed;
+  }
+  return null;
+}
+
+function resolveGameGeneratedAtMs(
+  game: OutlookGameInput,
+  snapshotGeneratedAt?: string | null,
+): number | null {
+  const candidates = [
+    snapshotGeneratedAt,
+    game.generatedAt,
+    game.inputsAsOf,
+    game.updatedAt,
+    game.updatedAtLabel,
+  ];
+  for (const candidate of candidates) {
+    const parsed = parseTimestampMs(candidate);
+    if (parsed !== null) return parsed;
+  }
+  return null;
+}
+
+function isOver35Row(row: TotalRowLike): boolean {
+  const market = row.market.toLowerCase();
+  const selection = row.selection.toLowerCase();
+  if (market === "totals_3_5") {
+    return selection === "over" || selection === "over_3.5" || selection === "over_3_5";
+  }
+  if (market !== "totals") return false;
+  if (selection === "over_3.5" || selection === "over_3_5") return true;
+  return (selection === "over" || selection.startsWith("over_")) && row.line === 3.5;
+}
+
+function extractLocalOver35Prob(rows: readonly TotalRowLike[] | undefined): number | null {
+  if (!rows || rows.length === 0) return null;
+  for (const r of rows) {
+    if (isOver35Row(r) && typeof r.p === "number" && Number.isFinite(r.p)) {
+      return r.p;
+    }
+  }
+  return null;
+}
+
+function extractMatchOver35Prob(
+  groups: readonly AnalysisMarketGroup[] | undefined,
+): number | null {
+  if (!groups || groups.length === 0) return null;
+  for (const grp of groups) {
+    const found = extractLocalOver35Prob(grp.rows);
+    if (found !== null) return found;
+  }
+  return null;
+}
+
+const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
+function poissonOver35(totalGoals: number): number {
+  if (!Number.isFinite(totalGoals) || totalGoals <= 0) return 0;
+  const expNeg = Math.exp(-totalGoals);
+  const pLe3 =
+    expNeg *
+    (1 + totalGoals + (totalGoals * totalGoals) / 2 + (totalGoals * totalGoals * totalGoals) / 6);
+  return clamp01(1 - pLe3);
+}
+
+function outlookOver35Prob(outlook: MatchOutlook): number | null {
+  const fromKey = sel(outlook, "totals_3_5", "over")?.p;
+  if (typeof fromKey === "number" && Number.isFinite(fromKey)) return fromKey;
+  const fromMarkets = outlook.markets
+    .find((m) => m.marketKey === "totals_3_5")
+    ?.selections.find((s) => s.selection === "over")?.p;
+  return typeof fromMarkets === "number" && Number.isFinite(fromMarkets) ? fromMarkets : null;
+}
+
+export function isStaleInflatedFootballOutlook(
+  outlook: MatchOutlook,
+  matchTotalGoals: number | null | undefined,
+  matchGeneratedAtMs: number | null | undefined,
+  outlookGeneratedAtMs: number | null | undefined,
+  localOver35Prob?: number | null,
+): boolean {
+  if (outlook.sport !== "football" || !outlook.dixonColesParams) return false;
+  if (
+    typeof matchGeneratedAtMs !== "number" ||
+    !Number.isFinite(matchGeneratedAtMs) ||
+    typeof outlookGeneratedAtMs !== "number" ||
+    !Number.isFinite(outlookGeneratedAtMs)
+  ) {
+    return false;
+  }
+  if (matchGeneratedAtMs - outlookGeneratedAtMs <= STALE_OUTLOOK_DELTA_MS) {
+    return false;
+  }
+  if (
+    typeof matchTotalGoals !== "number" ||
+    !Number.isFinite(matchTotalGoals) ||
+    matchTotalGoals <= 0.5
+  ) {
+    return false;
+  }
+  const outlookTotal = outlook.dixonColesParams.lamHome + outlook.dixonColesParams.lamAway;
+  if (!Number.isFinite(outlookTotal)) return false;
+  if (outlookTotal - matchTotalGoals > MAX_OUTLOOK_TOTAL_INFLATION) {
+    return true;
+  }
+  const over35Outlook = outlookOver35Prob(outlook);
+  if (over35Outlook === null) return false;
+  const baselineOver35 =
+    typeof localOver35Prob === "number" &&
+    Number.isFinite(localOver35Prob) &&
+    localOver35Prob >= 0 &&
+    localOver35Prob <= 1
+      ? localOver35Prob
+      : poissonOver35(matchTotalGoals);
+  return over35Outlook - baselineOver35 > MAX_OUTLOOK_OVER35_INFLATION;
+}
+
 function relabel(label: string, o: MatchOutlook, game: TeamNames): string {
   return label.split(o.homeTeam).join(game.home.name).split(o.awayTeam).join(game.away.name);
 }
@@ -150,7 +354,6 @@ export interface OutlookDetail {
   outlook: MatchOutlookSummary;
 }
 
-/** Construye filas de mercado y resumen del panorama v3.2 desde un `MatchOutlook` resuelto. */
 export function outlookDetailFromMatchOutlook(
   o: MatchOutlook,
   game: TeamNames,
@@ -208,18 +411,33 @@ export function outlookDetailFromMatchOutlook(
   };
 }
 
-/** Filas de mercado y resumen del panorama v3.2 para la ficha, o `null` si no hay. */
-export function outlookDetailFor(game: TeamNames, nowMs: number = Date.now()): OutlookDetail | null {
+export function outlookDetailFor(
+  game: OutlookGameInput,
+  nowMs: number = Date.now(),
+  snapshotGeneratedAt?: string | null,
+): OutlookDetail | null {
   const o = findOutlook(game);
   if (!o) return null;
+  const matchGeneratedAtMs = resolveGameGeneratedAtMs(game, snapshotGeneratedAt);
+  const outlookGeneratedAtMs = resolveOutlookGeneratedAtMs(o);
+  const localOver35 =
+    extractLocalOver35Prob(game.markets) ?? extractMatchOver35Prob(game.marketGroups);
+  if (
+    isStaleInflatedFootballOutlook(
+      o,
+      game.projection?.total,
+      matchGeneratedAtMs,
+      outlookGeneratedAtMs,
+      localOver35,
+    )
+  ) {
+    return null;
+  }
   return outlookDetailFromMatchOutlook(o, game, { nowMs });
 }
 
-// ── Dataset del Club (Inicio, Picks, landing) sobre el panorama v3.2 ─────────────────────
-
 const round4 = (v: number) => Math.round(v * 10_000) / 10_000;
 
-/** Momio justo (1 / p) en decimal y americano, redondeado como en el resto del Club. */
 function fairOddsOf(p: number): { decimal: number; american: number } {
   const decimal = Math.round((1 / p) * 100) / 100;
   const american = decimal >= 2 ? Math.round((decimal - 1) * 100) : Math.round(-100 / (decimal - 1));
@@ -244,7 +462,6 @@ function row(
   };
 }
 
-/** Selección de un mercado del panorama, o `undefined` si no está. */
 function sel(o: MatchOutlook, key: string, selection: string) {
   return o.marketsByKey[key as keyof MatchOutlook["marketsByKey"]]?.selections.find(
     (s) => s.selection === selection,
@@ -258,12 +475,6 @@ function preserveCountGroups(groups: readonly AnalysisMarketGroup[] | undefined)
   return groups.filter((group) => group.rows.some((r) => COUNT_MARKETS.has(r.market)));
 }
 
-/**
- * Grupos de mercado del partido desde el panorama v3.2, con las mismas claves que el
- * snapshot (`h2h`, `double_chance`, `totals`, `btts`, `correct_score`) para que el armado de
- * picks, el parlay y la calificación sigan funcionando igual. Hándicap asiático y empate no
- * acción solo viven en la ficha (`outlookDetailFor`): su liquidación tiene reembolsos.
- */
 function footballGroups(o: MatchOutlook, match: MatchAnalysis): AnalysisMarketGroup[] {
   const groups: AnalysisMarketGroup[] = [];
   const home = sel(o, "1x2", "home");
@@ -350,15 +561,11 @@ function footballGroups(o: MatchOutlook, match: MatchAnalysis): AnalysisMarketGr
 
 const CONF_ALTA = 62;
 const CONF_MEDIA = 45;
-const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
-const gamesPlayed = (record: string) => Number(/(\d+)\s*PJ/i.exec(record)?.[1] ?? NaN);
+const gamesPlayed = (record: string): number | null => {
+  const raw = /(\d+)\s*PJ/i.exec(record)?.[1];
+  return raw ? parseStrictFiniteNumber(raw) : null;
+};
 
-/**
- * Confianza sobre el panorama v3.2, explicable por factor:
- * - qué tan claro es el favorito (50 %), con la misma escala que el índice del snapshot;
- * - qué parte de los datos del modelo hay para este partido (30 %, `dataQuality.coverageRatio`);
- * - cuántos partidos lleva el equipo con menos juegos esta temporada (20 %, tope en 10).
- */
 export function outlookConfidence(
   o: MatchOutlook,
   match: MatchAnalysis,
@@ -369,8 +576,11 @@ export function outlookConfidence(
   const ceil = isNfl ? 0.85 : 0.75;
   const fav = clamp01((favorite - floor) / (ceil - floor));
   const coverage = clamp01(o.dataQuality.coverageRatio);
-  const minGames = Math.min(gamesPlayed(match.home.record), gamesPlayed(match.away.record));
-  const sample = Number.isFinite(minGames) ? clamp01(minGames / 10) : 0.5;
+  const homeGames = gamesPlayed(match.home.record);
+  const awayGames = gamesPlayed(match.away.record);
+  const minGames =
+    homeGames !== null && awayGames !== null ? Math.min(homeGames, awayGames) : null;
+  const sample = minGames !== null ? clamp01(minGames / 10) : 0.5;
   const score = Math.round(100 * (0.5 * fav + 0.3 * coverage + 0.2 * sample));
   const level = score >= CONF_ALTA ? "alta" : score >= CONF_MEDIA ? "media" : "baja";
   const pct = (v: number) => `${Math.round(v * 100)} %`;
@@ -407,9 +617,10 @@ export function outlookConfidence(
         label: "Partidos jugados",
         value: sample,
         weight: 0.2,
-        detail: Number.isFinite(minGames)
-          ? `El equipo con menos juegos lleva ${minGames} esta temporada; con 10 o más la muestra es suficiente.`
-          : "No hay registro de partidos jugados esta temporada.",
+        detail:
+          minGames !== null
+            ? `El equipo con menos juegos lleva ${minGames} esta temporada; con 10 o más la muestra es suficiente.`
+            : "No hay registro de partidos jugados esta temporada.",
       },
     ],
   };
@@ -468,10 +679,31 @@ function freshSignalMarket(
   };
 }
 
-/**
- * Aplica un `MatchOutlook` resuelto sobre el partido y su señal Spacetime.
- * Solo adjunta `signal.market` si existe captura legal vigente (< 72 h); `value` siempre queda vacío.
- */
+function alignSignalToLocalMatch(
+  match: MatchAnalysis,
+  signal: SpacetimeSignal | null,
+  nowMs: number,
+): SpacetimeSignal | null {
+  if (!signal) return null;
+  const freshMarket =
+    signal.market && isMarketFresh(signal.market.asOfUtc, nowMs) ? signal.market : null;
+  return {
+    ...signal,
+    outlookDriven: true,
+    probs: match.x12
+      ? { home: match.x12[0], draw: match.x12[1], away: match.x12[2] }
+      : signal.probs,
+    market: freshMarket,
+    value: [],
+    expectedTotal: match.projection?.total ?? signal.expectedTotal,
+    expectedMargin:
+      match.projection?.margin ??
+      (match.projection
+        ? match.projection.home - match.projection.away
+        : signal.expectedMargin),
+  };
+}
+
 export function applyOutlookWithMatchOutlook(
   match: MatchAnalysis,
   signal: SpacetimeSignal | null,
@@ -541,7 +773,6 @@ export function applyOutlookWithMatchOutlook(
         ...match,
         x12: [round4(pHome), 0, round4(pAway)],
         marketGroups,
-        /* Descarta picks h2h previos del snapshot cuando Cortex v3.2 recalcula moneyline NFL. */
         picks: [],
         confidence: outlookConfidence(o, match, Math.max(pHome, pAway)),
         outcomes: match.outcomes.map((oc) =>
@@ -600,20 +831,31 @@ export function applyOutlookWithMatchOutlook(
   };
 }
 
-/**
- * Pasa un partido por jugar al panorama v3.2: probabilidades 1X2, mercados, marcador más
- * probable y proyección (lambdas de Dixon-Coles). Los picks del snapshot se descartan para
- * que el armador elija sobre los mercados v3.2. En NFL el panorama solo trae ganador: se
- * reemplaza ese mercado y el resto (spread, totales) sigue del snapshot.
- * Sin panorama, o con el partido terminado, todo queda igual.
- */
 export function applyOutlook(
-  match: MatchAnalysis,
+  match: MatchAnalysis & { generatedAt?: string | null; inputsAsOf?: string | null },
   signal: SpacetimeSignal | null,
   nowMs: number = Date.now(),
+  snapshotGeneratedAt?: string | null,
 ): OutlookApplied {
   if (match.status === "FT") return { match, signal };
   const o = findOutlook(match);
   if (!o) return { match, signal };
+  const matchGeneratedAtMs = resolveGameGeneratedAtMs(match, snapshotGeneratedAt);
+  const outlookGeneratedAtMs = resolveOutlookGeneratedAtMs(o);
+  const localOver35 = extractMatchOver35Prob(match.marketGroups);
+  if (
+    isStaleInflatedFootballOutlook(
+      o,
+      match.projection?.total,
+      matchGeneratedAtMs,
+      outlookGeneratedAtMs,
+      localOver35,
+    )
+  ) {
+    return {
+      match,
+      signal: alignSignalToLocalMatch(match, signal, nowMs),
+    };
+  }
   return applyOutlookWithMatchOutlook(match, signal, o, nowMs);
 }

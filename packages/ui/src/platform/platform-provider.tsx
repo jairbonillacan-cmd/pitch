@@ -26,13 +26,13 @@ import {
   sanitizeJournalDisplayNote,
 } from "./club/record/record-audit-helpers";
 import { sanitizeInternalHref } from "./navigation-helpers";
+import { isCredibleClvPct, isParlayClvEntry } from "./record-stats";
 import type {
   DaySelection,
   LeagueFilter,
   SportFilter,
 } from "./club/home/home-model";
 
-/** Claves de almacenamiento local (versión en el nombre para poder migrar). */
 const STORAGE_KEYS = {
   journal: "pl-journal-v1",
   watchlist: "pl-watchlist-v1",
@@ -41,8 +41,6 @@ const STORAGE_KEYS = {
 } as const;
 
 const MAX_PARLAY_LEGS = 6;
-const MAX_EXPORT_CLV_PCT = 50;
-const MIN_EXPORT_CLV_PCT = -60;
 
 function readStoredArray<T>(key: string, isItem: (v: unknown) => v is T): T[] {
   try {
@@ -141,12 +139,12 @@ function fromServerRow(row: ServerJournalRow): JournalEntry {
     matchLabel: row.matchLabel,
     pickLabel: row.pickLabel,
     origin: origins.includes(row.origin as JournalEntry["origin"]) ? (row.origin as JournalEntry["origin"]) : "Propio",
-    units: Number(row.units),
-    userDecimal: Number(row.userDecimal),
-    fairDecimal: Number(row.fairDecimal),
+    units: parseStrictFiniteNumber(row.units) ?? 0,
+    userDecimal: parseStrictFiniteNumber(row.userDecimal) ?? 0,
+    fairDecimal: parseStrictFiniteNumber(row.fairDecimal) ?? 0,
     clvPct:
       row.clvPct === null ? undefined : (parseStrictFiniteNumber(row.clvPct) ?? undefined),
-    closingDecimal: row.closingDecimal ? Number(row.closingDecimal) : null,
+    closingDecimal: row.closingDecimal ? parseStrictFiniteNumber(row.closingDecimal) : null,
     status,
     pickKind: row.pickKind === "parlay" ? "parlay" : "single",
     ...(Array.isArray(row.parlayLegs) ? { parlayLegs: row.parlayLegs } : {}),
@@ -302,7 +300,6 @@ export interface ShareTicketPayload {
   units: number;
   gameStatus: "NS" | "FT" | "LIVE";
   legs?: ShareTicketLegItem[];
-  /** Solo para tarjetas editoriales oficiales (Parlay del día), nunca para picks individuales privados pre-kickoff. */
   revealLegs?: boolean;
   promoCode?: string;
   tipsterHandle?: string;
@@ -330,7 +327,6 @@ export interface PinUnlockResult {
   redirectTo?: string;
 }
 
-/** Quién es el socio con cuenta. Con el PIN de la beta no hay identidad (null). */
 export interface ViewerIdentity {
   handle: string;
   displayName: string;
@@ -339,7 +335,6 @@ export interface ViewerIdentity {
   avatarUrl?: string | null;
 }
 
-/** Usuario propio: el de la cuenta o, en la beta con PIN, el de ejemplo según el rol. */
 export function ownHandleFor(identity: ViewerIdentity | null, role: ViewerRole): string {
   if (identity) return identity.handle;
   return role === "tipster" ? "sofia_nfl" : "socio_pl";
@@ -376,19 +371,12 @@ export interface PlatformContextValue {
   viewerRole: ViewerRole;
   setViewerRole: (role: ViewerRole) => void;
   allowRoleSimulation: boolean;
-  /** Cuentas reales (Better Auth) activas en el servidor. */
   accountsEnabled: boolean;
-  /** Vía de acceso autenticada (`account`, `beta` o `none`). */
   viewerVia: ViewerVia;
-  /** Modo de cobro activo (`transfer` en Beta 1.0 o `stripe`). */
   paymentMode: PaymentMode;
-  /** Socio con cuenta (nombre, @usuario, iniciales y código); null con PIN o visitante. */
   viewerIdentity: ViewerIdentity | null;
-  /** Tiene sesión de cuenta iniciada (aunque su prueba o pase haya vencido). */
   hasAccountSession: boolean;
-  /** Sesión real autenticada con cookie de Better Auth (excluye PIN beta y visitante). */
   hasAccountSessionAuth: boolean;
-  /** Ruta de activación o alta según si ya tiene cuenta iniciada. */
   upgradeHref: string;
   updateViewerIdentity: (
     profile: Pick<ViewerIdentity, "displayName" | "handle"> & { avatarUrl?: string | null },
@@ -412,10 +400,8 @@ export interface PlatformContextValue {
     risk: RiskBand;
     legCount: number;
     allowSgp: boolean;
-    /** Partidos de donde elegir (p. ej. los días que ve el Inicio); sin él, toda la jornada. */
     games?: readonly PlatformGame[];
   }) => number;
-  /** Reemplaza el boleto por estas selecciones (las incompatibles se omiten); devuelve cuántas entraron. */
   loadParlayPicks: (
     picks: readonly MatchPick[],
     options?: { allowSgp?: boolean; label?: string },
@@ -439,7 +425,6 @@ export interface PlatformContextValue {
     pickBadge: string;
     originType: "Spacetime Suite" | "Bitácora Propia";
     body: string;
-    /** Pick adjunto: se publica con la publicación y se registra en la bitácora si es nuevo. */
     pick?: { matchPick: MatchPick; units: number; userDecimal: number; sealedEntryId?: string };
   }) => { ok: boolean; error?: string };
   addSocialComment: (
@@ -452,35 +437,24 @@ export interface PlatformContextValue {
   loadAllPostComments: (postId: string) => Promise<void>;
   recordSocialPostCopy: (postId: string) => void;
   toggleSocialLike: (postId: string) => void;
-  /** Borra una publicación propia (solo las guardadas en el servidor). */
   deleteSocialPost: (postId: string) => void;
-  /** Vuelve a pedir el feed compartido (con filtros/orden opcionales). */
   refreshSocialFeed: (scope?: SocialFeedScope) => void;
-  /** Trae las publicaciones recientes de quienes sigue el socio. */
   loadFollowingSocialPosts: () => void;
-  /** Trae las publicaciones de un socio para su perfil. */
   loadSocialPostsByAuthor: (handle: string) => void;
-  /** Trae las publicaciones ligadas a un partido por su `gameId`. */
   loadMatchSocialPosts: (gameId: string) => Promise<void>;
-  /** Pide publicaciones más viejas al servidor (`?before=…&limit=30`) para el feed, siguiendo, partido o perfil. */
   loadOlderSocialPosts: (scope?: SocialFeedScope) => Promise<boolean>;
-  /** Estado de paginación por ámbito (`feed`, `following`, `author:<handle>`). */
   socialFeedPages: Readonly<Record<string, SocialFeedPageState>>;
-  /** Garantiza que una publicación concreta esté cargada (p. ej. al abrir un aviso). */
   ensureSocialPostLoaded: (postId: string) => void;
-  /** Reporta una publicación o comentario ajeno en Comunidad. */
   reportSocialContent: (input: {
     postId?: string;
     commentId?: string;
     reason: SocialReportReason;
   }) => Promise<{ ok: boolean; autoHidden?: boolean; error?: string }>;
-  /** true cuando Comunidad viene del servidor (la ven todos los socios). */
   socialOnServer: boolean;
   blockedSpamAttempts: number;
 
   watchlistGameIds: string[];
   toggleWatchlistGame: (gameId: string) => void;
-  /** Avisos por partido de «Siguiendo» (inicio, goles, final). Sin entrada = todos encendidos. */
   followAlerts: Record<string, FollowAlerts>;
   setFollowAlerts: (gameId: string, alerts: FollowAlerts) => void;
   favoriteLeagues: LeagueId[];
@@ -536,22 +510,12 @@ export interface PlatformContextValue {
   dismissToast: (id: string) => void;
   setToastPaused: (id: string, paused: boolean) => void;
   navigateTo: (href: string) => void;
-  /** Precarga bajo demanda (touch/hover) deduplicada en memoria (ADR-053). */
   prefetchRoute: (href: string) => void;
-  /** Solicita el resto del horizonte diferido del shell si aún no llegó (`/api/shell/extend`). */
   requestFullShell: () => void;
 }
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);
 
-/* ---------- Contextos pequeños ----------
-   Un solo contexto hacía que cualquier cambio (un clic en «Parlay», pasar el cursor sobre una
-   tarjeta) redibujara todas las vistas y tarjetas. Las piezas calientes leen de aquí:
-   - Núcleo: datos y preferencias que casi no cambian.
-   - Acciones: funciones con identidad estable (nunca provocan redibujos).
-   - Aura: colores del fondo (solo los usa el escenario).
-   - Bitácora: picks sellados.
-   - Parlay: un almacén externo; cada tarjeta se suscribe solo a «¿este pick está dentro?». */
 export interface PlatformCoreValue {
   rawDataset: PlatformDataset;
   dataset: PlatformDataset;
@@ -588,70 +552,6 @@ type ActionKey = {
   [K in keyof PlatformContextValue]: PlatformContextValue[K] extends AnyFn ? K : never;
 }[keyof PlatformContextValue];
 export type PlatformActions = Pick<PlatformContextValue, ActionKey>;
-
-const ACTION_KEYS = [
-  "setViewerRole",
-  "updateViewerIdentity",
-  "setOddsFormat",
-  "setAuraFromGame",
-  "setAllowSgp",
-  "setParlayStakeUnits",
-  "addPickToParlay",
-  "removePickFromParlay",
-  "clearParlay",
-  "generateAutoParlay",
-  "loadParlayPicks",
-  "sealPickToJournal",
-  "sealParlayToJournal",
-  "exportJournalCsv",
-  "publishSocialPost",
-  "addSocialComment",
-  "deleteSocialComment",
-  "toggleSocialCommentHelpful",
-  "loadAllPostComments",
-  "recordSocialPostCopy",
-  "toggleSocialLike",
-  "deleteSocialPost",
-  "refreshSocialFeed",
-  "loadFollowingSocialPosts",
-  "loadSocialPostsByAuthor",
-  "loadMatchSocialPosts",
-  "loadOlderSocialPosts",
-  "ensureSocialPostLoaded",
-  "reportSocialContent",
-  "toggleWatchlistGame",
-  "setFollowAlerts",
-  "setFavoriteLeagues",
-  "setRiskPreference",
-  "setUserTimezone",
-  "setShowMxnBalance",
-  "setUnitMxn",
-  "setPreferredBooks",
-  "setSavedScreenerViews",
-  "simulateFriendFirstPayment",
-  "setMonth1NoCardMode",
-  "setTipsterWeeklyPickOrigin",
-  "setSelectedTipsterPickId",
-  "openComposer",
-  "closeComposer",
-  "openShareTicket",
-  "closeShareTicket",
-  "setCmdkOpen",
-  "openBetaPin",
-  "closeBetaPin",
-  "submitBetaPin",
-  "logoutSession",
-  "pushToast",
-  "dismissToast",
-  "setToastPaused",
-  "navigateTo",
-  "prefetchRoute",
-  "requestFullShell",
-] as const satisfies readonly ActionKey[];
-// Si falta alguna acción en la lista, esto no compila.
-type MissingActionKey = Exclude<ActionKey, (typeof ACTION_KEYS)[number]>;
-const ACTION_KEYS_COMPLETE: [MissingActionKey] extends [never] ? true : MissingActionKey = true;
-void ACTION_KEYS_COMPLETE;
 
 const DEFAULT_AURA_COLORS: readonly [string, string] = [
   "var(--pl-aura-default-home)",
@@ -723,7 +623,6 @@ export interface HomeNavFilterValue {
 }
 const HomeNavFilterContext = createContext<HomeNavFilterValue | null>(null);
 
-/** Almacén externo con los ids de los picks del parlay. */
 function createParlayIdStore() {
   let ids = new Set<string>();
   const listeners = new Set<() => void>();
@@ -787,7 +686,6 @@ export function useHomeNavFilter(): HomeNavFilterValue {
 export function useOptionalHomeNavFilter(): HomeNavFilterValue | null {
   return useContext(HomeNavFilterContext);
 }
-/** true si el pick está en el parlay. Solo redibuja este componente cuando eso cambia. */
 export function useIsPickInParlay(pickId: string | undefined): boolean {
   const store = required(useContext(ParlayIdStoreContext), "useIsPickInParlay");
   return useSyncExternalStore(
@@ -823,13 +721,9 @@ export function PlatformProvider({
   viewerVia?: ViewerVia;
   paymentMode?: PaymentMode;
   viewerIdentity?: ViewerIdentity | null;
-  /** Valor de la bandera en la base (cuando hay cuentas); manda sobre el navegador. */
   serverMonth1NoCardMode?: boolean;
-  /** Partidos pre-cargados en vigilancia (pruebas y Storybook). */
   initialWatchlistGameIds?: readonly string[];
-  /** Boleto inicial abierto en ShareTicketModal (pruebas y Storybook). */
   initialShareTicket?: ShareTicketPayload | null;
-  /** Estado inicial de CommandPaletteModal (pruebas y Storybook). */
   initialCmdkOpen?: boolean;
   onNavigate?: (href: string) => void;
   onPrefetchRoute?: (href: string) => void;
@@ -840,8 +734,6 @@ export function PlatformProvider({
 }): React.JSX.Element {
   const [viewerRole, setViewerRoleState] = useState<ViewerRole>(initialRole);
   const [viewerIdentity, setViewerIdentity] = useState(initialViewerIdentity);
-  // Marca de hidratación: las pruebas de navegador esperan a que React tenga los controles
-  // conectados antes de hacer clic (un clic sobre el HTML del servidor se pierde).
   useEffect(() => {
     document.documentElement.dataset.plHydrated = "1";
   }, []);
@@ -857,7 +749,6 @@ export function PlatformProvider({
   const [socialPosts, setSocialPosts] = useState<SocialPost[]>(() =>
     attachExamplePostPicks(INITIAL_SOCIAL_POSTS, rawDataset.games),
   );
-  // Con cuentas, Comunidad vive en el servidor; sin ellas (PIN de beta), en este navegador.
   const [socialOnServer, setSocialOnServer] = useState<boolean>(false);
   const [socialFeedPages, setSocialFeedPages] = useState<Record<string, SocialFeedPageState>>({});
   const socialFeedPagesRef = useRef<Record<string, SocialFeedPageState>>({});
@@ -985,7 +876,6 @@ export function PlatformProvider({
     [auraStore, resolveColorsForGame],
   );
 
-  // Hidratar preferencias persistidas en cliente
   useEffect(() => {
     try {
       const savedFmt = window.localStorage.getItem("pl-odds-fmt");
@@ -1056,7 +946,6 @@ export function PlatformProvider({
     }
   }, [allowRoleSimulation]);
 
-  // Datos del socio en este navegador (hasta que exista la base de datos de F4).
   const [userDataLoaded, setUserDataLoaded] = useState<boolean>(false);
   useEffect(() => {
     const savedJournal = readStoredArray<JournalEntry>(STORAGE_KEYS.journal, isJournalEntry);
@@ -1079,7 +968,6 @@ export function PlatformProvider({
     setUserDataLoaded(true);
   }, []);
 
-  // Con cuenta y sesión, la base es la fuente de verdad de vigilancia y bitácora.
   useEffect(() => {
     if (!hasAccountSessionAuth) {
       setMemberReferralsLoaded(true);
@@ -1162,7 +1050,6 @@ export function PlatformProvider({
     }
   }, [socialPosts, userDataLoaded, socialOnServer]);
 
-  // Atajo global Cmd+K / Ctrl+K y Escape
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -1356,7 +1243,6 @@ export function PlatformProvider({
     (v: boolean) => {
       setMonth1NoCardMode(v);
       if (hasAccountSessionAuth) {
-        // Con cuentas, la bandera vive en la base y aplica a toda la plataforma (solo fundador).
         void postJson("/api/admin/flags", { key: "month1_no_card_mode", value: v }).then((res) => {
           if (!res || !res.ok) {
             setMonth1NoCardMode(!v);
@@ -1738,13 +1624,10 @@ export function PlatformProvider({
     const header =
       "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,Ventaja_Pts,Estado";
     const lines = journal.map((j) => {
-      const clvCell =
-        typeof j.clvPct === "number" &&
-        Number.isFinite(j.clvPct) &&
-        j.clvPct <= MAX_EXPORT_CLV_PCT &&
-        j.clvPct >= MIN_EXPORT_CLV_PCT
-          ? j.clvPct.toFixed(1)
-          : "";
+      const rawClv = j.clvPct;
+      const clvCell = isCredibleClvPct(rawClv, isParlayClvEntry(j))
+        ? rawClv.toFixed(1)
+        : "";
       return [
         `"${sanitizeCsvCell(j.sealedAt)}"`,
         `"${sanitizeCsvCell(j.leagueLabel)}"`,
@@ -1840,7 +1723,6 @@ export function PlatformProvider({
           viewerRole === "tipster"
             ? "Ventaja +4.2 %"
             : formatClvBadge(journalRecord(journal).avgClvPct),
-        // Publicar como tipster usa el perfil de ejemplo @sofia_nfl.
         isExample: viewerRole === "tipster",
         leagueLabel: payload.leagueLabel,
         gameId: resolvedGameId,
@@ -1877,7 +1759,6 @@ export function PlatformProvider({
           : undefined,
       };
 
-      // Preparamos el registro en bitácora si aún no existe para ligar su UUID en la publicación.
       let sealedEntryToSync: JournalEntry | null = null;
       if (payload.pick && !payload.pick.sealedEntryId && !existingSealed) {
         const mp = payload.pick.matchPick;
@@ -1913,7 +1794,6 @@ export function PlatformProvider({
       }
 
       if (socialOnServer && !newPost.isExample) {
-        // Se ve al instante; el servidor la confirma (o la quita con su motivo).
         const tempId = `tmp-${Date.now()}`;
         setSocialPosts((prev) => [{ ...newPost, id: tempId, isMine: true }, ...prev]);
         void (async () => {
@@ -2517,7 +2397,6 @@ export function PlatformProvider({
     [viewerRole, socialOnServer, pushToast],
   );
 
-  // Feed compartido: al entrar y cada vez que la persona vuelve a la pestaña.
   useEffect(() => {
     if (!hasAccountSessionAuth) return;
     refreshSocialFeed();
@@ -2551,7 +2430,6 @@ export function PlatformProvider({
       if (hasAccountSessionAuth) {
         void postJson("/api/me/watchlist", { gameId, watched: !exists }).then((res) => {
           if (!res || !res.ok) {
-            // Rollback silencioso ante error de red (ADR-053 UI optimista)
             setWatchlistGameIds((prev) =>
               exists
                 ? prev.includes(gameId)
@@ -2890,17 +2768,70 @@ export function PlatformProvider({
     ],
   );
 
-  // Acciones estables: cada una llama a la versión más reciente guardada en una ref.
   const latestRef = useRef(value);
   latestRef.current = value;
-  const actions = useMemo(() => {
-    const out: Record<string, unknown> = {};
-    for (const key of ACTION_KEYS) {
-      out[key] = (...args: unknown[]) =>
-        (latestRef.current[key] as unknown as (...a: unknown[]) => unknown)(...args);
-    }
-    return out as unknown as PlatformActions;
-  }, []);
+  const actions = useMemo<PlatformActions>(
+    () => ({
+      setViewerRole: (...args) => latestRef.current.setViewerRole(...args),
+      updateViewerIdentity: (...args) => latestRef.current.updateViewerIdentity(...args),
+      setOddsFormat: (...args) => latestRef.current.setOddsFormat(...args),
+      setAuraFromGame: (...args) => latestRef.current.setAuraFromGame(...args),
+      setAllowSgp: (...args) => latestRef.current.setAllowSgp(...args),
+      setParlayStakeUnits: (...args) => latestRef.current.setParlayStakeUnits(...args),
+      addPickToParlay: (...args) => latestRef.current.addPickToParlay(...args),
+      removePickFromParlay: (...args) => latestRef.current.removePickFromParlay(...args),
+      clearParlay: (...args) => latestRef.current.clearParlay(...args),
+      generateAutoParlay: (...args) => latestRef.current.generateAutoParlay(...args),
+      loadParlayPicks: (...args) => latestRef.current.loadParlayPicks(...args),
+      sealPickToJournal: (...args) => latestRef.current.sealPickToJournal(...args),
+      sealParlayToJournal: (...args) => latestRef.current.sealParlayToJournal(...args),
+      exportJournalCsv: (...args) => latestRef.current.exportJournalCsv(...args),
+      publishSocialPost: (...args) => latestRef.current.publishSocialPost(...args),
+      addSocialComment: (...args) => latestRef.current.addSocialComment(...args),
+      deleteSocialComment: (...args) => latestRef.current.deleteSocialComment(...args),
+      toggleSocialCommentHelpful: (...args) => latestRef.current.toggleSocialCommentHelpful(...args),
+      loadAllPostComments: (...args) => latestRef.current.loadAllPostComments(...args),
+      recordSocialPostCopy: (...args) => latestRef.current.recordSocialPostCopy(...args),
+      toggleSocialLike: (...args) => latestRef.current.toggleSocialLike(...args),
+      deleteSocialPost: (...args) => latestRef.current.deleteSocialPost(...args),
+      refreshSocialFeed: (...args) => latestRef.current.refreshSocialFeed(...args),
+      loadFollowingSocialPosts: (...args) => latestRef.current.loadFollowingSocialPosts(...args),
+      loadSocialPostsByAuthor: (...args) => latestRef.current.loadSocialPostsByAuthor(...args),
+      loadMatchSocialPosts: (...args) => latestRef.current.loadMatchSocialPosts(...args),
+      loadOlderSocialPosts: (...args) => latestRef.current.loadOlderSocialPosts(...args),
+      ensureSocialPostLoaded: (...args) => latestRef.current.ensureSocialPostLoaded(...args),
+      reportSocialContent: (...args) => latestRef.current.reportSocialContent(...args),
+      toggleWatchlistGame: (...args) => latestRef.current.toggleWatchlistGame(...args),
+      setFollowAlerts: (...args) => latestRef.current.setFollowAlerts(...args),
+      setFavoriteLeagues: (...args) => latestRef.current.setFavoriteLeagues(...args),
+      setRiskPreference: (...args) => latestRef.current.setRiskPreference(...args),
+      setUserTimezone: (...args) => latestRef.current.setUserTimezone(...args),
+      setShowMxnBalance: (...args) => latestRef.current.setShowMxnBalance(...args),
+      setUnitMxn: (...args) => latestRef.current.setUnitMxn(...args),
+      setPreferredBooks: (...args) => latestRef.current.setPreferredBooks(...args),
+      setSavedScreenerViews: (...args) => latestRef.current.setSavedScreenerViews(...args),
+      simulateFriendFirstPayment: (...args) => latestRef.current.simulateFriendFirstPayment(...args),
+      setMonth1NoCardMode: (...args) => latestRef.current.setMonth1NoCardMode(...args),
+      setTipsterWeeklyPickOrigin: (...args) => latestRef.current.setTipsterWeeklyPickOrigin(...args),
+      setSelectedTipsterPickId: (...args) => latestRef.current.setSelectedTipsterPickId(...args),
+      openComposer: (...args) => latestRef.current.openComposer(...args),
+      closeComposer: (...args) => latestRef.current.closeComposer(...args),
+      openShareTicket: (...args) => latestRef.current.openShareTicket(...args),
+      closeShareTicket: (...args) => latestRef.current.closeShareTicket(...args),
+      setCmdkOpen: (...args) => latestRef.current.setCmdkOpen(...args),
+      openBetaPin: (...args) => latestRef.current.openBetaPin(...args),
+      closeBetaPin: (...args) => latestRef.current.closeBetaPin(...args),
+      submitBetaPin: (...args) => latestRef.current.submitBetaPin(...args),
+      logoutSession: (...args) => latestRef.current.logoutSession(...args),
+      pushToast: (...args) => latestRef.current.pushToast(...args),
+      dismissToast: (...args) => latestRef.current.dismissToast(...args),
+      setToastPaused: (...args) => latestRef.current.setToastPaused(...args),
+      navigateTo: (...args) => latestRef.current.navigateTo(...args),
+      prefetchRoute: (...args) => latestRef.current.prefetchRoute(...args),
+      requestFullShell: (...args) => latestRef.current.requestFullShell(...args),
+    }),
+    [],
+  );
 
   const core = useMemo<PlatformCoreValue>(
     () => ({
@@ -3064,10 +2995,6 @@ export function usePlatform(): PlatformContextValue {
   return ctx;
 }
 
-/**
- * Agrega o enriquece partidos puntuales (p. ej. terminados en Resultados o `preGame` completo
- * en la ficha de partido) sobre los datos recortados del shell compartido.
- */
 export function PlatformGamesSupplement({
   games,
   children,
@@ -3108,8 +3035,6 @@ export function PlatformGamesSupplement({
         seen.add(existing.id);
         const incoming = incomingById.get(existing.id);
         if (!incoming) return existing;
-        // Reemplaza la copia ligera del shell si el suplemento trae `preGame` enriquecido
-        // (bajas, síntesis, alineaciones o contexto completo para la ficha individual).
         const hasRicherPreGame = Boolean(
           (incoming.spacetime && !existing.spacetime) ||
             (incoming.confidenceDetail && !existing.confidenceDetail) ||

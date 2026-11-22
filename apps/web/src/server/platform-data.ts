@@ -64,6 +64,7 @@ import { buildSpacetimeSignals, isMarketFresh } from "./spacetime";
 import { buildMatchDetailV5 } from "./spacetime-v5";
 import { resolveServerFrozenMainPick } from "./frozen-picks";
 import { applyOutlook, outlookDetailFor } from "./outlook";
+import { logSecurityEvent } from "./safe-logger";
 import {
   buildDerivedFootballFallbackRows,
   buildDerivedUsSportRows,
@@ -134,7 +135,9 @@ export async function loadMonth1Flag(): Promise<boolean | undefined> {
     flagDb ??= createDb(url);
     return await getBoolFlag(flagDb, FLAG_MONTH1_NO_CARD, true);
   } catch (err) {
-    console.warn("[platform] no se pudo leer la bandera de prueba:", err);
+    logSecurityEvent("warn", "platform_preview_flag_read_failed", {
+      error: err instanceof Error ? err.message : String(err),
+    });
     return undefined;
   }
 }
@@ -911,7 +914,11 @@ function getOrBuildEnrichedGameMarkets(
   const cached = bundle.enrichedMarketsByGameId.get(game.id);
   if (cached) return cached;
 
-  const v32 = game.status !== "FT" ? outlookDetailFor(game) : null;
+  const leagueGeneratedAt =
+    bundle.value.leagues.find((lg) => lg.league === game.league)?.generatedAt ??
+    bundle.value.generatedAt;
+  const v32 =
+    game.status !== "FT" ? outlookDetailFor(game, undefined, leagueGeneratedAt) : null;
   const countMarkets = game.markets.filter(
     (row) =>
       row.market === "corners_total" ||
@@ -1235,8 +1242,14 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
     if (env?.data) {
       const signals = buildSpacetimeSignals(env.data.games);
       const games = env.data.games.map((g) => {
-        const applied = applyOutlook(g, signals[g.id] ?? null);
+        const applied = applyOutlook(
+          g,
+          signals[g.id] ?? null,
+          undefined,
+          env.data.generatedAt,
+        );
         if (applied.signal) signals[g.id] = applied.signal;
+        else delete signals[g.id];
         return applied.match;
       });
       inputs.push({
