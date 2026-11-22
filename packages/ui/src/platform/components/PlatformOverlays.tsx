@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { getLogoPath } from "@pitchlab/sports-assets";
 import {
   canRevealPickOnShare,
@@ -399,25 +400,31 @@ export function PickComposerModal(): React.JSX.Element | null {
 
   const parsedDec = Math.max(
     1.05,
-    Number(userDec.replace(",", ".")) || pickReferenceDecimal(composerPick),
+    parseStrictFiniteNumber(userDec.replace(",", ".")) || pickReferenceDecimal(composerPick),
   );
   const clvLivePct =
     Math.round((parsedDec / composerPick.fairDecimal - 1) * 1000) / 10;
   const evLivePct = Math.round((composerPick.p * parsedDec - 1) * 1000) / 10;
   const edgeLive = Math.round((composerPick.p - 1 / parsedDec) * 1000) / 10;
 
-  const valuePresetDec = Number((composerPick.fairDecimal * 1.05).toFixed(2));
+  const valuePresetDec =
+    parseStrictFiniteNumber((composerPick.fairDecimal * 1.05).toFixed(2)) ??
+    composerPick.fairDecimal;
   const quickPresets = [
     {
       id: "fair",
       label: "Justa",
-      dec: Number(composerPick.fairDecimal.toFixed(2)),
+      dec:
+        parseStrictFiniteNumber(composerPick.fairDecimal.toFixed(2)) ??
+        composerPick.fairDecimal,
       mode: "manual" as const,
     },
     {
       id: "market",
       label: "Mercado",
-      dec: Number(pickReferenceDecimal(composerPick).toFixed(2)),
+      dec:
+        parseStrictFiniteNumber(pickReferenceDecimal(composerPick).toFixed(2)) ??
+        pickReferenceDecimal(composerPick),
       mode: "observed" as const,
     },
     {

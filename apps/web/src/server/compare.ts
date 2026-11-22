@@ -6,6 +6,7 @@ import {
   COMPETITION_CATALOG,
   isLeagueActiveInWindow,
   LeagueSquadsFileSchema,
+  parseStrictFiniteNumber,
   sportForLeague,
   sportHasDraw,
   sportScoringUnit,
@@ -298,8 +299,7 @@ export function loadTeamComparison(
 
 function parseNumericMetric(raw: string): number | null {
   const cleaned = raw.replace(/[,%]/g, "").trim();
-  const n = Number(cleaned);
-  return Number.isFinite(n) ? n : null;
+  return parseStrictFiniteNumber(cleaned);
 }
 
 function toPlayerCard(

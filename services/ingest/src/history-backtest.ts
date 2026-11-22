@@ -216,7 +216,10 @@ export function loadExtendedGames(
   const out: HistoricalGame[] = [];
   for (const line of readFileSync(path, "utf8").split(/\r?\n/)) {
     if (!line.trim()) continue;
-    const game = schema.parse(JSON.parse(line)) as unknown as HistoricalGame;
+    const parsed = schema.parse(JSON.parse(line));
+    const source: HistoricalGame["source"] =
+      parsed.source === "nflverse" ? "nflverse" : "openfootball";
+    const game: HistoricalGame = { ...parsed, source };
     if (!known.has(game.id)) out.push(game);
   }
   return out;

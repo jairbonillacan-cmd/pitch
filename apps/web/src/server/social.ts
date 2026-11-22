@@ -137,7 +137,7 @@ export async function loadFollowInfo(
   const url = process.env.DATABASE_URL;
   const auth = getAuth();
   if (!url) return null;
-  socialDb ??= createDb(url) as unknown as Db;
+  socialDb ??= createDb(url);
   const db = socialDb;
   const [target] = await db.select({ id: users.id }).from(users).where(eq(users.handle, handle.toLowerCase()));
   if (!target) return null;

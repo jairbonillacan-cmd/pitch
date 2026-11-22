@@ -159,19 +159,20 @@ interface NewsCacheStore {
   opaqueIndex: Map<OpaqueResourceId, OpaqueIndexEntry>;
 }
 
-const GLOBAL_CACHE_KEY = "__pitchlabEspnNewsCache_v3";
+declare global {
+  var __pitchlabEspnNewsCache_v3: NewsCacheStore | undefined;
+}
 
 function getCacheStore(): NewsCacheStore {
-  const g = globalThis as unknown as Record<string, NewsCacheStore>;
-  if (!g[GLOBAL_CACHE_KEY]) {
-    g[GLOBAL_CACHE_KEY] = {
+  if (!globalThis.__pitchlabEspnNewsCache_v3) {
+    globalThis.__pitchlabEspnNewsCache_v3 = {
       entries: new Map(),
       inflight: new Map(),
       summaries: new Map(),
       opaqueIndex: new Map(),
     };
   }
-  return g[GLOBAL_CACHE_KEY];
+  return globalThis.__pitchlabEspnNewsCache_v3;
 }
 
 export function lookupLeagueForOpaqueNewsId(

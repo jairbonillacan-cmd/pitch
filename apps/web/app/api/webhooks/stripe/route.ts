@@ -168,7 +168,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const activeDb = (db ??= createDb(url) as unknown as Db);
+  const activeDb = (db ??= createDb(url));
   try {
     const result = await processStripeEvent(activeDb, parsedEvent.data, {
       getInvoiceFeeCentavos: stripeFeeFetcher(apiKey),

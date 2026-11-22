@@ -18,6 +18,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { loadRootEnvFiles } from "../env.js";
 import {
   BZZOIRO_LEAGUES,
@@ -64,10 +65,12 @@ function parseFlags(argv: readonly string[]): Flags {
     else {
       const match = arg.match(/^--([a-z-]+)=(.+)$/);
       if (!match) throw new Error(`Argumento no reconocido: '${arg}'.`);
-      const [, key, value] = match as unknown as [string, string, string];
+      const key = match[1];
+      const value = match[2];
+      if (!key || value === undefined) throw new Error(`Argumento no reconocido: '${arg}'.`);
       const positive = (): number => {
-        const n = Number(value);
-        if (!Number.isInteger(n) || n < 0) throw new Error(`--${key} inválido: '${value}'.`);
+        const n = parseStrictFiniteNumber(value);
+        if (n === null || !Number.isInteger(n) || n < 0) throw new Error(`--${key} inválido: '${value}'.`);
         return n;
       };
       if (key === "provider") {
@@ -94,7 +97,7 @@ function readJsonl<T>(file: string): T[] {
 }
 
 /** Une lo nuevo con lo guardado: el registro nuevo gana, salvo que pierda datos que ya había. */
-function upsertById<T extends { providerMatchId: number }>(
+function upsertById<T extends { providerMatchId: number; kickoffUtc: string }>(
   existing: readonly T[],
   incoming: readonly T[],
   keepFromExisting: (prev: T, next: T) => T,
@@ -105,11 +108,7 @@ function upsertById<T extends { providerMatchId: number }>(
     const prev = byId.get(row.providerMatchId);
     byId.set(row.providerMatchId, prev ? keepFromExisting(prev, row) : row);
   }
-  return [...byId.values()].sort((a, b) =>
-    String((a as unknown as { kickoffUtc: string }).kickoffUtc).localeCompare(
-      String((b as unknown as { kickoffUtc: string }).kickoffUtc),
-    ),
-  );
+  return [...byId.values()].sort((a, b) => a.kickoffUtc.localeCompare(b.kickoffUtc));
 }
 
 function writeJsonl(file: string, rows: readonly unknown[]): void {

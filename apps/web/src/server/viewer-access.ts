@@ -87,7 +87,7 @@ export const getViewerAccountUserId = cache(async (): Promise<string | null> => 
   try {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) return null;
-    db ??= createDb(url) as unknown as Db;
+    db ??= createDb(url);
     return await profileIdForAuthUser(db, session.user.id);
   } catch (err) {
     void err;
@@ -102,7 +102,7 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
     try {
       const session = await auth.api.getSession({ headers: await headers() });
       if (session) {
-        db ??= createDb(url) as unknown as Db;
+        db ??= createDb(url);
         const userId = await profileIdForAuthUser(db, session.user.id);
         if (!userId) {
           return {

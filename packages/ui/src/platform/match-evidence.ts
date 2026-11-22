@@ -3,6 +3,7 @@
  * Calcula tasas reales verificables (`X/5`, `X/N H2H`, ritmo proyectado, árbitro y conteos reales)
  * estrictamente a partir de datos presentes en el partido — cero números inventados.
  */
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type {
   MatchIntelligenceV5View,
   MatchPick,
@@ -126,8 +127,7 @@ function extractLineNumber(pick: Pick<MatchPick, "line" | "label" | "selectionKe
   if (typeof pick.line === "number" && Number.isFinite(pick.line)) return pick.line;
   const m = /(\d+(?:\.\d+)?)/.exec(`${pick.label} ${pick.selectionKey}`);
   if (!m) return null;
-  const n = Number(m[1]);
-  return Number.isFinite(n) ? n : null;
+  return parseStrictFiniteNumber(m[1]);
 }
 
 function evaluateH2hForPick(

@@ -50,7 +50,7 @@ export async function resolveServerFrozenMainPick(
   const dbUrl = process.env.DATABASE_URL;
   if (dbUrl) {
     try {
-      frozenDb ??= createDb(dbUrl) as unknown as Db;
+      frozenDb ??= createDb(dbUrl);
       const stored = await getOrFreezeMatchMainPick(
         frozenDb,
         {

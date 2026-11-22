@@ -225,24 +225,24 @@ function TooltipTrigger({
     : ariaDescribedBy;
 
   const handlePointerEnter = (event: React.PointerEvent<HTMLElement>) => {
-    onPointerEnter?.(event as unknown as React.PointerEvent<HTMLButtonElement>);
+    onPointerEnter?.(event as React.PointerEvent<HTMLButtonElement>);
     if (event.pointerType === "touch") return;
     ctx.scheduleOpen();
   };
 
   const handlePointerLeave = (event: React.PointerEvent<HTMLElement>) => {
-    onPointerLeave?.(event as unknown as React.PointerEvent<HTMLButtonElement>);
+    onPointerLeave?.(event as React.PointerEvent<HTMLButtonElement>);
     if (event.pointerType === "touch") return;
     ctx.scheduleClose();
   };
 
   const handleFocus = (event: React.FocusEvent<HTMLElement>) => {
-    onFocus?.(event as unknown as React.FocusEvent<HTMLButtonElement>);
+    onFocus?.(event as React.FocusEvent<HTMLButtonElement>);
     ctx.openNow();
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLElement>) => {
-    onBlur?.(event as unknown as React.FocusEvent<HTMLButtonElement>);
+    onBlur?.(event as React.FocusEvent<HTMLButtonElement>);
     ctx.closeNow();
   };
 

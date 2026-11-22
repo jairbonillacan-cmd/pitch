@@ -1,6 +1,7 @@
 /**
  * Captura y consulta de cuotas de cierre pre-kickoff para el cálculo real de CLV.
  */
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { listClosingOddsForGames, upsertClosingOdds, type ClosingOddsInput, type ClosingOddsRow, type Db } from "@pitchlab/db";
 import type { PlatformDataset } from "@pitchlab/ui/types";
 import { buildServerRawPlatformDataset } from "./platform-data";
@@ -30,13 +31,13 @@ export function normalizeClosingSelectionAndLine(
     const match = /^(over|under)_([+-]?\d+(?:\.\d+)?)$/.exec(normSel);
     if (match) {
       normSel = match[1]!;
-      if (resolvedLine === null) resolvedLine = Number(match[2]);
+      if (resolvedLine === null) resolvedLine = parseStrictFiniteNumber(match[2]);
     }
   } else if (normMarket === "spreads") {
     const match = /^(home|away)_([+-]?\d+(?:\.\d+)?)$/.exec(normSel);
     if (match) {
       normSel = match[1]!;
-      if (resolvedLine === null) resolvedLine = Number(match[2]);
+      if (resolvedLine === null) resolvedLine = parseStrictFiniteNumber(match[2]);
     }
   }
 

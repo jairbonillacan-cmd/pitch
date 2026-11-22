@@ -8,6 +8,8 @@
  *   ~ Normal(λ, σ_e). σ_t y σ_e son las dispersiones típicas de la NFL.
  */
 
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
+
 const DC_RHO = -0.11;
 const MAX_GOALS = 10;
 const NFL_TOTAL_SD = 13.5;
@@ -125,7 +127,7 @@ export function derivedMarketProbability(
   if (model.kind === "goals") {
     if (market === "totals") {
       const m = sel.match(/^(over|under)_(\d+(?:\.\d+)?)$/);
-      const ln = m ? Number(m[2]) : line;
+      const ln = m ? (parseStrictFiniteNumber(m[2]) ?? undefined) : line;
       if (ln === undefined || !Number.isFinite(ln)) return null;
       const over = sumMatrix(model, (h, a) => overLine(h + a, ln));
       return (m?.[1] ?? sel) === "under" ? 1 - over : over;
@@ -145,7 +147,10 @@ export function derivedMarketProbability(
     if (market === "correct_score") {
       const m = sel.match(/^(\d+)-(\d+)$/);
       if (!m) return null;
-      return model.matrix[Number(m[1])]?.[Number(m[2])] ?? null;
+      const homeGoals = parseStrictFiniteNumber(m[1]);
+      const awayGoals = parseStrictFiniteNumber(m[2]);
+      if (homeGoals === null || awayGoals === null) return null;
+      return model.matrix[homeGoals]?.[awayGoals] ?? null;
     }
     return null;
   }

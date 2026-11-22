@@ -13,7 +13,7 @@ export function setSessionDbForTests(instance: Db | null): void {
 export function serverDb(url: string | undefined = process.env.DATABASE_URL): Db | null {
   if (db) return db;
   if (!url) return null;
-  db = createDb(url) as unknown as Db;
+  db = createDb(url);
   return db;
 }
 
@@ -39,7 +39,7 @@ export async function requireStep1Member(
   }
   const session = await auth.api.getSession({ headers: request.headers });
   if (!session) return { error: NextResponse.json({ error: "Inicia sesión" }, { status: 401 }) };
-  db ??= createDb(url) as unknown as Db;
+  db ??= createDb(url);
   const userId = await profileIdForAuthUser(db, session.user.id);
   if (!userId) return { error: NextResponse.json({ error: "Perfil no encontrado" }, { status: 404 }) };
   return {
@@ -60,7 +60,7 @@ export async function optionalPublicDbSession(
 ): Promise<{ db: Db; userId: string | null } | null> {
   const url = process.env.DATABASE_URL;
   if (!db && !url) return null;
-  db ??= createDb(url!) as unknown as Db;
+  db ??= createDb(url!);
   let userId: string | null = null;
   const auth = getAuth();
   if (auth) {

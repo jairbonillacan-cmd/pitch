@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
 import type { Db } from "./billing";
+import { withDbTransaction } from "./client";
 import { userPreferences, users, type SavedScreenerViewRecord } from "./schema";
 
 export type OddsFormatPref = "american" | "decimal";
@@ -370,8 +371,7 @@ export async function upsertUserPreferences(
   patch: UserPreferencesPatch,
   now = new Date(),
 ): Promise<UserPreferencesRecord> {
-  return db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
+  return withDbTransaction(db, async (t) => {
     const current = await getUserPreferences(t, userId);
 
     const oddsFormat: OddsFormatPref = patch.oddsFormat ?? current.oddsFormat;

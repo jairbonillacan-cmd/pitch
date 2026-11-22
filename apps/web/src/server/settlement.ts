@@ -3,7 +3,7 @@
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { asMarketKey, LeagueSnapshotSchema, selectionHolds } from "@pitchlab/contracts";
+import { asMarketKey, LeagueSnapshotSchema, parseStrictFiniteNumber, selectionHolds } from "@pitchlab/contracts";
 import {
   and,
   eq,
@@ -161,14 +161,23 @@ function normalizeMarketForGrading(rawMarket: string, selection: string): { mark
   }
   if (m.startsWith("totals_") || m === "totals" || m === "ou") {
     const match = /^(over|under)[_-]?([+-]?\d+(?:\.\d+)?)$/.exec(s);
-    if (match) return { market: "totals", selection: `${match[1]}_${match[2]}`, line: Number(match[2]) };
+    if (match) {
+      const line = parseStrictFiniteNumber(match[2]);
+      if (line !== null) return { market: "totals", selection: `${match[1]}_${match[2]}`, line };
+    }
     const mLine = /^totals_(\d+_\d+)$/.exec(m);
-    if (mLine) return { market: "totals", selection: s, line: Number(mLine[1]!.replace("_", ".")) };
+    if (mLine) {
+      const line = parseStrictFiniteNumber(mLine[1]!.replace("_", "."));
+      if (line !== null) return { market: "totals", selection: s, line };
+    }
     return { market: "totals", selection: s };
   }
   if (m === "spread" || m === "spreads" || m === "handicap" || m === "asian_handicap" || m === "puck_line") {
     const match = /^(home|away)[_-]([+-]?\d+(?:\.\d+)?)$/.exec(s);
-    if (match) return { market: "spreads", selection: match[1]!, line: Number(match[2]) };
+    if (match) {
+      const line = parseStrictFiniteNumber(match[2]);
+      if (line !== null) return { market: "spreads", selection: match[1]!, line };
+    }
     return { market: "spreads", selection: s };
   }
   if (m === "team_totals") {
@@ -203,13 +212,17 @@ export function gradeSelection(
       return null; // Requiere comparar nombres si no guardó market/selection.
     } else if (/^más de (\d+(?:\.\d+)?)/.test(label)) {
       const m = /^más de (\d+(?:\.\d+)?)/.exec(label)!;
+      const parsedLine = parseStrictFiniteNumber(m[1]);
+      if (parsedLine === null) return null;
       market = "totals";
-      line = Number(m[1]);
+      line = parsedLine;
       selection = `over_${line}`;
     } else if (/^menos de (\d+(?:\.\d+)?)/.test(label)) {
       const m = /^menos de (\d+(?:\.\d+)?)/.exec(label)!;
+      const parsedLine = parseStrictFiniteNumber(m[1]);
+      if (parsedLine === null) return null;
       market = "totals";
-      line = Number(m[1]);
+      line = parsedLine;
       selection = `under_${line}`;
     } else if (label.includes("ambos anotan") && label.includes("sí")) {
       market = "btts";
@@ -422,15 +435,15 @@ export async function runPickSettlement(
         activeLegs.length > 0 &&
         activeLegs.every((l) => nextResults.find((r) => r.pickId === l.pickId)?.closingDecimal != null);
       const closingDecimal = allLegsHaveClosing
-        ? Number(
+        ? parseStrictFiniteNumber(
             activeLegs
               .reduce((acc, l) => acc * (nextResults.find((r) => r.pickId === l.pickId)!.closingDecimal ?? 1), 1)
               .toFixed(3),
           )
         : null;
 
-      const userDec = Number(row.userDecimal);
-      const refFair = closingDecimal ?? Number(row.fairDecimal);
+      const userDec = parseStrictFiniteNumber(row.userDecimal) ?? 0;
+      const refFair = closingDecimal ?? (parseStrictFiniteNumber(row.fairDecimal) ?? 0);
       const clvPct = computeClvPct(userDec, refFair);
 
       const res = await settleAndNotify(db, mailer, {
@@ -461,7 +474,7 @@ export async function runPickSettlement(
 
     let market = row.pickMarket;
     let selection = row.pickSelection;
-    let line = row.pickLine !== null && row.pickLine !== undefined ? Number(row.pickLine) : null;
+    let line = row.pickLine !== null && row.pickLine !== undefined ? parseStrictFiniteNumber(row.pickLine) : null;
 
     if (!market || !selection) {
       const catGame = gamesById.get(row.gameId);
@@ -497,7 +510,10 @@ export async function runPickSettlement(
       line,
     });
     const closingRef = closing ? (closing.fairDecimal ?? closing.decimalOdds) : null;
-    const clvPct = computeClvPct(Number(row.userDecimal), closingRef ?? Number(row.fairDecimal));
+    const clvPct = computeClvPct(
+      parseStrictFiniteNumber(row.userDecimal) ?? 0,
+      closingRef ?? (parseStrictFiniteNumber(row.fairDecimal) ?? 0),
+    );
 
     const res = await settleAndNotify(db, mailer, {
       userId: row.userId,

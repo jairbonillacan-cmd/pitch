@@ -1,4 +1,4 @@
-import { sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, sportHasDraw, sportScoringUnit } from "@pitchlab/contracts";
 import { formatOddsValue } from "../../access-guard";
 import type {
   OddsFormat,
@@ -56,9 +56,9 @@ export const keepCortexUnits = (text: string): string =>
 function parseLineNumber(row: Pick<PlatformMarketRow, "line" | "selection" | "label" | "group">): number | null {
   if (typeof row.line === "number" && Number.isFinite(row.line)) return row.line;
   const fromSelection = /(?:over|under|home|away)_(-?\d+(?:\.\d+)?)/i.exec(row.selection)?.[1];
-  if (fromSelection) return Number(fromSelection);
+  if (fromSelection) return parseStrictFiniteNumber(fromSelection);
   const fromGroup = /(-?\d+(?:\.\d+)?)/.exec(row.group)?.[1];
-  if (fromGroup) return Number(fromGroup);
+  if (fromGroup) return parseStrictFiniteNumber(fromGroup);
   return null;
 }
 
@@ -79,8 +79,9 @@ function formatSpreadLabel(row: PlatformMarketRow, game: PlatformGame): string {
     return `${prefix} ${sideCode} ${formatSignedLine(line)}`;
   }
   const parenLine = /\(([+-]?\d+(?:\.\d+)?)\)/.exec(row.label)?.[1];
-  if (parenLine && sideCode) {
-    return `${prefix} ${sideCode} ${formatSignedLine(Number(parenLine))}`;
+  const parsedParen = parenLine ? parseStrictFiniteNumber(parenLine) : null;
+  if (parsedParen !== null && sideCode) {
+    return `${prefix} ${sideCode} ${formatSignedLine(parsedParen)}`;
   }
   return row.label.trim();
 }
@@ -448,8 +449,8 @@ export function buildCortexEditorialSections(
       stats: [
         {
           label: isGoalSport ? "Goles esperados" : "Puntos esperados",
-          home: Number(hVal),
-          away: Number(aVal),
+          home: parseStrictFiniteNumber(hVal) ?? game.projection.home,
+          away: parseStrictFiniteNumber(aVal) ?? game.projection.away,
         },
       ],
     });

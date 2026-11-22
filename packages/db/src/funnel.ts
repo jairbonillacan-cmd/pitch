@@ -6,6 +6,21 @@ import { countDistinct, gte } from "drizzle-orm";
 import type { Db } from "./billing";
 import { funnelEvents } from "./schema";
 
+const STRICT_CANONICAL_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseStrictDbNumber(raw: unknown): number | null {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? (raw === 0 ? 0 : raw) : null;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_CANONICAL_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? (parsed === 0 ? 0 : parsed) : null;
+  }
+  return null;
+}
+
 export const FUNNEL_STAGE_NAMES = [
   "landing",
   "signup_step1",
@@ -105,7 +120,7 @@ export async function getAdminFunnelSummary(
 
   const byStage = new Map<string, number>();
   for (const r of rows) {
-    byStage.set(r.eventName, Number(r.sessions));
+    byStage.set(r.eventName, parseStrictDbNumber(r.sessions) ?? 0);
   }
 
   const landingCount = byStage.get("landing") ?? 0;

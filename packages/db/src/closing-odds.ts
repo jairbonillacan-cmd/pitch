@@ -5,6 +5,21 @@ import { and, desc, eq, inArray, lte } from "drizzle-orm";
 import type { Db } from "./billing";
 import { closingOdds } from "./schema";
 
+const STRICT_CANONICAL_NUMBER_RE = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/;
+
+function parseStrictDbNumber(raw: unknown): number | null {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) ? (raw === 0 ? 0 : raw) : null;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_CANONICAL_NUMBER_RE.test(trimmed)) return null;
+    const parsed = Number.parseFloat(trimmed);
+    return Number.isFinite(parsed) ? (parsed === 0 ? 0 : parsed) : null;
+  }
+  return null;
+}
+
 export interface ClosingOddsInput {
   gameId: string;
   market: string;
@@ -126,9 +141,9 @@ export async function listClosingOddsForGames(db: Db, gameIds: readonly string[]
     selection: r.selection,
     lineKey: r.lineKey,
     book: r.book,
-    decimalOdds: Number(r.decimalOdds),
-    fairDecimal: r.fairDecimal ? Number(r.fairDecimal) : null,
-    noVigProb: r.noVigProb ? Number(r.noVigProb) : null,
+    decimalOdds: parseStrictDbNumber(r.decimalOdds) ?? 0,
+    fairDecimal: r.fairDecimal ? parseStrictDbNumber(r.fairDecimal) : null,
+    noVigProb: r.noVigProb ? parseStrictDbNumber(r.noVigProb) : null,
     source: r.source,
     kickoffAt: r.kickoffAt,
     capturedAt: r.capturedAt,

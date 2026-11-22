@@ -95,8 +95,8 @@ function backtest(sport: "nba" | "nhl") {
 
   const make = (opts: object): Tracker =>
     sport === "nba"
-      ? (createNbaTracker(opts as Partial<NbaOptions>) as unknown as Tracker)
-      : (createNhlTracker(opts as Partial<NhlOptions>) as unknown as Tracker);
+      ? createNbaTracker(opts as Partial<NbaOptions>)
+      : createNhlTracker(opts as Partial<NhlOptions>);
 
   const candidates =
     sport === "nba"

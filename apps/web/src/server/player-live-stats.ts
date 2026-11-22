@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   buildGuardedNbaPlayerPropSeeds,
   DEFAULT_NBA_PROP_MIN_MINUTES,
@@ -113,8 +114,8 @@ function parseOverview(league: string, data: RawOverview): Omit<CachedOverviewRe
     if (v && v !== "--") byKey.set(lbl.trim().toUpperCase(), v);
   });
 
-  const gp = Number((byKey.get("GP") ?? byKey.get("G") ?? "0").replace(/,/g, ""));
-  const appearances = Number.isFinite(gp) && gp > 0 ? Math.round(gp) : 0;
+  const gp = parseStrictFiniteNumber((byKey.get("GP") ?? byKey.get("G") ?? "0").replace(/,/g, ""));
+  const appearances = gp !== null && gp > 0 ? Math.round(gp) : 0;
 
   const order =
     league === "mlb"
@@ -140,9 +141,9 @@ function parseOverview(league: string, data: RawOverview): Omit<CachedOverviewRe
   }
 
   if (league === "mlb" && !byKey.has("ERA") && byKey.has("H") && byKey.has("AB")) {
-    const h = Number(byKey.get("H"));
-    const ab = Number(byKey.get("AB"));
-    if (Number.isFinite(h) && Number.isFinite(ab) && ab > 0) {
+    const h = parseStrictFiniteNumber(byKey.get("H"));
+    const ab = parseStrictFiniteNumber(byKey.get("AB"));
+    if (h !== null && ab !== null && ab > 0) {
       seasonMetrics.splice(1, 0, {
         key: "avg",
         label: "AVG",

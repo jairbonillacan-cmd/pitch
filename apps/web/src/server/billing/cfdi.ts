@@ -33,7 +33,11 @@ export function isValidRfc(raw: string): boolean {
   if (rfc.length !== 12 && rfc.length !== 13) return false;
   const match = RFC_RE.exec(rfc);
   if (!match) return false;
-  return isValidRfcDate(Number(match[2]), Number(match[3]), Number(match[4]));
+  return isValidRfcDate(
+    Number.parseInt(match[2], 10),
+    Number.parseInt(match[3], 10),
+    Number.parseInt(match[4], 10),
+  );
 }
 
 /** El CFDI 4.0 exige la razón social sin régimen societario («SA DE CV», «SAPI DE CV», …). */

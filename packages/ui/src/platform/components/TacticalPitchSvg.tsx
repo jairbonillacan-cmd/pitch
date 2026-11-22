@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useId, useMemo, useState } from "react";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type { ConfirmedLineupPlayer, VerifiedMatchLineups } from "../types";
 
 export interface TacticalPitchSvgProps {
@@ -19,8 +20,8 @@ export function parseFormationRows(formation?: string | null, totalPlayers = 11)
   const clean = (formation ?? "").trim();
   const parts = clean
     .split(/[^0-9]+/)
-    .map((s) => Number(s))
-    .filter((n) => Number.isInteger(n) && n > 0 && n <= 6);
+    .map((s) => parseStrictFiniteNumber(s))
+    .filter((n): n is number => n !== null && Number.isInteger(n) && n > 0 && n <= 6);
 
   if (parts.length >= 2) {
     const sum = parts.reduce((acc, n) => acc + n, 0);

@@ -10,6 +10,7 @@
  * - Entiende el formato actual de Stripe (sin `invoice.charge` ni `charge.invoice`) y el anterior.
  */
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   and,
   applyReferralClawback,
@@ -27,6 +28,7 @@ import {
   subscriptions,
   sql,
   users,
+  withDbTransaction,
   type Db,
   type ReferralClawbackPlan,
 } from "@pitchlab/db";
@@ -51,9 +53,9 @@ export function verifyStripeSignature(
 ): void {
   if (!header) throw new StripeSignatureError("Falta Stripe-Signature");
   const parts = header.split(",").map((p) => p.trim().split("="));
-  const t = Number(parts.find(([k]) => k === "t")?.[1]);
+  const t = parseStrictFiniteNumber(parts.find(([k]) => k === "t")?.[1]);
   const signatures = parts.filter(([k]) => k === "v1").map(([, v]) => v ?? "");
-  if (!Number.isFinite(t) || signatures.length === 0) throw new StripeSignatureError("Firma mal formada");
+  if (t === null || signatures.length === 0) throw new StripeSignatureError("Firma mal formada");
   if (Math.abs(nowSeconds - t) > SIGNATURE_TOLERANCE_SECONDS) throw new StripeSignatureError("Firma vencida");
   const expected = Buffer.from(createHmac("sha256", secret).update(`${t}.${payload}`).digest("hex"));
   const ok = signatures.some((sig) => {
@@ -226,8 +228,7 @@ async function shiftStripeForClawback(db: Db, plan: ReferralClawbackPlan, deps: 
       target,
       `trial_end:${sub.providerSubscriptionId}:${target === "now" ? `now:${plan.referralId}` : unix(target)}`,
     );
-    await db.transaction(async (tx) => {
-      const t = tx as unknown as Db;
+    await withDbTransaction(db, async (t) => {
       await t
         .update(subscriptions)
         .set({ currentPeriodEnd: target === "now" ? now : target, updatedAt: now })

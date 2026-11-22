@@ -127,7 +127,7 @@ function resolveCortexDb(dbOverride?: Db): Db | null {
   if (dbOverride) return dbOverride;
   const url = process.env.DATABASE_URL;
   if (!url) return null;
-  aiFlagDb ??= createDb(url) as unknown as Db;
+  aiFlagDb ??= createDb(url);
   return aiFlagDb;
 }
 

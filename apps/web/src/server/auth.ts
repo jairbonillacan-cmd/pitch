@@ -346,7 +346,7 @@ export function getAuth(): PitchLabAuth | null {
   const pair = (id?: string, secretValue?: string) =>
     id && secretValue ? { clientId: id, clientSecret: secretValue } : undefined;
   cached = createAuth({
-    db: createDb(url) as unknown as Db,
+    db: createDb(url),
     secret,
     baseURL,
     sendEmail,

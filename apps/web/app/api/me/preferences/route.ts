@@ -197,9 +197,7 @@ function parsePatch(raw: unknown): {
   }
 
   if (data.recordPrivacy !== undefined) {
-    patch.recordPrivacy = normalizeRecordPrivacy(
-      data.recordPrivacy,
-    ) as unknown as Record<string, unknown>;
+    patch.recordPrivacy = { ...normalizeRecordPrivacy(data.recordPrivacy) };
   }
 
   if (data.bankrollStartMxnCentavos !== undefined || data.bankrollStartMxn !== undefined) {

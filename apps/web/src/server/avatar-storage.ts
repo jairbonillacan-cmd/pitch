@@ -1,5 +1,6 @@
 import { createHash, createHmac, randomBytes } from "node:crypto";
 import sharp from "sharp";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 
 export const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 export const AVATAR_SIZE_PX = 256;
@@ -200,7 +201,7 @@ async function resolveGcsAccessToken(): Promise<string> {
   if (!data.access_token) {
     throw new Error("Respuesta inválida del servidor de metadatos de Google Cloud.");
   }
-  const ttlSec = Math.max(120, Number(data.expires_in ?? 3000));
+  const ttlSec = Math.max(120, parseStrictFiniteNumber(data.expires_in) ?? 3000);
   cachedMetadataToken = {
     token: data.access_token,
     expiresAtMs: now + ttlSec * 1000,

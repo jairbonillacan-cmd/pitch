@@ -5,6 +5,7 @@
 import {
   isBlockedMarketQuoteBook,
   isPermittedMarketQuoteBook,
+  parseStrictFiniteNumber,
 } from "@pitchlab/contracts";
 import type { BookQuoteItem } from "./types";
 
@@ -163,8 +164,8 @@ export function resolvePreferredBookQuote(
 export function parseManualOddsInput(raw: string): number | null {
   const cleaned = raw.trim().replace(",", ".");
   if (!cleaned) return null;
-  const num = Number(cleaned);
-  if (!Number.isFinite(num)) return null;
+  const num = parseStrictFiniteNumber(cleaned);
+  if (num === null) return null;
   if (cleaned.startsWith("+") || cleaned.startsWith("-") || Math.abs(num) >= 100) {
     if (num >= 100) return Math.round((1 + num / 100) * 1000) / 1000;
     if (num <= -100) return Math.round((1 + 100 / Math.abs(num)) * 1000) / 1000;
