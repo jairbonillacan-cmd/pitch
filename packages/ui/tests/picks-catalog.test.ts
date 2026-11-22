@@ -476,6 +476,9 @@ describe("Valoración financiera (de-vig proporcional/Shin, fairOdds y EV+)", ()
       marketDecimal: 1.85,
       companionMarketDecimals: [1.85, 1.95],
       companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: "2030-11-14T18:00:00Z",
       deVigPreference: "power",
     });
     expect(powerPricing.deVigMethod).toBe("power");
@@ -490,6 +493,7 @@ describe("Valoración financiera (de-vig proporcional/Shin, fairOdds y EV+)", ()
       companionIndex: 0,
       marketBookLabel: "Pinnacle",
       marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: "2030-11-14T18:00:00Z",
     });
     expect(pos.p).toBe(0.6);
     expect(pos.fairOdds).toBe(1.67);
@@ -507,6 +511,9 @@ describe("Valoración financiera (de-vig proporcional/Shin, fairOdds y EV+)", ()
       marketDecimal: 2.0,
       companionMarketDecimals: [2.0, 1.9],
       companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: "2030-11-14T18:00:00Z",
     });
     expect(neg.fairOdds).toBe(2.22);
     expect(neg.evPct).toBe(-10);
@@ -520,10 +527,87 @@ describe("Valoración financiera (de-vig proporcional/Shin, fairOdds y EV+)", ()
     expect(noMarket.evPct).toBeNull();
     expect(noMarket.valueLabel).toBeNull();
 
-    // Nunca emite fairOdds = 1.00 ni probabilidad fuera de (0.01, 0.99)
     const extreme = computePickPricing({ calibratedProb: 1.0 });
     expect(extreme.p).toBe(0.99);
     expect(extreme.fairOdds).toBeGreaterThanOrEqual(1.01);
+  });
+
+  it("descarta fail-closed cuotas sin casa permitida, sin timestamp, con skew futuro +7h, caducas >72h o >1000", () => {
+    const fixedNow = "2030-11-14T18:00:00Z";
+
+    const nullBook = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: null,
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(nullBook.marketDecimal).toBeNull();
+    expect(nullBook.evPct).toBeNull();
+    expect(nullBook.deVigMethod).toBe("none");
+    expect(nullBook.hasPositiveValue).toBe(false);
+
+    const nullTimestamp = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: null,
+      nowIso: fixedNow,
+    });
+    expect(nullTimestamp.marketDecimal).toBeNull();
+    expect(nullTimestamp.evPct).toBeNull();
+    expect(nullTimestamp.deVigMethod).toBe("none");
+
+    const futurePlus7h = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-15T01:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(futurePlus7h.marketDecimal).toBeNull();
+    expect(futurePlus7h.evPct).toBeNull();
+    expect(futurePlus7h.deVigMethod).toBe("none");
+
+    const staleOver72h = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-11T17:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(staleOver72h.marketDecimal).toBeNull();
+    expect(staleOver72h.evPct).toBeNull();
+
+    const blockedBook = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1.91,
+      companionMarketDecimals: [1.91, 1.91],
+      companionIndex: 0,
+      marketBookLabel: "Caliente MX",
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(blockedBook.marketDecimal).toBeNull();
+    expect(blockedBook.evPct).toBeNull();
+
+    const overMaxOdds = computePickPricing({
+      calibratedProb: 0.6,
+      marketDecimal: 1200,
+      marketBookLabel: "Pinnacle",
+      marketCapturedAtUtc: "2030-11-14T15:00:00Z",
+      nowIso: fixedNow,
+    });
+    expect(overMaxOdds.marketDecimal).toBeNull();
+    expect(overMaxOdds.evPct).toBeNull();
   });
 });
 

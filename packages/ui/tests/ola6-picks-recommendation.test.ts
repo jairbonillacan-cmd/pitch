@@ -8,9 +8,10 @@ import {
   type EvidenceWindowStat,
 } from "../src/platform/picks-catalog/index";
 
-const FIXED_CAPTURED_AT = "2026-11-22T12:00:00Z";
+const FIXED_CAPTURED_AT = "2026-11-21T16:00:00Z";
+const FIXED_NOW_ISO = "2026-11-21T18:00:00Z";
 const FORBIDDEN_COPY_RE =
-  /confianza|datos\s+completos|datos\s+parciales|scoutpicks|sofascore|bzzoiro|poisson|dixon/i;
+  /confianza|datos\s+completos|datos\s+parciales|scoutpicks|sofascore|bzzoiro|espn|poisson|dixon/i;
 
 function makeWindow(
   window: EvidenceWindowStat["window"],
@@ -44,6 +45,7 @@ function makeCatalogPick(params: {
   readonly windows?: readonly EvidenceWindowStat[];
   readonly label?: string;
   readonly selectionKey?: string;
+  readonly isPrimaryModelPick?: boolean;
   readonly recommendationScore?: number;
 }): CatalogPickItem {
   const windows = params.windows ?? [];
@@ -77,6 +79,7 @@ function makeCatalogPick(params: {
         companionIndex: 0,
         marketBookLabel: params.marketDecimal ? "Pinnacle" : null,
         marketCapturedAtUtc: params.marketDecimal ? FIXED_CAPTURED_AT : null,
+        nowIso: FIXED_NOW_ISO,
       });
 
   return {
@@ -111,7 +114,7 @@ function makeCatalogPick(params: {
     },
     settlement: params.settlement ?? "pending",
     engineName: "PitchLab Spacetime v5.1",
-    isPrimaryModelPick: false,
+    isPrimaryModelPick: params.isPrimaryModelPick ?? false,
     isDerived: false,
     conflictGroup: "over_total",
     isRedacted: params.isRedacted ?? false,
@@ -417,5 +420,75 @@ describe("Ola 6 · scoreRecommendedCatalogPick y selectPicksOfTheDay", () => {
       3,
     );
     expect(onlyExcluded).toEqual([]);
+  });
+
+  it("prohíbe top_pick con EV negativo, marca isRecommended=false si evPct < -2.5 y prioriza EV+ en selectPicksOfTheDay", () => {
+    const fourAlignedWindows = [
+      makeWindow("L5", "Últimos 5", 5, 5),
+      makeWindow("L10", "Últimos 10", 9, 10),
+      makeWindow("L20", "Últimos 20", 17, 20),
+      makeWindow("home_away", "Local", 9, 10),
+    ];
+
+    const mildNegEv = makeCatalogPick({
+      id: "pick-neg-ev-mild",
+      gameId: "game-neg-1",
+      p: 0.6,
+      marketDecimal: 1.65,
+      companionMarketDecimals: [1.65, 2.25],
+      windows: fourAlignedWindows,
+      isPrimaryModelPick: true,
+    });
+    const deepNegEv = makeCatalogPick({
+      id: "pick-neg-ev-deep",
+      gameId: "game-neg-2",
+      p: 0.6,
+      marketDecimal: 1.54,
+      companionMarketDecimals: [1.54, 2.48],
+      windows: fourAlignedWindows,
+      isPrimaryModelPick: true,
+    });
+    const negBelowMinus2 = makeCatalogPick({
+      id: "pick-neg-ev-minus-26",
+      gameId: "game-neg-3",
+      p: 0.56,
+      marketDecimal: 1.74,
+      companionMarketDecimals: [1.74, 2.1],
+      windows: fourAlignedWindows,
+      isPrimaryModelPick: true,
+    });
+    const positiveEv = makeCatalogPick({
+      id: "pick-pos-ev-priority",
+      gameId: "game-pos-4",
+      p: 0.55,
+      marketDecimal: 1.92,
+      companionMarketDecimals: [1.92, 1.92],
+      windows: fourAlignedWindows.slice(0, 2),
+      isPrimaryModelPick: false,
+    });
+
+    expect(mildNegEv.pricing.evPct).toBeLessThan(0);
+    expect(mildNegEv.pricing.evPct).toBeGreaterThan(-2.5);
+    expect(deepNegEv.pricing.evPct).toBeLessThan(-2.5);
+    expect(negBelowMinus2.pricing.evPct).toBeLessThan(-2.0);
+    expect(positiveEv.pricing.hasPositiveValue).toBe(true);
+    expect(positiveEv.pricing.evPct).toBeGreaterThan(0);
+
+    const mildScored = scoreRecommendedCatalogPick(mildNegEv);
+    expect(mildScored.tier).not.toBe("top_pick");
+
+    const deepScored = scoreRecommendedCatalogPick(deepNegEv);
+    expect(deepScored.tier).not.toBe("top_pick");
+    expect(deepScored.tier).toBe("playable");
+    expect(deepScored.isRecommended).toBe(false);
+
+    expect(selectPicksOfTheDay([deepNegEv, negBelowMinus2], 3)).toEqual([]);
+
+    const selected = selectPicksOfTheDay([deepNegEv, negBelowMinus2, mildNegEv, positiveEv], 3);
+    expect(selected.length).toBeGreaterThanOrEqual(1);
+    expect(selected[0]!.id).toBe(positiveEv.id);
+    const selectedIds = selected.map((p) => p.id);
+    expect(selectedIds).not.toContain(deepNegEv.id);
+    expect(selectedIds).not.toContain(negBelowMinus2.id);
   });
 });

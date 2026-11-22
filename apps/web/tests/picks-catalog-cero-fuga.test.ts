@@ -899,6 +899,11 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
     expect(visitorScreener instanceof Map).toBe(false);
     expect(() => JSON.stringify(visitorScreener)).not.toThrow();
     for (const catalog of Object.values(visitorScreener)) {
+      if (catalog.gameStatus === "FT") {
+        expect(catalog.isRedactedForVisitor).toBe(false);
+        expect(catalog.picks.every((item) => !item.isRedacted)).toBe(true);
+        continue;
+      }
       expect(catalog.isRedactedForVisitor).toBe(true);
       for (const item of catalog.picks) {
         const isPromo = Boolean(item.isDailyOpenPromo || item.isTipsterWeeklyOpen);
@@ -936,6 +941,11 @@ describe("picks-catalog · Frontera Cero-Fuga en NS/LIVE, auditoría íntegra en
     expect(Object.keys(visitorCatalogs).length).toBeGreaterThan(0);
     expect(Buffer.byteLength(JSON.stringify(visitorCatalogs), "utf8")).toBeLessThanOrEqual(maxBytes);
     for (const catalog of Object.values(visitorCatalogs)) {
+      if (catalog.gameStatus === "FT") {
+        expect(catalog.isRedactedForVisitor).toBe(false);
+        expect(catalog.picks.every((item) => !item.isRedacted)).toBe(true);
+        continue;
+      }
       for (const item of catalog.picks) {
         const isPromo = Boolean(item.isDailyOpenPromo || item.isTipsterWeeklyOpen);
         if (!isPromo) {

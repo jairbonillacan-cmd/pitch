@@ -285,6 +285,9 @@ describe("Property-Based Testing · Invariantes cuantitativas y de seguridad", (
               marketDecimal: d1,
               companionMarketDecimals: pair,
               companionIndex: 0,
+              marketBookLabel: "Pinnacle",
+              marketCapturedAtUtc: "2026-11-21T16:00:00Z",
+              nowIso: "2026-11-21T18:00:00Z",
             });
             expect(Number.isFinite(pricing.fairOdds)).toBe(true);
             expect(pricing.fairOdds).toBeGreaterThanOrEqual(1.01);

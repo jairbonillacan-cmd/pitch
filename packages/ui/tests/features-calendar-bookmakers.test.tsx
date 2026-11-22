@@ -300,14 +300,16 @@ describe("Nuevas funciones en gemini-dos (sin simplificación de UX/UI)", () => 
     expect(parseManualOddsInput("abc")).toBeNull();
   });
 
-  it("expone los chips rápidos y el comparador manual en Explorar picks y el selector Lista|Calendario en Historial", () => {
+  it("expone el rail derecho de filtros, selector de casas y comparador manual en Explorar picks y Lista|Calendario en Historial", () => {
     const finderHtml = renderToStaticMarkup(
       <PlatformProvider dataset={DATASET} initialRole="member">
         <PicksFinderClubView />
       </PlatformProvider>,
     );
-    expect(finderHtml).toContain('data-finder-chip="probables"');
-    expect(finderHtml).toContain("Mis casas (");
+    expect(finderHtml).toContain('data-picks-filter-rail=""');
+    expect(finderHtml).toContain('data-picks-only-recommended=""');
+    expect(finderHtml).toContain("data-quick-book=");
+    expect(finderHtml).toContain("data-open-manual-odds=");
 
     const histHtml = renderToStaticMarkup(
       <PlatformProvider dataset={DATASET} initialRole="member">
