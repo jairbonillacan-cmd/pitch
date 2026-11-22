@@ -354,7 +354,7 @@ const PARLAY_CAPTURED_UTC = "2026-11-21T17:30:00Z";
 function createParlayStoryPick(spec: {
   readonly id: string;
   readonly gameId: string;
-  readonly league: string;
+  readonly league: Parameters<typeof asLeagueId>[0];
   readonly leagueLabel: string;
   readonly matchLabel: string;
   readonly kickoffLocal: string;
