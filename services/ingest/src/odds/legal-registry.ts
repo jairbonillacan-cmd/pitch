@@ -4,6 +4,7 @@
  * sin dependencias de Scrapling ni navegadores headless, integrado directamente con `mappings.ts`.
  */
 import { createHash } from "node:crypto";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type { OddsSnapshotRow } from "@pitchlab/spacetime";
 import {
   GENERIC_LEAGUES,
@@ -471,9 +472,9 @@ export class CleanHttpTransport {
       }
 
       if ((resp.status === 429 || resp.status >= 500) && attempt < maxRetries) {
-        const retryAfterSec = Number(resp.headers["retry-after"] ?? "");
+        const retryAfterSec = parseStrictFiniteNumber(resp.headers["retry-after"]);
         const delayMs =
-          Number.isFinite(retryAfterSec) && retryAfterSec > 0
+          retryAfterSec !== null && retryAfterSec > 0
             ? Math.min(30_000, retryAfterSec * 1000)
             : Math.min(30_000, baseDelayMs * 2 ** attempt);
         attempt += 1;

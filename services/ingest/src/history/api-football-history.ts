@@ -52,7 +52,7 @@ export function parseApiRound(round: string): ParsedApiRound | null {
   if (!tournament || !rest) return null;
 
   if (/^\d+$/.test(rest)) {
-    const period = Number(rest);
+    const period = Number.parseInt(rest, 10);
     if (!Number.isInteger(period) || period < 1) return null;
     return { stage: tournament, period, phase: "regular" };
   }

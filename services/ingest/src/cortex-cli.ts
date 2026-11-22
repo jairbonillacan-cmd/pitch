@@ -9,7 +9,11 @@
  * y la plantilla sin llamar al modelo (para revisar qué recibiría).
  */
 import { resolve } from "node:path";
-import { GameAnalysisSchema, type LeagueSnapshot } from "@pitchlab/contracts";
+import {
+  GameAnalysisSchema,
+  parseStrictFiniteNumber,
+  type LeagueSnapshot,
+} from "@pitchlab/contracts";
 import {
   cortexFactsFromAnalysis,
   cortexFingerprint,
@@ -41,8 +45,19 @@ async function main(): Promise<void> {
   for (const arg of process.argv.slice(2)) {
     if (arg === "--dry-run") dryRun = true;
     else if (arg.startsWith("--leagues=")) leagues = arg.slice(10).split(",").filter((l) => l in LEAGUES);
-    else if (arg.startsWith("--max-calls=")) maxCalls = Number(arg.slice(12));
-    else if (arg.startsWith("--ahead-days=")) aheadDays = Number(arg.slice(13));
+    else if (arg.startsWith("--max-calls=")) {
+      const parsed = parseStrictFiniteNumber(arg.slice(12));
+      if (parsed === null || !Number.isInteger(parsed) || parsed < 0) {
+        throw new Error(`--max-calls inválido: '${arg}'.`);
+      }
+      maxCalls = parsed;
+    } else if (arg.startsWith("--ahead-days=")) {
+      const parsed = parseStrictFiniteNumber(arg.slice(13));
+      if (parsed === null || parsed < 0) {
+        throw new Error(`--ahead-days inválido: '${arg}'.`);
+      }
+      aheadDays = parsed;
+    }
     else throw new Error(`Argumento no reconocido: '${arg}'.`);
   }
   const apiKey = process.env.OPENROUTER_API_KEY?.trim();

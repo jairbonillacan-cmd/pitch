@@ -5,7 +5,12 @@
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { LeagueSnapshotSchema, type GameDTO, type LeagueSnapshot } from "@pitchlab/contracts";
+import {
+  LeagueSnapshotSchema,
+  parseStrictFiniteNumber,
+  type GameDTO,
+  type LeagueSnapshot,
+} from "@pitchlab/contracts";
 import {
   fetchEspnLigaMxSeason,
   normalizeEspnLigaMx,
@@ -256,9 +261,9 @@ async function hydrateEuropeanLeague(league: EspnSoccerLeague): Promise<void> {
     const comp = ev.competitions[0]!;
     const homeC = comp.competitors.find((c) => c.homeAway === "home")!;
     const awayC = comp.competitors.find((c) => c.homeAway === "away")!;
-    const hs = Number(homeC.score);
-    const as = Number(awayC.score);
-    if (!Number.isFinite(hs) || !Number.isFinite(as)) continue;
+    const hs = parseStrictFiniteNumber(homeC.score);
+    const as = parseStrictFiniteNumber(awayC.score);
+    if (hs === null || as === null) continue;
 
     const homeId = resolveStandingTeamId(
       league,

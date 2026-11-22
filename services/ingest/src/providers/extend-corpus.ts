@@ -58,7 +58,7 @@ export function ligaMxSeason(row: Pick<BzzoiroMatchRow, "providerLeagueId" | "ki
   tournament: "Apertura" | "Clausura";
 } | null {
   const { date } = mexicoCityDateTime(row.kickoffUtc);
-  const year = Number(date.slice(0, 4));
+  const year = Number.parseInt(date.slice(0, 4), 10);
   const label = (start: number): string => `${start}-${String((start + 1) % 100).padStart(2, "0")}`;
   if (row.providerLeagueId === APERTURA_LEAGUE) return { season: label(year), tournament: "Apertura" };
   if (row.providerLeagueId === CLAUSURA_LEAGUE) return { season: label(year - 1), tournament: "Clausura" };

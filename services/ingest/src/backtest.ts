@@ -15,6 +15,7 @@ import {
   asLeagueId,
   asSeasonId,
   asTeamId,
+  parseStrictFiniteNumber,
   type GameDTO,
   type LeagueId,
   type Team,
@@ -85,7 +86,7 @@ async function loadFootballSeason(season: string): Promise<FootballRow[]> {
   for (const m of parsed.matches) {
     const ft = m.score && "ft" in m.score ? m.score.ft : undefined;
     if (!ft || ft.length !== 2) continue;
-    const md = Number((m.round.match(/(\d+)/) ?? ["0", "0"])[1]);
+    const md = Number.parseInt((m.round.match(/(\d+)/) ?? ["0", "0"])[1]!, 10);
     if (!Number.isFinite(md) || md <= 0) continue;
     rows.push({
       season,
@@ -315,19 +316,22 @@ async function loadNfl(seasons: number[]): Promise<NflRow[]> {
   const rows: NflRow[] = [];
   for (const raw of parseCsv(csv)) {
     if (raw.game_type !== "REG") continue;
-    const season = Number(raw.season);
-    if (!seasons.includes(season)) continue;
+    const season = parseStrictFiniteNumber(raw.season);
+    if (season === null || !seasons.includes(season)) continue;
     if (!raw.home_score || !raw.away_score) continue;
     const parsed = NflverseCsvRowSchema.safeParse(raw);
     if (!parsed.success) continue;
+    const homeScore = parseStrictFiniteNumber(parsed.data.home_score);
+    const awayScore = parseStrictFiniteNumber(parsed.data.away_score);
+    if (homeScore === null || awayScore === null) continue;
     rows.push({
       season: String(season),
       week: parsed.data.week,
       date: parsed.data.gameday,
       home: parsed.data.home_team,
       away: parsed.data.away_team,
-      homeScore: Number(parsed.data.home_score),
-      awayScore: Number(parsed.data.away_score),
+      homeScore,
+      awayScore,
     });
   }
   return rows;
@@ -364,7 +368,7 @@ async function backtestNfl(seasons: number[]) {
       if (train.length < 40 || test.length === 0) continue;
 
       const priorRows = all
-        .filter((r) => r.season === String(Number(season) - 1))
+        .filter((r) => r.season === String(Number.parseInt(season, 10) - 1))
         .map((r) => ({
           week: r.week,
           date: r.date,

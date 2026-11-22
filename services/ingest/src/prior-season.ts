@@ -7,6 +7,7 @@
  */
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type { EloMatch, FootballMatchRow } from "@pitchlab/models";
 
 const ROOT = resolve(import.meta.dirname, "..", "..", "..");
@@ -77,9 +78,9 @@ export function loadPriorMatches(
       continue;
     }
     if (!parsed.date || !parsed.homeTeam || !parsed.awayTeam) continue;
-    const homeScore = Number(parsed.homeScore);
-    const awayScore = Number(parsed.awayScore);
-    if (!Number.isFinite(homeScore) || !Number.isFinite(awayScore)) continue;
+    const homeScore = parseStrictFiniteNumber(parsed.homeScore);
+    const awayScore = parseStrictFiniteNumber(parsed.awayScore);
+    if (homeScore === null || awayScore === null) continue;
     if (parsed.phase && parsed.phase !== "regular") continue;
 
     const ms = Date.parse(`${parsed.date}T00:00:00Z`);
@@ -150,9 +151,9 @@ export function loadLeagueHistory(league: string, beforeDate: string): EloMatch[
       continue;
     }
     if (!parsed.date || !parsed.homeTeam || !parsed.awayTeam || !parsed.season) continue;
-    const homeGoals = Number(parsed.homeScore);
-    const awayGoals = Number(parsed.awayScore);
-    if (!Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) continue;
+    const homeGoals = parseStrictFiniteNumber(parsed.homeScore);
+    const awayGoals = parseStrictFiniteNumber(parsed.awayScore);
+    if (homeGoals === null || awayGoals === null) continue;
     const ms = Date.parse(`${parsed.date}T00:00:00Z`);
     if (!Number.isFinite(ms) || ms >= beforeMs) continue;
     rows.push({

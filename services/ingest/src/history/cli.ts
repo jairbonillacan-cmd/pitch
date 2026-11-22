@@ -12,6 +12,7 @@
  *   --quiet                  sin progreso en consola
  */
 import { resolve } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { loadRootEnvFiles } from "../env.js";
 import { buildHistoryDataset } from "./builder.js";
 
@@ -68,7 +69,7 @@ function parseArgs(argv: readonly string[]): CliOptions {
         options.soccerSeasons = parseList(rawValue!);
         break;
       case "nfl-seasons": {
-        const seasons = parseList(rawValue!).map((value) => Number(value));
+        const seasons = parseList(rawValue!).map((value) => parseStrictFiniteNumber(value) ?? Number.NaN);
         if (seasons.some((value) => !Number.isInteger(value) || value < 1900)) {
           throw new Error(`Temporadas NFL inválidas: '${rawValue}'.`);
         }
@@ -76,8 +77,8 @@ function parseArgs(argv: readonly string[]): CliOptions {
         break;
       }
       case "concurrency": {
-        const value = Number(rawValue);
-        if (!Number.isInteger(value) || value < 1) {
+        const value = parseStrictFiniteNumber(rawValue);
+        if (value === null || !Number.isInteger(value) || value < 1) {
           throw new Error(`--concurrency debe ser un entero positivo: '${rawValue}'.`);
         }
         options.concurrency = value;

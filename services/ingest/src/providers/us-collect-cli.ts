@@ -7,6 +7,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { loadRootEnvFiles } from "../env.js";
 import { BZZOIRO_US, collectUsSeason, usSeasonOf, type UsSport } from "./bzzoiro-us.js";
 import { readProviderConfigs } from "./config.js";
@@ -24,15 +25,15 @@ async function main(): Promise<void> {
     if (arg === "--offline") offline = true;
     else if (arg.startsWith("--sports=")) {
       sports = arg.slice(9).split(",").filter((s): s is UsSport => s in BZZOIRO_US);
-    } else if (arg.startsWith("--seasons=")) seasons = Math.max(1, Number(arg.slice(10)) || 1);
-    else if (arg.startsWith("--max-requests=")) maxRequests = Math.max(1, Number(arg.slice(15)) || 1);
+    } else if (arg.startsWith("--seasons=")) seasons = Math.max(1, parseStrictFiniteNumber(arg.slice(10)) ?? 1);
+    else if (arg.startsWith("--max-requests=")) maxRequests = Math.max(1, parseStrictFiniteNumber(arg.slice(15)) ?? 1);
     else throw new Error(`Argumento no reconocido: '${arg}'.`);
   }
 
   const cfg = readProviderConfigs().bzzoiro;
   // Baloncesto y hockey viven fuera de `/api/v2` (p. ej. `/basketball/api/v2/...`).
   const rootCfg = { ...cfg, baseUrl: cfg.baseUrl.replace(/\/api\/v2$/, "") };
-  const currentStart = Number(usSeasonOf(new Date().toISOString()).slice(0, 4));
+  const currentStart = Number.parseInt(usSeasonOf(new Date().toISOString()).slice(0, 4), 10);
 
   for (const sport of sports) {
     // Cuota separada por deporte: un cliente por deporte.

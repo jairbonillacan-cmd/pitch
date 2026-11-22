@@ -8,7 +8,12 @@
  * Solo se leen endpoints públicos documentados; nada de casas de apuestas ni scraping.
  */
 import { z } from "zod";
-import type { GameDTO, MarketPulseEntry, MarketPulseSide } from "@pitchlab/contracts";
+import {
+  parseStrictFiniteNumber,
+  type GameDTO,
+  type MarketPulseEntry,
+  type MarketPulseSide,
+} from "@pitchlab/contracts";
 import { nameSimilarity } from "./football-data-merge.js";
 
 export const POLYMARKET_TAGS: Record<string, string> = {
@@ -27,7 +32,7 @@ const KALSHI_EVENTS_URL = "https://api.elections.kalshi.com/trade-api/v2/events"
 const KICKOFF_WINDOW_MS = 36 * 60 * 60 * 1000;
 const MIN_NAME_SIMILARITY = 0.5;
 
-const numeric = z.union([z.number(), z.string()]).transform((v) => Number(v));
+const numeric = z.union([z.number(), z.string()]).transform((v) => parseStrictFiniteNumber(v));
 
 const PolymarketMarketSchema = z.object({
   groupItemTitle: z.string().nullish(),
@@ -66,8 +71,8 @@ function yesPrice(outcomePrices: string | null | undefined): number | null {
   try {
     const parsed = JSON.parse(outcomePrices) as unknown;
     if (!Array.isArray(parsed)) return null;
-    const p = Number(parsed[0]);
-    return Number.isFinite(p) && p >= 0 && p <= 1 ? p : null;
+    const p = parseStrictFiniteNumber(parsed[0]);
+    return p !== null && p >= 0 && p <= 1 ? p : null;
   } catch {
     return null;
   }
@@ -129,7 +134,7 @@ function kalshiTickerDate(eventTicker: string): number {
   const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
   const month = months.indexOf(m[2]!);
   if (month < 0) return NaN;
-  return Date.UTC(2000 + Number(m[1]), month, Number(m[3]), 12);
+  return Date.UTC(2000 + Number.parseInt(m[1]!, 10), month, Number.parseInt(m[3]!, 10), 12);
 }
 
 /** Empareja eventos de Kalshi (NFL) con los partidos del snapshot por código de equipo. */

@@ -66,8 +66,8 @@ export interface UsGameRow {
 
 /** Temporada `2025-26` a partir de la fecha: NBA y NHL arrancan en sept–oct. */
 export function usSeasonOf(kickoffUtc: string): string {
-  const year = Number(kickoffUtc.slice(0, 4));
-  const month = Number(kickoffUtc.slice(5, 7));
+  const year = Number.parseInt(kickoffUtc.slice(0, 4), 10);
+  const month = Number.parseInt(kickoffUtc.slice(5, 7), 10);
   const start = month >= 8 ? year : year - 1;
   return `${start}-${String((start + 1) % 100).padStart(2, "0")}`;
 }

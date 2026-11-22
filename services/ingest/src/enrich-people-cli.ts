@@ -16,6 +16,7 @@ import {
   asTeamId,
   computePlayerApplicablePicks,
   findNationalTeamDef,
+  parseStrictFiniteNumber,
   slugifyPlayerName,
   type LeagueSquadsFile,
   type PlayerPositionGroup,
@@ -279,9 +280,9 @@ function computeAgeFromIso(dob?: string | null): number | null {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(dob.trim());
   if (!m) return null;
   const ref = new Date("2026-11-18T12:00:00Z");
-  let age = ref.getUTCFullYear() - Number(m[1]);
-  const monthDiff = ref.getUTCMonth() + 1 - Number(m[2]);
-  if (monthDiff < 0 || (monthDiff === 0 && ref.getUTCDate() < Number(m[3]))) {
+  let age = ref.getUTCFullYear() - Number.parseInt(m[1]!, 10);
+  const monthDiff = ref.getUTCMonth() + 1 - Number.parseInt(m[2]!, 10);
+  if (monthDiff < 0 || (monthDiff === 0 && ref.getUTCDate() < Number.parseInt(m[3]!, 10))) {
     age -= 1;
   }
   return age >= 15 && age <= 55 ? age : null;
@@ -1237,8 +1238,8 @@ function buildUsOverviewPerformance(
     if (val && val !== "--") byLabel.set(lbl.trim().toUpperCase(), val);
   });
 
-  const gpRaw = Number((byLabel.get("GP") ?? byLabel.get("G") ?? "0").replace(/,/g, ""));
-  const appearances = Number.isFinite(gpRaw) && gpRaw > 0 ? Math.round(gpRaw) : 0;
+  const gpRaw = parseStrictFiniteNumber((byLabel.get("GP") ?? byLabel.get("G") ?? "0").replace(/,/g, ""));
+  const appearances = gpRaw !== null && gpRaw > 0 ? Math.round(gpRaw) : 0;
 
   const preferredOrder =
     league === "mlb"
@@ -1264,9 +1265,9 @@ function buildUsOverviewPerformance(
   }
   // Para bateadores MLB, calcular AVG si hay H y AB
   if (league === "mlb" && !byLabel.has("ERA") && byLabel.has("H") && byLabel.has("AB")) {
-    const hits = Number(byLabel.get("H"));
-    const ab = Number(byLabel.get("AB"));
-    if (Number.isFinite(hits) && Number.isFinite(ab) && ab > 0) {
+    const hits = parseStrictFiniteNumber(byLabel.get("H"));
+    const ab = parseStrictFiniteNumber(byLabel.get("AB"));
+    if (hits !== null && ab !== null && ab > 0) {
       const avgStr = (hits / ab).toFixed(3).replace(/^0/, "");
       seasonMetrics.splice(1, 0, {
         key: "avg",

@@ -3,6 +3,7 @@
  * Portado de `web-scraping:scrapers/sources/betfair.py` e integrado con `mappings.ts` y el validador común.
  * Jamás realiza scraping web sobre `www.betfair.com`: solo consume la API-NG oficial con credenciales.
  */
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import type { OddsSnapshotRow } from "@pitchlab/spacetime";
 import type { CanonicalLeague } from "../mappings.js";
 import { validateOddsTickBatch } from "../validation/snapshot-validator.js";
@@ -108,8 +109,8 @@ export function parseBetfairCatalogueAndBooks(params: {
     for (const r of Array.isArray(cat.runners) ? cat.runners : []) {
       if (r && typeof r === "object") {
         const ro = r as Record<string, unknown>;
-        const sid = Number(ro.selectionId);
-        if (Number.isFinite(sid)) {
+        const sid = parseStrictFiniteNumber(ro.selectionId);
+        if (sid !== null) {
           runnerNames.set(sid, String(ro.runnerName ?? "").trim());
         }
       }
@@ -127,7 +128,7 @@ export function parseBetfairCatalogueAndBooks(params: {
       const mOu = OU_LINE_RE.exec(marketType);
       if (mOu) {
         canonMkt = "totals";
-        lineVal = Number(`${mOu[1]}.${mOu[2]}`);
+        lineVal = Number.parseFloat(`${mOu[1]}.${mOu[2]}`);
       }
     }
     if (!canonMkt) continue;
@@ -136,15 +137,16 @@ export function parseBetfairCatalogueAndBooks(params: {
       if (!rawRunner || typeof rawRunner !== "object") continue;
       const runner = rawRunner as Record<string, unknown>;
       if (String(runner.status ?? "ACTIVE").toUpperCase() !== "ACTIVE") continue;
-      const sid = Number(runner.selectionId);
-      const rName = runnerNames.get(sid) ?? "";
+      const sid = parseStrictFiniteNumber(runner.selectionId);
+      const rName = sid !== null ? (runnerNames.get(sid) ?? "") : "";
       const rLow = rName.toLowerCase();
       const ex = (runner.ex ?? {}) as Record<string, unknown>;
       const backPrices = Array.isArray(ex.availableToBack) ? ex.availableToBack : [];
       if (backPrices.length === 0 || !backPrices[0] || typeof backPrices[0] !== "object") {
         continue;
       }
-      const bestBack = Number((backPrices[0] as Record<string, unknown>).price);
+      const bestBack =
+        parseStrictFiniteNumber((backPrices[0] as Record<string, unknown>).price) ?? Number.NaN;
 
       let sel: string | null = null;
       if (canonMkt === "1x2" || canonMkt === "moneyline") {

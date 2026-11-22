@@ -598,7 +598,7 @@ export function regenerateLiveMatchdaySnapshot(params: {
     orderedCounts[key] = countsByLeague[key]!;
   }
 
-  const elapsedMs = Number((performance.now() - startedAt).toFixed(4));
+  const elapsedMs = Number.parseFloat((performance.now() - startedAt).toFixed(4));
   const candidateSnapshot: LiveMatchdaySnapshotPayload = {
     ...previousLive,
     generated_at: nowIso,

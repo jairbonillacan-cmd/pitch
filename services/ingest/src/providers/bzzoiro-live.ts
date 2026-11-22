@@ -11,19 +11,20 @@
  *
  * Licencia: se muestran resultados derivados; el JSON crudo no se reenvía al navegador.
  */
-import type {
-  LiveAveragePosition,
-  LiveCommentaryItem,
-  LiveIncident,
-  LiveMatchDetail,
-  LiveMomentumPoint,
-  LivePhase,
-  LivePlayerStatRow,
-  LiveScore,
-  LiveScoreboardEntry,
-  LiveShot,
-  LiveTeamStats,
-  LiveXgPoint,
+import {
+  parseStrictFiniteNumber,
+  type LiveAveragePosition,
+  type LiveCommentaryItem,
+  type LiveIncident,
+  type LiveMatchDetail,
+  type LiveMomentumPoint,
+  type LivePhase,
+  type LivePlayerStatRow,
+  type LiveScore,
+  type LiveScoreboardEntry,
+  type LiveShot,
+  type LiveTeamStats,
+  type LiveXgPoint,
 } from "@pitchlab/contracts";
 import { BZZOIRO_LEAGUES, type BzTeamStatsRaw } from "./bzzoiro.js";
 import { slugifyTeamName } from "../team-slug.js";
@@ -206,9 +207,7 @@ export function list<T>(raw: BzList<T> | null | undefined): T[] {
 }
 
 function num(value: unknown): number | null {
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  if (typeof value === "string" && value.trim() !== "" && Number.isFinite(Number(value))) return Number(value);
-  return null;
+  return parseStrictFiniteNumber(value);
 }
 
 export interface ParsedFootballMinute {
@@ -231,14 +230,14 @@ export function parseFootballMinute(raw: unknown): ParsedFootballMinute | null {
 
   const plusMatch = /^(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)$/.exec(cleaned);
   if (plusMatch?.[1] && plusMatch[2]) {
-    const base = Number(plusMatch[1]);
-    const extra = Number(plusMatch[2]);
+    const base = Number.parseFloat(plusMatch[1]);
+    const extra = Number.parseFloat(plusMatch[2]);
     if (!Number.isFinite(base) || !Number.isFinite(extra) || base < 0 || extra < 0) return null;
     return { minute: base, addedTime: extra > 0 ? Math.round(extra) : null };
   }
 
   if (!/^\d+(?:\.\d+)?$/.test(cleaned)) return null;
-  const base = Number(cleaned);
+  const base = Number.parseFloat(cleaned);
   if (!Number.isFinite(base) || base < 0) return null;
   return { minute: base, addedTime: null };
 }

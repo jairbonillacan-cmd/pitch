@@ -238,7 +238,7 @@ class BzzoiroClient {
           signal: AbortSignal.timeout(15_000),
         });
         if (res.status === 429) {
-          const waitSec = Number(res.headers.get("retry-after") ?? "2");
+          const waitSec = parseStrictFiniteNumber(res.headers.get("retry-after")) ?? 2;
           await sleep(Math.min(10_000, Math.max(1_000, waitSec * 1_000)));
           continue;
         }
@@ -621,15 +621,28 @@ async function ingestBzzoiroCompetition(
       if (ctx) contextByGameId.set(gameId, ctx);
       if (Array.isArray(ev.head_to_head) && ev.head_to_head.length > 0) {
         const parsedH2h = ev.head_to_head
-          .filter((h) => h.home_team && h.away_team && typeof h.home_score === "number" && typeof h.away_score === "number")
-          .slice(0, 6)
-          .map((h) => ({
-            date: String(h.event_date ?? h.date ?? "").slice(0, 10) || todayIso,
-            homeTeamId: `${league}.${slugifyTeamName(String(h.home_team))}`,
-            awayTeamId: `${league}.${slugifyTeamName(String(h.away_team))}`,
-            homeGoals: Number(h.home_score),
-            awayGoals: Number(h.away_score),
-          }));
+          .flatMap((h) => {
+            if (
+              !h.home_team ||
+              !h.away_team ||
+              typeof h.home_score !== "number" ||
+              !Number.isFinite(h.home_score) ||
+              typeof h.away_score !== "number" ||
+              !Number.isFinite(h.away_score)
+            ) {
+              return [];
+            }
+            return [
+              {
+                date: String(h.event_date ?? h.date ?? "").slice(0, 10) || todayIso,
+                homeTeamId: `${league}.${slugifyTeamName(String(h.home_team))}`,
+                awayTeamId: `${league}.${slugifyTeamName(String(h.away_team))}`,
+                homeGoals: h.home_score,
+                awayGoals: h.away_score,
+              },
+            ];
+          })
+          .slice(0, 6);
         if (parsedH2h.length > 0) h2hByGameId.set(gameId, parsedH2h);
       } else if (client.unlimited && status !== "final") {
         const remoteH2h = await client.fetchEventH2h(ev.id, ev.home_team, ev.away_team);
@@ -1050,8 +1063,8 @@ async function ingestConcacafEspnCompetition(
     const status: GameDTO["status"] =
       state === "post" || ev.status?.type?.completed ? "final" : state === "in" ? "in_progress" : "scheduled";
 
-    const homeScore = Number(homeComp.score);
-    const awayScore = Number(awayComp.score);
+    const homeScore = parseStrictFiniteNumber(homeComp.score);
+    const awayScore = parseStrictFiniteNumber(awayComp.score);
 
     allGames.push({
       id: asGameId(makeOpaqueGameId(league, ev.date, homeSlug, awaySlug, ev.id ?? homeSlug)),
@@ -1070,7 +1083,7 @@ async function ingestConcacafEspnCompetition(
           }
         : {}),
       neutralSite: Boolean(comp?.neutralSite),
-      ...(status === "final" && Number.isFinite(homeScore) && Number.isFinite(awayScore)
+      ...(status === "final" && homeScore !== null && awayScore !== null
         ? { result: { home: homeScore, away: awayScore, observedAt: updatedAt, source: "pitchlab-concacaf" } }
         : {}),
     });
@@ -1188,10 +1201,10 @@ async function hydrateRefereesForCoreFootballLeagues(client: BzzoiroClient, now:
             refereeStats: {
               ...(ref.country ? { country: ref.country } : {}),
               ...(typeof ref.matches === "number" ? { matches: ref.matches } : {}),
-              ...(typeof ref.avg_yellow_per_match === "number" ? { avgYellow: Number(ref.avg_yellow_per_match.toFixed(2)) } : {}),
-              ...(typeof ref.avg_red_per_match === "number" ? { avgRed: Number(ref.avg_red_per_match.toFixed(2)) } : {}),
-              ...(typeof ref.avg_fouls_per_match === "number" ? { avgFouls: Number(ref.avg_fouls_per_match.toFixed(1)) } : {}),
-              ...(typeof ref.avg_goals_per_match === "number" ? { avgGoals: Number(ref.avg_goals_per_match.toFixed(2)) } : {}),
+              ...(typeof ref.avg_yellow_per_match === "number" ? { avgYellow: Number.parseFloat(ref.avg_yellow_per_match.toFixed(2)) } : {}),
+              ...(typeof ref.avg_red_per_match === "number" ? { avgRed: Number.parseFloat(ref.avg_red_per_match.toFixed(2)) } : {}),
+              ...(typeof ref.avg_fouls_per_match === "number" ? { avgFouls: Number.parseFloat(ref.avg_fouls_per_match.toFixed(1)) } : {}),
+              ...(typeof ref.avg_goals_per_match === "number" ? { avgGoals: Number.parseFloat(ref.avg_goals_per_match.toFixed(2)) } : {}),
             },
           };
         }
@@ -1288,8 +1301,8 @@ async function hydrateOfficialsForUsLeagues(now: Date): Promise<number> {
               const hit = prob?.statistics?.find((s) =>
                 names.includes((s.name ?? "").toLowerCase()),
               );
-              const n = hit?.displayValue ? Number(hit.displayValue) : NaN;
-              return Number.isFinite(n) && n >= 0 ? n : undefined;
+              const n = parseStrictFiniteNumber(hit?.displayValue);
+              return n !== null && n >= 0 ? n : undefined;
             };
             const rawHand = prob?.athlete?.throws?.abbreviation?.trim().toUpperCase();
             const throwingHand: "R" | "L" | "S" | undefined =
@@ -1396,7 +1409,7 @@ async function collectCompactOddsForEvents(
       const rawOpen = q.opening_decimal_odds ?? q.opening_odds;
       const openingDecimal =
         typeof rawOpen === "number" && Number.isFinite(rawOpen) && rawOpen > 1.01
-          ? Number(rawOpen.toFixed(3))
+          ? Number.parseFloat(rawOpen.toFixed(3))
           : undefined;
       const classified = classifyLineMovement({
         openingDecimal: openingDecimal ?? null,
@@ -1412,7 +1425,7 @@ async function collectCompactOddsForEvents(
         outcome: String(q.outcome),
         line: typeof q.line === "number" ? q.line : null,
         book,
-        decimal: Number(q.decimal_odds.toFixed(3)),
+        decimal: Number.parseFloat(q.decimal_odds.toFixed(3)),
         ...(openingDecimal !== undefined ? { openingDecimal } : {}),
         ...(classified.deltaPct !== null ? { deltaPct: classified.deltaPct } : {}),
         ...(hasMovement ? { movement: classified.legacyDirection, movementSignal: classified.signal } : {}),

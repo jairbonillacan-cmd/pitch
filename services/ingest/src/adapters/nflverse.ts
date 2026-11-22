@@ -14,6 +14,7 @@ import {
   asLeagueId,
   asSeasonId,
   easternWallTimeToUtcIso,
+  parseStrictFiniteNumber,
   type GameDTO,
 } from "@pitchlab/contracts";
 import type { NflTeamRateInput } from "@pitchlab/engines-reference";
@@ -118,9 +119,9 @@ export function normalizeNflverseSchedule(
   const allGames: GameDTO[] = regRows.map((row) => {
     const home = resolveCanonicalTeam("nfl", row.home_team);
     const away = resolveCanonicalTeam("nfl", row.away_team);
-    const hasScore = row.home_score.trim() !== "" && row.away_score.trim() !== "";
-    const homeScore = hasScore ? Number(row.home_score) : null;
-    const awayScore = hasScore ? Number(row.away_score) : null;
+    const homeScore = parseStrictFiniteNumber(row.home_score);
+    const awayScore = parseStrictFiniteNumber(row.away_score);
+    const hasScore = homeScore !== null && awayScore !== null;
     const timePart = row.gametime && /^\d{2}:\d{2}$/.test(row.gametime) ? row.gametime : "13:00";
     const startTime = easternWallTimeToUtcIso(row.gameday, timePart);
     const homeSlug = home.id.split(".")[1]!;
@@ -259,13 +260,16 @@ export function extractNflSeasonRows(
     if (!raw.home_score || !raw.away_score) continue;
     const parsed = NflverseCsvRowSchema.safeParse(raw);
     if (!parsed.success) continue;
+    const homeScore = parseStrictFiniteNumber(parsed.data.home_score);
+    const awayScore = parseStrictFiniteNumber(parsed.data.away_score);
+    if (homeScore === null || awayScore === null) continue;
     rows.push({
       week: parsed.data.week,
       date: parsed.data.gameday,
       home: mapTeamId(parsed.data.home_team),
       away: mapTeamId(parsed.data.away_team),
-      homeScore: Number(parsed.data.home_score),
-      awayScore: Number(parsed.data.away_score),
+      homeScore,
+      awayScore,
     });
   }
 

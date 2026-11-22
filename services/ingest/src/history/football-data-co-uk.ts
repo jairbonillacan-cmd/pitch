@@ -14,6 +14,7 @@
  *  - Cuotas pre-partido (Pinnacle desde 2012-13; B365 desde 2010-11) antes de esa fecha.
  *  - Tiros, tiros a puerta, córners y tarjetas en todas las temporadas descargadas.
  */
+import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import { parseCsv } from "../adapters/nflverse.js";
 import type { HistoryLeagueConfig } from "./leagues.js";
 import { slugifyTeamName } from "./teams.js";
@@ -302,11 +303,7 @@ export interface FdSeasonResult {
 }
 
 function parseNumber(raw: string | undefined): number | null {
-  if (raw === undefined) return null;
-  const trimmed = raw.trim();
-  if (trimmed === "") return null;
-  const value = Number(trimmed);
-  return Number.isFinite(value) ? value : null;
+  return parseStrictFiniteNumber(raw);
 }
 
 function asOdd(raw: string | undefined): number | null {
@@ -325,9 +322,9 @@ function asCount(raw: string | undefined): number | null {
 export function parseFdDate(raw: string): string | null {
   const match = raw.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
   if (!match) return null;
-  const day = Number(match[1]);
-  const month = Number(match[2]);
-  let year = Number(match[3]);
+  const day = Number.parseInt(match[1]!, 10);
+  const month = Number.parseInt(match[2]!, 10);
+  let year = Number.parseInt(match[3]!, 10);
   if (match[3]!.length === 2) year += year < 70 ? 2000 : 1900;
   if (month < 1 || month > 12 || day < 1 || day > 31) return null;
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -563,9 +560,9 @@ export function normalizeFdXg(
     const awayRaw = (row.AxG ?? "").trim();
     if (!homeSlug || !awaySlug || !date) continue;
     if (homeRaw === "" || awayRaw === "") continue;
-    const homeXg = Number(homeRaw);
-    const awayXg = Number(awayRaw);
-    if (!Number.isFinite(homeXg) || !Number.isFinite(awayXg)) continue;
+    const homeXg = parseStrictFiniteNumber(homeRaw);
+    const awayXg = parseStrictFiniteNumber(awayRaw);
+    if (homeXg === null || awayXg === null) continue;
     games.push({
       id: `${options.league.id}:${options.season}:${homeSlug}:${awaySlug}`,
       league: options.league.id,

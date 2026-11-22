@@ -12,7 +12,13 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve, sep } from "node:path";
 import { z } from "zod";
-import { asGameId, asLeagueId, asSeasonId, type GameDTO } from "@pitchlab/contracts";
+import {
+  asGameId,
+  asLeagueId,
+  asSeasonId,
+  parseStrictFiniteNumber,
+  type GameDTO,
+} from "@pitchlab/contracts";
 import type { FootballTeamRateInput } from "@pitchlab/engines-reference";
 import { listAllTeamsForLeague, resolveCanonicalTeam } from "../mappings.js";
 import type { NormalizedLigaMxSeason } from "./api-football.js";
@@ -109,7 +115,8 @@ export async function fetchEspnLigaMxSeason(options: {
 
   const root = ScoreboardSchema.parse(await fetchJson(ESPN_LIGA_MX_SCOREBOARD));
   const league = root.leagues?.[0];
-  const seasonYear = league?.season?.year ?? Number(options.referenceDate.slice(0, 4));
+  const seasonYear =
+    league?.season?.year ?? parseStrictFiniteNumber(options.referenceDate.slice(0, 4)) ?? Number.NaN;
   if (!Number.isInteger(seasonYear) || seasonYear < 1990 || seasonYear > 2100) {
     throw new Error(`Año de temporada ESPN fuera de rango: ${String(seasonYear)}`);
   }
@@ -126,7 +133,7 @@ export async function fetchEspnLigaMxSeason(options: {
   for (const day of [...new Set(calendar)].sort()) {
     const file = resolveSafeEspnCachePath(cacheRoot, `${day}.json`);
     // Días cerrados (anteriores a ayer) se leen de caché; el resto se refresca.
-    const closed = day < todayKey && Number(todayKey) - Number(day) > 1;
+    const closed = day < todayKey && Number.parseInt(todayKey, 10) - Number.parseInt(day, 10) > 1;
     let payload: unknown;
     if (closed && existsSync(file)) {
       payload = JSON.parse(readFileSync(file, "utf8"));
@@ -173,8 +180,8 @@ export function normalizeEspnLigaMx(
     const roundNum = Math.max(nHome, nAway);
     const isPlayoff = roundNum > LIGA_MX_REGULAR_ROUNDS;
     const final = ev.status.type.name === "STATUS_FULL_TIME" || ev.status.type.completed === true;
-    const hs = Number(homeC.score);
-    const as = Number(awayC.score);
+    const hs = parseStrictFiniteNumber(homeC.score) ?? Number.NaN;
+    const as = parseStrictFiniteNumber(awayC.score) ?? Number.NaN;
     const hasScore = final && Number.isFinite(hs) && Number.isFinite(as);
     const homeSlug = home.id.split(".")[1]!;
     const awaySlug = away.id.split(".")[1]!;

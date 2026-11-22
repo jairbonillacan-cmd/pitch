@@ -76,7 +76,7 @@ export interface NormalizedLigaMxSeason {
 
 function parseRoundNumber(round: string): number {
   const m = round.match(/(\d+)/);
-  return m && m[1] ? Number(m[1]) : 1;
+  return m && m[1] ? Number.parseInt(m[1], 10) : 1;
 }
 
 export function normalizeApiFootballLigaMx(
@@ -278,7 +278,7 @@ export async function fetchApiFootballLigaMx(options: {
   );
   const baseFixtures = (hist2024.response ?? []).filter((item) => {
     const m = item.league.round.match(/^Apertura\s*-\s*(\d+)$/i);
-    return m && Number(m[1]) < 16;
+    return m && Number.parseInt(m[1]!, 10) < 16;
   });
 
   const liveWindowDates = ["2026-11-08", "2026-11-09", "2026-11-10"];

@@ -474,7 +474,13 @@ function parseArgs(argv) {
     const match = /^--([a-z]+)=(.*)$/.exec(arg);
     if (!match) continue;
     const [, key, raw] = match;
-    if (key === "months" || key === "seed") config[key] = Number(raw);
+    if (key === "months" || key === "seed") {
+      const trimmed = raw.trim();
+      const parsed = Number.parseInt(trimmed, 10);
+      if (/^[+-]?\d+$/.test(trimmed) && Number.isFinite(parsed)) {
+        config[key] = parsed;
+      }
+    }
     else if (key === "cache" || key === "retries") config[key] = raw !== "false";
     else config[key] = raw;
   }
