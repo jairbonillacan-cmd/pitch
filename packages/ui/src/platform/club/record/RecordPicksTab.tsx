@@ -5,11 +5,10 @@ import { parseStrictFiniteNumber, type LivePhase } from "@pitchlab/contracts";
 import {
   Button,
   SofascoreCard,
-  SofascoreEmptyState,
   SofascoreTabs,
   type SofascoreTabItem,
 } from "../../../components/ui/primitives";
-import { TeamBadge } from "../../../sports";
+import { LeagueBadge, TeamBadge } from "../../../sports";
 import { formatOddsValue } from "../../access-guard";
 import {
   LivePickProgressBar,
@@ -19,6 +18,7 @@ import {
 import { DailyResultsCalendar } from "../../components/DailyResultsCalendar";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { MatchTicketCard } from "../../components/MatchTicketCard";
+import { MarketCategoryIcon } from "../../components/PackSportIcons";
 import { ConfirmActionDialog } from "../../components/PlatformOverlays";
 import { useSafeEffect, useVisibilityPolling } from "../../hooks";
 import { computeLivePickProgress } from "../../live/live-pick-progress";
@@ -39,11 +39,16 @@ import { shortDateLabel } from "../home/home-model";
 import { formatSignedPctValue, formatSignedUnits } from "./PublicRecordSections";
 import {
   auditStatusFromJournal,
+  buildParlayMatchSummary,
+  buildParlayPickSummary,
   classifyMarketFamily,
+  computeJournalEntryClvPct,
   computeJournalEntryEvPct,
   computeJournalSettlementUnits,
   getAuditStatusMeta,
+  normalizePickLabelWithUnit,
   resolveCapturedBookLabel,
+  sanitizeJournalDisplayNote,
   type AuditPickStatus,
 } from "./record-audit-helpers";
 
@@ -259,14 +264,33 @@ export function isParlayJournalEntry(entry: JournalEntry): boolean {
   );
 }
 
+interface LeagueMetaEntry {
+  readonly league: PlatformGame["league"];
+  readonly logoUrl?: string;
+  readonly sport: PlatformGame["sport"];
+}
+
+interface ResolvedTeamBadgeInfo {
+  readonly slug: string;
+  readonly name: string;
+  readonly shortName: string;
+  readonly logoUrl?: string;
+}
+
 interface ResolvedLegDisplay {
   readonly key: string;
   readonly gameId?: string;
   readonly pickId?: string;
   readonly index: number;
+  readonly leagueId?: PlatformGame["league"];
+  readonly leagueLogoUrl?: string;
   readonly leagueLabel: string;
   readonly matchLabel: string;
+  readonly shortMatchLabel: string;
+  readonly homeTeam?: ResolvedTeamBadgeInfo;
+  readonly awayTeam?: ResolvedTeamBadgeInfo;
   readonly pickLabel: string;
+  readonly marketFamilyKey: string;
   readonly marketFamilyShort: string;
   readonly p: number | null;
   readonly fairDecimal: number | null;
@@ -276,9 +300,58 @@ interface ResolvedLegDisplay {
   readonly status: AuditPickStatus;
 }
 
+function LegEmblemCluster({
+  leagueId,
+  leagueLabel,
+  leagueLogoUrl,
+  homeTeam,
+  awayTeam,
+  size,
+}: {
+  leagueId?: PlatformGame["league"];
+  leagueLabel: string;
+  leagueLogoUrl?: string;
+  homeTeam?: ResolvedTeamBadgeInfo;
+  awayTeam?: ResolvedTeamBadgeInfo;
+  size: number;
+}): React.JSX.Element | null {
+  if (leagueId && homeTeam && awayTeam) {
+    return (
+      <span className="pl-rec-badge-pair" aria-hidden="true">
+        <TeamBadge
+          league={leagueId}
+          slug={homeTeam.slug}
+          name={homeTeam.name}
+          logoUrl={homeTeam.logoUrl || undefined}
+          size={size}
+        />
+        <TeamBadge
+          league={leagueId}
+          slug={awayTeam.slug}
+          name={awayTeam.name}
+          logoUrl={awayTeam.logoUrl || undefined}
+          size={size}
+        />
+      </span>
+    );
+  }
+  if (leagueId) {
+    return (
+      <LeagueBadge
+        league={leagueId}
+        label={leagueLabel}
+        logoUrl={leagueLogoUrl || undefined}
+        size={size}
+      />
+    );
+  }
+  return null;
+}
+
 function resolveParlayLegsForDisplay(
   entry: JournalEntry,
   gameById: ReadonlyMap<string, PlatformGame>,
+  leagueMetaByLabel: ReadonlyMap<string, LeagueMetaEntry>,
 ): ResolvedLegDisplay[] {
   const resultByKey = new Map<string, JournalParlayLegResult>();
   for (const r of entry.parlayLegResults ?? []) {
@@ -296,26 +369,60 @@ function resolveParlayLegsForDisplay(
         ? auditStatusFromJournal(res.status)
         : fallbackStatus;
       const linkedGame = gameById.get(leg.gameId);
+      const leagueLabel = leg.leagueLabel ?? linkedGame?.leagueLabel ?? entry.leagueLabel;
+      const leagueMeta = leagueMetaByLabel.get(leagueLabel.trim().toLowerCase());
       const scoreLabel =
         res && Number.isFinite(res.homeScore) && Number.isFinite(res.awayScore)
           ? `${res.homeScore}–${res.awayScore}`
           : linkedGame?.status === "FT" && linkedGame.score
             ? `${linkedGame.score.home}–${linkedGame.score.away}`
             : null;
-      const pickLabel = leg.pickLabel ?? leg.selection ?? leg.pickId;
+      const rawPickLabel = leg.pickLabel ?? leg.selection ?? leg.pickId;
+      const pickLabel = normalizePickLabelWithUnit({
+        pickLabel: rawPickLabel,
+        market: leg.market,
+        leagueLabel,
+        sport: linkedGame?.sport ?? leagueMeta?.sport ?? null,
+      });
       const family = classifyMarketFamily({
         market: leg.market,
         pickLabel,
       });
+      const fullMatchLabel =
+        leg.matchLabel?.trim() ||
+        (linkedGame ? `${linkedGame.home.name} vs ${linkedGame.away.name}` : `Pierna ${i + 1}`);
+      const shortMatchLabel = linkedGame
+        ? `${linkedGame.home.shortName} vs ${linkedGame.away.shortName}`
+        : fullMatchLabel;
 
       return {
         key: `${leg.gameId}-${leg.pickId}-${i}`,
         gameId: leg.gameId,
         pickId: leg.pickId,
         index: i + 1,
-        leagueLabel: leg.leagueLabel ?? entry.leagueLabel,
-        matchLabel: leg.matchLabel ?? `Pierna ${i + 1}`,
+        leagueId: linkedGame?.league ?? leagueMeta?.league,
+        leagueLogoUrl: linkedGame?.leagueLogoUrl ?? leagueMeta?.logoUrl,
+        leagueLabel,
+        matchLabel: fullMatchLabel,
+        shortMatchLabel,
+        homeTeam: linkedGame
+          ? {
+              slug: linkedGame.home.slug,
+              name: linkedGame.home.name,
+              shortName: linkedGame.home.shortName,
+              logoUrl: linkedGame.home.logoUrl,
+            }
+          : undefined,
+        awayTeam: linkedGame
+          ? {
+              slug: linkedGame.away.slug,
+              name: linkedGame.away.name,
+              shortName: linkedGame.away.shortName,
+              logoUrl: linkedGame.away.logoUrl,
+            }
+          : undefined,
         pickLabel,
+        marketFamilyKey: family.key,
         marketFamilyShort: family.shortLabel,
         p:
           typeof leg.p === "number" && Number.isFinite(leg.p) && leg.p > 0 && leg.p < 1
@@ -330,7 +437,10 @@ function resolveParlayLegsForDisplay(
             ? res.closingDecimal
             : null,
         clvPct:
-          res && typeof res.clvPct === "number" && Number.isFinite(res.clvPct)
+          res &&
+          typeof res.clvPct === "number" &&
+          Number.isFinite(res.clvPct) &&
+          Math.abs(res.clvPct) <= 35
             ? res.clvPct
             : null,
         scoreLabel,
@@ -339,24 +449,40 @@ function resolveParlayLegsForDisplay(
     });
   }
 
+  const leagueMeta = leagueMetaByLabel.get(entry.leagueLabel.trim().toLowerCase());
   const parts = entry.pickLabel
-    .split(/\s+\+\s+/)
+    .split(/\s+[+·]\s+/)
     .map((s) => s.trim())
     .filter(Boolean);
-  return parts.map((label, i) => ({
-    key: `${entry.id}-legacy-${i}`,
-    index: i + 1,
-    leagueLabel: entry.leagueLabel,
-    matchLabel: `Pierna ${i + 1}`,
-    pickLabel: label,
-    marketFamilyShort: classifyMarketFamily({ pickLabel: label }).shortLabel,
-    p: null,
-    fairDecimal: null,
-    closingDecimal: null,
-    clvPct: null,
-    scoreLabel: null,
-    status: fallbackStatus,
-  }));
+  return parts.map((rawPart, i) => {
+    const colonIdx = rawPart.indexOf(": ");
+    const parsedMatch = colonIdx > 0 ? rawPart.slice(0, colonIdx).trim() : `Pierna ${i + 1}`;
+    const parsedPick = colonIdx > 0 ? rawPart.slice(colonIdx + 2).trim() : rawPart;
+    const normalizedLabel = normalizePickLabelWithUnit({
+      pickLabel: parsedPick,
+      leagueLabel: entry.leagueLabel,
+      sport: leagueMeta?.sport ?? null,
+    });
+    const family = classifyMarketFamily({ pickLabel: normalizedLabel });
+    return {
+      key: `${entry.id}-legacy-${i}`,
+      index: i + 1,
+      leagueId: leagueMeta?.league,
+      leagueLogoUrl: leagueMeta?.logoUrl,
+      leagueLabel: entry.leagueLabel,
+      matchLabel: parsedMatch,
+      shortMatchLabel: parsedMatch,
+      pickLabel: normalizedLabel,
+      marketFamilyKey: family.key,
+      marketFamilyShort: family.shortLabel,
+      p: null,
+      fairDecimal: null,
+      closingDecimal: null,
+      clvPct: null,
+      scoreLabel: null,
+      status: fallbackStatus,
+    };
+  });
 }
 
 function ParlayLegsList({
@@ -411,6 +537,15 @@ function ParlayLegsList({
                 >
                   #{leg.index}
                 </span>
+                <LegEmblemCluster
+                  leagueId={leg.leagueId}
+                  leagueLabel={leg.leagueLabel}
+                  leagueLogoUrl={leg.leagueLogoUrl}
+                  homeTeam={leg.homeTeam}
+                  awayTeam={leg.awayTeam}
+                  size={18}
+                />
+                <MarketCategoryIcon family={leg.marketFamilyKey} size={15} />
                 <strong className="text-xs font-bold">{leg.pickLabel}</strong>
                 <span className="pl-pill text-[10px]">{leg.marketFamilyShort}</span>
                 {leg.scoreLabel ? (
@@ -494,6 +629,9 @@ export function RecordPicksTab({
   suggestedUpcoming,
   onToggleWatchlist,
   onNavigateHome,
+  onNavigatePicks,
+  onNavigateParlays,
+  onNavigateVerify,
   onOpenWinningEntry,
   onOpenShareTicket,
   onClearWatchlist,
@@ -505,12 +643,19 @@ export function RecordPicksTab({
   suggestedUpcoming: readonly PlatformGame[];
   onToggleWatchlist: (gameId: string) => void;
   onNavigateHome: () => void;
+  onNavigatePicks?: () => void;
+  onNavigateParlays?: () => void;
+  onNavigateVerify?: () => void;
   onOpenWinningEntry: (entry: JournalEntry) => void;
   onOpenShareTicket: (payload: ShareTicketPayload) => void;
   onClearWatchlist?: () => void;
   overrideLiveTrackedPicks?: readonly LiveTrackedPickSnapshot[];
 }): React.JSX.Element {
   const uid = useId();
+  const kindLabelId = `${uid}-kind-label`;
+  const statusLabelId = `${uid}-status-label`;
+  const familyLabelId = `${uid}-family-label`;
+  const tableCaptionId = `${uid}-ledger-caption`;
   const [statusFilter, setStatusFilter] = useState<PickStatusFilter>("all");
   const [kindFilter, setKindFilter] = useState<PickKindFilter>("all");
   const [familyFilter, setFamilyFilter] = useState<string>("all");
@@ -518,6 +663,7 @@ export function RecordPicksTab({
   const [viewMode, setViewMode] = useState<RecordViewMode>("list");
   const [shown, setShown] = useState<number>(PICKS_PAGE_SIZE);
   const [confirmClearWatchOpen, setConfirmClearWatchOpen] = useState(false);
+  const [watchOpen, setWatchOpen] = useState<boolean>(() => watchedGames.length > 0);
 
   const [serverLiveItems, setServerLiveItems] = useState<readonly LiveTrackedPickSnapshot[]>([]);
   const [serverPollSeconds, setServerPollSeconds] = useState<number | null>(null);
@@ -530,6 +676,28 @@ export function RecordPicksTab({
   const hasAccountSessionAuth = Boolean(optCore?.hasAccountSessionAuth);
 
   const gameById = useMemo(() => new Map(allGames.map((g) => [g.id, g])), [allGames]);
+
+  const leagueMetaByLabel = useMemo(() => {
+    const map = new Map<string, LeagueMetaEntry>();
+    for (const item of optCore?.dataset.leagues ?? []) {
+      map.set(item.label.trim().toLowerCase(), {
+        league: item.league,
+        logoUrl: item.logoUrl,
+        sport: item.sport,
+      });
+    }
+    for (const g of allGames) {
+      const key = g.leagueLabel.trim().toLowerCase();
+      if (!map.has(key)) {
+        map.set(key, {
+          league: g.league,
+          logoUrl: g.leagueLogoUrl,
+          sport: g.sport,
+        });
+      }
+    }
+    return map;
+  }, [allGames, optCore?.dataset.leagues]);
 
   const pickById = useMemo(() => {
     const map = new Map<string, MatchPick>();
@@ -618,9 +786,14 @@ export function RecordPicksTab({
       if (!progress) continue;
       const targetLine = progress.targetValue ?? 1;
       const actualValue = progress.currentValue ?? 0;
+      const displayPickLabel = normalizePickLabelWithUnit({
+        pickLabel: entry.pickLabel,
+        leagueLabel: entry.leagueLabel,
+        sport: linkedGame.sport,
+      });
       const isUnder =
-        entry.pickLabel.toLowerCase().includes("menos de") ||
-        entry.pickLabel.toLowerCase().includes("under");
+        displayPickLabel.toLowerCase().includes("menos de") ||
+        displayPickLabel.toLowerCase().includes("under");
       out.push({
         id: entry.id,
         pickId: entry.pickId,
@@ -628,7 +801,7 @@ export function RecordPicksTab({
         pickKind: isParlayJournalEntry(entry) ? "parlay" : "single",
         phase: "live",
         matchLabel: entry.matchLabel,
-        pickLabel: entry.pickLabel,
+        pickLabel: displayPickLabel,
         href: progress.href ?? null,
         clockLabel: `${progress.scoreLabel} · ${progress.clockLabel}`,
         actualValue,
@@ -667,30 +840,40 @@ export function RecordPicksTab({
     setExpandedParlayIds((prev) => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
-  const buildCalendarMonth = useCallback(
-    (ym: string) =>
-      buildMonthlyRecordCalendar(journal, ym || undefined, {
-        timeZone: userTz,
-        includeNetUnits: true,
-      }),
-    [journal, userTz],
-  );
-
   const enrichedJournal = useMemo(
     () =>
       journal.map((item) => {
         const isParlay = isParlayJournalEntry(item);
         const linkedGame = gameById.get(item.gameId);
         const linkedPick = pickById.get(item.pickId);
+        const singleLeagueMeta = leagueMetaByLabel.get(item.leagueLabel.trim().toLowerCase());
         const auditStatus = auditStatusFromJournal(item.status);
+        const legs = isParlay
+          ? resolveParlayLegsForDisplay(item, gameById, leagueMetaByLabel)
+          : [];
+        const displayPickLabel = isParlay
+          ? buildParlayPickSummary(legs) || item.pickLabel
+          : normalizePickLabelWithUnit({
+              pickLabel: item.pickLabel,
+              market: linkedPick?.market,
+              leagueLabel: item.leagueLabel,
+              sport: linkedGame?.sport ?? singleLeagueMeta?.sport ?? null,
+            });
+        const displayMatchLabel = isParlay
+          ? buildParlayMatchSummary(legs)
+          : linkedGame
+            ? `${linkedGame.home.shortName} vs ${linkedGame.away.shortName}`
+            : item.matchLabel;
+        const displayNote = sanitizeJournalDisplayNote(item.note);
         const family = classifyMarketFamily({
           market: linkedPick?.market ?? item.parlayLegs?.[0]?.market,
           marketGroup: linkedPick?.marketGroup,
-          pickLabel: item.pickLabel,
+          pickLabel: displayPickLabel,
           origin: item.origin,
           isParlay,
         });
         const evPct = computeJournalEntryEvPct(item);
+        const credibleClvPct = computeJournalEntryClvPct(item);
         const netUnits = computeJournalSettlementUnits(item);
         const bookLabel = resolveCapturedBookLabel(linkedPick);
         const finalScore =
@@ -698,7 +881,6 @@ export function RecordPicksTab({
             ? `${linkedGame.score.home}–${linkedGame.score.away}`
             : null;
         const isFinishedMatch = linkedGame?.status === "FT";
-        const legs = isParlay ? resolveParlayLegsForDisplay(item, gameById) : [];
         const liveProgress =
           auditStatus === "pending"
             ? (liveTrackByKey.get(item.id) ?? liveTrackByKey.get(item.pickId) ?? null)
@@ -710,15 +892,38 @@ export function RecordPicksTab({
           auditStatus,
           family,
           evPct,
+          credibleClvPct,
           netUnits,
           bookLabel,
           finalScore,
           isFinishedMatch,
           legs,
           liveProgress,
+          linkedGame,
+          singleLeagueMeta,
+          displayPickLabel,
+          displayMatchLabel,
+          displayNote,
         };
       }),
-    [gameById, journal, liveTrackByKey, pickById],
+    [gameById, journal, leagueMetaByLabel, liveTrackByKey, pickById],
+  );
+
+  const buildCalendarMonth = useCallback(
+    (ym: string) =>
+      buildMonthlyRecordCalendar(
+        enrichedJournal.map((row) => ({
+          ...row.item,
+          pickLabel: row.displayPickLabel,
+          matchLabel: row.displayMatchLabel,
+        })),
+        ym || undefined,
+        {
+          timeZone: userTz,
+          includeNetUnits: true,
+        },
+      ),
+    [enrichedJournal, userTz],
   );
 
   const parlayCount = useMemo(
@@ -766,19 +971,30 @@ export function RecordPicksTab({
     return { won, lost, push, pending };
   }, [familyFiltered]);
 
+  const kindFilterButtons: ReadonlyArray<readonly [PickKindFilter, string]> = useMemo(() => {
+    const showCounts = journal.length > 0;
+    return [
+      ["all", showCounts ? `Todos · ${journal.length}` : "Todos"],
+      ["single", showCounts ? `Simples · ${singleCount}` : "Simples"],
+      ["parlay", showCounts ? `Parlays · ${parlayCount}` : "Parlays"],
+    ];
+  }, [journal.length, parlayCount, singleCount]);
+
   const statusFilterButtons: ReadonlyArray<readonly [PickStatusFilter, string]> = useMemo(() => {
+    const showCounts = journal.length > 0;
     const items: Array<readonly [PickStatusFilter, string]> = [
-      ["all", `Estado: Todos · ${familyFiltered.length}`],
-      ["won", `Ganados · ${statusCounts.won}`],
-      ["lost", `Perdidos · ${statusCounts.lost}`],
+      ["all", showCounts ? `Todos · ${familyFiltered.length}` : "Todos"],
+      ["won", showCounts ? `Ganados · ${statusCounts.won}` : "Ganados"],
+      ["lost", showCounts ? `Perdidos · ${statusCounts.lost}` : "Perdidos"],
     ];
     if (statusCounts.push > 0) {
       items.push(["push", `Push · ${statusCounts.push}`]);
     }
-    items.push(["pending", `Pendientes · ${statusCounts.pending}`]);
+    items.push(["pending", showCounts ? `Pendientes · ${statusCounts.pending}` : "Pendientes"]);
     return items;
   }, [
     familyFiltered.length,
+    journal.length,
     statusCounts.lost,
     statusCounts.pending,
     statusCounts.push,
@@ -792,18 +1008,72 @@ export function RecordPicksTab({
 
   const visibleRows = useMemo(() => filtered.slice(0, shown), [filtered, shown]);
 
+  const goToPicks = useCallback(() => {
+    if (onNavigatePicks) {
+      onNavigatePicks();
+      return;
+    }
+    if (optActions?.navigateTo) {
+      optActions.navigateTo("/app/picks");
+      return;
+    }
+    onNavigateHome();
+  }, [onNavigateHome, onNavigatePicks, optActions]);
+
+  const goToParlays = useCallback(() => {
+    if (onNavigateParlays) {
+      onNavigateParlays();
+      return;
+    }
+    if (optActions?.navigateTo) {
+      optActions.navigateTo("/app/parlays");
+      return;
+    }
+    onNavigateHome();
+  }, [onNavigateHome, onNavigateParlays, optActions]);
+
+  const handleOpenVerify = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      if (
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+      if (onNavigateVerify) {
+        event.preventDefault();
+        onNavigateVerify();
+        return;
+      }
+      if (optActions?.navigateTo) {
+        event.preventDefault();
+        optActions.navigateTo("/verificacion");
+      }
+    },
+    [onNavigateVerify, optActions],
+  );
+
   const openTicketAction = useCallback(
-    (entry: JournalEntry, isParlay: boolean) => {
+    (entry: JournalEntry, isParlay: boolean, displayMatchLabel: string, displayPickLabel: string) => {
+      const normalizedEntry: JournalEntry = {
+        ...entry,
+        matchLabel: displayMatchLabel,
+        pickLabel: displayPickLabel,
+        note: sanitizeJournalDisplayNote(entry.note) ?? undefined,
+      };
       if (entry.status === "won") {
-        onOpenWinningEntry(entry);
+        onOpenWinningEntry(normalizedEntry);
         return;
       }
       onOpenShareTicket({
         kind: isParlay ? "parlay" : "pick",
-        title: entry.matchLabel,
+        title: displayMatchLabel,
         subtitle: `${entry.leagueLabel} · Mi récord PitchLab`,
         leagueLabel: entry.leagueLabel,
-        pickLabel: entry.pickLabel,
+        pickLabel: displayPickLabel,
         probability: Math.min(0.88, Math.max(0.05, 1 / entry.fairDecimal)),
         fairDecimal: entry.fairDecimal,
         marketDecimal: entry.userDecimal,
@@ -834,7 +1104,7 @@ export function RecordPicksTab({
             title={`Tus picks en vivo (${activeLiveTrackedPicks.length})`}
             meta={
               <span className="inline-flex items-center gap-1.5">
-                <span className="live-dot" aria-hidden="true" />
+                <MaestroIcon name="live-pulse" size={14} />
                 <span>En tiempo real</span>
               </span>
             }
@@ -898,100 +1168,108 @@ export function RecordPicksTab({
         }
       >
         <div className="space-y-3">
-          <p className="pl-rec-card-meta [text-wrap:pretty]">
-            Sellados antes del arranque · registro inmutable sin edición ni borrado · simples y
-            parlays pierna por pierna
-          </p>
-
           {viewMode === "list" ? (
-            <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <div
-                  className="pl-rec-filter-row num"
-                  role="group"
-                  aria-label="Filtrar por tipo de boleto"
-                  data-record-kind-filter=""
-                >
-                  {(
-                    [
-                      ["all", `Todos · ${journal.length}`],
-                      ["single", `Simples · ${singleCount}`],
-                      ["parlay", `Parlays · ${parlayCount}`],
-                    ] as const
-                  ).map(([key, label]) => (
-                    <button
-                      key={key}
-                      type="button"
-                      className="pl-rec-chip"
-                      aria-pressed={kindFilter === key}
-                      data-kind-filter={key}
-                      onClick={() => {
-                        setKindFilter(key);
-                        setFamilyFilter("all");
-                        setShown(PICKS_PAGE_SIZE);
-                      }}
-                    >
-                      {label}
-                    </button>
-                  ))}
+            <div className="space-y-2.5">
+              <div className="pl-rec-filter-bar">
+                <div className="pl-rec-filter-group">
+                  <span id={kindLabelId} className="pl-rec-filter-label">
+                    Tipo
+                  </span>
+                  <div
+                    className="pl-rec-segmented num"
+                    role="group"
+                    aria-labelledby={kindLabelId}
+                    data-record-kind-filter=""
+                  >
+                    {kindFilterButtons.map(([key, label]) => (
+                      <button
+                        key={key}
+                        type="button"
+                        className="pl-rec-seg-btn"
+                        aria-pressed={kindFilter === key}
+                        data-kind-filter={key}
+                        onClick={() => {
+                          setKindFilter(key);
+                          setFamilyFilter("all");
+                          setShown(PICKS_PAGE_SIZE);
+                        }}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                <div
-                  className="pl-rec-filter-row num"
-                  role="group"
-                  aria-label="Filtrar picks por estado de liquidación"
-                  data-record-status-filter=""
-                >
-                  {statusFilterButtons.map(([key, label]) => (
-                    <button
-                      key={key}
-                      type="button"
-                      className="pl-rec-chip"
-                      aria-pressed={statusFilter === key}
-                      data-status-filter={key}
-                      onClick={() => {
-                        setStatusFilter(key);
-                        setShown(PICKS_PAGE_SIZE);
-                      }}
-                    >
-                      {label}
-                    </button>
-                  ))}
+                <div className="pl-rec-filter-group">
+                  <span id={statusLabelId} className="pl-rec-filter-label">
+                    Estado
+                  </span>
+                  <div
+                    className="pl-rec-segmented num"
+                    role="group"
+                    aria-labelledby={statusLabelId}
+                    data-record-status-filter=""
+                  >
+                    {statusFilterButtons.map(([key, label]) => (
+                      <button
+                        key={key}
+                        type="button"
+                        className="pl-rec-seg-btn"
+                        aria-pressed={statusFilter === key}
+                        data-status-filter={key}
+                        onClick={() => {
+                          setStatusFilter(key);
+                          setShown(PICKS_PAGE_SIZE);
+                        }}
+                      >
+                        {key === "push" ? <MaestroIcon name="push-void" size={12} /> : null}
+                        <span>{label}</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {familyOptions.length > 1 ? (
-                <div
-                  className="pl-rec-filter-row num"
-                  role="group"
-                  aria-label="Filtrar picks por familia de mercado"
-                  data-record-family-filter=""
-                >
-                  <button
-                    type="button"
-                    className="pl-rec-chip"
-                    aria-pressed={familyFilter === "all"}
-                    onClick={() => {
-                      setFamilyFilter("all");
-                      setShown(PICKS_PAGE_SIZE);
-                    }}
+                <div className="pl-rec-filter-group">
+                  <span id={familyLabelId} className="pl-rec-filter-label">
+                    Mercado
+                  </span>
+                  <div
+                    className="pl-rec-filter-row num"
+                    role="group"
+                    aria-labelledby={familyLabelId}
+                    data-record-family-filter=""
                   >
-                    Todas las familias
-                  </button>
-                  {familyOptions.map((opt) => (
                     <button
-                      key={opt.key}
                       type="button"
                       className="pl-rec-chip"
-                      aria-pressed={familyFilter === opt.key}
+                      aria-pressed={familyFilter === "all"}
                       onClick={() => {
-                        setFamilyFilter(opt.key);
+                        setFamilyFilter("all");
                         setShown(PICKS_PAGE_SIZE);
                       }}
                     >
-                      {opt.shortLabel} · {opt.count}
+                      Todos
                     </button>
-                  ))}
+                    {familyOptions.map((opt) => (
+                      <button
+                        key={opt.key}
+                        type="button"
+                        className="pl-rec-chip"
+                        aria-pressed={familyFilter === opt.key}
+                        onClick={() => {
+                          setFamilyFilter(opt.key);
+                          setShown(PICKS_PAGE_SIZE);
+                        }}
+                      >
+                        <MarketCategoryIcon family={opt.key} size={14} />
+                        <span>
+                          {opt.shortLabel} · {opt.count}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -1000,35 +1278,81 @@ export function RecordPicksTab({
           {viewMode === "calendar" ? (
             <DailyResultsCalendar buildMonth={buildCalendarMonth} mode="units" />
           ) : filtered.length === 0 ? (
-            <SofascoreEmptyState
-              title={
-                journal.length === 0
+            <div className="pl-sf-empty pl-rec-empty-state" data-pl-sf-empty="">
+              <span className="pl-rec-empty-icon" aria-hidden="true">
+                <MaestroIcon
+                  name={kindFilter === "parlay" && parlayCount === 0 ? "layers" : "target-picks"}
+                  size={28}
+                />
+              </span>
+              <p className="pl-sf-empty-title">
+                {journal.length === 0
                   ? "Todavía no sellas ningún pick"
                   : kindFilter === "parlay" && parlayCount === 0
                     ? "Todavía no sellas ningún parlay"
-                    : "No tienes picks en este filtro"
-              }
-              description={
-                journal.length === 0
-                  ? "Elige un partido de hoy para registrar tu primer pick sellado antes del arranque."
+                    : "No tienes picks en este filtro"}
+              </p>
+              <p className="pl-sf-empty-desc [text-wrap:pretty]">
+                {journal.length === 0
+                  ? "Sella tu primer pick o combina 2 a 6 selecciones antes del arranque para llevar registro inmutable y seguimiento en vivo."
                   : kindFilter === "parlay" && parlayCount === 0
-                    ? "Ármalo en la pestaña Parlays y séllalo antes del arranque."
-                    : "Prueba cambiando el filtro de estado, tipo o familia de mercado."
-              }
-              actionLabel={journal.length === 0 ? "Ver partidos de hoy" : undefined}
-              onAction={journal.length === 0 ? onNavigateHome : undefined}
-            />
+                    ? "Combina selecciones en Parlays y séllalo antes del arranque con desglose pierna por pierna."
+                    : "Prueba cambiando el filtro de tipo, estado o mercado."}
+              </p>
+              <div className="pl-rec-empty-actions">
+                {journal.length === 0 ? (
+                  <>
+                    <Button variant="primary" size="sm" onClick={goToPicks}>
+                      <MaestroIcon name="target-picks" size={14} />
+                      <span>Ir a Picks</span>
+                    </Button>
+                    <Button variant="secondary" size="sm" onClick={goToParlays}>
+                      <MaestroIcon name="layers" size={14} />
+                      <span>Armar parlay</span>
+                    </Button>
+                  </>
+                ) : kindFilter === "parlay" && parlayCount === 0 ? (
+                  <Button variant="primary" size="sm" onClick={goToParlays}>
+                    <MaestroIcon name="layers" size={14} />
+                    <span>Armar parlay</span>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => {
+                      setKindFilter("all");
+                      setStatusFilter("all");
+                      setFamilyFilter("all");
+                      setShown(PICKS_PAGE_SIZE);
+                    }}
+                  >
+                    Mostrar todos
+                  </Button>
+                )}
+              </div>
+              {journal.length === 0 ? (
+                <a
+                  href="/verificacion"
+                  className="pl-rec-verify-link"
+                  onClick={handleOpenVerify}
+                >
+                  <MaestroIcon name="verified-seal" size={13} />
+                  <span>Cómo funciona la verificación SHA-256</span>
+                </a>
+              ) : null}
+            </div>
           ) : (
             <div className="space-y-3">
               <div
                 className="pl-sf-table-wrap pl-rec-ledger-wrap"
                 tabIndex={0}
                 role="region"
-                aria-label="Tabla de picks sellados en Mi récord"
+                aria-labelledby={tableCaptionId}
                 data-pl-sf-table=""
               >
                 <table className="pl-sf-table pl-rec-ledger-table">
-                  <caption className="sr-only">
+                  <caption id={tableCaptionId} className="sr-only">
                     Registro auditable e inmutable de picks sellados con momio capturado, EV, CLV y
                     estado final
                   </caption>
@@ -1068,12 +1392,18 @@ export function RecordPicksTab({
                         auditStatus,
                         family,
                         evPct,
+                        credibleClvPct,
                         netUnits,
                         bookLabel,
                         finalScore,
                         isFinishedMatch,
                         legs,
                         liveProgress,
+                        linkedGame,
+                        singleLeagueMeta,
+                        displayPickLabel,
+                        displayMatchLabel,
+                        displayNote,
                       } = row;
                       const statusMeta = getAuditStatusMeta(auditStatus);
                       const expanded = Boolean(expandedParlayIds[item.id]);
@@ -1083,6 +1413,12 @@ export function RecordPicksTab({
                       const legPct =
                         legs.length > 0 ? Math.round((wonLegs / legs.length) * 100) : 0;
                       const deskPanelId = `${uid}-desk-legs-${item.id}`;
+                      const previewLegs = legs.slice(0, 3);
+                      const hiddenPreviewCount = Math.max(0, legs.length - previewLegs.length);
+                      const hasClosingOdds =
+                        typeof item.closingDecimal === "number" &&
+                        Number.isFinite(item.closingDecimal) &&
+                        item.closingDecimal > 1;
 
                       return (
                         <React.Fragment key={item.id}>
@@ -1146,22 +1482,98 @@ export function RecordPicksTab({
                                       style={{ width: `${legPct}%` }}
                                     />
                                   </div>
-                                  <strong className="block font-bold text-xs sm:text-sm">
-                                    {item.pickLabel}
-                                  </strong>
-                                  {item.note ? (
+                                  <ul className="pl-rec-parlay-preview" role="list">
+                                    {previewLegs.map((leg) => {
+                                      const legMeta = getAuditStatusMeta(leg.status);
+                                      return (
+                                        <li key={leg.key} className="pl-rec-parlay-preview-item">
+                                          <LegEmblemCluster
+                                            leagueId={leg.leagueId}
+                                            leagueLabel={leg.leagueLabel}
+                                            leagueLogoUrl={leg.leagueLogoUrl}
+                                            homeTeam={leg.homeTeam}
+                                            awayTeam={leg.awayTeam}
+                                            size={15}
+                                          />
+                                          <MarketCategoryIcon
+                                            family={leg.marketFamilyKey}
+                                            size={14}
+                                          />
+                                          <span className="pl-rec-parlay-preview-text">
+                                            <span className="pl-rec-parlay-preview-match">
+                                              {leg.shortMatchLabel}
+                                            </span>
+                                            <span
+                                              aria-hidden="true"
+                                              className="pl-rec-parlay-preview-sep"
+                                            >
+                                              ·
+                                            </span>
+                                            <strong className="pl-rec-parlay-preview-pick">
+                                              {leg.pickLabel}
+                                            </strong>
+                                          </span>
+                                          {leg.status !== "pending" ? (
+                                            <span
+                                              className={`${legMeta.histChipClass} num`}
+                                              title={legMeta.spoken}
+                                            >
+                                              {legMeta.shortLabel}
+                                            </span>
+                                          ) : null}
+                                        </li>
+                                      );
+                                    })}
+                                    {hiddenPreviewCount > 0 ? (
+                                      <li className="pl-rec-parlay-preview-more num">
+                                        +{hiddenPreviewCount}{" "}
+                                        {hiddenPreviewCount === 1
+                                          ? "pierna adicional"
+                                          : "piernas adicionales"}
+                                      </li>
+                                    ) : null}
+                                  </ul>
+                                  {displayNote ? (
                                     <span
                                       className="block text-xs font-normal"
                                       style={{ color: "var(--pl-text-muted)" }}
                                     >
-                                      “{item.note}”
+                                      “{displayNote}”
                                     </span>
                                   ) : null}
                                 </div>
                               ) : (
                                 <div className="space-y-1">
                                   <div className="flex flex-wrap items-center gap-1.5">
-                                    <strong className="font-bold">{item.pickLabel}</strong>
+                                    <LegEmblemCluster
+                                      leagueId={linkedGame?.league ?? singleLeagueMeta?.league}
+                                      leagueLabel={item.leagueLabel}
+                                      leagueLogoUrl={
+                                        linkedGame?.leagueLogoUrl ?? singleLeagueMeta?.logoUrl
+                                      }
+                                      homeTeam={
+                                        linkedGame
+                                          ? {
+                                              slug: linkedGame.home.slug,
+                                              name: linkedGame.home.name,
+                                              shortName: linkedGame.home.shortName,
+                                              logoUrl: linkedGame.home.logoUrl,
+                                            }
+                                          : undefined
+                                      }
+                                      awayTeam={
+                                        linkedGame
+                                          ? {
+                                              slug: linkedGame.away.slug,
+                                              name: linkedGame.away.name,
+                                              shortName: linkedGame.away.shortName,
+                                              logoUrl: linkedGame.away.logoUrl,
+                                            }
+                                          : undefined
+                                      }
+                                      size={16}
+                                    />
+                                    <strong className="font-bold">{displayPickLabel}</strong>
                                     {finalScore ? (
                                       <span className="pl-hist-score-pill num text-[11px]">
                                         FT {finalScore}
@@ -1174,8 +1586,8 @@ export function RecordPicksTab({
                                     className="block text-xs font-normal"
                                     style={{ color: "var(--pl-text-muted)" }}
                                   >
-                                    {item.leagueLabel} · {item.matchLabel}
-                                    {item.note ? ` — “${item.note}”` : ""}
+                                    {item.leagueLabel} · {displayMatchLabel}
+                                    {displayNote ? ` — “${displayNote}”` : ""}
                                   </span>
                                 </div>
                               )}
@@ -1200,8 +1612,11 @@ export function RecordPicksTab({
                               ) : null}
                             </th>
                             <td className="pl-sf-td" data-label="Familia">
-                              <div className="inline-flex flex-col items-start gap-0.5">
-                                <span className="pl-pill text-[11px]">{family.shortLabel}</span>
+                              <div className="pl-rec-family-cell">
+                                <span className="pl-pill text-[11px]">
+                                  <MarketCategoryIcon family={family.key} size={13} />
+                                  <span>{family.shortLabel}</span>
+                                </span>
                                 <span
                                   className="text-[11px]"
                                   style={{ color: "var(--pl-text-muted)" }}
@@ -1242,32 +1657,61 @@ export function RecordPicksTab({
                               className="pl-sf-td is-end num whitespace-nowrap"
                               data-label="EV / CLV"
                             >
-                              <span
-                                className="font-bold"
-                                style={{
-                                  color:
-                                    evPct !== null && evPct > 0
-                                      ? "var(--pl-success)"
-                                      : item.clvPct >= 0
-                                        ? "var(--pl-success)"
-                                        : "var(--pl-warning)",
-                                }}
-                              >
-                                {evPct !== null
-                                  ? `EV ${formatSignedPctValue(evPct)}`
-                                  : `CLV ${formatSignedPctValue(item.clvPct)}`}
-                              </span>
-                              <span
-                                className="block text-[11px]"
-                                style={{ color: "var(--pl-text-muted)" }}
-                              >
-                                CLV {formatSignedPctValue(item.clvPct)}
-                                {typeof item.closingDecimal === "number" &&
-                                Number.isFinite(item.closingDecimal) &&
-                                item.closingDecimal > 1
-                                  ? ` · Cierre ${formatOddsValue(item.closingDecimal, oddsFormat)}`
-                                  : ""}
-                              </span>
+                              {evPct !== null ? (
+                                <>
+                                  <span
+                                    className="font-bold"
+                                    style={{
+                                      color:
+                                        evPct > 0
+                                          ? "var(--pl-success)"
+                                          : evPct < 0
+                                            ? "var(--pl-warning)"
+                                            : "var(--pl-text-secondary)",
+                                    }}
+                                  >
+                                    EV {formatSignedPctValue(evPct)}
+                                  </span>
+                                  {credibleClvPct !== null || hasClosingOdds ? (
+                                    <span
+                                      className="block text-[11px]"
+                                      style={{ color: "var(--pl-text-muted)" }}
+                                    >
+                                      {credibleClvPct !== null
+                                        ? `CLV ${formatSignedPctValue(credibleClvPct)}`
+                                        : ""}
+                                      {credibleClvPct !== null && hasClosingOdds ? " · " : ""}
+                                      {hasClosingOdds && item.closingDecimal
+                                        ? `Cierre ${formatOddsValue(item.closingDecimal, oddsFormat)}`
+                                        : ""}
+                                    </span>
+                                  ) : null}
+                                </>
+                              ) : credibleClvPct !== null ? (
+                                <>
+                                  <span
+                                    className="font-bold"
+                                    style={{
+                                      color:
+                                        credibleClvPct >= 0
+                                          ? "var(--pl-success)"
+                                          : "var(--pl-warning)",
+                                    }}
+                                  >
+                                    CLV {formatSignedPctValue(credibleClvPct)}
+                                  </span>
+                                  {hasClosingOdds && item.closingDecimal ? (
+                                    <span
+                                      className="block text-[11px]"
+                                      style={{ color: "var(--pl-text-muted)" }}
+                                    >
+                                      Cierre {formatOddsValue(item.closingDecimal, oddsFormat)}
+                                    </span>
+                                  ) : null}
+                                </>
+                              ) : (
+                                <span style={{ color: "var(--pl-text-muted)" }}>—</span>
+                              )}
                             </td>
                             <td
                               className="pl-sf-td is-end whitespace-nowrap"
@@ -1302,8 +1746,15 @@ export function RecordPicksTab({
                               <Button
                                 variant={item.status === "won" ? "primary" : "secondary"}
                                 size="sm"
-                                aria-label={`Compartir boleto ${item.pickLabel}`}
-                                onClick={() => openTicketAction(item, isParlay)}
+                                aria-label={`Compartir boleto ${displayPickLabel}`}
+                                onClick={() =>
+                                  openTicketAction(
+                                    item,
+                                    isParlay,
+                                    displayMatchLabel,
+                                    displayPickLabel,
+                                  )
+                                }
                               >
                                 <MaestroIcon name="share" size={13} />
                                 <span>{item.status === "won" ? "Boleto" : "Compartir"}</span>
@@ -1332,8 +1783,8 @@ export function RecordPicksTab({
                 </table>
               </div>
 
-              {filtered.length > shown ? (
-                <div className="flex justify-center">
+              <div className="pl-rec-ledger-footer">
+                {filtered.length > shown ? (
                   <Button
                     variant="secondary"
                     size="sm"
@@ -1341,41 +1792,63 @@ export function RecordPicksTab({
                   >
                     Ver más ({filtered.length - shown})
                   </Button>
-                </div>
-              ) : null}
+                ) : (
+                  <span className="pl-rec-card-meta">
+                    Mostrando {visibleRows.length} de {filtered.length} sellados
+                  </span>
+                )}
+                <a
+                  href="/verificacion"
+                  className="pl-rec-verify-link"
+                  onClick={handleOpenVerify}
+                >
+                  <MaestroIcon name="verified-seal" size={13} />
+                  <span>Auditar huella SHA-256 en /verificacion</span>
+                </a>
+              </div>
             </div>
           )}
         </div>
       </SofascoreCard>
 
-      <SofascoreCard
+      <details
         id="pl-rec-watch"
-        title={`Partidos en vigilancia (${watchedGames.length})`}
-        meta={
-          <div className="flex flex-wrap items-center gap-2">
-            {watchedGames.length >= 2 ? (
-              <Button
-                variant="secondary"
-                tone="danger"
-                size="sm"
-                data-clear-watchlist-trigger=""
-                onClick={() => setConfirmClearWatchOpen(true)}
-              >
-                <MaestroIcon name="trash" size={13} />
-                <span>Limpiar vigilancia</span>
-              </Button>
-            ) : null}
-            <Button variant="secondary" size="sm" onClick={onNavigateHome}>
-              <span>Explorar jornada</span>
-              <MaestroIcon name="chevronRight" size={14} />
-            </Button>
-          </div>
-        }
+        className="pl-sf-card pl-rec-watch-details"
+        data-pl-sf-card=""
+        open={watchOpen}
+        onToggle={(event) => setWatchOpen(event.currentTarget.open)}
       >
-        <div className="space-y-3">
-          <p className="pl-rec-card-meta [text-wrap:pretty]">
-            Te avisamos si surge valor nuevo en estos partidos antes del arranque.
-          </p>
+        <summary className="pl-rec-watch-summary">
+          <MaestroIcon name="chevronRight" size={14} className="pl-rec-watch-chevron" />
+          <span className="pl-rec-watch-title">Partidos en vigilancia</span>
+          <span className="pl-pill num">{watchedGames.length}</span>
+          <span className="pl-rec-watch-hint">Avisos de valor antes del arranque</span>
+        </summary>
+
+        <div className="pl-sf-card-body pl-rec-watch-body">
+          <div className="pl-rec-watch-toolbar">
+            <p className="pl-rec-card-meta [text-wrap:pretty]">
+              Te avisamos si surge valor nuevo en estos partidos antes del arranque.
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              {watchedGames.length >= 2 ? (
+                <Button
+                  variant="secondary"
+                  tone="danger"
+                  size="sm"
+                  data-clear-watchlist-trigger=""
+                  onClick={() => setConfirmClearWatchOpen(true)}
+                >
+                  <MaestroIcon name="trash" size={13} />
+                  <span>Limpiar vigilancia</span>
+                </Button>
+              ) : null}
+              <Button variant="secondary" size="sm" onClick={onNavigateHome}>
+                <span>Explorar jornada</span>
+                <MaestroIcon name="chevronRight" size={14} />
+              </Button>
+            </div>
+          </div>
 
           {watchedGames.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -1403,7 +1876,7 @@ export function RecordPicksTab({
                         league={g.league}
                         slug={g.home.slug}
                         name={g.home.name}
-                        logoUrl={g.home.logoUrl}
+                        logoUrl={g.home.logoUrl || undefined}
                         size={20}
                       />
                       <div className="min-w-0">
@@ -1432,7 +1905,7 @@ export function RecordPicksTab({
             </div>
           ) : null}
         </div>
-      </SofascoreCard>
+      </details>
 
       <ConfirmActionDialog
         open={confirmClearWatchOpen}

@@ -39,7 +39,7 @@ const AUDIT_STATUS_META: Readonly<Record<AuditPickStatus, AuditStatusMeta>> = {
     shortLabel: "—",
     pillClass: "pl-pill",
     histChipClass: "pl-hist-chip",
-    icon: "minus",
+    icon: "push-void",
     spoken: "Push",
   },
   pending: {
@@ -307,6 +307,166 @@ export function classifyMarketFamily(input: {
   return { key: "moneyline", label: "Resultado 1X2 / Ganador", shortLabel: "1X2 / ML" };
 }
 
+export const MAX_CREDIBLE_SINGLE_EV_PCT = 25;
+export const MAX_CREDIBLE_PARLAY_EV_PCT = 50;
+export const MIN_CREDIBLE_EV_PCT = -60;
+export const MAX_CREDIBLE_CLV_PCT = 25;
+export const MAX_CREDIBLE_CLOSING_CLV_PCT = 35;
+
+const LEGACY_SYSTEM_NOTE_RE =
+  /^(?:armador\s+inteligente(?:\s+geodesic)?(?:\s+v?\d+(?:\.\d+)*)?|geodesic\s+v?\d+(?:\.\d+)*)$/i;
+const LEGACY_JARGON_NOTE_RE =
+  /\b(?:geodesic\s+v?\d|fr[eé]chet[\s-]+hoeffding|student[\s-]+t)\b/i;
+const EXISTING_PICK_UNIT_RE =
+  /\b(?:goles?|puntos?|pts\.?|carreras?|c[oó]rners?|tiros?|remates?|tarjetas?|amarillas?|rojas?|faltas?|rebotes?|reb\.?|asistencias?|ast\.?|triples?|3pm|sets?|juegos?|hits?|ponches?|strikeouts?|yardas?|yds\.?|touchdowns?|tds?|atajadas?|saves?|entradas?|innings?)\b/i;
+const BARE_TOTAL_PICK_RE = /\b(?:m[aá]s|menos|over|under)(?:\s+de)?\s+\d+(?:[.,]\d+)?$/i;
+const POINTS_LEAGUE_RE =
+  /\b(?:nba|wnba|nfl|ncaaf|ncaab|euroliga|euroleague|acb|baloncesto|b[aá]squet|f[uú]tbol americano)\b/i;
+const RUNS_LEAGUE_RE = /\b(?:mlb|lmb|npb|kbo|b[eé]isbol)\b/i;
+
+export function isLegacySystemParlayNote(note: string | null | undefined): boolean {
+  if (typeof note !== "string") return false;
+  const trimmed = note.trim();
+  if (!trimmed) return false;
+  return LEGACY_SYSTEM_NOTE_RE.test(trimmed) || LEGACY_JARGON_NOTE_RE.test(trimmed);
+}
+
+export function sanitizeJournalDisplayNote(note: string | null | undefined): string | null {
+  if (typeof note !== "string") return null;
+  const trimmed = note.trim();
+  if (!trimmed || isLegacySystemParlayNote(trimmed)) return null;
+  return trimmed;
+}
+
+export function inferScoringUnitLabel(input: {
+  readonly sport?: PlatformGame["sport"] | null;
+  readonly market?: string | null;
+  readonly leagueLabel?: string | null;
+}): string {
+  const m = (input.market ?? "").toLowerCase();
+  if (m.includes("corner")) return "córners";
+  if (m.includes("yellow") || m.includes("card")) return "tarjetas";
+  if (m.includes("foul")) return "faltas";
+  if (m.includes("sot") || m.includes("on_target")) return "tiros a puerta";
+  if (m.includes("shot")) return "tiros";
+
+  if (input.sport === "basketball" || input.sport === "american-football") {
+    return "puntos";
+  }
+  if (input.sport === "baseball") {
+    return "carreras";
+  }
+  if (input.sport === "football" || input.sport === "ice-hockey") {
+    return "goles";
+  }
+
+  if (m.startsWith("nba_") || m.startsWith("nfl_") || m.includes("points")) {
+    return "puntos";
+  }
+  if (m.startsWith("mlb_") || m.includes("runs")) {
+    return "carreras";
+  }
+  if (m.startsWith("nhl_")) {
+    return "goles";
+  }
+
+  const league = (input.leagueLabel ?? "").trim();
+  if (POINTS_LEAGUE_RE.test(league)) return "puntos";
+  if (RUNS_LEAGUE_RE.test(league)) return "carreras";
+  return "goles";
+}
+
+export function normalizePickLabelWithUnit(input: {
+  readonly pickLabel: string;
+  readonly market?: string | null;
+  readonly leagueLabel?: string | null;
+  readonly sport?: PlatformGame["sport"] | null;
+}): string {
+  const trimmed = input.pickLabel.trim();
+  if (!trimmed) return "";
+  if (EXISTING_PICK_UNIT_RE.test(trimmed)) return trimmed;
+  if (!BARE_TOTAL_PICK_RE.test(trimmed)) return trimmed;
+  const unit = inferScoringUnitLabel({
+    sport: input.sport,
+    market: input.market,
+    leagueLabel: input.leagueLabel,
+  });
+  return `${trimmed} ${unit}`;
+}
+
+export interface ParlaySummaryLegInput {
+  readonly matchLabel?: string | null;
+  readonly shortMatchLabel?: string | null;
+  readonly pickLabel: string;
+  readonly market?: string | null;
+  readonly leagueLabel?: string | null;
+  readonly sport?: PlatformGame["sport"] | null;
+}
+
+export function buildParlayMatchSummary(
+  legs: readonly Pick<ParlaySummaryLegInput, "matchLabel" | "shortMatchLabel">[],
+  hasSgpCorrelation = false,
+): string {
+  const uniqueMatches: string[] = [];
+  const seen = new Set<string>();
+  for (const leg of legs) {
+    const raw = (leg.shortMatchLabel ?? leg.matchLabel ?? "").trim();
+    if (!raw) continue;
+    const key = raw.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    uniqueMatches.push(raw);
+  }
+  if (uniqueMatches.length === 0) {
+    return `${legs.length} selecciones${hasSgpCorrelation ? " · SGP" : ""}`;
+  }
+  if (uniqueMatches.length === 1) {
+    const base = uniqueMatches[0] ?? "";
+    return hasSgpCorrelation || legs.length > 1 ? `${base} · SGP` : base;
+  }
+  if (uniqueMatches.length === 2) {
+    return `${uniqueMatches[0]} · ${uniqueMatches[1]}`;
+  }
+  return `${uniqueMatches[0]} · ${uniqueMatches[1]} (+${uniqueMatches.length - 2})`;
+}
+
+export function buildParlayPickSummary(legs: readonly ParlaySummaryLegInput[]): string {
+  if (legs.length === 0) return "";
+  const formatted = legs.map((leg) => {
+    const match = (leg.shortMatchLabel ?? leg.matchLabel ?? "").trim();
+    const pick = normalizePickLabelWithUnit({
+      pickLabel: leg.pickLabel,
+      market: leg.market,
+      leagueLabel: leg.leagueLabel,
+      sport: leg.sport,
+    });
+    return { match, pick };
+  });
+  const uniqueMatches = new Set(
+    formatted.map((item) => item.match.toLowerCase()).filter(Boolean),
+  );
+  if (uniqueMatches.size === 1) {
+    const sharedMatch = formatted.find((item) => item.match.length > 0)?.match ?? "";
+    const picksOnly = formatted.map((item) => item.pick).filter(Boolean).join(" + ");
+    return sharedMatch ? `${sharedMatch}: ${picksOnly}` : picksOnly;
+  }
+  return formatted
+    .map((item) => (item.match ? `${item.match}: ${item.pick}` : item.pick))
+    .filter(Boolean)
+    .join(" · ");
+}
+
+function isParlayEntryLike(
+  entry: Partial<Pick<JournalEntry, "pickKind" | "origin" | "parlayLegs" | "pickId">>,
+): boolean {
+  return (
+    entry.pickKind === "parlay" ||
+    entry.origin === "Parlay Combinado" ||
+    (Array.isArray(entry.parlayLegs) && entry.parlayLegs.length > 0) ||
+    (typeof entry.pickId === "string" && entry.pickId.startsWith("parlay:"))
+  );
+}
+
 export function computePickEvPct(
   p: number | null | undefined,
   marketDecimal: number | null | undefined,
@@ -326,7 +486,8 @@ export function computePickEvPct(
 }
 
 export function computeJournalEntryEvPct(
-  entry: Pick<JournalEntry, "fairDecimal" | "userDecimal">,
+  entry: Pick<JournalEntry, "fairDecimal" | "userDecimal"> &
+    Partial<Pick<JournalEntry, "pickKind" | "origin" | "parlayLegs" | "pickId">>,
 ): number | null {
   if (
     !Number.isFinite(entry.fairDecimal) ||
@@ -337,7 +498,44 @@ export function computeJournalEntryEvPct(
     return null;
   }
   const impliedFairP = 1 / entry.fairDecimal;
-  return computePickEvPct(impliedFairP, entry.userDecimal);
+  const ev = computePickEvPct(impliedFairP, entry.userDecimal);
+  if (ev === null) return null;
+  const maxCredibleEv = isParlayEntryLike(entry)
+    ? MAX_CREDIBLE_PARLAY_EV_PCT
+    : MAX_CREDIBLE_SINGLE_EV_PCT;
+  if (ev > maxCredibleEv || ev < MIN_CREDIBLE_EV_PCT) {
+    return null;
+  }
+  return ev;
+}
+
+export function computeJournalEntryClvPct(
+  entry: Pick<JournalEntry, "fairDecimal" | "userDecimal" | "clvPct"> &
+    Partial<Pick<JournalEntry, "closingDecimal" | "pickKind" | "origin" | "parlayLegs" | "pickId">>,
+): number | null {
+  if (typeof entry.clvPct !== "number" || !Number.isFinite(entry.clvPct)) {
+    return null;
+  }
+  const hasClosingLine =
+    typeof entry.closingDecimal === "number" &&
+    Number.isFinite(entry.closingDecimal) &&
+    entry.closingDecimal > 1;
+  if (hasClosingLine) {
+    if (Math.abs(entry.clvPct) > MAX_CREDIBLE_CLOSING_CLV_PCT) return null;
+    return Math.round(entry.clvPct * 10) / 10;
+  }
+  const hasQuotePair =
+    Number.isFinite(entry.fairDecimal) &&
+    entry.fairDecimal > 1 &&
+    Number.isFinite(entry.userDecimal) &&
+    entry.userDecimal > 1;
+  if (hasQuotePair && computeJournalEntryEvPct(entry) === null) {
+    return null;
+  }
+  if (Math.abs(entry.clvPct) > MAX_CREDIBLE_CLV_PCT) {
+    return null;
+  }
+  return Math.round(entry.clvPct * 10) / 10;
 }
 
 export function computeJournalSettlementUnits(
@@ -448,8 +646,9 @@ export function computeJournalMarketFamilyBreakdown(
       row.evSum += ev;
       row.evCount += 1;
     }
-    if (Number.isFinite(entry.clvPct)) {
-      row.clvSum += entry.clvPct;
+    const clv = computeJournalEntryClvPct(entry);
+    if (clv !== null) {
+      row.clvSum += clv;
       row.clvCount += 1;
     }
 
@@ -481,6 +680,7 @@ export interface JournalAuditSummary {
   readonly pushes: number;
   readonly pending: number;
   readonly avgEvPct: number | null;
+  readonly avgClvPct: number | null;
   readonly positiveEvCount: number;
   readonly closingTrackedCount: number;
 }
@@ -492,6 +692,8 @@ export function computeJournalAuditSummary(entries: readonly JournalEntry[]): Jo
   let pending = 0;
   let evSum = 0;
   let evCount = 0;
+  let clvSum = 0;
+  let clvCount = 0;
   let positiveEvCount = 0;
   let closingTrackedCount = 0;
 
@@ -507,6 +709,11 @@ export function computeJournalAuditSummary(entries: readonly JournalEntry[]): Jo
       evCount += 1;
       if (ev > 0) positiveEvCount += 1;
     }
+    const clv = computeJournalEntryClvPct(e);
+    if (clv !== null) {
+      clvSum += clv;
+      clvCount += 1;
+    }
     if (typeof e.closingDecimal === "number" && Number.isFinite(e.closingDecimal) && e.closingDecimal > 1) {
       closingTrackedCount += 1;
     }
@@ -518,6 +725,7 @@ export function computeJournalAuditSummary(entries: readonly JournalEntry[]): Jo
     pushes,
     pending,
     avgEvPct: evCount > 0 ? Math.round((evSum / evCount) * 10) / 10 : null,
+    avgClvPct: clvCount > 0 ? Math.round((clvSum / clvCount) * 10) / 10 : null,
     positiveEvCount,
     closingTrackedCount,
   };

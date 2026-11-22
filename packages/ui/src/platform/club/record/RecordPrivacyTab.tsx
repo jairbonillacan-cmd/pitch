@@ -122,8 +122,14 @@ export function RecordPrivacyTab({
             </p>
 
             <div className="pl-rec-priv-banner [text-wrap:pretty]">
-              <strong>Garantía de privacidad:</strong> los montos en pesos (banca y equivalencias
-              MXN) y tus picks abiertos nunca se muestran a nadie, aunque actives todos los bloques.
+              <span className="pl-rec-priv-banner-inner">
+                <MaestroIcon name="verified-seal" size={15} />
+                <span>
+                  <strong>Garantía de privacidad:</strong> los montos en pesos (banca y
+                  equivalencias MXN) y tus picks abiertos nunca se muestran a nadie, aunque actives
+                  todos los bloques.
+                </span>
+              </span>
             </div>
 
             <div className="pl-rec-priv-row">

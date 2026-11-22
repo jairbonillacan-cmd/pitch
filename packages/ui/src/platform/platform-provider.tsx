@@ -19,6 +19,12 @@ import {
   redactDatasetForVisitor,
 } from "./access-guard";
 import { sanitizeCsvCell } from "./club/account/account-helpers";
+import {
+  buildParlayMatchSummary,
+  buildParlayPickSummary,
+  normalizePickLabelWithUnit,
+  sanitizeJournalDisplayNote,
+} from "./club/record/record-audit-helpers";
 import { sanitizeInternalHref } from "./navigation-helpers";
 import type {
   DaySelection,
@@ -1585,13 +1591,53 @@ export function PlatformProvider({
       }
       const rawPickIds = parlaySummary.legs.map((l) => l.pick.id).sort();
       const canonicalPickId = `parlay:${rawPickIds.join("+")}`;
+      const normalizedLegs = parlaySummary.legs.map((l) => {
+        const game = gamesById.get(l.pick.gameId);
+        const shortMatchLabel = game
+          ? `${game.home.shortName} vs ${game.away.shortName}`
+          : l.pick.matchLabel;
+        const normalizedPickLabel = normalizePickLabelWithUnit({
+          pickLabel: l.pick.label,
+          market: l.pick.market,
+          leagueLabel: l.pick.leagueLabel,
+          sport: game?.sport ?? null,
+        });
+        return {
+          pick: l.pick,
+          sport: game?.sport ?? null,
+          shortMatchLabel,
+          normalizedPickLabel,
+        };
+      });
+      const uniqueLeagues = new Set(
+        normalizedLegs.map((l) => l.pick.leagueLabel.trim()).filter(Boolean),
+      );
+      const cleanNote = sanitizeJournalDisplayNote(note) ?? undefined;
       const entry: JournalEntry = {
         id: `j-parlay-${Date.now()}`,
         pickId: canonicalPickId,
         gameId: earliestGameId,
-        leagueLabel: "Combinada Multi-Liga",
-        matchLabel: `${parlaySummary.legs.length} selecciones${parlaySummary.hasSgpCorrelation ? " · SGP" : ""}`,
-        pickLabel: parlaySummary.legs.map((l) => l.pick.label).join(" + "),
+        leagueLabel:
+          uniqueLeagues.size === 1
+            ? (Array.from(uniqueLeagues)[0] ?? "Combinada Multi-Liga")
+            : "Combinada Multi-Liga",
+        matchLabel: buildParlayMatchSummary(
+          normalizedLegs.map((l) => ({
+            matchLabel: l.pick.matchLabel,
+            shortMatchLabel: l.shortMatchLabel,
+          })),
+          parlaySummary.hasSgpCorrelation,
+        ),
+        pickLabel: buildParlayPickSummary(
+          normalizedLegs.map((l) => ({
+            matchLabel: l.pick.matchLabel,
+            shortMatchLabel: l.shortMatchLabel,
+            pickLabel: l.normalizedPickLabel,
+            market: l.pick.market,
+            leagueLabel: l.pick.leagueLabel,
+            sport: l.sport,
+          })),
+        ),
         origin: "Parlay Combinado",
         units: Math.max(0.25, Math.min(5, parlaySummary.stakeUnits)),
         userDecimal: parlaySummary.bookDecimal,
@@ -1599,12 +1645,12 @@ export function PlatformProvider({
         clvPct: parlaySummary.edgePts,
         status: "pending",
         pickKind: "parlay",
-        parlayLegs: parlaySummary.legs.map((l) => ({
+        parlayLegs: normalizedLegs.map((l) => ({
           pickId: l.pick.id,
           gameId: l.pick.gameId,
           leagueLabel: l.pick.leagueLabel,
           matchLabel: l.pick.matchLabel,
-          pickLabel: l.pick.label,
+          pickLabel: l.normalizedPickLabel,
           market: l.pick.market,
           selection: l.pick.selectionKey,
           line: l.pick.line ?? null,
@@ -1613,7 +1659,7 @@ export function PlatformProvider({
         })),
         sealedAt: "Sellado ahora",
         sealedAtIso: new Date().toISOString(),
-        note: note ?? "Armador Inteligente Geodesic v2.0",
+        note: cleanNote,
       };
       setJournal((prev) => [entry, ...prev]);
       triggerHaptic(10);

@@ -12,6 +12,7 @@ import {
 import { formatOddsValue } from "../../access-guard";
 import { DailyResultsCalendar } from "../../components/DailyResultsCalendar";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
+import { MarketCategoryIcon } from "../../components/PackSportIcons";
 import { ConfirmActionDialog } from "../../components/PlatformOverlays";
 import {
   buildMonthlyRecordCalendar,
@@ -50,13 +51,22 @@ function parseBankrollInput(
 function buildBreakdownColumns(
   entityHeader: string,
   showAuditMeta: boolean,
+  showMarketIcon = false,
 ): readonly SofascoreTableColumn<AuditRateDisplayRow>[] {
   const cols: SofascoreTableColumn<AuditRateDisplayRow>[] = [
     {
       key: "label",
       header: entityHeader,
       sticky: true,
-      render: (row) => <span className="pl-rec-tbl-entity">{row.label}</span>,
+      render: (row) =>
+        showMarketIcon ? (
+          <span className="pl-rec-tbl-entity-row">
+            <MarketCategoryIcon family={row.key} size={15} />
+            <span className="pl-rec-tbl-entity">{row.label}</span>
+          </span>
+        ) : (
+          <span className="pl-rec-tbl-entity">{row.label}</span>
+        ),
     },
     {
       key: "hitRate",
@@ -202,8 +212,9 @@ export function RecordBankStatsTab({
   );
 
   const leagueCols = useMemo(() => buildBreakdownColumns("Liga", false), []);
-  const marketCols = useMemo(() => buildBreakdownColumns("Familia", true), []);
+  const marketCols = useMemo(() => buildBreakdownColumns("Familia", true, true), []);
   const typeCols = useMemo(() => buildBreakdownColumns("Tipo", false), []);
+  const displayClvPct = auditSummary ? auditSummary.avgClvPct : stats.avgClvPct;
 
   const startingUnits =
     bankrollStartMxn !== null && bankrollStartMxn > 0 && unitMxn > 0
@@ -255,7 +266,7 @@ export function RecordBankStatsTab({
         title="Tu banca inicial (opcional)"
         meta={
           <span className="pl-rec-private-note">
-            <MaestroIcon name="shield" size={14} />
+            <MaestroIcon name="bankroll-wallet" size={14} />
             <span>Siempre privado · Nadie más ve pesos</span>
           </span>
         }
@@ -454,10 +465,10 @@ export function RecordBankStatsTab({
               <span className="pl-rec-metric-label">Ventaja / CLV promedio</span>
               <div
                 className={`pl-rec-metric-big ${
-                  stats.avgClvPct === null ? "" : stats.avgClvPct >= 0 ? "pl-rec-pos" : "pl-rec-neg"
+                  displayClvPct === null ? "" : displayClvPct >= 0 ? "pl-rec-pos" : "pl-rec-neg"
                 }`}
               >
-                {stats.avgClvPct !== null ? formatSignedPctValue(stats.avgClvPct) : "—"}
+                {displayClvPct !== null ? formatSignedPctValue(displayClvPct) : "—"}
               </div>
               <span className="pl-rec-kpi-sub">
                 {auditSummary && auditSummary.avgEvPct !== null

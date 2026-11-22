@@ -1,13 +1,8 @@
 "use client";
 
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import {
-  Button,
-  SofascoreCard,
-  SofascoreKpiStrip,
-  type SofascoreKpiItem,
-} from "../../components/ui/primitives";
-import { MaestroIcon } from "../components/MaestroPrimitives";
+import { Button, SofascoreCard } from "../../components/ui/primitives";
+import { MaestroIcon, type MaestroIconName } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { WinningTicketDialog } from "../components/WinningTicketDialog";
 import {
@@ -51,6 +46,15 @@ export type RecordTabKey = "picks" | "banca" | "privacidad";
 interface RecordTabSpec {
   readonly key: RecordTabKey;
   readonly label: string;
+}
+
+interface RecordKpiItem {
+  readonly id: string;
+  readonly label: string;
+  readonly value: string;
+  readonly delta: string;
+  readonly tone: "default" | "positive" | "negative" | "brand";
+  readonly icon: MaestroIconName;
 }
 
 const RECORD_TABS: readonly RecordTabSpec[] = [
@@ -434,16 +438,35 @@ export function BitacoraClubView({
       ? `${stats.currentStreak.length}G seguidos`
       : stats.currentStreak.kind === "lost"
         ? `${stats.currentStreak.length}P seguidos`
-        : "Sin cierres";
+        : "—";
 
-  const kpiItems = useMemo<readonly SofascoreKpiItem[]>(
+  const performanceDelta = useMemo(() => {
+    const parts: string[] = [];
+    if (stats.roiPct !== null) {
+      parts.push(`ROI ${formatSignedPctValue(stats.roiPct)}`);
+    }
+    if (auditSummary.avgClvPct !== null) {
+      parts.push(`CLV ${formatSignedPctValue(auditSummary.avgClvPct)}`);
+    }
+    if (auditSummary.avgEvPct !== null) {
+      parts.push(`EV ${formatSignedPctValue(auditSummary.avgEvPct)}`);
+    }
+    if (parts.length > 0) return parts.join(" · ");
+    return journal.length === 0 ? "Yield y CLV auditados" : "CLV —";
+  }, [auditSummary.avgClvPct, auditSummary.avgEvPct, journal.length, stats.roiPct]);
+
+  const kpiItems = useMemo<readonly RecordKpiItem[]>(
     () => [
       {
         id: "saldo",
         label: "Saldo",
         value: formatSignedUnits(stats.netUnits),
-        delta: `${stats.won}G–${stats.lost}P${auditSummary.pushes > 0 ? ` · ${auditSummary.pushes} Push` : ""}${stats.open > 0 ? ` · ${stats.open} ab.` : ""}`,
+        delta:
+          journal.length === 0
+            ? "Sin picks sellados"
+            : `${stats.won}G–${stats.lost}P${auditSummary.pushes > 0 ? ` · ${auditSummary.pushes} Push` : ""}${stats.open > 0 ? ` · ${stats.open} pend.` : ""}`,
         tone: stats.netUnits > 0 ? "positive" : stats.netUnits < 0 ? "negative" : "default",
+        icon: "bankroll-wallet",
       },
       {
         id: "acierto",
@@ -452,44 +475,45 @@ export function BitacoraClubView({
         delta:
           stats.settled > 0
             ? `${stats.won}/${stats.settled} cerrados`
-            : `${journal.length} sellados`,
+            : journal.length > 0
+              ? `${journal.length} ${journal.length === 1 ? "pendiente" : "pendientes"}`
+              : "Al cerrar tu 1.er pick",
         tone:
           stats.hitRatePct !== null && stats.hitRatePct >= 55 ? "positive" : "default",
+        icon: "target-picks",
       },
       {
         id: "rendimiento",
-        label: "Rendimiento",
+        label: "Rendimiento / ROI",
         value: stats.yieldPct !== null ? formatSignedPctValue(stats.yieldPct) : "—",
-        delta: `CLV ${stats.avgClvPct !== null ? formatSignedPctValue(stats.avgClvPct) : "—"}${
-          auditSummary.avgEvPct !== null
-            ? ` · EV ${formatSignedPctValue(auditSummary.avgEvPct)}`
-            : ""
-        }`,
+        delta: performanceDelta,
         tone:
           stats.yieldPct === null
             ? "default"
             : stats.yieldPct >= 0
               ? "positive"
               : "negative",
+        icon: "verified-seal",
       },
       {
         id: "racha",
-        label: "Racha actual",
+        label: "Racha",
         value: streakValue,
-        delta: `Mejor ${stats.bestWinStreak}G`,
+        delta:
+          stats.bestWinStreak > 0 ? `Mejor ${stats.bestWinStreak}G` : "Sin cierres todavía",
         tone:
           stats.currentStreak.kind === "won"
             ? "positive"
             : stats.currentStreak.kind === "lost"
               ? "negative"
               : "default",
+        icon: "flame",
       },
     ],
     [
-      auditSummary.avgEvPct,
       auditSummary.pushes,
       journal.length,
-      stats.avgClvPct,
+      performanceDelta,
       stats.bestWinStreak,
       stats.currentStreak.kind,
       stats.hitRatePct,
@@ -503,6 +527,23 @@ export function BitacoraClubView({
     ],
   );
 
+  const handleOpenVerify = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      if (
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+      event.preventDefault();
+      navigateTo("/verificacion");
+    },
+    [navigateTo],
+  );
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/lab">
@@ -510,22 +551,32 @@ export function BitacoraClubView({
           <SofascoreCard as="section" className="pl-rec-hero-card">
             <div className="pl-rec-hero-top">
               <div className="pl-rec-hero-copy">
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="pl-rec-hero-head">
+                  <h1 className="pl-rec-title [text-wrap:balance]">Mi récord</h1>
                   <span className="pl-pill pl-pill--brand">
-                    <MaestroIcon name="ticket" size={13} />
+                    <MaestroIcon name="verified-seal" size={13} />
                     <span>Sellado antes del partido</span>
                   </span>
                 </div>
-                <h1 className="pl-rec-title [text-wrap:balance]">Mi récord</h1>
                 <p className="pl-rec-sub [text-wrap:pretty]">
-                  Tus picks individuales y parlays en unidades (0.25u–5.00u), con liquidación
-                  auditable, banca privada opcional y control de lo que ven otros socios.
+                  Tus picks y parlays en unidades (0.25u–5.00u), con liquidación auditable, banca
+                  privada opcional y control de tu perfil público.
                 </p>
-                <p className="pl-rec-sync" data-local-storage-note="">
-                  {hasAccountSessionAuth
-                    ? "Sincronizado y sellado en tu cuenta de socio (registro inmutable)."
-                    : "Guardado en este navegador. Cuando entres con tu cuenta se sincroniza y queda sellado en el servidor."}
-                </p>
+                <div className="pl-rec-sync-row">
+                  <p className="pl-rec-sync" data-local-storage-note="">
+                    {hasAccountSessionAuth
+                      ? "Sincronizado en tu cuenta (registro inmutable)."
+                      : "Guardado en este navegador; inicia sesión para sincronizar y sellar en servidor."}
+                  </p>
+                  <a
+                    href="/verificacion"
+                    className="pl-rec-verify-link"
+                    onClick={handleOpenVerify}
+                  >
+                    <MaestroIcon name="verified-seal" size={13} />
+                    <span>Verificar SHA-256</span>
+                  </a>
+                </div>
               </div>
 
               <div className="pl-rec-hero-actions">
@@ -539,8 +590,8 @@ export function BitacoraClubView({
                       subtitle: `@${ownHandle} · ${journal.length} picks sellados`,
                       leagueLabel: "Mi récord",
                       pickLabel: `${stats.won}G-${stats.lost}P · ${formatSignedUnits(stats.netUnits)}${
-                        stats.avgClvPct !== null
-                          ? ` · CLV ${formatSignedPctValue(stats.avgClvPct)}`
+                        auditSummary.avgClvPct !== null
+                          ? ` · CLV ${formatSignedPctValue(auditSummary.avgClvPct)}`
                           : ""
                       }`,
                       probability: Math.max(
@@ -570,12 +621,35 @@ export function BitacoraClubView({
               </div>
             </div>
 
-            <SofascoreKpiStrip items={kpiItems} className="pl-rec-kpi-strip" />
+            <dl
+              className="pl-sf-kpi-strip pl-rec-kpi-strip"
+              data-pl-sf-kpi-strip=""
+            >
+              {kpiItems.map((item) => (
+                <div
+                  key={item.id}
+                  className={`pl-sf-kpi-item is-${item.tone}`}
+                  data-pl-sf-kpi-tone={item.tone}
+                >
+                  <dt className="pl-sf-kpi-label pl-rec-kpi-label">
+                    <MaestroIcon name={item.icon} size={14} />
+                    <span>{item.label}</span>
+                  </dt>
+                  <dd className="pl-sf-kpi-value-row num">
+                    <span className="pl-sf-kpi-value">{item.value}</span>
+                    <span className="pl-sf-kpi-delta">{item.delta}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
 
             {effectiveShowMxn || prefs.bankrollStartMxn !== null ? (
               <p className="pl-rec-kpi-mxn num" data-bitacora-mxn-balance="">
-                Saldo privado estimado: ≈ {formatUnitsAsMxn(stats.netUnits, effectiveUnitMxn)} (1u =
-                ${effectiveUnitMxn.toLocaleString("es-MX")} MXN)
+                <MaestroIcon name="bankroll-wallet" size={14} />
+                <span>
+                  Saldo privado estimado: ≈ {formatUnitsAsMxn(stats.netUnits, effectiveUnitMxn)} (1u
+                  = ${effectiveUnitMxn.toLocaleString("es-MX")} MXN)
+                </span>
               </p>
             ) : null}
           </SofascoreCard>
@@ -633,6 +707,9 @@ export function BitacoraClubView({
                 suggestedUpcoming={suggestedUpcoming}
                 onToggleWatchlist={toggleWatchlistGame}
                 onNavigateHome={() => navigateTo("/app")}
+                onNavigatePicks={() => navigateTo("/app/picks")}
+                onNavigateParlays={() => navigateTo("/app/parlays")}
+                onNavigateVerify={() => navigateTo("/verificacion")}
                 onOpenWinningEntry={setWinningEntry}
                 onOpenShareTicket={openShareTicket}
               />
