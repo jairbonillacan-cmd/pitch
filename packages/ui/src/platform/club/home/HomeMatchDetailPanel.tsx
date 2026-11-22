@@ -1581,7 +1581,7 @@ export function HomeMatchDetailPanel({
             ) : null}
 
             {displayPicks.length > 0 ? (
-              <div className="pl-home-md-picks-list">
+              <div key={displayPicks[0]?.fromCatalog ? "catalog" : "base"} className="pl-home-md-picks-list">
                 {displayPicks.map((item) => {
                   if (item.isRedacted) {
                     return (
