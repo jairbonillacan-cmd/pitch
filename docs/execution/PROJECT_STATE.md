@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-22 · **Rama:** `gemini-dos` (**Olas 0A–8 + Preparación de Producción Nivel Lanzamiento (`Paso 0 + Tareas 1–6`) COMPLETADAS Y VERIFICADAS (`12/12` gates PASS)** en rama local `gemini-dos`, pendiente únicamente autorización explícita para `git push`: `6` reglas estructurales Constraint-First en **`0`** + `3` defensas EDC, *ratchet* **`6,734 → 6,522`** (`-212` acumulado en esta jornada; `-2,374` desde `8,896`; `822` archivos / `0` violaciones), poda real **`-105.1 KB`** de CSS muerto (`pitchlab-v4.css` `513.0 → 427.1 KB`, `legacy-d1-storybook.css` `56.6 → 37.4 KB`), **`5` error boundaries** planos sin fuga en producción ni `backdrop-filter`, endurecimiento HTTP + tormentas PGlite `0000..0027`, auditoría **`27/27`** `@pitchlab/emails`, SEO técnico + **`3` artículos técnicos ES-MX** (`0` violaciones Axe WCAG 2.1 AA en `dark`/`light`), revisión visual Chromium `52/52` (`issues=0`, `0 px` overflow), `build-storybook` (`16.94s`) y `pnpm e2e` (`83 passed | 1 skipped | 0 failed` en `16.8m`). Ver detalle completo al final).
+> **Última actualización:** 2026-11-22 · **Rama:** `gemini-dos` (**Olas 0A–8 + Preparación de Producción Fases 1 y 2 (`730b0091`..`1b0de35c`) COMPLETADAS Y VERIFICADAS (`13/13` gates PASS)** en rama local `gemini-dos`, pendiente únicamente autorización explícita para `git push`: `5` rutas Open Graph editoriales `1200×630` + `og-card-kit.tsx`, despiece modular profundo de `LeagueHubClubView` y `PicksFinderView` preservando `MatchStudioClubView` P2, eliminación total de fugas RSC `"sofascore"` en el embudo público + `5` objetivos táctiles móviles `>= 44 px`, endurecimiento HTTP (`COOP`, HSTS condicional, `Vary` Fetch Metadata, `.dockerignore`, `manifest.ts`), guardián de `57` ligas y assets (`scripts/check-data-integrity.mjs`: `57` ligas, `1,876` partidos, `616` WebP, `674` brand assets), **`833` archivos / `0` violaciones** Constraint-First, **`26/26`** pruebas `scripts/tests`, **`225` archivos passed / `2` skipped** y **`2,020` unit tests passed / `25` skipped**, `pnpm build` **`29/29`** estáticas con shared **`104 kB`** / middleware **`37 kB`**, `build-storybook` **`4,511` módulos en `13.90 s`** y `pnpm e2e` **`83 passed | 1 skipped | 0 failed`** en **`16.1 m`**. Ver detalle completo al final).
 
 ## Estado actual
 
@@ -1836,5 +1836,40 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
 | 10 | `pnpm build` | **PASS** · **`9.0s`**, `25/25` estáticas, First Load JS shared **`104 kB`**, Middleware **`36.7 kB`** |
 | 11 | `STORYBOOK_DISABLE_TELEMETRY=1 pnpm build-storybook` | **PASS** · **`4,507` módulos en `16.94s`**, **`0` fallos** |
 | 12 | `pnpm e2e` (`desktop` + `mobile`) | **PASS** · **`83 passed | 1 skipped | 0 failed`** (`84` total, **`16.8m`**, Axe WCAG 2.1 AA oscuro/claro PASS) |
+
+  - Pendiente únicamente autorización explícita para `git push` de `gemini-dos`.
+
+### PREP-PRODUCCION-FASE2-2026-11-22 · Preparación de Lanzamiento Fase 2 (`Tareas 1–6`, `gemini-dos`)
+- **Tarea 1 · Tarjetas Open Graph virales `1200×630` (`730b0091`):**
+  - Nuevo helper editorial compartido `apps/web/src/server/og-card-kit.tsx` (`opengraph-image.tsx` en `/`, `/resultados`, `/verificacion`, `/precio` y `/p/[pickId]` con redacción `Cero-Fuga` y respaldo genérico seguro para slugs desconocidos/privados). Pruebas contractuales en `apps/web/tests/seo-contracts.test.ts` (**`6/6` PASS**). Verificado en vivo en `127.0.0.1:6420` (`6/6` `200` `image/png`, `87–98 KB`).
+- **Tarea 2 · Despiece de Monolitos UI (*Deep Modules*) (`91e7ff91`):**
+  - Extracción de `LeagueHubClubView.tsx` (`145,471 B`) + `league-standings-zones.ts` (`9,529 B`) bajo `packages/ui/src/platform/club/league/`, nuevo subpath `"./league-hub"` en `packages/ui/package.json` y migración de `apps/web/app/app/[league]/page.tsx`, manteniendo intacto `MatchStudioClubView` (`ZONA PROTEGIDA` P2) en `CoreMatchViews.tsx` (`30,626 B`).
+  - Extracción de `picks-finder-model.ts` (`46,876 B`) + `PicksScreenerWidgets.tsx` (`41,909 B`) bajo `packages/ui/src/platform/club/picks/` reduciendo `PicksFinderView.tsx` a `113,056 B`, con pruebas unitarias en `packages/ui/tests/picks-finder-model.test.ts` (`vitest` `7/7` archivos, `44/44` pruebas PASS).
+- **Tarea 3 · Auditoría del Embudo Público + Cero Fugas RSC (`82284fad`):**
+  - Auditoría real en Chromium + `@axe-core/playwright` (`56` combinaciones: `14` rutas × `desktop`/`mobile` × `dark`/`light`, sin PIN) detectando y corrigiendo `32` fugas de `"sofascore"` en el payload HTML/RSC de `/motores` y `/resultados` (sustitución de `sofascore-surface.tsx` por `packages/ui/src/components/ui/editorial-surface.tsx` con primitives `Editorial*` manteniendo alias deprecados en `primitives.ts`) y `5` objetivos táctiles `< 44×44 px` en móvil (`BlogSurfaces.tsx`, `AuthAndOnboardingSurfaces.tsx`, `pitchlab-v4.css`). Nuevo suite `apps/web/tests/public-funnel-contracts.test.ts` (**`4/4` PASS**); re-ejecución `56/56` en Chromium con `0` incidencias.
+- **Tarea 4 · Hardening HTTP `middleware.ts`, `next.config.mjs`, `.dockerignore` y `manifest.ts` (`21f5c0f1`):**
+  - Endurecimiento de `apps/web/middleware.ts` (`shouldSendHsts`, `appendVaryHeader` con `Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site` en `/api/*`, `applyBaselineSecurityHeaders` con `Cross-Origin-Opener-Policy: same-origin-allow-popups`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy`, `X-Content-Type-Options: nosniff`), HSTS condicional a producción y `/verificacion` cacheable en `apps/web/next.config.mjs`, exclusión `.env*` sobre `!.env.example` en `.dockerignore` y copy unificado «récord sellado» en `apps/web/app/manifest.ts`. Suite `apps/web/tests/middleware-security-headers.test.ts` (**`9/9` PASS**, `21/21` junto con `pwa-push-funnel` y `ola1-security`) y verificación en vivo en `:6420`.
+- **Tarea 5 · Guardián de Integridad de las 57 Ligas y Assets (`1b0de35c`):**
+  - Limpieza de las `6` URLs externas `a.espncdn.com` de equipos en `data/snapshots/concacaf-champions/latest.json` (`2`) y `data/snapshots/leagues-cup/latest.json` (`4`) + regeneración de `data/snapshots/shell-index.json` (`57` ligas, `1,876` partidos, `10,778 KB`; `live_matchday_v3_snapshot.json` sin cambios).
+  - Nuevo guardián `scripts/check-data-integrity.mjs` (`0` comentarios, `0` `Number(`; comando `"check:data-integrity"` en `package.json` y conectado a `scripts/check-prod-readiness.mjs`) verificando paridad `57/57`, sanidad de `1,876` partidos/resultados, bloqueadores FD-16/`BLOCKED_BOOK_IDS` y paridad disco-manifiesto de `616` íconos WebP (`icons/{32,64}` + `icons-dark/{32,64}`) y `674` assets de marca (`/brand/*`), validado con `scripts/tests/check-data-integrity.test.mjs` (**`5/5` PASS** en `node --test`).
+- **Tarea 6 · Revisión visual Chromium y batería definitiva (`13/13` PASS, `gemini-dos`):**
+  - Revisión visual en Chromium sobre `http://127.0.0.1:6420` (`32` comprobaciones en rutas públicas `/`, `/precio`, `/resultados`, `/verificacion` y de socio `/app/picks`, `/app/liga-mx`, `/app/champions-league` + ruta `P2` `/app/nba/g/phoenix-suns-vs-los-angeles-la-h04211`, más `6/6` OG PNGs `200 image/png`): `0 px` de desbordamiento, `0` errores JS de página y `0` ocurrencias de `"sofascore"`. (Nota observada en runtime: `/api/live/games/nba-2026-11-15-lal-phx` responde `404` esperado por contrato para partidos sin vivo en `MatchStudioClubView` P2, y `sports.tsx` conserva el emblema oficial Bzzoiro antes del SVG local con respaldo intacto en pantalla).
+  - Restauración previa de artefactos autogenerados (`apps/web/next-env.d.ts`, `apps/web/tsconfig.json`, `packages/tokens/src/tokens.generated.ts`) dejando cero cambios sucio fuera de alcance.
+
+| # | Gate / Comando | Resultado verificado |
+|---|---|---|
+| 1 | `node scripts/lint-codebase.mjs --shrink-baseline` & `node scripts/lint-codebase.mjs` | **PASS** · **`833` archivos / `0` violaciones** (`--shrink-baseline`: `eliminadas=0, reducidas=0, deuda_eliminada=0`) |
+| 2 | `node --test scripts/tests/*.mjs` | **PASS** · **`26/26`** (`905.54 ms`, incl. `5/5` `check-data-integrity.test.mjs`) |
+| 3 | `node scripts/check-data-integrity.mjs` | **PASS** · **`57` ligas · `1,876` partidos · `616` WebP · `674` brand assets** (`323 ms`) |
+| 4 | `node scripts/check-no-demo-prod.mjs` | **PASS** |
+| 5 | `node scripts/check-no-secrets.mjs` | **PASS** · **`8,388` archivos** / `0` secretos |
+| 6 | `node scripts/check-prod-readiness.mjs` | **PASS** · **`13` OK, `0` errores** (`28` migraciones `0000..0027`, `shell-index.json` `57` ligas, `5` avisos de entorno local) |
+| 7 | `pnpm eval:cortex` | **PASS** · **`24/24`** (`8/8` válidos, `16/16` adversariales, `24/24` fallbacks) |
+| 8 | `pnpm eval:alerts` | **PASS** · **`16/16`** (`13/13` accept, `3/3` reject) |
+| 9 | `pnpm typecheck` | **PASS** · **`11/11` paquetes** |
+| 10 | `pnpm test` | **PASS** · **`225` archivos passed (`2` skipped) · `2,020` unit tests passed (`25` skipped)** (`@pitchlab/web`: `67/67` archivos, `457/457` tests; `lint-codebase` final en `833` archivos / `0` violaciones) |
+| 11 | `pnpm build` | **PASS** · Next.js `15.5.29` (`20.3s` compile), **`29/29` estáticas**, First Load JS shared **`104 kB`**, Middleware **`37 kB`** (`/` `292 kB`, `/app` `332 kB`, `/app/picks` `335 kB`, `/app/[league]` `409 kB`, `/app/[league]/g/[gameSlug]` `388 kB`, rutas `opengraph-image` `104 kB`) |
+| 12 | `pnpm build-storybook` | **PASS** · Storybook `10.6.6`, **`4,511` módulos en `13.90s`** |
+| 13 | `pnpm e2e` (`desktop` + `mobile`) | **PASS** · **`83 passed \| 1 skipped \| 0 failed`** (`84` total, **`16.1m`**) |
 
   - Pendiente únicamente autorización explícita para `git push` de `gemini-dos`.
