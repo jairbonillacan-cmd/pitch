@@ -4,8 +4,8 @@
   "logoUrl": "https://sports.bzzoiro.com/img/league/11/?bg=transparent",
   "season": "super-lig-2026-27",
   "seasonLabel": "2026/27",
-  "periodLabel": "Regular season · Matchday 10",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "periodLabel": "Regular season · Matchday 11",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2.4166666666666665,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 2.0647186977245906,
-      "adjustedAgainst": 1.1586359910561217
+      "adjustedFor": 2.0828494679174887,
+      "adjustedAgainst": 1.1780994023217695
     },
     "super-lig.corum": {
       "teamId": "super-lig.corum",
@@ -29,19 +29,19 @@
       "forPerGame": 1.9090909090909092,
       "againstPerGame": 1.9090909090909092,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6139833822392358,
-      "adjustedAgainst": 1.6549850503731205
+      "adjustedFor": 1.6326480593687678,
+      "adjustedAgainst": 1.655901864286787
     },
     "super-lig.konyaspor": {
       "teamId": "super-lig.konyaspor",
       "name": "Konyaspor",
       "shortName": "Konyaspor",
       "code": "KON",
-      "forPerGame": 0.5454545454545454,
-      "againstPerGame": 1.2727272727272727,
-      "gamesPlayed": 11,
-      "adjustedFor": 0.7468348839943332,
-      "adjustedAgainst": 1.0818346501280214
+      "forPerGame": 0.6666666666666666,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 12,
+      "adjustedFor": 0.8484294345363361,
+      "adjustedAgainst": 1.238852313201241
     },
     "super-lig.caykur-rizespor": {
       "teamId": "super-lig.caykur-rizespor",
@@ -51,30 +51,30 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.3333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.2012477553100958,
-      "adjustedAgainst": 1.2584094926104403
+      "adjustedFor": 1.217439190038208,
+      "adjustedAgainst": 1.2788320531296735
     },
     "super-lig.kas-mpasa": {
       "teamId": "super-lig.kas-mpasa",
       "name": "Kasımpaşa",
       "shortName": "Kasımpaşa",
       "code": "KAS",
-      "forPerGame": 1.5454545454545454,
+      "forPerGame": 1.5833333333333333,
       "againstPerGame": 1,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.3964559713187774,
-      "adjustedAgainst": 0.9801662602562845
+      "gamesPlayed": 12,
+      "adjustedFor": 1.4150542840262263,
+      "adjustedAgainst": 1.0066796922028007
     },
     "super-lig.trabzonspor": {
       "teamId": "super-lig.trabzonspor",
       "name": "Trabzonspor",
       "shortName": "Trabzonspor",
       "code": "TRA",
-      "forPerGame": 2.3636363636363638,
-      "againstPerGame": 0.7272727272727273,
-      "gamesPlayed": 11,
-      "adjustedFor": 2.026321826434282,
-      "adjustedAgainst": 0.81767201855832
+      "forPerGame": 2.25,
+      "againstPerGame": 0.6666666666666666,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.8573899022759435,
+      "adjustedAgainst": 0.7957495725994204
     },
     "super-lig.genclerbirligi": {
       "teamId": "super-lig.genclerbirligi",
@@ -84,8 +84,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 1.75,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1386572585151093,
-      "adjustedAgainst": 1.4015434791716328
+      "adjustedFor": 1.1422639308032,
+      "adjustedAgainst": 1.408158103819765
     },
     "super-lig.fenerbahce": {
       "teamId": "super-lig.fenerbahce",
@@ -95,8 +95,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 1,
       "gamesPlayed": 12,
-      "adjustedFor": 2.090684020036614,
-      "adjustedAgainst": 1.0612585006167568
+      "adjustedFor": 2.097186553259875,
+      "adjustedAgainst": 1.0601671030279582
     },
     "super-lig.gaziantep": {
       "teamId": "super-lig.gaziantep",
@@ -106,19 +106,19 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 0.8320300462255905,
-      "adjustedAgainst": 1.4662391298590183
+      "adjustedFor": 0.8518927159261385,
+      "adjustedAgainst": 1.496050944436368
     },
     "super-lig.alanyaspor": {
       "teamId": "super-lig.alanyaspor",
       "name": "Alanyaspor",
       "shortName": "Alanyaspor",
       "code": "ALA",
-      "forPerGame": 0.8181818181818182,
-      "againstPerGame": 1.6363636363636365,
-      "gamesPlayed": 11,
-      "adjustedFor": 0.9050607478114766,
-      "adjustedAgainst": 1.4506649490934285
+      "forPerGame": 0.8333333333333334,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 0.9450605785072477,
+      "adjustedAgainst": 1.493589786140801
     },
     "super-lig.basaksehir": {
       "teamId": "super-lig.basaksehir",
@@ -128,8 +128,8 @@
       "forPerGame": 1.7272727272727273,
       "againstPerGame": 1.5454545454545454,
       "gamesPlayed": 11,
-      "adjustedFor": 1.6107391006284832,
-      "adjustedAgainst": 1.3046816083051411
+      "adjustedFor": 1.6110503663710136,
+      "adjustedAgainst": 1.3121243235514266
     },
     "super-lig.kocaelispor": {
       "teamId": "super-lig.kocaelispor",
@@ -139,30 +139,30 @@
       "forPerGame": 1.25,
       "againstPerGame": 0.9166666666666666,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1694304479051998,
-      "adjustedAgainst": 0.9317365849632576
+      "adjustedFor": 1.178660895539741,
+      "adjustedAgainst": 0.9327459662764925
     },
     "super-lig.besiktas-jk": {
       "teamId": "super-lig.besiktas-jk",
       "name": "Beşiktaş JK",
       "shortName": "Beşiktaş JK",
       "code": "BES",
-      "forPerGame": 2.090909090909091,
-      "againstPerGame": 1.0909090909090908,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.7707552677127483,
-      "adjustedAgainst": 1.0322416001798416
+      "forPerGame": 2.25,
+      "againstPerGame": 1.1666666666666667,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.9718840469196113,
+      "adjustedAgainst": 1.1402352212454243
     },
     "super-lig.eyupspor": {
       "teamId": "super-lig.eyupspor",
       "name": "Eyüpspor",
       "shortName": "Eyüpspor",
       "code": "EYU",
-      "forPerGame": 0.2727272727272727,
-      "againstPerGame": 2.727272727272727,
-      "gamesPlayed": 11,
-      "adjustedFor": 0.5356707399469114,
-      "adjustedAgainst": 2.115422920254492
+      "forPerGame": 0.25,
+      "againstPerGame": 2.5833333333333335,
+      "gamesPlayed": 12,
+      "adjustedFor": 0.5233350331563509,
+      "adjustedAgainst": 1.9894213041582325
     },
     "super-lig.amedspor": {
       "teamId": "super-lig.amedspor",
@@ -172,8 +172,8 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.98502457880774,
-      "adjustedAgainst": 1.3369403255825916
+      "adjustedFor": 2.002900559615745,
+      "adjustedAgainst": 1.3484300952252064
     },
     "super-lig.erzurumspor": {
       "teamId": "super-lig.erzurumspor",
@@ -183,8 +183,8 @@
       "forPerGame": 0.8333333333333334,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 0.8526578762272247,
-      "adjustedAgainst": 1.3748363254915512
+      "adjustedFor": 0.8622805323665105,
+      "adjustedAgainst": 1.3711681763287082
     },
     "super-lig.samsunspor": {
       "teamId": "super-lig.samsunspor",
@@ -194,8 +194,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.0940223280782027,
-      "adjustedAgainst": 1.7454475633378366
+      "adjustedFor": 1.1032222940035672,
+      "adjustedAgainst": 1.770275160575195
     },
     "super-lig.goztepe": {
       "teamId": "super-lig.goztepe",
@@ -205,116 +205,11 @@
       "forPerGame": 1.9166666666666667,
       "againstPerGame": 1.5833333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.6089467863432767,
-      "adjustedAgainst": 1.4320790216274661
+      "adjustedFor": 1.63583893169983,
+      "adjustedAgainst": 1.4489992393472095
     }
   },
   "games": [
-    {
-      "id": "super-lig-2026-11-01-kas-mpasa-besiktas-jk-bq0103",
-      "league": "super-lig",
-      "season": "super-lig-2026-27",
-      "week": 10,
-      "round": "Regular season · Matchday 10",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T16:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "super-lig.kas-mpasa",
-        "league": "super-lig",
-        "name": "Kasımpaşa",
-        "shortName": "Kasımpaşa",
-        "code": "KAS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/187/?bg=transparent"
-      },
-      "away": {
-        "id": "super-lig.besiktas-jk",
-        "league": "super-lig",
-        "name": "Beşiktaş JK",
-        "shortName": "Beşiktaş JK",
-        "code": "BES",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/196/?bg=transparent"
-      },
-      "venue": "Recep Tayyip Erdogan Stadium, Istanbul",
-      "referee": "Resat Onur Coskunses",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "super-lig-2026-11-02-genclerbirligi-alanyaspor-c3khr7",
-      "league": "super-lig",
-      "season": "super-lig-2026-27",
-      "week": 10,
-      "round": "Regular season · Matchday 10",
-      "phase": "Regular season",
-      "startTime": "2026-11-02T17:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "super-lig.genclerbirligi",
-        "league": "super-lig",
-        "name": "Gençlerbirliği",
-        "shortName": "Gençlerbirliği",
-        "code": "GEN",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/185/?bg=transparent"
-      },
-      "away": {
-        "id": "super-lig.alanyaspor",
-        "league": "super-lig",
-        "name": "Alanyaspor",
-        "shortName": "Alanyaspor",
-        "code": "ALA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/188/?bg=transparent"
-      },
-      "venue": "Eryaman Stadyumu, Ankara",
-      "referee": "Fatih Tokail",
-      "neutralSite": false,
-      "result": {
-        "home": 5,
-        "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
-        "source": "pitchlab-feed"
-      }
-    },
-    {
-      "id": "super-lig-2026-11-06-gaziantep-kas-mpasa-ilii9c",
-      "league": "super-lig",
-      "season": "super-lig-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-11-06T17:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "super-lig.gaziantep",
-        "league": "super-lig",
-        "name": "Gaziantep FK",
-        "shortName": "Gaziantep FK",
-        "code": "GAZ",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/183/?bg=transparent"
-      },
-      "away": {
-        "id": "super-lig.kas-mpasa",
-        "league": "super-lig",
-        "name": "Kasımpaşa",
-        "shortName": "Kasımpaşa",
-        "code": "KAS",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/187/?bg=transparent"
-      },
-      "venue": "Gaziantep Stadium, Gaziantep",
-      "referee": "Umit Ozturk",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "super-lig-2026-11-07-eyupspor-kocaelispor-mvuy3j",
       "league": "super-lig",
@@ -346,7 +241,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +276,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +311,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +346,7 @@
       "result": {
         "home": 4,
         "away": 3,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +381,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +416,7 @@
       "result": {
         "home": 0,
         "away": 5,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +451,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +486,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +521,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +556,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +591,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +626,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +661,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -778,7 +673,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-22T13:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "super-lig.kas-mpasa",
         "league": "super-lig",
@@ -797,7 +692,13 @@
       },
       "venue": "Recep Tayyip Erdogan Stadium, Istanbul",
       "referee": "Davut Dakul Celik",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-22T18:13:11.873Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "super-lig-2026-11-22-konyaspor-besiktas-jk-lk07ie",
@@ -807,7 +708,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-22T13:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "super-lig.konyaspor",
         "league": "super-lig",
@@ -826,7 +727,13 @@
       },
       "venue": "Medas Konya Büyüksehir Belediyesi Stadium, Konya",
       "referee": "Cagdas Altay",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 4,
+        "observedAt": "2026-11-22T18:13:11.873Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "super-lig-2026-11-22-trabzonspor-eyupspor-rkv2y2",
@@ -836,7 +743,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-22T16:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "super-lig.trabzonspor",
         "league": "super-lig",
@@ -855,7 +762,13 @@
       },
       "venue": "Papara Park, Trabzon",
       "referee": "Gurcan Hasova",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-22T18:13:11.873Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "super-lig-2026-11-23-basaksehir-corum-1l9yft",
@@ -1669,1363 +1582,93 @@
       },
       "venue": "Recep Tayyip Erdogan Stadium, Istanbul",
       "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-12-18-amedspor-goztepe-x5w5yl",
+      "league": "super-lig",
+      "season": "super-lig-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-18T17:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "super-lig.amedspor",
+        "league": "super-lig",
+        "name": "Amedspor",
+        "shortName": "Amedspor",
+        "code": "AME",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/3380/?bg=transparent"
+      },
+      "away": {
+        "id": "super-lig.goztepe",
+        "league": "super-lig",
+        "name": "Göztepe",
+        "shortName": "Göztepe",
+        "code": "GOZ",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/190/?bg=transparent"
+      },
+      "venue": "Diyarbakir Stadium, Diyarbakır",
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-12-19-konyaspor-eyupspor-ml65x3",
+      "league": "super-lig",
+      "season": "super-lig-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-19T10:30:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "super-lig.konyaspor",
+        "league": "super-lig",
+        "name": "Konyaspor",
+        "shortName": "Konyaspor",
+        "code": "KON",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/192/?bg=transparent"
+      },
+      "away": {
+        "id": "super-lig.eyupspor",
+        "league": "super-lig",
+        "name": "Eyüpspor",
+        "shortName": "Eyüpspor",
+        "code": "EYU",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/191/?bg=transparent"
+      },
+      "venue": "Medas Konya Büyüksehir Belediyesi Stadium, Konya",
+      "neutralSite": false
+    },
+    {
+      "id": "super-lig-2026-12-19-basaksehir-erzurumspor-adivwq",
+      "league": "super-lig",
+      "season": "super-lig-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-19T13:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "super-lig.basaksehir",
+        "league": "super-lig",
+        "name": "Başakşehir FK",
+        "shortName": "Başakşehir FK",
+        "code": "BAS",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/194/?bg=transparent"
+      },
+      "away": {
+        "id": "super-lig.erzurumspor",
+        "league": "super-lig",
+        "name": "Erzurumspor FK",
+        "shortName": "Erzurumspor FK",
+        "code": "ERZ",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/1346/?bg=transparent"
+      },
+      "venue": "Basaksehir Fatih Terim Stadium, Istanbul",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "super-lig-2026-11-01-kas-mpasa-besiktas-jk-bq0103": {
-      "game": "super-lig-2026-11-01-kas-mpasa-besiktas-jk-bq0103",
-      "model": {
-        "id": "pitchlab-statistical-super-lig",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.4273579679880488,
-        "away": 1.342437020760103,
-        "total": 2.769794988748152,
-        "margin": 0.08492094722794574
-      },
-      "x12": [
-        0.39828346798966635,
-        0.24212195816833298,
-        0.3595945738420008
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Kasımpaşa gana",
-          "p": 0.39828346798966635,
-          "fairOdds": 2.510774562267158
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.24212195816833298,
-          "fairOdds": 4.130149977164646
-        },
-        {
-          "market": "h2h",
-          "selection": "Beşiktaş JK gana",
-          "p": 0.3595945738420008,
-          "fairOdds": 2.780909593033463
-        },
-        {
-          "market": "double_chance",
-          "selection": "Kasımpaşa o empate",
-          "p": 0.6404054261579993,
-          "fairOdds": 1.561510816670192
-        },
-        {
-          "market": "double_chance",
-          "selection": "Beşiktaş JK o empate",
-          "p": 0.6017165320103337,
-          "fairOdds": 1.6619121244001758
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7578780418316671,
-          "fairOdds": 1.3194735099900292
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7577238431337767,
-          "fairOdds": 1.3197420261506134
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5233150557484926,
-          "fairOdds": 1.9108947640914122
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.4766849442515074,
-          "fairOdds": 2.0978216578042
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.301349710167222,
-          "fairOdds": 3.3184037225225467
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.698650289832778,
-          "fairOdds": 1.4313312605070987
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5555197253994106,
-          "fairOdds": 1.8001160971935146
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.44448027460058936,
-          "fairOdds": 2.2498186244566227
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kasımpaşa más de 1.5",
-          "line": 1.5,
-          "p": 0.41757462697553427,
-          "fairOdds": 2.394781520234921
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kasımpaşa menos de 1.5",
-          "line": 1.5,
-          "p": 0.5824253730244657,
-          "fairOdds": 1.716958165484994
-        },
-        {
-          "market": "team_totals",
-          "selection": "Beşiktaş JK más de 1.5",
-          "line": 1.5,
-          "p": 0.38813584109479593,
-          "fairOdds": 2.576417568600077
-        },
-        {
-          "market": "team_totals",
-          "selection": "Beşiktaş JK menos de 1.5",
-          "line": 1.5,
-          "p": 0.6118641589052041,
-          "fairOdds": 1.6343496925678396
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11408905412444115,
-          "fairOdds": 8.765082747633818
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.095464184470556,
-          "fairOdds": 10.475132695533892
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.09014177381458136,
-          "fairOdds": 11.093635699436833
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Kasımpaşa gana",
-              "p": 0.39828346798966635,
-              "fairOdds": 2.510774562267158
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.24212195816833298,
-              "fairOdds": 4.130149977164646
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Beşiktaş JK gana",
-              "p": 0.3595945738420008,
-              "fairOdds": 2.780909593033463
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Kasımpaşa o empate",
-              "p": 0.6404054261579993,
-              "fairOdds": 1.561510816670192
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Beşiktaş JK o empate",
-              "p": 0.6017165320103337,
-              "fairOdds": 1.6619121244001758
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7578780418316671,
-              "fairOdds": 1.3194735099900292
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7577238431337767,
-              "fairOdds": 1.3197420261506134
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5233150557484926,
-              "fairOdds": 1.9108947640914122
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.4766849442515074,
-              "fairOdds": 2.0978216578042
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.301349710167222,
-              "fairOdds": 3.3184037225225467
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.698650289832778,
-              "fairOdds": 1.4313312605070987
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5555197253994106,
-              "fairOdds": 1.8001160971935146
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.44448027460058936,
-              "fairOdds": 2.2498186244566227
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Kasımpaşa más de 1.5",
-              "line": 1.5,
-              "p": 0.41757462697553427,
-              "fairOdds": 2.394781520234921
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Kasımpaşa menos de 1.5",
-              "line": 1.5,
-              "p": 0.5824253730244657,
-              "fairOdds": 1.716958165484994
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Beşiktaş JK más de 1.5",
-              "line": 1.5,
-              "p": 0.38813584109479593,
-              "fairOdds": 2.576417568600077
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Beşiktaş JK menos de 1.5",
-              "line": 1.5,
-              "p": 0.6118641589052041,
-              "fairOdds": 1.6343496925678396
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11408905412444115,
-              "fairOdds": 8.765082747633818
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.095464184470556,
-              "fairOdds": 10.475132695533892
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.09014177381458136,
-              "fairOdds": 11.093635699436833
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11408905412444115
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.12 goles/partido",
-          "detail": "9 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.03 concedidos/partido",
-          "detail": "20 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.34 goles/partido",
-          "detail": "39 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.97 concedidos/partido",
-          "detail": "24 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.27",
-          "detail": "estimada de 99 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–4.0",
-          "detail": "local 20%–63% · 99 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "5.º · 20 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "4.º · 22 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-E-P-G-G · 10 pts",
-          "detail": "8 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-G-P-G · 9 pts",
-          "detail": "9 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Süper Lig · corte 1 nov 2026, 09:00",
-        "Fuerza ajustada por rival · KAS 1.09 / 0.76 · BES 1.39 / 0.80",
-        "Ponderando 89.5 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.43 – 1.34 · total 2.77",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-01T15:00:00.000Z",
-      "publishedAt": "2026-11-01T15:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.08570837919196887
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.8 goles: 1.4 de Kasımpaşa y 1.3 de Beşiktaş JK.",
-          "Beşiktaş JK anota 39 % más que la media.",
-          "Kasımpaşa concede 24 % menos que la media."
-        ],
-        "restDays": {
-          "home": 8,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Resat Onur Coskunses",
-        "refereeStats": {
-          "country": "Türkiye",
-          "matches": 32,
-          "avgYellow": 4.28,
-          "avgRed": 0.31,
-          "avgFouls": 25.4,
-          "avgGoals": 2.28
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 15,
-          "windSpeedKmh": 57
-        },
-        "travelDistanceKm": 2,
-        "isLocalDerby": true,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Istanbul",
-        "venueCountry": "Türkiye",
-        "venueCapacity": 14234
-      }
-    },
-    "super-lig-2026-11-02-genclerbirligi-alanyaspor-c3khr7": {
-      "game": "super-lig-2026-11-02-genclerbirligi-alanyaspor-c3khr7",
-      "model": {
-        "id": "pitchlab-statistical-super-lig",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.7046781688798773,
-        "away": 1.0122301569893233,
-        "total": 2.7169083258692006,
-        "margin": 0.692448011890554
-      },
-      "x12": [
-        0.5418034335094665,
-        0.22840508349268202,
-        0.22979148299785185
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Gençlerbirliği gana",
-          "p": 0.5418034335094665,
-          "fairOdds": 1.8456878235758316
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.22840508349268202,
-          "fairOdds": 4.378186267610105
-        },
-        {
-          "market": "h2h",
-          "selection": "Alanyaspor gana",
-          "p": 0.22979148299785185,
-          "fairOdds": 4.351771384013167
-        },
-        {
-          "market": "double_chance",
-          "selection": "Gençlerbirliği o empate",
-          "p": 0.7702085170021484,
-          "fairOdds": 1.2983497039116882
-        },
-        {
-          "market": "double_chance",
-          "selection": "Alanyaspor o empate",
-          "p": 0.45819656649053386,
-          "fairOdds": 2.1824694315352526
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7715949165073184,
-          "fairOdds": 1.2960168329342736
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7486899037137422,
-          "fairOdds": 1.3356664689074595
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5105074009672346,
-          "fairOdds": 1.95883546076971
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.48949259903276543,
-          "fairOdds": 2.0429318072959517
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2896376570309077,
-          "fairOdds": 3.4525897297024755
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7103623429690923,
-          "fairOdds": 1.4077322790230025
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5151389566184318,
-          "fairOdds": 1.9412237943804147
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4848610433815682,
-          "fairOdds": 2.0624465785613464
-        },
-        {
-          "market": "team_totals",
-          "selection": "Gençlerbirliği más de 1.5",
-          "line": 1.5,
-          "p": 0.5082050257237622,
-          "fairOdds": 1.9677097812557953
-        },
-        {
-          "market": "team_totals",
-          "selection": "Gençlerbirliği menos de 1.5",
-          "line": 1.5,
-          "p": 0.49179497427623775,
-          "fairOdds": 2.0333676680443404
-        },
-        {
-          "market": "team_totals",
-          "selection": "Alanyaspor más de 1.5",
-          "line": 1.5,
-          "p": 0.2687402211902423,
-          "fairOdds": 3.7210656282525565
-        },
-        {
-          "market": "team_totals",
-          "selection": "Alanyaspor menos de 1.5",
-          "line": 1.5,
-          "p": 0.7312597788097577,
-          "fairOdds": 1.3675030802701333
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.11834422690966939,
-          "fairOdds": 8.449926338724465
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.10831978782273417,
-          "fairOdds": 9.23192354878413
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09718440924163965,
-          "fairOdds": 10.289716301239189
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Gençlerbirliği gana",
-              "p": 0.5418034335094665,
-              "fairOdds": 1.8456878235758316
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.22840508349268202,
-              "fairOdds": 4.378186267610105
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Alanyaspor gana",
-              "p": 0.22979148299785185,
-              "fairOdds": 4.351771384013167
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Gençlerbirliği o empate",
-              "p": 0.7702085170021484,
-              "fairOdds": 1.2983497039116882
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Alanyaspor o empate",
-              "p": 0.45819656649053386,
-              "fairOdds": 2.1824694315352526
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7715949165073184,
-              "fairOdds": 1.2960168329342736
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7486899037137422,
-              "fairOdds": 1.3356664689074595
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5105074009672346,
-              "fairOdds": 1.95883546076971
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.48949259903276543,
-              "fairOdds": 2.0429318072959517
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2896376570309077,
-              "fairOdds": 3.4525897297024755
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7103623429690923,
-              "fairOdds": 1.4077322790230025
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5151389566184318,
-              "fairOdds": 1.9412237943804147
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4848610433815682,
-              "fairOdds": 2.0624465785613464
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Gençlerbirliği más de 1.5",
-              "line": 1.5,
-              "p": 0.5082050257237622,
-              "fairOdds": 1.9677097812557953
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Gençlerbirliği menos de 1.5",
-              "line": 1.5,
-              "p": 0.49179497427623775,
-              "fairOdds": 2.0333676680443404
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Alanyaspor más de 1.5",
-              "line": 1.5,
-              "p": 0.2687402211902423,
-              "fairOdds": 3.7210656282525565
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Alanyaspor menos de 1.5",
-              "line": 1.5,
-              "p": 0.7312597788097577,
-              "fairOdds": 1.3675030802701333
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.11834422690966939,
-              "fairOdds": 8.449926338724465
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.10831978782273417,
-              "fairOdds": 9.23192354878413
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09718440924163965,
-              "fairOdds": 10.289716301239189
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.11834422690966939
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.34 goles/partido",
-          "detail": "8 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.46 concedidos/partido",
-          "detail": "14 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.01 goles/partido",
-          "detail": "30 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.45 concedidos/partido",
-          "detail": "13 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.27",
-          "detail": "estimada de 99 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–4.1",
-          "detail": "local 29%–79% · 99 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "14.º · 11 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "13.º · 12 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-E-P-P · 1 pts",
-          "detail": "3 goles a favor · 11 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-G-E-P-P · 5 pts",
-          "detail": "5 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Süper Lig · corte 2 nov 2026, 10:00",
-        "Fuerza ajustada por rival · GEN 0.92 / 1.13 · ALA 0.70 / 1.14",
-        "Ponderando 89.5 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.70 – 1.01 · total 2.72",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-02T16:00:00.000Z",
-      "publishedAt": "2026-11-02T16:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09718440924163965
-      },
-      "insights": {
-        "why": [
-          "Gençlerbirliği gana en 54% de los escenarios; el empate, en 23%.",
-          "Alanyaspor anota 30 % menos que la media.",
-          "Alanyaspor concede 14 % más que la media."
-        ],
-        "restDays": {
-          "home": 8,
-          "away": 10
-        }
-      },
-      "matchContext": {
-        "referee": "Fatih Tokail",
-        "refereeStats": {
-          "country": "Türkiye",
-          "matches": 31,
-          "avgYellow": 4.48,
-          "avgRed": 0.35,
-          "avgFouls": 25.9,
-          "avgGoals": 2.84
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 11,
-          "windSpeedKmh": 31
-        },
-        "travelDistanceKm": 384,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Ankara",
-        "venueCountry": "Türkiye",
-        "venueCapacity": 20560
-      }
-    },
-    "super-lig-2026-11-06-gaziantep-kas-mpasa-ilii9c": {
-      "game": "super-lig-2026-11-06-gaziantep-kas-mpasa-ilii9c",
-      "model": {
-        "id": "pitchlab-statistical-super-lig",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 0.8490459591073246,
-        "away": 1.6379894075709134,
-        "total": 2.487035366678238,
-        "margin": -0.7889434484635888
-      },
-      "x12": [
-        0.1994786317534972,
-        0.23423238590393783,
-        0.5662889823425653
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Gaziantep FK gana",
-          "p": 0.1994786317534972,
-          "fairOdds": 5.013068273075661
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.23423238590393783,
-          "fairOdds": 4.269264457777051
-        },
-        {
-          "market": "h2h",
-          "selection": "Kasımpaşa gana",
-          "p": 0.5662889823425653,
-          "fairOdds": 1.7658828463575331
-        },
-        {
-          "market": "double_chance",
-          "selection": "Gaziantep FK o empate",
-          "p": 0.433711017657435,
-          "fairOdds": 2.305682722567694
-        },
-        {
-          "market": "double_chance",
-          "selection": "Kasımpaşa o empate",
-          "p": 0.8005213682465031,
-          "fairOdds": 1.2491858926769732
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7657676140960625,
-          "fairOdds": 1.3058792009380458
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7042488787354275,
-          "fairOdds": 1.4199525625026665
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.45285626541406676,
-          "fairOdds": 2.208206171301738
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5471437345859332,
-          "fairOdds": 1.8276733092023412
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2396551587844531,
-          "fairOdds": 4.172662107805509
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7603448412155469,
-          "fairOdds": 1.3151927201890679
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.45518025196739337,
-          "fairOdds": 2.196931865294619
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.5448197480326067,
-          "fairOdds": 1.8354694439970105
-        },
-        {
-          "market": "team_totals",
-          "selection": "Gaziantep FK más de 1.5",
-          "line": 1.5,
-          "p": 0.2089357980111266,
-          "fairOdds": 4.786159238957922
-        },
-        {
-          "market": "team_totals",
-          "selection": "Gaziantep FK menos de 1.5",
-          "line": 1.5,
-          "p": 0.7910642019888734,
-          "fairOdds": 1.264119900111553
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kasımpaşa más de 1.5",
-          "line": 1.5,
-          "p": 0.4872521559700914,
-          "fairOdds": 2.0523254494565686
-        },
-        {
-          "market": "team_totals",
-          "selection": "Kasımpaşa menos de 1.5",
-          "line": 1.5,
-          "p": 0.5127478440299086,
-          "fairOdds": 1.9502763622379464
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.14199141969225634,
-          "fairOdds": 7.042679072913982
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.11155447682260759,
-          "fairOdds": 8.964230109654732
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.10986534279446232,
-          "fairOdds": 9.102051425542035
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Gaziantep FK gana",
-              "p": 0.1994786317534972,
-              "fairOdds": 5.013068273075661
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.23423238590393783,
-              "fairOdds": 4.269264457777051
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Kasımpaşa gana",
-              "p": 0.5662889823425653,
-              "fairOdds": 1.7658828463575331
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Gaziantep FK o empate",
-              "p": 0.433711017657435,
-              "fairOdds": 2.305682722567694
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Kasımpaşa o empate",
-              "p": 0.8005213682465031,
-              "fairOdds": 1.2491858926769732
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7657676140960625,
-              "fairOdds": 1.3058792009380458
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7042488787354275,
-              "fairOdds": 1.4199525625026665
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.45285626541406676,
-              "fairOdds": 2.208206171301738
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5471437345859332,
-              "fairOdds": 1.8276733092023412
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2396551587844531,
-              "fairOdds": 4.172662107805509
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7603448412155469,
-              "fairOdds": 1.3151927201890679
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.45518025196739337,
-              "fairOdds": 2.196931865294619
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.5448197480326067,
-              "fairOdds": 1.8354694439970105
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Gaziantep FK más de 1.5",
-              "line": 1.5,
-              "p": 0.2089357980111266,
-              "fairOdds": 4.786159238957922
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Gaziantep FK menos de 1.5",
-              "line": 1.5,
-              "p": 0.7910642019888734,
-              "fairOdds": 1.264119900111553
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Kasımpaşa más de 1.5",
-              "line": 1.5,
-              "p": 0.4872521559700914,
-              "fairOdds": 2.0523254494565686
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Kasımpaşa menos de 1.5",
-              "line": 1.5,
-              "p": 0.5127478440299086,
-              "fairOdds": 1.9502763622379464
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.14199141969225634,
-              "fairOdds": 7.042679072913982
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.11155447682260759,
-              "fairOdds": 8.964230109654732
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.10986534279446232,
-              "fairOdds": 9.102051425542035
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.14199141969225634
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.67 goles/partido",
-          "detail": "31 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "0.97 concedidos/partido",
-          "detail": "24 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.64 goles/partido",
-          "detail": "9 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.51 concedidos/partido",
-          "detail": "17 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.27",
-          "detail": "estimada de 99 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.7–3.7",
-          "detail": "local 8%–42% · 99 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "16.º · 8 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "5.º · 20 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-P-P-P · 0 pts",
-          "detail": "2 goles a favor · 12 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-P-G-G-E · 8 pts",
-          "detail": "8 goles a favor · 6 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Süper Lig · corte 6 nov 2026, 10:00",
-        "Fuerza ajustada por rival · GAZ 0.69 / 1.17 · KAS 1.09 / 0.76",
-        "Ponderando 89.5 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.85 – 1.64 · total 2.49",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 0–1"
-      ],
-      "inputsAsOf": "2026-11-06T16:00:00.000Z",
-      "publishedAt": "2026-11-06T16:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 0,
-        "away": 1,
-        "p": 0.14199141969225634
-      },
-      "insights": {
-        "why": [
-          "Kasımpaşa gana en 57% de los escenarios; el empate, en 23%.",
-          "Gaziantep FK anota 31 % menos que la media.",
-          "Kasımpaşa concede 24 % menos que la media."
-        ],
-        "restDays": {
-          "home": 5,
-          "away": 5
-        }
-      },
-      "matchContext": {
-        "referee": "Umit Ozturk",
-        "refereeStats": {
-          "country": "Türkiye",
-          "matches": 35,
-          "avgYellow": 4.77,
-          "avgRed": 0.17,
-          "avgFouls": 25.3,
-          "avgGoals": 2.63
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 12,
-          "windSpeedKmh": 21
-        },
-        "travelDistanceKm": 847,
-        "halfTimeScore": {
-          "home": 0,
-          "away": 2
-        },
-        "stageName": "Regular season",
-        "venueCity": "Gaziantep",
-        "venueCountry": "Türkiye",
-        "venueCapacity": 33502
-      }
-    },
     "super-lig-2026-11-07-eyupspor-kocaelispor-mvuy3j": {
       "game": "super-lig-2026-11-07-eyupspor-kocaelispor-mvuy3j",
       "model": {
@@ -3906,11 +2549,11 @@
         "referee": "Gurcan Hasova",
         "refereeStats": {
           "country": "Türkiye",
-          "matches": 35,
-          "avgYellow": 4.74,
-          "avgRed": 0.4,
-          "avgFouls": 25.7,
-          "avgGoals": 2.54
+          "matches": 36,
+          "avgYellow": 4.67,
+          "avgRed": 0.39,
+          "avgFouls": 25.5,
+          "avgGoals": 2.5
         },
         "weather": {
           "description": "clear",
@@ -4357,11 +3000,11 @@
         "referee": "Cagdas Altay",
         "refereeStats": {
           "country": "Türkiye",
-          "matches": 43,
-          "avgYellow": 4.4,
+          "matches": 44,
+          "avgYellow": 4.39,
           "avgRed": 0.23,
-          "avgFouls": 25.1,
-          "avgGoals": 3.35
+          "avgFouls": 25.2,
+          "avgGoals": 3.41
         },
         "weather": {
           "description": "cloudy",
@@ -9529,18 +8172,22 @@
         "referee": "Davut Dakul Celik",
         "refereeStats": {
           "country": "Türkiye",
-          "matches": 25,
-          "avgYellow": 5.12,
-          "avgRed": 0.32,
-          "avgFouls": 24.5,
-          "avgGoals": 2.68
+          "matches": 26,
+          "avgYellow": 5.23,
+          "avgRed": 0.31,
+          "avgFouls": 25.3,
+          "avgGoals": 2.69
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 19,
           "windSpeedKmh": 80
         },
         "travelDistanceKm": 566,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 1
+        },
         "stageName": "Regular season",
         "venueCity": "Istanbul",
         "venueCountry": "Türkiye",
@@ -10012,18 +8659,22 @@
         "referee": "Cagdas Altay",
         "refereeStats": {
           "country": "Türkiye",
-          "matches": 43,
-          "avgYellow": 4.4,
+          "matches": 44,
+          "avgYellow": 4.39,
           "avgRed": 0.23,
-          "avgFouls": 25.1,
-          "avgGoals": 3.35
+          "avgFouls": 25.2,
+          "avgGoals": 3.41
         },
         "weather": {
-          "description": "rain",
+          "description": "clear",
           "temperatureC": 17,
           "windSpeedKmh": 28
         },
         "travelDistanceKm": 464,
+        "halfTimeScore": {
+          "home": 1,
+          "away": 2
+        },
         "stageName": "Regular season",
         "venueCity": "Konya",
         "venueCountry": "Türkiye",
@@ -10487,16 +9138,20 @@
         "referee": "Gurcan Hasova",
         "refereeStats": {
           "country": "Türkiye",
-          "matches": 35,
-          "avgYellow": 4.74,
-          "avgRed": 0.4,
-          "avgFouls": 25.7,
-          "avgGoals": 2.54
+          "matches": 36,
+          "avgYellow": 4.67,
+          "avgRed": 0.39,
+          "avgFouls": 25.5,
+          "avgGoals": 2.5
         },
         "weather": {
           "description": "cloudy",
           "temperatureC": 18,
           "windSpeedKmh": 46
+        },
+        "halfTimeScore": {
+          "home": 1,
+          "away": 0
         },
         "stageName": "Regular season",
         "venueCity": "Trabzon",
@@ -24167,6 +22822,1414 @@
         "venueCountry": "Türkiye",
         "venueCapacity": 14234
       }
+    },
+    "super-lig-2026-12-18-amedspor-goztepe-x5w5yl": {
+      "game": "super-lig-2026-12-18-amedspor-goztepe-x5w5yl",
+      "model": {
+        "id": "pitchlab-statistical-super-lig",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.7068548765277667,
+        "away": 1.6999461901959425,
+        "total": 4.406801066723709,
+        "margin": 1.0069086863318242
+      },
+      "x12": [
+        0.5942463913412815,
+        0.17175178315726147,
+        0.23400182550145707
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Amedspor gana",
+          "p": 0.5942463913412815,
+          "fairOdds": 1.6828036561448636
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.17175178315726147,
+          "fairOdds": 5.822355853414155
+        },
+        {
+          "market": "h2h",
+          "selection": "Göztepe gana",
+          "p": 0.23400182550145707,
+          "fairOdds": 4.273470934925562
+        },
+        {
+          "market": "double_chance",
+          "selection": "Amedspor o empate",
+          "p": 0.765998174498543,
+          "fairOdds": 1.3054861399045046
+        },
+        {
+          "market": "double_chance",
+          "selection": "Göztepe o empate",
+          "p": 0.40575360865871857,
+          "fairOdds": 2.4645498614433894
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8282482168427386,
+          "fairOdds": 1.2073675254164444
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9312546687693513,
+          "fairOdds": 1.0738201198190989
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.8156415314567435,
+          "fairOdds": 1.2260287901401865
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.18435846854325655,
+          "fairOdds": 5.424215160289028
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.6416917929411068,
+          "fairOdds": 1.5583805356410068
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.3583082070588932,
+          "fairOdds": 2.7908933714031154
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.7599414451963702,
+          "fairOdds": 1.3158908575404757
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.2400585548036298,
+          "fairOdds": 4.165650338176906
+        },
+        {
+          "market": "team_totals",
+          "selection": "Amedspor más de 1.5",
+          "line": 1.5,
+          "p": 0.752550412129521,
+          "fairOdds": 1.3288146333881625
+        },
+        {
+          "market": "team_totals",
+          "selection": "Amedspor menos de 1.5",
+          "line": 1.5,
+          "p": 0.247449587870479,
+          "fairOdds": 4.0412271792645855
+        },
+        {
+          "market": "team_totals",
+          "selection": "Göztepe más de 1.5",
+          "line": 1.5,
+          "p": 0.5067368742853293,
+          "fairOdds": 1.9734107595985368
+        },
+        {
+          "market": "team_totals",
+          "selection": "Göztepe menos de 1.5",
+          "line": 1.5,
+          "p": 0.4932631257146707,
+          "fairOdds": 2.027315539857428
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.07595210533311335,
+          "fairOdds": 13.166191978670843
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.06853044223449616,
+          "fairOdds": 14.592055258861736
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.06455724604919348,
+          "fairOdds": 15.490127928288432
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Amedspor gana",
+              "p": 0.5942463913412815,
+              "fairOdds": 1.6828036561448636
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.17175178315726147,
+              "fairOdds": 5.822355853414155
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Göztepe gana",
+              "p": 0.23400182550145707,
+              "fairOdds": 4.273470934925562
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Amedspor o empate",
+              "p": 0.765998174498543,
+              "fairOdds": 1.3054861399045046
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Göztepe o empate",
+              "p": 0.40575360865871857,
+              "fairOdds": 2.4645498614433894
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8282482168427386,
+              "fairOdds": 1.2073675254164444
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.9312546687693513,
+              "fairOdds": 1.0738201198190989
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.8156415314567435,
+              "fairOdds": 1.2260287901401865
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.18435846854325655,
+              "fairOdds": 5.424215160289028
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.6416917929411068,
+              "fairOdds": 1.5583805356410068
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.3583082070588932,
+              "fairOdds": 2.7908933714031154
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.7599414451963702,
+              "fairOdds": 1.3158908575404757
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.2400585548036298,
+              "fairOdds": 4.165650338176906
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Amedspor más de 1.5",
+              "line": 1.5,
+              "p": 0.752550412129521,
+              "fairOdds": 1.3288146333881625
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Amedspor menos de 1.5",
+              "line": 1.5,
+              "p": 0.247449587870479,
+              "fairOdds": 4.0412271792645855
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Göztepe más de 1.5",
+              "line": 1.5,
+              "p": 0.5067368742853293,
+              "fairOdds": 1.9734107595985368
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Göztepe menos de 1.5",
+              "line": 1.5,
+              "p": 0.4932631257146707,
+              "fairOdds": 2.027315539857428
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.07595210533311335,
+              "fairOdds": 13.166191978670843
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.06853044223449616,
+              "fairOdds": 14.592055258861736
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.06455724604919348,
+              "fairOdds": 15.490127928288432
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.07595210533311335
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "2.24 goles/partido",
+          "detail": "54 % más que la media · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.45 concedidos/partido",
+          "detail": "12 % más que la media · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.70 goles/partido",
+          "detail": "26 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.35 concedidos/partido",
+          "detail": "4 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 107 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.1–6.4",
+          "detail": "local 33%–84% · 107 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "4.º · 23 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "8.º · 18 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-P-P · 9 pts",
+          "detail": "11 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-P-G · 12 pts",
+          "detail": "8 goles a favor · 4 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Süper Lig · corte 22 nov 2026, 18:13",
+        "Fuerza ajustada por rival · AME 1.54 / 1.04 · GOZ 1.26 / 1.12",
+        "Ponderando 96.9 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.71 – 1.70 · total 4.41",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-22T18:13:11.873Z",
+      "publishedAt": "2026-11-22T18:13:11.873Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "over_1.5",
+          "label": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9312546687693513,
+          "fairOdds": 1.0738201198190989
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "over_3.5",
+          "label": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.6416917929411068,
+          "fairOdds": 1.5583805356410068
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "away_over",
+          "label": "Göztepe más de 1.5",
+          "line": 1.5,
+          "p": 0.5067368742853293,
+          "fairOdds": 1.9734107595985368
+        }
+      ],
+      "confidence": {
+        "score": 60,
+        "level": "media",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.07595210533311335
+      },
+      "insights": {
+        "why": [
+          "Se esperan 4.4 goles: 2.7 de Amedspor y 1.7 de Göztepe.",
+          "Amedspor anota 54 % más que la media.",
+          "Göztepe anota 26 % más que la media."
+        ],
+        "restDays": {
+          "home": 27,
+          "away": 26
+        }
+      },
+      "picksAt": "2026-11-22T18:13:11.873Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Diyarbakır",
+        "venueCountry": "Türkiye",
+        "venueCapacity": 33000
+      }
+    },
+    "super-lig-2026-12-19-konyaspor-eyupspor-ml65x3": {
+      "game": "super-lig-2026-12-19-konyaspor-eyupspor-ml65x3",
+      "model": {
+        "id": "pitchlab-statistical-super-lig",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.5742725340427586,
+        "away": 0.49964959785953794,
+        "total": 2.0739221319022967,
+        "margin": 1.0746229361832207
+      },
+      "x12": [
+        0.6443760684065605,
+        0.23589985525236928,
+        0.11972407634107048
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Konyaspor gana",
+          "p": 0.6443760684065605,
+          "fairOdds": 1.5518887944936268
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.23589985525236928,
+          "fairOdds": 4.239086958871529
+        },
+        {
+          "market": "h2h",
+          "selection": "Eyüpspor gana",
+          "p": 0.11972407634107048,
+          "fairOdds": 8.352538859027783
+        },
+        {
+          "market": "double_chance",
+          "selection": "Konyaspor o empate",
+          "p": 0.8802759236589297,
+          "fairOdds": 1.136007441670594
+        },
+        {
+          "market": "double_chance",
+          "selection": "Eyüpspor o empate",
+          "p": 0.35562393159343975,
+          "fairOdds": 2.8119592388490626
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.764100144747631,
+          "fairOdds": 1.3087289760039014
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.6086893837633472,
+          "fairOdds": 1.6428740613435615
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.3433226096909201,
+          "fairOdds": 2.9127123346180457
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.6566773903090799,
+          "fairOdds": 1.522817771340243
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.15645521458041856,
+          "fairOdds": 6.391605435982425
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.8435447854195814,
+          "fairOdds": 1.1854735128290756
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.3068469695820717,
+          "fairOdds": 3.25895348212827
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.6931530304179283,
+          "fairOdds": 1.442682865278771
+        },
+        {
+          "market": "team_totals",
+          "selection": "Konyaspor más de 1.5",
+          "line": 1.5,
+          "p": 0.4667178715240644,
+          "fairOdds": 2.1426220443080655
+        },
+        {
+          "market": "team_totals",
+          "selection": "Konyaspor menos de 1.5",
+          "line": 1.5,
+          "p": 0.5332821284759356,
+          "fairOdds": 1.8751800343617273
+        },
+        {
+          "market": "team_totals",
+          "selection": "Eyüpspor más de 1.5",
+          "line": 1.5,
+          "p": 0.09009776422758331,
+          "fairOdds": 11.099054550055653
+        },
+        {
+          "market": "team_totals",
+          "selection": "Eyüpspor menos de 1.5",
+          "line": 1.5,
+          "p": 0.9099022357724167,
+          "fairOdds": 1.0990191700662206
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.20281674288762877,
+          "fairOdds": 4.930559409259684
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.15575330995186587,
+          "fairOdds": 6.420409301792949
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–0",
+          "p": 0.12074857643116808,
+          "fairOdds": 8.281671134814937
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Konyaspor gana",
+              "p": 0.6443760684065605,
+              "fairOdds": 1.5518887944936268
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.23589985525236928,
+              "fairOdds": 4.239086958871529
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Eyüpspor gana",
+              "p": 0.11972407634107048,
+              "fairOdds": 8.352538859027783
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Konyaspor o empate",
+              "p": 0.8802759236589297,
+              "fairOdds": 1.136007441670594
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Eyüpspor o empate",
+              "p": 0.35562393159343975,
+              "fairOdds": 2.8119592388490626
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.764100144747631,
+              "fairOdds": 1.3087289760039014
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.6086893837633472,
+              "fairOdds": 1.6428740613435615
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.3433226096909201,
+              "fairOdds": 2.9127123346180457
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.6566773903090799,
+              "fairOdds": 1.522817771340243
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.15645521458041856,
+              "fairOdds": 6.391605435982425
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.8435447854195814,
+              "fairOdds": 1.1854735128290756
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.3068469695820717,
+              "fairOdds": 3.25895348212827
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.6931530304179283,
+              "fairOdds": 1.442682865278771
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Konyaspor más de 1.5",
+              "line": 1.5,
+              "p": 0.4667178715240644,
+              "fairOdds": 2.1426220443080655
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Konyaspor menos de 1.5",
+              "line": 1.5,
+              "p": 0.5332821284759356,
+              "fairOdds": 1.8751800343617273
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Eyüpspor más de 1.5",
+              "line": 1.5,
+              "p": 0.09009776422758331,
+              "fairOdds": 11.099054550055653
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Eyüpspor menos de 1.5",
+              "line": 1.5,
+              "p": 0.9099022357724167,
+              "fairOdds": 1.0990191700662206
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.20281674288762877,
+              "fairOdds": 4.930559409259684
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.15575330995186587,
+              "fairOdds": 6.420409301792949
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-0",
+              "label": "0–0",
+              "p": 0.12074857643116808,
+              "fairOdds": 8.281671134814937
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.20281674288762877
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.30 goles/partido",
+          "detail": "35 % menos que la media · 12 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.99 concedidos/partido",
+          "detail": "53 % más que la media · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.50 goles/partido",
+          "detail": "60 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.24 concedidos/partido",
+          "detail": "5 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 107 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.4–3.2",
+          "detail": "local 43%–83% · 107 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "15.º · 8 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "18.º · 3 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-P-P-P · 3 pts",
+          "detail": "4 goles a favor · 10 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-P-P-P · 0 pts",
+          "detail": "1 goles a favor · 11 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Süper Lig · corte 22 nov 2026, 18:13",
+        "Fuerza ajustada por rival · KON 0.65 / 0.95 · EYU 0.40 / 1.53",
+        "Ponderando 96.9 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.57 – 0.50 · total 2.07",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–0"
+      ],
+      "inputsAsOf": "2026-11-22T18:13:11.873Z",
+      "publishedAt": "2026-11-22T18:13:11.873Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "team_totals",
+          "selection": "away_under",
+          "label": "Eyüpspor menos de 1.5",
+          "line": 1.5,
+          "p": 0.9099022357724167,
+          "fairOdds": 1.0990191700662206
+        },
+        {
+          "profile": "intermedia",
+          "market": "btts",
+          "selection": "no",
+          "label": "Ambos anotan: No",
+          "p": 0.6931530304179283,
+          "fairOdds": 1.442682865278771
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "Konyaspor más de 1.5",
+          "line": 1.5,
+          "p": 0.4667178715240644,
+          "fairOdds": 2.1426220443080655
+        }
+      ],
+      "confidence": {
+        "score": 72,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.20281674288762877
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.1 goles: 1.6 de Konyaspor y 0.5 de Eyüpspor.",
+          "Eyüpspor anota 60 % menos que la media.",
+          "Eyüpspor concede 53 % más que la media."
+        ],
+        "restDays": {
+          "home": 27,
+          "away": 27
+        }
+      },
+      "picksAt": "2026-11-22T18:13:11.873Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Konya",
+        "venueCountry": "Türkiye",
+        "venueCapacity": 42000
+      }
+    },
+    "super-lig-2026-12-19-basaksehir-erzurumspor-adivwq": {
+      "game": "super-lig-2026-12-19-basaksehir-erzurumspor-adivwq",
+      "model": {
+        "id": "pitchlab-statistical-super-lig",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.0603322956205297,
+        "away": 0.8719463525429492,
+        "total": 2.9322786481634786,
+        "margin": 1.1883859430775805
+      },
+      "x12": [
+        0.6537938342839774,
+        0.19201813017250874,
+        0.1541880355435138
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Başakşehir FK gana",
+          "p": 0.6537938342839774,
+          "fairOdds": 1.5295341552053348
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.19201813017250874,
+          "fairOdds": 5.2078415673645075
+        },
+        {
+          "market": "h2h",
+          "selection": "Erzurumspor FK gana",
+          "p": 0.1541880355435138,
+          "fairOdds": 6.485587526133229
+        },
+        {
+          "market": "double_chance",
+          "selection": "Başakşehir FK o empate",
+          "p": 0.8458119644564861,
+          "fairOdds": 1.182295879016791
+        },
+        {
+          "market": "double_chance",
+          "selection": "Erzurumspor FK o empate",
+          "p": 0.34620616571602253,
+          "fairOdds": 2.8884523126033965
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8079818698274912,
+          "fairOdds": 1.2376515332126274
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7857180663062291,
+          "fairOdds": 1.272721148822682
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5614628247818005,
+          "fairOdds": 1.7810618189879743
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.43853717521819946,
+          "fairOdds": 2.2803083900525376
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.33759237769185124,
+          "fairOdds": 2.9621521873126637
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6624076223081488,
+          "fairOdds": 1.509644464107336
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5029406321652172,
+          "fairOdds": 1.9883062454009435
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4970593678347828,
+          "fairOdds": 2.0118321164653903
+        },
+        {
+          "market": "team_totals",
+          "selection": "Başakşehir FK más de 1.5",
+          "line": 1.5,
+          "p": 0.6100738365101716,
+          "fairOdds": 1.6391458544105708
+        },
+        {
+          "market": "team_totals",
+          "selection": "Başakşehir FK menos de 1.5",
+          "line": 1.5,
+          "p": 0.38992616348982845,
+          "fairOdds": 2.5645881031681164
+        },
+        {
+          "market": "team_totals",
+          "selection": "Erzurumspor FK más de 1.5",
+          "line": 1.5,
+          "p": 0.21727012537970103,
+          "fairOdds": 4.602565577077848
+        },
+        {
+          "market": "team_totals",
+          "selection": "Erzurumspor FK menos de 1.5",
+          "line": 1.5,
+          "p": 0.782729874620299,
+          "fairOdds": 1.2775799575621136
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.11455196074399288,
+          "fairOdds": 8.729662884032653
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.11307766906882097,
+          "fairOdds": 8.843479072701642
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.0985976610986171,
+          "fairOdds": 10.142228414523979
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Başakşehir FK gana",
+              "p": 0.6537938342839774,
+              "fairOdds": 1.5295341552053348
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.19201813017250874,
+              "fairOdds": 5.2078415673645075
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Erzurumspor FK gana",
+              "p": 0.1541880355435138,
+              "fairOdds": 6.485587526133229
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Başakşehir FK o empate",
+              "p": 0.8458119644564861,
+              "fairOdds": 1.182295879016791
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Erzurumspor FK o empate",
+              "p": 0.34620616571602253,
+              "fairOdds": 2.8884523126033965
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8079818698274912,
+              "fairOdds": 1.2376515332126274
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7857180663062291,
+              "fairOdds": 1.272721148822682
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5614628247818005,
+              "fairOdds": 1.7810618189879743
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.43853717521819946,
+              "fairOdds": 2.2803083900525376
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.33759237769185124,
+              "fairOdds": 2.9621521873126637
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6624076223081488,
+              "fairOdds": 1.509644464107336
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5029406321652172,
+              "fairOdds": 1.9883062454009435
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4970593678347828,
+              "fairOdds": 2.0118321164653903
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Başakşehir FK más de 1.5",
+              "line": 1.5,
+              "p": 0.6100738365101716,
+              "fairOdds": 1.6391458544105708
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Başakşehir FK menos de 1.5",
+              "line": 1.5,
+              "p": 0.38992616348982845,
+              "fairOdds": 2.5645881031681164
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Erzurumspor FK más de 1.5",
+              "line": 1.5,
+              "p": 0.21727012537970103,
+              "fairOdds": 4.602565577077848
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Erzurumspor FK menos de 1.5",
+              "line": 1.5,
+              "p": 0.782729874620299,
+              "fairOdds": 1.2775799575621136
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.11455196074399288,
+              "fairOdds": 8.729662884032653
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.11307766906882097,
+              "fairOdds": 8.843479072701642
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.0985976610986171,
+              "fairOdds": 10.142228414523979
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.11455196074399288
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.70 goles/partido",
+          "detail": "24 % más que la media · 11 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.37 concedidos/partido",
+          "detail": "6 % más que la media · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "0.87 goles/partido",
+          "detail": "34 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.31 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 107 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.0–4.6",
+          "detail": "local 43%–88% · 107 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "9.º · 17 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "13.º · 14 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-G-P-G-G · 10 pts",
+          "detail": "9 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-P-P-P · 6 pts",
+          "detail": "7 goles a favor · 7 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Süper Lig · corte 22 nov 2026, 18:13",
+        "Fuerza ajustada por rival · BAS 1.24 / 1.01 · ERZ 0.66 / 1.06",
+        "Ponderando 96.9 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.06 – 0.87 · total 2.93",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-11-22T18:13:11.873Z",
+      "publishedAt": "2026-11-22T18:13:11.873Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "1x",
+          "label": "Başakşehir FK o empate",
+          "p": 0.8458119644564861,
+          "fairOdds": 1.182295879016791
+        },
+        {
+          "profile": "intermedia",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6624076223081488,
+          "fairOdds": 1.509644464107336
+        },
+        {
+          "profile": "arriesgada",
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.5029406321652172,
+          "fairOdds": 1.9883062454009435
+        }
+      ],
+      "confidence": {
+        "score": 71,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente",
+          "Rango de incertidumbre amplio"
+        ]
+      },
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.0985976610986171
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.9 goles: 2.1 de Başakşehir FK y 0.9 de Erzurumspor FK.",
+          "Erzurumspor FK anota 34 % menos que la media.",
+          "Başakşehir FK anota 24 % más que la media."
+        ],
+        "restDays": {
+          "away": 27
+        }
+      },
+      "picksAt": "2026-11-22T18:13:11.873Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Istanbul",
+        "venueCountry": "Türkiye",
+        "venueCapacity": 17156
+      }
     }
   },
   "standings": [
@@ -24195,17 +24258,37 @@
       "name": "Trabzonspor",
       "shortName": "Trabzonspor",
       "code": "TRA",
-      "played": 11,
-      "won": 8,
+      "played": 12,
+      "won": 9,
       "drawn": 1,
       "lost": 2,
-      "goalsFor": 26,
+      "goalsFor": 27,
       "goalsAgainst": 8,
-      "points": 25,
+      "points": 28,
       "form": [
         "W",
         "W",
         "W",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "teamId": "super-lig.besiktas-jk",
+      "name": "Beşiktaş JK",
+      "shortName": "Beşiktaş JK",
+      "code": "BES",
+      "played": 12,
+      "won": 8,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 27,
+      "goalsAgainst": 14,
+      "points": 25,
+      "form": [
+        "L",
+        "W",
+        "D",
         "W",
         "W"
       ]
@@ -24231,22 +24314,22 @@
       ]
     },
     {
-      "teamId": "super-lig.besiktas-jk",
-      "name": "Beşiktaş JK",
-      "shortName": "Beşiktaş JK",
-      "code": "BES",
-      "played": 11,
-      "won": 7,
-      "drawn": 1,
-      "lost": 3,
-      "goalsFor": 23,
+      "teamId": "super-lig.kas-mpasa",
+      "name": "Kasımpaşa",
+      "shortName": "Kasımpaşa",
+      "code": "KAS",
+      "played": 12,
+      "won": 6,
+      "drawn": 5,
+      "lost": 1,
+      "goalsFor": 19,
       "goalsAgainst": 12,
-      "points": 22,
+      "points": 23,
       "form": [
         "W",
-        "L",
         "W",
         "D",
+        "W",
         "W"
       ]
     },
@@ -24268,26 +24351,6 @@
         "L",
         "W",
         "D"
-      ]
-    },
-    {
-      "teamId": "super-lig.kas-mpasa",
-      "name": "Kasımpaşa",
-      "shortName": "Kasımpaşa",
-      "code": "KAS",
-      "played": 11,
-      "won": 5,
-      "drawn": 5,
-      "lost": 1,
-      "goalsFor": 17,
-      "goalsAgainst": 11,
-      "points": 20,
-      "form": [
-        "L",
-        "W",
-        "W",
-        "D",
-        "W"
       ]
     },
     {
@@ -24435,15 +24498,15 @@
       "name": "Alanyaspor",
       "shortName": "Alanyaspor",
       "code": "ALA",
-      "played": 11,
+      "played": 12,
       "won": 3,
       "drawn": 3,
-      "lost": 5,
-      "goalsFor": 9,
-      "goalsAgainst": 18,
+      "lost": 6,
+      "goalsFor": 10,
+      "goalsAgainst": 20,
       "points": 12,
       "form": [
-        "D",
+        "L",
         "L",
         "L",
         "L",
@@ -24455,17 +24518,17 @@
       "name": "Konyaspor",
       "shortName": "Konyaspor",
       "code": "KON",
-      "played": 11,
+      "played": 12,
       "won": 2,
       "drawn": 2,
-      "lost": 7,
-      "goalsFor": 6,
-      "goalsAgainst": 14,
+      "lost": 8,
+      "goalsFor": 8,
+      "goalsAgainst": 18,
       "points": 8,
       "form": [
-        "D",
         "L",
         "W",
+        "L",
         "L",
         "L"
       ]
@@ -24515,12 +24578,12 @@
       "name": "Eyüpspor",
       "shortName": "Eyüpspor",
       "code": "EYU",
-      "played": 11,
+      "played": 12,
       "won": 1,
       "drawn": 0,
-      "lost": 10,
+      "lost": 11,
       "goalsFor": 3,
-      "goalsAgainst": 30,
+      "goalsAgainst": 31,
       "points": 3,
       "form": [
         "L",

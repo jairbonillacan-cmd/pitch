@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "segunda-espana",
   "season": "2026/27",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "matches": [
     {
       "id": "segunda-espana-2026-08-14-real-sociedad--castellon-ifica8",
@@ -1718,6 +1718,28 @@
       "awayTeam": "segunda-espana.mallorca",
       "homeScore": 0,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-22-cordoba-real-oviedo-v5opcq",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T13:00:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.cordoba",
+      "awayTeam": "segunda-espana.real-oviedo",
+      "homeScore": 3,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-22-sporting-gijon-las-palmas-sjsifu",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T15:15:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.sporting-gijon",
+      "awayTeam": "segunda-espana.las-palmas",
+      "homeScore": 0,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

@@ -1,154 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "super-lig",
-  "observedAt": "2026-11-22T12:45:51.462Z",
+  "observedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "super-lig.kas-mpasa",
-      "player": "Andri Fannar Baldursson",
-      "position": "M",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.kas-mpasa",
-      "player": "Elson Mendes",
-      "position": "M",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.kas-mpasa",
-      "player": "Kamil Ahmet Çörekçi",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Achilles Tendon Injury",
-      "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.besiktas-jk",
-      "player": "Emmanuel Agbadou",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.besiktas-jk",
-      "player": "Fabio Miretti",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Shoulder Injury",
-      "injuryType": "Shoulder Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.besiktas-jk",
-      "player": "Ümit Akdağ",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Broken Wrist",
-      "injuryType": "Broken Wrist",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.genclerbirligi",
-      "player": "Abdurrahim Dursun",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.genclerbirligi",
-      "player": "Ensar Çavuşoğlu",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.genclerbirligi",
-      "player": "Gökhan Akkan",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.genclerbirligi",
-      "player": "Thalisson",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.alanyaspor",
-      "player": "Paolo Fernandes",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.gaziantep",
-      "player": "Fuat Bavuk",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Thigh Injury",
-      "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.gaziantep",
-      "player": "Kacper Tobiasz",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.gaziantep",
-      "player": "Myenty Abena",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.gaziantep",
-      "player": "Nazım Sangaré",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Hernia",
-      "injuryType": "Hernia",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "super-lig.gaziantep",
-      "player": "Sontje Hansen",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
     {
       "teamId": "super-lig.eyupspor",
       "player": "Ahmed Abdullahi",
@@ -156,7 +12,7 @@
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "super-lig.eyupspor",
@@ -165,7 +21,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "super-lig.eyupspor",
@@ -174,7 +30,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "super-lig.eyupspor",
@@ -183,7 +39,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "super-lig.eyupspor",
@@ -192,7 +48,7 @@
       "status": "Duda",
       "detail": "Physical Discomfort",
       "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "super-lig.kocaelispor",
@@ -201,7 +57,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "super-lig.kocaelispor",
@@ -210,7 +66,7 @@
       "status": "Duda",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "super-lig.samsunspor",
@@ -219,7 +75,7 @@
       "status": "Baja",
       "detail": "Hamstring Injury",
       "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "super-lig.samsunspor",
@@ -228,7 +84,124 @@
       "status": "Baja",
       "detail": "Broken Rib",
       "injuryType": "Broken Rib",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.konyaspor",
+      "player": "Adil Demirbağ",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.konyaspor",
+      "player": "Chidozie Awaziem",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.goztepe",
+      "player": "Luka Gugeshashvili",
+      "position": "G",
+      "status": "Baja",
+      "detail": "club_decision",
+      "injuryType": "club_decision",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.basaksehir",
+      "player": "Muhammed Şengezer",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.basaksehir",
+      "player": "Saba Kharebashvili",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Physical Discomfort",
+      "injuryType": "Physical Discomfort",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.basaksehir",
+      "player": "Yusuf Sarı",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.galatasaray",
+      "player": "Davinson Sánchez",
+      "position": "D",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.galatasaray",
+      "player": "Ismail Jakobs",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Groin Injury",
+      "injuryType": "Groin Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.galatasaray",
+      "player": "Rafael Leão",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.galatasaray",
+      "player": "Roland Sallai",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.galatasaray",
+      "player": "Victor Osimhen",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.amedspor",
+      "player": "Dilhan Demir",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "super-lig.amedspor",
+      "player": "Lumbardh Dellova",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     }
   ]
 }

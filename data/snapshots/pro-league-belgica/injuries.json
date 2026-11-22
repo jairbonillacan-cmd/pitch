@@ -1,46 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "pro-league-belgica",
-  "observedAt": "2026-11-22T12:45:51.462Z",
+  "observedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "pro-league-belgica.sporting-charleroi",
-      "player": "Massamba Sow",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "pro-league-belgica.raal-la-louviere",
-      "player": "Joël Ito",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Achilles Tendon Injury",
-      "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "pro-league-belgica.kv-kortrijk",
-      "player": "Anthony Philips",
-      "position": "M",
-      "status": "Baja",
-      "detail": "national_team",
-      "injuryType": "national_team",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "pro-league-belgica.kv-mechelen",
-      "player": "Adeshina Ibrahim Ayodele",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
     {
       "teamId": "pro-league-belgica.standard-liege",
       "player": "Andi Zeqiri",
@@ -48,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "pro-league-belgica.standard-liege",
@@ -57,7 +21,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "pro-league-belgica.standard-liege",
@@ -66,7 +30,7 @@
       "status": "Baja",
       "detail": "Achilles Tendon Injury",
       "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "pro-league-belgica.standard-liege",
@@ -75,7 +39,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "pro-league-belgica.beveren",
@@ -84,7 +48,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "pro-league-belgica.beveren",
@@ -93,7 +57,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "pro-league-belgica.kvc-westerlo",
@@ -102,7 +66,16 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "pro-league-belgica.sporting-charleroi",
+      "player": "Massamba Sow",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
@@ -111,7 +84,16 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "pro-league-belgica.kv-mechelen",
+      "player": "Adeshina Ibrahim Ayodele",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     }
   ]
 }

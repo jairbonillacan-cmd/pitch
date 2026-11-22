@@ -5,7 +5,7 @@
   "season": "primera-chile-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 26",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 1.1538461538461537,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9271912466371444,
-      "adjustedAgainst": 1.0836336594741602
+      "adjustedFor": 0.9236176232327767,
+      "adjustedAgainst": 1.0799027808436439
     },
     "primera-chile.everton-vina-mar": {
       "teamId": "primera-chile.everton-vina-mar",
@@ -29,8 +29,8 @@
       "forPerGame": 1.9230769230769231,
       "againstPerGame": 1.6923076923076923,
       "gamesPlayed": 13,
-      "adjustedFor": 1.7130182419788085,
-      "adjustedAgainst": 1.516712910429713
+      "adjustedFor": 1.7083739228474324,
+      "adjustedAgainst": 1.512862162188459
     },
     "primera-chile.colo-colo": {
       "teamId": "primera-chile.colo-colo",
@@ -40,8 +40,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 1.5,
       "gamesPlayed": 12,
-      "adjustedFor": 2.1742468687773666,
-      "adjustedAgainst": 1.4660235416657394
+      "adjustedFor": 2.1706711224460156,
+      "adjustedAgainst": 1.462904153668199
     },
     "primera-chile.deportes-limache": {
       "teamId": "primera-chile.deportes-limache",
@@ -51,8 +51,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.3351457177272266,
-      "adjustedAgainst": 1.2996067915233493
+      "adjustedFor": 1.3273967088403584,
+      "adjustedAgainst": 1.2916386072896637
     },
     "primera-chile.coquimbo-unido": {
       "teamId": "primera-chile.coquimbo-unido",
@@ -62,8 +62,8 @@
       "forPerGame": 1.4615384615384615,
       "againstPerGame": 1.4615384615384615,
       "gamesPlayed": 13,
-      "adjustedFor": 1.3550383279655038,
-      "adjustedAgainst": 1.3094658407521627
+      "adjustedFor": 1.350009031444945,
+      "adjustedAgainst": 1.304902356759349
     },
     "primera-chile.universidad-concepcion": {
       "teamId": "primera-chile.universidad-concepcion",
@@ -73,19 +73,19 @@
       "forPerGame": 0.8461538461538461,
       "againstPerGame": 2,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9292960035808822,
-      "adjustedAgainst": 1.713675787834568
+      "adjustedFor": 0.9250761342353855,
+      "adjustedAgainst": 1.7085539783141361
     },
     "primera-chile.huachipato": {
       "teamId": "primera-chile.huachipato",
       "name": "Huachipato",
       "shortName": "Huachipato",
       "code": "HUA",
-      "forPerGame": 1,
-      "againstPerGame": 1.5833333333333333,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.0005640289257922,
-      "adjustedAgainst": 1.3587498436504417
+      "forPerGame": 0.9230769230769231,
+      "againstPerGame": 1.4615384615384615,
+      "gamesPlayed": 13,
+      "adjustedFor": 0.9501635852936071,
+      "adjustedAgainst": 1.2741458849968168
     },
     "primera-chile.cobresal": {
       "teamId": "primera-chile.cobresal",
@@ -95,8 +95,8 @@
       "forPerGame": 1.7692307692307692,
       "againstPerGame": 1.7692307692307692,
       "gamesPlayed": 13,
-      "adjustedFor": 1.6120748679090715,
-      "adjustedAgainst": 1.6265978851125307
+      "adjustedFor": 1.606097932779455,
+      "adjustedAgainst": 1.6221761776696462
     },
     "primera-chile.universidad-catolica": {
       "teamId": "primera-chile.universidad-catolica",
@@ -106,8 +106,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5676388827621022,
-      "adjustedAgainst": 1.3047123187287728
+      "adjustedFor": 1.5564484266162812,
+      "adjustedAgainst": 1.297888730082389
     },
     "primera-chile.deportes-la-serena": {
       "teamId": "primera-chile.deportes-la-serena",
@@ -117,8 +117,8 @@
       "forPerGame": 1.5833333333333333,
       "againstPerGame": 1.4166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4491946451389461,
-      "adjustedAgainst": 1.3214176402422524
+      "adjustedFor": 1.4456041026585627,
+      "adjustedAgainst": 1.3186929028782457
     },
     "primera-chile.nublense": {
       "teamId": "primera-chile.nublense",
@@ -128,8 +128,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.8461538461538463,
       "gamesPlayed": 13,
-      "adjustedFor": 1.2367155570433184,
-      "adjustedAgainst": 1.6216577994356534
+      "adjustedFor": 1.228198234677213,
+      "adjustedAgainst": 1.6137389225270857
     },
     "primera-chile.palestino": {
       "teamId": "primera-chile.palestino",
@@ -139,8 +139,8 @@
       "forPerGame": 1.2307692307692308,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 1.1808615647098628,
-      "adjustedAgainst": 1.271279490810863
+      "adjustedFor": 1.1768162687116395,
+      "adjustedAgainst": 1.2674792239868464
     },
     "primera-chile.audax-italiano": {
       "teamId": "primera-chile.audax-italiano",
@@ -150,8 +150,8 @@
       "forPerGame": 0.9230769230769231,
       "againstPerGame": 1.3846153846153846,
       "gamesPlayed": 13,
-      "adjustedFor": 0.9713407472104686,
-      "adjustedAgainst": 1.2759152625579027
+      "adjustedFor": 0.9679066445181868,
+      "adjustedAgainst": 1.2720089581226899
     },
     "primera-chile.universidad-chile": {
       "teamId": "primera-chile.universidad-chile",
@@ -161,19 +161,19 @@
       "forPerGame": 2.3846153846153846,
       "againstPerGame": 0.9230769230769231,
       "gamesPlayed": 13,
-      "adjustedFor": 1.9021615566980115,
-      "adjustedAgainst": 0.9429832039117786
+      "adjustedFor": 1.8929557909860448,
+      "adjustedAgainst": 0.9360117995711869
     },
     "primera-chile.deportes-concepcion": {
       "teamId": "primera-chile.deportes-concepcion",
       "name": "Deportes Concepción",
       "shortName": "Deportes Concepción",
       "code": "DEP",
-      "forPerGame": 1.3333333333333333,
-      "againstPerGame": 0.5833333333333334,
-      "gamesPlayed": 12,
-      "adjustedFor": 1.195290600902246,
-      "adjustedAgainst": 0.7387084297537266
+      "forPerGame": 1.2307692307692308,
+      "againstPerGame": 0.5384615384615384,
+      "gamesPlayed": 13,
+      "adjustedFor": 1.120619364439587,
+      "adjustedAgainst": 0.6964890710067377
     },
     "primera-chile.o-higgins": {
       "teamId": "primera-chile.o-higgins",
@@ -183,46 +183,11 @@
       "forPerGame": 1,
       "againstPerGame": 1.6153846153846154,
       "gamesPlayed": 13,
-      "adjustedFor": 1.0346779319427086,
-      "adjustedAgainst": 1.4471332940592334
+      "adjustedFor": 1.029881018927782,
+      "adjustedAgainst": 1.4428758533442387
     }
   },
   "games": [
-    {
-      "id": "primera-chile-2026-11-01-cobresal-everton-vina-m-y2uuvq",
-      "league": "primera-chile",
-      "season": "primera-chile-2026",
-      "week": 26,
-      "round": "Regular season · Matchday 26",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T18:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "primera-chile.cobresal",
-        "league": "primera-chile",
-        "name": "Cobresal",
-        "shortName": "Cobresal",
-        "code": "COB",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/760/?bg=transparent"
-      },
-      "away": {
-        "id": "primera-chile.everton-vina-mar",
-        "league": "primera-chile",
-        "name": "Everton de Viña del Mar",
-        "shortName": "Everton de Viña del Ma",
-        "code": "EVE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/5016/?bg=transparent"
-      },
-      "venue": "El Cobre, El Salvador, El Salvador",
-      "referee": "Rodrigo Carvajal Molina",
-      "neutralSite": false,
-      "result": {
-        "home": 2,
-        "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "primera-chile-2026-11-02-deportes-limac-audax-italiano-yjewzy",
       "league": "primera-chile",
@@ -254,7 +219,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +324,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +359,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +394,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +429,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +464,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +499,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +534,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +569,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +604,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +639,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +674,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +709,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -756,7 +721,7 @@
       "round": "Regular season · Matchday 28",
       "phase": "Regular season",
       "startTime": "2026-11-22T15:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "primera-chile.huachipato",
         "league": "primera-chile",
@@ -774,7 +739,14 @@
         "logoUrl": "https://sports.bzzoiro.com/img/team/4580/?bg=transparent"
       },
       "venue": "Estadio Huachipato, Talcahuano",
-      "neutralSite": false
+      "referee": "Claudio Diaz Mera",
+      "neutralSite": false,
+      "result": {
+        "home": 0,
+        "away": 0,
+        "observedAt": "2026-11-22T18:13:11.873Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "primera-chile-2026-11-22-colo-colo-universidad-ca-djgjb7",
@@ -1282,451 +1254,6 @@
     }
   ],
   "analyses": {
-    "primera-chile-2026-11-01-cobresal-everton-vina-m-y2uuvq": {
-      "game": "primera-chile-2026-11-01-cobresal-everton-vina-m-y2uuvq",
-      "model": {
-        "id": "pitchlab-statistical-primera-chile",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.360760861824273,
-        "away": 2.105743877198893,
-        "total": 4.466504739023166,
-        "margin": 0.2550169846253798
-      },
-      "x12": [
-        0.45260697718874054,
-        0.18803532476944254,
-        0.3593576980418172
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Cobresal gana",
-          "p": 0.45260697718874054,
-          "fairOdds": 2.2094224137048433
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.18803532476944254,
-          "fairOdds": 5.318149668027213
-        },
-        {
-          "market": "h2h",
-          "selection": "Everton de Viña del Ma gana",
-          "p": 0.3593576980418172,
-          "fairOdds": 2.782742669627279
-        },
-        {
-          "market": "double_chance",
-          "selection": "Cobresal o empate",
-          "p": 0.6406423019581831,
-          "fairOdds": 1.5609334521673117
-        },
-        {
-          "market": "double_chance",
-          "selection": "Everton de Viña del Ma o empate",
-          "p": 0.5473930228112598,
-          "fairOdds": 1.8268409686047429
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8119646752305578,
-          "fairOdds": 1.2315806715557538
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.9343454899979575,
-          "fairOdds": 1.070267915567491
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.8226102699192573,
-          "fairOdds": 1.2156424938606154
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.17738973008074266,
-          "fairOdds": 5.637304930476128
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.6520037132924015,
-          "fairOdds": 1.5337335963170107
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.3479962867075985,
-          "fairOdds": 2.873593880730811
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.7925239409231405,
-          "fairOdds": 1.2617915350736144
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.2074760590768595,
-          "fairOdds": 4.8198332108744655
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cobresal más de 1.5",
-          "line": 1.5,
-          "p": 0.6829057642367989,
-          "fairOdds": 1.464330881900783
-        },
-        {
-          "market": "team_totals",
-          "selection": "Cobresal menos de 1.5",
-          "line": 1.5,
-          "p": 0.31709423576320106,
-          "fairOdds": 3.153636639256911
-        },
-        {
-          "market": "team_totals",
-          "selection": "Everton de Viña del Ma más de 1.5",
-          "line": 1.5,
-          "p": 0.6218549045613557,
-          "fairOdds": 1.6080921653345814
-        },
-        {
-          "market": "team_totals",
-          "selection": "Everton de Viña del Ma menos de 1.5",
-          "line": 1.5,
-          "p": 0.3781450954386443,
-          "fairOdds": 2.6444875579835583
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–2",
-          "p": 0.07097389923656716,
-          "fairOdds": 14.08968664194203
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.06740981180577214,
-          "fairOdds": 14.834635688960228
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.060127987026794616,
-          "fairOdds": 16.631190389832504
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Cobresal gana",
-              "p": 0.45260697718874054,
-              "fairOdds": 2.2094224137048433
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.18803532476944254,
-              "fairOdds": 5.318149668027213
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Everton de Viña del Ma gana",
-              "p": 0.3593576980418172,
-              "fairOdds": 2.782742669627279
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Cobresal o empate",
-              "p": 0.6406423019581831,
-              "fairOdds": 1.5609334521673117
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Everton de Viña del Ma o empate",
-              "p": 0.5473930228112598,
-              "fairOdds": 1.8268409686047429
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8119646752305578,
-              "fairOdds": 1.2315806715557538
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.9343454899979575,
-              "fairOdds": 1.070267915567491
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.8226102699192573,
-              "fairOdds": 1.2156424938606154
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.17738973008074266,
-              "fairOdds": 5.637304930476128
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.6520037132924015,
-              "fairOdds": 1.5337335963170107
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.3479962867075985,
-              "fairOdds": 2.873593880730811
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.7925239409231405,
-              "fairOdds": 1.2617915350736144
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.2074760590768595,
-              "fairOdds": 4.8198332108744655
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Cobresal más de 1.5",
-              "line": 1.5,
-              "p": 0.6829057642367989,
-              "fairOdds": 1.464330881900783
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Cobresal menos de 1.5",
-              "line": 1.5,
-              "p": 0.31709423576320106,
-              "fairOdds": 3.153636639256911
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Everton de Viña del Ma más de 1.5",
-              "line": 1.5,
-              "p": 0.6218549045613557,
-              "fairOdds": 1.6080921653345814
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Everton de Viña del Ma menos de 1.5",
-              "line": 1.5,
-              "p": 0.3781450954386443,
-              "fairOdds": 2.6444875579835583
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-2",
-              "label": "2–2",
-              "p": 0.07097389923656716,
-              "fairOdds": 14.08968664194203
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.06740981180577214,
-              "fairOdds": 14.834635688960228
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.060127987026794616,
-              "fairOdds": 16.631190389832504
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 2,
-        "p": 0.07097389923656716
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.75 goles/partido",
-          "detail": "17 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.49 concedidos/partido",
-          "detail": "15 % más que la media · 12 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.11 goles/partido",
-          "detail": "36 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.54 concedidos/partido",
-          "detail": "19 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.35",
-          "detail": "estimada de 96 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 3.2–6.4",
-          "detail": "local 22%–75% · 96 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "8.º · 14 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "7.º · 18 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-G-E-E · 8 pts",
-          "detail": "7 goles a favor · 7 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-G-G-P · 9 pts",
-          "detail": "10 goles a favor · 8 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga de Primera · corte 1 nov 2026, 11:00",
-        "Fuerza ajustada por rival · COB 1.17 / 1.19 · EVE 1.36 / 1.15",
-        "Ponderando 84.6 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.36 – 2.11 · total 4.47",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-01T17:00:00.000Z",
-      "publishedAt": "2026-11-01T17:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.06740981180577214
-      },
-      "insights": {
-        "why": [
-          "Se esperan 4.5 goles: 2.4 de Cobresal y 2.1 de Everton de Viña del Ma.",
-          "Everton de Viña del Ma anota 36 % más que la media.",
-          "Cobresal concede 19 % más que la media."
-        ],
-        "restDays": {
-          "home": 8,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Rodrigo Carvajal Molina",
-        "refereeStats": {
-          "country": "Chile",
-          "matches": 6,
-          "avgYellow": 4.83,
-          "avgRed": 0.33,
-          "avgFouls": 22.7,
-          "avgGoals": 3
-        },
-        "halfTimeScore": {
-          "home": 0,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "El Salvador",
-        "venueCountry": "Chile",
-        "venueCapacity": 12000
-      }
-    },
     "primera-chile-2026-11-02-deportes-limac-audax-italiano-yjewzy": {
       "game": "primera-chile-2026-11-02-deportes-limac-audax-italiano-yjewzy",
       "model": {
@@ -9077,13 +8604,26 @@
       },
       "picksAt": "2026-11-19T16:05:39.021Z",
       "matchContext": {
+        "referee": "Claudio Diaz Mera",
+        "refereeStats": {
+          "country": "Chile",
+          "matches": 7,
+          "avgYellow": 5,
+          "avgRed": 0.43,
+          "avgFouls": 22.6,
+          "avgGoals": 1
+        },
         "weather": {
-          "description": "unknown",
+          "description": "clear",
           "temperatureC": 17,
           "windSpeedKmh": 64
         },
         "travelDistanceKm": 10,
         "isLocalDerby": true,
+        "halfTimeScore": {
+          "home": 0,
+          "away": 0
+        },
         "stageName": "Regular season",
         "venueCity": "Talcahuano",
         "venueCountry": "Chile",
@@ -17635,19 +17175,19 @@
       "name": "Deportes Concepción",
       "shortName": "Deportes Concepción",
       "code": "DEP",
-      "played": 12,
+      "played": 13,
       "won": 7,
-      "drawn": 3,
+      "drawn": 4,
       "lost": 2,
       "goalsFor": 16,
       "goalsAgainst": 7,
-      "points": 24,
+      "points": 25,
       "form": [
-        "D",
         "D",
         "L",
         "W",
-        "W"
+        "W",
+        "D"
       ]
     },
     {
@@ -17855,19 +17395,19 @@
       "name": "Huachipato",
       "shortName": "Huachipato",
       "code": "HUA",
-      "played": 12,
+      "played": 13,
       "won": 3,
-      "drawn": 4,
+      "drawn": 5,
       "lost": 5,
       "goalsFor": 12,
       "goalsAgainst": 19,
-      "points": 13,
+      "points": 14,
       "form": [
         "W",
-        "W",
         "D",
         "D",
-        "L"
+        "L",
+        "D"
       ]
     },
     {

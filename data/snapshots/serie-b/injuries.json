@@ -1,28 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "serie-b",
-  "observedAt": "2026-11-22T12:45:51.462Z",
+  "observedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "serie-b.arezzo",
-      "player": "Luca Chierico",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
-    {
-      "teamId": "serie-b.arezzo",
-      "player": "Matteo Gilli",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
-    },
     {
       "teamId": "serie-b.hellas-verona",
       "player": "Davide De Battisti",
@@ -30,7 +12,115 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.benevento",
+      "player": "Edoardo Pierozzi",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.avellino",
+      "player": "Andrea Favilli",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.avellino",
+      "player": "Dimitrios Sounas",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.avellino",
+      "player": "Lorenco Šimić",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.avellino",
+      "player": "Luca Di Maggio",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.virtus-entella",
+      "player": "Mattia Alborghetti",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.modena",
+      "player": "Alessandro Sersanti",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.modena",
+      "player": "Daniel Tonoli",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.modena",
+      "player": "Francesco Zampano",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.modena",
+      "player": "Giuseppe Caso",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.modena",
+      "player": "Joris Manquant",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Cruciate Ligament Injury",
+      "injuryType": "Cruciate Ligament Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "serie-b.modena",
+      "player": "Steven Nador",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     }
   ]
 }

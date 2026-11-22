@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "bundesliga-2",
   "season": "2026/27",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "matches": [
     {
       "id": "bundesliga-2-2026-08-07-bochum-hertha-bsc-1qv1vj",
@@ -1157,6 +1157,39 @@
       "awayTeam": "bundesliga-2.bochum",
       "homeScore": 2,
       "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-22-karlsruher-osnabruck-ylilpj",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T12:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.karlsruher",
+      "awayTeam": "bundesliga-2.osnabruck",
+      "homeScore": 0,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-22-energie-cottbu-hertha-bsc-44jto0",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T12:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.energie-cottbus",
+      "awayTeam": "bundesliga-2.hertha-bsc",
+      "homeScore": 0,
+      "awayScore": 4,
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2-2026-11-22-kaiserslautern-sg-dynamo-dres-to1dfd",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T12:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "bundesliga-2.kaiserslautern",
+      "awayTeam": "bundesliga-2.sg-dynamo-dresden",
+      "homeScore": 2,
+      "awayScore": 2,
       "neutralSite": false
     }
   ]

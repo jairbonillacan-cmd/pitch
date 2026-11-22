@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nba",
-  "observedAt": "2026-11-22T12:45:46.947Z",
+  "observedAt": "2026-11-22T18:13:08.301Z",
   "source": "espn-public-nba",
   "coverageStatus": "ok",
   "entries": [
@@ -67,33 +67,33 @@
     },
     {
       "teamId": "nba.boston-celtics",
-      "player": "Mitchell Robinson",
-      "position": "C",
-      "status": "Baja",
-      "detail": "Enfermedad",
-      "injuryType": "Illness",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-21T20:55:00.000Z"
-    },
-    {
-      "teamId": "nba.boston-celtics",
       "player": "Derrick White",
       "position": "G",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Hombro",
       "injuryType": "Shoulder",
       "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-21T20:53:00.000Z"
+      "reportedAt": "2026-11-22T15:03:00.000Z"
+    },
+    {
+      "teamId": "nba.boston-celtics",
+      "player": "Mitchell Robinson",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-22T15:03:00.000Z"
     },
     {
       "teamId": "nba.boston-celtics",
       "player": "Jayson Tatum",
       "position": "F",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Rest",
       "injuryType": "Rest",
       "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-21T20:51:00.000Z"
+      "reportedAt": "2026-11-22T15:02:00.000Z"
     },
     {
       "teamId": "nba.brooklyn-nets",
@@ -157,23 +157,13 @@
     },
     {
       "teamId": "nba.chicago-bulls",
-      "player": "Patrick Williams",
-      "position": "F",
+      "player": "Nic Claxton",
+      "position": "C",
       "status": "Duda",
-      "detail": "Thumb",
-      "injuryType": "Thumb",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
       "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-22T06:06:00.000Z"
-    },
-    {
-      "teamId": "nba.chicago-bulls",
-      "player": "Norman Powell",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Isquiotibiales",
-      "injuryType": "Hamstring",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-22T00:11:00.000Z"
+      "reportedAt": "2026-11-22T17:24:00.000Z"
     },
     {
       "teamId": "nba.chicago-bulls",
@@ -183,17 +173,27 @@
       "detail": "Enfermedad",
       "injuryType": "Illness",
       "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-21T14:54:00.000Z"
+      "reportedAt": "2026-11-22T17:22:00.000Z"
     },
     {
       "teamId": "nba.chicago-bulls",
-      "player": "Tobe Awaka",
-      "position": "F",
+      "player": "Norman Powell",
+      "position": "G",
       "status": "Baja",
-      "detail": "Espalda",
-      "injuryType": "Back",
-      "returnDate": "2026-11-25",
-      "reportedAt": "2026-11-17T20:53:00.000Z"
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2026-11-28",
+      "reportedAt": "2026-11-22T15:25:00.000Z"
+    },
+    {
+      "teamId": "nba.chicago-bulls",
+      "player": "Patrick Williams",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Thumb",
+      "injuryType": "Thumb",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-22T06:06:00.000Z"
     },
     {
       "teamId": "nba.chicago-bulls",
@@ -239,21 +239,21 @@
       "teamId": "nba.dallas-mavericks",
       "player": "P.J. Washington",
       "position": "F",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Enfermedad",
       "injuryType": "Illness",
       "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-21T23:14:00.000Z"
+      "reportedAt": "2026-11-22T15:02:00.000Z"
     },
     {
       "teamId": "nba.dallas-mavericks",
       "player": "Tobi Lawal",
       "position": "F",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Ingle",
       "injuryType": "Groin",
       "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-21T15:08:00.000Z"
+      "reportedAt": "2026-11-22T15:02:00.000Z"
     },
     {
       "teamId": "nba.dallas-mavericks",
@@ -334,16 +334,6 @@
       "injuryType": "Knee",
       "returnDate": "2026-12-13",
       "reportedAt": "2026-11-20T23:02:00.000Z"
-    },
-    {
-      "teamId": "nba.detroit-pistons",
-      "player": "Ugonna Onyenso",
-      "position": "C",
-      "status": "Duda",
-      "detail": "Pie",
-      "injuryType": "Foot",
-      "returnDate": "2026-11-21",
-      "reportedAt": "2026-11-19T16:15:00.000Z"
     },
     {
       "teamId": "nba.detroit-pistons",
@@ -517,33 +507,33 @@
     },
     {
       "teamId": "nba.memphis-grizzlies",
-      "player": "Jerami Grant",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Gemelo",
-      "injuryType": "Calf",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-21T08:08:00.000Z"
-    },
-    {
-      "teamId": "nba.memphis-grizzlies",
       "player": "Javon Small",
       "position": "G",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Personal",
       "injuryType": "Personal",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-20T23:14:00.000Z"
+      "reportedAt": "2026-11-22T15:09:00.000Z"
     },
     {
       "teamId": "nba.memphis-grizzlies",
       "player": "Cameron Boozer",
       "position": "F",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Tobillo",
       "injuryType": "Ankle",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-20T23:12:00.000Z"
+      "reportedAt": "2026-11-22T15:09:00.000Z"
+    },
+    {
+      "teamId": "nba.memphis-grizzlies",
+      "player": "Jerami Grant",
+      "position": "F",
+      "status": "Duda",
+      "detail": "Gemelo",
+      "injuryType": "Calf",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-22T15:08:00.000Z"
     },
     {
       "teamId": "nba.memphis-grizzlies",
@@ -639,21 +629,21 @@
       "teamId": "nba.new-orleans-pelicans",
       "player": "Zion Williamson",
       "position": "F",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Muslo",
       "injuryType": "Thigh",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-22T00:39:00.000Z"
+      "reportedAt": "2026-11-22T15:07:00.000Z"
     },
     {
       "teamId": "nba.new-orleans-pelicans",
       "player": "Trey Murphy III",
       "position": "F",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Rodilla",
       "injuryType": "Knee",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-21T18:22:00.000Z"
+      "reportedAt": "2026-11-22T15:07:00.000Z"
     },
     {
       "teamId": "nba.new-orleans-pelicans",
@@ -703,27 +693,27 @@
       "detail": "Enfermedad",
       "injuryType": "Illness",
       "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-22T03:05:00.000Z"
-    },
-    {
-      "teamId": "nba.new-york-knicks",
-      "player": "Jordan Clarkson",
-      "position": "G",
-      "status": "Duda",
-      "detail": "Pie",
-      "injuryType": "Foot",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-22T03:05:00.000Z"
+      "reportedAt": "2026-11-22T18:09:00.000Z"
     },
     {
       "teamId": "nba.new-york-knicks",
       "player": "OG Anunoby",
       "position": "F",
-      "status": "Duda",
+      "status": "Baja",
       "detail": "Gemelo",
       "injuryType": "Calf",
-      "returnDate": "2026-11-22",
-      "reportedAt": "2026-11-22T03:04:00.000Z"
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-22T18:09:00.000Z"
+    },
+    {
+      "teamId": "nba.new-york-knicks",
+      "player": "Jordan Clarkson",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Pie",
+      "injuryType": "Foot",
+      "returnDate": "2026-11-25",
+      "reportedAt": "2026-11-22T18:05:00.000Z"
     },
     {
       "teamId": "nba.oklahoma-city-thunder",
@@ -849,11 +839,21 @@
       "teamId": "nba.philadelphia-76ers",
       "player": "Dean Wade",
       "position": "F",
-      "status": "Baja",
+      "status": "Duda",
       "detail": "Isquiotibiales",
       "injuryType": "Hamstring",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-20T22:11:00.000Z"
+      "reportedAt": "2026-11-22T15:06:00.000Z"
+    },
+    {
+      "teamId": "nba.philadelphia-76ers",
+      "player": "Jaylen Brown",
+      "position": "G",
+      "status": "Duda",
+      "detail": "Isquiotibiales",
+      "injuryType": "Hamstring",
+      "returnDate": "2026-11-23",
+      "reportedAt": "2026-11-22T15:05:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",
@@ -864,16 +864,6 @@
       "injuryType": "Back",
       "returnDate": "2026-11-23",
       "reportedAt": "2026-11-20T17:33:00.000Z"
-    },
-    {
-      "teamId": "nba.philadelphia-76ers",
-      "player": "Jaylen Brown",
-      "position": "G",
-      "status": "Baja",
-      "detail": "Isquiotibiales",
-      "injuryType": "Hamstring",
-      "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-20T17:26:00.000Z"
     },
     {
       "teamId": "nba.philadelphia-76ers",
@@ -1003,7 +993,7 @@
       "detail": "Protocolo de conmoción",
       "injuryType": "Concussion",
       "returnDate": "2026-11-23",
-      "reportedAt": "2026-11-21T14:52:00.000Z"
+      "reportedAt": "2026-11-22T17:10:00.000Z"
     },
     {
       "teamId": "nba.toronto-raptors",
@@ -1064,6 +1054,16 @@
       "injuryType": "Knee",
       "returnDate": "2026-12-14",
       "reportedAt": "2026-10-27T19:25:00.000Z"
+    },
+    {
+      "teamId": "nba.washington-wizards",
+      "player": "Deandre Ayton",
+      "position": "C",
+      "status": "Duda",
+      "detail": "Enfermedad",
+      "injuryType": "Illness",
+      "returnDate": "2026-11-22",
+      "reportedAt": "2026-11-22T17:28:00.000Z"
     },
     {
       "teamId": "nba.washington-wizards",

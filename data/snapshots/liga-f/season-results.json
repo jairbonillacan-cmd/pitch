@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "liga-f",
   "season": "2026/27",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "matches": [
     {
       "id": "liga-f-2026-08-29-real-sociedad-logrono-united-3z20hf",
@@ -992,6 +992,39 @@
       "awayTeam": "liga-f.deportivo-alaves",
       "homeScore": 3,
       "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-f-2026-11-22-real-sociedad-sevilla-5ohnrq",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T11:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "liga-f.real-sociedad",
+      "awayTeam": "liga-f.sevilla",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-f-2026-11-22-granada-real-madrid-gm2jns",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T11:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "liga-f.granada",
+      "awayTeam": "liga-f.real-madrid",
+      "homeScore": 1,
+      "awayScore": 5,
+      "neutralSite": false
+    },
+    {
+      "id": "liga-f-2026-11-22-costa-adeje-te-madrid-cff-66ulz3",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T16:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "liga-f.costa-adeje-tenerife",
+      "awayTeam": "liga-f.madrid-cff",
+      "homeScore": 0,
+      "awayScore": 3,
       "neutralSite": false
     }
   ]

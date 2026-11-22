@@ -1,36 +1,54 @@
 {
   "schemaVersion": 1,
   "league": "bundesliga-2",
-  "observedAt": "2026-11-22T12:45:51.462Z",
+  "observedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
-      "teamId": "bundesliga-2.st-pauli",
-      "player": "Gisli Thordarson",
+      "teamId": "bundesliga-2.kaiserslautern",
+      "player": "Enis Kamga",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Eye Injury",
+      "injuryType": "Eye Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "bundesliga-2.kaiserslautern",
+      "player": "Leon Robinson",
       "position": "M",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "status": "Baja",
+      "detail": "Foot Injury",
+      "injuryType": "Foot Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
-      "teamId": "bundesliga-2.st-pauli",
-      "player": "Mathias Pereira Lage",
+      "teamId": "bundesliga-2.kaiserslautern",
+      "player": "Marlon Ritter",
       "position": "F",
-      "status": "Duda",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "status": "Baja",
+      "detail": "Illness",
+      "injuryType": "Illness",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
-      "teamId": "bundesliga-2.st-pauli",
-      "player": "Rony Jansson",
+      "teamId": "bundesliga-2.arminia-bielefeld",
+      "player": "David Min",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "bundesliga-2.arminia-bielefeld",
+      "player": "Joel Felix",
       "position": "D",
       "status": "Baja",
-      "detail": "Physical Discomfort",
-      "injuryType": "Physical Discomfort",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "bundesliga-2.nurnberg",
@@ -39,7 +57,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "bundesliga-2.nurnberg",
@@ -48,7 +66,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "bundesliga-2.nurnberg",
@@ -57,34 +75,52 @@
       "status": "Baja",
       "detail": "Dislocated Shoulder",
       "injuryType": "Dislocated Shoulder",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
-      "teamId": "bundesliga-2.sg-dynamo-dresden",
-      "player": "Kenneth Schmidt",
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Fabian Nürnberger",
       "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Luca Marseiler",
+      "position": "M",
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
-      "teamId": "bundesliga-2.eintracht-braunschweig",
-      "player": "Samuele Di Benedetto",
-      "position": "M",
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Marcel Schuhen",
+      "position": "G",
       "status": "Baja",
-      "detail": "Ligament Injury",
-      "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "detail": "Thigh Injury",
+      "injuryType": "Thigh Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
-      "teamId": "bundesliga-2.energie-cottbus",
-      "player": "Axel Borgmann",
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Nicolas Verkooijen",
       "position": "M",
       "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "bundesliga-2.darmstadt",
+      "player": "Patric Pfeiffer",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     }
   ]
 }

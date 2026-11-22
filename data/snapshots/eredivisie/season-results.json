@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "eredivisie",
   "season": "2026/27",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "matches": [
     {
       "id": "eredivisie-2026-08-07-cambuur-excelsior-dhnxi3",
@@ -1245,6 +1245,50 @@
       "awayTeam": "eredivisie.heerenveen",
       "homeScore": 1,
       "awayScore": 3,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-22-twente-willem-ii-tilb-bw201g",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T11:15:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.twente",
+      "awayTeam": "eredivisie.willem-ii-tilburg",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-22-sparta-rotterd-az-alkmaar-hoh1en",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T13:30:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.sparta-rotterdam",
+      "awayTeam": "eredivisie.az-alkmaar",
+      "homeScore": 1,
+      "awayScore": 5,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-22-ajax-ado-den-haag-ohyj20",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T13:30:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.ajax",
+      "awayTeam": "eredivisie.ado-den-haag",
+      "homeScore": 3,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "eredivisie-2026-11-22-go-ahead-eagle-fortuna-sittar-konitm",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T15:45:00.000Z",
+      "round": "Regular season · Matchday 13",
+      "homeTeam": "eredivisie.go-ahead-eagles",
+      "awayTeam": "eredivisie.fortuna-sittard",
+      "homeScore": 0,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

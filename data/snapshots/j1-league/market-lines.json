@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "j1-league",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "lines": [
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -16,7 +16,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -31,7 +31,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -41,12 +41,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 3.3,
+      "decimal": 3.4,
       "openingDecimal": 3.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 3.03,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -61,7 +61,7 @@
       "deltaPct": 1.54,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -71,12 +71,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betfair",
-      "decimal": 3.3,
+      "decimal": 3.4,
       "openingDecimal": 3.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 3.03,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -86,12 +86,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "coral",
-      "decimal": 3.2,
+      "decimal": 3.25,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.56,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -101,12 +101,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "dafabet",
-      "decimal": 3.55,
+      "decimal": 3.5,
       "openingDecimal": 3.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.41,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -116,12 +116,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.2,
+      "decimal": 3.25,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.56,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -136,7 +136,7 @@
       "deltaPct": 2.94,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -145,13 +145,43 @@
       "market": "1x2",
       "outcome": "HOME",
       "line": null,
-      "book": "melbet",
+      "book": "mansionbet",
+      "decimal": 3.3,
+      "openingDecimal": 3.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.13,
+      "openingDecimal": 3.13,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "macauslot",
       "decimal": 3.52,
       "openingDecimal": 3.52,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -166,7 +196,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -181,7 +211,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -191,12 +221,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bwin",
-      "decimal": 3.9,
+      "decimal": 3.75,
       "openingDecimal": 3.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -3.85,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -211,7 +241,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -226,7 +256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -236,12 +266,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "coral",
-      "decimal": 3.6,
+      "decimal": 3.5,
       "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -251,12 +281,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "dafabet",
-      "decimal": 4,
+      "decimal": 3.9,
       "openingDecimal": 4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -2.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -266,12 +296,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.6,
+      "decimal": 3.5,
       "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -281,12 +311,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "betvictor",
-      "decimal": 3.8,
+      "decimal": 3.75,
       "openingDecimal": 3.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.32,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -295,13 +325,43 @@
       "market": "1x2",
       "outcome": "DRAW",
       "line": null,
-      "book": "melbet",
+      "book": "mansionbet",
+      "decimal": 3.7,
+      "openingDecimal": 3.7,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.37,
+      "openingDecimal": 3.37,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "macauslot",
       "decimal": 3.9,
       "openingDecimal": 3.9,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -316,7 +376,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -331,7 +391,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -346,7 +406,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -361,7 +421,7 @@
       "deltaPct": -2.05,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -376,7 +436,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -391,7 +451,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -401,12 +461,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "dafabet",
-      "decimal": 1.97,
+      "decimal": 2.01,
       "openingDecimal": 1.97,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2.03,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -421,7 +481,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -431,12 +491,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.9,
+      "decimal": 1.91,
       "openingDecimal": 1.93,
-      "deltaPct": -1.55,
+      "deltaPct": -1.04,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -445,13 +505,43 @@
       "market": "1x2",
       "outcome": "AWAY",
       "line": null,
-      "book": "melbet",
+      "book": "mansionbet",
+      "decimal": 1.97,
+      "openingDecimal": 1.97,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sbo",
       "decimal": 1.95,
       "openingDecimal": 1.95,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "macauslot",
+      "decimal": 1.95,
+      "openingDecimal": 1.95,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -466,7 +556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -481,7 +571,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -496,7 +586,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -506,12 +596,27 @@
       "outcome": "1X",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.8,
+      "decimal": 1.78,
       "openingDecimal": 1.78,
-      "deltaPct": 1.12,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.86,
+      "openingDecimal": 1.86,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -526,7 +631,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -541,7 +646,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -556,7 +661,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -571,7 +676,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.22,
+      "openingDecimal": 1.22,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -586,7 +706,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -601,7 +721,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -616,7 +736,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -626,12 +746,27 @@
       "outcome": "12",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.2,
+      "decimal": 1.22,
       "openingDecimal": 1.22,
-      "deltaPct": -1.64,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.19,
+      "openingDecimal": 1.19,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -646,7 +781,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -661,7 +796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -676,7 +811,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -691,7 +826,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -706,7 +841,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -721,7 +856,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -736,7 +871,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -751,7 +886,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.53,
+      "openingDecimal": 1.53,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -766,7 +916,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -781,7 +931,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -796,7 +946,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
+      "homeName": "V-Varen Nagasaki",
+      "awayName": "Kawasaki Frontale",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 2.45,
+      "openingDecimal": 2.45,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -811,7 +976,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -826,7 +991,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -841,7 +1006,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -856,7 +1021,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -871,7 +1036,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -886,7 +1051,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -901,7 +1066,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -916,7 +1081,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -931,7 +1096,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -946,7 +1111,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -961,7 +1126,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -976,7 +1141,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -991,7 +1156,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-v-varen-nagasa-kawasaki-front-qarx2d",
@@ -1006,7 +1171,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1021,7 +1186,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1036,7 +1201,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1051,7 +1216,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1066,7 +1231,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1081,7 +1246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1096,7 +1261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1111,7 +1276,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1126,7 +1291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1141,7 +1306,7 @@
       "deltaPct": -3.33,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1151,12 +1316,42 @@
       "outcome": "HOME",
       "line": null,
       "book": "melbet",
-      "decimal": 3.02,
+      "decimal": 2.77,
       "openingDecimal": 3.02,
+      "deltaPct": -8.28,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 2.95,
+      "openingDecimal": 2.95,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.75,
+      "openingDecimal": 2.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1171,7 +1366,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1186,7 +1381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1201,7 +1396,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1216,7 +1411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1231,7 +1426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1246,7 +1441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1256,12 +1451,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "dafabet",
-      "decimal": 3.1,
+      "decimal": 3.2,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 3.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1276,7 +1471,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1291,7 +1486,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1301,12 +1496,42 @@
       "outcome": "DRAW",
       "line": null,
       "book": "melbet",
-      "decimal": 3.11,
+      "decimal": 3.15,
       "openingDecimal": 3.11,
+      "deltaPct": 1.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.05,
+      "openingDecimal": 3.05,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.92,
+      "openingDecimal": 2.92,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1321,7 +1546,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1336,7 +1561,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1351,7 +1576,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1366,7 +1591,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1376,12 +1601,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betfair",
-      "decimal": 2.45,
+      "decimal": 2.5,
       "openingDecimal": 2.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2.04,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1396,7 +1621,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1406,12 +1631,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "dafabet",
-      "decimal": 2.6,
+      "decimal": 2.55,
       "openingDecimal": 2.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.92,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1426,7 +1651,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1441,7 +1666,7 @@
       "deltaPct": 2.08,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1451,12 +1676,42 @@
       "outcome": "AWAY",
       "line": null,
       "book": "melbet",
-      "decimal": 2.49,
+      "decimal": 2.32,
       "openingDecimal": 2.49,
+      "deltaPct": -6.83,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 2.42,
+      "openingDecimal": 2.42,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.35,
+      "openingDecimal": 2.35,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1471,7 +1726,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1486,7 +1741,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1501,7 +1756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1516,7 +1771,22 @@
       "deltaPct": -2,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.47,
+      "openingDecimal": 1.47,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1531,7 +1801,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1546,7 +1816,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1561,7 +1831,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1576,7 +1846,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.35,
+      "openingDecimal": 1.35,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1591,7 +1876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1606,7 +1891,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1621,7 +1906,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1636,7 +1921,22 @@
       "deltaPct": 2.31,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.31,
+      "openingDecimal": 1.31,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1651,7 +1951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1666,7 +1966,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1681,7 +1981,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1696,7 +1996,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1711,7 +2011,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1721,12 +2021,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "betvictor",
-      "decimal": 2.56,
+      "decimal": 2.54,
       "openingDecimal": 2.56,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -0.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1741,7 +2041,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1756,7 +2056,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 2.45,
+      "openingDecimal": 2.45,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1766,12 +2081,12 @@
       "outcome": "over",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 2.22,
+      "decimal": 2.23,
       "openingDecimal": 2.21,
-      "deltaPct": 0.45,
+      "deltaPct": 0.9,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1786,7 +2101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1801,7 +2116,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
+      "homeName": "Mito Hollyhock",
+      "awayName": "Tokyo Verdy",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.53,
+      "openingDecimal": 1.53,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1816,7 +2146,7 @@
       "deltaPct": -0.64,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1831,7 +2161,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1846,7 +2176,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1861,7 +2191,7 @@
       "deltaPct": 1.3,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1876,7 +2206,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1891,7 +2221,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1906,7 +2236,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1921,7 +2251,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1936,7 +2266,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1946,12 +2276,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.93,
+      "decimal": 1.95,
       "openingDecimal": 1.93,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.04,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1966,7 +2296,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1981,7 +2311,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -1991,12 +2321,12 @@
       "outcome": "no",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.78,
+      "decimal": 1.75,
       "openingDecimal": 1.78,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.69,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -2011,7 +2341,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -2026,7 +2356,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -2041,7 +2371,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-mito-hollyhock-tokyo-verdy-db2md3",
@@ -2051,12 +2381,12 @@
       "outcome": "under",
       "line": 0.5,
       "book": "betvictor",
-      "decimal": 5.55,
+      "decimal": 5.5,
       "openingDecimal": 5.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -0.9,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2071,7 +2401,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2086,7 +2416,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2101,7 +2431,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2111,12 +2441,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "william-hill",
-      "decimal": 3.2,
+      "decimal": 3.1,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -3.13,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2126,12 +2456,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betfair",
-      "decimal": 3.2,
+      "decimal": 3.25,
       "openingDecimal": 3.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.56,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2146,7 +2476,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2156,12 +2486,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "dafabet",
-      "decimal": 3.35,
+      "decimal": 3.25,
       "openingDecimal": 3.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -2.99,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2176,7 +2506,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2186,12 +2516,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betvictor",
-      "decimal": 3.25,
+      "decimal": 3.2,
       "openingDecimal": 3.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.54,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2206,7 +2536,37 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.05,
+      "openingDecimal": 3.05,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.9,
+      "openingDecimal": 2.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2221,7 +2581,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2236,7 +2596,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2251,7 +2611,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2261,12 +2621,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "william-hill",
-      "decimal": 3.5,
+      "decimal": 3.4,
       "openingDecimal": 3.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -2.86,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2276,12 +2636,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "betfair",
-      "decimal": 3.6,
+      "decimal": 3.7,
       "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2.78,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2296,7 +2656,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2306,12 +2666,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "dafabet",
-      "decimal": 3.8,
+      "decimal": 3.65,
       "openingDecimal": 3.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -3.95,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2326,7 +2686,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2341,7 +2701,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2351,12 +2711,42 @@
       "outcome": "DRAW",
       "line": null,
       "book": "melbet",
-      "decimal": 3.68,
+      "decimal": 3.63,
       "openingDecimal": 3.68,
+      "deltaPct": -1.36,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.55,
+      "openingDecimal": 3.55,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.18,
+      "openingDecimal": 3.18,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2371,7 +2761,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2386,7 +2776,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2401,7 +2791,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2416,7 +2806,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2431,7 +2821,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2446,7 +2836,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2456,12 +2846,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "dafabet",
-      "decimal": 2.1,
+      "decimal": 2.19,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 4.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2476,7 +2866,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2491,7 +2881,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2501,12 +2891,42 @@
       "outcome": "AWAY",
       "line": null,
       "book": "melbet",
-      "decimal": 2.08,
+      "decimal": 2.03,
       "openingDecimal": 2.08,
+      "deltaPct": -2.4,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 2.13,
+      "openingDecimal": 2.13,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.12,
+      "openingDecimal": 2.12,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2521,7 +2941,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2536,7 +2956,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2551,7 +2971,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2561,12 +2981,27 @@
       "outcome": "1X",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.67,
+      "decimal": 1.65,
       "openingDecimal": 1.67,
+      "deltaPct": -1.2,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2581,7 +3016,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2596,7 +3031,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2611,7 +3046,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2626,7 +3061,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.27,
+      "openingDecimal": 1.27,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2641,7 +3091,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2656,7 +3106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2671,7 +3121,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2681,12 +3131,27 @@
       "outcome": "12",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.25,
+      "decimal": 1.29,
       "openingDecimal": 1.25,
+      "deltaPct": 3.2,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.23,
+      "openingDecimal": 1.23,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2701,7 +3166,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2716,7 +3181,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2731,7 +3196,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2746,7 +3211,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2761,7 +3226,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2776,7 +3241,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2791,7 +3256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2806,7 +3271,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.65,
+      "openingDecimal": 1.65,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2821,7 +3301,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2836,7 +3316,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2851,7 +3331,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
+      "homeName": "JEF United Chiba",
+      "awayName": "Nagoya Grampus",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 2.2,
+      "openingDecimal": 2.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2866,7 +3361,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2881,7 +3376,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2896,7 +3391,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2911,7 +3406,7 @@
       "deltaPct": 0.39,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2926,7 +3421,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2941,7 +3436,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2956,7 +3451,7 @@
       "deltaPct": -0.7,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2971,7 +3466,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2986,7 +3481,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -2996,12 +3491,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.57,
+      "decimal": 1.55,
       "openingDecimal": 1.57,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.27,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -3016,7 +3511,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -3031,7 +3526,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -3046,7 +3541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-jef-united-chi-nagoya-grampus-fdavlj",
@@ -3061,7 +3556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3076,7 +3571,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3091,7 +3586,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3101,12 +3596,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 2,
+      "decimal": 2.05,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3121,7 +3616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3136,7 +3631,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3146,12 +3641,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "coral",
-      "decimal": 1.95,
+      "decimal": 2,
       "openingDecimal": 1.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2.56,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3166,7 +3661,7 @@
       "deltaPct": 1.94,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3176,12 +3671,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 1.95,
+      "decimal": 2,
       "openingDecimal": 1.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2.56,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3196,7 +3691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3205,13 +3700,43 @@
       "market": "1x2",
       "outcome": "HOME",
       "line": null,
-      "book": "melbet",
+      "book": "mansionbet",
+      "decimal": 2.07,
+      "openingDecimal": 2.07,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sbo",
       "decimal": 2.06,
       "openingDecimal": 2.06,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "macauslot",
+      "decimal": 2.06,
+      "openingDecimal": 2.06,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3226,7 +3751,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3241,7 +3766,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3256,7 +3781,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3271,7 +3796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3286,7 +3811,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3296,12 +3821,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "coral",
-      "decimal": 3.1,
+      "decimal": 3.2,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 3.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3316,7 +3841,7 @@
       "deltaPct": 1.47,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3326,12 +3851,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.1,
+      "decimal": 3.2,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 3.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3346,7 +3871,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3355,13 +3880,43 @@
       "market": "1x2",
       "outcome": "DRAW",
       "line": null,
-      "book": "melbet",
+      "book": "mansionbet",
+      "decimal": 3.3,
+      "openingDecimal": 3.3,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.01,
+      "openingDecimal": 3.01,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "macauslot",
       "decimal": 3.42,
       "openingDecimal": 3.42,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3376,7 +3931,7 @@
       "deltaPct": 0.28,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3391,7 +3946,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3401,12 +3956,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bwin",
-      "decimal": 3.6,
+      "decimal": 3.5,
       "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3421,7 +3976,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3436,7 +3991,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3446,12 +4001,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "coral",
-      "decimal": 3.5,
+      "decimal": 3.3,
       "openingDecimal": 3.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -5.71,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3466,7 +4021,7 @@
       "deltaPct": -2.63,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3476,12 +4031,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.5,
+      "decimal": 3.3,
       "openingDecimal": 3.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -5.71,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3496,7 +4051,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3505,13 +4060,43 @@
       "market": "1x2",
       "outcome": "AWAY",
       "line": null,
-      "book": "melbet",
-      "decimal": 3.6,
-      "openingDecimal": 3.6,
+      "book": "mansionbet",
+      "decimal": 3.4,
+      "openingDecimal": 3.4,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.2,
+      "openingDecimal": 3.2,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "macauslot",
+      "decimal": 3.21,
+      "openingDecimal": 3.21,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3526,7 +4111,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3541,7 +4126,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3556,7 +4141,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3566,12 +4151,27 @@
       "outcome": "1X",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.25,
+      "decimal": 1.29,
       "openingDecimal": 1.25,
+      "deltaPct": 3.2,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.22,
+      "openingDecimal": 1.22,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3586,7 +4186,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3601,7 +4201,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3616,7 +4216,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3631,7 +4231,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.75,
+      "openingDecimal": 1.75,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3646,7 +4261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3661,7 +4276,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3676,7 +4291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3686,12 +4301,27 @@
       "outcome": "12",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.3,
+      "decimal": 1.25,
       "openingDecimal": 1.3,
+      "deltaPct": -3.85,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.25,
+      "openingDecimal": 1.25,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3706,7 +4336,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3721,7 +4351,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3731,12 +4361,12 @@
       "outcome": "over",
       "line": 1.5,
       "book": "betvictor",
-      "decimal": 1.34,
+      "decimal": 1.35,
       "openingDecimal": 1.34,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0.75,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3751,7 +4381,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3766,7 +4396,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3776,12 +4406,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "betvictor",
-      "decimal": 2.89,
+      "decimal": 2.87,
       "openingDecimal": 2.89,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -0.69,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3796,7 +4426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3811,7 +4441,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 2.1,
+      "openingDecimal": 2.1,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3821,12 +4466,27 @@
       "outcome": "over",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 1.98,
+      "decimal": 1.99,
       "openingDecimal": 1.98,
+      "deltaPct": 0.51,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "sbo",
+      "decimal": 2.12,
+      "openingDecimal": 2.12,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3841,7 +4501,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3856,7 +4516,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3866,12 +4541,27 @@
       "outcome": "under",
       "line": 2.5,
       "book": "betvictor",
-      "decimal": 1.71,
+      "decimal": 1.7,
       "openingDecimal": 1.71,
+      "deltaPct": -0.58,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
+      "homeName": "Fagiano Okayama",
+      "awayName": "Shimizu S-Pulse",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "sbo",
+      "decimal": 1.73,
+      "openingDecimal": 1.73,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3886,7 +4576,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3901,7 +4591,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3916,7 +4606,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3931,7 +4621,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3946,7 +4636,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3961,7 +4651,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3976,7 +4666,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -3991,7 +4681,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -4001,12 +4691,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.8,
+      "decimal": 1.83,
       "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.67,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -4021,7 +4711,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -4036,7 +4726,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -4046,12 +4736,12 @@
       "outcome": "no",
       "line": null,
       "book": "betvictor",
-      "decimal": 1.9,
+      "decimal": 1.87,
       "openingDecimal": 1.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.58,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -4066,7 +4756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -4081,7 +4771,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-fagiano-okayam-shimizu-s-puls-rcasg8",
@@ -4096,7 +4786,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4111,7 +4801,7 @@
       "deltaPct": -3.14,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4126,7 +4816,7 @@
       "deltaPct": -4.65,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4136,12 +4826,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 2.5,
+      "decimal": 2.37,
       "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -5.2,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4156,7 +4846,7 @@
       "deltaPct": -4,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4166,12 +4856,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betfair",
-      "decimal": 2.4,
+      "decimal": 2.45,
       "openingDecimal": 2.5,
-      "deltaPct": -4,
+      "deltaPct": -2,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4181,12 +4871,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "coral",
-      "decimal": 2.4,
+      "decimal": 2.3,
       "openingDecimal": 2.45,
-      "deltaPct": -2.04,
+      "deltaPct": -6.12,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4201,7 +4891,7 @@
       "deltaPct": -4.23,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4211,12 +4901,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 2.4,
+      "decimal": 2.3,
       "openingDecimal": 2.45,
-      "deltaPct": -2.04,
+      "deltaPct": -6.12,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4231,7 +4921,7 @@
       "deltaPct": -2.86,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4241,12 +4931,42 @@
       "outcome": "HOME",
       "line": null,
       "book": "melbet",
-      "decimal": 2.46,
+      "decimal": 2.23,
       "openingDecimal": 2.53,
-      "deltaPct": -2.77,
+      "deltaPct": -11.86,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 2.33,
+      "openingDecimal": 2.33,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.29,
+      "openingDecimal": 2.29,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4261,7 +4981,7 @@
       "deltaPct": -2.54,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4276,7 +4996,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4286,12 +5006,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "bwin",
-      "decimal": 3.4,
+      "decimal": 3.5,
       "openingDecimal": 3.3,
-      "deltaPct": 3.03,
+      "deltaPct": 6.06,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4306,7 +5026,7 @@
       "deltaPct": 3.12,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4321,7 +5041,7 @@
       "deltaPct": 3.03,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4331,12 +5051,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "coral",
-      "decimal": 3.25,
+      "decimal": 3.4,
       "openingDecimal": 3.2,
-      "deltaPct": 1.56,
+      "deltaPct": 6.25,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4351,7 +5071,7 @@
       "deltaPct": 1.43,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4361,12 +5081,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 3.25,
+      "decimal": 3.4,
       "openingDecimal": 3.2,
-      "deltaPct": 1.56,
+      "deltaPct": 6.25,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4381,7 +5101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4391,12 +5111,42 @@
       "outcome": "DRAW",
       "line": null,
       "book": "melbet",
-      "decimal": 3.44,
+      "decimal": 3.68,
       "openingDecimal": 3.52,
-      "deltaPct": -2.27,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 4.55,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.55,
+      "openingDecimal": 3.55,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.23,
+      "openingDecimal": 3.23,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4411,7 +5161,7 @@
       "deltaPct": 5.22,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4426,7 +5176,7 @@
       "deltaPct": 5.51,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4436,12 +5186,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bwin",
-      "decimal": 2.6,
+      "decimal": 2.7,
       "openingDecimal": 2.65,
-      "deltaPct": -1.89,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.89,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4456,7 +5206,7 @@
       "deltaPct": 3.05,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4466,12 +5216,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betfair",
-      "decimal": 2.7,
+      "decimal": 2.75,
       "openingDecimal": 2.63,
-      "deltaPct": 2.66,
+      "deltaPct": 4.56,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4481,12 +5231,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "coral",
-      "decimal": 2.5,
+      "decimal": 2.6,
       "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 4,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4501,7 +5251,7 @@
       "deltaPct": 3.7,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4511,12 +5261,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "ladbrokes",
-      "decimal": 2.5,
+      "decimal": 2.6,
       "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 4,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4531,7 +5281,7 @@
       "deltaPct": 3.85,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4541,12 +5291,42 @@
       "outcome": "AWAY",
       "line": null,
       "book": "melbet",
-      "decimal": 2.81,
+      "decimal": 2.55,
       "openingDecimal": 2.66,
-      "deltaPct": 5.64,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -4.14,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 2.71,
+      "openingDecimal": 2.71,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.61,
+      "openingDecimal": 2.61,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4561,7 +5341,7 @@
       "deltaPct": -2.72,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4576,7 +5356,7 @@
       "deltaPct": -2.78,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4591,7 +5371,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4606,7 +5386,22 @@
       "deltaPct": -2.78,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.38,
+      "openingDecimal": 1.38,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4621,7 +5416,7 @@
       "deltaPct": 1.32,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4636,7 +5431,7 @@
       "deltaPct": 6.25,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4651,7 +5446,7 @@
       "deltaPct": 2,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4666,7 +5461,22 @@
       "deltaPct": 2.04,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.5,
+      "openingDecimal": 1.5,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4681,7 +5491,7 @@
       "deltaPct": 0.77,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4696,7 +5506,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4711,7 +5521,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4726,7 +5536,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.25,
+      "openingDecimal": 1.25,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4741,7 +5566,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4756,7 +5581,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4771,7 +5596,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4786,7 +5611,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4801,7 +5626,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4816,7 +5641,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4831,7 +5656,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4846,7 +5671,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.67,
+      "openingDecimal": 1.67,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4861,7 +5701,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "sbo",
+      "decimal": 1.7,
+      "openingDecimal": 1.7,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4876,7 +5731,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4891,7 +5746,22 @@
       "deltaPct": 0.47,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 2.15,
+      "openingDecimal": 2.15,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4906,7 +5776,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
+      "homeName": "FC Tokyo",
+      "awayName": "Sanfrecce Hiroshima",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "sbo",
+      "decimal": 2.16,
+      "openingDecimal": 2.16,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4916,12 +5801,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 2.61,
+      "decimal": 2.62,
       "openingDecimal": 2.65,
-      "deltaPct": -1.51,
+      "deltaPct": -1.13,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4936,7 +5821,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4951,7 +5836,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4966,7 +5851,7 @@
       "deltaPct": 0.69,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4981,7 +5866,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -4996,7 +5881,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -5011,7 +5896,7 @@
       "deltaPct": -0.65,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -5026,7 +5911,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -5041,7 +5926,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -5056,7 +5941,7 @@
       "deltaPct": 0.87,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -5071,7 +5956,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -5086,7 +5971,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-tokyo-sanfrecce-hiro-aj7a2v",
@@ -5101,7 +5986,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5116,7 +6001,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5126,12 +6011,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "pinnacle",
-      "decimal": 2.73,
+      "decimal": 2.75,
       "openingDecimal": 2.73,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0.73,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5146,7 +6031,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5161,7 +6046,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5171,12 +6056,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betfair",
-      "decimal": 2.63,
+      "decimal": 2.7,
       "openingDecimal": 2.63,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2.66,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5191,7 +6076,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5206,7 +6091,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5221,7 +6106,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5236,7 +6121,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5246,12 +6131,42 @@
       "outcome": "HOME",
       "line": null,
       "book": "melbet",
-      "decimal": 2.72,
+      "decimal": 2.52,
       "openingDecimal": 2.72,
+      "deltaPct": -7.35,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 2.65,
+      "openingDecimal": 2.65,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.54,
+      "openingDecimal": 2.54,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5266,7 +6181,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5276,12 +6191,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "pinnacle",
-      "decimal": 3.4,
+      "decimal": 3.42,
       "openingDecimal": 3.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0.59,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5296,7 +6211,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5306,12 +6221,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "william-hill",
-      "decimal": 3.1,
+      "decimal": 3.2,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 3.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5326,7 +6241,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5341,7 +6256,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5356,7 +6271,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5371,7 +6286,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5386,7 +6301,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5396,12 +6311,42 @@
       "outcome": "DRAW",
       "line": null,
       "book": "melbet",
-      "decimal": 3.36,
+      "decimal": 3.43,
       "openingDecimal": 3.36,
+      "deltaPct": 2.08,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.35,
+      "openingDecimal": 3.35,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.08,
+      "openingDecimal": 3.08,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5416,7 +6361,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5426,12 +6371,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "pinnacle",
-      "decimal": 2.59,
+      "decimal": 2.56,
       "openingDecimal": 2.59,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.16,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5446,7 +6391,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5461,7 +6406,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5471,12 +6416,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betfair",
-      "decimal": 2.5,
+      "decimal": 2.55,
       "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5491,7 +6436,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5506,7 +6451,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5521,7 +6466,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5536,7 +6481,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5546,12 +6491,42 @@
       "outcome": "AWAY",
       "line": null,
       "book": "melbet",
-      "decimal": 2.57,
+      "decimal": 2.37,
       "openingDecimal": 2.57,
+      "deltaPct": -7.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 2.49,
+      "openingDecimal": 2.49,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sbo",
+      "decimal": 2.42,
+      "openingDecimal": 2.42,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5566,7 +6541,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5581,7 +6556,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5591,12 +6566,12 @@
       "outcome": "1X",
       "line": null,
       "book": "betfair",
-      "decimal": 1.5,
+      "decimal": 1.44,
       "openingDecimal": 1.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -4,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5611,7 +6586,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.44,
+      "openingDecimal": 1.44,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5626,7 +6616,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5641,7 +6631,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5656,7 +6646,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5671,7 +6661,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.4,
+      "openingDecimal": 1.4,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5686,7 +6691,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5701,7 +6706,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5711,12 +6716,12 @@
       "outcome": "12",
       "line": null,
       "book": "betfair",
-      "decimal": 1.3,
+      "decimal": 1.33,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 2.31,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5731,7 +6736,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.28,
+      "openingDecimal": 1.28,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5746,7 +6766,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5761,7 +6781,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5776,7 +6796,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5791,7 +6811,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5801,12 +6821,12 @@
       "outcome": "under",
       "line": 1.5,
       "book": "pinnacle",
-      "decimal": 3.62,
+      "decimal": 3.61,
       "openingDecimal": 3.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -0.28,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5821,7 +6841,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5836,7 +6856,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5851,7 +6871,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.9,
+      "openingDecimal": 1.9,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5866,7 +6901,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "sbo",
+      "decimal": 1.96,
+      "openingDecimal": 1.96,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5881,7 +6931,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5896,7 +6946,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.87,
+      "openingDecimal": 1.87,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5911,7 +6976,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
+      "homeName": "Avispa Fukuoka",
+      "awayName": "Yokohama F. Marinos",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "sbo",
+      "decimal": 1.88,
+      "openingDecimal": 1.88,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5921,12 +7001,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 3.24,
+      "decimal": 3.25,
       "openingDecimal": 3.25,
-      "deltaPct": -0.31,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5936,12 +7016,12 @@
       "outcome": "over",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 3.27,
+      "decimal": 3.28,
       "openingDecimal": 3.27,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0.31,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5956,7 +7036,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5966,12 +7046,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "1xbet",
-      "decimal": 1.31,
+      "decimal": 1.32,
       "openingDecimal": 1.32,
-      "deltaPct": -0.76,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -5981,12 +7061,12 @@
       "outcome": "under",
       "line": 3.5,
       "book": "pinnacle",
-      "decimal": 1.34,
+      "decimal": 1.33,
       "openingDecimal": 1.34,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -0.75,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6001,7 +7081,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6016,7 +7096,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6031,7 +7111,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6046,7 +7126,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6061,7 +7141,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6076,7 +7156,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6091,7 +7171,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6106,7 +7186,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6121,7 +7201,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6136,7 +7216,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-avispa-fukuoka-yokohama-f-mar-r6nske",
@@ -6151,7 +7231,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6166,7 +7246,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6181,7 +7261,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6196,7 +7276,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6211,7 +7291,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6221,12 +7301,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "betfair",
-      "decimal": 1.83,
+      "decimal": 1.85,
       "openingDecimal": 1.83,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.09,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6241,7 +7321,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6251,12 +7331,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "dafabet",
-      "decimal": 1.89,
+      "decimal": 1.9,
       "openingDecimal": 1.89,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 0.53,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6271,7 +7351,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6281,12 +7361,42 @@
       "outcome": "HOME",
       "line": null,
       "book": "melbet",
-      "decimal": 1.87,
+      "decimal": 1.86,
       "openingDecimal": 1.87,
+      "deltaPct": -0.53,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 1.85,
+      "openingDecimal": 1.85,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "1x2",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.84,
+      "openingDecimal": 1.84,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6301,7 +7411,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6316,7 +7426,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6331,7 +7441,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6341,12 +7451,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "william-hill",
-      "decimal": 3.75,
+      "decimal": 3.7,
       "openingDecimal": 3.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.33,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6361,7 +7471,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6376,7 +7486,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6386,12 +7496,12 @@
       "outcome": "DRAW",
       "line": null,
       "book": "dafabet",
-      "decimal": 4,
+      "decimal": 3.95,
       "openingDecimal": 4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": -1.25,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6406,7 +7516,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6416,12 +7526,42 @@
       "outcome": "DRAW",
       "line": null,
       "book": "melbet",
-      "decimal": 3.98,
+      "decimal": 3.75,
       "openingDecimal": 3.98,
+      "deltaPct": -5.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.8,
+      "openingDecimal": 3.8,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "1x2",
+      "outcome": "DRAW",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.46,
+      "openingDecimal": 3.46,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6436,7 +7576,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6451,7 +7591,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6466,7 +7606,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6481,7 +7621,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6491,12 +7631,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betfair",
-      "decimal": 3.75,
+      "decimal": 3.8,
       "openingDecimal": 3.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6511,7 +7651,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6521,12 +7661,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "dafabet",
-      "decimal": 3.8,
+      "decimal": 3.85,
       "openingDecimal": 3.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "deltaPct": 1.32,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6541,7 +7681,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6551,12 +7691,42 @@
       "outcome": "AWAY",
       "line": null,
       "book": "melbet",
-      "decimal": 3.74,
+      "decimal": 3.28,
       "openingDecimal": 3.74,
+      "deltaPct": -12.3,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "mansionbet",
+      "decimal": 3.65,
+      "openingDecimal": 3.65,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "1x2",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sbo",
+      "decimal": 3.37,
+      "openingDecimal": 3.37,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6571,7 +7741,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6586,7 +7756,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6601,7 +7771,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "double_chance",
+      "outcome": "1X",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.19,
+      "openingDecimal": 1.19,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6616,7 +7801,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6631,7 +7816,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6646,7 +7831,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "double_chance",
+      "outcome": "X2",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.97,
+      "openingDecimal": 1.97,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6661,7 +7861,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6676,7 +7876,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6691,7 +7891,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "double_chance",
+      "outcome": "12",
+      "line": null,
+      "book": "sbo",
+      "decimal": 1.18,
+      "openingDecimal": 1.18,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6706,7 +7921,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6721,7 +7936,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6736,7 +7951,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6751,7 +7966,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6766,7 +7981,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6781,7 +7996,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "over_under_25",
+      "outcome": "over",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 1.53,
+      "openingDecimal": 1.53,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6796,7 +8026,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6811,7 +8041,22 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
+    },
+    {
+      "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
+      "homeName": "Urawa Red Diamonds",
+      "awayName": "Cerezo Osaka",
+      "market": "over_under_25",
+      "outcome": "under",
+      "line": 2.5,
+      "book": "betfair",
+      "decimal": 2.45,
+      "openingDecimal": 2.45,
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6826,7 +8071,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6841,7 +8086,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6856,7 +8101,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6871,7 +8116,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6886,7 +8131,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6901,7 +8146,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6916,7 +8161,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6931,7 +8176,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     },
     {
       "gameId": "j1-league-2026-11-25-urawa-red-diam-cerezo-osaka-qb7q5h",
@@ -6946,7 +8191,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T12:35:05Z"
+      "capturedAtUtc": "2026-11-22T18:05:06Z"
     }
   ]
 }

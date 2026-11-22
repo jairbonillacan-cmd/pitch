@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "brasileirao-b",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "lines": [
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -11,12 +11,12 @@
       "outcome": "yes",
       "line": null,
       "book": "1xbet",
-      "decimal": 2.05,
+      "decimal": 2.24,
       "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 9.27,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -26,12 +26,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betano",
-      "decimal": 2.15,
+      "decimal": 2.37,
       "openingDecimal": 2.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 10.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -41,537 +41,537 @@
       "outcome": "yes",
       "line": null,
       "book": "interwetten",
-      "decimal": 2.1,
+      "decimal": 2.4,
       "openingDecimal": 2.2,
+      "deltaPct": 9.09,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2.3,
+      "openingDecimal": 2.1,
+      "deltaPct": 9.52,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "novibet",
+      "decimal": 2.3,
+      "openingDecimal": 2.1,
+      "deltaPct": 9.52,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bwin",
+      "decimal": 2.37,
+      "openingDecimal": 2.1,
+      "deltaPct": 12.86,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 2.37,
+      "openingDecimal": 2.1,
+      "deltaPct": 12.86,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betway",
+      "decimal": 2.4,
+      "openingDecimal": 2.1,
+      "deltaPct": 14.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.25,
+      "openingDecimal": 2,
+      "deltaPct": 12.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.25,
+      "openingDecimal": 2,
+      "deltaPct": 12.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.5,
+      "openingDecimal": 2,
+      "deltaPct": 25,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "betsson",
+      "decimal": 2.42,
+      "openingDecimal": 2.18,
+      "deltaPct": 11.01,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "fonbet",
+      "decimal": 2.5,
+      "openingDecimal": 2.05,
+      "deltaPct": 21.95,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "10bet",
+      "decimal": 2.25,
+      "openingDecimal": 2.1,
+      "deltaPct": 7.14,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "btts",
+      "outcome": "yes",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 2.37,
+      "openingDecimal": 2.1,
+      "deltaPct": 12.86,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betano",
+      "decimal": 1.5,
+      "openingDecimal": 1.45,
+      "deltaPct": 3.45,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "unibet",
+      "decimal": 1.48,
+      "openingDecimal": 1.42,
+      "deltaPct": 4.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "novibet",
+      "decimal": 1.47,
+      "openingDecimal": 1.42,
+      "deltaPct": 3.52,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bwin",
+      "decimal": 1.46,
+      "openingDecimal": 1.41,
+      "deltaPct": 3.55,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 1.46,
+      "openingDecimal": 1.41,
+      "deltaPct": 3.55,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betway",
+      "decimal": 1.444,
+      "openingDecimal": 1.375,
+      "deltaPct": 5.02,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "888sport",
+      "decimal": 1.444,
+      "openingDecimal": 1.364,
+      "deltaPct": 5.87,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 1.444,
+      "openingDecimal": 1.364,
+      "deltaPct": 5.87,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "bet365",
+      "decimal": 1.444,
+      "openingDecimal": 1.364,
+      "deltaPct": 5.87,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "betsson",
+      "decimal": 1.49,
+      "openingDecimal": 1.43,
+      "deltaPct": 4.2,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "10bet",
+      "decimal": 1.42,
+      "openingDecimal": 1.4,
+      "deltaPct": 1.43,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "HOME",
+      "line": null,
+      "book": "vistabet",
+      "decimal": 1.46,
+      "openingDecimal": 1.41,
+      "deltaPct": 3.55,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betano",
+      "decimal": 2.45,
+      "openingDecimal": 2.65,
+      "deltaPct": -7.55,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "unibet",
+      "decimal": 2.45,
+      "openingDecimal": 2.65,
+      "deltaPct": -7.55,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "novibet",
+      "decimal": 2.55,
+      "openingDecimal": 2.75,
+      "deltaPct": -7.27,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bwin",
+      "decimal": 2.5,
+      "openingDecimal": 2.65,
+      "deltaPct": -5.66,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "sportingbet",
+      "decimal": 2.5,
+      "openingDecimal": 2.65,
+      "deltaPct": -5.66,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betway",
+      "decimal": 2.625,
+      "openingDecimal": 2.875,
+      "deltaPct": -8.7,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "888sport",
+      "decimal": 2.5,
+      "openingDecimal": 2.9,
+      "deltaPct": -13.79,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "william-hill",
+      "decimal": 2.5,
+      "openingDecimal": 2.9,
+      "deltaPct": -13.79,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "bet365",
+      "decimal": 2.625,
+      "openingDecimal": 3,
+      "deltaPct": -12.5,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "betsson",
+      "decimal": 2.49,
+      "openingDecimal": 2.7,
+      "deltaPct": -7.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "draw_no_bet",
+      "outcome": "AWAY",
+      "line": null,
+      "book": "10bet",
+      "decimal": 2.625,
+      "openingDecimal": 2.75,
       "deltaPct": -4.55,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "unibet",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "novibet",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "bwin",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "sportingbet",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betway",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "888sport",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 2,
-      "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "bet365",
-      "decimal": 2.2,
-      "openingDecimal": 2,
-      "deltaPct": 10,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "betsson",
-      "decimal": 2.15,
-      "openingDecimal": 2.18,
-      "deltaPct": -1.38,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "fonbet",
-      "decimal": 2.05,
-      "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "10bet",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "btts",
-      "outcome": "yes",
-      "line": null,
-      "book": "vistabet",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betano",
-      "decimal": 1.45,
-      "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "unibet",
-      "decimal": 1.42,
-      "openingDecimal": 1.42,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "novibet",
-      "decimal": 1.42,
-      "openingDecimal": 1.42,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "bwin",
-      "decimal": 1.4,
-      "openingDecimal": 1.41,
-      "deltaPct": -0.71,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "sportingbet",
-      "decimal": 1.4,
-      "openingDecimal": 1.41,
-      "deltaPct": -0.71,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betway",
-      "decimal": 1.375,
-      "openingDecimal": 1.375,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "888sport",
-      "decimal": 1.364,
-      "openingDecimal": 1.364,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 1.364,
-      "openingDecimal": 1.364,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "bet365",
-      "decimal": 1.4,
-      "openingDecimal": 1.364,
-      "deltaPct": 2.64,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "betsson",
-      "decimal": 1.43,
-      "openingDecimal": 1.43,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "10bet",
-      "decimal": 1.4,
-      "openingDecimal": 1.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "HOME",
-      "line": null,
-      "book": "vistabet",
-      "decimal": 1.4,
-      "openingDecimal": 1.41,
-      "deltaPct": -0.71,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betano",
-      "decimal": 2.65,
-      "openingDecimal": 2.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "unibet",
-      "decimal": 2.65,
-      "openingDecimal": 2.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "novibet",
-      "decimal": 2.75,
-      "openingDecimal": 2.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "bwin",
-      "decimal": 2.7,
-      "openingDecimal": 2.65,
-      "deltaPct": 1.89,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "sportingbet",
-      "decimal": 2.7,
-      "openingDecimal": 2.65,
-      "deltaPct": 1.89,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betway",
-      "decimal": 2.875,
-      "openingDecimal": 2.875,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "888sport",
-      "decimal": 2.9,
-      "openingDecimal": 2.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "william-hill",
-      "decimal": 2.9,
-      "openingDecimal": 2.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "bet365",
-      "decimal": 2.75,
-      "openingDecimal": 3,
-      "deltaPct": -8.33,
-      "movement": "shortening",
-      "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "betsson",
-      "decimal": 2.7,
-      "openingDecimal": 2.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "draw_no_bet",
-      "outcome": "AWAY",
-      "line": null,
-      "book": "10bet",
-      "decimal": 2.75,
-      "openingDecimal": 2.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -581,12 +581,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "vistabet",
-      "decimal": 2.7,
+      "decimal": 2.5,
       "openingDecimal": 2.65,
-      "deltaPct": 1.89,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -5.66,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -596,12 +596,12 @@
       "outcome": "no",
       "line": null,
       "book": "1xbet",
-      "decimal": 1.686,
+      "decimal": 1.577,
       "openingDecimal": 1.686,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.47,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -611,12 +611,12 @@
       "outcome": "no",
       "line": null,
       "book": "betano",
-      "decimal": 1.62,
+      "decimal": 1.52,
       "openingDecimal": 1.62,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.17,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -626,12 +626,12 @@
       "outcome": "no",
       "line": null,
       "book": "interwetten",
-      "decimal": 1.65,
+      "decimal": 1.5,
       "openingDecimal": 1.6,
-      "deltaPct": 3.12,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.25,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -641,12 +641,12 @@
       "outcome": "no",
       "line": null,
       "book": "unibet",
-      "decimal": 1.65,
+      "decimal": 1.54,
       "openingDecimal": 1.67,
-      "deltaPct": -1.2,
+      "deltaPct": -7.78,
       "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -656,12 +656,12 @@
       "outcome": "no",
       "line": null,
       "book": "novibet",
-      "decimal": 1.7,
+      "decimal": 1.6,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -5.88,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -671,12 +671,12 @@
       "outcome": "no",
       "line": null,
       "book": "bwin",
-      "decimal": 1.65,
+      "decimal": 1.51,
       "openingDecimal": 1.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -8.48,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -686,12 +686,12 @@
       "outcome": "no",
       "line": null,
       "book": "sportingbet",
-      "decimal": 1.65,
+      "decimal": 1.51,
       "openingDecimal": 1.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -8.48,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -701,12 +701,12 @@
       "outcome": "no",
       "line": null,
       "book": "betway",
-      "decimal": 1.667,
+      "decimal": 1.533,
       "openingDecimal": 1.667,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -8.04,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -716,12 +716,12 @@
       "outcome": "no",
       "line": null,
       "book": "888sport",
-      "decimal": 1.727,
+      "decimal": 1.6,
       "openingDecimal": 1.727,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.35,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -731,12 +731,12 @@
       "outcome": "no",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.727,
+      "decimal": 1.6,
       "openingDecimal": 1.727,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.35,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -746,12 +746,12 @@
       "outcome": "no",
       "line": null,
       "book": "bet365",
-      "decimal": 1.615,
+      "decimal": 1.5,
       "openingDecimal": 1.727,
-      "deltaPct": -6.49,
+      "deltaPct": -13.14,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -761,12 +761,12 @@
       "outcome": "no",
       "line": null,
       "book": "betsson",
-      "decimal": 1.62,
+      "decimal": 1.49,
       "openingDecimal": 1.6,
-      "deltaPct": 1.25,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.88,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -776,12 +776,12 @@
       "outcome": "no",
       "line": null,
       "book": "fonbet",
-      "decimal": 1.68,
+      "decimal": 1.47,
       "openingDecimal": 1.68,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -12.5,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -791,12 +791,12 @@
       "outcome": "no",
       "line": null,
       "book": "10bet",
-      "decimal": 1.615,
+      "decimal": 1.55,
       "openingDecimal": 1.615,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -4.02,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -806,12 +806,12 @@
       "outcome": "no",
       "line": null,
       "book": "vistabet",
-      "decimal": 1.65,
+      "decimal": 1.51,
       "openingDecimal": 1.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -8.48,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -821,12 +821,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "1xbet",
-      "decimal": 1.63,
+      "decimal": 1.74,
       "openingDecimal": 1.63,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 6.75,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -836,12 +836,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "novibet",
-      "decimal": 1.73,
+      "decimal": 1.85,
       "openingDecimal": 1.73,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 6.94,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -851,12 +851,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 1.7,
+      "decimal": 1.825,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 7.35,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -866,12 +866,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "betsson",
-      "decimal": 1.72,
+      "decimal": 1.83,
       "openingDecimal": 1.72,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 6.4,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -881,12 +881,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "10bet",
-      "decimal": 1.666,
+      "decimal": 1.75,
       "openingDecimal": 1.666,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 5.04,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -896,312 +896,312 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "1xbet",
-      "decimal": 2.05,
+      "decimal": 1.9,
       "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.25,
-      "book": "novibet",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.25,
-      "book": "bet365",
-      "decimal": 2.1,
-      "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.25,
-      "book": "betsson",
-      "decimal": 2.05,
-      "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -0.25,
-      "book": "10bet",
-      "decimal": 2.15,
-      "openingDecimal": 2.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.75,
-      "book": "1xbet",
-      "decimal": 4.95,
-      "openingDecimal": 4.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.75,
-      "book": "novibet",
-      "decimal": 5.3,
-      "openingDecimal": 5.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.75,
-      "book": "bet365",
-      "decimal": 5.25,
-      "openingDecimal": 5.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.75,
-      "book": "1xbet",
-      "decimal": 1.106,
-      "openingDecimal": 1.106,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.75,
-      "book": "novibet",
-      "decimal": 1.16,
-      "openingDecimal": 1.16,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.75,
-      "book": "bet365",
-      "decimal": 1.16,
-      "openingDecimal": 1.16,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "1xbet",
-      "decimal": 3.34,
-      "openingDecimal": 3.34,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "novibet",
-      "decimal": 3.65,
-      "openingDecimal": 3.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -1.25,
-      "book": "bet365",
-      "decimal": 3.45,
-      "openingDecimal": 3.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "1xbet",
-      "decimal": 1.24,
-      "openingDecimal": 1.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "novibet",
-      "decimal": 1.29,
-      "openingDecimal": 1.29,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": -1.25,
-      "book": "bet365",
-      "decimal": 1.3,
-      "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "1xbet",
-      "decimal": 2.24,
-      "openingDecimal": 2.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "novibet",
-      "decimal": 2.4,
-      "openingDecimal": 2.4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "bet365",
-      "decimal": 2.35,
-      "openingDecimal": 2.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": -0.75,
-      "book": "betsson",
-      "decimal": 2.35,
-      "openingDecimal": 2.36,
-      "deltaPct": -0.42,
+      "deltaPct": -7.32,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "novibet",
+      "decimal": 1.95,
+      "openingDecimal": 2.1,
+      "deltaPct": -7.14,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "bet365",
+      "decimal": 1.975,
+      "openingDecimal": 2.1,
+      "deltaPct": -5.95,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "betsson",
+      "decimal": 1.91,
+      "openingDecimal": 2.05,
+      "deltaPct": -6.83,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -0.25,
+      "book": "10bet",
+      "decimal": 2,
+      "openingDecimal": 2.15,
+      "deltaPct": -6.98,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 5.9,
+      "openingDecimal": 4.95,
+      "deltaPct": 19.19,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "novibet",
+      "decimal": 6.4,
+      "openingDecimal": 5.3,
+      "deltaPct": 20.75,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.75,
+      "book": "bet365",
+      "decimal": 6.6,
+      "openingDecimal": 5.25,
+      "deltaPct": 25.71,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "1xbet",
+      "decimal": 1.069,
+      "openingDecimal": 1.106,
+      "deltaPct": -3.35,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "novibet",
+      "decimal": 1.11,
+      "openingDecimal": 1.16,
+      "deltaPct": -4.31,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.75,
+      "book": "bet365",
+      "decimal": 1.11,
+      "openingDecimal": 1.16,
+      "deltaPct": -4.31,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 3.9,
+      "openingDecimal": 3.34,
+      "deltaPct": 16.77,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "novibet",
+      "decimal": 4.3,
+      "openingDecimal": 3.65,
+      "deltaPct": 17.81,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -1.25,
+      "book": "bet365",
+      "decimal": 4.15,
+      "openingDecimal": 3.45,
+      "deltaPct": 20.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "1xbet",
+      "decimal": 1.178,
+      "openingDecimal": 1.24,
+      "deltaPct": -5,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "novibet",
+      "decimal": 1.22,
+      "openingDecimal": 1.29,
+      "deltaPct": -5.43,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -1.25,
+      "book": "bet365",
+      "decimal": 1.22,
+      "openingDecimal": 1.3,
+      "deltaPct": -6.15,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "1xbet",
+      "decimal": 2.46,
+      "openingDecimal": 2.24,
+      "deltaPct": 9.82,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "novibet",
+      "decimal": 2.7,
+      "openingDecimal": 2.4,
+      "deltaPct": 12.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "bet365",
+      "decimal": 2.6,
+      "openingDecimal": 2.35,
+      "deltaPct": 10.64,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": -0.75,
+      "book": "betsson",
+      "decimal": 2.6,
+      "openingDecimal": 2.36,
+      "deltaPct": 10.17,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1211,12 +1211,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "1xbet",
-      "decimal": 1.52,
+      "decimal": 1.43,
       "openingDecimal": 1.52,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -5.92,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1226,12 +1226,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "novibet",
-      "decimal": 1.58,
+      "decimal": 1.47,
       "openingDecimal": 1.58,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.96,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1241,12 +1241,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "bet365",
-      "decimal": 1.575,
+      "decimal": 1.475,
       "openingDecimal": 1.575,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.35,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1256,12 +1256,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "betsson",
-      "decimal": 1.55,
+      "decimal": 1.45,
       "openingDecimal": 1.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.45,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1271,12 +1271,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "1xbet",
-      "decimal": 1.25,
+      "decimal": 1.28,
       "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 2.4,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1286,12 +1286,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "novibet",
-      "decimal": 1.33,
+      "decimal": 1.35,
       "openingDecimal": 1.33,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 1.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1301,12 +1301,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "bet365",
-      "decimal": 1.3,
+      "decimal": 1.35,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 3.85,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1316,12 +1316,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "1xbet",
-      "decimal": 3.32,
+      "decimal": 3.125,
       "openingDecimal": 3.32,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -5.87,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1331,12 +1331,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "novibet",
-      "decimal": 3.35,
+      "decimal": 3.2,
       "openingDecimal": 3.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -4.48,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1346,12 +1346,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "bet365",
-      "decimal": 3.45,
+      "decimal": 3.1,
       "openingDecimal": 3.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -10.14,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1361,12 +1361,12 @@
       "outcome": "HOME",
       "line": 0.75,
       "book": "1xbet",
-      "decimal": 1.092,
+      "decimal": 1.103,
       "openingDecimal": 1.092,
-      "deltaPct": 0,
+      "deltaPct": 1.01,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1376,12 +1376,12 @@
       "outcome": "HOME",
       "line": 0.75,
       "book": "novibet",
-      "decimal": 1.16,
+      "decimal": 1.17,
       "openingDecimal": 1.16,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 0.86,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1394,9 +1394,9 @@
       "decimal": 1.16,
       "openingDecimal": 1.15,
       "deltaPct": 0.87,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1406,12 +1406,12 @@
       "outcome": "AWAY",
       "line": 0.75,
       "book": "1xbet",
-      "decimal": 5.3,
+      "decimal": 5.05,
       "openingDecimal": 5.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -4.72,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1421,12 +1421,12 @@
       "outcome": "AWAY",
       "line": 0.75,
       "book": "novibet",
-      "decimal": 5.2,
+      "decimal": 5.1,
       "openingDecimal": 5.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -1.92,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1441,7 +1441,7 @@
       "deltaPct": -4.55,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1481,12 +1481,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "1xbet",
-      "decimal": 3.8,
+      "decimal": 4.4,
       "openingDecimal": 3.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 15.79,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1496,12 +1496,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "unibet",
-      "decimal": 4,
+      "decimal": 4.75,
       "openingDecimal": 4,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 18.75,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1511,12 +1511,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "novibet",
-      "decimal": 4.1,
+      "decimal": 4.85,
       "openingDecimal": 4.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 18.29,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1526,12 +1526,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "bet365",
-      "decimal": 3.9,
+      "decimal": 4.65,
       "openingDecimal": 3.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 19.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1541,12 +1541,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "fonbet",
-      "decimal": 4.05,
+      "decimal": 4.7,
       "openingDecimal": 4.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 16.05,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1556,12 +1556,12 @@
       "outcome": "AWAY",
       "line": -1.5,
       "book": "1xbet",
-      "decimal": 1.188,
+      "decimal": 1.139,
       "openingDecimal": 1.188,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -4.12,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1571,12 +1571,12 @@
       "outcome": "AWAY",
       "line": -1.5,
       "book": "unibet",
-      "decimal": 1.22,
+      "decimal": 1.16,
       "openingDecimal": 1.22,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -4.92,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1586,12 +1586,12 @@
       "outcome": "AWAY",
       "line": -1.5,
       "book": "novibet",
-      "decimal": 1.24,
+      "decimal": 1.18,
       "openingDecimal": 1.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -4.84,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1601,12 +1601,12 @@
       "outcome": "AWAY",
       "line": -1.5,
       "book": "bet365",
-      "decimal": 1.24,
+      "decimal": 1.18,
       "openingDecimal": 1.24,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -4.84,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1616,12 +1616,12 @@
       "outcome": "AWAY",
       "line": -1.5,
       "book": "fonbet",
-      "decimal": 1.18,
+      "decimal": 1.13,
       "openingDecimal": 1.18,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -4.24,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1631,12 +1631,12 @@
       "outcome": "HOME",
       "line": -2.5,
       "book": "1xbet",
-      "decimal": 8.7,
+      "decimal": 10.5,
       "openingDecimal": 8.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 20.69,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1652,6 +1652,19 @@
       "movement": "stable",
       "movementSignal": "STABLE",
       "capturedAtUtc": "2026-11-22T11:21:33Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": -2.5,
+      "book": "1xbet",
+      "decimal": 1.02,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1681,7 +1694,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1691,12 +1704,12 @@
       "outcome": "AWAY",
       "line": 1.5,
       "book": "1xbet",
-      "decimal": 9.1,
+      "decimal": 9,
       "openingDecimal": 9.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -1.1,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1706,12 +1719,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "interwetten",
-      "decimal": 2.05,
+      "decimal": 2.2,
       "openingDecimal": 2.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 7.32,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1721,12 +1734,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "unibet",
-      "decimal": 2,
+      "decimal": 2.15,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 7.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1736,12 +1749,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "novibet",
-      "decimal": 2.02,
+      "decimal": 2.2,
       "openingDecimal": 2.02,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 8.91,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1751,12 +1764,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "bwin",
-      "decimal": 1.95,
+      "decimal": 2.1,
       "openingDecimal": 1.93,
-      "deltaPct": 1.04,
+      "deltaPct": 8.81,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1766,12 +1779,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "sportingbet",
-      "decimal": 1.95,
+      "decimal": 2.1,
       "openingDecimal": 1.93,
-      "deltaPct": 1.04,
+      "deltaPct": 8.81,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1781,12 +1794,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "888sport",
-      "decimal": 1.909,
+      "decimal": 2.1,
       "openingDecimal": 1.909,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 10.01,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1796,12 +1809,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "william-hill",
-      "decimal": 1.909,
+      "decimal": 2.1,
       "openingDecimal": 1.909,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 10.01,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1811,12 +1824,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "bet365",
-      "decimal": 2,
+      "decimal": 2.15,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 7.5,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1826,12 +1839,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "betsson",
-      "decimal": 2,
+      "decimal": 2.16,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 8,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1841,12 +1854,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "10bet",
-      "decimal": 1.93,
+      "decimal": 1.95,
       "openingDecimal": 1.93,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 1.04,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T14:21:43Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1856,12 +1869,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "vistabet",
-      "decimal": 1.95,
+      "decimal": 2.1,
       "openingDecimal": 1.93,
-      "deltaPct": 1.04,
+      "deltaPct": 8.81,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1871,12 +1884,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "interwetten",
-      "decimal": 1.7,
+      "decimal": 1.6,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -5.88,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1886,12 +1899,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "unibet",
-      "decimal": 1.75,
+      "decimal": 1.65,
       "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -5.71,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1901,12 +1914,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "novibet",
-      "decimal": 1.79,
+      "decimal": 1.67,
       "openingDecimal": 1.79,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.7,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1916,12 +1929,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "bwin",
-      "decimal": 1.75,
+      "decimal": 1.62,
       "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.43,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1931,12 +1944,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "sportingbet",
-      "decimal": 1.75,
+      "decimal": 1.62,
       "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.43,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1946,12 +1959,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "888sport",
-      "decimal": 1.8,
+      "decimal": 1.667,
       "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.39,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1961,12 +1974,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "william-hill",
-      "decimal": 1.8,
+      "decimal": 1.667,
       "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.39,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1976,12 +1989,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "bet365",
-      "decimal": 1.8,
+      "decimal": 1.675,
       "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.94,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -1991,12 +2004,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "betsson",
-      "decimal": 1.75,
+      "decimal": 1.64,
       "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.29,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2011,7 +2024,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T14:21:43Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2021,12 +2034,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "vistabet",
-      "decimal": 1.75,
+      "decimal": 1.62,
       "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.43,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2036,12 +2049,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "1xbet",
-      "decimal": 1.38,
+      "decimal": 1.44,
       "openingDecimal": 1.38,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 4.35,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2051,12 +2064,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "interwetten",
-      "decimal": 1.43,
+      "decimal": 1.5,
       "openingDecimal": 1.43,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 4.9,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2066,12 +2079,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "novibet",
-      "decimal": 1.44,
+      "decimal": 1.5,
       "openingDecimal": 1.44,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 4.17,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2081,12 +2094,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "bet365",
-      "decimal": 1.425,
+      "decimal": 1.475,
       "openingDecimal": 1.4,
-      "deltaPct": 1.79,
+      "deltaPct": 5.36,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2096,12 +2109,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "betsson",
-      "decimal": 1.43,
+      "decimal": 1.5,
       "openingDecimal": 1.43,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 4.9,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2111,12 +2124,27 @@
       "outcome": "HOME",
       "line": 0,
       "book": "fonbet",
-      "decimal": 1.4,
+      "decimal": 1.45,
       "openingDecimal": 1.4,
+      "deltaPct": 3.57,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0,
+      "book": "10bet",
+      "decimal": 1.444,
+      "openingDecimal": 1.444,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2126,12 +2154,12 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "1xbet",
-      "decimal": 2.83,
+      "decimal": 2.61,
       "openingDecimal": 2.83,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.77,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2141,72 +2169,87 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "interwetten",
+      "decimal": 2.4,
+      "openingDecimal": 2.65,
+      "deltaPct": -9.43,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "novibet",
+      "decimal": 2.6,
+      "openingDecimal": 2.8,
+      "deltaPct": -7.14,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "bet365",
+      "decimal": 2.6,
+      "openingDecimal": 2.85,
+      "deltaPct": -8.77,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "betsson",
+      "decimal": 2.49,
+      "openingDecimal": 2.7,
+      "deltaPct": -7.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "fonbet",
+      "decimal": 2.55,
+      "openingDecimal": 2.75,
+      "deltaPct": -7.27,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "AWAY",
+      "line": 0,
+      "book": "10bet",
       "decimal": 2.65,
       "openingDecimal": 2.65,
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "novibet",
-      "decimal": 2.8,
-      "openingDecimal": 2.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "bet365",
-      "decimal": 2.75,
-      "openingDecimal": 2.85,
-      "deltaPct": -3.51,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "betsson",
-      "decimal": 2.7,
-      "openingDecimal": 2.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "AWAY",
-      "line": 0,
-      "book": "fonbet",
-      "decimal": 2.75,
-      "openingDecimal": 2.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2216,42 +2259,42 @@
       "outcome": "HOME",
       "line": 0.5,
       "book": "unibet",
-      "decimal": 1.25,
+      "decimal": 1.27,
       "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.5,
-      "book": "novibet",
-      "decimal": 1.26,
-      "openingDecimal": 1.26,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
-      "homeName": "Criciúma",
-      "awayName": "Fortaleza",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0.5,
-      "book": "bet365",
-      "decimal": 1.25,
-      "openingDecimal": 1.24,
-      "deltaPct": 0.81,
+      "deltaPct": 1.6,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.5,
+      "book": "novibet",
+      "decimal": 1.27,
+      "openingDecimal": 1.26,
+      "deltaPct": 0.79,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
+      "homeName": "Criciúma",
+      "awayName": "Fortaleza",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0.5,
+      "book": "bet365",
+      "decimal": 1.26,
+      "openingDecimal": 1.24,
+      "deltaPct": 1.61,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2261,12 +2304,12 @@
       "outcome": "AWAY",
       "line": 0.5,
       "book": "unibet",
-      "decimal": 3.6,
+      "decimal": 3.5,
       "openingDecimal": 3.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2276,12 +2319,12 @@
       "outcome": "AWAY",
       "line": 0.5,
       "book": "novibet",
-      "decimal": 3.9,
+      "decimal": 3.75,
       "openingDecimal": 3.9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -3.85,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2291,12 +2334,12 @@
       "outcome": "AWAY",
       "line": 0.5,
       "book": "bet365",
-      "decimal": 3.8,
+      "decimal": 3.7,
       "openingDecimal": 3.9,
-      "deltaPct": -2.56,
+      "deltaPct": -5.13,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2306,12 +2349,12 @@
       "outcome": "HOME",
       "line": -2,
       "book": "1xbet",
-      "decimal": 7.7,
+      "decimal": 9.1,
       "openingDecimal": 7.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 18.18,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2336,12 +2379,12 @@
       "outcome": "AWAY",
       "line": -2,
       "book": "1xbet",
-      "decimal": 1.025,
+      "decimal": 1.03,
       "openingDecimal": 1.025,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 0.49,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2366,12 +2409,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "1xbet",
-      "decimal": 2.92,
+      "decimal": 3.34,
       "openingDecimal": 2.92,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 14.38,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2381,12 +2424,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "interwetten",
-      "decimal": 3.05,
+      "decimal": 3.6,
       "openingDecimal": 3.05,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 18.03,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2396,12 +2439,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "novibet",
-      "decimal": 3.15,
+      "decimal": 3.75,
       "openingDecimal": 3.15,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 19.05,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2411,12 +2454,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "bet365",
-      "decimal": 3,
+      "decimal": 3.55,
       "openingDecimal": 3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 18.33,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2441,12 +2484,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "fonbet",
-      "decimal": 3.1,
+      "decimal": 3.65,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": 17.74,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2456,12 +2499,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "1xbet",
-      "decimal": 1.31,
+      "decimal": 1.24,
       "openingDecimal": 1.31,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -5.34,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2471,12 +2514,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "interwetten",
-      "decimal": 1.33,
+      "decimal": 1.25,
       "openingDecimal": 1.33,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.02,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2486,12 +2529,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "novibet",
-      "decimal": 1.36,
+      "decimal": 1.27,
       "openingDecimal": 1.36,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.62,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2501,12 +2544,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "bet365",
-      "decimal": 1.375,
+      "decimal": 1.275,
       "openingDecimal": 1.375,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -7.27,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2531,12 +2574,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "fonbet",
-      "decimal": 1.3,
+      "decimal": 1.22,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -6.15,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-criciuma-fortaleza-7m5phu",
@@ -2546,12 +2589,12 @@
       "outcome": "AWAY",
       "line": 1,
       "book": "1xbet",
-      "decimal": 9,
+      "decimal": 8.8,
       "openingDecimal": 9,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:33Z"
+      "deltaPct": -2.22,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:00Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2566,7 +2609,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2581,7 +2624,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2596,7 +2639,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2611,7 +2654,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2621,12 +2664,12 @@
       "outcome": "yes",
       "line": null,
       "book": "novibet",
-      "decimal": 2.01,
+      "decimal": 2.04,
       "openingDecimal": 2.01,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.49,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2636,12 +2679,12 @@
       "outcome": "yes",
       "line": null,
       "book": "bwin",
-      "decimal": 1.95,
+      "decimal": 1.98,
       "openingDecimal": 1.98,
-      "deltaPct": -1.52,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2651,12 +2694,12 @@
       "outcome": "yes",
       "line": null,
       "book": "sportingbet",
-      "decimal": 1.95,
+      "decimal": 1.98,
       "openingDecimal": 1.98,
-      "deltaPct": -1.52,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2666,12 +2709,12 @@
       "outcome": "yes",
       "line": null,
       "book": "betway",
-      "decimal": 2.1,
+      "decimal": 2,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -4.76,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2686,7 +2729,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2701,7 +2744,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2711,12 +2754,12 @@
       "outcome": "yes",
       "line": null,
       "book": "bet365",
-      "decimal": 2,
+      "decimal": 2.1,
       "openingDecimal": 1.8,
-      "deltaPct": 11.11,
+      "deltaPct": 16.67,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2731,7 +2774,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2746,7 +2789,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2756,12 +2799,12 @@
       "outcome": "yes",
       "line": null,
       "book": "10bet",
-      "decimal": 2,
+      "decimal": 2.05,
       "openingDecimal": 2.05,
-      "deltaPct": -2.44,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2771,12 +2814,12 @@
       "outcome": "yes",
       "line": null,
       "book": "vistabet",
-      "decimal": 1.95,
+      "decimal": 1.98,
       "openingDecimal": 1.98,
-      "deltaPct": -1.52,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2791,7 +2834,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2806,7 +2849,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2816,12 +2859,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "novibet",
-      "decimal": 1.45,
+      "decimal": 1.42,
       "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.07,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2831,12 +2874,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "bwin",
-      "decimal": 1.44,
+      "decimal": 1.41,
       "openingDecimal": 1.44,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.08,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2846,12 +2889,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "sportingbet",
-      "decimal": 1.44,
+      "decimal": 1.41,
       "openingDecimal": 1.44,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.08,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2866,7 +2909,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2876,12 +2919,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "888sport",
-      "decimal": 1.444,
+      "decimal": 1.364,
       "openingDecimal": 1.444,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -5.54,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2891,12 +2934,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "william-hill",
-      "decimal": 1.444,
+      "decimal": 1.364,
       "openingDecimal": 1.444,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -5.54,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2911,7 +2954,7 @@
       "deltaPct": 2.64,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2926,7 +2969,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2936,12 +2979,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "10bet",
-      "decimal": 1.42,
+      "decimal": 1.4,
       "openingDecimal": 1.38,
-      "deltaPct": 2.9,
+      "deltaPct": 1.45,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2951,12 +2994,12 @@
       "outcome": "HOME",
       "line": null,
       "book": "vistabet",
-      "decimal": 1.44,
+      "decimal": 1.41,
       "openingDecimal": 1.44,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.08,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2966,12 +3009,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betano",
-      "decimal": 2.65,
+      "decimal": 2.67,
       "openingDecimal": 2.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0.75,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2986,7 +3029,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -2996,12 +3039,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "novibet",
-      "decimal": 2.6,
+      "decimal": 2.7,
       "openingDecimal": 2.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.85,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3011,12 +3054,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "bwin",
-      "decimal": 2.6,
+      "decimal": 2.65,
       "openingDecimal": 2.55,
-      "deltaPct": 1.96,
+      "deltaPct": 3.92,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3026,12 +3069,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "sportingbet",
-      "decimal": 2.6,
+      "decimal": 2.65,
       "openingDecimal": 2.55,
-      "deltaPct": 1.96,
+      "deltaPct": 3.92,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3041,12 +3084,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betway",
-      "decimal": 2.625,
+      "decimal": 2.75,
       "openingDecimal": 2.625,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 4.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3056,12 +3099,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "888sport",
-      "decimal": 2.5,
+      "decimal": 2.8,
       "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 12,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3071,12 +3114,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "william-hill",
-      "decimal": 2.5,
+      "decimal": 2.8,
       "openingDecimal": 2.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 12,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3091,7 +3134,7 @@
       "deltaPct": -8.33,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3101,12 +3144,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "betsson",
-      "decimal": 2.6,
+      "decimal": 2.65,
       "openingDecimal": 2.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.92,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3116,12 +3159,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "10bet",
-      "decimal": 2.65,
+      "decimal": 2.75,
       "openingDecimal": 2.8,
-      "deltaPct": -5.36,
+      "deltaPct": -1.79,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3131,12 +3174,12 @@
       "outcome": "AWAY",
       "line": null,
       "book": "vistabet",
-      "decimal": 2.6,
+      "decimal": 2.65,
       "openingDecimal": 2.55,
-      "deltaPct": 1.96,
+      "deltaPct": 3.92,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3151,7 +3194,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3166,7 +3209,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3181,7 +3224,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3191,12 +3234,12 @@
       "outcome": "no",
       "line": null,
       "book": "unibet",
-      "decimal": 1.7,
+      "decimal": 1.73,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3206,12 +3249,12 @@
       "outcome": "no",
       "line": null,
       "book": "novibet",
-      "decimal": 1.77,
+      "decimal": 1.75,
       "openingDecimal": 1.77,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -1.13,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3221,12 +3264,12 @@
       "outcome": "no",
       "line": null,
       "book": "bwin",
-      "decimal": 1.73,
+      "decimal": 1.71,
       "openingDecimal": 1.72,
-      "deltaPct": 0.58,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -0.58,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3236,12 +3279,12 @@
       "outcome": "no",
       "line": null,
       "book": "sportingbet",
-      "decimal": 1.73,
+      "decimal": 1.71,
       "openingDecimal": 1.72,
-      "deltaPct": 0.58,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -0.58,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3251,12 +3294,12 @@
       "outcome": "no",
       "line": null,
       "book": "betway",
-      "decimal": 1.667,
+      "decimal": 1.727,
       "openingDecimal": 1.667,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.6,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3271,7 +3314,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3286,7 +3329,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3296,12 +3339,12 @@
       "outcome": "no",
       "line": null,
       "book": "bet365",
-      "decimal": 1.727,
+      "decimal": 1.667,
       "openingDecimal": 1.909,
-      "deltaPct": -9.53,
+      "deltaPct": -12.68,
       "movement": "shortening",
       "movementSignal": "STEAM",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3316,7 +3359,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3331,7 +3374,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3341,12 +3384,12 @@
       "outcome": "no",
       "line": null,
       "book": "10bet",
-      "decimal": 1.7,
+      "decimal": 1.666,
       "openingDecimal": 1.666,
-      "deltaPct": 2.04,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3356,12 +3399,12 @@
       "outcome": "no",
       "line": null,
       "book": "vistabet",
-      "decimal": 1.73,
+      "decimal": 1.71,
       "openingDecimal": 1.72,
-      "deltaPct": 0.58,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -0.58,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3376,7 +3419,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3386,12 +3429,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "novibet",
-      "decimal": 1.74,
+      "decimal": 1.71,
       "openingDecimal": 1.75,
-      "deltaPct": -0.57,
+      "deltaPct": -2.29,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3401,12 +3444,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 1.7,
+      "decimal": 1.65,
       "openingDecimal": 1.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.94,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3416,12 +3459,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "betsson",
-      "decimal": 1.73,
+      "decimal": 1.72,
       "openingDecimal": 1.73,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -0.58,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3431,12 +3474,12 @@
       "outcome": "HOME",
       "line": -0.25,
       "book": "10bet",
-      "decimal": 1.7,
+      "decimal": 1.666,
       "openingDecimal": 1.65,
-      "deltaPct": 3.03,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0.97,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3451,7 +3494,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3461,12 +3504,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "novibet",
-      "decimal": 2.09,
+      "decimal": 2.15,
       "openingDecimal": 2.08,
-      "deltaPct": 0.48,
+      "deltaPct": 3.37,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3476,12 +3519,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "bet365",
-      "decimal": 2.1,
+      "decimal": 2.2,
       "openingDecimal": 2.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 4.76,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3491,12 +3534,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "betsson",
-      "decimal": 2.04,
+      "decimal": 2.05,
       "openingDecimal": 2.04,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0.49,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3506,12 +3549,12 @@
       "outcome": "AWAY",
       "line": -0.25,
       "book": "10bet",
-      "decimal": 2.1,
+      "decimal": 2.15,
       "openingDecimal": 2.15,
-      "deltaPct": -2.33,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3526,7 +3569,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3536,12 +3579,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "novibet",
-      "decimal": 5.1,
+      "decimal": 4.95,
       "openingDecimal": 5.15,
-      "deltaPct": -0.97,
+      "deltaPct": -3.88,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3551,12 +3594,12 @@
       "outcome": "HOME",
       "line": -1.75,
       "book": "bet365",
-      "decimal": 5.25,
+      "decimal": 4.8,
       "openingDecimal": 5.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -8.57,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3571,7 +3614,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3586,7 +3629,7 @@
       "deltaPct": 0.86,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3596,12 +3639,12 @@
       "outcome": "AWAY",
       "line": -1.75,
       "book": "bet365",
-      "decimal": 1.16,
+      "decimal": 1.18,
       "openingDecimal": 1.16,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.72,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3616,7 +3659,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3626,12 +3669,12 @@
       "outcome": "HOME",
       "line": -1.25,
       "book": "novibet",
-      "decimal": 3.55,
+      "decimal": 3.4,
       "openingDecimal": 3.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -4.23,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3641,12 +3684,12 @@
       "outcome": "HOME",
       "line": -1.25,
       "book": "bet365",
-      "decimal": 3.45,
+      "decimal": 3.3,
       "openingDecimal": 3.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -4.35,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3661,7 +3704,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3671,12 +3714,12 @@
       "outcome": "AWAY",
       "line": -1.25,
       "book": "novibet",
-      "decimal": 1.3,
+      "decimal": 1.32,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.54,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3686,12 +3729,12 @@
       "outcome": "AWAY",
       "line": -1.25,
       "book": "bet365",
-      "decimal": 1.3,
+      "decimal": 1.325,
       "openingDecimal": 1.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.92,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3706,7 +3749,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3716,12 +3759,12 @@
       "outcome": "HOME",
       "line": -0.75,
       "book": "novibet",
-      "decimal": 2.35,
+      "decimal": 2.3,
       "openingDecimal": 2.4,
-      "deltaPct": -2.08,
+      "deltaPct": -4.17,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3731,12 +3774,12 @@
       "outcome": "HOME",
       "line": -0.75,
       "book": "bet365",
-      "decimal": 2.3,
+      "decimal": 2.25,
       "openingDecimal": 2.35,
-      "deltaPct": -2.13,
+      "deltaPct": -4.26,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3746,12 +3789,12 @@
       "outcome": "HOME",
       "line": -0.75,
       "book": "betsson",
-      "decimal": 2.33,
+      "decimal": 2.32,
       "openingDecimal": 2.33,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -0.43,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3766,7 +3809,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3776,12 +3819,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "novibet",
-      "decimal": 1.59,
+      "decimal": 1.62,
       "openingDecimal": 1.58,
-      "deltaPct": 0.63,
+      "deltaPct": 2.53,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3791,12 +3834,12 @@
       "outcome": "AWAY",
       "line": -0.75,
       "book": "bet365",
-      "decimal": 1.6,
+      "decimal": 1.625,
       "openingDecimal": 1.575,
-      "deltaPct": 1.59,
+      "deltaPct": 3.17,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3811,7 +3854,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3826,7 +3869,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3836,12 +3879,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "novibet",
-      "decimal": 1.35,
+      "decimal": 1.34,
       "openingDecimal": 1.36,
-      "deltaPct": -0.74,
+      "deltaPct": -1.47,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3851,12 +3894,12 @@
       "outcome": "HOME",
       "line": 0.25,
       "book": "bet365",
-      "decimal": 1.325,
+      "decimal": 1.3,
       "openingDecimal": 1.325,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -1.89,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3871,7 +3914,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3881,12 +3924,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "novibet",
-      "decimal": 3.2,
+      "decimal": 3.3,
       "openingDecimal": 3.15,
-      "deltaPct": 1.59,
+      "deltaPct": 4.76,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3896,12 +3939,12 @@
       "outcome": "AWAY",
       "line": 0.25,
       "book": "bet365",
-      "decimal": 3.3,
+      "decimal": 3.45,
       "openingDecimal": 3.3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 4.55,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3916,7 +3959,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3926,12 +3969,12 @@
       "outcome": "HOME",
       "line": 0.75,
       "book": "novibet",
-      "decimal": 1.18,
+      "decimal": 1.17,
       "openingDecimal": 1.18,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -0.85,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3941,12 +3984,12 @@
       "outcome": "HOME",
       "line": 0.75,
       "book": "bet365",
-      "decimal": 1.17,
+      "decimal": 1.15,
       "openingDecimal": 1.17,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -1.71,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3961,7 +4004,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3971,12 +4014,12 @@
       "outcome": "AWAY",
       "line": 0.75,
       "book": "novibet",
-      "decimal": 4.8,
+      "decimal": 4.95,
       "openingDecimal": 4.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.13,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -3986,12 +4029,12 @@
       "outcome": "AWAY",
       "line": 0.75,
       "book": "bet365",
-      "decimal": 5,
+      "decimal": 5.5,
       "openingDecimal": 5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 10,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4006,7 +4049,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4021,7 +4064,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4036,7 +4079,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4051,7 +4094,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4066,7 +4109,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4081,7 +4124,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4091,12 +4134,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "novibet",
-      "decimal": 3.95,
+      "decimal": 3.85,
       "openingDecimal": 4,
-      "deltaPct": -1.25,
+      "deltaPct": -3.75,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4106,12 +4149,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "bet365",
-      "decimal": 3.8,
+      "decimal": 3.7,
       "openingDecimal": 3.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.63,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4121,12 +4164,12 @@
       "outcome": "HOME",
       "line": -1.5,
       "book": "fonbet",
-      "decimal": 3.85,
+      "decimal": 3.7,
       "openingDecimal": 3.85,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -3.9,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4141,7 +4184,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4156,7 +4199,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4166,12 +4209,12 @@
       "outcome": "AWAY",
       "line": -1.5,
       "book": "novibet",
-      "decimal": 1.25,
+      "decimal": 1.26,
       "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0.8,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4181,12 +4224,12 @@
       "outcome": "AWAY",
       "line": -1.5,
       "book": "bet365",
-      "decimal": 1.25,
+      "decimal": 1.26,
       "openingDecimal": 1.25,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0.8,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4201,7 +4244,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4216,7 +4259,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4226,12 +4269,12 @@
       "outcome": "HOME",
       "line": -2.5,
       "book": "fonbet",
-      "decimal": 8.5,
+      "decimal": 8,
       "openingDecimal": 8.5,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -5.88,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4246,7 +4289,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4261,7 +4304,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4276,7 +4319,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4291,7 +4334,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T14:21:53Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4306,7 +4349,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4321,7 +4364,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T14:21:53Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4336,7 +4379,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4351,7 +4394,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4361,12 +4404,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "novibet",
-      "decimal": 2.02,
+      "decimal": 1.97,
       "openingDecimal": 2.02,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.48,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4376,12 +4419,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "bwin",
-      "decimal": 1.95,
+      "decimal": 1.93,
       "openingDecimal": 1.93,
-      "deltaPct": 1.04,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4391,12 +4434,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "sportingbet",
-      "decimal": 1.95,
+      "decimal": 1.93,
       "openingDecimal": 1.93,
-      "deltaPct": 1.04,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4406,12 +4449,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "888sport",
-      "decimal": 2,
+      "decimal": 1.95,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4421,12 +4464,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "william-hill",
-      "decimal": 2,
+      "decimal": 1.95,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4436,12 +4479,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "bet365",
-      "decimal": 2,
+      "decimal": 1.95,
       "openingDecimal": 2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.5,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4456,7 +4499,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4466,12 +4509,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "10bet",
-      "decimal": 1.95,
+      "decimal": 1.93,
       "openingDecimal": 1.909,
-      "deltaPct": 2.15,
+      "deltaPct": 1.1,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4481,12 +4524,12 @@
       "outcome": "HOME",
       "line": -0.5,
       "book": "vistabet",
-      "decimal": 1.95,
+      "decimal": 1.93,
       "openingDecimal": 1.93,
-      "deltaPct": 1.04,
-      "movement": "drifting",
-      "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0,
+      "movement": "stable",
+      "movementSignal": "STABLE",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4501,7 +4544,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4511,12 +4554,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "unibet",
-      "decimal": 1.75,
+      "decimal": 1.78,
       "openingDecimal": 1.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.71,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4526,12 +4569,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "novibet",
-      "decimal": 1.8,
+      "decimal": 1.83,
       "openingDecimal": 1.79,
-      "deltaPct": 0.56,
+      "deltaPct": 2.23,
       "movement": "drifting",
       "movementSignal": "DRIFTING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4541,12 +4584,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "bwin",
-      "decimal": 1.73,
+      "decimal": 1.77,
       "openingDecimal": 1.75,
-      "deltaPct": -1.14,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.14,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4556,12 +4599,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "sportingbet",
-      "decimal": 1.73,
+      "decimal": 1.77,
       "openingDecimal": 1.75,
-      "deltaPct": -1.14,
-      "movement": "shortening",
-      "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.14,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4571,12 +4614,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "888sport",
-      "decimal": 1.727,
+      "decimal": 1.8,
       "openingDecimal": 1.727,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 4.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4586,12 +4629,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "william-hill",
-      "decimal": 1.727,
+      "decimal": 1.8,
       "openingDecimal": 1.727,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 4.23,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4601,12 +4644,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "bet365",
-      "decimal": 1.8,
+      "decimal": 1.85,
       "openingDecimal": 1.8,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 2.78,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4616,12 +4659,12 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "betsson",
-      "decimal": 1.76,
+      "decimal": 1.77,
       "openingDecimal": 1.76,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 0.57,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4636,7 +4679,7 @@
       "deltaPct": -1.8,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4646,27 +4689,27 @@
       "outcome": "AWAY",
       "line": -0.5,
       "book": "vistabet",
-      "decimal": 1.73,
+      "decimal": 1.77,
       "openingDecimal": 1.75,
-      "deltaPct": -1.14,
+      "deltaPct": 1.14,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
+    },
+    {
+      "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
+      "homeName": "Atlético Goianiense",
+      "awayName": "Vila Nova FC",
+      "market": "asian_handicap",
+      "outcome": "HOME",
+      "line": 0,
+      "book": "1xbet",
+      "decimal": 1.33,
+      "openingDecimal": 1.39,
+      "deltaPct": -4.32,
       "movement": "shortening",
       "movementSignal": "SHORTENING",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
-    },
-    {
-      "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
-      "homeName": "Atlético Goianiense",
-      "awayName": "Vila Nova FC",
-      "market": "asian_handicap",
-      "outcome": "HOME",
-      "line": 0,
-      "book": "1xbet",
-      "decimal": 1.39,
-      "openingDecimal": 1.39,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4676,12 +4719,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "interwetten",
-      "decimal": 1.45,
+      "decimal": 1.43,
       "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -1.38,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4691,12 +4734,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "novibet",
-      "decimal": 1.47,
+      "decimal": 1.41,
       "openingDecimal": 1.47,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -4.08,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4706,12 +4749,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "bet365",
-      "decimal": 1.425,
+      "decimal": 1.4,
       "openingDecimal": 1.425,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -1.75,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4721,12 +4764,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "betsson",
-      "decimal": 1.45,
+      "decimal": 1.42,
       "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.07,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4736,12 +4779,12 @@
       "outcome": "HOME",
       "line": 0,
       "book": "fonbet",
-      "decimal": 1.45,
+      "decimal": 1.38,
       "openingDecimal": 1.45,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -4.83,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4751,12 +4794,12 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "1xbet",
-      "decimal": 2.59,
+      "decimal": 2.83,
       "openingDecimal": 2.59,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 9.27,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4766,12 +4809,12 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "interwetten",
-      "decimal": 2.55,
+      "decimal": 2.65,
       "openingDecimal": 2.55,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.92,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4781,12 +4824,12 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "novibet",
-      "decimal": 2.7,
+      "decimal": 2.9,
       "openingDecimal": 2.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 7.41,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4796,12 +4839,12 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "bet365",
-      "decimal": 2.75,
+      "decimal": 2.85,
       "openingDecimal": 2.75,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.64,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4811,12 +4854,12 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "betsson",
-      "decimal": 2.6,
+      "decimal": 2.7,
       "openingDecimal": 2.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.85,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4826,12 +4869,12 @@
       "outcome": "AWAY",
       "line": 0,
       "book": "fonbet",
-      "decimal": 2.6,
+      "decimal": 2.8,
       "openingDecimal": 2.6,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 7.69,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4846,7 +4889,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4856,12 +4899,12 @@
       "outcome": "HOME",
       "line": 0.5,
       "book": "novibet",
-      "decimal": 1.28,
+      "decimal": 1.27,
       "openingDecimal": 1.28,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -0.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4871,12 +4914,12 @@
       "outcome": "HOME",
       "line": 0.5,
       "book": "bet365",
-      "decimal": 1.26,
+      "decimal": 1.24,
       "openingDecimal": 1.26,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -1.59,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4891,7 +4934,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4901,12 +4944,12 @@
       "outcome": "AWAY",
       "line": 0.5,
       "book": "novibet",
-      "decimal": 3.65,
+      "decimal": 3.75,
       "openingDecimal": 3.65,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 2.74,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4916,12 +4959,12 @@
       "outcome": "AWAY",
       "line": 0.5,
       "book": "bet365",
-      "decimal": 3.7,
+      "decimal": 3.9,
       "openingDecimal": 3.7,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 5.41,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4936,7 +4979,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4946,12 +4989,12 @@
       "outcome": "HOME",
       "line": -2,
       "book": "fonbet",
-      "decimal": 7.2,
+      "decimal": 7,
       "openingDecimal": 7.2,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -2.78,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4966,7 +5009,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4981,7 +5024,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -4991,12 +5034,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "1xbet",
-      "decimal": 2.92,
+      "decimal": 2.75,
       "openingDecimal": 2.92,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -5.82,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5006,12 +5049,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "interwetten",
-      "decimal": 2.95,
+      "decimal": 2.85,
       "openingDecimal": 2.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -3.39,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5021,12 +5064,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "novibet",
-      "decimal": 3.1,
+      "decimal": 2.9,
       "openingDecimal": 3.1,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -6.45,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5036,12 +5079,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "bet365",
-      "decimal": 3,
+      "decimal": 2.75,
       "openingDecimal": 3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -8.33,
+      "movement": "shortening",
+      "movementSignal": "STEAM",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5051,12 +5094,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "betsson",
-      "decimal": 3,
+      "decimal": 2.9,
       "openingDecimal": 3,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -3.33,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5066,12 +5109,12 @@
       "outcome": "HOME",
       "line": -1,
       "book": "fonbet",
-      "decimal": 2.95,
+      "decimal": 2.85,
       "openingDecimal": 2.95,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": -3.39,
+      "movement": "shortening",
+      "movementSignal": "SHORTENING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5081,12 +5124,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "1xbet",
-      "decimal": 1.36,
+      "decimal": 1.4,
       "openingDecimal": 1.36,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 2.94,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5096,12 +5139,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "interwetten",
-      "decimal": 1.35,
+      "decimal": 1.37,
       "openingDecimal": 1.35,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.48,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5111,12 +5154,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "novibet",
-      "decimal": 1.37,
+      "decimal": 1.42,
       "openingDecimal": 1.37,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.65,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5126,12 +5169,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "bet365",
-      "decimal": 1.375,
+      "decimal": 1.425,
       "openingDecimal": 1.375,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.64,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5141,12 +5184,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "betsson",
-      "decimal": 1.36,
+      "decimal": 1.38,
       "openingDecimal": 1.36,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 1.47,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5156,12 +5199,12 @@
       "outcome": "AWAY",
       "line": -1,
       "book": "fonbet",
-      "decimal": 1.33,
+      "decimal": 1.37,
       "openingDecimal": 1.33,
-      "deltaPct": 0,
-      "movement": "stable",
-      "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "deltaPct": 3.01,
+      "movement": "drifting",
+      "movementSignal": "DRIFTING",
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5176,7 +5219,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5191,7 +5234,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T14:21:53Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5206,7 +5249,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T17:21:13Z"
     },
     {
       "gameId": "brasileirao-b-2026-11-22-atletico-goian-vila-nova-ah34ah",
@@ -5221,7 +5264,7 @@
       "deltaPct": 0,
       "movement": "stable",
       "movementSignal": "STABLE",
-      "capturedAtUtc": "2026-11-22T11:21:41Z"
+      "capturedAtUtc": "2026-11-22T14:21:53Z"
     }
   ]
 }

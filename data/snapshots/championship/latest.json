@@ -5,7 +5,7 @@
   "season": "championship-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 15",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,19 +18,19 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.1875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.5802185105807,
-      "adjustedAgainst": 1.1666703953351412
+      "adjustedFor": 1.5799063820385097,
+      "adjustedAgainst": 1.1665898614914554
     },
     "championship.blackburn-rovers": {
       "teamId": "championship.blackburn-rovers",
       "name": "Blackburn Rovers",
       "shortName": "Blackburn Rovers",
       "code": "BLA",
-      "forPerGame": 1.4666666666666666,
-      "againstPerGame": 1.5333333333333334,
-      "gamesPlayed": 15,
-      "adjustedFor": 1.4136394265446546,
-      "adjustedAgainst": 1.4089106887734815
+      "forPerGame": 1.5,
+      "againstPerGame": 1.5625,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.4286923792111077,
+      "adjustedAgainst": 1.4360431808590828
     },
     "championship.bolton-wanderers": {
       "teamId": "championship.bolton-wanderers",
@@ -40,8 +40,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2637889971277845,
-      "adjustedAgainst": 1.6732521306660812
+      "adjustedFor": 1.265077891764389,
+      "adjustedAgainst": 1.674717002518627
     },
     "championship.preston-north-end": {
       "teamId": "championship.preston-north-end",
@@ -51,8 +51,8 @@
       "forPerGame": 0.875,
       "againstPerGame": 1.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9693885007319042,
-      "adjustedAgainst": 1.736692907227951
+      "adjustedFor": 0.969259299518799,
+      "adjustedAgainst": 1.7372227953804795
     },
     "championship.stoke-city": {
       "teamId": "championship.stoke-city",
@@ -62,8 +62,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4619323045227053,
-      "adjustedAgainst": 1.1039205378291834
+      "adjustedFor": 1.461841717936708,
+      "adjustedAgainst": 1.1041903462334604
     },
     "championship.swansea-city": {
       "teamId": "championship.swansea-city",
@@ -73,8 +73,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4408872628634681,
-      "adjustedAgainst": 1.2115230746056653
+      "adjustedFor": 1.440287987605858,
+      "adjustedAgainst": 1.211333547557051
     },
     "championship.portsmouth": {
       "teamId": "championship.portsmouth",
@@ -84,8 +84,8 @@
       "forPerGame": 1.3125,
       "againstPerGame": 1.1875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.2417528164204807,
-      "adjustedAgainst": 1.1516593468633771
+      "adjustedFor": 1.2414741006203265,
+      "adjustedAgainst": 1.15147973047761
     },
     "championship.queens-park-rangers": {
       "teamId": "championship.queens-park-rangers",
@@ -95,8 +95,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4156745699024893,
-      "adjustedAgainst": 1.11584967562731
+      "adjustedFor": 1.4156911904579206,
+      "adjustedAgainst": 1.1157256839353868
     },
     "championship.norwich-city": {
       "teamId": "championship.norwich-city",
@@ -106,8 +106,8 @@
       "forPerGame": 2.125,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.9232143358408649,
-      "adjustedAgainst": 1.454664751163468
+      "adjustedFor": 1.9245777545898177,
+      "adjustedAgainst": 1.4551590435845088
     },
     "championship.west-bromwich-albion": {
       "teamId": "championship.west-bromwich-albion",
@@ -117,8 +117,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.0625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4755188946188815,
-      "adjustedAgainst": 1.047222679357001
+      "adjustedFor": 1.4749160447596252,
+      "adjustedAgainst": 1.0470934981043016
     },
     "championship.middlesbrough": {
       "teamId": "championship.middlesbrough",
@@ -128,8 +128,8 @@
       "forPerGame": 2,
       "againstPerGame": 1.1875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.7741215543710376,
-      "adjustedAgainst": 1.17613529302589
+      "adjustedFor": 1.7741680910765714,
+      "adjustedAgainst": 1.1760143319813572
     },
     "championship.lincoln-city": {
       "teamId": "championship.lincoln-city",
@@ -139,8 +139,8 @@
       "forPerGame": 0.9375,
       "againstPerGame": 1.6875,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9920631764680022,
-      "adjustedAgainst": 1.553236394727433
+      "adjustedFor": 0.9918440661622167,
+      "adjustedAgainst": 1.5529744888879051
     },
     "championship.charlton-athletic": {
       "teamId": "championship.charlton-athletic",
@@ -150,8 +150,8 @@
       "forPerGame": 0.875,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 0.904475041585702,
-      "adjustedAgainst": 1.4403726934037704
+      "adjustedFor": 0.9053391419447137,
+      "adjustedAgainst": 1.4409816475213761
     },
     "championship.derby-county": {
       "teamId": "championship.derby-county",
@@ -161,8 +161,8 @@
       "forPerGame": 0.875,
       "againstPerGame": 2,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9626939517674056,
-      "adjustedAgainst": 1.6991712997418842
+      "adjustedFor": 0.9635385170515695,
+      "adjustedAgainst": 1.6997704878202502
     },
     "championship.bristol-city": {
       "teamId": "championship.bristol-city",
@@ -172,8 +172,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0098562369955735,
-      "adjustedAgainst": 1.505800462486936
+      "adjustedFor": 1.0095276325425429,
+      "adjustedAgainst": 1.5054052193848608
     },
     "championship.millwall": {
       "teamId": "championship.millwall",
@@ -183,8 +183,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.366424620705866,
-      "adjustedAgainst": 1.577866189356491
+      "adjustedFor": 1.3665627485876957,
+      "adjustedAgainst": 1.5784018809693825
     },
     "championship.sheffield-united": {
       "teamId": "championship.sheffield-united",
@@ -194,8 +194,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.1875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4557410388940812,
-      "adjustedAgainst": 1.2389223633335436
+      "adjustedFor": 1.4558601019839188,
+      "adjustedAgainst": 1.2393112681531964
     },
     "championship.birmingham-city": {
       "teamId": "championship.birmingham-city",
@@ -205,8 +205,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.6473446832281575,
-      "adjustedAgainst": 0.9516473006683693
+      "adjustedFor": 1.6489419241884835,
+      "adjustedAgainst": 0.9526498674168298
     },
     "championship.watford": {
       "teamId": "championship.watford",
@@ -216,8 +216,8 @@
       "forPerGame": 0.8125,
       "againstPerGame": 1.6875,
       "gamesPlayed": 16,
-      "adjustedFor": 0.876519500170237,
-      "adjustedAgainst": 1.511290194329714
+      "adjustedFor": 0.8773905749674459,
+      "adjustedAgainst": 1.512004186865105
     },
     "championship.southampton": {
       "teamId": "championship.southampton",
@@ -227,19 +227,19 @@
       "forPerGame": 1.9375,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.727614712353834,
-      "adjustedAgainst": 0.9890022109701401
+      "adjustedFor": 1.7291537247411572,
+      "adjustedAgainst": 0.9899509407810729
     },
     "championship.burnley": {
       "teamId": "championship.burnley",
       "name": "Burnley",
       "shortName": "Burnley",
       "code": "BUR",
-      "forPerGame": 1.4666666666666666,
-      "againstPerGame": 2.066666666666667,
-      "gamesPlayed": 15,
-      "adjustedFor": 1.4181580471646111,
-      "adjustedAgainst": 1.849549990262721
+      "forPerGame": 1.5,
+      "againstPerGame": 2.0625,
+      "gamesPlayed": 16,
+      "adjustedFor": 1.4321445615611066,
+      "adjustedAgainst": 1.8525849500646567
     },
     "championship.west-ham-united": {
       "teamId": "championship.west-ham-united",
@@ -249,8 +249,8 @@
       "forPerGame": 2.375,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 2.0293345770871363,
-      "adjustedAgainst": 1.483106665463359
+      "adjustedFor": 2.0290598850293944,
+      "adjustedAgainst": 1.4828036806241545
     },
     "championship.cardiff-city": {
       "teamId": "championship.cardiff-city",
@@ -260,8 +260,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.8125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.6409768760961898,
-      "adjustedAgainst": 1.6194266970533688
+      "adjustedFor": 1.640706837188793,
+      "adjustedAgainst": 1.6189773048566503
     },
     "championship.wrexham": {
       "teamId": "championship.wrexham",
@@ -271,46 +271,11 @@
       "forPerGame": 1.1875,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1686312819697653,
-      "adjustedAgainst": 1.1719738498395893
+      "adjustedFor": 1.1685744863201701,
+      "adjustedAgainst": 1.1719076579227405
     }
   },
   "games": [
-    {
-      "id": "championship-2026-11-07-preston-north--southampton-tu90ur",
-      "league": "championship",
-      "season": "championship-2026-27",
-      "week": 15,
-      "round": "Regular season · Matchday 15",
-      "phase": "Regular season",
-      "startTime": "2026-11-07T15:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "championship.preston-north-end",
-        "league": "championship",
-        "name": "Preston North End",
-        "shortName": "Preston North End",
-        "code": "PRE",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/214/?bg=transparent"
-      },
-      "away": {
-        "id": "championship.southampton",
-        "league": "championship",
-        "name": "Southampton",
-        "shortName": "Southampton",
-        "code": "SOU",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/205/?bg=transparent"
-      },
-      "venue": "Deepdale, Preston",
-      "referee": "Tom Nield",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "championship-2026-11-07-charlton-athle-sheffield-unit-lqq37k",
       "league": "championship",
@@ -342,7 +307,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -377,7 +342,7 @@
       "result": {
         "home": 5,
         "away": 4,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -412,7 +377,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -447,7 +412,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -482,7 +447,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -517,7 +482,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -552,7 +517,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -587,7 +552,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -622,7 +587,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -657,7 +622,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -692,7 +657,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -727,7 +692,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -762,7 +727,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -797,7 +762,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -832,7 +797,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -844,7 +809,7 @@
       "round": "Regular season · Matchday 16",
       "phase": "Regular season",
       "startTime": "2026-11-22T12:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "championship.burnley",
         "league": "championship",
@@ -863,7 +828,13 @@
       },
       "venue": "Turf Moor, Burnley",
       "referee": "Lewis Smith",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 2,
+        "observedAt": "2026-11-22T18:13:11.873Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "championship-2026-11-24-sheffield-unit-southampton-odh6sp",
@@ -1740,460 +1711,37 @@
       },
       "venue": "bet365 Stadium, Stoke",
       "neutralSite": false
+    },
+    {
+      "id": "championship-2026-12-05-portsmouth-west-bromwich--ut4gb3",
+      "league": "championship",
+      "season": "championship-2026-27",
+      "week": 19,
+      "round": "Regular season · Matchday 19",
+      "phase": "Regular season",
+      "startTime": "2026-12-05T15:00:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "championship.portsmouth",
+        "league": "championship",
+        "name": "Portsmouth",
+        "shortName": "Portsmouth",
+        "code": "POR",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/212/?bg=transparent"
+      },
+      "away": {
+        "id": "championship.west-bromwich-albion",
+        "league": "championship",
+        "name": "West Bromwich Albion",
+        "shortName": "West Bromwich Albion",
+        "code": "WES",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/217/?bg=transparent"
+      },
+      "venue": "Fratton Park, Portsmouth",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "championship-2026-11-07-preston-north--southampton-tu90ur": {
-      "game": "championship-2026-11-07-preston-north--southampton-tu90ur",
-      "model": {
-        "id": "pitchlab-statistical-championship",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 0.9456260176867031,
-        "away": 2.375021201651117,
-        "total": 3.32064721933782,
-        "margin": -1.429395183964414
-      },
-      "x12": [
-        0.13343686154100323,
-        0.17514391889108483,
-        0.6914192195679124
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Preston North End gana",
-          "p": 0.13343686154100323,
-          "fairOdds": 7.494181056504498
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.17514391889108483,
-          "fairOdds": 5.709590183498526
-        },
-        {
-          "market": "h2h",
-          "selection": "Southampton gana",
-          "p": 0.6914192195679124,
-          "fairOdds": 1.4463005535555238
-        },
-        {
-          "market": "double_chance",
-          "selection": "Preston North End o empate",
-          "p": 0.30858078043208803,
-          "fairOdds": 3.2406425267307872
-        },
-        {
-          "market": "double_chance",
-          "selection": "Southampton o empate",
-          "p": 0.8665631384589972,
-          "fairOdds": 1.153984003725675
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8248560811089156,
-          "fairOdds": 1.2123327000943307
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8434855800319672,
-          "fairOdds": 1.1855567228097736
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.6446892784070088,
-          "fairOdds": 1.5511348388962571
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.35531072159299115,
-          "fairOdds": 2.8144380094037835
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.4241960562753937,
-          "fairOdds": 2.3574005114059493
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5758039437246063,
-          "fairOdds": 1.7367022419670624
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5542726347478629,
-          "fairOdds": 1.8041662844403228
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4457273652521371,
-          "fairOdds": 2.243523907118255
-        },
-        {
-          "market": "team_totals",
-          "selection": "Preston North End más de 1.5",
-          "line": 1.5,
-          "p": 0.2442481721244737,
-          "fairOdds": 4.0941964531484
-        },
-        {
-          "market": "team_totals",
-          "selection": "Preston North End menos de 1.5",
-          "line": 1.5,
-          "p": 0.7557518278755263,
-          "fairOdds": 1.3231856849239427
-        },
-        {
-          "market": "team_totals",
-          "selection": "Southampton más de 1.5",
-          "line": 1.5,
-          "p": 0.6860684668854569,
-          "fairOdds": 1.457580472310143
-        },
-        {
-          "market": "team_totals",
-          "selection": "Southampton menos de 1.5",
-          "line": 1.5,
-          "p": 0.31393153311454314,
-          "fairOdds": 3.1854079457355224
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–2",
-          "p": 0.10190213020093407,
-          "fairOdds": 9.81333754287733
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.0963613055757012,
-          "fairOdds": 10.377609498185997
-        },
-        {
-          "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.08621728231953059,
-          "fairOdds": 11.598602659428439
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Preston North End gana",
-              "p": 0.13343686154100323,
-              "fairOdds": 7.494181056504498
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.17514391889108483,
-              "fairOdds": 5.709590183498526
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Southampton gana",
-              "p": 0.6914192195679124,
-              "fairOdds": 1.4463005535555238
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Preston North End o empate",
-              "p": 0.30858078043208803,
-              "fairOdds": 3.2406425267307872
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Southampton o empate",
-              "p": 0.8665631384589972,
-              "fairOdds": 1.153984003725675
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8248560811089156,
-              "fairOdds": 1.2123327000943307
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8434855800319672,
-              "fairOdds": 1.1855567228097736
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.6446892784070088,
-              "fairOdds": 1.5511348388962571
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.35531072159299115,
-              "fairOdds": 2.8144380094037835
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.4241960562753937,
-              "fairOdds": 2.3574005114059493
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5758039437246063,
-              "fairOdds": 1.7367022419670624
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5542726347478629,
-              "fairOdds": 1.8041662844403228
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4457273652521371,
-              "fairOdds": 2.243523907118255
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Preston North End más de 1.5",
-              "line": 1.5,
-              "p": 0.2442481721244737,
-              "fairOdds": 4.0941964531484
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Preston North End menos de 1.5",
-              "line": 1.5,
-              "p": 0.7557518278755263,
-              "fairOdds": 1.3231856849239427
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Southampton más de 1.5",
-              "line": 1.5,
-              "p": 0.6860684668854569,
-              "fairOdds": 1.457580472310143
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Southampton menos de 1.5",
-              "line": 1.5,
-              "p": 0.31393153311454314,
-              "fairOdds": 3.1854079457355224
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "0-2",
-              "label": "0–2",
-              "p": 0.10190213020093407,
-              "fairOdds": 9.81333754287733
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.0963613055757012,
-              "fairOdds": 10.377609498185997
-            },
-            {
-              "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.08621728231953059,
-              "fairOdds": 11.598602659428439
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 0,
-        "away": 2,
-        "p": 0.10190213020093407
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.73 goles/partido",
-          "detail": "29 % menos que la media · 15 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.03 concedidos/partido",
-          "detail": "25 % menos que la media · 15 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "2.38 goles/partido",
-          "detail": "29 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.84 concedidos/partido",
-          "detail": "35 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.29",
-          "detail": "estimada de 180 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.5–4.8",
-          "detail": "local 3%–29% · 180 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "24.º · 8 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "4.º · 28 pts",
-          "detail": "de 24 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-E-P-P · 1 pts",
-          "detail": "4 goles a favor · 14 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-E-G-G-E · 11 pts",
-          "detail": "9 goles a favor · 4 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando EFL Championship · corte 7 nov 2026, 08:00",
-        "Fuerza ajustada por rival · PRE 0.71 / 1.35 · SOU 1.29 / 0.75",
-        "Ponderando 162.9 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 0.95 – 2.38 · total 3.32",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-07T14:00:00.000Z",
-      "publishedAt": "2026-11-07T14:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.0963613055757012
-      },
-      "insights": {
-        "why": [
-          "Southampton gana en 69% de los escenarios; el empate, en 18%.",
-          "Preston North End anota 29 % menos que la media.",
-          "Preston North End concede 35 % más que la media."
-        ],
-        "restDays": {
-          "home": 4,
-          "away": 4
-        }
-      },
-      "matchContext": {
-        "referee": "Tom Nield",
-        "refereeStats": {
-          "country": "England",
-          "matches": 59,
-          "avgYellow": 3.71,
-          "avgRed": 0.08,
-          "avgFouls": 22.8,
-          "avgGoals": 2.71
-        },
-        "weather": {
-          "description": "clear",
-          "temperatureC": 9,
-          "windSpeedKmh": 22
-        },
-        "travelDistanceKm": 400,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Preston",
-        "venueCountry": "England",
-        "venueCapacity": 23408
-      }
-    },
     "championship-2026-11-07-charlton-athle-sheffield-unit-lqq37k": {
       "game": "championship-2026-11-07-charlton-athle-sheffield-unit-lqq37k",
       "model": {
@@ -9809,14 +9357,14 @@
         "referee": "Lewis Smith",
         "refereeStats": {
           "country": "England",
-          "matches": 75,
-          "avgYellow": 3.55,
+          "matches": 76,
+          "avgYellow": 3.59,
           "avgRed": 0.07,
-          "avgFouls": 20.6,
-          "avgGoals": 2.57
+          "avgFouls": 20.9,
+          "avgGoals": 2.59
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 4,
           "windSpeedKmh": 66
         },
@@ -24577,6 +24125,479 @@
         "venueCountry": "England",
         "venueCapacity": 30089
       }
+    },
+    "championship-2026-12-05-portsmouth-west-bromwich--ut4gb3": {
+      "game": "championship-2026-12-05-portsmouth-west-bromwich--ut4gb3",
+      "model": {
+        "id": "pitchlab-statistical-championship",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.2546658254455425,
+        "away": 1.2618146243957524,
+        "total": 2.516480449841295,
+        "margin": -0.0071487989502099225
+      },
+      "x12": [
+        0.365716372214901,
+        0.26516962432600955,
+        0.36911400345908907
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Portsmouth gana",
+          "p": 0.365716372214901,
+          "fairOdds": 2.7343593997273477
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.26516962432600955,
+          "fairOdds": 3.7711710100345517
+        },
+        {
+          "market": "h2h",
+          "selection": "West Bromwich Albion gana",
+          "p": 0.36911400345908907,
+          "fairOdds": 2.7091900893183953
+        },
+        {
+          "market": "double_chance",
+          "selection": "Portsmouth o empate",
+          "p": 0.6308859965409106,
+          "fairOdds": 1.5850724306497643
+        },
+        {
+          "market": "double_chance",
+          "selection": "West Bromwich Albion o empate",
+          "p": 0.6342836277850986,
+          "fairOdds": 1.5765817627864258
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.73483037567399,
+          "fairOdds": 1.3608582784602434
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7141503140069565,
+          "fairOdds": 1.4002654348623014
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.46040724927542787,
+          "fairOdds": 2.171990127379105
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.5395927507245721,
+          "fairOdds": 1.8532495083693898
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.2459523633847256,
+          "fairOdds": 4.0658279767605725
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.7540476366152744,
+          "fairOdds": 1.3261761610827962
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5105149115840066,
+          "fairOdds": 1.9588066426840252
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.48948508841599336,
+          "fairOdds": 2.042963153864538
+        },
+        {
+          "market": "team_totals",
+          "selection": "Portsmouth más de 1.5",
+          "line": 1.5,
+          "p": 0.35703433834871756,
+          "fairOdds": 2.8008510459385954
+        },
+        {
+          "market": "team_totals",
+          "selection": "Portsmouth menos de 1.5",
+          "line": 1.5,
+          "p": 0.6429656616512824,
+          "fairOdds": 1.5552930111878323
+        },
+        {
+          "market": "team_totals",
+          "selection": "West Bromwich Albion más de 1.5",
+          "line": 1.5,
+          "p": 0.35959026715555453,
+          "fairOdds": 2.7809428990118126
+        },
+        {
+          "market": "team_totals",
+          "selection": "West Bromwich Albion menos de 1.5",
+          "line": 1.5,
+          "p": 0.6404097328444455,
+          "fairOdds": 1.5615003156782103
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.12591178161320646,
+          "fairOdds": 7.942068543450055
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.10380051929077551,
+          "fairOdds": 9.633863171712163
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.10322330164853326,
+          "fairOdds": 9.687735075602568
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Portsmouth gana",
+              "p": 0.365716372214901,
+              "fairOdds": 2.7343593997273477
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.26516962432600955,
+              "fairOdds": 3.7711710100345517
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "West Bromwich Albion gana",
+              "p": 0.36911400345908907,
+              "fairOdds": 2.7091900893183953
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Portsmouth o empate",
+              "p": 0.6308859965409106,
+              "fairOdds": 1.5850724306497643
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "West Bromwich Albion o empate",
+              "p": 0.6342836277850986,
+              "fairOdds": 1.5765817627864258
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.73483037567399,
+              "fairOdds": 1.3608582784602434
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7141503140069565,
+              "fairOdds": 1.4002654348623014
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.46040724927542787,
+              "fairOdds": 2.171990127379105
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.5395927507245721,
+              "fairOdds": 1.8532495083693898
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.2459523633847256,
+              "fairOdds": 4.0658279767605725
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.7540476366152744,
+              "fairOdds": 1.3261761610827962
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5105149115840066,
+              "fairOdds": 1.9588066426840252
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.48948508841599336,
+              "fairOdds": 2.042963153864538
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Portsmouth más de 1.5",
+              "line": 1.5,
+              "p": 0.35703433834871756,
+              "fairOdds": 2.8008510459385954
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Portsmouth menos de 1.5",
+              "line": 1.5,
+              "p": 0.6429656616512824,
+              "fairOdds": 1.5552930111878323
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "West Bromwich Albion más de 1.5",
+              "line": 1.5,
+              "p": 0.35959026715555453,
+              "fairOdds": 2.7809428990118126
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "West Bromwich Albion menos de 1.5",
+              "line": 1.5,
+              "p": 0.6404097328444455,
+              "fairOdds": 1.5615003156782103
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.12591178161320646,
+              "fairOdds": 7.942068543450055
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.10380051929077551,
+              "fairOdds": 9.633863171712163
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.10322330164853326,
+              "fairOdds": 9.687735075602568
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.12591178161320646
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.97 goles/partido",
+          "detail": "8 % menos que la media · 16 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.05 concedidos/partido",
+          "detail": "22 % menos que la media · 16 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.26 goles/partido",
+          "detail": "10 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.15 concedidos/partido",
+          "detail": "14 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 192 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 1.8–3.6",
+          "detail": "local 20%–57% · 192 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "12.º · 23 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "6.º · 29 pts",
+          "detail": "de 24 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-E-G-P-E · 8 pts",
+          "detail": "7 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-G-E-G-E · 9 pts",
+          "detail": "10 goles a favor · 5 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando EFL Championship · corte 22 nov 2026, 18:13",
+        "Fuerza ajustada por rival · POR 0.92 / 0.86 · WES 1.10 / 0.78",
+        "Ponderando 174.0 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.25 – 1.26 · total 2.52",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 0–1"
+      ],
+      "inputsAsOf": "2026-11-22T18:13:11.873Z",
+      "publishedAt": "2026-11-22T18:13:11.873Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "totals",
+          "selection": "under_3.5",
+          "label": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.7540476366152744,
+          "fairOdds": 1.3261761610827962
+        },
+        {
+          "profile": "intermedia",
+          "market": "team_totals",
+          "selection": "home_under",
+          "label": "Portsmouth menos de 1.5",
+          "line": 1.5,
+          "p": 0.6429656616512824,
+          "fairOdds": 1.5552930111878323
+        },
+        {
+          "profile": "arriesgada",
+          "market": "btts",
+          "selection": "yes",
+          "label": "Ambos anotan: Sí",
+          "p": 0.5105149115840066,
+          "fairOdds": 1.9588066426840252
+        }
+      ],
+      "confidence": {
+        "score": 34,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 0,
+        "away": 1,
+        "p": 0.10380051929077551
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.5 goles: 1.3 de Portsmouth y 1.3 de West Bromwich Albion.",
+          "West Bromwich Albion concede 22 % menos que la media.",
+          "Portsmouth concede 14 % menos que la media."
+        ],
+        "restDays": {
+          "home": 14,
+          "away": 14
+        }
+      },
+      "picksAt": "2026-11-22T18:13:11.873Z",
+      "matchContext": {
+        "weather": {
+          "temperatureC": 9,
+          "windSpeedKmh": 60
+        },
+        "stageName": "Regular season",
+        "venueCity": "Portsmouth",
+        "venueCountry": "England",
+        "venueCapacity": 20688
+      }
     }
   },
   "standings": [
@@ -24825,19 +24846,19 @@
       "name": "Blackburn Rovers",
       "shortName": "Blackburn Rovers",
       "code": "BLA",
-      "played": 15,
+      "played": 16,
       "won": 6,
-      "drawn": 3,
+      "drawn": 4,
       "lost": 6,
-      "goalsFor": 22,
-      "goalsAgainst": 23,
-      "points": 21,
+      "goalsFor": 24,
+      "goalsAgainst": 25,
+      "points": 22,
       "form": [
-        "L",
         "W",
         "L",
         "L",
-        "W"
+        "W",
+        "D"
       ]
     },
     {
@@ -25005,19 +25026,19 @@
       "name": "Burnley",
       "shortName": "Burnley",
       "code": "BUR",
-      "played": 15,
+      "played": 16,
       "won": 1,
-      "drawn": 7,
+      "drawn": 8,
       "lost": 7,
-      "goalsFor": 22,
-      "goalsAgainst": 31,
-      "points": 10,
+      "goalsFor": 24,
+      "goalsAgainst": 33,
+      "points": 11,
       "form": [
         "L",
+        "D",
+        "D",
         "L",
-        "D",
-        "D",
-        "L"
+        "D"
       ]
     },
     {

@@ -5,7 +5,7 @@
   "season": "coppa-italia-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Round of 64",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -494,7 +494,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -529,7 +529,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -564,7 +564,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -599,7 +599,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -634,7 +634,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -669,7 +669,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -704,7 +704,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -739,7 +739,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -774,7 +774,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -809,7 +809,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -844,7 +844,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -879,7 +879,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -914,7 +914,7 @@
       "result": {
         "home": 5,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -949,7 +949,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -984,7 +984,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -1019,7 +1019,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T12:45:51.462Z",
+        "observedAt": "2026-11-22T18:13:11.873Z",
         "source": "pitchlab-feed"
       }
     },
@@ -3252,11 +3252,11 @@
         "referee": "Daniele Perenzoni",
         "refereeStats": {
           "country": "Italy",
-          "matches": 39,
-          "avgYellow": 1.13,
-          "avgRed": 0.08,
-          "avgFouls": 27.2,
-          "avgGoals": 2.13
+          "matches": 40,
+          "avgYellow": 1.23,
+          "avgRed": 0.1,
+          "avgFouls": 27,
+          "avgGoals": 2.12
         },
         "halfTimeScore": {
           "home": 1,
@@ -3547,11 +3547,11 @@
         "referee": "Alberto Ruben Arena",
         "refereeStats": {
           "country": "Italy",
-          "matches": 37,
-          "avgYellow": 1.62,
+          "matches": 38,
+          "avgYellow": 1.58,
           "avgRed": 0.05,
           "avgFouls": 22.5,
-          "avgGoals": 2.7
+          "avgGoals": 2.74
         },
         "halfTimeScore": {
           "home": 2,
@@ -4141,11 +4141,11 @@
         "referee": "Daniele Perenzoni",
         "refereeStats": {
           "country": "Italy",
-          "matches": 39,
-          "avgYellow": 1.13,
-          "avgRed": 0.08,
-          "avgFouls": 27.2,
-          "avgGoals": 2.13
+          "matches": 40,
+          "avgYellow": 1.23,
+          "avgRed": 0.1,
+          "avgFouls": 27,
+          "avgGoals": 2.12
         },
         "weather": {
           "description": "cloudy"
@@ -5948,11 +5948,11 @@
         "referee": "Livio Marinelli",
         "refereeStats": {
           "country": "Italy",
-          "matches": 46,
-          "avgYellow": 2.2,
+          "matches": 47,
+          "avgYellow": 2.23,
           "avgRed": 0.09,
-          "avgFouls": 26,
-          "avgGoals": 2.48
+          "avgFouls": 25.9,
+          "avgGoals": 2.47
         },
         "weather": {
           "description": "cloudy",

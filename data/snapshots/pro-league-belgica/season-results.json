@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "pro-league-belgica",
   "season": "2026/27",
-  "updatedAt": "2026-11-22T12:45:51.462Z",
+  "updatedAt": "2026-11-22T18:13:11.873Z",
   "matches": [
     {
       "id": "pro-league-belgica-2026-08-07-brugge-kv-kv-kortrijk-n6m4ea",
@@ -1146,6 +1146,28 @@
       "awayTeam": "pro-league-belgica.brugge-kv",
       "homeScore": 1,
       "awayScore": 5,
+      "neutralSite": false
+    },
+    {
+      "id": "pro-league-belgica-2026-11-22-beveren-kaa-gent-juy3c9",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T12:30:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "pro-league-belgica.beveren",
+      "awayTeam": "pro-league-belgica.kaa-gent",
+      "homeScore": 1,
+      "awayScore": 0,
+      "neutralSite": false
+    },
+    {
+      "id": "pro-league-belgica-2026-11-22-kv-kortrijk-royale-union-s-kvyfd0",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T15:00:00.000Z",
+      "round": "Regular season · Matchday 12",
+      "homeTeam": "pro-league-belgica.kv-kortrijk",
+      "awayTeam": "pro-league-belgica.royale-union-saint-gilloise",
+      "homeScore": 0,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

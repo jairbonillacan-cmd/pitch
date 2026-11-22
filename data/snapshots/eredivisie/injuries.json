@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "league": "eredivisie",
-  "observedAt": "2026-11-22T12:45:51.462Z",
+  "observedAt": "2026-11-22T18:13:11.873Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
     {
-      "teamId": "eredivisie.groningen",
-      "player": "Travis Hernes",
+      "teamId": "eredivisie.ado-den-haag",
+      "player": "Álex Pozo",
       "position": "M",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
       "teamId": "eredivisie.sparta-rotterdam",
@@ -21,34 +21,124 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
-      "teamId": "eredivisie.willem-ii-tilburg",
-      "player": "Justin Hoogma",
+      "teamId": "eredivisie.sparta-rotterdam",
+      "player": "Nick Verschuren",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.sparta-rotterdam",
+      "player": "Teo Quintero",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.go-ahead-eagles",
+      "player": "Nick Marsman",
+      "position": "G",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.heerenveen",
+      "player": "Hristiyan Petrov",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.feyenoord",
+      "player": "Anis Hadj Moussa",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Ankle Injury",
+      "injuryType": "Ankle Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.feyenoord",
+      "player": "Jakub Moder",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.feyenoord",
+      "player": "Jeremiah St. Juste",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.feyenoord",
+      "player": "Jordan Bos",
       "position": "D",
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
-      "teamId": "eredivisie.pec-zwolle",
-      "player": "Sherel Constancio Floranus",
+      "teamId": "eredivisie.ajax",
+      "player": "Anton Gaaei",
       "position": "D",
       "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     },
     {
-      "teamId": "eredivisie.telstar",
-      "player": "Rui Mendes",
+      "teamId": "eredivisie.ajax",
+      "player": "Julian Brandt",
       "position": "F",
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T12:45:51.462Z"
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.ajax",
+      "player": "Kasper Dolberg",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Knee Injury",
+      "injuryType": "Knee Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.ajax",
+      "player": "Sofyan Amrabat",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Groin Injury",
+      "injuryType": "Groin Injury",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
+    },
+    {
+      "teamId": "eredivisie.ajax",
+      "player": "Viktor Tsygankov",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Unknown",
+      "injuryType": "Unknown",
+      "reportedAt": "2026-11-22T18:13:11.873Z"
     }
   ]
 }
