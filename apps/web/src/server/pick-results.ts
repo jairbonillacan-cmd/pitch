@@ -108,7 +108,7 @@ export async function settleAndNotify(
 
   const pushTitle =
     pick.status === "won"
-      ? "Pick ganado en tu bitácora"
+      ? "Pick ganado en tu récord"
       : pick.status === "lost"
         ? "Pick calificado como perdido"
         : "Pick calificado como nulo (push)";

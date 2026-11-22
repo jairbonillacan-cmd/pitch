@@ -1,14 +1,11 @@
 import { Cta, Eyebrow, Facts, greeting, P, Title } from "../components";
 import { EmailLayout } from "../layout";
 
-/* 20 · Tu plan se renueva --------------------------------------------------------------- */
-
 export interface RenewalReminderProps {
   name?: string;
   planName: string;
   daysLeft: number;
   renewsOn: string;
-  /** Ya con IVA. */
   amountLabel: string;
   cardLast4?: string;
   paymentMode?: "transfer" | "stripe";
@@ -60,8 +57,6 @@ export function RenewalReminderEmail({
   );
 }
 
-/* 21 · Acceso en pausa o vencido -------------------------------------------------------- */
-
 export interface AccessExpiredProps {
   name?: string;
   planName: string;
@@ -94,8 +89,8 @@ export function AccessExpiredEmail({
       <P>
         {greeting(name)}{" "}
         {isTransfer
-          ? `Terminó el periodo de tu ${planName}. Tu bitácora, historial y preferencias siguen guardados; cuando quieras reactiva tu pase por transferencia SPEI o con un cupón.`
-          : `No pudimos cobrar tu plan ${planName} y terminó el plazo de gracia. Tu bitácora y tu historial siguen contigo.`}
+          ? `Terminó el periodo de tu ${planName}. Tu récord, historial y preferencias siguen guardados; cuando quieras reactiva tu pase por transferencia SPEI o con un cupón.`
+          : `No pudimos cobrar tu plan ${planName} y terminó el plazo de gracia. Tu récord y tu historial siguen contigo.`}
       </P>
       <Cta href={updateCardUrl}>{isTransfer ? "Activar mi pase" : "Reactivar mi plan"}</Cta>
     </EmailLayout>

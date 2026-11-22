@@ -2,12 +2,9 @@ import { siteUrl } from "../brand";
 import { Cta, Eyebrow, Facts, FallbackLink, greeting, Notice, P, Stat, Title } from "../components";
 import { EmailLayout } from "../layout";
 
-/* 8 · Pago confirmado ------------------------------------------------------------------- */
-
 export interface PaymentReceiptProps {
   name?: string;
   planName: string;
-  /** Ya con IVA: «$299.00 MXN». */
   amountLabel: string;
   paidOn: string;
   periodLabel: string;
@@ -51,13 +48,10 @@ export function PaymentReceiptEmail({
   );
 }
 
-/* 9 · Falló el pago --------------------------------------------------------------------- */
-
 export interface PaymentFailedProps {
   name?: string;
   planName: string;
   amountLabel: string;
-  /** Fin de la gracia (72 h). */
   graceUntil: string;
   updateCardUrl: string;
 }
@@ -81,14 +75,11 @@ export function PaymentFailedEmail({ name, planName, amountLabel, graceUntil, up
   );
 }
 
-/* 10 · Factura CFDI --------------------------------------------------------------------- */
-
 export interface CfdiInvoiceProps {
   name?: string;
   folio: string;
   amountLabel: string;
   issuedOn: string;
-  /** Razón social con la que se emitió. */
   legalName: string;
   downloadUrl?: string;
 }
@@ -115,14 +106,11 @@ export function CfdiInvoiceEmail({ name, folio, amountLabel, issuedOn, legalName
   );
 }
 
-/* 11 · Reembolso o contracargo ---------------------------------------------------------- */
-
 export interface RefundProps {
   name?: string;
   kind: "refund" | "dispute";
   amountLabel: string;
   happenedOn: string;
-  /** El reembolso tarda en verse en el estado de cuenta. */
   arrivalNote?: string;
 }
 
@@ -158,8 +146,6 @@ export function RefundEmail({ name, kind, amountLabel, happenedOn, arrivalNote }
   );
 }
 
-/* 12 · Suscripción cancelada ------------------------------------------------------------ */
-
 export interface SubscriptionCanceledProps {
   name?: string;
   planName: string;
@@ -181,15 +167,13 @@ export function SubscriptionCanceledEmail({
       <Title>Cancelaste tu plan</Title>
       <P>
         {greeting(name)} Tu plan {planName} no se renovará. Conservas todo el acceso hasta el {accessUntil}; después tu
-        cuenta pasa a Free y tu bitácora se queda contigo.
+        cuenta pasa a Free y tu récord se queda contigo.
       </P>
       <P>Si cambias de opinión, puedes reactivarlo antes de esa fecha sin perder nada.</P>
       <Cta href={resumeUrl}>Reactivar mi plan</Cta>
     </EmailLayout>
   );
 }
-
-/* 13 · Pago de comisión Tipster --------------------------------------------------------- */
 
 export interface TipsterPayoutProps {
   name?: string;
@@ -232,8 +216,6 @@ export function TipsterPayoutEmail({
   );
 }
 
-/* 13b · Transferencia rechazada --------------------------------------------------------- */
-
 export interface TransferRejectedProps {
   name?: string;
   planName: string;
@@ -272,8 +254,6 @@ export function TransferRejectedEmail({
     </EmailLayout>
   );
 }
-
-/* 13c · Cupón emitido al confirmar transferencia SPEI ----------------------------------- */
 
 export interface TransferCouponProps {
   name?: string;

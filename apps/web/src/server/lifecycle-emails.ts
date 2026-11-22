@@ -1,7 +1,3 @@
-/**
- * Despacho idempotente de correos de ciclo de vida, resumen semanal, récord mensual
- * y enlaces firmados para darse de baja en un solo clic.
- */
 import { createHmac, timingSafeEqual } from "node:crypto";
 import {
   applyEmailUnsubscribe,
@@ -67,7 +63,6 @@ function hmacSign(encodedPayload: string, secret: string): string {
   return createHmac("sha256", secret).update(encodedPayload).digest("base64url");
 }
 
-/** Firma un token temporal HMAC-SHA256 para darse de baja en un clic sin exigir sesión. */
 export function signUnsubscribeToken(
   userId: string,
   scope: UnsubscribeScope,
@@ -85,7 +80,6 @@ export function signUnsubscribeToken(
   return `${encoded}.${hmacSign(encoded, secret)}`;
 }
 
-/** Verifica firma en tiempo constante y expiración del token de baja. */
 export function verifyUnsubscribeToken(
   token: string,
   now: Date = new Date(),
@@ -173,7 +167,6 @@ async function sendClaimedLifecycleEmail<T extends EmailTemplateId>(
   }
 }
 
-/** Avisa al socio anfitrión cuando su referido completa el registro o empieza su prueba. */
 export async function sendReferralSignedUpEmail(
   db: Db,
   mailer: Mailer,
@@ -198,7 +191,6 @@ export async function sendReferralSignedUpEmail(
   });
 }
 
-/** Avisa al nuevo Tipster Oficial su código promocional, enlace y comisión. */
 export async function sendTipsterActivatedEmail(
   db: Db,
   mailer: Mailer,
@@ -231,7 +223,6 @@ export async function sendTipsterActivatedEmail(
   });
 }
 
-/** Notifica al autor cuando moderación oculta su publicación o comentario. */
 export async function sendContentRemovedEmail(
   db: Db,
   mailer: Mailer,
@@ -290,7 +281,6 @@ async function hasActiveDigestAccess(db: Db, userId: string, email: string, now:
   return Boolean(row?.emailVerified);
 }
 
-/** Envía el resumen semanal a suscriptores opt-in con Pase Total activo, próximos partidos reales y baja en un clic. */
 export async function runWeeklyDigestJob(
   db: Db,
   mailer: Mailer,
@@ -371,7 +361,6 @@ export async function runWeeklyDigestJob(
   return { cycleKey, checked: subscribers.length, sent, skipped };
 }
 
-/** Rango UTC exacto del mes calendario anterior en hora de Ciudad de México (UTC-6). */
 export function previousMexicoMonthWindow(now: Date): {
   monthKey: string;
   monthLabel: string;
@@ -400,7 +389,6 @@ function formatUnitsSigned(units: number): string {
   return rounded > 0 ? `+${rounded.toFixed(1)}u` : `−${Math.abs(rounded).toFixed(1)}u`;
 }
 
-/** Envía el resumen mensual real de Mi récord (el día 1 de cada mes) a suscriptores opt-in. */
 export async function runMonthlyRecordJob(
   db: Db,
   mailer: Mailer,
@@ -493,7 +481,7 @@ export async function runMonthlyRecordJob(
               },
             }
           : {}),
-        journalUrl: `${siteUrl()}/app/bitacora`,
+        journalUrl: `${siteUrl()}/app/lab`,
         settingsUrl: unsubscribeUrlFor(sub.userId, "monthly_record", now),
       }),
     });
@@ -504,7 +492,6 @@ export async function runMonthlyRecordJob(
   return { cycleKey: win.monthKey, checked: subscribers.length, sent, skipped };
 }
 
-/** Maneja la confirmación firmada de baja por GET/POST sin filtrar información ajena. */
 export async function processUnsubscribeToken(
   db: Db,
   token: string | null | undefined,

@@ -95,9 +95,7 @@ import {
   type DataHealthAlertProps,
 } from "./templates/ops";
 
-/** Cada correo: componente, asunto y datos de ejemplo (para la vista previa y las pruebas). */
 interface Definition<P> {
-  /** Fase de construcción: A cuentas y prueba · B referidos · C cobro · D producto y seguridad · E Tipster y comunidad. */
   phase: "A" | "B" | "C" | "D" | "E";
   label: string;
   Component: (props: P) => ReactElement;
@@ -211,7 +209,7 @@ export const EMAIL_TEMPLATES: EmailTemplateRegistry = {
       inviterName: "Sofía",
       planName: "Pase PitchLab Ultra",
       days: 7,
-      inviteUrl: "https://pitchlab.mx/pricing/referral?code=SOFIA5",
+      inviteUrl: "https://pitchlab.mx/i/SOFIA5",
       expiresOn: "30 de noviembre",
     },
   }),
@@ -403,7 +401,7 @@ export const EMAIL_TEMPLATES: EmailTemplateRegistry = {
       promoCode: "SOFIA5",
       trialDays: 5,
       commissionPct: 25,
-      shareUrl: "https://pitchlab.mx/pricing/referral?code=SOFIA5",
+      shareUrl: "https://pitchlab.mx/i/SOFIA5",
       dashboardUrl: EXAMPLE_URL,
     },
   }),
@@ -507,12 +505,10 @@ export interface RenderedEmail {
   text: string;
 }
 
-/** Genera asunto, HTML y texto plano de un correo. */
 export async function renderEmail<K extends EmailTemplateId>(id: K, props: PropsOf<K>): Promise<RenderedEmail> {
   const def = EMAIL_TEMPLATES[id];
   const element = def.Component(props);
   const [rawHtml, text] = await Promise.all([render(element), render(element, { plainText: true })]);
-  // React 19 agrega <link rel="preload"> para las imágenes: en un correo no sirve y estorba.
   const html = rawHtml.replace(/<link rel="preload"[^>]*\/?>/g, "");
   return { subject: def.subject(props), html, text };
 }
