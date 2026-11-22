@@ -1,6 +1,7 @@
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 import {
+  GameAnalysisSchema,
   asGameId,
   asLeagueId,
   asMarketKey,
@@ -14,6 +15,7 @@ import {
   baseLambdaAway,
   baseLambdaHome,
   candidatesFromGroups,
+  confidenceIndex,
   fitDixonColes,
   makeRng,
   poissonPmf,
@@ -269,5 +271,61 @@ describe("Ola 7 · Invariantes algebraicos de Dixon-Coles y etiquetas con unidad
     expect(candidates[0]!.label).toBe("Más de 2.5 goles");
     expect(candidates[1]!.label).toBe("Más de 220.5 puntos");
     expect(candidates[2]!.label).toBe("Menos de 8.5 carreras");
+  });
+
+  it("nunca produce NaN en intervalos ni en confidence.score para equipos sin muestra en el modelo", () => {
+    const rows = buildSyntheticLeague(1.25, 2.7, "dc-unseen", 2);
+    const model = fitDixonColes(rows, { referenceDate: "2026-10-15" });
+    const pred = predictFootball(model, "coppa-italia.unseen-home", "coppa-italia.unseen-away", {
+      simulations: 60,
+    });
+    expect(Number.isFinite(pred.intervals.homeWin[0])).toBe(true);
+    expect(Number.isFinite(pred.intervals.homeWin[1])).toBe(true);
+    expect(pred.intervals.homeWin[0]).toBeGreaterThanOrEqual(0);
+    expect(pred.intervals.homeWin[1]).toBeLessThanOrEqual(1);
+    expect(pred.intervals.homeWin[0]).toBeLessThanOrEqual(pred.intervals.homeWin[1]);
+    expect(Number.isFinite(pred.intervals.total[0])).toBe(true);
+    expect(Number.isFinite(pred.intervals.total[1])).toBe(true);
+    expect(pred.intervals.total[0]).toBeGreaterThan(0);
+
+    const leagueId = asLeagueId("coppa-italia");
+    const homeId = asTeamId("coppa-italia.unseen-home");
+    const awayId = asTeamId("coppa-italia.unseen-away");
+    const game: GameDTO = {
+      id: asGameId("g-unseen-1"),
+      league: leagueId,
+      season: asSeasonId("2026-27"),
+      round: "Octavos",
+      startTime: "2026-12-01T18:00:00Z",
+      status: "scheduled",
+      neutralSite: false,
+      home: { id: homeId, league: leagueId, name: "Unseen Home", shortName: "UHome", code: "UHO" },
+      away: { id: awayId, league: leagueId, name: "Unseen Away", shortName: "UAway", code: "UAW" },
+    };
+    const analysis = analyzeFootballGameV2({
+      league: leagueId,
+      leagueName: "Coppa Italia",
+      game,
+      model,
+      teamRates: {},
+      inputsAsOf: "2026-11-21T12:00:00Z",
+      publishedAt: "2026-11-21T12:00:00Z",
+      source: "test",
+    });
+    const parsed = GameAnalysisSchema.parse(analysis);
+    expect(Number.isFinite(parsed.confidence?.score)).toBe(true);
+    expect(parsed.confidence?.score).toBeGreaterThanOrEqual(0);
+    expect(parsed.confidence?.score).toBeLessThanOrEqual(100);
+
+    const fallbackConfidence = confidenceIndex({
+      favorite: 0.55,
+      minGamesPlayed: 4,
+      intervalWidth: Number.NaN,
+      disagreement: Number.NaN,
+      outcomes: 3,
+    });
+    expect(Number.isFinite(fallbackConfidence.score)).toBe(true);
+    expect(fallbackConfidence.score).toBeGreaterThanOrEqual(0);
+    expect(fallbackConfidence.score).toBeLessThanOrEqual(100);
   });
 });

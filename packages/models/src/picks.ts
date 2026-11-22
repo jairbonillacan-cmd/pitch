@@ -220,6 +220,7 @@ export interface Confidence {
 export const CONFIDENCE_THRESHOLDS = { alta: 62, media: 45 } as const;
 
 function clamp01(x: number): number {
+  if (!Number.isFinite(x)) return 0;
   return x < 0 ? 0 : x > 1 ? 1 : x;
 }
 
@@ -232,14 +233,19 @@ export function confidenceIndex(input: ConfidenceInputs): Confidence {
     { w: 0.5, v: fav },
     { w: 0.2, v: sample },
   ];
-  if (input.intervalWidth !== undefined) {
-    parts.push({ w: 0.15, v: clamp01(1 - (input.intervalWidth - 0.15) / 0.35) });
+  const hasInterval =
+    typeof input.intervalWidth === "number" && Number.isFinite(input.intervalWidth);
+  const hasDisagreement =
+    typeof input.disagreement === "number" && Number.isFinite(input.disagreement);
+  if (hasInterval) {
+    parts.push({ w: 0.15, v: clamp01(1 - (input.intervalWidth! - 0.15) / 0.35) });
   }
-  if (input.disagreement !== undefined) {
-    parts.push({ w: 0.15, v: clamp01(1 - input.disagreement / 0.2) });
+  if (hasDisagreement) {
+    parts.push({ w: 0.15, v: clamp01(1 - input.disagreement! / 0.2) });
   }
   const weight = parts.reduce((acc, p) => acc + p.w, 0);
-  const score = Math.round((100 * parts.reduce((acc, p) => acc + p.w * p.v, 0)) / weight);
+  const rawScore = weight > 0 ? (100 * parts.reduce((acc, p) => acc + p.w * p.v, 0)) / weight : 0;
+  const score = Number.isFinite(rawScore) ? Math.round(rawScore) : 0;
   const level: ConfidenceLevel =
     score >= CONFIDENCE_THRESHOLDS.alta ? "alta" : score >= CONFIDENCE_THRESHOLDS.media ? "media" : "baja";
 
@@ -248,11 +254,11 @@ export function confidenceIndex(input: ConfidenceInputs): Confidence {
   else if (fav <= 0.2) reasons.push("Partido parejo");
   if (sample < 0.5) reasons.push("Poca muestra esta temporada");
   else if (sample >= 1) reasons.push("Muestra suficiente");
-  if (input.disagreement !== undefined) {
-    if (input.disagreement >= 0.12) reasons.push("La temporada y la historia no coinciden");
-    else if (input.disagreement <= 0.05) reasons.push("Temporada e historia coinciden");
+  if (hasDisagreement) {
+    if (input.disagreement! >= 0.12) reasons.push("La temporada y la historia no coinciden");
+    else if (input.disagreement! <= 0.05) reasons.push("Temporada e historia coinciden");
   }
-  if (input.intervalWidth !== undefined && input.intervalWidth >= 0.4) {
+  if (hasInterval && input.intervalWidth! >= 0.4) {
     reasons.push("Rango de incertidumbre amplio");
   }
   return { score, level, reasons: reasons.slice(0, 3) };

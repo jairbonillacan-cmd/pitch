@@ -368,17 +368,22 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
   }
 
   const picks = selectPicks(candidatesFromGroups(marketGroups), { maxScore: 10 });
+  const rawIntervalWidth = prediction.intervals.homeWin[1] - prediction.intervals.homeWin[0];
+  const rawDisagreement = blend
+    ? Math.max(
+        Math.abs(season.home - blend.home),
+        Math.abs(season.draw - blend.draw),
+        Math.abs(season.away - blend.away),
+      )
+    : undefined;
   const confidence = confidenceIndex({
     favorite: Math.max(home, draw, away),
     minGamesPlayed: Math.min(homeRate?.gamesPlayed ?? 0, awayRate?.gamesPlayed ?? 0),
-    intervalWidth: prediction.intervals.homeWin[1] - prediction.intervals.homeWin[0],
-    disagreement: blend
-      ? Math.max(
-          Math.abs(season.home - blend.home),
-          Math.abs(season.draw - blend.draw),
-          Math.abs(season.away - blend.away),
-        )
-      : undefined,
+    intervalWidth: Number.isFinite(rawIntervalWidth) ? rawIntervalWidth : undefined,
+    disagreement:
+      typeof rawDisagreement === "number" && Number.isFinite(rawDisagreement)
+        ? rawDisagreement
+        : undefined,
     outcomes: 3,
   });
 

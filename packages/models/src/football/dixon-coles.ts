@@ -476,17 +476,46 @@ export function predictFootball(
   const homeDraws: number[] = [];
   const totalDraws: number[] = [];
 
-  const seAttackHome = model.seLogAttack[home] ?? 0.2;
-  const seAttackAway = model.seLogAttack[away] ?? 0.2;
-  const seDefenseHome = model.seLogDefense[home] ?? 0.2;
-  const seDefenseAway = model.seLogDefense[away] ?? 0.2;
-  const seHome = model.seLogHomeAdvantage;
+  const baseAttackHome =
+    typeof model.attack[home] === "number" && Number.isFinite(model.attack[home]) && model.attack[home]! > 0
+      ? model.attack[home]!
+      : 1;
+  const baseAttackAway =
+    typeof model.attack[away] === "number" && Number.isFinite(model.attack[away]) && model.attack[away]! > 0
+      ? model.attack[away]!
+      : 1;
+  const baseDefenseHome =
+    typeof model.defense[home] === "number" && Number.isFinite(model.defense[home]) && model.defense[home]! > 0
+      ? model.defense[home]!
+      : 1;
+  const baseDefenseAway =
+    typeof model.defense[away] === "number" && Number.isFinite(model.defense[away]) && model.defense[away]! > 0
+      ? model.defense[away]!
+      : 1;
+
+  const seAttackHome =
+    typeof model.seLogAttack[home] === "number" && Number.isFinite(model.seLogAttack[home])
+      ? model.seLogAttack[home]!
+      : 0.2;
+  const seAttackAway =
+    typeof model.seLogAttack[away] === "number" && Number.isFinite(model.seLogAttack[away])
+      ? model.seLogAttack[away]!
+      : 0.2;
+  const seDefenseHome =
+    typeof model.seLogDefense[home] === "number" && Number.isFinite(model.seLogDefense[home])
+      ? model.seLogDefense[home]!
+      : 0.2;
+  const seDefenseAway =
+    typeof model.seLogDefense[away] === "number" && Number.isFinite(model.seLogDefense[away])
+      ? model.seLogDefense[away]!
+      : 0.2;
+  const seHome = Number.isFinite(model.seLogHomeAdvantage) ? model.seLogHomeAdvantage : 0.15;
 
   for (let s = 0; s < simulations; s++) {
-    const aH = model.attack[home]! * Math.exp(gaussian(rng) * seAttackHome);
-    const aA = model.attack[away]! * Math.exp(gaussian(rng) * seAttackAway);
-    const dH = model.defense[home]! * Math.exp(gaussian(rng) * seDefenseHome);
-    const dA = model.defense[away]! * Math.exp(gaussian(rng) * seDefenseAway);
+    const aH = baseAttackHome * Math.exp(gaussian(rng) * seAttackHome);
+    const aA = baseAttackAway * Math.exp(gaussian(rng) * seAttackAway);
+    const dH = baseDefenseHome * Math.exp(gaussian(rng) * seDefenseHome);
+    const dA = baseDefenseAway * Math.exp(gaussian(rng) * seDefenseAway);
     const h = model.homeAdvantage * Math.exp(gaussian(rng) * seHome);
 
     const lh = clamp(model.baseRate * aH * dA * h, 0.05, 6);
