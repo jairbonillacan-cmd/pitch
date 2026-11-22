@@ -23,9 +23,19 @@ interface MappedSgpLeg {
   readonly direction: 1 | -1;
 }
 
-interface FrechetBounds {
+interface JointProbabilityRange {
   readonly lower: number;
   readonly upper: number;
+}
+
+function formatAuditOdds(
+  decimalOdds: number | null | undefined,
+  oddsFormat: OddsFormat,
+): string {
+  if (decimalOdds == null || !Number.isFinite(decimalOdds) || decimalOdds <= 1.01) {
+    return "—";
+  }
+  return formatOddsValue(decimalOdds, oddsFormat);
 }
 
 const DIRECTION_COPY: Readonly<
@@ -45,21 +55,21 @@ const DIRECTION_COPY: Readonly<
     fg: "var(--pl-pill-success-fg)",
     bg: "var(--pl-pill-success-bg)",
     border: "var(--pl-pill-success-border)",
-    note: "Estas selecciones suelen cumplirse juntas con mayor frecuencia que por separado.",
+    note: "Ajuste automático por correlación dentro del mismo partido: estas selecciones suelen cumplirse juntas con mayor frecuencia.",
   },
   negatively_correlated: {
     label: "Correlación en contra",
     fg: "var(--pl-pill-warning-fg)",
     bg: "var(--pl-pill-warning-bg)",
     border: "var(--pl-pill-warning-border)",
-    note: "Una selección dificulta la otra: la probabilidad real baja frente al producto simple.",
+    note: "Ajuste automático por correlación dentro del mismo partido: una selección dificulta la otra y baja la probabilidad real.",
   },
   near_independent: {
     label: "Casi independientes",
     fg: "var(--pl-pill-brand-fg)",
     bg: "var(--pl-pill-brand-bg)",
     border: "var(--pl-pill-brand-border)",
-    note: "Poca dependencia entre los eventos dentro del mismo partido.",
+    note: "Ajuste automático por correlación dentro del mismo partido: dependencia mínima entre ambos mercados.",
   },
 };
 
@@ -180,7 +190,7 @@ function findPrimarySgpCluster(legs: readonly ParlayLeg[]): {
   sport: "soccer" | "nfl";
   mapped: MappedSgpLeg[];
   matchLabel: string;
-  frechet: FrechetBounds;
+  probRange: JointProbabilityRange;
 } | null {
   const byGame = new Map<string, ParlayLeg[]>();
   for (const leg of legs) {
@@ -202,7 +212,7 @@ function findPrimarySgpCluster(legs: readonly ParlayLeg[]): {
           : null;
     if (!sport) continue;
     const mapped = group
-      .slice(0, 8)
+      .slice(0, 6)
       .map((l) => mapPickToSgpFactor(l, sport))
       .filter((x): x is MappedSgpLeg => x !== null);
     if (mapped.length >= 2) {
@@ -214,7 +224,7 @@ function findPrimarySgpCluster(legs: readonly ParlayLeg[]): {
         sport,
         mapped,
         matchLabel: first.pick.matchLabel,
-        frechet: { lower, upper },
+        probRange: { lower, upper },
       };
     }
   }
@@ -278,7 +288,7 @@ export function SgpCopulaAuditCard({
           if (!res.ok) {
             if (!controller.signal.aborted) {
               setFetchedAudit(null);
-              setUnavailableNote("Auditoría SGP en servidor disponible con pase activo.");
+              setUnavailableNote("Ajuste automático en servidor disponible con pase activo.");
               onAuditResolvedRef.current?.(null);
             }
             return null;
@@ -286,10 +296,11 @@ export function SgpCopulaAuditCard({
           return res.json() as Promise<{ audit?: SgpCopulaAuditView }>;
         })
         .then((json) => {
-          if (!controller.signal.aborted && json?.audit) {
-            setFetchedAudit(json.audit);
+          const resolved = json?.audit ?? null;
+          if (!controller.signal.aborted && resolved && Number.isFinite(resolved.jointProbability)) {
+            setFetchedAudit(resolved);
             setUnavailableNote(null);
-            onAuditResolvedRef.current?.(json.audit);
+            onAuditResolvedRef.current?.(resolved);
           }
         })
         .catch((err) => {
@@ -316,7 +327,7 @@ export function SgpCopulaAuditCard({
   const taxMeta = audit?.bookQuoteAudit ? TAX_COPY[audit.bookQuoteAudit.taxFlag] : null;
   const boundedJointProb =
     audit && cluster
-      ? Math.min(cluster.frechet.upper, Math.max(cluster.frechet.lower, audit.jointProbability))
+      ? Math.min(cluster.probRange.upper, Math.max(cluster.probRange.lower, audit.jointProbability))
       : (audit?.jointProbability ?? null);
 
   return (
@@ -328,15 +339,14 @@ export function SgpCopulaAuditCard({
       }}
       data-sgp-copula-card=""
       data-sgp-direction={audit?.correlationDirection ?? "loading"}
-      aria-live="polite"
-      aria-label="Análisis de correlación del mismo partido"
+      aria-label="Ajuste automático por correlación dentro del mismo partido"
     >
       <header className="flex flex-wrap items-center justify-between gap-2">
         <span
           className="text-xs font-extrabold inline-flex items-center gap-1.5"
           style={{ color: "var(--pl-brand)" }}
         >
-          <MaestroIcon name="activity" size={13} />
+          <MaestroIcon name="verified-seal" size={14} />
           <span>Correlación mismo partido (SGP)</span>
         </span>
         {dirMeta && audit ? (
@@ -352,7 +362,7 @@ export function SgpCopulaAuditCard({
           </span>
         ) : (
           <span className="text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-            {loading ? "Calculando dependencia…" : "Dependencia ajustada"}
+            {loading ? "Calculando ajuste…" : "Ajuste automático activo"}
           </span>
         )}
       </header>
@@ -368,7 +378,7 @@ export function SgpCopulaAuditCard({
               }}
             >
               <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-                Si fueran independientes
+                Sin ajuste SGP
               </span>
               <strong className="text-sm font-bold">
                 {(audit.independentProbability * 100).toFixed(1)} %
@@ -386,7 +396,7 @@ export function SgpCopulaAuditCard({
               </span>
               <strong className="text-sm font-extrabold" style={{ color: "var(--pl-brand)" }}>
                 {(boundedJointProb * 100).toFixed(1)} % ·{" "}
-                {formatOddsValue(audit.fairCombinedDecimal, oddsFormat)}
+                {formatAuditOdds(audit.fairCombinedDecimal, oddsFormat)}
               </strong>
             </div>
           </div>
@@ -395,12 +405,12 @@ export function SgpCopulaAuditCard({
             <div
               className="flex flex-wrap items-center justify-between gap-1 text-[11px] num"
               style={{ color: "var(--pl-text-muted)" }}
-              data-sgp-frechet-bounds=""
+              data-sgp-prob-range=""
             >
-              <span>Cotas Fréchet-Hoeffding</span>
+              <span>Rango probable del cruce</span>
               <strong style={{ color: "var(--pl-text-secondary)" }}>
-                {(cluster.frechet.lower * 100).toFixed(1)} % –{" "}
-                {(cluster.frechet.upper * 100).toFixed(1)} %
+                {(cluster.probRange.lower * 100).toFixed(1)} % –{" "}
+                {(cluster.probRange.upper * 100).toFixed(1)} %
               </strong>
             </div>
           ) : null}
@@ -416,7 +426,7 @@ export function SgpCopulaAuditCard({
 
           {audit.bookQuoteAudit && taxMeta ? (
             <div
-              className="rounded-lg p-2.5 flex flex-wrap items-center justify-between gap-2 text-xs num"
+              className="rounded-lg p-2.5 flex items-start gap-2 text-xs num"
               style={{
                 background: taxMeta.bg,
                 border: `1px solid ${taxMeta.border}`,
@@ -424,13 +434,16 @@ export function SgpCopulaAuditCard({
               data-sgp-tax-flag={audit.bookQuoteAudit.taxFlag}
               role="status"
             >
+              {audit.bookQuoteAudit.taxFlag === "severe_sgp_tax" ? (
+                <MaestroIcon name="alert-warning" size={14} className="mt-0.5" />
+              ) : null}
               <div className="min-w-0">
                 <strong className="block" style={{ color: taxMeta.fg }}>
                   {taxMeta.label} ({audit.bookQuoteAudit.effectiveHoldPct.toFixed(1)} % margen)
                 </strong>
                 <span className="text-[11px]" style={{ color: "var(--pl-text-secondary)" }}>
-                  Tu casa {formatOddsValue(audit.bookQuoteAudit.offeredDecimal, oddsFormat)} vs
-                  justo {formatOddsValue(audit.bookQuoteAudit.fairCombinedDecimal, oddsFormat)}
+                  Tu casa {formatAuditOdds(audit.bookQuoteAudit.offeredDecimal, oddsFormat)} vs
+                  justo {formatAuditOdds(audit.bookQuoteAudit.fairCombinedDecimal, oddsFormat)}
                 </span>
               </div>
             </div>

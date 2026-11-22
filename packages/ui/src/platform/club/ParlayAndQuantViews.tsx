@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useCallback, useId, useMemo, useState } from "react";
-import { parseStrictFiniteNumber, sportForLeague, type LeagueId } from "@pitchlab/contracts";
+import {
+  parseStrictFiniteNumber,
+  sportForLeague,
+  sportScoringUnit,
+  type LeagueId,
+  type PlatformSport,
+} from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
 import {
   Button,
@@ -17,7 +23,7 @@ import {
   type SofascoreTabItem,
   type SofascoreTableColumn,
 } from "../../components/ui/primitives";
-import { LeagueBadge, parseUserOdds } from "../../sports";
+import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports";
 import {
   formatOddsValue,
   isPickUnlocked,
@@ -33,6 +39,7 @@ import {
 } from "../daily-parlay";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { MobileParlaySheet } from "../components/MobileParlaySheet";
+import { MarketCategoryIcon } from "../components/PackSportIcons";
 import { ConfirmActionDialog } from "../components/PlatformOverlays";
 import { SgpCopulaAuditCard } from "../components/SgpCopulaAuditCard";
 import {
@@ -55,7 +62,13 @@ import {
   usePlatformActions,
   usePlatformCore,
 } from "../platform-provider";
-import type { MatchPick, PlatformGame, RiskBand, SgpCopulaAuditView } from "../types";
+import type {
+  MatchPick,
+  OddsFormat,
+  PlatformGame,
+  RiskBand,
+  SgpCopulaAuditView,
+} from "../types";
 import { ALL, SPORTS, shortDateLabel, sportOf, type SportFilter } from "./home/home-model";
 import { OddsCompareClubView } from "./OddsCompareView";
 import { BetBuilderDrawer, BetBuilderQuickButton } from "./picks/BetBuilderDrawer";
@@ -70,8 +83,11 @@ interface PickerRow {
   readonly id: string;
   readonly game: PlatformGame;
   readonly pick: MatchPick;
+  readonly completeLabel: string;
+  readonly marketFamily: string;
   readonly unlocked: boolean;
   readonly inSlip: boolean;
+  readonly atMaxLegs: boolean;
   readonly sameGameExists: boolean;
   readonly compat: ParlayCompatibilityResult;
   readonly bestBookLabel: string | null;
@@ -84,13 +100,25 @@ interface InlineSlipAlert {
   readonly tone: "danger" | "warning" | "info";
   readonly title: string;
   readonly detail: string;
-  readonly code?: ParlayCompatibilityResult["code"] | "sgp_hold" | "invalid_odds_input";
+  readonly code?:
+    | ParlayCompatibilityResult["code"]
+    | "sgp_hold"
+    | "invalid_odds_input"
+    | "max_legs";
 }
 
-const INITIAL_MANUAL_ROWS = 14;
-const MANUAL_PAGE_STEP = 14;
-const AUTO_PREVIEW_TABLE_LIMIT = 8;
-const LEG_COUNT_PRESETS = [2, 3, 4, 5, 6, 8, 10] as const;
+const MAX_PARLAY_LEGS = 6;
+const LEG_COUNT_PRESETS = [2, 3, 4, 5, 6] as const;
+const INITIAL_MANUAL_ROWS = 12;
+const MANUAL_PAGE_STEP = 12;
+const AUTO_PREVIEW_LIMIT = 6;
+const LEAGUE_CHIP_LIMIT = 7;
+const MAX_DISPLAY_LEG_EV_PCT = 20;
+const MAX_DISPLAY_SLIP_EV_PCT = 50;
+
+const HAS_UNIT_RE =
+  /\b(goles|gol|puntos|punto|pts|carreras|carrera|córners|corners|esquinas|faltas|tarjetas|amarillas|tiros|remates|rebotes|asistencias|triples)\b/i;
+const BARE_TOTAL_RE = /^(?:más|menos)\s+de\s+\d+(?:[.,]\d+)?$/i;
 
 const CATEGORY_TABS: readonly SofascoreTabItem[] = [
   { id: "all", label: "Todos" },
@@ -99,6 +127,46 @@ const CATEGORY_TABS: readonly SofascoreTabItem[] = [
   { id: "valor", label: "Ambos / Valor" },
   { id: "tactico", label: "Táctico" },
 ];
+
+function formatSafeOdds(
+  decimalOdds: number | null | undefined,
+  format: OddsFormat,
+): string {
+  if (decimalOdds == null || !Number.isFinite(decimalOdds) || decimalOdds <= 1.01) {
+    return "—";
+  }
+  return formatOddsValue(decimalOdds, format);
+}
+
+function formatCompletePickLabel(pick: MatchPick, sport: PlatformSport): string {
+  const raw = pick.label.trim();
+  if (!raw || HAS_UNIT_RE.test(raw)) return raw;
+  const market = (pick.market ?? "").toLowerCase();
+  const isTotalLine =
+    BARE_TOTAL_RE.test(raw) ||
+    market === "totals" ||
+    market === "team_totals" ||
+    market.includes("total");
+  if (!isTotalLine) return raw;
+  if (market.includes("corner")) return `${raw} córners`;
+  if (market.includes("card") || market.includes("yellow") || market.includes("booking")) {
+    return `${raw} tarjetas`;
+  }
+  if (market.includes("foul")) return `${raw} faltas`;
+  if (market.includes("sot") || market.includes("shots_on_target")) {
+    return `${raw} tiros a puerta`;
+  }
+  if (market.includes("shot")) return `${raw} remates`;
+  return `${raw} ${sportScoringUnit(sport).plural}`;
+}
+
+function resolvePickMarketFamily(pick: MatchPick, sport: PlatformSport): string {
+  const leg = matchPickToBetBuilderLeg(pick, sport);
+  if (leg.family !== "other" && leg.family !== "correct_score") {
+    return leg.family;
+  }
+  return pick.market ?? pick.categoryLabel ?? pick.label;
+}
 
 function riskToneCss(tone: "success" | "info" | "warning" | "danger"): string {
   if (tone === "success") return "var(--pl-success)";
@@ -111,10 +179,12 @@ function getCompactBlockReason(
   sameGameExists: boolean,
   allowSgp: boolean,
   compat: ParlayCompatibilityResult,
+  atMaxLegs: boolean,
 ): string {
-  if (compat.code === "live") return "En vivo (cerrado)";
+  if (atMaxLegs) return `Máx. ${MAX_PARLAY_LEGS}`;
+  if (compat.code === "live") return "En vivo";
   if (compat.code === "finished") return "Finalizado";
-  if (compat.code === "duplicate") return "Ya en boleto";
+  if (compat.code === "duplicate") return "En boleto";
   if (compat.code === "invalid_odds") return "Línea cerrada";
   if ((compat.code === "same_game_disabled" || sameGameExists) && !allowSgp) {
     return "Activar SGP";
@@ -126,7 +196,7 @@ function getCompactBlockReason(
   return "No combinable";
 }
 
-function computeSlipFrechetBounds(
+function computeSlipProbabilityBounds(
   legs: readonly { readonly pick: MatchPick }[],
 ): { readonly lower: number; readonly upper: number } {
   if (legs.length === 0) return { lower: 0, upper: 0 };
@@ -199,6 +269,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
   const isCompactViewport = useMediaQuery("(max-width: 1023px)", false);
   const leagueSelectId = useId();
+  const bookOddsInputId = useId();
+  const bookOddsErrorId = useId();
 
   const [builderMode, setBuilderMode] = useState<"auto" | "manual">("auto");
   const [sportFilter, setSportFilter] = useState<SportFilter>(ALL);
@@ -252,13 +324,21 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
   const activeLeagues = useMemo(() => {
     const countsByLeague = new Map<LeagueId, number>();
+    const logoByLeague = new Map<LeagueId, string>();
     for (const g of openGamesAll) {
       if (sportFilter !== ALL && sportOf(g) !== sportFilter) continue;
       countsByLeague.set(g.league, (countsByLeague.get(g.league) ?? 0) + 1);
+      if (g.leagueLogoUrl && !logoByLeague.has(g.league)) {
+        logoByLeague.set(g.league, g.leagueLogoUrl);
+      }
     }
     return dataset.leagues
       .filter((l) => countsByLeague.has(l.league))
-      .map((l) => ({ ...l, openCount: countsByLeague.get(l.league) ?? 0 }))
+      .map((l) => ({
+        ...l,
+        logoUrl: l.logoUrl || logoByLeague.get(l.league),
+        openCount: countsByLeague.get(l.league) ?? 0,
+      }))
       .sort((a, b) => b.openCount - a.openCount || a.label.localeCompare(b.label, "es-MX"));
   }, [dataset.leagues, openGamesAll, sportFilter]);
 
@@ -266,6 +346,20 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     if (leagueFilter === ALL) return ALL;
     return activeLeagues.some((l) => l.league === leagueFilter) ? leagueFilter : ALL;
   }, [activeLeagues, leagueFilter]);
+
+  const visibleLeagueChips = useMemo(() => {
+    const base = activeLeagues.slice(0, LEAGUE_CHIP_LIMIT);
+    if (
+      effectiveLeague !== ALL &&
+      !base.some((lg) => lg.league === effectiveLeague)
+    ) {
+      const selected = activeLeagues.find((lg) => lg.league === effectiveLeague);
+      if (selected) {
+        return [...base.slice(0, LEAGUE_CHIP_LIMIT - 1), selected];
+      }
+    }
+    return base;
+  }, [activeLeagues, effectiveLeague]);
 
   const scopedLeagueIds = useMemo<LeagueId[]>(() => {
     if (effectiveLeague !== ALL) return [effectiveLeague];
@@ -289,9 +383,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         if (hay.includes(q)) return true;
         return g.picks.some((pk) => {
           const unlocked = isPickUnlocked(pk, g.status, viewerRole);
+          const fullLabel = formatCompletePickLabel(pk, g.sport);
           return (
             pk.categoryLabel.toLowerCase().includes(q) ||
-            (unlocked && pk.label.toLowerCase().includes(q))
+            (unlocked && fullLabel.toLowerCase().includes(q))
           );
         });
       }
@@ -299,7 +394,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     });
   }, [effectiveLeague, manualQuery, openGamesAll, sportFilter, viewerRole]);
 
-  const maxAutoLegs = Math.max(2, allowSgp ? allOpenGames.length * 2 : allOpenGames.length);
+  const availableAutoSlots = allowSgp ? allOpenGames.length * 2 : allOpenGames.length;
+  const maxAutoLegs = Math.min(MAX_PARLAY_LEGS, Math.max(2, availableAutoSlots));
   const effectiveAutoLegCount = Math.min(maxAutoLegs, Math.max(2, autoLegCount));
 
   const autoPreview = useMemo(
@@ -323,6 +419,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     return (game: PlatformGame, pick: MatchPick): PickerRow => {
       const unlocked = isPickUnlocked(pick, game.status, viewerRole);
       const inSlip = parlayLegs.some((l) => l.pick.id === pick.id);
+      const atMaxLegs = !inSlip && parlayLegs.length >= MAX_PARLAY_LEGS;
       const sameGameExists = parlayLegs.some(
         (l) => l.pick.gameId === pick.gameId && l.pick.id !== pick.id,
       );
@@ -330,7 +427,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
       const prefQuote = resolvePreferredBookQuote(pick.bookQuotes, preferredBooks);
       const bestOddsDecimal = prefQuote?.decimal ?? pick.marketDecimal ?? null;
       const bestBookLabel = prefQuote?.bookLabel ?? pick.marketBookLabel ?? null;
-      const evPct = computeExpectedValuePct(pick.p, bestOddsDecimal);
+      const rawEvPct = computeExpectedValuePct(pick.p, bestOddsDecimal);
+      const evPct =
+        rawEvPct !== null && rawEvPct <= MAX_DISPLAY_LEG_EV_PCT ? rawEvPct : null;
       const movementInfo = classifyOddsMovement(
         prefQuote?.openingDecimal ?? null,
         bestOddsDecimal,
@@ -340,8 +439,11 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         id: pick.id,
         game,
         pick,
+        completeLabel: formatCompletePickLabel(pick, game.sport),
+        marketFamily: resolvePickMarketFamily(pick, game.sport),
         unlocked,
         inSlip,
+        atMaxLegs,
         sameGameExists,
         compat,
         bestBookLabel,
@@ -364,10 +466,11 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         }
         if (q) {
           const unlocked = isPickUnlocked(pick, game.status, viewerRole);
+          const fullLabel = formatCompletePickLabel(pick, game.sport);
           const matchHay =
             `${game.home.name} ${game.away.name} ${game.home.shortName} ${game.away.shortName} ${game.leagueLabel}`.toLowerCase();
           const pickHay = unlocked
-            ? `${pick.label} ${pick.categoryLabel}`.toLowerCase()
+            ? `${fullLabel} ${pick.categoryLabel}`.toLowerCase()
             : pick.categoryLabel.toLowerCase();
           if (!matchHay.includes(q) && !pickHay.includes(q)) continue;
         }
@@ -382,10 +485,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     [catalogLimit, manualPickerRowsAll],
   );
 
-  const autoTableRows = useMemo<PickerRow[]>(() => {
+  const autoPreviewRows = useMemo<PickerRow[]>(() => {
     if (autoPreview.status !== "insufficient" && autoPreview.legs.length > 0) {
       const previewRows: PickerRow[] = [];
-      for (const leg of autoPreview.legs.slice(0, AUTO_PREVIEW_TABLE_LIMIT)) {
+      for (const leg of autoPreview.legs.slice(0, AUTO_PREVIEW_LIMIT)) {
         const game = gamesById.get(leg.pick.gameId);
         if (game) {
           previewRows.push(buildPickerRow(game, leg.pick));
@@ -394,7 +497,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
       if (previewRows.length > 0) return previewRows;
     }
     const fallback: PickerRow[] = [];
-    for (const game of allOpenGames.slice(0, AUTO_PREVIEW_TABLE_LIMIT)) {
+    for (const game of allOpenGames.slice(0, AUTO_PREVIEW_LIMIT)) {
       const topPick = game.picks[0];
       if (topPick) {
         fallback.push(buildPickerRow(game, topPick));
@@ -402,6 +505,20 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     }
     return fallback;
   }, [allOpenGames, autoPreview.legs, autoPreview.status, buildPickerRow, gamesById]);
+
+  const hasAutoProposal = autoPreview.status !== "insufficient" && autoPreview.legs.length >= 2;
+  const autoPreviewInSlipCount = useMemo(
+    () => autoPreviewRows.filter((row) => row.inSlip).length,
+    [autoPreviewRows],
+  );
+  const allAutoPreviewInSlip =
+    hasAutoProposal &&
+    autoPreviewRows.length > 0 &&
+    autoPreviewInSlipCount === autoPreviewRows.length;
+
+  const hasSlipLegs = parlaySummary.legs.length > 0;
+  const exceedsMaxLegs = parlaySummary.legs.length > MAX_PARLAY_LEGS;
+  const canSealParlay = parlaySummary.legs.length >= 2 && !exceedsMaxLegs;
 
   const sgpGameIds = useMemo(() => {
     const counts = new Map<string, number>();
@@ -416,22 +533,23 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   }, [parlaySummary.legs]);
 
   const betBuilderEval = useMemo(() => {
-    if (parlaySummary.legs.length === 0) return null;
+    if (!hasSlipLegs) return null;
     const adapted = parlaySummary.legs.map(({ pick }) =>
       matchPickToBetBuilderLeg(pick, sportForLeague(pick.league)),
     );
     return evaluateBetBuilder(adapted, { offeredBookDecimal: parsedBookParlayDec });
-  }, [parlaySummary.legs, parsedBookParlayDec]);
+  }, [hasSlipLegs, parlaySummary.legs, parsedBookParlayDec]);
 
-  const frechetBounds = useMemo(
-    () => computeSlipFrechetBounds(parlaySummary.legs),
+  const probabilityBounds = useMemo(
+    () => computeSlipProbabilityBounds(parlaySummary.legs),
     [parlaySummary.legs],
   );
 
-  const activeSgpAudit = parlaySummary.hasSgpCorrelation ? resolvedSgpAudit : null;
+  const activeSgpAudit =
+    hasSlipLegs && parlaySummary.hasSgpCorrelation ? resolvedSgpAudit : null;
 
   const effectiveSlipProb = useMemo(() => {
-    if (parlaySummary.legs.length === 0) return 0;
+    if (!hasSlipLegs) return 0;
     let candidate = betBuilderEval?.jointProbability ?? parlaySummary.combinedProbability;
     if (activeSgpAudit) {
       if (parlaySummary.legs.length === activeSgpAudit.nLegs) {
@@ -443,42 +561,69 @@ export function ParlayBuilderClubView(): React.JSX.Element {
           activeSgpAudit.correlationMultiplier;
       }
     }
-    return Math.min(frechetBounds.upper, Math.max(frechetBounds.lower, candidate));
-  }, [activeSgpAudit, betBuilderEval, frechetBounds.lower, frechetBounds.upper, parlaySummary]);
+    return Math.min(probabilityBounds.upper, Math.max(probabilityBounds.lower, candidate));
+  }, [
+    activeSgpAudit,
+    betBuilderEval,
+    hasSlipLegs,
+    parlaySummary,
+    probabilityBounds.lower,
+    probabilityBounds.upper,
+  ]);
 
-  const effectiveSlipFairDec = useMemo(() => {
-    if (parlaySummary.legs.length === 0) return parlaySummary.fairDecimal;
+  const effectiveSlipFairDec = useMemo<number | null>(() => {
+    if (!hasSlipLegs || effectiveSlipProb <= 0) return null;
     if (
       activeSgpAudit &&
       parlaySummary.legs.length === activeSgpAudit.nLegs &&
-      activeSgpAudit.fairCombinedDecimal > 1
+      activeSgpAudit.fairCombinedDecimal > 1.01
     ) {
       return activeSgpAudit.fairCombinedDecimal;
     }
-    return Math.max(1.01, Math.round((1 / Math.max(effectiveSlipProb, 0.0001)) * 100) / 100);
-  }, [activeSgpAudit, effectiveSlipProb, parlaySummary.fairDecimal, parlaySummary.legs.length]);
+    return Math.max(1.02, Math.round((1 / Math.max(effectiveSlipProb, 0.0001)) * 100) / 100);
+  }, [activeSgpAudit, effectiveSlipProb, hasSlipLegs, parlaySummary.legs.length]);
+
+  const effectiveSlipBookDec = useMemo<number | null>(() => {
+    if (!hasSlipLegs) return null;
+    if (parsedBookParlayDec !== null && parsedBookParlayDec > 1.01) {
+      return parsedBookParlayDec;
+    }
+    if (
+      parlaySummary.bookDecimal != null &&
+      Number.isFinite(parlaySummary.bookDecimal) &&
+      parlaySummary.bookDecimal > 1.01
+    ) {
+      return parlaySummary.bookDecimal;
+    }
+    return effectiveSlipFairDec;
+  }, [effectiveSlipFairDec, hasSlipLegs, parlaySummary.bookDecimal, parsedBookParlayDec]);
+
+  const effectiveSlipEvPct = useMemo<number | null>(() => {
+    if (!hasSlipLegs || effectiveSlipBookDec === null || effectiveSlipProb <= 0) {
+      return null;
+    }
+    const raw = Math.round((effectiveSlipProb * effectiveSlipBookDec - 1) * 1000) / 10;
+    if (!Number.isFinite(raw) || raw > MAX_DISPLAY_SLIP_EV_PCT) {
+      return null;
+    }
+    return raw;
+  }, [effectiveSlipBookDec, effectiveSlipProb, hasSlipLegs]);
+
+  const effectiveReturnUnits =
+    hasSlipLegs && effectiveSlipBookDec !== null
+      ? Math.round(parlaySummary.stakeUnits * effectiveSlipBookDec * 100) / 100
+      : 0;
 
   const slipRisk = useMemo(
     () =>
-      assessParlayRisk({
-        ...parlaySummary,
-        combinedProbability: effectiveSlipProb,
-      }),
-    [effectiveSlipProb, parlaySummary],
+      hasSlipLegs
+        ? assessParlayRisk({
+            ...parlaySummary,
+            combinedProbability: effectiveSlipProb,
+          })
+        : null,
+    [effectiveSlipProb, hasSlipLegs, parlaySummary],
   );
-
-  const effectiveSlipBookDec =
-    parsedBookParlayDec && parsedBookParlayDec > 1
-      ? parsedBookParlayDec
-      : parlaySummary.bookDecimal;
-  const effectiveSlipEdgePts =
-    parlaySummary.legs.length > 0 && effectiveSlipBookDec > 1
-      ? (effectiveSlipProb - 1 / effectiveSlipBookDec) * 100
-      : parlaySummary.edgePts;
-  const effectiveReturnUnits =
-    parlaySummary.legs.length > 0
-      ? Math.round(parlaySummary.stakeUnits * effectiveSlipBookDec * 100) / 100
-      : 0;
 
   const sgpHoldAlert = useMemo<InlineSlipAlert | null>(() => {
     if (bookOddsInvalid) {
@@ -489,11 +634,12 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         code: "invalid_odds_input",
       };
     }
+    if (!hasSlipLegs) return null;
     if (activeSgpAudit?.bookQuoteAudit?.taxFlag === "severe_sgp_tax") {
       return {
         tone: "danger",
         title: `Sobrecargo alto SGP (${activeSgpAudit.bookQuoteAudit.effectiveHoldPct.toFixed(1)} % margen)`,
-        detail: `Tu casa paga ${formatOddsValue(activeSgpAudit.bookQuoteAudit.offeredDecimal, oddsFormat)} frente al justo calibrado ${formatOddsValue(activeSgpAudit.bookQuoteAudit.fairCombinedDecimal, oddsFormat)}.`,
+        detail: `Tu casa paga ${formatSafeOdds(activeSgpAudit.bookQuoteAudit.offeredDecimal, oddsFormat)} frente al justo calibrado ${formatSafeOdds(activeSgpAudit.bookQuoteAudit.fairCombinedDecimal, oddsFormat)}.`,
         code: "sgp_hold",
       };
     }
@@ -510,7 +656,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
       };
     }
     return null;
-  }, [activeSgpAudit, betBuilderEval, bookOddsInvalid, oddsFormat]);
+  }, [activeSgpAudit, betBuilderEval, bookOddsInvalid, hasSlipLegs, oddsFormat]);
 
   const handleSelectLeague = (rawValue: string) => {
     if (rawValue === ALL) {
@@ -543,10 +689,19 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         removePickFromParlay(row.pick.id);
         return;
       }
+      if (row.atMaxLegs) {
+        setInlineAlert({
+          tone: "warning",
+          title: `Máximo ${MAX_PARLAY_LEGS} selecciones por boleto`,
+          detail: `Quita una selección antes de agregar otra para poder sellar en Mi récord.`,
+          code: "max_legs",
+        });
+        return;
+      }
       if (!row.compat.allowed) {
         setInlineAlert({
           tone: row.compat.code === "same_game_disabled" ? "warning" : "danger",
-          title: getCompactBlockReason(row.sameGameExists, allowSgp, row.compat),
+          title: getCompactBlockReason(row.sameGameExists, allowSgp, row.compat, false),
           detail:
             row.compat.reason ?? "Esta selección es incompatible con tu boleto combinado actual.",
           code: row.compat.code,
@@ -559,7 +714,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         const check = checkParlayCompatibility(parlayLegs, row.pick, allowSgp);
         setInlineAlert({
           tone: "danger",
-          title: getCompactBlockReason(row.sameGameExists, allowSgp, check),
+          title: getCompactBlockReason(row.sameGameExists, allowSgp, check, false),
           detail: check.reason ?? "No se pudo agregar esta selección al boleto.",
           code: check.code,
         });
@@ -570,13 +725,16 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
   const handleGenerateAuto = () => {
     setInlineAlert(null);
-    if (targetPreset !== "libre" && autoPreview.legs.length > 0) {
+    if (hasAutoProposal) {
       const styleLabel = DAILY_PARLAY_STYLE_SPECS[autoRisk].label;
       loadParlayPicks(
-        autoPreview.legs.map((l) => l.pick),
+        autoPreview.legs.slice(0, MAX_PARLAY_LEGS).map((l) => l.pick),
         {
           allowSgp,
-          label: `Parlay automático (${activePresetSpec.label} · ${styleLabel})`,
+          label:
+            targetPreset === "libre"
+              ? `Parlay automático (${styleLabel})`
+              : `Parlay automático (${activePresetSpec.label} · ${styleLabel})`,
         },
       );
       return;
@@ -584,7 +742,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     const count = generateAutoParlay({
       leagues: scopedLeagueIds.length > 0 ? scopedLeagueIds : dataset.leagues.map((l) => l.league),
       risk: autoRisk,
-      legCount: effectiveAutoLegCount,
+      legCount: Math.min(MAX_PARLAY_LEGS, effectiveAutoLegCount),
       allowSgp,
       games: allOpenGames,
     });
@@ -596,6 +754,56 @@ export function ParlayBuilderClubView(): React.JSX.Element {
           "Amplía el deporte, cambia a «Todas las ligas» o baja el número de selecciones.",
       });
     }
+  };
+
+  const handleShareParlay = () => {
+    if (!canSealParlay || effectiveSlipFairDec === null || effectiveSlipBookDec === null) {
+      return;
+    }
+    const formattedLegs = parlaySummary.legs.map(({ pick }) => {
+      const gm = gamesById.get(pick.gameId);
+      const sport = gm ? gm.sport : sportForLeague(pick.league);
+      const fullLabel = formatCompletePickLabel(pick, sport);
+      const matchName = gm
+        ? `${gm.home.shortName} vs ${gm.away.shortName}`
+        : pick.matchLabel;
+      return {
+        label: fullLabel,
+        matchLabel: gm
+          ? `${matchName} · ${shortDateLabel(gm.dayId)} ${gm.kickoffLocal}`
+          : `${matchName} · ${pick.kickoffLocal}`,
+        summaryLine: `${matchName}: ${fullLabel}`,
+        p: pick.p,
+        fairDecimal: pick.fairDecimal,
+        marketDecimal: pick.marketDecimal,
+        kickoffLocal: pick.kickoffLocal,
+      };
+    });
+    const uniqueLeagues = Array.from(
+      new Set(parlaySummary.legs.map((l) => l.pick.leagueLabel)),
+    );
+    openShareTicket({
+      kind: "parlay",
+      title: `Parlay PitchLab (${parlaySummary.legs.length} selecciones)`,
+      subtitle: parlaySummary.hasSgpCorrelation
+        ? "Ajuste automático por correlación dentro del mismo partido"
+        : "Combinada calibrada · PitchLab",
+      leagueLabel: uniqueLeagues.length === 1 ? uniqueLeagues[0]! : "Multi-Liga",
+      pickLabel: formattedLegs.map((l) => l.summaryLine).join(" · "),
+      legs: formattedLegs.map((l) => ({
+        label: l.label,
+        matchLabel: l.matchLabel,
+        p: l.p,
+        fairDecimal: l.fairDecimal,
+        marketDecimal: l.marketDecimal,
+        kickoffLocal: l.kickoffLocal,
+      })),
+      probability: effectiveSlipProb,
+      fairDecimal: effectiveSlipFairDec,
+      marketDecimal: effectiveSlipBookDec,
+      units: parlaySummary.stakeUnits,
+      gameStatus: "NS",
+    });
   };
 
   const pickerColumns = useMemo<readonly SofascoreTableColumn<PickerRow>[]>(
@@ -610,19 +818,39 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               <LeagueBadge
                 league={row.game.league}
                 label={row.game.leagueLabel}
-                logoUrl={row.game.leagueLogoUrl}
+                logoUrl={row.game.leagueLogoUrl || undefined}
                 size={14}
               />
-              <span className="truncate">
-                {row.game.home.shortName} vs {row.game.away.shortName} ·{" "}
-                {shortDateLabel(row.game.dayId)} {row.game.kickoffLocal}
+              <span className="pl-pb-crest-pair">
+                <TeamBadge
+                  league={row.game.league}
+                  slug={row.game.home.slug}
+                  name={row.game.home.name}
+                  logoUrl={row.game.home.logoUrl || undefined}
+                  size={15}
+                />
+                <span className="truncate">{row.game.home.shortName}</span>
+                <span className="pl-pb-vs" aria-hidden="true">
+                  vs
+                </span>
+                <TeamBadge
+                  league={row.game.league}
+                  slug={row.game.away.slug}
+                  name={row.game.away.name}
+                  logoUrl={row.game.away.logoUrl || undefined}
+                  size={15}
+                />
+                <span className="truncate">{row.game.away.shortName}</span>
               </span>
             </span>
-            <span className="pl-pb-pick-label">
-              {row.unlocked ? row.pick.label : "Selección reservada Pase PitchLab Ultra"}
+            <span className="pl-pb-pick-line">
+              <MarketCategoryIcon family={row.marketFamily} size={16} />
+              <span className="pl-pb-pick-label">
+                {row.unlocked ? row.completeLabel : "Selección reservada Pase PitchLab Ultra"}
+              </span>
             </span>
             <span className="pl-pb-pick-cat">
-              {row.game.leagueLabel} · {row.pick.categoryLabel}
+              {shortDateLabel(row.game.dayId)} {row.game.kickoffLocal} · {row.pick.categoryLabel}
             </span>
           </div>
         ),
@@ -636,11 +864,11 @@ export function ParlayBuilderClubView(): React.JSX.Element {
           row.unlocked ? (
             <SofascoreValueCell
               probPct={row.pick.p * 100}
-              fairLabel={formatOddsValue(row.pick.fairDecimal, oddsFormat)}
+              fairLabel={formatSafeOdds(row.pick.fairDecimal, oddsFormat)}
               bestBookLabel={row.bestBookLabel}
               bestOddsLabel={
                 row.bestOddsDecimal !== null
-                  ? formatOddsValue(row.bestOddsDecimal, oddsFormat)
+                  ? formatSafeOdds(row.bestOddsDecimal, oddsFormat)
                   : null
               }
               evPct={null}
@@ -653,7 +881,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
       },
       {
         key: "signals",
-        header: "Señales",
+        header: "Señal",
         render: (row) => {
           if (!row.unlocked) {
             return (
@@ -667,7 +895,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
             <SofascoreSignalPair evPct={row.evPct} movement={row.movement} compact />
           ) : (
             <span className="pl-sf-signal-pill is-compact is-neutral num">
-              {formatOddsValue(pickReferenceDecimal(row.pick), oddsFormat)}
+              {formatSafeOdds(pickReferenceDecimal(row.pick), oddsFormat)}
             </span>
           );
         },
@@ -692,9 +920,15 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               </a>
             );
           }
-          const blockedLabel = !row.inSlip && !row.compat.allowed
-            ? getCompactBlockReason(row.sameGameExists, allowSgp, row.compat)
+          const isBlocked = !row.inSlip && (row.atMaxLegs || !row.compat.allowed);
+          const blockedLabel = isBlocked
+            ? getCompactBlockReason(row.sameGameExists, allowSgp, row.compat, row.atMaxLegs)
             : null;
+          const visibleLabel = row.inSlip
+            ? "En boleto"
+            : isBlocked
+              ? (blockedLabel ?? "Bloqueado")
+              : "Agregar";
           return (
             <div className="pl-pb-row-actions">
               <BetBuilderQuickButton
@@ -703,26 +937,30 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 compact
               />
               <Button
-                variant={row.inSlip ? "secondary" : "ghost"}
-                tone={!row.inSlip && !row.compat.allowed ? "danger" : "default"}
+                variant={row.inSlip ? "primary" : isBlocked ? "ghost" : "secondary"}
+                tone={isBlocked ? "danger" : "default"}
                 size="sm"
-                className="min-w-11"
+                className={`min-w-11 pl-pb-toggle-btn ${row.inSlip ? "is-selected" : ""}`.trim()}
+                aria-pressed={!isBlocked ? row.inSlip : undefined}
+                aria-label={`${visibleLabel}: ${row.completeLabel} (${row.game.home.shortName} vs ${row.game.away.shortName})`}
                 data-pick-toggle={row.pick.id}
-                data-pick-blocked={blockedLabel ? (row.compat.code ?? "blocked") : undefined}
-                title={blockedLabel ? row.compat.reason : undefined}
+                data-pick-blocked={
+                  isBlocked ? (row.atMaxLegs ? "max_legs" : (row.compat.code ?? "blocked")) : undefined
+                }
+                title={
+                  row.atMaxLegs
+                    ? `Máximo ${MAX_PARLAY_LEGS} selecciones por boleto`
+                    : blockedLabel
+                      ? row.compat.reason
+                      : undefined
+                }
                 onClick={() => handlePickAction(row)}
               >
                 <MaestroIcon
-                  name={row.inSlip ? "check" : row.compat.allowed ? "plus" : "shield"}
+                  name={row.inSlip ? "check" : isBlocked ? "alert-warning" : "plus"}
                   size={13}
                 />
-                <span>
-                  {row.inSlip
-                    ? "En boleto"
-                    : row.compat.allowed
-                      ? "Agregar"
-                      : blockedLabel}
-                </span>
+                <span>{visibleLabel}</span>
               </Button>
             </div>
           );
@@ -743,32 +981,39 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     () => [
       {
         id: "prob",
-        label: "Prob. Conjunta Real",
-        value:
-          effectiveSlipProb * 100 < 0.1 && parlaySummary.legs.length > 0
+        label: "Probabilidad",
+        value: !hasSlipLegs
+          ? "—"
+          : effectiveSlipProb * 100 < 0.1
             ? "< 0.1 %"
             : `${(effectiveSlipProb * 100).toFixed(1)} %`,
-        tone: "brand",
+        tone: hasSlipLegs ? "brand" : "default",
       },
       {
         id: "book",
-        label: parsedBookParlayDec ? "Tu Momio Total" : "Momio Combinado",
-        value: formatOddsValue(effectiveSlipBookDec, oddsFormat),
+        label: parsedBookParlayDec ? "Tu momio total" : "Momio combinado",
+        value: hasSlipLegs ? formatSafeOdds(effectiveSlipBookDec, oddsFormat) : "—",
       },
       {
         id: "fair",
         label: "Momio justo",
-        value: formatOddsValue(effectiveSlipFairDec, oddsFormat),
+        value: hasSlipLegs ? formatSafeOdds(effectiveSlipFairDec, oddsFormat) : "—",
       },
       {
-        id: "return",
-        label: "Retorno",
-        value: `${effectiveReturnUnits.toFixed(2)}u`,
-        delta: `${effectiveSlipEdgePts >= 0 ? "+" : ""}${effectiveSlipEdgePts.toFixed(1)} pts`,
+        id: "ev",
+        label: "EV",
+        value:
+          hasSlipLegs && effectiveSlipEvPct !== null
+            ? `${effectiveSlipEvPct >= 0 ? "+" : ""}${effectiveSlipEvPct.toFixed(1)} %`
+            : "—",
+        delta:
+          hasSlipLegs && effectiveReturnUnits > 0
+            ? `Ret. ${effectiveReturnUnits.toFixed(2)}u`
+            : undefined,
         tone:
-          parlaySummary.legs.length === 0
+          !hasSlipLegs || effectiveSlipEvPct === null
             ? "default"
-            : effectiveSlipEdgePts >= 0
+            : effectiveSlipEvPct >= 0
               ? "positive"
               : "negative",
       },
@@ -776,12 +1021,12 @@ export function ParlayBuilderClubView(): React.JSX.Element {
     [
       effectiveReturnUnits,
       effectiveSlipBookDec,
-      effectiveSlipEdgePts,
+      effectiveSlipEvPct,
       effectiveSlipFairDec,
       effectiveSlipProb,
+      hasSlipLegs,
       oddsFormat,
       parsedBookParlayDec,
-      parlaySummary.legs.length,
     ],
   );
 
@@ -794,6 +1039,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   );
 
   const activeAlert = inlineAlert ?? sgpHoldAlert;
+  const riskStyleLabel = DAILY_PARLAY_STYLE_SPECS[autoRisk].label;
+  const autoPreviewCount = hasAutoProposal ? autoPreview.legs.length : effectiveAutoLegCount;
 
   return (
     <AtmosphereStage activePath="/app/parlays">
@@ -803,8 +1050,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
             <div className="pl-pb-header-copy">
               <h1 className="pl-pb-title">Armar parlay</h1>
               <p className="pl-pb-subtitle">
-                Genera una combinada calibrada al instante o selecciona piernas en tabla con
-                auditoría SGP en vivo.
+                Genera una combinada calibrada en segundos o elige entre 2 y {MAX_PARLAY_LEGS}{" "}
+                selecciones partido por partido.
               </p>
             </div>
 
@@ -837,26 +1084,28 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     builderMode === "manual" ? manualPickerRowsAll.length : allOpenGames.length
                   }
                   trailing={
-                    <div className="min-w-0 w-full sm:w-auto">
-                      <label htmlFor={leagueSelectId} className="sr-only">
-                        Liga activa
-                      </label>
-                      <select
-                        id={leagueSelectId}
-                        value={effectiveLeague}
-                        onChange={(e) => handleSelectLeague(e.target.value)}
-                        className="pl-pb-select pl-pb-select-league"
-                      >
-                        <option value={ALL}>
-                          Todas las ligas ({activeLeagues.length})
-                        </option>
-                        {activeLeagues.map((lg) => (
-                          <option key={lg.league} value={lg.league}>
-                            {lg.label} ({lg.openCount})
+                    activeLeagues.length > LEAGUE_CHIP_LIMIT ? (
+                      <div className="min-w-0 w-full sm:w-auto">
+                        <label htmlFor={leagueSelectId} className="sr-only">
+                          Más ligas disponibles
+                        </label>
+                        <select
+                          id={leagueSelectId}
+                          value={effectiveLeague}
+                          onChange={(e) => handleSelectLeague(e.target.value)}
+                          className="pl-pb-select pl-pb-select-league"
+                        >
+                          <option value={ALL}>
+                            Todas las ligas ({activeLeagues.length})
                           </option>
-                        ))}
-                      </select>
-                    </div>
+                          {activeLeagues.map((lg) => (
+                            <option key={lg.league} value={lg.league}>
+                              {lg.label} ({lg.openCount})
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    ) : undefined
                   }
                 >
                   <div className="pl-pb-chip-row" role="group" aria-label="Elegir deporte">
@@ -889,6 +1138,44 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     ))}
                   </div>
                 </SofascoreFilterBar>
+
+                {visibleLeagueChips.length > 0 ? (
+                  <div
+                    className="pl-pb-league-strip"
+                    role="group"
+                    aria-label="Filtrar por liga"
+                    data-parlay-league-chips=""
+                  >
+                    <button
+                      type="button"
+                      className="pl-pb-league-chip num"
+                      aria-pressed={effectiveLeague === ALL}
+                      data-parlay-league-chip="all"
+                      onClick={() => handleSelectLeague(ALL)}
+                    >
+                      <span>Todas las ligas</span>
+                    </button>
+                    {visibleLeagueChips.map((lg) => (
+                      <button
+                        key={lg.league}
+                        type="button"
+                        className="pl-pb-league-chip num"
+                        aria-pressed={effectiveLeague === lg.league}
+                        data-parlay-league-chip={lg.league}
+                        onClick={() => handleSelectLeague(lg.league)}
+                      >
+                        <LeagueBadge
+                          league={lg.league}
+                          label={lg.label}
+                          logoUrl={lg.logoUrl || undefined}
+                          size={16}
+                        />
+                        <span className="pl-pb-league-chip-name">{lg.label}</span>
+                        <span className="pl-pb-league-chip-count">{lg.openCount}</span>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
 
               {activeAlert ? (
@@ -898,7 +1185,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   data-parlay-inline-alert={activeAlert.code ?? "notice"}
                 >
                   <div className="pl-pb-alert-body">
-                    <MaestroIcon name="shield" size={15} />
+                    <MaestroIcon name="alert-warning" size={16} />
                     <div className="pl-pb-alert-text">
                       <strong>{activeAlert.title}</strong>
                       <p>{activeAlert.detail}</p>
@@ -942,41 +1229,23 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     title="Generador automático"
                     className="pl-pb-auto-card"
                     meta={
-                      autoPreview.status !== "insufficient" && autoPreview.legs.length > 0 ? (
+                      hasAutoProposal ? (
                         <span className="pl-pb-preview-pill num">
-                          {autoPreview.legs.length} picks ·{" "}
+                          {autoPreview.legs.length} selecciones ·{" "}
                           {autoPreview.combinedProbability * 100 < 0.1
                             ? "< 0.1 %"
                             : `${(autoPreview.combinedProbability * 100).toFixed(1)} %`}{" "}
-                          · {formatOddsValue(autoPreview.fairDecimal, oddsFormat)}
+                          · Justo {formatSafeOdds(autoPreview.fairDecimal, oddsFormat)}
                         </span>
                       ) : (
-                        <span>Sin vista previa</span>
+                        <span>Ajusta tus filtros</span>
                       )
                     }
                   >
                     <div className="pl-pb-auto-stack">
-                      <div className="pl-pb-field">
-                        <span className="pl-pb-field-label">Cuota meta</span>
-                        <div className="pl-pb-chip-row" role="group" aria-label="Cuota meta">
-                          {PARLAY_TARGET_PRESETS.map((preset) => (
-                            <button
-                              key={preset.id}
-                              type="button"
-                              className="pl-pb-chip is-grow num"
-                              aria-pressed={targetPreset === preset.id}
-                              data-quick-target={preset.id}
-                              onClick={() => setTargetPreset(preset.id)}
-                            >
-                              {preset.label}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="pl-pb-auto-grid">
+                      <div className="pl-pb-decisions-grid">
                         <div className="pl-pb-field">
-                          <span className="pl-pb-field-label">Estilo de riesgo</span>
+                          <span className="pl-pb-field-label">1. Riesgo</span>
                           <div
                             className="pl-pb-chip-row"
                             role="group"
@@ -990,11 +1259,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                                 aria-pressed={autoRisk === r}
                                 onClick={() => setAutoRisk(r)}
                               >
-                                {r === "conservador"
-                                  ? "Conservador"
-                                  : r === "medio"
-                                    ? "Medio"
-                                    : "Arriesgado"}
+                                {DAILY_PARLAY_STYLE_SPECS[r].label}
                               </button>
                             ))}
                           </div>
@@ -1002,58 +1267,43 @@ export function ParlayBuilderClubView(): React.JSX.Element {
 
                         <div className="pl-pb-field">
                           <span className="pl-pb-field-label num">
-                            Selecciones ({effectiveAutoLegCount} de {maxAutoLegs} disp.)
+                            2. Selecciones (2–{MAX_PARLAY_LEGS})
                           </span>
-                          <div className="pl-pb-stepper-row">
-                            <div
-                              className="pl-pb-chip-row"
-                              role="group"
-                              aria-label="Número de selecciones"
-                            >
-                              {LEG_COUNT_PRESETS.map((cnt) => (
-                                <button
-                                  key={cnt}
-                                  type="button"
-                                  disabled={cnt > maxAutoLegs}
-                                  className="pl-pb-chip num"
-                                  aria-pressed={effectiveAutoLegCount === cnt}
-                                  onClick={() => setAutoLegCount(cnt)}
-                                >
-                                  {cnt}
-                                </button>
-                              ))}
-                            </div>
-                            <div
-                              className="pl-pb-stepper"
-                              role="group"
-                              aria-label="Ajustar número de selecciones"
-                            >
+                          <div
+                            className="pl-pb-chip-row"
+                            role="group"
+                            aria-label="Número de selecciones"
+                          >
+                            {LEG_COUNT_PRESETS.map((cnt) => (
                               <button
+                                key={cnt}
                                 type="button"
-                                className="pl-pb-stepper-btn"
-                                aria-label="Menos selecciones"
-                                disabled={effectiveAutoLegCount <= 2}
-                                onClick={() =>
-                                  setAutoLegCount(Math.max(2, effectiveAutoLegCount - 1))
-                                }
+                                disabled={cnt > availableAutoSlots}
+                                className="pl-pb-chip is-count num"
+                                aria-pressed={effectiveAutoLegCount === cnt}
+                                onClick={() => setAutoLegCount(cnt)}
                               >
-                                −
+                                {cnt}
                               </button>
-                              <span className="pl-pb-stepper-val num">
-                                {effectiveAutoLegCount}
-                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="pl-pb-field pl-pb-field-full">
+                          <span className="pl-pb-field-label">3. Cuota meta</span>
+                          <div className="pl-pb-chip-row" role="group" aria-label="Cuota meta">
+                            {PARLAY_TARGET_PRESETS.map((preset) => (
                               <button
+                                key={preset.id}
                                 type="button"
-                                className="pl-pb-stepper-btn"
-                                aria-label="Más selecciones"
-                                disabled={effectiveAutoLegCount >= maxAutoLegs}
-                                onClick={() =>
-                                  setAutoLegCount(Math.min(maxAutoLegs, effectiveAutoLegCount + 1))
-                                }
+                                className="pl-pb-chip is-grow num"
+                                aria-pressed={targetPreset === preset.id}
+                                data-quick-target={preset.id}
+                                onClick={() => setTargetPreset(preset.id)}
                               >
-                                +
+                                {preset.label}
                               </button>
-                            </div>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -1062,8 +1312,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         <div className="pl-pb-sgp-copy">
                           <span className="pl-pb-sgp-title">Mismo partido (SGP)</span>
                           <span className="pl-pb-sgp-desc">
-                            Permite hasta 2 selecciones de distinto eje del mismo partido con
-                            ajuste Student-t acotado por Fréchet-Hoeffding.
+                            Hasta 2 selecciones compatibles del mismo encuentro. Ajuste automático
+                            por correlación dentro del mismo partido.
                           </span>
                         </div>
                         <div className="pl-pb-switch-wrap">
@@ -1083,9 +1333,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       {autoPreview.status === "insufficient" && autoPreview.message ? (
                         <div className="pl-pb-alert is-warning" role="status">
                           <div className="pl-pb-alert-body">
-                            <MaestroIcon name="shield" size={14} />
+                            <MaestroIcon name="alert-warning" size={15} />
                             <div className="pl-pb-alert-text">
-                              <strong>Regla sin combinación completa</strong>
+                              <strong>Sin combinación completa con esa regla</strong>
                               <p>{autoPreview.message}</p>
                             </div>
                           </div>
@@ -1101,50 +1351,229 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         </div>
                       ) : null}
 
-                      <Button
-                        variant="secondary"
-                        size="default"
-                        className="w-full"
-                        data-generate-parlay=""
-                        onClick={handleGenerateAuto}
-                      >
-                        <MaestroIcon name="sparkles" size={15} />
-                        <span>
-                          Generar parlay ({effectiveAutoLegCount} selecciones · {autoRisk}
-                          {targetPreset !== "libre" ? ` · ${activePresetSpec.label}` : ""})
-                        </span>
-                      </Button>
+                      <div className="pl-pb-auto-cta-row">
+                        <Button
+                          variant={allAutoPreviewInSlip ? "secondary" : "primary"}
+                          size="default"
+                          className="w-full"
+                          data-generate-parlay=""
+                          onClick={handleGenerateAuto}
+                        >
+                          <MaestroIcon
+                            name={
+                              allAutoPreviewInSlip
+                                ? "verified-seal"
+                                : hasSlipLegs
+                                  ? "refresh-sync"
+                                  : "target-picks"
+                            }
+                            size={16}
+                          />
+                          <span>
+                            {allAutoPreviewInSlip
+                              ? `Ya cargada en tu boleto (${autoPreviewCount} selecciones)`
+                              : hasSlipLegs
+                                ? `Reemplazar boleto (${autoPreviewCount} selecciones · ${riskStyleLabel}${targetPreset !== "libre" ? ` · ${activePresetSpec.label}` : ""})`
+                                : `Cargar al boleto (${autoPreviewCount} selecciones · ${riskStyleLabel}${targetPreset !== "libre" ? ` · ${activePresetSpec.label}` : ""})`}
+                          </span>
+                        </Button>
+
+                        {autoPreviewInSlipCount > 0 && !allAutoPreviewInSlip ? (
+                          <p className="pl-pb-sync-note num" role="status">
+                            {autoPreviewInSlipCount} de {autoPreviewRows.length} selecciones
+                            propuestas ya están en tu boleto.
+                          </p>
+                        ) : null}
+                      </div>
                     </div>
                   </SofascoreCard>
 
                   <SofascoreCard
                     title={
-                      autoPreview.status !== "insufficient" && autoPreview.legs.length > 0
-                        ? "Selecciones propuestas para el parlay"
+                      hasAutoProposal
+                        ? "Vista previa de tu combinada"
                         : "Cartelera abierta elegible"
                     }
-                    meta={`${autoTableRows.length} selecciones`}
+                    meta={`${autoPreviewRows.length} ${autoPreviewRows.length === 1 ? "selección" : "selecciones"}`}
                     density="compact"
                   >
-                    <SofascoreTable
-                      caption="Selecciones elegibles para armar parlay"
-                      columns={pickerColumns}
-                      rows={autoTableRows}
-                      rowKey={(row) => row.id}
-                      density="compact"
-                      className="pl-pb-table-wrap"
-                      emptyState={
-                        <SofascoreEmptyState
-                          title="Sin partidos abiertos con ese filtro"
-                          description="Prueba con otro deporte o selecciona Todas las ligas."
-                          actionLabel="Ver todos los deportes"
-                          onAction={() => {
-                            setSportFilter(ALL);
-                            setLeagueFilter(ALL);
-                          }}
-                        />
-                      }
-                    />
+                    {autoPreviewRows.length === 0 ? (
+                      <SofascoreEmptyState
+                        title="Sin partidos abiertos con ese filtro"
+                        description="Prueba con otro deporte o selecciona Todas las ligas."
+                        actionLabel="Ver todos los deportes"
+                        onAction={() => {
+                          setSportFilter(ALL);
+                          setLeagueFilter(ALL);
+                        }}
+                      />
+                    ) : (
+                      <ul
+                        className="pl-pb-preview-list"
+                        role="list"
+                        data-parlay-auto-preview=""
+                      >
+                        {autoPreviewRows.map((row) => {
+                          const isBlocked = !row.inSlip && (row.atMaxLegs || !row.compat.allowed);
+                          const blockedLabel = isBlocked
+                            ? getCompactBlockReason(
+                                row.sameGameExists,
+                                allowSgp,
+                                row.compat,
+                                row.atMaxLegs,
+                              )
+                            : null;
+                          const toggleLabel = row.inSlip
+                            ? "En boleto"
+                            : isBlocked
+                              ? (blockedLabel ?? "Bloqueado")
+                              : "Agregar";
+                          return (
+                            <li
+                              key={row.id}
+                              className={`pl-pb-preview-item ${row.inSlip ? "is-in-slip" : ""}`.trim()}
+                              data-preview-in-slip={row.inSlip ? "true" : undefined}
+                            >
+                              <div className="pl-pb-preview-main">
+                                <div className="pl-pb-preview-head">
+                                  <LeagueBadge
+                                    league={row.game.league}
+                                    label={row.game.leagueLabel}
+                                    logoUrl={row.game.leagueLogoUrl || undefined}
+                                    size={14}
+                                  />
+                                  <span className="pl-pb-preview-league">
+                                    {row.game.leagueLabel} · {shortDateLabel(row.game.dayId)}{" "}
+                                    {row.game.kickoffLocal}
+                                  </span>
+                                  {row.inSlip ? (
+                                    <span className="pl-pb-in-slip-badge">
+                                      <MaestroIcon name="check" size={11} />
+                                      <span>En tu boleto</span>
+                                    </span>
+                                  ) : null}
+                                </div>
+
+                                <div className="pl-pb-preview-match">
+                                  <span className="pl-pb-crest-pair">
+                                    <TeamBadge
+                                      league={row.game.league}
+                                      slug={row.game.home.slug}
+                                      name={row.game.home.name}
+                                      logoUrl={row.game.home.logoUrl || undefined}
+                                      size={18}
+                                    />
+                                    <strong>{row.game.home.shortName}</strong>
+                                    <span className="pl-pb-vs" aria-hidden="true">
+                                      vs
+                                    </span>
+                                    <TeamBadge
+                                      league={row.game.league}
+                                      slug={row.game.away.slug}
+                                      name={row.game.away.name}
+                                      logoUrl={row.game.away.logoUrl || undefined}
+                                      size={18}
+                                    />
+                                    <strong>{row.game.away.shortName}</strong>
+                                  </span>
+                                </div>
+
+                                <div className="pl-pb-preview-pick">
+                                  <MarketCategoryIcon family={row.marketFamily} size={16} />
+                                  <span className="pl-pb-preview-pick-text">
+                                    {row.unlocked
+                                      ? row.completeLabel
+                                      : "Selección reservada Pase PitchLab Ultra"}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="pl-pb-preview-side">
+                                {row.unlocked ? (
+                                  <div className="pl-pb-preview-metrics num">
+                                    <strong className="pl-pb-preview-prob">
+                                      {(row.pick.p * 100).toFixed(1)} %
+                                    </strong>
+                                    <span className="pl-pb-preview-odds">
+                                      Justo {formatSafeOdds(row.pick.fairDecimal, oddsFormat)}
+                                      {row.bestOddsDecimal !== null
+                                        ? ` · ${row.bestBookLabel ?? "Casa"} ${formatSafeOdds(row.bestOddsDecimal, oddsFormat)}`
+                                        : ""}
+                                    </span>
+                                    {row.evPct !== null && row.evPct > 0 ? (
+                                      <SofascoreSignalPair
+                                        evPct={row.evPct}
+                                        movement={row.movement}
+                                        compact
+                                      />
+                                    ) : null}
+                                  </div>
+                                ) : null}
+
+                                <div className="pl-pb-row-actions">
+                                  {row.unlocked ? (
+                                    <>
+                                      <BetBuilderQuickButton
+                                        pick={row.pick}
+                                        onInspect={() =>
+                                          setInspectedRow({ pick: row.pick, game: row.game })
+                                        }
+                                        compact
+                                      />
+                                      <Button
+                                        variant={
+                                          row.inSlip ? "primary" : isBlocked ? "ghost" : "secondary"
+                                        }
+                                        tone={isBlocked ? "danger" : "default"}
+                                        size="sm"
+                                        className={`min-w-11 pl-pb-toggle-btn ${row.inSlip ? "is-selected" : ""}`.trim()}
+                                        aria-pressed={!isBlocked ? row.inSlip : undefined}
+                                        aria-label={`${toggleLabel}: ${row.completeLabel} (${row.game.home.shortName} vs ${row.game.away.shortName})`}
+                                        data-pick-toggle={row.pick.id}
+                                        data-pick-blocked={
+                                          isBlocked
+                                            ? row.atMaxLegs
+                                              ? "max_legs"
+                                              : (row.compat.code ?? "blocked")
+                                            : undefined
+                                        }
+                                        onClick={() => handlePickAction(row)}
+                                      >
+                                        <MaestroIcon
+                                          name={
+                                            row.inSlip
+                                              ? "check"
+                                              : isBlocked
+                                                ? "alert-warning"
+                                                : "plus"
+                                          }
+                                          size={13}
+                                        />
+                                        <span>{toggleLabel}</span>
+                                      </Button>
+                                    </>
+                                  ) : (
+                                    <a
+                                      href={upgradeHref}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        navigateTo(upgradeHref);
+                                      }}
+                                      className="pl-pb-locked-link"
+                                    >
+                                      <MaestroIcon name="lock" size={12} />
+                                      <span>
+                                        {hasAccountSession ? "Activar Pase" : "Pase Ultra"}
+                                      </span>
+                                    </a>
+                                  )}
+                                </div>
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
                   </SofascoreCard>
                 </div>
               ) : (
@@ -1155,7 +1584,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   data-parlay-manual-panel=""
                 >
                   <SofascoreCard
-                    title="Selector de piernas"
+                    title="Selector de selecciones"
                     density="compact"
                     meta={
                       <div className="pl-pb-switch-wrap">
@@ -1164,7 +1593,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                             <Switch.Thumb />
                           </Switch.Control>
                           <Switch.Content>
-                            <span className="text-xs font-bold">Mismo partido</span>
+                            <span className="text-xs font-bold">Mismo partido (SGP)</span>
                           </Switch.Content>
                         </Switch>
                       </div>
@@ -1228,10 +1657,9 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 meta={
                   <div className="pl-pb-slip-head-meta">
                     <span className="num">
-                      {parlaySummary.legs.length}{" "}
-                      {parlaySummary.legs.length === 1 ? "selección" : "selecciones"}
+                      {parlaySummary.legs.length} / {MAX_PARLAY_LEGS}
                     </span>
-                    {parlaySummary.legs.length > 0 ? (
+                    {hasSlipLegs ? (
                       <Button
                         variant="ghost"
                         size="sm"
@@ -1250,30 +1678,66 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 }
               >
                 <div className="pl-pb-slip-stack">
-                  {parlaySummary.legs.length === 0 ? (
+                  {!hasSlipLegs ? (
                     <SofascoreEmptyState
                       title="Tu boleto combinado está vacío"
-                      description="Usa el generador automático o elige piernas compatibles en la tabla (mínimo 2 para sellar)."
+                      description={`Usa el generador automático o elige entre 2 y ${MAX_PARLAY_LEGS} selecciones compatibles.`}
                     />
                   ) : (
                     <ul className="pl-pb-legs" role="list">
                       {parlaySummary.legs.map(({ pick }) => {
                         const gm = gamesById.get(pick.gameId);
+                        const sport = gm ? gm.sport : sportForLeague(pick.league);
+                        const fullLabel = formatCompletePickLabel(pick, sport);
+                        const family = resolvePickMarketFamily(pick, sport);
                         const isSgpLeg = sgpGameIds.has(pick.gameId);
                         return (
                           <li key={pick.id} className="pl-pb-leg-row">
                             <div className="pl-pb-leg-copy">
                               <span className="pl-pb-leg-meta">
-                                {pick.leagueLabel} · {pick.matchLabel}
-                                {gm
-                                  ? ` · ${shortDateLabel(gm.dayId)} ${gm.kickoffLocal}`
-                                  : ` · ${pick.kickoffLocal}`}
+                                <LeagueBadge
+                                  league={pick.league}
+                                  label={pick.leagueLabel}
+                                  logoUrl={gm?.leagueLogoUrl || undefined}
+                                  size={13}
+                                />
+                                {gm ? (
+                                  <span className="pl-pb-crest-pair">
+                                    <TeamBadge
+                                      league={gm.league}
+                                      slug={gm.home.slug}
+                                      name={gm.home.name}
+                                      logoUrl={gm.home.logoUrl || undefined}
+                                      size={14}
+                                    />
+                                    <span className="truncate">{gm.home.shortName}</span>
+                                    <span className="pl-pb-vs" aria-hidden="true">
+                                      vs
+                                    </span>
+                                    <TeamBadge
+                                      league={gm.league}
+                                      slug={gm.away.slug}
+                                      name={gm.away.name}
+                                      logoUrl={gm.away.logoUrl || undefined}
+                                      size={14}
+                                    />
+                                    <span className="truncate">{gm.away.shortName}</span>
+                                  </span>
+                                ) : (
+                                  <span className="truncate">{pick.matchLabel}</span>
+                                )}
                               </span>
-                              <strong className="pl-pb-leg-title">{pick.label}</strong>
+                              <span className="pl-pb-leg-pick-line">
+                                <MarketCategoryIcon family={family} size={15} />
+                                <strong className="pl-pb-leg-title">{fullLabel}</strong>
+                              </span>
                               <span className="pl-pb-leg-odds num">
                                 <span>
                                   {(pick.p * 100).toFixed(1)} % ·{" "}
-                                  {formatOddsValue(pickReferenceDecimal(pick), oddsFormat)}
+                                  {formatSafeOdds(pickReferenceDecimal(pick), oddsFormat)}
+                                  {gm
+                                    ? ` · ${shortDateLabel(gm.dayId)} ${gm.kickoffLocal}`
+                                    : ` · ${pick.kickoffLocal}`}
                                 </span>
                                 {isSgpLeg ? <span className="pl-pb-sgp-tag">SGP</span> : null}
                               </span>
@@ -1281,7 +1745,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                             <Button
                               variant="ghost"
                               size="icon-sm"
-                              aria-label={`Quitar ${pick.label}`}
+                              aria-label={`Quitar ${fullLabel}`}
                               onClick={() => removePickFromParlay(pick.id)}
                             >
                               <MaestroIcon name="x" size={14} />
@@ -1298,31 +1762,52 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         <MaestroIcon name="layers" size={14} />
                         <div className="pl-pb-alert-text">
                           <strong>Falta 1 selección para sellar</strong>
-                          <p>Un parlay necesita al menos 2 piernas compatibles.</p>
+                          <p>
+                            Agrega al menos 1 selección compatible más (2 a {MAX_PARLAY_LEGS}{" "}
+                            selecciones).
+                          </p>
                         </div>
                       </div>
                     </div>
                   ) : null}
 
-                  <div
-                    className="pl-pb-risk-box"
-                    style={{
-                      borderColor: `color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
-                    }}
-                    data-parlay-risk-meter={slipRisk.level}
-                  >
-                    <div className="pl-pb-risk-head">
-                      <span style={{ color: "var(--pl-text-muted)", fontWeight: 700 }}>
-                        Nivel de riesgo del boleto
-                      </span>
-                      <span
-                        className="font-extrabold num"
-                        style={{ color: riskToneCss(slipRisk.tone) }}
-                      >
-                        {slipRisk.label}
-                      </span>
+                  {exceedsMaxLegs ? (
+                    <div className="pl-pb-alert is-danger" role="alert">
+                      <div className="pl-pb-alert-body">
+                        <MaestroIcon name="alert-warning" size={15} />
+                        <div className="pl-pb-alert-text">
+                          <strong>Máximo {MAX_PARLAY_LEGS} selecciones para sellar</strong>
+                          <p>
+                            Quita {parlaySummary.legs.length - MAX_PARLAY_LEGS}{" "}
+                            {parlaySummary.legs.length - MAX_PARLAY_LEGS === 1
+                              ? "selección"
+                              : "selecciones"}{" "}
+                            para guardar tu boleto en Mi récord.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    {parlaySummary.legs.length > 0 ? (
+                  ) : null}
+
+                  {hasSlipLegs && slipRisk ? (
+                    <div
+                      className="pl-pb-risk-box"
+                      style={{
+                        borderColor: `color-mix(in srgb, ${riskToneCss(slipRisk.tone)} 38%, var(--pl-border))`,
+                      }}
+                      data-parlay-risk-meter={slipRisk.level}
+                    >
+                      <div className="pl-pb-risk-head">
+                        <span style={{ color: "var(--pl-text-muted)", fontWeight: 700 }}>
+                          Nivel de riesgo del boleto
+                        </span>
+                        <span
+                          className="font-extrabold num"
+                          style={{ color: riskToneCss(slipRisk.tone) }}
+                        >
+                          {slipRisk.label}
+                        </span>
+                      </div>
                       <div className="pl-pb-risk-track" aria-hidden="true">
                         <div
                           className="pl-pb-risk-fill"
@@ -1332,32 +1817,22 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           }}
                         />
                       </div>
-                    ) : null}
-                    <p className="pl-pb-risk-headline num">{slipRisk.headline}</p>
-                    <p className="pl-pb-risk-guidance">{slipRisk.guidance}</p>
-                    {slipRisk.warnings.length > 0 ? (
-                      <ul
-                        className="pl-pb-risk-warnings"
-                        style={{ color: riskToneCss(slipRisk.tone) }}
-                      >
-                        {slipRisk.warnings.map((w) => (
-                          <li key={w}>{w}</li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </div>
-
-                  {parlaySummary.hasSgpCorrelation ? (
-                    <div className="pl-pb-frechet num" data-parlay-frechet="">
-                      <span>Cotas Fréchet-Hoeffding</span>
-                      <strong>
-                        {(frechetBounds.lower * 100).toFixed(1)} % –{" "}
-                        {(frechetBounds.upper * 100).toFixed(1)} %
-                      </strong>
+                      <p className="pl-pb-risk-headline num">{slipRisk.headline}</p>
+                      <p className="pl-pb-risk-guidance">{slipRisk.guidance}</p>
+                      {slipRisk.warnings.length > 0 ? (
+                        <ul
+                          className="pl-pb-risk-warnings"
+                          style={{ color: riskToneCss(slipRisk.tone) }}
+                        >
+                          {slipRisk.warnings.map((w) => (
+                            <li key={w}>{w}</li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </div>
                   ) : null}
 
-                  {parlaySummary.hasSgpCorrelation ? (
+                  {hasSlipLegs && parlaySummary.hasSgpCorrelation ? (
                     <SgpCopulaAuditCard
                       legs={parlaySummary.legs}
                       oddsFormat={oddsFormat}
@@ -1367,68 +1842,84 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   ) : null}
 
                   <div className="pl-pb-slip-controls">
-                    <div className="pl-pb-slip-row">
-                      <span className="pl-pb-slip-label">Unidades simuladas</span>
-                      <div
-                        className="pl-pb-stepper"
-                        role="group"
-                        aria-label="Unidades del boleto combinado"
-                      >
-                        <button
-                          type="button"
-                          className="pl-pb-stepper-btn"
-                          aria-label="Restar unidades al parlay"
-                          onClick={() =>
-                            setParlayStakeUnits(
-                              Math.max(
-                                0.5,
-                                Math.round((parlayStakeUnits - 0.5) * 100) / 100,
-                              ),
-                            )
-                          }
-                        >
-                          −
-                        </button>
-                        <span className="pl-pb-stepper-val num">
-                          {parlayStakeUnits.toFixed(2)}u
-                        </span>
-                        <button
-                          type="button"
-                          className="pl-pb-stepper-btn"
-                          aria-label="Sumar unidades al parlay"
-                          onClick={() =>
-                            setParlayStakeUnits(
-                              Math.min(
-                                5,
-                                Math.round((parlayStakeUnits + 0.5) * 100) / 100,
-                              ),
-                            )
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="pl-pb-slip-row">
-                      <label htmlFor="parlay-book-odds-input" className="pl-pb-slip-label">
-                        Momio total en tu casa
-                      </label>
-                      <input
-                        id="parlay-book-odds-input"
-                        type="text"
-                        inputMode="decimal"
-                        autoCorrect="off"
-                        spellCheck={false}
-                        value={bookParlayOddsRaw}
-                        onChange={(e) => setBookParlayOddsRaw(e.target.value)}
-                        placeholder="Opcional (+340 / 4.40)"
-                        aria-invalid={bookOddsInvalid || undefined}
-                        className="pl-pb-input pl-pb-input-odds num"
-                      />
-                    </div>
-
                     <SofascoreKpiStrip items={slipKpiItems} />
+
+                    {hasSlipLegs ? (
+                      <>
+                        <div className="pl-pb-slip-row">
+                          <span className="pl-pb-slip-label">Unidades simuladas</span>
+                          <div
+                            className="pl-pb-stepper"
+                            role="group"
+                            aria-label="Unidades del boleto combinado"
+                          >
+                            <button
+                              type="button"
+                              className="pl-pb-stepper-btn"
+                              aria-label="Restar unidades al parlay"
+                              onClick={() =>
+                                setParlayStakeUnits(
+                                  Math.max(
+                                    0.5,
+                                    Math.round((parlayStakeUnits - 0.5) * 100) / 100,
+                                  ),
+                                )
+                              }
+                            >
+                              −
+                            </button>
+                            <span className="pl-pb-stepper-val num">
+                              {parlayStakeUnits.toFixed(2)}u
+                            </span>
+                            <button
+                              type="button"
+                              className="pl-pb-stepper-btn"
+                              aria-label="Sumar unidades al parlay"
+                              onClick={() =>
+                                setParlayStakeUnits(
+                                  Math.min(
+                                    5,
+                                    Math.round((parlayStakeUnits + 0.5) * 100) / 100,
+                                  ),
+                                )
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="pl-pb-slip-row">
+                          <label htmlFor={bookOddsInputId} className="pl-pb-slip-label">
+                            Momio total en tu casa
+                          </label>
+                          <div className="pl-pb-odds-field">
+                            <input
+                              id={bookOddsInputId}
+                              type="text"
+                              inputMode="decimal"
+                              autoCorrect="off"
+                              spellCheck={false}
+                              value={bookParlayOddsRaw}
+                              onChange={(e) => setBookParlayOddsRaw(e.target.value)}
+                              placeholder="Opcional (+340 / 4.40)"
+                              aria-invalid={bookOddsInvalid || undefined}
+                              aria-describedby={bookOddsInvalid ? bookOddsErrorId : undefined}
+                              className="pl-pb-input pl-pb-input-odds num"
+                            />
+                            {bookOddsInvalid ? (
+                              <span
+                                id={bookOddsErrorId}
+                                className="pl-pb-input-error"
+                                role="alert"
+                              >
+                                Usa decimal (&gt; 1.01) o americano (+340 / -110).
+                              </span>
+                            ) : null}
+                          </div>
+                        </div>
+                      </>
+                    ) : null}
                   </div>
 
                   <div className="pl-pb-slip-actions">
@@ -1436,43 +1927,20 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       variant="secondary"
                       size="default"
                       className="w-full"
-                      disabled={parlaySummary.legs.length < 2}
-                      onClick={() =>
-                        openShareTicket({
-                          kind: "parlay",
-                          title: `Parlay PitchLab (${parlaySummary.legs.length} picks)`,
-                          subtitle: "Armador Inteligente · Spacetime Suite v5.1",
-                          leagueLabel: "Multi-Liga",
-                          pickLabel: parlaySummary.legs
-                            .map((l) => l.pick.label)
-                            .join(" + "),
-                          legs: parlaySummary.legs.map(({ pick }) => ({
-                            label: pick.label,
-                            matchLabel: `${pick.matchLabel} · ${pick.kickoffLocal}`,
-                            p: pick.p,
-                            fairDecimal: pick.fairDecimal,
-                            marketDecimal: pick.marketDecimal,
-                            kickoffLocal: pick.kickoffLocal,
-                          })),
-                          probability: effectiveSlipProb,
-                          fairDecimal: effectiveSlipFairDec,
-                          marketDecimal: effectiveSlipBookDec,
-                          units: parlaySummary.stakeUnits,
-                          gameStatus: "NS",
-                        })
-                      }
+                      disabled={!canSealParlay}
+                      onClick={handleShareParlay}
                     >
                       <MaestroIcon name="share" size={14} />
-                      <span>Exportar boleto</span>
+                      <span>Compartir</span>
                     </Button>
                     <Button
                       variant="primary"
                       size="default"
                       className="w-full num"
-                      disabled={parlaySummary.legs.length < 2}
+                      disabled={!canSealParlay}
                       onClick={() => sealParlayToJournal()}
                     >
-                      <MaestroIcon name="ticket" size={14} />
+                      <MaestroIcon name="verified-seal" size={15} />
                       <span>Sellar en Mi récord ({parlaySummary.stakeUnits.toFixed(1)}u)</span>
                     </Button>
                   </div>
@@ -1487,6 +1955,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           <strong>{rule.title}:</strong> {rule.detail}
                         </li>
                       ))}
+                      <li>
+                        <strong>Límite por boleto:</strong> Puedes combinar de 2 a{" "}
+                        {MAX_PARLAY_LEGS} selecciones por boleto sellado.
+                      </li>
                     </ul>
                   </details>
                 </div>
