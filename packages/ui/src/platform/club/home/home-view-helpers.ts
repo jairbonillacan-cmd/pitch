@@ -1,4 +1,9 @@
-import { parseStrictFiniteNumber, type LeagueId, type LiveScoreboardEntry } from "@pitchlab/contracts";
+import {
+  isLivePhaseActive,
+  parseStrictFiniteNumber,
+  type LeagueId,
+  type LiveScoreboardEntry,
+} from "@pitchlab/contracts";
 import { formatKickoffByTimezone } from "../account/account-helpers";
 import type { PlatformGame, RiskBand } from "../../types";
 import { addDays, dayNumber, shortWeekday } from "./home-model";
@@ -116,6 +121,15 @@ export function teamCode(team: PlatformGame["home"]): string {
   const code = team.code?.trim();
   if (code) return code;
   return team.shortName.slice(0, 3).toUpperCase();
+}
+
+export function isEffectiveLiveGame(
+  game: Pick<PlatformGame, "dayId" | "status">,
+  today: string,
+  entry?: LiveScoreboardEntry,
+): boolean {
+  if (game.dayId < today) return false;
+  return (entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE";
 }
 
 export function formatLiveChipPhase(entry?: LiveScoreboardEntry): string {

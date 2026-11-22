@@ -6,7 +6,6 @@ import {
   competitionPrestigeScore,
   getLeagueCapability,
   isLeagueHealthyForUi,
-  isLivePhaseActive,
   isSafePublicLabel,
   LeagueIdSchema,
   type LeagueId,
@@ -67,6 +66,7 @@ import {
 } from "./home-model";
 import {
   ALL_KNOWN_COUNTRIES,
+  isEffectiveLiveGame,
   leagueRegionOf,
   type HomeBoardView,
   type HomeFilterModalOptionLeague,
@@ -384,13 +384,12 @@ export function HomeClubView({
   const liveVisibleCount = useMemo(() => {
     let count = 0;
     for (const g of visible) {
-      const entry = liveByGameId.get(g.id);
-      if ((entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE") {
+      if (isEffectiveLiveGame(g, today, liveByGameId.get(g.id))) {
         count += 1;
       }
     }
     return count;
-  }, [visible, liveByGameId]);
+  }, [visible, liveByGameId, today]);
 
   const countryOptions = useMemo(() => {
     const counts = new Map<string, number>();
@@ -511,8 +510,8 @@ export function HomeClubView({
     if (statusFilter !== "all") {
       list = list.filter((g) => {
         const entry = liveByGameId.get(g.id);
-        const isLive = (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
-        const isFt = !isLive && (g.status === "FT" || entry?.phase === "final");
+        const isLive = isEffectiveLiveGame(g, today, entry);
+        const isFt = !isLive && (g.status === "FT" || entry?.phase === "final" || g.dayId < today);
         if (statusFilter === "live") return isLive;
         if (statusFilter === "finished") return isFt;
         return !isLive && !isFt;
@@ -540,6 +539,7 @@ export function HomeClubView({
     statusFilter,
     signalFilter,
     liveByGameId,
+    today,
   ]);
 
   const dayGroups = useMemo(
@@ -563,10 +563,8 @@ export function HomeClubView({
       })
       .slice()
       .sort((a, b) => {
-        const aEntry = liveByGameId.get(a.id);
-        const bEntry = liveByGameId.get(b.id);
-        const aLive = (aEntry ? isLivePhaseActive(aEntry.phase) : false) || String(a.status) === "LIVE";
-        const bLive = (bEntry ? isLivePhaseActive(bEntry.phase) : false) || String(b.status) === "LIVE";
+        const aLive = isEffectiveLiveGame(a, today, liveByGameId.get(a.id));
+        const bLive = isEffectiveLiveGame(b, today, liveByGameId.get(b.id));
         if (aLive !== bLive) return aLive ? -1 : 1;
         const aScore =
           competitionPrestigeScore(a.league) +
@@ -582,7 +580,7 @@ export function HomeClubView({
         return a.kickoffUtc.localeCompare(b.kickoffUtc) || a.id.localeCompare(b.id);
       });
     return ranked.slice(0, 3);
-  }, [liveByGameId, showRecommendedAccordion, statusFilteredGames, watchlistSet]);
+  }, [liveByGameId, showRecommendedAccordion, statusFilteredGames, today, watchlistSet]);
 
   const orderedDisplayGames = useMemo<readonly PlatformGame[]>(() => {
     const out: PlatformGame[] = [];
@@ -628,10 +626,9 @@ export function HomeClubView({
         if (inAll) return inAll;
       }
     }
-    const firstLive = orderedDisplayGames.find((g) => {
-      const entry = liveByGameId.get(g.id);
-      return (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
-    });
+    const firstLive = orderedDisplayGames.find((g) =>
+      isEffectiveLiveGame(g, today, liveByGameId.get(g.id)),
+    );
     return firstLive ?? orderedDisplayGames[0] ?? null;
   }, [
     boardView,
@@ -642,6 +639,7 @@ export function HomeClubView({
     selectedMatchId,
     sport,
     statusFilter,
+    today,
     urlMatchId,
     visible,
   ]);
@@ -696,8 +694,10 @@ export function HomeClubView({
 
   const trendGames = useMemo(() => {
     const liveIds = new Set<string>();
-    for (const [gid, entry] of liveByGameId.entries()) {
-      if (isLivePhaseActive(entry.phase)) liveIds.add(gid);
+    for (const g of games) {
+      if (isEffectiveLiveGame(g, today, liveByGameId.get(g.id))) {
+        liveIds.add(g.id);
+      }
     }
     return getTrendingMatches({
       games,
@@ -712,11 +712,11 @@ export function HomeClubView({
   const orderedChips = useMemo(() => {
     return trendGames.map((game) => {
       const entry = liveByGameId.get(game.id);
-      const live = (entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE";
+      const live = isEffectiveLiveGame(game, today, entry);
       const score = entry?.score ?? game.score ?? null;
       return { game, live, score, entry };
     });
-  }, [trendGames, liveByGameId]);
+  }, [trendGames, liveByGameId, today]);
 
   const emptyJumpTarget = useMemo<{ dayId: string; resetFilters: boolean } | null>(() => {
     if (orderedChips.length > 0) return null;
@@ -745,11 +745,8 @@ export function HomeClubView({
     let anyLive = false;
     for (const g of scopedGames) {
       const entry = liveByGameId.get(g.id);
-      const isLiveEligible = g.dayId >= today;
-      const isLive =
-        isLiveEligible &&
-        ((entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE");
-      const isFinished = g.status === "FT" || !isLiveEligible;
+      const isLive = isEffectiveLiveGame(g, today, entry);
+      const isFinished = g.status === "FT" || g.dayId < today;
       const isFav =
         watchlistSet.has(g.id) ||
         favoriteLeagueSet.has(g.league) ||

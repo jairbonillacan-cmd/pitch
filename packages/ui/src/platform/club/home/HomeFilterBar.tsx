@@ -3,7 +3,6 @@
 import React, { useCallback, useId, useMemo, useRef, useState } from "react";
 import {
   canonicalGameHref,
-  isLivePhaseActive,
   type LiveScoreboardEntry,
 } from "@pitchlab/contracts";
 import { usePackIconBase } from "../../../pack-icon-theme";
@@ -39,6 +38,7 @@ import {
   formatJumpDayLabel,
   formatLiveChipPhase,
   formatMonthHeading,
+  isEffectiveLiveGame,
   leagueLabelOf,
   leagueLogoOf,
   parseIsoYearMonth,
@@ -305,9 +305,7 @@ export function HomeFilterHeader({
     return visibleGames
       .map((game) => {
         const entry = liveByGameId.get(game.id);
-        const live =
-          game.dayId >= today &&
-          ((entry ? isLivePhaseActive(entry.phase) : false) || String(game.status) === "LIVE");
+        const live = isEffectiveLiveGame(game, today, entry);
         const score = entry?.score ?? game.score ?? null;
         return { game, live, score, entry };
       })

@@ -1815,8 +1815,9 @@
       border-block-end-color: Highlight;
     }
 
-    .pl-astro-row.pl-home-md-row[data-selected="true"] {
-      border-inline-start-color: Highlight;
+    .pl-astro-row.pl-home-md-row[data-selected="true"]::before {
+      border-inline-start: 3px solid Highlight;
+      background-color: Highlight;
     }
   }
 
@@ -2919,12 +2920,14 @@
     }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     .app-frame:has([data-home-calendar-popover]),
     .pl-home-board-top:has([data-home-calendar-popover]) {
       z-index: 48;
     }
+  }
 
+  @media (max-width: 767px) {
     .pl-home-cal-popover {
       position: fixed;
       inset-block-start: auto;
@@ -3021,11 +3024,6 @@
 
     .pl-home-cal-live-dot {
       border: 1px solid Highlight;
-      background: Highlight;
-    }
-
-    .pl-astro-row.pl-home-md-row[data-selected="true"]::before {
-      border-inline-start: 3px solid Highlight;
       background: Highlight;
     }
   }
