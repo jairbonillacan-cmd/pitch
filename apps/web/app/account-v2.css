@@ -719,10 +719,17 @@ html[data-theme="light"] .pl-acct-card-stage .pl-referral-card-fallback-inner {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  color: var(--share-card-fg);
+  background: var(--pl-surface-hover);
+  border: 1px solid var(--pl-border);
+  color: var(--pl-text);
   font-size: 11.5px;
   font-weight: 800;
   flex-shrink: 0;
+}
+
+.pl-acct-invite-avatar[style*="--avatar-grad"] {
+  border-color: transparent;
+  color: var(--pl-on-solid);
 }
 
 .pl-acct-invite-meta {

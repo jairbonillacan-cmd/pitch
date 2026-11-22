@@ -19573,19 +19573,15 @@ html[data-theme="light"] .pl-clean-hero-light img {
   pointer-events: auto;
   opacity: 1;
   translate: 0 0;
-  scale: 1;
-  transform-origin: top right;
   transition:
     opacity 220ms ease,
-    translate 240ms cubic-bezier(0.22, 1, 0.36, 1),
-    scale 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    translate 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @starting-style {
   .pl-toast-item {
     opacity: 0;
     translate: 0 -10px;
-    scale: 0.96;
   }
 }
 
@@ -19593,19 +19589,22 @@ html[data-theme="light"] .pl-clean-hero-light img {
   pointer-events: none;
   opacity: 0;
   translate: 14px -6px;
-  scale: 0.96;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pl-toast-item {
     translate: none;
-    scale: 1;
     transition: opacity 100ms ease;
+  }
+
+  @starting-style {
+    .pl-toast-item {
+      translate: none;
+    }
   }
 
   .pl-toast-item[data-closing] {
     translate: none;
-    scale: 1;
   }
 }
 
@@ -23719,9 +23718,10 @@ body {
 .pl-toast-action-btn:active {
   transform: scale(0.96);
 }
-@media (max-width: 767px) {
+@media (max-width: 767px), (pointer: coarse) {
   .pl-toast-action-btn {
     min-height: 44px;
+    min-width: 44px;
   }
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useId, useMemo, useState } from "react";
+import React, { useCallback, useId, useMemo, useRef, useState } from "react";
 import { parseStrictFiniteNumber } from "@pitchlab/contracts";
 import {
   Button,
@@ -368,6 +368,9 @@ export function VerificationSurface({
   className,
 }: VerificationSurfaceProps = {}): React.JSX.Element {
   const baseId = useId();
+  const receiptInputRef = useRef<HTMLTextAreaElement | null>(null);
+  const hashInputRef = useRef<HTMLInputElement | null>(null);
+  const submitPointerDownRef = useRef<boolean>(false);
   const [mode, setMode] = useState<VerificationMode>("json");
   const [rawReceipt, setRawReceipt] = useState<string>("");
   const [expectedHashInput, setExpectedHashInput] = useState<string>("");
@@ -408,8 +411,13 @@ export function VerificationSurface({
         const extracted = extractReceiptInput(nextRaw);
         if (!extracted.canonicalPayload) {
           setTouchedReceipt(true);
+          const trimmedExpected = nextExpected.trim().toLowerCase();
+          if (trimmedExpected.length > 0 && !SHA256_HEX_RE.test(trimmedExpected)) {
+            setTouchedHash(true);
+          }
           setRuntimeError("Pega un recibo JSON o carga el recibo de ejemplo para verificar.");
           setOutcome(null);
+          receiptInputRef.current?.focus();
           return;
         }
         canonicalPayload = extracted.canonicalPayload;
@@ -435,6 +443,7 @@ export function VerificationSurface({
         setTouchedHash(true);
         setRuntimeError("La huella SHA-256 esperada debe tener exactamente 64 caracteres hexadecimales.");
         setOutcome(null);
+        hashInputRef.current?.focus();
         return;
       }
 
@@ -638,6 +647,7 @@ export function VerificationSurface({
                   memoria local.
                 </p>
                 <textarea
+                  ref={receiptInputRef}
                   id={receiptId}
                   className="pl-ver-textarea"
                   value={rawReceipt}
@@ -650,12 +660,21 @@ export function VerificationSurface({
                   aria-describedby={
                     showReceiptError ? `${receiptHintId} ${receiptErrorId}` : receiptHintId
                   }
-                  onBlur={() => setTouchedReceipt(true)}
+                  onFocus={() => {
+                    submitPointerDownRef.current = false;
+                  }}
+                  onBlur={() => {
+                    if (submitPointerDownRef.current) {
+                      submitPointerDownRef.current = false;
+                      return;
+                    }
+                    setTouchedReceipt(true);
+                  }}
                   onChange={(event) => handleRawReceiptChange(event.target.value)}
                   data-ver-json-input=""
                 />
                 {showReceiptError ? (
-                  <p id={receiptErrorId} className="pl-ver-error">
+                  <p id={receiptErrorId} role="alert" className="pl-ver-error">
                     Error: ingresa el contenido del recibo JSON o carga el ejemplo válido.
                   </p>
                 ) : null}
@@ -773,6 +792,7 @@ export function VerificationSurface({
                 huella local.
               </p>
               <input
+                ref={hashInputRef}
                 id={hashId}
                 type="text"
                 className="pl-ver-input num"
@@ -785,12 +805,21 @@ export function VerificationSurface({
                 placeholder="7475e69602889d069734413f9aeb83cac80fa7fa2185d2778867dda121faa18f"
                 aria-invalid={showHashError ? "true" : "false"}
                 aria-describedby={showHashError ? `${hashHintId} ${hashErrorId}` : hashHintId}
-                onBlur={() => setTouchedHash(true)}
+                onFocus={() => {
+                  submitPointerDownRef.current = false;
+                }}
+                onBlur={() => {
+                  if (submitPointerDownRef.current) {
+                    submitPointerDownRef.current = false;
+                    return;
+                  }
+                  setTouchedHash(true);
+                }}
                 onChange={(event) => setExpectedHashInput(event.target.value)}
                 data-ver-hash-input=""
               />
               {showHashError ? (
-                <p id={hashErrorId} className="pl-ver-error">
+                <p id={hashErrorId} role="alert" className="pl-ver-error">
                   Error: escribe exactamente 64 caracteres hexadecimales (0–9 y a–f).
                 </p>
               ) : null}
@@ -803,7 +832,24 @@ export function VerificationSurface({
             ) : null}
 
             <div className="pl-ed-actions">
-              <Button type="submit" variant="primary" disabled={busy} data-ver-submit="">
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={busy}
+                data-ver-submit=""
+                onPointerDown={() => {
+                  submitPointerDownRef.current = true;
+                }}
+                onMouseDown={() => {
+                  submitPointerDownRef.current = true;
+                }}
+                onPointerCancel={() => {
+                  submitPointerDownRef.current = false;
+                }}
+                onClick={() => {
+                  submitPointerDownRef.current = false;
+                }}
+              >
                 <MaestroIcon name="shield" size={16} />
                 <span>{busy ? "Calculando SHA-256…" : "Verificar huella SHA-256"}</span>
               </Button>
