@@ -4082,7 +4082,7 @@ export function loadLeagueHubEnrichment(
   const allMatches = loadUnifiedMatches(league, snapshot, registry);
   const standingsSplits = buildLeagueStandingsSplits(league);
   const bracket = capability.hasKnockoutBracket ? buildLeagueKnockoutBracket(league) : null;
-  const attackDefense = buildLeagueAttackDefenseTable(league);
+  const attackDefense = fullAccess ? buildLeagueAttackDefenseTable(league) : null;
   const seasonProgress = buildLeagueSeasonProgress(
     league,
     sport,
@@ -4101,7 +4101,7 @@ export function loadLeagueHubEnrichment(
   );
 
   const rawRefRanking =
-    capability.providers.referees && sport === "football"
+    fullAccess && capability.providers.referees && sport === "football"
       ? loadLeagueRefereeRanking(league)
       : null;
   const refereeRanking: LeagueRefereeRankingResponse | null = rawRefRanking

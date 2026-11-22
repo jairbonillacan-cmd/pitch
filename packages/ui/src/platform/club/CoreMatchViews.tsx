@@ -955,6 +955,7 @@ export function LeagueHubClubView({
   const summaryAbortRef = useRef<AbortController | null>(null);
   const newsDialogTitleId = useId();
   const sectionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const conferenceRadioRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const standingsPanelRef = useRef<HTMLDivElement | null>(null);
 
   useSafeEffect(() => {
@@ -1542,12 +1543,46 @@ export function LeagueHubClubView({
     ],
   );
 
+  const visibleSectionKeys = useMemo(
+    () => new Set<LeagueHubSectionKey>(visibleSections.map((tab) => tab.key)),
+    [visibleSections],
+  );
+
+  const conferenceOptions = useMemo(
+    () => (conferenceTabs.length >= 2 ? [...conferenceTabs, "all"] : []),
+    [conferenceTabs],
+  );
+
+  const handleConferenceKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    idx: number,
+  ) => {
+    const total = conferenceOptions.length;
+    if (total < 2) return;
+    let targetIdx = -1;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      targetIdx = (idx + 1) % total;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      targetIdx = (idx - 1 + total) % total;
+    } else if (event.key === "Home") {
+      targetIdx = 0;
+    } else if (event.key === "End") {
+      targetIdx = total - 1;
+    }
+    if (targetIdx < 0) return;
+    event.preventDefault();
+    const nextValue = conferenceOptions[targetIdx];
+    if (!nextValue) return;
+    setStandingsConference(nextValue);
+    conferenceRadioRefs.current[targetIdx]?.focus();
+  };
+
   const effectiveSection = useMemo<LeagueHubSectionKey>(() => {
-    if (visibleSections.some((tab) => tab.key === section)) {
+    if (visibleSectionKeys.has(section)) {
       return section;
     }
     return visibleSections[0]?.key ?? "partidos";
-  }, [section, visibleSections]);
+  }, [section, visibleSectionKeys, visibleSections]);
 
   const totalOpenPicks = useMemo(
     () => leagueGames.reduce((sum, g) => sum + g.picks.length, 0),
@@ -2168,7 +2203,7 @@ export function LeagueHubClubView({
 
             <div className="pl-lh-right-col">
               <div className="pl-lh-main-sheet pl-sf-card">
-                <nav aria-label={`Secciones de ${leagueSummary.label}`} className="pl-lh-tabs-nav">
+                <div className="pl-lh-tabs-nav">
                   <div
                     role="tablist"
                     aria-label={`Navegar en ${leagueSummary.label}`}
@@ -2222,70 +2257,67 @@ export function LeagueHubClubView({
                       );
                     })}
                   </div>
-                </nav>
+                </div>
 
-                <div
-                  ref={standingsPanelRef}
-                  role="tabpanel"
-                  id="pl-league-panel-tabla"
-                  aria-labelledby="pl-league-tab-tabla"
-                  className="pl-lh-tabpanel"
-                  hidden={effectiveSection !== "tabla"}
-                >
-                  {effectiveSection === "tabla" ? (
-                    <div className="pl-lh-tabpanel-body">
-                      {displayedStandings.length > 0 ? (
-                        <section className="standings-block pl-st-sheet pl-lh-standings-sheet">
-                          <div className="pl-lh-standings-controls">
-                            {hasEnrichedStandings ? (
-                              <SofascoreTabs
-                                items={splitTabItems}
-                                value={standingsSplit}
-                                onChange={(next) => {
-                                  if (next === "total" || next === "home" || next === "away") {
-                                    setStandingsSplit(next);
-                                  }
-                                }}
-                                variant="segmented"
-                                ariaLabel="Filtrar clasificación general, local o visitante"
-                              />
-                            ) : null}
+                {visibleSectionKeys.has("tabla") ? (
+                  <div
+                    ref={standingsPanelRef}
+                    role="tabpanel"
+                    id="pl-league-panel-tabla"
+                    aria-labelledby="pl-league-tab-tabla"
+                    className="pl-lh-tabpanel"
+                    hidden={effectiveSection !== "tabla"}
+                  >
+                    {effectiveSection === "tabla" ? (
+                      <div className="pl-lh-tabpanel-body">
+                        {displayedStandings.length > 0 ? (
+                          <section className="standings-block pl-st-sheet pl-lh-standings-sheet">
+                            <div className="pl-lh-standings-controls">
+                              {hasEnrichedStandings ? (
+                                <SofascoreTabs
+                                  items={splitTabItems}
+                                  value={standingsSplit}
+                                  onChange={(next) => {
+                                    if (next === "total" || next === "home" || next === "away") {
+                                      setStandingsSplit(next);
+                                    }
+                                  }}
+                                  variant="segmented"
+                                  ariaLabel="Filtrar clasificación general, local o visitante"
+                                />
+                              ) : null}
 
-                            {conferenceTabs.length >= 2 ? (
-                              <div className="pl-st-conf-bar">
-                                <div
-                                  className="seg-well"
-                                  role="radiogroup"
-                                  aria-label="Filtrar clasificación por conferencia"
-                                >
-                                  {conferenceTabs.map((conf) => {
-                                    const checked = activeConference === conf;
-                                    return (
-                                      <button
-                                        key={conf}
-                                        type="button"
-                                        role="radio"
-                                        aria-checked={checked}
-                                        className={`seg-btn ${checked ? "is-active" : ""}`.trim()}
-                                        onClick={() => setStandingsConference(conf)}
-                                      >
-                                        {conf}
-                                      </button>
-                                    );
-                                  })}
-                                  <button
-                                    type="button"
-                                    role="radio"
-                                    aria-checked={activeConference === "all"}
-                                    className={`seg-btn ${activeConference === "all" ? "is-active" : ""}`.trim()}
-                                    onClick={() => setStandingsConference("all")}
+                              {conferenceOptions.length >= 2 ? (
+                                <div className="pl-st-conf-bar">
+                                  <div
+                                    className="seg-well"
+                                    role="radiogroup"
+                                    aria-label="Filtrar clasificación por conferencia"
                                   >
-                                    General
-                                  </button>
+                                    {conferenceOptions.map((confValue, confIdx) => {
+                                      const checked = activeConference === confValue;
+                                      return (
+                                        <button
+                                          key={confValue}
+                                          ref={(el) => {
+                                            conferenceRadioRefs.current[confIdx] = el;
+                                          }}
+                                          type="button"
+                                          role="radio"
+                                          aria-checked={checked}
+                                          tabIndex={checked ? 0 : -1}
+                                          className={`seg-btn ${checked ? "is-active" : ""}`.trim()}
+                                          onClick={() => setStandingsConference(confValue)}
+                                          onKeyDown={(e) => handleConferenceKeyDown(e, confIdx)}
+                                        >
+                                          {confValue === "all" ? "General" : confValue}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
                                 </div>
-                              </div>
-                            ) : null}
-                          </div>
+                              ) : null}
+                            </div>
 
                           {(() => {
                             const firstZone = standingsZones.find((z) => z.startRank === 1) ?? null;
@@ -2312,7 +2344,7 @@ export function LeagueHubClubView({
                                     ? "PF:PC"
                                     : scoringUnit.short.toUpperCase();
                             const colCount =
-                              6 +
+                              8 +
                               (showDrawCol ? 1 : 0) +
                               (showOtCol ? 1 : 0) +
                               (showPctCol ? 1 : 0) +
@@ -2430,7 +2462,7 @@ export function LeagueHubClubView({
                                               >
                                                 <th
                                                   scope="colgroup"
-                                                  colSpan={colCount + 1}
+                                                  colSpan={colCount}
                                                   className="pl-st-zone-cell"
                                                 >
                                                   {startsMidTableZone.label}
@@ -2623,16 +2655,17 @@ export function LeagueHubClubView({
                           })()}
                         </section>
                       ) : (
-                        <SofascoreEmptyState
-                          title={`Clasificación · ${leagueSummary.label}`}
-                          description="La clasificación actualizada aún no está disponible en el corte vigente de esta competición."
-                        />
-                      )}
-                    </div>
-                  ) : null}
-                </div>
+                          <SofascoreEmptyState
+                            title={`Clasificación · ${leagueSummary.label}`}
+                            description="La clasificación actualizada aún no está disponible en el corte vigente de esta competición."
+                          />
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
 
-                {supportsKnockout && enrichment?.bracket ? (
+                {visibleSectionKeys.has("eliminatorias") && enrichment?.bracket ? (
                   <div
                     role="tabpanel"
                     id="pl-league-panel-eliminatorias"
@@ -2651,7 +2684,7 @@ export function LeagueHubClubView({
                   </div>
                 ) : null}
 
-                {hasStatLeadersTab && statLeaders ? (
+                {visibleSectionKeys.has("estadisticas") && statLeaders ? (
                   <div
                     role="tabpanel"
                     id="pl-league-panel-estadisticas"
@@ -2833,73 +2866,76 @@ export function LeagueHubClubView({
                   </div>
                 ) : null}
 
-                <div
-                  role="tabpanel"
-                  id="pl-league-panel-partidos"
-                  aria-labelledby="pl-league-tab-partidos"
-                  className="pl-lh-tabpanel"
-                  hidden={effectiveSection !== "partidos"}
-                >
-                  {effectiveSection === "partidos" ? (
-                    <div className="pl-lh-tabpanel-body pl-lh-partidos-stack">
-                      <div
-                        id="day-chips"
-                        className="seg-well max-w-full overflow-x-auto"
-                        role="group"
-                        aria-label="Filtrar partidos por día"
-                      >
-                        {dayOptions.map((d) => (
-                          <button
-                            key={d.id}
-                            type="button"
-                            className="day-chip seg-btn shrink-0 min-h-11 sm:min-h-9"
-                            aria-pressed={dayFilter === d.id}
-                            onClick={() => setDayFilter(d.id)}
-                          >
-                            {d.label}
-                          </button>
-                        ))}
+                {visibleSectionKeys.has("partidos") ? (
+                  <div
+                    role="tabpanel"
+                    id="pl-league-panel-partidos"
+                    aria-labelledby="pl-league-tab-partidos"
+                    className="pl-lh-tabpanel"
+                    hidden={effectiveSection !== "partidos"}
+                  >
+                    {effectiveSection === "partidos" ? (
+                      <div className="pl-lh-tabpanel-body pl-lh-partidos-stack">
+                        <div
+                          id="day-chips"
+                          className="seg-well max-w-full overflow-x-auto"
+                          role="group"
+                          aria-label="Filtrar partidos por día"
+                        >
+                          {dayOptions.map((d) => (
+                            <button
+                              key={d.id}
+                              type="button"
+                              className="day-chip seg-btn shrink-0 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9"
+                              aria-pressed={dayFilter === d.id}
+                              onClick={() => setDayFilter(d.id)}
+                            >
+                              {d.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {upcoming.length > 0 ? (
+                          <section className="space-y-3 min-w-0">
+                            <h2 className="pl-lh-section-title">
+                              Próximos encuentros ({upcoming.length})
+                            </h2>
+                            <MatchList groups={upcomingGroups} hideLeagueHeader />
+                          </section>
+                        ) : finished.length > 0 && isNational ? (
+                          <p className="pl-lh-muted-note">
+                            Sin partidos próximos en el calendario actual de {leagueSummary.label}. Mostrando
+                            resultados oficiales recientes del torneo.
+                          </p>
+                        ) : null}
+
+                        {finished.length > 0 ? (
+                          <section className="space-y-3 min-w-0">
+                            <h2 className="pl-lh-section-title">
+                              Resultados cerrados FT ({finished.length})
+                            </h2>
+                            <MatchList groups={finishedGroups} hideLeagueHeader />
+                          </section>
+                        ) : (
+                          <SofascoreEmptyState
+                            title="Sin marcadores cerrados aún"
+                            description="Aún no hay marcadores cerrados (FT) registrados en este corte de la jornada."
+                          />
+                        )}
                       </div>
+                    ) : null}
+                  </div>
+                ) : null}
 
-                      {upcoming.length > 0 ? (
-                        <section className="space-y-3 min-w-0">
-                          <h2 className="pl-lh-section-title">
-                            Próximos encuentros ({upcoming.length})
-                          </h2>
-                          <MatchList groups={upcomingGroups} hideLeagueHeader />
-                        </section>
-                      ) : finished.length > 0 && isNational ? (
-                        <p className="pl-lh-muted-note">
-                          Sin partidos próximos en el calendario actual de {leagueSummary.label}. Mostrando
-                          resultados oficiales recientes del torneo.
-                        </p>
-                      ) : null}
-
-                      {finished.length > 0 ? (
-                        <section className="space-y-3 min-w-0">
-                          <h2 className="pl-lh-section-title">
-                            Resultados cerrados FT ({finished.length})
-                          </h2>
-                          <MatchList groups={finishedGroups} hideLeagueHeader />
-                        </section>
-                      ) : (
-                        <SofascoreEmptyState
-                          title="Sin marcadores cerrados aún"
-                          description="Aún no hay marcadores cerrados (FT) registrados en este corte de la jornada."
-                        />
-                      )}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div
-                  role="tabpanel"
-                  id="pl-league-panel-noticias"
-                  aria-labelledby="pl-league-tab-noticias"
-                  className="pl-lh-tabpanel"
-                  data-league-news=""
-                  hidden={effectiveSection !== "noticias"}
-                >
+                {visibleSectionKeys.has("noticias") ? (
+                  <div
+                    role="tabpanel"
+                    id="pl-league-panel-noticias"
+                    aria-labelledby="pl-league-tab-noticias"
+                    className="pl-lh-tabpanel"
+                    data-league-news=""
+                    hidden={effectiveSection !== "noticias"}
+                  >
                   {effectiveSection === "noticias" ? (
                     <div className="pl-lh-tabpanel-body">
                       <section
@@ -3028,9 +3064,10 @@ export function LeagueHubClubView({
                       </section>
                     </div>
                   ) : null}
-                </div>
+                  </div>
+                ) : null}
 
-                {visibleSections.some((tab) => tab.key === "equipos") ? (
+                {visibleSectionKeys.has("equipos") ? (
                   <div
                     role="tabpanel"
                     id="pl-league-panel-equipos"
@@ -3147,7 +3184,7 @@ export function LeagueHubClubView({
                   </div>
                 ) : null}
 
-                {hasRefereesTab ? (
+                {visibleSectionKeys.has("arbitros") ? (
                   <div
                     role="tabpanel"
                     id="pl-league-panel-arbitros"
@@ -3319,16 +3356,37 @@ export function LeagueHubClubView({
                               Ningún árbitro coincide con ese filtro en esta jornada.
                             </p>
                           ) : (
-                            <div className="pl-ref-dir-grid">
-                              {filteredFallbackReferees.map((refItem) => (
-                                <RefereeRigorBadge
-                                  key={refItem.name}
-                                  referee={refItem}
-                                  variant="card"
-                                  onNavigate={navigateTo}
-                                />
-                              ))}
-                            </div>
+                            <>
+                              <div className="pl-ref-dir-grid">
+                                {(showAllReferees
+                                  ? filteredFallbackReferees
+                                  : filteredFallbackReferees.slice(0, INITIAL_REFEREE_ROWS)
+                                ).map((refItem) => (
+                                  <RefereeRigorBadge
+                                    key={refItem.name}
+                                    referee={refItem}
+                                    variant="card"
+                                    onNavigate={navigateTo}
+                                  />
+                                ))}
+                              </div>
+
+                              {filteredFallbackReferees.length > INITIAL_REFEREE_ROWS ? (
+                                <div className="pl-lh-expand-row">
+                                  <button
+                                    type="button"
+                                    className="pl-lh-action-btn"
+                                    onClick={() => setShowAllReferees((prev) => !prev)}
+                                  >
+                                    <span>
+                                      {showAllReferees
+                                        ? `Mostrar primeros ${INITIAL_REFEREE_ROWS}`
+                                        : `Mostrar todos los árbitros (${filteredFallbackReferees.length})`}
+                                    </span>
+                                  </button>
+                                </div>
+                              ) : null}
+                            </>
                           )}
                         </section>
                       </div>
@@ -3365,7 +3423,7 @@ export function LeagueHubClubView({
                 <button
                   type="button"
                   autoFocus
-                  className="pl-btn-glass px-2.5 min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 shrink-0 inline-flex items-center justify-center"
+                  className="pl-btn-glass px-2.5 min-h-11 min-w-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-9 [@media(min-width:768px)_and_(pointer:fine)]:min-w-9 shrink-0 inline-flex items-center justify-center"
                   aria-label="Cerrar resumen de la nota"
                   onClick={closeNewsModal}
                 >
@@ -3459,7 +3517,7 @@ export function LeagueHubClubView({
                       closeNewsModal();
                       navigateTo(targetHref);
                     }}
-                    className="pl-btn-primary text-xs min-h-11 sm:min-h-10 px-4 inline-flex items-center gap-1.5 no-underline"
+                    className="pl-btn-primary text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-4 inline-flex items-center gap-1.5 no-underline"
                   >
                     <span>{selectedNewsItem.ctaLabel ?? "Ver detalle en PitchLab"}</span>
                     <MaestroIcon name="arrowRight" size={12} />
@@ -3468,7 +3526,7 @@ export function LeagueHubClubView({
                 <button
                   type="button"
                   onClick={closeNewsModal}
-                  className="pl-btn-glass text-xs min-h-11 sm:min-h-10 px-4"
+                  className="pl-btn-glass text-xs min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-4"
                 >
                   Cerrar
                 </button>
@@ -3672,7 +3730,7 @@ export function MatchStudioClubView({
       categoryLabel: m.group,
       risk: m.p >= 0.68 ? "conservador" : m.p >= 0.52 ? "medio" : "arriesgado",
       engineKey: "geodesic",
-      engineName: "PitchLab Geodesic v2.0",
+      engineName: "Motor Spacetime",
       marketGroup: m.group,
       selectionKey: m.selection,
       market: m.market,
