@@ -532,7 +532,7 @@
   .pl-rec-ledger-main {
     font-weight: 400;
     min-inline-size: 220px;
-    max-inline-size: 380px;
+    max-inline-size: 310px;
   }
 
   @container ledger (max-width: 639px) {
