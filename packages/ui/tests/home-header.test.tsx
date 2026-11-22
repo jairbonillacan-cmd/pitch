@@ -7,6 +7,7 @@ import { ALL, filterGames, gamesForSelection } from "../src/platform/club/home/h
 import { buildPlatformDataset } from "../src/platform/match-picks-engine";
 import { PlatformProvider } from "../src/platform/platform-provider";
 import { makeStoryMatch } from "../src/platform/story-fixtures";
+import { EmblemSurfaceProvider } from "../src/sports";
 
 function gameFixture(opts: {
   id: string;
@@ -165,25 +166,27 @@ const LIVE_MAP: ReadonlyMap<string, LiveScoreboardEntry> = new Map([
 ]);
 
 describe("Encabezado unificado de filtros en Inicio", () => {
-  it("renderiza deporte → liga → día, con MLB «Pronto», icono 32 px y en vivo primero", () => {
+  it("renderiza deporte → liga → día, con logos oficiales NFL/NBA/NHL/MLB y en vivo primero", () => {
     const today = "2026-11-15";
     const dayGames = gamesForSelection(DATASET.games, today, today);
     const html = renderToStaticMarkup(
       <PlatformProvider dataset={DATASET} initialRole="member">
-        <HomeFilterHeader
-          allGames={DATASET.games}
-          dayGames={dayGames}
-          visibleGames={dayGames}
-          today={today}
-          day={today}
-          sport={ALL}
-          league={ALL}
-          liveByGameId={LIVE_MAP}
-          onDayChange={() => undefined}
-          onSportChange={() => undefined}
-          onLeagueChange={() => undefined}
-          onJumpDay={() => undefined}
-        />
+        <EmblemSurfaceProvider surface="app">
+          <HomeFilterHeader
+            allGames={DATASET.games}
+            dayGames={dayGames}
+            visibleGames={dayGames}
+            today={today}
+            day={today}
+            sport={ALL}
+            league={ALL}
+            liveByGameId={LIVE_MAP}
+            onDayChange={() => undefined}
+            onSportChange={() => undefined}
+            onLeagueChange={() => undefined}
+            onJumpDay={() => undefined}
+          />
+        </EmblemSurfaceProvider>
       </PlatformProvider>,
     );
 
@@ -195,11 +198,16 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     expect(leagueIdx).toBeGreaterThan(sportIdx);
     expect(dayIdx).toBeGreaterThan(leagueIdx);
 
-    // Iconos WebP 1x/2x del paquete oficial de deportes con MLB habilitada y activa
-    expect(html).toContain("/icons/32/deportes/american-football.webp");
-    expect(html).toContain("/icons/64/deportes/basketball.webp");
-    expect(html).toContain("/icons/32/deportes/hockey.webp");
-    expect(html).toContain("/icons/32/deportes/baseball.webp");
+    // Logos oficiales reales en NFL/NBA/NHL/MLB y categoría limpia en Fútbol (sin balones genéricos US)
+    expect(html).toMatch(/\/icons(?:-dark)?\/32\/deportes\/football\.webp/);
+    expect(html).toContain("/brand/official/nfl/nfl.png");
+    expect(html).toContain("https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent");
+    expect(html).toContain("/brand/official/nhl/nhl.png");
+    expect(html).toContain("/brand/official/mlb/mlb.png");
+    expect(html).not.toContain("/deportes/american-football.webp");
+    expect(html).not.toContain("/deportes/basketball.webp");
+    expect(html).not.toContain("/deportes/hockey.webp");
+    expect(html).not.toContain("/deportes/baseball.webp");
     expect(html).not.toContain(">Pronto<");
     expect(html).toContain('data-sport-filter="mlb"');
     expect(html).toContain('aria-label="MLB · Béisbol, 0 partidos"');

@@ -152,9 +152,17 @@ function resolveBadgeEmblem(params: {
 
   const hasLocalSvgFallback =
     league === "nfl" ||
-    league === "nba" ||
     league === "nhl" ||
     league === "mlb";
+
+  if (logoUrl === null) {
+    return {
+      src: null,
+      fallbackSrc: null,
+      isExternal: false,
+    };
+  }
+
   const localOfficialFallback =
     kind === "team"
       ? getOfficialEspnTeamLogoUrl(league, slug)
