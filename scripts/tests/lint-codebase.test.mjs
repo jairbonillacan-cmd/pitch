@@ -755,6 +755,39 @@ test("no-forbidden-math-jargon bloquea Beta(2,2), no-milky-light-dialog-backdrop
   }
 });
 
+test("no-masked-ring-border-slop bloquea mask-composite exclude/xor en pseudo-elementos de borde", async () => {
+  const rootDir = createTempWorkspace({
+    "apps/web/app/bad-ring.css": [
+      ".card-ring { position: relative; }",
+      ".card-ring::before {",
+      '  content: "";',
+      "  position: absolute;",
+      "  inset: 0;",
+      "  -webkit-mask-composite: xor;",
+      "  mask-composite: exclude;",
+      "}",
+    ].join("\n"),
+    "apps/web/app/good-ring.css": [
+      ".card-ring { border: 1px solid var(--pl-card-border); border-radius: 16px; }",
+      ".hero-glow { mask-composite: intersect; }",
+    ].join("\n"),
+  });
+  try {
+    const result = await runLint({ rootDir });
+    assert.equal(result.ok, false);
+    const ringErrors = result.errors.filter((e) => e.startsWith("[no-masked-ring-border-slop]"));
+    assert.equal(ringErrors.length, 1);
+    assertInstructiveDiagnostic(
+      ringErrors[0],
+      "no-masked-ring-border-slop",
+      "apps/web/app/bad-ring.css",
+      2,
+    );
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
 test("el propio scripts/lint-codebase.mjs pasa en modo --strict-files con cero deuda y los tests tienen cero comentarios", () => {
   const selfCheck = runCli(["--strict-files", "scripts/lint-codebase.mjs"]);
   assert.equal(selfCheck.status, 0, selfCheck.stderr);

@@ -120,6 +120,8 @@ const FORBIDDEN_MATH_JARGON_QUICK_RE = /fr[eé]chet|armador\s+inteligente\s+geod
 const FORBIDDEN_MATH_JARGON_RE =
   /\bFr[eé]chet[- ]Hoeffding\b|\bArmador\s+Inteligente\s+Geodesic\b|\bBeta\(\s*\d+\s*,\s*\d+\s*\)/gi;
 const MILKY_DIALOG_BACKDROP_RE = /::backdrop\s*\{[^}]*var\(--pl-bg\)/gi;
+const MASKED_RING_BORDER_QUICK_RE = /mask-composite/i;
+const MASKED_RING_DECL_RE = /(?:-webkit-)?mask-composite\s*:\s*(?:exclude|xor)\b/i;
 const DUPLICATE_SANITIZE_HREF_RE = /\bfunction\s+sanitizeInternalHref\s*\(/g;
 const CURVED_ACCENT_QUICK_RE =
   /pl-sb-rank-cell|pl-st-rank-cell|pl-st-zone-cell|pl-astro-row/;
@@ -1054,7 +1056,20 @@ function evaluateCurvedAccentBlock(block) {
   return null;
 }
 
-function collectCurvedAccentSlopHits(codeOnly, getLineStarts) {
+function evaluateMaskedRingBlock(block) {
+  if (!CURVED_ACCENT_PSEUDO_RE.test(block.selector)) return null;
+  for (const decl of block.ownDecls) {
+    if (MASKED_RING_DECL_RE.test(decl)) {
+      return {
+        offset: block.selectorOffset,
+        value: block.selector,
+      };
+    }
+  }
+  return null;
+}
+
+function collectCssBlockHits(codeOnly, getLineStarts, evaluateBlock) {
   const hits = [];
   const stack = [];
   const len = codeOnly.length;
@@ -1089,7 +1104,7 @@ function collectCurvedAccentSlopHits(codeOnly, getLineStarts) {
         if (tailDecl.length > 0 && !tailDecl.startsWith("@")) {
           block.ownDecls.push(tailDecl);
         }
-        const hit = evaluateCurvedAccentBlock(block);
+        const hit = evaluateBlock(block);
         if (hit) {
           hits.push({
             line: lineAtOffset(getLineStarts(), hit.offset),
@@ -1370,7 +1385,7 @@ function evaluateFile(rel, content) {
   }
 
   if (isCurvedAccentTarget(rel) && CURVED_ACCENT_QUICK_RE.test(scanned.codeOnly)) {
-    for (const hit of collectCurvedAccentSlopHits(scanned.codeOnly, getLineStarts)) {
+    for (const hit of collectCssBlockHits(scanned.codeOnly, getLineStarts, evaluateCurvedAccentBlock)) {
       immediateErrors.push(
         formatDiagnostic(
           "no-curved-accent-slop",
@@ -1379,6 +1394,21 @@ function evaluateFile(rel, content) {
           `Borde curvo de acento detectado en ${hit.value} (border-left/border-inline-start + border-radius)`,
           "Genera artefactos visuales curvos en filas o celdas de ranking (Ola 7 / ADR-060)",
           "barra vertical recta de 3px en pseudo-elemento ::before con border-radius: 0 en la celda",
+        ),
+      );
+    }
+  }
+
+  if (isCurvedAccentTarget(rel) && MASKED_RING_BORDER_QUICK_RE.test(scanned.codeOnly)) {
+    for (const hit of collectCssBlockHits(scanned.codeOnly, getLineStarts, evaluateMaskedRingBlock)) {
+      immediateErrors.push(
+        formatDiagnostic(
+          "no-masked-ring-border-slop",
+          rel,
+          hit.line,
+          `Pseudo-borde con mask-composite en ${hit.value} provoca esquinas solapadas`,
+          "Superpone un pseudo-elemento ::before/::after recortado sobre el borde real en Chromium",
+          "border: 1px solid var(--pl-card-border) nativo directamente sobre el contenedor",
         ),
       );
     }

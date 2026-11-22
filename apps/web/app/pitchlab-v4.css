@@ -126,31 +126,12 @@ html[data-theme-switching="true"] *::after {
 /* ---------- Bordes limpios de 1 px (.glass-ring) ---------- */
 .glass-ring {
   position: relative;
-  border: 0;
+  border: 1px solid var(--pl-card-border);
 }
 
-.glass-ring::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  pointer-events: none;
-  z-index: 2;
-  background: var(--pl-card-border);
-  -webkit-mask-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
-  mask-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
-  -webkit-mask-clip: content-box, border-box;
-  mask-clip: content-box, border-box;
-  -webkit-mask-origin: content-box, border-box;
-  mask-origin: content-box, border-box;
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-.glass-ring--featured::before {
-  padding: 1.25px;
-  background: color-mix(in oklab, var(--pl-brand) 42%, var(--pl-card-border));
+.glass-ring--featured {
+  border-width: 1.25px;
+  border-color: color-mix(in oklab, var(--pl-brand) 42%, var(--pl-card-border));
 }
 
 /* ---------- Superficies 100 % sólidas por capas ----------
@@ -604,9 +585,9 @@ dialog.pl-native-dialog .glass-lens {
 .btn-glass:not(.glass-ring) {
   box-shadow: inset 0 0 0 1px var(--pl-border);
 }
-.pl-btn-glass.glass-ring::before,
-.btn-glass.glass-ring::before {
-  background: var(--pl-border);
+.pl-btn-glass.glass-ring,
+.btn-glass.glass-ring {
+  border: 1px solid var(--pl-border);
 }
 .pl-btn-glass:hover,
 .btn-glass:hover {
@@ -3511,9 +3492,9 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
     gap: 8px;
   }
 
-  .pl-lp-bar.glass-ring::before,
-  .pl-lp-bar.glass-pill-bar::before {
-    display: none;
+  .pl-lp-bar.glass-ring,
+  .pl-lp-bar.glass-pill-bar {
+    border: 0;
   }
 
   .pl-lp-brand img,
@@ -7050,8 +7031,8 @@ html[data-theme="light"] .pl-stage.pl-auth,
     box-shadow: none;
   }
 
-  .pl-auth-sheet.glass-ring::before {
-    display: none;
+  .pl-auth-sheet.glass-ring {
+    border: 0;
   }
 
   .pl-auth-form-col {
@@ -8599,9 +8580,6 @@ html[data-theme="light"] .pl-stage.pl-auth,
   border: 1px solid var(--pl-card-border);
   background: var(--pl-surface);
 }
-.pl-home-board-bar.glass-ring {
-  border: 0;
-}
 
 .pl-home-board-top {
   position: relative;
@@ -10052,9 +10030,6 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   border: 1px solid var(--pl-card-border);
   transition:
     border-color var(--time-fast) var(--ease-out);
-}
-.pl-home-card.glass-ring {
-  border: 0;
 }
 .pl-home-card:hover {
   border-color: var(--pl-border);
@@ -14039,10 +14014,6 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   min-width: 0;
 }
 
-.pl-team-main-sheet.glass-ring {
-  border: 0;
-}
-
 .pl-team-main-tabs {
   display: grid;
   grid-auto-flow: column;
@@ -14107,13 +14078,13 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   background: transparent !important;
 }
 
-.pl-team-main-sheet .pl-team-sheet-stack > .glass-ring::before,
-.pl-team-main-sheet .pl-team-sheet-split > .glass-ring::before,
-.pl-team-main-sheet > [role="tabpanel"] > .glass-ring::before,
-.pl-team-main-sheet .standings-block.glass-ring::before,
-.pl-team-main-sheet [data-league-news].glass-ring::before,
-.pl-team-main-sheet [data-league-teams-directory].glass-ring::before {
-  display: none !important;
+.pl-team-main-sheet .pl-team-sheet-stack > .glass-ring,
+.pl-team-main-sheet .pl-team-sheet-split > .glass-ring,
+.pl-team-main-sheet > [role="tabpanel"] > .glass-ring,
+.pl-team-main-sheet .standings-block.glass-ring,
+.pl-team-main-sheet [data-league-news].glass-ring,
+.pl-team-main-sheet [data-league-teams-directory].glass-ring {
+  border: 0 !important;
 }
 
 .pl-team-stats-only {
@@ -14225,10 +14196,6 @@ dialog.pl-native-dialog.pl-home-fmodal-dialog[open] {
   overflow: clip;
   display: flex;
   flex-direction: column;
-}
-
-.pl-tmr.glass-ring {
-  border: 0;
 }
 
 .pl-tmr-top {
@@ -15244,6 +15211,7 @@ html[data-theme="light"] .pl-clean-hero-light img {
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 36px;
+  border: 1.5px solid color-mix(in srgb, var(--pl-brand) 38%, var(--pl-clean-edge));
   background: var(--pl-clean-stage);
   box-shadow: 0 0 68px color-mix(in srgb, var(--pl-brand) 12%, transparent);
 }
@@ -15253,18 +15221,6 @@ html[data-theme="light"] .pl-clean-hero-light img {
   z-index: -1;
   inset: 0;
   background: radial-gradient(ellipse at 56% 110%, color-mix(in srgb, var(--pl-brand) 29%, transparent), transparent 72%);
-  content: "";
-}
-
-.pl-clean-showcase-stage::after {
-  position: absolute;
-  inset: 0;
-  padding: 1.5px;
-  border-radius: inherit;
-  background: linear-gradient(139deg, var(--pl-brand), var(--pl-clean-edge) 40%, var(--pl-clean-edge) 63%, var(--pl-success));
-  mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
   content: "";
 }
 

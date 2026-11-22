@@ -133,7 +133,6 @@ html[data-theme="light"] .pl-lp--precio {
   position: relative;
 }
 
-/* Mantener controles por encima de LensGlowOrbs (0) y .glass-ring::before (2) */
 .pl-lp--precio .pl-lp-pricing-card > :not(.pl-lens-orbs) {
   position: relative;
   z-index: 3;
