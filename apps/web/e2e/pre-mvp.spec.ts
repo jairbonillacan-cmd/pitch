@@ -666,14 +666,22 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator(".standings")).toContainText(/pts/i);
 
     // Respaldo automático si un escudo de Bzzoiro falla (404 -> iniciales, sin ícono roto)
-    await page.route("https://sports.bzzoiro.com/img/league/**", (route) =>
-      route.fulfill({ status: 404, body: "" }),
-    );
+    const premierLogoRoutes = [
+      "https://sports.bzzoiro.com/img/league/**",
+      "**/brand/official/premier-league/**",
+      "**/brand/official/**/premier-league*",
+      "**/brand/sports/premier-league/**",
+    ] as const;
+    for (const pattern of premierLogoRoutes) {
+      await page.route(pattern, (route) => route.fulfill({ status: 404, body: "" }));
+    }
     await page.goto("/app/premier-league");
     await expect(
       page.locator('.badge-fallback[data-emblem-league="premier-league"]:visible').first(),
     ).toBeVisible();
-    await page.unroute("https://sports.bzzoiro.com/img/league/**");
+    for (const pattern of premierLogoRoutes) {
+      await page.unroute(pattern);
+    }
 
     // PROFILE-2: perfil de tipster con récord calculado y pestañas por teclado
     await page.goto("/app/u/sofia_nfl");
