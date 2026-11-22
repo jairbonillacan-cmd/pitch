@@ -269,15 +269,17 @@ function CommunityContent(): React.JSX.Element {
     [navigateTo],
   );
 
+  const toggleFollow = follows.toggle;
+
   const onToggleFollow = useCallback(
     (handle: string): void => {
-      const now = follows.toggle(handle);
+      const now = toggleFollow(handle);
       pushToast(
         now ? `Ahora sigues a @${handle}.` : `Dejaste de seguir a @${handle}.`,
         "default",
       );
     },
-    [follows, pushToast],
+    [pushToast, toggleFollow],
   );
 
   const onCopy = useCallback(
@@ -1536,6 +1538,8 @@ const MobileTop = memo(function MobileTop({
 
 type FollowFilter = "all" | "tipsters" | "socios" | "open";
 
+const FOLLOWING_FEED_SCOPE = { following: true } as const;
+
 const FollowingTab = memo(function FollowingTab({
   posts,
   seasonRanked,
@@ -1754,7 +1758,7 @@ const FollowingTab = memo(function FollowingTab({
         <Feed
           key={`following:${filter}`}
           posts={followedPosts}
-          scope={{ following: true }}
+          scope={FOLLOWING_FEED_SCOPE}
           emptyText="Nada de quienes sigues ni de tus ligas y equipos con este filtro."
           {...shared}
         />

@@ -90,14 +90,6 @@ const loadHomeMatchDetailPanel = () =>
   }));
 const LazyHomeMatchDetailPanel = lazy(loadHomeMatchDetailPanel);
 
-if (
-  typeof window !== "undefined" &&
-  typeof window.matchMedia === "function" &&
-  window.matchMedia("(min-width: 1024px)").matches
-) {
-  void loadHomeMatchDetailPanel();
-}
-
 function HomeMatchDetailFallback(): React.JSX.Element {
   return (
     <div
@@ -277,6 +269,11 @@ export function HomeClubView({
   const { setTodayOverride } = homeNav;
   const games = dataset.games;
   const isDesktop = useMediaQuery("(min-width: 1024px)", false);
+  useSafeEffect(() => {
+    if (isDesktop) {
+      void loadHomeMatchDetailPanel();
+    }
+  }, [isDesktop]);
   const urlMatchId = useSyncExternalStore(
     subscribeUrlSearch,
     getUrlMatchSnapshot,

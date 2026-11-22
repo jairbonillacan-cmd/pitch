@@ -1046,7 +1046,7 @@ export function useFollowing(): {
     [hasAccountSessionAuth, pushToast],
   );
   const isFollowing = useCallback((handle: string) => following.includes(handle), [following]);
-  return { following, isFollowing, toggle };
+  return useMemo(() => ({ following, isFollowing, toggle }), [following, isFollowing, toggle]);
 }
 
 export const SOCIAL_REPORT_REASON_OPTIONS: ReadonlyArray<{
@@ -1427,20 +1427,36 @@ export function useFollowedTopics(): {
     [hasAccountSessionAuth],
   );
 
-  const toggle = (list: string[], value: string): string[] =>
-    list.includes(value) ? list.filter((v) => v !== value) : [...list, value].slice(0, TOPICS_MAX);
+  const toggleLeague = useCallback(
+    (league: string) => {
+      const cur = readTopics();
+      const nextLeagues = cur.leagues.includes(league)
+        ? cur.leagues.filter((v) => v !== league)
+        : [...cur.leagues, league].slice(0, TOPICS_MAX);
+      write({ ...cur, leagues: nextLeagues });
+    },
+    [write],
+  );
 
-  return {
-    topics,
-    toggleLeague: (league) => {
+  const toggleTeam = useCallback(
+    (key: string) => {
       const cur = readTopics();
-      write({ ...cur, leagues: toggle(cur.leagues, league) });
+      const nextTeams = cur.teams.includes(key)
+        ? cur.teams.filter((v) => v !== key)
+        : [...cur.teams, key].slice(0, TOPICS_MAX);
+      write({ ...cur, teams: nextTeams });
     },
-    toggleTeam: (key) => {
-      const cur = readTopics();
-      write({ ...cur, teams: toggle(cur.teams, key) });
-    },
-  };
+    [write],
+  );
+
+  return useMemo(
+    () => ({
+      topics,
+      toggleLeague,
+      toggleTeam,
+    }),
+    [toggleLeague, toggleTeam, topics],
+  );
 }
 
 function normalizeTopicText(s: string): string {

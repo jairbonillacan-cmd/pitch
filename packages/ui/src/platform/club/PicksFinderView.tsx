@@ -2089,6 +2089,7 @@ const ScreenerPickRow = memo(function ScreenerPickRow({
 
 interface ScreenerPickTableProps {
   readonly items: readonly ScreenerItem[];
+  readonly limit?: number;
   readonly caption: string;
   readonly showMatchMeta: boolean;
   readonly tableKey: string;
@@ -2107,6 +2108,7 @@ interface ScreenerPickTableProps {
 
 const ScreenerPickTable = memo(function ScreenerPickTable({
   items,
+  limit,
   caption,
   showMatchMeta,
   tableKey,
@@ -2122,6 +2124,10 @@ const ScreenerPickTable = memo(function ScreenerPickTable({
   onOpenManual,
   onManualChange,
 }: ScreenerPickTableProps): React.JSX.Element {
+  const displayedItems = useMemo(
+    () => (limit !== undefined && items.length > limit ? items.slice(0, limit) : items),
+    [items, limit],
+  );
   return (
     <div
       className="pl-scr-table-wrap"
@@ -2150,7 +2156,7 @@ const ScreenerPickTable = memo(function ScreenerPickTable({
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => {
+          {displayedItems.map((item) => {
             const unlocked = isPickUnlocked(item.pick, item.game.status, viewerRole);
             const tracked = item.isLiveGame ? (liveTrackedByPickId.get(item.pick.id) ?? null) : null;
             return (
@@ -5303,8 +5309,7 @@ export function PicksFinderClubView({
                   {visibleMatchGroups.map(({ game, liveEntry, items }) => {
                     const isCollapsed = collapsedGroups.has(`m:${game.id}`);
                     const matchCap = perMatchVisibleCounts[game.id] ?? PER_MATCH_INITIAL_PICKS;
-                    const displayedItems = items.slice(0, matchCap);
-                    const remainingInMatch = Math.max(0, items.length - displayedItems.length);
+                    const remainingInMatch = Math.max(0, items.length - Math.min(items.length, matchCap));
 
                     return (
                       <section
@@ -5325,7 +5330,8 @@ export function PicksFinderClubView({
                         {!isCollapsed ? (
                           <>
                             <ScreenerPickTable
-                              items={displayedItems}
+                              items={items}
+                              limit={matchCap}
                               caption={`Picks de ${game.home.name} vs ${game.away.name}`}
                               showMatchMeta={false}
                               tableKey={`m-${game.id}`}

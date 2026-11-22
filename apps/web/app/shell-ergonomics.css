@@ -1684,10 +1684,16 @@
     align-items: center;
     justify-content: center;
     gap: 8px 16px;
+    min-block-size: 27px;
     padding-block-start: 6px;
     border-block-start: 1px solid var(--pl-row-rule);
     font-size: 0.74rem;
+    line-height: 1.4;
     color: var(--pl-text-muted);
+  }
+
+  .pl-home-md-meta-strip.is-empty {
+    border-block-start-color: transparent;
   }
 
   .pl-home-md-meta-item {

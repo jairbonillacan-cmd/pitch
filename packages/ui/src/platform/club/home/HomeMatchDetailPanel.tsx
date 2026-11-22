@@ -1415,38 +1415,39 @@ export function HomeMatchDetailPanel({
           </div>
         ) : null}
 
-        {venueName || refereeName ? (
-          <div className="pl-home-md-meta-strip">
-            {venueName ? (
+        <div
+          className={`pl-home-md-meta-strip${!venueName && !refereeName ? " is-empty" : ""}`}
+          aria-hidden={!venueName && !refereeName ? true : undefined}
+        >
+          {venueName ? (
+            <span className="pl-home-md-meta-item">
+              <MaestroIcon name="stadium" size={13} />
+              <span className="truncate">{venueName}</span>
+            </span>
+          ) : null}
+          {refereeName ? (
+            refereeHref ? (
+              <a
+                href={refereeHref}
+                onPointerEnter={() => prefetchSafe(refereeHref)}
+                onClick={(e) => {
+                  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                  e.preventDefault();
+                  navigateSafe(refereeHref);
+                }}
+                className="pl-home-md-meta-item pl-home-md-ref-link no-underline"
+              >
+                <MaestroIcon name="whistle" size={13} />
+                <span className="truncate">{refereeName}</span>
+              </a>
+            ) : (
               <span className="pl-home-md-meta-item">
-                <MaestroIcon name="stadium" size={13} />
-                <span className="truncate">{venueName}</span>
+                <MaestroIcon name="whistle" size={13} />
+                <span className="truncate">{refereeName}</span>
               </span>
-            ) : null}
-            {refereeName ? (
-              refereeHref ? (
-                <a
-                  href={refereeHref}
-                  onPointerEnter={() => prefetchSafe(refereeHref)}
-                  onClick={(e) => {
-                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-                    e.preventDefault();
-                    navigateSafe(refereeHref);
-                  }}
-                  className="pl-home-md-meta-item pl-home-md-ref-link no-underline"
-                >
-                  <MaestroIcon name="whistle" size={13} />
-                  <span className="truncate">{refereeName}</span>
-                </a>
-              ) : (
-                <span className="pl-home-md-meta-item">
-                  <MaestroIcon name="whistle" size={13} />
-                  <span className="truncate">{refereeName}</span>
-                </span>
-              )
-            ) : null}
-          </div>
-        ) : null}
+            )
+          ) : null}
+        </div>
 
         <div className="pl-home-md-cta-row">
           <a

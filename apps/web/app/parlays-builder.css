@@ -77,6 +77,7 @@
     flex-direction: column;
     gap: 12px;
     min-inline-size: 0;
+    max-inline-size: 100%;
   }
 
   .pl-pb-scope-bar {
@@ -87,28 +88,92 @@
     max-inline-size: 100%;
   }
 
-  .pl-pb-scope-bar .pl-sf-filter-trailing {
-    flex-wrap: wrap;
+  .pl-pb-scope-bar .pl-pb-filter-bar {
+    min-block-size: 120px;
+  }
+
+  .pl-pb-scope-bar .pl-sf-filter-controls {
+    flex: 1 1 100%;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+
+  .pl-pb-scope-bar .pl-pb-chip-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
     inline-size: 100%;
+    max-inline-size: 100%;
+    min-block-size: 44px;
+  }
+
+  .pl-pb-scope-bar .pl-pb-chip-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pl-pb-scope-bar .pl-pb-chip-row > .pl-pb-chip {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+  }
+
+  .pl-pb-scope-bar .pl-sf-filter-trailing {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    inline-size: 100%;
+    min-block-size: 44px;
+  }
+
+  .pl-pb-league-select-wrap {
+    flex: 1 1 0;
+    min-inline-size: 0;
+    max-inline-size: 230px;
   }
 
   @media (min-width: 768px) {
+    .pl-pb-scope-bar .pl-pb-filter-bar.is-auto {
+      flex-wrap: nowrap;
+      min-block-size: 66px;
+    }
+
+    .pl-pb-scope-bar .pl-pb-filter-bar.is-auto .pl-sf-filter-controls {
+      flex: 1 1 0;
+    }
+
     .pl-pb-scope-bar .pl-sf-filter-trailing {
+      flex: 0 0 auto;
       inline-size: auto;
+      justify-content: flex-end;
+    }
+
+    .pl-pb-league-select-wrap {
+      flex: 0 0 auto;
     }
   }
 
   .pl-pb-league-strip {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 6px;
     min-inline-size: 0;
     max-inline-size: 100%;
+    min-block-size: 44px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pl-pb-league-strip::-webkit-scrollbar {
+    display: none;
   }
 
   .pl-pb-league-chip {
     display: inline-flex;
+    flex: 0 0 auto;
+    flex-shrink: 0;
     align-items: center;
     gap: 6px;
     min-inline-size: 44px;
@@ -303,6 +368,19 @@
   }
 
   @media (min-width: 768px) and (pointer: fine) {
+    .pl-pb-scope-bar .pl-pb-filter-bar.is-auto {
+      min-block-size: 58px;
+    }
+
+    .pl-pb-scope-bar .pl-pb-chip-row,
+    .pl-pb-scope-bar .pl-sf-filter-trailing {
+      min-block-size: 36px;
+    }
+
+    .pl-pb-league-strip {
+      min-block-size: 34px;
+    }
+
     .pl-pb-chip {
       min-inline-size: 36px;
       min-block-size: 36px;

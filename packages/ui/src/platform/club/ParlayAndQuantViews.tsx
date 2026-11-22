@@ -1399,6 +1399,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
             <div className="pl-pb-main">
               <div className="pl-pb-scope-bar" data-parlay-scope-bar="">
                 <SofascoreFilterBar
+                  className={builderMode === "auto" ? "pl-pb-filter-bar is-auto" : "pl-pb-filter-bar"}
                   searchValue={builderMode === "manual" ? manualQuery : undefined}
                   onSearchChange={builderMode === "manual" ? handleManualQueryChange : undefined}
                   searchPlaceholder="Buscar equipo, liga o mercado…"
@@ -1407,7 +1408,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   }
                   trailing={
                     activeLeagues.length > LEAGUE_CHIP_LIMIT ? (
-                      <div className="min-w-0 w-full sm:w-auto">
+                      <div className="pl-pb-league-select-wrap">
                         <label htmlFor={leagueSelectId} className="sr-only">
                           Más ligas disponibles
                         </label>
@@ -1461,43 +1462,46 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   </div>
                 </SofascoreFilterBar>
 
-                {visibleLeagueChips.length > 0 ? (
-                  <div
-                    className="pl-pb-league-strip"
-                    role="group"
-                    aria-label="Filtrar por liga"
-                    data-parlay-league-chips=""
-                  >
-                    <button
-                      type="button"
-                      className="pl-pb-league-chip num"
-                      aria-pressed={effectiveLeague === ALL}
-                      data-parlay-league-chip="all"
-                      onClick={() => handleSelectLeague(ALL)}
-                    >
-                      <span>Todas las ligas</span>
-                    </button>
-                    {visibleLeagueChips.map((lg) => (
+                <div
+                  className="pl-pb-league-strip"
+                  role="group"
+                  aria-label="Filtrar por liga"
+                  aria-hidden={visibleLeagueChips.length === 0 ? true : undefined}
+                  data-parlay-league-chips=""
+                >
+                  {visibleLeagueChips.length > 0 ? (
+                    <>
                       <button
-                        key={lg.league}
                         type="button"
                         className="pl-pb-league-chip num"
-                        aria-pressed={effectiveLeague === lg.league}
-                        data-parlay-league-chip={lg.league}
-                        onClick={() => handleSelectLeague(lg.league)}
+                        aria-pressed={effectiveLeague === ALL}
+                        data-parlay-league-chip="all"
+                        onClick={() => handleSelectLeague(ALL)}
                       >
-                        <LeagueBadge
-                          league={lg.league}
-                          label={lg.label}
-                          logoUrl={lg.logoUrl || undefined}
-                          size={16}
-                        />
-                        <span className="pl-pb-league-chip-name">{lg.label}</span>
-                        <span className="pl-pb-league-chip-count">{lg.openCount}</span>
+                        <span>Todas las ligas</span>
                       </button>
-                    ))}
-                  </div>
-                ) : null}
+                      {visibleLeagueChips.map((lg) => (
+                        <button
+                          key={lg.league}
+                          type="button"
+                          className="pl-pb-league-chip num"
+                          aria-pressed={effectiveLeague === lg.league}
+                          data-parlay-league-chip={lg.league}
+                          onClick={() => handleSelectLeague(lg.league)}
+                        >
+                          <LeagueBadge
+                            league={lg.league}
+                            label={lg.label}
+                            logoUrl={lg.logoUrl || undefined}
+                            size={16}
+                          />
+                          <span className="pl-pb-league-chip-name">{lg.label}</span>
+                          <span className="pl-pb-league-chip-count">{lg.openCount}</span>
+                        </button>
+                      ))}
+                    </>
+                  ) : null}
+                </div>
               </div>
 
               {activeAlert ? (
