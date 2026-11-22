@@ -852,7 +852,9 @@
     .pl-home-md-tab,
     .pl-home-md-full-cta,
     .pl-home-md-action-btn,
-    .pl-home-md-lab-link {
+    .pl-home-md-lab-link,
+    .pl-home-md-lock-link,
+    .pl-home-md-retry-btn {
       min-block-size: 44px;
       min-inline-size: 44px;
     }
@@ -894,9 +896,9 @@
       flex-direction: column;
       gap: 10px;
       position: sticky;
-      inset-block-start: 80px;
+      inset-block-start: 116px;
       align-self: start;
-      max-block-size: calc(100dvh - 96px);
+      max-block-size: calc(100dvh - 132px);
       overflow-y: auto;
       overscroll-behavior: contain;
       scrollbar-gutter: stable;
@@ -904,6 +906,11 @@
       padding-inline-end: 4px;
       scrollbar-width: thin;
       scrollbar-color: var(--pl-scroll-thumb) transparent;
+    }
+
+    body:has(.panel-header .pl-header-leagueband[data-open="true"]) .pl-home-md-detail-pane {
+      inset-block-start: 156px;
+      max-block-size: calc(100dvh - 172px);
     }
 
     .pl-home-md-mobile-rail {
@@ -1339,6 +1346,8 @@
   }
 
   .pl-home-md-lock-link {
+    display: inline-flex;
+    align-items: center;
     color: var(--pl-brand);
     font-weight: 700;
   }
@@ -1461,6 +1470,10 @@
     margin: 0;
     border: 0;
     background: transparent;
+  }
+
+  .pl-home-md-mode-panel[hidden] {
+    display: none;
   }
 
   .pl-home-md-mode-panel-inner {
@@ -1985,13 +1998,13 @@
     font-weight: 800;
   }
 
-  .pl-home-md-ev-windows {
+  .pl-home-md-panel .pl-ev-win-strip {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
   }
 
-  .pl-home-md-ev-pill {
+  .pl-home-md-panel .pl-ev-win-pill {
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -2003,28 +2016,36 @@
     color: var(--pl-text-secondary);
   }
 
-  .pl-home-md-ev-pill.is-high {
+  .pl-home-md-panel .pl-ev-win-pill.is-high {
     background: var(--pl-pill-success-bg);
     color: var(--pl-pill-success-fg);
     border-color: var(--pl-pill-success-border);
   }
 
-  .pl-home-md-ev-pill.is-mid {
+  .pl-home-md-panel .pl-ev-win-pill.is-mid {
     background: var(--pl-pill-warning-bg);
     color: var(--pl-pill-warning-fg);
     border-color: var(--pl-pill-warning-border);
   }
 
-  .pl-home-md-ev-pill.is-low {
+  .pl-home-md-panel .pl-ev-win-pill.is-low {
     background: var(--pl-pill-danger-bg);
     color: var(--pl-pill-danger-fg);
     border-color: var(--pl-pill-danger-border);
   }
 
-  .pl-home-md-ev-pill.is-info {
+  .pl-home-md-panel .pl-ev-win-pill.is-info {
     background: var(--pl-pill-info-bg);
     color: var(--pl-pill-info-fg);
     border-color: var(--pl-pill-info-border);
+  }
+
+  .pl-home-md-panel .pl-ev-win-key {
+    font-weight: 650;
+  }
+
+  .pl-home-md-panel .pl-ev-win-val {
+    font-weight: 800;
   }
 
   .pl-home-md-ev-bullets {
@@ -2137,6 +2158,54 @@
     line-height: 1.45;
     color: var(--pl-text-secondary);
     text-wrap: pretty;
+  }
+
+  .pl-home-md-error {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-block-end: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--pl-pill-danger-border);
+    background: var(--pl-pill-danger-bg);
+    color: var(--pl-pill-danger-fg);
+    font-size: 0.78rem;
+    font-weight: 650;
+  }
+
+  .pl-home-md-retry-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 32px;
+    padding: 0 12px;
+    border-radius: 8px;
+    border: 1px solid var(--pl-border-strong);
+    background: var(--pl-surface);
+    color: var(--pl-text);
+    font: inherit;
+    font-size: 0.74rem;
+    font-weight: 750;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition:
+      background-color 140ms ease,
+      border-color 140ms ease;
+  }
+
+  .pl-home-md-retry-btn:hover {
+    background: var(--pl-surface-hover);
+    border-color: var(--pl-brand);
+  }
+
+  .pl-home-md-retry-btn:focus-visible {
+    outline: 2px solid var(--pl-brand);
+    outline-offset: 2px;
   }
 
   .pl-home-md-skeleton {

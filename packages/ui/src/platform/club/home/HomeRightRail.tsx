@@ -60,7 +60,7 @@ const TopPickRailItem = React.memo(function TopPickRailItem({
             setActiveSharedTransition(e.currentTarget.closest("article"), "pl-match-hero");
             navigateTo(studioHref);
           }}
-          className="inline-flex items-center gap-1.5 min-w-0 no-underline"
+          className="inline-flex items-center gap-1.5 min-w-0 min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-0 no-underline"
           style={{ color: "var(--pl-text-secondary)" }}
         >
           <span className="pl-rail-rank num">#{rank}</span>
@@ -260,7 +260,7 @@ function LabRail(): React.JSX.Element {
             e.preventDefault();
             navigateTo("/app/lab");
           }}
-          className="text-sm font-bold min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-8 inline-flex items-center px-1"
+          className="text-sm font-bold min-h-11 min-w-11 justify-center [@media(min-width:768px)_and_(pointer:fine)]:min-h-8 [@media(min-width:768px)_and_(pointer:fine)]:min-w-0 inline-flex items-center px-1"
         >
           Abrir
         </a>

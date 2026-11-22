@@ -222,7 +222,7 @@ export function HomeClubView({
   const homeNav = useHomeNavFilter();
   const { setTodayOverride } = homeNav;
   const games = dataset.games;
-  const isDesktop = useMediaQuery("(min-width: 1024px)", true);
+  const isDesktop = useMediaQuery("(min-width: 1024px)", false);
   const urlMatchId = useSyncExternalStore(
     subscribeUrlSearch,
     getUrlMatchSnapshot,
@@ -271,7 +271,6 @@ export function HomeClubView({
   const [activePinnedViewId, setActivePinnedViewId] = useState<string | null>(null);
   const [selectedMatchId, setSelectedMatchId] = useState<string | null>(null);
   const [rightMode, setRightMode] = useState<"match" | "parlay">("match");
-  const desktopParlayPanelRef = useRef<HTMLDivElement | null>(null);
   const desktopPaneRef = useRef<HTMLElement | null>(null);
 
   const favoriteLeagueSet = useMemo(() => {
@@ -649,19 +648,6 @@ export function HomeClubView({
 
   const effectiveRightMode: "match" | "parlay" =
     rightMode === "match" && selectedGame !== null ? "match" : "parlay";
-
-  useSafeEffect(() => {
-    const el = desktopParlayPanelRef.current;
-    if (!el) return;
-    if (effectiveRightMode !== "parlay") {
-      el.setAttribute("hidden", "until-found");
-    } else {
-      el.removeAttribute("hidden");
-    }
-    const onBeforeMatch = () => setRightMode("parlay");
-    el.addEventListener("beforematch", onBeforeMatch);
-    return () => el.removeEventListener("beforematch", onBeforeMatch);
-  }, [effectiveRightMode, isDesktop]);
 
   const handleSelectDesktopGame = useCallback(
     (game: PlatformGame) => {
@@ -1074,27 +1060,27 @@ export function HomeClubView({
                   ) : null}
 
                   <div
-                    ref={desktopParlayPanelRef}
                     role="tabpanel"
                     aria-labelledby="home-right-mode-parlay"
                     hidden={effectiveRightMode !== "parlay"}
                     className="pl-home-md-mode-panel"
                   >
-                    <div className="pl-home-md-mode-panel-inner">
-                      <HomeRightRail
-                        visibleGames={visible}
-                        allGames={dataset.games}
-                        selectedDay={day}
-                        today={today}
-                        isPastDay={isPast}
-                        activeLeague={league === ALL ? null : league}
-                        topPicks={top}
-                        valuePicks={value}
-                        compactParlayOnly={effectiveRightMode !== "parlay"}
-                        embedded
-                        onSelectGame={handleSelectDesktopGame}
-                      />
-                    </div>
+                    {effectiveRightMode === "parlay" ? (
+                      <div className="pl-home-md-mode-panel-inner">
+                        <HomeRightRail
+                          visibleGames={visible}
+                          allGames={dataset.games}
+                          selectedDay={day}
+                          today={today}
+                          isPastDay={isPast}
+                          activeLeague={league === ALL ? null : league}
+                          topPicks={top}
+                          valuePicks={value}
+                          embedded
+                          onSelectGame={handleSelectDesktopGame}
+                        />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </>

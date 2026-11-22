@@ -32,7 +32,7 @@ import {
 } from "../../atomic";
 import { MaestroIcon } from "../../components/MaestroPrimitives";
 import { SportEventIcon } from "../../components/SportEventIcons";
-import { useAbortableJson, useSafeEffect } from "../../hooks";
+import { useAbortableJson, useMediaQuery, useSafeEffect } from "../../hooks";
 import { MomentumChart } from "../../live/live-charts";
 import { useLiveMatch } from "../../live/live-store";
 import { sanitizeInternalHref, setActiveSharedTransition } from "../../navigation-helpers";
@@ -50,6 +50,7 @@ import {
 } from "../../platform-provider";
 import type { ConfirmedLineupPlayer, MatchPick, PlatformGame } from "../../types";
 import {
+  EvidenceWindowPills,
   extractEvidenceWindows,
   type EvidenceWindowItem,
 } from "../picks/EvidenceWindowPills";
@@ -63,24 +64,22 @@ import { formatGameKickoffTime, formatLiveChipPhase } from "./home-view-helpers"
 const PREVIEW_CACHE_MAX = 16;
 const previewMemoryCache = new Map<string, GamePreviewPayload>();
 
-function readPreviewCache(gameId: string): GamePreviewPayload | null {
-  const cached = previewMemoryCache.get(gameId);
-  if (!cached) return null;
-  previewMemoryCache.delete(gameId);
-  previewMemoryCache.set(gameId, cached);
-  return cached;
+function touchPreviewCache(cacheKey: string, payload: GamePreviewPayload): void {
+  if (!previewMemoryCache.has(cacheKey)) return;
+  previewMemoryCache.delete(cacheKey);
+  previewMemoryCache.set(cacheKey, payload);
 }
 
-function writePreviewCache(gameId: string, payload: GamePreviewPayload): void {
-  if (previewMemoryCache.has(gameId)) {
-    previewMemoryCache.delete(gameId);
+function writePreviewCache(cacheKey: string, payload: GamePreviewPayload): void {
+  if (previewMemoryCache.has(cacheKey)) {
+    previewMemoryCache.delete(cacheKey);
   } else if (previewMemoryCache.size >= PREVIEW_CACHE_MAX) {
     const oldest = previewMemoryCache.keys().next().value;
     if (typeof oldest === "string") {
       previewMemoryCache.delete(oldest);
     }
   }
-  previewMemoryCache.set(gameId, payload);
+  previewMemoryCache.set(cacheKey, payload);
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -174,6 +173,7 @@ interface DetailPickDisplayItem {
   readonly bullets: readonly { readonly label: string; readonly ratePct: number | null; readonly tone: string }[];
   readonly isPrimary: boolean;
   readonly isRedacted: boolean;
+  readonly fromCatalog: boolean;
 }
 
 interface DetailInjuryItem {
@@ -309,8 +309,49 @@ function buildLiveProgressForPick(params: {
     };
   }
 
+  const selLower = pick.selectionKey.toLowerCase();
+  const isDoubleChance =
+    selLower.includes("1x") ||
+    selLower.includes("x2") ||
+    selLower.includes("home_draw") ||
+    selLower.includes("away_draw") ||
+    selLower.includes("double_chance") ||
+    lower.includes("o empate") ||
+    lower.includes("doble oportunidad");
+
+  if (isDoubleChance) {
+    if (selLower.includes("12") && !selLower.includes("1x") && !selLower.includes("x2")) {
+      return null;
+    }
+    const picksAwayDc =
+      selLower.includes("x2") ||
+      selLower.includes("away_draw") ||
+      (lower.includes(game.away.shortName.toLowerCase()) &&
+        !lower.includes(game.home.shortName.toLowerCase()));
+    const margin = picksAwayDc ? score.away - score.home : score.home - score.away;
+    return {
+      pickLabel: pick.label,
+      actualValue: margin,
+      targetLine: 0.5,
+      unitLabel: isFootball ? "goles" : scoreUnit,
+      direction: "handicap",
+      projectedFinal: null,
+      asianState: computeAsianState(margin, 0.5),
+    };
+  }
+
+  if (
+    selLower === "draw" ||
+    selLower.endsWith(":draw") ||
+    selLower.endsWith("_draw") ||
+    lower === "empate" ||
+    lower.startsWith("empate ")
+  ) {
+    return null;
+  }
+
   const picksAway =
-    pick.selectionKey.includes("away") ||
+    selLower.includes("away") ||
     (lower.includes(game.away.shortName.toLowerCase()) && !lower.includes(game.home.shortName.toLowerCase()));
   const margin = picksAway ? score.away - score.home : score.home - score.away;
   return {
@@ -359,7 +400,7 @@ function buildStatBlocks(params: {
         awayValue: liveStats.away.bigChances,
       });
     }
-    if (liveStats.home.xg !== null && liveStats.away.xg !== null) {
+    if (unlocked && liveStats.home.xg !== null && liveStats.away.xg !== null) {
       shotsRows.push({
         key: "xg",
         label: "Goles esperados (xG)",
@@ -459,6 +500,10 @@ function buildStatBlocks(params: {
     }
 
     return blocks;
+  }
+
+  if (!unlocked) {
+    return [];
   }
 
   const micro = preview?.detail?.v5?.microCounts ?? null;
@@ -568,8 +613,9 @@ function buildDisplayPicks(params: {
   readonly game: PlatformGame;
   readonly preview: GamePreviewPayload | null;
   readonly viewerRole: "visitor" | "member" | "tipster" | "admin";
+  readonly hasFullAccess: boolean;
 }): readonly DetailPickDisplayItem[] {
-  const { game, preview, viewerRole } = params;
+  const { game, preview, viewerRole, hasFullAccess } = params;
   const catalogPicks = preview?.detail?.picksCatalog?.picks ?? null;
   const v5 = preview?.detail?.v5 ?? null;
 
@@ -589,7 +635,10 @@ function buildDisplayPicks(params: {
 
     return sorted.slice(0, 6).map((item, idx): DetailPickDisplayItem => {
       const matchPick = catalogPickItemToMatchPick(item, game, idx);
-      const unlocked = !item.isRedacted && isPickUnlocked(matchPick, game.status, viewerRole);
+      const unlocked =
+        !item.isRedacted &&
+        (hasFullAccess || Boolean(matchPick.isDailyOpenPromo || matchPick.isTipsterWeeklyOpen)) &&
+        isPickUnlocked(matchPick, game.status, viewerRole);
       return {
         id: item.id,
         pick: matchPick,
@@ -603,12 +652,15 @@ function buildDisplayPicks(params: {
         bullets: unlocked ? item.evidence.bullets.slice(0, 3) : [],
         isPrimary: item.isPrimaryModelPick || idx === 0,
         isRedacted: !unlocked,
+        fromCatalog: true,
       };
     });
   }
 
   return game.picks.slice(0, 5).map((pick, idx): DetailPickDisplayItem => {
-    const unlocked = isPickUnlocked(pick, game.status, viewerRole);
+    const unlocked =
+      (hasFullAccess || Boolean(pick.isDailyOpenPromo || pick.isTipsterWeeklyOpen)) &&
+      isPickUnlocked(pick, game.status, viewerRole);
     const evPct =
       unlocked && pick.marketDecimal && pick.marketDecimal > 1
         ? Math.round((pick.p * pick.marketDecimal - 1) * 1000) / 10
@@ -629,6 +681,7 @@ function buildDisplayPicks(params: {
       bullets: [],
       isPrimary: idx === 0,
       isRedacted: !unlocked,
+      fromCatalog: false,
     };
   });
 }
@@ -691,15 +744,23 @@ export function HomeMatchDetailPanel({
   const uid = useId().replace(/:/g, "");
   const tabButtonRefs = useRef<Partial<Record<DetailTabKey, HTMLButtonElement | null>>>({});
 
-  const viewerRole = platformCore?.viewerRole ?? "member";
+  const viewerRole: "visitor" | "member" | "tipster" | "admin" =
+    platformCore?.viewerRole ??
+    (previewOverride?.fullAccess === true ? "member" : "visitor");
   const oddsFormat = platformCore?.oddsFormat ?? "decimal";
   const userTimezone = platformCore?.userTimezone ?? "America/Mexico_City";
   const hasAccountSession = platformCore?.hasAccountSession ?? false;
   const upgradeHref = platformCore?.upgradeHref ?? "/precio";
+  const isDesktopViewport = useMediaQuery("(min-width: 1024px)", false);
 
   const [sealedIds, setSealedIds] = useState<ReadonlySet<string>>(() => new Set());
   const [localParlayIds, setLocalParlayIds] = useState<ReadonlySet<string>>(() => new Set());
   const [localWatched, setLocalWatched] = useState<boolean>(false);
+  const [errorForKey, setErrorForKey] = useState<{
+    readonly key: string;
+    readonly message: string;
+  } | null>(null);
+  const sawLoadingKeyRef = useRef<string | null>(null);
   const [tabSelection, setTabSelection] = useState<{
     readonly gameId: string;
     readonly tab: DetailTabKey;
@@ -708,32 +769,66 @@ export function HomeMatchDetailPanel({
     tab: "picks",
   }));
 
+  const previewCacheKey = `${viewerRole}:${hasAccountSession ? "1" : "0"}:${game.id}`;
   const cachedPreview = useMemo(
-    () => (previewOverride === undefined ? readPreviewCache(game.id) : null),
-    [game.id, previewOverride],
+    () => (previewOverride === undefined ? (previewMemoryCache.get(previewCacheKey) ?? null) : null),
+    [previewCacheKey, previewOverride],
   );
 
+  const shouldFetchPreview =
+    previewOverride === undefined && isDesktopViewport && cachedPreview === null;
   const previewUrl =
-    previewOverride === undefined ? `/api/games/${encodeURIComponent(game.id)}/preview` : null;
-  const { data: fetchedPreview, loading: fetchingPreview } = useAbortableJson<GamePreviewPayload>(
-    previewUrl,
-    {
-      enabled: previewOverride === undefined && cachedPreview === null,
-      initialData: cachedPreview,
-    },
-  );
+    previewOverride === undefined && isDesktopViewport
+      ? `/api/games/${encodeURIComponent(game.id)}/preview`
+      : null;
+  const {
+    data: fetchedPreview,
+    loading: fetchingPreview,
+    error: rawPreviewError,
+    reload: reloadPreview,
+  } = useAbortableJson<GamePreviewPayload>(previewUrl, {
+    enabled: shouldFetchPreview,
+    initialData: cachedPreview,
+  });
 
   useSafeEffect(() => {
-    if (previewOverride === undefined && fetchedPreview && fetchedPreview.gameId === game.id) {
-      writePreviewCache(game.id, fetchedPreview);
+    if (previewOverride !== undefined) return;
+    if (cachedPreview) {
+      touchPreviewCache(previewCacheKey, cachedPreview);
+      return;
     }
-  }, [fetchedPreview, game.id, previewOverride]);
+    if (fetchedPreview && fetchedPreview.gameId === game.id) {
+      writePreviewCache(previewCacheKey, fetchedPreview);
+    }
+  }, [cachedPreview, fetchedPreview, game.id, previewCacheKey, previewOverride]);
+
+  useSafeEffect(() => {
+    if (fetchingPreview) {
+      sawLoadingKeyRef.current = previewCacheKey;
+      setErrorForKey((prev) => (prev ? null : prev));
+      return;
+    }
+    if (rawPreviewError && sawLoadingKeyRef.current === previewCacheKey) {
+      setErrorForKey({ key: previewCacheKey, message: rawPreviewError });
+      return;
+    }
+    if (!rawPreviewError) {
+      setErrorForKey((prev) => (prev && prev.key === previewCacheKey ? null : prev));
+    }
+  }, [fetchingPreview, previewCacheKey, rawPreviewError]);
+
+  const previewError =
+    errorForKey && errorForKey.key === previewCacheKey ? errorForKey.message : null;
+  const handleRetryPreview = useCallback(() => {
+    setErrorForKey(null);
+    reloadPreview();
+  }, [reloadPreview]);
 
   const preview: GamePreviewPayload | null =
     previewOverride !== undefined
       ? previewOverride
       : cachedPreview ?? (fetchedPreview && fetchedPreview.gameId === game.id ? fetchedPreview : null);
-  const isPreviewLoading = previewOverride === undefined && preview === null && fetchingPreview;
+  const isPreviewLoading = shouldFetchPreview && preview === null && !previewError;
 
   const live =
     (liveEntry ? isLivePhaseActive(liveEntry.phase) : false) ||
@@ -747,23 +842,31 @@ export function HomeMatchDetailPanel({
   const liveDetail: LiveMatchDetail | null =
     liveDetailOverride !== undefined ? liveDetailOverride : live ? liveDetailSnap.data : null;
 
+  const hasFullAccess =
+    isFinished || (preview !== null ? preview.fullAccess : viewerRole !== "visitor");
+  const intelUnlocked =
+    isFinished ||
+    (preview !== null
+      ? preview.fullAccess && isPreGameIntelUnlocked(game, viewerRole)
+      : isPreGameIntelUnlocked(game, viewerRole));
+  const previewRedacted = preview !== null && !preview.fullAccess && !isFinished;
+
   const activeScore =
     liveDetail?.entry.score ??
     liveEntry?.score ??
     preview?.game.score ??
     game.score ??
     null;
-  const activeProjection = preview?.game.projection ?? game.projection;
-  const activeX12 =
-    preview && (preview.game.x12[0] > 0 || preview.game.x12[2] > 0)
+  const activeProjection = previewRedacted
+    ? null
+    : (preview?.game.projection ?? (intelUnlocked ? game.projection : null));
+  const activeX12: readonly [number, number, number] | null = previewRedacted
+    ? [0, 0, 0]
+    : preview && (preview.game.x12[0] > 0 || preview.game.x12[2] > 0)
       ? preview.game.x12
-      : game.x12;
-
-  const intelUnlocked =
-    isFinished ||
-    (preview !== null
-      ? preview.fullAccess && isPreGameIntelUnlocked(game, viewerRole)
-      : isPreGameIntelUnlocked(game, viewerRole));
+      : intelUnlocked
+        ? game.x12
+        : [0, 0, 0];
   const hasDraw = sportHasDraw(game.sport);
   const unit = sportScoringUnit(game.sport);
   const fullHref = sanitizeInternalHref(preview?.game.canonicalHref) ?? canonicalGameHref(game.league, game);
@@ -898,8 +1001,8 @@ export function HomeMatchDetailPanel({
   }, [liveDetail?.incidents]);
 
   const displayPicks = useMemo(
-    () => buildDisplayPicks({ game, preview, viewerRole }),
-    [game, preview, viewerRole],
+    () => buildDisplayPicks({ game, preview, viewerRole, hasFullAccess }),
+    [game, hasFullAccess, preview, viewerRole],
   );
 
   const liveProgressBars = useMemo<readonly ComputedLiveBar[]>(() => {
@@ -1119,7 +1222,7 @@ export function HomeMatchDetailPanel({
   const refereeName =
     preview?.game.refereeName ??
     game.referee ??
-    game.preGame.matchContext?.referee?.name ??
+    game.preGame.matchContext?.referee ??
     null;
   const refereeSlug = preview?.game.refereeSlug ?? null;
   const refereeHref =
@@ -1409,6 +1512,19 @@ export function HomeMatchDetailPanel({
         className="pl-home-md-tabpanel"
         data-home-detail-tabpanel={activeTab}
       >
+        {previewError && !isPreviewLoading ? (
+          <div className="pl-home-md-error" role="alert">
+            <span>{previewError}</span>
+            <button
+              type="button"
+              className="pl-home-md-retry-btn"
+              onClick={handleRetryPreview}
+            >
+              Reintentar
+            </button>
+          </div>
+        ) : null}
+
         {activeTab === "picks" ? (
           <div className="pl-home-md-picks-pane">
             {intelUnlocked && activeX12 && (activeX12[0] > 0 || activeX12[2] > 0) ? (
@@ -1538,23 +1654,10 @@ export function HomeMatchDetailPanel({
                       </div>
 
                       {item.windows.length > 0 ? (
-                        <div
-                          className="pl-home-md-ev-windows"
-                          role="list"
-                          aria-label="Ventanas de evidencia real"
-                        >
-                          {item.windows.slice(0, 5).map((win) => (
-                            <span
-                              key={`${item.id}-${win.key}-${win.label}`}
-                              role="listitem"
-                              className={`pl-home-md-ev-pill is-${win.tone} num`}
-                              title={win.detail ?? `${win.label}: ${win.value}`}
-                            >
-                              <span>{win.label}</span>
-                              <strong>{win.value}</strong>
-                            </span>
-                          ))}
-                        </div>
+                        <EvidenceWindowPills
+                          windows={item.windows.slice(0, 5)}
+                          size="sm"
+                        />
                       ) : null}
 
                       {item.bullets.length > 0 ? (
@@ -1572,43 +1675,47 @@ export function HomeMatchDetailPanel({
                         </ul>
                       ) : null}
 
-                      <div className="pl-home-md-pick-actions">
-                        {!isFinished && !live ? (
-                          <>
-                            <button
-                              type="button"
-                              className={`pl-home-parlay-btn is-sm ${inParlay ? "is-on" : ""}`.trim()}
-                              aria-pressed={inParlay}
-                              onClick={() => handleParlayClick(item.pick)}
+                      {(!isFinished && !live) || item.fromCatalog ? (
+                        <div className="pl-home-md-pick-actions">
+                          {!isFinished && !live ? (
+                            <>
+                              <button
+                                type="button"
+                                className={`pl-home-parlay-btn is-sm ${inParlay ? "is-on" : ""}`.trim()}
+                                aria-pressed={inParlay}
+                                onClick={() => handleParlayClick(item.pick)}
+                              >
+                                <MaestroIcon name={inParlay ? "check" : "plus"} size={13} />
+                                <span>{inParlay ? "En parlay" : "+ Parlay"}</span>
+                              </button>
+                              <button
+                                type="button"
+                                className={`pl-home-md-action-btn ${isSealed ? "is-done" : ""}`.trim()}
+                                disabled={isSealed}
+                                onClick={() => handleSealClick(item.pick)}
+                              >
+                                <MaestroIcon name={isSealed ? "check" : "add-to-record"} size={13} />
+                                <span>{isSealed ? "Sellado" : "Sellar"}</span>
+                              </button>
+                            </>
+                          ) : null}
+                          {item.fromCatalog ? (
+                            <a
+                              href={labHref}
+                              onPointerEnter={() => prefetchSafe(labHref)}
+                              onClick={(e) => {
+                                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                                e.preventDefault();
+                                navigateSafe(labHref);
+                              }}
+                              className="pl-home-md-lab-link no-underline"
                             >
-                              <MaestroIcon name={inParlay ? "check" : "plus"} size={13} />
-                              <span>{inParlay ? "En parlay" : "+ Parlay"}</span>
-                            </button>
-                            <button
-                              type="button"
-                              className={`pl-home-md-action-btn ${isSealed ? "is-done" : ""}`.trim()}
-                              disabled={isSealed}
-                              onClick={() => handleSealClick(item.pick)}
-                            >
-                              <MaestroIcon name={isSealed ? "check" : "add-to-record"} size={13} />
-                              <span>{isSealed ? "Sellado" : "Sellar"}</span>
-                            </button>
-                          </>
-                        ) : null}
-                        <a
-                          href={labHref}
-                          onPointerEnter={() => prefetchSafe(labHref)}
-                          onClick={(e) => {
-                            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-                            e.preventDefault();
-                            navigateSafe(labHref);
-                          }}
-                          className="pl-home-md-lab-link no-underline"
-                        >
-                          <span>Abrir en Bet Lab</span>
-                          <MaestroIcon name="arrowRight" size={12} />
-                        </a>
-                      </div>
+                              <span>Abrir en Bet Lab</span>
+                              <MaestroIcon name="arrowRight" size={12} />
+                            </a>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </article>
                   );
                 })}
