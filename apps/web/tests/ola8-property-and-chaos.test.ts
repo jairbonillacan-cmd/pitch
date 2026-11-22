@@ -1480,5 +1480,37 @@ describe("Ola 8 · Caos de seguridad y matriz Cero-Fuga / FD-16", () => {
       }
       expect(uiLeaks).toEqual([]);
     });
+
+    it("sanitizeInternalHref rechaza siempre barras invertidas (/\\), protocol-relative (//), esquemas y caracteres de control bajo fuzzing fast-check", () => {
+      fc.assert(
+        fc.property(fc.string({ maxLength: 80 }), (raw) => {
+          const out = sanitizeInternalHref(raw);
+          if (out !== null) {
+            expect(out.startsWith("/")).toBe(true);
+            expect(out.startsWith("//")).toBe(false);
+            expect(out.includes("\\")).toBe(false);
+            expect(/[\u0000-\u001f\u007f]/.test(out)).toBe(false);
+          }
+        }),
+        { numRuns: 500 },
+      );
+
+      for (const bad of [
+        "/\\evil.com",
+        "//evil.com/path",
+        "https://evil.com",
+        "javascript:alert(1)",
+        "data:text/html,<script>",
+        "/app/\nInjected",
+        "/app/\r\nSet-Cookie: a=1",
+        "/app/\0null",
+        "",
+        "   ",
+      ]) {
+        expect(sanitizeInternalHref(bad)).toBeNull();
+      }
+      expect(sanitizeInternalHref("/app/liga-mx")).toBe("/app/liga-mx");
+      expect(sanitizeInternalHref("  /app/picks?tab=explorar  ")).toBe("/app/picks?tab=explorar");
+    });
   });
 });

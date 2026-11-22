@@ -1107,6 +1107,13 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
       await homeFiltersTrigger.click();
       const filtersDialog = page.locator("dialog.pl-home-fmodal-dialog[open]");
       await expect(filtersDialog).toBeVisible();
+      const filtersHeadPadding = await filtersDialog
+        .locator(".pl-home-fmodal-head")
+        .evaluate((el) => Number.parseFloat(getComputedStyle(el).paddingLeft || "0"));
+      expect(
+        filtersHeadPadding,
+        "HomeFiltersModal debe tener padding horizontal >= 12px",
+      ).toBeGreaterThanOrEqual(12);
       await auditPageInvariants(page, "/app HomeFiltersModal abierto", { allowOpenDialog: true });
       await page.keyboard.press("Escape");
       await expect(page.locator("dialog[open]")).toHaveCount(0);

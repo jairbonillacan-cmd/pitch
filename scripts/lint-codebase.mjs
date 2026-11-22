@@ -116,9 +116,11 @@ const CSS_JANK_BOX_SHADOW_RE =
   /(?<![\w-])transition(?:-property|Property)?\s*:\s*[^;{}]*\bbox-shadow\b/gi;
 const FORBIDDEN_UI_COPY_QUICK_RE = /confianza|datos\s+(?:completos|parciales)/i;
 const FORBIDDEN_UI_COPY_RE = /\bConfianza\s+\d+|\bDatos\s+(?:completos|parciales)\b/gi;
-const FORBIDDEN_MATH_JARGON_QUICK_RE = /fr[eé]chet|armador\s+inteligente\s+geodesic/i;
+const FORBIDDEN_MATH_JARGON_QUICK_RE = /fr[eé]chet|armador\s+inteligente\s+geodesic|beta\s*\(\s*\d+\s*,\s*\d+\s*\)/i;
 const FORBIDDEN_MATH_JARGON_RE =
-  /\bFr[eé]chet[- ]Hoeffding\b|\bArmador\s+Inteligente\s+Geodesic\b/gi;
+  /\bFr[eé]chet[- ]Hoeffding\b|\bArmador\s+Inteligente\s+Geodesic\b|\bBeta\(\s*\d+\s*,\s*\d+\s*\)/gi;
+const MILKY_DIALOG_BACKDROP_RE = /::backdrop\s*\{[^}]*var\(--pl-bg\)/gi;
+const DUPLICATE_SANITIZE_HREF_RE = /\bfunction\s+sanitizeInternalHref\s*\(/g;
 const CURVED_ACCENT_QUICK_RE =
   /pl-sb-rank-cell|pl-st-rank-cell|pl-st-zone-cell|pl-astro-row/;
 const CURVED_ACCENT_SELECTOR_RE =
@@ -1377,6 +1379,42 @@ function evaluateFile(rel, content) {
           `Borde curvo de acento detectado en ${hit.value} (border-left/border-inline-start + border-radius)`,
           "Genera artefactos visuales curvos en filas o celdas de ranking (Ola 7 / ADR-060)",
           "barra vertical recta de 3px en pseudo-elemento ::before con border-radius: 0 en la celda",
+        ),
+      );
+    }
+  }
+
+  if (isCurvedAccentTarget(rel) && scanned.codeOnly.includes("::backdrop")) {
+    for (const hit of collectMatchLines(scanned.codeOnly, MILKY_DIALOG_BACKDROP_RE, getLineStarts)) {
+      immediateErrors.push(
+        formatDiagnostic(
+          "no-milky-light-dialog-backdrop",
+          rel,
+          hit.line,
+          "Regla ::backdrop usa var(--pl-bg), lo que produce un velo blanco lechoso en tema claro",
+          "En tema claro --pl-bg es blanco alabastro y arruina el contraste del fondo modal",
+          "var(--pl-modal-backdrop)",
+        ),
+      );
+    }
+  }
+
+  if (
+    isProdScriptExt(rel) &&
+    !isTestPath(rel) &&
+    !isStoryPath(rel) &&
+    rel !== "packages/ui/src/platform/navigation-helpers.ts" &&
+    scanned.codeOnly.includes("sanitizeInternalHref")
+  ) {
+    for (const hit of collectMatchLines(scanned.codeOnly, DUPLICATE_SANITIZE_HREF_RE, getLineStarts)) {
+      immediateErrors.push(
+        formatDiagnostic(
+          "no-duplicate-sanitize-internal-href",
+          rel,
+          hit.line,
+          "Copia local duplicada de sanitizeInternalHref detectada",
+          "Las copias locales omiten validaciones de barra invertida (/\\) y caracteres de control (open redirect)",
+          'import { sanitizeInternalHref } from "../navigation-helpers"',
         ),
       );
     }

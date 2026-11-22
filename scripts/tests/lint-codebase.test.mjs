@@ -703,6 +703,58 @@ test("las 6 reglas estructurales Constraint-First están bloqueadas en 0 en scri
   }
 });
 
+test("no-forbidden-math-jargon bloquea Beta(2,2), no-milky-light-dialog-backdrop y no-duplicate-sanitize-internal-href", async () => {
+  const rootDir = createTempWorkspace({
+    "packages/ui/src/PropsCard.tsx": 'export const badge = "Beta(2,2)";\n',
+    "apps/web/app/bad-backdrop.css": [
+      "dialog::backdrop {",
+      "  background: color-mix(in oklab, var(--pl-bg) 72%, transparent);",
+      "}",
+    ].join("\n"),
+    "apps/web/app/good-backdrop.css": [
+      "dialog::backdrop {",
+      "  background: var(--pl-modal-backdrop);",
+      "}",
+    ].join("\n"),
+    "packages/ui/src/platform/atomic/BadLink.tsx": [
+      "function sanitizeInternalHref(raw: string) {",
+      '  return raw.startsWith("/") ? raw : null;',
+      "}",
+      "export const href = sanitizeInternalHref('/app');",
+    ].join("\n"),
+    "packages/ui/src/platform/navigation-helpers.ts": [
+      "export function sanitizeInternalHref(raw: string) {",
+      '  return raw.startsWith("/") ? raw : null;',
+      "}",
+    ].join("\n"),
+  });
+  try {
+    const result = await runLint({ rootDir });
+    assert.equal(result.ok, false);
+    const betaErrors = result.errors.filter((e) => e.startsWith("[no-forbidden-math-jargon]"));
+    const backdropErrors = result.errors.filter((e) => e.startsWith("[no-milky-light-dialog-backdrop]"));
+    const sanitizeErrors = result.errors.filter((e) => e.startsWith("[no-duplicate-sanitize-internal-href]"));
+    assert.equal(betaErrors.length, 1);
+    assert.equal(backdropErrors.length, 1);
+    assert.equal(sanitizeErrors.length, 1);
+    assertInstructiveDiagnostic(betaErrors[0], "no-forbidden-math-jargon", "packages/ui/src/PropsCard.tsx", 1);
+    assertInstructiveDiagnostic(
+      backdropErrors[0],
+      "no-milky-light-dialog-backdrop",
+      "apps/web/app/bad-backdrop.css",
+      1,
+    );
+    assertInstructiveDiagnostic(
+      sanitizeErrors[0],
+      "no-duplicate-sanitize-internal-href",
+      "packages/ui/src/platform/atomic/BadLink.tsx",
+      1,
+    );
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
 test("el propio scripts/lint-codebase.mjs pasa en modo --strict-files con cero deuda y los tests tienen cero comentarios", () => {
   const selfCheck = runCli(["--strict-files", "scripts/lint-codebase.mjs"]);
   assert.equal(selfCheck.status, 0, selfCheck.stderr);
