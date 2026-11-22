@@ -66,9 +66,17 @@ function buildSecurityHeaders(isDev) {
   ].join("; ");
 
   return [
+    ...(!isDev
+      ? [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+        ]
+      : []),
     {
-      key: "Strict-Transport-Security",
-      value: "max-age=63072000; includeSubDomains; preload",
+      key: "Cross-Origin-Opener-Policy",
+      value: "same-origin-allow-popups",
     },
     {
       key: "X-Content-Type-Options",
@@ -187,6 +195,12 @@ export default function config(phase) {
               },
               {
                 source: "/resultados",
+                headers: [
+                  { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
+                ],
+              },
+              {
+                source: "/verificacion",
                 headers: [
                   { key: "Cache-Control", value: "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" },
                 ],

@@ -269,6 +269,49 @@ function isPrivateNoStoreApiPath(pathname: string): boolean {
   );
 }
 
+function shouldSendHsts(request: NextRequest): boolean {
+  if (process.env.NODE_ENV !== "production") return false;
+  if (process.env.PITCHLAB_HOSTED === "1") return true;
+  if (request.nextUrl.protocol === "https:") return true;
+  const forwardedProto = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim().toLowerCase();
+  return forwardedProto === "https";
+}
+
+function appendVaryHeader(response: NextResponse, tokens: readonly string[]): void {
+  const current = response.headers.get("Vary");
+  const seen = new Set(
+    (current ?? "")
+      .split(",")
+      .map((part) => part.trim())
+      .filter((part) => part.length > 0),
+  );
+  for (const token of tokens) {
+    seen.add(token);
+  }
+  response.headers.set("Vary", [...seen].join(", "));
+}
+
+function applyBaselineSecurityHeaders(
+  response: NextResponse,
+  request: NextRequest,
+): NextResponse {
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  );
+  response.headers.set("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+  if (shouldSendHsts(request)) {
+    response.headers.set(
+      "Strict-Transport-Security",
+      "max-age=63072000; includeSubDomains; preload",
+    );
+  }
+  return response;
+}
+
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname, search } = request.nextUrl;
 
@@ -280,31 +323,31 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       fetchSite === "cross-site" &&
       !isCrossSiteExemptApiPath(pathname)
     ) {
-      return NextResponse.json(
+      const blocked = NextResponse.json(
         { ok: false, error: "origen_invalido" },
         {
           status: 403,
           headers: {
-            "X-Content-Type-Options": "nosniff",
             "Cache-Control": "no-store",
           },
         },
       );
+      appendVaryHeader(blocked, ["Sec-Fetch-Dest", "Sec-Fetch-Mode", "Sec-Fetch-Site"]);
+      return applyBaselineSecurityHeaders(blocked, request);
     }
 
     const response = NextResponse.next();
-    response.headers.set("X-Content-Type-Options", "nosniff");
+    appendVaryHeader(response, ["Sec-Fetch-Dest", "Sec-Fetch-Mode", "Sec-Fetch-Site"]);
     if (isPrivateNoStoreApiPath(pathname)) {
       response.headers.set("Cache-Control", "private, no-store");
     }
-    return response;
+    return applyBaselineSecurityHeaders(response, request);
   }
 
   if (pathname.startsWith("/i/")) {
     const res = NextResponse.next();
     res.headers.set("X-Robots-Tag", "noindex, nofollow");
-    res.headers.set("X-Content-Type-Options", "nosniff");
-    return res;
+    return applyBaselineSecurityHeaders(res, request);
   }
 
   if (pathname === "/app" || pathname.startsWith("/app/")) {
@@ -314,7 +357,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     if (!allowed) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("next", `${pathname}${search}`);
-      return NextResponse.redirect(loginUrl);
+      return applyBaselineSecurityHeaders(NextResponse.redirect(loginUrl), request);
     }
 
     const nonce = generateCspNonce();
@@ -334,8 +377,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     const response = NextResponse.next({ request: { headers: requestHeaders } });
     response.headers.set("Content-Security-Policy", csp);
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
-    response.headers.set("X-Content-Type-Options", "nosniff");
-    return response;
+    return applyBaselineSecurityHeaders(response, request);
   }
 
   if (isDynamicCspRoute(pathname)) {
@@ -347,8 +389,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
     const response = NextResponse.next({ request: { headers: requestHeaders } });
     response.headers.set("Content-Security-Policy", csp);
-    response.headers.set("X-Content-Type-Options", "nosniff");
-    return response;
+    return applyBaselineSecurityHeaders(response, request);
   }
 
   return NextResponse.next();
