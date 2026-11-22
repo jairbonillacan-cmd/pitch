@@ -2492,10 +2492,64 @@ html[data-theme="light"] .pl-tipster-badge {
 /* Bloque legado .pl-feed-* / .pl-profile-cover / .pl-gift-card retirado por ADR-051 */
 
 /* ---------- Barra: campana y chip de perfil (geometría cuadrada coherente con buscador y chips) ---------- */
-.pl-maestro-icon {
+.pl-maestro-icon,
+.pl-pack-icon {
   object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+:is(
+  [data-hierarchy="primary"],
+  .pl-btn-primary,
+  .btn-primary,
+  .pl-home-md-full-cta,
+  .pl-lh-follow-btn:not(.is-on):not([aria-pressed="true"]):not([data-active="true"]),
+  .pl-home-cal-today-btn,
+  .pl-lp-btn-primary,
+  .pl-auth-btn-primary,
+  .pl-profile-menu-cta--primary,
+  .pl-prof-btn--primary,
+  .pl-sw-update-btn
+) :is(.pl-maestro-icon, .pl-pack-icon):not(.pl-emblem) {
+  filter: invert(1);
+}
+
+html[data-theme="light"] :is(
+  .pl-btn-accent,
+  .btn-accent,
+  .pl-scr-potd-cta
+) :is(.pl-maestro-icon, .pl-pack-icon):not(.pl-emblem) {
+  filter: invert(1);
+}
+
+html[data-theme="light"] .share-ticket-card :is(
+  [data-hierarchy="primary"],
+  .pl-btn-primary,
+  .btn-primary
+) :is(.pl-maestro-icon, .pl-pack-icon) {
+  filter: none;
+}
+
+@media (forced-colors: active) {
+  :is(
+    [data-hierarchy="primary"],
+    .pl-btn-primary,
+    .btn-primary,
+    .pl-btn-accent,
+    .btn-accent,
+    .pl-scr-potd-cta,
+    .pl-home-md-full-cta,
+    .pl-lh-follow-btn,
+    .pl-home-cal-today-btn,
+    .pl-lp-btn-primary,
+    .pl-auth-btn-primary,
+    .pl-profile-menu-cta--primary,
+    .pl-prof-btn--primary,
+    .pl-sw-update-btn
+  ) :is(.pl-maestro-icon, .pl-pack-icon) {
+    filter: none;
+  }
 }
 .pl-bell-btn {
   position: relative;
