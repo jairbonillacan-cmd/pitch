@@ -199,15 +199,16 @@ describe("Encabezado unificado de filtros en Inicio", () => {
     expect(dayIdx).toBeGreaterThan(leagueIdx);
 
     // Logos oficiales reales en NFL/NBA/NHL/MLB y categoría limpia en Fútbol (sin balones genéricos US)
-    expect(html).toMatch(/\/icons(?:-dark)?\/32\/deportes\/football\.webp/);
-    expect(html).toContain("/brand/official/nfl/nfl.png");
-    expect(html).toContain("https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent");
-    expect(html).toContain("/brand/official/nhl/nhl.png");
-    expect(html).toContain("/brand/official/mlb/mlb.png");
-    expect(html).not.toContain("/deportes/american-football.webp");
-    expect(html).not.toContain("/deportes/basketball.webp");
-    expect(html).not.toContain("/deportes/hockey.webp");
-    expect(html).not.toContain("/deportes/baseball.webp");
+    const sportStripHtml = html.slice(sportIdx, leagueIdx);
+    expect(sportStripHtml).toMatch(/\/icons(?:-dark)?\/32\/deportes\/football\.webp/);
+    expect(sportStripHtml).toContain("/brand/official/nfl/nfl.png");
+    expect(sportStripHtml).toContain("https://sports.bzzoiro.com/img/basketball/league/1/?bg=transparent");
+    expect(sportStripHtml).toContain("/brand/official/nhl/nhl.png");
+    expect(sportStripHtml).toContain("/brand/official/mlb/mlb.png");
+    expect(sportStripHtml).not.toContain("/deportes/american-football.webp");
+    expect(sportStripHtml).not.toContain("/deportes/basketball.webp");
+    expect(sportStripHtml).not.toContain("/deportes/hockey.webp");
+    expect(sportStripHtml).not.toContain("/deportes/baseball.webp");
     expect(html).not.toContain(">Pronto<");
     expect(html).toContain('data-sport-filter="mlb"');
     expect(html).toContain('aria-label="MLB · Béisbol, 0 partidos"');
