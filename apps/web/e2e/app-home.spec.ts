@@ -2,20 +2,37 @@ import { expect, test } from "./fixtures";
 import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 
-/** En el club, el tema vive en el menú del perfil. */
-async function toggleClubTheme(page: import("@playwright/test").Page): Promise<void> {
-  await page.locator("[data-profile-menu-trigger]:visible").first().click();
-  await page.locator(".pl-profile-menu:popover-open [data-theme-option][aria-pressed=\"false\"]").click();
-  await page.keyboard.press("Escape");
-  await expect(page.locator(".pl-profile-menu:popover-open")).toHaveCount(0);
-  await page.waitForTimeout(250);
+async function waitForVisualFrame(page: import("@playwright/test").Page): Promise<void> {
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => resolve());
+        });
+      }),
+  );
 }
 
-test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipster y Referidos (+7d)", async ({
+async function toggleClubTheme(
+  page: import("@playwright/test").Page,
+  expectedTheme: "dark" | "light",
+): Promise<void> {
+  await page.locator("[data-profile-menu-trigger]:visible").first().click();
+  await page
+    .locator('.pl-profile-menu:popover-open [data-theme-option][aria-pressed="false"]')
+    .click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", expectedTheme);
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".pl-profile-menu:popover-open")).toHaveCount(0);
+  await waitForVisualFrame(page);
+}
+
+test("Club PitchLab v4 + Ola 6: Inicio Maestro-Detalle, Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipster y Referidos (+7d)", async ({
   page,
 }, testInfo) => {
   test.setTimeout(120_000);
-  const width = testInfo.project.name === "mobile" ? 390 : 1440;
+  const isMobile = testInfo.project.name === "mobile";
+  const width = isMobile ? 390 : 1440;
   await page.setViewportSize({ width, height: 900 });
 
   const errors: string[] = [];
@@ -29,23 +46,119 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   expect(unlock.ok()).toBe(true);
 
   await page.goto("/app");
-  await expect(page).toHaveURL(/\/app$/);
+  await expect(page).toHaveURL(/\/app(?:\?.*)?$/);
   await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   await expect(page.getByRole("group", { name: "Elegir día" })).toBeVisible();
   const sportGroup = page.getByRole("group", { name: "Elegir deporte" });
   await expect(sportGroup).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Tu boleto de parlay" })).toBeVisible();
-  const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
-  await expect(dailyParlayTab).toBeVisible();
-  await dailyParlayTab.click();
-  await expect(page.locator("[data-daily-parlay-card]")).toBeVisible();
-  await page.locator('[data-daily-risk="conservador"]').click();
-  await page.locator('[data-daily-risk="arriesgado"]').click();
-  await page.locator('[data-daily-risk="medio"]').click();
-  await page.getByRole("tab", { name: /Tu parlay/i }).click();
 
-  // Encabezado del Inicio: elegir NBA (deporte de liga única, ADR-048 §1) suprime la franja redundante
-  // de ligas y deja solo sus chips.
+  const initialDayJump = page.locator("[data-day-empty] [data-day-jump]").first();
+  if ((await initialDayJump.count()) > 0 && (await initialDayJump.isVisible())) {
+    await initialDayJump.click();
+  }
+
+  let firstMatchHref: string | null = null;
+
+  if (!isMobile) {
+    await expect(page.locator("[data-home-master-detail]")).toBeVisible();
+    await expect(page.locator("[data-home-master-list]")).toBeVisible();
+    await expect(page.locator("[data-home-detail-pane]")).toBeVisible();
+    const detailPanel = page.locator("[data-home-detail-panel]");
+    await expect(detailPanel).toBeVisible();
+
+    const fullCta = page.locator("[data-home-detail-full-cta]");
+    await expect(fullCta).toBeVisible();
+    await expect(fullCta).toContainText(/Ver partido completo/i);
+    const initialFullHref = await fullCta.getAttribute("href");
+    expect(initialFullHref).toMatch(/^\/app\/[a-z0-9-]+\/g\/[a-z0-9-]+/);
+    firstMatchHref = initialFullHref;
+
+    await page.evaluate(() => {
+      (window as Window & { __plMasterDetailSentinel?: string }).__plMasterDetailSentinel =
+        "alive";
+    });
+
+    const masterCards = page.locator("[data-home-master-list] [data-game-card][data-game-id]");
+    const unselectedCard = page
+      .locator('[data-home-master-list] [data-game-card][data-game-id][data-selected="false"]')
+      .first();
+    const candidateSecondCard =
+      (await unselectedCard.count()) > 0 ? unselectedCard : masterCards.nth(1);
+
+    if ((await candidateSecondCard.count()) > 0) {
+      const targetGameId = await candidateSecondCard.getAttribute("data-game-id");
+      expect(targetGameId).toBeTruthy();
+
+      const cardOpenTrigger = candidateSecondCard.locator("[data-card-open]").first();
+      if ((await cardOpenTrigger.count()) > 0 && (await cardOpenTrigger.isVisible())) {
+        await cardOpenTrigger.click();
+      } else {
+        await candidateSecondCard.click();
+      }
+
+      await expect(candidateSecondCard).toHaveAttribute("data-selected", "true");
+      await expect
+        .poll(() => new URL(page.url()).searchParams.get("match"))
+        .toBe(targetGameId);
+
+      const sentinel = await page.evaluate(
+        () => (window as Window & { __plMasterDetailSentinel?: string }).__plMasterDetailSentinel,
+      );
+      expect(sentinel).toBe("alive");
+
+      await expect(detailPanel).toBeVisible();
+      await expect(fullCta).toBeVisible();
+      const updatedFullHref = await fullCta.getAttribute("href");
+      expect(updatedFullHref).toMatch(/^\/app\/[a-z0-9-]+\/g\/[a-z0-9-]+/);
+      if (updatedFullHref) {
+        firstMatchHref = updatedFullHref;
+      }
+    }
+
+    const detailTabs = page.locator('[data-home-detail-tabs] [role="tab"]:not([disabled])');
+    const detailTabCount = await detailTabs.count();
+    expect(detailTabCount).toBeGreaterThanOrEqual(1);
+    if (detailTabCount >= 2) {
+      const secondTab = detailTabs.nth(1);
+      await secondTab.click();
+      await expect(secondTab).toHaveAttribute("aria-selected", "true");
+      await detailTabs.first().click();
+      await expect(detailTabs.first()).toHaveAttribute("aria-selected", "true");
+    }
+
+    const parlayModeBtn = page.locator('[data-home-right-mode="parlay"]');
+    await expect(parlayModeBtn).toBeVisible();
+    await parlayModeBtn.click();
+    await expect(page.getByRole("heading", { name: "Tu boleto de parlay" })).toBeVisible();
+    const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
+    await expect(dailyParlayTab).toBeVisible();
+    await dailyParlayTab.click();
+    await expect(page.locator("[data-daily-parlay-card]")).toBeVisible();
+    await page.locator('[data-daily-risk="conservador"]').click();
+    await page.locator('[data-daily-risk="arriesgado"]').click();
+    await page.locator('[data-daily-risk="medio"]').click();
+    await page.getByRole("tab", { name: /Tu parlay/i }).click();
+
+    const matchModeBtn = page.locator('[data-home-right-mode="match"]');
+    await expect(matchModeBtn).toBeVisible();
+    await matchModeBtn.click();
+    await expect(detailPanel).toBeVisible();
+  } else {
+    await expect(page.locator("[data-home-detail-pane]")).toBeHidden();
+    const parlayHeading = page.getByRole("heading", { name: "Tu boleto de parlay" });
+    if ((await parlayHeading.count()) > 0 && (await parlayHeading.isVisible())) {
+      await expect(parlayHeading).toBeVisible();
+      const dailyParlayTab = page.getByRole("tab", { name: /Parlay del día/i });
+      await expect(dailyParlayTab).toBeVisible();
+      await dailyParlayTab.click();
+      await expect(page.locator("[data-daily-parlay-card]")).toBeVisible();
+      await page.locator('[data-daily-risk="conservador"]').click();
+      await page.locator('[data-daily-risk="arriesgado"]').click();
+      await page.locator('[data-daily-risk="medio"]').click();
+      await page.getByRole("tab", { name: /Tu parlay/i }).click();
+    }
+  }
+
   const nbaBtn = sportGroup.getByRole("button", { name: /NBA/i });
   await nbaBtn.click();
   await expect(nbaBtn).toHaveAttribute("aria-pressed", "true");
@@ -62,7 +175,6 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   );
   expect(new Set(chipLeagues)).toEqual(new Set(["nba"]));
 
-  // Desplazar tira de chips de partidos con las flechas laterales cuando hay desborde horizontal.
   await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
   const chipsNext = page.locator("[data-chips-next]");
   if ((await chipsNext.count()) > 0 && (await chipsNext.isEnabled())) {
@@ -76,7 +188,6 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await chipsPrev.click();
   }
 
-  // Volver a Todos los deportes, avanzar al siguiente día con › y regresar con Hoy.
   await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
   const dayCenter = page.locator("[data-day-center]");
   const nextBtn = page.locator("[data-day-next]");
@@ -96,7 +207,6 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(calPopover).toHaveCount(0);
   await expect(dayCenter).toContainText("Hoy");
 
-  let firstMatchHref: string | null = null;
   if (width <= 640) {
     await page.setViewportSize({ width: 375, height: 844 });
     const overflow375 = await page.evaluate(
@@ -112,7 +222,6 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await page.setViewportSize({ width, height: 900 });
   }
 
-  // Deporte → liga: Fútbol (múltiples ligas) despliega «Ligas del deporte»; si hoy no tiene partidos, muestra «Ir al …».
   const soccerTile = sportGroup.getByRole("button", { name: /^Fútbol\b/ }).first();
   if ((await soccerTile.count()) > 0) {
     await soccerTile.click();
@@ -138,21 +247,27 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
   }
   if (!firstMatchHref) {
+    const detailCtaFallback = page.locator("[data-home-detail-full-cta]").first();
+    if ((await detailCtaFallback.count()) > 0) {
+      firstMatchHref = await detailCtaFallback.getAttribute("href");
+    }
+  }
+  if (!firstMatchHref) {
     firstMatchHref = await page
       .locator('a[href^="/app/"][href*="/g/"]')
       .first()
       .getAttribute("href");
   }
 
-  // Agregar el pick principal de una tarjeta al parlay
   const addButton = page.locator("[data-game-card] button[aria-label^='Agregar al parlay']").first();
   if ((await addButton.count()) > 0) {
     await addButton.click();
-    await expect(page.locator("[data-game-card] button[aria-label^='Quitar del parlay']").first()).toBeVisible();
+    await expect(
+      page.locator("[data-game-card] button[aria-label^='Quitar del parlay']").first(),
+    ).toBeVisible();
   }
 
-  // Verificar cero overflow y WCAG AA tanto en tema oscuro como en tema claro
-  for (const theme of ["dark", "light"]) {
+  for (const theme of ["dark", "light"] as const) {
     await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
     const hasOverflow = await page.evaluate(
       () => document.documentElement.scrollWidth > window.innerWidth,
@@ -173,15 +288,12 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     expect(violations).toEqual([]);
 
     if (theme === "dark") {
-      await toggleClubTheme(page);
-      await page.waitForTimeout(150);
+      await toggleClubTheme(page, "light");
     }
   }
 
-  // Regresar a oscuro
-  await toggleClubTheme(page);
+  await toggleClubTheme(page, "dark");
 
-  // Buscador global (⌘K / botón Buscar)
   await page.getByRole("button", { name: "Buscar" }).click();
   const searchInput = page.getByRole("searchbox", {
     name: /Buscar partido,.*liga/i,
@@ -189,18 +301,39 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(searchInput).toBeVisible();
   await searchInput.fill("NFL");
   await expect(
-    page.getByRole("dialog", { name: "Buscar en PitchLab" }).locator('a[href^="/app/nfl/g/"]').first(),
+    page
+      .getByRole("dialog", { name: "Buscar en PitchLab" })
+      .locator('a[href^="/app/nfl/g/"]')
+      .first(),
   ).toBeVisible();
   await page
     .getByRole("dialog", { name: "Buscar en PitchLab" })
     .getByRole("button", { name: "Cerrar" })
     .click();
 
-  // 1) Armador Inteligente de Parlays & Generador automático unificado (ADR-054/055)
+  if (isMobile) {
+    const mobileJump = page.locator("[data-day-empty] [data-day-jump]").first();
+    if ((await mobileJump.count()) > 0 && (await mobileJump.isVisible())) {
+      await mobileJump.click();
+    }
+    const mobileCard = page.locator("[data-game-card]").first();
+    if ((await mobileCard.count()) > 0 && (await mobileCard.isVisible())) {
+      const mobileCardBox = await mobileCard.boundingBox();
+      expect(mobileCardBox).not.toBeNull();
+      expect(Math.round(mobileCardBox!.height)).toBeGreaterThanOrEqual(44);
+      const mobileCardTrigger = mobileCard.locator("[data-card-open]").first();
+      if ((await mobileCardTrigger.count()) > 0 && (await mobileCardTrigger.isVisible())) {
+        await mobileCardTrigger.click();
+      } else {
+        await mobileCard.click();
+      }
+      await page.waitForURL(/\/app\/[a-z0-9-]+\/g\/[a-z0-9-]+/, { timeout: 15_000 });
+      firstMatchHref = new URL(page.url()).pathname;
+    }
+  }
+
   await page.goto("/app/parlays");
-  await expect(
-    page.getByRole("heading", { name: /Armar parlay/i }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Armar parlay/i })).toBeVisible();
   const autoPanel = page.locator("[data-parlay-auto-panel]:visible");
   await expect(autoPanel).toHaveCount(1);
   await expect(autoPanel).toBeVisible();
@@ -227,7 +360,6 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(sealParlayBtn).toBeEnabled();
   await sealParlayBtn.click();
 
-  // 2) Player Props Lab interactivo
   await page.goto("/app/props");
   await expect(
     page.getByRole("heading", { level: 1, name: /Props de jugadores/i }),
@@ -237,12 +369,8 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await plusButtons.first().click();
   }
 
-  // 3) Comunidad VIP exclusiva: bloqueo automático de enlaces externos (Telegram/WhatsApp)
   await page.goto("/app/social");
-  await expect(
-    page.getByRole("heading", { name: /^Comunidad$/i }),
-  ).toBeVisible();
-  // En móvil el editor se abre desde la fila «Comparte un pick…».
+  await expect(page.getByRole("heading", { name: /^Comunidad$/i })).toBeVisible();
   if ((page.viewportSize()?.width ?? 1280) <= 640) {
     await page.locator(".pl-com-composer-row:visible").first().click();
   }
@@ -252,21 +380,14 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await socialComposer.getByRole("button", { name: /^Publicar$/i }).click();
   await expect(page.locator("p[role='alert']")).toContainText(/enlaces externos/i);
 
-  // Publicación limpia permitida
   await socialTextarea.fill(
     "Excelente lectura previa de Cortex IA en el cruce estelar; entré con 1.5u.",
   );
   await socialComposer.getByRole("button", { name: /^Publicar$/i }).click();
-  await expect(page.locator("body")).toContainText(
-    "Excelente lectura previa de Cortex IA",
-  );
+  await expect(page.locator("body")).toContainText("Excelente lectura previa de Cortex IA");
 
-  // 4) Portal Tipster Creadores Oficiales: generar boleto 4:5 / 9:16 con código SOFIA5
   await page.goto("/app/tipster");
-  await expect(
-    page.getByRole("heading", { name: /Portal Tipster/i }),
-  ).toBeVisible();
-  // Esperar a que la página termine de hidratarse antes de pulsar (si no, el clic se pierde).
+  await expect(page.getByRole("heading", { name: /Portal Tipster/i })).toBeVisible();
   await page.waitForLoadState("networkidle");
   await page
     .getByRole("button", { name: /Generar Boleto 4:5 \/ 9:16 con mi Código/i })
@@ -276,7 +397,6 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(shareDialog).toContainText("SOFIA5");
   await page.getByRole("button", { name: "Cerrar vista de boleto" }).click();
 
-  // 5) Cuenta & Referidos (CUENTA-2 / ADR-044): Mi plan abre primero; ?tab=referrals abre Invitar amigos
   await page.goto("/app/account?tab=referrals");
   await page.waitForLoadState("networkidle");
   await expect(page.locator("[data-referral-days]:visible")).toContainText("+14 días");
@@ -290,7 +410,6 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   }).toPass({ timeout: 10_000 });
   await expect(page.locator("[data-simulate-referral]")).toHaveCount(0);
 
-  // 6) Resultados: Parlays oficiales del día calificados + Calendario mensual de resultados diarios
   await page.goto("/app/historial");
   await expect(page.locator("[data-hist-daily-parlays]")).toBeVisible();
   const histCalBtn = page.locator("[data-historial-view-toggle] button", { hasText: "Calendario" });
@@ -305,12 +424,10 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     await page.setViewportSize({ width, height: 900 });
   }
 
-  // 6b) Explorar picks: chips de 1 toque y comparador manual
   await page.goto("/app/picks");
-  await expect(page.locator('[data-finder-chip="probables"]')).toBeVisible();
-  await page.locator('[data-finder-chip="probables"]').click();
+  await expect(page.locator("[data-picks-layout]")).toBeVisible();
+  await expect(page.locator("[data-picks-row]").first()).toBeVisible({ timeout: 15_000 });
 
-  // 7) Ficha de partido: pestañas accesibles, números esperados y mercados derivados v3.2
   if (firstMatchHref) {
     await page.goto(firstMatchHref);
     const numbersTab = page.getByRole("tab", { name: /^Números/i });
@@ -336,7 +453,9 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   expect(errors).toEqual([]);
 });
 
-test("Modo Sólido unificado en /app: sin opción Cristal, diferenciación real fondo/tarjetas y Axe AA en oscuro y claro", async ({ page }, testInfo) => {
+test("Modo Sólido unificado en /app: sin opción Cristal, diferenciación real fondo/tarjetas y Axe AA en oscuro y claro", async ({
+  page,
+}, testInfo) => {
   test.setTimeout(60_000);
   const width = testInfo.project.name === "mobile" ? 390 : 1440;
   await page.setViewportSize({ width, height: 900 });
@@ -359,7 +478,9 @@ test("Modo Sólido unificado en /app: sin opción Cristal, diferenciación real 
 
   const surfaceCheck = await page.evaluate(() => {
     const stage = document.querySelector(".pl-stage");
-    const card = document.querySelector(".pl-home-card, .pl-astro-league-block, .glass-card");
+    const card = document.querySelector(
+      ".pl-home-card, .pl-astro-league-block, [data-home-detail-panel], .glass-card",
+    );
     const header = document.querySelector(".panel-header");
     return {
       stageBg: stage ? getComputedStyle(stage).backgroundColor : null,
@@ -388,7 +509,8 @@ test("Modo Sólido unificado en /app: sin opción Cristal, diferenciación real 
   await expect(html).toHaveAttribute("data-theme", "light");
   await expect(html).toHaveAttribute("data-style", "solid");
   await page.keyboard.press("Escape");
-  await page.waitForTimeout(200);
+  await expect(menu).toHaveCount(0);
+  await waitForVisualFrame(page);
 
   await page.screenshot({
     path: `../../test-results/screenshots/app-home-${testInfo.project.name}-light.png`,

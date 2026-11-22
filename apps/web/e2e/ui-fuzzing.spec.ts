@@ -303,28 +303,30 @@ async function auditPageInvariants(
       }
     }
 
-    const fd16Pattern = /sofascore/i;
+    const fd16VisiblePattern = /scoutpicks|sofascore|bzzoiro|poisson|dixon/i;
+    const fd16AttrPattern = /sofascore|scoutpicks/i;
     const fd16Leaks: string[] = [];
     const visibleText = document.body?.innerText ?? "";
-    if (fd16Pattern.test(visibleText)) {
-      fd16Leaks.push("visible-text");
+    const visibleMatch = visibleText.match(fd16VisiblePattern);
+    if (visibleMatch) {
+      fd16Leaks.push(`visible-text:${visibleMatch[0]}`);
     }
 
     const allNodes = Array.from(document.querySelectorAll("*"));
     for (const el of allNodes) {
       if (fd16Leaks.length >= 10) break;
       const cls = el.getAttribute("class") ?? "";
-      if (cls && fd16Pattern.test(cls)) {
+      if (cls && fd16AttrPattern.test(cls)) {
         fd16Leaks.push(`class:${el.tagName.toLowerCase()}.${cls.slice(0, 60)}`);
       }
       const ariaLabel = el.getAttribute("aria-label") ?? "";
-      if (ariaLabel && fd16Pattern.test(ariaLabel)) {
+      if (ariaLabel && fd16AttrPattern.test(ariaLabel)) {
         fd16Leaks.push(`aria-label:${ariaLabel.slice(0, 60)}`);
       }
       for (const attr of Array.from(el.attributes)) {
         if (
           attr.name.startsWith("data-") &&
-          (fd16Pattern.test(attr.name) || fd16Pattern.test(attr.value))
+          (fd16AttrPattern.test(attr.name) || fd16AttrPattern.test(attr.value))
         ) {
           fd16Leaks.push(`data:${attr.name}=${attr.value.slice(0, 60)}`);
           break;
@@ -366,7 +368,10 @@ async function auditPageInvariants(
     ).toEqual([]);
   }
 
-  expect(report.fd16Leaks, `Fuga FD-16 (/sofascore/i) en DOM en ${label}`).toEqual([]);
+  expect(
+    report.fd16Leaks,
+    `Fuga FD-16 (/scoutpicks|sofascore|bzzoiro|poisson|dixon/i) en DOM/texto visible en ${label}`,
+  ).toEqual([]);
   expect(report.injectedScriptCount, `Script XSS inyectado en ${label}`).toBe(0);
 
   if (!options.allowOpenDialog) {
@@ -646,9 +651,16 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
     await unlockBetaSession(page);
 
     await navigateAndCheckStatus(page, "/app/picks");
-    const picksSearch = page.locator("#main input.pl-sf-search-input").first();
+    const picksSearch = page
+      .locator('#main input[type="search"]:visible, #main input.pl-sf-search-input:visible')
+      .first();
     await fuzzSearchInput(page, picksSearch, "/app/picks search", monitors);
-    await expect(page.locator("[data-screener-result-count]")).toContainText(/^0\s+picks?/i);
+    const resultCountBadge = page.locator("[data-screener-result-count]");
+    if ((await resultCountBadge.count()) > 0 && (await resultCountBadge.isVisible())) {
+      await expect(resultCountBadge).toContainText(/^0\s+picks?/i);
+    } else {
+      await expect(page.locator("[data-picks-row]")).toHaveCount(0);
+    }
     const clearPicksSearch = page.locator("#main .pl-sf-search-clear").first();
     if ((await clearPicksSearch.count()) > 0 && (await clearPicksSearch.isVisible())) {
       await clearPicksSearch.click();
@@ -792,7 +804,11 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
     await auditPageInvariants(page, "/app/parlays tras dobles clics");
 
     await navigateAndCheckStatus(page, "/app/picks");
-    const timingTabs = page.locator('[data-screener-timing] [role="tab"]:not([disabled])');
+    const legacyTimingTabs = page.locator('[data-screener-timing] [role="tab"]:not([disabled])');
+    const timingTabs =
+      (await legacyTimingTabs.count()) > 0
+        ? legacyTimingTabs
+        : page.locator('#main [role="tablist"]').first().locator('[role="tab"]:not([disabled])');
     const timingCount = await timingTabs.count();
     expect(timingCount, "Debe haber al menos 2 pestañas activas en /app/picks").toBeGreaterThanOrEqual(2);
     for (let idx = 0; idx < timingCount; idx += 1) {
@@ -831,7 +847,7 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
     monitors.assertClean(`Double-click stress final (${testInfo.project.name})`);
   });
 
-  test("5. Apertura y cierre de diálogos, drawers y hojas (Cmd+K, Filtros, Bet Builder, Explorar) con 0 <dialog open> trabados", async ({
+  test("5. Apertura y cierre de diálogos, drawers y hojas (Cmd+K, Filtros, Maestro-Detalle, Bet Lab, Explorar) con 0 <dialog open> trabados", async ({
     page,
   }, testInfo) => {
     test.setTimeout(120_000);
@@ -840,6 +856,39 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
     await unlockBetaSession(page);
 
     await navigateAndCheckStatus(page, "/app");
+
+    if (!isMobile) {
+      const masterDetail = page.locator("[data-home-master-detail]");
+      if ((await masterDetail.count()) > 0 && (await masterDetail.isVisible())) {
+        const secondMasterCard = page
+          .locator('[data-home-master-list] [data-game-card][data-game-id][data-selected="false"]')
+          .first();
+        if ((await secondMasterCard.count()) > 0 && (await secondMasterCard.isVisible())) {
+          const openTrigger = secondMasterCard.locator("[data-card-open]").first();
+          if ((await openTrigger.count()) > 0 && (await openTrigger.isVisible())) {
+            await openTrigger.click();
+          } else {
+            await secondMasterCard.click();
+          }
+          await expect(secondMasterCard).toHaveAttribute("data-selected", "true");
+          await expect(page.locator("[data-home-detail-panel]")).toBeVisible();
+          await auditPageInvariants(page, "/app Maestro-Detalle tras cambio de partido");
+          monitors.assertClean("/app Maestro-Detalle tras cambio de partido");
+        }
+
+        const parlayModeBtn = page.locator('[data-home-right-mode="parlay"]:visible').first();
+        const matchModeBtn = page.locator('[data-home-right-mode="match"]:visible').first();
+        if ((await parlayModeBtn.count()) > 0) {
+          await parlayModeBtn.click();
+          await auditPageInvariants(page, "/app Maestro-Detalle modo parlay");
+          monitors.assertClean("/app Maestro-Detalle modo parlay");
+          if ((await matchModeBtn.count()) > 0) {
+            await matchModeBtn.click();
+            await expect(page.locator("[data-home-detail-panel]")).toBeVisible();
+          }
+        }
+      }
+    }
 
     await page.keyboard.press("Control+k");
     const cmdkDialog = page.locator("dialog.pl-cmd-dialog[open]");
@@ -885,43 +934,46 @@ test.describe("Ola 5 · Adversarial UI Fuzzing across Redesigned, Social, Ola 4 
 
     await navigateAndCheckStatus(page, "/app/picks");
 
-    const openBuilderIfNeeded = async (): Promise<Locator> => {
-      let btn = page.locator("[data-open-bet-builder]:visible").first();
-      if ((await btn.count()) === 0) {
-        const upcomingTab = page.locator('[data-screener-timing] [data-pl-sf-tab="upcoming"]');
-        if ((await upcomingTab.count()) > 0 && (await upcomingTab.isVisible())) {
-          await upcomingTab.click();
-        }
-        btn = page.locator("[data-open-bet-builder]:visible").first();
+    const openBetLab = async (): Promise<void> => {
+      const firstRow = page.locator("[data-picks-row]:visible").first();
+      if ((await firstRow.count()) > 0) {
+        await firstRow.click({ position: { x: 24, y: 24 } });
+        return;
       }
-      return btn;
+      const potdAnalyze = page.locator("[data-picks-potd-analyze]:visible").first();
+      await expect(potdAnalyze).toBeVisible({ timeout: 15_000 });
+      await potdAnalyze.click();
     };
 
-    const builderTrigger = await openBuilderIfNeeded();
-    await expect(builderTrigger).toBeVisible({ timeout: 15_000 });
-    await builderTrigger.click();
-    const builderDrawer = page.locator("dialog[data-bet-builder-drawer][open]");
-    await expect(builderDrawer).toBeVisible();
-    await auditPageInvariants(page, "/app/picks BetBuilderDrawer abierto [dark]", {
+    const labDrawer = page.locator("[data-pick-lab-drawer]");
+    await openBetLab();
+    await expect(labDrawer).toBeVisible({ timeout: 15_000 });
+    await expect(labDrawer.locator("[data-pick-lab-chart]")).toBeVisible();
+    await expect(labDrawer.locator("[data-pick-lab-builder]")).toBeVisible();
+    await auditPageInvariants(page, "/app/picks PickEvidenceLabDrawer abierto [dark]", {
       allowOpenDialog: true,
     });
     await page.keyboard.press("Escape");
+    await expect(labDrawer).toBeHidden();
     await expect(page.locator("dialog[open]")).toHaveCount(0);
 
     await applyTheme(page, "light");
-    await builderTrigger.click();
-    await expect(builderDrawer).toBeVisible();
-    await auditPageInvariants(page, "/app/picks BetBuilderDrawer abierto [light]", {
+    await openBetLab();
+    await expect(labDrawer).toBeVisible({ timeout: 15_000 });
+    await auditPageInvariants(page, "/app/picks PickEvidenceLabDrawer abierto [light]", {
       allowOpenDialog: true,
     });
-    await builderDrawer.getByRole("button", { name: "Cerrar Bet Builder" }).click();
+    await labDrawer.locator("[data-pick-lab-close]").click();
+    await expect(labDrawer).toBeHidden();
     await expect(page.locator("dialog[open]")).toHaveCount(0);
 
     if (isMobile) {
-      const mobileFilterToggle = page.locator("[data-mobile-filters-toggle]:visible").first();
+      const mobileFilterToggle = page
+        .locator("[data-picks-mobile-filters-trigger]:visible, [data-mobile-filters-toggle]:visible")
+        .first();
       await expect(mobileFilterToggle).toBeVisible();
       await mobileFilterToggle.click();
-      const mobileFilterSheet = page.locator("dialog[data-mobile-filters-sheet][open]");
+      const mobileFilterSheet = page.locator('dialog[open], [role="dialog"]:visible').last();
       await expect(mobileFilterSheet).toBeVisible();
       await auditPageInvariants(page, "/app/picks hoja filtros móvil abierta", {
         allowOpenDialog: true,
