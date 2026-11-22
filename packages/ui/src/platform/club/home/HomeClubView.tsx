@@ -745,8 +745,11 @@ export function HomeClubView({
     let anyLive = false;
     for (const g of scopedGames) {
       const entry = liveByGameId.get(g.id);
-      const isLive = (entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE";
-      const isFinished = g.status === "FT";
+      const isLiveEligible = g.dayId >= today;
+      const isLive =
+        isLiveEligible &&
+        ((entry ? isLivePhaseActive(entry.phase) : false) || String(g.status) === "LIVE");
+      const isFinished = g.status === "FT" || !isLiveEligible;
       const isFav =
         watchlistSet.has(g.id) ||
         favoriteLeagueSet.has(g.league) ||

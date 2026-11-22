@@ -1,4 +1,4 @@
-import type { LeagueId, LiveScoreboardEntry } from "@pitchlab/contracts";
+import { parseStrictFiniteNumber, type LeagueId, type LiveScoreboardEntry } from "@pitchlab/contracts";
 import { formatKickoffByTimezone } from "../account/account-helpers";
 import type { PlatformGame, RiskBand } from "../../types";
 import { addDays, dayNumber, shortWeekday } from "./home-model";
@@ -37,6 +37,20 @@ export const FULL_MONTHS_ES = [
 ] as const;
 
 export const CAL_WEEKDAYS_ES = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"] as const;
+export const CAL_WEEKDAYS_FULL_ES = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+] as const;
+
+export interface CalendarDayCell {
+  readonly dayNum: number;
+  readonly iso: string;
+}
 
 const SHORT_MONTHS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"] as const;
 const LONG_WEEKDAYS_LOWER = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"] as const;
@@ -118,20 +132,43 @@ export function formatLiveChipPhase(entry?: LiveScoreboardEntry): string {
 export function parseIsoYearMonth(isoDay: string): { year: number; monthIndex: number } {
   const m = /^(\d{4})-(\d{2})/.exec(isoDay);
   if (!m) return { year: 2026, monthIndex: 10 };
+  const year = parseStrictFiniteNumber(m[1]);
+  const month = parseStrictFiniteNumber(m[2]);
+  if (year === null || month === null) return { year: 2026, monthIndex: 10 };
   return {
-    year: Number(m[1]),
-    monthIndex: Math.max(0, Math.min(11, Number(m[2]) - 1)),
+    year,
+    monthIndex: Math.max(0, Math.min(11, month - 1)),
   };
+}
+
+export function dayNumOfIso(isoDay: string): number {
+  const m = /^\d{4}-\d{2}-(\d{2})$/.exec(isoDay);
+  if (!m) return 1;
+  const parsed = parseStrictFiniteNumber(m[1]);
+  if (parsed === null) return 1;
+  return Math.max(1, Math.min(31, Math.trunc(parsed)));
+}
+
+export function clampIsoToMonth(year: number, monthIndex: number, preferredDayNum: number): string {
+  const daysInMonth = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+  const clampedDay = Math.max(1, Math.min(daysInMonth, Math.trunc(preferredDayNum)));
+  const mm = String(monthIndex + 1).padStart(2, "0");
+  return `${year}-${mm}-${String(clampedDay).padStart(2, "0")}`;
+}
+
+export function formatMonthHeading(year: number, monthIndex: number): string {
+  const rawMonth = FULL_MONTHS_ES[monthIndex] ?? FULL_MONTHS_ES[0];
+  return `${rawMonth.charAt(0).toUpperCase()}${rawMonth.slice(1)} ${year}`;
 }
 
 export function buildCalendarMonthCells(
   year: number,
   monthIndex: number,
-): Array<{ dayNum: number; iso: string } | null> {
+): Array<CalendarDayCell | null> {
   const firstDow = new Date(Date.UTC(year, monthIndex, 1)).getUTCDay();
   const daysInMonth = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
   const mm = String(monthIndex + 1).padStart(2, "0");
-  const cells: Array<{ dayNum: number; iso: string } | null> = [];
+  const cells: Array<CalendarDayCell | null> = [];
   for (let i = 0; i < firstDow; i += 1) cells.push(null);
   for (let d = 1; d <= daysInMonth; d += 1) {
     cells.push({
@@ -140,6 +177,24 @@ export function buildCalendarMonthCells(
     });
   }
   return cells;
+}
+
+export function buildCalendarMonthWeeks(
+  year: number,
+  monthIndex: number,
+): ReadonlyArray<ReadonlyArray<CalendarDayCell | null>> {
+  const flat = buildCalendarMonthCells(year, monthIndex);
+  const remainder = flat.length % 7;
+  if (remainder !== 0) {
+    for (let i = remainder; i < 7; i += 1) {
+      flat.push(null);
+    }
+  }
+  const weeks: Array<Array<CalendarDayCell | null>> = [];
+  for (let i = 0; i < flat.length; i += 7) {
+    weeks.push(flat.slice(i, i + 7));
+  }
+  return weeks;
 }
 
 export function formatCenterDayParts(day: string, today: string): { top: string; sub: string } {
