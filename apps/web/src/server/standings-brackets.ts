@@ -4,19 +4,27 @@ import { z } from "zod";
 import {
   canonicalGameHref,
   canonicalGameSlug,
+  canonicalPlayerHref,
   canonicalTeamHref,
   cleanTeamRouteSlug,
   getLeagueCapability,
+  isNationalCompetition,
   isSafePublicLabel,
   LeagueSquadsFileSchema,
+  parseStrictFiniteNumber,
   sportForLeague,
   sportHasDraw,
+  sportScoringUnit,
   type LeagueCapabilityContract,
   type LeagueSnapshot,
   type LeagueSquadsFile,
   type PlatformSport,
   type StandingFormToken,
 } from "@pitchlab/contracts";
+import {
+  loadLeagueRefereeRanking,
+  type LeagueRefereeRankingResponse,
+} from "./referees";
 import {
   LEAGUE_LABELS,
   loadRawLeagueSnapshot,
@@ -25,6 +33,7 @@ import {
   type ProductLeague,
 } from "./snapshots";
 import { findSpacetimeTeamRecord } from "./spacetime";
+import { loadRawLeagueSquads } from "./team-profile";
 
 export type StandingsZoneTone = "ucl" | "uel" | "uecl" | "warn" | "rel";
 
@@ -336,11 +345,13 @@ const PRODUCT_LEAGUE_SET: ReadonlySet<string> = new Set(PRODUCT_LEAGUES);
 const splitsCache = new Map<string, { key: string; payload: LeagueStandingsSplitsPayload | null }>();
 const attackDefenseCache = new Map<string, { key: string; payload: LeagueAttackDefensePayload | null }>();
 const bracketCache = new Map<string, { key: string; payload: LeagueKnockoutBracketPayload | null }>();
+const enrichmentCache = new Map<string, { key: string; payload: LeagueHubEnrichmentPayload }>();
 
 export function resetStandingsBracketsCacheForTests(): void {
   splitsCache.clear();
   attackDefenseCache.clear();
   bracketCache.clear();
+  enrichmentCache.clear();
 }
 
 function isProductLeagueKey(raw: string): raw is ProductLeague {
@@ -3263,5 +3274,864 @@ export function buildLeagueKnockoutBracket(league: string): LeagueKnockoutBracke
   }
 
   bracketCache.set(normalized, { key: cacheKey, payload });
+  return payload;
+}
+
+export interface LeagueSeasonProgressPayload {
+  readonly seasonLabel: string;
+  readonly periodLabel: string;
+  readonly startDateIso: string | null;
+  readonly endDateIso: string | null;
+  readonly startLabel: string;
+  readonly endLabel: string;
+  readonly playedRounds: number;
+  readonly totalRounds: number;
+  readonly pct: number;
+  readonly progressSummary: string;
+}
+
+export interface LeagueStatLeaderEntry {
+  readonly rank: number;
+  readonly playerSlug: string;
+  readonly name: string;
+  readonly shortName: string;
+  readonly teamSlug: string;
+  readonly teamName: string;
+  readonly teamHref: string;
+  readonly playerHref: string;
+  readonly positionLabel: string;
+  readonly appearances: number;
+  readonly primaryValue: number;
+  readonly primaryFormatted: string;
+  readonly secondaryLabel: string | null;
+}
+
+export interface LeagueStatLeaderCategory {
+  readonly key: string;
+  readonly label: string;
+  readonly unitLabel: string;
+  readonly entries: readonly LeagueStatLeaderEntry[];
+}
+
+export interface LeagueTeamStatLeaderEntry {
+  readonly rank: number;
+  readonly teamSlug: string;
+  readonly name: string;
+  readonly shortName: string;
+  readonly teamHref: string;
+  readonly played: number;
+  readonly primaryValue: number;
+  readonly primaryFormatted: string;
+  readonly secondaryLabel: string | null;
+}
+
+export interface LeagueStatLeadersPayload {
+  readonly playerCategories: readonly LeagueStatLeaderCategory[];
+  readonly teamAttack: readonly LeagueTeamStatLeaderEntry[];
+  readonly teamDefense: readonly LeagueTeamStatLeaderEntry[];
+  readonly scoringUnitPlural: string;
+}
+
+export interface LeagueTitleCandidate {
+  readonly rank: number;
+  readonly teamSlug: string;
+  readonly name: string;
+  readonly shortName: string;
+  readonly code: string;
+  readonly teamHref: string;
+  readonly currentRank: number;
+  readonly played: number;
+  readonly points: number;
+  readonly winPct: number | null;
+  readonly titleProbPct: number;
+  readonly fairDecimal: number;
+  readonly netRatingLabel: string;
+}
+
+export interface LeagueTitleProjectionPayload {
+  readonly titleLabel: string;
+  readonly subtitle: string;
+  readonly candidates: readonly LeagueTitleCandidate[];
+}
+
+export interface LeagueHubCapabilitiesPayload {
+  readonly sport: PlatformSport;
+  readonly tier: LeagueCapabilityContract["tier"];
+  readonly hasStandingsTable: boolean;
+  readonly hasKnockoutBracket: boolean;
+  readonly hasRelegationZones: boolean;
+  readonly hasReferees: boolean;
+  readonly hasPlayerProps: boolean;
+}
+
+export interface LeagueHubEnrichmentPayload {
+  readonly league: ProductLeague;
+  readonly leagueLabel: string;
+  readonly capabilities: LeagueHubCapabilitiesPayload;
+  readonly seasonProgress: LeagueSeasonProgressPayload;
+  readonly standingsSplits: LeagueStandingsSplitsPayload | null;
+  readonly bracket: LeagueKnockoutBracketPayload | null;
+  readonly attackDefense: LeagueAttackDefensePayload | null;
+  readonly statLeaders: LeagueStatLeadersPayload;
+  readonly titleProjection: LeagueTitleProjectionPayload | null;
+  readonly refereeRanking: LeagueRefereeRankingResponse | null;
+}
+
+const MONTH_SHORT_ES: readonly string[] = [
+  "ene",
+  "feb",
+  "mar",
+  "abr",
+  "may",
+  "jun",
+  "jul",
+  "ago",
+  "sep",
+  "oct",
+  "nov",
+  "dic",
+];
+
+function formatShortSpanishDate(isoDay: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDay.trim());
+  if (!m) return isoDay;
+  const monthNum = parseStrictFiniteNumber(m[2]);
+  const dayNum = parseStrictFiniteNumber(m[3]);
+  if (monthNum === null || dayNum === null || monthNum < 1 || monthNum > 12) {
+    return isoDay;
+  }
+  const monthLabel = MONTH_SHORT_ES[monthNum - 1] ?? m[2];
+  return `${dayNum} ${monthLabel} ${m[1]}`;
+}
+
+function resolveTargetSeasonRounds(
+  league: ProductLeague,
+  sport: PlatformSport,
+  teamCount: number,
+  playedAvg: number,
+): number {
+  if (league === "conference-league") return 6;
+  if (league === "champions-league" || league === "europa-league") return 8;
+  if (league === "liga-mx") return 17;
+  if (league === "mls") return 34;
+  if (league === "libertadores" || league === "sudamericana" || league === "caf-champions") {
+    return 6;
+  }
+  if (sport === "american-football") return 17;
+  if (sport === "basketball" || sport === "ice-hockey") return 82;
+  if (sport === "baseball") return 162;
+  if (isNationalCompetition(league)) {
+    return Math.max(6, Math.ceil(playedAvg));
+  }
+  if (teamCount >= 4) {
+    return Math.max(10, (teamCount - 1) * 2);
+  }
+  return Math.max(6, Math.ceil(playedAvg));
+}
+
+function buildLeagueSeasonProgress(
+  league: ProductLeague,
+  sport: PlatformSport,
+  snapshot: LeagueSnapshot | null,
+  allMatches: readonly UnifiedMatchRecord[],
+  standingsSplits: LeagueStandingsSplitsPayload | null,
+): LeagueSeasonProgressPayload {
+  const seasonLabel = sanitizeLabel(snapshot?.seasonLabel, "2026");
+  const periodLabel = sanitizeLabel(snapshot?.periodLabel, "");
+
+  const scopedMatches = UEFA_LEAGUE_PHASE_COMPETITIONS.has(league)
+    ? (() => {
+        const leaguePhase = allMatches.filter((m) =>
+          `${m.round ?? ""} ${m.stageName ?? ""}`.toLowerCase().includes("league phase"),
+        );
+        return leaguePhase.length > 0 ? leaguePhase : allMatches;
+      })()
+    : allMatches;
+
+  const sortedDayKeys = Array.from(
+    new Set(
+      scopedMatches
+        .map((m) => m.dayKey)
+        .filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)),
+    ),
+  ).sort((a, b) => a.localeCompare(b));
+
+  const startDateIso = sortedDayKeys[0] ?? null;
+  const endDateIso = sortedDayKeys.length > 0 ? sortedDayKeys[sortedDayKeys.length - 1]! : null;
+  const startLabel = startDateIso ? formatShortSpanishDate(startDateIso) : seasonLabel;
+  const endLabel = endDateIso
+    ? formatShortSpanishDate(endDateIso)
+    : periodLabel || "En curso";
+
+  const standingsPool =
+    standingsSplits && standingsSplits.total.length > 0
+      ? standingsSplits.total
+      : (snapshot?.standings ?? []);
+
+  let playedRounds = 0;
+  let totalRounds = 1;
+  let pct = 0;
+
+  if (standingsPool.length > 1) {
+    const playedValues = standingsPool.map((row) => row.played).sort((a, b) => a - b);
+    const mid = Math.floor(playedValues.length / 2);
+    const medianPlayed = playedValues[mid] ?? 0;
+    const avgPlayed =
+      playedValues.reduce((acc, v) => acc + v, 0) / playedValues.length;
+    playedRounds = Math.max(0, Math.round(medianPlayed > 0 ? medianPlayed : avgPlayed));
+    totalRounds = resolveTargetSeasonRounds(league, sport, standingsPool.length, avgPlayed);
+    pct = Math.max(4, Math.min(100, Math.round((playedRounds / Math.max(1, totalRounds)) * 100)));
+  } else if (scopedMatches.length > 0) {
+    const finishedCount = scopedMatches.filter((m) => m.status === "FT").length;
+    playedRounds = finishedCount;
+    totalRounds = scopedMatches.length;
+    pct = Math.max(4, Math.min(100, Math.round((finishedCount / Math.max(1, totalRounds)) * 100)));
+  }
+
+  const unitLabel =
+    sport === "basketball" || sport === "baseball" || sport === "ice-hockey"
+      ? "juegos"
+      : sport === "american-football"
+        ? "semanas"
+        : "jornadas";
+  const progressSummary =
+    standingsPool.length > 1
+      ? `${playedRounds} de ${totalRounds} ${unitLabel} · ${pct}%`
+      : scopedMatches.length > 0
+        ? `${playedRounds} de ${totalRounds} partidos · ${pct}%`
+        : periodLabel || seasonLabel;
+
+  return {
+    seasonLabel,
+    periodLabel,
+    startDateIso,
+    endDateIso,
+    startLabel,
+    endLabel,
+    playedRounds,
+    totalRounds,
+    pct,
+    progressSummary,
+  };
+}
+
+function buildFootballPlayerLeaderCategories(
+  league: ProductLeague,
+  squads: LeagueSquadsFile,
+): LeagueStatLeaderCategory[] {
+  const flat: Array<{
+    readonly playerSlug: string;
+    readonly name: string;
+    readonly shortName: string;
+    readonly teamSlug: string;
+    readonly teamName: string;
+    readonly positionGroup: "GK" | "DEF" | "MID" | "FWD";
+    readonly positionLabel: string;
+    readonly appearances: number;
+    readonly goals: number;
+    readonly assists: number;
+    readonly shots: number;
+    readonly shotsOnTarget: number;
+    readonly yellowCards: number;
+    readonly redCards: number;
+    readonly saves: number;
+  }> = [];
+
+  for (const team of squads.teams) {
+    const safeTeamName = sanitizeLabel(team.teamName, humanizeSlug(team.teamSlug));
+    const safeTeamSlug = cleanTeamRouteSlug(team.teamSlug);
+    for (const player of team.players) {
+      const safeName = sanitizeLabel(player.name, humanizeSlug(player.slug));
+      const safeShort = sanitizeLabel(player.shortName, safeName);
+      const safePos = sanitizeLabel(player.positionLabel, player.positionGroup);
+      flat.push({
+        playerSlug: player.slug,
+        name: safeName,
+        shortName: safeShort,
+        teamSlug: safeTeamSlug,
+        teamName: safeTeamName,
+        positionGroup: player.positionGroup,
+        positionLabel: safePos,
+        appearances: player.stats.appearances,
+        goals: player.stats.goals,
+        assists: player.stats.assists,
+        shots: player.stats.shots,
+        shotsOnTarget: player.stats.shotsOnTarget,
+        yellowCards: player.stats.yellowCards,
+        redCards: player.stats.redCards,
+        saves: player.stats.saves,
+      });
+    }
+  }
+
+  const pickTop = (
+    key: string,
+    label: string,
+    unitLabel: string,
+    selector: (row: (typeof flat)[number]) => number,
+    secondary: (row: (typeof flat)[number]) => string | null,
+    filterFn?: (row: (typeof flat)[number]) => boolean,
+  ): LeagueStatLeaderCategory | null => {
+    const candidates = flat
+      .filter((row) => (filterFn ? filterFn(row) : true) && selector(row) > 0)
+      .sort((a, b) => {
+        const diff = selector(b) - selector(a);
+        if (diff !== 0) return diff;
+        if (a.appearances !== b.appearances) return a.appearances - b.appearances;
+        return a.name.localeCompare(b.name, "es-MX");
+      })
+      .slice(0, 8);
+
+    if (candidates.length === 0) return null;
+
+    return {
+      key,
+      label,
+      unitLabel,
+      entries: candidates.map((row, idx) => ({
+        rank: idx + 1,
+        playerSlug: row.playerSlug,
+        name: row.name,
+        shortName: row.shortName,
+        teamSlug: row.teamSlug,
+        teamName: row.teamName,
+        teamHref: canonicalTeamHref(league, row.teamSlug),
+        playerHref: canonicalPlayerHref(league, row.teamSlug, row.playerSlug),
+        positionLabel: row.positionLabel,
+        appearances: row.appearances,
+        primaryValue: selector(row),
+        primaryFormatted: String(selector(row)),
+        secondaryLabel: secondary(row),
+      })),
+    };
+  };
+
+  const categories = [
+    pickTop(
+      "goals",
+      "Goleadores",
+      "Goles",
+      (r) => r.goals,
+      (r) => (r.appearances > 0 ? `${r.appearances} PJ · ${r.assists} asist.` : r.assists > 0 ? `${r.assists} asist.` : null),
+    ),
+    pickTop(
+      "assists",
+      "Asistencias",
+      "Asist.",
+      (r) => r.assists,
+      (r) => (r.appearances > 0 ? `${r.appearances} PJ · ${r.goals} goles` : r.goals > 0 ? `${r.goals} goles` : null),
+    ),
+    pickTop(
+      "shots_on_target",
+      "Tiros a puerta",
+      "A puerta",
+      (r) => r.shotsOnTarget,
+      (r) => (r.shots > 0 ? `${r.shots} tiros totales` : null),
+    ),
+    pickTop(
+      "shots",
+      "Remates",
+      "Tiros",
+      (r) => r.shots,
+      (r) => (r.shotsOnTarget > 0 ? `${r.shotsOnTarget} a puerta` : null),
+    ),
+    pickTop(
+      "yellow_cards",
+      "Amarillas",
+      "TA",
+      (r) => r.yellowCards,
+      (r) => (r.redCards > 0 ? `${r.redCards} rojas` : r.appearances > 0 ? `${r.appearances} PJ` : null),
+    ),
+    pickTop(
+      "saves",
+      "Atajadas",
+      "Ataj.",
+      (r) => r.saves,
+      (r) => (r.appearances > 0 ? `${r.appearances} PJ` : null),
+      (r) => r.positionGroup === "GK" || r.saves > 0,
+    ),
+  ];
+
+  return categories.filter((c): c is LeagueStatLeaderCategory => c !== null);
+}
+
+function buildUsPlayerLeaderCategories(
+  league: ProductLeague,
+  sport: PlatformSport,
+  squads: LeagueSquadsFile,
+): LeagueStatLeaderCategory[] {
+  const metricSpecs: ReadonlyArray<{
+    readonly keys: readonly string[];
+    readonly key: string;
+    readonly label: string;
+    readonly unitLabel: string;
+    readonly digits: number;
+    readonly suffix?: string;
+    readonly minAppearances: number;
+  }> =
+    sport === "basketball"
+      ? [
+          { keys: ["pts"], key: "pts", label: "Puntos", unitLabel: "PTS", digits: 1, minAppearances: 3 },
+          { keys: ["reb"], key: "reb", label: "Rebotes", unitLabel: "REB", digits: 1, minAppearances: 3 },
+          { keys: ["ast"], key: "ast", label: "Asistencias", unitLabel: "AST", digits: 1, minAppearances: 3 },
+          { keys: ["3pm", "tpm", "fg3m"], key: "3pm", label: "Triples", unitLabel: "3PM", digits: 1, minAppearances: 3 },
+          { keys: ["fg_"], key: "fg_", label: "% Tiros de campo", unitLabel: "%TC", digits: 1, suffix: "%", minAppearances: 5 },
+        ]
+      : sport === "ice-hockey"
+        ? [
+            { keys: ["pts"], key: "pts", label: "Puntos", unitLabel: "PTS", digits: 0, minAppearances: 2 },
+            { keys: ["g"], key: "g", label: "Goles", unitLabel: "G", digits: 0, minAppearances: 2 },
+            { keys: ["a"], key: "a", label: "Asistencias", unitLabel: "A", digits: 0, minAppearances: 2 },
+            { keys: ["s"], key: "s", label: "Tiros", unitLabel: "Tiros", digits: 0, minAppearances: 2 },
+          ]
+        : sport === "american-football"
+          ? [
+              { keys: ["yds"], key: "yds", label: "Yardas", unitLabel: "YDS", digits: 0, minAppearances: 0 },
+              { keys: ["td"], key: "td", label: "Touchdowns", unitLabel: "TD", digits: 0, minAppearances: 0 },
+              { keys: ["rec"], key: "rec", label: "Recepciones", unitLabel: "REC", digits: 0, minAppearances: 0 },
+              { keys: ["cmp"], key: "cmp", label: "Pases completos", unitLabel: "CMP", digits: 0, minAppearances: 0 },
+            ]
+          : [
+              { keys: ["hr"], key: "hr", label: "Jonrones", unitLabel: "HR", digits: 0, minAppearances: 1 },
+              { keys: ["rbi"], key: "rbi", label: "Impulsadas", unitLabel: "CI", digits: 0, minAppearances: 1 },
+              { keys: ["ip"], key: "ip", label: "Entradas lanzadas", unitLabel: "IP", digits: 1, minAppearances: 1 },
+            ];
+
+  const results: LeagueStatLeaderCategory[] = [];
+
+  for (const spec of metricSpecs) {
+    const rows: Array<{
+      readonly playerSlug: string;
+      readonly name: string;
+      readonly shortName: string;
+      readonly teamSlug: string;
+      readonly teamName: string;
+      readonly positionLabel: string;
+      readonly appearances: number;
+      readonly value: number;
+      readonly minMetric: number | null;
+    }> = [];
+
+    for (const team of squads.teams) {
+      const safeTeamName = sanitizeLabel(team.teamName, humanizeSlug(team.teamSlug));
+      const safeTeamSlug = cleanTeamRouteSlug(team.teamSlug);
+      for (const player of team.players) {
+        const metrics = player.seasonMetrics ?? [];
+        if (metrics.length === 0) continue;
+        const found = metrics.find((m) => spec.keys.includes(m.key.trim().toLowerCase()));
+        if (!found) continue;
+        const parsedVal = parseStrictFiniteNumber(found.value.replace("%", ""));
+        if (parsedVal === null || parsedVal <= 0) continue;
+        const gpMetric = metrics.find((m) => m.key.trim().toLowerCase() === "gp");
+        const gpVal = gpMetric ? parseStrictFiniteNumber(gpMetric.value) : null;
+        const appearances = gpVal !== null ? Math.round(gpVal) : player.stats.appearances;
+        const minEntry = metrics.find((m) => m.key.trim().toLowerCase() === "min");
+        const minMetric = minEntry ? parseStrictFiniteNumber(minEntry.value) : null;
+
+        const safeName = sanitizeLabel(player.name, humanizeSlug(player.slug));
+        const safeShort = sanitizeLabel(player.shortName, safeName);
+        const safePos = sanitizeLabel(player.positionLabel, player.positionGroup);
+
+        rows.push({
+          playerSlug: player.slug,
+          name: safeName,
+          shortName: safeShort,
+          teamSlug: safeTeamSlug,
+          teamName: safeTeamName,
+          positionLabel: safePos,
+          appearances,
+          value: parsedVal,
+          minMetric,
+        });
+      }
+    }
+
+    const filteredBySample = rows.filter((r) => {
+      if (r.appearances < spec.minAppearances) return false;
+      if (sport === "basketball" && spec.key === "fg_" && r.minMetric !== null && r.minMetric < 18) {
+        return false;
+      }
+      return true;
+    });
+    const pool = filteredBySample.length >= 3 ? filteredBySample : rows;
+    if (pool.length === 0) continue;
+
+    const top = pool
+      .slice()
+      .sort((a, b) => {
+        const diff = b.value - a.value;
+        if (Math.abs(diff) > 1e-6) return diff;
+        if (b.appearances !== a.appearances) return b.appearances - a.appearances;
+        return a.name.localeCompare(b.name, "es-MX");
+      })
+      .slice(0, 8);
+
+    results.push({
+      key: spec.key,
+      label: spec.label,
+      unitLabel: spec.unitLabel,
+      entries: top.map((row, idx) => ({
+        rank: idx + 1,
+        playerSlug: row.playerSlug,
+        name: row.name,
+        shortName: row.shortName,
+        teamSlug: row.teamSlug,
+        teamName: row.teamName,
+        teamHref: canonicalTeamHref(league, row.teamSlug),
+        playerHref: canonicalPlayerHref(league, row.teamSlug, row.playerSlug),
+        positionLabel: row.positionLabel,
+        appearances: row.appearances,
+        primaryValue: row.value,
+        primaryFormatted: `${spec.digits > 0 ? row.value.toFixed(spec.digits) : Math.round(row.value)}${spec.suffix ?? ""}`,
+        secondaryLabel:
+          row.appearances > 0
+            ? row.minMetric !== null
+              ? `${row.appearances} JJ · ${row.minMetric.toFixed(1)} min`
+              : `${row.appearances} JJ`
+            : row.positionLabel,
+      })),
+    });
+  }
+
+  return results;
+}
+
+function buildLeagueStatLeaders(
+  league: ProductLeague,
+  sport: PlatformSport,
+  attackDefense: LeagueAttackDefensePayload | null,
+): LeagueStatLeadersPayload {
+  const scoringUnit = sportScoringUnit(sport);
+  const squads = loadRawLeagueSquads(league);
+  const playerCategories = squads
+    ? sport === "football"
+      ? buildFootballPlayerLeaderCategories(league, squads)
+      : buildUsPlayerLeaderCategories(league, sport, squads)
+    : [];
+
+  const digits = sport === "basketball" || sport === "american-football" ? 1 : 2;
+  const teamAttack: LeagueTeamStatLeaderEntry[] = [];
+  const teamDefense: LeagueTeamStatLeaderEntry[] = [];
+
+  if (attackDefense && attackDefense.teams.length > 0) {
+    const byAttack = attackDefense.teams
+      .filter((t) => t.goalsForPerGame.value !== null)
+      .slice()
+      .sort((a, b) => {
+        if (a.attackRank !== b.attackRank) return a.attackRank - b.attackRank;
+        return (b.goalsForPerGame.value ?? 0) - (a.goalsForPerGame.value ?? 0);
+      })
+      .slice(0, 5);
+
+    for (let i = 0; i < byAttack.length; i += 1) {
+      const team = byAttack[i]!;
+      const val = team.goalsForPerGame.value ?? 0;
+      const expVal = team.expectedGoalsFor.value;
+      const expLabel =
+        expVal !== null
+          ? sport === "football"
+            ? `${expVal.toFixed(2)} esperados/p`
+            : sport === "basketball"
+              ? `Ofensiva ${expVal.toFixed(1)}`
+              : `${expVal.toFixed(digits)} ajustado`
+          : `${team.played} PJ`;
+      teamAttack.push({
+        rank: i + 1,
+        teamSlug: team.teamSlug,
+        name: team.name,
+        shortName: team.shortName,
+        teamHref: team.teamHref,
+        played: team.played,
+        primaryValue: val,
+        primaryFormatted: val.toFixed(digits),
+        secondaryLabel: expLabel,
+      });
+    }
+
+    const byDefense = attackDefense.teams
+      .filter((t) => t.goalsAgainstPerGame.value !== null)
+      .slice()
+      .sort((a, b) => {
+        if (a.defenseRank !== b.defenseRank) return a.defenseRank - b.defenseRank;
+        return (a.goalsAgainstPerGame.value ?? 999) - (b.goalsAgainstPerGame.value ?? 999);
+      })
+      .slice(0, 5);
+
+    for (let i = 0; i < byDefense.length; i += 1) {
+      const team = byDefense[i]!;
+      const val = team.goalsAgainstPerGame.value ?? 0;
+      const csPct = team.cleanSheetPct.value;
+      const expAgainst = team.expectedGoalsAgainst.value;
+      const secondary =
+        csPct !== null
+          ? `${csPct}% portería en 0`
+          : expAgainst !== null
+            ? sport === "basketball"
+              ? `Defensiva ${expAgainst.toFixed(1)}`
+              : `${expAgainst.toFixed(digits)} esperados`
+            : `${team.played} PJ`;
+      teamDefense.push({
+        rank: i + 1,
+        teamSlug: team.teamSlug,
+        name: team.name,
+        shortName: team.shortName,
+        teamHref: team.teamHref,
+        played: team.played,
+        primaryValue: val,
+        primaryFormatted: val.toFixed(digits),
+        secondaryLabel: secondary,
+      });
+    }
+  }
+
+  return {
+    playerCategories,
+    teamAttack,
+    teamDefense,
+    scoringUnitPlural: scoringUnit.plural,
+  };
+}
+
+function buildSpacetimeTitleProjection(
+  league: ProductLeague,
+  sport: PlatformSport,
+  snapshot: LeagueSnapshot | null,
+  standingsSplits: LeagueStandingsSplitsPayload | null,
+  seasonProgress: LeagueSeasonProgressPayload,
+  fullAccess: boolean,
+): LeagueTitleProjectionPayload | null {
+  if (!fullAccess || !snapshot) return null;
+
+  const rateByCanon = new Map<
+    string,
+    { readonly adjustedFor: number; readonly adjustedAgainst: number }
+  >();
+  for (const rate of Object.values(snapshot.teamRates)) {
+    rateByCanon.set(canonicalSlug(rate.teamId), {
+      adjustedFor: rate.adjustedFor,
+      adjustedAgainst: rate.adjustedAgainst,
+    });
+  }
+
+  const poolRows: Array<{
+    readonly teamSlug: string;
+    readonly name: string;
+    readonly shortName: string;
+    readonly code: string;
+    readonly teamHref: string;
+    readonly currentRank: number;
+    readonly played: number;
+    readonly points: number;
+    readonly won: number;
+    readonly drawn: number;
+    readonly goalDiff: number;
+    readonly winPct: number | null;
+    readonly netRate: number;
+  }> = [];
+
+  if (standingsSplits && standingsSplits.total.length >= 2) {
+    for (const row of standingsSplits.total) {
+      const canon = canonicalSlug(row.teamSlug);
+      const rate = rateByCanon.get(canon);
+      const fallbackNet = row.played > 0 ? row.goalDiff / row.played : 0;
+      const netRate = rate ? rate.adjustedFor - rate.adjustedAgainst : fallbackNet;
+      poolRows.push({
+        teamSlug: row.teamSlug,
+        name: row.name,
+        shortName: row.shortName,
+        code: row.code,
+        teamHref: row.teamHref,
+        currentRank: row.rank,
+        played: row.played,
+        points: row.points,
+        won: row.won,
+        drawn: row.drawn,
+        goalDiff: row.goalDiff,
+        winPct: row.winPct,
+        netRate,
+      });
+    }
+  } else if ((snapshot.standings ?? []).length >= 2) {
+    const standings = snapshot.standings ?? [];
+    for (let i = 0; i < standings.length; i += 1) {
+      const row = standings[i]!;
+      const slug = cleanTeamRouteSlug(row.teamId);
+      const canon = canonicalSlug(slug);
+      const rate = rateByCanon.get(canon);
+      const goalDiff = row.goalsFor - row.goalsAgainst;
+      const fallbackNet = row.played > 0 ? goalDiff / row.played : 0;
+      const netRate = rate ? rate.adjustedFor - rate.adjustedAgainst : fallbackNet;
+      poolRows.push({
+        teamSlug: slug,
+        name: sanitizeLabel(row.name, humanizeSlug(slug)),
+        shortName: sanitizeLabel(row.shortName, sanitizeLabel(row.name, humanizeSlug(slug))),
+        code: sanitizeLabel(row.code, slug.slice(0, 3).toUpperCase()),
+        teamHref: canonicalTeamHref(league, slug),
+        currentRank: i + 1,
+        played: row.played,
+        points: row.points,
+        won: row.won,
+        drawn: row.drawn,
+        goalDiff,
+        winPct: row.winPct ?? null,
+        netRate,
+      });
+    }
+  }
+
+  if (poolRows.length < 2) return null;
+
+  const meanNet = poolRows.reduce((acc, r) => acc + r.netRate, 0) / poolRows.length;
+  const varianceNet =
+    poolRows.reduce((acc, r) => acc + (r.netRate - meanNet) ** 2, 0) / poolRows.length;
+  const stdNet = Math.max(0.25, Math.sqrt(varianceNet));
+
+  const totalRounds = Math.max(1, seasonProgress.totalRounds);
+  const usesWinPct =
+    sport === "basketball" || sport === "american-football" || sport === "baseball";
+  const maxPtsPerGame = sport === "football" ? 3 : 2;
+
+  const projectedScores = poolRows.map((row) => {
+    const zNet = (row.netRate - meanNet) / stdNet;
+    const remaining = Math.max(0, totalRounds - row.played);
+    if (usesWinPct) {
+      const expectedWinRate = 1 / (1 + Math.exp(-0.72 * zNet));
+      const bankedWins = row.won + 0.5 * row.drawn;
+      const projWins = bankedWins + remaining * expectedWinRate;
+      const score = (projWins / Math.max(totalRounds, row.played, 1)) * 10 + 0.65 * zNet;
+      return { row, zNet, score };
+    }
+    const expectedPpg = (maxPtsPerGame * 0.48) + (maxPtsPerGame * 0.24) * Math.tanh(0.68 * zNet);
+    const projPoints = row.points + remaining * expectedPpg;
+    const score = projPoints + 1.4 * zNet + 0.04 * row.goalDiff;
+    return { row, zNet, score };
+  });
+
+  const maxScore = Math.max(...projectedScores.map((s) => s.score));
+  const avgRemainingFrac = Math.max(0.15, Math.min(1, 1 - seasonProgress.pct / 100));
+  const temperature = usesWinPct
+    ? 0.42 + 0.48 * avgRemainingFrac
+    : Math.max(2.4, (totalRounds * 0.14) * (0.55 + 0.85 * avgRemainingFrac));
+
+  const weights = projectedScores.map((item) => ({
+    ...item,
+    weight: Math.exp((item.score - maxScore) / temperature),
+  }));
+  const weightSum = weights.reduce((acc, w) => acc + w.weight, 0);
+  if (!Number.isFinite(weightSum) || weightSum <= 0) return null;
+
+  const ranked = weights
+    .map((item) => {
+      const prob = Math.max(0.005, Math.min(0.92, item.weight / weightSum));
+      const probPct = round1(prob * 100);
+      const fairDecimal = round2(Math.max(1.08, 1 / prob));
+      const digits = sport === "basketball" || sport === "american-football" ? 1 : 2;
+      const signedNet = item.row.netRate >= 0 ? `+${item.row.netRate.toFixed(digits)}` : item.row.netRate.toFixed(digits);
+      return {
+        teamSlug: item.row.teamSlug,
+        name: item.row.name,
+        shortName: item.row.shortName,
+        code: item.row.code,
+        teamHref: item.row.teamHref,
+        currentRank: item.row.currentRank,
+        played: item.row.played,
+        points: item.row.points,
+        winPct: item.row.winPct,
+        titleProbPct: probPct,
+        fairDecimal,
+        netRatingLabel: `${signedNet}/p`,
+      };
+    })
+    .sort((a, b) => b.titleProbPct - a.titleProbPct || a.currentRank - b.currentRank)
+    .slice(0, 5)
+    .map((item, idx) => ({
+      rank: idx + 1,
+      ...item,
+    }));
+
+  const titleLabel = UEFA_LEAGUE_PHASE_COMPETITIONS.has(league)
+    ? "Proyección líder fase liga"
+    : league === "liga-mx"
+      ? "Proyección líder general"
+      : sport === "basketball" || sport === "american-football" || sport === "ice-hockey" || sport === "baseball"
+        ? "Favoritos temporada regular"
+        : "Proyección de campeón";
+
+  return {
+    titleLabel,
+    subtitle: "Modelo Spacetime según ritmo ajustado y tabla vigente",
+    candidates: ranked,
+  };
+}
+
+export function loadLeagueHubEnrichment(
+  league: ProductLeague,
+  fullAccess: boolean,
+): LeagueHubEnrichmentPayload {
+  const capability = getLeagueCapability(league);
+  const mapKey = `${league}|${fullAccess ? "full" : "visitor"}`;
+  const cacheKey = `${leagueFilesCacheKey(league)}|${fullAccess ? "full" : "visitor"}`;
+  const cached = enrichmentCache.get(mapKey);
+  if (cached && cached.key === cacheKey) {
+    return cached.payload;
+  }
+
+  const snapshot = loadRawLeagueSnapshot(league);
+  const sport = sportForLeague(league);
+  const registry = buildTeamMetaRegistry(league, snapshot);
+  const allMatches = loadUnifiedMatches(league, snapshot, registry);
+  const standingsSplits = buildLeagueStandingsSplits(league);
+  const bracket = capability.hasKnockoutBracket ? buildLeagueKnockoutBracket(league) : null;
+  const attackDefense = buildLeagueAttackDefenseTable(league);
+  const seasonProgress = buildLeagueSeasonProgress(
+    league,
+    sport,
+    snapshot,
+    allMatches,
+    standingsSplits,
+  );
+  const statLeaders = buildLeagueStatLeaders(league, sport, attackDefense);
+  const titleProjection = buildSpacetimeTitleProjection(
+    league,
+    sport,
+    snapshot,
+    standingsSplits,
+    seasonProgress,
+    fullAccess,
+  );
+
+  const rawRefRanking =
+    capability.providers.referees && sport === "football"
+      ? loadLeagueRefereeRanking(league)
+      : null;
+  const refereeRanking: LeagueRefereeRankingResponse | null = rawRefRanking
+    ? {
+        ...rawRefRanking,
+        referees: rawRefRanking.referees.slice(0, 40),
+      }
+    : null;
+
+  const payload: LeagueHubEnrichmentPayload = {
+    league,
+    leagueLabel: LEAGUE_LABELS[league] ?? league,
+    capabilities: {
+      sport,
+      tier: capability.tier,
+      hasStandingsTable: capability.hasStandingsTable,
+      hasKnockoutBracket: capability.hasKnockoutBracket,
+      hasRelegationZones: capability.hasRelegationZones,
+      hasReferees: capability.providers.referees && sport === "football",
+      hasPlayerProps: capability.hasPlayerProps,
+    },
+    seasonProgress,
+    standingsSplits,
+    bracket,
+    attackDefense,
+    statLeaders,
+    titleProjection,
+    refereeRanking,
+  };
+
+  enrichmentCache.set(mapKey, { key: cacheKey, payload });
   return payload;
 }
