@@ -5,7 +5,7 @@
   "season": "pro-league-belgica-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Regular season · Matchday 11",
-  "updatedAt": "2026-11-22T18:13:11.873Z",
+  "updatedAt": "2026-11-22T19:27:07.879Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 0.8333333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 2.1783979023693427,
-      "adjustedAgainst": 1.0078673606192363
+      "adjustedFor": 2.1783063384328347,
+      "adjustedAgainst": 1.00576896030927
     },
     "pro-league-belgica.kv-kortrijk": {
       "teamId": "pro-league-belgica.kv-kortrijk",
@@ -29,8 +29,8 @@
       "forPerGame": 0.3333333333333333,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 0.5741855134842545,
-      "adjustedAgainst": 1.650855571975674
+      "adjustedFor": 0.5708656367877496,
+      "adjustedAgainst": 1.644029108708208
     },
     "pro-league-belgica.standard-liege": {
       "teamId": "pro-league-belgica.standard-liege",
@@ -40,8 +40,8 @@
       "forPerGame": 1.6363636363636365,
       "againstPerGame": 1.4545454545454546,
       "gamesPlayed": 11,
-      "adjustedFor": 1.3422382163178361,
-      "adjustedAgainst": 1.3921156576911597
+      "adjustedFor": 1.335772837571194,
+      "adjustedAgainst": 1.388066579217422
     },
     "pro-league-belgica.cercle-brugge": {
       "teamId": "pro-league-belgica.cercle-brugge",
@@ -51,8 +51,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.225317390904995,
-      "adjustedAgainst": 1.482355850007687
+      "adjustedFor": 1.2238304539493055,
+      "adjustedAgainst": 1.4796964286812002
     },
     "pro-league-belgica.sint-truidense-vv": {
       "teamId": "pro-league-belgica.sint-truidense-vv",
@@ -62,8 +62,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 12,
-      "adjustedFor": 1.679169849938267,
-      "adjustedAgainst": 1.6708526869721252
+      "adjustedFor": 1.672605170027552,
+      "adjustedAgainst": 1.666083125580217
     },
     "pro-league-belgica.lommel": {
       "teamId": "pro-league-belgica.lommel",
@@ -73,8 +73,8 @@
       "forPerGame": 1.3636363636363635,
       "againstPerGame": 1.1818181818181819,
       "gamesPlayed": 11,
-      "adjustedFor": 1.317136536059047,
-      "adjustedAgainst": 1.077903725614312
+      "adjustedFor": 1.3113471972304303,
+      "adjustedAgainst": 1.073705058438012
     },
     "pro-league-belgica.kvc-westerlo": {
       "teamId": "pro-league-belgica.kvc-westerlo",
@@ -84,8 +84,8 @@
       "forPerGame": 2.1666666666666665,
       "againstPerGame": 2.5833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.852737226259254,
-      "adjustedAgainst": 2.1172245893504815
+      "adjustedFor": 1.8495363111586747,
+      "adjustedAgainst": 2.110646307902088
     },
     "pro-league-belgica.royale-union-saint-gilloise": {
       "teamId": "pro-league-belgica.royale-union-saint-gilloise",
@@ -95,8 +95,8 @@
       "forPerGame": 2.5833333333333335,
       "againstPerGame": 0.5833333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 2.0699627550841084,
-      "adjustedAgainst": 0.7627375353982677
+      "adjustedFor": 2.070212544990792,
+      "adjustedAgainst": 0.7604921421531234
     },
     "pro-league-belgica.kaa-gent": {
       "teamId": "pro-league-belgica.kaa-gent",
@@ -106,8 +106,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 0.5833333333333334,
       "gamesPlayed": 12,
-      "adjustedFor": 1.4727290073981054,
-      "adjustedAgainst": 0.802072868846261
+      "adjustedFor": 1.471649784310661,
+      "adjustedAgainst": 0.7995616067619314
     },
     "pro-league-belgica.kv-mechelen": {
       "teamId": "pro-league-belgica.kv-mechelen",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 2.0833333333333335,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1732851863133396,
-      "adjustedAgainst": 1.7753017504021222
+      "adjustedFor": 1.171640088993038,
+      "adjustedAgainst": 1.773703319529953
     },
     "pro-league-belgica.zulte-waregem": {
       "teamId": "pro-league-belgica.zulte-waregem",
@@ -128,8 +128,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.8333333333333333,
       "gamesPlayed": 12,
-      "adjustedFor": 1.202329249531051,
-      "adjustedAgainst": 1.5737661261289977
+      "adjustedFor": 1.1993036928937686,
+      "adjustedAgainst": 1.5673175663297765
     },
     "pro-league-belgica.krc-genk": {
       "teamId": "pro-league-belgica.krc-genk",
@@ -139,8 +139,8 @@
       "forPerGame": 1.75,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.479287425672617,
-      "adjustedAgainst": 1.1805137449618481
+      "adjustedFor": 1.4750455129685314,
+      "adjustedAgainst": 1.174733525915135
     },
     "pro-league-belgica.sporting-charleroi": {
       "teamId": "pro-league-belgica.sporting-charleroi",
@@ -150,30 +150,30 @@
       "forPerGame": 2.3333333333333335,
       "againstPerGame": 1.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.843354950585101,
-      "adjustedAgainst": 1.2561079612554216
+      "adjustedFor": 1.8364051933174579,
+      "adjustedAgainst": 1.252177304324943
     },
     "pro-league-belgica.oud-heverlee-leuven": {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
       "name": "Oud-Heverlee Leuven",
       "shortName": "Oud-Heverlee Leuven",
       "code": "OUD",
-      "forPerGame": 1.0909090909090908,
-      "againstPerGame": 1.5454545454545454,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.1301703358708377,
-      "adjustedAgainst": 1.3164872287548628
+      "forPerGame": 1,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.0719418130324954,
+      "adjustedAgainst": 1.2998598805924775
     },
     "pro-league-belgica.rsc-anderlecht": {
       "teamId": "pro-league-belgica.rsc-anderlecht",
       "name": "RSC Anderlecht",
       "shortName": "RSC Anderlecht",
       "code": "RSC",
-      "forPerGame": 1.2727272727272727,
-      "againstPerGame": 1.0909090909090908,
-      "gamesPlayed": 11,
-      "adjustedFor": 1.206857009027655,
-      "adjustedAgainst": 1.0975026005090422
+      "forPerGame": 1.25,
+      "againstPerGame": 1,
+      "gamesPlayed": 12,
+      "adjustedFor": 1.1745036368225232,
+      "adjustedAgainst": 1.032947752289345
     },
     "pro-league-belgica.raal-la-louviere": {
       "teamId": "pro-league-belgica.raal-la-louviere",
@@ -183,8 +183,8 @@
       "forPerGame": 1.0833333333333333,
       "againstPerGame": 2.25,
       "gamesPlayed": 12,
-      "adjustedFor": 1.1173357355283622,
-      "adjustedAgainst": 1.9477288305537377
+      "adjustedFor": 1.1143292641970721,
+      "adjustedAgainst": 1.945507824566621
     },
     "pro-league-belgica.royal-antwerp": {
       "teamId": "pro-league-belgica.royal-antwerp",
@@ -194,8 +194,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 12,
-      "adjustedFor": 1.5188008545095049,
-      "adjustedAgainst": 1.767946144810329
+      "adjustedFor": 1.512277373447307,
+      "adjustedAgainst": 1.7591625183192534
     },
     "pro-league-belgica.beveren": {
       "teamId": "pro-league-belgica.beveren",
@@ -205,46 +205,11 @@
       "forPerGame": 1.1666666666666667,
       "againstPerGame": 1.9166666666666667,
       "gamesPlayed": 12,
-      "adjustedFor": 1.208656178683178,
-      "adjustedAgainst": 1.675033259345068
+      "adjustedFor": 1.2080233805154725,
+      "adjustedAgainst": 1.6728303380928737
     }
   },
   "games": [
-    {
-      "id": "pro-league-belgica-2026-11-06-standard-liege-beveren-l1mwpp",
-      "league": "pro-league-belgica",
-      "season": "pro-league-belgica-2026-27",
-      "week": 11,
-      "round": "Regular season · Matchday 11",
-      "phase": "Regular season",
-      "startTime": "2026-11-06T19:45:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "pro-league-belgica.standard-liege",
-        "league": "pro-league-belgica",
-        "name": "Standard Liège",
-        "shortName": "Standard Liège",
-        "code": "STA",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/239/?bg=transparent"
-      },
-      "away": {
-        "id": "pro-league-belgica.beveren",
-        "league": "pro-league-belgica",
-        "name": "SK Beveren",
-        "shortName": "SK Beveren",
-        "code": "BEV",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/2414/?bg=transparent"
-      },
-      "venue": "Maurice Dufrasne, Liege",
-      "referee": "Massimiliano Ledda",
-      "neutralSite": false,
-      "result": {
-        "home": 3,
-        "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "pro-league-belgica-2026-11-07-kvc-westerlo-sporting-charl-c88x6p",
       "league": "pro-league-belgica",
@@ -276,7 +241,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -311,7 +276,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -346,7 +311,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -381,7 +346,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -416,7 +381,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -451,7 +416,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -486,7 +451,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -521,7 +486,7 @@
       "result": {
         "home": 4,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -556,7 +521,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -591,7 +556,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -626,7 +591,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -661,7 +626,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -696,7 +661,7 @@
       "result": {
         "home": 1,
         "away": 5,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -731,7 +696,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -766,7 +731,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -778,7 +743,7 @@
       "round": "Regular season · Matchday 12",
       "phase": "Regular season",
       "startTime": "2026-11-22T17:30:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "pro-league-belgica.rsc-anderlecht",
         "league": "pro-league-belgica",
@@ -797,7 +762,13 @@
       },
       "venue": "Lotto Park, Brussels",
       "referee": "Simon Bourdeaud'hui",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 0,
+        "observedAt": "2026-11-22T19:27:07.879Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "pro-league-belgica-2026-11-22-lommel-standard-liege-eiyvcl",
@@ -1667,460 +1638,37 @@
       },
       "venue": "The King Power AT Den Dreef Stadium, Heverlee",
       "neutralSite": false
+    },
+    {
+      "id": "pro-league-belgica-2026-12-26-standard-liege-royale-union-s-o6qvw4",
+      "league": "pro-league-belgica",
+      "season": "pro-league-belgica-2026-27",
+      "week": 16,
+      "round": "Regular season · Matchday 16",
+      "phase": "Regular season",
+      "startTime": "2026-12-26T19:45:00.000Z",
+      "status": "scheduled",
+      "home": {
+        "id": "pro-league-belgica.standard-liege",
+        "league": "pro-league-belgica",
+        "name": "Standard Liège",
+        "shortName": "Standard Liège",
+        "code": "STA",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/239/?bg=transparent"
+      },
+      "away": {
+        "id": "pro-league-belgica.royale-union-saint-gilloise",
+        "league": "pro-league-belgica",
+        "name": "Royale Union Saint-Gilloise",
+        "shortName": "Royale Union Saint-Gil",
+        "code": "ROY",
+        "logoUrl": "https://sports.bzzoiro.com/img/team/116/?bg=transparent"
+      },
+      "venue": "Maurice Dufrasne, Liege",
+      "neutralSite": false
     }
   ],
   "analyses": {
-    "pro-league-belgica-2026-11-06-standard-liege-beveren-l1mwpp": {
-      "game": "pro-league-belgica-2026-11-06-standard-liege-beveren-l1mwpp",
-      "model": {
-        "id": "pitchlab-statistical-pro-league-belgica",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 2.395372855949201,
-        "away": 1.1927513138280599,
-        "total": 3.588124169777261,
-        "margin": 1.202621542121141
-      },
-      "x12": [
-        0.6437251248291879,
-        0.17669092140150977,
-        0.17958395376930258
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Standard Liège gana",
-          "p": 0.6437251248291879,
-          "fairOdds": 1.5534580854916133
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.17669092140150977,
-          "fairOdds": 5.659600346571374
-        },
-        {
-          "market": "h2h",
-          "selection": "SK Beveren gana",
-          "p": 0.17958395376930258,
-          "fairOdds": 5.568426237483453
-        },
-        {
-          "market": "double_chance",
-          "selection": "Standard Liège o empate",
-          "p": 0.8204160462306976,
-          "fairOdds": 1.2188937607868338
-        },
-        {
-          "market": "double_chance",
-          "selection": "SK Beveren o empate",
-          "p": 0.35627487517081236,
-          "fairOdds": 2.8068215574296675
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.8233090785984905,
-          "fairOdds": 1.2146106802348013
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.8691822016302866,
-          "fairOdds": 1.1505067615562585
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.695131980217979,
-          "fairOdds": 1.4385757359148126
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.30486801978202105,
-          "fairOdds": 3.280107899526472
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.48223621952997986,
-          "fairOdds": 2.073672527075357
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.5177637804700201,
-          "fairOdds": 1.9313826839958006
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.6291732417566965,
-          "fairOdds": 1.5893873636582647
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.37082675824330347,
-          "fairOdds": 2.696677027130521
-        },
-        {
-          "market": "team_totals",
-          "selection": "Standard Liège más de 1.5",
-          "line": 1.5,
-          "p": 0.690537069650404,
-          "fairOdds": 1.448148179077869
-        },
-        {
-          "market": "team_totals",
-          "selection": "Standard Liège menos de 1.5",
-          "line": 1.5,
-          "p": 0.30946293034959604,
-          "fairOdds": 3.231404804673418
-        },
-        {
-          "market": "team_totals",
-          "selection": "SK Beveren más de 1.5",
-          "line": 1.5,
-          "p": 0.3347512128008723,
-          "fairOdds": 2.9872931352002388
-        },
-        {
-          "market": "team_totals",
-          "selection": "SK Beveren menos de 1.5",
-          "line": 1.5,
-          "p": 0.6652487871991277,
-          "fairOdds": 1.5031970283031448
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09461980060237231,
-          "fairOdds": 10.568612421858433
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.07932902651659719,
-          "fairOdds": 12.605726351511201
-        },
-        {
-          "market": "correct_score",
-          "selection": "3–1",
-          "p": 0.07554990066608282,
-          "fairOdds": 13.236284775804311
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Standard Liège gana",
-              "p": 0.6437251248291879,
-              "fairOdds": 1.5534580854916133
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.17669092140150977,
-              "fairOdds": 5.659600346571374
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "SK Beveren gana",
-              "p": 0.17958395376930258,
-              "fairOdds": 5.568426237483453
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Standard Liège o empate",
-              "p": 0.8204160462306976,
-              "fairOdds": 1.2188937607868338
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "SK Beveren o empate",
-              "p": 0.35627487517081236,
-              "fairOdds": 2.8068215574296675
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.8233090785984905,
-              "fairOdds": 1.2146106802348013
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.8691822016302866,
-              "fairOdds": 1.1505067615562585
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.695131980217979,
-              "fairOdds": 1.4385757359148126
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.30486801978202105,
-              "fairOdds": 3.280107899526472
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.48223621952997986,
-              "fairOdds": 2.073672527075357
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.5177637804700201,
-              "fairOdds": 1.9313826839958006
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.6291732417566965,
-              "fairOdds": 1.5893873636582647
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.37082675824330347,
-              "fairOdds": 2.696677027130521
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Standard Liège más de 1.5",
-              "line": 1.5,
-              "p": 0.690537069650404,
-              "fairOdds": 1.448148179077869
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Standard Liège menos de 1.5",
-              "line": 1.5,
-              "p": 0.30946293034959604,
-              "fairOdds": 3.231404804673418
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "SK Beveren más de 1.5",
-              "line": 1.5,
-              "p": 0.3347512128008723,
-              "fairOdds": 2.9872931352002388
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "SK Beveren menos de 1.5",
-              "line": 1.5,
-              "p": 0.6652487871991277,
-              "fairOdds": 1.5031970283031448
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09461980060237231,
-              "fairOdds": 10.568612421858433
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.07932902651659719,
-              "fairOdds": 12.605726351511201
-            },
-            {
-              "market": "correct_score",
-              "selection": "3-1",
-              "label": "3–1",
-              "p": 0.07554990066608282,
-              "fairOdds": 13.236284775804311
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09461980060237231
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.75 goles/partido",
-          "detail": "4 % menos que la media · 11 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.82 concedidos/partido",
-          "detail": "31 % más que la media · 11 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.19 goles/partido",
-          "detail": "14 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.38 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.37",
-          "detail": "estimada de 99 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.5–5.2",
-          "detail": "local 38%–82% · 99 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "8.º · 15 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "15.º · 10 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-P-P-E · 1 pts",
-          "detail": "5 goles a favor · 10 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-P-P-E-P · 4 pts",
-          "detail": "8 goles a favor · 10 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando Pro League Bélgica · corte 6 nov 2026, 12:45",
-        "Fuerza ajustada por rival · STA 0.96 / 1.00 · BEV 0.86 / 1.31",
-        "Ponderando 88.4 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 2.40 – 1.19 · total 3.59",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-06T18:45:00.000Z",
-      "publishedAt": "2026-11-06T18:45:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.09461980060237231
-      },
-      "insights": {
-        "why": [
-          "Se esperan 3.6 goles: 2.4 de Standard Liège y 1.2 de SK Beveren.",
-          "SK Beveren concede 31 % más que la media.",
-          "SK Beveren anota 14 % menos que la media."
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 6
-        }
-      },
-      "matchContext": {
-        "referee": "Massimiliano Ledda",
-        "refereeStats": {
-          "country": "Belgium",
-          "matches": 20,
-          "avgYellow": 3.65,
-          "avgRed": 0.25,
-          "avgFouls": 24.7,
-          "avgGoals": 2.7
-        },
-        "weather": {
-          "description": "cloudy",
-          "temperatureC": 4,
-          "windSpeedKmh": 13
-        },
-        "travelDistanceKm": 113,
-        "halfTimeScore": {
-          "home": 1,
-          "away": 0
-        },
-        "stageName": "Regular season",
-        "venueCity": "Liege",
-        "venueCountry": "Belgium",
-        "venueCapacity": 27670
-      }
-    },
     "pro-league-belgica-2026-11-07-kvc-westerlo-sporting-charl-c88x6p": {
       "game": "pro-league-belgica-2026-11-07-kvc-westerlo-sporting-charl-c88x6p",
       "model": {
@@ -9611,14 +9159,14 @@
         "referee": "Simon Bourdeaud'hui",
         "refereeStats": {
           "country": "Belgium",
-          "matches": 42,
-          "avgYellow": 3.57,
+          "matches": 43,
+          "avgYellow": 3.6,
           "avgRed": 0.07,
-          "avgFouls": 23.2,
-          "avgGoals": 2.88
+          "avgFouls": 23.3,
+          "avgGoals": 2.84
         },
         "weather": {
-          "description": "rain",
+          "description": "cloudy",
           "temperatureC": 7,
           "windSpeedKmh": 58
         },
@@ -10111,7 +9659,7 @@
         },
         "halfTimeScore": {
           "home": 0,
-          "away": 0
+          "away": 1
         },
         "stageName": "Regular season",
         "venueCity": "Lommel",
@@ -24136,6 +23684,469 @@
         "venueCountry": "Belgium",
         "venueCapacity": 10020
       }
+    },
+    "pro-league-belgica-2026-12-26-standard-liege-royale-union-s-o6qvw4": {
+      "game": "pro-league-belgica-2026-12-26-standard-liege-royale-union-s-o6qvw4",
+      "model": {
+        "id": "pitchlab-statistical-pro-league-belgica",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.0353866473832,
+        "away": 2.116820030464787,
+        "total": 3.152206677847987,
+        "margin": -1.0814333830815868
+      },
+      "x12": [
+        0.18096682093571562,
+        0.1928279060082891,
+        0.6262052730559947
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Standard Liège gana",
+          "p": 0.18096682093571562,
+          "fairOdds": 5.525874825171557
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.1928279060082891,
+          "fairOdds": 5.185971370539142
+        },
+        {
+          "market": "h2h",
+          "selection": "Royale Union Saint-Gil gana",
+          "p": 0.6262052730559947,
+          "fairOdds": 1.5969204397143122
+        },
+        {
+          "market": "double_chance",
+          "selection": "Standard Liège o empate",
+          "p": 0.37379472694400473,
+          "fairOdds": 2.675265133287453
+        },
+        {
+          "market": "double_chance",
+          "selection": "Royale Union Saint-Gil o empate",
+          "p": 0.8190331790642839,
+          "fairOdds": 1.2209517581967366
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8071720939917103,
+          "fairOdds": 1.2388931771100973
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.817773111955386,
+          "fairOdds": 1.222833063817529
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6100270603782586,
+          "fairOdds": 1.6392715421180357
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.3899729396217414,
+          "fairOdds": 2.5642804882050565
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3868174409955729,
+          "fairOdds": 2.5851988406371906
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6131825590044271,
+          "fairOdds": 1.6308356872113516
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5625678657056716,
+          "fairOdds": 1.7775633145089509
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.43743213429432837,
+          "fairOdds": 2.286068904410084
+        },
+        {
+          "market": "team_totals",
+          "selection": "Standard Liège más de 1.5",
+          "line": 1.5,
+          "p": 0.27725645808456467,
+          "fairOdds": 3.6067690069639236
+        },
+        {
+          "market": "team_totals",
+          "selection": "Standard Liège menos de 1.5",
+          "line": 1.5,
+          "p": 0.7227435419154353,
+          "fairOdds": 1.3836166523878881
+        },
+        {
+          "market": "team_totals",
+          "selection": "Royale Union Saint-Gil más de 1.5",
+          "line": 1.5,
+          "p": 0.6246862023115898,
+          "fairOdds": 1.6008037256139138
+        },
+        {
+          "market": "team_totals",
+          "selection": "Royale Union Saint-Gil menos de 1.5",
+          "line": 1.5,
+          "p": 0.3753137976884102,
+          "fairOdds": 2.6644370821405596
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.0991883212829683,
+          "fairOdds": 10.081832085323445
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–2",
+          "p": 0.09579833923264647,
+          "fairOdds": 10.438594322303416
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.09519728068207257,
+          "fairOdds": 10.504501734032395
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Standard Liège gana",
+              "p": 0.18096682093571562,
+              "fairOdds": 5.525874825171557
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.1928279060082891,
+              "fairOdds": 5.185971370539142
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Royale Union Saint-Gil gana",
+              "p": 0.6262052730559947,
+              "fairOdds": 1.5969204397143122
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Standard Liège o empate",
+              "p": 0.37379472694400473,
+              "fairOdds": 2.675265133287453
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Royale Union Saint-Gil o empate",
+              "p": 0.8190331790642839,
+              "fairOdds": 1.2209517581967366
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8071720939917103,
+              "fairOdds": 1.2388931771100973
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.817773111955386,
+              "fairOdds": 1.222833063817529
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6100270603782586,
+              "fairOdds": 1.6392715421180357
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.3899729396217414,
+              "fairOdds": 2.5642804882050565
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3868174409955729,
+              "fairOdds": 2.5851988406371906
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6131825590044271,
+              "fairOdds": 1.6308356872113516
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5625678657056716,
+              "fairOdds": 1.7775633145089509
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.43743213429432837,
+              "fairOdds": 2.286068904410084
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Standard Liège más de 1.5",
+              "line": 1.5,
+              "p": 0.27725645808456467,
+              "fairOdds": 3.6067690069639236
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Standard Liège menos de 1.5",
+              "line": 1.5,
+              "p": 0.7227435419154353,
+              "fairOdds": 1.3836166523878881
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Royale Union Saint-Gil más de 1.5",
+              "line": 1.5,
+              "p": 0.6246862023115898,
+              "fairOdds": 1.6008037256139138
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Royale Union Saint-Gil menos de 1.5",
+              "line": 1.5,
+              "p": 0.3753137976884102,
+              "fairOdds": 2.6644370821405596
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.0991883212829683,
+              "fairOdds": 10.081832085323445
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-2",
+              "label": "0–2",
+              "p": 0.09579833923264647,
+              "fairOdds": 10.438594322303416
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.09519728068207257,
+              "fairOdds": 10.504501734032395
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.0991883212829683
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.75 goles/partido",
+          "detail": "en la media de la liga · 11 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "0.76 concedidos/partido",
+          "detail": "44 % menos que la media · 12 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.12 goles/partido",
+          "detail": "53 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.39 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.38",
+          "detail": "estimada de 107 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.3–4.7",
+          "detail": "local 6%–39% · 107 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "8.º · 15 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "1.º · 32 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-E-G · 4 pts",
+          "detail": "6 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-G-G-G-G · 13 pts",
+          "detail": "10 goles a favor · 4 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando Pro League Bélgica · corte 22 nov 2026, 19:27",
+        "Fuerza ajustada por rival · STA 0.98 / 1.02 · ROY 1.53 / 0.56",
+        "Ponderando 95.9 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.04 – 2.12 · total 3.15",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-11-22T19:27:07.879Z",
+      "publishedAt": "2026-11-22T19:27:07.879Z",
+      "source": "pitchlab-football-v2",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "double_chance",
+          "selection": "x2",
+          "label": "Royale Union Saint-Gil o empate",
+          "p": 0.8190331790642839,
+          "fairOdds": 1.2209517581967366
+        },
+        {
+          "profile": "intermedia",
+          "market": "h2h",
+          "selection": "away",
+          "label": "Royale Union Saint-Gil gana",
+          "p": 0.6262052730559947,
+          "fairOdds": 1.5969204397143122
+        },
+        {
+          "profile": "arriesgada",
+          "market": "btts",
+          "selection": "no",
+          "label": "Ambos anotan: No",
+          "p": 0.43743213429432837,
+          "fairOdds": 2.286068904410084
+        }
+      ],
+      "confidence": {
+        "score": 73,
+        "level": "alta",
+        "reasons": [
+          "Favorito claro",
+          "Muestra suficiente"
+        ]
+      },
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.0991883212829683
+      },
+      "insights": {
+        "why": [
+          "Royale Union Saint-Gil gana en 63% de los escenarios; el empate, en 19%.",
+          "Royale Union Saint-Gil concede 44 % menos que la media.",
+          "Royale Union Saint-Gil anota 53 % más que la media."
+        ]
+      },
+      "picksAt": "2026-11-22T19:27:07.879Z",
+      "matchContext": {
+        "stageName": "Regular season",
+        "venueCity": "Liege",
+        "venueCountry": "Belgium",
+        "venueCapacity": 27670
+      }
     }
   },
   "standings": [
@@ -24224,19 +24235,19 @@
       "name": "RSC Anderlecht",
       "shortName": "RSC Anderlecht",
       "code": "RSC",
-      "played": 11,
-      "won": 6,
+      "played": 12,
+      "won": 7,
       "drawn": 2,
       "lost": 3,
-      "goalsFor": 14,
+      "goalsFor": 15,
       "goalsAgainst": 12,
-      "points": 20,
+      "points": 23,
       "form": [
-        "W",
         "W",
         "L",
         "W",
-        "D"
+        "D",
+        "W"
       ]
     },
     {
@@ -24360,26 +24371,6 @@
       ]
     },
     {
-      "teamId": "pro-league-belgica.oud-heverlee-leuven",
-      "name": "Oud-Heverlee Leuven",
-      "shortName": "Oud-Heverlee Leuven",
-      "code": "OUD",
-      "played": 11,
-      "won": 3,
-      "drawn": 3,
-      "lost": 5,
-      "goalsFor": 12,
-      "goalsAgainst": 17,
-      "points": 12,
-      "form": [
-        "W",
-        "D",
-        "D",
-        "W",
-        "W"
-      ]
-    },
-    {
       "teamId": "pro-league-belgica.royal-antwerp",
       "name": "Royal Antwerp FC",
       "shortName": "Royal Antwerp",
@@ -24397,6 +24388,26 @@
         "L",
         "D",
         "D"
+      ]
+    },
+    {
+      "teamId": "pro-league-belgica.oud-heverlee-leuven",
+      "name": "Oud-Heverlee Leuven",
+      "shortName": "Oud-Heverlee Leuven",
+      "code": "OUD",
+      "played": 12,
+      "won": 3,
+      "drawn": 3,
+      "lost": 6,
+      "goalsFor": 12,
+      "goalsAgainst": 18,
+      "points": 12,
+      "form": [
+        "D",
+        "D",
+        "W",
+        "W",
+        "L"
       ]
     },
     {

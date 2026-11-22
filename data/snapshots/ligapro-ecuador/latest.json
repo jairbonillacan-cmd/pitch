@@ -5,7 +5,7 @@
   "season": "ligapro-ecuador-2026",
   "seasonLabel": "2026",
   "periodLabel": "Regular season · Matchday 5",
-  "updatedAt": "2026-11-22T18:13:11.873Z",
+  "updatedAt": "2026-11-22T19:27:07.879Z",
   "source": "pitchlab-football-v2",
   "provenance": "derived",
   "isDemo": false,
@@ -18,8 +18,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.0476190476190477,
       "gamesPlayed": 21,
-      "adjustedFor": 1.386550531102566,
-      "adjustedAgainst": 0.9599413385648728
+      "adjustedFor": 1.3875174427219068,
+      "adjustedAgainst": 0.9618047131724689
     },
     "ligapro-ecuador.mushuc-runa": {
       "teamId": "ligapro-ecuador.mushuc-runa",
@@ -29,8 +29,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 1.45,
       "gamesPlayed": 20,
-      "adjustedFor": 1.0981023774155074,
-      "adjustedAgainst": 1.4080249463957912
+      "adjustedFor": 1.0950109436116655,
+      "adjustedAgainst": 1.4051561364752496
     },
     "ligapro-ecuador.macara": {
       "teamId": "ligapro-ecuador.macara",
@@ -40,8 +40,8 @@
       "forPerGame": 1.8095238095238095,
       "againstPerGame": 0.9047619047619048,
       "gamesPlayed": 21,
-      "adjustedFor": 1.7093610391373593,
-      "adjustedAgainst": 0.8425606440354874
+      "adjustedFor": 1.710405525755033,
+      "adjustedAgainst": 0.8443449195411166
     },
     "ligapro-ecuador.ldu": {
       "teamId": "ligapro-ecuador.ldu",
@@ -51,8 +51,8 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 0.9047619047619048,
       "gamesPlayed": 21,
-      "adjustedFor": 1.0675685658428695,
-      "adjustedAgainst": 0.8695282528494218
+      "adjustedFor": 1.068548451528435,
+      "adjustedAgainst": 0.8713642992320811
     },
     "ligapro-ecuador.orense": {
       "teamId": "ligapro-ecuador.orense",
@@ -62,8 +62,8 @@
       "forPerGame": 1.0476190476190477,
       "againstPerGame": 1.619047619047619,
       "gamesPlayed": 21,
-      "adjustedFor": 1.0114465098616652,
-      "adjustedAgainst": 1.5260655492822746
+      "adjustedFor": 1.0108217275047486,
+      "adjustedAgainst": 1.5253242371570455
     },
     "ligapro-ecuador.independiente-valle": {
       "teamId": "ligapro-ecuador.independiente-valle",
@@ -73,19 +73,19 @@
       "forPerGame": 2.45,
       "againstPerGame": 1,
       "gamesPlayed": 20,
-      "adjustedFor": 2.1733359007485076,
-      "adjustedAgainst": 0.97785113577788
+      "adjustedFor": 2.1737979743100495,
+      "adjustedAgainst": 0.9796063429183323
     },
     "ligapro-ecuador.manta": {
       "teamId": "ligapro-ecuador.manta",
       "name": "Manta FC",
       "shortName": "Manta",
       "code": "MAN",
-      "forPerGame": 1,
-      "againstPerGame": 1.65,
-      "gamesPlayed": 20,
-      "adjustedFor": 0.9738333698625925,
-      "adjustedAgainst": 1.5670086762311053
+      "forPerGame": 1.0476190476190477,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.0024168024950997,
+      "adjustedAgainst": 1.5921955013358402
     },
     "ligapro-ecuador.libertad": {
       "teamId": "ligapro-ecuador.libertad",
@@ -95,8 +95,8 @@
       "forPerGame": 1.35,
       "againstPerGame": 0.9,
       "gamesPlayed": 20,
-      "adjustedFor": 1.258964547776091,
-      "adjustedAgainst": 0.9145597241632886
+      "adjustedFor": 1.2609695543805735,
+      "adjustedAgainst": 0.9170829336976712
     },
     "ligapro-ecuador.leones-norte": {
       "teamId": "ligapro-ecuador.leones-norte",
@@ -106,8 +106,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.15,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1884558249505595,
-      "adjustedAgainst": 1.1409161015587879
+      "adjustedFor": 1.1897764869710834,
+      "adjustedAgainst": 1.1426882130384293
     },
     "ligapro-ecuador.barcelona-guayaquil": {
       "teamId": "ligapro-ecuador.barcelona-guayaquil",
@@ -117,8 +117,8 @@
       "forPerGame": 1.1,
       "againstPerGame": 0.95,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1478862678372281,
-      "adjustedAgainst": 0.9159362119809187
+      "adjustedFor": 1.1482473697546176,
+      "adjustedAgainst": 0.9174958518654515
     },
     "ligapro-ecuador.deportivo-cuenca": {
       "teamId": "ligapro-ecuador.deportivo-cuenca",
@@ -128,19 +128,19 @@
       "forPerGame": 0.7142857142857143,
       "againstPerGame": 1.2857142857142858,
       "gamesPlayed": 21,
-      "adjustedFor": 0.7282503771566141,
-      "adjustedAgainst": 1.229661559428112
+      "adjustedFor": 0.7291720343272488,
+      "adjustedAgainst": 1.2306716551588603
     },
     "ligapro-ecuador.delfin": {
       "teamId": "ligapro-ecuador.delfin",
       "name": "Delfín",
       "shortName": "Delfín",
       "code": "DEL",
-      "forPerGame": 1.15,
-      "againstPerGame": 1.4,
-      "gamesPlayed": 20,
-      "adjustedFor": 1.0763805512163902,
-      "adjustedAgainst": 1.3535977601172493
+      "forPerGame": 1.1904761904761905,
+      "againstPerGame": 1.4285714285714286,
+      "gamesPlayed": 21,
+      "adjustedFor": 1.1060705620269093,
+      "adjustedAgainst": 1.3934200576506135
     },
     "ligapro-ecuador.emelec": {
       "teamId": "ligapro-ecuador.emelec",
@@ -150,8 +150,8 @@
       "forPerGame": 0.95,
       "againstPerGame": 1.35,
       "gamesPlayed": 20,
-      "adjustedFor": 0.9720152877372102,
-      "adjustedAgainst": 1.2374793927273702
+      "adjustedFor": 0.9729852187596724,
+      "adjustedAgainst": 1.2393439180504067
     },
     "ligapro-ecuador.tecnico-universitario": {
       "teamId": "ligapro-ecuador.tecnico-universitario",
@@ -161,8 +161,8 @@
       "forPerGame": 0.9523809523809523,
       "againstPerGame": 1.5714285714285714,
       "gamesPlayed": 21,
-      "adjustedFor": 0.9129660274443501,
-      "adjustedAgainst": 1.4881107786229515
+      "adjustedFor": 0.9116019629845056,
+      "adjustedAgainst": 1.485664038270858
     },
     "ligapro-ecuador.aucas": {
       "teamId": "ligapro-ecuador.aucas",
@@ -172,8 +172,8 @@
       "forPerGame": 1.05,
       "againstPerGame": 1.3,
       "gamesPlayed": 20,
-      "adjustedFor": 1.1092719417140207,
-      "adjustedAgainst": 1.131287913918912
+      "adjustedFor": 1.1099812569064167,
+      "adjustedAgainst": 1.133188543754819
     },
     "ligapro-ecuador.guayaquil-city": {
       "teamId": "ligapro-ecuador.guayaquil-city",
@@ -183,46 +183,11 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.25,
       "gamesPlayed": 20,
-      "adjustedFor": 1.207170380033524,
-      "adjustedAgainst": 1.2400207438879212
+      "adjustedFor": 1.2079090045542047,
+      "adjustedAgainst": 1.241798984490579
     }
   },
   "games": [
-    {
-      "id": "ligapro-ecuador-2026-11-01-universidad-ca-aucas-ir6fek",
-      "league": "ligapro-ecuador",
-      "season": "ligapro-ecuador-2026",
-      "week": 5,
-      "round": "Regular season · Matchday 5",
-      "phase": "Regular season",
-      "startTime": "2026-11-01T16:00:00.000Z",
-      "status": "final",
-      "home": {
-        "id": "ligapro-ecuador.universidad-catolica-ecuador",
-        "league": "ligapro-ecuador",
-        "name": "Universidad Católica del Ecuador",
-        "shortName": "Universidad Católica d",
-        "code": "UNI",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/803/?bg=transparent"
-      },
-      "away": {
-        "id": "ligapro-ecuador.aucas",
-        "league": "ligapro-ecuador",
-        "name": "Aucas",
-        "shortName": "Aucas",
-        "code": "AUC",
-        "logoUrl": "https://sports.bzzoiro.com/img/team/2687/?bg=transparent"
-      },
-      "venue": "Olimpico Atahualpa, Quito",
-      "referee": "Russell Macario Teran Leon",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 2,
-        "observedAt": "2026-11-22T18:13:11.873Z",
-        "source": "pitchlab-feed"
-      }
-    },
     {
       "id": "ligapro-ecuador-2026-11-01-independiente--ldu-pgi6d4",
       "league": "ligapro-ecuador",
@@ -254,7 +219,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -289,7 +254,7 @@
       "result": {
         "home": 0,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -324,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -359,7 +324,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -394,7 +359,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -429,7 +394,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -464,7 +429,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -499,7 +464,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -534,7 +499,7 @@
       "result": {
         "home": 2,
         "away": 4,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -569,7 +534,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -604,7 +569,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -639,7 +604,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -674,7 +639,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -709,7 +674,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -744,7 +709,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-22T18:13:11.873Z",
+        "observedAt": "2026-11-22T19:27:07.879Z",
         "source": "pitchlab-feed"
       }
     },
@@ -785,7 +750,7 @@
       "round": "Regular season · Matchday 7",
       "phase": "Regular season",
       "startTime": "2026-11-22T20:00:00.000Z",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "ligapro-ecuador.manta",
         "league": "ligapro-ecuador",
@@ -804,7 +769,13 @@
       },
       "venue": "Estadio Jocay, Manta",
       "referee": "Bryan Loayza",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 2,
+        "observedAt": "2026-11-22T19:27:07.879Z",
+        "source": "pitchlab-feed"
+      }
     },
     {
       "id": "ligapro-ecuador-2026-11-22-ldu-aucas-rzcyqb",
@@ -1340,460 +1311,6 @@
     }
   ],
   "analyses": {
-    "ligapro-ecuador-2026-11-01-universidad-ca-aucas-ir6fek": {
-      "game": "ligapro-ecuador-2026-11-01-universidad-ca-aucas-ir6fek",
-      "model": {
-        "id": "pitchlab-statistical-ligapro-ecuador",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.7723433210606083,
-        "away": 0.9103644328633151,
-        "total": 2.6827077539239235,
-        "margin": 0.8619788881972932
-      },
-      "x12": [
-        0.5715959482818658,
-        0.2430762028199166,
-        0.18532784889821752
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Universidad Católica d gana",
-          "p": 0.5715959482818658,
-          "fairOdds": 1.7494875584857703
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2430762028199166,
-          "fairOdds": 4.113936240565892
-        },
-        {
-          "market": "h2h",
-          "selection": "Aucas gana",
-          "p": 0.18532784889821752,
-          "fairOdds": 5.395843128515469
-        },
-        {
-          "market": "double_chance",
-          "selection": "Universidad Católica d o empate",
-          "p": 0.8146721511017824,
-          "fairOdds": 1.2274876447508065
-        },
-        {
-          "market": "double_chance",
-          "selection": "Aucas o empate",
-          "p": 0.4284040517181341,
-          "fairOdds": 2.3342449633458275
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7569237971800833,
-          "fairOdds": 1.3211369542422846
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7537003531462818,
-          "fairOdds": 1.3267872249569121
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5021287313797893,
-          "fairOdds": 1.9915211727720108
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.4978712686202107,
-          "fairOdds": 2.008551332498816
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2820972391942823,
-          "fairOdds": 3.54487694688601
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7179027608057177,
-          "fairOdds": 1.3929463077669162
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5015819245729783,
-          "fairOdds": 1.9936922584508
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.49841807542702166,
-          "fairOdds": 2.0063477817156734
-        },
-        {
-          "market": "team_totals",
-          "selection": "Universidad Católica d más de 1.5",
-          "line": 1.5,
-          "p": 0.5288824744855098,
-          "fairOdds": 1.89077923403075
-        },
-        {
-          "market": "team_totals",
-          "selection": "Universidad Católica d menos de 1.5",
-          "line": 1.5,
-          "p": 0.47111752551449015,
-          "fairOdds": 2.122612609046833
-        },
-        {
-          "market": "team_totals",
-          "selection": "Aucas más de 1.5",
-          "line": 1.5,
-          "p": 0.23131222219551728,
-          "fairOdds": 4.323161095892059
-        },
-        {
-          "market": "team_totals",
-          "selection": "Aucas menos de 1.5",
-          "line": 1.5,
-          "p": 0.7686877778044827,
-          "fairOdds": 1.3009183037307925
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11584263691876195,
-          "fairOdds": 8.63240018181975
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.11567286588420388,
-          "fairOdds": 8.64506980402012
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.10739441858740452,
-          "fairOdds": 9.311470867418825
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Universidad Católica d gana",
-              "p": 0.5715959482818658,
-              "fairOdds": 1.7494875584857703
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2430762028199166,
-              "fairOdds": 4.113936240565892
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Aucas gana",
-              "p": 0.18532784889821752,
-              "fairOdds": 5.395843128515469
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Universidad Católica d o empate",
-              "p": 0.8146721511017824,
-              "fairOdds": 1.2274876447508065
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Aucas o empate",
-              "p": 0.4284040517181341,
-              "fairOdds": 2.3342449633458275
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7569237971800833,
-              "fairOdds": 1.3211369542422846
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7537003531462818,
-              "fairOdds": 1.3267872249569121
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5021287313797893,
-              "fairOdds": 1.9915211727720108
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.4978712686202107,
-              "fairOdds": 2.008551332498816
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2820972391942823,
-              "fairOdds": 3.54487694688601
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7179027608057177,
-              "fairOdds": 1.3929463077669162
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5015819245729783,
-              "fairOdds": 1.9936922584508
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.49841807542702166,
-              "fairOdds": 2.0063477817156734
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Universidad Católica d más de 1.5",
-              "line": 1.5,
-              "p": 0.5288824744855098,
-              "fairOdds": 1.89077923403075
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Universidad Católica d menos de 1.5",
-              "line": 1.5,
-              "p": 0.47111752551449015,
-              "fairOdds": 2.122612609046833
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Aucas más de 1.5",
-              "line": 1.5,
-              "p": 0.23131222219551728,
-              "fairOdds": 4.323161095892059
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Aucas menos de 1.5",
-              "line": 1.5,
-              "p": 0.7686877778044827,
-              "fairOdds": 1.3009183037307925
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11584263691876195,
-              "fairOdds": 8.63240018181975
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.11567286588420388,
-              "fairOdds": 8.64506980402012
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.10739441858740452,
-              "fairOdds": 9.311470867418825
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11584263691876195
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.40 goles/partido",
-          "detail": "24 % más que la media · 20 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.12 concedidos/partido",
-          "detail": "3 % menos que la media · 20 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.91 goles/partido",
-          "detail": "5 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "0.96 concedidos/partido",
-          "detail": "18 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.27",
-          "detail": "estimada de 160 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–3.6",
-          "detail": "local 38%–76% · 160 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "7.º · 28 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "8.º · 28 pts",
-          "detail": "de 16 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "G-P-P-E-E · 5 pts",
-          "detail": "4 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-P-P-E-P · 2 pts",
-          "detail": "3 goles a favor · 9 en contra"
-        }
-      ],
-      "steps": [
-        "Sincronizando LigaPro Serie A · corte 1 nov 2026, 09:00",
-        "Fuerza ajustada por rival · UNI 1.24 / 0.82 · AUC 0.95 / 0.97",
-        "Ponderando 137.3 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.77 – 0.91 · total 2.68",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 2–1"
-      ],
-      "inputsAsOf": "2026-11-01T15:00:00.000Z",
-      "publishedAt": "2026-11-01T15:00:00.000Z",
-      "source": "pitchlab-football-v2",
-      "projectedScore": {
-        "home": 2,
-        "away": 1,
-        "p": 0.097768058970008
-      },
-      "insights": {
-        "why": [
-          "Universidad Católica d gana en 57% de los escenarios; el empate, en 24%.",
-          "Universidad Católica d anota 24 % más que la media.",
-          "Universidad Católica d concede 18 % menos que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2026-09-03",
-            "homeTeamId": "ligapro-ecuador.universidad-catolica-ecuador",
-            "awayTeamId": "ligapro-ecuador.aucas",
-            "homeGoals": 1,
-            "awayGoals": 1
-          }
-        ],
-        "restDays": {
-          "home": 9,
-          "away": 7
-        }
-      },
-      "matchContext": {
-        "referee": "Russell Macario Teran Leon",
-        "refereeStats": {
-          "country": "Ecuador",
-          "matches": 12,
-          "avgYellow": 4.42,
-          "avgRed": 0.33,
-          "avgFouls": 23.2,
-          "avgGoals": 3
-        },
-        "halfTimeScore": {
-          "home": 1,
-          "away": 1
-        },
-        "stageName": "Regular season",
-        "venueCity": "Quito",
-        "venueCountry": "Ecuador",
-        "venueCapacity": 35742
-      }
-    },
     "ligapro-ecuador-2026-11-01-independiente--ldu-pgi6d4": {
       "game": "ligapro-ecuador-2026-11-01-independiente--ldu-pgi6d4",
       "model": {
@@ -5443,11 +4960,11 @@
         "referee": "Bryan Loayza",
         "refereeStats": {
           "country": "Ecuador",
-          "matches": 36,
-          "avgYellow": 4.14,
-          "avgRed": 0.31,
-          "avgFouls": 24.8,
-          "avgGoals": 1.89
+          "matches": 37,
+          "avgYellow": 4.27,
+          "avgRed": 0.32,
+          "avgFouls": 25,
+          "avgGoals": 1.95
         },
         "halfTimeScore": {
           "home": 1,
@@ -9299,6 +8816,10 @@
           "avgFouls": 23.2,
           "avgGoals": 3
         },
+        "halfTimeScore": {
+          "home": 0,
+          "away": 2
+        },
         "stageName": "Regular season",
         "venueCity": "Machala",
         "venueCountry": "Ecuador",
@@ -9789,11 +9310,11 @@
         "referee": "Bryan Loayza",
         "refereeStats": {
           "country": "Ecuador",
-          "matches": 36,
-          "avgYellow": 4.14,
-          "avgRed": 0.31,
-          "avgFouls": 24.8,
-          "avgGoals": 1.89
+          "matches": 37,
+          "avgYellow": 4.27,
+          "avgRed": 0.32,
+          "avgFouls": 25,
+          "avgGoals": 1.95
         },
         "halfTimeScore": {
           "home": 0,
@@ -19208,6 +18729,26 @@
       ]
     },
     {
+      "teamId": "ligapro-ecuador.delfin",
+      "name": "Delfín",
+      "shortName": "Delfín",
+      "code": "DEL",
+      "played": 21,
+      "won": 6,
+      "drawn": 5,
+      "lost": 10,
+      "goalsFor": 25,
+      "goalsAgainst": 30,
+      "points": 23,
+      "form": [
+        "W",
+        "L",
+        "W",
+        "L",
+        "D"
+      ]
+    },
+    {
       "teamId": "ligapro-ecuador.emelec",
       "name": "Emelec",
       "shortName": "Emelec",
@@ -19228,43 +18769,23 @@
       ]
     },
     {
-      "teamId": "ligapro-ecuador.delfin",
-      "name": "Delfín",
-      "shortName": "Delfín",
-      "code": "DEL",
-      "played": 20,
-      "won": 6,
-      "drawn": 4,
-      "lost": 10,
-      "goalsFor": 23,
-      "goalsAgainst": 28,
-      "points": 22,
-      "form": [
-        "W",
-        "W",
-        "L",
-        "W",
-        "L"
-      ]
-    },
-    {
       "teamId": "ligapro-ecuador.manta",
       "name": "Manta FC",
       "shortName": "Manta",
       "code": "MAN",
-      "played": 20,
+      "played": 21,
       "won": 6,
-      "drawn": 3,
+      "drawn": 4,
       "lost": 11,
-      "goalsFor": 20,
-      "goalsAgainst": 33,
-      "points": 21,
+      "goalsFor": 22,
+      "goalsAgainst": 35,
+      "points": 22,
       "form": [
-        "W",
         "L",
         "L",
         "W",
-        "W"
+        "W",
+        "D"
       ]
     },
     {

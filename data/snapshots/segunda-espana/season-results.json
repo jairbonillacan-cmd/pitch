@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "segunda-espana",
   "season": "2026/27",
-  "updatedAt": "2026-11-22T18:13:11.873Z",
+  "updatedAt": "2026-11-22T19:27:07.879Z",
   "matches": [
     {
       "id": "segunda-espana-2026-08-14-real-sociedad--castellon-ifica8",
@@ -1740,6 +1740,28 @@
       "awayTeam": "segunda-espana.las-palmas",
       "homeScore": 0,
       "awayScore": 2,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-22-girona-eibar-v8w0c7",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T17:30:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.girona",
+      "awayTeam": "segunda-espana.eibar",
+      "homeScore": 2,
+      "awayScore": 1,
+      "neutralSite": false
+    },
+    {
+      "id": "segunda-espana-2026-11-22-celta-fortuna-real-valladoli-63golv",
+      "date": "2026-11-22",
+      "startTime": "2026-11-22T17:30:00.000Z",
+      "round": "Regular season · Matchday 15",
+      "homeTeam": "segunda-espana.celta-fortuna",
+      "awayTeam": "segunda-espana.real-valladolid",
+      "homeScore": 1,
+      "awayScore": 1,
       "neutralSite": false
     }
   ]

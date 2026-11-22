@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
-  "observedAt": "2026-11-22T18:19:28.792Z",
+  "observedAt": "2026-11-22T19:33:43.299Z",
   "entries": [
     {
       "gameId": "mx-2026-j17-chivas-cruz-azul-401877047",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-22T18:19:28.792Z",
+      "observedAt": "2026-11-22T19:33:43.299Z",
       "outcomes": [
         {
           "side": "home",
           "volume": 3273.831354000001,
-          "price": 0.455
+          "price": 0.445
         },
         {
           "side": "draw",
@@ -21,7 +21,7 @@
         },
         {
           "side": "away",
-          "volume": 3839.985731,
+          "volume": 3854.985731,
           "price": 0.305
         }
       ]
@@ -122,11 +122,11 @@
       "gameId": "mx-2026-j17-queretaro-necaxa-401877046",
       "source": "polymarket",
       "unit": "usd",
-      "observedAt": "2026-11-22T18:19:28.792Z",
+      "observedAt": "2026-11-22T19:33:43.299Z",
       "outcomes": [
         {
           "side": "home",
-          "volume": 3961.9076039999995,
+          "volume": 3966.4503319999994,
           "price": 0.435
         },
         {

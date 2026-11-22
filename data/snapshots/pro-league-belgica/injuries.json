@@ -1,64 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "pro-league-belgica",
-  "observedAt": "2026-11-22T18:13:11.873Z",
+  "observedAt": "2026-11-22T19:27:07.879Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "pro-league-belgica.standard-liege",
-      "player": "Andi Zeqiri",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "pro-league-belgica.standard-liege",
-      "player": "Casper Nielsen",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "pro-league-belgica.standard-liege",
-      "player": "Josué Homawoo",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Achilles Tendon Injury",
-      "injuryType": "Achilles Tendon Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "pro-league-belgica.standard-liege",
-      "player": "Marlon Fossey",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Knee Injury",
-      "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "pro-league-belgica.beveren",
-      "player": "Christophe Janssens",
-      "position": "D",
-      "status": "Baja",
-      "detail": "yellow_card_accumulation_suspension",
-      "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "pro-league-belgica.beveren",
-      "player": "Jearl Margaritha",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Unknown",
-      "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
     {
       "teamId": "pro-league-belgica.kvc-westerlo",
       "player": "Dylan Ourega",
@@ -66,7 +12,7 @@
       "status": "Baja",
       "detail": "Thigh Injury",
       "injuryType": "Thigh Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "pro-league-belgica.sporting-charleroi",
@@ -75,7 +21,7 @@
       "status": "Baja",
       "detail": "Unknown",
       "injuryType": "Unknown",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "pro-league-belgica.oud-heverlee-leuven",
@@ -84,7 +30,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "pro-league-belgica.kv-mechelen",
@@ -93,7 +39,34 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
+    },
+    {
+      "teamId": "pro-league-belgica.raal-la-louviere",
+      "player": "Joël Ito",
+      "position": "M",
+      "status": "Baja",
+      "detail": "Achilles Tendon Injury",
+      "injuryType": "Achilles Tendon Injury",
+      "reportedAt": "2026-11-22T19:27:07.879Z"
+    },
+    {
+      "teamId": "pro-league-belgica.cercle-brugge",
+      "player": "Abdoulie Manneh",
+      "position": "F",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-22T19:27:07.879Z"
+    },
+    {
+      "teamId": "pro-league-belgica.cercle-brugge",
+      "player": "Yago Lincoln",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Hamstring Injury",
+      "injuryType": "Hamstring Injury",
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     }
   ]
 }

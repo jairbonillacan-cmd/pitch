@@ -5,7 +5,7 @@
   "season": "nfl-2026",
   "seasonLabel": "2026",
   "periodLabel": "Semana 11",
-  "updatedAt": "2026-11-22T18:18:45.999Z",
+  "updatedAt": "2026-11-22T19:33:16.356Z",
   "source": "nflverse",
   "provenance": "derived",
   "isDemo": false,
@@ -4329,7 +4329,10 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-19T01:44:47.629Z"
+      "picksAt": "2026-11-19T01:44:47.629Z",
+      "matchContext": {
+        "referee": "Alex Kemp"
+      }
     },
     "nfl-2026-w11-jacksonville-jaguars-new-york-giants": {
       "game": "nfl-2026-w11-jacksonville-jaguars-new-york-giants",
@@ -4733,7 +4736,10 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-19T01:44:47.629Z"
+      "picksAt": "2026-11-19T01:44:47.629Z",
+      "matchContext": {
+        "referee": "Craig Wrolstad"
+      }
     },
     "nfl-2026-w11-las-vegas-raiders-denver-broncos": {
       "game": "nfl-2026-w11-las-vegas-raiders-denver-broncos",
@@ -5127,7 +5133,10 @@
           "away": 7
         }
       },
-      "picksAt": "2026-11-19T01:44:47.629Z"
+      "picksAt": "2026-11-19T01:44:47.629Z",
+      "matchContext": {
+        "referee": "Derick Bowers"
+      }
     },
     "nfl-2026-w11-minnesota-vikings-san-francisco-49ers": {
       "game": "nfl-2026-w11-minnesota-vikings-san-francisco-49ers",

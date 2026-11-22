@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "league": "nhl",
-  "observedAt": "2026-11-22T18:13:08.301Z",
+  "observedAt": "2026-11-22T19:27:04.373Z",
   "source": "espn-public-nhl",
   "coverageStatus": "ok",
   "entries": [
@@ -62,7 +62,7 @@
       "status": "Baja",
       "detail": "Upper Body",
       "injuryType": "Upper Body",
-      "returnDate": "2026-12-01",
+      "returnDate": "2026-12-06",
       "reportedAt": "2026-11-12T21:00:00.000Z"
     },
     {
@@ -120,10 +120,20 @@
       "player": "Nikolaj Ehlers",
       "position": "LW",
       "status": "Baja",
-      "detail": "Parte médico reservado",
-      "injuryType": "Undisclosed",
+      "detail": "Lower Body",
+      "injuryType": "Lower Body",
       "returnDate": "2026-11-25",
       "reportedAt": "2026-11-21T21:30:00.000Z"
+    },
+    {
+      "teamId": "nhl.chicago-blackhawks",
+      "player": "Wyatt Kaiser",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Suspensión",
+      "injuryType": "Suspension",
+      "returnDate": "2026-11-29",
+      "reportedAt": "2026-11-22T18:51:00.000Z"
     },
     {
       "teamId": "nhl.chicago-blackhawks",
@@ -372,7 +382,7 @@
       "status": "Baja",
       "detail": "Rodilla",
       "injuryType": "Knee",
-      "returnDate": "2026-11-27",
+      "returnDate": "2026-11-25",
       "reportedAt": "2026-11-21T15:57:00.000Z"
     },
     {
@@ -382,7 +392,7 @@
       "status": "Baja",
       "detail": "Cuello",
       "injuryType": "Neck",
-      "returnDate": "2026-11-28",
+      "returnDate": "2026-12-12",
       "reportedAt": "2026-11-19T16:20:00.000Z"
     },
     {

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "league": "brasileirao",
   "seasonLabel": "2026",
-  "observedAt": "2026-11-22T18:13:11.873Z",
+  "observedAt": "2026-11-22T19:27:07.879Z",
   "teams": [
     {
       "teamId": "brasileirao.cruzeiro",
@@ -24,7 +24,7 @@
           "winPct": 48.1
         }
       },
-      "updatedAt": "2026-11-22T18:13:11.873Z",
+      "updatedAt": "2026-11-22T19:27:07.879Z",
       "players": [
         {
           "id": "brasileirao.cruzeiro.bruno-rodrigues",
@@ -1232,7 +1232,7 @@
           "winPct": 43.4
         }
       },
-      "updatedAt": "2026-11-22T18:13:11.873Z",
+      "updatedAt": "2026-11-22T19:27:07.879Z",
       "players": [
         {
           "id": "brasileirao.bahia.ademir",
@@ -2440,7 +2440,7 @@
           "winPct": 22.2
         }
       },
-      "updatedAt": "2026-11-22T18:13:11.873Z",
+      "updatedAt": "2026-11-22T19:27:07.879Z",
       "players": [
         {
           "id": "brasileirao.vitoria.alejandro-almaraz",
@@ -2873,7 +2873,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -2882,7 +2882,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -2945,10 +2945,10 @@
           "stats": {
             "appearances": 0,
             "subIns": 0,
-            "goals": 1,
+            "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 1,
+            "shots": 0,
+            "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -3021,7 +3021,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 1,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -3030,7 +3030,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 3
+            "goalsConceded": 2
           },
           "candidatePicks": []
         },
@@ -3178,7 +3178,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 0
           },
           "candidatePicks": []
         },
@@ -3648,7 +3648,7 @@
           "winPct": 57.8
         }
       },
-      "updatedAt": "2026-11-22T18:13:11.873Z",
+      "updatedAt": "2026-11-22T19:27:07.879Z",
       "players": [
         {
           "id": "brasileirao.fluminense.agustin-canobbio",
@@ -4856,7 +4856,7 @@
           "winPct": 39.5
         }
       },
-      "updatedAt": "2026-11-22T18:13:11.873Z",
+      "updatedAt": "2026-11-22T19:27:07.879Z",
       "players": [
         {
           "id": "brasileirao.mirassol.alesson",
@@ -4882,7 +4882,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -5178,7 +5178,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -6064,7 +6064,7 @@
           "winPct": 39.2
         }
       },
-      "updatedAt": "2026-11-22T18:13:11.873Z",
+      "updatedAt": "2026-11-22T19:27:07.879Z",
       "players": [
         {
           "id": "brasileirao.atletico-mineiro.alan-franco",
@@ -6556,13 +6556,13 @@
           "positionGroup": "MID",
           "positionLabel": "M",
           "age": 18,
-          "birthDate": "2008-04-04",
+          "birthDate": "2008-04-05",
           "heightCm": 175,
           "weightKg": null,
           "preferredFoot": "R",
           "nationality": "Brazil",
           "nationalityCode": null,
-          "photoKey": "pl-p:75872",
+          "photoKey": "pl-p:141372",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -6585,21 +6585,21 @@
           "candidatePicks": []
         },
         {
-          "id": "brasileirao.atletico-mineiro.gutte-43",
-          "slug": "gutte-43",
+          "id": "brasileirao.atletico-mineiro.gutte-18",
+          "slug": "gutte-18",
           "name": "Gutte",
           "shortName": "Gutte",
           "jersey": "48",
           "positionGroup": "MID",
           "positionLabel": "M",
           "age": 18,
-          "birthDate": "2008-04-05",
+          "birthDate": "2008-04-04",
           "heightCm": 175,
           "weightKg": null,
           "preferredFoot": "R",
           "nationality": "Brazil",
           "nationalityCode": null,
-          "photoKey": "pl-p:141372",
+          "photoKey": "pl-p:75872",
           "availability": "available",
           "injuryDetail": null,
           "expectedReturn": null,
@@ -7266,7 +7266,7 @@
         "styleLabel": "",
         "careerRecord": null
       },
-      "updatedAt": "2026-11-22T18:13:11.873Z",
+      "updatedAt": "2026-11-22T19:27:07.879Z",
       "players": [
         {
           "id": "brasileirao.chapecoense.anderson",
@@ -7366,7 +7366,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 0,
+            "shots": 2,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7375,7 +7375,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7560,7 +7560,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -7780,7 +7780,7 @@
             "yellowCards": 0,
             "redCards": 0,
             "offsides": 0,
-            "saves": 3,
+            "saves": 6,
             "shotsFaced": 0,
             "goalsConceded": 2
           },
@@ -7810,7 +7810,7 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
+            "shots": 0,
             "shotsOnTarget": 0,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
@@ -7922,7 +7922,7 @@
             "goals": 0,
             "assists": 0,
             "shots": 2,
-            "shotsOnTarget": 0,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -7930,7 +7930,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8365,8 +8365,8 @@
             "subIns": 0,
             "goals": 0,
             "assists": 0,
-            "shots": 1,
-            "shotsOnTarget": 0,
+            "shots": 2,
+            "shotsOnTarget": 1,
             "foulsCommitted": 0,
             "foulsSuffered": 0,
             "yellowCards": 0,
@@ -8374,7 +8374,7 @@
             "offsides": 0,
             "saves": 0,
             "shotsFaced": 0,
-            "goalsConceded": 2
+            "goalsConceded": 1
           },
           "candidatePicks": []
         },
@@ -8474,7 +8474,7 @@
           "winPct": 38.2
         }
       },
-      "updatedAt": "2026-11-22T18:13:11.873Z",
+      "updatedAt": "2026-11-22T19:27:07.879Z",
       "players": [
         {
           "id": "brasileirao.vasco-gama.adson",

@@ -1,136 +1,10 @@
 {
   "schemaVersion": 1,
   "league": "segunda-espana",
-  "observedAt": "2026-11-22T18:13:11.873Z",
+  "observedAt": "2026-11-22T19:27:07.879Z",
   "source": "pitchlab-availability",
   "coverageStatus": "ok",
   "entries": [
-    {
-      "teamId": "segunda-espana.real-sociedad-b",
-      "player": "Gorka Carrera Zarranz",
-      "position": "F",
-      "status": "Baja",
-      "detail": "yellow_or_red_card_suspension",
-      "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.real-sociedad-b",
-      "player": "Iñaki Rupérez",
-      "position": "D",
-      "status": "Duda",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.sporting-gijon",
-      "player": "Alejo Sarco",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.sporting-gijon",
-      "player": "Álex Corredera",
-      "position": "M",
-      "status": "Baja",
-      "detail": "yellow_or_red_card_suspension",
-      "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.sporting-gijon",
-      "player": "Antonio Casas",
-      "position": "F",
-      "status": "Baja",
-      "detail": "Hamstring Injury",
-      "injuryType": "Hamstring Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.sporting-gijon",
-      "player": "Juan Otero",
-      "position": "F",
-      "status": "Baja",
-      "detail": "yellow_or_red_card_suspension",
-      "injuryType": "yellow_or_red_card_suspension",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.sporting-gijon",
-      "player": "Manuel Rodríguez",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.mallorca",
-      "player": "Alberto Moreno",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.mallorca",
-      "player": "Antonio Sánchez",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.mallorca",
-      "player": "David López",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.mallorca",
-      "player": "Jan Salas",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Cruciate Ligament Injury",
-      "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.mallorca",
-      "player": "John Donald",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Muscle Injury",
-      "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.mallorca",
-      "player": "Manu Morlanes",
-      "position": "M",
-      "status": "Baja",
-      "detail": "Ligament Injury",
-      "injuryType": "Ligament Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
-    {
-      "teamId": "segunda-espana.cordoba",
-      "player": "Jacobo Martí",
-      "position": "D",
-      "status": "Baja",
-      "detail": "Anterior Cruciate Ligament",
-      "injuryType": "Anterior Cruciate Ligament",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
-    },
     {
       "teamId": "segunda-espana.almeria",
       "player": "Nicolás Melamed",
@@ -138,7 +12,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.andorra",
@@ -147,7 +21,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.andorra",
@@ -156,7 +30,7 @@
       "status": "Baja",
       "detail": "red_card_suspension",
       "injuryType": "red_card_suspension",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.real-oviedo",
@@ -165,7 +39,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.real-oviedo",
@@ -174,7 +48,7 @@
       "status": "Baja",
       "detail": "Meniscus Injury",
       "injuryType": "Meniscus Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.real-oviedo",
@@ -183,7 +57,7 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.real-oviedo",
@@ -192,7 +66,7 @@
       "status": "Baja",
       "detail": "Knee Injury",
       "injuryType": "Knee Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.real-oviedo",
@@ -201,7 +75,7 @@
       "status": "Baja",
       "detail": "Calf Injury",
       "injuryType": "Calf Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.girona",
@@ -210,7 +84,7 @@
       "status": "Baja",
       "detail": "yellow_card_accumulation_suspension",
       "injuryType": "yellow_card_accumulation_suspension",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.girona",
@@ -219,7 +93,7 @@
       "status": "Baja",
       "detail": "Muscle Injury",
       "injuryType": "Muscle Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     },
     {
       "teamId": "segunda-espana.girona",
@@ -228,7 +102,34 @@
       "status": "Baja",
       "detail": "Cruciate Ligament Injury",
       "injuryType": "Cruciate Ligament Injury",
-      "reportedAt": "2026-11-22T18:13:11.873Z"
+      "reportedAt": "2026-11-22T19:27:07.879Z"
+    },
+    {
+      "teamId": "segunda-espana.ad-ceuta",
+      "player": "Edgar Sevikyan",
+      "position": "M",
+      "status": "Duda",
+      "detail": "Muscle Injury",
+      "injuryType": "Muscle Injury",
+      "reportedAt": "2026-11-22T19:27:07.879Z"
+    },
+    {
+      "teamId": "segunda-espana.las-palmas",
+      "player": "Enrique Clemente",
+      "position": "D",
+      "status": "Baja",
+      "detail": "Meniscus Injury",
+      "injuryType": "Meniscus Injury",
+      "reportedAt": "2026-11-22T19:27:07.879Z"
+    },
+    {
+      "teamId": "segunda-espana.las-palmas",
+      "player": "Nicholas Opoku",
+      "position": "D",
+      "status": "Baja",
+      "detail": "red_card_suspension",
+      "injuryType": "red_card_suspension",
+      "reportedAt": "2026-11-22T19:27:07.879Z"
     }
   ]
 }
