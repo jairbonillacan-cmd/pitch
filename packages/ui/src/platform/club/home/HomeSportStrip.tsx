@@ -313,7 +313,14 @@ export function HomeSportStrip({
     const isEmpty = !def.soon && def.id !== ALL && count === 0;
     const badgeText = def.soon ? "Pronto" : String(count);
     const subtext = def.soon ? "Pronto" : countLabel(count, "partido", "partidos");
-    const aria = `${def.a11yName}, ${subtext}`;
+    const extraName = def.a11yName.startsWith(`${def.label} · `)
+      ? def.a11yName.slice(def.label.length + 3)
+      : def.a11yName !== def.label
+        ? def.a11yName
+        : "";
+    const aria = isHeader
+      ? `${def.label} ${subtext}${extraName ? `, ${extraName}` : ""}`
+      : `${def.a11yName}, ${subtext}`;
     return (
       <button
         key={def.id}
@@ -343,7 +350,7 @@ export function HomeSportStrip({
           <SportThumb def={def} size={isHeader ? 20 : 22} />
         </span>
         <strong className={classes.label}>{def.label}</strong>
-        <span className={`${classes.count} num`}>{badgeText}</span>
+        <span className={`${classes.count} num`} aria-hidden="true">{badgeText}</span>
       </button>
     );
   });

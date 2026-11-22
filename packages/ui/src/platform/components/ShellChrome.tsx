@@ -319,7 +319,7 @@ function FloatingQuickJumpBar({
           type="button"
           className="seg-btn text-xs min-h-7 px-3 inline-flex items-center gap-1.5 font-bold"
           aria-expanded={false}
-          aria-label="Expandir barra rápida de 11 vistas"
+          aria-label="11 Vistas Maestro · expandir barra rápida"
           onClick={() => setCollapsed(false)}
         >
           <MaestroIcon name="sparkles" size={13} style={{ color: "var(--pl-brand)" }} />
@@ -356,7 +356,7 @@ function FloatingQuickJumpBar({
             type="button"
             className="pl-btn-glass rounded-full px-2 min-h-7 text-xs shrink-0"
             aria-expanded={true}
-            aria-label="Colapsar barra rápida de 11 vistas"
+            aria-label="11 Vistas Maestro · colapsar barra rápida"
             onClick={() => setCollapsed(true)}
           >
             <MaestroIcon name="x" size={13} />
@@ -1209,12 +1209,15 @@ function ClubWorkspaceShellImpl({
                 <div className="pl-header-nav-bar">
                   {railGroups[0]!.items.map((item) => {
                     const active = activePath === item.href;
+                    const visibleLabel = item.navLabel ?? item.label;
+                    const accessibleLabel = item.badge ? `${item.badge} ${visibleLabel}` : visibleLabel;
                     return (
                       <a
                         key={item.href}
                         href={item.href}
                         aria-current={active ? "page" : undefined}
-                        aria-label={item.label}
+                        aria-label={accessibleLabel}
+                        title={item.label !== visibleLabel ? item.label : undefined}
                         data-nav-group="primary"
                         onPointerEnter={() => prefetchRoute(item.href)}
                         onTouchStart={() => prefetchRoute(item.href)}
@@ -1237,7 +1240,7 @@ function ClubWorkspaceShellImpl({
                           ) : null}
                         </span>
                         <span className="pl-header-nav-label-wrap" aria-hidden="true">
-                          <span className="pl-header-nav-label">{item.navLabel ?? item.label}</span>
+                          <span className="pl-header-nav-label">{visibleLabel}</span>
                         </span>
                       </a>
                     );
@@ -1265,12 +1268,17 @@ function ClubWorkspaceShellImpl({
 
                   {railGroups[1]!.items.map((item) => {
                     const active = activePath === item.href;
+                    const visibleLabel = item.shortLabel ?? item.label;
+                    const accessibleLabel = item.label.toLowerCase().includes(visibleLabel.toLowerCase())
+                      ? item.label
+                      : `${visibleLabel} · ${item.label}`;
                     return (
                       <a
                         key={item.href}
                         href={item.href}
                         aria-current={active ? "page" : undefined}
-                        aria-label={item.label}
+                        aria-label={accessibleLabel}
+                        title={item.label !== visibleLabel ? item.label : undefined}
                         data-nav-group="explore"
                         onPointerEnter={() => prefetchRoute(item.href)}
                         onTouchStart={() => prefetchRoute(item.href)}
@@ -1285,7 +1293,7 @@ function ClubWorkspaceShellImpl({
                           <ShellNavIcon icon={item.icon} packSlug={item.packIconSlug} size={16} />
                         </span>
                         <span className="pl-header-nav-label-wrap" aria-hidden="true">
-                          <span className="pl-header-nav-label">{item.shortLabel ?? item.label}</span>
+                          <span className="pl-header-nav-label">{visibleLabel}</span>
                         </span>
                       </a>
                     );
@@ -1465,7 +1473,7 @@ function ClubWorkspaceShellImpl({
                           type="button"
                           onClick={closeHeaderNav}
                           className="pl-header-overlay-close"
-                          aria-label="Cerrar barra de navegación"
+                          aria-label="Cerrar barra de navegación (Esc)"
                         >
                           <MaestroIcon name="x" size={13} />
                           <span>Esc</span>
@@ -1513,7 +1521,8 @@ function ClubWorkspaceShellImpl({
               <button
                 type="button"
                 className="pl-btn-glass pl-header-search text-[13px] min-h-11 [@media(min-width:768px)_and_(pointer:fine)]:min-h-10 px-2.5 sm:px-3 inline-flex items-center justify-between gap-2 min-w-0"
-                aria-label="Buscar partido, liga o @socio"
+                aria-label={isApplePlatform ? "Buscar partido, liga o @socio, K" : "Buscar partido, liga o @socio, Ctrl K"}
+                aria-keyshortcuts={isApplePlatform ? "Meta+K" : "Control+K"}
                 onClick={() => {
                   requestFullShell();
                   setCmdkOpen(true);
@@ -1527,10 +1536,10 @@ function ClubWorkspaceShellImpl({
                   <span className="pl-header-search-short sm:hidden font-semibold whitespace-nowrap">Buscar</span>
                 </span>
                 <span className="pl-header-kbd-group items-center shrink-0" aria-hidden="true">
-                  <kbd className="pl-header-kbd">
+                  <kbd className="pl-header-kbd" aria-hidden="true">
                     {isApplePlatform ? <MaestroIcon name="command" size={11} /> : "Ctrl"}
                   </kbd>
-                  <kbd className="pl-header-kbd pl-header-kbd--key">K</kbd>
+                  <kbd className="pl-header-kbd pl-header-kbd--key" aria-hidden="true">K</kbd>
                 </span>
               </button>
             </div>
@@ -1545,7 +1554,13 @@ function ClubWorkspaceShellImpl({
               className="pl-btn-glass pl-profile-chip"
               aria-haspopup="dialog"
               aria-expanded={profileMenuOpen}
-              aria-label={viewerRole === "visitor" ? "Menú, entrar o crear cuenta" : `Menú de ${profileHandle}`}
+              aria-label={
+                viewerRole === "visitor"
+                  ? "Entrar · menú de cuenta"
+                  : showProfileAvatarImg
+                    ? `Menú de ${profileHandle}, Ultra`
+                    : `Menú de ${profileInitials} ${profileHandle}, Ultra`
+              }
               data-profile-menu-trigger=""
               onClick={() => {
                 const rect = profileTriggerRef.current?.getBoundingClientRect();
@@ -1583,7 +1598,9 @@ function ClubWorkspaceShellImpl({
                     )}
                   </span>
                   <span className="hidden sm:inline font-bold truncate max-w-[92px]">{profileHandle}</span>
-                  <UltraTag className="hidden lg:inline-flex" />
+                  <span className="hidden lg:inline-flex" aria-hidden="true">
+                    <UltraTag />
+                  </span>
                 </>
               )}
               <MaestroIcon name="chevronDown" size={14} className="pl-profile-chip-chevron" />

@@ -202,22 +202,19 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
           onTouchStart={() => prefetchRoute(studioHref)}
           onClick={handleActivateMatch}
           data-card-open=""
-          aria-label={`Ver partido · ${matchLabel}`}
           aria-current={isSelected ? "true" : undefined}
           className="pl-home-md-row-trigger no-underline"
         >
+          <span className="sr-only">{`Ver partido · ${matchLabel}${live ? " · en vivo" : ""} · `}</span>
           <span className="pl-home-md-row-time num">
             {live ? (
-              <>
-                <span className="pl-home-md-live-chip pl-home-card-live">
-                  <span className="pl-home-live-sport" aria-hidden="true">
-                    <LiveSportBallIcon sport={game.sport} />
-                  </span>
-                  <span className="pl-home-live-dot" aria-hidden="true" />
-                  <span>{formatLiveChipPhase(liveEntry)}</span>
+              <span className="pl-home-md-live-chip pl-home-card-live">
+                <span className="pl-home-live-sport" aria-hidden="true">
+                  <LiveSportBallIcon sport={game.sport} />
                 </span>
-                <span className="sr-only">en vivo</span>
-              </>
+                <span className="pl-home-live-dot" aria-hidden="true" />
+                <span>{formatLiveChipPhase(liveEntry)}</span>
+              </span>
             ) : (
               <>
                 <strong className="pl-home-md-clock">{time}</strong>
@@ -236,6 +233,7 @@ export const AstroMatchRow = React.memo(function AstroMatchRow({
                   label={game.leagueLabel}
                   logoUrl={game.leagueLogoUrl}
                   size={14}
+                  decorative
                 />
                 <span className="truncate">{game.leagueLabel}</span>
               </span>

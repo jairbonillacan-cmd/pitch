@@ -112,11 +112,13 @@ function MatchChipButton({
       data-match-chip={game.id}
       data-chip-league={game.league}
       data-chip-live={live ? "true" : undefined}
-      aria-label={`${live ? `En vivo (${livePhaseLabel})` : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""}`}
       onPointerEnter={() => onPrefetch?.(matchHref)}
       onTouchStart={() => onPrefetch?.(matchHref)}
       onClick={() => onSelect(game)}
     >
+      <span className="sr-only">
+        {`${live ? `En vivo (${livePhaseLabel})` : time}: ${game.home.shortName} contra ${game.away.shortName}${scoreText ? `, ${scoreText}` : ""} · `}
+      </span>
       {live ? (
         <>
           <span className="pl-home-live-sport" aria-hidden="true">
@@ -334,7 +336,8 @@ export function HomeFilterHeader({
   }, [orderedChips.length, dayOptions, day, allGames, today, sport, league]);
 
   const centerParts = formatCenterDayParts(day, today);
-  const centerAria = day === today ? "Hoy, día actual" : `${centerParts.top}, volver a hoy`;
+  const centerText = centerParts.sub ? `${centerParts.top} ${centerParts.sub}` : centerParts.top;
+  const centerAria = day === today ? `${centerText}, día actual` : `${centerText}, volver a hoy`;
   const { chipsRef, chipsScroll, syncChipsScroll, scrollChipsBy } = useHorizontalChipsScroll(
     `${sport}|${league}|${day}|${orderedChips.length}`,
   );
@@ -681,7 +684,13 @@ export function HomeBoardBar({
   const oddsSwitchId = useId();
 
   const centerParts = formatCenterDayParts(day, today);
-  const centerAria = day === today ? "Hoy, abrir calendario" : `${centerParts.top}, abrir calendario`;
+  const centerText =
+    day === today
+      ? "Hoy"
+      : centerParts.sub
+        ? `${centerParts.top} ${centerParts.sub}`
+        : centerParts.top;
+  const centerAria = `${centerText}, abrir calendario`;
 
   const closeCalendar = useCallback((returnFocus: boolean) => {
     setCalendarOpen(false);

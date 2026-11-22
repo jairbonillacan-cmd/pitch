@@ -1766,7 +1766,7 @@ export function LeagueHubClubView({
                     aria-pressed={isLeagueFavorited}
                     aria-label={
                       isLeagueFavorited
-                        ? `Dejar de seguir ${leagueSummary.label}`
+                        ? `Siguiendo ${leagueSummary.label} · dejar de seguir`
                         : `Seguir ${leagueSummary.label}`
                     }
                     onClick={handleToggleFavoriteLeague}
