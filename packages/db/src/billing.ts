@@ -16,8 +16,22 @@ import {
   users,
 } from "./schema";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Db = PgDatabase<PgQueryResultHKT, any, any>;
+
+const STRICT_NON_NEGATIVE_INT_RE = /^\d+$/;
+
+function parseCountResult(raw: unknown): number {
+  if (typeof raw === "number") {
+    return Number.isFinite(raw) && raw >= 0 ? Math.trunc(raw) : 0;
+  }
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (!STRICT_NON_NEGATIVE_INT_RE.test(trimmed)) return 0;
+    const parsed = Number.parseInt(trimmed, 10);
+    return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+  }
+  return 0;
+}
 
 export type GrantSourceKind =
   | "trial_m1_nocard"
@@ -199,7 +213,7 @@ export async function applyInvoicePaidEffects(t: Db, input: InvoicePaidInput): P
             eq(referralGrants.status, "rewarded_bilateral"),
           ),
         );
-      if (Number(n) >= AMBASSADOR_THRESHOLD && host && !host.isAmbassador) {
+      if (parseCountResult(n) >= AMBASSADOR_THRESHOLD && host && !host.isAmbassador) {
         const promoted = await t
           .update(users)
           .set({ isAmbassador: true })
@@ -275,7 +289,7 @@ export async function applyInvoicePaidEffects(t: Db, input: InvoicePaidInput): P
 }
 
 export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promise<InvoicePaidResult> {
-  return db.transaction(async (tx) => applyInvoicePaidEffects(tx as unknown as Db, input));
+  return db.transaction(async (tx) => applyInvoicePaidEffects(tx, input));
 }
 
 /** Reembolso: revierte la comisión del cobro (si aún no se pagó al tipster). */
@@ -344,7 +358,7 @@ export async function hasAppliedRewardGrant(db: Db, userId: string): Promise<boo
         inArray(entitlementGrants.sourceKind, [...REWARD_GRANT_KINDS]),
       ),
     );
-  return Number(row?.n ?? 0) > 0;
+  return parseCountResult(row?.n) > 0;
 }
 
 /**
@@ -433,7 +447,7 @@ export async function planReferralClawback(
           ne(referralGrants.id, ref.id),
         ),
       );
-    if (Number(n) < AMBASSADOR_THRESHOLD) {
+    if (parseCountResult(n) < AMBASSADOR_THRESHOLD) {
       revokeAmbassador = true;
       const bonus = await db
         .select({ id: entitlementGrants.id })
@@ -474,14 +488,13 @@ export async function planReferralClawback(
 /** Aplica la reversión en la base (en una transacción). */
 export async function applyReferralClawback(db: Db, plan: ReferralClawbackPlan, now: Date): Promise<void> {
   await db.transaction(async (tx) => {
-    const t = tx as unknown as Db;
-    for (const id of plan.grantIds) await revokeGrant(t, id, "reembolso del referido", now);
-    await t
+    for (const id of plan.grantIds) await revokeGrant(tx, id, "reembolso del referido", now);
+    await tx
       .update(referralGrants)
       .set({ status: "clawed_back", clawedBackAt: now })
       .where(eq(referralGrants.id, plan.referralId));
     if (plan.revokeAmbassador) {
-      await t.update(users).set({ isAmbassador: false }).where(eq(users.id, plan.hostUserId));
+      await tx.update(users).set({ isAmbassador: false }).where(eq(users.id, plan.hostUserId));
     }
   });
 }

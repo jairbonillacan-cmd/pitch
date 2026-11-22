@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
+import { useSafeEffect } from "../hooks";
 import { sanitizeInternalHref } from "../navigation-helpers";
 
 const CHANNEL_NAME = "pitchlab-auth";
@@ -35,12 +36,14 @@ export function useEmailConfirmation(
   onInvalid: () => void,
 ): void {
   const callbacks = useRef({ onSession, onInvalid });
-  useEffect(() => {
+  useSafeEffect(() => {
     callbacks.current = { onSession, onInvalid };
   }, [onSession, onInvalid]);
 
-  useEffect(() => {
-    if (!enabled || (step !== "sent" && step !== "confirmed")) return;
+  useSafeEffect(() => {
+    if (!enabled || (step !== "sent" && step !== "confirmed") || typeof window === "undefined") {
+      return;
+    }
     const controller = new AbortController();
     const until = Date.now() + LINK_LIFETIME_MS;
     let checking = false;
@@ -49,8 +52,8 @@ export function useEmailConfirmation(
     let channel: BroadcastChannel | undefined;
     try {
       channel = new BroadcastChannel(CHANNEL_NAME);
-    } catch {
-      // Polling also covers browsers that restrict BroadcastChannel.
+    } catch (err) {
+      void err;
     }
 
     const check = async (fromBroadcast = false) => {
@@ -76,8 +79,8 @@ export function useEmailConfirmation(
         finished = true;
         if (step === "confirmed") channel?.postMessage({ type: "signed-in" });
         callbacks.current.onSession(session);
-      } catch {
-        // A transient network error can be retried by the next check.
+      } catch (err) {
+        void err;
       } finally {
         checking = false;
         if (repeatFromBroadcast) {
@@ -111,7 +114,8 @@ export function useEmailConfirmation(
 }
 
 export function useContinueAfterConfirmation(destination: string | null): void {
-  useEffect(() => {
+  useSafeEffect(() => {
+    if (typeof window === "undefined") return;
     const safeDestination = sanitizeInternalHref(destination);
     if (!safeDestination) return;
     const timer = window.setTimeout(() => window.location.replace(safeDestination), 650);
@@ -127,7 +131,7 @@ export function EmailConfirmationStatus({
   onRetry: () => void;
 }): React.JSX.Element {
   const titleRef = useRef<HTMLHeadingElement>(null);
-  useEffect(() => {
+  useSafeEffect(() => {
     titleRef.current?.focus();
   }, [step]);
 

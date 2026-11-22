@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { BrandLogo } from "../../primitives";
 import { isDisposableEmailDomain } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
+import { useSafeEffect } from "../hooks";
+import { useCountdownSeconds } from "../hooks/usePublicSurfaceEffects";
 import { sanitizeInternalHref } from "../navigation-helpers";
 import {
   usePlatformActions,
@@ -276,7 +278,7 @@ export function LoginSurfaceV4({
   const [betaNotice, setBetaNotice] = useState<string>("");
   const [resendNotice, setResendNotice] = useState<string>("");
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [resendSecondsLeft, setResendSecondsLeft] = useState<number>(0);
+  const [resendSecondsLeft, setResendSecondsLeft] = useCountdownSeconds(0);
 
   const [destination, setDestination] = useState<string | null>(null);
   const [confirmationAttempt, setConfirmationAttempt] = useState(0);
@@ -284,7 +286,8 @@ export function LoginSurfaceV4({
   const sentTitleRef = useRef<HTMLHeadingElement>(null);
   const [intro, setIntro] = useState(true);
 
-  useEffect(() => {
+  useSafeEffect(() => {
+    if (typeof window === "undefined") return;
     const timer = window.setTimeout(() => setIntro(false), INTRO_MS);
     return () => window.clearTimeout(timer);
   }, []);
@@ -307,7 +310,7 @@ export function LoginSurfaceV4({
     () => setStep("expired"),
   );
   useContinueAfterConfirmation(destination);
-  useEffect(() => {
+  useSafeEffect(() => {
     if (step === "sent") sentTitleRef.current?.focus();
   }, [step]);
   const promoCode = sanitizePromoCode(initialPromoCode);
@@ -316,14 +319,6 @@ export function LoginSurfaceV4({
   if (nextPath && nextPath !== "/app") signupParams.set("next", nextPath);
   const signupQuery = signupParams.toString();
   const signupHref = signupQuery ? `/signup?${signupQuery}` : "/signup";
-
-  useEffect(() => {
-    if (resendSecondsLeft <= 0) return;
-    const timer = window.setTimeout(() => {
-      setResendSecondsLeft((prev) => Math.max(0, prev - 1));
-    }, 1000);
-    return () => window.clearTimeout(timer);
-  }, [resendSecondsLeft]);
 
   const validateEmailField = (raw: string): string | null => {
     const clean = raw.trim();

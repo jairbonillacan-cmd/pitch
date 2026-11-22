@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useId, useRef, useState } from "react";
 import { BrandLogo } from "../../brand-logo";
 import { ThemeToggle } from "../../primitives";
+import { useSafeEffect } from "../hooks";
 
 export type PublicNavPath = "/" | "/motores" | "/resultados" | "/precio";
 
@@ -43,17 +44,21 @@ export function PublicNavBarClient({
   const scrollMarker = useRef<HTMLSpanElement | null>(null);
   const drawerId = useId();
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (hasSession) {
       setDetectedSession(true);
       return;
     }
     if (typeof window === "undefined" || typeof fetch !== "function") return;
+    const controller = new AbortController();
     let alive = true;
-    fetch("/api/public/session", { credentials: "same-origin" })
+    fetch("/api/public/session", {
+      credentials: "same-origin",
+      signal: controller.signal,
+    })
       .then((res) => (res.ok ? res.json() : null))
       .then((data: { authenticated?: boolean } | null) => {
-        if (alive && data?.authenticated === true) {
+        if (alive && !controller.signal.aborted && data?.authenticated === true) {
           setDetectedSession(true);
         }
       })
@@ -62,14 +67,15 @@ export function PublicNavBarClient({
       });
     return () => {
       alive = false;
+      controller.abort();
     };
   }, [hasSession]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     setMenuOpen(false);
   }, [activePath]);
 
-  useEffect(() => {
+  useSafeEffect(() => {
     if (!scrollMarker.current || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(([entry]) => {
       if (entry) setScrolled(!entry.isIntersecting);
@@ -78,8 +84,8 @@ export function PublicNavBarClient({
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!menuOpen) return;
+  useSafeEffect(() => {
+    if (!menuOpen || typeof window === "undefined") return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setMenuOpen(false);

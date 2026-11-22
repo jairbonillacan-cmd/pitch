@@ -24,9 +24,15 @@ const W = 640;
 const H = 168;
 const PAD_X = 8;
 const PAD_Y = 16;
+const MID_Y = H / 2;
+const AMP_Y = MID_Y - PAD_Y;
 
 function xScale(maxMinute: number) {
   return (m: number) => PAD_X + (Math.min(m, maxMinute) / maxMinute) * (W - PAD_X * 2);
+}
+
+function yScale(v: number): number {
+  return MID_Y - (v / 100) * AMP_Y;
 }
 
 function formatMinute(m: number): string {
@@ -59,21 +65,18 @@ export function MomentumChart({
   const [hover, setHover] = useState<number | null>(null);
   const maxMinute = Math.max(90, ...momentum.map((p) => p.minute));
   const x = xScale(maxMinute);
-  const mid = H / 2;
-  const amp = mid - PAD_Y;
-  const y = (v: number) => mid - (v / 100) * amp;
+  const mid = MID_Y;
 
   const { line, area } = useMemo(() => {
     if (momentum.length === 0) return { line: "", area: "" };
-    const pts = momentum.map((p) => `${x(p.minute).toFixed(1)},${y(p.value).toFixed(1)}`);
-    const first = x(momentum[0]!.minute).toFixed(1);
-    const last = x(momentum[momentum.length - 1]!.minute).toFixed(1);
+    const xAt = xScale(maxMinute);
+    const pts = momentum.map((p) => `${xAt(p.minute).toFixed(1)},${yScale(p.value).toFixed(1)}`);
+    const first = xAt(momentum[0]!.minute).toFixed(1);
+    const last = xAt(momentum[momentum.length - 1]!.minute).toFixed(1);
     return {
       line: `M${pts.join(" L")}`,
-      area: `M${first},${mid} L${pts.join(" L")} L${last},${mid} Z`,
+      area: `M${first},${MID_Y} L${pts.join(" L")} L${last},${MID_Y} Z`,
     };
-    // `x` y `y` dependen solo de maxMinute.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [momentum, maxMinute]);
 
   const active = hover === null ? null : momentum[hover];

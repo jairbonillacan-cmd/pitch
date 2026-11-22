@@ -49,6 +49,7 @@ export function ClubShellBridge({
   const router = useRouter();
   const prevPathnameRef = useRef<string>(pathname);
   const isBackNavigationRef = useRef<boolean>(false);
+  const mountPrefetchRef = useRef({ expiredPassGate, pathname, router });
 
   useEffect(() => {
     const onPopState = () => {
@@ -80,10 +81,15 @@ export function ClubShellBridge({
   }, [pathname]);
 
   useEffect(() => {
-    if (expiredPassGate) return undefined;
+    const {
+      expiredPassGate: initialExpiredPassGate,
+      pathname: initialPathname,
+      router: initialRouter,
+    } = mountPrefetchRef.current;
+    if (initialExpiredPassGate) return undefined;
     const prefetchPrimaryRoutes = () => {
       for (const href of PRIMARY_ROUTES) {
-        if (href !== pathname) router.prefetch(href);
+        if (href !== initialPathname) initialRouter.prefetch(href);
       }
     };
     if (
@@ -95,8 +101,6 @@ export function ClubShellBridge({
     }
     const timerId = window.setTimeout(prefetchPrimaryRoutes, 400);
     return () => window.clearTimeout(timerId);
-    // Solo al montar el layout: las rutas precargadas quedan en la caché del router.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (expiredPassGate && !isAllowedRecoveryPath(pathname)) {
